@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>http://www.w3.org/2001/DOM-Test-Suite/level3/core/nodeisdefaultnamespace14</title>
+<link type="text/css" rel="stylesheet" href="http://www.w3.org/StyleSheets/activity-home.css">
+<script src="../../jsunit/app/jsUnitCore.js" type="text/javascript"></script><script src="DOMTestCase.js" type="text/javascript"></script><script type="text/javascript">
+// expose test function names
+function exposeTestFunctionNames()
+{
+return ['nodeisdefaultnamespace14'];
+}
+
+var docsLoaded = -1000000;
+var builder = null;
+
+//
+//   This function is called by the testing framework before
+//      running the test suite.
+//
+//   If there are no configuration exceptions, asynchronous
+//        document loading is started.  Otherwise, the status
+//        is set to complete and the exception is immediately
+//        raised when entering the body of the test.
+//
+function setUpPage() {
+   setUpPageStatus = 'running';
+   try {
+     //
+     //   creates test document builder, may throw exception
+     //
+     builder = createConfiguredBuilder();
+
+      docsLoaded = 0;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      docsLoaded += preload(docRef, "doc", "hc_staff");
+        
+       if (docsLoaded == 1) {
+          setUpPage = 'complete';
+       }
+    } catch(ex) {
+    	catchInitializationError(builder, ex);
+        setUpPage = 'complete';
+    }
+}
+
+
+
+//
+//   This method is called on the completion of 
+//      each asychronous load started in setUpTests.
+//
+//   When every synchronous loaded document has completed,
+//      the page status is changed which allows the
+//      body of the test to be executed.
+function loadComplete() {
+    if (++docsLoaded == 1) {
+        setUpPageStatus = 'complete';
+    }
+}
+
+
+/**
+* 
+	Using isDefaultNamespace on a Element's new CDATASection node, which has a namespace attribute 
+	declaration without a namespace prefix in its parent Element node and  verify if the 
+	value returned is true.
+
+* @author IBM
+* @author Neil Delima
+* @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isDefaultNamespace
+*/
+function nodeisdefaultnamespace14() {
+   var success;
+    if(checkInitialization(builder, "nodeisdefaultnamespace14") != null) return;
+    var doc;
+      var elem;
+      var cdata;
+      var isDefault;
+      var appendedChild;
+      var bodyList;
+      var bodyElem;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      doc = load(docRef, "doc", "hc_staff");
+      bodyList = doc.getElementsByTagName("body");
+      bodyElem = bodyList.item(0);
+      elem = doc.createElementNS("http://www.w3.org/1999/xhtml","p");
+      cdata = doc.createCDATASection("CDATASection");
+      appendedChild = elem.appendChild(cdata);
+      appendedChild = bodyElem.appendChild(elem);
+      isDefault = cdata.isDefaultNamespace("http://www.w3.org/1999/xhtml");
+      assertTrue("nodeisdefaultnamespace14",isDefault);
+
+}
+
+</script>
+</head>
+<body>
+<h2>Test http://www.w3.org/2001/DOM-Test-Suite/level3/core/nodeisdefaultnamespace14</h2>
+<p>&lt;test name='nodeisdefaultnamespace14' schemaLocation='http://www.w3.org/2001/DOM-Test-Suite/Level-3 dom3.xsd'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;nodeisdefaultnamespace14&lt;/title&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;creator&gt;IBM&lt;/creator&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;description&gt;
+	Using isDefaultNamespace on a Element's new CDATASection node, which has a namespace attribute 
+	declaration without a namespace prefix in its parent Element node and  verify if the 
+	value returned is true.
+&lt;/description&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;contributor&gt;Neil Delima&lt;/contributor&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;date qualifier='created'&gt;2002-06-10&lt;/date&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isDefaultNamespace">http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isDefaultNamespace</a>'/&gt;
+<br>&lt;/metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='doc' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='elem' type='Element'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='cdata' type='CDATASection'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='isDefault' type='boolean'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='appendedChild' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='bodyList' type='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='bodyElem' type='Element'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;load var='doc' href='hc_staff' willBeModified='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getElementsByTagName var='bodyList' obj='doc' tagname='"body"' interface='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item var='bodyElem' obj='bodyList' index='0' interface='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createElementNS var='elem' obj='doc' namespaceURI='"http://www.w3.org/1999/xhtml"' qualifiedName='"p"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createCDATASection var='cdata' obj='doc' data='"CDATASection"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;appendChild obj='elem' var='appendedChild' newChild='cdata'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;appendChild obj='bodyElem' var='appendedChild' newChild='elem'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;isDefaultNamespace var='isDefault' obj='cdata' namespaceURI='"http://www.w3.org/1999/xhtml"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertTrue actual='isDefault' <a id="nodeisdefaultnamespace14">id='nodeisdefaultnamespace14'</a>/&gt;<br>&lt;/test&gt;<br>
+</p>
+<p>
+			Copyright (c) 2001-2004 World Wide Web Consortium,
+			(Massachusetts Institute of Technology, Institut National de
+			Recherche en Informatique et en Automatique, Keio University). All
+			Rights Reserved. This program is distributed under the W3C's Software
+			Intellectual Property License. This program is distributed in the
+			hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+			the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+			PURPOSE.
+			</p>
+<p>See W3C License <a href="http://www.w3.org/Consortium/Legal/">http://www.w3.org/Consortium/Legal/</a> 
+ for more details.</p>
+<iframe name="doc" src="files/hc_staff.xhtml"></iframe>
+<br>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>http://www.w3.org/2001/DOM-Test-Suite/level3/core/noderemovechild31</title>
+<link type="text/css" rel="stylesheet" href="http://www.w3.org/StyleSheets/activity-home.css">
+<script src="../../jsunit/app/jsUnitCore.js" type="text/javascript"></script><script src="DOMTestCase.js" type="text/javascript"></script><script type="text/javascript">
+// expose test function names
+function exposeTestFunctionNames()
+{
+return ['noderemovechild31'];
+}
+
+var docsLoaded = -1000000;
+var builder = null;
+
+//
+//   This function is called by the testing framework before
+//      running the test suite.
+//
+//   If there are no configuration exceptions, asynchronous
+//        document loading is started.  Otherwise, the status
+//        is set to complete and the exception is immediately
+//        raised when entering the body of the test.
+//
+function setUpPage() {
+   setUpPageStatus = 'running';
+   try {
+     //
+     //   creates test document builder, may throw exception
+     //
+     builder = createConfiguredBuilder();
+       setImplementationAttribute("expandEntityReferences", false);
+
+      docsLoaded = 0;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      docsLoaded += preload(docRef, "doc", "hc_staff");
+        
+       if (docsLoaded == 1) {
+          setUpPage = 'complete';
+       }
+    } catch(ex) {
+    	catchInitializationError(builder, ex);
+        setUpPage = 'complete';
+    }
+}
+
+
+
+//
+//   This method is called on the completion of 
+//      each asychronous load started in setUpTests.
+//
+//   When every synchronous loaded document has completed,
+//      the page status is changed which allows the
+//      body of the test to be executed.
+function loadComplete() {
+    if (++docsLoaded == 1) {
+        setUpPageStatus = 'complete';
+    }
+}
+
+
+/**
+* 
+	Using removeChild on a default Attribute node attempt to remove its EntityReference child node and
+	and verify the name of the returned node that was removed.  Now attempt the reverse
+	and verify if a NO_MODIFICATION_ALLOWED_ERR or NOT_FOUND_ERR is thrown.
+	Then remove an child of the entity reference and expect a NO_MODIFICATION_ALLOWED_ERR.
+
+* @author IBM
+* @author Neil Delima
+* @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
+*/
+function noderemovechild31() {
+   var success;
+    if(checkInitialization(builder, "noderemovechild31") != null) return;
+    var doc;
+      var parentList;
+      var attrsMap;
+      var parent;
+      var child;
+      var entRef;
+      var elem;
+      var removed;
+      var removedNode;
+      var removedName;
+      var appendedChild;
+      var entRefChild;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      doc = load(docRef, "doc", "hc_staff");
+      parentList = doc.getElementsByTagName("acronym");
+      elem = parentList.item(3);
+      attrsMap = elem.attributes;
+
+      parent = attrsMap.getNamedItem("class");
+      entRef = doc.createEntityReference("delta");
+      appendedChild = parent.appendChild(entRef);
+      child = parent.lastChild;
+
+      removed = parent.removeChild(child);
+      removedName = removed.nodeName;
+
+      assertEquals("noderemovechild31","delta",removedName);
+       
+      try {
+      removedNode = child.removeChild(parent);
+      fail("throw_DOMException");
+     
+      } catch (ex) {
+		  if (typeof(ex.code) != 'undefined') {      
+       switch(ex.code) {
+       case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
+       break;
+      case /* NOT_FOUND_ERR */ 8 :
+       break;
+          default:
+          throw ex;
+          }
+       } else { 
+       throw ex;
+        }
+         }
+        entRefChild = child.firstChild;
+
+      
+	if(
+	
+	(entRefChild != null)
+
+	) {
+	
+	{
+		success = false;
+		try {
+            removedNode = child.removeChild(entRefChild);
+        }
+		catch(ex) {
+      success = (typeof(ex.code) != 'undefined' && ex.code == 7);
+		}
+		assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+	}
+
+	}
+	
+}
+
+</script>
+</head>
+<body>
+<h2>Test http://www.w3.org/2001/DOM-Test-Suite/level3/core/noderemovechild31</h2>
+<p>&lt;test name='noderemovechild31' schemaLocation='http://www.w3.org/2001/DOM-Test-Suite/Level-3 dom3.xsd'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;noderemovechild31&lt;/title&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;creator&gt;IBM&lt;/creator&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;description&gt;
+	Using removeChild on a default Attribute node attempt to remove its EntityReference child node and
+	and verify the name of the returned node that was removed.  Now attempt the reverse
+	and verify if a NO_MODIFICATION_ALLOWED_ERR or NOT_FOUND_ERR is thrown.
+	Then remove an child of the entity reference and expect a NO_MODIFICATION_ALLOWED_ERR.
+&lt;/description&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;contributor&gt;Neil Delima&lt;/contributor&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;date qualifier='created'&gt;2002-06-10&lt;/date&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066">http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066</a>'/&gt;
+<br>&lt;/metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;implementationAttribute name='expandEntityReferences' value='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='doc' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='parentList' type='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='attrsMap' type='NamedNodeMap'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='parent' type='Attr'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='child' type='EntityReference'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='entRef' type='EntityReference'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='elem' type='Element'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='removed' type='EntityReference'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='removedNode' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='removedName' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='appendedChild' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='entRefChild' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;load var='doc' href='hc_staff' willBeModified='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getElementsByTagName var='parentList' obj='doc' tagname='"acronym"' interface='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item var='elem' obj='parentList' index='3' interface='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;attributes var='attrsMap' obj='elem'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getNamedItem var='parent' obj='attrsMap' name='"class"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createEntityReference var='entRef' obj='doc' name='"delta"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;appendChild obj='parent' var='appendedChild' newChild='entRef'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;lastChild var='child' obj='parent' interface='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;removeChild var='removed' obj='parent' oldChild='child'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeName obj='removed' var='removedName'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='removedName' expected='"delta"' <a id="noderemovechild31">id='noderemovechild31'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--
+Remove a non-child from an entity reference
+Should throw either a NO_MODIFICATION_ALLOWED_ERR or a NOT_FOUND_ERR
+--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;try&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;removeChild obj='child' var='removedNode' oldChild='parent'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;fail <a id="throw_DOMException">id='throw_DOMException'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;catch&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;DOMException code='NO_MODIFICATION_ALLOWED_ERR'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;DOMException code='NOT_FOUND_ERR'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/catch&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/try&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--
+Remove a child of the entity reference
+   Expect a NO_MODIFICATION_ALLOWED_ERR exception 
+--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;firstChild var='entRefChild' obj='child' interface='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- entity may not be resolved if validating is false  --&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;notNull obj='entRefChild'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertDOMException <a id="throw_NO_MODIFICATION_ALLOWED_ERR">id='throw_NO_MODIFICATION_ALLOWED_ERR'</a>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;NO_MODIFICATION_ALLOWED_ERR&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;removeChild obj='child' var='removedNode' oldChild='entRefChild'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/NO_MODIFICATION_ALLOWED_ERR&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/assertDOMException&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/if&gt;<br>&lt;/test&gt;<br>
+</p>
+<p>
+			Copyright (c) 2001-2004 World Wide Web Consortium,
+			(Massachusetts Institute of Technology, Institut National de
+			Recherche en Informatique et en Automatique, Keio University). All
+			Rights Reserved. This program is distributed under the W3C's Software
+			Intellectual Property License. This program is distributed in the
+			hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+			the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+			PURPOSE.
+			</p>
+<p>See W3C License <a href="http://www.w3.org/Consortium/Legal/">http://www.w3.org/Consortium/Legal/</a> 
+ for more details.</p>
+<iframe name="doc" src="files/hc_staff.xhtml"></iframe>
+<br>
+</body>
+</html>

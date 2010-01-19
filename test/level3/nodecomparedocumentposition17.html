@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>http://www.w3.org/2001/DOM-Test-Suite/level3/core/nodecomparedocumentposition17</title>
+<link type="text/css" rel="stylesheet" href="http://www.w3.org/StyleSheets/activity-home.css">
+<script src="../../jsunit/app/jsUnitCore.js" type="text/javascript"></script><script src="DOMTestCase.js" type="text/javascript"></script><script type="text/javascript">
+// expose test function names
+function exposeTestFunctionNames()
+{
+return ['nodecomparedocumentposition17'];
+}
+
+var docsLoaded = -1000000;
+var builder = null;
+
+//
+//   This function is called by the testing framework before
+//      running the test suite.
+//
+//   If there are no configuration exceptions, asynchronous
+//        document loading is started.  Otherwise, the status
+//        is set to complete and the exception is immediately
+//        raised when entering the body of the test.
+//
+function setUpPage() {
+   setUpPageStatus = 'running';
+   try {
+     //
+     //   creates test document builder, may throw exception
+     //
+     builder = createConfiguredBuilder();
+
+      docsLoaded = 0;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      docsLoaded += preload(docRef, "doc", "hc_staff");
+        
+       if (docsLoaded == 1) {
+          setUpPage = 'complete';
+       }
+    } catch(ex) {
+    	catchInitializationError(builder, ex);
+        setUpPage = 'complete';
+    }
+}
+
+
+
+//
+//   This method is called on the completion of 
+//      each asychronous load started in setUpTests.
+//
+//   When every synchronous loaded document has completed,
+//      the page status is changed which allows the
+//      body of the test to be executed.
+function loadComplete() {
+    if (++docsLoaded == 1) {
+        setUpPageStatus = 'complete';
+    }
+}
+
+
+/**
+* 
+	Using compareDocumentPosition check if the document position of the first ProcessingInstruction node compared to 
+	this second newly apended ProcessingInstruction node is PRECEDING, and FOLLOWING vice versa.
+
+* @author IBM
+* @author Jenny Hsu
+* @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
+*/
+function nodecomparedocumentposition17() {
+   var success;
+    if(checkInitialization(builder, "nodecomparedocumentposition17") != null) return;
+    var doc;
+      var pi1;
+      var pi2;
+      var pi1Position;
+      var pi2Position;
+      var appendedChild;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      doc = load(docRef, "doc", "hc_staff");
+      pi1 = doc.createProcessingInstruction("PI1","");
+      pi2 = doc.createProcessingInstruction("PI2","");
+      appendedChild = doc.appendChild(pi1);
+      appendedChild = doc.appendChild(pi2);
+      pi1Position = pi1.compareDocumentPosition(pi2);
+      assertEquals("nodecomparedocumentpositionFollowing17",4,pi1Position);
+       pi2Position = pi2.compareDocumentPosition(pi1);
+      assertEquals("nodecomparedocumentpositionPRECEDING17",2,pi2Position);
+       
+}
+
+</script>
+</head>
+<body>
+<h2>Test http://www.w3.org/2001/DOM-Test-Suite/level3/core/nodecomparedocumentposition17</h2>
+<p>&lt;test name='nodecomparedocumentposition17' schemaLocation='http://www.w3.org/2001/DOM-Test-Suite/Level-3 dom3.xsd'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;nodecomparedocumentposition17&lt;/title&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;creator&gt;IBM&lt;/creator&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;description&gt;
+	Using compareDocumentPosition check if the document position of the first ProcessingInstruction node compared to 
+	this second newly apended ProcessingInstruction node is PRECEDING, and FOLLOWING vice versa.
+&lt;/description&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;contributor&gt;Jenny Hsu&lt;/contributor&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;date qualifier='created'&gt;2003-02-20&lt;/date&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition">http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition</a>'/&gt;
+<br>&lt;/metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='doc' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='pi1' type='ProcessingInstruction'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='pi2' type='ProcessingInstruction'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='pi1Position' type='int'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='pi2Position' type='int'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='appendedChild' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;load var='doc' href='hc_staff' willBeModified='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createProcessingInstruction var='pi1' obj='doc' target='"PI1"' data='""'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createProcessingInstruction var='pi2' obj='doc' target='"PI2"' data='""'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;appendChild obj='doc' var='appendedChild' newChild='pi1'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;appendChild obj='doc' var='appendedChild' newChild='pi2'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;compareDocumentPosition var='pi1Position' obj='pi1' other='pi2'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='pi1Position' expected='4' <a id="nodecomparedocumentpositionFollowing17">id='nodecomparedocumentpositionFollowing17'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;compareDocumentPosition var='pi2Position' obj='pi2' other='pi1'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='pi2Position' expected='2' <a id="nodecomparedocumentpositionPRECEDING17">id='nodecomparedocumentpositionPRECEDING17'</a> ignoreCase='false'/&gt;<br>&lt;/test&gt;<br>
+</p>
+<p>
+			Copyright (c) 2001-2004 World Wide Web Consortium,
+			(Massachusetts Institute of Technology, Institut National de
+			Recherche en Informatique et en Automatique, Keio University). All
+			Rights Reserved. This program is distributed under the W3C's Software
+			Intellectual Property License. This program is distributed in the
+			hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+			the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+			PURPOSE.
+			</p>
+<p>See W3C License <a href="http://www.w3.org/Consortium/Legal/">http://www.w3.org/Consortium/Legal/</a> 
+ for more details.</p>
+<iframe name="doc" src="files/hc_staff.xhtml"></iframe>
+<br>
+</body>
+</html>

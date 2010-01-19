@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>http://www.w3.org/2001/DOM-Test-Suite/level3/core/nodecomparedocumentposition19</title>
+<link type="text/css" rel="stylesheet" href="http://www.w3.org/StyleSheets/activity-home.css">
+<script src="../../jsunit/app/jsUnitCore.js" type="text/javascript"></script><script src="DOMTestCase.js" type="text/javascript"></script><script type="text/javascript">
+// expose test function names
+function exposeTestFunctionNames()
+{
+return ['nodecomparedocumentposition19'];
+}
+
+var docsLoaded = -1000000;
+var builder = null;
+
+//
+//   This function is called by the testing framework before
+//      running the test suite.
+//
+//   If there are no configuration exceptions, asynchronous
+//        document loading is started.  Otherwise, the status
+//        is set to complete and the exception is immediately
+//        raised when entering the body of the test.
+//
+function setUpPage() {
+   setUpPageStatus = 'running';
+   try {
+     //
+     //   creates test document builder, may throw exception
+     //
+     builder = createConfiguredBuilder();
+       setImplementationAttribute("coalescing", false);
+       setImplementationAttribute("namespaceAware", true);
+
+      docsLoaded = 0;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      docsLoaded += preload(docRef, "doc", "hc_staff");
+        
+       if (docsLoaded == 1) {
+          setUpPage = 'complete';
+       }
+    } catch(ex) {
+    	catchInitializationError(builder, ex);
+        setUpPage = 'complete';
+    }
+}
+
+
+
+//
+//   This method is called on the completion of 
+//      each asychronous load started in setUpTests.
+//
+//   When every synchronous loaded document has completed,
+//      the page status is changed which allows the
+//      body of the test to be executed.
+function loadComplete() {
+    if (++docsLoaded == 1) {
+        setUpPageStatus = 'complete';
+    }
+}
+
+
+/**
+* 
+	The method compareDocumentPosition compares a node with this node with regard to their position in the 
+	document and according to the document order.
+	
+	Using compareDocumentPosition check if the document position of the first CDATASection node
+	of the second element whose localName is name compared with the second CDATASection node
+	is PRECEDING and is FOLLOWING vice versa.
+
+* @author IBM
+* @author Jenny Hsu
+* @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
+*/
+function nodecomparedocumentposition19() {
+   var success;
+    if(checkInitialization(builder, "nodecomparedocumentposition19") != null) return;
+    var doc;
+      var elemList;
+      var elemStrong;
+      var cdata1;
+      var cdata2;
+      var aNode;
+      var cdata1Position;
+      var cdata2Position;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      doc = load(docRef, "doc", "hc_staff");
+      elemList = doc.getElementsByTagNameNS("*","strong");
+      elemStrong = elemList.item(1);
+      cdata2 = elemStrong.lastChild;
+
+      aNode = cdata2.previousSibling;
+
+      cdata1 = aNode.previousSibling;
+
+      cdata1Position = cdata1.compareDocumentPosition(cdata2);
+      assertEquals("nodecomparedocumentposition19_cdata2Follows",4,cdata1Position);
+       cdata2Position = cdata2.compareDocumentPosition(cdata1);
+      assertEquals("nodecomparedocumentposition_cdata1Precedes",2,cdata2Position);
+       
+}
+
+</script>
+</head>
+<body>
+<h2>Test http://www.w3.org/2001/DOM-Test-Suite/level3/core/nodecomparedocumentposition19</h2>
+<p>&lt;test name='nodecomparedocumentposition19' schemaLocation='http://www.w3.org/2001/DOM-Test-Suite/Level-3 dom3.xsd'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;nodecomparedocumentposition19&lt;/title&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;creator&gt;IBM&lt;/creator&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;description&gt;
+	The method compareDocumentPosition compares a node with this node with regard to their position in the 
+	document and according to the document order.
+	
+	Using compareDocumentPosition check if the document position of the first CDATASection node
+	of the second element whose localName is name compared with the second CDATASection node
+	is PRECEDING and is FOLLOWING vice versa.
+&lt;/description&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;contributor&gt;Jenny Hsu&lt;/contributor&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;date qualifier='created'&gt;2003-02-20&lt;/date&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition">http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition</a>'/&gt;
+<br>&lt;/metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;implementationAttribute name='coalescing' value='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;implementationAttribute name='namespaceAware' value='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='doc' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='elemList' type='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='elemStrong' type='Element'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='cdata1' type='CDATASection'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='cdata2' type='CDATASection'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='aNode' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='cdata1Position' type='int'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='cdata2Position' type='int'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;load var='doc' href='hc_staff' willBeModified='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getElementsByTagNameNS var='elemList' obj='doc' namespaceURI='"*"' localName='"strong"' interface='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item var='elemStrong' obj='elemList' index='1' interface='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;lastChild var='cdata2' obj='elemStrong' interface='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;previousSibling var='aNode' obj='cdata2' interface='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;previousSibling var='cdata1' obj='aNode' interface='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;compareDocumentPosition var='cdata1Position' obj='cdata1' other='cdata2'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='cdata1Position' expected='4' <a id="nodecomparedocumentposition19_cdata2Follows">id='nodecomparedocumentposition19_cdata2Follows'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;compareDocumentPosition var='cdata2Position' obj='cdata2' other='cdata1'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='cdata2Position' expected='2' <a id="nodecomparedocumentposition_cdata1Precedes">id='nodecomparedocumentposition_cdata1Precedes'</a> ignoreCase='false'/&gt;<br>&lt;/test&gt;<br>
+</p>
+<p>
+			Copyright (c) 2001-2004 World Wide Web Consortium,
+			(Massachusetts Institute of Technology, Institut National de
+			Recherche en Informatique et en Automatique, Keio University). All
+			Rights Reserved. This program is distributed under the W3C's Software
+			Intellectual Property License. This program is distributed in the
+			hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+			the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+			PURPOSE.
+			</p>
+<p>See W3C License <a href="http://www.w3.org/Consortium/Legal/">http://www.w3.org/Consortium/Legal/</a> 
+ for more details.</p>
+<iframe name="doc" src="files/hc_staff.xhtml"></iframe>
+<br>
+</body>
+</html>

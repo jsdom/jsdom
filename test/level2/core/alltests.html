@@ -1,0 +1,1191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>http://www.w3.org/2001/DOM-Test-Suite/level2/core/alltests</title>
+<link type="text/css" rel="stylesheet" href="http://www.w3.org/StyleSheets/activity-home.css">
+<script src="../../jsunit/app/jsUnitCore.js" type="text/javascript"></script><script src="DOMTestCase.js" type="text/javascript"></script><script src="DOMTestSuite.js" type="text/javascript"></script><script type="text/javascript">
+            
+function suite() {
+  var newsuite = new top.jsUnitTestSuite();
+  var suiteBuilder = createConfiguredBuilder();
+  var isHTML = (suiteBuilder.contentType == "text/html") || (suiteBuilder.contentType == "application/xhtml+xml");
+    if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true)  && suiteBuilder.canSetImplementationAttribute("validating", true) )) {
+  	   	newsuite.addTestPage("../level2/core/attrgetownerelement01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/attrgetownerelement02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/attrgetownerelement03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/attrgetownerelement04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/attrgetownerelement05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/createAttributeNS01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/createAttributeNS02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/createAttributeNS03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/createAttributeNS04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/createAttributeNS05.html");
+  }
+  newsuite.addTestPage("../level2/core/createAttributeNS06.html");  
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/createDocument01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/createDocument02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/createDocument03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/createDocument04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/createDocument05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/createDocument06.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/createDocument07.html");
+  }
+  newsuite.addTestPage("../level2/core/createDocument08.html");  
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/createDocumentType01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/createDocumentType02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/createDocumentType03.html");
+  }
+  newsuite.addTestPage("../level2/core/createDocumentType04.html");  
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/createElementNS01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/createElementNS02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/createElementNS03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/createElementNS04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/createElementNS05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/documentcreateattributeNS01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/documentcreateattributeNS02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/documentcreateattributeNS03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/documentcreateattributeNS04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/documentcreateattributeNS05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/documentcreateattributeNS06.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/documentcreateattributeNS07.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/documentcreateelementNS01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/documentcreateelementNS02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/documentcreateelementNS05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/documentcreateelementNS06.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/documentgetelementbyid01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/documentgetelementsbytagnameNS01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/documentgetelementsbytagnameNS02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/documentgetelementsbytagnameNS03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/documentgetelementsbytagnameNS04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/documentgetelementsbytagnameNS05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/documentimportnode01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/documentimportnode02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true)  && suiteBuilder.canSetImplementationAttribute("validating", true) )) {
+  	   	newsuite.addTestPage("../level2/core/documentimportnode03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true)  && suiteBuilder.canSetImplementationAttribute("validating", true) )) {
+  	   	newsuite.addTestPage("../level2/core/documentimportnode04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/documentimportnode05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/documentimportnode06.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/documentimportnode07.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/documentimportnode08.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/documentimportnode09.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/documentimportnode10.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/documentimportnode11.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/documentimportnode12.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/documentimportnode13.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/documentimportnode14.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/documentimportnode15.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/documentimportnode17.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/documentimportnode18.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/documentimportnode19.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true)  && suiteBuilder.canSetImplementationAttribute("expandEntityReferences", false) )) {
+  	   	newsuite.addTestPage("../level2/core/documentimportnode20.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true)  && suiteBuilder.canSetImplementationAttribute("expandEntityReferences", false) )) {
+  	   	newsuite.addTestPage("../level2/core/documentimportnode21.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/documentimportnode22.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/documenttypeinternalSubset01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/documenttypepublicid01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/documenttypesystemid01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/domimplementationcreatedocument03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/domimplementationcreatedocument04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/domimplementationcreatedocument05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/domimplementationcreatedocument07.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/domimplementationcreatedocumenttype01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/domimplementationcreatedocumenttype02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/domimplementationcreatedocumenttype04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/domimplementationfeaturecore.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/domimplementationfeaturexmlversion2.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/domimplementationhasfeature01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/domimplementationhasfeature02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/elementgetattributenodens01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/elementgetattributenodens02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true)  && suiteBuilder.canSetImplementationAttribute("validating", true) )) {
+  	   	newsuite.addTestPage("../level2/core/elementgetattributenodens03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true)  && suiteBuilder.canSetImplementationAttribute("validating", true) )) {
+  	   	newsuite.addTestPage("../level2/core/elementgetattributens02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/elementgetelementsbytagnamens02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/elementgetelementsbytagnamens04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/elementgetelementsbytagnamens05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", false) )) {
+  	   	newsuite.addTestPage("../level2/core/elementhasattribute01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("validating", true) )) {
+  	   	newsuite.addTestPage("../level2/core/elementhasattribute02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/elementhasattribute03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/elementhasattribute04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/elementhasattributens01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/elementhasattributens02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/elementhasattributens03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/elementremoveattributens01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/elementsetattributenodens01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/elementsetattributenodens02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true)  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/elementsetattributenodens03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/elementsetattributenodens04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/elementsetattributenodens05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("expandEntityReferences", false) )) {
+  	   	newsuite.addTestPage("../level2/core/elementsetattributenodens06.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/elementsetattributens01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/elementsetattributens02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/elementsetattributens03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/elementsetattributens04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/elementsetattributens05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/elementsetattributens08.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/elementsetattributensurinull.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true)  && suiteBuilder.canSetImplementationAttribute("validating", true) )) {
+  	   	newsuite.addTestPage("../level2/core/getAttributeNS01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/getAttributeNS02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/getAttributeNS03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/getAttributeNS04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/getAttributeNS05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/getAttributeNodeNS01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/getAttributeNodeNS02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("validating", true) )) {
+  	   	newsuite.addTestPage("../level2/core/getElementById01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/getElementById02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/getElementsByTagNameNS01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/getElementsByTagNameNS02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/getElementsByTagNameNS03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/getElementsByTagNameNS04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/getElementsByTagNameNS05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/getElementsByTagNameNS06.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/getElementsByTagNameNS07.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/getElementsByTagNameNS08.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/getElementsByTagNameNS09.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/getElementsByTagNameNS10.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/getElementsByTagNameNS11.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/getElementsByTagNameNS12.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/getElementsByTagNameNS13.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/getElementsByTagNameNS14.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/getNamedItemNS01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/getNamedItemNS02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/getNamedItemNS03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/getNamedItemNS04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/hasAttribute01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("validating", true) )) {
+  	   	newsuite.addTestPage("../level2/core/hasAttribute02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/hasAttribute03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("validating", true) )) {
+  	   	newsuite.addTestPage("../level2/core/hasAttribute04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/hasAttributeNS01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/hasAttributeNS02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/hasAttributeNS03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true)  && suiteBuilder.canSetImplementationAttribute("validating", true) )) {
+  	   	newsuite.addTestPage("../level2/core/hasAttributeNS04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/hasAttributeNS05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/hasAttributes01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/hasAttributes02.html");
+  }
+  newsuite.addTestPage("../level2/core/hc_entitiesremovenameditemns1.html");  
+  newsuite.addTestPage("../level2/core/hc_entitiessetnameditemns1.html");  
+  newsuite.addTestPage("../level2/core/hc_namednodemapinvalidtype1.html");  
+  newsuite.addTestPage("../level2/core/hc_nodedocumentfragmentnormalize1.html");  
+  newsuite.addTestPage("../level2/core/hc_nodedocumentfragmentnormalize2.html");  
+  newsuite.addTestPage("../level2/core/hc_notationsremovenameditemns1.html");  
+  newsuite.addTestPage("../level2/core/hc_notationssetnameditemns1.html");  
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/importNode01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/importNode02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/importNode03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/importNode04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/importNode05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/importNode06.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true)  && suiteBuilder.canSetImplementationAttribute("validating", true) )) {
+  	   	newsuite.addTestPage("../level2/core/importNode07.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/importNode08.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/importNode09.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/importNode10.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/importNode11.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/importNode12.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/importNode13.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/importNode14.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/importNode15.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/importNode16.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/importNode17.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/internalSubset01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/isSupported01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/isSupported02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/isSupported04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/isSupported05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/isSupported06.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/isSupported07.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/isSupported09.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/isSupported10.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/isSupported11.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/isSupported12.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/isSupported13.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/isSupported14.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/localName01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/localName02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/localName03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/localName04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapgetnameditemns01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapgetnameditemns02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapgetnameditemns03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapgetnameditemns04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapgetnameditemns05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapgetnameditemns06.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapremovenameditemns01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true)  && suiteBuilder.canSetImplementationAttribute("validating", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapremovenameditemns02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapremovenameditemns03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapremovenameditemns04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapremovenameditemns05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapremovenameditemns06.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapremovenameditemns07.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapremovenameditemns08.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapremovenameditemns09.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapsetnameditemns01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapsetnameditemns02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapsetnameditemns03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapsetnameditemns04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapsetnameditemns05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapsetnameditemns06.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapsetnameditemns07.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapsetnameditemns08.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapsetnameditemns09.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapsetnameditemns10.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namednodemapsetnameditemns11.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true)  && suiteBuilder.canSetImplementationAttribute("validating", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namespaceURI01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namespaceURI02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/namespaceURI03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/namespaceURI04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/nodegetlocalname03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/nodegetnamespaceuri03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/nodegetownerdocument01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/nodegetownerdocument02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/nodegetprefix03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/nodehasattributes01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/nodehasattributes02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/nodehasattributes03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/nodehasattributes04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/nodeissupported01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/nodeissupported02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/nodeissupported03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/nodeissupported04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/nodeissupported05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/nodenormalize01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/nodesetprefix01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/nodesetprefix02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/nodesetprefix03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true)  && suiteBuilder.canSetImplementationAttribute("validating", true) )) {
+  	   	newsuite.addTestPage("../level2/core/nodesetprefix04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/nodesetprefix05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/nodesetprefix06.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/nodesetprefix07.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/nodesetprefix08.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/nodesetprefix09.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/normalize01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/ownerDocument01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/ownerElement01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/ownerElement02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/prefix01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/prefix02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/prefix03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/prefix04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/prefix05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/prefix06.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/prefix07.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/prefix08.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/prefix09.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/prefix10.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/prefix11.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/publicId01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/removeAttributeNS01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true)  && suiteBuilder.canSetImplementationAttribute("validating", true) )) {
+  	   	newsuite.addTestPage("../level2/core/removeAttributeNS02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/removeNamedItemNS01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/removeNamedItemNS02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/removeNamedItemNS03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/setAttributeNS01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/setAttributeNS02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/setAttributeNS03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/setAttributeNS04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/setAttributeNS05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/setAttributeNS06.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/setAttributeNS07.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/setAttributeNS09.html");
+  }
+  newsuite.addTestPage("../level2/core/setAttributeNS10.html");  
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/setAttributeNodeNS01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", false) )) {
+  	   	newsuite.addTestPage("../level2/core/setAttributeNodeNS02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/setAttributeNodeNS03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/setAttributeNodeNS04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/setAttributeNodeNS05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/setNamedItemNS01.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/setNamedItemNS02.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/setNamedItemNS03.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML  && suiteBuilder.canSetImplementationAttribute("namespaceAware", true) )) {
+  	   	newsuite.addTestPage("../level2/core/setNamedItemNS04.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/setNamedItemNS05.html");
+  }
+  if (!suiteBuilder.skipIncompatibleTests || (!isHTML )) {
+  	   	newsuite.addTestPage("../level2/core/systemId01.html");
+  }
+
+  return newsuite;
+}
+</script>
+</head>
+<body onload="onImplementationChange()">
+<h1>DOM Level 2 Core Test Suite</h1>
+<form onsubmit="fixTestPagePath()" action="../../jsunit/testRunner.html" id="configuration">
+<table summary="Configuration" border="1" width="100%">
+<tr>
+<td>
+<table summary="Tests" width="100%">
+<tr>
+<td>Test: </td><td><select size="1" name="testpage"><option value="alltests.html" selected>alltests</option><option value="attrgetownerelement01.html">attrgetownerelement01</option>
+<option value="attrgetownerelement02.html">attrgetownerelement02</option>
+<option value="attrgetownerelement03.html">attrgetownerelement03</option>
+<option value="attrgetownerelement04.html">attrgetownerelement04</option>
+<option value="attrgetownerelement05.html">attrgetownerelement05</option>
+<option value="createAttributeNS01.html">createAttributeNS01</option>
+<option value="createAttributeNS02.html">createAttributeNS02</option>
+<option value="createAttributeNS03.html">createAttributeNS03</option>
+<option value="createAttributeNS04.html">createAttributeNS04</option>
+<option value="createAttributeNS05.html">createAttributeNS05</option>
+<option value="createAttributeNS06.html">createAttributeNS06</option>
+<option value="createDocument01.html">createDocument01</option>
+<option value="createDocument02.html">createDocument02</option>
+<option value="createDocument03.html">createDocument03</option>
+<option value="createDocument04.html">createDocument04</option>
+<option value="createDocument05.html">createDocument05</option>
+<option value="createDocument06.html">createDocument06</option>
+<option value="createDocument07.html">createDocument07</option>
+<option value="createDocument08.html">createDocument08</option>
+<option value="createDocumentType01.html">createDocumentType01</option>
+<option value="createDocumentType02.html">createDocumentType02</option>
+<option value="createDocumentType03.html">createDocumentType03</option>
+<option value="createDocumentType04.html">createDocumentType04</option>
+<option value="createElementNS01.html">createElementNS01</option>
+<option value="createElementNS02.html">createElementNS02</option>
+<option value="createElementNS03.html">createElementNS03</option>
+<option value="createElementNS04.html">createElementNS04</option>
+<option value="createElementNS05.html">createElementNS05</option>
+<option value="documentcreateattributeNS01.html">documentcreateattributeNS01</option>
+<option value="documentcreateattributeNS02.html">documentcreateattributeNS02</option>
+<option value="documentcreateattributeNS03.html">documentcreateattributeNS03</option>
+<option value="documentcreateattributeNS04.html">documentcreateattributeNS04</option>
+<option value="documentcreateattributeNS05.html">documentcreateattributeNS05</option>
+<option value="documentcreateattributeNS06.html">documentcreateattributeNS06</option>
+<option value="documentcreateattributeNS07.html">documentcreateattributeNS07</option>
+<option value="documentcreateelementNS01.html">documentcreateelementNS01</option>
+<option value="documentcreateelementNS02.html">documentcreateelementNS02</option>
+<option value="documentcreateelementNS05.html">documentcreateelementNS05</option>
+<option value="documentcreateelementNS06.html">documentcreateelementNS06</option>
+<option value="documentgetelementbyid01.html">documentgetelementbyid01</option>
+<option value="documentgetelementsbytagnameNS01.html">documentgetelementsbytagnameNS01</option>
+<option value="documentgetelementsbytagnameNS02.html">documentgetelementsbytagnameNS02</option>
+<option value="documentgetelementsbytagnameNS03.html">documentgetelementsbytagnameNS03</option>
+<option value="documentgetelementsbytagnameNS04.html">documentgetelementsbytagnameNS04</option>
+<option value="documentgetelementsbytagnameNS05.html">documentgetelementsbytagnameNS05</option>
+<option value="documentimportnode01.html">documentimportnode01</option>
+<option value="documentimportnode02.html">documentimportnode02</option>
+<option value="documentimportnode03.html">documentimportnode03</option>
+<option value="documentimportnode04.html">documentimportnode04</option>
+<option value="documentimportnode05.html">documentimportnode05</option>
+<option value="documentimportnode06.html">documentimportnode06</option>
+<option value="documentimportnode07.html">documentimportnode07</option>
+<option value="documentimportnode08.html">documentimportnode08</option>
+<option value="documentimportnode09.html">documentimportnode09</option>
+<option value="documentimportnode10.html">documentimportnode10</option>
+<option value="documentimportnode11.html">documentimportnode11</option>
+<option value="documentimportnode12.html">documentimportnode12</option>
+<option value="documentimportnode13.html">documentimportnode13</option>
+<option value="documentimportnode14.html">documentimportnode14</option>
+<option value="documentimportnode15.html">documentimportnode15</option>
+<option value="documentimportnode17.html">documentimportnode17</option>
+<option value="documentimportnode18.html">documentimportnode18</option>
+<option value="documentimportnode19.html">documentimportnode19</option>
+<option value="documentimportnode20.html">documentimportnode20</option>
+<option value="documentimportnode21.html">documentimportnode21</option>
+<option value="documentimportnode22.html">documentimportnode22</option>
+<option value="documenttypeinternalSubset01.html">documenttypeinternalSubset01</option>
+<option value="documenttypepublicid01.html">documenttypepublicid01</option>
+<option value="documenttypesystemid01.html">documenttypesystemid01</option>
+<option value="domimplementationcreatedocument03.html">domimplementationcreatedocument03</option>
+<option value="domimplementationcreatedocument04.html">domimplementationcreatedocument04</option>
+<option value="domimplementationcreatedocument05.html">domimplementationcreatedocument05</option>
+<option value="domimplementationcreatedocument07.html">domimplementationcreatedocument07</option>
+<option value="domimplementationcreatedocumenttype01.html">domimplementationcreatedocumenttype01</option>
+<option value="domimplementationcreatedocumenttype02.html">domimplementationcreatedocumenttype02</option>
+<option value="domimplementationcreatedocumenttype04.html">domimplementationcreatedocumenttype04</option>
+<option value="domimplementationfeaturecore.html">domimplementationfeaturecore</option>
+<option value="domimplementationfeaturexmlversion2.html">domimplementationfeaturexmlversion2</option>
+<option value="domimplementationhasfeature01.html">domimplementationhasfeature01</option>
+<option value="domimplementationhasfeature02.html">domimplementationhasfeature02</option>
+<option value="elementgetattributenodens01.html">elementgetattributenodens01</option>
+<option value="elementgetattributenodens02.html">elementgetattributenodens02</option>
+<option value="elementgetattributenodens03.html">elementgetattributenodens03</option>
+<option value="elementgetattributens02.html">elementgetattributens02</option>
+<option value="elementgetelementsbytagnamens02.html">elementgetelementsbytagnamens02</option>
+<option value="elementgetelementsbytagnamens04.html">elementgetelementsbytagnamens04</option>
+<option value="elementgetelementsbytagnamens05.html">elementgetelementsbytagnamens05</option>
+<option value="elementhasattribute01.html">elementhasattribute01</option>
+<option value="elementhasattribute02.html">elementhasattribute02</option>
+<option value="elementhasattribute03.html">elementhasattribute03</option>
+<option value="elementhasattribute04.html">elementhasattribute04</option>
+<option value="elementhasattributens01.html">elementhasattributens01</option>
+<option value="elementhasattributens02.html">elementhasattributens02</option>
+<option value="elementhasattributens03.html">elementhasattributens03</option>
+<option value="elementremoveattributens01.html">elementremoveattributens01</option>
+<option value="elementsetattributenodens01.html">elementsetattributenodens01</option>
+<option value="elementsetattributenodens02.html">elementsetattributenodens02</option>
+<option value="elementsetattributenodens03.html">elementsetattributenodens03</option>
+<option value="elementsetattributenodens04.html">elementsetattributenodens04</option>
+<option value="elementsetattributenodens05.html">elementsetattributenodens05</option>
+<option value="elementsetattributenodens06.html">elementsetattributenodens06</option>
+<option value="elementsetattributens01.html">elementsetattributens01</option>
+<option value="elementsetattributens02.html">elementsetattributens02</option>
+<option value="elementsetattributens03.html">elementsetattributens03</option>
+<option value="elementsetattributens04.html">elementsetattributens04</option>
+<option value="elementsetattributens05.html">elementsetattributens05</option>
+<option value="elementsetattributens08.html">elementsetattributens08</option>
+<option value="elementsetattributensurinull.html">elementsetattributensurinull</option>
+<option value="getAttributeNodeNS01.html">getAttributeNodeNS01</option>
+<option value="getAttributeNodeNS02.html">getAttributeNodeNS02</option>
+<option value="getAttributeNS01.html">getAttributeNS01</option>
+<option value="getAttributeNS02.html">getAttributeNS02</option>
+<option value="getAttributeNS03.html">getAttributeNS03</option>
+<option value="getAttributeNS04.html">getAttributeNS04</option>
+<option value="getAttributeNS05.html">getAttributeNS05</option>
+<option value="getElementById01.html">getElementById01</option>
+<option value="getElementById02.html">getElementById02</option>
+<option value="getElementsByTagNameNS01.html">getElementsByTagNameNS01</option>
+<option value="getElementsByTagNameNS02.html">getElementsByTagNameNS02</option>
+<option value="getElementsByTagNameNS03.html">getElementsByTagNameNS03</option>
+<option value="getElementsByTagNameNS04.html">getElementsByTagNameNS04</option>
+<option value="getElementsByTagNameNS05.html">getElementsByTagNameNS05</option>
+<option value="getElementsByTagNameNS06.html">getElementsByTagNameNS06</option>
+<option value="getElementsByTagNameNS07.html">getElementsByTagNameNS07</option>
+<option value="getElementsByTagNameNS08.html">getElementsByTagNameNS08</option>
+<option value="getElementsByTagNameNS09.html">getElementsByTagNameNS09</option>
+<option value="getElementsByTagNameNS10.html">getElementsByTagNameNS10</option>
+<option value="getElementsByTagNameNS11.html">getElementsByTagNameNS11</option>
+<option value="getElementsByTagNameNS12.html">getElementsByTagNameNS12</option>
+<option value="getElementsByTagNameNS13.html">getElementsByTagNameNS13</option>
+<option value="getElementsByTagNameNS14.html">getElementsByTagNameNS14</option>
+<option value="getNamedItemNS01.html">getNamedItemNS01</option>
+<option value="getNamedItemNS02.html">getNamedItemNS02</option>
+<option value="getNamedItemNS03.html">getNamedItemNS03</option>
+<option value="getNamedItemNS04.html">getNamedItemNS04</option>
+<option value="hasAttribute01.html">hasAttribute01</option>
+<option value="hasAttribute02.html">hasAttribute02</option>
+<option value="hasAttribute03.html">hasAttribute03</option>
+<option value="hasAttribute04.html">hasAttribute04</option>
+<option value="hasAttributeNS01.html">hasAttributeNS01</option>
+<option value="hasAttributeNS02.html">hasAttributeNS02</option>
+<option value="hasAttributeNS03.html">hasAttributeNS03</option>
+<option value="hasAttributeNS04.html">hasAttributeNS04</option>
+<option value="hasAttributeNS05.html">hasAttributeNS05</option>
+<option value="hasAttributes01.html">hasAttributes01</option>
+<option value="hasAttributes02.html">hasAttributes02</option>
+<option value="hc_entitiesremovenameditemns1.html">hc_entitiesremovenameditemns1</option>
+<option value="hc_entitiessetnameditemns1.html">hc_entitiessetnameditemns1</option>
+<option value="hc_namednodemapinvalidtype1.html">hc_namednodemapinvalidtype1</option>
+<option value="hc_nodedocumentfragmentnormalize1.html">hc_nodedocumentfragmentnormalize1</option>
+<option value="hc_nodedocumentfragmentnormalize2.html">hc_nodedocumentfragmentnormalize2</option>
+<option value="hc_notationsremovenameditemns1.html">hc_notationsremovenameditemns1</option>
+<option value="hc_notationssetnameditemns1.html">hc_notationssetnameditemns1</option>
+<option value="importNode01.html">importNode01</option>
+<option value="importNode02.html">importNode02</option>
+<option value="importNode03.html">importNode03</option>
+<option value="importNode04.html">importNode04</option>
+<option value="importNode05.html">importNode05</option>
+<option value="importNode06.html">importNode06</option>
+<option value="importNode07.html">importNode07</option>
+<option value="importNode08.html">importNode08</option>
+<option value="importNode09.html">importNode09</option>
+<option value="importNode10.html">importNode10</option>
+<option value="importNode11.html">importNode11</option>
+<option value="importNode12.html">importNode12</option>
+<option value="importNode13.html">importNode13</option>
+<option value="importNode14.html">importNode14</option>
+<option value="importNode15.html">importNode15</option>
+<option value="importNode16.html">importNode16</option>
+<option value="importNode17.html">importNode17</option>
+<option value="internalSubset01.html">internalSubset01</option>
+<option value="isSupported01.html">isSupported01</option>
+<option value="isSupported02.html">isSupported02</option>
+<option value="isSupported04.html">isSupported04</option>
+<option value="isSupported05.html">isSupported05</option>
+<option value="isSupported06.html">isSupported06</option>
+<option value="isSupported07.html">isSupported07</option>
+<option value="isSupported09.html">isSupported09</option>
+<option value="isSupported10.html">isSupported10</option>
+<option value="isSupported11.html">isSupported11</option>
+<option value="isSupported12.html">isSupported12</option>
+<option value="isSupported13.html">isSupported13</option>
+<option value="isSupported14.html">isSupported14</option>
+<option value="localName01.html">localName01</option>
+<option value="localName02.html">localName02</option>
+<option value="localName03.html">localName03</option>
+<option value="localName04.html">localName04</option>
+<option value="namednodemapgetnameditemns01.html">namednodemapgetnameditemns01</option>
+<option value="namednodemapgetnameditemns02.html">namednodemapgetnameditemns02</option>
+<option value="namednodemapgetnameditemns03.html">namednodemapgetnameditemns03</option>
+<option value="namednodemapgetnameditemns04.html">namednodemapgetnameditemns04</option>
+<option value="namednodemapgetnameditemns05.html">namednodemapgetnameditemns05</option>
+<option value="namednodemapgetnameditemns06.html">namednodemapgetnameditemns06</option>
+<option value="namednodemapremovenameditemns01.html">namednodemapremovenameditemns01</option>
+<option value="namednodemapremovenameditemns02.html">namednodemapremovenameditemns02</option>
+<option value="namednodemapremovenameditemns03.html">namednodemapremovenameditemns03</option>
+<option value="namednodemapremovenameditemns04.html">namednodemapremovenameditemns04</option>
+<option value="namednodemapremovenameditemns05.html">namednodemapremovenameditemns05</option>
+<option value="namednodemapremovenameditemns06.html">namednodemapremovenameditemns06</option>
+<option value="namednodemapremovenameditemns07.html">namednodemapremovenameditemns07</option>
+<option value="namednodemapremovenameditemns08.html">namednodemapremovenameditemns08</option>
+<option value="namednodemapremovenameditemns09.html">namednodemapremovenameditemns09</option>
+<option value="namednodemapsetnameditemns01.html">namednodemapsetnameditemns01</option>
+<option value="namednodemapsetnameditemns02.html">namednodemapsetnameditemns02</option>
+<option value="namednodemapsetnameditemns03.html">namednodemapsetnameditemns03</option>
+<option value="namednodemapsetnameditemns04.html">namednodemapsetnameditemns04</option>
+<option value="namednodemapsetnameditemns05.html">namednodemapsetnameditemns05</option>
+<option value="namednodemapsetnameditemns06.html">namednodemapsetnameditemns06</option>
+<option value="namednodemapsetnameditemns07.html">namednodemapsetnameditemns07</option>
+<option value="namednodemapsetnameditemns08.html">namednodemapsetnameditemns08</option>
+<option value="namednodemapsetnameditemns09.html">namednodemapsetnameditemns09</option>
+<option value="namednodemapsetnameditemns10.html">namednodemapsetnameditemns10</option>
+<option value="namednodemapsetnameditemns11.html">namednodemapsetnameditemns11</option>
+<option value="namespaceURI01.html">namespaceURI01</option>
+<option value="namespaceURI02.html">namespaceURI02</option>
+<option value="namespaceURI03.html">namespaceURI03</option>
+<option value="namespaceURI04.html">namespaceURI04</option>
+<option value="nodegetlocalname03.html">nodegetlocalname03</option>
+<option value="nodegetnamespaceuri03.html">nodegetnamespaceuri03</option>
+<option value="nodegetownerdocument01.html">nodegetownerdocument01</option>
+<option value="nodegetownerdocument02.html">nodegetownerdocument02</option>
+<option value="nodegetprefix03.html">nodegetprefix03</option>
+<option value="nodehasattributes01.html">nodehasattributes01</option>
+<option value="nodehasattributes02.html">nodehasattributes02</option>
+<option value="nodehasattributes03.html">nodehasattributes03</option>
+<option value="nodehasattributes04.html">nodehasattributes04</option>
+<option value="nodeissupported01.html">nodeissupported01</option>
+<option value="nodeissupported02.html">nodeissupported02</option>
+<option value="nodeissupported03.html">nodeissupported03</option>
+<option value="nodeissupported04.html">nodeissupported04</option>
+<option value="nodeissupported05.html">nodeissupported05</option>
+<option value="nodenormalize01.html">nodenormalize01</option>
+<option value="nodesetprefix01.html">nodesetprefix01</option>
+<option value="nodesetprefix02.html">nodesetprefix02</option>
+<option value="nodesetprefix03.html">nodesetprefix03</option>
+<option value="nodesetprefix04.html">nodesetprefix04</option>
+<option value="nodesetprefix05.html">nodesetprefix05</option>
+<option value="nodesetprefix06.html">nodesetprefix06</option>
+<option value="nodesetprefix07.html">nodesetprefix07</option>
+<option value="nodesetprefix08.html">nodesetprefix08</option>
+<option value="nodesetprefix09.html">nodesetprefix09</option>
+<option value="normalize01.html">normalize01</option>
+<option value="ownerDocument01.html">ownerDocument01</option>
+<option value="ownerElement01.html">ownerElement01</option>
+<option value="ownerElement02.html">ownerElement02</option>
+<option value="prefix01.html">prefix01</option>
+<option value="prefix02.html">prefix02</option>
+<option value="prefix03.html">prefix03</option>
+<option value="prefix04.html">prefix04</option>
+<option value="prefix05.html">prefix05</option>
+<option value="prefix06.html">prefix06</option>
+<option value="prefix07.html">prefix07</option>
+<option value="prefix08.html">prefix08</option>
+<option value="prefix09.html">prefix09</option>
+<option value="prefix10.html">prefix10</option>
+<option value="prefix11.html">prefix11</option>
+<option value="publicId01.html">publicId01</option>
+<option value="removeAttributeNS01.html">removeAttributeNS01</option>
+<option value="removeAttributeNS02.html">removeAttributeNS02</option>
+<option value="removeNamedItemNS01.html">removeNamedItemNS01</option>
+<option value="removeNamedItemNS02.html">removeNamedItemNS02</option>
+<option value="removeNamedItemNS03.html">removeNamedItemNS03</option>
+<option value="setAttributeNodeNS01.html">setAttributeNodeNS01</option>
+<option value="setAttributeNodeNS02.html">setAttributeNodeNS02</option>
+<option value="setAttributeNodeNS03.html">setAttributeNodeNS03</option>
+<option value="setAttributeNodeNS04.html">setAttributeNodeNS04</option>
+<option value="setAttributeNodeNS05.html">setAttributeNodeNS05</option>
+<option value="setAttributeNS01.html">setAttributeNS01</option>
+<option value="setAttributeNS02.html">setAttributeNS02</option>
+<option value="setAttributeNS03.html">setAttributeNS03</option>
+<option value="setAttributeNS04.html">setAttributeNS04</option>
+<option value="setAttributeNS05.html">setAttributeNS05</option>
+<option value="setAttributeNS06.html">setAttributeNS06</option>
+<option value="setAttributeNS07.html">setAttributeNS07</option>
+<option value="setAttributeNS09.html">setAttributeNS09</option>
+<option value="setAttributeNS10.html">setAttributeNS10</option>
+<option value="setNamedItemNS01.html">setNamedItemNS01</option>
+<option value="setNamedItemNS02.html">setNamedItemNS02</option>
+<option value="setNamedItemNS03.html">setNamedItemNS03</option>
+<option value="setNamedItemNS04.html">setNamedItemNS04</option>
+<option value="setNamedItemNS05.html">setNamedItemNS05</option>
+<option value="systemId01.html">systemId01</option>
+</select></td><td align="right"><input value="Load JSUnit" type="submit"></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>
+<table summary="Configuration" width="100%" border="1">
+<tr>
+<th>Implementation</th><th>Configuration</th><th>Content Type</th>
+</tr>
+<tr>
+<td valign="top"><input onclick="onImplementationChange()" checked value="iframe" id="iframeImpl" name="implementation" type="radio"> iframe<br>
+<input onclick="onImplementationChange()" value="dom3ls" id="dom3lsImpl" name="implementation" type="radio"> DOM 3 Load/Save<br> 
+                            	Features: <input disabled name="dom3lsFeatures" type="text">
+<br>
+<input onclick="onImplementationChange()" value="mozillaXML" id="mozillaXMLImpl" name="implementation" type="radio"> Mozilla XML<br>
+<input onclick="onImplementationChange()" value="msxml3" id="msxml3Impl" name="implementation" type="radio"> MSXML 3.0<br>
+<input onclick="onImplementationChange()" value="msxml4" id="msxml4Impl" name="implementation" type="radio"> MSXML 4.0<br>
+<input onclick="onImplementationChange()" value="svgplugin" id="svgpluginImpl" name="implementation" type="radio"> SVG Plugin<br>
+</td><td valign="top"><input disabled checked type="checkbox" name="asynchronous" onclick="setAsynchronous(true)"> Asynchronous<br>
+<input onclick="setImplementationAttribute('expandEntityReferences', true)" disabled value="true" name="expandEntityReferences" type="checkbox"> Expanding Entities<br>
+<input onclick="setImplementationAttribute('ignoringElementContentWhitespace', true)" disabled value="true" name="ignoringElementContentWhitespace" type="checkbox"> Ignoring whitespace<br>
+<input onclick="setImplementationAttribute('validating', true)" disabled value="true" name="validating" type="checkbox"> Validating<br>
+<input onclick="setImplementationAttribute('coalescing', true)" disabled value="true" name="coalescing" type="checkbox"> Coalescing<br>
+<input onclick="setImplementationAttribute('namespaceAware', true)" disabled value="true" name="namespaceAware" type="checkbox"> Namespace aware<br>
+<input onclick="setImplementationAttribute('ignoringComments', true)" checked disabled value="true" name="ignoringComments" type="checkbox"> Ignoring comments<br>
+<input checked value="true" name="skipIncompatibleTests" type="checkbox"> Skip incompatible tests<br>
+<input value="true" checked name="autorun" type="checkbox"> Autorun<br>
+<input onclick="updateTestSubmission()" name="submitCheckbox" type="checkbox"> Submit results<br>
+                            Acceptor: http://<input size="35" disabled value="" name="submitresults" type="text">
+<br>
+							Result ID: <input disabled value="" name="resultid" type="text">
+<br>
+</td><td valign="top"><input onclick="setContentType('text/xml')" value="text/xml" id="contentTypeXML" name="contentType" type="radio">XML<br>
+<input onclick="setContentType('text/html')" checked value="text/html" id="contentTypeHTML" name="contentType" type="radio">HTML<br>
+<input onclick="setContentType('application/xhtml+xml')" value="application/xhtml+xml" id="contentTypeXHTML" name="contentType" type="radio">XHTML<br>
+<input onclick="setContentType('image/svg+xml')" value="image/svg+xml" id="contentTypeSVG" name="contentType" type="radio">SVG<br>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</form>
+<p>
+			Copyright (c) 2001-2004 World Wide Web Consortium,
+			(Massachusetts Institute of Technology, Institut National de
+			Recherche en Informatique et en Automatique, Keio University). All
+			Rights Reserved. This program is distributed under the W3C's Software
+			Intellectual Property License. This program is distributed in the
+			hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+			the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+			PURPOSE.
+			</p>
+<p>See W3C License <a href="http://www.w3.org/Consortium/Legal/">http://www.w3.org/Consortium/Legal/</a> 
+ for more details.</p>
+</body>
+</html>

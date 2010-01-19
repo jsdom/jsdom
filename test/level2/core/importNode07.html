@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>http://www.w3.org/2001/DOM-Test-Suite/level2/core/importNode07</title>
+<link type="text/css" rel="stylesheet" href="http://www.w3.org/StyleSheets/activity-home.css">
+<script src="../../jsunit/app/jsUnitCore.js" type="text/javascript"></script><script src="DOMTestCase.js" type="text/javascript"></script><script type="text/javascript">
+// expose test function names
+function exposeTestFunctionNames()
+{
+return ['importNode07'];
+}
+
+var docsLoaded = -1000000;
+var builder = null;
+
+//
+//   This function is called by the testing framework before
+//      running the test suite.
+//
+//   If there are no configuration exceptions, asynchronous
+//        document loading is started.  Otherwise, the status
+//        is set to complete and the exception is immediately
+//        raised when entering the body of the test.
+//
+function setUpPage() {
+   setUpPageStatus = 'running';
+   try {
+     //
+     //   creates test document builder, may throw exception
+     //
+     builder = createConfiguredBuilder();
+       setImplementationAttribute("namespaceAware", true);
+       setImplementationAttribute("validating", true);
+
+      docsLoaded = 0;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      docsLoaded += preload(docRef, "doc", "staffNS");
+        
+      var aNewDocRef = null;
+      if (typeof(this.aNewDoc) != 'undefined') {
+        aNewDocRef = this.aNewDoc;
+      }
+      docsLoaded += preload(aNewDocRef, "aNewDoc", "staff");
+        
+       if (docsLoaded == 2) {
+          setUpPage = 'complete';
+       }
+    } catch(ex) {
+    	catchInitializationError(builder, ex);
+        setUpPage = 'complete';
+    }
+}
+
+
+
+//
+//   This method is called on the completion of 
+//      each asychronous load started in setUpTests.
+//
+//   When every synchronous loaded document has completed,
+//      the page status is changed which allows the
+//      body of the test to be executed.
+function loadComplete() {
+    if (++docsLoaded == 2) {
+        setUpPageStatus = 'complete';
+    }
+}
+
+
+/**
+* 
+    The "importNode(importedNode,deep)" method for a 
+   Document should import the given importedNode into that Document.
+   The importedNode is of type Element.
+   If this document defines default attributes for this element name (importedNode),
+   those default attributes are assigned.
+   
+   Create an element whose name is "emp:employee" in a different document.
+   Invoke method importNode(importedNode,deep) on this document which
+   defines default attribute for the element name "emp:employee".
+   Method should return an the imported element with an assigned default attribute.
+
+* @author NIST
+* @author Mary Brady
+* @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
+* @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=238
+*/
+function importNode07() {
+   var success;
+    if(checkInitialization(builder, "importNode07") != null) return;
+    var doc;
+      var aNewDoc;
+      var element;
+      var aNode;
+      var attributes;
+      var name;
+      var attr;
+      var lname;
+      var namespaceURI = "http://www.nist.gov";
+      var qualifiedName = "emp:employee";
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      doc = load(docRef, "doc", "staffNS");
+      
+      var aNewDocRef = null;
+      if (typeof(this.aNewDoc) != 'undefined') {
+        aNewDocRef = this.aNewDoc;
+      }
+      aNewDoc = load(aNewDocRef, "aNewDoc", "staff");
+      element = aNewDoc.createElementNS(namespaceURI,qualifiedName);
+      aNode = doc.importNode(element,false);
+      attributes = aNode.attributes;
+
+      assertSize("throw_Size",1,attributes);
+name = aNode.nodeName;
+
+      assertEquals("nodeName","emp:employee",name);
+       attr = attributes.item(0);
+      lname = attr.localName;
+
+      assertEquals("lname","defaultAttr",lname);
+       
+}
+
+</script>
+</head>
+<body>
+<h2>Test http://www.w3.org/2001/DOM-Test-Suite/level2/core/importNode07</h2>
+<p>&lt;test name='importNode07' schemaLocation='http://www.w3.org/2001/DOM-Test-Suite/Level-2 dom2.xsd'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;importNode07&lt;/title&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;creator&gt;NIST&lt;/creator&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;description&gt;
+    The "importNode(importedNode,deep)" method for a 
+   Document should import the given importedNode into that Document.
+   The importedNode is of type Element.
+   If this document defines default attributes for this element name (importedNode),
+   those default attributes are assigned.
+   
+   Create an element whose name is "emp:employee" in a different document.
+   Invoke method importNode(importedNode,deep) on this document which
+   defines default attribute for the element name "emp:employee".
+   Method should return an the imported element with an assigned default attribute.
+&lt;/description&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;contributor&gt;Mary Brady&lt;/contributor&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;date qualifier='created'&gt;2001-08-17&lt;/date&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode">http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode</a>'/&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=238">http://www.w3.org/Bugs/Public/show_bug.cgi?id=238</a>'/&gt;
+<br>&lt;/metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;implementationAttribute name='namespaceAware' value='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;implementationAttribute name='validating' value='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='doc' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='aNewDoc' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='element' type='Element'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='aNode' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='attributes' type='NamedNodeMap'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='name' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='attr' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='lname' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='namespaceURI' type='DOMString' value='"http://www.nist.gov"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='qualifiedName' type='DOMString' value='"emp:employee"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;load var='doc' href='staffNS' willBeModified='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;load var='aNewDoc' href='staff' willBeModified='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createElementNS obj='aNewDoc' var='element' namespaceURI='namespaceURI' qualifiedName='qualifiedName'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;importNode obj='doc' var='aNode' importedNode='element' deep='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;attributes obj='aNode' var='attributes'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertSize collection='attributes' size='1' <a id="throw_Size">id='throw_Size'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeName obj='aNode' var='name'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='name' expected='"emp:employee"' ignoreCase='false' <a id="nodeName">id='nodeName'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item interface='NamedNodeMap' obj='attributes' var='attr' index='0'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;localName obj='attr' var='lname'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='lname' expected='"defaultAttr"' ignoreCase='false' <a id="lname">id='lname'</a>/&gt;<br>&lt;/test&gt;<br>
+</p>
+<p>
+			Copyright (c) 2001-2004 World Wide Web Consortium,
+			(Massachusetts Institute of Technology, Institut National de
+			Recherche en Informatique et en Automatique, Keio University). All
+			Rights Reserved. This program is distributed under the W3C's Software
+			Intellectual Property License. This program is distributed in the
+			hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+			the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+			PURPOSE.
+			</p>
+<p>See W3C License <a href="http://www.w3.org/Consortium/Legal/">http://www.w3.org/Consortium/Legal/</a> 
+ for more details.</p>
+</body>
+</html>

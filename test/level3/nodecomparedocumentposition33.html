@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>http://www.w3.org/2001/DOM-Test-Suite/level3/core/nodecomparedocumentposition33</title>
+<link type="text/css" rel="stylesheet" href="http://www.w3.org/StyleSheets/activity-home.css">
+<script src="../../jsunit/app/jsUnitCore.js" type="text/javascript"></script><script src="DOMTestCase.js" type="text/javascript"></script><script type="text/javascript">
+// expose test function names
+function exposeTestFunctionNames()
+{
+return ['nodecomparedocumentposition33'];
+}
+
+var docsLoaded = -1000000;
+var builder = null;
+
+//
+//   This function is called by the testing framework before
+//      running the test suite.
+//
+//   If there are no configuration exceptions, asynchronous
+//        document loading is started.  Otherwise, the status
+//        is set to complete and the exception is immediately
+//        raised when entering the body of the test.
+//
+function setUpPage() {
+   setUpPageStatus = 'running';
+   try {
+     //
+     //   creates test document builder, may throw exception
+     //
+     builder = createConfiguredBuilder();
+
+      docsLoaded = 0;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      docsLoaded += preload(docRef, "doc", "hc_staff");
+        
+       if (docsLoaded == 1) {
+          setUpPage = 'complete';
+       }
+    } catch(ex) {
+    	catchInitializationError(builder, ex);
+        setUpPage = 'complete';
+    }
+}
+
+
+
+//
+//   This method is called on the completion of 
+//      each asychronous load started in setUpTests.
+//
+//   When every synchronous loaded document has completed,
+//      the page status is changed which allows the
+//      body of the test to be executed.
+function loadComplete() {
+    if (++docsLoaded == 1) {
+        setUpPageStatus = 'complete';
+    }
+}
+
+
+/**
+* 
+	Create a new Element node, add a new atttribute node to it.  Compare the position 
+	of the Element and the Document.  This should return disconnected, implementation specific, and that
+	the order of these two nodes is preserved. 
+	Also compare the position of the Element node with respect to the Attr node and this should
+	be PRECEDING and contains, and the Attr node follows and is contained by the Element node
+
+* @author IBM
+* @author Jenny Hsu
+* @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
+*/
+function nodecomparedocumentposition33() {
+   var success;
+    if(checkInitialization(builder, "nodecomparedocumentposition33") != null) return;
+    var doc;
+      var elem;
+      var attr;
+      var position1;
+      var position2;
+      var position3;
+      var position4;
+      var position5;
+      var replacedAttr;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      doc = load(docRef, "doc", "hc_staff");
+      elem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
+      attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
+      replacedAttr = elem.setAttributeNodeNS(attr);
+      position4 = elem.compareDocumentPosition(attr);
+      assertEquals("nodecomparedocumentposition3FollowingisContained33",20,position4);
+       position5 = attr.compareDocumentPosition(elem);
+      assertEquals("nodecomparedocumentposition4ContainsPRECEDING33",10,position5);
+       position1 = doc.compareDocumentPosition(elem);
+      assertEquals("isImplSpecificDisconnected1",33,position1);
+       position2 = elem.compareDocumentPosition(doc);
+      assert("notBothPreceding",position1 != position2);
+      assert("notBothFollowing",position1 != position2);
+      assertEquals("isImplSpecificDisconnected2",33,position2);
+       position3 = doc.compareDocumentPosition(elem);
+      assertEquals("isConsistent",position1,position3);
+       
+}
+
+</script>
+</head>
+<body>
+<h2>Test http://www.w3.org/2001/DOM-Test-Suite/level3/core/nodecomparedocumentposition33</h2>
+<p>&lt;test name='nodecomparedocumentposition33' schemaLocation='http://www.w3.org/2001/DOM-Test-Suite/Level-3 dom3.xsd'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;nodecomparedocumentposition33&lt;/title&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;creator&gt;IBM&lt;/creator&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;description&gt;
+	Create a new Element node, add a new atttribute node to it.  Compare the position 
+	of the Element and the Document.  This should return disconnected, implementation specific, and that
+	the order of these two nodes is preserved. 
+	Also compare the position of the Element node with respect to the Attr node and this should
+	be PRECEDING and contains, and the Attr node follows and is contained by the Element node
+&lt;/description&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;contributor&gt;Jenny Hsu&lt;/contributor&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;date qualifier='created'&gt;2003-02-21&lt;/date&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition">http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition</a>'/&gt;
+<br>&lt;/metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='doc' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='elem' type='Element'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='attr' type='Attr'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='position1' type='int'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='position2' type='int'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='position3' type='int'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='position4' type='int'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='position5' type='int'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='replacedAttr' type='Attr'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;load var='doc' href='hc_staff' willBeModified='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createElementNS var='elem' obj='doc' namespaceURI='"http://www.w3.org/1999/xhtml"' qualifiedName='"br"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createAttributeNS var='attr' obj='doc' namespaceURI='"http://www.w3.org/XML/1998/namespace"' qualifiedName='"xml:lang"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;setAttributeNodeNS obj='elem' var='replacedAttr' newAttr='attr'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;compareDocumentPosition var='position4' obj='elem' other='attr'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='position4' expected='20' <a id="nodecomparedocumentposition3FollowingisContained33">id='nodecomparedocumentposition3FollowingisContained33'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;compareDocumentPosition var='position5' obj='attr' other='elem'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='position5' expected='10' <a id="nodecomparedocumentposition4ContainsPRECEDING33">id='nodecomparedocumentposition4ContainsPRECEDING33'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;compareDocumentPosition var='position1' obj='doc' other='elem'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--  bitmask blocks out preceding and following bits   --&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals bitmask='57' actual='position1' expected='33' <a id="isImplSpecificDisconnected1">id='isImplSpecificDisconnected1'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;compareDocumentPosition var='position2' obj='elem' other='doc'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertNotEquals bitmask='2' actual='position2' expected='position1' <a id="notBothPreceding">id='notBothPreceding'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertNotEquals bitmask='4' actual='position2' expected='position1' <a id="notBothFollowing">id='notBothFollowing'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals bitmask='57' actual='position2' expected='33' <a id="isImplSpecificDisconnected2">id='isImplSpecificDisconnected2'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--  returned value should be consistent between invocations   --&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;compareDocumentPosition var='position3' obj='doc' other='elem'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='position3' expected='position1' <a id="isConsistent">id='isConsistent'</a> ignoreCase='false'/&gt;<br>&lt;/test&gt;<br>
+</p>
+<p>
+			Copyright (c) 2001-2004 World Wide Web Consortium,
+			(Massachusetts Institute of Technology, Institut National de
+			Recherche en Informatique et en Automatique, Keio University). All
+			Rights Reserved. This program is distributed under the W3C's Software
+			Intellectual Property License. This program is distributed in the
+			hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+			the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+			PURPOSE.
+			</p>
+<p>See W3C License <a href="http://www.w3.org/Consortium/Legal/">http://www.w3.org/Consortium/Legal/</a> 
+ for more details.</p>
+<iframe name="doc" src="files/hc_staff.xhtml"></iframe>
+<br>
+</body>
+</html>

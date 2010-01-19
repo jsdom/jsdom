@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>http://www.w3.org/2001/DOM-Test-Suite/level1/core/nodeappendchildchildexists</title>
+<link type="text/css" rel="stylesheet" href="http://www.w3.org/StyleSheets/activity-home.css">
+<script src="../../jsunit/app/jsUnitCore.js" type="text/javascript"></script><script src="DOMTestCase.js" type="text/javascript"></script><script type="text/javascript">
+// expose test function names
+function exposeTestFunctionNames()
+{
+return ['nodeappendchildchildexists'];
+}
+
+var docsLoaded = -1000000;
+var builder = null;
+
+//
+//   This function is called by the testing framework before
+//      running the test suite.
+//
+//   If there are no configuration exceptions, asynchronous
+//        document loading is started.  Otherwise, the status
+//        is set to complete and the exception is immediately
+//        raised when entering the body of the test.
+//
+function setUpPage() {
+   setUpPageStatus = 'running';
+   try {
+     //
+     //   creates test document builder, may throw exception
+     //
+     builder = createConfiguredBuilder();
+
+      docsLoaded = 0;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      docsLoaded += preload(docRef, "doc", "staff");
+        
+       if (docsLoaded == 1) {
+          setUpPage = 'complete';
+       }
+    } catch(ex) {
+    	catchInitializationError(builder, ex);
+        setUpPage = 'complete';
+    }
+}
+
+
+
+//
+//   This method is called on the completion of 
+//      each asychronous load started in setUpTests.
+//
+//   When every synchronous loaded document has completed,
+//      the page status is changed which allows the
+//      body of the test to be executed.
+function loadComplete() {
+    if (++docsLoaded == 1) {
+        setUpPageStatus = 'complete';
+    }
+}
+
+
+/**
+* 
+    If the "newChild" is already in the tree, it is first
+    removed before the new one is appended.
+    
+    Retrieve the first child of the second employee and   
+    append the first child to the end of the list.   After
+    the "appendChild(newChild)" method is invoked the first 
+    child should be the one that was second and the last
+    child should be the one that was first.
+
+* @author NIST
+* @author Mary Brady
+* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
+*/
+function nodeappendchildchildexists() {
+   var success;
+    if(checkInitialization(builder, "nodeappendchildchildexists") != null) return;
+    var doc;
+      var elementList;
+      var childNode;
+      var newChild;
+      var lchild;
+      var fchild;
+      var lchildName;
+      var fchildName;
+      var appendedChild;
+      var initialName;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      doc = load(docRef, "doc", "staff");
+      elementList = doc.getElementsByTagName("employee");
+      childNode = elementList.item(1);
+      newChild = childNode.firstChild;
+
+      initialName = newChild.nodeName;
+
+      appendedChild = childNode.appendChild(newChild);
+      fchild = childNode.firstChild;
+
+      fchildName = fchild.nodeName;
+
+      lchild = childNode.lastChild;
+
+      lchildName = lchild.nodeName;
+
+      
+	if(
+	("employeeId" == initialName)
+	) {
+	assertEquals("assert1_nowhitespace","name",fchildName);
+       assertEquals("assert2_nowhitespace","employeeId",lchildName);
+       
+	}
+	
+		else {
+			assertEquals("assert1","employeeId",fchildName);
+       assertEquals("assert2","#text",lchildName);
+       
+		}
+	
+}
+
+</script>
+</head>
+<body>
+<h2>Test http://www.w3.org/2001/DOM-Test-Suite/level1/core/nodeappendchildchildexists</h2>
+<p>&lt;test name='nodeappendchildchildexists' schemaLocation='http://www.w3.org/2001/DOM-Test-Suite/Level-1 dom1.xsd'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;nodeAppendChildChildExists&lt;/title&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;creator&gt;NIST&lt;/creator&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;description&gt;
+    If the "newChild" is already in the tree, it is first
+    removed before the new one is appended.
+    
+    Retrieve the first child of the second employee and   
+    append the first child to the end of the list.   After
+    the "appendChild(newChild)" method is invoked the first 
+    child should be the one that was second and the last
+    child should be the one that was first.
+&lt;/description&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;contributor&gt;Mary Brady&lt;/contributor&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;date qualifier='created'&gt;2001-08-17&lt;/date&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107">http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107</a>'/&gt;
+<br>&lt;/metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='doc' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='elementList' type='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='childNode' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='newChild' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='lchild' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='fchild' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='lchildName' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='fchildName' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='appendedChild' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='initialName' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;load var='doc' href='staff' willBeModified='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getElementsByTagName interface='Document' obj='doc' tagname='"employee"' var='elementList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item interface='NodeList' obj='elementList' index='1' var='childNode'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;firstChild interface='Node' obj='childNode' var='newChild'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeName var='initialName' obj='newChild'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;appendChild var='appendedChild' obj='childNode' newChild='newChild'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;firstChild interface='Node' obj='childNode' var='fchild'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeName obj='fchild' var='fchildName'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;lastChild interface='Node' obj='childNode' var='lchild'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeName obj='lchild' var='lchildName'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;equals actual='initialName' expected='"employeeId"' ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals <a id="assert1_nowhitespace">id='assert1_nowhitespace'</a> actual='fchildName' expected='"name"' ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals <a id="assert2_nowhitespace">id='assert2_nowhitespace'</a> actual='lchildName' expected='"employeeId"' ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;else&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals <a id="assert1">id='assert1'</a> actual='fchildName' expected='"employeeId"' ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals <a id="assert2">id='assert2'</a> actual='lchildName' expected='"#text"' ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/else&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/if&gt;<br>&lt;/test&gt;<br>
+</p>
+<p>
+			Copyright (c) 2001-2004 World Wide Web Consortium,
+			(Massachusetts Institute of Technology, Institut National de
+			Recherche en Informatique et en Automatique, Keio University). All
+			Rights Reserved. This program is distributed under the W3C's Software
+			Intellectual Property License. This program is distributed in the
+			hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+			the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+			PURPOSE.
+			</p>
+<p>See W3C License <a href="http://www.w3.org/Consortium/Legal/">http://www.w3.org/Consortium/Legal/</a> 
+ for more details.</p>
+</body>
+</html>

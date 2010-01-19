@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>http://www.w3.org/2001/DOM-Test-Suite/level3/core/normalizecharacters05</title>
+<link type="text/css" rel="stylesheet" href="http://www.w3.org/StyleSheets/activity-home.css">
+<script src="../../jsunit/app/jsUnitCore.js" type="text/javascript"></script><script src="DOMTestCase.js" type="text/javascript"></script><script type="text/javascript">
+// expose test function names
+function exposeTestFunctionNames()
+{
+return ['normalizecharacters05'];
+}
+
+var docsLoaded = -1000000;
+var builder = null;
+
+//
+//   This function is called by the testing framework before
+//      running the test suite.
+//
+//   If there are no configuration exceptions, asynchronous
+//        document loading is started.  Otherwise, the status
+//        is set to complete and the exception is immediately
+//        raised when entering the body of the test.
+//
+function setUpPage() {
+   setUpPageStatus = 'running';
+   try {
+     //
+     //   creates test document builder, may throw exception
+     //
+     builder = createConfiguredBuilder();
+       setImplementationAttribute("namespaceAware", true);
+
+      docsLoaded = 0;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      docsLoaded += preload(docRef, "doc", "barfoo");
+        
+       if (docsLoaded == 1) {
+          setUpPage = 'complete';
+       }
+    } catch(ex) {
+    	catchInitializationError(builder, ex);
+        setUpPage = 'complete';
+    }
+}
+
+
+
+//
+//   This method is called on the completion of 
+//      each asychronous load started in setUpTests.
+//
+//   When every synchronous loaded document has completed,
+//      the page status is changed which allows the
+//      body of the test to be executed.
+function loadComplete() {
+    if (++docsLoaded == 1) {
+        setUpPageStatus = 'complete';
+    }
+}
+
+//DOMErrorMonitor's require a document level variable named errorMonitor
+var errorMonitor;
+	 
+/**
+* 
+Normalize an document (using Node.normalize) with normalize-characters set to false, check that
+characters are not normalized.
+
+* @author Curt Arnold
+* @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-normalize
+* @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-normalize-characters
+* @see http://www.w3.org/TR/2003/WD-charmod-20030822/
+*/
+function normalizecharacters05() {
+   var success;
+    if(checkInitialization(builder, "normalizecharacters05") != null) return;
+    var doc;
+      var docElem;
+      var domConfig;
+      errorMonitor = new DOMErrorMonitor();
+      
+      var pList;
+      var pElem;
+      var text;
+      var textValue;
+      var retval;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      doc = load(docRef, "doc", "barfoo");
+      domConfig = doc.domConfig;
+
+      domConfig.setParameter("normalize-characters", false);
+	 domConfig.setParameter("error-handler", errorMonitor.handleError);
+	 pList = doc.getElementsByTagName("p");
+      pElem = pList.item(0);
+      text = doc.createTextNode("suçon");
+      retval = pElem.appendChild(text);
+      doc.normalize();
+      errorMonitor.assertLowerSeverity("normalizeError", 2);
+     pList = doc.getElementsByTagName("p");
+      pElem = pList.item(0);
+      text = pElem.firstChild;
+
+      textValue = text.nodeValue;
+
+      assertEquals("noCharNormalization","barsuçon",textValue);
+       
+}
+
+</script>
+</head>
+<body>
+<h2>Test http://www.w3.org/2001/DOM-Test-Suite/level3/core/normalizecharacters05</h2>
+<p>&lt;test name='normalizecharacters05' schemaLocation='http://www.w3.org/2001/DOM-Test-Suite/Level-3 dom3.xsd'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;normalizecharacters05&lt;/title&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;creator&gt;Curt Arnold&lt;/creator&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;description&gt;
+Normalize an document (using Node.normalize) with normalize-characters set to false, check that
+characters are not normalized.
+&lt;/description&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;date qualifier='created'&gt;2004-02-26&lt;/date&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-normalize">http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-normalize</a>'/&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-normalize-characters">http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-normalize-characters</a>'/&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/2003/WD-charmod-20030822/">http://www.w3.org/TR/2003/WD-charmod-20030822/</a>'/&gt;
+<br>&lt;/metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;implementationAttribute name='namespaceAware' value='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='doc' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='docElem' type='Element'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='domConfig' type='DOMConfiguration'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='errorMonitor' type='DOMErrorMonitor'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='pList' type='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='pElem' type='Element'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='text' type='Text'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='textValue' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='retval' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;load var='doc' href='barfoo' willBeModified='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;domConfig obj='doc' var='domConfig' interface='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;setParameter obj='domConfig' name='"normalize-characters"' value='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;setParameter obj='domConfig' name='"error-handler"' value='errorMonitor'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getElementsByTagName var='pList' obj='doc' tagname='"p"' interface='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item var='pElem' obj='pList' index='0' interface='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--  character entity is expanded during code generation
+        code equivalent to "suc\u0327on"    --&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createTextNode var='text' obj='doc' data='"suçon"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;appendChild var='retval' obj='pElem' newChild='text'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;normalize obj='doc'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--  fail test if normalize had any errors or fatal errors   --&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertLowerSeverity obj='errorMonitor' <a id="normalizeError">id='normalizeError'</a> severity='SEVERITY_ERROR'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getElementsByTagName var='pList' obj='doc' tagname='"p"' interface='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item var='pElem' obj='pList' index='0' interface='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;firstChild var='text' obj='pElem' interface='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeValue var='textValue' obj='text'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='textValue' expected='"barsuçon"' ignoreCase='false' <a id="noCharNormalization">id='noCharNormalization'</a>/&gt;<br>&lt;/test&gt;<br>
+</p>
+<p>
+			Copyright (c) 2001-2004 World Wide Web Consortium,
+			(Massachusetts Institute of Technology, Institut National de
+			Recherche en Informatique et en Automatique, Keio University). All
+			Rights Reserved. This program is distributed under the W3C's Software
+			Intellectual Property License. This program is distributed in the
+			hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+			the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+			PURPOSE.
+			</p>
+<p>See W3C License <a href="http://www.w3.org/Consortium/Legal/">http://www.w3.org/Consortium/Legal/</a> 
+ for more details.</p>
+<iframe name="doc" src="files/barfoo.xhtml"></iframe>
+<br>
+</body>
+</html>

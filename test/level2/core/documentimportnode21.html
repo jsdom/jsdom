@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>http://www.w3.org/2001/DOM-Test-Suite/level2/core/documentimportnode21</title>
+<link type="text/css" rel="stylesheet" href="http://www.w3.org/StyleSheets/activity-home.css">
+<script src="../../jsunit/app/jsUnitCore.js" type="text/javascript"></script><script src="DOMTestCase.js" type="text/javascript"></script><script type="text/javascript">
+// expose test function names
+function exposeTestFunctionNames()
+{
+return ['documentimportnode21'];
+}
+
+var docsLoaded = -1000000;
+var builder = null;
+
+//
+//   This function is called by the testing framework before
+//      running the test suite.
+//
+//   If there are no configuration exceptions, asynchronous
+//        document loading is started.  Otherwise, the status
+//        is set to complete and the exception is immediately
+//        raised when entering the body of the test.
+//
+function setUpPage() {
+   setUpPageStatus = 'running';
+   try {
+     //
+     //   creates test document builder, may throw exception
+     //
+     builder = createConfiguredBuilder();
+       setImplementationAttribute("namespaceAware", true);
+       setImplementationAttribute("expandEntityReferences", false);
+
+      docsLoaded = 0;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      docsLoaded += preload(docRef, "doc", "staffNS");
+        
+       if (docsLoaded == 1) {
+          setUpPage = 'complete';
+       }
+    } catch(ex) {
+    	catchInitializationError(builder, ex);
+        setUpPage = 'complete';
+    }
+}
+
+
+
+//
+//   This method is called on the completion of 
+//      each asychronous load started in setUpTests.
+//
+//   When every synchronous loaded document has completed,
+//      the page status is changed which allows the
+//      body of the test to be executed.
+function loadComplete() {
+    if (++docsLoaded == 1) {
+        setUpPageStatus = 'complete';
+    }
+}
+
+
+/**
+* 
+	The importNode method imports a node from another document to this document. 
+	The returned node has no parent; (parentNode is null). The source node is not 
+	altered or removed from the original document but a new copy of the source node
+	is created.
+	
+	Using the method importNode with deep=true, retreive the entity refs present in the 
+	second element node whose tagName is address and import these nodes into another document. 
+	Verify if the nodes have been imported correctly by checking the nodeNames of the 
+	imported nodes, since they are imported into a new document which doesnot have thes defined,
+	the imported nodes should not have any children.
+	Now import the entityRef nodes into the same document and verify if the nodes have been 
+	imported correctly by checking the nodeNames of the imported nodes, and by checking the 
+	value of the replacement text of the imported nodes.
+
+* @author IBM
+* @author Neil Delima
+* @see http://www.w3.org/TR/DOM-Level-2-Core/core
+* @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
+*/
+function documentimportnode21() {
+   var success;
+    if(checkInitialization(builder, "documentimportnode21") != null) return;
+    var doc;
+      var docTypeNull = null;
+
+      var docImp;
+      var domImpl;
+      var addressList;
+      var addressChildList;
+      var element;
+      var entRef2;
+      var entRefImp2;
+      var entRef3;
+      var entRefImp3;
+      var nodeName2;
+      var nodeName3;
+      var nodeNameImp2;
+      var nodeNameImp3;
+      var nodes;
+      var nodeImp3;
+      var nodeImp2;
+      var nodeValueImp2;
+      var nodeValueImp3;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      doc = load(docRef, "doc", "staffNS");
+      domImpl = doc.implementation;
+docImp = domImpl.createDocument("http://www.w3.org/DOM/Test","a:b",docTypeNull);
+      addressList = doc.getElementsByTagName("address");
+      element = addressList.item(1);
+      addressChildList = element.childNodes;
+
+      entRef2 = addressChildList.item(0);
+      entRef3 = addressChildList.item(2);
+      entRefImp2 = docImp.importNode(entRef2,true);
+      entRefImp3 = docImp.importNode(entRef3,false);
+      nodeName2 = entRef2.nodeName;
+
+      nodeName3 = entRef3.nodeName;
+
+      nodeNameImp2 = entRefImp2.nodeName;
+
+      nodeNameImp3 = entRefImp3.nodeName;
+
+      assertEquals("documentimportnode21_Ent2NodeName",nodeName2,nodeNameImp2);
+       assertEquals("documentimportnode21_Ent3NodeName",nodeName3,nodeNameImp3);
+       entRefImp2 = doc.importNode(entRef2,true);
+      entRefImp3 = doc.importNode(entRef3,false);
+      nodes = entRefImp2.childNodes;
+
+      nodeImp2 = nodes.item(0);
+      nodeValueImp2 = nodeImp2.nodeValue;
+
+      nodes = entRefImp3.childNodes;
+
+      nodeImp3 = nodes.item(0);
+      nodeValueImp3 = nodeImp3.nodeValue;
+
+      assertEquals("documentimportnode21_Ent2NodeValue","1900 Dallas Road",nodeValueImp2);
+       assertEquals("documentimportnode21_Ent3Nodevalue","Texas",nodeValueImp3);
+       
+}
+
+</script>
+</head>
+<body>
+<h2>Test http://www.w3.org/2001/DOM-Test-Suite/level2/core/documentimportnode21</h2>
+<p>&lt;test name='documentimportnode21' schemaLocation='http://www.w3.org/2001/DOM-Test-Suite/Level-2 dom2.xsd'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;documentimportnode21&lt;/title&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;creator&gt;IBM&lt;/creator&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;description&gt;
+	The importNode method imports a node from another document to this document. 
+	The returned node has no parent; (parentNode is null). The source node is not 
+	altered or removed from the original document but a new copy of the source node
+	is created.
+	
+	Using the method importNode with deep=true, retreive the entity refs present in the 
+	second element node whose tagName is address and import these nodes into another document. 
+	Verify if the nodes have been imported correctly by checking the nodeNames of the 
+	imported nodes, since they are imported into a new document which doesnot have thes defined,
+	the imported nodes should not have any children.
+	Now import the entityRef nodes into the same document and verify if the nodes have been 
+	imported correctly by checking the nodeNames of the imported nodes, and by checking the 
+	value of the replacement text of the imported nodes.
+&lt;/description&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;contributor&gt;Neil Delima&lt;/contributor&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;date qualifier='created'&gt;2002-04-30&lt;/date&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/DOM-Level-2-Core/core">http://www.w3.org/TR/DOM-Level-2-Core/core</a>'/&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode">http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode</a>'/&gt;
+<br>&lt;/metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;implementationAttribute name='namespaceAware' value='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;implementationAttribute name='expandEntityReferences' value='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='doc' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='docTypeNull' type='DocumentType' isNull='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='docImp' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='domImpl' type='DOMImplementation'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='addressList' type='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='addressChildList' type='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='element' type='Element'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='entRef2' type='EntityReference'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='entRefImp2' type='EntityReference'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='entRef3' type='EntityReference'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='entRefImp3' type='EntityReference'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='nodeName2' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='nodeName3' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='nodeNameImp2' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='nodeNameImp3' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='nodes' type='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='nodeImp3' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='nodeImp2' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='nodeValueImp2' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='nodeValueImp3' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;load var='doc' href='staffNS' willBeModified='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;implementation var='domImpl' obj='doc'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createDocument var='docImp' obj='domImpl' namespaceURI='"http://www.w3.org/DOM/Test"' qualifiedName='"a:b"' doctype='docTypeNull'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getElementsByTagName var='addressList' obj='doc' tagname='"address"' interface='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item var='element' obj='addressList' index='1' interface='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;childNodes var='addressChildList' obj='element'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item var='entRef2' obj='addressChildList' index='0' interface='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item var='entRef3' obj='addressChildList' index='2' interface='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;importNode var='entRefImp2' obj='docImp' importedNode='entRef2' deep='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;importNode var='entRefImp3' obj='docImp' importedNode='entRef3' deep='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeName var='nodeName2' obj='entRef2'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeName var='nodeName3' obj='entRef3'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeName var='nodeNameImp2' obj='entRefImp2'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeName var='nodeNameImp3' obj='entRefImp3'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals expected='nodeName2' actual='nodeNameImp2' <a id="documentimportnode21_Ent2NodeName">id='documentimportnode21_Ent2NodeName'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals expected='nodeName3' actual='nodeNameImp3' <a id="documentimportnode21_Ent3NodeName">id='documentimportnode21_Ent3NodeName'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;importNode var='entRefImp2' obj='doc' importedNode='entRef2' deep='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;importNode var='entRefImp3' obj='doc' importedNode='entRef3' deep='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;childNodes var='nodes' obj='entRefImp2' interface='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item var='nodeImp2' obj='nodes' index='0' interface='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeValue var='nodeValueImp2' obj='nodeImp2'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;childNodes var='nodes' obj='entRefImp3' interface='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item var='nodeImp3' obj='nodes' index='0' interface='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeValue var='nodeValueImp3' obj='nodeImp3'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='nodeValueImp2' expected='"1900 Dallas Road"' <a id="documentimportnode21_Ent2NodeValue">id='documentimportnode21_Ent2NodeValue'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='nodeValueImp3' expected='"Texas"' <a id="documentimportnode21_Ent3Nodevalue">id='documentimportnode21_Ent3Nodevalue'</a> ignoreCase='false'/&gt;<br>&lt;/test&gt;<br>
+</p>
+<p>
+			Copyright (c) 2001-2004 World Wide Web Consortium,
+			(Massachusetts Institute of Technology, Institut National de
+			Recherche en Informatique et en Automatique, Keio University). All
+			Rights Reserved. This program is distributed under the W3C's Software
+			Intellectual Property License. This program is distributed in the
+			hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+			the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+			PURPOSE.
+			</p>
+<p>See W3C License <a href="http://www.w3.org/Consortium/Legal/">http://www.w3.org/Consortium/Legal/</a> 
+ for more details.</p>
+</body>
+</html>

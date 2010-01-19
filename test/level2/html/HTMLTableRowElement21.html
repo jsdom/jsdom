@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>http://www.w3.org/2001/DOM-Test-Suite/level2/html/HTMLTableRowElement21</title>
+<link type="text/css" rel="stylesheet" href="http://www.w3.org/StyleSheets/activity-home.css">
+<script src="../../jsunit/app/jsUnitCore.js" type="text/javascript"></script><script src="DOMTestCase.js" type="text/javascript"></script><script type="text/javascript">
+// expose test function names
+function exposeTestFunctionNames()
+{
+return ['HTMLTableRowElement21'];
+}
+
+var docsLoaded = -1000000;
+var builder = null;
+
+//
+//   This function is called by the testing framework before
+//      running the test suite.
+//
+//   If there are no configuration exceptions, asynchronous
+//        document loading is started.  Otherwise, the status
+//        is set to complete and the exception is immediately
+//        raised when entering the body of the test.
+//
+function setUpPage() {
+   setUpPageStatus = 'running';
+   try {
+     //
+     //   creates test document builder, may throw exception
+     //
+     builder = createConfiguredBuilder();
+
+      docsLoaded = 0;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      docsLoaded += preload(docRef, "doc", "tablerow");
+        
+       if (docsLoaded == 1) {
+          setUpPage = 'complete';
+       }
+    } catch(ex) {
+    	catchInitializationError(builder, ex);
+        setUpPage = 'complete';
+    }
+}
+
+
+
+//
+//   This method is called on the completion of 
+//      each asychronous load started in setUpTests.
+//
+//   When every synchronous loaded document has completed,
+//      the page status is changed which allows the
+//      body of the test to be executed.
+function loadComplete() {
+    if (++docsLoaded == 1) {
+        setUpPageStatus = 'complete';
+    }
+}
+
+
+/**
+* 
+    The deleteCell() method deletes a cell from the currtent row.  If
+    the index is -1 the last cell in the row is deleted.
+
+    
+    Retrieve the fourth TR element and examine the value of
+    the cells length attribute which should be set to six.  
+    Check the value of the last TD element.  Invoke the
+    deleteCell() with an index of negative one
+    which will delete the last cell in the row. 
+    Check the value of the of the last cell 
+    and also the numbers of cells should now be five.
+
+* @author NIST
+* @author Rick Rivello
+* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-11738598
+*/
+function HTMLTableRowElement21() {
+   var success;
+    if(checkInitialization(builder, "HTMLTableRowElement21") != null) return;
+    var nodeList;
+      var cellsnodeList;
+      var testNode;
+      var trNode;
+      var cellNode;
+      var value;
+      var vcells;
+      var doc;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      doc = load(docRef, "doc", "tablerow");
+      nodeList = doc.getElementsByTagName("tr");
+      assertSize("Asize",5,nodeList);
+testNode = nodeList.item(3);
+      cellsnodeList = testNode.cells;
+
+      vcells = cellsnodeList.length;
+
+      assertEquals("cellsLink1",6,vcells);
+       trNode = cellsnodeList.item(5);
+      cellNode = trNode.firstChild;
+
+      value = cellNode.nodeValue;
+
+      assertEquals("value1Link","1230 North Ave. Dallas, Texas 98551",value);
+       testNode.deleteCell(-1);
+      testNode = nodeList.item(3);
+      cellsnodeList = testNode.cells;
+
+      vcells = cellsnodeList.length;
+
+      assertEquals("cellsLink2",5,vcells);
+       trNode = cellsnodeList.item(4);
+      cellNode = trNode.firstChild;
+
+      value = cellNode.nodeValue;
+
+      assertEquals("value2Link","Female",value);
+       
+}
+
+</script>
+</head>
+<body>
+<h2>Test http://www.w3.org/2001/DOM-Test-Suite/level2/html/HTMLTableRowElement21</h2>
+<p>&lt;test name='HTMLTableRowElement21' schemaLocation='http://www.w3.org/2001/DOM-Test-Suite/Level-2 dom2.xsd'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;HTMLTableRowElement21&lt;/title&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;creator&gt;NIST&lt;/creator&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;description&gt;
+    The deleteCell() method deletes a cell from the currtent row.  If
+    the index is -1 the last cell in the row is deleted.
+
+    
+    Retrieve the fourth TR element and examine the value of
+    the cells length attribute which should be set to six.  
+    Check the value of the last TD element.  Invoke the
+    deleteCell() with an index of negative one
+    which will delete the last cell in the row. 
+    Check the value of the of the last cell 
+    and also the numbers of cells should now be five.
+&lt;/description&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;contributor&gt;Rick Rivello&lt;/contributor&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;date qualifier='created'&gt;2002-11-07&lt;/date&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-11738598">http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-11738598</a>'/&gt;
+<br>&lt;/metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='nodeList' type='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='cellsnodeList' type='HTMLCollection'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='testNode' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='trNode' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='cellNode' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='value' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='vcells' type='int'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='doc' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;load var='doc' href='tablerow' willBeModified='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getElementsByTagName interface='Document' obj='doc' var='nodeList' tagname='"tr"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertSize collection='nodeList' size='5' <a id="Asize">id='Asize'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item interface='NodeList' obj='nodeList' var='testNode' index='3'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;cells interface='HTMLTableRowElement' obj='testNode' var='cellsnodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;length interface='HTMLCollection' obj='cellsnodeList' var='vcells'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='vcells' expected='6' <a id="cellsLink1">id='cellsLink1'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item interface='HTMLCollection' obj='cellsnodeList' var='trNode' index='5'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;firstChild interface='Node' obj='trNode' var='cellNode'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeValue obj='cellNode' var='value'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='value' expected='"1230 North Ave. Dallas, Texas 98551"' <a id="value1Link">id='value1Link'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;deleteCell interface='HTMLTableRowElement' obj='testNode' index='-1'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item interface='NodeList' obj='nodeList' var='testNode' index='3'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;cells interface='HTMLTableRowElement' obj='testNode' var='cellsnodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;length interface='HTMLCollection' obj='cellsnodeList' var='vcells'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='vcells' expected='5' <a id="cellsLink2">id='cellsLink2'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item interface='HTMLCollection' obj='cellsnodeList' var='trNode' index='4'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;firstChild interface='Node' obj='trNode' var='cellNode'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeValue obj='cellNode' var='value'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='value' expected='"Female"' <a id="value2Link">id='value2Link'</a> ignoreCase='false'/&gt;<br>&lt;/test&gt;<br>
+</p>
+<p>
+			Copyright (c) 2001-2004 World Wide Web Consortium,
+			(Massachusetts Institute of Technology, Institut National de
+			Recherche en Informatique et en Automatique, Keio University). All
+			Rights Reserved. This program is distributed under the W3C's Software
+			Intellectual Property License. This program is distributed in the
+			hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+			the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+			PURPOSE.
+			</p>
+<p>See W3C License <a href="http://www.w3.org/Consortium/Legal/">http://www.w3.org/Consortium/Legal/</a> 
+ for more details.</p>
+<iframe name="doc" src="files/tablerow.html"></iframe>
+<br>
+</body>
+</html>

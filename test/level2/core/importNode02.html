@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>http://www.w3.org/2001/DOM-Test-Suite/level2/core/importNode02</title>
+<link type="text/css" rel="stylesheet" href="http://www.w3.org/StyleSheets/activity-home.css">
+<script src="../../jsunit/app/jsUnitCore.js" type="text/javascript"></script><script src="DOMTestCase.js" type="text/javascript"></script><script type="text/javascript">
+// expose test function names
+function exposeTestFunctionNames()
+{
+return ['importNode02'];
+}
+
+var docsLoaded = -1000000;
+var builder = null;
+
+//
+//   This function is called by the testing framework before
+//      running the test suite.
+//
+//   If there are no configuration exceptions, asynchronous
+//        document loading is started.  Otherwise, the status
+//        is set to complete and the exception is immediately
+//        raised when entering the body of the test.
+//
+function setUpPage() {
+   setUpPageStatus = 'running';
+   try {
+     //
+     //   creates test document builder, may throw exception
+     //
+     builder = createConfiguredBuilder();
+
+      docsLoaded = 0;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      docsLoaded += preload(docRef, "doc", "staffNS");
+        
+      var aNewDocRef = null;
+      if (typeof(this.aNewDoc) != 'undefined') {
+        aNewDocRef = this.aNewDoc;
+      }
+      docsLoaded += preload(aNewDocRef, "aNewDoc", "staffNS");
+        
+       if (docsLoaded == 2) {
+          setUpPage = 'complete';
+       }
+    } catch(ex) {
+    	catchInitializationError(builder, ex);
+        setUpPage = 'complete';
+    }
+}
+
+
+
+//
+//   This method is called on the completion of 
+//      each asychronous load started in setUpTests.
+//
+//   When every synchronous loaded document has completed,
+//      the page status is changed which allows the
+//      body of the test to be executed.
+function loadComplete() {
+    if (++docsLoaded == 2) {
+        setUpPageStatus = 'complete';
+    }
+}
+
+
+/**
+* 
+    The "importNode(importedNode,deep)" method for a 
+   Document should import the given importedNode into that Document.
+   The importedNode is of type CData_Section.
+   
+   Create a CDATASection node with value being the string "this is CDATASection data" in 
+   a different document.  Invoke method importNode(importedNode,deep) on
+   this document.  Method should return a CDATASection node whose value matches
+   the above string. The returned node should belong to this document whose systemId is "staff.dtd"
+
+* @author NIST
+* @author Mary Brady
+* @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
+*/
+function importNode02() {
+   var success;
+    if(checkInitialization(builder, "importNode02") != null) return;
+    var doc;
+      var aNewDoc;
+      var cDataSec;
+      var aNode;
+      var ownerDocument;
+      var docType;
+      var system;
+      var value;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      doc = load(docRef, "doc", "staffNS");
+      
+      var aNewDocRef = null;
+      if (typeof(this.aNewDoc) != 'undefined') {
+        aNewDocRef = this.aNewDoc;
+      }
+      aNewDoc = load(aNewDocRef, "aNewDoc", "staffNS");
+      cDataSec = aNewDoc.createCDATASection("this is CDATASection data");
+      aNode = doc.importNode(cDataSec,false);
+      ownerDocument = aNode.ownerDocument;
+
+      assertNotNull("ownerDocumentNotNull",ownerDocument);
+docType = ownerDocument.doctype;
+
+      system = docType.systemId;
+
+      assertURIEquals("dtdSystemId",null,null,null,"staffNS.dtd",null,null,null,null,system);
+value = aNode.nodeValue;
+
+      assertEquals("nodeValue","this is CDATASection data",value);
+       
+}
+
+</script>
+</head>
+<body>
+<h2>Test http://www.w3.org/2001/DOM-Test-Suite/level2/core/importNode02</h2>
+<p>&lt;test name='importNode02' schemaLocation='http://www.w3.org/2001/DOM-Test-Suite/Level-2 dom2.xsd'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;importNode02&lt;/title&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;creator&gt;NIST&lt;/creator&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;description&gt;
+    The "importNode(importedNode,deep)" method for a 
+   Document should import the given importedNode into that Document.
+   The importedNode is of type CData_Section.
+   
+   Create a CDATASection node with value being the string "this is CDATASection data" in 
+   a different document.  Invoke method importNode(importedNode,deep) on
+   this document.  Method should return a CDATASection node whose value matches
+   the above string. The returned node should belong to this document whose systemId is "staff.dtd"
+&lt;/description&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;contributor&gt;Mary Brady&lt;/contributor&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;date qualifier='created'&gt;2001-08-17&lt;/date&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode">http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode</a>'/&gt;
+<br>&lt;/metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='doc' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='aNewDoc' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='cDataSec' type='CDATASection'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='aNode' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='ownerDocument' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='docType' type='DocumentType'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='system' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='value' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;load var='doc' href='staffNS' willBeModified='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;load var='aNewDoc' href='staffNS' willBeModified='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createCDATASection obj='aNewDoc' var='cDataSec' data='"this is CDATASection data"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;importNode obj='doc' var='aNode' importedNode='cDataSec' deep='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ownerDocument obj='aNode' var='ownerDocument'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertNotNull actual='ownerDocument' <a id="ownerDocumentNotNull">id='ownerDocumentNotNull'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;doctype obj='ownerDocument' var='docType'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;systemId interface='DocumentType' obj='docType' var='system'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertURIEquals actual='system' file='"staffNS.dtd"' <a id="dtdSystemId">id='dtdSystemId'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeValue obj='aNode' var='value'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='value' expected='"this is CDATASection data"' <a id="nodeValue">id='nodeValue'</a> ignoreCase='false'/&gt;<br>&lt;/test&gt;<br>
+</p>
+<p>
+			Copyright (c) 2001-2004 World Wide Web Consortium,
+			(Massachusetts Institute of Technology, Institut National de
+			Recherche en Informatique et en Automatique, Keio University). All
+			Rights Reserved. This program is distributed under the W3C's Software
+			Intellectual Property License. This program is distributed in the
+			hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+			the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+			PURPOSE.
+			</p>
+<p>See W3C License <a href="http://www.w3.org/Consortium/Legal/">http://www.w3.org/Consortium/Legal/</a> 
+ for more details.</p>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>http://www.w3.org/2001/DOM-Test-Suite/level2/html/HTMLTableElement39</title>
+<link type="text/css" rel="stylesheet" href="http://www.w3.org/StyleSheets/activity-home.css">
+<script src="../../jsunit/app/jsUnitCore.js" type="text/javascript"></script><script src="DOMTestCase.js" type="text/javascript"></script><script type="text/javascript">
+// expose test function names
+function exposeTestFunctionNames()
+{
+return ['HTMLTableElement39'];
+}
+
+var docsLoaded = -1000000;
+var builder = null;
+
+//
+//   This function is called by the testing framework before
+//      running the test suite.
+//
+//   If there are no configuration exceptions, asynchronous
+//        document loading is started.  Otherwise, the status
+//        is set to complete and the exception is immediately
+//        raised when entering the body of the test.
+//
+function setUpPage() {
+   setUpPageStatus = 'running';
+   try {
+     //
+     //   creates test document builder, may throw exception
+     //
+     builder = createConfiguredBuilder();
+
+      docsLoaded = 0;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      docsLoaded += preload(docRef, "doc", "table");
+        
+       if (docsLoaded == 1) {
+          setUpPage = 'complete';
+       }
+    } catch(ex) {
+    	catchInitializationError(builder, ex);
+        setUpPage = 'complete';
+    }
+}
+
+
+
+//
+//   This method is called on the completion of 
+//      each asychronous load started in setUpTests.
+//
+//   When every synchronous loaded document has completed,
+//      the page status is changed which allows the
+//      body of the test to be executed.
+function loadComplete() {
+    if (++docsLoaded == 1) {
+        setUpPageStatus = 'complete';
+    }
+}
+
+
+/**
+* 
+    The insertRow() method inserts a new empty table row. 
+    If index is -1 or equal to the number of rows, the new row
+    is appended.
+    
+    Retrieve the second TABLE element and invoke the insertRow() method
+    with an index of negative one.   
+    The number of rows in the TBODY section before insertion with an index
+    of negative one is two.  After the new row is inserted the number 
+    of rows in the TBODY section is three.
+
+* @author NIST
+* @author Rick Rivello
+* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-39872903
+*/
+function HTMLTableElement39() {
+   var success;
+    if(checkInitialization(builder, "HTMLTableElement39") != null) return;
+    var nodeList;
+      var tbodiesnodeList;
+      var testNode;
+      var bodyNode;
+      var newRow;
+      var rowsnodeList;
+      var vsection1;
+      var vsection2;
+      var vrows;
+      var doc;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      doc = load(docRef, "doc", "table");
+      nodeList = doc.getElementsByTagName("table");
+      assertSize("Asize",3,nodeList);
+testNode = nodeList.item(1);
+      tbodiesnodeList = testNode.tBodies;
+
+      bodyNode = tbodiesnodeList.item(0);
+      rowsnodeList = bodyNode.rows;
+
+      vrows = rowsnodeList.length;
+
+      assertEquals("rowsLink1",2,vrows);
+       newRow = testNode.insertRow(-1);
+      tbodiesnodeList = testNode.tBodies;
+
+      bodyNode = tbodiesnodeList.item(0);
+      rowsnodeList = bodyNode.rows;
+
+      vrows = rowsnodeList.length;
+
+      assertEquals("rowsLink2",3,vrows);
+       
+}
+
+</script>
+</head>
+<body>
+<h2>Test http://www.w3.org/2001/DOM-Test-Suite/level2/html/HTMLTableElement39</h2>
+<p>&lt;test name='HTMLTableElement39' schemaLocation='http://www.w3.org/2001/DOM-Test-Suite/Level-2 dom2.xsd'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;HTMLTableElement39&lt;/title&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;creator&gt;NIST&lt;/creator&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;description&gt;
+    The insertRow() method inserts a new empty table row. 
+    If index is -1 or equal to the number of rows, the new row
+    is appended.
+    
+    Retrieve the second TABLE element and invoke the insertRow() method
+    with an index of negative one.   
+    The number of rows in the TBODY section before insertion with an index
+    of negative one is two.  After the new row is inserted the number 
+    of rows in the TBODY section is three.
+&lt;/description&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;contributor&gt;Rick Rivello&lt;/contributor&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;date qualifier='created'&gt;2002-11-07&lt;/date&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-39872903">http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-39872903</a>'/&gt;
+<br>&lt;/metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='nodeList' type='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='tbodiesnodeList' type='HTMLCollection'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='testNode' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='bodyNode' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='newRow' type='HTMLElement'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='rowsnodeList' type='HTMLCollection'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='vsection1' type='HTMLTableSectionElement'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='vsection2' type='HTMLTableSectionElement'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='vrows' type='int'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='doc' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;load var='doc' href='table' willBeModified='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getElementsByTagName interface='Document' obj='doc' var='nodeList' tagname='"table"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertSize collection='nodeList' size='3' <a id="Asize">id='Asize'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item interface='NodeList' obj='nodeList' var='testNode' index='1'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tBodies interface='HTMLTableElement' obj='testNode' var='tbodiesnodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item interface='HTMLCollection' obj='tbodiesnodeList' var='bodyNode' index='0'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;rows interface='HTMLTableSectionElement' obj='bodyNode' var='rowsnodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;length interface='HTMLCollection' obj='rowsnodeList' var='vrows'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='vrows' expected='2' <a id="rowsLink1">id='rowsLink1'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;insertRow interface='HTMLTableElement' obj='testNode' var='newRow' index='-1'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tBodies interface='HTMLTableElement' obj='testNode' var='tbodiesnodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item interface='HTMLCollection' obj='tbodiesnodeList' var='bodyNode' index='0'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;rows interface='HTMLTableSectionElement' obj='bodyNode' var='rowsnodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;length interface='HTMLCollection' obj='rowsnodeList' var='vrows'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='vrows' expected='3' <a id="rowsLink2">id='rowsLink2'</a> ignoreCase='false'/&gt;<br>&lt;/test&gt;<br>
+</p>
+<p>
+			Copyright (c) 2001-2004 World Wide Web Consortium,
+			(Massachusetts Institute of Technology, Institut National de
+			Recherche en Informatique et en Automatique, Keio University). All
+			Rights Reserved. This program is distributed under the W3C's Software
+			Intellectual Property License. This program is distributed in the
+			hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+			the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+			PURPOSE.
+			</p>
+<p>See W3C License <a href="http://www.w3.org/Consortium/Legal/">http://www.w3.org/Consortium/Legal/</a> 
+ for more details.</p>
+<iframe name="doc" src="files/table.html"></iframe>
+<br>
+</body>
+</html>

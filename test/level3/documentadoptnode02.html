@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>http://www.w3.org/2001/DOM-Test-Suite/level3/core/documentadoptnode02</title>
+<link type="text/css" rel="stylesheet" href="http://www.w3.org/StyleSheets/activity-home.css">
+<script src="../../jsunit/app/jsUnitCore.js" type="text/javascript"></script><script src="DOMTestCase.js" type="text/javascript"></script><script type="text/javascript">
+// expose test function names
+function exposeTestFunctionNames()
+{
+return ['documentadoptnode02'];
+}
+
+var docsLoaded = -1000000;
+var builder = null;
+
+//
+//   This function is called by the testing framework before
+//      running the test suite.
+//
+//   If there are no configuration exceptions, asynchronous
+//        document loading is started.  Otherwise, the status
+//        is set to complete and the exception is immediately
+//        raised when entering the body of the test.
+//
+function setUpPage() {
+   setUpPageStatus = 'running';
+   try {
+     //
+     //   creates test document builder, may throw exception
+     //
+     builder = createConfiguredBuilder();
+
+      docsLoaded = 0;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      docsLoaded += preload(docRef, "doc", "hc_staff");
+        
+       if (docsLoaded == 1) {
+          setUpPage = 'complete';
+       }
+    } catch(ex) {
+    	catchInitializationError(builder, ex);
+        setUpPage = 'complete';
+    }
+}
+
+
+
+//
+//   This method is called on the completion of 
+//      each asychronous load started in setUpTests.
+//
+//   When every synchronous loaded document has completed,
+//      the page status is changed which allows the
+//      body of the test to be executed.
+function loadComplete() {
+    if (++docsLoaded == 1) {
+        setUpPageStatus = 'complete';
+    }
+}
+
+
+/**
+* 
+	Adopt the class attribute node of the fourth acronym element.  Check if this attribute has been adopted 
+	successfully by verifying the nodeName, nodeType, ownerElement, specified attributes and child nodes 
+	of the adopted node.
+
+* @author IBM
+* @author Neil Delima
+* @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
+*/
+function documentadoptnode02() {
+   var success;
+    if(checkInitialization(builder, "documentadoptnode02") != null) return;
+    var doc;
+      var newDoc;
+      var domImpl;
+      var attrOwnerElem;
+      var element;
+      var attr;
+      var childList;
+      var adoptedclass;
+      var attrsParent;
+      var nodeName;
+      var nodeType;
+      var nodeValue;
+      var isSpecified;
+      var nullDocType = null;
+
+      var firstChild;
+      var firstChildValue;
+      var secondChild;
+      var secondChildType;
+      var secondChildName;
+      var docElem;
+      var rootNS;
+      var rootName;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      doc = load(docRef, "doc", "hc_staff");
+      docElem = doc.documentElement;
+
+      rootName = docElem.tagName;
+
+      rootNS = docElem.namespaceURI;
+
+      domImpl = doc.implementation;
+newDoc = domImpl.createDocument(rootNS,rootName,nullDocType);
+      childList = doc.getElementsByTagName("acronym");
+      element = childList.item(3);
+      attr = element.getAttributeNode("class");
+      adoptedclass = newDoc.adoptNode(attr);
+      
+	if(
+	
+	(adoptedclass != null)
+
+	) {
+	nodeName = adoptedclass.nodeName;
+
+      nodeValue = adoptedclass.nodeValue;
+
+      nodeType = adoptedclass.nodeType;
+
+      attrOwnerElem = adoptedclass.ownerElement;
+
+      isSpecified = adoptedclass.specified;
+
+      assertEquals("documentadoptnode02_nodeName","class",nodeName);
+       assertEquals("documentadoptnode02_nodeType",2,nodeType);
+       assertNull("documentadoptnode02_ownerDoc",attrOwnerElem);
+    assertTrue("documentadoptnode02_specified",isSpecified);
+firstChild = adoptedclass.firstChild;
+
+      assertNotNull("firstChildNotNull",firstChild);
+firstChildValue = firstChild.nodeValue;
+
+      
+	if(
+	("Y" == firstChildValue)
+	) {
+	secondChild = firstChild.nextSibling;
+
+      assertNotNull("secondChildNotNull",secondChild);
+secondChildType = secondChild.nodeType;
+
+      assertEquals("secondChildIsEntityReference",5,secondChildType);
+       secondChildName = secondChild.nodeName;
+
+      assertEquals("secondChildIsEnt1Reference","alpha",secondChildName);
+       
+	}
+	
+		else {
+			assertEquals("documentadoptnode02_nodeValue","Yα",nodeValue);
+       
+		}
+	
+	}
+	
+}
+
+</script>
+</head>
+<body>
+<h2>Test http://www.w3.org/2001/DOM-Test-Suite/level3/core/documentadoptnode02</h2>
+<p>&lt;test name='documentadoptnode02' schemaLocation='http://www.w3.org/2001/DOM-Test-Suite/Level-3 dom3.xsd'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;documentadoptnode02&lt;/title&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;creator&gt;IBM&lt;/creator&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;description&gt;
+	Adopt the class attribute node of the fourth acronym element.  Check if this attribute has been adopted 
+	successfully by verifying the nodeName, nodeType, ownerElement, specified attributes and child nodes 
+	of the adopted node.
+&lt;/description&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;contributor&gt;Neil Delima&lt;/contributor&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;date qualifier='created'&gt;2002-06-10&lt;/date&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode">http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode</a>'/&gt;
+<br>&lt;/metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='doc' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='newDoc' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='domImpl' type='DOMImplementation'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='attrOwnerElem' type='Element'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='element' type='Element'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='attr' type='Attr'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='childList' type='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='adoptedclass' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='attrsParent' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='nodeName' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='nodeType' type='int'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='nodeValue' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='isSpecified' type='boolean'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='nullDocType' type='DocumentType' isNull='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='firstChild' type='Text'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='firstChildValue' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='secondChild' type='EntityReference'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='secondChildType' type='int'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='secondChildName' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='docElem' type='Element'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='rootNS' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='rootName' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;load var='doc' href='hc_staff' willBeModified='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;documentElement var='docElem' obj='doc'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tagName var='rootName' obj='docElem'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;namespaceURI var='rootNS' obj='docElem' interface='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;implementation var='domImpl' obj='doc'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createDocument var='newDoc' obj='domImpl' namespaceURI='rootNS' qualifiedName='rootName' doctype='nullDocType'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getElementsByTagName var='childList' obj='doc' tagname='"acronym"' interface='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item var='element' obj='childList' index='3' interface='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getAttributeNode var='attr' obj='element' name='"class"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;adoptNode var='adoptedclass' obj='newDoc' source='attr'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;notNull obj='adoptedclass'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeName var='nodeName' obj='adoptedclass'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeValue var='nodeValue' obj='adoptedclass'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeType var='nodeType' obj='adoptedclass'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ownerElement var='attrOwnerElem' obj='adoptedclass' interface='Attr'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;specified var='isSpecified' obj='adoptedclass'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals expected='"class"' actual='nodeName' <a id="documentadoptnode02_nodeName">id='documentadoptnode02_nodeName'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals expected='2' actual='nodeType' <a id="documentadoptnode02_nodeType">id='documentadoptnode02_nodeType'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertNull actual='attrOwnerElem' <a id="documentadoptnode02_ownerDoc">id='documentadoptnode02_ownerDoc'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertTrue actual='isSpecified' <a id="documentadoptnode02_specified">id='documentadoptnode02_specified'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--  The attribute's child list can either be a text node "Yes" or 
+          an text node "Y" and a entity reference to "alpha"  --&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;firstChild var='firstChild' obj='adoptedclass' interface='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertNotNull actual='firstChild' <a id="firstChildNotNull">id='firstChildNotNull'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeValue var='firstChildValue' obj='firstChild'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;equals actual='firstChildValue' expected='"Y"' ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nextSibling var='secondChild' obj='firstChild' interface='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertNotNull actual='secondChild' <a id="secondChildNotNull">id='secondChildNotNull'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeType var='secondChildType' obj='secondChild'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='secondChildType' expected='5' <a id="secondChildIsEntityReference">id='secondChildIsEntityReference'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeName var='secondChildName' obj='secondChild'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='secondChildName' expected='"alpha"' <a id="secondChildIsEnt1Reference">id='secondChildIsEnt1Reference'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;else&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals expected='"Yα"' actual='nodeValue' <a id="documentadoptnode02_nodeValue">id='documentadoptnode02_nodeValue'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/else&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/if&gt;<br>&lt;/test&gt;<br>
+</p>
+<p>
+			Copyright (c) 2001-2004 World Wide Web Consortium,
+			(Massachusetts Institute of Technology, Institut National de
+			Recherche en Informatique et en Automatique, Keio University). All
+			Rights Reserved. This program is distributed under the W3C's Software
+			Intellectual Property License. This program is distributed in the
+			hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+			the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+			PURPOSE.
+			</p>
+<p>See W3C License <a href="http://www.w3.org/Consortium/Legal/">http://www.w3.org/Consortium/Legal/</a> 
+ for more details.</p>
+<iframe name="doc" src="files/hc_staff.xhtml"></iframe>
+<br>
+</body>
+</html>

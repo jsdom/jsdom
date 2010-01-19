@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>http://www.w3.org/2001/DOM-Test-Suite/level3/core/nodegetfeature02</title>
+<link type="text/css" rel="stylesheet" href="http://www.w3.org/StyleSheets/activity-home.css">
+<script src="../../jsunit/app/jsUnitCore.js" type="text/javascript"></script><script src="DOMTestCase.js" type="text/javascript"></script><script type="text/javascript">
+// expose test function names
+function exposeTestFunctionNames()
+{
+return ['nodegetfeature02'];
+}
+
+var docsLoaded = -1000000;
+var builder = null;
+
+//
+//   This function is called by the testing framework before
+//      running the test suite.
+//
+//   If there are no configuration exceptions, asynchronous
+//        document loading is started.  Otherwise, the status
+//        is set to complete and the exception is immediately
+//        raised when entering the body of the test.
+//
+function setUpPage() {
+   setUpPageStatus = 'running';
+   try {
+     //
+     //   creates test document builder, may throw exception
+     //
+     builder = createConfiguredBuilder();
+
+      docsLoaded = 0;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      docsLoaded += preload(docRef, "doc", "barfoo");
+        
+       if (docsLoaded == 1) {
+          setUpPage = 'complete';
+       }
+    } catch(ex) {
+    	catchInitializationError(builder, ex);
+        setUpPage = 'complete';
+    }
+}
+
+
+
+//
+//   This method is called on the completion of 
+//      each asychronous load started in setUpTests.
+//
+//   When every synchronous loaded document has completed,
+//      the page status is changed which allows the
+//      body of the test to be executed.
+function loadComplete() {
+    if (++docsLoaded == 1) {
+        setUpPageStatus = 'complete';
+    }
+}
+
+
+/**
+* 
+Check implementation of Node.getFeature on DocumentFragment.
+
+* @author Curt Arnold
+* @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getFeature
+*/
+function nodegetfeature02() {
+   var success;
+    if(checkInitialization(builder, "nodegetfeature02") != null) return;
+    var doc;
+      var node;
+      var nullVersion = null;
+
+      var featureImpl;
+      var isSupported;
+      var domImpl;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      doc = load(docRef, "doc", "barfoo");
+      domImpl = doc.implementation;
+node = doc.createDocumentFragment();
+      featureImpl = node.getFeature("Core",nullVersion);
+      assertSame("coreUnspecifiedVersion",node,featureImpl);
+featureImpl = node.getFeature("cOrE",nullVersion);
+      assertSame("cOrEUnspecifiedVersion",node,featureImpl);
+featureImpl = node.getFeature("+cOrE",nullVersion);
+      assertSame("PlusCoreUnspecifiedVersion",node,featureImpl);
+featureImpl = node.getFeature("org.w3c.domts.bogus.feature",nullVersion);
+      assertNull("unrecognizedFeature",featureImpl);
+    featureImpl = node.getFeature("cOrE","2.0");
+      assertSame("Core20",node,featureImpl);
+featureImpl = node.getFeature("cOrE","3.0");
+      assertSame("Core30",node,featureImpl);
+isSupported = node.isSupported("XML",nullVersion);
+      featureImpl = node.getFeature("XML",nullVersion);
+      
+	if(
+	isSupported
+	) {
+	assertSame("XMLUnspecified",node,featureImpl);
+
+	}
+	isSupported = node.isSupported("SVG",nullVersion);
+      featureImpl = node.getFeature("SVG",nullVersion);
+      
+	if(
+	isSupported
+	) {
+	assertSame("SVGUnspecified",node,featureImpl);
+
+	}
+	isSupported = node.isSupported("HTML",nullVersion);
+      featureImpl = node.getFeature("HTML",nullVersion);
+      
+	if(
+	isSupported
+	) {
+	assertSame("HTMLUnspecified",node,featureImpl);
+
+	}
+	isSupported = node.isSupported("Events",nullVersion);
+      featureImpl = node.getFeature("Events",nullVersion);
+      
+	if(
+	isSupported
+	) {
+	assertSame("EventsUnspecified",node,featureImpl);
+
+	}
+	isSupported = node.isSupported("LS",nullVersion);
+      featureImpl = node.getFeature("LS",nullVersion);
+      
+	if(
+	isSupported
+	) {
+	assertSame("LSUnspecified",node,featureImpl);
+
+	}
+	isSupported = node.isSupported("LS-Async",nullVersion);
+      featureImpl = node.getFeature("LS-Async",nullVersion);
+      
+	if(
+	isSupported
+	) {
+	assertSame("LSAsyncUnspecified",node,featureImpl);
+
+	}
+	isSupported = node.isSupported("XPath",nullVersion);
+      featureImpl = node.getFeature("XPath",nullVersion);
+      
+	if(
+	isSupported
+	) {
+	assertSame("XPathUnspecified",node,featureImpl);
+
+	}
+	isSupported = node.isSupported("+HTML",nullVersion);
+      featureImpl = node.getFeature("HTML",nullVersion);
+      
+	if(
+	isSupported
+	) {
+	assertNotNull("PlusHTMLUnspecified",featureImpl);
+
+	}
+	isSupported = node.isSupported("+SVG",nullVersion);
+      featureImpl = node.getFeature("SVG",nullVersion);
+      
+	if(
+	isSupported
+	) {
+	assertNotNull("PlusSVGUnspecified",featureImpl);
+
+	}
+	
+}
+
+</script>
+</head>
+<body>
+<h2>Test http://www.w3.org/2001/DOM-Test-Suite/level3/core/nodegetfeature02</h2>
+<p>&lt;test name='nodegetfeature02' schemaLocation='http://www.w3.org/2001/DOM-Test-Suite/Level-3 dom3.xsd'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;nodegetfeature02&lt;/title&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;creator&gt;Curt Arnold&lt;/creator&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;description&gt;
+Check implementation of Node.getFeature on DocumentFragment.
+&lt;/description&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;date qualifier='created'&gt;2004-02-25&lt;/date&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getFeature">http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getFeature</a>'/&gt;
+<br>&lt;/metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='doc' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='node' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='nullVersion' type='DOMString' isNull='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='featureImpl' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='isSupported' type='boolean'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='domImpl' type='DOMImplementation'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;load var='doc' href='barfoo' willBeModified='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;implementation var='domImpl' obj='doc'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createDocumentFragment var='node' obj='doc'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getFeature interface='Node' var='featureImpl' obj='node' feature='"Core"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertSame actual='featureImpl' expected='node' <a id="coreUnspecifiedVersion">id='coreUnspecifiedVersion'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getFeature interface='Node' var='featureImpl' obj='node' feature='"cOrE"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertSame actual='featureImpl' expected='node' <a id="cOrEUnspecifiedVersion">id='cOrEUnspecifiedVersion'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getFeature interface='Node' var='featureImpl' obj='node' feature='"+cOrE"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertSame actual='featureImpl' expected='node' <a id="PlusCoreUnspecifiedVersion">id='PlusCoreUnspecifiedVersion'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getFeature interface='Node' var='featureImpl' obj='node' feature='"org.w3c.domts.bogus.feature"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertNull actual='featureImpl' <a id="unrecognizedFeature">id='unrecognizedFeature'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getFeature interface='Node' var='featureImpl' obj='node' feature='"cOrE"' version='"2.0"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertSame actual='featureImpl' expected='node' <a id="Core20">id='Core20'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getFeature interface='Node' var='featureImpl' obj='node' feature='"cOrE"' version='"3.0"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertSame actual='featureImpl' expected='node' <a id="Core30">id='Core30'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--  ask for some well-known feature, 
+    can't say that they will be supported but they should not throw an exception  --&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;isSupported var='isSupported' obj='node' feature='"XML"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getFeature interface='Node' var='featureImpl' obj='node' feature='"XML"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;isTrue value='isSupported'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertSame actual='featureImpl' expected='node' <a id="XMLUnspecified">id='XMLUnspecified'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;isSupported var='isSupported' obj='node' feature='"SVG"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getFeature interface='Node' var='featureImpl' obj='node' feature='"SVG"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;isTrue value='isSupported'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertSame actual='featureImpl' expected='node' <a id="SVGUnspecified">id='SVGUnspecified'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;isSupported var='isSupported' obj='node' feature='"HTML"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getFeature interface='Node' var='featureImpl' obj='node' feature='"HTML"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;isTrue value='isSupported'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertSame actual='featureImpl' expected='node' <a id="HTMLUnspecified">id='HTMLUnspecified'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;isSupported var='isSupported' obj='node' feature='"Events"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getFeature interface='Node' var='featureImpl' obj='node' feature='"Events"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;isTrue value='isSupported'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertSame actual='featureImpl' expected='node' <a id="EventsUnspecified">id='EventsUnspecified'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;isSupported var='isSupported' obj='node' feature='"LS"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getFeature interface='Node' var='featureImpl' obj='node' feature='"LS"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;isTrue value='isSupported'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertSame actual='featureImpl' expected='node' <a id="LSUnspecified">id='LSUnspecified'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;isSupported var='isSupported' obj='node' feature='"LS-Async"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getFeature interface='Node' var='featureImpl' obj='node' feature='"LS-Async"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;isTrue value='isSupported'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertSame actual='featureImpl' expected='node' <a id="LSAsyncUnspecified">id='LSAsyncUnspecified'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;isSupported var='isSupported' obj='node' feature='"XPath"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getFeature interface='Node' var='featureImpl' obj='node' feature='"XPath"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;isTrue value='isSupported'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertSame actual='featureImpl' expected='node' <a id="XPathUnspecified">id='XPathUnspecified'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;isSupported var='isSupported' obj='node' feature='"+HTML"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getFeature interface='Node' var='featureImpl' obj='node' feature='"HTML"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;isTrue value='isSupported'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertNotNull actual='featureImpl' <a id="PlusHTMLUnspecified">id='PlusHTMLUnspecified'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;isSupported var='isSupported' obj='node' feature='"+SVG"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getFeature interface='Node' var='featureImpl' obj='node' feature='"SVG"' version='nullVersion'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;isTrue value='isSupported'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertNotNull actual='featureImpl' <a id="PlusSVGUnspecified">id='PlusSVGUnspecified'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/if&gt;<br>&lt;/test&gt;<br>
+</p>
+<p>
+			Copyright (c) 2001-2004 World Wide Web Consortium,
+			(Massachusetts Institute of Technology, Institut National de
+			Recherche en Informatique et en Automatique, Keio University). All
+			Rights Reserved. This program is distributed under the W3C's Software
+			Intellectual Property License. This program is distributed in the
+			hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+			the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+			PURPOSE.
+			</p>
+<p>See W3C License <a href="http://www.w3.org/Consortium/Legal/">http://www.w3.org/Consortium/Legal/</a> 
+ for more details.</p>
+<iframe name="doc" src="files/barfoo.xhtml"></iframe>
+<br>
+</body>
+</html>

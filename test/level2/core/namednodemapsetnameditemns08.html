@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>http://www.w3.org/2001/DOM-Test-Suite/level2/core/namednodemapsetnameditemns08</title>
+<link type="text/css" rel="stylesheet" href="http://www.w3.org/StyleSheets/activity-home.css">
+<script src="../../jsunit/app/jsUnitCore.js" type="text/javascript"></script><script src="DOMTestCase.js" type="text/javascript"></script><script type="text/javascript">
+// expose test function names
+function exposeTestFunctionNames()
+{
+return ['namednodemapsetnameditemns08'];
+}
+
+var docsLoaded = -1000000;
+var builder = null;
+
+//
+//   This function is called by the testing framework before
+//      running the test suite.
+//
+//   If there are no configuration exceptions, asynchronous
+//        document loading is started.  Otherwise, the status
+//        is set to complete and the exception is immediately
+//        raised when entering the body of the test.
+//
+function setUpPage() {
+   setUpPageStatus = 'running';
+   try {
+     //
+     //   creates test document builder, may throw exception
+     //
+     builder = createConfiguredBuilder();
+       setImplementationAttribute("namespaceAware", true);
+
+      docsLoaded = 0;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      docsLoaded += preload(docRef, "doc", "staffNS");
+        
+       if (docsLoaded == 1) {
+          setUpPage = 'complete';
+       }
+    } catch(ex) {
+    	catchInitializationError(builder, ex);
+        setUpPage = 'complete';
+    }
+}
+
+
+
+//
+//   This method is called on the completion of 
+//      each asychronous load started in setUpTests.
+//
+//   When every synchronous loaded document has completed,
+//      the page status is changed which allows the
+//      body of the test to be executed.
+function loadComplete() {
+    if (++docsLoaded == 1) {
+        setUpPageStatus = 'complete';
+    }
+}
+
+
+/**
+* 
+    raises a INUSE_ATTRIBUTE_ERR Raised if arg is an Attr that is already an 
+    attribute of another Element object. 
+
+	Retreieve the first element whose localName is address and its attributes into a named node map.
+	Retreiving the domestic attribute from the namednodemap.	 Retreieve the second element whose 
+	localName is address and its attributes into a named node map.	Invoke setNamedItemNS on the 
+	second NamedNodeMap specifying the attribute from the first map.  
+	This should raise an INUSE_ATTRIBIUTE_ERR.
+
+* @author IBM
+* @author Neil Delima
+* @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
+*/
+function namednodemapsetnameditemns08() {
+   var success;
+    if(checkInitialization(builder, "namednodemapsetnameditemns08") != null) return;
+    var doc;
+      var attributes;
+      var elementList;
+      var element;
+      var attr;
+      var newNode;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      doc = load(docRef, "doc", "staffNS");
+      elementList = doc.getElementsByTagNameNS("*","address");
+      element = elementList.item(0);
+      attributes = element.attributes;
+
+      attr = attributes.getNamedItemNS("http://www.usa.com","domestic");
+      element = elementList.item(1);
+      attributes = element.attributes;
+
+      
+	{
+		success = false;
+		try {
+            newNode = attributes.setNamedItemNS(attr);
+        }
+		catch(ex) {
+      success = (typeof(ex.code) != 'undefined' && ex.code == 10);
+		}
+		assertTrue("namednodemapsetnameditemns08",success);
+	}
+
+}
+
+</script>
+</head>
+<body>
+<h2>Test http://www.w3.org/2001/DOM-Test-Suite/level2/core/namednodemapsetnameditemns08</h2>
+<p>&lt;test name='namednodemapsetnameditemns08' schemaLocation='http://www.w3.org/2001/DOM-Test-Suite/Level-2 dom2.xsd'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;namednodemapsetnameditemns08&lt;/title&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;creator&gt;IBM&lt;/creator&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;description&gt;
+    raises a INUSE_ATTRIBUTE_ERR Raised if arg is an Attr that is already an 
+    attribute of another Element object. 
+
+	Retreieve the first element whose localName is address and its attributes into a named node map.
+	Retreiving the domestic attribute from the namednodemap.	 Retreieve the second element whose 
+	localName is address and its attributes into a named node map.	Invoke setNamedItemNS on the 
+	second NamedNodeMap specifying the attribute from the first map.  
+	This should raise an INUSE_ATTRIBIUTE_ERR.
+&lt;/description&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;contributor&gt;Neil Delima&lt;/contributor&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;date qualifier='created'&gt;2002-04-28&lt;/date&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS">http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS</a>'/&gt;
+<br>&lt;/metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;implementationAttribute name='namespaceAware' value='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='doc' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='attributes' type='NamedNodeMap'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='elementList' type='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='element' type='Element'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='attr' type='Attr'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='newNode' type='Node'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--
+&lt;var name="attrCloned" type="Attr"/&gt;
+--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;load var='doc' href='staffNS' willBeModified='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getElementsByTagNameNS var='elementList' obj='doc' namespaceURI='"*"' localName='"address"' interface='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item var='element' obj='elementList' index='0' interface='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;attributes var='attributes' obj='element'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getNamedItemNS var='attr' obj='attributes' namespaceURI='"http://www.usa.com"' localName='"domestic"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--
+&lt;cloneNode var="attrCloned" obj="attr" deep="true"/&gt;
+--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;item var='element' obj='elementList' index='1' interface='NodeList'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;attributes var='attributes' obj='element'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertDOMException <a id="namednodemapsetnameditemns08">id='namednodemapsetnameditemns08'</a>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;INUSE_ATTRIBUTE_ERR&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;setNamedItemNS var='newNode' obj='attributes' arg='attr'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/INUSE_ATTRIBUTE_ERR&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/assertDOMException&gt;<br>&lt;/test&gt;<br>
+</p>
+<p>
+			Copyright (c) 2001-2004 World Wide Web Consortium,
+			(Massachusetts Institute of Technology, Institut National de
+			Recherche en Informatique et en Automatique, Keio University). All
+			Rights Reserved. This program is distributed under the W3C's Software
+			Intellectual Property License. This program is distributed in the
+			hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+			the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+			PURPOSE.
+			</p>
+<p>See W3C License <a href="http://www.w3.org/Consortium/Legal/">http://www.w3.org/Consortium/Legal/</a> 
+ for more details.</p>
+</body>
+</html>

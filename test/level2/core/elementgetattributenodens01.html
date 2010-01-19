@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>http://www.w3.org/2001/DOM-Test-Suite/level2/core/elementgetattributenodens01</title>
+<link type="text/css" rel="stylesheet" href="http://www.w3.org/StyleSheets/activity-home.css">
+<script src="../../jsunit/app/jsUnitCore.js" type="text/javascript"></script><script src="DOMTestCase.js" type="text/javascript"></script><script type="text/javascript">
+// expose test function names
+function exposeTestFunctionNames()
+{
+return ['elementgetattributenodens01'];
+}
+
+var docsLoaded = -1000000;
+var builder = null;
+
+//
+//   This function is called by the testing framework before
+//      running the test suite.
+//
+//   If there are no configuration exceptions, asynchronous
+//        document loading is started.  Otherwise, the status
+//        is set to complete and the exception is immediately
+//        raised when entering the body of the test.
+//
+function setUpPage() {
+   setUpPageStatus = 'running';
+   try {
+     //
+     //   creates test document builder, may throw exception
+     //
+     builder = createConfiguredBuilder();
+       setImplementationAttribute("namespaceAware", true);
+
+      docsLoaded = 0;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      docsLoaded += preload(docRef, "doc", "staffNS");
+        
+       if (docsLoaded == 1) {
+          setUpPage = 'complete';
+       }
+    } catch(ex) {
+    	catchInitializationError(builder, ex);
+        setUpPage = 'complete';
+    }
+}
+
+
+
+//
+//   This method is called on the completion of 
+//      each asychronous load started in setUpTests.
+//
+//   When every synchronous loaded document has completed,
+//      the page status is changed which allows the
+//      body of the test to be executed.
+function loadComplete() {
+    if (++docsLoaded == 1) {
+        setUpPageStatus = 'complete';
+    }
+}
+
+
+/**
+* 
+      The method getAttributeNodeNS retrieves an Attr node by local name and namespace URI.
+      Create a new element node and add 2 new attribute nodes to it that have the same 
+      local name but different namespaceURIs and prefixes.  
+      Retrieve an attribute using namespace and localname and check its value, name and 
+      namespaceURI.
+    
+* @author IBM
+* @author Neil Delima
+* @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAtNodeNS
+*/
+function elementgetattributenodens01() {
+   var success;
+    if(checkInitialization(builder, "elementgetattributenodens01") != null) return;
+    var doc;
+      var element;
+      var attribute1;
+      var attribute2;
+      var newAttribute1;
+      var newAttribute2;
+      var attribute;
+      var attrValue;
+      var attrName;
+      var attNodeName;
+      var attrLocalName;
+      var attrNS;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      doc = load(docRef, "doc", "staffNS");
+      element = doc.createElementNS("namespaceURI","root");
+      attribute1 = doc.createAttributeNS("http://www.w3.org/DOM/Level2","l2:att");
+      newAttribute1 = element.setAttributeNodeNS(attribute1);
+      attribute2 = doc.createAttributeNS("http://www.w3.org/DOM/Level1","att");
+      newAttribute2 = element.setAttributeNodeNS(attribute2);
+      attribute = element.getAttributeNodeNS("http://www.w3.org/DOM/Level2","att");
+      attrValue = attribute.nodeValue;
+
+      attrName = attribute.name;
+
+      attNodeName = attribute.nodeName;
+
+      attrLocalName = attribute.localName;
+
+      attrNS = attribute.namespaceURI;
+
+      assertEquals("elementgetattributenodens01_attrValue","",attrValue);
+       assertEquals("elementgetattributenodens01_attrName","l2:att",attrName);
+       assertEquals("elementgetattributenodens01_attrNodeName","l2:att",attNodeName);
+       assertEquals("elementgetattributenodens01_attrLocalName","att",attrLocalName);
+       assertEquals("elementgetattributenodens01_attrNs","http://www.w3.org/DOM/Level2",attrNS);
+       
+}
+
+</script>
+</head>
+<body>
+<h2>Test http://www.w3.org/2001/DOM-Test-Suite/level2/core/elementgetattributenodens01</h2>
+<p>&lt;test name='elementgetattributenodens01' schemaLocation='http://www.w3.org/2001/DOM-Test-Suite/Level-2 dom2.xsd'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;elementgetattributenodens01&lt;/title&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;creator&gt;IBM&lt;/creator&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;description&gt;
+      The method getAttributeNodeNS retrieves an Attr node by local name and namespace URI.
+      Create a new element node and add 2 new attribute nodes to it that have the same 
+      local name but different namespaceURIs and prefixes.  
+      Retrieve an attribute using namespace and localname and check its value, name and 
+      namespaceURI.
+    &lt;/description&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;contributor&gt;Neil Delima&lt;/contributor&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;date qualifier='created'&gt;2002-04-28&lt;/date&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAtNodeNS">http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAtNodeNS</a>'/&gt;
+<br>&lt;/metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;implementationAttribute name='namespaceAware' value='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='doc' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='element' type='Element'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='attribute1' type='Attr'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='attribute2' type='Attr'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='newAttribute1' type='Attr'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='newAttribute2' type='Attr'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='attribute' type='Attr'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='attrValue' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='attrName' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='attNodeName' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='attrLocalName' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='attrNS' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;load var='doc' href='staffNS' willBeModified='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createElementNS var='element' obj='doc' namespaceURI='"namespaceURI"' qualifiedName='"root"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createAttributeNS var='attribute1' obj='doc' namespaceURI='"http://www.w3.org/DOM/Level2"' qualifiedName='"l2:att"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;setAttributeNodeNS var='newAttribute1' obj='element' newAttr='attribute1'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createAttributeNS var='attribute2' obj='doc' namespaceURI='"http://www.w3.org/DOM/Level1"' qualifiedName='"att"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;setAttributeNodeNS var='newAttribute2' obj='element' newAttr='attribute2'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getAttributeNodeNS var='attribute' obj='element' namespaceURI='"http://www.w3.org/DOM/Level2"' localName='"att"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeValue var='attrValue' obj='attribute'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;name var='attrName' obj='attribute' interface='Attr'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeName var='attNodeName' obj='attribute'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;localName var='attrLocalName' obj='attribute'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;namespaceURI var='attrNS' obj='attribute'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='attrValue' expected='""' <a id="elementgetattributenodens01_attrValue">id='elementgetattributenodens01_attrValue'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='attrName' expected='"l2:att"' <a id="elementgetattributenodens01_attrName">id='elementgetattributenodens01_attrName'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='attNodeName' expected='"l2:att"' <a id="elementgetattributenodens01_attrNodeName">id='elementgetattributenodens01_attrNodeName'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='attrLocalName' expected='"att"' <a id="elementgetattributenodens01_attrLocalName">id='elementgetattributenodens01_attrLocalName'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='attrNS' expected='"http://www.w3.org/DOM/Level2"' <a id="elementgetattributenodens01_attrNs">id='elementgetattributenodens01_attrNs'</a> ignoreCase='false'/&gt;<br>&lt;/test&gt;<br>
+</p>
+<p>
+			Copyright (c) 2001-2004 World Wide Web Consortium,
+			(Massachusetts Institute of Technology, Institut National de
+			Recherche en Informatique et en Automatique, Keio University). All
+			Rights Reserved. This program is distributed under the W3C's Software
+			Intellectual Property License. This program is distributed in the
+			hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+			the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+			PURPOSE.
+			</p>
+<p>See W3C License <a href="http://www.w3.org/Consortium/Legal/">http://www.w3.org/Consortium/Legal/</a> 
+ for more details.</p>
+</body>
+</html>
