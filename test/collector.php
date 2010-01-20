@@ -26,7 +26,7 @@ foreach ($files as $file)
 	
 	$function = str_replace("function ", "", $function);
 	$function = str_replace("() {", " : function () {", $function);
-	
+	//$function = preg_replace("/if\(checkInitialization\(builder, \"[a-zA-Z0-9_]+\"\) \!= null\) return;/", '', $function);
 	
 	// parse out the actual function
 	array_push($functionBodies, trim($function));

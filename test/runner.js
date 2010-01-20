@@ -1,6 +1,18 @@
 var sys = require("sys");
 process.mixin(GLOBAL, require("./mjsunit"));
 
+// Compat Layer
+GLOBAL.load = function() {
+};
+
+GLOBAL.checkInitialization = function() {
+	return null;
+};
+
+GLOBAL.builder = function() {
+};
+// End Compat Layer
+
 
 var errors = [];
 
