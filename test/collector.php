@@ -3,10 +3,12 @@
 
 $files = glob($_SERVER['argv'][1] . "/*.html");
 
-$outputFile = $_SERVER['argv'][1] . "/index.js";
+$segments = explode('/', $_SERVER['argv'][1]);
+$last = array_pop($segments);
+$outputFile = implode('/', $segments) . "/{$last}.js";
 
 $functions = array();
-$functionBodies = "";
+$functionBodies = array();
 
 foreach ($files as $file)
 {
@@ -20,21 +22,21 @@ foreach ($files as $file)
 
 	$substring = substr($content, $start+$first, $end-$start);
 	
-	preg_match("/return \['([\w]+)'\]/", $substring,$matches);
+	$function = substr($substring, strpos($substring, "/**"));
 	
-	$function = $matches[1];
+	$function = str_replace("function ", "", $function);
+	$function = str_replace("() {", " : function () {", $function);
 	
-	array_push($functions, $function);
 	
 	// parse out the actual function
-	$functionBodies .= "\r\n" . substr($substring, strpos($substring, "/**"));
+	array_push($functionBodies, trim($function));
 
 	
 }
 
-$imploded = implode("','", array_filter($functions));
+//$imploded = implode("','", array_filter($functions));
 
-$output = "// expose test function names
+/*$output = "// expose test function names
 function exposeTestFunctionNames()
 {
 return ['{$imploded}'];
@@ -43,5 +45,8 @@ return ['{$imploded}'];
 
 
 " . $functionBodies;
+*/
 
-file_put_contents($outputFile, $output);
+
+
+file_put_contents($outputFile, "exports.tests = {\r\n".implode(",\r\n", array_filter($functionBodies)) . '}');
