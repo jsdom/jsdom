@@ -203,3 +203,11 @@ exports.assertUnreachable = function(name_opt) {
   }
   throw new MjsUnitAssertionError(message);
 };
+
+exports.assertSize = function(obj, expected, msg) {
+  if (!obj.length || obj.length !== expected)
+  {
+      throw new MjsUnitAssertionError("Failure: " + obj.length + " does not equal " + expected);
+  }  
+    
+};

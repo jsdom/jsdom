@@ -1,17 +1,17 @@
 /*
   ServerJS Javascript DOM
 */
-
-
+var core = {};
+var sys = require("sys");
 // Utility methods
-function defineConstant(obj, name, exception, value) {
+/*function defineConstant(obj, name, exception, value) {
     obj.__defineGetter__(name, function() { return value; });
     obj.__defineSetter__(name, function() {
         throw new exception();
     });
 }
 
-function defineReadOnly(obj, name){
+function // defineReadOnly(obj, name){
 	obj.__defineGetter__(name, function(){
 		return this[name];
 	});
@@ -48,16 +48,16 @@ function extend(base,extension) {
 	}
 	return base;
 }
-
+*/
 // End Utilities
 
 
 
-var DOMException = function(code) {
+core.DOMException = function(code) {
   this.code = code;
 };
 
-DOMException.prototype = {
+core.DOMException.prototype = {
 	code : -1
 };
 
@@ -86,19 +86,31 @@ var NOT_SUPPORTED_ERR  = 9;
 var INUSE_ATTRIBUTE_ERR = 10;
 
 
-var constantSetException = function(){
-	return new DOMException(NO_MODIFICATION_ALLOWED_ERR);
+core.constantSetException = function(){
+	return new core.DOMException(NO_MODIFICATION_ALLOWED_ERR);
 };
 
+core.NodeList = function() {
+};
+core.NodeList.prototype = {
+  /* returns Node */
+  item: function(index) {
+    return this[index];
+  }
+};
+core.NodeList.prototype.__proto__ = Array.prototype;
 
-var DOMImplementation = function() {};
-DOMImplementation.prototype = {
+core.DOMImplementation = function() {};
+core.DOMImplementation.prototype = {
   hasFeature: function(/* string */ feature, /* string */ version) {}
 };
 
-var Node = function () {};
-Node.prototype = {
-
+core.Node = function () {
+	this.children = new core.NodeList();
+};
+core.Node.prototype = {
+  nodeValue : null,
+  parentNode : null,
   /* returns Node */ 
   insertBefore :  function(/* Node */ newChild, /* Node*/ refChild){}, // raises(DOMException);
 
@@ -109,7 +121,16 @@ Node.prototype = {
   removeChild : function(/* Node */ oldChild){}, // raises(DOMException);
   
   /* returns Node */
-  appendChild : function(/* Node */ newChild){}, // raises(DOMException);
+  appendChild : function(/* Node */ newChild){
+	this.children.push(newChild);
+	// TODO: trigger an internal mutation event.
+	
+	// Attach the parent node.
+	// TODO: this needs to somehow get into a "subsystem" behind the nodes.
+	newChild.parentNode = this;
+	
+	return newChild;	
+  }, // raises(DOMException);
   
   /* returns boolean */
   hasChildNodes : function() {},
@@ -118,51 +139,284 @@ Node.prototype = {
   cloneNode : function(/* bool */ deep) {}
 };
 
-// Node ReadOnly Properties
-defineReadOnly(Node.prototype, 'nodeType');
-defineReadOnly(Node.prototype, 'nodeValue');
-defineReadOnly(Node.prototype, 'parentNode');
-defineReadOnly(Node.prototype, 'childNodes');
-defineReadOnly(Node.prototype, 'firstChild');
-defineReadOnly(Node.prototype, 'lastChild ');
-defineReadOnly(Node.prototype, 'previousSibling');
-defineReadOnly(Node.prototype, 'nextSibling');
-defineReadOnly(Node.prototype, 'attributes');
-defineReadOnly(Node.prototype, 'ownerDocument');
-
-// Node Constants
-defineConstant(Node.prototype,'ELEMENT_NODE',constantSetException(), 1);
-defineConstant(Node.prototype,'ATTRIBUTE_NODE',constantSetException(), 2);
-defineConstant(Node.prototype,'TEXT_NODE',constantSetException(), 3);
-defineConstant(Node.prototype,'CDATA_SECTION_NODE',constantSetException(), 4);
-defineConstant(Node.prototype,'ENTITY_REFERENCE_NODE',constantSetException(), 5);
-defineConstant(Node.prototype,'ENTITY_NODE',constantSetException(), 6);
-defineConstant(Node.prototype,'PROCESSING_INSTRUCTION_NODE',constantSetException(), 7);
-defineConstant(Node.prototype,'COMMENT_NODE',constantSetException(), 8);
-defineConstant(Node.prototype,'DOCUMENT_NODE',constantSetException(), 9);
-defineConstant(Node.prototype,'DOCUMENT_TYPE_NODE',constantSetException(), 10);
-defineConstant(Node.prototype,'DOCUMENT_FRAGMENT_NODE',constantSetException(), 11);
-defineConstant(Node.prototype,'NOTATION_NODE',constantSetException(), 12);
-
-
-var DocumentFragment = function() {};
-DocumentFragment.prototype = extend(new Node(), {
+core.Node.prototype.__defineGetter__("firstChild", function() { return this.children.item(0); });
+core.Node.prototype.__defineSetter__("firstChild", function() {
+    throw new exception();
 });
 
+core.Node.prototype.__defineGetter__("childNodes", function() { return this.children; });
+core.Node.prototype.__defineSetter__("childNodes", function() {
+    throw new exception();
+});
 
-var Document = function() {};
-Document.prototype = extend(new Node(), {
+core.Node.prototype.__defineGetter__("nextSibling", function() { 
+    // find this node's index in the parentNode, add one and call it a day
+    var index = 0;
+    
+    if (!this.parentNode || !this.parentNode.childNodes || !this.childNodes.length || this.childNodes.length < 1) 
+    {
+        return null;
+    }
+    
+    var currentNode;
+    while ((currentNode = this.parentNode.childNodes[index]))
+    {
+        index++;
+        if (currentNode === this) { break; }
+    }
+    
+    return this.parentNode.childNodes[index];
+});
+core.Node.prototype.__defineSetter__("nextSibling", function() {
+    throw new exception();
+});
+
+core.Node.prototype.__defineGetter__("previousSibling", function() { 
+    // find this node's index in the parentNode, add one and call it a day
+    var index = 0;
+
+    if (!this.parentNode || !this.parentNode.childNodes || !this.childNodes.length || this.childNodes.length < 1) 
+    {
+        return null;
+    }
+
+    var currentNode;
+    while ((currentNode = this.parentNode.childNodes[index]))
+    {
+        if (currentNode === this) { break; }
+        index++;
+    }
+    
+    return this.parentNode.childNodes[index-1];
+});
+core.Node.prototype.__defineSetter__("previousSibling", function() {
+    throw new exception();
+});
+
+/*
+core.Node.prototype.__defineGetter__("attributes", function() { 
+  if (!this.attributes) {
+    this.attributes = new core.NodeList();	
+  }
+  return this.attributes; 
+});
+core.Node.prototype.__defineSetter__("attributes", function() {
+   throw new exception();
+});
+
+// Node ReadOnly Properties
+/* defineReadOnly(core.Node.prototype, 'nodeType');
+// defineReadOnly(core.Node.prototype, 'nodeValue');
+// defineReadOnly(core.Node.prototype, 'parentNode');
+// defineReadOnly(core.Node.prototype, 'childNodes');
+// defineReadOnly(core.Node.prototype, 'firstChild');
+// defineReadOnly(core.Node.prototype, 'lastChild ');
+// defineReadOnly(core.Node.prototype, 'previousSibling');
+// defineReadOnly(core.Node.prototype, 'nextSibling');
+*/
+//// defineReadOnly(core.Node, 'attributes');
+/*// defineReadOnly(core.Node.prototype, 'ownerDocument');
+
+
+
+// Node Constants
+defineConstant(core.Node.prototype,'ELEMENT_NODE',core.constantSetException(), 1);
+defineConstant(core.Node.prototype,'ATTRIBUTE_NODE',core.constantSetException(), 2);
+defineConstant(core.Node.prototype,'TEXT_NODE',core.constantSetException(), 3);
+defineConstant(core.Node.prototype,'CDATA_SECTION_NODE',core.constantSetException(), 4);
+defineConstant(core.Node.prototype,'ENTITY_REFERENCE_NODE',core.constantSetException(), 5);
+defineConstant(core.Node.prototype,'ENTITY_NODE',core.constantSetException(), 6);
+defineConstant(core.Node.prototype,'PROCESSING_INSTRUCTION_NODE',core.constantSetException(), 7);
+defineConstant(core.Node.prototype,'COMMENT_NODE',core.constantSetException(), 8);
+defineConstant(core.Node.prototype,'DOCUMENT_NODE',core.constantSetException(), 9);
+defineConstant(core.Node.prototype,'DOCUMENT_TYPE_NODE',core.constantSetException(), 10);
+defineConstant(core.Node.prototype,'DOCUMENT_FRAGMENT_NODE',core.constantSetException(), 11);
+defineConstant(core.Node.prototype,'NOTATION_NODE',core.constantSetException(), 12);
+
+*/
+
+core.NamedNodeMap = function() {
+	this.length = 0;
+	this.nodes = [];
+	
+};
+core.NamedNodeMap.prototype = {
+  
+	/* returns Node */
+	getNamedItem: function(/* string */ name) {
+	    for (var i=0; i<this.nodes.length; i++)
+	    {
+	        if (this.nodes[i].name && this.nodes[i].name === name) {
+	            return this.nodes[i];
+	        }
+	        
+	    }
+	},
+
+	/* returns Node */
+	setNamedItem: function(/* Node */ arg) {
+	    this.nodes.push(arg);
+	    
+	    arg.parentNode = this;
+	    
+	}, // raises: function(DOMException) {},
+
+	/* returns Node */
+	removeNamedItem: function(/* string */ name) {
+	    var minusNamed = [];
+	    var node = null;
+	    for (var i=0; i<this.nodes.length; i++)
+	    {
+	        if (!this.nodes[i].name || this.nodes[i].name !== name) {
+	            minusNamed.push(this.nodes[i]);
+	        } else {
+	            node = this.nodes[i];
+	        }
+	    }
+	    this.nodes = minusNamed;
+	    return node;
+	}, // raises: function(DOMException) {},
+
+	/* returns Node */
+	item: function(/* int */ index) {
+		return this.nodes[index];
+	}
+};
+
+
+core.AttrNodeMap = function() {
+    core.NamedNodeMap.call(this);
+};
+
+core.AttrNodeMap.prototype = {
+  
+  getNamedItem : function(/* string */ name)
+  {
+    // TODO: use prototypal inheritance.
+    var item = false;
+    for (var i=0; i<this.nodes.length; i++)
+    {
+        if (this.nodes[i].name && this.nodes[i].name === name) {
+            item = this.nodes[i];
+            break;
+        }    
+    }      
+      
+    if (!item) {
+        item = new core.Attr(name,false);
+    
+    }
+    return item;
+  },
+  
+  /* returns Node */
+  setNamedItem: function(/* Node */ arg) {
+    this.nodes.push(arg);
+  }, // raises: function(DOMException) {}, 
+};
+
+core.AttrNodeMap.prototype.__proto__ = core.NamedNodeMap.prototype;
+
+core.Element = function (tagName) {
+	this.attributes = new core.AttrNodeMap();
+	this.tagName = tagName;
+	core.Node.call(this);
+};
+
+core.Element.prototype = {
+
+  /* returns string */
+  getAttribute: function(/* string */ name) {},
+
+  /* returns string */
+  setAttribute: function(/* string */ name, /* string */ value) {
+	var attr = new core.Attr(name, value);
+	
+	this.attributes.setNamedItem(attr);
+  }, //raises: function(DOMException) {},
+
+  /* returns string */
+  removeAttribute: function(/* string */ name) {
+      this.attributes.removeNamedItem(name);
+      return name;
+  }, // raises: function(DOMException) {},
+
+  /* returns Attr */
+  getAttributeNode: function(/* string */ name) {},
+
+  /* returns Attr */
+  setAttributeNode: function(/* Attr */ newAttr) {}, //  raises: function(DOMException) {},
+
+  /* returns Attr */
+  removeAttributeNode: function(/* Attr */ oldAttr) {}, //raises: function(DOMException) {},
+  
+  /* returns NodeList */	
+  getElementsByTagName: function(/* string */ name) {
+    var ret = new core.NodeList();
+
+    if (this.children && this.children.length) {      
+      for (var i=0; i<this.children.length; i++)
+      {
+	    if (this.children[i].tagName && this.children[i].tagName === name) {
+          ret.push(this.children[i]);
+        }		
+        if (this.children[i].getElementsByTagName)
+        {
+	      var nested = this.children[i].getElementsByTagName(name);
+          if (nested && nested.length)
+          {
+              for (var idx = 0; idx<nested.length; idx++)
+              {
+                  ret.push(nested[idx]);
+              }
+          }
+	
+        }
+	
+      }
+    }
+    return ret;
+  },
+
+  /* returns string */
+  normalize: function() {},
+};
+
+core.Element.prototype.__proto__ = core.Node.prototype;
+
+// Element ReadOnly Properties
+//core.Element.prototype.__defineGetter__("tagName", function(){	return this.tagName; });
+/*core.Element.prototype.__defineSetter__(name, function(){
+  throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
+});*/
+
+//// defineReadOnly(core.Element.prototype, 'tagName');
+
+core.DocumentFragment = function() {
+	core.Element.call(this, "documentFragment");
+};
+core.DocumentFragment.prototype = {};
+core.DocumentFragment.prototype.__proto__ = core.Element.prototype;
+
+core.Document = function() {
+	core.Element.call(this, "document");
+};
+core.Document.prototype = {
 
   /* returns Element */
-  createElement: function(/* string */ tagName) {}, //raises: function(DOMException) {},
+  createElement: function(/* string */ tagName) {
+    return new core.Element(tagName);	
+  }, //raises: function(DOMException) {},
   
-	/* returns DocumentFragment */  
-	createDocumentFragment: function() {},
+  /* returns DocumentFragment */  
+  createDocumentFragment: function() {
+    return new core.DocumentFragment();	
+  },
   
-	/* returns Text */  
+  /* returns Text */  
   createTextNode: function(/* string */ data) {},
   
-	/* returns Comment */
+  /* returns Comment */
   createComment: function(/* string */ data) {},
   
   /* returns CDATASection */	
@@ -175,204 +429,191 @@ Document.prototype = extend(new Node(), {
   createAttribute: function(/* string */ name) {}, // raises: function(DOMException) {},
   
   /* returns EntityReference */
-  createEntityReference: function(/* string */ name) {}, //raises: function(DOMException) {},
-  
-  /* returns NodeList */
-  getElementsByTagName: function(/* string */ tagname) {}
-});
+  createEntityReference: function(/* string */ name) {
+      return new core.EntityReference(name);
+  }, //raises: function(DOMException) {},
+};
+core.Document.prototype.__proto__ = core.Element.prototype;
+
+
 
 // Document ReadOnly Properties
-defineReadOnly(Document.prototype, 'doctype');          // DocumentType
-defineReadOnly(Document.prototype, 'implementation');   // DOMImplementation
-defineReadOnly(Document.prototype, 'documentElement');  // Element
+// defineReadOnly(core.Document.prototype, 'doctype');          // DocumentType
+// defineReadOnly(core.Document.prototype, 'implementation');   // DOMImplementation
+// defineReadOnly(core.Document.prototype, 'documentElement');  // Element
 
 
-var NodeList = function() {};
-NodeList.prototype = extend([], { 
-  
-	/* returns Node */
-	item: function(index) {
-		return this[index];
-	}
-});
-
-
-var NamedNodeMap = function() {
-	this.length = 0;
-	
+core.CharacterData = function(value) {
+  this.nodeValue = value;
 };
-NamedNodeMap.prototype = extend([], {
-  
-	/* returns Node */
-	getNamedItem: function(/* string */ name) {},
+core.CharacterData.prototype = {
 
-	/* returns Node */
-	setNamedItem: function(/* Node */ arg) {}, // raises: function(DOMException) {},
-
-	/* returns Node */
-	removeNamedItem: function(/* string */ name) {}, // raises: function(DOMException) {},
-
-	/* returns Node */
-	item: function(/* int */ index) {
-		return this[index];
-	}
-});
-
-
-var CharacterData = function() {}
-  this.data = "";
-;
-CharacterData.prototype = extend(Node, {
-
-  get data() { return this.data; },
+  get data() { return this.nodeValue; },
   set data(data) { 
-    this.data = data; 
+    this.nodeValue = data; 
 	},
 	
-	/* returns int */
-  get length() { return this.data.length || 0; },
+  /* returns int */
+  get length() { return this.nodeValue.length || 0; },
   
-	/* returns string */
-	substringData: function(/* int */ offset, /* int */ count) {}, // raises: function(DOMException) {},
+  /* returns string */
+  substringData: function(/* int */ offset, /* int */ count) {}, // raises: function(DOMException) {},
 
   /* returns string */
   appendData: function(/* string */ arg) {}, // raises: function(DOMException) {},
   
   /* returns string */	
-	insertData: function(/* int */ offset, /* string */ arg) {}, //raises: function(DOMException) {},
+  insertData: function(/* int */ offset, /* string */ arg) {}, //raises: function(DOMException) {},
 	
 	/* returns void */
   deleteData: function(/* int */ offset, /* int */ count) {}, // raises: function(DOMException) {},
   
 	/* returns void */
   replaceData: function(/* int */ offset, /* int */ count, /* string */ arg) {} // raises: function(DOMException) {},
-});
-
-
-var Attr = function(name, value) {
-	
-	this.name = name;
-	this.value = value;
-	if (value) {
-		this.specified = true;
-	}
-
 };
-Attr.Prototype = extend(new Node(), {
-});
+
+core.CharacterData.prototype.__proto__ = core.Node.prototype;
+
+
+core.Attr = function(name, value) {
+    
+	this.nodeValue = value;
+	this.name = name;
+    this.specified = (value) ? true : false;
+
+	
+	core.Node.call(this);
+    this.parentNode = null;
+    this.nodeName = name;
+};
+core.Attr.prototype =  { /*nodeValue: null*/ 
+};
+
+
+core.Attr.prototype.__defineGetter__("value", function() { return this.nodeValue; });
+core.Attr.prototype.__defineSetter__("value", function(value) { this.nodeValue = value; });
+/*core.Attr.prototype.__defineGetter__("specified", function() { return this.nodeValue ? true : false; });
+core.Attr.prototype.__defineSetter__("specified", function() {
+    throw new exception();
+});*/
+core.Attr.prototype.__proto__ = core.Node.prototype;
+
 
 // Attr ReadOnly Properties
-defineReadOnly(Attr.prototype, 'name');
-defineReadOnly(Attr.prototype, 'value');
-defineReadOnly(Attr.prototype, 'specified');
+//// defineReadOnly(core.Attr.prototype, 'name');
+//// defineReadOnly(core.Attr.prototype, 'value'); // from node
+//// defineReadOnly(core.Attr.prototype, 'specified');
 
-var Element = function (tagName) {
-	this.tagName = tagName;
+
+core.Text = function(text) {
+    core.CharacterData.call(this, text);
 };
-Element.prototype = extend(Node, {
-  /* returns string */
-	getAttribute: function(/* string */ name) {},
+core.Text.prototype = {
+	/* returns Text */
+	splitText: function(offset) {
+	    var newText = this.nodeValue.substring(offset);
+	    this.nodeValue = this.nodeValue.substring(0, offset);
+	    var newNode = new Text(newText);
+	    this.parentNode.appendChild(newNode);
+	    return newNode;
+	} //raises: function(DOMException) {},
+};
 
-  /* returns string */
-  setAttribute: function(/* string */ name, /* string */ value) {}, //raises: function(DOMException) {},
+core.Attr.prototype.__defineGetter__("value", function() { return this.nodeValue; });
+core.Attr.prototype.__defineSetter__("value", function(value) { this.nodeValue = value; });
 
-  /* returns string */
-  removeAttribute: function(/* string */ name) {}, // raises: function(DOMException) {},
+core.Text.prototype.__proto__ = core.CharacterData.prototype
 
-  /* returns Attr */
-  getAttributeNode: function(/* string */ name) {},
+core.Comment = function() {};
+core.Comment.prototype = {
+};
+core.Comment.prototype.__proto__ = core.Text.prototype
 
-  /* returns Attr */
-  setAttributeNode: function(/* Attr */ newAttr) {}, //  raises: function(DOMException) {},
+core.CDATASection = function() {};
+core.CDATASection.prototype = {
+};
+core.CDATASection.prototype.__proto__ = core.Text.prototype
 
-  /* returns Attr */
-  removeAttributeNode: function(/* Attr */ oldAttr) {}, //raises: function(DOMException) {},
-  
-  /* returns NodeList */	
-	getElementsByTagName: function(/* string */ name) {},
-
-  /* returns string */
-  normalize: function() {},
-});
-
-// Element ReadOnly Properties
-defineReadOnly(Element.prototype, 'tagName');
-
-var Text = function() {};
-Text.prototype = extend(CharacterData, {
-  /* returns Text */
-	splitText: function(offset) {} //raises: function(DOMException) {},
-});
-
-var Comment = function() {};
-Comment.prototype = extend(CharacterData, {
-});
-
-var CDATASection = function() {};
-CDATASection.prototype = extend(Text, {
-});
-
-var DocumentType = function(name, entities, notations) {
+core.DocumentType = function(name, entities, notations) {
 	this.name = name;
 	this.entities = entities;
 	this.notations = notations;
 };
-DocumentType.prototype = extend(Node, {
-});
+core.DocumentType.prototype = {
+};
+
+core.DocumentType.prototype.__proto__ = core.Node.prototype;
 
 // DocumentType ReadOnly Properties
-defineReadOnly(DocumentType.prototype, 'name');
-defineReadOnly(DocumentType.prototype, 'entities');
-defineReadOnly(DocumentType.prototype, 'notations');
+// defineReadOnly(core.DocumentType.prototype, 'name');
+// defineReadOnly(core.DocumentType.prototype, 'entities');
+// defineReadOnly(core.DocumentType.prototype, 'notations');
 
 
-var Notation = function(publicId, systemId){
+core.Notation = function(publicId, systemId){
   this.publicId = publicId;
 	this.systemId = systemId;
 };
-Notation.prototype = extend(Node, {
-});
+core.Notation.prototype = {
+};
+core.Notation.prototype.__proto__ = core.Node.prototype;
 
 // ProcessingInstruction ReadOnly Properties
-defineReadOnly(Notation.prototype, 'publicId');
-defineReadOnly(Notation.prototype, 'systemId');
+// defineReadOnly(core.Notation.prototype, 'publicId');
+// defineReadOnly(core.Notation.prototype, 'systemId');
 
 
-var Entity = function(publicId, systemId, notationName) {};
-Entity.prototype = extend(new Node(), {
-});
+core.Entity = function(publicId, systemId, notationName) {};
+core.Entity.prototype = {
+};
+
+core.Entity.prototype.__proto__ = core.Node.prototype;
+
 // Entity ReadOnly Properties
-defineReadOnly(Entity.prototype, 'publicId');
-defineReadOnly(Entity.prototype, 'systemId');
-defineReadOnly(Entity.prototype, 'notationName');
+// defineReadOnly(core.Entity.prototype, 'publicId');
+// defineReadOnly(core.Entity.prototype, 'systemId');
+// defineReadOnly(core.Entity.prototype, 'notationName');
 
 
-var EntityReference = function() {};
-EntityReference.prototype = extend(Node, {
-});
+core.EntityReference = function() {
+    core.Node.call(this);
+};
+core.EntityReference.prototype = {
+};
+core.EntityReference.prototype.__proto__ = core.Node.prototype;
 
 
-var ProcessingInstruction = function (target, data) {
+core.ProcessingInstruction = function (target, data) {
 	this.target = target;
 	this.data = data;
 }
-ProcessingInstruction.prototype = extend(Node, {
-});
+core.ProcessingInstruction.prototype = {
+};
 
+core.ProcessingInstruction.prototype.__proto__ = core.Node.prototype;
 // ProcessingInstruction ReadOnly Properties
-defineReadOnly(ProcessingInstruction.prototype, 'target');
-defineReadOnly(ProcessingInstruction.prototype, 'data');
+// defineReadOnly(core.ProcessingInstruction.prototype, 'target');
+// defineReadOnly(core.ProcessingInstruction.prototype, 'data');
+
 
 
 
 /*
-
-interface HTMLCollection {
-  readonly attribute  unsigned long        length;
-  Node                      item(in unsigned long index);
-  Node                      namedItem(in DOMString name);
+core.HTMLCollection = function() {
+	this.items = [];
 };
 
+core.HTMLCollection.prototype = {
+
+  //readonly attribute  unsigned long        length;
+  /* returns Node * /
+  item : function(/* integer * / index) {
+    return this.items[index];	
+  }
+  
+  //Node                      namedItem(in DOMString name);
+};
+/*
 interface HTMLDocument : Document {
            attribute  DOMString            title;
   readonly attribute  DOMString            referrer;
@@ -863,3 +1104,4 @@ interface HTMLIFrameElement : HTMLElement {
 };
 
 */
+exports.dom = { "level1" : { "core" : core }};
