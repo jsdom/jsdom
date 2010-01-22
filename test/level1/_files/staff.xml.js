@@ -16,10 +16,17 @@ exports.staff = function() {
   entities.setNamedItem(ent1);
   entities.setNamedItem(new Entity("ent2", "1900 Dallas Road"));
   
-  var ent3 = new Entity("ent3");
-  ent3.appendChild(new Text("Texas"));
+  var ent3 = new Entity("ent3", null, null, "notation name?", new Text("Texas"));
   entities.setNamedItem(ent3);
-  entities.setNamedItem(new Entity("ent4", "<entElement domestic='Yes'>Element data</entElement><?PItarget PIdata?>"));
+  
+  var entElement = new Element("entElement");
+  entElement.setAttribute("domestic", "Yes");
+  //entElement.appendChild();
+  entElement.appendChild(new ProcessingInstruction("PItarget", "PfIdata"));
+  var ent4 = new Entity("ent4", null, null, "notation name?", new Text("Element data"));
+  
+  entities.setNamedItem(ent4);
+  
   entities.setNamedItem(new Entity("ent5", "entityURI"));
   
   var doctype = new DocumentType("staff", entities, notations);
@@ -40,7 +47,7 @@ exports.staff = function() {
     var employee = doc.createElement("employee");
     var address  = doc.createElement("address");
     var name     = doc.createElement("name");
-    var position     = doc.createElement("position");
+    var position = doc.createElement("position");
     var gender   = doc.createElement("gender");
     var id       = doc.createElement("employeeId");
     var salary   = doc.createElement("salary");
@@ -89,7 +96,7 @@ exports.staff = function() {
   addresses[2].setAttribute("street", "No");
   addresses[2].appendChild(new Text("PO Box 27 Irving, texas 98553"));
   names[2].appendChild(new Text("Roger\n Jones")) ;
-  genders[2].appendChild(new Text("&ent4"));
+  genders[2].appendChild(doc.createEntityReference("ent42"));//Text("&ent4"));
   positions[2].appendChild(new Text("Department Manager"));
 
   
@@ -110,8 +117,7 @@ exports.staff = function() {
   names[4].appendChild(new Text("Robert Myers"));
   genders[4].appendChild(new Text("male"));
   positions[4].appendChild(new Text("Computer Specialist"));
-  //addresses[5].nodeValue = "1230 North Ave. Dallas, Texas 98551";
-
+  
   doc.appendChild(doc.createProcessingInstruction("TEST-STYLE", "PIDATA"));
 
   /*<?xml version="1.0"?>

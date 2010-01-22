@@ -24098,7 +24098,6 @@ exports.tests = {
         assertNotNull("entRefNotNull",entRef);
         nodeType = entRef.nodeType;
 
-
         if(
           (1 == nodeType)
         ) {
