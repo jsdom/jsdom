@@ -3,62 +3,13 @@
 */
 var core = {};
 var sys = require("sys");
-// Utility methods
-/*function defineConstant(obj, name, exception, value) {
-    obj.__defineGetter__(name, function() { return value; });
-    obj.__defineSetter__(name, function() {
-        throw new exception();
-    });
-}
-
-function // defineReadOnly(obj, name){
-	obj.__defineGetter__(name, function(){
-		return this[name];
-	});
-  obj.__defineSetter__(name, function(){
-    throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
-  });
-}
-
-
-
-// Helper method for extending one object with another
-function extend(base,extension) {
-	for ( var member in extension )
-	{
-		var getter = extension.__lookupGetter__(member), 
-            setter = extension.__lookupSetter__(member);
-		
-		if (getter || setter) 
-		{
-			if (getter) 
-			{
-				base.__defineGetter__(member, getter);
-			}
-			
-			if (setter) 
-			{
-				base.__defineSetter__(member, setter);
-			}
-		} 
-		else 
-		{
-			base[member] = extension[member];
-		}
-	}
-	return base;
-}
-*/
-// End Utilities
-
-
 
 core.DOMException = function(code) {
-  this.code = code;
+  this._code = code;
 };
 
 core.DOMException.prototype = {
-	code : -1
+	get code() { return this._code; }
 };
 
 // ExceptionCode
@@ -100,13 +51,26 @@ core.NodeList.prototype = {
 };
 core.NodeList.prototype.__proto__ = Array.prototype;
 
-core.DOMImplementation = function() {};
+
+core.DOMImplementation = function(/* Object */ features) {
+  this._features = features;
+};
 core.DOMImplementation.prototype = {
-  hasFeature: function(/* string */ feature, /* string */ version) {}
+  hasFeature: function(/* string */ feature, /* string */ version) {
+    if (this._features[feature] && this._features[feature] == version) {
+      return true;
+    }
+    return false;
+  }
 };
 
+
 core.Node = function () {
-	this.children = new core.NodeList();
+	this._children = new core.NodeList();
+	this._nodeValue = null;
+  this._parentNode = null;
+  this._attributes = new core.NamedNodeMap();
+  this._nodeName   = null;
 };
 core.Node.prototype = {
   
@@ -123,132 +87,141 @@ core.Node.prototype = {
   get DOCUMENT_FRAGMENT_NODE() { return 11; },
   get NOTATION_NODE() { return 12; },
 
+  get children() { return this._children; },
+  get nodeValue() { return this._nodeValue; },
+  set nodeValue(value) { this._nodeValue = value; },
+  get parentNode() { return this._parentNode; },
   
-  nodeValue : null,
-  parentNode : null,
+  get nodeName() { return this._nodeName || this._tagName; },
+  set nodeName() { throw new DOMException(); },  
+  
+  get attributes() { return this._attributes; },
+
+  get firstChild() { return this._children.item(0); },
+  set firstChild() { throw new DOMException(); },
+
+  get childNodes() { return this._children; },
+  set childNodes() { throw new DOMException(); },
+
+  get nextSibling() { 
+    // find this node's index in the parentNode, add one and call it a day
+    var index = 0;
+
+    if (!this._parentNode || 
+        !this._parentNode.childNodes || 
+        !this._parentNode.childNodes.length || 
+         this._parentNode.childNodes.length < 1) 
+    {
+      return null;
+    }
+
+    var currentNode;
+    while ((currentNode = this._parentNode.childNodes[index]))
+    {
+      index++;
+      if (currentNode === this) { break; }
+    }
+
+    return this._parentNode.childNodes[index];
+  },
+  set nextSibling() { throw new DOMException(); },
+
+  get previousSibling() { 
+      // find this node's index in the parentNode, add one and call it a day
+      var index = 0;
+
+      if (!this._parentNode || !this._parentNode.childNodes || !this._childNodes.length || this._childNodes.length < 1) 
+      {
+          return null;
+      }
+
+      var currentNode;
+      while ((currentNode = this._parentNode.childNodes[index]))
+      {
+          if (currentNode === this) { break; }
+          index++;
+      }
+
+      return this._parentNode.childNodes[index-1];
+  },
+  set previousSibling() { throw new DOMException(); },
+
   /* returns Node */ 
-  insertBefore :  function(/* Node */ newChild, /* Node*/ refChild){}, // raises(DOMException);
+  insertBefore :  function(/* Node */ newChild, /* Node*/ refChild){
+    
+  }, // raises(DOMException);
 
   /* returns Node */
-  replaceChild : function(/* Node */ newChild, /* Node */ oldChild){}, //raises(DOMException);
+  replaceChild : function(/* Node */ newChild, /* Node */ oldChild){
+    for (var i=0;i<this._children.length; i++)
+    {
+      if (this._children[i] === oldChild) {
+        var current = this;
+        // search for parents matching the newChild
+        while ((current = current.parentNode))
+        {
+          if (current === newChild) {
+            throw new DOMException(HIERARCHY_REQUEST_ERR);
+          }
+        }
+        
+        this._children[i] = newChild;
+        break;
+      }
+    }
+    return oldChild;
+  }, //raises(DOMException);
 
   /* returns Node */
   removeChild : function(/* Node */ oldChild){
     var newChildren = new core.NodeList();
-    for (var i=0;i<this.children.length; i++)
+    for (var i=0;i<this._children.length; i++)
     {
-      if (this.children[i] === oldChild) {
+      if (this._children[i] === oldChild) {
         continue;
       }
-      newChildren.push(this.children[i]);
+      newChildren.push(this._children[i]);
     }
-    this.children = newChildren;
+    this._children = newChildren;
+    oldChild._parentNode = null;
     return oldChild;
   }, // raises(DOMException);
   
   /* returns Node */
   appendChild : function(/* Node */ newChild){
-	this.children.push(newChild);
+	this._children.push(newChild);
 	// TODO: trigger an internal mutation event.
 	
 	// Attach the parent node.
-	// TODO: this needs to somehow get into a "subsystem" behind the nodes.
-	newChild.parentNode = this;
+	newChild._parentNode = this;
 	
 	return newChild;	
   }, // raises(DOMException);
   
   /* returns boolean */
-  hasChildNodes : function() {},
+  hasChildNodes : function() {
+    return this._children.length > 0;
+  },
   
   /* returns Node */  
   cloneNode : function(/* bool */ deep) {}
 };
 
-core.Node.prototype.__defineGetter__("firstChild", function() { return this.children.item(0); });
-core.Node.prototype.__defineSetter__("firstChild", function() {
-    throw new DOMException();
-});
-
-core.Node.prototype.__defineGetter__("childNodes", function() { return this.children; });
-core.Node.prototype.__defineSetter__("childNodes", function() {
-    throw new DOMException();
-});
-
-core.Node.prototype.__defineGetter__("nextSibling", function() { 
-    // find this node's index in the parentNode, add one and call it a day
-    var index = 0;
-    
-    if (!this.parentNode || 
-        !this.parentNode.childNodes || 
-        !this.parentNode.childNodes.length || 
-        this.parentNode.childNodes.length < 1) 
-    {
-        return null;
-    }
-    
-    var currentNode;
-    while ((currentNode = this.parentNode.childNodes[index]))
-    {
-        index++;
-        if (currentNode === this) { break; }
-    }
-    
-    return this.parentNode.childNodes[index];
-});
-core.Node.prototype.__defineSetter__("nextSibling", function() {
-    throw new DOMException();
-});
-
-core.Node.prototype.__defineGetter__("previousSibling", function() { 
-    // find this node's index in the parentNode, add one and call it a day
-    var index = 0;
-
-    if (!this.parentNode || !this.parentNode.childNodes || !this.childNodes.length || this.childNodes.length < 1) 
-    {
-        return null;
-    }
-
-    var currentNode;
-    while ((currentNode = this.parentNode.childNodes[index]))
-    {
-        if (currentNode === this) { break; }
-        index++;
-    }
-    
-    return this.parentNode.childNodes[index-1];
-});
-
-
-core.Node.prototype.__defineSetter__("previousSibling", function() {
-    throw new DOMException();
-});
-
-/*
-core.Node.prototype.__defineGetter__("attributes", function() { 
-  if (!this.attributes) {
-    this.attributes = new core.NodeList();	
-  }
-  return this.attributes; 
-});
-core.Node.prototype.__defineSetter__("attributes", function() {
-   throw new exception();
-});
-*/
 
 core.NamedNodeMap = function() {
-	this.length = 0;
-	this.nodes = [];
+	this._nodes = [];
 	
 };
 core.NamedNodeMap.prototype = {
   
+  get length() { return this._nodes.length; },
+  
 	/* returns Node */
 	getNamedItem: function(/* string */ name) {
-	    for (var i=0; i<this.nodes.length; i++)
+	    for (var i=0; i<this._nodes.length; i++)
 	    {
-	        if (this.nodes[i].name && this.nodes[i].name === name) {
-	            return this.nodes[i];
+	        if (this._nodes[i].name && this._nodes[i].name === name) {
+	            return this._nodes[i];
 	        }
 	    }
 	},
@@ -256,32 +229,28 @@ core.NamedNodeMap.prototype = {
 	/* returns Node */
 	setNamedItem: function(/* Node */ arg) {
 	    this.removeNamedItem(arg.name);
-	    this.nodes.push(arg);
-	    
-	    arg.parentNode = this;
-	    
-	    
+	    this._nodes.push(arg);
 	}, // raises: function(DOMException) {},
 
 	/* returns Node */
 	removeNamedItem: function(/* string */ name) {
 	    var minusNamed = [];
 	    var node = null;
-	    for (var i=0; i<this.nodes.length; i++)
+	    for (var i=0; i<this._nodes.length; i++)
 	    {
-	        if (!this.nodes[i].name || this.nodes[i].name !== name) {
-	            minusNamed.push(this.nodes[i]);
+	        if (!this._nodes[i].name || this._nodes[i].name !== name) {
+	            minusNamed.push(this._nodes[i]);
 	        } else {
-	            node = this.nodes[i];
+	            node = this._nodes[i];
 	        }
 	    }
-	    this.nodes = minusNamed;
+	    this._nodes = minusNamed;
 	    return node;
 	}, // raises: function(DOMException) {},
 
 	/* returns Node */
 	item: function(/* int */ index) {
-		return this.nodes[index];
+		return this._nodes[index];
 	}
 };
 
@@ -296,10 +265,10 @@ core.AttrNodeMap.prototype = {
   {
     // TODO: use prototypal inheritance.
     var item = false;
-    for (var i=0; i<this.nodes.length; i++)
+    for (var i=0; i<this._nodes.length; i++)
     {
-        if (this.nodes[i].name && this.nodes[i].name === name) {
-            item = this.nodes[i];
+        if (this._nodes[i].name && this._nodes[i].name === name) {
+            item = this._nodes[i];
             break;
         }    
     }      
@@ -313,28 +282,32 @@ core.AttrNodeMap.prototype = {
   /* returns Node */
   setNamedItem: function(/* Node */ arg) {
     this.removeNamedItem(arg.name);
-    this.nodes.push(arg);
+    this._nodes.push(arg);
   }, // raises: function(DOMException) {}, 
 };
 
 core.AttrNodeMap.prototype.__proto__ = core.NamedNodeMap.prototype;
 
 core.Element = function (tagName) {
-	this.attributes = null;//new core.AttrNodeMap();
-	this.tagName = tagName;
+	this._attributes = null;
+	this._tagName = tagName;
 	core.Node.call(this);
-	this.nodeName = tagName;
-	this.nodeType = this.ELEMENT_NODE;
+	this._nodeName = tagName;
+	this._nodeType = this.ELEMENT_NODE;
 };
 
 core.Element.prototype = {
   
   get nodeValue() { return null; },
   set nodeValue(value) { /* do nothing */ },
+  get nodeName() { return this._tagName; },
+  get tagName() { return this._tagName; },
+  get nodeType() { return this._nodeType; },
+  get attributes() { return this._attributes; },
   
   /* returns string */
   getAttribute: function(/* string */ name) {
-    var attribute = this.attributes.getNamedItem(name);
+    var attribute = this._attributes.getNamedItem(name);
     if (attribute) {
       return attribute.value;
     }
@@ -343,36 +316,36 @@ core.Element.prototype = {
 
   /* returns string */
   setAttribute: function(/* string */ name, /* string */ value) {
-	  if (this.attributes === null) {
-	    this.attributes = new core.AttrNodeMap();
+	  if (this._attributes === null) {
+	    this._attributes = new core.AttrNodeMap();
 	  }
 	  
 	  var attr = new core.Attr(name, value);
 	  this.removeAttribute(name);
-	  this.attributes.setNamedItem(attr);
+	  this._attributes.setNamedItem(attr);
 	  return value;
   }, //raises: function(DOMException) {},
 
   /* returns string */
   removeAttribute: function(/* string */ name) {
-      this.attributes.removeNamedItem(name);
+      this._attributes.removeNamedItem(name);
       return name;
   }, // raises: function(DOMException) {},
 
   /* returns Attr */
   getAttributeNode: function(/* string */ name) {
-    return this.attributes.getNamedItem(name);
+    return this._attributes.getNamedItem(name);
   },
 
   /* returns Attr */
   setAttributeNode: function(/* Attr */ newAttr) {
-    this.attributes.removeNamedItem(newAttr.name);
-    this.attributes.setNamedItem(newAttr);
+    this._attributes.setNamedItem(newAttr);
+    return newAttr;
   }, //  raises: function(DOMException) {},
 
   /* returns Attr */
   removeAttributeNode: function(/* Attr */ oldAttr) {
-    this.attributes.removeNamedItem(oldAttr.name);
+    this._attributes.removeNamedItem(oldAttr.name);
     return oldAttr;
   }, //raises: function(DOMException) {},
   
@@ -380,15 +353,15 @@ core.Element.prototype = {
   getElementsByTagName: function(/* string */ name) {
     var ret = new core.NodeList();
 
-    if (this.children && this.children.length) {      
-      for (var i=0; i<this.children.length; i++)
+    if (this._children && this._children.length) {      
+      for (var i=0; i<this._children.length; i++)
       {
-	      if (this.children[i].tagName && this.children[i].tagName === name) {
-          ret.push(this.children[i]);
+	      if (this._children[i].tagName && this._children[i].tagName === name) {
+          ret.push(this._children[i]);
         }		
-        if (this.children[i].getElementsByTagName)
+        if (this._children[i].getElementsByTagName)
         {
-	        var nested = this.children[i].getElementsByTagName(name);
+	        var nested = this._children[i].getElementsByTagName(name);
           if (nested && nested.length)
           {
             for (var idx = 0; idx<nested.length; idx++)
@@ -406,19 +379,18 @@ core.Element.prototype = {
   normalize: function() {
     var prevChild;
     var child;
-    for (var i=0; i<this.children.length; i++)
+    for (var i=0; i<this._children.length; i++)
     {
       if (i>0) {
-        child = this.children[i];
-        prevChild = this.children[i-1];
+        child = this._children[i];
+        prevChild = this._children[i-1];
         
-        if (child.nodeType === this.TEXT_NODE && prevChild.nodeType === this.TEXT_NODE)
+        if (child.nodeType === this._TEXT_NODE && prevChild.nodeType === this._TEXT_NODE)
         {
           // remove the child and decrement i
           prevChild.appendData(child.value);
           this.removeChild(child);
           i--;
-          
         }
       }
     }
@@ -429,45 +401,43 @@ core.Element.prototype.__proto__ = core.Node.prototype;
 
 core.DocumentFragment = function() {
 	core.Element.call(this, "#document-fragment");
+	this._nodeType = this.DOCUMENT_FRAGMENT_NODE;
 };
 core.DocumentFragment.prototype = {};
 core.DocumentFragment.prototype.__proto__ = core.Element.prototype;
 
 
 core.ProcessingInstruction = function (target, data) {
-	this._target = target;
-	this.nodeValue = data;
 	core.Node.call(this);
-	this.nodeType = this.PROCESSING_INSTRUCTION_NODE;
+	this._nodeName = target;
+	this._tagName = target;
+	this._target = target;
+	this._nodeValue = data;
 }
 core.ProcessingInstruction.prototype = {
   get target() { return this._target; },
   set target(value) { throw new DOMException(1); },
-  
-  get data()   { return this.nodeValue; },
-  set data(value)   { throw new DOMException(1); }
+  get nodeType() { return this.PROCESSING_INSTRUCTION_NODE; },
+  get nodeValue() { return this._nodeValue; },
+  get data()   { return this._nodeValue; },
+  set data()   { throw new DOMException(1); }
 
 };
-/*
-core.ProcessingInstruction.prototype.__defineGetter__("target", function() { return this.target; });
-core.ProcessingInstruction.prototype.__defineSetter__("target", function() {
-    throw new DOMException();
-});
-
-core.ProcessingInstruction.prototype.__defineGetter__("data", function() { return this.nodeValue; });
-core.ProcessingInstruction.prototype.__defineSetter__("data", function() {
-    throw new DOMException();
-});*/
-
 core.ProcessingInstruction.prototype.__proto__ = core.Node.prototype;
 
 
-core.Document = function() {
+core.Document = function(name, doctype, implementation) {
 	core.Element.call(this, "#document");
-	this.nodeName = "#document";
-	this.doctype = new DocumentType(1,1,1);
+	this._nodeName = "#document";
+	this._doctype = doctype || new DocumentType(name, new NamedNodeMap(), new NamedNodeMap());
+	this._implementation = implementation || new DOMImplementation();
+	this._documentElement = null
 };
 core.Document.prototype = {
+
+  get doctype() { return this._doctype; },
+  get documentElement() { return this._documentElement; },
+  get implementation() { return this._implementation; },
 
   /* returns Element */
   createElement: function(/* string */ tagName) {
@@ -506,21 +476,21 @@ core.Document.prototype = {
   
   /* returns EntityReference */
   createEntityReference: function(/* string */ name) {
-      return new core.EntityReference(name);
+      return new core.EntityReference(this._doctype.entities.getNamedItem(name));
   }, //raises: function(DOMException) {},
 
   /* returns Node */
   appendChild : function(/* Node */ newChild){
-	  this.children.push(newChild);
+	  this._children.push(newChild);
 	  // TODO: trigger an internal mutation event.
 	  
-	  if (!this.documentElement && newChild.nodeType === this.ELEMENT_NODE) {
-	    this.documentElement = newChild;
+	  if (!this._documentElement && newChild.nodeType === this.ELEMENT_NODE) {
+	    this._documentElement = newChild;
 	  }
 	  
 	  // Attach the parent node.
 	  // TODO: this needs to somehow get into a "subsystem" behind the nodes.
-	  newChild.parentNode = this;
+	  newChild._parentNode = this;
 	  return newChild;	
   }, // raises(DOMException);
   
@@ -528,53 +498,46 @@ core.Document.prototype = {
 };
 core.Document.prototype.__proto__ = core.Element.prototype;
 
-
-
-// Document ReadOnly Properties
-// defineReadOnly(core.Document.prototype, 'doctype');          // DocumentType
-// defineReadOnly(core.Document.prototype, 'implementation');   // DOMImplementation
-// defineReadOnly(core.Document.prototype, 'documentElement');  // Element
-
-
 core.CharacterData = function(value) {
-  this.nodeValue = value;
+  core.Node.call(this);
+  this._nodeValue = value;
 };
 core.CharacterData.prototype = {
 
-  get data() { return this.nodeValue; },
+  get data() { return this._nodeValue; },
   set data(data) { 
-    this.nodeValue = data; 
+    this._nodeValue = data; 
 	},
 	
   /* returns int */
-  get length() { return this.nodeValue.length || 0; },
+  get length() { return this._nodeValue.length || 0; },
   
   /* returns string */
   substringData: function(/* int */ offset, /* int */ count) {
     
-    return (this.nodeValue.length < offset + count) ? 
-            this.nodeValue.substring(offset) : 
-            this.nodeValue.substring(offset, offset+count);
+    return (this._nodeValue.length < offset + count) ? 
+            this._nodeValue.substring(offset) : 
+            this._nodeValue.substring(offset, offset+count);
     
   }, // raises: function(DOMException) {},
 
   /* returns string */
   appendData: function(/* string */ arg) {
-      this.nodeValue+=arg;
-      return this.nodeValue;
+      this._nodeValue+=arg;
+      return this._nodeValue;
   }, // raises: function(DOMException) {},
   
   /* returns string */	
   insertData: function(/* int */ offset, /* string */ arg) {
-      if (offset < 0 || offset > this.nodeValue.length)
+      if (offset < 0 || offset > this._nodeValue.length)
       {
           throw new DOMException(INDEX_SIZE_ERR);
       }
 
-      var start = this.nodeValue.substring(0,offset);
-      var end = this.nodeValue.substring(offset);
+      var start = this._nodeValue.substring(0,offset);
+      var end = this._nodeValue.substring(offset);
       
-      this.nodeValue = start + arg + end;      
+      this._nodeValue = start + arg + end;      
       
   }, //raises: function(DOMException) {},
 	
@@ -582,157 +545,173 @@ core.CharacterData.prototype = {
   deleteData: function(/* int */ offset, /* int */ count) {
       
       if (offset       < 0                     || 
-          offset       > this.nodeValue.length || 
+          offset       > this._nodeValue.length || 
           count        < 0)
       {
           throw new DOMException(INDEX_SIZE_ERR);
       }
 
-      var start = this.nodeValue.substring(0,offset);
+      var start = this._nodeValue.substring(0,offset);
 
-      this.nodeValue = (offset+count<this.nodeValue.length) ? 
-                       start + this.nodeValue.substring(offset+count) :
+      this._nodeValue = (offset+count<this._nodeValue.length) ? 
+                       start + this._nodeValue.substring(offset+count) :
                        start;
   }, // raises: function(DOMException) {},
   
 	/* returns void */
   replaceData: function(/* int */ offset, /* int */ count, /* string */ arg) {
       if (offset       < 0                     || 
-          offset       > this.nodeValue.length || 
+          offset       > this._nodeValue.length || 
           count        < 0                     || 
-          offset+count > this.nodeValue.length)
+          offset+count > this._nodeValue.length)
       {
           throw new DOMException(INDEX_SIZE_ERR);
       }
 
-      var start = this.nodeValue.substring(0,offset);
-      var end = this.nodeValue.substring(offset+count);
+      var start = this._nodeValue.substring(0,offset);
+      var end = this._nodeValue.substring(offset+count);
       
-      this.nodeValue = start + arg + end;      
+      this._nodeValue = start + arg + end;      
   } // raises: function(DOMException) {},
 };
-
 core.CharacterData.prototype.__proto__ = core.Node.prototype;
 
 
 core.Attr = function(name, value) {
-    
-	this.nodeValue = value;
-	this.name = name;
-  this.specified = (value) ? true : false;
-  
 	core.Node.call(this);
-  this.parentNode = null;
-  this.nodeName = name;
+	
+	this._nodeValue = value;
+	this._name = name;
+  this._specified = (value) ? true : false;
+  this._tagName   = name;
+  this._nodeName  = name;
 };
-core.Attr.prototype =  { /*nodeValue: null*/ 
+core.Attr.prototype =  {
+  get nodeType() { return this.ATTRIBUTE_NODE; },
+  get nodeValue() { return this._nodeValue; },
+  set nodeValue(value) { this._nodeValue = value; },
+  get name() { return this._name; },
+  get specified() { return this._specified; },
+  set specified() { throw new DOMException(); },
+  get value() { return this._nodeValue; },
+  set value(value) { this._nodeValue = value; }
 };
-
-
-core.Attr.prototype.__defineGetter__("value", function() { return this.nodeValue; });
-core.Attr.prototype.__defineSetter__("value", function(value) { this.nodeValue = value; });
-/*core.Attr.prototype.__defineGetter__("specified", function() { return this.nodeValue ? true : false; });
-core.Attr.prototype.__defineSetter__("specified", function() {
-    throw new exception();
-});*/
 core.Attr.prototype.__proto__ = core.Node.prototype;
-
-
-// Attr ReadOnly Properties
-//// defineReadOnly(core.Attr.prototype, 'name');
-//// defineReadOnly(core.Attr.prototype, 'value'); // from node
-//// defineReadOnly(core.Attr.prototype, 'specified');
-
 
 core.Text = function(text) {
     core.CharacterData.call(this, text);
+    this._nodeName = "#text";
 };
 core.Text.prototype = {
+	
+	get attributes() { return null; },
+	get nodeType() { return this.TEXT_NODE; },
+	get value() { return this._nodeValue; },
+	set value(value) { this._nodeValue = value; },
+	
+	
 	/* returns Text */
 	splitText: function(offset) {
-	    if (offset < 0 || offset > this.nodeValue.length) {
+	    if (offset < 0 || offset > this._nodeValue.length) {
 	      throw new DOMException(INDEX_SIZE_ERR);
 	    }
 	    
-	    
-	    var newText = this.nodeValue.substring(offset);
-	    this.nodeValue = this.nodeValue.substring(0, offset);
+	    var newText = this._nodeValue.substring(offset);
+	    this._nodeValue = this._nodeValue.substring(0, offset);
 	    var newNode = new Text(newText);
-	    this.parentNode.appendChild(newNode);
+	    this._parentNode.appendChild(newNode);
 	    return newNode;
 	} //raises: function(DOMException) {},
 };
-
-core.Attr.prototype.__defineGetter__("value", function() { return this.nodeValue; });
-core.Attr.prototype.__defineSetter__("value", function(value) { this.nodeValue = value; });
-
 core.Text.prototype.__proto__ = core.CharacterData.prototype
+
 
 core.Comment = function(text) {
   core.Text.call(this, text);
-  this.nodeType = this.COMMENT_NODE;
-  this.nodeName = "#comment";
+  this._nodeType = this.COMMENT_NODE;
+  this._nodeName = "#comment";
+  this._tagName  = "#comment";
 };
 core.Comment.prototype = {
 };
 core.Comment.prototype.__proto__ = core.Text.prototype
 
-core.CDATASection = function() {};
+
+core.CDATASection = function(value) {
+  core.Text.call(this, value);
+  this._nodeType = this.CDATA_SECTION_NODE;
+  this._nodeName = "#cdata-section";
+};
 core.CDATASection.prototype = {
 };
 core.CDATASection.prototype.__proto__ = core.Text.prototype
 
 core.DocumentType = function(name, entities, notations) {
+	core.Node.call(this);
 	this._name = name;
+	this._tagName = name;
+	this._nodeName = name;
 	this._entities = entities || new NamedNodeMap();
 	this._notations = notations || new NamedNodeMap();
 };
 core.DocumentType.prototype = {
   get nodeValue() { return null; },
   set nodeValue() { /* do nothing */ },
-  
+
+  get nodeType() { return this.DOCUMENT_TYPE_NODE; },
   get name() { return this._name; },
   get entities() { return this._entities; },
   get notations() { return this._notations; }
-  
-
 };
-
 core.DocumentType.prototype.__proto__ = core.Node.prototype;
 
-
-
 core.Notation = function(publicId, systemId){
-  this.publicId = publicId;
-	this.systemId = systemId;
+  core.Node.call(this);
+  this._name = publicId;
+  this._nodeType = this.NOTATION_NODE;
+  this._publicId = publicId;
+	this._systemId = systemId;
 };
 core.Notation.prototype = {
+  get publicId() { return this._publicId; },
+  get systemId() { return this._systemId; },
+  get name() { return this._name; },
+  get attributes() { /* as per spec */ return null; }
 };
 core.Notation.prototype.__proto__ = core.Node.prototype;
 
-// ProcessingInstruction ReadOnly Properties
-// defineReadOnly(core.Notation.prototype, 'publicId');
-// defineReadOnly(core.Notation.prototype, 'systemId');
 
-
-core.Entity = function(publicId, systemId, notationName) {};
+core.Entity = function(name, publicId, systemId, notationName) {
+  core.Node.call(this);
+  this._name = name;
+  this._nodeName = name;
+  this._tagName = name;
+  this._publicId = publicId;
+  this._systemId = systemId;
+  this._notationName = notationName;
+  this._nodeType = this.ENTITY_NODE;
+  
+};
 core.Entity.prototype = {
   get nodeValue() { return null; },
-  set nodeValue() { /* do nothing */ }
+  set nodeValue() { /* do nothing */ },
+  get name() { return this._name },
+  get publicId() { return this._publicId; },
+  get systemId() { return this._systemId; },
+  get notationName() { return this._notationName; }
 };
-
 core.Entity.prototype.__proto__ = core.Node.prototype;
 
-// Entity ReadOnly Properties
-// defineReadOnly(core.Entity.prototype, 'publicId');
-// defineReadOnly(core.Entity.prototype, 'systemId');
-// defineReadOnly(core.Entity.prototype, 'notationName');
 
-
-core.EntityReference = function(tagname) {
-  core.Node.call(this, tagname);
+core.EntityReference = function(entity) {
+  core.Node.call(this);
+  
+  
+  
+  this._nodeName = entity.name;
 };
 core.EntityReference.prototype = {
+  get nodeType()  { return this.ENTITY_REFERENCE_NODE; },
   get nodeValue() { return null; },
   set nodeValue() { /* do nothing */ } 
 };
@@ -741,7 +720,7 @@ core.EntityReference.prototype.__proto__ = core.Node.prototype;
 
 /*
 core.HTMLCollection = function() {
-	this.items = [];
+	this._items = [];
 };
 
 core.HTMLCollection.prototype = {
@@ -749,7 +728,7 @@ core.HTMLCollection.prototype = {
   //readonly attribute  unsigned long        length;
   /* returns Node * /
   item : function(/* integer * / index) {
-    return this.items[index];	
+    return this._items[index];	
   }
   
   //Node                      namedItem(in DOMString name);

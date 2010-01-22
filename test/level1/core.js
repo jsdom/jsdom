@@ -21625,8 +21625,10 @@ exports.tests = {
 
         assertNotNull("notationsNotNull",notations);
         notationNode = notations.getNamedItem("notation1");
+        
         assertNotNull("notationNotNull",notationNode);
         attrList = notationNode.attributes;
+        
 
         assertNull("nodeNotationNodeAttributesAssert1",attrList);
 
@@ -24148,6 +24150,7 @@ exports.tests = {
           docRef = this.doc;
         }
         doc = load(docRef, "doc", "staff");
+
         entRef = doc.createEntityReference("ent3");
         assertNotNull("createdEntRefNotNull",entRef);
         entText = entRef.firstChild;
