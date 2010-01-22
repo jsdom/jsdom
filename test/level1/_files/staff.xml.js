@@ -1,69 +1,72 @@
 var sys = require("sys");
-var doc = new Document();
+exports.staff = function() {
+  var doc = new Document();
 
 
-var staff     = doc.createElement("staff");
+  var staff     = doc.createElement("staff");
 
-var employees = [];
-var addresses = [];
-var names     = [];
+  var employees = [];
+  var addresses = [];
+  var names     = [];
 
-// create 5 employees
-for (var i=0; i<5; i++)
-{
-	var employee = doc.createElement("employee");
-	var address  = doc.createElement("address");
-	var name     = doc.createElement("name");
-	
-	employee.appendChild(name);
-	employee.appendChild(address);
-	staff.appendChild(employee);
-	
-	names.push(name);
-	employees.push(employee);
-	addresses.push(address);	
-}
+  // create 5 employees
+  for (var i=0; i<5; i++)
+  {
+    var employee = doc.createElement("employee");
+    var address  = doc.createElement("address");
+    var name     = doc.createElement("name");
 
-addresses[0].setAttribute("domestic", "Yes");
-names[0].appendChild(new Text("Margaret Martin"));
-//addresses[0].nodeValue = "1230 North Ave. Dallas, Texas 98551";
+    employee.appendChild(name);
+    employee.appendChild(address);
+    staff.appendChild(employee);
 
-addresses[1].setAttribute("domestic", "Yes");
-addresses[1].setAttribute("street", "Yes");
-names[1].appendChild(new Text("Margaret Martin"));
-//addresses[1].nodeValue = "1230 North Ave. Dallas, Texas 98551";
+    names.push(name);
+    employees.push(employee);
+    addresses.push(address);	
+  }
 
-addresses[2].setAttribute("domestic", "Yes");
-addresses[2].setAttribute("street", "No");
-names[2].appendChild(new Text("Roger\n Jones")) ;
-//addresses[2].nodeValue = "1230 North Ave. Dallas, Texas 98551";
+  addresses[0].setAttribute("domestic", "Yes");
+  addresses[0].appendChild(new Text('1230 North Ave. Dallas, Texas 98551'));
+  names[0].appendChild(new Text("Margaret Martin"));
+  //addresses[0].nodeValue = "1230 North Ave. Dallas, Texas 98551";
 
-addresses[3].setAttribute("domestic", "Yes");
-addresses[3].setAttribute("street", "Y&ent1;");
-names[3].appendChild(new Text("Margaret Martin"));
-//addresses[3].nodeValue = "1230 North Ave. Dallas, Texas 98551";
+  addresses[1].setAttribute("domestic", "Yes");
+  addresses[1].setAttribute("street", "Yes");
+  names[1].appendChild(new Text("Margaret Martin"));
+  //addresses[1].nodeValue = "1230 North Ave. Dallas, Texas 98551";
 
-addresses[4].setAttribute("street", "Yes");
-names[4].appendChild(new Text("Margaret Martin"));
-//addresses[5].nodeValue = "1230 North Ave. Dallas, Texas 98551";
+  addresses[2].setAttribute("domestic", "Yes");
+  addresses[2].setAttribute("street", "No");
+  names[2].appendChild(new Text("Roger\n Jones")) ;
+  //addresses[2].nodeValue = "1230 North Ave. Dallas, Texas 98551";
 
+  addresses[3].setAttribute("domestic", "Yes");
+  addresses[3].setAttribute("street", "Y&ent1;");
+  names[3].appendChild(new Text("Margaret Martin"));
+  //addresses[3].nodeValue = "1230 North Ave. Dallas, Texas 98551";
 
-/*<?xml version="1.0"?>
-<?TEST-STYLE PIDATA?>
-<!DOCTYPE staff SYSTEM "staff.dtd" [
-   <!ENTITY ent1 "es">
-   <!ENTITY ent2 "1900 Dallas Road">
-   <!ENTITY ent3 "Texas">
-   <!ENTITY ent4 "<entElement domestic='Yes'>Element data</entElement><?PItarget PIdata?>">
-   <!ENTITY ent5 PUBLIC "entityURI" "entityFile" NDATA notation1>
-   <!ENTITY ent1 "This entity should be discarded">
-   <!NOTATION notation1 PUBLIC "notation1File">
-   <!NOTATION notation2 SYSTEM "notation2File">
-]>
+  addresses[4].setAttribute("street", "Yes");
+  names[4].appendChild(new Text("Margaret Martin"));
+  //addresses[5].nodeValue = "1230 North Ave. Dallas, Texas 98551";
 
-<!-- This is comment number 1.-->
-<staff>
- <employee>
+  //  doc.appendChild(new ProcessingInstruction());
+
+  /*<?xml version="1.0"?>
+  <?TEST-STYLE PIDATA?>
+  <!DOCTYPE staff SYSTEM "staff.dtd" [
+  <!ENTITY ent1 "es">
+  <!ENTITY ent2 "1900 Dallas Road">
+  <!ENTITY ent3 "Texas">
+  <!ENTITY ent4 "<entElement domestic='Yes'>Element data</entElement><?PItarget PIdata?>">
+  <!ENTITY ent5 PUBLIC "entityURI" "entityFile" NDATA notation1>
+  <!ENTITY ent1 "This entity should be discarded">
+  <!NOTATION notation1 PUBLIC "notation1File">
+  <!NOTATION notation2 SYSTEM "notation2File">
+  ]>
+
+  <!-- This is comment number 1.-->
+  <staff>
+  <employee>
   <employeeId>EMP0001</employeeId>
   <name>Margaret Martin</name>
   <position>Accountant</position>           
@@ -71,32 +74,32 @@ names[4].appendChild(new Text("Margaret Martin"));
   <gender>Female</gender>
 
   <address domestic="Yes">1230 North Ave. Dallas, Texas 98551</address>
- </employee>
- 
- <employee>
+  </employee>
+
+  <employee>
   <employeeId>EMP0002</employeeId>
   <name>Martha Raynolds<![CDATA[This is a CDATASection with EntityReference number 2 &ent2;]]>
-<![CDATA[This is an adjacent CDATASection with a reference to a tab &tab;]]></name>
+  <![CDATA[This is an adjacent CDATASection with a reference to a tab &tab;]]></name>
   <position>Secretary</position>
 
   <salary>35,000</salary>
   <gender>Female</gender>
   <address domestic="Yes" street="Yes">&ent2; Dallas, &ent3;
- 98554</address>
- </employee>
- 
- <employee>
+  98554</address>
+  </employee>
+
+  <employee>
 
   <employeeId>EMP0003</employeeId>
   <name>Roger
- Jones</name>
+  Jones</name>
   <position>Department Manager</position>
   <salary>100,000</salary>
   <gender>&ent4;</gender>
   <address domestic="Yes" street="No">PO Box 27 Irving, texas 98553</address>
 
- </employee>
- <employee>
+  </employee>
+  <employee>
   <employeeId>EMP0004</employeeId>
   <name>Jeny Oconnor</name>
   <position>Personnel Director</position>
@@ -104,8 +107,8 @@ names[4].appendChild(new Text("Margaret Martin"));
   <gender>Female</gender>
 
   <address domestic="Yes" street="Y&ent1;">27 South Road. Dallas, Texas 98556</address>
- </employee>
- <employee>
+  </employee>
+  <employee>
   <employeeId>EMP0005</employeeId>
   <name>Robert Myers</name>
   <position>Computer Specialist</position>
@@ -113,9 +116,9 @@ names[4].appendChild(new Text("Margaret Martin"));
 
   <gender>male</gender>
   <address street="Yes">1821 Nordic. Road, Irving Texas 98558</address>
- </employee>
- </staff>*/
- 
-doc.appendChild(staff);
+  </employee>
+  </staff>*/
 
-exports.staff = doc;
+  doc.appendChild(staff);
+  return doc;
+};

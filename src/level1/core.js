@@ -109,6 +109,21 @@ core.Node = function () {
 	this.children = new core.NodeList();
 };
 core.Node.prototype = {
+  
+  get ELEMENT_NODE() { return 1; },
+  get ATTRIBUTE_NODE() { return 2; },
+  get TEXT_NODE() { return 3; },
+  get CDATA_SECTION_NODE() { return 4; },
+  get ENTITY_REFERENCE_NODE() { return 5; },  
+  get ENTITY_NODE() { return 6; },
+  get PROCESSING_INSTRUCTION_NODE() { return 7; },
+  get COMMENT_NODE() { return 8; },
+  get DOCUMENT_NODE() { return 9; },
+  get DOCUMENT_TYPE_NODE() { return 10; },
+  get DOCUMENT_FRAGMENT_NODE() { return 11; },
+  get NOTATION_NODE() { return 12; },
+
+  
   nodeValue : null,
   parentNode : null,
   /* returns Node */ 
@@ -141,12 +156,12 @@ core.Node.prototype = {
 
 core.Node.prototype.__defineGetter__("firstChild", function() { return this.children.item(0); });
 core.Node.prototype.__defineSetter__("firstChild", function() {
-    throw new exception();
+    throw new DOMException();
 });
 
 core.Node.prototype.__defineGetter__("childNodes", function() { return this.children; });
 core.Node.prototype.__defineSetter__("childNodes", function() {
-    throw new exception();
+    throw new DOMException();
 });
 
 core.Node.prototype.__defineGetter__("nextSibling", function() { 
@@ -168,7 +183,7 @@ core.Node.prototype.__defineGetter__("nextSibling", function() {
     return this.parentNode.childNodes[index];
 });
 core.Node.prototype.__defineSetter__("nextSibling", function() {
-    throw new exception();
+    throw new DOMException();
 });
 
 core.Node.prototype.__defineGetter__("previousSibling", function() { 
@@ -189,8 +204,10 @@ core.Node.prototype.__defineGetter__("previousSibling", function() {
     
     return this.parentNode.childNodes[index-1];
 });
+
+
 core.Node.prototype.__defineSetter__("previousSibling", function() {
-    throw new exception();
+    throw new DOMException();
 });
 
 /*
@@ -203,36 +220,6 @@ core.Node.prototype.__defineGetter__("attributes", function() {
 core.Node.prototype.__defineSetter__("attributes", function() {
    throw new exception();
 });
-
-// Node ReadOnly Properties
-/* defineReadOnly(core.Node.prototype, 'nodeType');
-// defineReadOnly(core.Node.prototype, 'nodeValue');
-// defineReadOnly(core.Node.prototype, 'parentNode');
-// defineReadOnly(core.Node.prototype, 'childNodes');
-// defineReadOnly(core.Node.prototype, 'firstChild');
-// defineReadOnly(core.Node.prototype, 'lastChild ');
-// defineReadOnly(core.Node.prototype, 'previousSibling');
-// defineReadOnly(core.Node.prototype, 'nextSibling');
-*/
-//// defineReadOnly(core.Node, 'attributes');
-/*// defineReadOnly(core.Node.prototype, 'ownerDocument');
-
-
-
-// Node Constants
-defineConstant(core.Node.prototype,'ELEMENT_NODE',core.constantSetException(), 1);
-defineConstant(core.Node.prototype,'ATTRIBUTE_NODE',core.constantSetException(), 2);
-defineConstant(core.Node.prototype,'TEXT_NODE',core.constantSetException(), 3);
-defineConstant(core.Node.prototype,'CDATA_SECTION_NODE',core.constantSetException(), 4);
-defineConstant(core.Node.prototype,'ENTITY_REFERENCE_NODE',core.constantSetException(), 5);
-defineConstant(core.Node.prototype,'ENTITY_NODE',core.constantSetException(), 6);
-defineConstant(core.Node.prototype,'PROCESSING_INSTRUCTION_NODE',core.constantSetException(), 7);
-defineConstant(core.Node.prototype,'COMMENT_NODE',core.constantSetException(), 8);
-defineConstant(core.Node.prototype,'DOCUMENT_NODE',core.constantSetException(), 9);
-defineConstant(core.Node.prototype,'DOCUMENT_TYPE_NODE',core.constantSetException(), 10);
-defineConstant(core.Node.prototype,'DOCUMENT_FRAGMENT_NODE',core.constantSetException(), 11);
-defineConstant(core.Node.prototype,'NOTATION_NODE',core.constantSetException(), 12);
-
 */
 
 core.NamedNodeMap = function() {
@@ -249,15 +236,16 @@ core.NamedNodeMap.prototype = {
 	        if (this.nodes[i].name && this.nodes[i].name === name) {
 	            return this.nodes[i];
 	        }
-	        
 	    }
 	},
 
 	/* returns Node */
 	setNamedItem: function(/* Node */ arg) {
+	    this.removeNamedItem(arg.name);
 	    this.nodes.push(arg);
 	    
 	    arg.parentNode = this;
+	    
 	    
 	}, // raises: function(DOMException) {},
 
@@ -304,13 +292,13 @@ core.AttrNodeMap.prototype = {
       
     if (!item) {
         item = new core.Attr(name,false);
-    
     }
     return item;
   },
   
   /* returns Node */
   setNamedItem: function(/* Node */ arg) {
+    this.removeNamedItem(arg.name);
     this.nodes.push(arg);
   }, // raises: function(DOMException) {}, 
 };
@@ -318,21 +306,33 @@ core.AttrNodeMap.prototype = {
 core.AttrNodeMap.prototype.__proto__ = core.NamedNodeMap.prototype;
 
 core.Element = function (tagName) {
-	this.attributes = new core.AttrNodeMap();
+	this.attributes = null;//new core.AttrNodeMap();
 	this.tagName = tagName;
 	core.Node.call(this);
+	this.nodeType = this.ELEMENT_NODE;
 };
 
 core.Element.prototype = {
 
   /* returns string */
-  getAttribute: function(/* string */ name) {},
+  getAttribute: function(/* string */ name) {
+    var attribute = this.attributes.getNamedItem(name);
+    if (attribute) {
+      return attribute.value;
+    }
+    return "";
+  },
 
   /* returns string */
   setAttribute: function(/* string */ name, /* string */ value) {
-	var attr = new core.Attr(name, value);
-	
-	this.attributes.setNamedItem(attr);
+	  if (this.attributes === null) {
+	    this.attributes = new core.AttrNodeMap();
+	  }
+	  
+	  var attr = new core.Attr(name, value);
+	  this.removeAttribute(name);
+	  this.attributes.setNamedItem(attr);
+	  return value;
   }, //raises: function(DOMException) {},
 
   /* returns string */
@@ -342,13 +342,21 @@ core.Element.prototype = {
   }, // raises: function(DOMException) {},
 
   /* returns Attr */
-  getAttributeNode: function(/* string */ name) {},
+  getAttributeNode: function(/* string */ name) {
+    return this.attributes.getNamedItem(name);
+  },
 
   /* returns Attr */
-  setAttributeNode: function(/* Attr */ newAttr) {}, //  raises: function(DOMException) {},
+  setAttributeNode: function(/* Attr */ newAttr) {
+    this.attributes.removeNamedItem(newAttr.name);
+    this.attributes.setNamedItem(newAttr);
+  }, //  raises: function(DOMException) {},
 
   /* returns Attr */
-  removeAttributeNode: function(/* Attr */ oldAttr) {}, //raises: function(DOMException) {},
+  removeAttributeNode: function(/* Attr */ oldAttr) {
+    this.attributes.removeNamedItem(oldAttr.name);
+    return oldAttr;
+  }, //raises: function(DOMException) {},
   
   /* returns NodeList */	
   getElementsByTagName: function(/* string */ name) {
@@ -393,13 +401,13 @@ core.Element.prototype.__proto__ = core.Node.prototype;
 //// defineReadOnly(core.Element.prototype, 'tagName');
 
 core.DocumentFragment = function() {
-	core.Element.call(this, "documentFragment");
+	core.Element.call(this, "#document-fragment");
 };
 core.DocumentFragment.prototype = {};
 core.DocumentFragment.prototype.__proto__ = core.Element.prototype;
 
 core.Document = function() {
-	core.Element.call(this, "document");
+	core.Element.call(this, "#document");
 };
 core.Document.prototype = {
 
@@ -426,7 +434,9 @@ core.Document.prototype = {
   createProcessingInstruction: function(/* string */ target,/* string */ data) {}, // raises: function(DOMException) {},
 
   /* returns Attr */
-  createAttribute: function(/* string */ name) {}, // raises: function(DOMException) {},
+  createAttribute: function(/* string */ name) {
+    return new core.Attr(name,"");
+  }, // raises: function(DOMException) {},
   
   /* returns EntityReference */
   createEntityReference: function(/* string */ name) {
@@ -460,16 +470,57 @@ core.CharacterData.prototype = {
   substringData: function(/* int */ offset, /* int */ count) {}, // raises: function(DOMException) {},
 
   /* returns string */
-  appendData: function(/* string */ arg) {}, // raises: function(DOMException) {},
+  appendData: function(/* string */ arg) {
+      this.nodeValue+=arg;
+      return this.nodeValue;
+  }, // raises: function(DOMException) {},
   
   /* returns string */	
-  insertData: function(/* int */ offset, /* string */ arg) {}, //raises: function(DOMException) {},
+  insertData: function(/* int */ offset, /* string */ arg) {
+      if (offset       < 0                     || 
+          offset       > this.nodeValue.length)
+      {
+          throw new DOMException(INDEX_SIZE_ERR);
+      }
+
+      var start = this.nodeValue.substring(0,offset);
+      var end = this.nodeValue.substring(offset);
+      
+      this.nodeValue = start + arg + end;      
+      
+  }, //raises: function(DOMException) {},
 	
 	/* returns void */
-  deleteData: function(/* int */ offset, /* int */ count) {}, // raises: function(DOMException) {},
+  deleteData: function(/* int */ offset, /* int */ count) {
+      if (offset       < 0                     || 
+          offset       > this.nodeValue.length || 
+          count        < 0                     || 
+          offset+count > this.nodeValue.length)
+      {
+          throw new DOMException(INDEX_SIZE_ERR);
+      }
+
+      var start = this.nodeValue.substring(0,offset);
+      var end = this.nodeValue.substring(offset+count);
+      
+      this.nodeValue = start + end;
+  }, // raises: function(DOMException) {},
   
 	/* returns void */
-  replaceData: function(/* int */ offset, /* int */ count, /* string */ arg) {} // raises: function(DOMException) {},
+  replaceData: function(/* int */ offset, /* int */ count, /* string */ arg) {
+      if (offset       < 0                     || 
+          offset       > this.nodeValue.length || 
+          count        < 0                     || 
+          offset+count > this.nodeValue.length)
+      {
+          throw new DOMException(INDEX_SIZE_ERR);
+      }
+
+      var start = this.nodeValue.substring(0,offset);
+      var end = this.nodeValue.substring(offset+count);
+      
+      this.nodeValue = start + arg + end;      
+  } // raises: function(DOMException) {},
 };
 
 core.CharacterData.prototype.__proto__ = core.Node.prototype;
@@ -479,12 +530,11 @@ core.Attr = function(name, value) {
     
 	this.nodeValue = value;
 	this.name = name;
-    this.specified = (value) ? true : false;
-
-	
+  this.specified = (value) ? true : false;
+  
 	core.Node.call(this);
-    this.parentNode = null;
-    this.nodeName = name;
+  this.parentNode = null;
+  this.nodeName = name;
 };
 core.Attr.prototype =  { /*nodeValue: null*/ 
 };
@@ -586,9 +636,21 @@ core.EntityReference.prototype.__proto__ = core.Node.prototype;
 core.ProcessingInstruction = function (target, data) {
 	this.target = target;
 	this.data = data;
+	core.Node.call(this);
 }
 core.ProcessingInstruction.prototype = {
 };
+
+core.ProcessingInstruction.prototype.__defineGetter__("target", function() { return this.target; });
+core.ProcessingInstruction.prototype.__defineSetter__("target", function() {
+    throw new DOMException();
+});
+
+core.ProcessingInstruction.prototype.__defineGetter__("data", function() { return this.data; });
+core.ProcessingInstruction.prototype.__defineSetter__("data", function() {
+    throw new DOMException();
+});
+
 
 core.ProcessingInstruction.prototype.__proto__ = core.Node.prototype;
 // ProcessingInstruction ReadOnly Properties

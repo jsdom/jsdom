@@ -1,5 +1,4 @@
 var sys = require("sys");
-
 exports.tests = {
 /**
 * 
@@ -15,31 +14,33 @@ exports.tests = {
 * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A3
 */
 attrcreatedocumentfragment : function () {
-  var success;
-  if(checkInitialization(builder, "attrcreatedocumentfragment") != null) return;
-  var doc;
-  var docFragment;
-  var newOne;
-  var domesticNode;
-  var domesticAttr;
-  var attrs;
-  var attrName;
-  var appendedChild;
+   var success;
+    if(checkInitialization(builder, "attrcreatedocumentfragment") != null) return;
+    var doc;
+      var docFragment;
+      var newOne;
+      var domesticNode;
+      var domesticAttr;
+      var attrs;
+      var attrName;
+      var appendedChild;
       
-  var docRef = null;
-  if (typeof(this.doc) != 'undefined') {
-    docRef = this.doc;
-  }
-  doc = load(docRef, "doc", "staff");
-  docFragment = doc.createDocumentFragment();
-  newOne = doc.createElement("newElement");
-  newOne.setAttribute("newdomestic","Yes");
-  appendedChild = docFragment.appendChild(newOne);
-  domesticNode = docFragment.firstChild;
-  domesticAttr = domesticNode.attributes;
-  attrs = domesticAttr.item(0);
-  attrName = attrs.name;
-  assertEquals("newdomestic",attrName);
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      doc = load(docRef, "doc", "staff");
+      docFragment = doc.createDocumentFragment();
+      newOne = doc.createElement("newElement");
+      newOne.setAttribute("newdomestic","Yes");
+      appendedChild = docFragment.appendChild(newOne);
+      domesticNode = docFragment.firstChild;
+
+      domesticAttr = domesticNode.attributes;
+
+      attrs = domesticAttr.item(0);
+      attrName = attrs.name;
+      assertEquals("attrCreateDocumentFragmentAssert","newdomestic",attrName);
 },
 /**
 * 
@@ -58,8 +59,6 @@ attrcreatedocumentfragment : function () {
 * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Apr/0057.html
 */
 attrcreatetextnode : function () {
-
-
    var success;
     if(checkInitialization(builder, "attrcreatetextnode") != null) return;
     var doc;
@@ -74,17 +73,20 @@ attrcreatetextnode : function () {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staff");
-
       addressList = doc.getElementsByTagName("address");
-
       testNode = addressList.item(3);
       attributes = testNode.attributes;
+
       streetAttr = attributes.getNamedItem("street");
       streetAttr.value = "Y&ent1;";
+
       value = streetAttr.value;
-      assertEquals("Y&ent1;",value);
-      value = streetAttr.nodeValue;
-      assertEquals("Y&ent1;",value);
+
+      assertEquals("value","Y&ent1;",value);
+       value = streetAttr.nodeValue;
+
+      assertEquals("nodeValue","Y&ent1;",value);
+       
 },
 /**
 * 
@@ -125,10 +127,10 @@ attrcreatetextnode2 : function () {
 
       value = streetAttr.value;
 
-      assertEquals("Y&ent1;",value, "value");
+      assertEquals("value","Y&ent1;",value);
        value = streetAttr.nodeValue;
 
-      assertEquals("Y&ent1;",value, "nodeValue");
+      assertEquals("nodeValue","Y&ent1;",value);
        
 },
 /**
@@ -172,7 +174,7 @@ attrdefaultvalue : function () {
       streetAttr = attributes.getNamedItem("street");
       value = streetAttr.nodeValue;
 
-      assertEquals("Yes",value,"attrDefaultValueAssert");
+      assertEquals("attrDefaultValueAssert","Yes",value);
        
 },
 /**
@@ -209,7 +211,7 @@ attreffectivevalue : function () {
       domesticAttr = attributes.getNamedItem("domestic");
       value = domesticAttr.nodeValue;
 
-      assertEquals("Yes",value, "attrEffectiveValueAssert");
+      assertEquals("attrEffectiveValueAssert","Yes",value);
        
 },
 /**
@@ -251,7 +253,7 @@ attrentityreplacement : function () {
       streetAttr = attributes.getNamedItem("street");
       value = streetAttr.value;
 
-      assertEquals("Yes",value, "streetYes");
+      assertEquals("streetYes","Yes",value);
        
 },
 /**
@@ -281,18 +283,19 @@ attrname : function () {
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
-
       doc = load(docRef, "doc", "staff");
-
       addressList = doc.getElementsByTagName("address");
-      
       testNode = addressList.item(1);
       attributes = testNode.attributes;
+
       streetAttr = attributes.getNamedItem("street");
       name = streetAttr.nodeName;
-      assertEquals("street",name, "nodeName");
-      name = streetAttr.name;
-      assertEquals("street",name, "name");
+
+      assertEquals("nodeName","street",name);
+       name = streetAttr.name;
+
+      assertEquals("name","street",name);
+       
 },
 /**
 * 
@@ -328,7 +331,7 @@ attrnextsiblingnull : function () {
       domesticAttr = attributes.getNamedItem("domestic");
       s = domesticAttr.nextSibling;
 
-      assertNull(s, "attrNextSiblingNullAssert");
+      assertNull("attrNextSiblingNullAssert",s);
     
 },
 /**
@@ -367,10 +370,9 @@ attrnotspecifiedvalue : function () {
       attributes = testNode.attributes;
 
       streetAttr = attributes.getNamedItem("street");
-      
       state = streetAttr.specified;
 
-      assertFalse(state, "streetNotSpecified");
+      assertFalse("streetNotSpecified",state);
 
 },
 /**
@@ -403,10 +405,11 @@ attrparentnodenull : function () {
       addressList = doc.getElementsByTagName("address");
       testNode = addressList.item(0);
       attributes = testNode.attributes;
+
       domesticAttr = attributes.getNamedItem("domestic");
       s = domesticAttr.parentNode;
 
-      assertNull(s, "attrParentNodeNullAssert");
+      assertNull("attrParentNodeNullAssert",s);
     
 },
 /**
@@ -440,11 +443,10 @@ attrprevioussiblingnull : function () {
       testNode = addressList.item(0);
       attributes = testNode.attributes;
 
-
       domesticAttr = attributes.getNamedItem("domestic");
-
       s = domesticAttr.previousSibling;
-      assertNull(s, "attrPreviousSiblingNullAssert");
+
+      assertNull("attrPreviousSiblingNullAssert",s);
     
 },
 /**
@@ -730,7 +732,7 @@ attrspecifiedvalue : function () {
       domesticAttr = attributes.getNamedItem("domestic");
       state = domesticAttr.specified;
 
-      assertTrue(state, "domesticSpecified");
+      assertTrue("domesticSpecified",state);
 
 },
 /**
@@ -772,7 +774,7 @@ attrspecifiedvaluechanged : function () {
       streetAttr = attributes.getNamedItem("street");
       state = streetAttr.specified;
 
-      assertTrue(state, "streetSpecified");
+      assertTrue("streetSpecified",state);
 
 },
 /**
@@ -812,7 +814,6 @@ attrspecifiedvalueremove : function () {
       doc = load(docRef, "doc", "staff");
       addressList = doc.getElementsByTagName("address");
       testNode = addressList.item(2);
-      
       testNode.removeAttribute("street");
       attributes = testNode.attributes;
 
@@ -820,7 +821,7 @@ attrspecifiedvalueremove : function () {
       assertNotNull("streetAttrNotNull",streetAttr);
 state = streetAttr.specified;
 
-      assertFalse(state,"attrSpecifiedValueRemoveAssert");
+      assertFalse("attrSpecifiedValueRemoveAssert",state);
 
 },
 /**
@@ -1511,6 +1512,7 @@ characterdatagetlength : function () {
       }
       doc = load(docRef, "doc", "staff");
       elementList = doc.getElementsByTagName("name");
+
       nameNode = elementList.item(0);
       child = nameNode.firstChild;
 
@@ -6747,7 +6749,7 @@ hc_attreffectivevalue : function () {
       domesticAttr = attributes.getNamedItem("title");
       value = domesticAttr.nodeValue;
 
-      assertEquals("Yes",value,"attrEffectiveValueAssert");
+      assertEquals("attrEffectiveValueAssert","Yes",value);
        
 },
 /**
@@ -24150,19 +24152,20 @@ textsplittextnomodificationallowederrEE : function () {
       }
       doc = load(docRef, "doc", "staff");
       entRef = doc.createEntityReference("ent3");
+      assertNotNull("createdEntRefNotNull",entRef);
+entText = entRef.firstChild;
 
-      assertNotNull(entRef, "createdEntRefNotNull");
-      entText = entRef.firstChild;
-      assertNotNull(entText, "entTextNotNull");
-	  {
+      assertNotNull("entTextNotNull",entText);
+
+	{
 		success = false;
 		try {
             splitNode = entText.splitText(2);
         }
 		catch(ex) {
-            success = (typeof(ex.code) != 'undefined' && ex.code == 7);
+      success = (typeof(ex.code) != 'undefined' && ex.code == 7);
 		}
-		assertTrue(success, "throw_NO_MODIFICATION_ALLOWED_ERR");
+		assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
 	}
 
 },
@@ -24208,7 +24211,7 @@ textsplittextone : function () {
 
       value = secondPart.nodeValue;
 
-      assertEquals("Jones",value, "textSplitTextOneAssert");
+      assertEquals("textSplitTextOneAssert","Jones",value);
        
 },
 /**
@@ -24251,7 +24254,7 @@ textsplittextthree : function () {
       splitNode = textNode.splitText(6);
       value = splitNode.nodeValue;
 
-      assertEquals(" Jones",value, "textSplitTextThreeAssert");
+      assertEquals("textSplitTextThreeAssert"," Jones",value);
        
 },
 /**
@@ -24293,7 +24296,7 @@ textsplittexttwo : function () {
       splitNode = textNode.splitText(5);
       value = textNode.nodeValue;
 
-      assertEquals("Roger",value, "textSplitTextTwoAssert");
+      assertEquals("textSplitTextTwoAssert","Roger",value);
        
 },
 /**
@@ -24315,7 +24318,6 @@ textsplittexttwo : function () {
 * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
 */
 textwithnomarkup : function () {
-    
    var success;
     if(checkInitialization(builder, "textwithnomarkup") != null) return;
     var doc;
@@ -24332,6 +24334,10 @@ textwithnomarkup : function () {
       elementList = doc.getElementsByTagName("name");
       nameNode = elementList.item(2);
       nodeV = nameNode.firstChild;
+
       value = nodeV.nodeValue;
-      assertEquals("Roger\n Jones",value, "textNodeValue");
-}}
+
+      assertEquals("textNodeValue","Roger\n Jones",value);
+       
+}
+};

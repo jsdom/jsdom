@@ -4,7 +4,7 @@ process.mixin(GLOBAL, require("./mjsunit"));
 
 // Compat Layer
 GLOBAL.load = function(docRef, doc, name) {
-  var doc = require("./level1/_files/" + name + ".xml")[name];
+  var doc = require("./level1/_files/" + name + ".xml")[name]();
   return doc;
 };
 
@@ -60,7 +60,7 @@ if (process.ARGV[2] != "-t") {
 
 for (var i = 0; i<errors.length; i++)
 {
-	sys.puts('FAIL: failed with message "' + sys.inspect(errors[i]) /*.error.message*/ + " (" + errors[i].error.type + " in " + errors[i].method + ')');
+	sys.puts('FAIL: failed with message "' + errors[i].error.message + " (" + errors[i].error.type + " in " + errors[i].method + ')');
 }
 
 // Summary

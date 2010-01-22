@@ -103,14 +103,14 @@ exports.deepEquals = function(a, b) {
 };
 
 
-exports.assertEquals = function(expected, found, name_opt) {
+exports.assertEquals = function(msg, expected, found, name_opt) {
   if (!deepEquals(found, expected)) {
     fail(expected, found, name_opt);
   }
 };
 
 
-exports.assertArrayEquals = function(expected, found, name_opt) {
+exports.assertArrayEquals = function(msg, expected, found, name_opt) {
   var start = "";
   if (name_opt) {
     start = name_opt + " - ";
@@ -124,38 +124,38 @@ exports.assertArrayEquals = function(expected, found, name_opt) {
 };
 
 
-exports.assertTrue = function(value, name_opt) {
+exports.assertTrue = function(msg, value, name_opt) {
   assertEquals(true, value, name_opt);
 };
 
 
-exports.assertFalse = function(value, name_opt) {
+exports.assertFalse = function(msg, value, name_opt) {
   assertEquals(false, value, name_opt);
 };
 
 
-exports.assertNaN = function(value, name_opt) {
+exports.assertNaN = function(msg, value, name_opt) {
   if (!isNaN(value)) {
     fail("NaN", value, name_opt);
   }
 };
 
 
-exports.assertNull = function(value, name_opt) {
+exports.assertNull = function(msg, value, name_opt) {
   if (value !== null) {
     fail("null", value, name_opt);
   }
 };
 
 
-exports.assertNotNull = function(value, name_opt) {
+exports.assertNotNull = function(msg, value, name_opt) {
   if (value === null) {
     fail("not null", value, name_opt);
   }
 };
 
 
-exports.assertThrows = function(code, type_opt, cause_opt) {
+exports.assertThrows = function(msg, code, type_opt, cause_opt) {
   var threwException = true;
   try {
     if (typeof code == 'function') {
@@ -175,14 +175,14 @@ exports.assertThrows = function(code, type_opt, cause_opt) {
 };
 
 
-exports.assertInstanceof = function(obj, type) {
+exports.assertInstanceof = function(msg, obj, type) {
   if (!(obj instanceof type)) {
     assertTrue(false, "Object <" + obj + "> is not an instance of <" + type + ">");
   }
 };
 
 
-exports.assertDoesNotThrow = function(code) {
+exports.assertDoesNotThrow = function(msg, code) {
   try {
     if (typeof code == 'function') {
       code();
@@ -195,7 +195,7 @@ exports.assertDoesNotThrow = function(code) {
 };
 
 
-exports.assertUnreachable = function(name_opt) {
+exports.assertUnreachable = function(msg, name_opt) {
   // Fix this when we ditch the old test runner.
   var message = "Fail" + "ure: unreachable"
   if (name_opt) {
@@ -204,10 +204,31 @@ exports.assertUnreachable = function(name_opt) {
   throw new MjsUnitAssertionError(message);
 };
 
-exports.assertSize = function(obj, expected, msg) {
-  if (!obj.length || obj.length !== expected)
+exports.assertSize = function(msg, obj, expected) {
+  ocount = (obj && obj.length) ? obj.length : 0;
+  ecount = (expected && expected.length) ? expected.length : 0;
+  if (ocount !== ecount)
   {
-      throw new MjsUnitAssertionError("Failure: " + obj.length + " does not equal " + expected);
-  }  
-    
+      throw new MjsUnitAssertionError("Failure: " + ocount + " does not equal " + ecount);
+  }    
 };
+
+exports.assertInstanceOf = function(msg, obj, expected) {
+    if (!(obj instanceof expected))
+    {
+        throw new MjsUnitAssertionError("Failure: " + " is not an instance of " + expected);
+    }  
+};
+
+exports.assertEqualsList = function(msg, obj, expected) {
+
+  for (var i=0; i<expected.length; i++)
+  {
+    if (!obj[i] || obj[i] !== expected[i])
+    {
+        throw new MjsUnitAssertionError("Failure: list does not contain the same items as expected");
+    }  
+    
+  }
+ 
+}
