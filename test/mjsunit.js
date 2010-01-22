@@ -109,28 +109,29 @@ exports.assertEquals = function(msg, expected, found, name_opt) {
   }
 };
 
+exports.assertSame = exports.assertEquals;
 
 exports.assertArrayEquals = function(msg, expected, found, name_opt) {
   var start = "";
   if (name_opt) {
     start = name_opt + " - ";
   }
-  assertEquals(expected.length, found.length, start + "array length");
+  assertEquals(msg, expected.length, found.length, start + "array length");
   if (expected.length == found.length) {
     for (var i = 0; i < expected.length; ++i) {
-      assertEquals(expected[i], found[i], start + "array element at index " + i);
+      assertEquals(msg, expected[i], found[i], start + "array element at index " + i);
     }
   }
 };
 
 
 exports.assertTrue = function(msg, value, name_opt) {
-  assertEquals(true, value, name_opt);
+  assertEquals(msg, true, value, name_opt);
 };
 
 
 exports.assertFalse = function(msg, value, name_opt) {
-  assertEquals(false, value, name_opt);
+  assertEquals(msg,false, value, name_opt);
 };
 
 
@@ -166,18 +167,18 @@ exports.assertThrows = function(msg, code, type_opt, cause_opt) {
     threwException = false;
   } catch (e) {
     if (typeof type_opt == 'function')
-      assertInstanceof(e, type_opt);
+      assertInstanceof(msg, e, type_opt);
     if (arguments.length >= 3)
-      assertEquals(e.type, cause_opt);
+      assertEquals(msg, e.type, cause_opt);
     // Do nothing.
   }
-  if (!threwException) assertTrue(false, "did not throw exception");
+  if (!threwException) assertTrue(msg, false, "did not throw exception");
 };
 
 
 exports.assertInstanceof = function(msg, obj, type) {
   if (!(obj instanceof type)) {
-    assertTrue(false, "Object <" + obj + "> is not an instance of <" + type + ">");
+    assertTrue(msg, false, "Object <" + obj + "> is not an instance of <" + type + ">");
   }
 };
 
@@ -190,7 +191,7 @@ exports.assertDoesNotThrow = function(msg, code) {
       eval(code);
     }
   } catch (e) {
-    assertTrue(false, "threw an exception: " + (e.message || e));
+    assertTrue(msg, false, "threw an exception: " + (e.message || e));
   }
 };
 
@@ -205,8 +206,9 @@ exports.assertUnreachable = function(msg, name_opt) {
 };
 
 exports.assertSize = function(msg, obj, expected) {
-  ocount = (obj && obj.length) ? obj.length : 0;
-  ecount = (expected && expected.length) ? expected.length : 0;
+
+  ocount = (obj && obj.length) ? obj.length : parseInt(obj);
+  ecount = (expected && expected.length) ? expected.length : parseInt(expected);
   if (ocount !== ecount)
   {
       throw new MjsUnitAssertionError("Failure: " + ocount + " does not equal " + ecount);

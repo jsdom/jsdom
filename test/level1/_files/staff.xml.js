@@ -8,6 +8,8 @@ exports.staff = function() {
   var employees = [];
   var addresses = [];
   var names     = [];
+  var positions = [];
+  var genders   = [];
 
   // create 5 employees
   for (var i=0; i<5; i++)
@@ -15,41 +17,62 @@ exports.staff = function() {
     var employee = doc.createElement("employee");
     var address  = doc.createElement("address");
     var name     = doc.createElement("name");
-
+    var position     = doc.createElement("position");
+    var gender   = doc.createElement("gender");
+    
     employee.appendChild(name);
+    employee.appendChild(position);
+    employee.appendChild(gender);
     employee.appendChild(address);
     staff.appendChild(employee);
 
     names.push(name);
     employees.push(employee);
     addresses.push(address);	
+    genders.push(gender);
+    positions.push(position);
   }
 
   addresses[0].setAttribute("domestic", "Yes");
   addresses[0].appendChild(new Text('1230 North Ave. Dallas, Texas 98551'));
   names[0].appendChild(new Text("Margaret Martin"));
+  
+  genders[0].appendChild(new Text("Female"));
+  positions[0].appendChild(new Text("Accountant"));
   //addresses[0].nodeValue = "1230 North Ave. Dallas, Texas 98551";
 
   addresses[1].setAttribute("domestic", "Yes");
   addresses[1].setAttribute("street", "Yes");
-  names[1].appendChild(new Text("Margaret Martin"));
+  names[1].appendChild(new Text("Martha Raynolds"));
+  names[1].appendChild(new CDATASection("This is a CDATASection with EntityReference number 2 &ent2;"));
+  names[1].appendChild(new CDATASection("This is an adjacent CDATASection with a reference to a tab &tab;"));
+  
+  
+  genders[1].appendChild(new Text("Female"));
+  positions[1].appendChild(new Text("Accountant"));
   //addresses[1].nodeValue = "1230 North Ave. Dallas, Texas 98551";
 
   addresses[2].setAttribute("domestic", "Yes");
   addresses[2].setAttribute("street", "No");
   names[2].appendChild(new Text("Roger\n Jones")) ;
+  genders[2].appendChild(new Text("Female"));
+  positions[2].appendChild(new Text("Accountant"));
   //addresses[2].nodeValue = "1230 North Ave. Dallas, Texas 98551";
 
   addresses[3].setAttribute("domestic", "Yes");
   addresses[3].setAttribute("street", "Y&ent1;");
-  names[3].appendChild(new Text("Margaret Martin"));
+  names[3].appendChild(new Text("Jeny Oconnor"));
+  genders[3].appendChild(new Text("Female"));
+  positions[3].appendChild(new Text("Accountant"));
   //addresses[3].nodeValue = "1230 North Ave. Dallas, Texas 98551";
 
   addresses[4].setAttribute("street", "Yes");
-  names[4].appendChild(new Text("Margaret Martin"));
+  names[4].appendChild(new Text("Robert Myers"));
+  genders[4].appendChild(new Text("Female"));
+  positions[4].appendChild(new Text("Accountant"));
   //addresses[5].nodeValue = "1230 North Ave. Dallas, Texas 98551";
 
-  //  doc.appendChild(new ProcessingInstruction());
+  doc.appendChild(doc.createProcessingInstruction("TEST-STYLE", "PIDATA"));
 
   /*<?xml version="1.0"?>
   <?TEST-STYLE PIDATA?>
@@ -119,6 +142,8 @@ exports.staff = function() {
   </employee>
   </staff>*/
 
+  doc.appendChild(new Comment(" This is comment number 1."));
   doc.appendChild(staff);
+  
   return doc;
 };
