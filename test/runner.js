@@ -18,7 +18,7 @@ GLOBAL.builder = function() {
 GLOBAL.debug = function(val) {
     var str;
     try {
-        str = JSON.stringify(val);
+        str = JSON.stringify(val, null, "  ");
     } catch (e) {
         str = sys.inspect(val);
     }
@@ -60,7 +60,7 @@ if (process.ARGV[2] != "-t") {
 
 for (var i = 0; i<errors.length; i++)
 {
-	sys.puts('FAIL: failed with message "' + errors[i].error.message + " (" + errors[i].error.type + " in " + errors[i].method + ')');
+	sys.puts('FAIL: failed with message "' + errors[i].error.message + " (#" + errors[i].error.code + " " + errors[i].error.type + " in " + errors[i].method + ')');
 }
 
 // Summary

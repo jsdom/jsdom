@@ -206,9 +206,9 @@ exports.assertUnreachable = function(msg, name_opt) {
 };
 
 exports.assertSize = function(msg, obj, expected) {
-
   ocount = (obj && obj.length) ? obj.length : parseInt(obj);
-  ecount = (expected && expected.length) ? expected.length : parseInt(expected);
+  ecount = (expected) ? expected.length : parseInt(expected);
+
   if (ocount !== ecount)
   {
       throw new MjsUnitAssertionError("Failure: " + ocount + " does not equal " + ecount);

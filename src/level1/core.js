@@ -149,7 +149,10 @@ core.Node.prototype = {
       // find this node's index in the parentNode, add one and call it a day
       var index = 0;
 
-      if (!this._parentNode || !this._parentNode.childNodes || !this._childNodes.length || this._childNodes.length < 1) 
+      if (!this._parentNode            || 
+          !this._parentNode.childNodes || 
+          !this._childNodes.length     || 
+           this._childNodes.length < 1) 
       {
           return null;
       }
@@ -167,8 +170,15 @@ core.Node.prototype = {
 
   /* returns Node */ 
   insertBefore :  function(/* Node */ newChild, /* Node*/ refChild){
+
     var newChildren = new core.NodeList();
     var found = false;
+    
+    // if the newChild is already in the tree elsewhere, remove it first
+    if (newChild.parentNode) {
+      newChild.parentNode.removeChild(newChild);
+    }
+
     for (var i=0;i<this._children.length; i++)
     {
       if (this._children[i] === refChild) {
@@ -208,6 +218,7 @@ core.Node.prototype = {
           }
         }
         
+        newChild._parentNode = this;
         this._children[i] = newChild;
         return oldChild;
       }
@@ -223,31 +234,28 @@ core.Node.prototype = {
       if (this._children[i] === oldChild) {
         found=true;
         this._children.remove(i,i);
+        oldChild._parentNode = null;
+        return oldChild;
       }
     }
-    if (!found) {
-      throw new DOMException(NOT_FOUND_ERR); 
-    } else {
-      oldChild._parentNode = null;
-      return oldChild;
-    }
+    
+    // node was not found.
+    throw new DOMException(NOT_FOUND_ERR); 
+
   }, // raises(DOMException);
   
   /* returns Node */
   appendChild : function(/* Node */ newChild){
 	  try {
 	    this.removeChild(newChild);
-	  } catch (e) {
-	    /* do nothing intentionally */
-	  }
+	  } catch (e) { /* do nothing */ }
 	  
 	  this._children.push(newChild);
-	// TODO: trigger an internal mutation event. for 
 	
-	// Attach the parent node.
-	newChild._parentNode = this;
+	  // Attach the parent node.
+  	newChild._parentNode = this;
 	
-	return newChild;	
+  	return newChild;	
   }, // raises(DOMException);
   
   /* returns boolean */
@@ -391,8 +399,10 @@ core.Element.prototype = {
 
   /* returns Attr */
   setAttributeNode: function(/* Attr */ newAttr) {
+    var prevNode = this._attributes.getNamedItem(newAttr.name);
+    prevNode._parentNode = null;
     this._attributes.setNamedItem(newAttr);
-    return newAttr;
+    return prevNode;
   }, //  raises: function(DOMException) {},
 
   /* returns Attr */
@@ -702,10 +712,11 @@ core.Comment.prototype.__proto__ = core.Text.prototype
 
 core.CDATASection = function(value) {
   core.Text.call(this, value);
-  this._nodeType = this.CDATA_SECTION_NODE;
   this._nodeName = "#cdata-section";
 };
 core.CDATASection.prototype = {
+  get nodeType() { return this.CDATA_SECTION_NODE; }
+
 };
 core.CDATASection.prototype.__proto__ = core.Text.prototype
 
@@ -731,16 +742,19 @@ core.DocumentType.prototype.__proto__ = core.Node.prototype;
 core.Notation = function(publicId, systemId){
   core.Node.call(this);
   this._name = publicId;
-  this._nodeName = publicId;
+  this._nodeName = publicId || systemId || null;
   this._nodeType = this.NOTATION_NODE;
-  this._publicId = publicId;
-	this._systemId = systemId;
+  this._publicId = publicId || null;
+	this._systemId = systemId || null;
+	this._nodeValue = null;
 };
 core.Notation.prototype = {
   get publicId() { return this._publicId; },
   get systemId() { return this._systemId; },
-  get name() { return this._name; },
-  get attributes() { /* as per spec */ return null; }
+  get name() { return this._name || this._nodeName; },
+  get attributes() { /* as per spec */ return null; },
+  set nodeValue() { /* intentionally left blank */ },
+  get nodeValue() { return this._nodeValue; }
 };
 core.Notation.prototype.__proto__ = core.Node.prototype;
 
@@ -750,8 +764,8 @@ core.Entity = function(name, publicId, systemId, notationName, text) {
   this._name = name;
   this._nodeName = name;
   this._tagName = name;
-  this._publicId = publicId;
-  this._systemId = systemId;
+  this._publicId = publicId || null;
+  this._systemId = systemId || null;
   this._notationName = notationName;
   this._nodeType = this.ENTITY_NODE;
   
@@ -767,10 +781,6 @@ core.Entity.prototype = {
   get publicId() { return this._publicId; },
   get systemId() { return this._systemId; },
   get notationName() { return this._notationName; },
-  
-  appendChild : function(/* Node */ child) {
-
-  }
   
 };
 core.Entity.prototype.__proto__ = core.Node.prototype;
