@@ -126,8 +126,8 @@ core.Node.prototype = {
     // find this node's index in the parentNode, add one and call it a day
     var index = 0;
 
-    if (!this._parentNode || 
-        !this._parentNode.childNodes || 
+    if (!this._parentNode                   || 
+        !this._parentNode.childNodes        || 
         !this._parentNode.childNodes.length || 
          this._parentNode.childNodes.length < 1) 
     {
@@ -149,10 +149,10 @@ core.Node.prototype = {
       // find this node's index in the parentNode, add one and call it a day
       var index = 0;
 
-      if (!this._parentNode            || 
-          !this._parentNode.childNodes || 
-          !this._childNodes.length     || 
-           this._childNodes.length < 1) 
+      if (!this._parentNode                   || 
+          !this._parentNode.childNodes        || 
+          !this._parentNode.childNodes.length || 
+           this._parentNode.childNodes.length < 1) 
       {
           return null;
       }
@@ -246,6 +246,11 @@ core.Node.prototype = {
   
   /* returns Node */
   appendChild : function(/* Node */ newChild){
+	  
+	  if (newChild.nodeType === this.ATTRIBUTE_NODE) {
+	    throw new DOMException(HIERARCHY_REQUEST_ERR);
+	  }
+	  
 	  try {
 	    this.removeChild(newChild);
 	  } catch (e) { /* do nothing */ }
@@ -290,6 +295,7 @@ core.NamedNodeMap.prototype = {
 	setNamedItem: function(/* Node */ arg) {
 	    this.removeNamedItem(arg.name);
 	    this._nodes.push(arg);
+	    return arg;
 	}, // raises: function(DOMException) {},
 
 	/* returns Node */
@@ -418,7 +424,8 @@ core.Element.prototype = {
     if (this._children && this._children.length) {      
       for (var i=0; i<this._children.length; i++)
       {
-	      if (this._children[i].tagName && this._children[i].tagName === name) {
+	      if ((this._children[i].tagName && 
+	           this._children[i].tagName === name) || name === "*") {
           ret.push(this._children[i]);
         }		
         if (this._children[i].getElementsByTagName)
@@ -434,6 +441,7 @@ core.Element.prototype = {
         }
       }
     }
+
     return ret;
   },
 
@@ -465,7 +473,12 @@ core.DocumentFragment = function() {
 	core.Element.call(this, "#document-fragment");
 	this._nodeType = this.DOCUMENT_FRAGMENT_NODE;
 };
-core.DocumentFragment.prototype = {};
+core.DocumentFragment.prototype = {
+get nodeValue() { return null; },
+set nodeValue() { /* do nothing */ },
+get attributes() { return null; }
+
+};
 core.DocumentFragment.prototype.__proto__ = core.Element.prototype;
 
 
@@ -483,7 +496,8 @@ core.ProcessingInstruction.prototype = {
   get nodeValue() { return this._nodeValue; },
   set nodeValue(value) { this._nodeValue = value},
   get data()   { return this._nodeValue; },
-  set data()   { throw new DOMException(1); }
+  set data()   { throw new DOMException(1); },
+  get attributes() { return null; }
 
 };
 core.ProcessingInstruction.prototype.__proto__ = core.Node.prototype;
@@ -504,6 +518,10 @@ core.Document.prototype = {
   get nodeType() { return this.DOCUMENT_NODE; },
   /* returns Element */
   createElement: function(/* string */ tagName) {
+    if (tagName.match(/[^\w\d_-]+/)) {
+      throw new DOMException(INVALID_CHARACTER_ERR);
+    }
+    
     return new core.Element(tagName);	
   }, //raises: function(DOMException) {},
   
@@ -544,6 +562,11 @@ core.Document.prototype = {
 
   /* returns Node */
   appendChild : function(/* Node */ newChild){
+	 
+	  if (newChild.nodeType === this.ATTRIBUTE_NODE) {
+	    throw new DOMException(HIERARCHY_REQUEST_ERR);
+	  }
+	  
 	  this._children.push(newChild);
 	  // TODO: trigger an internal mutation event.
 	  
@@ -739,10 +762,10 @@ core.DocumentType.prototype = {
 };
 core.DocumentType.prototype.__proto__ = core.Node.prototype;
 
-core.Notation = function(publicId, systemId){
+core.Notation = function(name, publicId, systemId){
   core.Node.call(this);
-  this._name = publicId;
-  this._nodeName = publicId || systemId || null;
+  this._name = name;
+  this._nodeName = name;
   this._nodeType = this.NOTATION_NODE;
   this._publicId = publicId || null;
 	this._systemId = systemId || null;
@@ -754,7 +777,8 @@ core.Notation.prototype = {
   get name() { return this._name || this._nodeName; },
   get attributes() { /* as per spec */ return null; },
   set nodeValue() { /* intentionally left blank */ },
-  get nodeValue() { return this._nodeValue; }
+  get nodeValue() { return this._nodeValue; },
+  get nodeType() { return this.NOTATION_NODE; }
 };
 core.Notation.prototype.__proto__ = core.Node.prototype;
 
@@ -781,7 +805,7 @@ core.Entity.prototype = {
   get publicId() { return this._publicId; },
   get systemId() { return this._systemId; },
   get notationName() { return this._notationName; },
-  
+  get nodeType() { return this.ENTITY_NODE; }
 };
 core.Entity.prototype.__proto__ = core.Node.prototype;
 

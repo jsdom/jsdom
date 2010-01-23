@@ -6,8 +6,8 @@ exports.staff = function() {
   });
   
   var notations = new NamedNodeMap();
-  notations.setNamedItem(new Notation("notation1"))
-  notations.setNamedItem(new Notation(null,"notation2"))
+  notations.setNamedItem(new Notation("notation1","notation1File", null));
+  notations.setNamedItem(new Notation("notation2",null, "notation2File"));
   
   var entities = new NamedNodeMap();
   
