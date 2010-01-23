@@ -9876,7 +9876,6 @@ exports.tests = {
     }
     doc = load(docRef, "doc", "hc_staff");
     nameList = doc.getElementsByTagName("*");
-
     for(var indexN10148 = 0;indexN10148 < nameList.length; indexN10148++) {
       thisElement = nameList.item(indexN10148);
       thisTag = thisElement.tagName;
@@ -18809,6 +18808,7 @@ exports.tests = {
 
         childNode = childList.item(3);
         clonedNode = childNode.cloneNode(false);
+        debug(cloneNode);
         lastChildNode = clonedNode.lastChild;
 
         assertNull("noTextNodes",lastChildNode);

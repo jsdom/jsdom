@@ -1,7 +1,13 @@
 /*
   ServerJS Javascript DOM
 */
-var core = {};
+var core = {
+  clone : function(obj, deep) {
+  
+    
+  
+  }
+};
 var sys = require("sys");
 
 core.DOMException = function(code) {
@@ -77,12 +83,13 @@ core.DOMImplementation.prototype = {
 };
 
 
-core.Node = function () {
+core.Node = function (ownerDocument) {
 	this._children = new core.NodeList();
 	this._nodeValue = null;
   this._parentNode = null;
-  this._attributes = new core.NamedNodeMap();
+  this._attributes = new core.AttrNodeMap();
   this._nodeName   = null;
+  this._ownerDocument = ownerDocument;
 };
 core.Node.prototype = {
   
@@ -111,7 +118,8 @@ core.Node.prototype = {
 
   get firstChild() { return (this._children && this._children[0]) ? this._children.item(0) : null; },
   set firstChild() { throw new DOMException(); },
-
+  get ownerDocument() { return this._ownerDocument; },
+  
   get lastChild() { 
     return (this._children && this._children[this._children.length-1]) ? 
             this._children.item(this._children.length-1) : 
@@ -141,7 +149,7 @@ core.Node.prototype = {
       if (currentNode === this) { break; }
     }
 
-    return this._parentNode.childNodes[index];
+    return this._parentNode.childNodes[index] || null;
   },
   set nextSibling() { throw new DOMException(); },
 
@@ -164,7 +172,7 @@ core.Node.prototype = {
           index++;
       }
 
-      return this._parentNode.childNodes[index-1];
+      return this._parentNode.childNodes[index-1] || null;
   },
   set previousSibling() { throw new DOMException(); },
 
@@ -269,7 +277,9 @@ core.Node.prototype = {
   },
   
   /* returns Node */  
-  cloneNode : function(/* bool */ deep) {}
+  cloneNode : function(/* bool */ deep) {
+    return core.clone(this, deep);
+  }
 };
 
 
@@ -329,6 +339,7 @@ core.AttrNodeMap.prototype = {
   
   getNamedItem : function(/* string */ name)
   {
+
     // TODO: use prototypal inheritance.
     var item = false;
     for (var i=0; i<this._nodes.length; i++)
@@ -338,7 +349,7 @@ core.AttrNodeMap.prototype = {
             break;
         }    
     }      
-      
+ 
     if (!item) {
         item = new core.Attr(name,false);
     }
@@ -516,6 +527,8 @@ core.Document.prototype = {
   get documentElement() { return this._documentElement; },
   get implementation() { return this._implementation; },
   get nodeType() { return this.DOCUMENT_NODE; },
+  get attributes() { return null; },
+  get ownerDocument() { return null; },
   /* returns Element */
   createElement: function(/* string */ tagName) {
     if (tagName.match(/[^\w\d_-]+/)) {
@@ -685,6 +698,7 @@ core.Attr.prototype =  {
   set specified() { throw new DOMException(); },
   get value() { return this._nodeValue; },
   set value(value) { this._nodeValue = value; }
+  
 };
 core.Attr.prototype.__proto__ = core.Node.prototype;
 
@@ -758,7 +772,8 @@ core.DocumentType.prototype = {
   get nodeType() { return this.DOCUMENT_TYPE_NODE; },
   get name() { return this._name; },
   get entities() { return this._entities; },
-  get notations() { return this._notations; }
+  get notations() { return this._notations; },
+  get attributes() { return null; }
 };
 core.DocumentType.prototype.__proto__ = core.Node.prototype;
 
@@ -805,7 +820,8 @@ core.Entity.prototype = {
   get publicId() { return this._publicId; },
   get systemId() { return this._systemId; },
   get notationName() { return this._notationName; },
-  get nodeType() { return this.ENTITY_NODE; }
+  get nodeType() { return this.ENTITY_NODE; },
+  get attributes() { return null; }
 };
 core.Entity.prototype.__proto__ = core.Node.prototype;
 
@@ -821,7 +837,8 @@ core.EntityReference.prototype = {
   get nodeType()  { return this.ENTITY_REFERENCE_NODE; },
   get nodeValue() { return null; },
   set nodeValue() { /* do nothing */ },
-
+  get attributes() { return null; },
+  
   get firstChild() { 
     return (this._entity.childNodes && this._entity.childNodes.item([0])) ? 
             this._entity.childNodes.item(0) : 
