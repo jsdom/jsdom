@@ -47,6 +47,12 @@ core.NodeList.prototype = {
   /* returns Node */
   item: function(index) {
     return this[index];
+  },
+  // Array Remove - By John Resig (MIT Licensed)
+  remove :function(from, to) {
+    var rest = this.slice((to || from) + 1 || this.length);
+    this.length = from < 0 ? this.length + from : from;
+    return this.push.apply(this, rest);
   }
 };
 core.NodeList.prototype.__proto__ = Array.prototype;
@@ -106,6 +112,13 @@ core.Node.prototype = {
   get firstChild() { return (this._children && this._children[0]) ? this._children.item(0) : null; },
   set firstChild() { throw new DOMException(); },
 
+  get lastChild() { 
+    return (this._children && this._children[this._children.length-1]) ? 
+            this._children.item(this._children.length-1) : 
+            null; 
+  },
+  set lastChild() { throw new DOMException(); },
+
   get childNodes() { return this._children; },
   set childNodes() { throw new DOMException(); },
 
@@ -154,7 +167,31 @@ core.Node.prototype = {
 
   /* returns Node */ 
   insertBefore :  function(/* Node */ newChild, /* Node*/ refChild){
-    
+    var newChildren = new core.NodeList();
+    var found = false;
+    for (var i=0;i<this._children.length; i++)
+    {
+      if (this._children[i] === refChild) {
+        var current = this;
+        // search for parents matching the newChild
+        while ((current = current.parentNode))
+        {
+          if (current === newChild) {
+            throw new DOMException(HIERARCHY_REQUEST_ERR);
+          }
+        }        
+        
+        newChildren.push(newChild);
+        newChild._parentNode = this;
+      }
+      newChildren.push(this._children[i]);
+    }
+    if (!found) {
+      throw new DOMException(NOT_FOUND_ERR); 
+    } else {
+      this._children = newChildren;
+      return newChild;
+    }    
   }, // raises(DOMException);
 
   /* returns Node */
@@ -180,20 +217,17 @@ core.Node.prototype = {
 
   /* returns Node */
   removeChild : function(/* Node */ oldChild){
-    var newChildren = new core.NodeList();
     var found = false;
     for (var i=0;i<this._children.length; i++)
     {
       if (this._children[i] === oldChild) {
         found=true;
-        continue;
+        this._children.remove(i,i);
       }
-      newChildren.push(this._children[i]);
     }
     if (!found) {
       throw new DOMException(NOT_FOUND_ERR); 
     } else {
-      this._children = newChildren;
       oldChild._parentNode = null;
       return oldChild;
     }
@@ -201,8 +235,14 @@ core.Node.prototype = {
   
   /* returns Node */
   appendChild : function(/* Node */ newChild){
-	this._children.push(newChild);
-	// TODO: trigger an internal mutation event.
+	  try {
+	    this.removeChild(newChild);
+	  } catch (e) {
+	    /* do nothing intentionally */
+	  }
+	  
+	  this._children.push(newChild);
+	// TODO: trigger an internal mutation event. for 
 	
 	// Attach the parent node.
 	newChild._parentNode = this;
@@ -691,6 +731,7 @@ core.DocumentType.prototype.__proto__ = core.Node.prototype;
 core.Notation = function(publicId, systemId){
   core.Node.call(this);
   this._name = publicId;
+  this._nodeName = publicId;
   this._nodeType = this.NOTATION_NODE;
   this._publicId = publicId;
 	this._systemId = systemId;
