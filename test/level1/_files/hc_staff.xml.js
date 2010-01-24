@@ -23,11 +23,12 @@ exports.hc_staff = function() {
   entities.setNamedItem(new Entity("epsilon", "&#949;"));
   entities.setNamedItem(new Entity("epsilon", "&#949;"));
 
-  var doctype = new DocumentType("hc_staff", entities, notations);
-  var doc = new Document("hc_staff", doctype, implementation);
+  var doctype = new DocumentType("html", entities, notations);
+  var doc = new Document("html", doctype, implementation);
   
   var html      = doc.createElement("html");
   var body      = doc.createElement("body");
+  var staff     = html.appendChild(body);
   var employees = [];
   var addresses = [];
   var names     = [];
@@ -53,7 +54,7 @@ exports.hc_staff = function() {
     employee.appendChild(salary);
     employee.appendChild(gender);
     employee.appendChild(address);
-    body.appendChild(employee);
+    staff.appendChild(employee);
 
     names.push(name);
     employees.push(employee);
@@ -180,8 +181,6 @@ This is an adjacent CDATASection with a reference to a tab &amp;tab;</strong>
  </p>
 </body></html>
 */
-  doc.appendChild(body);
-  doc.appendChild(html);
   
   return doc;
 };
