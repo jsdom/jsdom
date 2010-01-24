@@ -26,7 +26,8 @@ exports.hc_staff = function() {
   var doctype = new DocumentType("hc_staff", entities, notations);
   var doc = new Document("hc_staff", doctype, implementation);
   
-  var staff     = doc.createElement("hc_staff");
+  var html      = doc.createElement("html");
+  var body      = doc.createElement("body");
   var employees = [];
   var addresses = [];
   var names     = [];
@@ -38,13 +39,13 @@ exports.hc_staff = function() {
   // create 5 employees
   for (var i=0; i<5; i++)
   {
-    var employee = doc.createElement("employee");
-    var address  = doc.createElement("address");
-    var name     = doc.createElement("name");
-    var position = doc.createElement("position");
-    var gender   = doc.createElement("gender");
-    var id       = doc.createElement("employeeId");
-    var salary   = doc.createElement("salary");
+    var employee = doc.createElement("p");
+    var address  = doc.createElement("acronym");
+    var name     = doc.createElement("strong");
+    var position = doc.createElement("code");
+    var gender   = doc.createElement("var");
+    var id       = doc.createElement("em");
+    var salary   = doc.createElement("sup");
     
     employee.appendChild(id);
     employee.appendChild(name);
@@ -52,7 +53,7 @@ exports.hc_staff = function() {
     employee.appendChild(salary);
     employee.appendChild(gender);
     employee.appendChild(address);
-    staff.appendChild(employee);
+    body.appendChild(employee);
 
     names.push(name);
     employees.push(employee);
@@ -70,7 +71,6 @@ exports.hc_staff = function() {
   genders[0].appendChild(new Text("Female"));
   positions[0].appendChild(new Text("Accountant"));
 
-
   ids[1].appendChild(new Text("EMP0002"));
   salaries[1].appendChild(new Text("35,000"));
   addresses[1].setAttribute("domestic", "Yes");
@@ -82,7 +82,6 @@ exports.hc_staff = function() {
   genders[1].appendChild(new Text("Female"));
   positions[1].appendChild(new Text("Secretary"));
 
-
   ids[2].appendChild(new Text("EMP0003"));
   salaries[2].appendChild(new Text("100,000"));
   addresses[2].setAttribute("domestic", "Yes");
@@ -92,7 +91,6 @@ exports.hc_staff = function() {
   genders[2].appendChild(doc.createEntityReference("ent42"));//Text("&ent4"));
   positions[2].appendChild(new Text("Department Manager"));
 
-  
   ids[3].appendChild(new Text("EMP0004"));
   salaries[3].appendChild(new Text("95,000"));
   addresses[3].setAttribute("domestic", "Yes");
@@ -102,7 +100,6 @@ exports.hc_staff = function() {
   genders[3].appendChild(new Text("Female"));
   positions[3].appendChild(new Text("Personal Director"));
   
-
   ids[4].appendChild(new Text("EMP0005"));
   salaries[4].appendChild(new Text("90,000"));  
   addresses[4].setAttribute("street", "Yes");
@@ -183,8 +180,8 @@ This is an adjacent CDATASection with a reference to a tab &amp;tab;</strong>
  </p>
 </body></html>
 */
-	
-  doc.appendChild(hc_staff);
+  doc.appendChild(body);
+  doc.appendChild(html);
   
   return doc;
 };
