@@ -23,7 +23,7 @@ exports.hc_staff = function() {
   entities.setNamedItem(new Entity("epsilon", "&#949;"));
   entities.setNamedItem(new Entity("epsilon", "&#949;"));
 
-  var doctype = new DocumentType("html", entities, notations);
+  var doctype = new DocumentType("xhtml1-strict", entities, notations);
   var doc = new Document("html", doctype, implementation);
   
   var html      = doc.createElement("html");
@@ -110,6 +110,9 @@ exports.hc_staff = function() {
   positions[4].appendChild(new Text("Computer Specialist"));
   
   doc.appendChild(doc.createProcessingInstruction("TEST-STYLE", "PIDATA"));
+  
+  return doc;
+};
 
 /*
 <?xml version="1.0"?>
@@ -181,6 +184,3 @@ This is an adjacent CDATASection with a reference to a tab &amp;tab;</strong>
  </p>
 </body></html>
 */
-  
-  return doc;
-};
