@@ -18808,7 +18808,6 @@ exports.tests = {
 
         childNode = childList.item(3);
         clonedNode = childNode.cloneNode(false);
-        debug(cloneNode);
         lastChildNode = clonedNode.lastChild;
 
         assertNull("noTextNodes",lastChildNode);

@@ -5,7 +5,7 @@ var core = {
   clone : function(obj, deep) {
   
     
-  
+    return null;
   }
 };
 var sys = require("sys");
@@ -73,7 +73,7 @@ core.DOMImplementation.prototype = {
     {
       if (this._features.hasOwnProperty(i) && 
           i.toLowerCase() === feature.toLowerCase() && 
-          this._features[i] === version)
+          (this._features[i] === version || !version))
       {
         return true;
       }
@@ -284,49 +284,52 @@ core.Node.prototype = {
 
 
 core.NamedNodeMap = function() {
-	this._nodes = [];
+	this._nodes = {};
+	this._length = 0;
 	
 };
 core.NamedNodeMap.prototype = {
   
-  get length() { return this._nodes.length; },
+  get length() { return this._length; },
+
+  exists : function(name) {
+    return (this._nodes[name] || this._nodes[name] === null) ? true : false;
+  },
   
 	/* returns Node */
 	getNamedItem: function(/* string */ name) {
-	    for (var i=0; i<this._nodes.length; i++)
-	    {
-	        if (this._nodes[i].name && this._nodes[i].name === name) {
-	            return this._nodes[i];
-	        }
-	    }
+    return this._nodes[name] || null;
 	},
 
 	/* returns Node */
 	setNamedItem: function(/* Node */ arg) {
-	    this.removeNamedItem(arg.name);
-	    this._nodes.push(arg);
-	    return arg;
+    if (!this._nodes[arg.name]) {
+      this._length++;
+    }
+    this._nodes[arg.name] = arg;
+    return arg;
 	}, // raises: function(DOMException) {},
 
 	/* returns Node */
 	removeNamedItem: function(/* string */ name) {
-	    var minusNamed = [];
-	    var node = null;
-	    for (var i=0; i<this._nodes.length; i++)
-	    {
-	        if (!this._nodes[i].name || this._nodes[i].name !== name) {
-	            minusNamed.push(this._nodes[i]);
-	        } else {
-	            node = this._nodes[i];
-	        }
-	    }
-	    this._nodes = minusNamed;
-	    return node;
+    var prev = this._nodes[name] || null;
+    this._nodes[name] = null;
+    this._length--;
+    return prev;
 	}, // raises: function(DOMException) {},
 
 	/* returns Node */
 	item: function(/* int */ index) {
-		return this._nodes[index];
+    var current = 0;
+    for (var member in this._nodes)
+    {
+      if (this._nodes.hasOwnProperty(member)) {
+        if (current === index) {
+          return this._nodes[member];
+        }
+        current++;
+      } 
+    }
 	}
 };
 
@@ -336,39 +339,22 @@ core.AttrNodeMap = function() {
 };
 
 core.AttrNodeMap.prototype = {
-  
   getNamedItem : function(/* string */ name)
   {
-
-    // TODO: use prototypal inheritance.
-    var item = false;
-    for (var i=0; i<this._nodes.length; i++)
-    {
-        if (this._nodes[i].name && this._nodes[i].name === name) {
-            item = this._nodes[i];
-            break;
-        }    
-    }      
- 
-    if (!item) {
-        item = new core.Attr(name,false);
+    if (this.exists(name)) {
+      return this._nodes[name];
     }
-    return item;
-  },
-  
-  /* returns Node */
-  setNamedItem: function(/* Node */ arg) {
-    this.removeNamedItem(arg.name);
-    this._nodes.push(arg);
-  }, // raises: function(DOMException) {}, 
+    // TODO: create attr with the document.
+    return new core.Attr(name,false);
+  }
 };
 
 core.AttrNodeMap.prototype.__proto__ = core.NamedNodeMap.prototype;
 
-core.Element = function (tagName) {
+core.Element = function (document, tagName) {
 	this._attributes = null;
 	this._tagName = tagName;
-	core.Node.call(this);
+	core.Node.call(this, document);
 	this._nodeName = tagName;
 	this._nodeType = this.ELEMENT_NODE;
 };
@@ -411,20 +397,29 @@ core.Element.prototype = {
 
   /* returns Attr */
   getAttributeNode: function(/* string */ name) {
+    if (!this._attributes.exists(name)) {
+      return null;
+    }
+    
     return this._attributes.getNamedItem(name);
   },
 
   /* returns Attr */
   setAttributeNode: function(/* Attr */ newAttr) {
+    if (this._attributes === null) {
+	    this._attributes = new core.AttrNodeMap();
+	  }
+    
     var prevNode = this._attributes.getNamedItem(newAttr.name);
     prevNode._parentNode = null;
     this._attributes.setNamedItem(newAttr);
-    return prevNode;
+    return (prevNode.specified) ? prevNode : null;
   }, //  raises: function(DOMException) {},
 
   /* returns Attr */
   removeAttributeNode: function(/* Attr */ oldAttr) {
     this._attributes.removeNamedItem(oldAttr.name);
+    
     return oldAttr;
   }, //raises: function(DOMException) {},
   
@@ -480,8 +475,8 @@ core.Element.prototype = {
 core.Element.prototype.__proto__ = core.Node.prototype;
 
 
-core.DocumentFragment = function() {
-	core.Element.call(this, "#document-fragment");
+core.DocumentFragment = function(document) {
+	core.Element.call(this, document, "#document-fragment");
 	this._nodeType = this.DOCUMENT_FRAGMENT_NODE;
 };
 core.DocumentFragment.prototype = {
@@ -493,8 +488,8 @@ get attributes() { return null; }
 core.DocumentFragment.prototype.__proto__ = core.Element.prototype;
 
 
-core.ProcessingInstruction = function (target, data) {
-	core.Node.call(this);
+core.ProcessingInstruction = function (document, target, data) {
+	core.Node.call(this, document);
 	this._nodeName = target;
 	this._tagName = target;
 	this._target = target;
@@ -535,44 +530,50 @@ core.Document.prototype = {
       throw new DOMException(INVALID_CHARACTER_ERR);
     }
     
-    return new core.Element(tagName);	
+    return new core.Element(this, tagName);	
   }, //raises: function(DOMException) {},
   
   /* returns DocumentFragment */  
   createDocumentFragment: function() {
-    return new core.DocumentFragment();	
+    return new core.DocumentFragment(this);	
   },
   
   /* returns Text */  
   createTextNode: function(/* string */ data) {
-    return new core.Text(data);
+    return new core.Text(this,data);
   },
   
   /* returns Comment */
   createComment: function(/* string */ data) {
-    return new core.Comment(data);
+    return new core.Comment(this,data);
   },
   
   /* returns CDATASection */	
   createCDATASection: function(/* string */ data) {
-    return new core.CDATASection(data);
+    return new core.CDATASection(this,data);
   }, // raises: function(DOMException) {},
 
   /* returns ProcessingInstruction */
   createProcessingInstruction: function(/* string */ target,/* string */ data) {
-    return new core.ProcessingInstruction(target, data);
+    return new core.ProcessingInstruction(this, target, data);
   }, // raises: function(DOMException) {},
 
   /* returns Attr */
   createAttribute: function(/* string */ name) {
-    return new core.Attr(name,"");
+    return new core.Attr(this, name,"");
   }, // raises: function(DOMException) {},
   
   /* returns EntityReference */
   createEntityReference: function(/* string */ name) {
-      return new core.EntityReference(this._doctype.entities.getNamedItem(name));
+    return new core.EntityReference(this, this._doctype.entities.getNamedItem(name));
   }, //raises: function(DOMException) {},
 
+  /* returns Entity */
+  createEntityNode : function(/* string */ name, /* string */ value)
+  {
+    return new Entity(this, name, value);
+  },
+  
   /* returns Node */
   appendChild : function(/* Node */ newChild){
 	 
@@ -597,8 +598,8 @@ core.Document.prototype = {
 };
 core.Document.prototype.__proto__ = core.Element.prototype;
 
-core.CharacterData = function(value) {
-  core.Node.call(this);
+core.CharacterData = function(document, value) {
+  core.Node.call(this, document);
   this._nodeValue = value;
 };
 core.CharacterData.prototype = {
@@ -680,8 +681,8 @@ core.CharacterData.prototype = {
 core.CharacterData.prototype.__proto__ = core.Node.prototype;
 
 
-core.Attr = function(name, value) {
-	core.Node.call(this);
+core.Attr = function(document, name, value) {
+	core.Node.call(this, document);
 	
 	this._nodeValue = value;
 	this._name = name;
@@ -697,13 +698,25 @@ core.Attr.prototype =  {
   get specified() { return this._specified; },
   set specified() { throw new DOMException(); },
   get value() { return this._nodeValue; },
-  set value(value) { this._nodeValue = value; }
+  set value(value) { this._nodeValue = value; },
+  get attributes() { return null; },
+  
+  /* returns Node */
+  removeChild : function(/* Node */ oldChild) {
+    
+    // determine if this is a child of an EntityReference
+    if (this.parentNode.parentNode) {}
+    debug(core.Node.prototype);
+    // call the super
+    core.Node.prototype.removeChild.call(this, oldChild);
+    
+  }
   
 };
 core.Attr.prototype.__proto__ = core.Node.prototype;
 
-core.Text = function(text, readonly) {
-    core.CharacterData.call(this, text);
+core.Text = function(document, text, readonly) {
+    core.CharacterData.call(this, document, text);
     this._nodeName = "#text";
     this._readonly = readonly ? true : false
 };
@@ -736,8 +749,8 @@ core.Text.prototype = {
 core.Text.prototype.__proto__ = core.CharacterData.prototype
 
 
-core.Comment = function(text) {
-  core.Text.call(this, text);
+core.Comment = function(document, text) {
+  core.Text.call(this, document, text);
   this._nodeName = "#comment";
   this._tagName  = "#comment";
 };
@@ -747,8 +760,8 @@ core.Comment.prototype = {
 core.Comment.prototype.__proto__ = core.Text.prototype
 
 
-core.CDATASection = function(value) {
-  core.Text.call(this, value);
+core.CDATASection = function(document, value) {
+  core.Text.call(this, document, value);
   this._nodeName = "#cdata-section";
 };
 core.CDATASection.prototype = {
@@ -777,8 +790,8 @@ core.DocumentType.prototype = {
 };
 core.DocumentType.prototype.__proto__ = core.Node.prototype;
 
-core.Notation = function(name, publicId, systemId){
-  core.Node.call(this);
+core.Notation = function(document, name, publicId, systemId){
+  core.Node.call(this, document);
   this._name = name;
   this._nodeName = name;
   this._nodeType = this.NOTATION_NODE;
@@ -798,8 +811,8 @@ core.Notation.prototype = {
 core.Notation.prototype.__proto__ = core.Node.prototype;
 
 
-core.Entity = function(name, publicId, systemId, notationName, text) {
-  core.Node.call(this);
+core.Entity = function(document, name, publicId, systemId, notationName, text) {
+  core.Node.call(this, document);
   this._name = name;
   this._nodeName = name;
   this._tagName = name;
@@ -826,7 +839,7 @@ core.Entity.prototype = {
 core.Entity.prototype.__proto__ = core.Node.prototype;
 
 
-core.EntityReference = function(entity) {
+core.EntityReference = function(document, entity) {
   core.Node.call(this);
   if (entity && entity.name)  {
     this._entity = entity;
