@@ -4,8 +4,70 @@
 var core = {
   clone : function(obj, deep) {
   
-    
-    return null;
+    // Taken from jQuery (http://code.jquery.com/jquery-1.4.js)
+    /*!
+     * jQuery JavaScript Library v1.4
+     * http://jquery.com/
+     *
+     * Copyright 2010, John Resig
+     * Dual licensed under the MIT or GPL Version 2 licenses.
+     * http://docs.jquery.com/License
+     * 
+     */
+  
+    // copy reference to target object
+	  var target = arguments[0] || {}, i = 1, length = arguments.length, deep = false, options, name, src, copy;
+
+	  // Handle a deep copy situation
+	  if ( typeof target === "boolean" ) {
+		  deep = target;
+		  target = arguments[1] || {};
+		  // skip the boolean and the target
+		  i = 2;
+	  }
+
+	  // Handle case when target is a string or something (possible in deep copy)
+	  if ( typeof target !== "object" && !jQuery.isFunction(target) ) {
+		  target = {};
+	  }
+
+	  // extend jQuery itself if only one argument is passed
+	  if ( length === i ) {
+		  target = this;
+		  --i;
+	  }
+
+	  for ( ; i < length; i++ ) {
+		  // Only deal with non-null/undefined values
+		  if ( (options = arguments[ i ]) != null ) {
+			  // Extend the base object
+			  for ( name in options ) {
+				  src = target[ name ];
+				  copy = options[ name ];
+
+				  // Prevent never-ending loop
+				  if ( target === copy ) {
+					  continue;
+				  }
+
+				  // Recurse if we're merging object literal values or arrays
+				  if ( deep && copy && ( jQuery.isPlainObject(copy) || jQuery.isArray(copy) ) ) {
+					  var clone = src && ( jQuery.isPlainObject(src) || jQuery.isArray(src) ) ? src
+						  : jQuery.isArray(copy) ? [] : {};
+
+					  // Never move original objects, clone them
+					  target[ name ] = jQuery.extend( deep, clone, copy );
+
+				  // Don't bring in undefined values
+				  } else if ( copy !== undefined ) {
+					  target[ name ] = copy;
+				  }
+			  }
+		  }
+	  }
+
+	  // Return the modified object
+	  return target;
   }
 };
 var sys = require("sys");
@@ -513,6 +575,7 @@ core.ProcessingInstruction.prototype.__proto__ = core.Node.prototype;
 
 
 core.Document = function(name, doctype, implementation) {
+	
 	core.Element.call(this, "#document");
 	this._nodeName = "#document";
 	this._doctype = doctype || new DocumentType(name, new NamedNodeMap(), new NamedNodeMap());
@@ -527,6 +590,7 @@ core.Document.prototype = {
   get implementation() { return this._implementation; },
   set implementation(implementation) { this._implementation = implementation; },
   get nodeType() { return this.DOCUMENT_NODE; },
+  get nodeName() { return this._nodeName; },
   get attributes() { return null; },
   get ownerDocument() { return null; },
   /* returns Element */
@@ -534,7 +598,6 @@ core.Document.prototype = {
     if (tagName.match(/[^\w\d_-]+/)) {
       throw new DOMException(INVALID_CHARACTER_ERR);
     }
-    
     return new core.Element(this, tagName);	
   }, //raises: function(DOMException) {},
   
@@ -710,8 +773,8 @@ core.Attr.prototype =  {
   removeChild : function(/* Node */ oldChild) {
     
     // determine if this is a child of an EntityReference
-    if (this.parentNode.parentNode) {}
-    debug(core.Node.prototype);
+//    if (this.parentNode.parentNode) {}
+//    debug(core.Node.prototype);
     // call the super
     core.Node.prototype.removeChild.call(this, oldChild);
     

@@ -8,8 +8,8 @@ exports.staff = function() {
   });
   
   var notations = new NamedNodeMap();
-  notations.setNamedItem(new Notation("notation1","notation1File", null));
-  notations.setNamedItem(new Notation("notation2",null, "notation2File"));
+  notations.setNamedItem(new Notation(doc, "notation1","notation1File", null));
+  notations.setNamedItem(new Notation(doc, "notation2",null, "notation2File"));
   
   var entities = new NamedNodeMap();
   
@@ -31,7 +31,8 @@ exports.staff = function() {
   entities.setNamedItem(doc.createEntityNode("ent5", "entityURI"));
   
   
-  doc._docType = new DocumentType("staff", entities, notations);
+  doc.doctype = new DocumentType("staff", entities, notations);;
+  doc.implementation = implementation;  
   
   var staff     = doc.createElement("staff");
   var employees = [];

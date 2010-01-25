@@ -19370,6 +19370,7 @@ exports.tests = {
           docRef = this.doc;
         }
         doc = load(docRef, "doc", "staff");
+//        debug(doc);
         documentName = doc.nodeName;
         assertEquals("documentNodeName","#document",documentName);
 
