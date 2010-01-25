@@ -26,7 +26,9 @@ exports.hc_staff = function() {
   var doctype = new DocumentType("xhtml1-strict", entities, notations);
   var doc = new Document("html", doctype, implementation);
   
-  var html      = doc.createElement("html");
+  var title     = doc.createElement("title").appendChild(new Text("hc_staff"));
+  var head      = doc.createElement("head").appendChild(title);
+  var html      = doc.createElement("html").appendChild(head);
   var body      = doc.createElement("body");
   var staff     = html.appendChild(body);
   var employees = [];
@@ -67,6 +69,7 @@ exports.hc_staff = function() {
   
   ids[0].appendChild(new Text("EMP0001"));
   salaries[0].appendChild(new Text("56,000"));
+  addresses[0].setAttribute("title", "Yes");
   addresses[0].appendChild(new Text('1230 North Ave. Dallas, Texas 98551'));
   names[0].appendChild(new Text("Margaret Martin"));
   genders[0].appendChild(new Text("Female"));
@@ -74,28 +77,28 @@ exports.hc_staff = function() {
 
   ids[1].appendChild(new Text("EMP0002"));
   salaries[1].appendChild(new Text("35,000"));
-  addresses[1].setAttribute("domestic", "Yes");
-  addresses[1].setAttribute("street", "Yes");
-  addresses[1].appendChild(new Text("&ent2; Dallas, &ent3; \n98554"));
+  addresses[1].setAttribute("title", "Yes");
+  addresses[1].setAttribute("class", "Yes");
+  addresses[1].appendChild(new Text("&beta; Dallas, &gamma; \n98554"));
   names[1].appendChild(new Text("Martha Raynolds"));
-  names[1].appendChild(new CDATASection("This is a CDATASection with EntityReference number 2 &ent2;"));
-  names[1].appendChild(new CDATASection("This is an adjacent CDATASection with a reference to a tab &tab;"));  
+  names[1].appendChild(new CDATASection("This is a CDATASection with EntityReference number 2 &amp;ent2;"));
+  names[1].appendChild(new CDATASection("This is an adjacent CDATASection with a reference to a tab &amp;tab;"));  
   genders[1].appendChild(new Text("Female"));
   positions[1].appendChild(new Text("Secretary"));
 
   ids[2].appendChild(new Text("EMP0003"));
   salaries[2].appendChild(new Text("100,000"));
-  addresses[2].setAttribute("domestic", "Yes");
-  addresses[2].setAttribute("street", "No");
+  addresses[2].setAttribute("title", "Yes");
+  addresses[2].setAttribute("class", "No");
   addresses[2].appendChild(new Text("PO Box 27 Irving, texas 98553"));
   names[2].appendChild(new Text("Roger\n Jones")) ;
-  genders[2].appendChild(doc.createEntityReference("ent42"));//Text("&ent4"));
+  genders[2].appendChild(doc.createEntityReference("&delta;"));//Text("&delta;"));
   positions[2].appendChild(new Text("Department Manager"));
 
   ids[3].appendChild(new Text("EMP0004"));
   salaries[3].appendChild(new Text("95,000"));
-  addresses[3].setAttribute("domestic", "Yes");
-  addresses[3].setAttribute("street", "Y&ent1;");
+  addresses[3].setAttribute("title", "Yes");
+  addresses[3].setAttribute("class", "Y&alpha;");
   addresses[3].appendChild(new Text("27 South Road. Dallas, Texas 98556"));
   names[3].appendChild(new Text("Jeny Oconnor"));
   genders[3].appendChild(new Text("Female"));
@@ -103,7 +106,7 @@ exports.hc_staff = function() {
   
   ids[4].appendChild(new Text("EMP0005"));
   salaries[4].appendChild(new Text("90,000"));  
-  addresses[4].setAttribute("street", "Yes");
+  addresses[4].setAttribute("title", "Yes");
   addresses[4].appendChild(new Text("1821 Nordic. Road, Irving Texas 98558"));
   names[4].appendChild(new Text("Robert Myers"));
   genders[4].appendChild(new Text("male"));
@@ -132,7 +135,12 @@ exports.hc_staff = function() {
 
 ]>
 <!-- This is comment number 1.-->
-<html xmlns='http://www.w3.org/1999/xhtml'><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><title>hc_staff</title><script type="text/javascript" src="svgunit.js"/><script charset="UTF-8" type="text/javascript" src="svgtest.js"/><script type='text/javascript'>function loadComplete() { startTest(); }</script></head><body onload="parent.loadComplete()">
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>hc_staff</title>
+</head>
+<body>
  <p>
   <em>EMP0001</em>
   <strong>Margaret Martin</strong>
