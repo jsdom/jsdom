@@ -1,6 +1,7 @@
 var sys = require("sys");
 exports.hc_staff = function() {
 
+  var doc = new Document("html", doctype, implementation);
   var implementation = new DOMImplementation({
     "XML" : "1.0"
   });
@@ -11,17 +12,20 @@ exports.hc_staff = function() {
   
   var entities = new NamedNodeMap();
   
-  entities.setNamedItem(new Entity("alpha", "&#945;"));
-  entities.setNamedItem(new Entity("beta", "&#946;"));
-  entities.setNamedItem(new Entity("gamma", "&#947;"));
-  entities.setNamedItem(new Entity("delta", "&#948;"));
-  entities.setNamedItem(new Entity("epsilon", "&#949;"));
-  entities.setNamedItem(new Entity("alpha", "&#950;"));
+  entities.setNamedItem(doc.createEntityNode("alpha", "&#945;"));
+  entities.setNamedItem(doc.createEntityNode("beta", "&#946;"));
+  entities.setNamedItem(doc.createEntityNode("gamma", "&#947;"));
+  entities.setNamedItem(doc.createEntityNode("delta", "&#948;"));
+  entities.setNamedItem(doc.createEntityNode("epsilon", "&#949;"));
+  entities.setNamedItem(doc.createEntityNode("alpha", "&#950;"));
 
   var doctype = new DocumentType("xhtml1-strict", entities, notations);
-  var doc = new Document("html", doctype, implementation);
+  doc.doctype = doctype;
+  doc.implementation = implementation;
   
-  doc.appendChild(new Comment(" This is comment number 1."));
+  
+  
+  doc.appendChild(doc.createComment(" This is comment number 1."));
   
   var html      = doc.createElement("html");
   var html      = doc.appendChild(html);
@@ -29,7 +33,7 @@ exports.hc_staff = function() {
   var head      = doc.createElement("head");
   var head      = html.appendChild(head);
   
-  var title     = doc.createElement("title").appendChild(new Text("hc_staff"));
+  var title     = doc.createElement("title").appendChild(doc.createTextNode("hc_staff"));
   var title     = head.appendChild(title);
 
   var body      = doc.createElement("body");
@@ -71,50 +75,50 @@ exports.hc_staff = function() {
     salaries.push(salary);
   }
   
-  ids[0].appendChild(new Text("EMP0001"));
-  salaries[0].appendChild(new Text("56,000"));
+  ids[0].appendChild(doc.createTextNode("EMP0001"));
+  salaries[0].appendChild(doc.createTextNode("56,000"));
   addresses[0].setAttribute("title", "Yes");
-  addresses[0].appendChild(new Text('1230 North Ave. Dallas, Texas 98551'));
-  names[0].appendChild(new Text("Margaret Martin"));
-  genders[0].appendChild(new Text("Female"));
-  positions[0].appendChild(new Text("Accountant"));
+  addresses[0].appendChild(doc.createTextNode('1230 North Ave. Dallas, Texas 98551'));
+  names[0].appendChild(doc.createTextNode("Margaret Martin"));
+  genders[0].appendChild(doc.createTextNode("Female"));
+  positions[0].appendChild(doc.createTextNode("Accountant"));
 
-  ids[1].appendChild(new Text("EMP0002"));
-  salaries[1].appendChild(new Text("35,000"));
+  ids[1].appendChild(doc.createTextNode("EMP0002"));
+  salaries[1].appendChild(doc.createTextNode("35,000"));
   addresses[1].setAttribute("title", "Yes");
   addresses[1].setAttribute("class", "Yes");
-  addresses[1].appendChild(new Text("&beta; Dallas, &gamma; \n98554"));
-  names[1].appendChild(new Text("Martha Raynolds"));
-  names[1].appendChild(new CDATASection("This is a CDATASection with EntityReference number 2 &amp;ent2;"));
-  names[1].appendChild(new CDATASection("This is an adjacent CDATASection with a reference to a tab &amp;tab;"));  
-  genders[1].appendChild(new Text("Female"));
-  positions[1].appendChild(new Text("Secretary"));
+  addresses[1].appendChild(doc.createTextNode("&beta; Dallas, &gamma; \n98554"));
+  names[1].appendChild(doc.createTextNode("Martha Raynolds"));
+  names[1].appendChild(doc.createCDATASection("This is a CDATASection with EntityReference number 2 &amp;ent2;"));
+  names[1].appendChild(doc.createCDATASection("This is an adjacent CDATASection with a reference to a tab &amp;tab;"));  
+  genders[1].appendChild(doc.createTextNode("Female"));
+  positions[1].appendChild(doc.createTextNode("Secretary"));
 
-  ids[2].appendChild(new Text("EMP0003"));
-  salaries[2].appendChild(new Text("100,000"));
+  ids[2].appendChild(doc.createTextNode("EMP0003"));
+  salaries[2].appendChild(doc.createTextNode("100,000"));
   addresses[2].setAttribute("title", "Yes");
   addresses[2].setAttribute("class", "No");
-  addresses[2].appendChild(new Text("PO Box 27 Irving, texas 98553"));
-  names[2].appendChild(new Text("Roger\n Jones")) ;
+  addresses[2].appendChild(doc.createTextNode("PO Box 27 Irving, texas 98553"));
+  names[2].appendChild(doc.createTextNode("Roger\n Jones")) ;
   genders[2].appendChild(doc.createEntityReference("&delta;"));//Text("&delta;"));
-  positions[2].appendChild(new Text("Department Manager"));
+  positions[2].appendChild(doc.createTextNode("Department Manager"));
 
-  ids[3].appendChild(new Text("EMP0004"));
-  salaries[3].appendChild(new Text("95,000"));
+  ids[3].appendChild(doc.createTextNode("EMP0004"));
+  salaries[3].appendChild(doc.createTextNode("95,000"));
   addresses[3].setAttribute("title", "Yes");
   addresses[3].setAttribute("class", "Y&alpha;");
-  addresses[3].appendChild(new Text("27 South Road. Dallas, Texas 98556"));
-  names[3].appendChild(new Text("Jeny Oconnor"));
-  genders[3].appendChild(new Text("Female"));
-  positions[3].appendChild(new Text("Personal Director"));
+  addresses[3].appendChild(doc.createTextNode("27 South Road. Dallas, Texas 98556"));
+  names[3].appendChild(doc.createTextNode("Jeny Oconnor"));
+  genders[3].appendChild(doc.createTextNode("Female"));
+  positions[3].appendChild(doc.createTextNode("Personal Director"));
   
-  ids[4].appendChild(new Text("EMP0005"));
-  salaries[4].appendChild(new Text("90,000"));  
+  ids[4].appendChild(doc.createTextNode("EMP0005"));
+  salaries[4].appendChild(doc.createTextNode("90,000"));  
   addresses[4].setAttribute("title", "Yes");
-  addresses[4].appendChild(new Text("1821 Nordic. Road, Irving Texas 98558"));
-  names[4].appendChild(new Text("Robert Myers"));
-  genders[4].appendChild(new Text("male"));
-  positions[4].appendChild(new Text("Computer Specialist"));
+  addresses[4].appendChild(doc.createTextNode("1821 Nordic. Road, Irving Texas 98558"));
+  names[4].appendChild(doc.createTextNode("Robert Myers"));
+  genders[4].appendChild(doc.createTextNode("male"));
+  positions[4].appendChild(doc.createTextNode("Computer Specialist"));
 
   doc.appendChild(doc.createProcessingInstruction("TEST-STYLE", "PIDATA"));
   

@@ -342,9 +342,11 @@ core.AttrNodeMap = function(document) {
 core.AttrNodeMap.prototype = {
   getNamedItem : function(/* string */ name)
   {
+
     if (this.exists(name)) {
       return this._nodes[name];
     }
+    
     // TODO: create attr with the document.
     return this.ownerDocument.createAttribute(name,false);
   }
@@ -520,8 +522,10 @@ core.Document = function(name, doctype, implementation) {
 core.Document.prototype = {
 
   get doctype() { return this._doctype; },
+  set doctype(doctype) { this._doctype = doctype; },
   get documentElement() { return this._documentElement; },
   get implementation() { return this._implementation; },
+  set implementation(implementation) { this._implementation = implementation; },
   get nodeType() { return this.DOCUMENT_NODE; },
   get attributes() { return null; },
   get ownerDocument() { return null; },

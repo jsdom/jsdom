@@ -24051,7 +24051,6 @@ exports.tests = {
         textNode = addressNode.firstChild;
 
         splitNode = textNode.splitText(30);
-
         value = splitNode.nodeValue;
 
         assertEquals("textSplitTextFourAssert","98551",value);
