@@ -11,26 +11,30 @@ exports.hc_staff = function() {
   
   var entities = new NamedNodeMap();
   
-  var alpha = new Entity("alpha");
-  alpha.appendChild(new Text("&#945;"));
-  entities.setNamedItem(alpha);
+  entities.setNamedItem(new Entity("alpha", "&#945;"));
   entities.setNamedItem(new Entity("beta", "&#946;"));
-  
-  var gamma = new Entity("gamma", null, null, "notation name?", new Text("&#947;"));
-  entities.setNamedItem(gamma);
-  
+  entities.setNamedItem(new Entity("gamma", "&#947;"));
   entities.setNamedItem(new Entity("delta", "&#948;"));
   entities.setNamedItem(new Entity("epsilon", "&#949;"));
-  entities.setNamedItem(new Entity("epsilon", "&#949;"));
+  entities.setNamedItem(new Entity("alpha", "&#950;"));
 
   var doctype = new DocumentType("xhtml1-strict", entities, notations);
   var doc = new Document("html", doctype, implementation);
   
+  doc.appendChild(new Comment(" This is comment number 1."));
+  
+  var html      = doc.createElement("html");
+  var html      = doc.appendChild(html);
+  
+  var head      = doc.createElement("head");
+  var head      = html.appendChild(head);
+  
   var title     = doc.createElement("title").appendChild(new Text("hc_staff"));
-  var head      = doc.createElement("head").appendChild(title);
-  var html      = doc.createElement("html").appendChild(head);
+  var title     = head.appendChild(title);
+
   var body      = doc.createElement("body");
   var staff     = html.appendChild(body);
+
   var employees = [];
   var addresses = [];
   var names     = [];
@@ -111,7 +115,7 @@ exports.hc_staff = function() {
   names[4].appendChild(new Text("Robert Myers"));
   genders[4].appendChild(new Text("male"));
   positions[4].appendChild(new Text("Computer Specialist"));
-  
+
   doc.appendChild(doc.createProcessingInstruction("TEST-STYLE", "PIDATA"));
   
   return doc;
