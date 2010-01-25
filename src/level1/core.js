@@ -87,7 +87,7 @@ core.Node = function (ownerDocument) {
 	this._children = new core.NodeList();
 	this._nodeValue = null;
   this._parentNode = null;
-  this._attributes = new core.AttrNodeMap();
+  this._attributes = new core.AttrNodeMap(this.ownerDocument);
   this._nodeName   = null;
   this._ownerDocument = ownerDocument;
 };
@@ -283,13 +283,14 @@ core.Node.prototype = {
 };
 
 
-core.NamedNodeMap = function() {
+core.NamedNodeMap = function(document) {
 	this._nodes = {};
 	this._length = 0;
-	
+	this._ownerDocument = document;
 };
 core.NamedNodeMap.prototype = {
   
+  get ownerDocument() { this._ownerDocument; },
   get length() { return this._length; },
 
   exists : function(name) {
@@ -334,8 +335,8 @@ core.NamedNodeMap.prototype = {
 };
 
 
-core.AttrNodeMap = function() {
-    core.NamedNodeMap.call(this);
+core.AttrNodeMap = function(document) {
+    core.NamedNodeMap.call(this, document);
 };
 
 core.AttrNodeMap.prototype = {
@@ -345,7 +346,7 @@ core.AttrNodeMap.prototype = {
       return this._nodes[name];
     }
     // TODO: create attr with the document.
-    return new core.Attr(name,false);
+    return this.ownerDocument.createAttribute(name,false);
   }
 };
 
@@ -380,10 +381,10 @@ core.Element.prototype = {
   /* returns string */
   setAttribute: function(/* string */ name, /* string */ value) {
 	  if (this._attributes === null) {
-	    this._attributes = new core.AttrNodeMap();
+	    this._attributes = new core.AttrNodeMap(this.ownerDocument);
 	  }
-	  
-	  var attr = new core.Attr(name, value);
+
+	  var attr = this.ownerDocument.createAttribute(name, value);
 	  this.removeAttribute(name);
 	  this._attributes.setNamedItem(attr);
 	  return value;
@@ -407,7 +408,7 @@ core.Element.prototype = {
   /* returns Attr */
   setAttributeNode: function(/* Attr */ newAttr) {
     if (this._attributes === null) {
-	    this._attributes = new core.AttrNodeMap();
+	    this._attributes = new core.AttrNodeMap(this.ownerDocument);
 	  }
     
     var prevNode = this._attributes.getNamedItem(newAttr.name);
@@ -600,7 +601,7 @@ core.Document.prototype.__proto__ = core.Element.prototype;
 
 core.CharacterData = function(document, value) {
   core.Node.call(this, document);
-  this._nodeValue = value;
+  this._nodeValue = value || "";
 };
 core.CharacterData.prototype = {
 
@@ -741,7 +742,7 @@ core.Text.prototype = {
 	    
 	    var newText = this._nodeValue.substring(offset);
 	    this._nodeValue = this._nodeValue.substring(0, offset);
-	    var newNode = new Text(newText);
+	    var newNode = this.ownerDocument.createTextNode(newText);
 	    this._parentNode.appendChild(newNode);
 	    return newNode;
 	} //raises: function(DOMException) {},

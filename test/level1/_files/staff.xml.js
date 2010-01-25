@@ -16,15 +16,15 @@ exports.staff = function() {
   var ent1 = doc.createEntityNode("ent1");
   ent1.appendChild(doc.createTextNode("es"));
   entities.setNamedItem(ent1);
-  entities.setNamedItem(doc.createEntityNode("ent2",null, null, null, doc.createTextNode("1900 Dallas Road")));
+  entities.setNamedItem(doc.createEntityNode("ent2",doc.createTextNode("1900 Dallas Road")));
   
-  var ent3 = doc.createEntityNode("ent3", null, null, null, null, doc.createTextNode("Texas"));
+  var ent3 = doc.createEntityNode("ent3",doc.createTextNode("Texas"));
   entities.setNamedItem(ent3);
   
   var entElement = doc.createElement("entElement");
   entElement.setAttribute("domestic", "Yes");
   entElement.appendChild(doc.createProcessingInstruction("PItarget", "PfIdata"));
-  var ent4 = doc.createEntityNode("ent4", null, null, null, doc.createTextNode("Element data"));
+  var ent4 = doc.createEntityNode("ent4",doc.createTextNode("Element data"));
   
   entities.setNamedItem(ent4);
   

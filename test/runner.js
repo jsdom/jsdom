@@ -61,6 +61,7 @@ if (process.ARGV[2] != "-t") {
 for (var i = 0; i<errors.length; i++)
 {
 	sys.puts('FAIL: failed with message "' + errors[i].error.message + " (#" + errors[i].error.code + " " + errors[i].error.type + " in " + errors[i].method + ')');
+  sys.puts(errors[i].error.stack);
 }
 
 // Summary
