@@ -3138,6 +3138,7 @@ documentcreateelementcasesensitive : function () {
       newElement1.setAttribute("district","Fort Worth");
       newElement2.setAttribute("county","Dallas");
       attribute1 = newElement1.getAttribute("district");
+
       attribute2 = newElement2.getAttribute("county");
       assertEquals("attrib1","Fort Worth",attribute1);
        assertEquals("attrib2","Dallas",attribute2);

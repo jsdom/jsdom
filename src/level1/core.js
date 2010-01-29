@@ -51,11 +51,11 @@ var NOT_SUPPORTED_ERR  = 9;
 var INUSE_ATTRIBUTE_ERR = 10;
 
 
-core.constantSetException = function(){
-	return new core.DOMException(NO_MODIFICATION_ALLOWED_ERR);
-};
+core.NodeList = function(document, element, tagName) {
+  this._document = document;
+  this._element  = element;
+  this._tagName  = tagName;
 
-core.NodeList = function() {
 };
 core.NodeList.prototype = {
   /* returns Node */
@@ -70,7 +70,6 @@ core.NodeList.prototype = {
   }
 };
 core.NodeList.prototype.__proto__ = Array.prototype;
-
 
 core.DOMImplementation = function(/* Object */ features) {
   this._features = features;
@@ -95,9 +94,9 @@ core.Node = function (ownerDocument) {
 	this._children = new core.NodeList();
 	this._nodeValue = null;
   this._parentNode = null;
+  this._ownerDocument = ownerDocument;
   this._attributes = new core.AttrNodeMap(this.ownerDocument);
   this._nodeName   = null;
-  this._ownerDocument = ownerDocument;
 };
 core.Node.prototype = {
   
@@ -313,7 +312,7 @@ core.NamedNodeMap.prototype = {
 	/* returns Node */
 	setNamedItem: function(/* Node */ arg) {
     var ret;
-    if (!this._nodes[arg.name]) {
+    if (!this._nodes[arg.name] || this._nodes[arg.name] === null) {
       this._length++;
       ret = null;
     } else {
@@ -353,14 +352,15 @@ core.AttrNodeMap = function(document) {
 };
 
 core.AttrNodeMap.prototype = {
+  get ownerDocument() { return this._ownerDocument; },
+  
   getNamedItem : function(/* string */ name)
   {
 
     if (this.exists(name)) {
       return this._nodes[name];
     }
-    
-    // TODO: create attr with the document.
+
     return this.ownerDocument.createAttribute(name,false);
   }
 };
@@ -399,8 +399,9 @@ core.Element.prototype = {
 	    this._attributes = new core.AttrNodeMap(this.ownerDocument);
 	  }
 
-	  var attr = this.ownerDocument.createAttribute(name, value);
-	  this.removeAttribute(name);
+	  var attr = this.ownerDocument.createAttribute(name);
+	  attr.nodeValue = value;
+ 	  this.removeAttribute(name);
 	  this._attributes.setNamedItem(attr);
 	  return value;
   }, //raises: function(DOMException) {},
@@ -434,30 +435,37 @@ core.Element.prototype = {
 
   /* returns Attr */
   removeAttributeNode: function(/* Attr */ oldAttr) {
-    this._attributes.removeNamedItem(oldAttr.name);
+    var existingAttr = this._attributes.getNamedItem(oldAttr.name);
     
-    return oldAttr;
+    if (this._attributes && existingAttr === oldAttr) {
+      this._attributes.removeNamedItem(oldAttr.name);
+      return oldAttr;
+    }
+    throw new DOMException(NOT_FOUND_ERR);
   }, //raises: function(DOMException) {},
   
   /* returns NodeList */	
   getElementsByTagName: function(/* string */ name) {
-    var ret = new core.NodeList();
-
+    var ret = new core.NodeList(), child;
+    
+    if (this.tagName && (this.tagName === name || name === "*")) {
+      ret.push(this);
+    }
+    
     if (this._children && this._children.length) {      
       for (var i=0; i<this._children.length; i++)
       {
-	      if ((this._children[i].tagName && 
-	           this._children[i].tagName === name) || name === "*") {
-          ret.push(this._children[i]);
-        }		
-        if (this._children[i].getElementsByTagName)
+
+        child = this._children.item(i);
+        
+        if (child.getElementsByTagName)
         {
 	        var nested = this._children[i].getElementsByTagName(name);
           if (nested && nested.length)
           {
             for (var idx = 0; idx<nested.length; idx++)
             {
-              ret.push(nested[idx]);
+              ret.push(nested.item(idx));
             }
           }
         }
@@ -533,7 +541,7 @@ core.ProcessingInstruction.prototype.__proto__ = core.Node.prototype;
 core.Document = function(name, doctype, implementation) {
 	
 	core.Element.call(this, "#document");
-	this._nodeName = "#document";
+	this._nodeName = this._tagName = "#document";
 	this._doctype = doctype || new DocumentType(name, new NamedNodeMap(), new NamedNodeMap());
 	this._implementation = implementation || new DOMImplementation();
 	this._documentElement = null
@@ -551,7 +559,7 @@ core.Document.prototype = {
   get ownerDocument() { return null; },
   /* returns Element */
   createElement: function(/* string */ tagName) {
-    if (tagName.match(/[^\w\d_-]+/)) {
+    if (tagName.match(/[^\w\d_-]+/i)) {
       throw new DOMException(INVALID_CHARACTER_ERR);
     }
     return new core.Element(this, tagName);	
