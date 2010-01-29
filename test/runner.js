@@ -1,6 +1,7 @@
 var sys = require("sys");
 process.mixin(GLOBAL, require("../src/level1/core").dom.level1.core);
 process.mixin(GLOBAL, require("./mjsunit"));
+process.mixin(GLOBAL, require("./DOMTestCase"));
 
 // Compat Layer
 GLOBAL.load = function(docRef, doc, name) {

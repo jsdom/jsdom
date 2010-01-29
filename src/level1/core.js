@@ -340,7 +340,7 @@ core.Node.prototype = {
   
   /* returns Node */  
   cloneNode : function(/* bool */ deep) {
-    return core.clone(this, deep);
+    return core.clone(deep, this);
   }
 };
 
@@ -366,11 +366,16 @@ core.NamedNodeMap.prototype = {
 
 	/* returns Node */
 	setNamedItem: function(/* Node */ arg) {
+    var ret;
     if (!this._nodes[arg.name]) {
       this._length++;
+      ret = null;
+    } else {
+      ret = arg;
     }
+    
     this._nodes[arg.name] = arg;
-    return arg;
+    return ret;
 	}, // raises: function(DOMException) {},
 
 	/* returns Node */

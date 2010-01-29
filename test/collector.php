@@ -3,7 +3,7 @@
 
 $files = glob($_SERVER['argv'][1] . "/*.html");
 
-$segments = explode('/', $_SERVER['argv'][1]);
+$segments = array_filter(explode('/', $_SERVER['argv'][1]));
 $last = array_pop($segments);
 $outputFile = implode('/', $segments) . "/{$last}.js";
 
@@ -26,27 +26,11 @@ foreach ($files as $file)
 	
 	$function = str_replace("function ", "", $function);
 	$function = str_replace("() {", " : function () {", $function);
-	//$function = preg_replace("/if\(checkInitialization\(builder, \"[a-zA-Z0-9_]+\"\) \!= null\) return;/", '', $function);
 	
 	// parse out the actual function
 	array_push($functionBodies, trim($function));
-
 	
 }
-
-//$imploded = implode("','", array_filter($functions));
-
-/*$output = "// expose test function names
-function exposeTestFunctionNames()
-{
-return ['{$imploded}'];
-        
-}
-
-
-" . $functionBodies;
-*/
-
 
 
 file_put_contents($outputFile, "exports.tests = {\r\n".implode(",\r\n", array_filter($functionBodies)) . '}');
