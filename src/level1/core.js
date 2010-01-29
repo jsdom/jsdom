@@ -4,70 +4,16 @@
 var core = {
   clone : function(obj, deep) {
   
-    // Taken from jQuery (http://code.jquery.com/jquery-1.4.js)
-    /*!
-     * jQuery JavaScript Library v1.4
-     * http://jquery.com/
-     *
-     * Copyright 2010, John Resig
-     * Dual licensed under the MIT or GPL Version 2 licenses.
-     * http://docs.jquery.com/License
-     * 
-     */
-  
-    // copy reference to target object
-	  var target = arguments[0] || {}, i = 1, length = arguments.length, deep = false, options, name, src, copy;
-
-	  // Handle a deep copy situation
-	  if ( typeof target === "boolean" ) {
-		  deep = target;
-		  target = arguments[1] || {};
-		  // skip the boolean and the target
-		  i = 2;
-	  }
-
-	  // Handle case when target is a string or something (possible in deep copy)
-	  if ( typeof target !== "object" && !jQuery.isFunction(target) ) {
-		  target = {};
-	  }
-
-	  // extend jQuery itself if only one argument is passed
-	  if ( length === i ) {
-		  target = this;
-		  --i;
-	  }
-
-	  for ( ; i < length; i++ ) {
-		  // Only deal with non-null/undefined values
-		  if ( (options = arguments[ i ]) != null ) {
-			  // Extend the base object
-			  for ( name in options ) {
-				  src = target[ name ];
-				  copy = options[ name ];
-
-				  // Prevent never-ending loop
-				  if ( target === copy ) {
-					  continue;
-				  }
-
-				  // Recurse if we're merging object literal values or arrays
-				  if ( deep && copy && ( jQuery.isPlainObject(copy) || jQuery.isArray(copy) ) ) {
-					  var clone = src && ( jQuery.isPlainObject(src) || jQuery.isArray(src) ) ? src
-						  : jQuery.isArray(copy) ? [] : {};
-
-					  // Never move original objects, clone them
-					  target[ name ] = jQuery.extend( deep, clone, copy );
-
-				  // Don't bring in undefined values
-				  } else if ( copy !== undefined ) {
-					  target[ name ] = copy;
-				  }
-			  }
-		  }
-	  }
-
-	  // Return the modified object
-	  return target;
+    if(obj == null || typeof(obj) != 'object')
+    {
+        return obj;
+    }
+    var temp = new obj.constructor();
+    for(var key in obj)
+    {
+        temp[key] = clone(obj[key], deep);
+    }
+    return temp;
   }
 };
 var sys = require("sys");
@@ -527,17 +473,22 @@ core.Element.prototype = {
     var child;
     for (var i=0; i<this._children.length; i++)
     {
+      child = this._children[i];
+      
+      if (child.normalize) {
+        child.normalize();
+      }
+
       if (i>0) {
-        child = this._children[i];
         prevChild = this._children[i-1];
         
-        if (child.nodeType === this._TEXT_NODE && prevChild.nodeType === this._TEXT_NODE)
+        if (child.nodeType === this.TEXT_NODE && prevChild.nodeType === this.TEXT_NODE)
         {
           // remove the child and decrement i
           prevChild.appendData(child.value);
           this.removeChild(child);
           i--;
-        }
+        } 
       }
     }
   },
