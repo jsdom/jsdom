@@ -98,7 +98,7 @@ exports.staff = function() {
   addresses[2].setAttribute("street", "No");
   addresses[2].appendChild(doc.createTextNode("PO Box 27 Irving, texas 98553"));
   names[2].appendChild(doc.createTextNode("Roger\n Jones")) ;
-  genders[2].appendChild(doc.createEntityReference("ent42"));//Text("&ent4"));
+  genders[2].appendChild(doc.createEntityReference("ent4"));//Text("&ent4"));
   positions[2].appendChild(doc.createTextNode("Department Manager"));
 
   

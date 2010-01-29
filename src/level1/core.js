@@ -584,17 +584,37 @@ core.Document.prototype = {
 
   /* returns Attr */
   createAttribute: function(/* string */ name) {
+    if (name.match(/[^\w\d_-]+/)) {
+      throw new DOMException(INVALID_CHARACTER_ERR);
+    }
     return new core.Attr(this, name,"");
   }, // raises: function(DOMException) {},
   
   /* returns EntityReference */
   createEntityReference: function(/* string */ name) {
-    return new core.EntityReference(this, this._doctype.entities.getNamedItem(name));
+    name = name.replace(/[&;]/g,"");
+    
+    if (name.match(/[^\w\d_-]+/)) {
+      throw new DOMException(INVALID_CHARACTER_ERR);
+    }
+    
+    var entity = this._doctype.entities.getNamedItem(name);
+
+    if (!entity) {
+      throw new DOMException(NOT_SUPPORTED_ERR);
+    }
+    
+    return new core.EntityReference(this, entity);
   }, //raises: function(DOMException) {},
 
   /* returns Entity */
   createEntityNode : function(/* string */ name, /* string */ value)
   {
+
+    if (name.match(/[^\w\d_\-&;]+/)) {
+      throw new DOMException(INVALID_CHARACTER_ERR);
+    }
+    
     return new Entity(this, name, value);
   },
   
