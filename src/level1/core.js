@@ -1051,7 +1051,19 @@ core.Attr = function(document, name, value) {
 };
 core.Attr.prototype =  {
   get nodeType() { return this.ATTRIBUTE_NODE; },
-  get nodeValue() { return this._nodeValue; },
+  get nodeValue() {
+    
+    var val = "";
+    
+    if (this._children.length > 0) {
+      for (var i=0; i<this._children.length; i++)
+      {
+        val += this._children[i].value;
+      }
+    }
+    
+    return val; 
+  },
   set nodeValue(value) { 
     // readonly
     if (this._readonly) {
@@ -1063,7 +1075,7 @@ core.Attr.prototype =  {
   },
   get name() { return this._name; },
   get specified() { return this._specified; },
-  get value() { return this._nodeValue; },
+  get value() { return this.nodeValue; },
   set value(value) { 
     this.nodeValue = value; 
   },
