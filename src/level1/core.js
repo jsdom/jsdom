@@ -287,9 +287,15 @@ core.Node.prototype = {
             throw new DOMException(HIERARCHY_REQUEST_ERR);
           }
         }
-        
+        if (newChild._parentNode) {
+          newChild._parentNode.removeChild(newChild);
+        }
         newChild._parentNode = this;
-        this._children[i] = newChild;
+        this._children.remove(i);
+        
+
+        this._children.splice(i,0, newChild);
+
         return oldChild;
       }
     }
@@ -1064,7 +1070,8 @@ core.Entity.prototype = {
   set nodeValue() { 
     // readonly
     if (this.readonly === true) {
-      throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
+      // TODO: is this needed?
+      //throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
     }
     
     /* do nothing */ 
@@ -1091,7 +1098,8 @@ core.EntityReference.prototype = {
   set nodeValue() { 
     // readonly
     if (this.readonly === true) {
-      throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
+      // TODO: is this needed?
+      //throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
     }
     
     /* do nothing */ 

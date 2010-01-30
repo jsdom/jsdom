@@ -22586,12 +22586,15 @@ nodereplacechildnewchildexists : function () {
       expected =  expectedWithoutWhitespace;
 
 		}
+		
 	replacedChild = employeeNode.replaceChild(newChild,oldChild);
       assertSame("return_value_same",oldChild,replacedChild);
-for(var indexN100DE = 0;indexN100DE < childList.length; indexN100DE++) {
-      childNode = childList.item(indexN100DE);
-      childName = childNode.nodeName;
 
+for(var indexN100DE = 0;indexN100DE < childList.length; indexN100DE++) {
+      
+      childNode = childList.item(indexN100DE);
+      
+      childName = childNode.nodeName;
       actual[actual.length] = childName;
 
 	}
