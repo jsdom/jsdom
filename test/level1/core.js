@@ -6195,14 +6195,13 @@ hc_attrappendchild2 : function () {
 
       titleAttr = attributes.getNamedItem("title");
       newChild = doc.createElement("terday");
-
+      
 	{
 		success = false;
 		try {
             retval = titleAttr.appendChild(newChild);
         }
 		catch(ex) {
-
       success = (typeof(ex.code) != 'undefined' && ex.code == 3);
 		}
 		assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
@@ -6297,7 +6296,7 @@ hc_attrappendchild4 : function () {
       attributes = testNode.attributes;
 
       titleAttr = attributes.getNamedItem("title");
-  
+      
 	if(
 	
 	(builder.contentType == "text/html")
@@ -6318,7 +6317,6 @@ hc_attrappendchild4 : function () {
 	}
 	
 		else {
-
 			textNode = doc.createCDATASection("terday");
       
 	{
@@ -7365,14 +7363,13 @@ hc_attrinsertbefore7 : function () {
       docFrag = doc.createDocumentFragment();
       retval = docFrag.appendChild(terNode);
       retval = docFrag.appendChild(dayNode);
-   
+      
 	{
 		success = false;
 		try {
             retval = titleAttr.insertBefore(docFrag,refChild);
         }
 		catch(ex) {
-
       success = (typeof(ex.code) != 'undefined' && ex.code == 3);
 		}
 		assertTrue("throw_HIERARCHY_REQUEST_ERR",success);

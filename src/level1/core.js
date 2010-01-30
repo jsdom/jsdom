@@ -705,14 +705,17 @@ core.Element.prototype = {
   getElementsByTagName: function(/* string */ name) {
     var ret = new core.NodeList(), child;
     
-    if (this.tagName && (this.tagName === name || name === "*")) {
-      ret.push(this);
-    }
-    
-    if (this._children && this._children.length) {      
+    if (this._children && this._children.length > 0) {      
       for (var i=0; i<this._children.length; i++) {
         child = this._children.item(i);
-        if (child.getElementsByTagName) {
+        
+        if (child.tagName && child.nodeType === this.ELEMENT_NODE &&
+            (child.tagName === name || name === "*")) 
+        {
+          ret.push(child);
+        }
+        
+        if (child && child.getElementsByTagName) {
 	        var nested = child.getElementsByTagName(name);
           if (nested && nested.length)  {
             for (var idx = 0; idx<nested.length; idx++) {
