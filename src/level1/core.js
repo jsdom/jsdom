@@ -197,6 +197,11 @@ core.Node.prototype = {
   /* returns Node */ 
   insertBefore :  function(/* Node */ newChild, /* Node*/ refChild){
 
+    // readonly
+    if (this.readonly === true) {
+      throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
+    }
+
 	  if (newChild.nodeType === this.ATTRIBUTE_NODE) {
 	    throw new DOMException(HIERARCHY_REQUEST_ERR);
 	  }
@@ -291,11 +296,12 @@ core.Node.prototype = {
           newChild._parentNode.removeChild(newChild);
         }
         newChild._parentNode = this;
-        this._children.remove(i);
         
-
+        // insert the new child at this location
         this._children.splice(i,0, newChild);
-
+        
+        // remove the old child
+        oldChild.parentNode.removeChild(oldChild);
         return oldChild;
       }
     }
@@ -328,15 +334,14 @@ core.Node.prototype = {
   
   /* returns Node */
   appendChild : function(/* Node */ newChild){
-
-	  if (newChild.nodeType === this.ATTRIBUTE_NODE) {
-	    throw new DOMException(HIERARCHY_REQUEST_ERR);
-	  }
-	  
 	  // readonly
     if (this.readonly === true) {
       throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
     }
+    
+	  if (newChild.nodeType === this.ATTRIBUTE_NODE) {
+	    throw new DOMException(HIERARCHY_REQUEST_ERR);
+	  }
     
     // avoid recursion
     var cur = this;
@@ -452,7 +457,7 @@ core.NamedNodeMap.prototype = {
 
 	/* returns Node */
 	setNamedItem: function(/* Node */ arg) {
-    
+
     // if this argument is already in use..
     if (arg && arg._parentNode) {
       throw new DOMException(INUSE_ATTRIBUTE_ERR);
@@ -547,7 +552,9 @@ core.AttrNodeMap.prototype = {
   
   getNamedItem : function(/* string */ name)
   {
-
+    // TODO: figure out the weirdness with  
+    //       namednodemapreturnnull and contrary tests.   
+    
     if (this.exists(name) || this._nodes[name] === null) {
       return this._nodes[name];
     }
@@ -586,6 +593,12 @@ core.Element.prototype = {
 
   /* returns string */
   setAttribute: function(/* string */ name, /* string */ value) {
+	  
+	  // readonly
+    if (this.readonly === true) {
+      throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
+    }
+	  
 	  if (this._attributes === null) {
 	    this._attributes = new core.AttrNodeMap(this.ownerDocument);
 	  }
@@ -606,8 +619,14 @@ core.Element.prototype = {
 
   /* returns string */
   removeAttribute: function(/* string */ name) {
-      this._attributes.removeNamedItem(name);
-      return name;
+
+    // readonly
+    if (this.readonly === true) {
+      throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
+    }
+
+    this._attributes.removeNamedItem(name);
+    return name;
   }, // raises: function(DOMException) {},
 
   /* returns Attr */
@@ -621,6 +640,12 @@ core.Element.prototype = {
 
   /* returns Attr */
   setAttributeNode: function(/* Attr */ newAttr) {
+
+    // readonly
+    if (this.readonly === true) {
+      throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
+    }
+
     if (this._attributes === null) {
 	    this._attributes = new core.AttrNodeMap(this.ownerDocument);
 	  }
@@ -638,6 +663,12 @@ core.Element.prototype = {
 
   /* returns Attr */
   removeAttributeNode: function(/* Attr */ oldAttr) {
+
+    // readonly
+    if (this.readonly === true) {
+      throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
+    } 
+    
     var existingAttr = this._attributes.getNamedItem(oldAttr.name);
     
     if (this._attributes && existingAttr === oldAttr) {
@@ -717,6 +748,7 @@ core.Document = function(name, doctype, implementation) {
 	this._implementation = implementation || new DOMImplementation();
 	this._documentElement = null
 	this._ownerDocument = this;
+	this._readonly = false;
 };
 core.Document.prototype = {
 
@@ -729,6 +761,7 @@ core.Document.prototype = {
   get nodeName() { return this._nodeName; },
   get attributes() { return null; },
   get ownerDocument() { return null; },
+  get readonly() { return this._readonly; },
   /* returns Element */
   createElement: function(/* string */ tagName) {
     if (tagName.match(/[^\w\d_-]+/i)) {
@@ -811,10 +844,24 @@ core.Document.prototype = {
     
     var markAllReadonly = function(el) {
       el._readonly = true;
+      
+      // mark children readonly
       if (el.children) {
         for (var i=0; i<el.children.length;i++)
         {
+          if (el.children.attributes) {
+            markAllReadonly(el.children.attributes);
+          }
+          
           markAllReadonly(el.children.item(i));
+        }
+      }
+      
+      // also mark attributes and their children read-only
+      if (el.attributes) {
+        for (var i=0; i<el.attributes.length;i++)
+        {
+          markAllReadonly(el.attributes.item(i));
         }
       }
     }
@@ -826,6 +873,11 @@ core.Document.prototype = {
   
   /* returns Node */
   appendChild : function(/* Node */ newChild){
+
+    // readonly
+    if (this.readonly === true) {
+      throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
+    }
 	 
 	  if (newChild.nodeType === this.ATTRIBUTE_NODE) {
 	    throw new DOMException(HIERARCHY_REQUEST_ERR);
@@ -856,6 +908,12 @@ core.CharacterData.prototype = {
 
   get data() { return this._nodeValue; },
   set data(data) { 
+
+    // readonly
+    if (this.readonly === true) {
+      throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
+    }    
+    
     this._nodeValue = data; 
 	},
 	
@@ -877,55 +935,78 @@ core.CharacterData.prototype = {
 
   /* returns string */
   appendData: function(/* string */ arg) {
-      this._nodeValue+=arg;
-      return this._nodeValue;
+
+    // readonly
+    if (this.readonly === true) {
+      throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
+    }
+    
+    this._nodeValue+=arg;
+    return this._nodeValue;
   }, // raises: function(DOMException) {},
   
   /* returns string */	
   insertData: function(/* int */ offset, /* string */ arg) {
-      if (offset < 0 || offset > this._nodeValue.length)
-      {
-          throw new DOMException(INDEX_SIZE_ERR);
-      }
 
-      var start = this._nodeValue.substring(0,offset);
-      var end = this._nodeValue.substring(offset);
-      
-      this._nodeValue = start + arg + end;      
+    // readonly
+    if (this.readonly === true) {
+      throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
+    }
+
+    if (offset < 0 || offset > this._nodeValue.length)
+    {
+        throw new DOMException(INDEX_SIZE_ERR);
+    }
+
+    var start = this._nodeValue.substring(0,offset);
+    var end = this._nodeValue.substring(offset);
+    
+    this._nodeValue = start + arg + end;      
       
   }, //raises: function(DOMException) {},
 	
 	/* returns void */
   deleteData: function(/* int */ offset, /* int */ count) {
-      
-      if (offset       < 0                     || 
-          offset       > this._nodeValue.length || 
-          count        < 0)
-      {
-          throw new DOMException(INDEX_SIZE_ERR);
-      }
 
-      var start = this._nodeValue.substring(0,offset);
+    // readonly
+    if (this.readonly === true) {
+      throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
+    }
+    
+    if (offset       < 0                     || 
+        offset       > this._nodeValue.length || 
+        count        < 0)
+    {
+        throw new DOMException(INDEX_SIZE_ERR);
+    }
 
-      this._nodeValue = (offset+count<this._nodeValue.length) ? 
-                       start + this._nodeValue.substring(offset+count) :
-                       start;
+    var start = this._nodeValue.substring(0,offset);
+
+    this._nodeValue = (offset+count<this._nodeValue.length) ? 
+                     start + this._nodeValue.substring(offset+count) :
+                     start;
   }, // raises: function(DOMException) {},
   
 	/* returns void */
   replaceData: function(/* int */ offset, /* int */ count, /* string */ arg) {
-      if (offset       < 0                     || 
-          offset       > this._nodeValue.length || 
-          count        < 0                     || 
-          offset+count > this._nodeValue.length)
-      {
-          throw new DOMException(INDEX_SIZE_ERR);
-      }
 
-      var start = this._nodeValue.substring(0,offset);
-      var end = this._nodeValue.substring(offset+count);
-      
-      this._nodeValue = start + arg + end;      
+    // readonly
+    if (this.readonly === true) {
+      throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
+    }
+
+    if (offset       < 0                     || 
+        offset       > this._nodeValue.length || 
+        count        < 0                     || 
+        offset+count > this._nodeValue.length)
+    {
+        throw new DOMException(INDEX_SIZE_ERR);
+    }
+
+    var start = this._nodeValue.substring(0,offset);
+    var end = this._nodeValue.substring(offset+count);
+    
+    this._nodeValue = start + arg + end;      
   } // raises: function(DOMException) {},
 };
 core.CharacterData.prototype.__proto__ = core.Node.prototype;
@@ -943,15 +1024,20 @@ core.Attr = function(document, name, value) {
 core.Attr.prototype =  {
   get nodeType() { return this.ATTRIBUTE_NODE; },
   get nodeValue() { return this._nodeValue; },
-  set nodeValue(value) { this._nodeValue = value; },
+  set nodeValue(value) { 
+    // readonly
+    if (this._readonly) {
+      throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
+    }
+
+    this._specified = true;
+    this._nodeValue = value; 
+  },
   get name() { return this._name; },
   get specified() { return this._specified; },
   set specified() { throw new DOMException(); },
   get value() { return this._nodeValue; },
-  set value(value) { 
-    this._nodeValue = value; 
-    this._specified = true; 
-  },
+  set value(value) { this.nodeValue = value; },
   get parentNode() { return null; },
   get attributes() { return null; },
   
@@ -973,20 +1059,21 @@ core.Text.prototype = {
 	
 	/* returns Text */
 	splitText: function(offset) {
-	    
-	    if (this._readonly) {
-	      throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
-	    }
-	    
-	    if (offset < 0 || offset > this._nodeValue.length) {
-	      throw new DOMException(INDEX_SIZE_ERR);
-	    }
-	    
-	    var newText = this._nodeValue.substring(offset);
-	    this._nodeValue = this._nodeValue.substring(0, offset);
-	    var newNode = this.ownerDocument.createTextNode(newText);
-	    this._parentNode.appendChild(newNode);
-	    return newNode;
+    
+    // readonly
+    if (this._readonly) {
+      throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
+    }
+    
+    if (offset < 0 || offset > this._nodeValue.length) {
+      throw new DOMException(INDEX_SIZE_ERR);
+    }
+    
+    var newText = this._nodeValue.substring(offset);
+    this._nodeValue = this._nodeValue.substring(0, offset);
+    var newNode = this.ownerDocument.createTextNode(newText);
+    this._parentNode.appendChild(newNode);
+    return newNode;
 	} //raises: function(DOMException) {},
 };
 core.Text.prototype.__proto__ = core.CharacterData.prototype
