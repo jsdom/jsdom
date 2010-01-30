@@ -3,19 +3,22 @@ exports.staff = function() {
   
   var doc = new Document("staff");
   
-  var implementation = new DOMImplementation({
+  var implementation = new DOMImplementation(doc, {
     "XML" : "1.0"
   });
   
-  var notations = new NotationNodeMap(doc);
-  notations.setNamedItem(new Notation(doc, "notation1","notation1File", null));
-  notations.setNamedItem(new Notation(doc, "notation2",null, "notation2File"));
+  var notations = new NotationNodeMap(
+    doc,
+    doc.createNotationNode("notation1","notation1File", null),
+    doc.createNotationNode("notation2",null, "notation2File")
+  );
   
-  var entities = new NamedNodeMap();
-
-  entities.setNamedItem(doc.createEntityNode("ent1", doc.createTextNode("es")));
-  entities.setNamedItem(doc.createEntityNode("ent2",doc.createTextNode("1900 Dallas Road")));
-  entities.setNamedItem(doc.createEntityNode("ent3",doc.createTextNode("Texas")));
+  var entities = new EntityNodeMap(
+    doc,
+    doc.createEntityNode("ent1", doc.createTextNode("es")),
+    doc.createEntityNode("ent2",doc.createTextNode("1900 Dallas Road")),
+    doc.createEntityNode("ent3",doc.createTextNode("Texas"))
+  );
 
 //<entElement domestic='Yes'>Element data</entElement><?PItarget PIdata?>  
   var entElement = doc.createElement("entElement");
@@ -28,7 +31,7 @@ exports.staff = function() {
   entities.setNamedItem(doc.createEntityNode("ent5", doc.createTextNode("entityURI")));
   
   
-  doc.doctype = new DocumentType("staff", entities, notations);;
+  doc.doctype = new DocumentType(doc, "staff", entities, notations);;
   doc.implementation = implementation;  
   
   var staff     = doc.createElement("staff");
@@ -194,5 +197,6 @@ exports.staff = function() {
   doc.appendChild(doc.createComment(" This is comment number 1."));
   doc.appendChild(staff);
   
+  doc.normalize();  
   return doc;
 };

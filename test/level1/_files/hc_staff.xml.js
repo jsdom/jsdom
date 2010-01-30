@@ -2,28 +2,30 @@ var sys = require("sys");
 exports.hc_staff = function() {
 
   var doc = new Document("html", doctype, implementation);
-  var implementation = new DOMImplementation({
+  var implementation = new DOMImplementation(doc, {
     "XML" : "1.0"
   });
 
-  var notations = new NotationNodeMap(doc);
-  notations.setNamedItem(new Notation(doc, "notation1","notation1File", null));
-  notations.setNamedItem(new Notation(doc, "notation2",null, "notation2File"));
+  var notations = new NotationNodeMap(
+    doc,
+    doc.createNotationNode("notation1","notation1File", null),
+    doc.createNotationNode("notation2",null, "notation2File")
+  );
   
-  var entities = new NamedNodeMap();
-  
-  entities.setNamedItem(doc.createEntityNode("alpha", "&#945;"));
-  entities.setNamedItem(doc.createEntityNode("beta", "&#946;"));
-  entities.setNamedItem(doc.createEntityNode("gamma", "&#947;"));
-  entities.setNamedItem(doc.createEntityNode("delta", "&#948;"));
-  entities.setNamedItem(doc.createEntityNode("epsilon", "&#949;"));
-  entities.setNamedItem(doc.createEntityNode("alpha", "&#950;"));
+  // TODO: consider importing the master list of entities
+  //       http://www.w3schools.com/tags/ref_symbols.asp
+  var entities = new EntityNodeMap(
+    doc,
+    doc.createEntityNode("alpha", "&#945;"),
+    doc.createEntityNode("beta", "&#946;"),
+    doc.createEntityNode("gamma", "&#947;"),
+    doc.createEntityNode("delta", "&#948;"),
+    doc.createEntityNode("epsilon", "&#949;")
+  );
 
-  var doctype = new DocumentType("html", entities, notations);
+  var doctype = new DocumentType(doc, "html", entities, notations);
   doc.doctype = doctype;
   doc.implementation = implementation;
-  
-  
   
   doc.appendChild(doc.createComment(" This is comment number 1."));
   
@@ -88,7 +90,7 @@ exports.hc_staff = function() {
   salaries[1].appendChild(doc.createTextNode("35,000"));
   addresses[1].setAttribute("title", "Yes");
   addresses[1].setAttribute("class", "Yes");
-  addresses[1].appendChild(doc.createTextNode("&beta; Dallas, &gamma; \n98554"));
+  addresses[1].appendChild(doc.createTextNode("β Dallas, γ\n 98554"));
   names[1].appendChild(doc.createTextNode("Martha Raynolds"));
   names[1].appendChild(doc.createCDATASection("This is a CDATASection with EntityReference number 2 &amp;ent2;"));
   names[1].appendChild(doc.createCDATASection("This is an adjacent CDATASection with a reference to a tab &amp;tab;"));  
@@ -107,7 +109,7 @@ exports.hc_staff = function() {
   ids[3].appendChild(doc.createTextNode("EMP0004"));
   salaries[3].appendChild(doc.createTextNode("95,000"));
   addresses[3].setAttribute("title", "Yes");
-  addresses[3].setAttribute("class", "Y&alpha;");
+  addresses[3].setAttribute("class", "Yα");
   addresses[3].appendChild(doc.createTextNode("27 South Road. Dallas, Texas 98556"));
   names[3].appendChild(doc.createTextNode("Jeny Oconnor"));
   genders[3].appendChild(doc.createTextNode("Female"));
@@ -123,6 +125,7 @@ exports.hc_staff = function() {
 
   doc.appendChild(doc.createProcessingInstruction("TEST-STYLE", "PIDATA"));
   
+  doc.normalize();
   return doc;
 };
 

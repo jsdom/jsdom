@@ -55,7 +55,7 @@ if (process.ARGV[2] != "-t") {
     try {
         level1_core[process.ARGV[3]].call(GLOBAL);
     } catch (e) {
-	   // debug(e);
+	    debug(e);
 	    errors.push({ method: test, error: e});
     }
 }

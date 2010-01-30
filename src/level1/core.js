@@ -15,6 +15,29 @@ var core = {
         temp[key] = clone(obj[key], deep);
     }
     return temp;
+  },
+  markTreeReadonly : function(el) {
+    el._readonly = true;
+    
+    // mark children readonly
+    if (el.children) {
+      for (var i=0; i<el.children.length;i++)
+      {
+        if (el.children.attributes) {
+          core.markTreeReadonly(el.children.attributes);
+        }
+        
+        core.markTreeReadonly(el.children.item(i));
+      }
+    }
+    
+    // also mark attributes and their children read-only
+    if (el.attributes) {
+      for (var i=0; i<el.attributes.length;i++)
+      {
+        core.markTreeReadonly(el.attributes.item(i));
+      }
+    }
   }
 };
 var sys = require("sys");
@@ -72,10 +95,12 @@ core.NodeList.prototype = {
 };
 core.NodeList.prototype.__proto__ = Array.prototype;
 
-core.DOMImplementation = function(/* Object */ features) {
+core.DOMImplementation = function(document, /* Object */ features) {
+  this._ownerDocument = document;
   this._features = features;
 };
 core.DOMImplementation.prototype = {
+  get ownerDocument() { return this._ownerDocument; },
   hasFeature: function(/* string */ feature, /* string */ version) {
     for (var i in this._features)
     {
@@ -457,6 +482,11 @@ core.NamedNodeMap.prototype = {
 
 	/* returns Node */
 	setNamedItem: function(/* Node */ arg) {
+    
+    // arg is from a different document
+    if (arg && arg.ownerDocument !== this._ownerDocument) {
+      throw new DOMException(WRONG_DOCUMENT_ERR);
+    }
 
     // if this argument is already in use..
     if (arg && arg._parentNode) {
@@ -477,6 +507,11 @@ core.NamedNodeMap.prototype = {
 
 	/* returns Node */
 	removeNamedItem: function(/* string */ name) {
+
+	  // readonly
+    if (this.readonly === true) {
+      throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
+    }
     
     if (!this._nodes[name] && this._nodes[name] !== null) {
       throw new DOMException(NOT_FOUND_ERR);
@@ -507,38 +542,26 @@ core.NamedNodeMap.prototype = {
 
 core.NotationNodeMap = function(document) {
   core.NamedNodeMap.call(this,document);
+  this._readonly = false;
+  for (var i=1; i<arguments.length; i++)
+  {
+    this.setNamedItem(arguments[i]);
+  }
   this._readonly = true;
 };
-core.NotationNodeMap.prototype = {
-  /* returns Node */
-  setNamedItem: function(/* Node */ arg) {
-
-    if (!arg || arg.nodeType !== core.Node.prototype.NOTATION_NODE) {
-      throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
-    }
-    
-    core.NamedNodeMap.prototype.setNamedItem.call(this, arg);
-  }
-  
-};
+core.NotationNodeMap.prototype = {};
 core.NotationNodeMap.prototype.__proto__ = core.NamedNodeMap.prototype;
 
 core.EntityNodeMap = function(document) {
   core.NamedNodeMap.call(this,document);
+  this._readonly = false;
+  for (var i=1; i<arguments.length; i++)
+  {
+    this.setNamedItem(arguments[i]);
+  }
   this._readonly = true;
 };
-core.EntityNodeMap.prototype = {
-  /* returns Node */
-  setNamedItem: function(/* Node */ arg) {
-
-    if (!arg || arg.nodeType !== core.Node.prototype.NOTATION_NODE) {
-      throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
-    }
-    
-    core.EntityNodeMap.prototype.setNamedItem.call(this, arg);
-  }
-  
-};
+core.EntityNodeMap.prototype = {};
 core.EntityNodeMap.prototype.__proto__ = core.NamedNodeMap.prototype;
 
 
@@ -744,7 +767,7 @@ core.Document = function(name, doctype, implementation) {
 	
 	core.Element.call(this, "#document");
 	this._nodeName = this._tagName = "#document";
-	this._doctype = doctype || new DocumentType(name, new NamedNodeMap(), new NamedNodeMap());
+	this._doctype = doctype || new DocumentType(name, new NamedNodeMap(this), new NamedNodeMap(this));
 	this._implementation = implementation || new DOMImplementation();
 	this._documentElement = null
 	this._ownerDocument = this;
@@ -764,7 +787,7 @@ core.Document.prototype = {
   get readonly() { return this._readonly; },
   /* returns Element */
   createElement: function(/* string */ tagName) {
-    if (tagName.match(/[^\w\d_-]+/i)) {
+    if (tagName.match(/[^\w\d_-]+/i) || !tagName) {
       throw new DOMException(INVALID_CHARACTER_ERR);
     }
     return new core.Element(this, tagName);	
@@ -792,12 +815,17 @@ core.Document.prototype = {
 
   /* returns ProcessingInstruction */
   createProcessingInstruction: function(/* string */ target,/* string */ data) {
+
+    if (target.match(/[^\w\d_-]+/) || !target || !target.length) {
+      throw new DOMException(INVALID_CHARACTER_ERR);
+    }
+
     return new core.ProcessingInstruction(this, target, data);
   }, // raises: function(DOMException) {},
 
   /* returns Attr */
   createAttribute: function(/* string */ name) {
-    if (name.match(/[^\w\d_-]+/)) {
+    if (name.match(/[^\w\d_-]+/) || !name || !name.length) {
       throw new DOMException(INVALID_CHARACTER_ERR);
     }
     return new core.Attr(this, name,false);
@@ -829,8 +857,7 @@ core.Document.prototype = {
   createEntityNode : function(/* string */ name)
   {
     
-    
-    if (name.match(/[^\w\d_\-&;]+/)) {
+    if (name.match(/[^\w\d_\-&;]+/) || !name || !name.length) {
       throw new DOMException(INVALID_CHARACTER_ERR);
     }
     
@@ -841,35 +868,33 @@ core.Document.prototype = {
     {
       ret.appendChild(arguments[i]);
     }
-    
-    var markAllReadonly = function(el) {
-      el._readonly = true;
-      
-      // mark children readonly
-      if (el.children) {
-        for (var i=0; i<el.children.length;i++)
-        {
-          if (el.children.attributes) {
-            markAllReadonly(el.children.attributes);
-          }
-          
-          markAllReadonly(el.children.item(i));
-        }
-      }
-      
-      // also mark attributes and their children read-only
-      if (el.attributes) {
-        for (var i=0; i<el.attributes.length;i++)
-        {
-          markAllReadonly(el.attributes.item(i));
-        }
-      }
-    }
 
-    markAllReadonly(ret);
+    core.markTreeReadonly(ret);
     
     return ret;
   },
+
+  /* returns Notation */
+  createNotationNode : function(/* string */ name,/* string */ publicId,/* string */ systemId)
+  {
+    
+    if (name.match(/[^\w\d_\-&;]+/) || !name || !name.length) {
+      throw new DOMException(INVALID_CHARACTER_ERR);
+    }
+    
+    var ret = new Notation(this, name, publicId, systemId);
+    ret._readonly = false; // TODO: fix me please.
+    
+    for (var i=3; i<arguments.length; i++)
+    {
+      ret.appendChild(arguments[i]);
+    }
+
+    core.markTreeReadonly(ret);
+    
+    return ret;
+  },
+
   
   /* returns Node */
   appendChild : function(/* Node */ newChild){
@@ -1035,12 +1060,36 @@ core.Attr.prototype =  {
   },
   get name() { return this._name; },
   get specified() { return this._specified; },
-  set specified() { throw new DOMException(); },
   get value() { return this._nodeValue; },
-  set value(value) { this.nodeValue = value; },
+  set value(value) { 
+    this.nodeValue = value; 
+  },
   get parentNode() { return null; },
   get attributes() { return null; },
   
+  insertBefore : function(/* Node */ arg) {
+    
+    if (!arg || arg.ownerDocument !== this.ownerDocument) {
+      throw new DOMException(WRONG_DOCUMENT_ERR);
+    }
+    
+    throw new DOMException(HIERARCHY_REQUEST_ERR);
+  },
+  
+  
+/* TODO: there is a problem here.  apparently based on the doctype the behavior
+   changes...  
+  appendChild : function(/* Node * / arg) {
+
+    if (arg.nodeType === this.CDATA_SECTION_NODE) {
+      throw new DOMException(HIERARCHY_REQUEST_ERR);
+    }
+    
+    throw new DOMException(HIERARCHY_REQUEST_ERR);
+    
+    return core.Node.prototype.appendChild.call(this, arg);
+  }
+  */
 };
 core.Attr.prototype.__proto__ = core.Node.prototype;
 
@@ -1054,7 +1103,7 @@ core.Text.prototype = {
 	get attributes() { return null; },
 	get nodeType() { return this.TEXT_NODE; },
 	get value() { return this._nodeValue; },
-	set value(value) { this._nodeValue = value; },
+	set value(value) { this.nodeValue = value; },
 	
 	
 	/* returns Text */
@@ -1100,13 +1149,13 @@ core.CDATASection.prototype = {
 };
 core.CDATASection.prototype.__proto__ = core.Text.prototype
 
-core.DocumentType = function(name, entities, notations) {
-	core.Node.call(this);
+core.DocumentType = function(document, name, entities, notations) {
+	core.Node.call(this, document);
 	this._name = name;
 	this._tagName = name;
 	this._nodeName = name;
-	this._entities = entities || new NamedNodeMap();
-	this._notations = notations || new NamedNodeMap();
+	this._entities = entities || new EntityNodeMap(document);
+	this._notations = notations || new NotationNodeMap(document);
 };
 core.DocumentType.prototype = {
   get nodeValue() { return null; },
@@ -1119,6 +1168,7 @@ core.DocumentType.prototype = {
   get attributes() { return null; }
 };
 core.DocumentType.prototype.__proto__ = core.Node.prototype;
+
 
 core.Notation = function(document, name, publicId, systemId){
   core.Node.call(this, document);
@@ -1158,7 +1208,7 @@ core.Entity.prototype = {
     // readonly
     if (this.readonly === true) {
       // TODO: is this needed?
-      //throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
+      // throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
     }
     
     /* do nothing */ 
