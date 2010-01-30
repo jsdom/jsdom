@@ -6,7 +6,7 @@ exports.hc_staff = function() {
     "XML" : "1.0"
   });
 
-  var notations = new NamedNodeMap();
+  var notations = new NotationNodeMap(doc);
   notations.setNamedItem(new Notation(doc, "notation1","notation1File", null));
   notations.setNamedItem(new Notation(doc, "notation2",null, "notation2File"));
   
@@ -19,7 +19,7 @@ exports.hc_staff = function() {
   entities.setNamedItem(doc.createEntityNode("epsilon", "&#949;"));
   entities.setNamedItem(doc.createEntityNode("alpha", "&#950;"));
 
-  var doctype = new DocumentType("xhtml1-strict", entities, notations);
+  var doctype = new DocumentType("html", entities, notations);
   doc.doctype = doctype;
   doc.implementation = implementation;
   
@@ -33,7 +33,8 @@ exports.hc_staff = function() {
   var head      = doc.createElement("head");
   var head      = html.appendChild(head);
   
-  var title     = doc.createElement("title").appendChild(doc.createTextNode("hc_staff"));
+  var title     = doc.createElement("title")
+  title.appendChild(doc.createTextNode("hc_staff"));
   var title     = head.appendChild(title);
 
   var body      = doc.createElement("body");

@@ -6918,12 +6918,15 @@ hc_attrhaschildnodes : function () {
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
+      
+      
       doc = load(docRef, "doc", "hc_staff");
       acronymList = doc.getElementsByTagName("acronym");
       testNode = acronymList.item(3);
       attributes = testNode.attributes;
 
       titleAttr = attributes.getNamedItem("title");
+
       hasChildNodes = titleAttr.hasChildNodes();
       assertTrue("hasChildrenIsTrue",hasChildNodes);
 

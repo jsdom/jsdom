@@ -227,3 +227,45 @@ exports.assertURIEquals = function(assertID, scheme, path, host, file, name, que
   }
 }
 
+// size() used by assertSize element
+function size(collection)
+{
+  return collection.length;
+}
+
+function same(expected, actual)
+{
+  return expected === actual;
+}
+
+function getSuffix(contentType) {
+    switch(contentType) {
+        case "text/html":
+        return ".html";
+
+        case "text/xml":
+        return ".xml";
+
+        case "application/xhtml+xml":
+        return ".xhtml";
+
+        case "image/svg+xml":
+        return ".svg";
+
+        case "text/mathml":
+        return ".mml";
+    }
+    return ".html";
+}
+
+exports.equalsAutoCase = function(context, expected, actual) {
+	if (builder.contentType == "text/html") {
+		if (context == "attribute") {
+			return expected.toLowerCase() == actual;
+		}
+		return expected.toUpperCase() == actual;
+	}
+	return expected == actual;
+}
+
+

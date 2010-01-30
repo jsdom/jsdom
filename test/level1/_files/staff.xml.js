@@ -7,7 +7,7 @@ exports.staff = function() {
     "XML" : "1.0"
   });
   
-  var notations = new NamedNodeMap();
+  var notations = new NotationNodeMap(doc);
   notations.setNamedItem(new Notation(doc, "notation1","notation1File", null));
   notations.setNamedItem(new Notation(doc, "notation2",null, "notation2File"));
   

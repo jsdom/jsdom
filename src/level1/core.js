@@ -11,6 +11,7 @@ var core = {
     var temp = new obj.constructor();
     for(var key in obj)
     {
+        
         temp[key] = clone(obj[key], deep);
     }
     return temp;
@@ -186,6 +187,14 @@ core.Node.prototype = {
   /* returns Node */ 
   insertBefore :  function(/* Node */ newChild, /* Node*/ refChild){
 
+	  if (newChild.nodeType === this.ATTRIBUTE_NODE) {
+	    throw new DOMException(HIERARCHY_REQUEST_ERR);
+	  }
+	  
+	  if (newChild.ownerDocument !== this.ownerDocument) {
+      throw new DOMException(WRONG_DOCUMENT_ERR);
+    }
+
     var newChildren = new core.NodeList();
     var found = false;
     
@@ -205,22 +214,47 @@ core.Node.prototype = {
             throw new DOMException(HIERARCHY_REQUEST_ERR);
           }
         }        
-        
-        newChildren.push(newChild);
-        newChild._parentNode = this;
+
+    	  // fragments are merged into the element
+    	  if (newChild.nodeType === this.DOCUMENT_FRAGMENT_NODE) {
+    	    var length = newChild.children.length;
+    	    var j;
+    	    var tmpNode;
+    	    var child;
+    	    
+    	    for (j=0; j<length; j++)
+    	    {
+    	      tmpNode = newChild.removeChild(newChild.children.item(j));
+    	      this.insertBefore(tmpNode, refChild);
+    	    }
+    	  } else {
+    	    this._children.splice(i,0,newChild);
+    	    newChild._parentNode = this;
+    	    i++;
+    	  }
+
+        found = true;
       }
-      newChildren.push(this._children[i]);
     }
+    
     if (!found) {
       throw new DOMException(NOT_FOUND_ERR); 
     } else {
-      this._children = newChildren;
       return newChild;
     }    
   }, // raises(DOMException);
 
   /* returns Node */
   replaceChild : function(/* Node */ newChild, /* Node */ oldChild){
+    
+    if (newChild.nodeType === this.ATTRIBUTE_NODE) {
+	    throw new DOMException(HIERARCHY_REQUEST_ERR);
+	  }
+    
+    if (newChild.ownerDocument !== this.ownerDocument) {
+      throw new DOMException(WRONG_DOCUMENT_ERR);
+    }
+    
     for (var i=0;i<this._children.length; i++)
     {
       if (this._children[i] === oldChild) {
@@ -261,17 +295,47 @@ core.Node.prototype = {
   
   /* returns Node */
   appendChild : function(/* Node */ newChild){
-	  
+
 	  if (newChild.nodeType === this.ATTRIBUTE_NODE) {
 	    throw new DOMException(HIERARCHY_REQUEST_ERR);
 	  }
+    
+    // avoid recursion
+    var cur = this;
+    do {
+      if (cur === newChild) {
+        throw new DOMException(HIERARCHY_REQUEST_ERR);
+      }
+      
+    } while ((cur = cur.parentNode))
+	  
+	  // only elements created with this.ownerDocument can be added here
+    if (newChild.ownerDocument && 
+        this.ownerDocument     && 
+        newChild.ownerDocument !== this.ownerDocument) {
+      throw new DOMException(WRONG_DOCUMENT_ERR);
+    }
+	  
 	  
 	  try {
 	    this.removeChild(newChild);
 	  } catch (e) { /* do nothing */ }
 	  
-	  this._children.push(newChild);
-	
+	  // fragments are merged into the element
+	  if (newChild.nodeType === this.DOCUMENT_FRAGMENT_NODE) {
+	    var length = newChild.children.length;
+	    var i = 0;
+	    var tmpNode;
+	    var child;
+	    for (; i<length; i++)
+	    {
+	      tmpNode = newChild.removeChild(newChild.children.item(i));
+	      this.appendChild(tmpNode);
+	    }
+	  } else {
+	    this._children.push(newChild);
+	  }
+	  
 	  // Attach the parent node.
   	newChild._parentNode = this;
 	
@@ -280,7 +344,7 @@ core.Node.prototype = {
   
   /* returns boolean */
   hasChildNodes : function() {
-    return this._children.length > 0;
+    return this.childNodes.length > 0;
   },
   
   /* returns Node */  
@@ -294,14 +358,15 @@ core.NamedNodeMap = function(document) {
 	this._nodes = {};
 	this._length = 0;
 	this._ownerDocument = document;
+	this._readonly = false;
 };
 core.NamedNodeMap.prototype = {
-  
+  get readonly() { return this._readonly; },
   get ownerDocument() { this._ownerDocument; },
   get length() { return this._length; },
 
   exists : function(name) {
-    return (this._nodes[name] || this._nodes[name] === null) ? true : false;
+    return (this._nodes[name] || this._nodes[name]) ? true : false;
   },
   
 	/* returns Node */
@@ -311,6 +376,12 @@ core.NamedNodeMap.prototype = {
 
 	/* returns Node */
 	setNamedItem: function(/* Node */ arg) {
+    
+    // if this argument is already in use..
+    if (arg && arg.parentNode) {
+      throw new DOMException(INUSE_ATTRIBUTE_ERR);
+    }
+    
     var ret;
     if (!this._nodes[arg.name] || this._nodes[arg.name] === null) {
       this._length++;
@@ -318,14 +389,21 @@ core.NamedNodeMap.prototype = {
     } else {
       ret = arg;
     }
-    
+    arg._parentNode = this;
     this._nodes[arg.name] = arg;
     return ret;
 	}, // raises: function(DOMException) {},
 
 	/* returns Node */
 	removeNamedItem: function(/* string */ name) {
+    
+    if (!this._nodes[name] && this._nodes[name] !== null) {
+      throw new DOMException(NOT_FOUND_ERR);
+    }
+    
     var prev = this._nodes[name] || null;
+
+    
     this._nodes[name] = null;
     this._length--;
     return prev;
@@ -346,6 +424,24 @@ core.NamedNodeMap.prototype = {
 	}
 };
 
+core.NotationNodeMap = function(document) {
+  core.NamedNodeMap.call(this,document);
+  this._readonly = true;
+};
+core.NotationNodeMap.prototype = {
+  /* returns Node */
+  setNamedItem: function(/* Node */ arg) {
+
+    if (!arg || arg.nodeType !== core.Node.prototype.NOTATION_NODE) {
+      throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
+    }
+    
+    core.NamedNodeMap.prototype.setNamedItem.call(this, arg);
+  }
+  
+};
+core.NotationNodeMap.prototype.__proto__ = core.NamedNodeMap.prototype;
+
 
 core.AttrNodeMap = function(document) {
     core.NamedNodeMap.call(this, document);
@@ -361,7 +457,7 @@ core.AttrNodeMap.prototype = {
       return this._nodes[name];
     }
 
-    return this.ownerDocument.createAttribute(name,false);
+    return this.ownerDocument.createAttribute(name);
   }
 };
 
@@ -400,8 +496,15 @@ core.Element.prototype = {
 	  }
 
 	  var attr = this.ownerDocument.createAttribute(name);
-	  attr.nodeValue = value;
- 	  this.removeAttribute(name);
+	  
+	  // TODO: check whether both of these need to be set.
+	  attr.value = value;
+ 	  attr.appendChild(this.ownerDocument.createTextNode(value));
+ 	  // /TODO
+ 	  
+ 	  if (this.attributes.exists(name)) {
+ 	    this.removeAttribute(name);
+    }
 	  this._attributes.setNamedItem(attr);
 	  return value;
   }, //raises: function(DOMException) {},
@@ -426,6 +529,11 @@ core.Element.prototype = {
     if (this._attributes === null) {
 	    this._attributes = new core.AttrNodeMap(this.ownerDocument);
 	  }
+    
+    // only attributes created with this.ownerDocument can be added here
+    if (newAttr.ownerDocument !== this.ownerDocument) {
+      throw new DOMException(WRONG_DOCUMENT_ERR);
+    }
     
     var prevNode = this._attributes.getNamedItem(newAttr.name);
     prevNode._parentNode = null;
@@ -453,18 +561,12 @@ core.Element.prototype = {
     }
     
     if (this._children && this._children.length) {      
-      for (var i=0; i<this._children.length; i++)
-      {
-
+      for (var i=0; i<this._children.length; i++) {
         child = this._children.item(i);
-        
-        if (child.getElementsByTagName)
-        {
-	        var nested = this._children[i].getElementsByTagName(name);
-          if (nested && nested.length)
-          {
-            for (var idx = 0; idx<nested.length; idx++)
-            {
+        if (child.getElementsByTagName) {
+	        var nested = child.getElementsByTagName(name);
+          if (nested && nested.length)  {
+            for (var idx = 0; idx<nested.length; idx++) {
               ret.push(nested.item(idx));
             }
           }
@@ -545,6 +647,7 @@ core.Document = function(name, doctype, implementation) {
 	this._doctype = doctype || new DocumentType(name, new NamedNodeMap(), new NamedNodeMap());
 	this._implementation = implementation || new DOMImplementation();
 	this._documentElement = null
+	this._ownerDocument = this;
 };
 core.Document.prototype = {
 
@@ -595,12 +698,17 @@ core.Document.prototype = {
     if (name.match(/[^\w\d_-]+/)) {
       throw new DOMException(INVALID_CHARACTER_ERR);
     }
-    return new core.Attr(this, name,"");
+    return new core.Attr(this, name,false);
   }, // raises: function(DOMException) {},
   
   /* returns EntityReference */
   createEntityReference: function(/* string */ name) {
+
     name = name.replace(/[&;]/g,"");
+
+    if (!name || !name.length) {
+      throw new DOMException(INVALID_CHARACTER_ERR);
+    }
     
     if (name.match(/[^\w\d_-]+/)) {
       throw new DOMException(INVALID_CHARACTER_ERR);
@@ -750,7 +858,10 @@ core.Attr.prototype =  {
   get specified() { return this._specified; },
   set specified() { throw new DOMException(); },
   get value() { return this._nodeValue; },
-  set value(value) { this._nodeValue = value; },
+  set value(value) { 
+    this._nodeValue = value; 
+    this._specified = true; 
+  },
   get attributes() { return null; },
   
   /* returns Node */
