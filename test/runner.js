@@ -13,8 +13,7 @@ GLOBAL.checkInitialization = function() {
 	return null;
 };
 
-GLOBAL.builder = function() {
-};
+GLOBAL.builder = { contentType: "" };
 
 GLOBAL.debug = function(val) {
     var str;
@@ -45,6 +44,7 @@ if (process.ARGV[2] != "-t") {
 		    try {
 			    level1_core[test].call(GLOBAL);
 		    } catch (e) {
+		      
 			    errors.push({ method: test, error: e});
 			    //break;
 		    }
@@ -55,13 +55,14 @@ if (process.ARGV[2] != "-t") {
     try {
         level1_core[process.ARGV[3]].call(GLOBAL);
     } catch (e) {
+	   // debug(e);
 	    errors.push({ method: test, error: e});
     }
 }
 
 for (var i = 0; i<errors.length; i++)
 {
-	sys.puts('FAIL: failed with message "' + errors[i].error.message + " (#" + errors[i].error.code + " " + errors[i].error.type + " in " + errors[i].method + ')');
+	sys.puts('"' + errors[i].error.message + " (#" + errors[i].error.code + " " + errors[i].error.type + " in " + errors[i].method + ')');
   sys.puts(errors[i].error.stack);
 }
 

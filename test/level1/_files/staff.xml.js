@@ -12,23 +12,20 @@ exports.staff = function() {
   notations.setNamedItem(new Notation(doc, "notation2",null, "notation2File"));
   
   var entities = new NamedNodeMap();
-  
-  var ent1 = doc.createEntityNode("ent1");
-  ent1.appendChild(doc.createTextNode("es"));
-  entities.setNamedItem(ent1);
+
+  entities.setNamedItem(doc.createEntityNode("ent1", doc.createTextNode("es")));
   entities.setNamedItem(doc.createEntityNode("ent2",doc.createTextNode("1900 Dallas Road")));
-  
-  var ent3 = doc.createEntityNode("ent3",doc.createTextNode("Texas"));
-  entities.setNamedItem(ent3);
-  
+  entities.setNamedItem(doc.createEntityNode("ent3",doc.createTextNode("Texas")));
+
+//<entElement domestic='Yes'>Element data</entElement><?PItarget PIdata?>  
   var entElement = doc.createElement("entElement");
   entElement.setAttribute("domestic", "Yes");
-  entElement.appendChild(doc.createProcessingInstruction("PItarget", "PfIdata"));
-  var ent4 = doc.createEntityNode("ent4",doc.createTextNode("Element data"));
+  entElement.appendChild(doc.createTextNode("Element data"));
+  var procElement = doc.createProcessingInstruction("PItarget", "PfIdata");
+  entities.setNamedItem(doc.createEntityNode("ent4",entElement, procElement));
   
-  entities.setNamedItem(ent4);
   
-  entities.setNamedItem(doc.createEntityNode("ent5", "entityURI"));
+  entities.setNamedItem(doc.createEntityNode("ent5", doc.createTextNode("entityURI")));
   
   
   doc.doctype = new DocumentType("staff", entities, notations);;
@@ -82,9 +79,14 @@ exports.staff = function() {
 
   ids[1].appendChild(doc.createTextNode("EMP0002"));
   salaries[1].appendChild(doc.createTextNode("35,000"));
+  
   addresses[1].setAttribute("domestic", "Yes");
   addresses[1].setAttribute("street", "Yes");
-  addresses[1].appendChild(doc.createTextNode("&ent2; Dallas, &ent3; \n98554"));
+  addresses[1].appendChild(doc.createEntityReference("ent2"));
+  addresses[1].appendChild(doc.createTextNode(" Dallas, "));
+  addresses[1].appendChild(doc.createEntityReference("ent3"));
+  addresses[1].appendChild(doc.createTextNode("\n 98554"));
+  
   names[1].appendChild(doc.createTextNode("Martha Raynolds"));
   names[1].appendChild(doc.createCDATASection("This is a CDATASection with EntityReference number 2 &ent2;"));
   names[1].appendChild(doc.createCDATASection("This is an adjacent CDATASection with a reference to a tab &tab;"));  
@@ -105,7 +107,8 @@ exports.staff = function() {
   ids[3].appendChild(doc.createTextNode("EMP0004"));
   salaries[3].appendChild(doc.createTextNode("95,000"));
   addresses[3].setAttribute("domestic", "Yes");
-  addresses[3].setAttribute("street", "Y&ent1;");
+  addresses[3].setAttribute("street", "Y");
+  addresses[3].appendChild(doc.createEntityReference("ent1"));
   addresses[3].appendChild(doc.createTextNode("27 South Road. Dallas, Texas 98556"));
   names[3].appendChild(doc.createTextNode("Jeny Oconnor"));
   genders[3].appendChild(doc.createTextNode("Female"));
