@@ -77,7 +77,7 @@ exports.deepEquals = function(a, b) {
   if (typeof a == "number" && typeof b == "number" && isNaN(a) && isNaN(b)) {
     return true;
   }
-  if (a.constructor === RegExp || b.constructor === RegExp) {
+  if (a && a.constructor && (a.constructor === RegExp || b.constructor === RegExp)) {
     return (a.constructor === b.constructor) && (a.toString === b.toString);
   }
   if ((typeof a) !== 'object' || (typeof b) !== 'object' ||

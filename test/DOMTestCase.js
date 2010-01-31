@@ -258,6 +258,17 @@ function getSuffix(contentType) {
     return ".html";
 }
 
+exports.toLowerArray = function(src) {
+   var newArray = new Array();
+   var i;
+   for (i = 0; i < src.length; i++) {
+      newArray[i] = src[i].toLowerCase();
+   }
+   return newArray;
+}
+
+
+
 exports.equalsAutoCase = function(context, expected, actual) {
 	if (builder.contentType == "text/html") {
 		if (context == "attribute") {

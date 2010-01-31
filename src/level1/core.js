@@ -2,20 +2,6 @@
   ServerJS Javascript DOM
 */
 var core = {
-  clone : function(obj, deep) {
-  
-    if(obj == null || typeof(obj) != 'object' || !obj)
-    {
-        return obj;
-    }
-    var temp = new obj.constructor();
-    for(var key in obj)
-    {
-        
-        temp[key] = clone(obj[key], deep);
-    }
-    return temp;
-  },
   markTreeReadonly : function(el) {
     el._readonly = true;
     
@@ -417,7 +403,94 @@ core.Node.prototype = {
   
   /* returns Node */  
   cloneNode : function(/* bool */ deep) {
-    return core.clone(deep, this);
+    
+    var object = null;
+    
+    var attrCopy = function(src, dest) {
+      if (src.attributes && src.attributes.length) {
+        for (var i=0; i<src.attributes.length; i++)
+        {
+          dest.setAttribute(src.attributes.item(i).nodeName, src.attributes.item(i).nodeValue);
+        }
+      }
+      return dest;
+    };
+    
+    switch (this.nodeType) {
+    
+      case this.ELEMENT_NODE:
+        object = attrCopy(this,this.ownerDocument.createElement(this.tagName));
+      break;
+
+      case this.TEXT_NODE:
+        object = attrCopy(this,this.ownerDocument.createTextNode(this.tagName));
+        object.nodeValue = this.nodeValue;
+      break;
+      case this.CDATA_SECTION_NODE:
+        object = this.ownerDocument.createCDATASection(this.tagName);
+        object.nodeValue = this.nodeValue;
+      break;
+      case this.ENTITY_REFERENCE_NODE:
+        object = attrCopy(this,this.ownerDocument.createEntityReference(this._entity.name));
+        object.nodeValue = this.nodeValue;
+      break;
+      case this.ATTRIBUTE_NODE:
+        object = this.ownerDocument.createAttribute(this.name);
+        object.nodeValue = this.nodeValue;
+      break;
+      case this.ENTITY_NODE:
+        object = attrCopy(this,this.ownerDocument.createEntityNode(this._entity.name));
+        object.nodeValue = this.nodeValue;
+      break;
+      case this.PROCESSING_INSTRUCTION_NODE:
+        object = attrCopy(this,this.ownerDocument.createProcessingInstruction(this._target, this._data));
+        object.nodeValue = this.nodeValue;
+      break;
+      case this.COMMENT_NODE:
+        object = this.ownerDocument.createComment(this.tagName);
+        object.nodeValue = this.nodeValue;
+      break;
+      case this.DOCUMENT_NODE:
+        object = attrCopy(this, new core.Document());
+        // TODO: clone the doctype/entities/notations/etc
+      break;
+      case this.DOCUMENT_TYPE_NODE:
+        object = attrCopy(this, new core.DocumentType());
+        object.nodeValue = this.nodeValue;
+      break;
+      case this.DOCUMENT_FRAGMENT_NODE:
+        object = this.ownerDocument.createAttribute(this.tagName);
+        object.nodeValue = this.nodeValue;
+      break;
+      case this.NOTATION_NODE:
+        object = this.ownerDocument.createNotationNode(this._name, 
+                                                       this._publicId, 
+                                                       this._systemId);
+        object = attrCopy(this,object);
+        object.nodeValue = this.nodeValue;
+      break;
+      default:
+        throw new DOMException(NOT_FOUND_ERR);
+      break;
+    }
+    
+    if (deep) {
+      var clone = null;
+      for (var i=0; i<this.children.length; i++)
+      {
+        clone = this.children.item(i).cloneNode(true);
+        if (!clone) {
+          debug(this.children.item(i).nodeType);
+        }
+        if (clone.nodeType === this.ATTRIBUTE_NODE) {
+          object.setAttributeNode(clone);
+        } else {
+          object.appendChild(clone);
+        }
+      }
+    }
+    
+    return object;    
   },
   
   /* returns void */
@@ -498,7 +571,7 @@ core.NamedNodeMap.prototype = {
       this._length++;
       ret = null;
     } else {
-      ret = arg;
+      ret = this._nodes[arg.name];
     }
     arg._parentNode = this;
     this._nodes[arg.name] = arg;
@@ -766,10 +839,11 @@ core.ProcessingInstruction.prototype = {
 core.ProcessingInstruction.prototype.__proto__ = core.Node.prototype;
 
 
-core.Document = function(name, doctype, implementation) {
+core.Document = function(name, doctype, implementation, /* string */contentType) {
 	
 	core.Element.call(this, "#document");
 	this._nodeName = this._tagName = "#document";
+	this._contentType = contentType || "text/xml";
 	this._doctype = doctype || new DocumentType(name, new NamedNodeMap(this), new NamedNodeMap(this));
 	this._implementation = implementation || new DOMImplementation();
 	this._documentElement = null
@@ -777,7 +851,7 @@ core.Document = function(name, doctype, implementation) {
 	this._readonly = false;
 };
 core.Document.prototype = {
-
+  get contentType() { return this._contentType; },
   get doctype() { return this._doctype; },
   set doctype(doctype) { this._doctype = doctype; },
   get documentElement() { return this._documentElement; },
@@ -1023,10 +1097,14 @@ core.CharacterData.prototype = {
       throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
     }
 
+    count = (offset+count > this._nodeValue.length) ? 
+             this.nodeValue.length-offset           :
+             count;
+
     if (offset       < 0                     || 
         offset       > this._nodeValue.length || 
-        count        < 0                     || 
-        offset+count > this._nodeValue.length)
+        count        < 0                     /*|| 
+        offset+count > this._nodeValue.length*/)
     {
         throw new DOMException(INDEX_SIZE_ERR);
     }
@@ -1052,7 +1130,7 @@ core.Attr = function(document, name, value) {
 core.Attr.prototype =  {
   get nodeType() { return this.ATTRIBUTE_NODE; },
   get nodeValue() {
-    
+
     var val = "";
     
     if (this._children.length > 0) {
@@ -1070,6 +1148,8 @@ core.Attr.prototype =  {
       throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
     }
 
+    this._children.remove(0,this._children.length);
+    this._children[0] = this.ownerDocument.createTextNode(value);
     this._specified = true;
     this._nodeValue = value; 
   },
@@ -1239,7 +1319,7 @@ core.Entity.prototype.__proto__ = core.Node.prototype;
 
 
 core.EntityReference = function(document, entity) {
-  core.Node.call(this);
+  core.Node.call(this, document);
   this._entity = entity;
   this._nodeName = entity.name;
   this._readonly = true;
