@@ -21,6 +21,11 @@ exports.staff = function() {
   entElement.appendChild(doc.createTextNode("Element data"));
   var procElement = doc.createProcessingInstruction("PItarget", "PfIdata");
   var ent4 = doc.createEntityNode("ent4",entElement, procElement);
+
+  var ent5 = doc.createEntityNode("ent5");
+  ent5.publicId = "entityURI";
+  ent5.systemId = "entityFile";
+  ent5.notationName = "notation1";
   
   var entities = new EntityNodeMap(
     doc,
@@ -28,7 +33,7 @@ exports.staff = function() {
     doc.createEntityNode("ent2",doc.createTextNode("1900 Dallas Road")),
     doc.createEntityNode("ent3",doc.createTextNode("Texas")),
     ent4,
-    doc.createEntityNode("ent5", doc.createTextNode("entityURI"))
+    ent5
   );
 
 
@@ -137,7 +142,8 @@ exports.staff = function() {
   salaries[3].appendChild(doc.createTextNode("95,000"));
   addresses[3].setAttribute("domestic", "Yes");
   addresses[3].setAttribute("street", "Y");
-  addresses[3].appendChild(doc.createEntityReference("ent1"));
+  var ent1Ref = doc.createEntityReference("ent1");
+  addresses[3].attributes.getNamedItem("street").childNodes.push(ent1Ref);
   addresses[3].appendChild(doc.createTextNode("27 South Road. Dallas, Texas 98556"));
   names[3].appendChild(doc.createTextNode("Jeny Oconnor"));
   genders[3].appendChild(doc.createTextNode("Female"));

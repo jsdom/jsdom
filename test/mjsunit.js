@@ -41,15 +41,10 @@ exports.MjsUnitAssertionError = MjsUnitAssertionError;
  * the f-word and ignore all other lines.
  */
 
-exports.fail = function(expected, found, name_opt) {
+exports.fail = function(expected, found, name_opt, msg) {
   var start;
-  if (name_opt) {
-    // Fix this when we ditch the old test runner.
-    start = "Fail" + "ure (" + name_opt + "): ";
-  } else {
-    start = "Fail" + "ure:";
-  }
-  throw new MjsUnitAssertionError(start + " expected <" + expected + "> found <" + found + ">");
+  start = "Failure (" + msg + "): ";
+  throw new MjsUnitAssertionError(msg + " " + start + " expected <" + expected + "> found <" + found + ">");
 };
 
 
@@ -105,7 +100,7 @@ exports.deepEquals = function(a, b) {
 
 exports.assertEquals = function(msg, expected, found, name_opt) {
   if (!deepEquals(found, expected)) {
-    fail(expected, found, name_opt);
+    fail(expected, found, name_opt, msg);
   }
 };
 
@@ -137,21 +132,21 @@ exports.assertFalse = function(msg, value, name_opt) {
 
 exports.assertNaN = function(msg, value, name_opt) {
   if (!isNaN(value)) {
-    fail("NaN", value, name_opt);
+    fail("NaN", value, name_opt, msg);
   }
 };
 
 
 exports.assertNull = function(msg, value, name_opt) {
   if (value !== null) {
-    fail("null", value, name_opt);
+    fail("null", value, name_opt, msg);
   }
 };
 
 
 exports.assertNotNull = function(msg, value, name_opt) {
   if (value === null) {
-    fail("not null", value, name_opt);
+    fail("not null", value, name_opt, msg);
   }
 };
 

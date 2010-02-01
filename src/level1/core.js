@@ -70,7 +70,7 @@ core.NodeList = function(document, element, tagName) {
 core.NodeList.prototype = {
   /* returns Node */
   item: function(index) {
-    return this[index];
+    return this[index] || null;
   },
   // Array Remove - By John Resig (MIT Licensed)
   remove :function(from, to) {
@@ -624,12 +624,13 @@ core.NamedNodeMap.prototype = {
     for (var member in this._nodes)
     {
       if (this._nodes.hasOwnProperty(member)) {
-        if (current === index) {
+        if (current === index && this._nodes[member]) {
           return this._nodes[member];
         }
         current++;
       } 
     }
+    return null;
 	}
 };
 
@@ -653,11 +654,12 @@ core.AttrNodeMap.prototype = {
       var defaultValue = elem.attributes.getNamedItem(name);
 
       if (defaultValue) {
+
           var attr = doc.createAttribute(name);
           attr.value = defaultValue.value;
-          this.parentNode.setAttributeNode(attr);
           attr._specified = false;
           this._nodes[name] = attr;
+          this._length++;
       }
     }
     return prev;
@@ -730,11 +732,7 @@ core.Element.prototype = {
 	  }
 
 	  var attr = this.ownerDocument.createAttribute(name);
-	  
-	  // TODO: check whether both of these need to be set.
 	  attr.value = value;
- 	  attr.appendChild(this.ownerDocument.createTextNode(value));
- 	  // /TODO
  	  
  	  if (this.attributes.exists(name)) {
  	    this._attributes.removeNamedItem(name);
@@ -752,16 +750,6 @@ core.Element.prototype = {
     }
 
     this._attributes.removeNamedItem(name);
-    
-    // check for default values
-    var parentName = this.nodeName;
-    var p = this.ownerDocument.doctype._attributes.getNamedItem(parentName);
-    
-    if (p) {
-      var attr = p.attributes.getNamedItem(name);
-      this.setAttribute(name, attr.value)
-    }
-    
     return name;
   }, // raises: function(DOMException) {},
 
@@ -820,16 +808,23 @@ core.Element.prototype = {
   
   /* returns NodeList */	
   getElementsByTagName: function(/* string */ name) {
-    var ret = new core.NodeList(), child;
-    
+    var ret = new core.NodeList(), child, i, j;
+
     if (this._children && this._children.length > 0) {      
-      for (var i=0; i<this._children.length; i++) {
+      for (i=0; i<this._children.length; i++) {
         child = this._children.item(i);
         
-        if (child.tagName && child.nodeType === this.ELEMENT_NODE &&
-            (child.tagName === name || name === "*")) 
+        if (child.nodeName && (child.nodeName === name || name === "*")) 
         {
-          ret.push(child);
+          switch (child.nodeType)
+          {
+            case this.ENTITY_REFERENCE_NODE:
+              child = child._entity;
+            break;
+            case this.ELEMENT_NODE:
+              ret.push(child);
+            break;
+          }
         }
         
         if (child && child.getElementsByTagName) {
@@ -887,7 +882,7 @@ core.Document = function(name, doctype, implementation, /* string */contentType)
 	core.Element.call(this, "#document");
 	this._nodeName = this._tagName = "#document";
 	this._contentType = contentType || "text/xml";
-	this._doctype = doctype || new DocumentType(name, new NamedNodeMap(this), new NamedNodeMap(this));
+	this._doctype = doctype;
 	this._implementation = implementation || new DOMImplementation();
 	this._documentElement = null
 	this._ownerDocument = this;
@@ -895,7 +890,7 @@ core.Document = function(name, doctype, implementation, /* string */contentType)
 };
 core.Document.prototype = {
   get contentType() { return this._contentType; },
-  get doctype() { return this._doctype; },
+  get doctype() { return this._doctype || null; },
   set doctype(doctype) { this._doctype = doctype; },
   get documentElement() { return this._documentElement; },
   get implementation() { return this._implementation; },
@@ -913,20 +908,21 @@ core.Document.prototype = {
     var element =  new core.Element(this, tagName);	
 
     // Check for and introduce default elements
-    var attrElement = this.doctype._attributes.getNamedItem(tagName);
-    if (attrElement && attrElement.children) {
+    if (this.doctype && this.doctype._attributes) {
+      var attrElement = this.doctype._attributes.getNamedItem(tagName);
+      if (attrElement && attrElement.children) {
 
-      attrs = attrElement.attributes;
-      var attr;
-      for (var i=0; i<attrs.length; i++)
-      {
-        attr = this.createAttribute(attrs.item(i).name);
-        attr.value = attrs.item(i).value;
-        element.setAttributeNode(attr);
-        attr._specified = false;
+        attrs = attrElement.attributes;
+        var attr;
+        for (var i=0; i<attrs.length; i++)
+        {
+          attr = this.createAttribute(attrs.item(i).name);
+          attr.value = attrs.item(i).value;
+          element.setAttributeNode(attr);
+          attr._specified = false;
+        }
       }
-    }
-    
+    }    
     return element;
   }, //raises: function(DOMException) {},
   
@@ -972,7 +968,6 @@ core.Document.prototype = {
   createEntityReference: function(/* string */ name) {
 
     name = name.replace(/[&;]/g,"");
-
     if (!name || !name.length) {
       throw new DOMException(INVALID_CHARACTER_ERR);
     }
@@ -1190,17 +1185,24 @@ core.Attr = function(document, name, value) {
 core.Attr.prototype =  {
   get nodeType() { return this.ATTRIBUTE_NODE; },
   get nodeValue() {
-
-    var val = "";
+    var val = "", child, i, j;
     
     if (this._children.length > 0) {
-      for (var i=0; i<this._children.length; i++)
+      for (i=0; i<this._children.length; i++)
       {
-        val += this._children[i].value;
+        child = this._children.item(i);
+
+        if (child.nodeType === this.ENTITY_REFERENCE_NODE) {
+          for (j=0; j<child.childNodes.length; j++) {
+            val+=child.childNodes.item(j).nodeValue;
+          }
+        } else {
+          val += child.nodeValue;
+        }
       }
     }
     
-    return val || this._nodeValue; 
+    return val; 
   },
   set nodeValue(value) { 
     // readonly
@@ -1209,13 +1211,39 @@ core.Attr.prototype =  {
     }
 
     this._children.remove(0,this._children.length);
-    this._children[0] = this.ownerDocument.createTextNode(value);
+    this._children.push(this.ownerDocument.createTextNode(value));
     this._specified = true;
     this._nodeValue = value; 
   },
   get name() { return this._name; },
   get specified() { return this._specified; },
-  get value() { return this.nodeValue; },
+  get value() { 
+    return this.nodeValue;
+    
+    /*
+    
+    TODO: This was needed, figure out why.
+    
+    var entities = this.ownerDocument.doctype.entities;
+    
+    if (this.nodeValue) {
+      // resolve entities
+      return this.nodeValue.replace(/\&([^\;]+)\;/g, function(orig, actual) {
+        entity = entities.getNamedItem(actual)
+        if (entity && entity.children) {
+          var val = "";
+          for (var i=0; i<entity.children.length; i++)
+          {
+            value += entity.children.item(i).nodeValue;
+          }
+          return val;
+        }
+        return orig;
+      });
+    } else {
+      return this.nodeValue; 
+    }*/
+  },
   set value(value) { 
     this.nodeValue = value; 
   },
@@ -1232,19 +1260,18 @@ core.Attr.prototype =  {
   },
   
   
-/* TODO: there is a problem here.  apparently based on the doctype the behavior
-   changes...  
-  appendChild : function(/* Node * / arg) {
-
-    if (arg.nodeType === this.CDATA_SECTION_NODE) {
+ 
+  appendChild : function(/* Node */ arg) {
+   
+    if (arg.nodeType === this.CDATA_SECTION_NODE ||
+        arg.nodeType === this.ELEMENT_NODE) 
+    {
       throw new DOMException(HIERARCHY_REQUEST_ERR);
     }
     
-    throw new DOMException(HIERARCHY_REQUEST_ERR);
-    
     return core.Node.prototype.appendChild.call(this, arg);
   }
-  */
+  
 };
 core.Attr.prototype.__proto__ = core.Node.prototype;
 
@@ -1375,9 +1402,21 @@ core.Entity.prototype = {
   get name() { return this._name },
   get publicId() { return this._publicId; },
   get systemId() { return this._systemId; },
+  
+  set publicId(publicId) { this._publicId = publicId; },
+  set systemId(systemId) { this._systemId = systemId; },
+  set notationName(notationName) { this._notationName = notationName; },
+  
   get notationName() { return this._notationName; },
   get nodeType() { return this.ENTITY_NODE; },
-  get attributes() { return null; }
+  get attributes() { return null; },
+  
+  // helper
+    /* returns NodeList */	
+  getElementsByTagName: function(/* string */ name) {
+    return core.Element.prototype.getElementsByTagName.call(this, name);
+  }
+  
 };
 core.Entity.prototype.__proto__ = core.Node.prototype;
 
@@ -1390,7 +1429,7 @@ core.EntityReference = function(document, entity) {
 };
 core.EntityReference.prototype = {
   get nodeType()  { return this.ENTITY_REFERENCE_NODE; },
-  get nodeValue() { return null; },
+  get nodeValue() { return this._entity.nodeValue; },
   set nodeValue() { 
     // readonly
     if (this.readonly === true) {
@@ -1402,22 +1441,12 @@ core.EntityReference.prototype = {
   },
   get attributes() { return null; },
   
-  get nodeName() {
-    return this._entity.nodeName;        
-  },
-  
-  get firstChild() { 
-    return this._entity.firstChild || null;
-  },
-  set firstChild() { throw new DOMException(); },
-
+  // Proxy to the entity
+  get nodeName() { return this._entity.nodeName; },
+  get firstChild() { return this._entity.firstChild || null; },
   get childNodes() { return this._entity.childNodes; },
-  set childNodes() { throw new DOMException(); },  
-
-  get lastChild() { 
-    return this._entity.lastChild || null;
-  },
-   
+  get lastChild() { return this._entity.lastChild || null; },
+  
 };
 core.EntityReference.prototype.__proto__ = core.Node.prototype;
 

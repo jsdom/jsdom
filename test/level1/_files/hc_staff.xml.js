@@ -1,7 +1,7 @@
 var sys = require("sys");
 exports.hc_staff = function() {
 
-  var doc = new Document("html", doctype, implementation, "");
+  var doc = new Document("html");
   var implementation = new DOMImplementation(doc, {
     "XML" : "1.0"
   });
@@ -43,10 +43,20 @@ exports.hc_staff = function() {
   
   var head      = doc.createElement("head");
   var head      = html.appendChild(head);
+
+	var meta      = doc.createElement("meta");
+	meta.setAttribute("http-equiv", "Content-Type");
+	meta.setAttribute("content", "text/html; charset=UTF-8");
+  head.appendChild(meta);
   
   var title     = doc.createElement("title")
   title.appendChild(doc.createTextNode("hc_staff"));
   var title     = head.appendChild(title);
+
+  // make the tests work....
+  head.appendChild(doc.createElement("script"));
+  head.appendChild(doc.createElement("script"));
+  head.appendChild(doc.createElement("script"));
 
   var body      = doc.createElement("body");
   var staff     = html.appendChild(body);
@@ -167,6 +177,9 @@ exports.hc_staff = function() {
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<title>hc_staff</title>
+	<script type="text/javascript" src="svgunit.js"/>
+	<script charset="UTF-8" type="text/javascript" src="svgtest.js"/>
+	<script type='text/javascript'>function loadComplete() { startTest(); }</script>
 </head>
 <body>
  <p>
