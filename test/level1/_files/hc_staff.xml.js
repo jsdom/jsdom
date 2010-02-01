@@ -23,7 +23,16 @@ exports.hc_staff = function() {
     doc.createEntityNode("epsilon", "&#949;")
   );
 
-  var doctype = new DocumentType(doc, "html", entities, notations);
+  // <!ATTLIST acronym dir CDATA "ltr">
+
+  var defaultAttributes = new NamedNodeMap(doc);
+  var acronym = doc.createElement("acronym");
+  acronym.setAttribute("dir", "ltr");
+  defaultAttributes.setNamedItem(acronym);
+  
+  
+
+  var doctype = new DocumentType(doc, "html", entities, notations, defaultAttributes);
   doc.doctype = doctype;
   doc.implementation = implementation;
   

@@ -365,12 +365,8 @@ attrnotspecifiedvalue : function () {
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
-
       doc = load(docRef, "doc", "staff");
-
-
       addressList = doc.getElementsByTagName("address");
-
       testNode = addressList.item(0);
       attributes = testNode.attributes;
 
@@ -16933,7 +16929,6 @@ hc_textwithnomarkup : function () {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "hc_staff");
-      
       elementList = doc.getElementsByTagName("strong");
       nameNode = elementList.item(2);
       nodeV = nameNode.firstChild;
@@ -17260,6 +17255,7 @@ namednodemapremovenameditemgetvalue : function () {
       assertNotNull("attributesNotNull",attributes);
 removedNode = attributes.removeNamedItem("street");
       streetAttr = attributes.getNamedItem("street");
+
       assertNotNull("streetAttrNotNull",streetAttr);
 value = streetAttr.value;
 
@@ -24343,7 +24339,6 @@ textwithnomarkup : function () {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staff");
-
       elementList = doc.getElementsByTagName("name");
       nameNode = elementList.item(2);
       nodeV = nameNode.firstChild;

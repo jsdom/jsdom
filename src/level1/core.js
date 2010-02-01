@@ -107,7 +107,7 @@ core.Node = function (ownerDocument) {
 	this._nodeValue = null;
   this._parentNode = null;
   this._ownerDocument = ownerDocument;
-  this._attributes = new core.NamedNodeMap(this.ownerDocument);
+  this._attributes = new core.AttrNodeMap(this.ownerDocument, this);
   this._nodeName   = null;
   this._readonly   = false;
 };
@@ -594,6 +594,7 @@ core.NamedNodeMap.prototype = {
       ret = this._nodes[arg.name];
     }
     arg._parentNode = this;
+    arg._specified = true;
     this._nodes[arg.name] = arg;
     return ret;
 	}, // raises: function(DOMException) {},
@@ -611,9 +612,8 @@ core.NamedNodeMap.prototype = {
     }
     
     var prev = this._nodes[name] || null;
-
-    
     this._nodes[name] = null;
+    
     this._length--;
     return prev;
 	}, // raises: function(DOMException) {},
@@ -632,6 +632,38 @@ core.NamedNodeMap.prototype = {
     }
 	}
 };
+
+core.AttrNodeMap = function(document, parentNode) {
+  core.NamedNodeMap.call(this,document);
+  this._parentNode = parentNode;
+  
+};
+core.AttrNodeMap.prototype = {
+  get parentNode() { return this._parentNode; },
+  
+	/* returns Node */
+	removeNamedItem: function(/* string */ name) {
+
+    var prev = core.NamedNodeMap.prototype.removeNamedItem.call(this, name);
+    
+    // set default value if available
+    if (this._ownerDocument && this._ownerDocument.doctype) {
+      var doc = this._ownerDocument;
+      var elem = doc.doctype._attributes.getNamedItem(this.parentNode.nodeName);
+      var defaultValue = elem.attributes.getNamedItem(name);
+
+      if (defaultValue) {
+          var attr = doc.createAttribute(name);
+          attr.value = defaultValue.value;
+          this.parentNode.setAttributeNode(attr);
+          attr._specified = false;
+          this._nodes[name] = attr;
+      }
+    }
+    return prev;
+	}, // raises: function(DOMException) {},  
+};
+core.AttrNodeMap.prototype.__proto__ = core.NamedNodeMap.prototype;
 
 core.NotationNodeMap = function(document) {
   core.NamedNodeMap.call(this,document);
@@ -694,7 +726,7 @@ core.Element.prototype = {
     }
 	  
 	  if (this._attributes === null) {
-	    this._attributes = new core.NamedNodeMap(this.ownerDocument);
+	    this._attributes = new core.AttrNodeMap(this.ownerDocument, this);
 	  }
 
 	  var attr = this.ownerDocument.createAttribute(name);
@@ -751,7 +783,7 @@ core.Element.prototype = {
     }
 
     if (this._attributes === null) {
-	    this._attributes = new core.NamedNodeMap(this.ownerDocument);
+	    this._attributes = new core.AttrNodeMap(this.ownerDocument, this);
 	  }
     
     // only attributes created with this.ownerDocument can be added here
