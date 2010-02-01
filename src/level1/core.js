@@ -570,6 +570,11 @@ core.NamedNodeMap.prototype = {
 
 	/* returns Node */
 	setNamedItem: function(/* Node */ arg) {
+
+    // readonly
+    if (this._readonly === true) {
+      throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
+    }
     
     // arg is from a different document
     if (arg && arg.ownerDocument !== this._ownerDocument) {
@@ -700,7 +705,7 @@ core.Element.prototype = {
  	  // /TODO
  	  
  	  if (this.attributes.exists(name)) {
- 	    this.removeAttribute(name);
+ 	    this._attributes.removeNamedItem(name);
     }
 	  this._attributes.setNamedItem(attr);
 	  return value;
@@ -715,6 +720,16 @@ core.Element.prototype = {
     }
 
     this._attributes.removeNamedItem(name);
+    
+    // check for default values
+    var parentName = this.nodeName;
+    var p = this.ownerDocument.doctype._attributes.getNamedItem(parentName);
+    
+    if (p) {
+      var attr = p.attributes.getNamedItem(name);
+      this.setAttribute(name, attr.value)
+    }
+    
     return name;
   }, // raises: function(DOMException) {},
 
@@ -1264,6 +1279,9 @@ core.DocumentType = function(document, name, entities, notations, attributes) {
 	this._nodeName = name;
 	this._entities = entities || new EntityNodeMap(document);
 	this._notations = notations || new NotationNodeMap(document);
+	
+	markTreeReadonly(this._notations);
+	
 	this._attributes = attributes || new NamedNodeMap(document);
 };
 core.DocumentType.prototype = {

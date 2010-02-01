@@ -16933,6 +16933,7 @@ hc_textwithnomarkup : function () {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "hc_staff");
+      
       elementList = doc.getElementsByTagName("strong");
       nameNode = elementList.item(2);
       nodeV = nameNode.firstChild;
@@ -24342,6 +24343,7 @@ textwithnomarkup : function () {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staff");
+
       elementList = doc.getElementsByTagName("name");
       nameNode = elementList.item(2);
       nodeV = nameNode.firstChild;

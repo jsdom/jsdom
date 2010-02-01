@@ -12,23 +12,26 @@ exports.staff = function() {
     doc.createNotationNode("notation1","notation1File", null),
     doc.createNotationNode("notation2",null, "notation2File")
   );
-  
-  var entities = new EntityNodeMap(
-    doc,
-    doc.createEntityNode("ent1", doc.createTextNode("es")),
-    doc.createEntityNode("ent2",doc.createTextNode("1900 Dallas Road")),
-    doc.createEntityNode("ent3",doc.createTextNode("Texas"))
-  );
+
+
 
 //<entElement domestic='Yes'>Element data</entElement><?PItarget PIdata?>  
   var entElement = doc.createElement("entElement");
   entElement.setAttribute("domestic", "Yes");
   entElement.appendChild(doc.createTextNode("Element data"));
   var procElement = doc.createProcessingInstruction("PItarget", "PfIdata");
-  entities.setNamedItem(doc.createEntityNode("ent4",entElement, procElement));
+  var ent4 = doc.createEntityNode("ent4",entElement, procElement);
   
-  
-  entities.setNamedItem(doc.createEntityNode("ent5", doc.createTextNode("entityURI")));
+  var entities = new EntityNodeMap(
+    doc,
+    doc.createEntityNode("ent1", doc.createTextNode("es")),
+    doc.createEntityNode("ent2",doc.createTextNode("1900 Dallas Road")),
+    doc.createEntityNode("ent3",doc.createTextNode("Texas")),
+    ent4,
+    doc.createEntityNode("ent5", doc.createTextNode("entityURI"))
+  );
+
+
 
   // Setup the DTD/Default Attribute Values
 
