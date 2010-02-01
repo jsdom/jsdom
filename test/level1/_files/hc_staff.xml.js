@@ -1,7 +1,7 @@
 var sys = require("sys");
 exports.hc_staff = function() {
 
-  var doc = new Document("html", doctype, implementation);
+  var doc = new Document("html", doctype, implementation, "");
   var implementation = new DOMImplementation(doc, {
     "XML" : "1.0"
   });

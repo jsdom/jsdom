@@ -107,7 +107,7 @@ core.Node = function (ownerDocument) {
 	this._nodeValue = null;
   this._parentNode = null;
   this._ownerDocument = ownerDocument;
-  this._attributes = new core.AttrNodeMap(this.ownerDocument);
+  this._attributes = new core.NamedNodeMap(this.ownerDocument);
   this._nodeName   = null;
   this._readonly   = false;
 };
@@ -139,7 +139,18 @@ core.Node.prototype = {
   },
   get parentNode() { return this._parentNode; },
   
-  get nodeName() { return this._nodeName || this._tagName; },
+  get nodeName() { 
+    var name = this._nodeName || this._tagName; 
+    
+    if (this.nodeType === this.ELEMENT_NODE &&
+        this.ownerDocument                  && 
+        this.ownerDocument.contentType.indexOf("html") !== -1) 
+    {
+      return name.toUpperCase();
+    }
+    return name;
+  
+  },
   set nodeName() { throw new DOMException(); },  
   
   get attributes() { return this._attributes; },
@@ -387,6 +398,10 @@ core.Node.prototype = {
 	      this.appendChild(tmpNode);
 	    }
 	  } else {
+      if (newChild && newChild.parentNode) {
+  	    newChild.parentNode.removeChild(newChild);
+  	  }
+	    
 	    this._children.push(newChild);
 	  }
 	  
@@ -545,7 +560,7 @@ core.NamedNodeMap.prototype = {
   get length() { return this._length; },
 
   exists : function(name) {
-    return (this._nodes[name] || this._nodes[name]) ? true : false;
+    return (this._nodes[name] || this._nodes[name] === null) ? true : false;
   },
   
 	/* returns Node */
@@ -638,46 +653,24 @@ core.EntityNodeMap.prototype = {};
 core.EntityNodeMap.prototype.__proto__ = core.NamedNodeMap.prototype;
 
 
-
-core.AttrNodeMap = function(document) {
-    core.NamedNodeMap.call(this, document);
-};
-
-core.AttrNodeMap.prototype = {
-  get ownerDocument() { return this._ownerDocument; },
-  
-  getNamedItem : function(/* string */ name)
-  {
-    // TODO: figure out the weirdness with  
-    //       namednodemapreturnnull and contrary tests.   
-    
-    if (this.exists(name) || this._nodes[name] === null) {
-      return this._nodes[name];
-    }
-
-    return this.ownerDocument.createAttribute(name);
-  }
-};
-
-core.AttrNodeMap.prototype.__proto__ = core.NamedNodeMap.prototype;
-
 core.Element = function (document, tagName) {
 	this._attributes = null;
-	this._tagName = tagName;
+	               
 	core.Node.call(this, document);
 	this._nodeName = tagName;
 	this._nodeType = this.ELEMENT_NODE;
+
+	this._tagName = tagName;
 };
 
 core.Element.prototype = {
   
   get nodeValue() { return null; },
   set nodeValue(value) { /* do nothing */ },
-  get nodeName() { return this._tagName; },
-  get tagName() { return this._tagName; },
+  get tagName() { return this.nodeName; },
   get nodeType() { return this._nodeType; },
   get attributes() { return this._attributes; },
-  
+  get name() { return this.nodeName; }, 
   /* returns string */
   getAttribute: function(/* string */ name) {
     var attribute = this._attributes.getNamedItem(name);
@@ -696,7 +689,7 @@ core.Element.prototype = {
     }
 	  
 	  if (this._attributes === null) {
-	    this._attributes = new core.AttrNodeMap(this.ownerDocument);
+	    this._attributes = new core.NamedNodeMap(this.ownerDocument);
 	  }
 
 	  var attr = this.ownerDocument.createAttribute(name);
@@ -743,18 +736,22 @@ core.Element.prototype = {
     }
 
     if (this._attributes === null) {
-	    this._attributes = new core.AttrNodeMap(this.ownerDocument);
+	    this._attributes = new core.NamedNodeMap(this.ownerDocument);
 	  }
     
     // only attributes created with this.ownerDocument can be added here
     if (newAttr.ownerDocument !== this.ownerDocument) {
       throw new DOMException(WRONG_DOCUMENT_ERR);
     }
-    
+
     var prevNode = this._attributes.getNamedItem(newAttr.name);
-    prevNode._parentNode = null;
+    if (prevNode) {
+      prevNode._parentNode = null;
+    }
+
     this._attributes.setNamedItem(newAttr);
-    return (prevNode.specified) ? prevNode : null;
+
+    return (prevNode && prevNode.specified) ? prevNode : null;
   }, //  raises: function(DOMException) {},
 
   /* returns Attr */
@@ -840,7 +837,6 @@ core.ProcessingInstruction.prototype.__proto__ = core.Node.prototype;
 
 
 core.Document = function(name, doctype, implementation, /* string */contentType) {
-	
 	core.Element.call(this, "#document");
 	this._nodeName = this._tagName = "#document";
 	this._contentType = contentType || "text/xml";
@@ -864,10 +860,27 @@ core.Document.prototype = {
   get readonly() { return this._readonly; },
   /* returns Element */
   createElement: function(/* string */ tagName) {
-    if (tagName.match(/[^\w\d_-]+/i) || !tagName) {
+    if (!tagName || !tagName.match || tagName.match(/[^\w\d_-]+/i)) {
       throw new DOMException(INVALID_CHARACTER_ERR);
     }
-    return new core.Element(this, tagName);	
+    var element =  new core.Element(this, tagName);	
+
+    // Check for and introduce default elements
+    var attrElement = this.doctype._attributes.getNamedItem(tagName);
+    if (attrElement && attrElement.children) {
+
+      attrs = attrElement.attributes;
+      var attr;
+      for (var i=0; i<attrs.length; i++)
+      {
+        attr = this.createAttribute(attrs.item(i).name);
+        attr.value = attrs.item(i).value;
+        element.setAttributeNode(attr);
+        attr._specified = false;
+      }
+    }
+    
+    return element;
   }, //raises: function(DOMException) {},
   
   /* returns DocumentFragment */  
@@ -902,7 +915,7 @@ core.Document.prototype = {
 
   /* returns Attr */
   createAttribute: function(/* string */ name) {
-    if (name.match(/[^\w\d_-]+/) || !name || !name.length) {
+    if (!name || !name.length || name.match(/[^\w\d_-]+/) ) {
       throw new DOMException(INVALID_CHARACTER_ERR);
     }
     return new core.Attr(this, name,false);
@@ -1140,7 +1153,7 @@ core.Attr.prototype =  {
       }
     }
     
-    return val; 
+    return val || this._nodeValue; 
   },
   set nodeValue(value) { 
     // readonly
@@ -1244,13 +1257,14 @@ core.CDATASection.prototype = {
 };
 core.CDATASection.prototype.__proto__ = core.Text.prototype
 
-core.DocumentType = function(document, name, entities, notations) {
+core.DocumentType = function(document, name, entities, notations, attributes) {
 	core.Node.call(this, document);
 	this._name = name;
 	this._tagName = name;
 	this._nodeName = name;
 	this._entities = entities || new EntityNodeMap(document);
 	this._notations = notations || new NotationNodeMap(document);
+	this._attributes = attributes || new NamedNodeMap(document);
 };
 core.DocumentType.prototype = {
   get nodeValue() { return null; },

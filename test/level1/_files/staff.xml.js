@@ -29,9 +29,31 @@ exports.staff = function() {
   
   
   entities.setNamedItem(doc.createEntityNode("ent5", doc.createTextNode("entityURI")));
+
+  // Setup the DTD/Default Attribute Values
+
+/*
+<!ATTLIST entElement 
+          attr1 CDATA "Attr">
+<!ATTLIST address
+          domestic CDATA #IMPLIED 
+          street CDATA "Yes">
+<!ATTLIST entElement 
+          domestic CDATA "MALE" >
+*/
   
+  var defaultAttributes = new NamedNodeMap(doc);
+  var entElement = doc.createElement("entElement");
+  entElement.setAttribute("attr1", "Attr");
+  entElement.setAttribute("domestic", "MALE");
+  defaultAttributes.setNamedItem(entElement);    
+
+  var defaultAddress = doc.createElement("address");
+  defaultAddress.setAttribute("street", "Yes");
+  defaultAttributes.setNamedItem(defaultAddress);
+
+  doc.doctype = new DocumentType(doc, "staff", entities, notations, defaultAttributes);
   
-  doc.doctype = new DocumentType(doc, "staff", entities, notations);;
   doc.implementation = implementation;  
   
   var staff     = doc.createElement("staff");
@@ -128,6 +150,26 @@ exports.staff = function() {
   positions[4].appendChild(doc.createTextNode("Computer Specialist"));
   
   doc.appendChild(doc.createProcessingInstruction("TEST-STYLE", "PIDATA"));
+
+/*
+<!ELEMENT employeeId (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT position (#PCDATA)>
+<!ELEMENT salary (#PCDATA)>
+<!ELEMENT address (#PCDATA)>
+<!ELEMENT entElement ( #PCDATA ) >
+<!ELEMENT gender ( #PCDATA | entElement )* >
+<!ELEMENT employee (employeeId, name, position, salary, gender, address) >
+<!ELEMENT staff (employee)+>
+<!ATTLIST entElement 
+          attr1 CDATA "Attr">
+<!ATTLIST address
+          domestic CDATA #IMPLIED 
+          street CDATA "Yes">
+<!ATTLIST entElement 
+          domestic CDATA "MALE" >
+
+*/
 
   /*<?xml version="1.0"?><?TEST-STYLE PIDATA?>
 <!DOCTYPE staff SYSTEM "staff.dtd" [

@@ -4,8 +4,17 @@ process.mixin(GLOBAL, require("./mjsunit"));
 process.mixin(GLOBAL, require("./DOMTestCase"));
 
 // Compat Layer
+GLOBAL.builder = { 
+  contentType: ""
+  
+};
+
 GLOBAL.load = function(docRef, doc, name) {
+
   var doc = require("./level1/_files/" + name + ".xml")[name]();
+  
+  // TODO: run all of the tests......
+  //GLOBAL.builder.contentType = doc.contentType;
   return doc;
 };
 
@@ -13,7 +22,6 @@ GLOBAL.checkInitialization = function() {
 	return null;
 };
 
-GLOBAL.builder = { contentType: "" };
 
 GLOBAL.debug = function(val) {
     var str;

@@ -365,8 +365,12 @@ attrnotspecifiedvalue : function () {
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
+
       doc = load(docRef, "doc", "staff");
+
+
       addressList = doc.getElementsByTagName("address");
+
       testNode = addressList.item(0);
       attributes = testNode.attributes;
 
