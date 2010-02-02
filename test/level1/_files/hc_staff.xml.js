@@ -16,7 +16,7 @@ exports.hc_staff = function() {
   //       http://www.w3schools.com/tags/ref_symbols.asp
   var entities = new EntityNodeMap(
     doc,
-    doc.createEntityNode("alpha", "&#945;"),
+    doc.createEntityNode("alpha", "α"),
     doc.createEntityNode("beta", "&#946;"),
     doc.createEntityNode("gamma", "&#947;"),
     doc.createEntityNode("delta", "&#948;"),

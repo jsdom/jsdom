@@ -6553,9 +6553,12 @@ hc_attrclonenode1 : function () {
       attributes = testNode.attributes;
 
       titleAttr = attributes.getNamedItem("title");
+
       textNode = doc.createTextNode("terday");
       retval = titleAttr.appendChild(textNode);
+
       clonedTitle = titleAttr.cloneNode(false);
+
       textNode.nodeValue = "text_node_not_cloned";
 
       value = clonedTitle.value;
@@ -7658,6 +7661,7 @@ hc_attrremovechild1 : function () {
 
       assertNotNull("attrChildNotNull",textNode);
 retval = titleAttr.removeChild(textNode);
+
       value = titleAttr.value;
 
       assertEquals("attrValue","",value);
@@ -16188,10 +16192,12 @@ hc_nodevalue03 : function () {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "hc_staff");
+   
+   // TODO: rework this when we go html
       
 	if(
 	
-	(builder.contentType == "text/html")
+	(builder.contentType == "text/html" || true)
 
 	) {
 	
@@ -16209,8 +16215,12 @@ hc_nodevalue03 : function () {
 	}
 	
 		else {
+      // this code path is invalid... hc_staff is always html and doesn't 
+      // include an entity=ent1
 			newNode = doc.createEntityReference("ent1");
+
       assertNotNull("createdEntRefNotNull",newNode);
+
 newValue = newNode.nodeValue;
 
       assertNull("initiallyNull",newValue);

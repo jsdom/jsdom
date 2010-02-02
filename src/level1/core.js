@@ -69,11 +69,11 @@ core.NodeList = function(document, element, tagName) {
 };
 core.NodeList.prototype = {
   /* returns Node */
-  item: function(index) {
+  item : function(index) {
     return this[index] || null;
   },
   // Array Remove - By John Resig (MIT Licensed)
-  remove :function(from, to) {
+  remove : function(from, to) {
     var rest = this.slice((to || from) + 1 || this.length);
     this.length = from < 0 ? this.length + from : from;
     return this.push.apply(this, rest);
@@ -155,14 +155,18 @@ core.Node.prototype = {
   
   get attributes() { return this._attributes; },
 
-  get firstChild() { return (this._children && this._children[0]) ? this._children.item(0) : null; },
+  get firstChild() { 
+    return (this._children && this._children.length && this._children.item(0)) ? 
+            this._children.item(0)                    :
+            null; 
+  },
   set firstChild() { throw new DOMException(); },
   get ownerDocument() { return this._ownerDocument; },
   
   get readonly() { return this._readonly; },
   
   get lastChild() { 
-    return (this._children && this._children[this._children.length-1]) ? 
+    return (this._children && this._children.length && this._children[this._children.length-1]) ? 
             this._children.item(this._children.length-1) : 
             null; 
   },
@@ -314,8 +318,9 @@ core.Node.prototype = {
             throw new DOMException(HIERARCHY_REQUEST_ERR);
           }
         }
-        if (newChild._parentNode) {
-          newChild._parentNode.removeChild(newChild);
+
+        if (newChild.parentNode && newChild.parentNode.removeChild) {
+          newChild.parentNode.removeChild(newChild);
         }
         newChild._parentNode = this;
         
@@ -323,7 +328,9 @@ core.Node.prototype = {
         this._children.splice(i,0, newChild);
         
         // remove the old child
-        oldChild.parentNode.removeChild(oldChild);
+        if (oldChild.parentNode) {
+          oldChild.parentNode.removeChild(oldChild);
+        }
         return oldChild;
       }
     }
@@ -401,12 +408,11 @@ core.Node.prototype = {
       if (newChild && newChild.parentNode) {
   	    newChild.parentNode.removeChild(newChild);
   	  }
-	    
+    
+      // Attach the parent node.
+	    newChild._parentNode = this;
 	    this._children.push(newChild);
 	  }
-	  
-	  // Attach the parent node.
-  	newChild._parentNode = this;
 	
   	return newChild;	
   }, // raises(DOMException);
@@ -451,7 +457,7 @@ core.Node.prototype = {
       break;
       case this.ATTRIBUTE_NODE:
         object = this.ownerDocument.createAttribute(this.name);
-        object.nodeValue = this.nodeValue;
+        //object.nodeValue = this.nodeValue;
       break;
       case this.ENTITY_NODE:
         object = attrCopy(this,this.ownerDocument.createEntityNode(this._entity.name));
@@ -488,8 +494,8 @@ core.Node.prototype = {
         throw new DOMException(NOT_FOUND_ERR);
       break;
     }
-    
-    if (deep) {
+
+    if (deep || this.nodeType === this.ATTRIBUTE_NODE) {
       var clone = null;
       for (var i=0; i<this.children.length; i++)
       {
@@ -971,17 +977,16 @@ core.Document.prototype = {
     if (!name || !name.length) {
       throw new DOMException(INVALID_CHARACTER_ERR);
     }
-    
+
     if (name.match(/[^\w\d_-]+/)) {
       throw new DOMException(INVALID_CHARACTER_ERR);
     }
-    
+
     var entity = this._doctype.entities.getNamedItem(name);
 
     if (!entity) {
       throw new DOMException(NOT_SUPPORTED_ERR);
     }
-    
     return new core.EntityReference(this, entity);
   }, //raises: function(DOMException) {},
 
@@ -1194,7 +1199,9 @@ core.Attr.prototype =  {
 
         if (child.nodeType === this.ENTITY_REFERENCE_NODE) {
           for (j=0; j<child.childNodes.length; j++) {
-            val+=child.childNodes.item(j).nodeValue;
+            val+=(child.childNodes.item(j).nodeValue) ? 
+                  child.childNodes.item(j).nodeValue  :
+                  child.childNodes.item(j);
           }
         } else {
           val += child.nodeValue;
@@ -1210,7 +1217,7 @@ core.Attr.prototype =  {
       throw new DOMException(NO_MODIFICATION_ALLOWED_ERR);
     }
 
-    this._children.remove(0,this._children.length);
+    this._children.length = 0;
     this._children.push(this.ownerDocument.createTextNode(value));
     this._specified = true;
     this._nodeValue = value; 
@@ -1250,16 +1257,15 @@ core.Attr.prototype =  {
   get parentNode() { return null; },
   get attributes() { return null; },
   
-  insertBefore : function(/* Node */ arg) {
-    
-    if (!arg || arg.ownerDocument !== this.ownerDocument) {
-      throw new DOMException(WRONG_DOCUMENT_ERR);
+  insertBefore : function(/* Node */ newChild, /* Node*/ refChild){
+    if (newChild.nodeType === this.CDATA_SECTION_NODE ||
+        newChild.nodeType === this.ELEMENT_NODE) 
+    {
+      throw new DOMException(HIERARCHY_REQUEST_ERR);
     }
     
-    throw new DOMException(HIERARCHY_REQUEST_ERR);
+    return core.Node.prototype.insertBefore.call(this, newChild, refChild);
   },
-  
-  
  
   appendChild : function(/* Node */ arg) {
    
