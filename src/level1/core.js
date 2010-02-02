@@ -318,19 +318,26 @@ core.Node.prototype = {
             throw new DOMException(HIERARCHY_REQUEST_ERR);
           }
         }
+        
+        this._children.remove(i,i);
 
         if (newChild.parentNode && newChild.parentNode.removeChild) {
           newChild.parentNode.removeChild(newChild);
         }
         newChild._parentNode = this;
-        
+
         // insert the new child at this location
-        this._children.splice(i,0, newChild);
-        
-        // remove the old child
-        if (oldChild.parentNode) {
-          oldChild.parentNode.removeChild(oldChild);
+        if (newChild.nodeType === this.DOCUMENT_FRAGMENT_NODE) {
+          var child;
+          for (var j = 0; j<newChild.children.length;j++)
+          {
+            child = newChild.children.item(j);
+            this._children.splice(i+j,0, child);
+          }
+        } else {
+          this._children.splice(i,0, newChild);
         }
+        
         return oldChild;
       }
     }
