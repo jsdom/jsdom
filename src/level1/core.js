@@ -867,7 +867,7 @@ core.Element.prototype = {
   
   /* returns NodeList */	
   getElementsByTagName: function(/* string */ name) {
-    var list = new core.LiveNodeList(this._document, this, function(child) {
+    return new core.LiveNodeList(this._document, this, function(child) {
       if (child.nodeType && child.nodeType === core.Node.prototype.ENTITY_REFERENCE_NODE) {
         child = child._entity;
       }
@@ -879,39 +879,6 @@ core.Element.prototype = {
       }
       return false;
     });
-    return list;
-    
-    var ret = new core.NodeList(), child, i, j;
-
-    if (this._children && this._children.length > 0) {      
-      for (i=0; i<this._children.length; i++) {
-        child = this._children.item(i);
-        
-        if (child.nodeName && (child.nodeName === name || name === "*")) 
-        {
-          switch (child.nodeType)
-          {
-            case this.ENTITY_REFERENCE_NODE:
-              child = child._entity;
-            break;
-            case this.ELEMENT_NODE:
-              ret.push(child);
-            break;
-          }
-        }
-        
-        if (child && child.getElementsByTagName) {
-	        var nested = child.getElementsByTagName(name);
-          if (nested && nested.length)  {
-            for (var idx = 0; idx<nested.length; idx++) {
-              ret.push(nested.item(idx));
-            }
-          }
-        }
-      }
-    }
-
-    return ret;
   },
 };
 core.Element.prototype.__proto__ = core.Node.prototype;
