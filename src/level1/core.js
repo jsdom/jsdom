@@ -2,6 +2,32 @@
   ServerJS Javascript DOM
 */
 var core = {
+  
+  // Returns Array
+  mapDOMNodes : function(parent, recursive, callback) {
+
+    var results = [], result, child, i;
+    // mark children readonly
+    if (parent.childNodes) {
+      for (i=0; i<parent.childNodes.length;i++)
+      {
+        child = parent.childNodes.item(i);
+        if (callback(child)) {
+          results[results.length] = child;
+        }
+
+        if (recursive) {
+          result = core.mapDOMNodes(child, true, callback);
+          for (var a=0; a<result.length;a++) {
+            results.push(result[a]);
+          }
+          //results.push.apply(results, result);
+        }
+      }
+    }
+    return results;
+  },
+  
   markTreeReadonly : function(el) {
     el._readonly = true;
     
@@ -9,10 +35,6 @@ var core = {
     if (el.children) {
       for (var i=0; i<el.children.length;i++)
       {
-        if (el.children.attributes) {
-          core.markTreeReadonly(el.children.attributes);
-        }
-        
         core.markTreeReadonly(el.children.item(i));
       }
     }
@@ -72,6 +94,8 @@ core.NodeList.prototype = {
   item : function(index) {
     return this[index] || null;
   },
+  
+  // TODO: make this "private"
   // Array Remove - By John Resig (MIT Licensed)
   remove : function(from, to) {
     var rest = this.slice((to || from) + 1 || this.length);
@@ -79,7 +103,29 @@ core.NodeList.prototype = {
     return this.push.apply(this, rest);
   }
 };
+// TODO: NO!
 core.NodeList.prototype.__proto__ = Array.prototype;
+
+core.LiveNodeList = function(document, element, callback) {
+  // TODO: caching on the document
+  this._callback = callback;
+  this._element  = element;
+  this._document = document || element;
+};
+
+core.LiveNodeList.prototype = {
+  /* returns Integer */
+  get length() {
+    var results = core.mapDOMNodes(this._element, true, this._callback);
+    return results.length || 0;
+  },
+  
+  /* returns Node */
+  item : function(index) {
+    var results = core.mapDOMNodes(this._element, true, this._callback);
+    return results[index] || null;
+  }
+};
 
 core.DOMImplementation = function(document, /* Object */ features) {
   this._ownerDocument = document;
@@ -821,6 +867,20 @@ core.Element.prototype = {
   
   /* returns NodeList */	
   getElementsByTagName: function(/* string */ name) {
+    var list = new core.LiveNodeList(this._document, this, function(child) {
+      if (child.nodeType && child.nodeType === core.Node.prototype.ENTITY_REFERENCE_NODE) {
+        child = child._entity;
+      }
+
+      if (child.nodeName && 
+          (child.nodeName === name || name === "*") && 
+          child.nodeType === core.Node.prototype.ELEMENT_NODE) {
+        return true;
+      }
+      return false;
+    });
+    return list;
+    
     var ret = new core.NodeList(), child, i, j;
 
     if (this._children && this._children.length > 0) {      
@@ -1425,10 +1485,10 @@ core.Entity.prototype = {
   get attributes() { return null; },
   
   // helper
-    /* returns NodeList */	
-  getElementsByTagName: function(/* string */ name) {
+    /* returns NodeList * /	
+  getElementsByTagName: function(/* string * / name) {
     return core.Element.prototype.getElementsByTagName.call(this, name);
-  }
+  }*/
   
 };
 core.Entity.prototype.__proto__ = core.Node.prototype;
