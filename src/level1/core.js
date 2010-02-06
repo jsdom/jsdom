@@ -190,7 +190,8 @@ core.Node.prototype = {
     
     if (this.nodeType === this.ELEMENT_NODE &&
         this.ownerDocument                  && 
-        this.ownerDocument.contentType.indexOf("html") !== -1) 
+        this.ownerDocument.doctype          &&
+        this.ownerDocument.doctype.name.indexOf("html") !== -1) 
     {
       return name.toUpperCase();
     }
@@ -526,7 +527,7 @@ core.Node.prototype = {
       break;
       case this.DOCUMENT_NODE:
         object = attrCopy(this, new core.Document());
-        // TODO: clone the doctype/entities/notations/etc
+        // TODO: clone the doctype/entities/notations/etc?
       break;
       case this.DOCUMENT_TYPE_NODE:
         object = attrCopy(this, new core.DocumentType());
@@ -872,10 +873,20 @@ core.Element.prototype = {
         child = child._entity;
       }
 
-      if (child.nodeName && 
-          (child.nodeName === name || name === "*") && 
-          child.nodeType === core.Node.prototype.ELEMENT_NODE) {
-        return true;
+      if (child.nodeName && child.nodeType === core.Node.prototype.ELEMENT_NODE) {
+          if (name === "*") {
+            return true;
+          
+          // case insensitivity for html
+          } else if (child.ownerDocument && child.ownerDocument.doctype && 
+                     child.ownerDocument.doctype.name === "html" &&
+                     child.nodeName.toLowerCase() === name.toLowerCase()) 
+          {
+            return true;
+          } else if (child.nodeName === name) {
+            return true;
+          }
+        
       }
       return false;
     });
@@ -948,7 +959,7 @@ core.Document.prototype = {
     var element =  new core.Element(this, tagName);	
 
     // Check for and introduce default elements
-    if (this.doctype && this.doctype._attributes) {
+    if (this.doctype && this.doctype._attributes && this.doctype.name.toLowerCase() !== "html") {
       var attrElement = this.doctype._attributes.getNamedItem(tagName);
       if (attrElement && attrElement.children) {
 
@@ -988,7 +999,11 @@ core.Document.prototype = {
 
   /* returns ProcessingInstruction */
   createProcessingInstruction: function(/* string */ target,/* string */ data) {
-
+    
+    if (this.doctype && this.doctype.name === "html") {
+     // throw new DOMException(NOT_SUPPORTED_ERR);
+    }
+    
     if (target.match(/[^\w\d_-]+/) || !target || !target.length) {
       throw new DOMException(INVALID_CHARACTER_ERR);
     }

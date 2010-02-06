@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>http://www.w3.org/2001/DOM-Test-Suite/level1/core/hc_documentcreateelementcasesensitive</title>
+<link type="text/css" rel="stylesheet" href="http://www.w3.org/StyleSheets/activity-home.css">
+<script src="../../jsunit/app/jsUnitCore.js" type="text/javascript"></script><script src="DOMTestCase.js" type="text/javascript"></script><script type="text/javascript">
+// expose test function names
+function exposeTestFunctionNames()
+{
+return ['hc_documentcreateelementcasesensitive'];
+}
+
+var docsLoaded = -1000000;
+var builder = null;
+
+//
+//   This function is called by the testing framework before
+//      running the test suite.
+//
+//   If there are no configuration exceptions, asynchronous
+//        document loading is started.  Otherwise, the status
+//        is set to complete and the exception is immediately
+//        raised when entering the body of the test.
+//
+function setUpPage() {
+   setUpPageStatus = 'running';
+   try {
+     //
+     //   creates test document builder, may throw exception
+     //
+     builder = createConfiguredBuilder();
+
+      docsLoaded = 0;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      docsLoaded += preload(docRef, "doc", "hc_staff");
+        
+       if (docsLoaded == 1) {
+          setUpPage = 'complete';
+       }
+    } catch(ex) {
+    	catchInitializationError(builder, ex);
+        setUpPage = 'complete';
+    }
+}
+
+
+
+//
+//   This method is called on the completion of 
+//      each asychronous load started in setUpTests.
+//
+//   When every synchronous loaded document has completed,
+//      the page status is changed which allows the
+//      body of the test to be executed.
+function loadComplete() {
+    if (++docsLoaded == 1) {
+        setUpPageStatus = 'complete';
+    }
+}
+
+
+/**
+* 
+    The tagName parameter in the "createElement(tagName)"
+   method is case-sensitive for XML documents.
+   Retrieve the entire DOM document and invoke its 
+   "createElement(tagName)" method twice.  Once for tagName
+   equal to "acronym" and once for tagName equal to "ACRONYM"
+   Each call should create a distinct Element node.  The
+   newly created Elements are then assigned attributes 
+   that are retrieved.
+
+   Modified on 27 June 2003 to avoid setting an invalid style
+   values and checked the node names to see if they matched expectations.
+
+* @author Curt Arnold
+* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
+* @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
+*/
+function hc_documentcreateelementcasesensitive() {
+   var success;
+    if(checkInitialization(builder, "hc_documentcreateelementcasesensitive") != null) return;
+    var doc;
+      var newElement1;
+      var newElement2;
+      var attribute1;
+      var attribute2;
+      var nodeName1;
+      var nodeName2;
+      
+      var docRef = null;
+      if (typeof(this.doc) != 'undefined') {
+        docRef = this.doc;
+      }
+      doc = load(docRef, "doc", "hc_staff");
+      newElement1 = doc.createElement("ACRONYM");
+      newElement2 = doc.createElement("acronym");
+      newElement1.setAttribute("lang","EN");
+      newElement2.setAttribute("title","Dallas");
+      attribute1 = newElement1.getAttribute("lang");
+      attribute2 = newElement2.getAttribute("title");
+      assertEquals("attrib1","EN",attribute1);
+       assertEquals("attrib2","Dallas",attribute2);
+       nodeName1 = newElement1.nodeName;
+
+      nodeName2 = newElement2.nodeName;
+
+      assertEqualsAutoCase("element", "nodeName1","ACRONYM",nodeName1);
+       assertEqualsAutoCase("element", "nodeName2","acronym",nodeName2);
+       
+}
+
+</script>
+</head>
+<body>
+<h2>Test http://www.w3.org/2001/DOM-Test-Suite/level1/core/hc_documentcreateelementcasesensitive</h2>
+<p>&lt;test name='hc_documentcreateelementcasesensitive' schemaLocation='http://www.w3.org/2001/DOM-Test-Suite/Level-1 dom1.xsd'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;hc_documentCreateElementCaseSensitive&lt;/title&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;creator&gt;Curt Arnold&lt;/creator&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;description&gt;
+    The tagName parameter in the "createElement(tagName)"
+   method is case-sensitive for XML documents.
+   Retrieve the entire DOM document and invoke its 
+   "createElement(tagName)" method twice.  Once for tagName
+   equal to "acronym" and once for tagName equal to "ACRONYM"
+   Each call should create a distinct Element node.  The
+   newly created Elements are then assigned attributes 
+   that are retrieved.
+
+   Modified on 27 June 2003 to avoid setting an invalid style
+   values and checked the node names to see if they matched expectations.
+&lt;/description&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;date qualifier='created'&gt;2002-06-09&lt;/date&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547">http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547</a>'/&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=243">http://www.w3.org/Bugs/Public/show_bug.cgi?id=243</a>'/&gt;
+<br>&lt;/metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='doc' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='newElement1' type='Element'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='newElement2' type='Element'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='attribute1' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='attribute2' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='nodeName1' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='nodeName2' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;load var='doc' href='hc_staff' willBeModified='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createElement obj='doc' var='newElement1' tagName='"ACRONYM"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createElement obj='doc' var='newElement2' tagName='"acronym"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;setAttribute obj='newElement1' name='"lang"' value='"EN"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;setAttribute obj='newElement2' name='"title"' value='"Dallas"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getAttribute obj='newElement1' var='attribute1' name='"lang"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getAttribute obj='newElement2' var='attribute2' name='"title"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='attribute1' expected='"EN"' ignoreCase='false' <a id="attrib1">id='attrib1'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='attribute2' expected='"Dallas"' ignoreCase='false' <a id="attrib2">id='attrib2'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeName var='nodeName1' obj='newElement1'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeName var='nodeName2' obj='newElement2'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='nodeName1' expected='"ACRONYM"' ignoreCase='auto' <a id="nodeName1">id='nodeName1'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='nodeName2' expected='"acronym"' ignoreCase='auto' <a id="nodeName2">id='nodeName2'</a>/&gt;<br>&lt;/test&gt;<br>
+</p>
+<p>
+			Copyright (c) 2001-2004 World Wide Web Consortium,
+			(Massachusetts Institute of Technology, Institut National de
+			Recherche en Informatique et en Automatique, Keio University). All
+			Rights Reserved. This program is distributed under the W3C's Software
+			Intellectual Property License. This program is distributed in the
+			hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+			the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+			PURPOSE.
+			</p>
+<p>See W3C License <a href="http://www.w3.org/Consortium/Legal/">http://www.w3.org/Consortium/Legal/</a> 
+ for more details.</p>
+<iframe name="doc" src="files/hc_staff.html"></iframe>
+<br>
+</body>
+</html>
