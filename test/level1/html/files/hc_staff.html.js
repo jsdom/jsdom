@@ -4,7 +4,7 @@ exports.hc_staff = function() {
   var doc = new Document("html");
   
   var implementation = new DOMImplementation(doc, {
-    "XML" : "1.0"
+    "HTML" : "1.0"
   });
 
   var notations = new NotationNodeMap(
@@ -118,8 +118,8 @@ exports.hc_staff = function() {
   addresses[1].setAttribute("class", "Yes");
   addresses[1].appendChild(doc.createTextNode("β Dallas, γ\n 98554"));
   names[1].appendChild(doc.createTextNode("Martha Raynolds"));
-  names[1].appendChild(doc.createCDATASection("This is a CDATASection with EntityReference number 2 &amp;ent2;"));
-  names[1].appendChild(doc.createCDATASection("This is an adjacent CDATASection with a reference to a tab &amp;tab;"));  
+  //names[1].appendChild(doc.createCDATASection("This is a CDATASection with EntityReference number 2 &amp;ent2;"));
+  //names[1].appendChild(doc.createCDATASection("This is an adjacent CDATASection with a reference to a tab &amp;tab;"));  
   genders[1].appendChild(doc.createTextNode("Female"));
   positions[1].appendChild(doc.createTextNode("Secretary"));
 
@@ -129,7 +129,7 @@ exports.hc_staff = function() {
   addresses[2].setAttribute("class", "No");
   addresses[2].appendChild(doc.createTextNode("PO Box 27 Irving, texas 98553"));
   names[2].appendChild(doc.createTextNode("Roger\n Jones")) ;
-  genders[2].appendChild(doc.createEntityReference("&delta;"));//Text("&delta;"));
+ // genders[2].appendChild(doc.createEntityReference("&delta;"));//Text("&delta;"));
   positions[2].appendChild(doc.createTextNode("Department Manager"));
 
   ids[3].appendChild(doc.createTextNode("EMP0004"));

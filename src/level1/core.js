@@ -187,12 +187,11 @@ core.Node.prototype = {
   
   get nodeName() { 
     var name = this._nodeName || this._tagName; 
-    
     if (this.nodeType === this.ELEMENT_NODE &&
         this.ownerDocument                  && 
         this.ownerDocument.doctype          &&
         this.ownerDocument.doctype.name.indexOf("html") !== -1) 
-    {
+    { 
       return name.toUpperCase();
     }
     return name;
@@ -706,20 +705,20 @@ core.AttrNodeMap.prototype = {
 	removeNamedItem: function(/* string */ name) {
 
     var prev = core.NamedNodeMap.prototype.removeNamedItem.call(this, name);
+    var doc = this._ownerDocument;
     
     // set default value if available
-    if (this._ownerDocument && this._ownerDocument.doctype) {
-      var doc = this._ownerDocument;
+    if (doc && doc.doctype && doc.doctype.name.toLowerCase() !== "html") {
+      var defaultValue = false;
       var elem = doc.doctype._attributes.getNamedItem(this.parentNode.nodeName);
       var defaultValue = elem.attributes.getNamedItem(name);
 
       if (defaultValue) {
-
-          var attr = doc.createAttribute(name);
-          attr.value = defaultValue.value;
-          attr._specified = false;
-          this._nodes[name] = attr;
-          this._length++;
+        var attr = doc.createAttribute(name);
+        attr.value = defaultValue.value;
+        attr._specified = false;
+        this._nodes[name] = attr;
+        this._length++;
       }
     }
     return prev;
@@ -994,6 +993,10 @@ core.Document.prototype = {
   
   /* returns CDATASection */	
   createCDATASection: function(/* string */ data) {
+    if (this.doctype && this.doctype.name === "html") {
+      throw new DOMException(NOT_SUPPORTED_ERR);
+    }
+    
     return new core.CDATASection(this,data);
   }, // raises: function(DOMException) {},
 
@@ -1001,7 +1004,7 @@ core.Document.prototype = {
   createProcessingInstruction: function(/* string */ target,/* string */ data) {
     
     if (this.doctype && this.doctype.name === "html") {
-     // throw new DOMException(NOT_SUPPORTED_ERR);
+      throw new DOMException(NOT_SUPPORTED_ERR);
     }
     
     if (target.match(/[^\w\d_-]+/) || !target || !target.length) {
@@ -1021,6 +1024,10 @@ core.Document.prototype = {
   
   /* returns EntityReference */
   createEntityReference: function(/* string */ name) {
+
+    if (this.doctype && this.doctype.name === "html") {
+      throw new DOMException(NOT_SUPPORTED_ERR);
+    }
 
     name = name.replace(/[&;]/g,"");
     if (!name || !name.length) {
