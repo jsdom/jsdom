@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>http://www.w3.org/2001/DOM-Test-Suite/level3/ls/nooutputspecified01</title>
+<link type="text/css" rel="stylesheet" href="http://www.w3.org/StyleSheets/activity-home.css">
+<script src="../../jsunit/app/jsUnitCore.js" type="text/javascript"></script><script src="DOMTestCase.js" type="text/javascript"></script><script type="text/javascript">
+// expose test function names
+function exposeTestFunctionNames()
+{
+return ['nooutputspecified01'];
+}
+
+var docsLoaded = -1000000;
+var builder = null;
+
+//
+//   This function is called by the testing framework before
+//      running the test suite.
+//
+//   If there are no configuration exceptions, asynchronous
+//        document loading is started.  Otherwise, the status
+//        is set to complete and the exception is immediately
+//        raised when entering the body of the test.
+//
+function setUpPage() {
+   setUpPageStatus = 'running';
+   try {
+     //
+     //   creates test document builder, may throw exception
+     //
+     builder = createConfiguredBuilder();
+
+      docsLoaded = 0;
+      
+       if (docsLoaded == 0) {
+          setUpPage = 'complete';
+       }
+    } catch(ex) {
+    	catchInitializationError(builder, ex);
+        setUpPage = 'complete';
+    }
+}
+
+
+
+//
+//   This method is called on the completion of 
+//      each asychronous load started in setUpTests.
+//
+//   When every synchronous loaded document has completed,
+//      the page status is changed which allows the
+//      body of the test to be executed.
+function loadComplete() {
+    if (++docsLoaded == 0) {
+        setUpPageStatus = 'complete';
+    }
+}
+
+//DOMErrorMonitor's require a document level variable named errorMonitor
+var errorMonitor;
+	 
+/**
+* 
+Writing to an uninitialized LSOutput should result in a SERIALIZATION_ERR.
+
+* @author Curt Arnold
+* @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-write
+*/
+function nooutputspecified01() {
+   var success;
+    if(checkInitialization(builder, "nooutputspecified01") != null) return;
+    var doc;
+      var domConfig;
+      var domImplLS;
+      var lsSerializer;
+      var lsOutput;
+      errorMonitor = new DOMErrorMonitor();
+      
+      var errors = new Array();
+
+      var error;
+      var severity;
+      var type;
+      var errorCount = 0;
+      var docType = null;
+
+      var retval;
+      domImplLS = getImplementation();
+lsSerializer = domImplLS.createLSSerializer();
+      lsOutput = domImplLS.createLSOutput();
+      doc = domImplLS.createDocument("http://www.w3.org/1999/xhtml","html",docType);
+      domConfig = lsSerializer.domConfig;
+
+      domConfig.setParameter("error-handler", errorMonitor.handleError);
+	 
+	{
+		success = false;
+		try {
+            retval = lsSerializer.write(doc,lsOutput);
+        }
+		catch(ex) {            
+      success = (typeof(ex.code) != 'undefined' && ex.code == 82);
+		}
+		assertTrue("throw_SERIALIZE_ERR",success);
+	}
+errors = errorMonitor.allErrors;
+for(var indexN10081 = 0;indexN10081 < errors.length; indexN10081++) {
+      error = errors[indexN10081];
+      severity = error.severity;
+
+      type = error.type;
+
+      
+	if(
+	
+	(severity > 1)
+
+	) {
+	assertEquals("isFatalError",3,severity);
+       assertEquals("noOutputSpecified","no-output-specified",type);
+       errorCount += 1;
+
+	}
+	
+	}
+   assertEquals("oneError",1,errorCount);
+       
+}
+
+</script>
+</head>
+<body>
+<h2>Test http://www.w3.org/2001/DOM-Test-Suite/level3/ls/nooutputspecified01</h2>
+<p>&lt;test name='nooutputspecified01' schemaLocation='http://www.w3.org/2001/DOM-Test-Suite/Level-3 dom3.xsd'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;nooutputspecified01&lt;/title&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;creator&gt;Curt Arnold&lt;/creator&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;description&gt;
+Writing to an uninitialized LSOutput should result in a SERIALIZATION_ERR.
+&lt;/description&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;date qualifier='created'&gt;2004-03-31&lt;/date&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-write">http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-write</a>'/&gt;
+<br>&lt;/metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='doc' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='domConfig' type='DOMConfiguration'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='domImplLS' type='DOMImplementationLS'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='lsSerializer' type='LSSerializer'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='lsOutput' type='LSOutput'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='errorMonitor' type='DOMErrorMonitor'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='errors' type='List'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='error' type='DOMError'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='severity' type='int'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='type' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='errorCount' type='int' value='0'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='docType' type='DocumentType' isNull='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='retval' type='boolean'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;implementation var='domImplLS'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createLSSerializer var='lsSerializer' obj='domImplLS'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createLSOutput var='lsOutput' obj='domImplLS'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createDocument var='doc' obj='domImplLS' namespaceURI='"http://www.w3.org/1999/xhtml"' qualifiedName='"html"' doctype='docType'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;domConfig obj='lsSerializer' var='domConfig' interface='LSSerializer'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;setParameter obj='domConfig' name='"error-handler"' value='errorMonitor'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertLSException <a id="throw_SERIALIZE_ERR">id='throw_SERIALIZE_ERR'</a>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;SERIALIZE_ERR&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;write var='retval' obj='lsSerializer' nodeArg='doc' destination='lsOutput'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/SERIALIZE_ERR&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/assertLSException&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;allErrors var='errors' obj='errorMonitor'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;for-each member='error' collection='errors'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;severity var='severity' obj='error'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;type var='type' obj='error' interface='DOMError'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;greater actual='severity' expected='1'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='severity' expected='3' <a id="isFatalError">id='isFatalError'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='type' expected='"no-output-specified"' <a id="noOutputSpecified">id='noOutputSpecified'</a> ignoreCase='false'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;increment var='errorCount' value='1'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/if&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/for-each&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='errorCount' expected='1' ignoreCase='false' <a id="oneError">id='oneError'</a>/&gt;<br>&lt;/test&gt;<br>
+</p>
+<p>
+			Copyright (c) 2001-2004 World Wide Web Consortium,
+			(Massachusetts Institute of Technology, Institut National de
+			Recherche en Informatique et en Automatique, Keio University). All
+			Rights Reserved. This program is distributed under the W3C's Software
+			Intellectual Property License. This program is distributed in the
+			hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+			the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+			PURPOSE.
+			</p>
+<p>See W3C License <a href="http://www.w3.org/Consortium/Legal/">http://www.w3.org/Consortium/Legal/</a> 
+ for more details.</p>
+</body>
+</html>

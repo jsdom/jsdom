@@ -1,0 +1,9 @@
+
+level1-core	527/527		100% passing
+level2-core	4/283		1% passing
+level2-html	0/685		0% passing
+level3-core	25/722		3% passing
+level3-ls	0/175		0% passing
+--------------------------------------------
+TOTALS:		556/2392	23% passing
+

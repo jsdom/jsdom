@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>http://www.w3.org/2001/DOM-Test-Suite/level3/ls/DOMEntityResolverTest2</title>
+<link type="text/css" rel="stylesheet" href="http://www.w3.org/StyleSheets/activity-home.css">
+<script src="../../jsunit/app/jsUnitCore.js" type="text/javascript"></script><script src="DOMTestCase.js" type="text/javascript"></script><script type="text/javascript">
+// expose test function names
+function exposeTestFunctionNames()
+{
+return ['DOMEntityResolverTest2'];
+}
+
+var docsLoaded = -1000000;
+var builder = null;
+
+//
+//   This function is called by the testing framework before
+//      running the test suite.
+//
+//   If there are no configuration exceptions, asynchronous
+//        document loading is started.  Otherwise, the status
+//        is set to complete and the exception is immediately
+//        raised when entering the body of the test.
+//
+function setUpPage() {
+   setUpPageStatus = 'running';
+   try {
+     //
+     //   creates test document builder, may throw exception
+     //
+     builder = createConfiguredBuilder();
+
+      docsLoaded = 0;
+      
+       if (docsLoaded == 0) {
+          setUpPage = 'complete';
+       }
+    } catch(ex) {
+    	catchInitializationError(builder, ex);
+        setUpPage = 'complete';
+    }
+}
+
+
+
+//
+//   This method is called on the completion of 
+//      each asychronous load started in setUpTests.
+//
+//   When every synchronous loaded document has completed,
+//      the page status is changed which allows the
+//      body of the test to be executed.
+function loadComplete() {
+    if (++docsLoaded == 0) {
+        setUpPageStatus = 'complete';
+    }
+}
+
+
+     /**
+      *    Inner class implementation for variable myentityresolver 
+      */
+var myentityresolver;
+
+/**
+        * Constructor
+
+        */
+	      
+function LSResourceResolverN10030() { 
+           }
+   
+        /**
+         *    
+Allow the application to resolve external resources.
+TheLSParserwill call this method before opening any external resource, including the external DTD subset, external entities referenced within the DTD, and external entities referenced within the document element (however, the top-level document entity is not passed to this method). The application may then request that theLSParserresolve the external resource itself, that it use an alternative URI, or that it use an entirely different input source.
+Application writers can use this method to redirect external system identifiers to secure and/or local URI, to look up public identifiers in a catalogue, or to read an entity from a database or other input source (including, for example, a dialog box).
+
+         * @param type 
+The type of the resource being resolved. For XMLresources (i.e. entities), applications must use the value"http://www.w3.org/TR/REC-xml". For XML Schema, applications must use the value"http://www.w3.org/2001/XMLSchema". Other types of resources are outside the scope of this specification and therefore should recommend an absolute URI in order to use this method.
+
+         * @param namespaceURI 
+The namespace of the resource being resolved, e.g. the target namespace of the XML Schemawhen resolving XML Schema resources.
+
+         * @param publicId 
+The public identifier of the external entity being referenced, ornullif no public identifier was supplied or if the resource is not an entity.
+
+         * @param systemId 
+The system identifier, a URI reference, of the external resource being referenced, ornullif no system identifier was supplied.
+
+         * @param baseURI 
+The absolute base URI of the resource being parsed, ornullif there is no base URI.
+
+         */
+LSResourceResolverN10030.prototype.resolveResource = function(type, namespaceURI, publicId, systemId, baseURI) {
+         //
+         //   bring class variables into function scope
+         //
+        var domImplLS;
+      var redirectedInput;
+      var source = "<!DOCTYPE failure [<!ELEMENT failure EMPTY>]><failure/>";
+      domImplLS = getImplementation();
+redirectedInput = domImplLS.createLSInput();
+      redirectedInput.stringData = source;
+
+              return redirectedInput;
+}
+
+/**
+* Resource resolvers do not participate in resolving the top-level document entity.
+    This test attempts to redirect any resource and then checks that the
+    requested document was not affected.
+* @author Jeroen van Rotterdam
+* @author X-Hive Corporation
+* @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSResourceResolver-resolveResource
+* @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-resource-resolver
+*/
+function DOMEntityResolverTest2() {
+   var success;
+    if(checkInitialization(builder, "DOMEntityResolverTest2") != null) return;
+    var resourceURI;
+      var docElem;
+      var docElemName;
+      myentityresolver = new LSResourceResolverN10030();
+	  
+      var configuration;
+      var implementation;
+      var lsImplementation;
+      var inputSource;
+      var document;
+      var writer;
+      var builder;
+      var MODE_SYNCHRONOUS = 1;
+      var MODE_ASYNCHRONOUS = 2;
+      var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
+      var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
+      var NULL_SCHEMATYPE = null;
+
+      var ACTION_REPLACE_CHILDREN = 2;
+      var ACTION_APPEND_AS_CHILDREN = 1;
+      var ACTION_INSERT_AFTER = 4;
+      var ACTION_INSERT_BEFORE = 3;
+      var ACTION_REPLACE = 5;
+      var TEST0 = "test0";
+      var TEST1 = "test1";
+      var TEST2 = "test2";
+      var TEST3 = "test3";
+      var TEST4 = "test4";
+      var TEST5 = "test5";
+      var TEST6 = "test6";
+      var TEST7 = "test7";
+      var TESTPDF = "testpdf";
+      implementation = getImplementation();
+lsImplementation =  implementation;
+builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
+      writer = lsImplementation.createLSSerializer();
+      inputSource = lsImplementation.createLSInput();
+      configuration = builder.domConfig;
+
+      configuration.setParameter("resource-resolver", myentityresolver);
+	 resourceURI = getResourceURI(TEST0);
+      document = builder.parseURI(resourceURI);
+      assertNotNull("documentNotNull",document);
+docElem = document.documentElement;
+
+      docElemName = docElem.nodeName;
+
+      assertEquals("docElemName","elt0",docElemName);
+       
+}
+
+</script>
+</head>
+<body>
+<h2>Test http://www.w3.org/2001/DOM-Test-Suite/level3/ls/DOMEntityResolverTest2</h2>
+<p>&lt;test name='DOMEntityResolverTest2' schemaLocation='http://www.w3.org/2001/DOM-Test-Suite/Level-3 dom3.xsd'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;DOMEntityResolverTest2&lt;/title&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;creator&gt;Jeroen van Rotterdam&lt;/creator&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;description&gt;Resource resolvers do not participate in resolving the top-level document entity.
+    This test attempts to redirect any resource and then checks that the
+    requested document was not affected.&lt;/description&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;contributor&gt;X-Hive Corporation&lt;/contributor&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;date qualifier='created'&gt;2002-03-23&lt;/date&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSResourceResolver-resolveResource">http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSResourceResolver-resolveResource</a>'/&gt;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subject resource='<a href="http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-resource-resolver">http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-resource-resolver</a>'/&gt;
+<br>&lt;/metadata&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='resourceURI' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='docElem' type='Element'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='docElemName' type='DOMString'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='myentityresolver' type='LSResourceResolver'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;resolveResource&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='domImplLS' type='DOMImplementationLS'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='redirectedInput' type='LSInput'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='source' type='DOMString' value='"&lt;!DOCTYPE failure [&lt;!ELEMENT failure EMPTY&gt;]&gt;&lt;failure/&gt;"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--  
+            The resolveResource should not be invoked, 
+               but if it is substitute a failure document   --&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;implementation var='domImplLS'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createLSInput var='redirectedInput' obj='domImplLS'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;stringData obj='redirectedInput' value='source' interface='LSInput'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;return value='redirectedInput'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/resolveResource&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/var&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='configuration' type='DOMConfiguration'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='implementation' type='DOMImplementation'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='lsImplementation' type='DOMImplementationLS'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='inputSource' type='LSInput'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='document' type='Document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='writer' type='LSSerializer'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='builder' type='LSParser'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- constants  --&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='MODE_SYNCHRONOUS' type='short' value='1'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='MODE_ASYNCHRONOUS' type='short' value='2'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='DTD_SCHEMATYPE' type='DOMString' value='"http://www.w3.org/TR/REC-xml"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='SCHEMA_SCHEMATYPE' type='DOMString' value='"http://www.w3.org/2001/XMLSchema"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='NULL_SCHEMATYPE' type='DOMString' isNull='true'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- action types DOMParser.parseWithContext --&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='ACTION_REPLACE_CHILDREN' type='short' value='2'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='ACTION_APPEND_AS_CHILDREN' type='short' value='1'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='ACTION_INSERT_AFTER' type='short' value='4'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='ACTION_INSERT_BEFORE' type='short' value='3'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='ACTION_REPLACE' type='short' value='5'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- testfiles  --&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='TEST0' type='DOMString' value='"test0"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='TEST1' type='DOMString' value='"test1"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='TEST2' type='DOMString' value='"test2"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='TEST3' type='DOMString' value='"test3"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='TEST4' type='DOMString' value='"test4"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='TEST5' type='DOMString' value='"test5"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='TEST6' type='DOMString' value='"test6"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='TEST7' type='DOMString' value='"test7"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;var name='TESTPDF' type='DOMString' value='"testpdf"'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;implementation var='implementation'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assign var='lsImplementation' value='implementation'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createLSParser var='builder' obj='lsImplementation' mode='MODE_SYNCHRONOUS' schemaType='NULL_SCHEMATYPE'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createLSSerializer var='writer' obj='lsImplementation'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;createLSInput var='inputSource' obj='lsImplementation'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;domConfig var='configuration' obj='builder' interface='LSParser'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;setParameter obj='configuration' name='"resource-resolver"' value='myentityresolver'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;getResourceURI var='resourceURI' href='TEST0' contentType='text/xml'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;parseURI var='document' obj='builder' uri='resourceURI'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertNotNull actual='document' <a id="documentNotNull">id='documentNotNull'</a>/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;documentElement var='docElem' obj='document'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nodeName var='docElemName' obj='docElem'/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;assertEquals actual='docElemName' expected='"elt0"' <a id="docElemName">id='docElemName'</a> ignoreCase='false'/&gt;<br>&lt;/test&gt;<br>
+</p>
+<p>
+			Copyright (c) 2001-2004 World Wide Web Consortium,
+			(Massachusetts Institute of Technology, Institut National de
+			Recherche en Informatique et en Automatique, Keio University). All
+			Rights Reserved. This program is distributed under the W3C's Software
+			Intellectual Property License. This program is distributed in the
+			hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+			the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+			PURPOSE.
+			</p>
+<p>See W3C License <a href="http://www.w3.org/Consortium/Legal/">http://www.w3.org/Consortium/Legal/</a> 
+ for more details.</p>
+</body>
+</html>
