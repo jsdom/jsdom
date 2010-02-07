@@ -26,6 +26,15 @@ exports.staff = function() {
   ent5.publicId = "entityURI";
   ent5.systemId = "entityFile";
   ent5.notationName = "notation1";
+
+  //<!ENTITY svgunit SYSTEM "svgunit.js">
+  var entsvgunit = doc.createEntityNode("svgunit");
+  entsvgunit.systemId = "svgtest.js"
+  
+  //<!ENTITY svgtest SYSTEM "svgtest.js">
+  var entsvgtest = doc.createEntityNode("svgtest");
+  entsvgtest.systemId = "svgtest.js"
+  
   
   var entities = new EntityNodeMap(
     doc,
@@ -33,7 +42,9 @@ exports.staff = function() {
     doc.createEntityNode("ent2",doc.createTextNode("1900 Dallas Road")),
     doc.createEntityNode("ent3",doc.createTextNode("Texas")),
     ent4,
-    ent5
+    ent5,
+    entsvgunit,
+    entsvgtest
   );
 
 
@@ -60,11 +71,25 @@ exports.staff = function() {
   defaultAddress.setAttribute("street", "Yes");
   defaultAttributes.setNamedItem(defaultAddress);
 
-  doc.doctype = new DocumentType(doc, "staff", entities, notations, defaultAttributes);
+  doc.doctype = new DocumentType(doc, "svg", entities, notations, defaultAttributes);
   
   doc.implementation = implementation;  
   
-  var staff     = doc.createElement("staff");
+  var staff     = doc.createElement("svg");
+  staff.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+  //<rect x="0" y="0" width="100" height="100"/><script type="text/ecmascript">&svgtest;&svgunit;</script>
+  var rect =  doc.createElement("rect");
+  rect.setAttribute("x", "0");
+  rect.setAttribute("y", "0");
+  rect.setAttribute("width", "100");
+  rect.setAttribute("height", "100");
+  staff.appendChild(rect);
+  
+  var script = doc.createElement("script");
+  script.setAttribute("type", "text/ecmascript");
+  script.nodeValue = "&svgtest;&svgunit;";
+  staff.appendChild(script);
+  
   var employees = [];
   var addresses = [];
   var names     = [];
@@ -159,91 +184,87 @@ exports.staff = function() {
   positions[4].appendChild(doc.createTextNode("Computer Specialist"));
   
   doc.appendChild(doc.createProcessingInstruction("TEST-STYLE", "PIDATA"));
-
 /*
-<!ELEMENT employeeId (#PCDATA)>
-<!ELEMENT name (#PCDATA)>
-<!ELEMENT position (#PCDATA)>
-<!ELEMENT salary (#PCDATA)>
-<!ELEMENT address (#PCDATA)>
-<!ELEMENT entElement ( #PCDATA ) >
-<!ELEMENT gender ( #PCDATA | entElement )* >
-<!ELEMENT employee (employeeId, name, position, salary, gender, address) >
-<!ELEMENT staff (employee)+>
-<!ATTLIST entElement 
-          attr1 CDATA "Attr">
-<!ATTLIST address
-          domestic CDATA #IMPLIED 
-          street CDATA "Yes">
-<!ATTLIST entElement 
-          domestic CDATA "MALE" >
+  <?xml version="1.0"?><?TEST-STYLE PIDATA?>
+  <!DOCTYPE svg SYSTEM "staff.dtd" [
+     <!ENTITY ent1 "es">
+     <!ENTITY ent2 "1900 Dallas Road">
+     <!ENTITY ent3 "Texas">
+     <!ENTITY ent4 "<entElement domestic='Yes'>Element data</entElement><?PItarget PIdata?>">
+     <!ENTITY ent5 PUBLIC "entityURI" "entityFile" NDATA notation1>
+     <!ENTITY ent1 "This entity should be discarded">
+     <!NOTATION notation1 PUBLIC "notation1File">
+     <!NOTATION notation2 SYSTEM "notation2File">
+     <!ATTLIST employee xmlns CDATA #IMPLIED>
 
-*/
+     <!ELEMENT svg (rect, script, employee+)>
+     <!ATTLIST svg 
+        xmlns CDATA #FIXED "http://www.w3.org/2000/svg"
+        name CDATA #IMPLIED>
+     <!ELEMENT rect EMPTY>
+     <!ATTLIST rect 
+        x CDATA #REQUIRED
+        y CDATA #REQUIRED
+        width CDATA #REQUIRED
+        height CDATA #REQUIRED>
+    <!ELEMENT script (#PCDATA)>
+    <!ATTLIST script type CDATA #IMPLIED>      
+    <!ENTITY svgunit SYSTEM "svgunit.js">
+    <!ENTITY svgtest SYSTEM "svgtest.js">
+  ]>
+  <!-- This is comment number 1.-->
 
-  /*<?xml version="1.0"?><?TEST-STYLE PIDATA?>
-<!DOCTYPE staff SYSTEM "staff.dtd" [
-   <!ENTITY ent1 "es">
-   <!ENTITY ent2 "1900 Dallas Road">
-   <!ENTITY ent3 "Texas">
-   <!ENTITY ent4 "<entElement domestic='Yes'>Element data</entElement><?PItarget PIdata?>">
-   <!ENTITY ent5 PUBLIC "entityURI" "entityFile" NDATA notation1>
-   <!ENTITY ent1 "This entity should be discarded">
-   <!NOTATION notation1 PUBLIC "notation1File">
-   <!NOTATION notation2 SYSTEM "notation2File">
-]>
+  <svg xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="100" height="100"/><script type="text/ecmascript">&svgunit;&svgtest;</script>
+   <employee xmlns="http://www.w3.org/2001/DOM-Test-Suite/Level-1/Files">
+    <employeeId>EMP0001</employeeId>
+    <name>Margaret Martin</name>
+    <position>Accountant</position>           
+    <salary>56,000</salary>
+    <gender>Female</gender>
 
-<!-- This is comment number 1.-->
-<staff>
- <employee>
-  <employeeId>EMP0001</employeeId>
-  <name>Margaret Martin</name>
-  <position>Accountant</position>           
-  <salary>56,000</salary>
-  <gender>Female</gender>
+    <address domestic="Yes">1230 North Ave. Dallas, Texas 98551</address>
+   </employee>
+   <employee xmlns="http://www.w3.org/2001/DOM-Test-Suite/Level-1/Files">
+    <employeeId>EMP0002</employeeId>
+    <name>Martha Raynolds<![CDATA[This is a CDATASection with EntityReference number 2 &ent2;]]>
+  <![CDATA[This is an adjacent CDATASection with a reference to a tab &tab;]]></name>
+    <position>Secretary</position>
 
-  <address domestic="Yes">1230 North Ave. Dallas, Texas 98551</address>
- </employee>
- <employee>
-  <employeeId>EMP0002</employeeId>
-  <name>Martha Raynolds<![CDATA[This is a CDATASection with EntityReference number 2 &ent2;]]>
-<![CDATA[This is an adjacent CDATASection with a reference to a tab &tab;]]></name>
-  <position>Secretary</position>
+    <salary>35,000</salary>
+    <gender>Female</gender>
+    <address domestic="Yes" street="Yes">&ent2; Dallas, &ent3;
+   98554</address>
+   </employee>
+   <employee xmlns="http://www.w3.org/2001/DOM-Test-Suite/Level-1/Files">
 
-  <salary>35,000</salary>
-  <gender>Female</gender>
-  <address domestic="Yes" street="Yes">&ent2; Dallas, &ent3;
- 98554</address>
- </employee>
- <employee>
+    <employeeId>EMP0003</employeeId>
+    <name>Roger
+   Jones</name>
+    <position>Department Manager</position>
+    <salary>100,000</salary>
+    <gender>&ent4;</gender>
+    <address domestic="Yes" street="No">PO Box 27 Irving, texas 98553</address>
 
-  <employeeId>EMP0003</employeeId>
-  <name>Roger
- Jones</name>
-  <position>Department Manager</position>
-  <salary>100,000</salary>
-  <gender>&ent4;</gender>
-  <address domestic="Yes" street="No">PO Box 27 Irving, texas 98553</address>
+   </employee>
+   <employee xmlns="http://www.w3.org/2001/DOM-Test-Suite/Level-1/Files">
+    <employeeId>EMP0004</employeeId>
+    <name>Jeny Oconnor</name>
+    <position>Personnel Director</position>
+    <salary>95,000</salary>
+    <gender>Female</gender>
 
- </employee>
- <employee>
-  <employeeId>EMP0004</employeeId>
-  <name>Jeny Oconnor</name>
-  <position>Personnel Director</position>
-  <salary>95,000</salary>
-  <gender>Female</gender>
+    <address domestic="Yes" street="Y&ent1;">27 South Road. Dallas, Texas 98556</address>
+   </employee>
+   <employee xmlns="http://www.w3.org/2001/DOM-Test-Suite/Level-1/Files">
+    <employeeId>EMP0005</employeeId>
+    <name>Robert Myers</name>
+    <position>Computer Specialist</position>
+    <salary>90,000</salary>
 
-  <address domestic="Yes" street="Y&ent1;">27 South Road. Dallas, Texas 98556</address>
- </employee>
- <employee>
-  <employeeId>EMP0005</employeeId>
-  <name>Robert Myers</name>
-  <position>Computer Specialist</position>
-  <salary>90,000</salary>
-
-  <gender>male</gender>
-  <address street="Yes">1821 Nordic. Road, Irving Texas 98558</address>
- </employee>
- </staff>
+    <gender>male</gender>
+    <address street="Yes">1821 Nordic. Road, Irving Texas 98558</address>
+   </employee>
+   </svg>
 */
 
   doc.appendChild(doc.createComment(" This is comment number 1."));

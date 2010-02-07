@@ -68,11 +68,12 @@ var tests = {
   "level3/ls"   : { cases: require("./level3/ls").tests,   errors: [], total:0, type: "html", contentType: "text/html"}
 };
 var runTest  = function(suiteName, suite, test) {
-     total++;
+  total++;
   GLOBAL.builder.contentType   = suite.contentType;
-   GLOBAL.builder.type          = suite.type;
-   GLOBAL.builder.testDirectory = suiteName; try {
- 
+  GLOBAL.builder.type          = suite.type;
+  GLOBAL.builder.testDirectory = suiteName; 
+   
+  try {
     suite.cases[test].call(GLOBAL);
   } catch (e) {
     suite.errors.push({ method: test, error: e});

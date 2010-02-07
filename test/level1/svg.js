@@ -9881,6 +9881,7 @@ exports.tests = {
       (builder.contentType == "image/svg+xml")
 
     ) {
+      
       assertEqualsListAutoCase("element", "svgTagNames",svgExpectedNames,actualNames);
 
     }
@@ -14194,9 +14195,9 @@ exports.tests = {
             elementList = doc.getElementsByTagName("p");
             employeeNode = elementList.item(1);
             lcNode = employeeNode.lastChild;
-
+//debug(lcNode === employeeNode.children.item(employeeNode.children.length));
             nsNode = lcNode.nextSibling;
-
+//debug(nsNode === lcNode);
             assertNull("nodeGetNextSiblingNullAssert1",nsNode);
 
           },

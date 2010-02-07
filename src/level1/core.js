@@ -234,12 +234,20 @@ core.Node.prototype = {
     }
 
     var currentNode;
+    var index = 0;
+
     while ((currentNode = this._parentNode.childNodes[index]))
     {
       index++;
       if (currentNode === this) { break; }
     }
-    return this._parentNode.childNodes[index] || null;
+    
+    // TODO: there is some subtle weirdness here.
+    if (this._parentNode.childNodes.item(index) === this) {
+      index++;
+    }
+    
+    return this._parentNode.childNodes.item(index) || null;
   },
   set nextSibling() { throw new DOMException(); },
 
@@ -282,7 +290,6 @@ core.Node.prototype = {
       throw new DOMException(WRONG_DOCUMENT_ERR);
     }
 
-    var newChildren = new core.NodeList();
     var found = false;
     
     // if the newChild is already in the tree elsewhere, remove it first
@@ -322,10 +329,9 @@ core.Node.prototype = {
     	  } else {
     	    this._children.splice(i,0,newChild);
     	    newChild._parentNode = this;
-    	    i++;
     	  }
-
         found = true;
+        break;
       }
     }
     

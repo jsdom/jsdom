@@ -32,14 +32,27 @@ exports.hc_staff = function() {
   
   
 
-  var doctype = new DocumentType(doc, "xml", entities, notations, defaultAttributes);
+  var doctype = new DocumentType(doc, "svg", entities, notations, defaultAttributes);
   doc.doctype = doctype;
   doc.implementation = implementation;
   
   doc.appendChild(doc.createComment(" This is comment number 1."));
   
-  var html      = doc.createElement("html");
+  var html      = doc.createElement("svg");
   var html      = doc.appendChild(html);
+  
+  //<rect x="0" y="0" width="100" height="100"/><script type="text/ecmascript">&svgtest;&svgunit;</script>
+  var rect =  doc.createElement("rect");
+  rect.setAttribute("x", "0");
+  rect.setAttribute("y", "0");
+  rect.setAttribute("width", "100");
+  rect.setAttribute("height", "100");
+  html.appendChild(rect);  
+
+  var script = doc.createElement("script");
+  script.setAttribute("type", "text/ecmascript");
+  script.nodeValue = "&svgtest;&svgunit;";
+  html.appendChild(script);
   
   var head      = doc.createElement("head");
   var head      = html.appendChild(head);
@@ -52,11 +65,6 @@ exports.hc_staff = function() {
   var title     = doc.createElement("title")
   title.appendChild(doc.createTextNode("hc_staff"));
   var title     = head.appendChild(title);
-
-  // make the tests work....
-  head.appendChild(doc.createElement("script"));
-  head.appendChild(doc.createElement("script"));
-  head.appendChild(doc.createElement("script"));
 
   var body      = doc.createElement("body");
   var staff     = html.appendChild(body);
@@ -80,6 +88,7 @@ exports.hc_staff = function() {
     var id       = doc.createElement("em");
     var salary   = doc.createElement("sup");
     
+
     employee.appendChild(doc.createTextNode("\r\n")); 
     employee.appendChild(id);
     employee.appendChild(doc.createTextNode("\r\n")); 
@@ -91,6 +100,11 @@ exports.hc_staff = function() {
     employee.appendChild(doc.createTextNode("\r\n")); 
     employee.appendChild(gender);
     employee.appendChild(doc.createTextNode("\r\n")); 
+    
+    if (i===1) {
+      employee.appendChild(doc.createTextNode("\r\n")); 
+    }
+    
     employee.appendChild(address);
     employee.appendChild(doc.createTextNode("\r\n")); 
     staff.appendChild(employee);
@@ -113,7 +127,7 @@ exports.hc_staff = function() {
   positions[0].appendChild(doc.createTextNode("Accountant"));
 
   ids[1].appendChild(doc.createTextNode("EMP0002"));
-  salaries[1].appendChild(doc.createTextNode("35,000"));
+  salaries[1].appendChild(doc.createTextNode("35,000"));  
   addresses[1].setAttribute("title", "Yes");
   addresses[1].setAttribute("class", "Yes");
   addresses[1].appendChild(doc.createTextNode("β Dallas, γ\n 98554"));
@@ -156,9 +170,8 @@ exports.hc_staff = function() {
 };
 
 /*
-<?xml version="1.0"?>
-<?TEST-STYLE PIDATA?>
-<!DOCTYPE html
+<?xml version="1.0"?><?TEST-STYLE PIDATA?>
+<!DOCTYPE svg
    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
    "xhtml1-strict.dtd" [
    <!ENTITY alpha "&#945;">
@@ -171,65 +184,76 @@ exports.hc_staff = function() {
    <!NOTATION notation2 SYSTEM "notation2File">
    <!ATTLIST acronym dir CDATA "ltr">
 
+   <!ATTLIST head xmlns CDATA #IMPLIED>
+   <!ATTLIST body xmlns CDATA #IMPLIED>
+   <!ELEMENT svg (rect, script, head, body)>
+   <!ATTLIST svg xmlns CDATA #IMPLIED>
+   <!ELEMENT rect EMPTY>
+   <!ATTLIST rect
+        x CDATA #IMPLIED
+        y CDATA #IMPLIED
+        width CDATA #IMPLIED
+        height CDATA #IMPLIED>        
+   <!ENTITY svgunit SYSTEM "svgunit.js">   
+   <!ENTITY svgtest SYSTEM "svgtest.js">   
 ]>
 <!-- This is comment number 1.-->
-<html xmlns='http://www.w3.org/1999/xhtml'>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>hc_staff</title>
-	<script type="text/javascript" src="svgunit.js"/>
-	<script charset="UTF-8" type="text/javascript" src="svgtest.js"/>
-	<script type='text/javascript'>function loadComplete() { startTest(); }</script>
+<svg xmlns='http://www.w3.org/2000/svg'><rect x="0" y="0" width="100" height="100"/>
+<script type="text/ecmascript">&svgtest;&svgunit;</script>
+<head xmlns='http://www.w3.org/1999/xhtml'>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>hc_staff</title>
 </head>
-<body>
+<body xmlns='http://www.w3.org/1999/xhtml'>
+
  <p>
   <em>EMP0001</em>
   <strong>Margaret Martin</strong>
   <code>Accountant</code>           
   <sup>56,000</sup>
-
   <var>Female</var>
   <acronym title="Yes">1230 North Ave. Dallas, Texas 98551</acronym>
+
  </p>
  <p>
   <em>EMP0002</em>
   <strong>Martha RaynoldsThis is a CDATASection with EntityReference number 2 &amp;ent2;
 This is an adjacent CDATASection with a reference to a tab &amp;tab;</strong>
-
   <code>Secretary</code>
   <sup>35,000</sup>
+
   <var>Female</var>
   <acronym title="Yes" class="Yes">&beta; Dallas, &gamma;
  98554</acronym>
  </p>
-
  <p>
   <em>EMP0003</em>
+
   <strong>Roger
  Jones</strong>
   <code>Department Manager</code>
   <sup>100,000</sup>
   <var>&delta;</var>
   <acronym title="Yes" class="No">PO Box 27 Irving, texas 98553</acronym>
-
  </p>
  <p>
+
   <em>EMP0004</em>
   <strong>Jeny Oconnor</strong>
   <code>Personnel Director</code>
   <sup>95,000</sup>
   <var>Female</var>
-
   <acronym title="Yes" class="Y&alpha;">27 South Road. Dallas, Texas 98556</acronym>
+
  </p>
  <p>
   <em>EMP0005</em>
   <strong>Robert Myers</strong>
   <code>Computer Specialist</code>
   <sup>90,000</sup>
-
   <var>male</var>
+
   <acronym title="Yes">1821 Nordic. Road, Irving Texas 98558</acronym>
  </p>
-</body></html>
+</body></svg>
 */
