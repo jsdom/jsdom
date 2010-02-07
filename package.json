@@ -1,0 +1,61 @@
+{
+    "name": "jsdom",
+    "version": "0.0.1",
+    "description": "pure js implementation of the dom (level 1, 2, and 3. with events) ",
+    "keywords": [
+        "dom",
+        "javascript" 
+    ],
+    "maintainers": [
+        {
+            "name": "Elijah Insua",
+            "email": "tmpvar@gmail.com",
+            "web": "http://tmpvar.com" 
+        } 
+    ],
+    "contributors": [
+        {
+            "name": "Vincent Greene",
+            "email": "ulteriorlife@gmail.com" 
+        } 
+    ],
+    "bugs": {
+        "mail": "tmpvar@gmail.com",
+        "web": "http://http://github.com/tmpvar/jsdom/issues" 
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://github.com/tmpvar/jsdom/blob/master/LICENSE.txt" 
+        } 
+    ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "http://github.com/tmpvar/jsdom.git" 
+        } 
+    ],
+    "implements": [
+        "http://www.w3.org/TR/REC-DOM-Level-1",
+        
+    ],
+    "os": [
+        "linux",
+        "macos",
+        "win" 
+    ],
+    "cpu": [
+        "x86",
+        "ppc",
+        "x86_64" 
+    ],
+    "engines": [
+        "v8",
+        "ejs",
+        "node",
+        "rhino" 
+    ],
+    "directories": {
+        "lib": "lib" 
+    } 
+}

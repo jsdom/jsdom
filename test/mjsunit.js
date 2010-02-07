@@ -25,6 +25,8 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+// This has been modified to follow a message first argument sequence -- Elijah Insua
+
 function MjsUnitAssertionError(message) {
   this.message = message;
 }
