@@ -135,13 +135,21 @@ if (args.suite) {
 } else {
 var numerator, denominator, percent;
 sys.puts("");
+
+var padName = function(name) {
+  while(name.length < 13) {
+    name+=" ";
+  }
+  return name;
+}
+
 for (var suiteName in tests)
 {
   if (tests.hasOwnProperty(suiteName)) {
     numerator   = tests[suiteName].total - tests[suiteName].errors.length;
     denominator = tests[suiteName].total;
     percent     = Math.round((numerator / denominator)*100,2);
-    sys.puts(suiteName + "\t" + numerator + "/" + denominator + "\t\t" + percent + "% passing");
+    sys.puts(padName(suiteName) + "\t" + numerator + "/" + denominator + "\t\t" + percent + "% passing");
   }
 }
 
