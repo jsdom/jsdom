@@ -59,13 +59,14 @@ for (var i=0; i<process.ARGV.length; i++)
 var errors = [];
 var total = 0;
 var tests = {
-  "level1/core" : { cases: require("./level1/core").tests, errors: [], total:0, type: "xml",  contentType: "text/xml"},
+  "level1/core" : { cases: require("./level1/core").tests, errors: [], total:0, type: "xml" , contentType: "text/xml"},
   "level1/html" : { cases: require("./level1/html").tests, errors: [], total:0, type: "html", contentType: "text/html"},
-  "level1/svg"  : { cases: require("./level1/svg").tests, errors: [], total:0, type: "svg",  contentType: "image/svg+xml"},
-  "level2/core" : { cases: require("./level2/core").tests, errors: [], total:0, type: "xml",  contentType: "text/xml"},
+  "level1/svg"  : { cases: require("./level1/svg").tests , errors: [], total:0, type: "svg" , contentType: "image/svg+xml"},
+  "browser"     : { cases: require("./browser").tests    , errors: [], total:0, type: "html", contentType: "text/html"},
+  "level2/core" : { cases: require("./level2/core").tests, errors: [], total:0, type: "xml" , contentType: "text/xml"},
   "level2/html" : { cases: require("./level2/html").tests, errors: [], total:0, type: "html", contentType: "text/html"},
-  "level3/core" : { cases: require("./level3/core").tests, errors: [], total:0, type: "xml",  contentType: "text/xml"},
-  "level3/ls"   : { cases: require("./level3/ls").tests,   errors: [], total:0, type: "html", contentType: "text/html"}
+  "level3/core" : { cases: require("./level3/core").tests, errors: [], total:0, type: "xml" , contentType: "text/xml"},
+  "level3/ls"   : { cases: require("./level3/ls").tests  , errors: [], total:0, type: "html", contentType: "text/html"}
 };
 var runTest  = function(suiteName, suite, test) {
   total++;
