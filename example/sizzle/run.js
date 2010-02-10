@@ -1,10 +1,11 @@
 var browser = require("../../lib/browser");
 var dom = browser.browserAugmentation(require("../../lib/level1/core").dom.level1.core);
-var sizzle = require("./sizzle");
+
+var sys = require("sys");
 
 
   var doc = new dom.Document("html");
-  
+
   var implementation = new dom.DOMImplementation(doc, {
     "HTML" : "1.0"
   });
@@ -145,7 +146,8 @@ var sizzle = require("./sizzle");
   
   ids[4].appendChild(doc.createTextNode("EMP0005"));
   salaries[4].appendChild(doc.createTextNode("90,000"));  
-  addresses[4].setAttribute("title", "Yes");
+  addresses[4].setAttribute("title", "No");
+  addresses[4].id = "theid";
   addresses[4].appendChild(doc.createTextNode("1821 Nordic. Road, Irving Texas 98558"));
   names[4].appendChild(doc.createTextNode("Robert Myers"));
   genders[4].appendChild(doc.createTextNode("male"));
@@ -155,6 +157,11 @@ var sizzle = require("./sizzle");
   
   doc.normalize();
 
+
+
+var sizzleSandbox = {};
+var sizzle = require("./sizzle").sizzleInit(sizzleSandbox, doc);
+sys.puts(sys.inspect(sizzle("#theid", doc).length));
 
 
 

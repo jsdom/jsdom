@@ -94,6 +94,23 @@ exports.tests = {
       var element = doc.getElementById("theid");
       assertSame("p and #theid", p, element);
   },  
+  nonexistant_getelementbyid : function() {
+
+      var doc = new browser.Document();
+   
+      var html = doc.createElement("html");
+      doc.appendChild(html);
+      
+      var body = doc.createElement("body");
+      html.appendChild(body);
+      
+      var p = doc.createElement("p");
+      p.id = "theid";
+      body.appendChild(p);
+      
+      var element = doc.getElementById("non-existant-id");
+      assertSame("p and #theid", null, element);
+  },  
   
 
 };
