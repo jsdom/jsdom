@@ -710,11 +710,11 @@ var makeArray = function(array, results) {
 
 // Perform a simple check to determine if the browser is capable of
 // converting a NodeList to an array using builtin methods.
-try {
-	Array.prototype.slice.call( document.documentElement.childNodes, 0 );
+//try {
+//	Array.prototype.slice.call( document.documentElement.childNodes, 0 );
 
 // Provide a fallback method if it does not work
-} catch(e){
+//} catch(e){
 	makeArray = function(array, results) {
 		var ret = results || [];
 
@@ -723,18 +723,29 @@ try {
 		} else {
 			if ( typeof array.length === "number" ) {
 				for ( var i = 0, l = array.length; i < l; i++ ) {
-					ret.push( array[i] );
+          // tmpvar's "fix"
+					if (array.item) {
+					  ret.push(array.item(i));
+					} else {
+					  ret.push( array[i] );
+					}
+
 				}
 			} else {
 				for ( var i = 0; array[i]; i++ ) {
-					ret.push( array[i] );
+          // tmpvar's "fix"
+					if (array.item) {
+					  ret.push(array.item(i));
+					} else {
+					  ret.push( array[i] );
+					}
 				}
 			}
 		}
 
 		return ret;
 	};
-}
+//}
 
 var sortOrder;
 

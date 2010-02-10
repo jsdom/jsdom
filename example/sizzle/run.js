@@ -7,7 +7,8 @@ var sys = require("sys");
   var doc = new dom.Document("html");
 
   var implementation = new dom.DOMImplementation(doc, {
-    "HTML" : "1.0"
+    "HTML" : "1.0",
+    "DisableLiveLists" : "1.0"
   });
 
   var notations = new dom.NotationNodeMap(
@@ -136,6 +137,7 @@ var sys = require("sys");
   positions[2].appendChild(doc.createTextNode("Department Manager"));
 
   ids[3].appendChild(doc.createTextNode("EMP0004"));
+  ids[3].className = "classy";
   salaries[3].appendChild(doc.createTextNode("95,000"));
   addresses[3].setAttribute("title", "Yes");
   addresses[3].setAttribute("class", "Yα");
@@ -161,7 +163,6 @@ var sys = require("sys");
 
 var sizzleSandbox = {};
 var sizzle = require("./sizzle").sizzleInit(sizzleSandbox, doc);
-sys.puts(sys.inspect(sizzle("#theid", doc).length));
-
+sys.puts(sys.inspect(sizzle('.classy').length));
 
 
