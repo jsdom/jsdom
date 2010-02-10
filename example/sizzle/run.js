@@ -1,5 +1,7 @@
 var browser = require("../../lib/browser");
 var dom = browser.browserAugmentation(require("../../lib/level1/core").dom.level1.core);
+var sizzle = require("./sizzle");
+
 
   var doc = new dom.Document("html");
   
