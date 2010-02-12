@@ -407,9 +407,10 @@ var Expr = Sizzle.selectors = {
 			if ( isXML ) {
 				return match;
 			}
-
-			for ( var i = 0, elem; (elem = curLoop[i]) != null; i++ ) {
+			
+			for ( var i = 0, elem; (elem = curLoop.item(i)) != null; i++ ) {
 				if ( elem ) {
+					
 					if ( not ^ (elem.className && (" " + elem.className + " ").replace(/[\t\n]/g, " ").indexOf(match) >= 0) ) {
 						if ( !inplace ) {
 							result.push( elem );

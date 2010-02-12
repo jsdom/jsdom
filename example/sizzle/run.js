@@ -158,11 +158,9 @@ var sys = require("sys");
   //doc.appendChild(doc.createProcessingInstruction("TEST-STYLE", "PIDATA"));
   
   doc.normalize();
-
-
-
+  
 var sizzleSandbox = {};
 var sizzle = require("./sizzle").sizzleInit(sizzleSandbox, doc);
-sys.puts(sys.inspect(sizzle('.classy').length));
+sys.puts(sys.inspect(sizzle('.classy,p acronym#theid').length));
 
 
