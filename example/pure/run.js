@@ -1,13 +1,60 @@
 var browser = require("../../lib/browser");
 var dom = new browser.browserAugmentation(require("../../lib/level1/core").dom.level1.core);
-//var sax = require("./sax");
+var sax = require("./sax");
+var sys = require("sys");
+
+
+
 
 /**
-  setup sax parser
-*/
+  setup innerHTML setter
+ */
 dom.Element.prototype.__defineSetter__('innerHTML', function(html) {
- 
+  
 
+  // first remove all the children
+  for (var i=this.childNodes.length-1; i>=0;i--)
+  {
+    this.removeChild(this.childNodes.item(i));
+  }
+  
+  var currentElement = this, currentLevel = 0;
+
+  /**
+    setup sax parser
+  */
+  parser = sax.parser(false);
+
+  parser.onerror = function (e) {
+
+  };
+  parser.ontext = function (t) {
+    sys.puts("'" + t +"'");
+    var ownerDocument = currentElement.ownerDocument || currentElement;
+    var newText = ownerDocument.createTextNode(t);
+    currentElement.appendChild(newText);
+  };
+  parser.onopentag = function (node) {
+    var nodeName  = node.name.toLowerCase(),
+        document   = currentElement.ownerDocument || currentElement,
+        newElement = document.createElement(nodeName),
+        i          = 0,
+        length     = (node.attributes.length) ? node.attributes.length : 0;
+        
+    
+    for (i; i<node.attributes.length; i++)
+    {
+      newElement.setAttribute("class", "test");
+    }
+    
+    currentElement.appendChild(newElement);
+    currentElement = newElement;
+  };
+  parser.onclosetag = function(node) {
+    currentElement = currentElement.parentNode;
+  }
+
+  parser.write(html).close();
 });
 
 
@@ -31,36 +78,9 @@ var doctype = new dom.DocumentType(doc, "html", entities, notations);
 doc.doctype = doctype;
 doc.implementation = implementation;
 
-var html      = doc.createElement("html");
-var html      = doc.appendChild(html);
-var head      = doc.createElement("head");
-var head      = html.appendChild(head);
+doc.innerHTML = '<html><head></head><body><div class="who"></div></body></html>';
 
-var meta      = doc.createElement("meta");
-meta.setAttribute("http-equiv", "Content-Type");
-meta.setAttribute("content", "text/html; charset=UTF-8");
-head.appendChild(meta);
 
-var title     = doc.createElement("title")
-title.appendChild(doc.createTextNode("hc_staff"));
-var title     = head.appendChild(title);
-
-// make the tests work....
-head.appendChild(doc.createElement("script"));
-head.appendChild(doc.createElement("script"));
-head.appendChild(doc.createElement("script"));
-
-var body      = doc.createElement("body");
-html.appendChild(body);
-var ul = doc.createElement("ul");
-body.appendChild(ul);
-ul.appendChild(doc.createElement("li"));
-
-var div = doc.createElement("div");
-div.setAttribute("class", "who");
-body.appendChild(div);
-
-var sys = require("sys");
 var window = { 
   alert : function() { sys.puts(sys.inspect(arguments)); },
   document : doc
@@ -75,7 +95,8 @@ var $   = require("./pure").pureInit(window, doc);
 
 $("div").autoRender({"who":"Hello Wrrrld"});
 var sys = require("sys");
-sys.puts(div.outerHTML);
+doc.getElementsByTagName("div").item(0).innerHTML = "<p><span>Welcome,</span>to happy world</p>"
+sys.puts(doc.getElementsByTagName("div").item(0).outerHTML);
 
 
 
