@@ -871,9 +871,9 @@ function getText( elems ) {
 			if ( match[1] === "*" ) {
 				var tmp = [];
 
-				for ( var i = 0; results[i]; i++ ) {
-					if ( results[i].nodeType === 1 ) {
-						tmp.push( results[i] );
+				for ( var i = 0; results.item(i); i++ ) {
+					if ( results.item(i).nodeType === 1 ) {
+						tmp.push( results.item(i) );
 					}
 				}
 

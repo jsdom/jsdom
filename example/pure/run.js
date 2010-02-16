@@ -39,15 +39,18 @@ dom.Element.prototype.__defineSetter__('innerHTML', function(html) {
         document   = currentElement.ownerDocument || currentElement,
         newElement = document.createElement(nodeName),
         i          = 0,
-        length     = (node.attributes.length) ? node.attributes.length : 0;
+        length     = (node.attributes && node.attributes.length) ? 
+                      node.attributes.length                     :
+                      0;
         
-    
+
     for (i; i<node.attributes.length; i++)
     {
       newElement.setAttribute("class", "test");
     }
-    
+   
     currentElement.appendChild(newElement);
+sys.puts(currentElement.outerHTML); 
     currentElement = newElement;
   };
   parser.onclosetag = function(node) {
@@ -89,14 +92,14 @@ var window = {
 window.Sizzle = require("../sizzle/sizzle").sizzleInit(window, doc);
 var $   = require("./pure").pureInit(window, doc);
 
-
+sys.puts(doc.outerHTML);
 
 
 
 $("div").autoRender({"who":"Hello Wrrrld"});
 var sys = require("sys");
-doc.getElementsByTagName("div").item(0).innerHTML = "<p><span>Welcome,</span>to happy world</p>"
-sys.puts(doc.getElementsByTagName("div").item(0).outerHTML);
+//doc.getElementsByTagName("div").item(0).innerHTML = "<p><span>Welcome,</span>to happy world</p>"
+sys.puts(doc.outerHTML);
 
 
 
