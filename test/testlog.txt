@@ -1,11 +1,12 @@
 
-level1/core	527/527		100% passing
-level1/html	238/238		100% passing
-level1/svg	527/527		100% passing
-level2/core	1/283		0% passing
-level2/html	0/685		0% passing
-level3/core	0/722		0% passing
-level3/ls	0/175		0% passing
+level1/core  	527/527		100% passing
+level1/html  	238/238		100% passing
+level1/svg   	527/527		100% passing
+browser      	6/6		100% passing
+level2/core  	1/283		0% passing
+level2/html  	0/685		0% passing
+level3/core  	0/722		0% passing
+level3/ls    	0/175		0% passing
 --------------------------------------------
-TOTALS:		1293/3157	41% passing
+TOTALS:		1299/3163	41% passing
 
