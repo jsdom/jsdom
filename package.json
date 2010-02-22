@@ -37,8 +37,10 @@
     ],
     "implements": [
         "http://www.w3.org/TR/REC-DOM-Level-1",
-        
     ],
+    "dependencies": {
+       "mjsunit.runner": ">= 0.1.0",
+    },
     "os": [
         "linux",
         "macos",
