@@ -1,6 +1,12 @@
 # jsdom
 
-Pure js implementation of the dom intended to be platform independent and as minimal/light as possible.
+CommonJS implementation of the DOM intended to be platform independent and as minimal/light as possible while completely adhering to the w3c DOM specifications.
+
+Currently Implemented and w3c Compliant:
+
+  - DOM Level 1 (html/svg/xml) 
+  - Browser (BOM) Augmentation (getElementsByClassName, getElementById, etc..)
+
 
 **Note**: Running the tests now requires [mjsunit.runner][]
 
