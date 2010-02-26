@@ -2,7 +2,7 @@
 
 Pure js implementation of the dom intended to be platform independent and as minimal/light as possible.
 
-**Note**: This now requires [mjsunit.runner][]
+**Note**: Running the tests now requires [mjsunit.runner][]
 
 see: [testlog][] for w3 test compliance
 
