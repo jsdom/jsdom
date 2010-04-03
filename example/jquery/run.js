@@ -1,5 +1,5 @@
 var sys = require("sys");
-process.mixin(GLOBAL, require("../../src/level1/core").dom.level1.core);
+process.mixin(GLOBAL, require("../../lib/level1/core").dom.level1.core);
 
 var window = {document: new Document()};
 var navigator = { userAgent: "node-js" };
