@@ -64,10 +64,10 @@ exports.assertEqualsCollectionAutoCase = function(context, descr, expected, actu
           }
       }
       if(matches == 0) {
-          assert(descr + ": No match found for " + expectedValue,false);
+           throw new MjsUnitAssertionError(descr + ": No match found for " + expectedValue);
       }
       if(matches > 1) {
-          assert(descr + ": Multiple matches found for " + expectedValue, false);
+           throw new MjsUnitAssertionError(descr + ": Multiple matches found for " + expectedValue);
       }
   }
 }
@@ -94,10 +94,10 @@ exports.assertEqualsCollection = function(descr, expected, actual) {
           }
       }
       if(matches == 0) {
-          assert(descr + ": No match found for " + expectedValue,false);
+           throw new MjsUnitAssertionError(descr + ": No match found for " + expectedValue);
       }
       if(matches > 1) {
-          assert(descr + ": Multiple matches found for " + expectedValue, false);
+           throw new MjsUnitAssertionError(descr + ": Multiple matches found for " + expectedValue);
       }
   }
 }
