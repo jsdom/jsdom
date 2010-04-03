@@ -1,7 +1,28 @@
 var sys = require("sys");
-process.mixin(global, require("../lib/level1/core").dom.level1.core);
-process.mixin(global, require(__dirname + "/mjsunit"));
-process.mixin(global, require("./DOMTestCase"));
+
+var mixin = function(target) {
+  var i = 1, length = arguments.length, source;
+  for ( ; i < length; i++ ) {
+    // Only deal with defined values
+    if ( (source = arguments[i]) !== undefined ) {
+      Object.getOwnPropertyNames(source).forEach(function(k){
+        var d = Object.getOwnPropertyDescriptor(source, k) || {value:source[k]};
+        if (d.get) {
+          target.__defineGetter__(k, d.get);
+          if (d.set) target.__defineSetter__(k, d.set);
+        }
+        else if (target !== d.value) {
+          target[k] = d.value;
+        }
+      });
+    }
+  }
+  return target;
+};
+
+mixin(global, require("../lib/level1/core").dom.level1.core);
+mixin(global, require(__dirname + "/mjsunit"));
+mixin(global, require("./DOMTestCase"));
 
 // Compat Layer
 global.builder = { 
