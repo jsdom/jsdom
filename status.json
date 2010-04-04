@@ -3,9 +3,11 @@
     "consider implementing HTML based elements in level1 (no tests currently.. boo)",
     "consolidate/clean TODOs",
     "consider a cleaner way to do "private" variables (as apposed to x._imPrivateISwear)",
-    "consider implementing dom level2, dom level2 events, and dom level3",
+    "consider implementing dom level2, dom level2 events, and dom level3"
   ],
   "done" : [
-    "Setup git repo"
+    "run sizzle and pure templating on node",
+    "build browser compatibility layer",
+    "build dom level 1"
   ]
 }
