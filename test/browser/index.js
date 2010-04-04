@@ -110,7 +110,23 @@ exports.tests = {
       
       var element = doc.getElementById("non-existant-id");
       assertSame("p and #theid", null, element);
-  },  
-  
-
+  },
+  remove_nonexistantattribute : function() {
+      var doc = new browser.Document();
+   
+      var html = doc.createElement("html");
+      doc.appendChild(html);
+      
+      var body = doc.createElement("body");
+      html.appendChild(body);
+   
+      exception = false;
+      try {
+        removedNode = body.removeAttribute("non-existant");
+      }
+      catch(ex) {
+        exception = true;
+      }
+      assertFalse("setValue_throws_NO_MODIFICATION_ERR", exception);
+  }
 };
