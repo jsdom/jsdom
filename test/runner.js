@@ -78,6 +78,9 @@ var suites = {
       global.builder.testDirectory = "browser";  
     }
   },
+/*
+  Ignoring for now..
+  
   "level2/core" : { cases: require("./level2/core").tests, setUp : function() {
       global.builder.contentType   = "text/xml";
       global.builder.type          = "xml";
@@ -102,6 +105,7 @@ var suites = {
       global.builder.testDirectory = "level3/ls";  
     }
   }
+*/
 };
 
 require("mjsunit.runner/lib/runner").run(suites);
