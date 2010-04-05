@@ -1,5 +1,6 @@
 {
   "todo" : [
+    "move node-htmlparser dependence out into a utility area",
     "allow YUI3 to run on top of jsdom",
     "consider implementing HTML based elements in level1 (no tests currently.. boo)",
     "consolidate/clean TODOs",
