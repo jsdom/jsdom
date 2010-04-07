@@ -108,6 +108,6 @@ var suites = {
 */
 };
 
-requrie.paths.unshift(__dirname . "/../../.node_libraries");
+requrie.paths.unshift(__dirname + "/../../.node_libraries");
 require("mjsunit.runner/lib/runner").run(suites);
 
