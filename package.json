@@ -1,7 +1,7 @@
 {
     "name": "jsdom",
     "version": "0.0.1",
-    "description": "pure js implementation of the dom (level 1, 2, and 3. with events) ",
+    "description": "CommonJS implementation of the DOM intended to be platform independent and as minimal/light as possible while completely adhering to the w3c DOM specifications.",
     "keywords": [
         "dom",
         "javascript" 
@@ -17,7 +17,11 @@
         {
             "name": "Vincent Greene",
             "email": "ulteriorlife@gmail.com" 
-        } 
+        },
+        {
+            "name": "Dav Glass",
+            "email": "davglass@gmail.com"
+        }
     ],
     "bugs": {
         "mail": "tmpvar@gmail.com",
