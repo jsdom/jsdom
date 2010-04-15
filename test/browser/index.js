@@ -1,9 +1,3 @@
-var sys = require("sys");
-
-var dom = require("../../lib/level1/core").dom.level1.core;
-var browser = require("../../lib/browser").browserAugmentation(dom);
-
-
 exports.tests = {
 
   notfound_getelementsbyclassname : function() {

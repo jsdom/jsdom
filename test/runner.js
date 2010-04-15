@@ -73,6 +73,10 @@ var suites = {
     }
   },
   "browser"     : { cases: require("./browser").tests, setUp : function() {
+      global.dom = require(__dirname + "/../lib/level1/core").dom.level1.core;
+      global.browser = require(__dirname + "/../lib/browser").browserAugmentation(dom);
+      
+      
       global.builder.contentType   = "text/html";
       global.builder.type          = "html";
       global.builder.testDirectory = "browser";  
