@@ -1,5 +1,6 @@
 {
   "todo" : [
+    "investigate merging upstream changes from HEAD with dav's node-htmlparser fork",
     "consider implementing HTML based elements in level1 (no tests currently.. boo)",
     "consolidate/clean TODOs",
     "consider a cleaner way to do 'private' variables (as apposed to x._imPrivateISwear)",
