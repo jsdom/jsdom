@@ -4,7 +4,8 @@ var dom = require("../../lib/level1/core").dom.level1.core;
 var window = {document: new dom.Document()};
 var navigator = { userAgent: "node-js" };
 
-var jQuery = require("./node-jquery").jQueryInit(window, navigator);
+//var jQuery = require("./node-jquery").jQueryInit(window, navigator);
+var jQuery = require("./node-jquery");
 
 for (var i = 0; i<10; i++)
 {
@@ -14,5 +15,5 @@ for (var i = 0; i<10; i++)
   
 }
 
-sys.puts(jQuery("p#paragraph-5", window.document).length);
+sys.puts(jQuery.dollar("p#paragraph-5", window.document).length);
 
