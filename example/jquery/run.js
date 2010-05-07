@@ -2,30 +2,31 @@ var sys = require("sys"),
     dom = require("../../lib/level1/core").dom.level1.core,
     fs = require("fs");
     
-var dom = require("../../lib/browser").windowAugmentation(dom);
-
+global.window = require("../../lib/browser").windowAugmentation(dom);
+global.document = global.window.document;
+global.location = global.window.location;
 var window = global;
-global.window = global;
-global.document =  new dom.Document();
 global.navigator = { userAgent: "node-js" };
 
 fs.readFile(__dirname + "/jquery.js", function(err, data) {
-  var html = window.document.createElement("html");
-  window.document.appendChild(html);
   for (var i = 0; i<10; i++)
   {
     var p = window.document.createElement("p")
     p.setAttribute("class", "paragraph-" + i);
-    p.appendChild(window.document.createTextNode("Item #" + i));
+    document.body.appendChild(window.document.createTextNode("Item #" + i));
+  sys.puts(document.body.children.length);
   }
-sys.puts(global.document.documentElement);
-  global.document.compareDocumentPosition = function() {};
   
-  eval.call(global, data);
-  sys.puts(JSON.stringify(data));
-  sys.puts(jQuery("p#paragraph-5", window.document).length);
+  
+  global.window.document.compareDocumentPosition = function() {};
+    dom.Node.prototype.addEventListener = 
+    global.window.document.addEventListener = function() {};
 
-  //var jQuery = require("./node-jquery").jQueryInit(window, navigator);
-
-
+  eval(data);
+  
+  jQuery("*").each(function() {
+    sys.puts(sys.inspect(this.tagName));
+  });
+  
+  sys.puts(jQuery("").length);
 })
