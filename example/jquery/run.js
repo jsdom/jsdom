@@ -1,7 +1,7 @@
 var sys = require("sys");
-process.mixin(GLOBAL, require("../../lib/level1/core").dom.level1.core);
+var dom = require("../../lib/level1/core").dom.level1.core;
 
-var window = {document: new Document()};
+var window = {document: new dom.Document()};
 var navigator = { userAgent: "node-js" };
 
 var jQuery = require("./node-jquery").jQueryInit(window, navigator);
