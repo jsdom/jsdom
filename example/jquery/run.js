@@ -12,7 +12,7 @@ fs.readFile(__dirname + "/jquery.js", function(err, data) {
   for (var i = 0; i<10; i++)
   {
     var p = window.document.createElement("p")
-    p.setAttribute("class", "paragraph-" + i);
+    p.setAttribute("class", "p" + i);
     document.body.appendChild(window.document.createTextNode("Item #" + i));
   sys.puts(document.body.children.length);
   }
@@ -24,7 +24,9 @@ fs.readFile(__dirname + "/jquery.js", function(err, data) {
 
   eval(data);
   
-  jQuery("*").each(function() {
+  
+  
+  jQuery("p0").each(function() {
     sys.puts(sys.inspect(this.tagName));
   });
   
