@@ -2,10 +2,9 @@ var sys = require("sys"),
     dom = require(__dirname +"/../../lib/level1/core").dom.level1.core,
     fs = require("fs");
 
-    
 var window = require(__dirname + "/../../lib/browser").windowAugmentation(dom);
-var document = window.document = window.document;
-var location = window.location = window.location;
+var document = window.document;
+var location = window.location;
 var navigator = window.navigator = { userAgent: "node-js" };
 global.window = window;
 
