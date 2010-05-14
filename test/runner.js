@@ -82,6 +82,16 @@ var suites = {
       global.builder.testDirectory = "browser";  
     }
   },
+  "window"     : { cases: require("./window").tests, setUp : function() {
+      global.dom = require(__dirname + "/../lib/level1/core").dom.level1.core;
+      global.window = require(__dirname + "/../lib/browser").windowAugmentation(dom);
+      
+      
+      global.builder.contentType   = "text/html";
+      global.builder.type          = "html";
+      global.builder.testDirectory = "browser";  
+    }
+  },  
 /*
   Ignoring for now..
   
