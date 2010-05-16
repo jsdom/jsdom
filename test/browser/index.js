@@ -122,20 +122,5 @@ exports.tests = {
         exception = true;
       }
       assertFalse("setValue_throws_NO_MODIFICATION_ERR", exception);
-  },
-  ensure_documentelementupdates : function() {
-     var doc = new browser.Document();
-   
-      var html = doc.createElement("html");
-      doc.appendChild(html);
-      assertEquals("first child should be the document element",html, doc.documentElement);
-      doc.removeChild(html);
-      var newDocElement = doc.createElement("body2");
-      doc.appendChild(newDocElement);
-
-      assertEquals("only child should be the document element",
-                 newDocElement,
-                 doc.documentElement);
   }
-  
 };
