@@ -4,6 +4,8 @@ exports.tests = {
     window.document.getElementsByTagName("head")[0].appendChild(meta);
     var elements = window.document.getElementsByTagName("head")[0].childNodes;
     assertTrue("last element should be the new meta tag",
-                elements[elements.length-1] === meta);
+                elements[elements.length-1] === meta); 
+    assertTrue("meta should be stringified with a closing tag",
+               window.document.innerHTML.indexOf("<meta></meta>") > -1);
   }
 };
