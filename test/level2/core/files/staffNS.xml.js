@@ -1,5 +1,5 @@
 var sys = require("sys");
-exports.staff = function() {
+exports.staffNS = function() {
   
   var doc = new Document("staff");
   

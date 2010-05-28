@@ -24,7 +24,6 @@ attrgetownerelement01 : function () {
       var attributes;
       var nullNS = null;
 
-      
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
