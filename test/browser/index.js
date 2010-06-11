@@ -131,7 +131,27 @@ exports.tests = {
       var img = doc.createElement("img");
       p.appendChild(img);
       var out = p.outerHTML;
-
+//debug(out);
       assertNull("end tag not included in output", out.match(/<\/img>/));
+  },
+  parse_scripttags : function() {
+    var doc = new browser.Document();
+    
+    var head = doc.createElement("head");
+    var scriptHtml = '<script>alert("hello world")</script>';
+    head.innerHTML = scriptHtml;
+
+    assertSame("original and processed", head.innerHTML, scriptHtml);
+    
+  },
+  parse_styletags : function() {
+    var doc = new browser.Document();
+
+    var head = doc.createElement("head");
+    var styleHtml = '<style>body: {color: #fff;}</style>';
+    head.innerHTML = styleHtml;
+
+    assertSame("original and processed", head.innerHTML, styleHtml);
+
   }
 };
