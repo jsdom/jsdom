@@ -122,5 +122,16 @@ exports.tests = {
         exception = true;
       }
       assertFalse("setValue_throws_NO_MODIFICATION_ERR", exception);
+  },
+  render_singletag : function() {
+      var doc = new browser.Document();
+   
+      var p = doc.createElement("p");
+      
+      var img = doc.createElement("img");
+      p.appendChild(img);
+      var out = p.outerHTML;
+
+      assertNull("end tag not included in output", out.match(/<\/img>/));
   }
 };
