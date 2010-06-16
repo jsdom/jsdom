@@ -1,16 +1,12 @@
-var sys = require("sys"), 
-    dom = require(__dirname +"/../../lib/level1/core").dom.level1.core,
-    fs = require("fs");
+var sys = require("sys"), fs = require("fs"); 
 
-var window = require(__dirname + "/../../lib/browser").windowAugmentation(dom);
+var dom = require("../../lib/level1/core").dom.level1.core;
+var window = require("../../lib/browser").windowAugmentation(dom).window;
 var document = window.document;
 var location = window.location;
-var navigator = window.navigator = { userAgent: "node-js" };
-global.window = window;
+var navigator = window.navigator;
 
 fs.readFile(__dirname + "/jquery.js", function(err, data) {
-  global.window.document.compareDocumentPosition = function() {};
-  dom.Node.prototype.addEventListener = window.addEventListener = window.document.addEventListener = function() {};
 
   try {
     eval(data.toString());
