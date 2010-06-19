@@ -17903,9 +17903,7 @@ exports.tests = {
         appendedChild = newdocFragment.appendChild(newChild2);
         appendedChild = newdocFragment.appendChild(newChild3);
 
-		require('sys').debug('appends');
         appendedChild = employeeNode.appendChild(newdocFragment);
-		require('sys').debug('appende');
 
         for(var indexN1009F = 0;indexN1009F < childList.length; indexN1009F++) {
           child = childList.item(indexN1009F);
