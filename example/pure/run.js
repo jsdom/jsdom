@@ -4,7 +4,7 @@ var sax = require("./sax");
 var sys = require("sys");
 
 
-
+// TODO: change this example to use pluggable parser
 
 /**
   setup innerHTML setter

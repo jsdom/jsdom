@@ -6609,7 +6609,9 @@ exports.tests = {
       docFragment = doc.createDocumentFragment();
       newOne = doc.createElement("html");
       newOne.setAttribute("lang","EN");
+
       appendedChild = docFragment.appendChild(newOne);
+
       domesticNode = docFragment.firstChild;
 
       attributes = domesticNode.attributes;
@@ -12547,6 +12549,7 @@ exports.tests = {
             appendedChild = newdocFragment.appendChild(newChild1);
             appendedChild = newdocFragment.appendChild(newChild2);
             appendedChild = employeeNode.appendChild(newdocFragment);
+			
             for(var indexN100A2 = 0;indexN100A2 < childList.length; indexN100A2++) {
               child = childList.item(indexN100A2);
               nodeType = child.nodeType;
@@ -17845,11 +17848,12 @@ exports.tests = {
       append it to the second employee.   After the 
       "appendChild(newChild)" method is invoked retrieve the
       new nodes at the end of the list, they should be the
-      two Element nodes from the DocumentFragment.
+      three (Jos: was two) Element nodes from the DocumentFragment.
 
       * @author NIST
       * @author Mary Brady
       * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
+      * MODIFIED BY Jos Shepherd - added a third new child 
       */
       nodeappendchilddocfragment : function () {
         var success;
@@ -17861,6 +17865,8 @@ exports.tests = {
         var newdocFragment;
         var newChild1;
         var newChild2;
+        var newChild3;
+
         var child;
         var childName;
         var result = new Array();
@@ -17876,6 +17882,7 @@ exports.tests = {
         expected[5] = "address";
         expected[6] = "newChild1";
         expected[7] = "newChild2";
+        expected[8] = "newChild3";
 
 
         var docRef = null;
@@ -17890,9 +17897,14 @@ exports.tests = {
         newdocFragment = doc.createDocumentFragment();
         newChild1 = doc.createElement("newChild1");
         newChild2 = doc.createElement("newChild2");
+        newChild3 = doc.createElement("newChild3");
+
         appendedChild = newdocFragment.appendChild(newChild1);
         appendedChild = newdocFragment.appendChild(newChild2);
+        appendedChild = newdocFragment.appendChild(newChild3);
+
         appendedChild = employeeNode.appendChild(newdocFragment);
+
         for(var indexN1009F = 0;indexN1009F < childList.length; indexN1009F++) {
           child = childList.item(indexN1009F);
           nodeType = child.nodeType;
@@ -24340,4 +24352,5 @@ exports.tests = {
 
         assertEquals("textNodeValue","Roger\n Jones",value);
 
-        }};
+        }
+		};

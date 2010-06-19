@@ -1,17 +1,14 @@
 
 var sys = require('sys');
 
-
-var dom = require('../level1/core').dom.level1.core;
-var browser = require('./index').windowAugmentation(dom);
-
+var dom = require('../../lib/level1/core').dom.level1.core;
+var browser = require('../../lib/browser/index').windowAugmentation(dom);
 
 var document = browser.document;
 var window = browser.window;
 var self = browser.self;
 var navigator = browser.navigator;
 var location = browser.location;
-
 
 document.title = 'Test Title';
 
@@ -20,7 +17,6 @@ var el = document.createElement('div');
 el.id = 'foo';
 el.innerHTML = '<em>This is a test</em> This <strong class="odd">is another</strong> test ';
 document.body.appendChild(el);
-
 
 //SCOPED
 var el2 = browser.document.createElement('div');
