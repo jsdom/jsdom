@@ -1,7 +1,7 @@
 var sys = require("sys"), fs = require("fs"); 
 
-var dom = require("../../lib/level1/core").dom.level1.core;
-var window = require("../../lib/browser").windowAugmentation(dom).window;
+var dom = require("../../lib/jsdom/level1/core").dom.level1.core;
+var window = require("../../lib/jsdom/browser").windowAugmentation(dom).window;
 var document = window.document;
 var location = window.location;
 var navigator = window.navigator;
