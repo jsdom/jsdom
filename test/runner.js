@@ -72,6 +72,14 @@ var suites = {
       global.builder.testDirectory = "level1/svg";  
     }
   },
+  "level2/core" : { cases: require("./level2/core").tests, setUp : function() {
+      mixin(global, require("../lib/level2/core").dom.level2.core);
+      global.builder.contentType   = "text/xml";
+      global.builder.type          = "xml";
+      global.builder.testDirectory = "level2/core"; 
+
+    }
+  },  
   "browser"     : { cases: require("./browser").tests, setUp : function() {
       global.dom = require(__dirname + "/../lib/level1/core").dom.level1.core;
       global.browser = require(__dirname + "/../lib/browser").browserAugmentation(dom);
@@ -91,16 +99,10 @@ var suites = {
       global.builder.type          = "html";
       global.builder.testDirectory = "browser";  
     }
-  },  
-/*
-  Ignoring for now..
-  
-  "level2/core" : { cases: require("./level2/core").tests, setUp : function() {
-      global.builder.contentType   = "text/xml";
-      global.builder.type          = "xml";
-      global.builder.testDirectory = "level2/core"; 
-    }
-  },
+  }
+
+  /*
+    Ignoring for now..
   "level2/html" : { cases: require("./level2/html").tests, setUp : function() {
       global.builder.contentType   = "text/html";
       global.builder.type          = "html";
