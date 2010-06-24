@@ -126,5 +126,5 @@ var suites = {
 };
 
 
-require("mjsunit.runner/jsdom/runner").run(suites);
+require("mjsunit.runner/lib/runner").run(suites);
 
