@@ -20,7 +20,7 @@ var mixin = function(target) {
   return target;
 };
 
-mixin(global, require("../lib/level1/core").dom.level1.core);
+mixin(global, require("../lib/jsdom/level1/core").dom.level1.core);
 mixin(global, require(__dirname + "/mjsunit"));
 mixin(global, require("./DOMTestCase"));
 
@@ -73,7 +73,7 @@ var suites = {
     }
   },
   "level2/core" : { cases: require("./level2/core").tests, setUp : function() {
-      mixin(global, require("../lib/level2/core").dom.level2.core);
+      mixin(global, require("../lib/jsdom/level2/core").dom.level2.core);
       global.builder.contentType   = "text/xml";
       global.builder.type          = "xml";
       global.builder.testDirectory = "level2/core"; 
@@ -81,8 +81,8 @@ var suites = {
     }
   },  
   "browser"     : { cases: require("./browser").tests, setUp : function() {
-      global.dom = require(__dirname + "/../lib/level1/core").dom.level1.core;
-      global.browser = require(__dirname + "/../lib/browser").browserAugmentation(dom);
+      global.dom = require(__dirname + "/../lib/jsdom/level1/core").dom.level1.core;
+      global.browser = require(__dirname + "/../lib/jsdom/browser").browserAugmentation(dom);
       
       
       global.builder.contentType   = "text/html";
@@ -91,8 +91,8 @@ var suites = {
     }
   },
   "window"     : { cases: require("./window").tests, setUp : function() {
-      global.dom = require(__dirname + "/../lib/level1/core").dom.level1.core;
-      global.window = require(__dirname + "/../lib/browser").windowAugmentation(dom);
+      global.dom = require(__dirname + "/../lib/jsdom/level1/core").dom.level1.core;
+      global.window = require(__dirname + "/../lib/jsdom/browser").windowAugmentation(dom);
       
       
       global.builder.contentType   = "text/html";
