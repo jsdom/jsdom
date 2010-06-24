@@ -20,7 +20,7 @@ var mixin = function(target) {
   return target;
 };
 
-mixin(global, require("../lib/jsdom/level1/core").dom.level1.core);
+mixin(global, require(__dirname + "/../lib/jsdom/level1/core").dom.level1.core);
 mixin(global, require(__dirname + "/mjsunit"));
 mixin(global, require("./DOMTestCase"));
 
@@ -32,7 +32,10 @@ global.builder = {
 };
 
 global.load = function(docRef, doc, name) {
-  return require("./" + global.builder.testDirectory + "/files/" + name + "." + global.builder.type)[name]();
+  return require(__dirname + "/"      +
+         global.builder.testDirectory +
+         "/files/" + name + "."       +
+         global.builder.type)[name]();
 };
 
 global.checkInitialization = function() {
@@ -84,7 +87,6 @@ var suites = {
       global.dom = require(__dirname + "/../lib/jsdom/level1/core").dom.level1.core;
       global.browser = require(__dirname + "/../lib/jsdom/browser").browserAugmentation(dom);
       
-      
       global.builder.contentType   = "text/html";
       global.builder.type          = "html";
       global.builder.testDirectory = "browser";  
@@ -93,7 +95,6 @@ var suites = {
   "window"     : { cases: require("./window").tests, setUp : function() {
       global.dom = require(__dirname + "/../lib/jsdom/level1/core").dom.level1.core;
       global.window = require(__dirname + "/../lib/jsdom/browser").windowAugmentation(dom);
-      
       
       global.builder.contentType   = "text/html";
       global.builder.type          = "html";
@@ -124,6 +125,6 @@ var suites = {
 */
 };
 
-require.paths.unshift(__dirname + "/../../.node_libraries");
-require("mjsunit.runner/lib/runner").run(suites);
+
+require("mjsunit.runner/jsdom/runner").run(suites);
 
