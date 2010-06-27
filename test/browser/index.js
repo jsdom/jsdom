@@ -153,5 +153,19 @@ exports.tests = {
 
     assertSame("original and processed", head.innerHTML, styleHtml);
 
+  },
+  parse_doublespacetags : function() {
+    var doc = new browser.Document();
+    
+    var html = '<html><body  class="testing" /></html>';
+    
+    exception = false;
+    try {
+      doc.innerHTML = html;
+    }
+    catch(ex) {
+      exception = true;
+    }
+    assertFalse("setValue_throws_INVALID_CHARACTER_ERR", exception);
   }
 };
