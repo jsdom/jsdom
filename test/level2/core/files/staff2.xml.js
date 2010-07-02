@@ -153,7 +153,7 @@ exports.staff2 = function() {
   addresses[3].setAttribute("domestic", "Yes");
   addresses[3].setAttribute("street", "Y");
   var ent1Ref = doc.createEntityReference("ent1");
-  addresses[3].attributes.getNamedItem("street").childNodes.push(ent1Ref);
+ // addresses[3].attributes.getNamedItem("street").childNodes.push(ent1Ref);
   addresses[3].appendChild(doc.createTextNode("27 South Road. Dallas, Texas 98556"));
   names[3].appendChild(doc.createTextNode("Jeny Oconnor"));
   genders[3].appendChild(doc.createTextNode("Female"));

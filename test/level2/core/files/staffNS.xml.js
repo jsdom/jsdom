@@ -1,11 +1,12 @@
 var sys = require("sys");
 exports.staffNS = function() {
- var doc = new Document("staffNS");
+  
+  var doc = new Document("staff");
   
   var implementation = new DOMImplementation(doc, {
     "XML" : "1.0"
   });
-
+  
   var notations = new NotationNodeMap(
     doc,
     doc.createNotationNode("notation1","notation1File", null),
@@ -100,9 +101,6 @@ exports.staffNS = function() {
     salaries.push(salary);
   }
 
-  // Employee #1
-  employee.setAttribute("xmlns", "http://www.nist.gov");
-  employee.setAttributeNS("http://www.nist.gov", "dmstc", "http://www.usa.com");
   ids[0].appendChild(doc.createTextNode("EMP0001"));
   salaries[0].appendChild(doc.createTextNode("56,000"));
   addresses[0].setAttribute("domestic", "Yes");
@@ -112,9 +110,6 @@ exports.staffNS = function() {
   positions[0].appendChild(doc.createTextNode("Accountant"));
 
 
-  // Employee #2
-  employee.setAttribute("xmlns", "http://www.nist.gov");
-  employee.setAttributeNS("http://www.nist.gov", "dmstc", "http://www.usa.com");  
   ids[1].appendChild(doc.createTextNode("EMP0002"));
   salaries[1].appendChild(doc.createTextNode("35,000"));
   
@@ -133,9 +128,6 @@ exports.staffNS = function() {
   positions[1].appendChild(doc.createTextNode("Secretary"));
 
 
-  // Employee #3
-  employee.setAttribute("xmlns", "http://www.nist.gov");
-  employee.setAttributeNS("http://www.nist.gov", "dmstc", "http://www.usa.com");  
   ids[2].appendChild(doc.createTextNode("EMP0003"));
   salaries[2].appendChild(doc.createTextNode("100,000"));
   addresses[2].setAttribute("domestic", "Yes");
@@ -145,23 +137,19 @@ exports.staffNS = function() {
   genders[2].appendChild(doc.createEntityReference("ent4"));//Text("&ent4"));
   positions[2].appendChild(doc.createTextNode("Department Manager"));
 
-  // Employee #4
-  employee.setAttribute("xmlns", "http://www.nist.gov");
-  employee.setAttributeNS("http://www.nist.gov", "dmstc", "http://www.usa.com");  
+  
   ids[3].appendChild(doc.createTextNode("EMP0004"));
   salaries[3].appendChild(doc.createTextNode("95,000"));
   addresses[3].setAttribute("domestic", "Yes");
   addresses[3].setAttribute("street", "Y");
   var ent1Ref = doc.createEntityReference("ent1");
-  addresses[3].attributes.getNamedItem("street").childNodes.push(ent1Ref);
+  //addresses[3].attributes.getNamedItem("street").childNodes.push(ent1Ref);
   addresses[3].appendChild(doc.createTextNode("27 South Road. Dallas, Texas 98556"));
   names[3].appendChild(doc.createTextNode("Jeny Oconnor"));
   genders[3].appendChild(doc.createTextNode("Female"));
   positions[3].appendChild(doc.createTextNode("Personal Director"));
+  
 
-  // Employee #5
-  employee.setAttribute("xmlns", "http://www.nist.gov");
-  employee.setAttributeNS("http://www.nist.gov", "dmstc", "http://www.usa.com");  
   ids[4].appendChild(doc.createTextNode("EMP0005"));
   salaries[4].appendChild(doc.createTextNode("90,000"));  
   addresses[4].setAttribute("street", "Yes");
@@ -171,6 +159,92 @@ exports.staffNS = function() {
   positions[4].appendChild(doc.createTextNode("Computer Specialist"));
   
   doc.appendChild(doc.createProcessingInstruction("TEST-STYLE", "PIDATA"));
+
+/*
+<!ELEMENT employeeId (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT position (#PCDATA)>
+<!ELEMENT salary (#PCDATA)>
+<!ELEMENT address (#PCDATA)>
+<!ELEMENT entElement ( #PCDATA ) >
+<!ELEMENT gender ( #PCDATA | entElement )* >
+<!ELEMENT employee (employeeId, name, position, salary, gender, address) >
+<!ELEMENT staff (employee)+>
+<!ATTLIST entElement 
+          attr1 CDATA "Attr">
+<!ATTLIST address
+          domestic CDATA #IMPLIED 
+          street CDATA "Yes">
+<!ATTLIST entElement 
+          domestic CDATA "MALE" >
+
+*/
+
+  /*<?xml version="1.0"?><?TEST-STYLE PIDATA?>
+<!DOCTYPE staff SYSTEM "staff.dtd" [
+   <!ENTITY ent1 "es">
+   <!ENTITY ent2 "1900 Dallas Road">
+   <!ENTITY ent3 "Texas">
+   <!ENTITY ent4 "<entElement domestic='Yes'>Element data</entElement><?PItarget PIdata?>">
+   <!ENTITY ent5 PUBLIC "entityURI" "entityFile" NDATA notation1>
+   <!ENTITY ent1 "This entity should be discarded">
+   <!NOTATION notation1 PUBLIC "notation1File">
+   <!NOTATION notation2 SYSTEM "notation2File">
+]>
+
+<!-- This is comment number 1.-->
+<staff>
+ <employee>
+  <employeeId>EMP0001</employeeId>
+  <name>Margaret Martin</name>
+  <position>Accountant</position>           
+  <salary>56,000</salary>
+  <gender>Female</gender>
+
+  <address domestic="Yes">1230 North Ave. Dallas, Texas 98551</address>
+ </employee>
+ <employee>
+  <employeeId>EMP0002</employeeId>
+  <name>Martha Raynolds<![CDATA[This is a CDATASection with EntityReference number 2 &ent2;]]>
+<![CDATA[This is an adjacent CDATASection with a reference to a tab &tab;]]></name>
+  <position>Secretary</position>
+
+  <salary>35,000</salary>
+  <gender>Female</gender>
+  <address domestic="Yes" street="Yes">&ent2; Dallas, &ent3;
+ 98554</address>
+ </employee>
+ <employee>
+
+  <employeeId>EMP0003</employeeId>
+  <name>Roger
+ Jones</name>
+  <position>Department Manager</position>
+  <salary>100,000</salary>
+  <gender>&ent4;</gender>
+  <address domestic="Yes" street="No">PO Box 27 Irving, texas 98553</address>
+
+ </employee>
+ <employee>
+  <employeeId>EMP0004</employeeId>
+  <name>Jeny Oconnor</name>
+  <position>Personnel Director</position>
+  <salary>95,000</salary>
+  <gender>Female</gender>
+
+  <address domestic="Yes" street="Y&ent1;">27 South Road. Dallas, Texas 98556</address>
+ </employee>
+ <employee>
+  <employeeId>EMP0005</employeeId>
+  <name>Robert Myers</name>
+  <position>Computer Specialist</position>
+  <salary>90,000</salary>
+
+  <gender>male</gender>
+  <address street="Yes">1821 Nordic. Road, Irving Texas 98558</address>
+ </employee>
+ </staff>
+*/
 
   doc.appendChild(doc.createComment(" This is comment number 1."));
   doc.appendChild(staff);

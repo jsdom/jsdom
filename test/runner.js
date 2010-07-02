@@ -41,7 +41,12 @@ global.load = function(docRef, doc, name) {
   if (!fn[name]) {
     throw new Error("Test method " + name + " not found..");
   }
-  return fn[name]();
+  
+  try {
+    return fn[name]();
+  } catch (e) {
+    debug(e.stack);
+  }
 };
 
 global.checkInitialization = function() {

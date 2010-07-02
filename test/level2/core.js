@@ -28,7 +28,7 @@ attrgetownerelement01 : function () {
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
-      doc = load(docRef, "doc", "staffNS");debug("here");
+      doc = load(docRef, "doc", "staffNS");
       elementList = doc.getElementsByTagNameNS("http://www.nist.gov","employee");
       element = elementList.item(1);
       attributes = element.attributes;
