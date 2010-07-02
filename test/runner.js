@@ -20,7 +20,6 @@ var mixin = function(target) {
   return target;
 };
 
-mixin(global, require(__dirname + "/../lib/jsdom/level1/core").dom.level1.core);
 mixin(global, require(__dirname + "/mjsunit"));
 mixin(global, require("./DOMTestCase"));
 
@@ -32,10 +31,17 @@ global.builder = {
 };
 
 global.load = function(docRef, doc, name) {
-  return require(__dirname + "/"      +
-         global.builder.testDirectory +
-         "/files/" + name + "."       +
-         global.builder.type)[name]();
+  var file = __dirname + "/" + global.builder.testDirectory +
+             "/files/" + name + "." + global.builder.type;
+  try {
+    var fn = require(file);
+  } catch (e) {
+    debug("ERROR: problem loading " + file);
+  }
+  if (!fn[name]) {
+    throw new Error("Test method " + name + " not found..");
+  }
+  return fn[name]();
 };
 
 global.checkInitialization = function() {
@@ -50,7 +56,7 @@ global.debug = function(val) {
   } catch (e) {
     str = sys.inspect(val);
   }
-  sys.puts(str);
+  sys.debug(str);
   process.exit();
 
 }
@@ -58,18 +64,21 @@ global.debug = function(val) {
 
 var suites = {
   "level1/core" : { cases: require("./level1/core").tests, setUp : function() {
+      mixin(global, require("../lib/jsdom/level1/core").dom.level1.core);
       global.builder.contentType   = "text/xml";
       global.builder.type          = "xml";
       global.builder.testDirectory = "level1/core";  
     }
   },
   "level1/html" : { cases: require("./level1/html").tests, setUp : function() {
+      mixin(global, require("../lib/jsdom/level1/core").dom.level1.core);
       global.builder.contentType   = "text/html";
       global.builder.type          = "html";
       global.builder.testDirectory = "level1/html";  
     }
   },
   "level1/svg"  : { cases: require("./level1/svg").tests, setUp : function() {
+      mixin(global, require("../lib/jsdom/level1/core").dom.level1.core);
       global.builder.contentType   = "image/svg+xml";
       global.builder.type          = "svg";
       global.builder.testDirectory = "level1/svg";  
@@ -80,28 +89,8 @@ var suites = {
       global.builder.contentType   = "text/xml";
       global.builder.type          = "xml";
       global.builder.testDirectory = "level2/core"; 
-
-    }
-  },  
-  "browser"     : { cases: require("./browser").tests, setUp : function() {
-      global.dom = require(__dirname + "/../lib/jsdom/level1/core").dom.level1.core;
-      global.browser = require(__dirname + "/../lib/jsdom/browser").browserAugmentation(dom);
-      
-      global.builder.contentType   = "text/html";
-      global.builder.type          = "html";
-      global.builder.testDirectory = "browser";  
     }
   },
-  "window"     : { cases: require("./window").tests, setUp : function() {
-      global.dom = require(__dirname + "/../lib/jsdom/level1/core").dom.level1.core;
-      global.window = require(__dirname + "/../lib/jsdom/browser").windowAugmentation(dom);
-      
-      global.builder.contentType   = "text/html";
-      global.builder.type          = "html";
-      global.builder.testDirectory = "browser";  
-    }
-  }
-
   /*
     Ignoring for now..
   "level2/html" : { cases: require("./level2/html").tests, setUp : function() {
@@ -123,6 +112,24 @@ var suites = {
     }
   }
 */
+  "browser"     : { cases: require("./browser").tests, setUp : function() {
+      global.dom = require(__dirname + "/../lib/jsdom/level1/core").dom.level1.core;
+      global.browser = require(__dirname + "/../lib/jsdom/browser").browserAugmentation(dom);
+      
+      global.builder.contentType   = "text/html";
+      global.builder.type          = "html";
+      global.builder.testDirectory = "browser";  
+    }
+  },
+  "window"     : { cases: require("./window").tests, setUp : function() {
+      global.dom = require(__dirname + "/../lib/jsdom/level1/core").dom.level1.core;
+      global.window = require(__dirname + "/../lib/jsdom/browser").windowAugmentation(dom);
+      
+      global.builder.contentType   = "text/html";
+      global.builder.type          = "html";
+      global.builder.testDirectory = "browser";  
+    }
+  }
 };
 
 

@@ -28,7 +28,7 @@ attrgetownerelement01 : function () {
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
-      doc = load(docRef, "doc", "staffNS");
+      doc = load(docRef, "doc", "staffNS");debug("here");
       elementList = doc.getElementsByTagNameNS("http://www.nist.gov","employee");
       element = elementList.item(1);
       attributes = element.attributes;
@@ -68,6 +68,7 @@ attrgetownerelement02 : function () {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
+      sys.puts(doc);process.exit();
       element = doc.createElement("root");
       attr = doc.createAttributeNS("http://www.w3.org/DOM/L1","L1:att");
       newAttr = element.setAttributeNodeNS(attr);

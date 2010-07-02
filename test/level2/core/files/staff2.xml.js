@@ -1,6 +1,6 @@
 var sys = require("sys");
-exports.staffNS = function() {
- var doc = new Document("staffNS");
+exports.staff2 = function() {
+ var doc = new Document("staff2");
   
   var implementation = new DOMImplementation(doc, {
     "XML" : "1.0"
