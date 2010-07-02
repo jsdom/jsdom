@@ -1,5 +1,5 @@
-var browser = require("../../lib/browser");
-var dom = browser.browserAugmentation(require("../../lib/level1/core").dom.level1.core);
+var browser = require("../../lib/jsdom/browser");
+var dom = browser.browserAugmentation(require("../../lib/jsdom/level1/core").dom.level1.core);
 
 var sys = require("sys");
 

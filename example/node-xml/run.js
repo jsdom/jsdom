@@ -1,5 +1,5 @@
 var sys = require('sys');
-process.mixin(GLOBAL, require("../../lib/level1/core").dom.level1.core);
+process.mixin(GLOBAL, require("../../lib/jsdom/level1/core").dom.level1.core);
 
 // git clone git://github.com/robrighter/node-xml.git into ~/.node_libraries
 var xml = require("node-xml/lib/node-xml");
