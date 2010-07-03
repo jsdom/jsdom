@@ -32,18 +32,16 @@ global.builder = {
 
 global.load = function(docRef, doc, name) {
   var file = __dirname + "/" + global.builder.testDirectory +
-             "/files/" + name + "." + global.builder.type;
-  try {
-    var fn = require(file);
-  } catch (e) {
-    debug("ERROR: problem loading " + file);
-  }
+             "/files/" + name + "." + global.builder.type,
+      fn = require(file);
+  
+
   if (!fn[name]) {
     throw new Error("Test method " + name + " not found..");
   }
-  
+
   try {
-    return fn[name]();
+    return fn[name].call(global);
   } catch (e) {
     debug(e.stack);
   }
@@ -59,7 +57,7 @@ global.debug = function(val) {
   try {
     str = JSON.stringify(val, null, "  ");
   } catch (e) {
-    str = sys.inspect(val);
+    str = sys.inspect(val, null, true);
   }
   sys.debug(str);
   process.exit();
@@ -90,7 +88,6 @@ var suites = {
     }
   },
   "level2/core" : { cases: require("./level2/core").tests, setUp : function() {
-      mixin(global, require("../lib/jsdom/level2/core").dom.level2.core);
       global.builder.contentType   = "text/xml";
       global.builder.type          = "xml";
       global.builder.testDirectory = "level2/core"; 
@@ -137,6 +134,4 @@ var suites = {
   }
 };
 
-
 require("mjsunit.runner/lib/runner").run(suites);
-

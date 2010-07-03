@@ -1,7 +1,8 @@
+var dom = require(__dirname + "/../../../../lib/jsdom/level1/core").dom.level1.core;
 exports.hc_nodtdstaff = function() {
 
-  var doc = new Document("html");
-  var implementation = new DOMImplementation(doc, {
+  var doc = new dom.Document("html");
+  var implementation = new dom.DOMImplementation(doc, {
     "XML" : "1.0"
   });
 

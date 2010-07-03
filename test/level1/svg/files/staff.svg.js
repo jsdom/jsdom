@@ -1,13 +1,13 @@
-var sys = require("sys");
+var dom = require(__dirname + "/../../../../lib/jsdom/level1/core").dom.level1.core;
 exports.staff = function() {
   
-  var doc = new Document("staff");
+  var doc = new dom.Document("staff");
   
-  var implementation = new DOMImplementation(doc, {
+  var implementation = new dom.DOMImplementation(doc, {
     "XML" : "1.0"
   });
   
-  var notations = new NotationNodeMap(
+  var notations = new dom.NotationNodeMap(
     doc,
     doc.createNotationNode("notation1","notation1File", null),
     doc.createNotationNode("notation2",null, "notation2File")
@@ -36,7 +36,7 @@ exports.staff = function() {
   entsvgtest.systemId = "svgtest.js"
   
   
-  var entities = new EntityNodeMap(
+  var entities = new dom.EntityNodeMap(
     doc,
     doc.createEntityNode("ent1", doc.createTextNode("es")),
     doc.createEntityNode("ent2",doc.createTextNode("1900 Dallas Road")),
@@ -61,7 +61,7 @@ exports.staff = function() {
           domestic CDATA "MALE" >
 */
   
-  var defaultAttributes = new NamedNodeMap(doc);
+  var defaultAttributes = new dom.NamedNodeMap(doc);
   var entElement = doc.createElement("entElement");
   entElement.setAttribute("attr1", "Attr");
   entElement.setAttribute("domestic", "MALE");
@@ -71,7 +71,7 @@ exports.staff = function() {
   defaultAddress.setAttribute("street", "Yes");
   defaultAttributes.setNamedItem(defaultAddress);
 
-  doc.doctype = new DocumentType(doc, "svg", entities, notations, defaultAttributes);
+  doc.doctype = new dom.DocumentType(doc, "svg", entities, notations, defaultAttributes);
   
   doc.implementation = implementation;  
   
