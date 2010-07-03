@@ -54,105 +54,167 @@ exports.staffNS = function() {
   doc.implementation = implementation;  
   
   var staff     = doc.createElement("staff");
-  var employees = [];
-  var addresses = [];
-  var names     = [];
-  var positions = [];
-  var genders   = [];
-  var ids       = [];
-  var salaries  = [];
+
+  var employee, address, name, position,gender,id, salary;
+
+  /************************************
+  *          EMPLOYEEE 1              *
+  ************************************/
+  employee = doc.createElement("employee");
+  address  = doc.createElement("address");
+  name     = doc.createElement("name");
+  position = doc.createElement("position");
+  gender   = doc.createElement("gender");
+  id       = doc.createElement("employeeId");
+  salary   = doc.createElement("salary");
+
+  employee.appendChild(id);
+  employee.appendChild(name);
+  employee.appendChild(position);
+  employee.appendChild(salary);
+  employee.appendChild(gender);
+  employee.appendChild(address);
+  staff.appendChild(employee);
+
+  employee.namespaceURI = "http://www.nist.gov";
+  employee.setAttributeNS("http://www.nist.gov", "xmlns:dmstc", "http://www.usa.com");
+
+  id.appendChild(doc.createTextNode("EMP0001"));
+  salary.appendChild(doc.createTextNode("56,000"));
+  address.appendChild(doc.createTextNode('1230 North Ave. Dallas, Texas 98551'));
+  address.setAttributeNS("http://www.usa.com", "dmstc:domestic", "Yes");
+  name.appendChild(doc.createTextNode("Margaret Martin"));
+  gender.appendChild(doc.createTextNode("Female"));
+  position.appendChild(doc.createTextNode("Accountant"));
+
+  /************************************
+  *          EMPLOYEEE 2              *
+  ************************************/
+  employee = doc.createElement("employee");
+  address  = doc.createElement("address");
+  name     = doc.createElement("name");
+  position = doc.createElement("position");
+  gender   = doc.createElement("gender");
+  id       = doc.createElement("employeeId");
+  salary   = doc.createElement("salary");
+
+  employee.appendChild(id);
+  employee.appendChild(name);
+  employee.appendChild(position);
+  employee.appendChild(salary);
+  employee.appendChild(gender);
+  employee.appendChild(address);
+  staff.appendChild(employee);
+
+  employee.setAttributeNS("http://www.nist.gov", "xmlns:dmstc", "http://www.usa.com");
+  id.appendChild(doc.createTextNode("EMP0002"));
+  salary.appendChild(doc.createTextNode("35,000"));
+  address.setAttributeNS("http://www.usa.com", "dmstc:domestic", "Yes");
+  address.setAttribute("street", "Yes");
+  address.appendChild(doc.createEntityReference("ent2"));
+  address.appendChild(doc.createTextNode(" Dallas, "));
+  address.appendChild(doc.createEntityReference("ent3"));
+  address.appendChild(doc.createTextNode("\n 98554"));
   
-  // create 5 employees
-  for (var i=0; i<5; i++)
-  {
-    var employee = doc.createElement("employee");
-    var address  = doc.createElement("address");
-    var name     = doc.createElement("name");
-    var position = doc.createElement("position");
-    var gender   = doc.createElement("gender");
-    var id       = doc.createElement("employeeId");
-    var salary   = doc.createElement("salary");
-    
-    employee.appendChild(id);
-    employee.appendChild(name);
-    employee.appendChild(position);
-    employee.appendChild(salary);
-    employee.appendChild(gender);
-    employee.appendChild(address);
-    staff.appendChild(employee);
-
-    names.push(name);
-    employees.push(employee);
-    addresses.push(address);	
-    genders.push(gender);
-    positions.push(position);
-    ids.push(id);
-    salaries.push(salary);
-  }
-
-  employees[0].namespaceURI = "http://www.nist.gov";
-  ids[0].appendChild(doc.createTextNode("EMP0001"));
-  salaries[0].appendChild(doc.createTextNode("56,000"));
-  addresses[0].setAttribute("domestic", "Yes");
-  addresses[0].appendChild(doc.createTextNode('1230 North Ave. Dallas, Texas 98551'));
-  names[0].appendChild(doc.createTextNode("Margaret Martin"));
-  genders[0].appendChild(doc.createTextNode("Female"));
-  positions[0].appendChild(doc.createTextNode("Accountant"));
+  name.appendChild(doc.createTextNode("Martha Raynolds"));
+  name.appendChild(doc.createCDATASection("This is a CDATASection with EntityReference number 2 &ent2;"));
+  name.appendChild(doc.createTextNode("\r\n"));
+  name.appendChild(doc.createCDATASection("This is an adjacent CDATASection with a reference to a tab &tab;"));  
+  gender.appendChild(doc.createTextNode("Female"));
+  position.appendChild(doc.createTextNode("Secretary"));
 
 
-  ids[1].appendChild(doc.createTextNode("EMP0002"));
-  salaries[1].appendChild(doc.createTextNode("35,000"));
-  
-  addresses[1].setAttribute("domestic", "Yes");
-  addresses[1].setAttribute("street", "Yes");
-  addresses[1].appendChild(doc.createEntityReference("ent2"));
-  addresses[1].appendChild(doc.createTextNode(" Dallas, "));
-  addresses[1].appendChild(doc.createEntityReference("ent3"));
-  addresses[1].appendChild(doc.createTextNode("\n 98554"));
-  
-  names[1].appendChild(doc.createTextNode("Martha Raynolds"));
-  names[1].appendChild(doc.createCDATASection("This is a CDATASection with EntityReference number 2 &ent2;"));
-  names[1].appendChild(doc.createTextNode("\r\n"));
-  names[1].appendChild(doc.createCDATASection("This is an adjacent CDATASection with a reference to a tab &tab;"));  
-  genders[1].appendChild(doc.createTextNode("Female"));
-  positions[1].appendChild(doc.createTextNode("Secretary"));
+  /************************************
+  *          EMPLOYEEE 3              *
+  ************************************/
+  employee = doc.createElement("employee");
+  address  = doc.createElement("address");
+  name     = doc.createElement("name");
+  position = doc.createElement("position");
+  gender   = doc.createElement("gender");
+  id       = doc.createElement("employeeId");
+  salary   = doc.createElement("salary");
 
+  employee.appendChild(id);
+  employee.appendChild(name);
+  employee.appendChild(position);
+  employee.appendChild(salary);
+  employee.appendChild(gender);
+  employee.appendChild(address);
+  staff.appendChild(employee);
+  employee.setAttributeNS("http://www.nist.gov", "xmlns:dmstc", "http://www.usa.com");
+  id.appendChild(doc.createTextNode("EMP0003"));
+  salary.appendChild(doc.createTextNode("100,000"));
+  address.setAttributeNS("http://www.usa.com", "dmstc:domestic", "Yes");
+  address.setAttribute("street", "No");
+  address.appendChild(doc.createTextNode("PO Box 27 Irving, texas 98553"));
+  name.appendChild(doc.createTextNode("Roger\n Jones")) ;
+  gender.appendChild(doc.createEntityReference("ent4"));
+  position.appendChild(doc.createTextNode("Department Manager"));
 
-  ids[2].appendChild(doc.createTextNode("EMP0003"));
-  salaries[2].appendChild(doc.createTextNode("100,000"));
-  addresses[2].setAttribute("domestic", "Yes");
-  addresses[2].setAttribute("street", "No");
-  addresses[2].appendChild(doc.createTextNode("PO Box 27 Irving, texas 98553"));
-  names[2].appendChild(doc.createTextNode("Roger\n Jones")) ;
-  genders[2].appendChild(doc.createEntityReference("ent4"));//Text("&ent4"));
-  positions[2].appendChild(doc.createTextNode("Department Manager"));
+  /************************************
+  *          EMPLOYEEE 4              *
+  ************************************/
+  employee = doc.createElementNS("http://www.nist.gov", "emp:employee");
+  address  = doc.createElementNS("http://www.nist.gov", "emp:address");
+  name     = doc.createElementNS("http://www.altavista.com", "nm:name");
+  position = doc.createElementNS("http://www.nist.gov", "emp:position");
+  gender   = doc.createElementNS("http://www.nist.gov", "emp:gender");
+  id       = doc.createElementNS("http://www.nist.gov", "emp:employeeId");
+  salary   = doc.createElementNS("http://www.nist.gov", "emp:salary");
 
-  
-  ids[3].appendChild(doc.createTextNode("EMP0004"));
-  salaries[3].appendChild(doc.createTextNode("95,000"));
-  addresses[3].setAttribute("domestic", "Yes");
-  addresses[3].setAttribute("street", "Y");
+  employee.appendChild(id);
+  employee.appendChild(name);
+  employee.appendChild(position);
+  employee.appendChild(salary);
+  employee.appendChild(gender);
+  employee.appendChild(address);
+  staff.appendChild(employee);
+
+  employee.setAttribute("xmlns:emp", "http://www.usa.com");
+  employee.setAttribute("xmlns:nm", "http://www.altavista.com");
+  id.appendChild(doc.createTextNode("EMP0004"));
+  salary.appendChild(doc.createTextNode("95,000"));
+  address.setAttribute("emp:domestic", "Yes");
+  address.setAttribute("emp:street", "Y");
   var ent1Ref = doc.createEntityReference("ent1");
-  //addresses[3].attributes.getNamedItem("street").childNodes.push(ent1Ref);
-  addresses[3].appendChild(doc.createTextNode("27 South Road. Dallas, Texas 98556"));
-  names[3].appendChild(doc.createTextNode("Jeny Oconnor"));
-  genders[3].appendChild(doc.createTextNode("Female"));
-  positions[3].appendChild(doc.createTextNode("Personal Director"));
-  
+  //address.attributes.getNamedItem("street").childNodes.push(ent1Ref);
+  address.appendChild(doc.createTextNode("27 South Road. Dallas, Texas 98556"));
+  name.appendChild(doc.createTextNode("Jeny Oconnor"));
+  gender.appendChild(doc.createTextNode("Female"));
+  position.appendChild(doc.createTextNode("Personal Director"));
 
-  ids[4].appendChild(doc.createTextNode("EMP0005"));
-  salaries[4].appendChild(doc.createTextNode("90,000"));  
-  addresses[4].setAttribute("street", "Yes");
-  addresses[4].appendChild(doc.createTextNode("1821 Nordic. Road, Irving Texas 98558"));
-  names[4].appendChild(doc.createTextNode("Robert Myers"));
-  genders[4].appendChild(doc.createTextNode("male"));
-  positions[4].appendChild(doc.createTextNode("Computer Specialist"));
-  
+  /************************************
+  *          EMPLOYEEE 5              *
+  ************************************/
+  employee = doc.createElement("employee");
+  address  = doc.createElement("address");
+  name     = doc.createElement("name");
+  position = doc.createElement("position");
+  gender   = doc.createElement("gender");
+  id       = doc.createElement("employeeId");
+  salary   = doc.createElement("salary");
+
+  employee.appendChild(id);
+  employee.appendChild(name);
+  employee.appendChild(position);
+  employee.appendChild(salary);
+  employee.appendChild(gender);
+  employee.appendChild(address);
+  staff.appendChild(employee);
+
+  id.appendChild(doc.createTextNode("EMP0005"));
+  salary.appendChild(doc.createTextNode("90,000"));
+  address.setAttribute("street", "Yes");
+  address.appendChild(doc.createTextNode("1821 Nordic. Road, Irving Texas 98558"));
+  name.appendChild(doc.createTextNode("Robert Myers"));
+  gender.appendChild(doc.createTextNode("male"));
+  position.appendChild(doc.createTextNode("Computer Specialist"));
+
   doc.appendChild(doc.createProcessingInstruction("TEST-STYLE", "PIDATA"));
-
   doc.appendChild(doc.createComment(" This is comment number 1."));
   doc.appendChild(staff);
-  
-  doc.normalize();  
+
+  doc.normalize();
   return doc;
 };
