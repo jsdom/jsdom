@@ -36,6 +36,7 @@ attrgetownerelement01 : function () {
       attributes = element.attributes;
 
       attr = attributes.getNamedItemNS(nullNS,"defaultAttr");
+
       ownerElement = attr.ownerElement;
 
       ownerElementName = ownerElement.nodeName;

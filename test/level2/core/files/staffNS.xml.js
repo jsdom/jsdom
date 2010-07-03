@@ -77,6 +77,7 @@ exports.staffNS = function() {
   staff.appendChild(employee);
 
   employee.namespaceURI = "http://www.nist.gov";
+  employee.setAttribute("xmlns", "http://www.nist.gov")
   employee.setAttributeNS("http://www.nist.gov", "xmlns:dmstc", "http://www.usa.com");
 
   id.appendChild(doc.createTextNode("EMP0001"));
@@ -142,7 +143,7 @@ exports.staffNS = function() {
   employee.appendChild(gender);
   employee.appendChild(address);
   staff.appendChild(employee);
-  employee.setAttributeNS("http://www.nist.gov", "xmlns:dmstc", "http://www.usa.com");
+  employee.setAttributeNS("http://www.nist.gov", "xmlns:dmstc", "http://www.netzero.com");
   id.appendChild(doc.createTextNode("EMP0003"));
   salary.appendChild(doc.createTextNode("100,000"));
   address.setAttributeNS("http://www.usa.com", "dmstc:domestic", "Yes");
@@ -171,7 +172,7 @@ exports.staffNS = function() {
   employee.appendChild(address);
   staff.appendChild(employee);
 
-  employee.setAttribute("xmlns:emp", "http://www.usa.com");
+  employee.setAttribute("xmlns:emp", "http://www.nist.gov");
   employee.setAttribute("xmlns:nm", "http://www.altavista.com");
   id.appendChild(doc.createTextNode("EMP0004"));
   salary.appendChild(doc.createTextNode("95,000"));
