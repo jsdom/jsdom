@@ -5,7 +5,7 @@ exports.hc_staff = function() {
 
   var doc = new dom.Document("html");
   var implementation = new dom.DOMImplementation(doc, {
-    "XML" : "1.0"
+    "XML" : "2.0"
   });
 
   var notations = new dom.NotationNodeMap(
