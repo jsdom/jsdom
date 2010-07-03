@@ -24,12 +24,14 @@ attrgetownerelement01 : function () {
       var attributes;
       var nullNS = null;
 
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
       elementList = doc.getElementsByTagNameNS("http://www.nist.gov","employee");
+
       element = elementList.item(1);
       attributes = element.attributes;
 
