@@ -50,7 +50,7 @@ exports.staffNS = function() {
   defaultAttributes.setNamedItem(defaultAddress);
 
   doc.doctype = new dom.DocumentType(doc, "staff", entities, notations, defaultAttributes);
-  
+  doc.doctype._systemId = "staffNS.dtd";
   doc.implementation = implementation;  
   
   var staff     = doc.createElement("staff");

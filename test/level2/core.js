@@ -12466,23 +12466,8 @@ setAttributeNodeNS02 : function () {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
-	if(
-	(getImplementationAttribute("expandEntityReferences") == false)
-	) {
-	genderList = doc.getElementsByTagName("gender");
-      gender = genderList.item(2);
-      genList = gender.childNodes;
-
-      gen = genList.item(0);
-      
-	}
-	
-		else {
-			gen = doc.createEntityReference("ent4");
-      
-		}
-	gList = gen.childNodes;
+      gen = doc.createEntityReference("ent4");
+      gList = gen.childNodes;
 
       genElement = gList.item(0);
       assertNotNull("notnull",genElement);
