@@ -70,7 +70,7 @@ attrgetownerelement02 : function () {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      sys.puts(doc);process.exit();
+
       element = doc.createElement("root");
       attr = doc.createAttributeNS("http://www.w3.org/DOM/L1","L1:att");
       newAttr = element.setAttributeNodeNS(attr);
@@ -872,7 +872,8 @@ createDocument08 : function () {
       var domImpl;
       var aNewDoc;
       var charact;
-      domImpl = getImplementation();
+      var doc = load(null, "doc", "staffNS");
+      domImpl = doc.implementation;
 
 	{
 		success = false;
@@ -1073,7 +1074,7 @@ createDocumentType04 : function () {
       var docType = null;
 
       var domImpl;
-      domImpl = getImplementation();
+      domImpl = load(null, "doc", "staffNS").implementation;
 
 	{
 		success = false;
@@ -2762,7 +2763,7 @@ documentimportnode14 : function () {
       doc = load(docRef, "doc", "staffNS");
       childList = doc.getElementsByTagNameNS("*","employee");
       employeeElem = childList.item(3);
-      domImpl = getImplementation();
+      domImpl = load(null, "doc", "staffNS").implementation;
 newDoc = domImpl.createDocument(nullNS,"staff",nullDocType);
       imported = newDoc.importNode(employeeElem,true);
       attrNode = imported.getAttributeNodeNS(nullNS,"defaultAttr");
@@ -3754,7 +3755,7 @@ for(var indexN10073 = 0;indexN10073 < qualifiedNames.length; indexN10073++) {
 
    Retrieve the entire DOM document and invoke its 
 
-   "getImplementation()" method.  This should create a
+   "load(null, "doc", "staffNS").implementation" method.  This should create a
 
    DOMImplementation object whose "hasFeature(feature,
 
@@ -3799,7 +3800,7 @@ assertTrue("domimplementationFeaturecoreAssert",state);
 
    Retrieve the entire DOM document and invoke its 
 
-   "getImplementation()" method.  This should create a
+   "load(null, "doc", "staffNS").implementation" method.  This should create a
 
    DOMImplementation object whose "hasFeature(feature,
 
