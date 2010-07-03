@@ -1,7 +1,7 @@
 var sys = require("sys"),
-    dom = require(__dirname + "/../../../lib/jsdom/level1/core").dom.level1.core;
+    dom = require(__dirname + "/../../../../lib/jsdom/level2/core").dom.level2.core;
     
-exports.hc_staff = function() {
+exports.staff = function() {
 
   var doc = new dom.Document("html");
   var implementation = new dom.DOMImplementation(doc, {
