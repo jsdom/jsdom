@@ -11506,7 +11506,6 @@ prefix09 : function () {
       elementList = doc.getElementsByTagName("address");
       addrNode = elementList.item(3);
       addrAttr = addrNode.getAttributeNode("xmlns");
-      
 	{
 		success = false;
 		try {

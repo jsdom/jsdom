@@ -7,7 +7,7 @@ exports.staffNS = function() {
   
   var implementation = new dom.DOMImplementation(doc, {
     "XML" : "2.0",
-    "core" : "2.0"
+    "core" : "3.0"
   });
   
   var notations = new dom.NotationNodeMap(
@@ -172,8 +172,8 @@ exports.staffNS = function() {
   employee.appendChild(address);
   staff.appendChild(employee);
 
-  employee.setAttribute("xmlns:emp", "http://www.nist.gov");
-  employee.setAttribute("xmlns:nm", "http://www.altavista.com");
+  employee.setAttributeNS("http://www.nist.gov", "xmlns:emp", "http://www.nist.gov");
+  employee.setAttributeNS("http://www.altavista.com", "xmlns:nm", "http://www.altavista.com");
   id.appendChild(doc.createTextNode("EMP0004"));
   salary.appendChild(doc.createTextNode("95,000"));
   address.setAttribute("emp:domestic", "Yes");
