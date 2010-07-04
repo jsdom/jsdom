@@ -6,8 +6,8 @@ exports.staffNS = function() {
   var doc = new dom.Document("staff");
   
   var implementation = new dom.DOMImplementation(doc, {
-    "XML" : "2.0",
-    "core" : "3.0"
+    "XML" : ["1.0", "2.0"],
+    "core": ["1.0", "2.0", "3.0"]
   });
   
   var notations = new dom.NotationNodeMap(
