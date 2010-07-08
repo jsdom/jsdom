@@ -29,7 +29,7 @@ exports.staff = function() {
   // <!ATTLIST acronym dir CDATA "ltr">
 
   var defaultAttributes = new dom.NamedNodeMap(doc);
-  var acronym = doc.createElement("acronym");
+  var acronym = doc.createElementNS("http://www.w3.org/2000/xmlns/","acronym");
   acronym.setAttribute("dir", "ltr");
   defaultAttributes.setNamedItem(acronym);
   
@@ -41,27 +41,27 @@ exports.staff = function() {
   
   doc.appendChild(doc.createComment(" This is comment number 1."));
   
-  var html      = doc.createElement("html");
+  var html      = doc.createElementNS("http://www.w3.org/2000/xmlns/","html");
   var html      = doc.appendChild(html);
   
-  var head      = doc.createElement("head");
+  var head      = doc.createElementNS("http://www.w3.org/2000/xmlns/","head");
   var head      = html.appendChild(head);
 
-	var meta      = doc.createElement("meta");
+	var meta      = doc.createElementNS("http://www.w3.org/2000/xmlns/","meta");
 	meta.setAttribute("http-equiv", "Content-Type");
 	meta.setAttribute("content", "text/html; charset=UTF-8");
   head.appendChild(meta);
   
-  var title     = doc.createElement("title")
+  var title     = doc.createElementNS("http://www.w3.org/2000/xmlns/","title")
   title.appendChild(doc.createTextNode("hc_staff"));
   var title     = head.appendChild(title);
 
   // make the tests work....
-  head.appendChild(doc.createElement("script"));
-  head.appendChild(doc.createElement("script"));
-  head.appendChild(doc.createElement("script"));
+  head.appendChild(doc.createElementNS("http://www.w3.org/2000/xmlns/","script"));
+  head.appendChild(doc.createElementNS("http://www.w3.org/2000/xmlns/","script"));
+  head.appendChild(doc.createElementNS("http://www.w3.org/2000/xmlns/","script"));
 
-  var body      = doc.createElement("body");
+  var body      = doc.createElementNS("http://www.w3.org/2000/xmlns/","body");
   var staff     = html.appendChild(body);
 
   var employees = [];
@@ -75,13 +75,13 @@ exports.staff = function() {
   // create 5 employees
   for (var i=0; i<5; i++)
   {
-    var employee = doc.createElement("p");
-    var address  = doc.createElement("acronym");
-    var name     = doc.createElement("strong");
-    var position = doc.createElement("code");
-    var gender   = doc.createElement("var");
-    var id       = doc.createElement("em");
-    var salary   = doc.createElement("sup");
+    var employee = doc.createElementNS("http://www.w3.org/2000/xmlns/","p");
+    var address  = doc.createElementNS("http://www.w3.org/2000/xmlns/","acronym");
+    var name     = doc.createElementNS("http://www.w3.org/2000/xmlns/","strong");
+    var position = doc.createElementNS("http://www.w3.org/2000/xmlns/","code");
+    var gender   = doc.createElementNS("http://www.w3.org/2000/xmlns/","var");
+    var id       = doc.createElementNS("http://www.w3.org/2000/xmlns/","em");
+    var salary   = doc.createElementNS("http://www.w3.org/2000/xmlns/","sup");
     
     employee.appendChild(doc.createTextNode("\r\n")); 
     employee.appendChild(id);
