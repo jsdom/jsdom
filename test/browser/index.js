@@ -167,5 +167,12 @@ exports.tests = {
       exception = true;
     }
     assertFalse("setValue_throws_INVALID_CHARACTER_ERR", exception);
+  },
+  serialize_styleattribute : function() {
+	var doc = new browser.Document();
+	doc.appendChild(doc.createElement('html'));
+	doc.documentElement.style.color = 'black';
+	doc.documentElement.style.backgroundColor = 'white';
+	assertEquals('', '<html style="color: black; background-color: white">\r\n</html>\r\n', require('jsdom/browser/domtohtml').domToHtml(doc));
   }
 };
