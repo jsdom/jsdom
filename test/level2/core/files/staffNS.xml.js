@@ -19,7 +19,7 @@ exports.staffNS = function() {
 
 
 //<entElement domestic='Yes'>Element data</entElement><?PItarget PIdata?>  
-  var entElement = doc.createElement("entElement");
+  var entElement = doc.createElementNS("http://www.w3.org/2000/xmlns/","entElement");
   entElement.setAttribute("domestic", "Yes");
   entElement.appendChild(doc.createTextNode("Element data"));
   var procElement = doc.createProcessingInstruction("PItarget", "PfIdata");
@@ -40,12 +40,12 @@ exports.staffNS = function() {
   );
   
   var defaultAttributes = new dom.NamedNodeMap(doc);
-  var entElement = doc.createElement("entElement");
+  var entElement = doc.createElementNS("http://www.w3.org/2000/xmlns/","entElement");
   entElement.setAttribute("attr1", "Attr");
   entElement.setAttribute("domestic", "MALE");
   defaultAttributes.setNamedItem(entElement);    
 
-  var defaultAddress = doc.createElement("address");
+  var defaultAddress = doc.createElementNS("http://www.w3.org/2000/xmlns/","address");
   defaultAddress.setAttribute("street", "Yes");
   defaultAttributes.setNamedItem(defaultAddress);
 
@@ -53,20 +53,20 @@ exports.staffNS = function() {
   doc.doctype._systemId = "staffNS.dtd";
   doc.implementation = implementation;  
   
-  var staff     = doc.createElement("staff");
+  var staff     = doc.createElementNS("http://www.w3.org/2000/xmlns/","staff");
 
   var employee, address, name, position,gender,id, salary;
 
   /************************************
   *          EMPLOYEEE 1              *
   ************************************/
-  employee = doc.createElement("employee");
-  address  = doc.createElement("address");
-  name     = doc.createElement("name");
-  position = doc.createElement("position");
-  gender   = doc.createElement("gender");
-  id       = doc.createElement("employeeId");
-  salary   = doc.createElement("salary");
+  employee = doc.createElementNS("http://www.w3.org/2000/xmlns/","employee");
+  address  = doc.createElementNS("http://www.w3.org/2000/xmlns/","address");
+  name     = doc.createElementNS("http://www.w3.org/2000/xmlns/","name");
+  position = doc.createElementNS("http://www.w3.org/2000/xmlns/","position");
+  gender   = doc.createElementNS("http://www.w3.org/2000/xmlns/","gender");
+  id       = doc.createElementNS("http://www.w3.org/2000/xmlns/","employeeId");
+  salary   = doc.createElementNS("http://www.w3.org/2000/xmlns/","salary");
 
   employee.appendChild(id);
   employee.appendChild(name);
@@ -91,13 +91,13 @@ exports.staffNS = function() {
   /************************************
   *          EMPLOYEEE 2              *
   ************************************/
-  employee = doc.createElement("employee");
-  address  = doc.createElement("address");
-  name     = doc.createElement("name");
-  position = doc.createElement("position");
-  gender   = doc.createElement("gender");
-  id       = doc.createElement("employeeId");
-  salary   = doc.createElement("salary");
+  employee = doc.createElementNS("http://www.w3.org/2000/xmlns/","employee");
+  address  = doc.createElementNS("http://www.w3.org/2000/xmlns/","address");
+  name     = doc.createElementNS("http://www.w3.org/2000/xmlns/","name");
+  position = doc.createElementNS("http://www.w3.org/2000/xmlns/","position");
+  gender   = doc.createElementNS("http://www.w3.org/2000/xmlns/","gender");
+  id       = doc.createElementNS("http://www.w3.org/2000/xmlns/","employeeId");
+  salary   = doc.createElementNS("http://www.w3.org/2000/xmlns/","salary");
 
   employee.appendChild(id);
   employee.appendChild(name);
@@ -128,13 +128,13 @@ exports.staffNS = function() {
   /************************************
   *          EMPLOYEEE 3              *
   ************************************/
-  employee = doc.createElement("employee");
-  address  = doc.createElement("address");
-  name     = doc.createElement("name");
-  position = doc.createElement("position");
-  gender   = doc.createElement("gender");
-  id       = doc.createElement("employeeId");
-  salary   = doc.createElement("salary");
+  employee = doc.createElementNS("http://www.nist.gov","employee");
+  address  = doc.createElementNS("http://www.w3.org/2000/xmlns/","address");
+  name     = doc.createElementNS("http://www.w3.org/2000/xmlns/","name");
+  position = doc.createElementNS("http://www.w3.org/2000/xmlns/","position");
+  gender   = doc.createElementNS("http://www.w3.org/2000/xmlns/","gender");
+  id       = doc.createElementNS("http://www.w3.org/2000/xmlns/","employeeId");
+  salary   = doc.createElementNS("http://www.w3.org/2000/xmlns/","salary");
 
   employee.appendChild(id);
   employee.appendChild(name);
@@ -188,13 +188,13 @@ exports.staffNS = function() {
   /************************************
   *          EMPLOYEEE 5              *
   ************************************/
-  employee = doc.createElement("employee");
-  address  = doc.createElement("address");
-  name     = doc.createElement("name");
-  position = doc.createElement("position");
-  gender   = doc.createElement("gender");
-  id       = doc.createElement("employeeId");
-  salary   = doc.createElement("salary");
+  employee = doc.createElementNS("http://www.w3.org/2000/xmlns/","employee");
+  address  = doc.createElementNS("http://www.w3.org/2000/xmlns/","address");
+  name     = doc.createElementNS("http://www.w3.org/2000/xmlns/","name");
+  position = doc.createElementNS("http://www.w3.org/2000/xmlns/","position");
+  gender   = doc.createElementNS("http://www.w3.org/2000/xmlns/","gender");
+  id       = doc.createElementNS("http://www.w3.org/2000/xmlns/","employeeId");
+  salary   = doc.createElementNS("http://www.w3.org/2000/xmlns/","salary");
 
   employee.appendChild(id);
   employee.appendChild(name);
