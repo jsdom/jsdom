@@ -1,22 +1,22 @@
 {
     "name": "jsdom",
-    "version": "0.1.2",
+    "version": "0.1.4",
     "description": "CommonJS implementation of the DOM intended to be platform independent and as minimal/light as possible while completely adhering to the w3c DOM specifications.",
     "keywords": [
         "dom",
-        "javascript" 
+        "javascript"
     ],
     "maintainers": [
         {
             "name": "Elijah Insua",
             "email": "tmpvar@gmail.com",
-            "web": "http://tmpvar.com" 
-        } 
+            "web": "http://tmpvar.com"
+        }
     ],
     "contributors": [
         {
             "name": "Vincent Greene",
-            "email": "ulteriorlife@gmail.com" 
+            "email": "ulteriorlife@gmail.com"
         },
         {
             "name": "Dav Glass",
@@ -25,19 +25,19 @@
     ],
     "bugs": {
         "mail": "tmpvar@gmail.com",
-        "web": "http://http://github.com/tmpvar/jsdom/issues" 
+        "web": "http://http://github.com/tmpvar/jsdom/issues"
     },
     "licenses": [
         {
             "type": "MIT",
-            "url": "http://github.com/tmpvar/jsdom/blob/master/LICENSE.txt" 
-        } 
+            "url": "http://github.com/tmpvar/jsdom/blob/master/LICENSE.txt"
+        }
     ],
     "repositories": [
         {
             "type": "git",
-            "url": "http://github.com/tmpvar/jsdom.git" 
-        } 
+            "url": "http://github.com/tmpvar/jsdom.git"
+        }
     ],
     "implements": [
         "http://www.w3.org/TR/REC-DOM-Level-1"
@@ -48,21 +48,21 @@
     "os": [
         "linux",
         "macos",
-        "win" 
+        "win"
     ],
     "cpu": [
         "x86",
         "ppc",
-        "x86_64" 
+        "x86_64"
     ],
     "engines": [
         "v8",
         "ejs",
         "node",
-        "rhino" 
+        "rhino"
     ],
     "directories": {
-        "lib": "lib" 
+        "lib": "lib"
     },
     "main": "./lib/jsdom"
 }
