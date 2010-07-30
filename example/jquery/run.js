@@ -2,16 +2,12 @@ var sys    = require("sys"),
     fs     = require("fs"),
     jsdom  = require(__dirname + "/../../lib/jsdom").jsdom,
     window = jsdom().makeWindow(),
-    Script = process.binding('evals').Script;
+    Script = process.binding('evals').Script,
+    jQueryTag = window.document.createElement("script");
 
-fs.readFile(__dirname + "/jquery.js", function(err, data) {
-  try {
-    Script.runInNewContext(data.toString(), window);
-  } catch(e){
-    sys.puts(sys.inspect(e));
-    process.exit();
-  }
+jQueryTag.src = "file://" + __dirname + "/jquery.js";
+window.document.getElementsByTagName('head')[0].appendChild(jQueryTag);
 
-  window.jQuery('body').append("<div class='testing'>Hello World, It works!</div>");
-  sys.puts(window.jQuery(".testing").text());
-});
+// jQuery is ready!
+window.jQuery('body').append("<div class='testing'>Hello World, It works!</div>");
+sys.puts(window.jQuery(".testing").text());
