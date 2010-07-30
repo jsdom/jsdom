@@ -109,8 +109,14 @@ var suites = {
       global.builder.type          = "html";
       global.builder.testDirectory = "browser";
     }
+  },
+  "jsdom"     : { cases: require("./jsdom").tests, setUp : function() {
+      global.jsdom = require(__dirname + "/../lib/jsdom");
+      global.builder.contentType   = "text/html";
+      global.builder.type          = "html";
+      global.builder.testDirectory = "browser";
+    }
   }
-
   /*
     Ignoring for now..
   "level2/html" : { cases: require("./level2/html").tests, setUp : function() {
