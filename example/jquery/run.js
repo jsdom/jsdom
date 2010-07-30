@@ -1,8 +1,6 @@
 var sys    = require("sys"),
-    fs     = require("fs"),
     jsdom  = require(__dirname + "/../../lib/jsdom").jsdom,
     window = jsdom().makeWindow(),
-    Script = process.binding('evals').Script,
     jQueryTag = window.document.createElement("script");
 
 jQueryTag.src = "file://" + __dirname + "/jquery.js";
