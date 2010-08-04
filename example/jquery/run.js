@@ -4,7 +4,11 @@ var sys    = require("sys"),
     head   = window.document.getElementsByTagName('head')[0],
     jQueryTag = window.document.createElement("script");
 
-jQueryTag.src = "http://code.jquery.com/jquery-1.4.2.js";
+jQueryTag.src = "file://" + __dirname + "/jquery.js";
+
+// this also works:
+// jQueryTag.src = "http://code.jquery.com/jquery-1.4.2.js";
+
 head.appendChild(jQueryTag);
 
 jQueryTag.onload = function() {
