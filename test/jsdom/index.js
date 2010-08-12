@@ -11,6 +11,7 @@ exports.tests = {
                     __dirname + "/../../example/jquery/jquery.js", 
                     function(window, jQuery) 
     {
+        assertNotNull("jQuery should be attached to the window", window.jQuery.find);
         assertNotNull("jQuery should be attached to the window", jQuery.find);
     });
   }
