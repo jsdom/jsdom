@@ -1,6 +1,6 @@
 {
     "name": "jsdom",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "description": "CommonJS implementation of the DOM intended to be platform independent and as minimal/light as possible while completely adhering to the w3c DOM specifications.",
     "keywords": [
         "dom",
@@ -21,6 +21,10 @@
         {
             "name": "Dav Glass",
             "email": "davglass@gmail.com"
+        },
+        {
+            "name" : "Charlie Robins",
+            "email": "charlie.robbins@gmail.com"
         }
     ],
     "bugs": {
