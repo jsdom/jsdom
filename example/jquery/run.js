@@ -1,8 +1,6 @@
 var sys    = require("sys"),
     jsdom  = require(__dirname + "/../../lib/jsdom"),
-    window = jsdom.jsdom().createWindow(),
-    head   = window.document.getElementsByTagName('head')[0],
-    jQueryTag = window.document.createElement("script");
+    window = jsdom.jsdom().createWindow();
 
 // this also works:
 // jQueryTag.src = "http://code.jquery.com/jquery-1.4.2.js";
