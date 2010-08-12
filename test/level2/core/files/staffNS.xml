@@ -1,5 +1,5 @@
-<?xml version="1.0"?><?TEST-STYLE PIDATA?>
-<!DOCTYPE staff PUBLIC "STAFF" "staffNS.dtd" 
+/*<?xml version="1.0"?><?TEST-STYLE PIDATA?>
+<!DOCTYPE staff PUBLIC "STAFF" "staffNS.dtd"
 [
    <!ENTITY ent1 "es">
    <!ENTITY ent2 "1900 Dallas Road">
@@ -16,7 +16,7 @@
  <employee xmlns="http://www.nist.gov" xmlns:dmstc="http://www.usa.com">
   <employeeId>EMP0001</employeeId>
   <name>Margaret Martin</name>
-  <position>Accountant</position>           
+  <position>Accountant</position>
   <salary>56,000</salary>
   <gender>Female</gender>
   <address dmstc:domestic="Yes">1230 North Ave. Dallas, Texas 98551</address>
@@ -56,4 +56,4 @@
   <gender>male</gender>
   <address street="Yes" xmlns="http://www.nist.gov">1821 Nordic. Road, Irving Texas 98558</address>
  </employee>
- </staff>
+ </staff>*/
