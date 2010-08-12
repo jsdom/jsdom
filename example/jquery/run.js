@@ -1,6 +1,6 @@
 var sys    = require("sys"),
     jsdom  = require(__dirname + "/../../lib/jsdom").jsdom,
-    window = jsdom().makeWindow(),
+    window = jsdom().createWindow(),
     head   = window.document.getElementsByTagName('head')[0],
     jQueryTag = window.document.createElement("script");
 

@@ -3,7 +3,7 @@ exports.tests = {
 
   build_window : function() {
     sys.debug(sys.inspect(jsdom));
-    var window = jsdom.jsdom().makeWindow();
+    var window = jsdom.jsdom().createWindow();
     assertNotNull("window must be a new object!", window);
   }
 };
