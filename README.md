@@ -25,7 +25,7 @@ see: [project site][] for additional information
 # Examples
 
 ## jQuery
-
+<pre>
   var sys    = require("sys"),
       jsdom  = require(__dirname + "/../../lib/jsdom"),
       window = jsdom.jsdom().createWindow();
@@ -36,6 +36,7 @@ see: [project site][] for additional information
     window.jQuery('body').append("<div class='testing'>Hello World, It works!</div>");
     sys.puts(window.jQuery(".testing").text());
   });
+</pre>
 
 
   
