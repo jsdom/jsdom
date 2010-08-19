@@ -33,7 +33,7 @@ see: [project site][] for additional information
   // this also works:
   // jQueryTag.src = "http://code.jquery.com/jquery-1.4.2.js";
   jsdom.jQueryify(window, __dirname + "/jquery.js", function() {
-    window.jQuery('body').append("<div class='testing'>Hello World, It works!</div>");
+    window.jQuery('body').append("&lt;div class='testing'&gt;Hello World, It works!&lt;/div&gt;");
     sys.puts(window.jQuery(".testing").text());
   });
 </pre>
