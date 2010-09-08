@@ -1,5 +1,5 @@
-<?xml version="1.0"?><?TEST-STYLE PIDATA?>
-<!DOCTYPE staff PUBLIC "STAFF" "staffNS.dtd" 
+/*<?xml version="1.0"?><?TEST-STYLE PIDATA?>
+<!DOCTYPE staff PUBLIC "STAFF" "staffNS.dtd"
 [
    <!ENTITY ent1 "es">
    <!ENTITY ent2 "1900 Dallas Road">
@@ -13,14 +13,17 @@
 ]>
 <!-- This is comment number 1.-->
 <staff>
+
  <employee xmlns="http://www.nist.gov" xmlns:dmstc="http://www.usa.com">
   <employeeId>EMP0001</employeeId>
   <name>Margaret Martin</name>
-  <position>Accountant</position>           
+  <position>Accountant</position>
   <salary>56,000</salary>
   <gender>Female</gender>
   <address dmstc:domestic="Yes">1230 North Ave. Dallas, Texas 98551</address>
  </employee>
+ 
+ 
  <employee xmlns:dmstc="http://www.usa.com">
   <employeeId>EMP0002</employeeId>
   <name>Martha Raynolds
@@ -32,6 +35,8 @@
   <address dmstc:domestic="Yes" street="Yes">&ent2; Dallas, &ent3;
  98554</address>
  </employee>
+ 
+ 
  <employee xmlns:dmstc="http://www.netzero.com">
   <employeeId>EMP0003</employeeId>
   <name>Roger
@@ -41,6 +46,8 @@
   <gender>&ent4;</gender>
   <address dmstc:domestic="Yes" street="No">PO Box 27 Irving, texas 98553</address>
  </employee>
+ 
+ 
  <emp:employee xmlns:emp="http://www.nist.gov" xmlns:nm="http://www.altavista.com" >    <emp:employeeId>EMP0004</emp:employeeId>
   <nm:name>Jeny Oconnor</nm:name>
   <emp:position>Personnel Director</emp:position>
@@ -48,6 +55,8 @@
   <emp:gender>Female</emp:gender>
   <emp:address emp:domestic="Yes" street="Y&ent1;" emp:zone="CANADA" emp:local1="TRUE">27 South Road. Dallas, texas 98556</emp:address>
  </emp:employee>
+ 
+ 
  <employee xmlns:emp2="http://www.nist.gov">
   <employeeId>EMP0005</employeeId>
   <name>Robert Myers</name>
@@ -56,4 +65,4 @@
   <gender>male</gender>
   <address street="Yes" xmlns="http://www.nist.gov">1821 Nordic. Road, Irving Texas 98558</address>
  </employee>
- </staff>
+ </staff>*/
