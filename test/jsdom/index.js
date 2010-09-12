@@ -17,7 +17,8 @@ exports.tests = {
   },
   plain_window_document : function() {
     var window = (jsdom.createWindow());
-  
+    assertTrue("jsdom.createWindow() should create a documentless window",
+               typeof window.document === 'undefined');
   }
   
 };
