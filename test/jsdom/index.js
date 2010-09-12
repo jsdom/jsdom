@@ -14,6 +14,10 @@ exports.tests = {
         assertNotNull("jQuery should be attached to the window", window.jQuery.find);
         assertNotNull("jQuery should be attached to the window", jQuery.find);
     });
+  },
+  plain_window_document : function() {
+    var window = (jsdom.createWindow());
+  
   }
   
 };
