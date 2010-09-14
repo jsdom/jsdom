@@ -1,0 +1,22 @@
+<html>
+	<head>
+		<link type="text/css" rel="stylesheet" href="/opt/local/lib/ruby/gems/1.8/gems/jspec-4.3.3/lib/jspec.css" />
+		<script src="/opt/local/lib/ruby/gems/1.8/gems/jspec-4.3.3/lib/jspec.js"></script>
+		<script src="/opt/local/lib/ruby/gems/1.8/gems/jspec-4.3.3/lib/jspec.xhr.js"></script>
+		<script src="../lib/yourlib.js"></script>
+		<script src="unit/spec.helper.js"></script>
+		<script>
+			function runSuites() {
+				JSpec
+				.exec('unit/spec.js')
+				.run({ fixturePath: 'fixtures' })
+				.report()
+			}
+		</script>
+	</head>
+	<body class="jspec" onLoad="runSuites();">
+		<div id="jspec-top"><h2 id="jspec-title">JSpec <em><script>document.write(JSpec.version)</script></em></h2></div>
+		<div id="jspec"></div>
+		<div id="jspec-bottom"></div>
+	</body>
+</html>
