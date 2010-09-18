@@ -24,6 +24,41 @@ see: [project site][] for additional information
 
 # Examples
 
+## Creating a document-less window
+<pre>
+var jsdom  = require("jsdom"),
+    window = jsdom.createWindow();
+
+console.log(window.document);
+// output: undefined
+</pre>
+
+## Creating a window+document with html
+<pre>
+var jsdom  = require("jsdom"),
+    window = jsdom.createWindow("<html><head></head><body>hello world</body></html>", jsdom.defaultLevel);
+
+console.log(window.document.innerHTML);
+// output: '<html><head></head><body>hello world</body></html>'
+</pre>
+
+## Creating a browser-like DOM/Window
+
+<pre>
+var jsdom  = require("jsdom"),
+    window = jsdom.jsdom().createWindow();
+
+window.document.innerHTML = "<html><head></head><body>hello world</body></html>";
+console.log(window.document.innerHTML);
+// output: '<html><head></head><body>hello world</body></html>'
+
+console.log(window.innerWidth)
+// output: 1024
+
+console.log(typeof window.document.getElementsByClassName);
+// outputs: function
+</pre>
+
 ## jQuery
 <pre>
   var sys    = require("sys"),
