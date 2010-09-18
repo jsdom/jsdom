@@ -25,29 +25,26 @@ see: [project site][] for additional information
 # Examples
 
 ## Creating a document-less window
-<pre>
-var jsdom  = require("jsdom"),
-    window = jsdom.createWindow();
-
-console.log(window.document);
-// output: undefined
-</pre>
-
-## Creating a window+document with html
 
     var jsdom  = require("jsdom"),
-        window = jsdom.createWindow("<html><head></head><body>hello world</body></html>", jsdom.defaultLevel);
+        window = jsdom.createWindow();
 
-    console.log(window.document.innerHTML);
-    // output: '<html><head></head><body>hello world</body></html>'
+    console.log(window.document);
+    // output: undefined
 
+## Creating a document
+    var jsdom = require("jsdom"),
+        doc   = new (jsdom.dom.level1.core.Document)();
+    console.log(doc.nodeName);
+    // outputs: #document
 
-## Creating a browser-like DOM/Window
+## Creating a browser-like BOM/DOM/Window
 
     var jsdom  = require("jsdom"),
-        window = jsdom.jsdom().createWindow();
+        window = jsdom.createWindow(
+          "<html><head></head><body>hello world</body></html>"
+        );
 
-    window.document.innerHTML = "<html><head></head><body>hello world</body></html>";
     console.log(window.document.innerHTML);
     // output: '<html><head></head><body>hello world</body></html>'
 
@@ -67,6 +64,3 @@ console.log(window.document);
       window.jQuery('body').append("&lt;div class='testing'&gt;Hello World, It works!&lt;/div&gt;");
       sys.puts(window.jQuery(".testing").text());
     });
-
-
-  
