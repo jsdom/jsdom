@@ -44,34 +44,29 @@ console.log(window.document);
 
 ## Creating a browser-like DOM/Window
 
-<pre>
-var jsdom  = require("jsdom"),
-    window = jsdom.jsdom().createWindow();
+    var jsdom  = require("jsdom"),
+        window = jsdom.jsdom().createWindow();
 
-window.document.innerHTML = "<html><head></head><body>hello world</body></html>";
-console.log(window.document.innerHTML);
-// output: '<html><head></head><body>hello world</body></html>'
+    window.document.innerHTML = "<html><head></head><body>hello world</body></html>";
+    console.log(window.document.innerHTML);
+    // output: '<html><head></head><body>hello world</body></html>'
 
-console.log(window.innerWidth)
-// output: 1024
+    console.log(window.innerWidth)
+    // output: 1024
 
-console.log(typeof window.document.getElementsByClassName);
-// outputs: function
-</pre>
+    console.log(typeof window.document.getElementsByClassName);
+    // outputs: function
 
 ## jQuery
-<pre>
-  var sys    = require("sys"),
-      jsdom  = require(__dirname + "/../../lib/jsdom"),
-      window = jsdom.jsdom().createWindow();
+
+    var sys    = require("sys"),
+        jsdom  = require(__dirname + "/../../lib/jsdom"),
+        window = jsdom.jsdom().createWindow();
   
-  // this also works:
-  // jQueryTag.src = "http://code.jquery.com/jquery-1.4.2.js";
-  jsdom.jQueryify(window, __dirname + "/jquery.js", function() {
-    window.jQuery('body').append("&lt;div class='testing'&gt;Hello World, It works!&lt;/div&gt;");
-    sys.puts(window.jQuery(".testing").text());
-  });
-</pre>
+    jsdom.jQueryify(window, __dirname + "/jquery.js", function() {
+      window.jQuery('body').append("&lt;div class='testing'&gt;Hello World, It works!&lt;/div&gt;");
+      sys.puts(window.jQuery(".testing").text());
+    });
 
 
   
