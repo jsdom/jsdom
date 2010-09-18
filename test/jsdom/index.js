@@ -4,6 +4,21 @@ exports.tests = {
   build_window : function() {
     var window = jsdom.jsdom().createWindow();
     assertNotNull("window must be a new object!", window);
+    assertNotNull(window.document);
+  },
+
+  jsdom_takes_html : function() {
+    var document = jsdom.jsdom('<a href="#test">');
+    assertEquals("Passing html into jsdom() should populate the resulting doc",
+                 document.documentElement.getAttribute("href"),
+                 "#test");
+  },
+
+  jsdom_method_creates_default_document : function() { 
+    var doc = jsdom.jsdom();
+    assertEquals("Calling jsdom.jsdom() should automatically populate the doc",
+                 doc.documentElement.nodeName,
+                 "HTML");
   },
 
   jquerify : function() {
@@ -26,5 +41,6 @@ exports.tests = {
     var window = (jsdom.createWindow());
     assertTrue("jsdom.createWindow() should create a documentless window",
                typeof window.document === 'undefined');
-  }
+  },
+  
 };
