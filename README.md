@@ -35,11 +35,11 @@ console.log(window.document);
 
 ## Creating a window+document with html
 
-  var jsdom  = require("jsdom"),
-      window = jsdom.createWindow("<html><head></head><body>hello world</body></html>", jsdom.defaultLevel);
+    var jsdom  = require("jsdom"),
+        window = jsdom.createWindow("<html><head></head><body>hello world</body></html>", jsdom.defaultLevel);
 
-  console.log(window.document.innerHTML);
-  // output: '<html><head></head><body>hello world</body></html>'
+    console.log(window.document.innerHTML);
+    // output: '<html><head></head><body>hello world</body></html>'
 
 
 ## Creating a browser-like DOM/Window
