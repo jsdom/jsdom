@@ -40,8 +40,8 @@ see: [project site][] for additional information
 
 ## Creating a browser-like BOM/DOM/Window
 
-    var jsdom  = require("jsdom"),
-        window = jsdom.createWindow(
+    var jsdom  = require("jsdom").jsdom,
+        window = jsdom().createWindow(
           "<html><head></head><body>hello world</body></html>"
         );
 
@@ -54,13 +54,26 @@ see: [project site][] for additional information
     console.log(typeof window.document.getElementsByClassName);
     // outputs: function
 
-## jQuery
+## Load arbitrary scripts
+    var jsdom  = require("jsdom").jsdom,
+        window = jsdom().createWindow(),
+        script = window.document.createElement("script");
 
-    var sys    = require("sys"),
-        jsdom  = require(__dirname + "/../../lib/jsdom"),
+    script.src = 'http://code.jquery.com/jquery-1.4.2.js';
+
+    script.onload = function() {
+      if (this.readyState === 'complete') {
+        console.log(window.jQuery.fn.jquery);
+        // outputs: 1.4.2
+      }
+    };
+
+## jQueryify
+
+    var jsdom  = require("jsdom"),
         window = jsdom.jsdom().createWindow();
-  
-    jsdom.jQueryify(window, __dirname + "/jquery.js", function() {
-      window.jQuery('body').append("&lt;div class='testing'&gt;Hello World, It works!&lt;/div&gt;");
-      sys.puts(window.jQuery(".testing").text());
+
+    jsdom.jQueryify(window, "http://code.jquery.com/jquery-1.4.2.min.js" , function() {
+      window.jQuery('body').append(<div class='testing'>Hello World, It works</div>");
+      console.log(window.jQuery(".testing").text());
     });
