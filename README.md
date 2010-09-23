@@ -24,19 +24,54 @@ see: [project site][] for additional information
 
 # Examples
 
-## jQuery
-<pre>
-  var sys    = require("sys"),
-      jsdom  = require(__dirname + "/../../lib/jsdom"),
-      window = jsdom.jsdom().createWindow();
-  
-  // this also works:
-  // jQueryTag.src = "http://code.jquery.com/jquery-1.4.2.js";
-  jsdom.jQueryify(window, __dirname + "/jquery.js", function() {
-    window.jQuery('body').append("&lt;div class='testing'&gt;Hello World, It works!&lt;/div&gt;");
-    sys.puts(window.jQuery(".testing").text());
-  });
-</pre>
+## Creating a document-less window
 
+    var jsdom  = require("jsdom"),
+        window = jsdom.createWindow();
 
-  
+    console.log(window.document);
+    // output: undefined
+
+## Creating a document
+    var jsdom = require("jsdom"),
+        doc   = new (jsdom.dom.level1.core.Document)();
+    console.log(doc.nodeName);
+    // outputs: #document
+
+## Creating a browser-like BOM/DOM/Window
+
+    var jsdom  = require("./lib/jsdom").jsdom,
+        window = jsdom("<html><head></head><body>hello world</body></html>").createWindow();
+
+    console.log(window.document.innerHTML);
+    // output: '<html><head></head><body>hello world</body></html>'
+
+    console.log(window.innerWidth)
+    // output: 1024
+
+    console.log(typeof window.document.getElementsByClassName);
+    // outputs: function
+
+## Load arbitrary scripts
+    var jsdom  = require("jsdom").jsdom,
+        window = jsdom().createWindow(),
+        script = window.document.createElement("script");
+
+    script.src = 'http://code.jquery.com/jquery-1.4.2.js';
+
+    script.onload = function() {
+      if (this.readyState === 'complete') {
+        console.log(window.jQuery.fn.jquery);
+        // outputs: 1.4.2
+      }
+    };
+
+## jQueryify
+
+    var jsdom  = require("jsdom"),
+        window = jsdom.jsdom().createWindow();
+
+    jsdom.jQueryify(window, "http://code.jquery.com/jquery-1.4.2.min.js" , function() {
+      window.jQuery('body').append(<div class='testing'>Hello World, It works</div>");
+      console.log(window.jQuery(".testing").text());
+    });
