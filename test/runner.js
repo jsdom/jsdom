@@ -100,6 +100,27 @@ var suites = {
       global.builder.testDirectory = "level2/events";
     }
   },
+  /*
+    Ignoring for now..
+  "level2/html" : { cases: require("./level2/html").tests, setUp : function() {
+      global.builder.contentType   = "text/html";
+      global.builder.type          = "html";
+      global.builder.testDirectory = "level2/html";
+    }
+  },*/
+ "level3/core" : { cases: require("./level3/core").tests, setUp : function() {
+      global.builder.contentType   = "text/xml";
+      global.builder.type          = "xml";
+      global.builder.testDirectory = "level3/core";
+    }
+  },/*
+ "level3/ls"   : { cases: require("./level3/ls").tests, setUp : function() {
+      global.builder.contentType   = "text/html";
+      global.builder.type          = "html";
+      global.builder.testDirectory = "level3/ls";
+    }
+  }
+*/
   "browser"     : { cases: require("./browser").tests, setUp : function() {
       global.dom = require(__dirname + "/../lib/jsdom/level1/core").dom.level1.core;
       global.browser = require(__dirname + "/../lib/jsdom/browser").browserAugmentation(dom);
@@ -125,27 +146,6 @@ var suites = {
       global.builder.testDirectory = "browser";
     }
   }
-  /*
-    Ignoring for now..
-  "level2/html" : { cases: require("./level2/html").tests, setUp : function() {
-      global.builder.contentType   = "text/html";
-      global.builder.type          = "html";
-      global.builder.testDirectory = "level2/html";
-    }
-  },
- "level3/core" : { cases: require("./level3/core").tests, setUp : function() {
-     global.builder.contentType   = "text/xml";
-     global.builder.type          = "xml";
-     global.builder.testDirectory = "level3/core";
-   }
- },
- "level3/ls"   : { cases: require("./level3/ls").tests, setUp : function() {
-      global.builder.contentType   = "text/html";
-      global.builder.type          = "html";
-      global.builder.testDirectory = "level3/ls";
-    }
-  }
-*/
 };
 
 require("mjsunit.runner/runner").run(suites);
