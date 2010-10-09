@@ -112,6 +112,31 @@ var suites = {
       global.builder.contentType   = "text/xml";
       global.builder.type          = "xml";
       global.builder.testDirectory = "level3/core";
+      
+      global.DOMErrorMonitor = function() {
+        this.allErrors = new Array();
+      }
+
+      global.DOMErrorMonitor.prototype.handleError = function(err) {
+          errorMonitor.allErrors[errorMonitor.allErrors.length] = new DOMErrorImpl(err);
+      }
+
+      global.DOMErrorMonitor.prototype.assertLowerSeverity = function(id, severity) {
+          var i;
+          for (i = 0; i < errorMonitor.allErrors.length; i++) {
+              if (errorMonitor.allErrors[i].severity >= severity) {
+                 assertEquals(id, severity - 1, errorMonitor.allErrors[i].severity);
+              }
+          }
+      }
+      var core = require(__dirname + "/../lib/jsdom/level3/core").dom.level3.core;
+      global.getImplementation = function() {
+        return {
+          createDocument : function() {
+            return new (core.Document)();
+          }
+        };
+      }
     }
   },/*
  "level3/ls"   : { cases: require("./level3/ls").tests, setUp : function() {
