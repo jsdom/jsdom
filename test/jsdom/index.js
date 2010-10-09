@@ -36,7 +36,7 @@ exports.tests = {
       } catch (e) {
         caught = true;
       }
-      assertEqual("selector should work as expected", "ME", res.text());
+      assertEquals("selector should work as expected", "ME", res.text());
       assertFalse("compareDocumentPosition should not fail", caught);
     });
   },
