@@ -22,18 +22,21 @@ exports.tests = {
   },
 
   jquerify : function() {
-    jsdom.jQueryify(jsdom.jsdom().createWindow(), 
-                    __dirname + "/../../example/jquery/jquery.js", 
-                    function(window, jQuery) 
-    {
+    var tmpWindow = jsdom.jsdom().createWindow(),
+        jQueryFile = __dirname + "/../../example/jquery/jquery.js",
+        caught = false,
+        res = null;
+
+    jsdom.jQueryify(tmpWindow, jQueryFile , function(window, jQuery) {
       assertNotNull("jQuery should be attached to the window", window.jQuery.find);
       assertNotNull("jQuery should be attached to the window", jQuery.find);
-      var caught = false;
+      jQuery("body").html('<p id="para"><a class="link">click <em class="emph">ME</em></a></p>');
       try {
-        jQuery("#a .test", window.body);
+        res = jQuery("#para .emph", window.document.body);
       } catch (e) {
         caught = true;
       }
+      assertEquals("selector should work as expected", "ME", res.text());
       assertFalse("compareDocumentPosition should not fail", caught);
     });
   },
