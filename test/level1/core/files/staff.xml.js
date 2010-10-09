@@ -1,13 +1,13 @@
-var sys = require("sys");
+var dom = require(__dirname + "/../../../../lib/jsdom/level1/core").dom.level1.core;
 exports.staff = function() {
   
-  var doc = new Document("staff");
+  var doc = new dom.Document("staff");
   
-  var implementation = new DOMImplementation(doc, {
+  var implementation = new dom.DOMImplementation(doc, {
     "XML" : "1.0"
   });
   
-  var notations = new NotationNodeMap(
+  var notations = new dom.NotationNodeMap(
     doc,
     doc.createNotationNode("notation1","notation1File", null),
     doc.createNotationNode("notation2",null, "notation2File")
@@ -27,7 +27,7 @@ exports.staff = function() {
   ent5.systemId = "entityFile";
   ent5.notationName = "notation1";
   
-  var entities = new EntityNodeMap(
+  var entities = new dom.EntityNodeMap(
     doc,
     doc.createEntityNode("ent1", doc.createTextNode("es")),
     doc.createEntityNode("ent2",doc.createTextNode("1900 Dallas Road")),
@@ -36,21 +36,7 @@ exports.staff = function() {
     ent5
   );
 
-
-
-  // Setup the DTD/Default Attribute Values
-
-/*
-<!ATTLIST entElement 
-          attr1 CDATA "Attr">
-<!ATTLIST address
-          domestic CDATA #IMPLIED 
-          street CDATA "Yes">
-<!ATTLIST entElement 
-          domestic CDATA "MALE" >
-*/
-  
-  var defaultAttributes = new NamedNodeMap(doc);
+  var defaultAttributes = new dom.NamedNodeMap(doc);
   var entElement = doc.createElement("entElement");
   entElement.setAttribute("attr1", "Attr");
   entElement.setAttribute("domestic", "MALE");
@@ -60,7 +46,7 @@ exports.staff = function() {
   defaultAddress.setAttribute("street", "Yes");
   defaultAttributes.setNamedItem(defaultAddress);
 
-  doc.doctype = new DocumentType(doc, "staff", entities, notations, defaultAttributes);
+  doc.doctype = new dom.DocumentType(doc, "staff", entities, notations, defaultAttributes);
   
   doc.implementation = implementation;  
   
@@ -159,93 +145,6 @@ exports.staff = function() {
   positions[4].appendChild(doc.createTextNode("Computer Specialist"));
   
   doc.appendChild(doc.createProcessingInstruction("TEST-STYLE", "PIDATA"));
-
-/*
-<!ELEMENT employeeId (#PCDATA)>
-<!ELEMENT name (#PCDATA)>
-<!ELEMENT position (#PCDATA)>
-<!ELEMENT salary (#PCDATA)>
-<!ELEMENT address (#PCDATA)>
-<!ELEMENT entElement ( #PCDATA ) >
-<!ELEMENT gender ( #PCDATA | entElement )* >
-<!ELEMENT employee (employeeId, name, position, salary, gender, address) >
-<!ELEMENT staff (employee)+>
-<!ATTLIST entElement 
-          attr1 CDATA "Attr">
-<!ATTLIST address
-          domestic CDATA #IMPLIED 
-          street CDATA "Yes">
-<!ATTLIST entElement 
-          domestic CDATA "MALE" >
-
-*/
-
-  /*<?xml version="1.0"?><?TEST-STYLE PIDATA?>
-<!DOCTYPE staff SYSTEM "staff.dtd" [
-   <!ENTITY ent1 "es">
-   <!ENTITY ent2 "1900 Dallas Road">
-   <!ENTITY ent3 "Texas">
-   <!ENTITY ent4 "<entElement domestic='Yes'>Element data</entElement><?PItarget PIdata?>">
-   <!ENTITY ent5 PUBLIC "entityURI" "entityFile" NDATA notation1>
-   <!ENTITY ent1 "This entity should be discarded">
-   <!NOTATION notation1 PUBLIC "notation1File">
-   <!NOTATION notation2 SYSTEM "notation2File">
-]>
-
-<!-- This is comment number 1.-->
-<staff>
- <employee>
-  <employeeId>EMP0001</employeeId>
-  <name>Margaret Martin</name>
-  <position>Accountant</position>           
-  <salary>56,000</salary>
-  <gender>Female</gender>
-
-  <address domestic="Yes">1230 North Ave. Dallas, Texas 98551</address>
- </employee>
- <employee>
-  <employeeId>EMP0002</employeeId>
-  <name>Martha Raynolds<![CDATA[This is a CDATASection with EntityReference number 2 &ent2;]]>
-<![CDATA[This is an adjacent CDATASection with a reference to a tab &tab;]]></name>
-  <position>Secretary</position>
-
-  <salary>35,000</salary>
-  <gender>Female</gender>
-  <address domestic="Yes" street="Yes">&ent2; Dallas, &ent3;
- 98554</address>
- </employee>
- <employee>
-
-  <employeeId>EMP0003</employeeId>
-  <name>Roger
- Jones</name>
-  <position>Department Manager</position>
-  <salary>100,000</salary>
-  <gender>&ent4;</gender>
-  <address domestic="Yes" street="No">PO Box 27 Irving, texas 98553</address>
-
- </employee>
- <employee>
-  <employeeId>EMP0004</employeeId>
-  <name>Jeny Oconnor</name>
-  <position>Personnel Director</position>
-  <salary>95,000</salary>
-  <gender>Female</gender>
-
-  <address domestic="Yes" street="Y&ent1;">27 South Road. Dallas, Texas 98556</address>
- </employee>
- <employee>
-  <employeeId>EMP0005</employeeId>
-  <name>Robert Myers</name>
-  <position>Computer Specialist</position>
-  <salary>90,000</salary>
-
-  <gender>male</gender>
-  <address street="Yes">1821 Nordic. Road, Irving Texas 98558</address>
- </employee>
- </staff>
-*/
-
   doc.appendChild(doc.createComment(" This is comment number 1."));
   doc.appendChild(staff);
   

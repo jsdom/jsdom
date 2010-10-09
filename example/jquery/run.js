@@ -1,17 +1,10 @@
-var sys = require("sys"), fs = require("fs");
+var sys    = require("sys"),
+    jsdom  = require(__dirname + "/../../lib/jsdom"),
+    window = jsdom.jsdom().createWindow();
 
-var dom = require("../../lib/jsdom/level1/core").dom.level1.core;
-var window = require("../../lib/jsdom/browser").windowAugmentation(dom).window;
-var Script = process.binding('evals').Script;
-
-fs.readFile(__dirname + "/jquery.js", function(err, data) {
-  
-  try {
-    Script.runInNewContext(data.toString(), {window: window, location: window.location, navigator: window.navigator});
-  } catch(e){
-    sys.puts(sys.inspect(e));
-  }
+// this also works:
+// jQueryTag.src = "http://code.jquery.com/jquery-1.4.2.js";
+jsdom.jQueryify(window, __dirname + "/jquery.js", function() {
   window.jQuery('body').append("<div class='testing'>Hello World, It works!</div>");
   sys.puts(window.jQuery(".testing").text());
-  
 });

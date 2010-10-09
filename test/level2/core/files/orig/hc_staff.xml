@@ -1,4 +1,4 @@
-<?xml version="1.0"?><?TEST-STYLE PIDATA?>
+/*<?xml version="1.0"?><?TEST-STYLE PIDATA?>
 <!DOCTYPE html
    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
    "xhtml1-strict.dtd" [
@@ -17,7 +17,7 @@
  <p>
   <em>EMP0001</em>
   <strong>Margaret Martin</strong>
-  <code>Accountant</code>           
+  <code>Accountant</code>
   <sup>56,000</sup>
   <var>Female</var>
   <acronym title="Yes">1230 North Ave. Dallas, Texas 98551</acronym>
@@ -57,4 +57,4 @@ This is an adjacent CDATASection with a reference to a tab &amp;tab;</strong>
   <var>male</var>
   <acronym title="Yes">1821 Nordic. Road, Irving Texas 98558</acronym>
  </p>
-</body></html>
+</body></html>*/

@@ -1,13 +1,13 @@
-var sys = require("sys");
+var dom = require(__dirname + "/../../../../lib/jsdom/level1/core").dom.level1.core;
 exports.hc_staff = function() {
 
-  var doc = new Document("html");
+  var doc = new dom.Document("html");
   
-  var implementation = new DOMImplementation(doc, {
+  var implementation = new dom.DOMImplementation(doc, {
     "HTML" : "1.0"
   });
 
-  var notations = new NotationNodeMap(
+  var notations = new dom.NotationNodeMap(
     doc,
     doc.createNotationNode("notation1","notation1File", null),
     doc.createNotationNode("notation2",null, "notation2File")
@@ -15,7 +15,7 @@ exports.hc_staff = function() {
   
   // TODO: consider importing the master list of entities
   //       http://www.w3schools.com/tags/ref_symbols.asp
-  var entities = new EntityNodeMap(
+  var entities = new dom.EntityNodeMap(
     doc,
     doc.createEntityNode("alpha", "α"),
     doc.createEntityNode("beta", "&#946;"),
@@ -26,14 +26,14 @@ exports.hc_staff = function() {
 
   // <!ATTLIST acronym dir CDATA "ltr">
 
-  var defaultAttributes = new NamedNodeMap(doc);
+  var defaultAttributes = new dom.NamedNodeMap(doc);
   var acronym = doc.createElement("acronym");
   acronym.setAttribute("dir", "ltr");
   defaultAttributes.setNamedItem(acronym);
   
   
 
-  var doctype = new DocumentType(doc, "html", entities, notations, defaultAttributes);
+  var doctype = new dom.DocumentType(doc, "html", entities, notations, defaultAttributes);
   doc.doctype = doctype;
   doc.implementation = implementation;
   

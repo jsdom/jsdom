@@ -24,16 +24,19 @@ attrgetownerelement01 : function () {
       var attributes;
       var nullNS = null;
 
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
       elementList = doc.getElementsByTagNameNS("http://www.nist.gov","employee");
+
       element = elementList.item(1);
       attributes = element.attributes;
 
       attr = attributes.getNamedItemNS(nullNS,"defaultAttr");
+
       ownerElement = attr.ownerElement;
 
       ownerElementName = ownerElement.nodeName;
@@ -68,6 +71,7 @@ attrgetownerelement02 : function () {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
+
       element = doc.createElement("root");
       attr = doc.createAttributeNS("http://www.w3.org/DOM/L1","L1:att");
       newAttr = element.setAttributeNodeNS(attr);
@@ -869,7 +873,8 @@ createDocument08 : function () {
       var domImpl;
       var aNewDoc;
       var charact;
-      domImpl = getImplementation();
+      var doc = load(null, "doc", "staffNS");
+      domImpl = doc.implementation;
 
 	{
 		success = false;
@@ -1070,7 +1075,7 @@ createDocumentType04 : function () {
       var docType = null;
 
       var domImpl;
-      domImpl = getImplementation();
+      domImpl = load(null, "doc", "staffNS").implementation;
 
 	{
 		success = false;
@@ -2759,7 +2764,7 @@ documentimportnode14 : function () {
       doc = load(docRef, "doc", "staffNS");
       childList = doc.getElementsByTagNameNS("*","employee");
       employeeElem = childList.item(3);
-      domImpl = getImplementation();
+      domImpl = load(null, "doc", "staffNS").implementation;
 newDoc = domImpl.createDocument(nullNS,"staff",nullDocType);
       imported = newDoc.importNode(employeeElem,true);
       attrNode = imported.getAttributeNodeNS(nullNS,"defaultAttr");
@@ -3751,7 +3756,7 @@ for(var indexN10073 = 0;indexN10073 < qualifiedNames.length; indexN10073++) {
 
    Retrieve the entire DOM document and invoke its 
 
-   "getImplementation()" method.  This should create a
+   "load(null, "doc", "staffNS").implementation" method.  This should create a
 
    DOMImplementation object whose "hasFeature(feature,
 
@@ -3796,7 +3801,7 @@ assertTrue("domimplementationFeaturecoreAssert",state);
 
    Retrieve the entire DOM document and invoke its 
 
-   "getImplementation()" method.  This should create a
+   "load(null, "doc", "staffNS").implementation" method.  This should create a
 
    DOMImplementation object whose "hasFeature(feature,
 
@@ -11501,7 +11506,6 @@ prefix09 : function () {
       elementList = doc.getElementsByTagName("address");
       addrNode = elementList.item(3);
       addrAttr = addrNode.getAttributeNode("xmlns");
-      
 	{
 		success = false;
 		try {
@@ -12462,23 +12466,8 @@ setAttributeNodeNS02 : function () {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
-	if(
-	(getImplementationAttribute("expandEntityReferences") == false)
-	) {
-	genderList = doc.getElementsByTagName("gender");
-      gender = genderList.item(2);
-      genList = gender.childNodes;
-
-      gen = genList.item(0);
-      
-	}
-	
-		else {
-			gen = doc.createEntityReference("ent4");
-      
-		}
-	gList = gen.childNodes;
+      gen = doc.createEntityReference("ent4");
+      gList = gen.childNodes;
 
       genElement = gList.item(0);
       assertNotNull("notnull",genElement);
