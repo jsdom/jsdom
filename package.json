@@ -57,22 +57,7 @@
     "dependencies": {
        "mjsunit.runner": ">= 0.1.0"
     },
-    "os": [
-        "linux",
-        "macos",
-        "win"
-    ],
-    "cpu": [
-        "x86",
-        "ppc",
-        "x86_64"
-    ],
-    "engines": [
-        "v8",
-        "ejs",
-        "node",
-        "rhino"
-    ],
+    "engines" : { "node" : ">=0.1.9" },
     "directories": {
         "lib": "lib"
     },
