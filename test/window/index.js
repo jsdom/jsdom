@@ -6,9 +6,9 @@ exports.tests = {
 
     assertTrue("last element should be the new meta tag",
                 elements.item(elements.length-1) === meta); 
-    assertTrue("meta should be stringified with a closing tag",
+    assertTrue("meta should not be stringified with a closing tag",
                window.document.innerHTML.indexOf("<meta>") > -1 &&
-               window.document.innerHTML.indexOf("</meta>") > -1
+               window.document.innerHTML.indexOf("</meta>") === -1
                );
   }
 };
