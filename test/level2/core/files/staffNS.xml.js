@@ -1,15 +1,15 @@
 var sys = require("sys"),
-    dom = require(__dirname + "/../../../../lib/jsdom/level2/core").dom.level2.core;
+    dom = require("../../../../lib/jsdom/level2/core").dom.level2.core;
 
 exports.staffNS = function() {
-  
+
   var doc = new dom.Document("staff");
-  
+
   var implementation = new dom.DOMImplementation(doc, {
     "XML" : ["1.0", "2.0"],
     "core": ["1.0", "2.0", "3.0"]
   });
-  
+
   var notations = new dom.NotationNodeMap(
     doc,
     doc.createNotationNode("notation1","notation1File", null),
@@ -18,7 +18,7 @@ exports.staffNS = function() {
 
 
 
-//<entElement domestic='Yes'>Element data</entElement><?PItarget PIdata?>  
+//<entElement domestic='Yes'>Element data</entElement><?PItarget PIdata?>
   var entElement = doc.createElementNS("http://www.w3.org/2000/xmlns/","entElement");
   entElement.setAttribute("domestic", "Yes");
   entElement.appendChild(doc.createTextNode("Element data"));
@@ -29,7 +29,7 @@ exports.staffNS = function() {
   ent5.publicId = "entityURI";
   ent5.systemId = "entityFile";
   ent5.notationName = "notation1";
-  
+
   var entities = new dom.EntityNodeMap(
     doc,
     doc.createEntityNode("ent1", doc.createTextNode("es")),
@@ -38,12 +38,12 @@ exports.staffNS = function() {
     ent4,
     ent5
   );
-  
+
   var defaultAttributes = new dom.NamedNodeMap(doc);
   var entElement = doc.createElementNS("http://www.w3.org/2000/xmlns/","entElement");
   entElement.setAttribute("attr1", "Attr");
   entElement.setAttribute("domestic", "MALE");
-  defaultAttributes.setNamedItem(entElement);    
+  defaultAttributes.setNamedItem(entElement);
 
   var defaultAddress = doc.createElementNS("http://www.w3.org/2000/xmlns/","address");
   defaultAddress.setAttribute("street", "Yes");
@@ -51,8 +51,8 @@ exports.staffNS = function() {
 
   doc.doctype = new dom.DocumentType(doc, "staff", entities, notations, defaultAttributes);
   doc.doctype._systemId = "staffNS.dtd";
-  doc.implementation = implementation;  
-  
+  doc.implementation = implementation;
+
   var staff     = doc.createElementNS("http://www.w3.org/2000/xmlns/","staff");
 
   var employee, address, name, position,gender,id, salary;
@@ -116,11 +116,11 @@ exports.staffNS = function() {
   address.appendChild(doc.createTextNode(" Dallas, "));
   address.appendChild(doc.createEntityReference("ent3"));
   address.appendChild(doc.createTextNode("\n 98554"));
-  
+
   name.appendChild(doc.createTextNode("Martha Raynolds"));
   name.appendChild(doc.createCDATASection("This is a CDATASection with EntityReference number 2 &ent2;"));
   name.appendChild(doc.createTextNode("\r\n"));
-  name.appendChild(doc.createCDATASection("This is an adjacent CDATASection with a reference to a tab &tab;"));  
+  name.appendChild(doc.createCDATASection("This is an adjacent CDATASection with a reference to a tab &tab;"));
   gender.appendChild(doc.createTextNode("Female"));
   position.appendChild(doc.createTextNode("Secretary"));
 

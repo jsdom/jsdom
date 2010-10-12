@@ -1,5 +1,5 @@
 var sys    = require("sys"),
-    jsdom  = require(__dirname + "/../../lib/jsdom"),
+    jsdom  = require("../../lib/jsdom"),
     window = jsdom.jsdom().createWindow();
 
 // this also works:
