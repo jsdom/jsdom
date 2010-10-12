@@ -1,11 +1,10 @@
 exports.tests = {
  addmetatohead : function() {
     var meta = window.document.createElement("meta");
-    window.document.getElementsByTagName("head").item(0).appendChild(meta);
-    var elements = window.document.getElementsByTagName("head").item(0).childNodes;
-
+    var head = window.document.getElementsByTagName("body").item(0);
+    head.appendChild(meta);
     assertTrue("last element should be the new meta tag",
-                elements.item(elements.length-1) === meta); 
+                head.lastChild === meta); 
     assertTrue("meta should not be stringified with a closing tag",
                window.document.innerHTML.indexOf("<meta>") > -1 &&
                window.document.innerHTML.indexOf("</meta>") === -1
