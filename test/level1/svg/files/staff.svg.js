@@ -1,12 +1,12 @@
-var dom = require(__dirname + "/../../../../lib/jsdom/level1/core").dom.level1.core;
+var dom = require("../../../../lib/jsdom/level1/core").dom.level1.core;
 exports.staff = function() {
-  
+
   var doc = new dom.Document("staff");
-  
+
   var implementation = new dom.DOMImplementation(doc, {
     "XML" : "1.0"
   });
-  
+
   var notations = new dom.NotationNodeMap(
     doc,
     doc.createNotationNode("notation1","notation1File", null),
@@ -15,7 +15,7 @@ exports.staff = function() {
 
 
 
-//<entElement domestic='Yes'>Element data</entElement><?PItarget PIdata?>  
+//<entElement domestic='Yes'>Element data</entElement><?PItarget PIdata?>
   var entElement = doc.createElement("entElement");
   entElement.setAttribute("domestic", "Yes");
   entElement.appendChild(doc.createTextNode("Element data"));
@@ -30,12 +30,12 @@ exports.staff = function() {
   //<!ENTITY svgunit SYSTEM "svgunit.js">
   var entsvgunit = doc.createEntityNode("svgunit");
   entsvgunit.systemId = "svgtest.js"
-  
+
   //<!ENTITY svgtest SYSTEM "svgtest.js">
   var entsvgtest = doc.createEntityNode("svgtest");
   entsvgtest.systemId = "svgtest.js"
-  
-  
+
+
   var entities = new dom.EntityNodeMap(
     doc,
     doc.createEntityNode("ent1", doc.createTextNode("es")),
@@ -52,29 +52,29 @@ exports.staff = function() {
   // Setup the DTD/Default Attribute Values
 
 /*
-<!ATTLIST entElement 
+<!ATTLIST entElement
           attr1 CDATA "Attr">
 <!ATTLIST address
-          domestic CDATA #IMPLIED 
+          domestic CDATA #IMPLIED
           street CDATA "Yes">
-<!ATTLIST entElement 
+<!ATTLIST entElement
           domestic CDATA "MALE" >
 */
-  
+
   var defaultAttributes = new dom.NamedNodeMap(doc);
   var entElement = doc.createElement("entElement");
   entElement.setAttribute("attr1", "Attr");
   entElement.setAttribute("domestic", "MALE");
-  defaultAttributes.setNamedItem(entElement);    
+  defaultAttributes.setNamedItem(entElement);
 
   var defaultAddress = doc.createElement("address");
   defaultAddress.setAttribute("street", "Yes");
   defaultAttributes.setNamedItem(defaultAddress);
 
   doc.doctype = new dom.DocumentType(doc, "svg", entities, notations, defaultAttributes);
-  
-  doc.implementation = implementation;  
-  
+
+  doc.implementation = implementation;
+
   var staff     = doc.createElement("svg");
   staff.setAttribute("xmlns", "http://www.w3.org/2000/svg");
   //<rect x="0" y="0" width="100" height="100"/><script type="text/ecmascript">&svgtest;&svgunit;</script>
@@ -84,12 +84,12 @@ exports.staff = function() {
   rect.setAttribute("width", "100");
   rect.setAttribute("height", "100");
   staff.appendChild(rect);
-  
+
   var script = doc.createElement("script");
   script.setAttribute("type", "text/ecmascript");
   script.nodeValue = "&svgtest;&svgunit;";
   staff.appendChild(script);
-  
+
   var employees = [];
   var addresses = [];
   var names     = [];
@@ -97,7 +97,7 @@ exports.staff = function() {
   var genders   = [];
   var ids       = [];
   var salaries  = [];
-  
+
   // create 5 employees
   for (var i=0; i<5; i++)
   {
@@ -108,7 +108,7 @@ exports.staff = function() {
     var gender   = doc.createElement("gender");
     var id       = doc.createElement("employeeId");
     var salary   = doc.createElement("salary");
-    
+
     employee.appendChild(id);
     employee.appendChild(name);
     employee.appendChild(position);
@@ -119,7 +119,7 @@ exports.staff = function() {
 
     names.push(name);
     employees.push(employee);
-    addresses.push(address);	
+    addresses.push(address);
     genders.push(gender);
     positions.push(position);
     ids.push(id);
@@ -137,18 +137,18 @@ exports.staff = function() {
 
   ids[1].appendChild(doc.createTextNode("EMP0002"));
   salaries[1].appendChild(doc.createTextNode("35,000"));
-  
+
   addresses[1].setAttribute("domestic", "Yes");
   addresses[1].setAttribute("street", "Yes");
   addresses[1].appendChild(doc.createEntityReference("ent2"));
   addresses[1].appendChild(doc.createTextNode(" Dallas, "));
   addresses[1].appendChild(doc.createEntityReference("ent3"));
   addresses[1].appendChild(doc.createTextNode("\n 98554"));
-  
+
   names[1].appendChild(doc.createTextNode("Martha Raynolds"));
   names[1].appendChild(doc.createCDATASection("This is a CDATASection with EntityReference number 2 &ent2;"));
   names[1].appendChild(doc.createTextNode("\r\n"));
-  names[1].appendChild(doc.createCDATASection("This is an adjacent CDATASection with a reference to a tab &tab;"));  
+  names[1].appendChild(doc.createCDATASection("This is an adjacent CDATASection with a reference to a tab &tab;"));
   genders[1].appendChild(doc.createTextNode("Female"));
   positions[1].appendChild(doc.createTextNode("Secretary"));
 
@@ -162,7 +162,7 @@ exports.staff = function() {
   genders[2].appendChild(doc.createEntityReference("ent4"));//Text("&ent4"));
   positions[2].appendChild(doc.createTextNode("Department Manager"));
 
-  
+
   ids[3].appendChild(doc.createTextNode("EMP0004"));
   salaries[3].appendChild(doc.createTextNode("95,000"));
   addresses[3].setAttribute("domestic", "Yes");
@@ -173,16 +173,16 @@ exports.staff = function() {
   names[3].appendChild(doc.createTextNode("Jeny Oconnor"));
   genders[3].appendChild(doc.createTextNode("Female"));
   positions[3].appendChild(doc.createTextNode("Personal Director"));
-  
+
 
   ids[4].appendChild(doc.createTextNode("EMP0005"));
-  salaries[4].appendChild(doc.createTextNode("90,000"));  
+  salaries[4].appendChild(doc.createTextNode("90,000"));
   addresses[4].setAttribute("street", "Yes");
   addresses[4].appendChild(doc.createTextNode("1821 Nordic. Road, Irving Texas 98558"));
   names[4].appendChild(doc.createTextNode("Robert Myers"));
   genders[4].appendChild(doc.createTextNode("male"));
   positions[4].appendChild(doc.createTextNode("Computer Specialist"));
-  
+
   doc.appendChild(doc.createProcessingInstruction("TEST-STYLE", "PIDATA"));
 /*
   <?xml version="1.0"?><?TEST-STYLE PIDATA?>
@@ -198,17 +198,17 @@ exports.staff = function() {
      <!ATTLIST employee xmlns CDATA #IMPLIED>
 
      <!ELEMENT svg (rect, script, employee+)>
-     <!ATTLIST svg 
+     <!ATTLIST svg
         xmlns CDATA #FIXED "http://www.w3.org/2000/svg"
         name CDATA #IMPLIED>
      <!ELEMENT rect EMPTY>
-     <!ATTLIST rect 
+     <!ATTLIST rect
         x CDATA #REQUIRED
         y CDATA #REQUIRED
         width CDATA #REQUIRED
         height CDATA #REQUIRED>
     <!ELEMENT script (#PCDATA)>
-    <!ATTLIST script type CDATA #IMPLIED>      
+    <!ATTLIST script type CDATA #IMPLIED>
     <!ENTITY svgunit SYSTEM "svgunit.js">
     <!ENTITY svgtest SYSTEM "svgtest.js">
   ]>
@@ -218,7 +218,7 @@ exports.staff = function() {
    <employee xmlns="http://www.w3.org/2001/DOM-Test-Suite/Level-1/Files">
     <employeeId>EMP0001</employeeId>
     <name>Margaret Martin</name>
-    <position>Accountant</position>           
+    <position>Accountant</position>
     <salary>56,000</salary>
     <gender>Female</gender>
 
@@ -269,7 +269,7 @@ exports.staff = function() {
 
   doc.appendChild(doc.createComment(" This is comment number 1."));
   doc.appendChild(staff);
-  
-  doc.normalize();  
+
+  doc.normalize();
   return doc;
 };

@@ -1,4 +1,4 @@
-var browser = require("../../lib/jsdom/browser");
+var browser = require("../../lib/jsdom/browser/index");
 var dom = new browser.browserAugmentation(require("../../lib/jsdom/level1/core").dom.level1.core);
 var sax = require("./sax");
 var sys = require("sys");
@@ -10,14 +10,14 @@ var sys = require("sys");
   setup innerHTML setter
  */
 dom.Element.prototype.__defineSetter__('innerHTML', function(html) {
-  
+
 
   // first remove all the children
   for (var i=this.childNodes.length-1; i>=0;i--)
   {
     this.removeChild(this.childNodes.item(i));
   }
-  
+
   var currentElement = this, currentLevel = 0;
 
   /**
@@ -39,7 +39,7 @@ dom.Element.prototype.__defineSetter__('innerHTML', function(html) {
         document   = currentElement.ownerDocument || currentElement,
         newElement = document.createElement(nodeName),
         i          = 0,
-        length     = (node.attributes && node.attributes.length) ? 
+        length     = (node.attributes && node.attributes.length) ?
                       node.attributes.length                     :
                       0;
 
@@ -61,7 +61,7 @@ dom.Element.prototype.__defineSetter__('innerHTML', function(html) {
 
 
 
-var doc = new dom.Document("html");  
+var doc = new dom.Document("html");
 
 var implementation = new dom.DOMImplementation(doc, {
   "HTML" : "1.0",
@@ -82,7 +82,7 @@ doc.implementation = implementation;
 
 doc.innerHTML = '<html><head></head><body><div class="who"></div></body></html>';
 
-var window = { 
+var window = {
   alert : function() { sys.puts(sys.inspect(arguments)); },
   document : doc
 };
