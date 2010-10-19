@@ -1,4 +1,4 @@
-var dom = require(__dirname + "/../../../../lib/jsdom/level1/core").dom.level1.core;
+var dom = require("../../../../lib/jsdom/level1/core").dom.level1.core;
 exports.hc_nodtdstaff = function() {
 
   var doc = new dom.Document("html");
@@ -13,7 +13,7 @@ exports.hc_nodtdstaff = function() {
  <p>
   <em>EMP0001</em>
   <strong>Margaret Martin</strong>
-  <code>Accountant</code>           
+  <code>Accountant</code>
   <sup>56,000</sup>
   <var>Female</var>
 
