@@ -20,7 +20,7 @@ var mixin = function(target) {
   return target;
 };
 
-mixin(global, require(__dirname + "/mjsunit"));
+mixin(global, require("./mjsunit"));
 mixin(global, require("./DOMTestCase"));
 
 // Compat Layer
@@ -31,7 +31,7 @@ global.builder = {
 };
 
 global.load = function(docRef, doc, name) {
-  var file = __dirname + "/" + global.builder.testDirectory +
+  var file = "./" + global.builder.testDirectory +
              "/files/" + name + "." + global.builder.type,
       fn = require(file);
 
@@ -112,7 +112,7 @@ var suites = {
       global.builder.contentType   = "text/xml";
       global.builder.type          = "xml";
       global.builder.testDirectory = "level3/core";
-      
+
       global.DOMErrorMonitor = function() {
         this.allErrors = new Array();
       }
@@ -129,7 +129,7 @@ var suites = {
               }
           }
       }
-      var core = require(__dirname + "/../lib/jsdom/level3/core").dom.level3.core;
+      var core = require("../lib/jsdom/level3/core").dom.level3.core;
       global.getImplementation = function() {
         return {
           createDocument : function() {
@@ -146,26 +146,26 @@ var suites = {
     }
   }
 */
-  "browser"     : { cases: require("./browser").tests, setUp : function() {
-      global.dom = require(__dirname + "/../lib/jsdom/level1/core").dom.level1.core;
-      global.browser = require(__dirname + "/../lib/jsdom/browser").browserAugmentation(dom);
+  "browser"     : { cases: require("./browser/index").tests, setUp : function() {
+      global.dom = require("../lib/jsdom/level1/core").dom.level1.core;
+      global.browser = require("../lib/jsdom/browser/index").browserAugmentation(dom);
 
       global.builder.contentType   = "text/html";
       global.builder.type          = "html";
       global.builder.testDirectory = "browser";
     }
   },
-  "window"     : { cases: require("./window").tests, setUp : function() {
-      global.dom = require(__dirname + "/../lib/jsdom/level1/core").dom.level1.core;
-      global.window = require(__dirname + "/../lib/jsdom/browser").windowAugmentation(dom);
+  "window"     : { cases: require("./window/index").tests, setUp : function() {
+      global.dom = require("../lib/jsdom/level1/core").dom.level1.core;
+      global.window = require("../lib/jsdom/browser/index").windowAugmentation(dom);
 
       global.builder.contentType   = "text/html";
       global.builder.type          = "html";
       global.builder.testDirectory = "browser";
     }
   },
-  "jsdom"     : { cases: require("./jsdom").tests, setUp : function() {
-      global.jsdom = require(__dirname + "/../lib/jsdom");
+  "jsdom"     : { cases: require("./jsdom/index").tests, setUp : function() {
+      global.jsdom = require("../lib/jsdom");
       global.builder.contentType   = "text/html";
       global.builder.type          = "html";
       global.builder.testDirectory = "browser";

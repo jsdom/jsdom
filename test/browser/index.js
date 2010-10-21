@@ -175,6 +175,6 @@ exports.tests = {
 	doc.documentElement.style.backgroundColor = 'white';
 	assertEquals('',
                '<html style="color: black; background-color: white">\r\n</html>\r\n',
-               require(__dirname + '/../../lib/jsdom/browser/domtohtml').domToHtml(doc));
+               require('../../lib/jsdom/browser/domtohtml').domToHtml(doc));
   }
 };
