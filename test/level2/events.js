@@ -1,5 +1,5 @@
 var sys = require('sys');
-var events = require("../../lib/jsdom/level2/events").dom.level2.events;
+
 
 
 
