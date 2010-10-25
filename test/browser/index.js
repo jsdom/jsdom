@@ -141,7 +141,7 @@ exports.tests = {
     var scriptHtml = '<script>alert("hello world")</script>';
     head.innerHTML = scriptHtml;
 
-    assertSame("original and processed", head.innerHTML, scriptHtml);
+    assertEquals("original and processed", head.innerHTML, scriptHtml);
 
   },
   parse_styletags : function() {
@@ -151,7 +151,7 @@ exports.tests = {
     var styleHtml = '<style>body: {color: #fff;}</style>';
     head.innerHTML = styleHtml;
 
-    assertSame("original and processed", head.innerHTML, styleHtml);
+    assertEquals("original and processed", head.innerHTML, styleHtml);
 
   },
   parse_doublespacetags : function() {
