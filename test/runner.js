@@ -1,4 +1,5 @@
-var sys = require("sys");
+var sys = require("sys"),
+  fs = require("fs");
 
 var mixin = function(target) {
   var i = 1, length = arguments.length, source;
@@ -103,14 +104,18 @@ var suites = {
       delete global.events;
     }
   },
-  /*
-    Ignoring for now..
   "level2/html" : { cases: require("./level2/html").tests, setUp : function() {
       global.builder.contentType   = "text/html";
       global.builder.type          = "html";
       global.builder.testDirectory = "level2/html";
+      global.load = function(docRef, doc, name) {
+        var file = "./" + global.builder.testDirectory +
+                    "/files/" + name + "." + global.builder.type;
+        
+        return require("../lib/jsdom").jsdom(fs.readFileSync(file, 'utf8'));
+      };
     }
-  },*/
+  },
  "level3/core" : { cases: require("./level3/core").tests, setUp : function() {
       global.builder.contentType   = "text/xml";
       global.builder.type          = "xml";
