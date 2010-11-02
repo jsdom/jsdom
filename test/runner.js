@@ -109,9 +109,9 @@ var suites = {
       global.builder.type          = "html";
       global.builder.testDirectory = "level2/html";
       global.load = function(docRef, doc, name) {
-        var file = "./" + global.builder.testDirectory +
+        var file = __dirname + "/" + global.builder.testDirectory +
                     "/files/" + name + "." + global.builder.type;
-        
+
         return require("../lib/jsdom").jsdom(fs.readFileSync(file, 'utf8'));
       };
     }
