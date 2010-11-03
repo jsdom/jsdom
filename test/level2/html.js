@@ -3639,6 +3639,7 @@ testNode = nodeList.item(0);
       assertEquals("dirLink","ltr",vdir);
        
 },
+
 /**
 * 
     The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
@@ -16883,6 +16884,7 @@ testNode = nodeList.item(1);
 	}
 
 },
+
 /**
 * 
     The insertRow() method throws a INDEX_SIZE_ERR DOMException
