@@ -110,14 +110,18 @@ var suites = {
       global.builder.testDirectory = "level2/html";
       global.load = function(docRef, doc, name) {
         var file = __dirname + "/" + global.builder.testDirectory +
-                    "/files/" + name + "." + global.builder.type;
+                    "/files/" + name + "." + global.builder.type,
+                    
+            doc  =require("../lib/jsdom").jsdom(fs.readFileSync(file, 'utf8'));
 
-        return require("../lib/jsdom").jsdom(fs.readFileSync(file, 'utf8'));
+        // fake out the tests in a reasonable manner
+        doc.URL = "file://" +  file;
+        return doc;
       };
 
       var core = require("../lib/jsdom/level2/html").dom.level2.html;
       global.getImplementation = function() {
-        var doc = new (core.Document)();
+        var doc = new (core.HTMLDocument)();
         return doc.implementation;
       };
     }
