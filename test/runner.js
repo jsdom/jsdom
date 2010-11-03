@@ -109,13 +109,14 @@ var suites = {
       global.builder.type          = "html";
       global.builder.testDirectory = "level2/html";
       global.load = function(docRef, doc, name) {
-        var file = __dirname + "/" + global.builder.testDirectory +
-                    "/files/" + name + "." + global.builder.type,
-                    
-            doc  =require("../lib/jsdom").jsdom(fs.readFileSync(file, 'utf8'));
+        var file     = __dirname + "/" + global.builder.testDirectory +
+                       "/files/" + name + "." + global.builder.type,
+            contents = fs.readFileSync(file, 'utf8'),
 
-        // fake out the tests in a reasonable manner
-        doc.URL = "file://" +  file;
+            doc      = require("../lib/jsdom").jsdom(contents, null, {
+              url : "file://" + file // fake out the tests
+            });
+
         return doc;
       };
 

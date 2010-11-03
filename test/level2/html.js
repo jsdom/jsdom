@@ -8458,7 +8458,8 @@ HTMLFrameElement09 : function () {
 
       vtitle = cd.title;
 
-      assertEquals("titleLink","NIST DOM HTML Test - FRAMESET",vtitle);
+      // Updated as per: http://lists.w3.org/Archives/Public/www-dom/2009JulSep/0026.html
+      assertEquals("titleLink","NIST DOM HTML Test - FRAME",vtitle);
        
 },
 /**
