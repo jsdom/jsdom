@@ -114,6 +114,12 @@ var suites = {
 
         return require("../lib/jsdom").jsdom(fs.readFileSync(file, 'utf8'));
       };
+
+      var core = require("../lib/jsdom/level2/html").dom.level2.html;
+      global.getImplementation = function() {
+        var doc = new (core.Document)();
+        return doc.implementation;
+      };
     }
   },
  "level3/core" : { cases: require("./level3/core").tests, setUp : function() {
