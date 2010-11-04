@@ -23,6 +23,10 @@
             "email": "davglass@gmail.com"
         },
         {
+            "name": "Felix Gnass",
+            "email": "fgnass@gmail.com"
+        },
+        {
             "name" : "Charlie Robins",
             "email": "charlie.robbins@gmail.com"
         },
@@ -55,7 +59,8 @@
         "http://www.w3.org/TR/REC-DOM-Level-1"
     ],
     "dependencies": {
-       "mjsunit.runner": ">= 0.1.0"
+       "mjsunit.runner": ">=0.1.0",
+       "request"       : ">=0.10.0"
     },
     "engines" : { "node" : ">=0.1.9" },
     "directories": {
