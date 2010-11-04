@@ -8453,14 +8453,15 @@ HTMLFrameElement09 : function () {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "frame2");
-      testNode = doc.getElementById("Frame1");
-      cd = testNode.contentDocument;
+      doc.onload = function() {
+        testNode = doc.getElementById("Frame1");
+        cd = testNode.contentDocument;
 
-      vtitle = cd.title;
+        vtitle = cd.title;
 
-      // Updated as per: http://lists.w3.org/Archives/Public/www-dom/2009JulSep/0026.html
-      assertEquals("titleLink","NIST DOM HTML Test - FRAME",vtitle);
-       
+        // Updated as per: http://lists.w3.org/Archives/Public/www-dom/2009JulSep/0026.html
+        assertEquals("titleLink","NIST DOM HTML Test - FRAME",vtitle);
+      };
 },
 /**
 * 
@@ -9260,13 +9261,14 @@ HTMLIFrameElement11 : function () {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "iframe2");
-      testNode = doc.getElementById("Iframe2");
-      cd = testNode.contentDocument;
+      doc.onload = function() {
+        testNode = doc.getElementById("Iframe2");
+        cd = testNode.contentDocument;
 
-      vtitle = cd.title;
+        vtitle = cd.title;
 
-      assertEquals("titleLink","NIST DOM HTML Test - FRAME",vtitle);
-       
+        assertEquals("titleLink","NIST DOM HTML Test - FRAME",vtitle);
+      };
 },
 /**
 * 
