@@ -24352,5 +24352,30 @@ exports.tests = {
 
         assertEquals("textNodeValue","Roger\n Jones",value);
 
-        }
+      },
+    
+    /**
+    * This is behaviour used by scripts in the wild.
+    * Instead of using the .item() function they will access directly
+    * to the index. When removing of nodes happens the direct index
+    * access goes out of sync and errors occur.
+    *
+    * The cleanest fix for this would be finding a way to overwrite index
+    * access to use the .item method. I was unable to do this.
+    * Another might be to keep a map of Node to NodeList and call the .update
+    * method when appropriate; for example, from the .removeChild method.
+    */
+    indexaccessnodelistremovechild : function () {
+	var docRef = null;
+	if (typeof(this.doc) != 'undefined') {
+	    docRef = this.doc;
+	}
+	doc = load(docRef, "doc", "staff");
+
+	var nodes = doc.getElementsByTagName('*');
+	
+	nodes[0].parentNode.removeChild(nodes[0]);
+
+	assertEquals("nullifiedNode", null, nodes[0]);
+    }
 		};
