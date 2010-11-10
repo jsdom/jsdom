@@ -53,18 +53,16 @@ see: [project site][] for additional information
     // outputs: function
 
 ## Load arbitrary scripts
-    var jsdom  = require("jsdom").jsdom,
-        window = jsdom().createWindow(),
-        script = window.document.createElement("script");
+    var document = require("jsdom").jsdom(),
+        window = document.createWindow(),
+        script = document.createElement("script");
 
     script.src = 'http://code.jquery.com/jquery-1.4.2.js';
-
     script.onload = function() {
-      if (this.readyState === 'complete') {
-        console.log(window.jQuery.fn.jquery);
-        // outputs: 1.4.2
-      }
+      console.log(window.jQuery.fn.jquery);
+      // outputs: 1.4.2
     };
+	document.head.appendChild(script);
 
 ## jQueryify
 
