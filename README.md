@@ -4,7 +4,8 @@ CommonJS implementation of the DOM intended to be platform independent and as mi
 
 Currently Implemented and w3c Compliant:
 
-  - DOM Level 1 (html/svg/xml) 
+  - DOM Level 1 (html/svg/xml)
+  - DOM Level 2 (core/html/events)
   - Browser (BOM) Augmentation (getElementsByClassName, getElementById, etc..)
 
 
