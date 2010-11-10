@@ -71,7 +71,7 @@ see: [project site][] for additional information
     var jsdom  = require("jsdom"),
         window = jsdom.jsdom().createWindow();
 
-    jsdom.jQueryify(window, "http://code.jquery.com/jquery-1.4.2.min.js" , function() {
-      window.jQuery('body').append(<div class='testing'>Hello World, It works</div>");
-      console.log(window.jQuery(".testing").text());
+    jsdom.jQueryify(window, 'http://code.jquery.com/jquery-1.4.2.min.js' , function() {
+      window.$('body').append('<div class="testing">Hello World, It works</div>');
+      console.log(window.$('.testing').text());
     });
