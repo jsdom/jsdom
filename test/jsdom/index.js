@@ -22,8 +22,8 @@ exports.tests = {
   },
 
   jquerify : function() {
-    var tmpWindow = jsdom.jsdom().createWindow(),
-        jQueryFile = __dirname + "/../../example/jquery/jquery.js",
+    var tmpWindow = jsdom.jsdom(null, null, {documentRoot: __dirname}).createWindow(),
+        jQueryFile = "/../../example/jquery/jquery.js",
         jQueryUrl = "http://code.jquery.com/jquery-1.4.2.min.js",
         caught = false,
         res = null;
@@ -39,7 +39,7 @@ exports.tests = {
       }
       assertEquals("selector should work as expected", "ME", res.text());
       assertFalse("compareDocumentPosition should not fail", caught);
-    }
+    };
 
     jsdom.jQueryify(tmpWindow, jQueryFile, testFunction);
     jsdom.jQueryify(tmpWindow, jQueryUrl, testFunction);
