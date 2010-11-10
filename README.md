@@ -40,8 +40,9 @@ see: [project site][] for additional information
 
 ## Creating a browser-like BOM/DOM/Window
 
-    var jsdom  = require("./lib/jsdom").jsdom,
-        window = jsdom("<html><head></head><body>hello world</body></html>").createWindow();
+    var jsdom = require("./lib/jsdom").jsdom,
+		document = jsdom("<html><head></head><body>hello world</body></html>"),
+        window = document.createWindow();
 
     console.log(window.document.innerHTML);
     // output: '<html><head></head><body>hello world</body></html>'
