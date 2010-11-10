@@ -8,9 +8,9 @@ exports.tests = {
   },
 
   jsdom_takes_html : function() {
-    var document = jsdom.jsdom('<a href="#test">');
+    var document = jsdom.jsdom('<a id="test" href="#test">');
     assertEquals("Passing html into jsdom() should populate the resulting doc",
-                 document.documentElement.getAttribute("href"),
+                 document.getElementById("test").getAttribute("href"),
                  "#test");
   },
 
