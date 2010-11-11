@@ -1,10 +1,10 @@
-var sys = require('sys');
-process.mixin(GLOBAL, require("../../lib/jsdom/level1/core").dom.level1.core);
+var sys = require('sys'),
+    dom = require("../../lib/jsdom/level1/core").dom.level1.core;
 
 // git clone git://github.com/robrighter/node-xml.git into ~/.node_libraries
 var xml = require("node-xml/lib/node-xml");
 
-var doc = new Document();
+var doc = new dom.Document();
 var currentElement = doc;
 var totalElements = 0;
 var parser = new xml.SaxParser(function(cb) {
