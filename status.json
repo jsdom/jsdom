@@ -5,10 +5,11 @@
     "investigate merging upstream changes from HEAD with dav's node-htmlparser fork",
     "consolidate/clean TODOs",
     "consider a cleaner way to do 'private' variables (as apposed to x._imPrivateISwear)",
+    "consider implementing dom level2/core",
     "consider implementing dom level3"
   ],
   "done" : [
-    "consider implementing dom level2, dom level2 events",
+    "consider implementing dom level2 hmtl/events",
     "consider implementing HTML based elements in level1 (no tests currently.. boo)",
     "ensure doc.documentElement is updated in long living dom documents",
     "pass YUI3 dom and selector tests via browser augmentation",
