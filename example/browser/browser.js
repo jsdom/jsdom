@@ -1,7 +1,7 @@
 
 var sys = require('sys');
 
-var dom = require('../../lib/jsdom/level1/core').dom.level1.core;
+var dom = require('../../lib/jsdom/level2/html').dom.level2.html;
 var browser = require('../../lib/jsdom/browser/index').windowAugmentation(dom);
 
 var document = browser.document;
