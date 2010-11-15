@@ -50,4 +50,16 @@ exports.tests = {
                typeof window.document === 'undefined');
   },
 
+  appendChild_to_document_with_existing_documentElement: function() {
+    var caught;
+    try {
+      var doc = jsdom.jsdom();
+      doc.appendChild(doc.createElement('html'));
+    }
+    catch (e) {
+      caught = e;
+    }
+    assertEquals('Should throw HIERARCHY_ERR', 3, caught._code);
+  }
+
 };
