@@ -22,13 +22,16 @@ exports.tests = {
   },
 
   jquerify : function() {
-    var tmpWindow = jsdom.jsdom(null, null, {documentRoot: __dirname}).createWindow(),
-        jQueryFile = "/../../example/jquery/jquery.js",
+    var jQueryFile = "/../../example/jquery/jquery.js",
         jQueryUrl = "http://code.jquery.com/jquery-1.4.2.min.js",
         caught = false,
         res = null;
 
-    testFunction = function(window, jQuery) {
+    function tmpWindow() {
+      return jsdom.jsdom(null, null, {documentRoot: __dirname}).createWindow();
+    }
+
+    function testFunction(window, jQuery) {
       assertNotNull("jQuery should be attached to the window", window.jQuery.find);
       assertNotNull("jQuery should be attached to the window", jQuery.find);
       jQuery("body").html('<p id="para"><a class="link">click <em class="emph">ME</em></a></p>');
@@ -41,8 +44,8 @@ exports.tests = {
       assertFalse("compareDocumentPosition should not fail", caught);
     };
 
-    jsdom.jQueryify(tmpWindow, jQueryFile, testFunction);
-    jsdom.jQueryify(tmpWindow, jQueryUrl, testFunction);
+    jsdom.jQueryify(tmpWindow(), jQueryFile, testFunction);
+    jsdom.jQueryify(tmpWindow(), jQueryUrl, testFunction);
   },
   plain_window_document : function() {
     var window = (jsdom.createWindow());
