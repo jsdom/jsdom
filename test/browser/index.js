@@ -177,7 +177,7 @@ exports.tests = {
                '<html style="color: black; background-color: white"></html>\r\n',
                require('../../lib/jsdom/browser/domtohtml').domToHtml(doc));
   },
-  
+
   innerhtml_removeallchildren: function() {
     var doc = new browser.HTMLDocument();
     doc.write('<html><body><p></p><p></p></body></html>');
