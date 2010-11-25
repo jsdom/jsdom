@@ -63,6 +63,29 @@ exports.tests = {
       caught = e;
     }
     assertEquals('Should throw HIERARCHY_ERR', 3, caught._code);
+  },
+  
+  apply_jsdom_features_at_build_time : function() {
+    var doc  = new (jsdom.defaultLevel.Document)(),
+        doc2 = new (jsdom.defaultLevel.Document)(),
+        i,
+        defaults = jsdom.defaultDocumentFeatures,
+        l = defaults.length;
+
+    jsdom.applyDocumentFeatures(doc);
+    for (i=0; i<l; i++) {
+      assertTrue("Document has all of the default features",
+                 doc.implementation.hasFeature(defaults[i]));
+    }
+    
+    jsdom.applyDocumentFeatures(doc2, {
+      'FetchExternalResources' : false
+    });
+
+    assertTrue("Document has 'ProcessExternalResources'",
+               doc2.implementation.hasFeature('ProcessExternalResources'));
+    assertFalse("Document does not have 'FetchExternalResources'",
+                doc2.implementation.hasFeature('FetchExternalResources'));
   }
 
 };
