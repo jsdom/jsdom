@@ -86,6 +86,38 @@ exports.tests = {
                doc2.implementation.hasFeature('ProcessExternalResources'));
     assertFalse("Document does not have 'FetchExternalResources'",
                 doc2.implementation.hasFeature('FetchExternalResources'));
+  },
+  ensure_scripts_can_be_disabled_via_options_features : function() {
+    var html = '\
+<html>\
+  <head>\
+    <script type="text/javascript" src="./jsdom/files/hello.js"></script>\
+  </head>\
+  <body>\
+    <span id="test">hello from html</span>\
+  </body>\
+</html>';
+
+    var doc = jsdom.jsdom(html), doc2;
+    doc.onload = function() {
+      assertEquals("js should be executed",
+                   'hello from javascript',
+                   doc.getElementById("test").innerHTML);
+    };
+    
+    doc2 = jsdom.jsdom(html, null, {
+      features : {
+        FetchExternalResources   : ['script'],
+        ProcessExternalResources : false
+      }
+    });
+
+    doc2.onload = function() {
+      assertEquals("js should not be executed",
+                   'hello from html',
+                   doc2.getElementById("test").innerHTML);
+      
+    }
   }
 
 };
