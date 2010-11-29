@@ -24352,5 +24352,41 @@ exports.tests = {
 
         assertEquals("textNodeValue","Roger\n Jones",value);
 
+        },
+        
+        maintainfeatures : function() {
+          var success;
+          if(checkInitialization(builder, "maintainfeatures") != null) return;
+          var doc;
+          var elementList;
+          var nameNode;
+          var nodeV;
+          var value;
+
+          var docRef = null;
+          if (typeof(this.doc) != 'undefined') {
+            docRef = this.doc;
+          }
+          doc = load(docRef, "doc", "staff");
+          doc.implementation.addFeature("TestingFeature", 1);
+          doc.implementation.addFeature("TestingFeature", 2);
+          doc.implementation.addFeature("TestingFeature", 3);
+          
+          assertTrue("document has 'TestingFeature'",
+                      doc.implementation.hasFeature('TestingFeature'));
+
+          doc.implementation.removeFeature("TestingFeature", 2);
+          assertFalse("document no longer has 'TestingFeature v2'",
+                      doc.implementation.hasFeature('TestingFeature', 2));
+
+          assertTrue("document has 'TestingFeature' v1 and v3",
+                      doc.implementation.hasFeature('TestingFeature', 1) &&
+                      doc.implementation.hasFeature('TestingFeature', 3));
+
+          doc.implementation.removeFeature("TestingFeature");
+          assertFalse("document no longer has 'TestingFeature'",
+                      doc.implementation.hasFeature('TestingFeature'));
+          
+          
         }
 		};

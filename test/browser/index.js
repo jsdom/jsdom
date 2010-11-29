@@ -131,7 +131,6 @@ exports.tests = {
       var img = doc.createElement("img");
       p.appendChild(img);
       var out = p.outerHTML;
-//debug(out);
       assertNull("end tag not included in output", out.match(/<\/img>/));
   },
   parse_scripttags : function() {
@@ -169,15 +168,14 @@ exports.tests = {
     assertFalse("setValue_throws_INVALID_CHARACTER_ERR", exception);
   },
   serialize_styleattribute : function() {
-	var doc = new browser.Document();
-	doc.appendChild(doc.createElement('html'));
-	doc.documentElement.style.color = 'black';
-	doc.documentElement.style.backgroundColor = 'white';
-	assertEquals('',
-               '<html style="color: black; background-color: white"></html>\r\n',
-               require('../../lib/jsdom/browser/domtohtml').domToHtml(doc));
+    var doc = new browser.Document();
+    doc.appendChild(doc.createElement('html'));
+    doc.documentElement.style.color = 'black';
+    doc.documentElement.style.backgroundColor = 'white';
+    assertEquals('',
+              '<html style="color: black; background-color: white"></html>\r\n',
+              require('../../lib/jsdom/browser/domtohtml').domToHtml(doc));
   },
-
   innerhtml_removeallchildren: function() {
     var doc = new browser.HTMLDocument();
     doc.write('<html><body><p></p><p></p></body></html>');

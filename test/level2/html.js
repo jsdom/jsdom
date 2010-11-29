@@ -1,10 +1,10 @@
 exports.tests = {
 /**
-* 
+*
     The accessKey attribute is a single character access key to give
-    access to the form control. 
+    access to the form control.
 
-    Retrieve the accessKey attribute and examine its value.  
+    Retrieve the accessKey attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -17,7 +17,7 @@ HTMLAnchorElement01 : function () {
       var testNode;
       var vaccesskey;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -29,14 +29,14 @@ testNode = nodeList.item(0);
       vaccesskey = testNode.accessKey;
 
       assertEquals("accessKeyLink","g",vaccesskey);
-       
+
 },
 /**
-* 
+*
     The charset attribute indicates the character encoding of the linked
     resource.
 
-    Retrieve the charset attribute and examine its value.  
+    Retrieve the charset attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -49,7 +49,7 @@ HTMLAnchorElement02 : function () {
       var testNode;
       var vcharset;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -61,14 +61,14 @@ testNode = nodeList.item(0);
       vcharset = testNode.charset;
 
       assertEquals("charsetLink","US-ASCII",vcharset);
-       
+
 },
 /**
-* 
+*
     The coords attribute is a comma-seperated list of lengths, defining
     an active region geometry.
 
-    Retrieve the coords attribute and examine its value.  
+    Retrieve the coords attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -81,7 +81,7 @@ HTMLAnchorElement03 : function () {
       var testNode;
       var vcoords;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -93,13 +93,13 @@ testNode = nodeList.item(0);
       vcoords = testNode.coords;
 
       assertEquals("coordsLink","0,0,100,100",vcoords);
-       
+
 },
 /**
-* 
-    The href attribute contains the URL of the linked resource. 
+*
+    The href attribute contains the URL of the linked resource.
 
-    Retrieve the href attribute and examine its value.  
+    Retrieve the href attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -112,7 +112,7 @@ HTMLAnchorElement04 : function () {
       var testNode;
       var vhref;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -127,10 +127,10 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
-    The hreflang attribute contains the language code of the linked resource. 
+*
+    The hreflang attribute contains the language code of the linked resource.
 
-    Retrieve the hreflang attribute and examine its value.  
+    Retrieve the hreflang attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -143,7 +143,7 @@ HTMLAnchorElement05 : function () {
       var testNode;
       var vhreflink;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -155,13 +155,13 @@ testNode = nodeList.item(0);
       vhreflink = testNode.hreflang;
 
       assertEquals("hreflangLink","en",vhreflink);
-       
+
 },
 /**
-* 
-    The name attribute contains the anchor name. 
+*
+    The name attribute contains the anchor name.
 
-    Retrieve the name attribute and examine its value.  
+    Retrieve the name attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -174,7 +174,7 @@ HTMLAnchorElement06 : function () {
       var testNode;
       var vname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -186,13 +186,13 @@ testNode = nodeList.item(0);
       vname = testNode.name;
 
       assertEquals("nameLink","Anchor",vname);
-       
+
 },
 /**
-* 
-    The rel attribute contains the forward link type. 
+*
+    The rel attribute contains the forward link type.
 
-    Retrieve the rel attribute and examine its value.  
+    Retrieve the rel attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -205,7 +205,7 @@ HTMLAnchorElement07 : function () {
       var testNode;
       var vrel;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -217,13 +217,13 @@ testNode = nodeList.item(0);
       vrel = testNode.rel;
 
       assertEquals("relLink","GLOSSARY",vrel);
-       
+
 },
 /**
-* 
+*
     The rev attribute contains the reverse link type
 
-    Retrieve the rev attribute and examine its value.  
+    Retrieve the rev attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -236,7 +236,7 @@ HTMLAnchorElement08 : function () {
       var testNode;
       var vrev;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -248,13 +248,13 @@ testNode = nodeList.item(0);
       vrev = testNode.rev;
 
       assertEquals("revLink","STYLESHEET",vrev);
-       
+
 },
 /**
-* 
+*
     The shape attribute contains the shape of the active area.
 
-    Retrieve the shape attribute and examine its value.  
+    Retrieve the shape attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -267,7 +267,7 @@ HTMLAnchorElement09 : function () {
       var testNode;
       var vshape;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -279,14 +279,14 @@ testNode = nodeList.item(0);
       vshape = testNode.shape;
 
       assertEquals("shapeLink","rect",vshape);
-       
+
 },
 /**
-* 
+*
     The tabIndex attribute contains an index that represents the elements
-    position in the tabbing order. 
+    position in the tabbing order.
 
-    Retrieve the tabIndex attribute and examine its value.  
+    Retrieve the tabIndex attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -299,7 +299,7 @@ HTMLAnchorElement10 : function () {
       var testNode;
       var vtabindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -311,13 +311,13 @@ testNode = nodeList.item(0);
       vtabindex = testNode.tabIndex;
 
       assertEquals("tabIndexLink",22,vtabindex);
-       
+
 },
 /**
-* 
+*
     The target attribute specifies the frame to render the source in.
 
-    Retrieve the target attribute and examine it's value.  
+    Retrieve the target attribute and examine it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -330,7 +330,7 @@ HTMLAnchorElement11 : function () {
       var testNode;
       var vtarget;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -342,13 +342,13 @@ testNode = nodeList.item(0);
       vtarget = testNode.target;
 
       assertEquals("targetLink","dynamic",vtarget);
-       
+
 },
 /**
-* 
-    The type attribute contains the advisory content model. 
+*
+    The type attribute contains the advisory content model.
 
-    Retrieve the type attribute and examine its value.  
+    Retrieve the type attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -361,7 +361,7 @@ HTMLAnchorElement12 : function () {
       var testNode;
       var vtype;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -373,10 +373,10 @@ testNode = nodeList.item(0);
       vtype = testNode.type;
 
       assertEquals("typeLink","image/gif",vtype);
-       
+
 },
 /**
-* 
+*
 HTMLAnchorElement.blur should surrender input focus.
 
 * @author Curt Arnold
@@ -388,7 +388,7 @@ HTMLAnchorElement13 : function () {
     var nodeList;
       var testNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -398,10 +398,10 @@ HTMLAnchorElement13 : function () {
       assertSize("Asize",1,nodeList);
 testNode = nodeList.item(0);
       testNode.blur();
-      
+
 },
 /**
-* 
+*
 HTMLAnchorElement.focus should capture input focus.
 
 * @author Curt Arnold
@@ -413,7 +413,7 @@ HTMLAnchorElement14 : function () {
     var nodeList;
       var testNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -423,14 +423,14 @@ HTMLAnchorElement14 : function () {
       assertSize("Asize",1,nodeList);
 testNode = nodeList.item(0);
       testNode.focus();
-      
+
 },
 /**
-* 
+*
     The align attribute specifies the alignment of the object(Vertically
     or Horizontally) with respect to its surrounding text.
 
-    Retrieve the align attribute and examine its value.  
+    Retrieve the align attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -443,7 +443,7 @@ HTMLAppletElement01 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -455,14 +455,14 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","bottom".toLowerCase(),valign.toLowerCase());
-       
+
 },
 /**
-* 
-    The alt attribute specifies the alternate text for user agents not 
+*
+    The alt attribute specifies the alternate text for user agents not
     rendering the normal context of this element.
 
-    Retrieve the alt attribute and examine its value.  
+    Retrieve the alt attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -475,7 +475,7 @@ HTMLAppletElement02 : function () {
       var testNode;
       var valt;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -487,13 +487,13 @@ testNode = nodeList.item(0);
       valt = testNode.alt;
 
       assertEquals("altLink","Applet Number 1",valt);
-       
+
 },
 /**
-* 
-    The archive attribute specifies a comma-seperated archive list. 
+*
+    The archive attribute specifies a comma-seperated archive list.
 
-    Retrieve the archive attribute and examine its value.  
+    Retrieve the archive attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -506,7 +506,7 @@ HTMLAppletElement03 : function () {
       var testNode;
       var varchive;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -518,13 +518,13 @@ testNode = nodeList.item(0);
       varchive = testNode.archive;
 
       assertEquals("archiveLink","",varchive);
-       
+
 },
 /**
-* 
+*
     The code attribute specifies the applet class file.
 
-    Retrieve the code attribute and examine its value.  
+    Retrieve the code attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -537,7 +537,7 @@ HTMLAppletElement04 : function () {
       var testNode;
       var vcode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -549,13 +549,13 @@ testNode = nodeList.item(0);
       vcode = testNode.code;
 
       assertEquals("codeLink","org/w3c/domts/DOMTSApplet.class",vcode);
-       
+
 },
 /**
-* 
+*
     The codeBase attribute specifies an optional base URI for the applet.
 
-    Retrieve the codeBase attribute and examine its value.  
+    Retrieve the codeBase attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -568,7 +568,7 @@ HTMLAppletElement05 : function () {
       var testNode;
       var vcodebase;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -580,13 +580,13 @@ testNode = nodeList.item(0);
       vcodebase = testNode.codeBase;
 
       assertEquals("codebase","applets",vcodebase);
-       
+
 },
 /**
-* 
-    The height attribute overrides the height. 
+*
+    The height attribute overrides the height.
 
-    Retrieve the height attribute and examine its value.  
+    Retrieve the height attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -599,7 +599,7 @@ HTMLAppletElement06 : function () {
       var testNode;
       var vheight;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -611,14 +611,14 @@ testNode = nodeList.item(0);
       vheight = testNode.height;
 
       assertEquals("heightLink","306",vheight);
-       
+
 },
 /**
-* 
+*
     The hspace attribute specifies the horizontal space to the left
-    and right of this image, applet, or object. 
+    and right of this image, applet, or object.
 
-    Retrieve the hspace attribute and examine it's value.  
+    Retrieve the hspace attribute and examine it's value.
 
 * @author NIST
 * @author Mary Brady
@@ -631,7 +631,7 @@ HTMLAppletElement07 : function () {
       var testNode;
       var vhspace;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -643,13 +643,13 @@ testNode = nodeList.item(0);
       vhspace = testNode.hspace;
 
       assertEquals("hspaceLink",0,vhspace);
-       
+
 },
 /**
-* 
-    The name attribute specifies the name of the applet. 
+*
+    The name attribute specifies the name of the applet.
 
-    Retrieve the name attribute and examine its value.  
+    Retrieve the name attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -662,7 +662,7 @@ HTMLAppletElement08 : function () {
       var testNode;
       var vname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -674,14 +674,14 @@ testNode = nodeList.item(0);
       vname = testNode.name;
 
       assertEquals("nameLink","applet1",vname);
-       
+
 },
 /**
-* 
+*
     The vspace attribute specifies the vertical space above and below
     this image, applet or object.
 
-    Retrieve the vspace attribute and examine it's value.  
+    Retrieve the vspace attribute and examine it's value.
 
 * @author NIST
 * @author Mary Brady
@@ -694,7 +694,7 @@ HTMLAppletElement09 : function () {
       var testNode;
       var vvspace;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -706,13 +706,13 @@ testNode = nodeList.item(0);
       vvspace = testNode.vspace;
 
       assertEquals("vspaceLink",0,vvspace);
-       
+
 },
 /**
-* 
-    The width attribute overrides the regular width. 
+*
+    The width attribute overrides the regular width.
 
-    Retrieve the width attribute and examine its value.  
+    Retrieve the width attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -725,7 +725,7 @@ HTMLAppletElement10 : function () {
       var testNode;
       var vwidth;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -737,13 +737,13 @@ testNode = nodeList.item(0);
       vwidth = testNode.width;
 
       assertEquals("widthLink","301",vwidth);
-       
+
 },
 /**
-* 
+*
     The object attribute specifies the serialized applet file.
 
-    Retrieve the object attribute and examine its value.  
+    Retrieve the object attribute and examine its value.
 
 * @author NIST
 * @author Rick Rivello
@@ -757,7 +757,7 @@ HTMLAppletElement11 : function () {
       var testNode;
       var vobject;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -769,14 +769,14 @@ testNode = nodeList.item(0);
       vobject = testNode.object;
 
       assertEquals("object","DOMTSApplet.dat",vobject);
-       
+
 },
 /**
-* 
+*
     The accessKey attribute specifies a single character access key to
-    give access to the control form. 
+    give access to the control form.
 
-    Retrieve the accessKey attribute and examine its value.  
+    Retrieve the accessKey attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -789,7 +789,7 @@ HTMLAreaElement01 : function () {
       var testNode;
       var vaccesskey;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -801,14 +801,14 @@ testNode = nodeList.item(0);
       vaccesskey = testNode.accessKey;
 
       assertEquals("alignLink","a",vaccesskey);
-       
+
 },
 /**
-* 
+*
     The alt attribute specifies an alternate text for user agents not
     rendering the normal content of this element.
 
-    Retrieve the alt attribute and examine its value.  
+    Retrieve the alt attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -821,7 +821,7 @@ HTMLAreaElement02 : function () {
       var testNode;
       var valt;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -833,14 +833,14 @@ testNode = nodeList.item(0);
       valt = testNode.alt;
 
       assertEquals("altLink","Domain",valt);
-       
+
 },
 /**
-* 
-    The coords attribute specifies a comma-seperated list of lengths, 
+*
+    The coords attribute specifies a comma-seperated list of lengths,
     defining an active region geometry.
 
-    Retrieve the coords attribute and examine its value.  
+    Retrieve the coords attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -853,7 +853,7 @@ HTMLAreaElement03 : function () {
       var testNode;
       var vcoords;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -865,13 +865,13 @@ testNode = nodeList.item(0);
       vcoords = testNode.coords;
 
       assertEquals("coordsLink","0,2,45,45",vcoords);
-       
+
 },
 /**
-* 
-    The href attribute specifies the URI of the linked resource. 
+*
+    The href attribute specifies the URI of the linked resource.
 
-    Retrieve the href attribute and examine its value.  
+    Retrieve the href attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -884,7 +884,7 @@ HTMLAreaElement04 : function () {
       var testNode;
       var vhref;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -899,10 +899,10 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
-    The noHref attribute specifies that this area is inactive. 
+*
+    The noHref attribute specifies that this area is inactive.
 
-    Retrieve the noHref attribute and examine its value.  
+    Retrieve the noHref attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -915,7 +915,7 @@ HTMLAreaElement05 : function () {
       var testNode;
       var vnohref;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -930,10 +930,10 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
-    The shape attribute specifies the shape of the active area. 
+*
+    The shape attribute specifies the shape of the active area.
 
-    Retrieve the shape attribute and examine its value.  
+    Retrieve the shape attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -946,7 +946,7 @@ HTMLAreaElement06 : function () {
       var testNode;
       var vshape;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -958,14 +958,14 @@ testNode = nodeList.item(0);
       vshape = testNode.shape;
 
       assertEquals("shapeLink","rect".toLowerCase(),vshape.toLowerCase());
-       
+
 },
 /**
-* 
+*
     The tabIndex attribute specifies an index that represents the element's
     position in the tabbing order.
 
-    Retrieve the tabIndex attribute and examine its value.  
+    Retrieve the tabIndex attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -978,7 +978,7 @@ HTMLAreaElement07 : function () {
       var testNode;
       var vtabindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -990,13 +990,13 @@ testNode = nodeList.item(0);
       vtabindex = testNode.tabIndex;
 
       assertEquals("tabIndexLink",10,vtabindex);
-       
+
 },
 /**
-* 
-    The target specifies the frame to render the resource in.   
+*
+    The target specifies the frame to render the resource in.
 
-    Retrieve the target attribute and examine it's value.  
+    Retrieve the target attribute and examine it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -1009,7 +1009,7 @@ HTMLAreaElement08 : function () {
       var testNode;
       var vtarget;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1021,13 +1021,13 @@ testNode = nodeList.item(0);
       vtarget = testNode.target;
 
       assertEquals("targetLink","dynamic",vtarget);
-       
+
 },
 /**
-* 
-    The clear attribute specifies control flow of text around floats. 
+*
+    The clear attribute specifies control flow of text around floats.
 
-    Retrieve the clear attribute and examine its value.  
+    Retrieve the clear attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -1040,7 +1040,7 @@ HTMLBRElement01 : function () {
       var testNode;
       var vclear;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1052,13 +1052,13 @@ testNode = nodeList.item(0);
       vclear = testNode.clear;
 
       assertEquals("clearLink","none",vclear);
-       
+
 },
 /**
-* 
-    The href attribute specifies the base URI. 
+*
+    The href attribute specifies the base URI.
 
-    Retrieve the href attribute and examine its value.  
+    Retrieve the href attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -1071,7 +1071,7 @@ HTMLBaseElement01 : function () {
       var testNode;
       var vhref;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1083,13 +1083,13 @@ testNode = nodeList.item(0);
       vhref = testNode.href;
 
       assertEquals("hrefLink","about:blank",vhref);
-       
+
 },
 /**
-* 
+*
     The target attribute specifies the default target frame.
 
-    Retrieve the target attribute and examine its value.  
+    Retrieve the target attribute and examine its value.
 
 * @author NIST
 * @author Rick Rivello
@@ -1102,7 +1102,7 @@ HTMLBaseElement02 : function () {
       var testNode;
       var vtarget;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1114,13 +1114,13 @@ testNode = nodeList.item(0);
       vtarget = testNode.target;
 
       assertEquals("targetLink","Frame1",vtarget);
-       
+
 },
 /**
-* 
-    The color attribute specifies the base font's color. 
+*
+    The color attribute specifies the base font's color.
 
-    Retrieve the color attribute and examine its value.  
+    Retrieve the color attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -1133,7 +1133,7 @@ HTMLBaseFontElement01 : function () {
       var testNode;
       var vcolor;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1145,13 +1145,13 @@ testNode = nodeList.item(0);
       vcolor = testNode.color;
 
       assertEquals("colorLink","#000000",vcolor);
-       
+
 },
 /**
-* 
-    The face attribute specifies the base font's face identifier. 
+*
+    The face attribute specifies the base font's face identifier.
 
-    Retrieve the face attribute and examine its value.  
+    Retrieve the face attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -1164,7 +1164,7 @@ HTMLBaseFontElement02 : function () {
       var testNode;
       var vface;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1176,13 +1176,13 @@ testNode = nodeList.item(0);
       vface = testNode.face;
 
       assertEquals("faceLink","arial,helvitica",vface);
-       
+
 },
 /**
-* 
-    The size attribute specifies the base font's size. 
+*
+    The size attribute specifies the base font's size.
 
-    Retrieve the size attribute and examine it's value.  
+    Retrieve the size attribute and examine it's value.
 
 * @author NIST
 * @author Mary Brady
@@ -1195,7 +1195,7 @@ HTMLBaseFontElement03 : function () {
       var testNode;
       var vsize;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1207,13 +1207,13 @@ testNode = nodeList.item(0);
       vsize = testNode.size;
 
       assertEquals("sizeLink",4,vsize);
-       
+
 },
 /**
-* 
-    The aLink attribute specifies the color of active links. 
+*
+    The aLink attribute specifies the color of active links.
 
-    Retrieve the aLink attribute and examine its value.  
+    Retrieve the aLink attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -1226,7 +1226,7 @@ HTMLBodyElement01 : function () {
       var testNode;
       var valink;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1238,14 +1238,14 @@ testNode = nodeList.item(0);
       valink = testNode.aLink;
 
       assertEquals("aLinkLink","#0000ff",valink);
-       
+
 },
 /**
-* 
+*
     The background attribute specifies the URI fo the background texture
-    tile image. 
+    tile image.
 
-    Retrieve the background attribute and examine its value.  
+    Retrieve the background attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -1258,7 +1258,7 @@ HTMLBodyElement02 : function () {
       var testNode;
       var vbackground;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1270,13 +1270,13 @@ testNode = nodeList.item(0);
       vbackground = testNode.background;
 
       assertEquals("backgroundLink","./pix/back1.gif",vbackground);
-       
+
 },
 /**
-* 
-    The bgColor attribute specifies the document background color. 
+*
+    The bgColor attribute specifies the document background color.
 
-    Retrieve the bgColor attribute and examine its value.  
+    Retrieve the bgColor attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -1289,7 +1289,7 @@ HTMLBodyElement03 : function () {
       var testNode;
       var vbgcolor;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1301,14 +1301,14 @@ testNode = nodeList.item(0);
       vbgcolor = testNode.bgColor;
 
       assertEquals("bgColorLink","#ffff00",vbgcolor);
-       
+
 },
 /**
-* 
+*
     The link attribute specifies the color of links that are not active
-    and unvisited. 
+    and unvisited.
 
-    Retrieve the link attribute and examine its value.  
+    Retrieve the link attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -1321,7 +1321,7 @@ HTMLBodyElement04 : function () {
       var testNode;
       var vlink;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1333,13 +1333,13 @@ testNode = nodeList.item(0);
       vlink = testNode.link;
 
       assertEquals("linkLink","#ff0000",vlink);
-       
+
 },
 /**
-* 
-    The text attribute specifies the document text color. 
+*
+    The text attribute specifies the document text color.
 
-    Retrieve the text attribute and examine its value.  
+    Retrieve the text attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -1352,7 +1352,7 @@ HTMLBodyElement05 : function () {
       var testNode;
       var vtext;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1364,14 +1364,14 @@ testNode = nodeList.item(0);
       vtext = testNode.text;
 
       assertEquals("textLink","#000000",vtext);
-       
+
 },
 /**
-* 
+*
     The vLink attribute specifies the color of links that have been
-    visited by the user. 
+    visited by the user.
 
-    Retrieve the vLink attribute and examine its value.  
+    Retrieve the vLink attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -1384,7 +1384,7 @@ HTMLBodyElement06 : function () {
       var testNode;
       var vvlink;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1396,10 +1396,10 @@ testNode = nodeList.item(0);
       vvlink = testNode.vLink;
 
       assertEquals("vLinkLink","#00ffff",vvlink);
-       
+
 },
 /**
-* 
+*
 Checks that Node.isSupported("hTmL", null) returns true.
 
 * @author Curt Arnold
@@ -1414,7 +1414,7 @@ HTMLBodyElement07 : function () {
       var state;
       var version = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1427,7 +1427,7 @@ HTMLBodyElement07 : function () {
 
 },
 /**
-* 
+*
 Checks that Node.isSupported("hTmL", "2.0") returns true.
 
 * @author Curt Arnold
@@ -1441,7 +1441,7 @@ HTMLBodyElement08 : function () {
       var body;
       var state;
       var version = "2.0";
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1454,7 +1454,7 @@ HTMLBodyElement08 : function () {
 
 },
 /**
-* 
+*
 Checks that Node.isSupported("xhTmL", null) returns true if hasFeature("XML", null) is true.
 
 * @author Curt Arnold
@@ -1470,7 +1470,7 @@ HTMLBodyElement09 : function () {
       var hasXML;
       var version = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1481,10 +1481,10 @@ HTMLBodyElement09 : function () {
       hasXML = body.isSupported("XML",version);
       state = body.isSupported("xhTmL",version);
       assertEquals("isSupportedXHTML",hasXML,state);
-       
+
 },
 /**
-* 
+*
 Checks that Node.isSupported("xhTmL", "2.0") returns true if hasFeature("XML", "2.0") is true.
 
 * @author Curt Arnold
@@ -1499,7 +1499,7 @@ HTMLBodyElement10 : function () {
       var state;
       var hasXML;
       var version = "2.0";
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1510,10 +1510,10 @@ HTMLBodyElement10 : function () {
       hasXML = body.isSupported("XML",version);
       state = body.isSupported("xhTmL",version);
       assertEquals("isSupportedXHTML",hasXML,state);
-       
+
 },
 /**
-* 
+*
 Checks that Node.isSupported("cOrE", null) returns true.
 
 * @author Curt Arnold
@@ -1528,7 +1528,7 @@ HTMLBodyElement11 : function () {
       var state;
       var version = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1541,7 +1541,7 @@ HTMLBodyElement11 : function () {
 
 },
 /**
-* 
+*
 Checks that Node.isSupported("cOrE", "2.0") returns true.
 
 * @author Curt Arnold
@@ -1555,7 +1555,7 @@ HTMLBodyElement12 : function () {
       var body;
       var state;
       var version = "2.0";
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1568,10 +1568,10 @@ HTMLBodyElement12 : function () {
 
 },
 /**
-* 
-    The form attribute returns the FORM element containing this control. 
+*
+    The form attribute returns the FORM element containing this control.
 
-    Retrieve the form attribute and examine its value.  
+    Retrieve the form attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -1585,7 +1585,7 @@ HTMLButtonElement01 : function () {
       var fNode;
       var vform;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1599,14 +1599,14 @@ testNode = nodeList.item(0);
       vform = fNode.id;
 
       assertEquals("formLink","form2",vform);
-       
+
 },
 /**
-* 
-    The form attribute returns null if control in not within the context of 
-    form. 
+*
+    The form attribute returns null if control in not within the context of
+    form.
 
-    Retrieve the form attribute and examine its value.  
+    Retrieve the form attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -1619,7 +1619,7 @@ HTMLButtonElement02 : function () {
       var testNode;
       var vform;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1631,14 +1631,14 @@ testNode = nodeList.item(1);
       vform = testNode.form;
 
       assertNull("formNullLink",vform);
-    
+
 },
 /**
-* 
+*
     The accessKey attribute returns a single character access key to
-    give access to the form control. 
+    give access to the form control.
 
-    Retrieve the accessKey attribute and examine its value.  
+    Retrieve the accessKey attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -1651,7 +1651,7 @@ HTMLButtonElement03 : function () {
       var testNode;
       var vaccesskey;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1663,14 +1663,14 @@ testNode = nodeList.item(0);
       vaccesskey = testNode.accessKey;
 
       assertEquals("accessKeyLink","f",vaccesskey);
-       
+
 },
 /**
-* 
+*
     The disabled attribute specifies whether the control is unavailable
-    in this context. 
+    in this context.
 
-    Retrieve the disabled attribute and examine its value.  
+    Retrieve the disabled attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -1683,7 +1683,7 @@ HTMLButtonElement04 : function () {
       var testNode;
       var vdisabled;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1698,11 +1698,11 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The name attribute is the form control or object name when submitted
-    with a form. 
+    with a form.
 
-    Retrieve the name attribute and examine its value.  
+    Retrieve the name attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -1715,7 +1715,7 @@ HTMLButtonElement05 : function () {
       var testNode;
       var vname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1727,14 +1727,14 @@ testNode = nodeList.item(0);
       vname = testNode.name;
 
       assertEquals("nameLink","disabledButton",vname);
-       
+
 },
 /**
-* 
+*
     The tabIndex attribute specifies an index that represents the element's
-    position in the tabbing order. 
+    position in the tabbing order.
 
-    Retrieve the tabIndex attribute and examine its value.  
+    Retrieve the tabIndex attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -1747,7 +1747,7 @@ HTMLButtonElement06 : function () {
       var testNode;
       var vtabindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1759,13 +1759,13 @@ testNode = nodeList.item(0);
       vtabindex = testNode.tabIndex;
 
       assertEquals("tabIndexLink",20,vtabindex);
-       
+
 },
 /**
-* 
-    The type attribute specifies the type of button. 
+*
+    The type attribute specifies the type of button.
 
-    Retrieve the type attribute and examine its value.  
+    Retrieve the type attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -1778,7 +1778,7 @@ HTMLButtonElement07 : function () {
       var testNode;
       var vtype;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1790,13 +1790,13 @@ testNode = nodeList.item(0);
       vtype = testNode.type;
 
       assertEquals("typeLink","reset",vtype);
-       
+
 },
 /**
-* 
-    The value attribute specifies the current control value. 
+*
+    The value attribute specifies the current control value.
 
-    Retrieve the value attribute and examine its value.  
+    Retrieve the value attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -1809,7 +1809,7 @@ HTMLButtonElement08 : function () {
       var testNode;
       var vvalue;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1821,10 +1821,10 @@ testNode = nodeList.item(0);
       vvalue = testNode.value;
 
       assertEquals("valueLink","Reset Disabled Button",vvalue);
-       
+
 },
 /**
-* 
+*
     An individual node may be accessed by either ordinal index, the node's
     name or id attributes.  (Test ordinal index).
 
@@ -1845,7 +1845,7 @@ HTMLCollection01 : function () {
       var rowsnodeList;
       var vrowindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1860,15 +1860,15 @@ testNode = nodeList.item(0);
       vrowindex = rowNode.rowIndex;
 
       assertEquals("rowIndexLink",0,vrowindex);
-       
+
 },
 /**
-* 
+*
     An individual node may be accessed by either ordinal index, the node's
     name or id attributes.  (Test node name).
 
     Retrieve the first FORM element and create a HTMLCollection by invoking
-    the elements attribute.  The first SELECT element is further retrieved 
+    the elements attribute.  The first SELECT element is further retrieved
     using the elements name attribute.
 
 * @author NIST
@@ -1884,7 +1884,7 @@ HTMLCollection02 : function () {
       var formsnodeList;
       var vname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1899,15 +1899,15 @@ testNode = nodeList.item(0);
       vname = formNode.nodeName;
 
       assertEqualsAutoCase("element", "nameIndexLink","SELECT",vname);
-       
+
 },
 /**
-* 
+*
     An individual node may be accessed by either ordinal index, the node's
     name or id attributes.  (Test id attribute).
 
     Retrieve the first FORM element and create a HTMLCollection by invoking
-    the "element" attribute.  The first SELECT element is further retrieved 
+    the "element" attribute.  The first SELECT element is further retrieved
     using the elements id.
 
 * @author NIST
@@ -1923,7 +1923,7 @@ HTMLCollection03 : function () {
       var formsnodeList;
       var vname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1938,14 +1938,14 @@ testNode = nodeList.item(0);
       vname = formNode.nodeName;
 
       assertEqualsAutoCase("element", "nameIndexLink","select",vname);
-       
+
 },
 /**
-* 
-    HTMLCollections are live, they are automatically updated when the     
+*
+    HTMLCollections are live, they are automatically updated when the
     underlying document is changed.
 
-    Create a HTMLCollection object by invoking the rows attribute of the    
+    Create a HTMLCollection object by invoking the rows attribute of the
     first TABLE element and examine its length, then add a new row and
     re-examine the length.
 
@@ -1970,7 +1970,7 @@ HTMLCollection04 : function () {
       expectedResult[0] = 4;
       expectedResult[1] = 5;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1989,10 +1989,10 @@ newRow = testNode.insertRow(4);
 
       result[result.length] = rowLength2;
 assertEqualsList("rowIndexLink",expectedResult,result);
-       
+
 },
 /**
-* 
+*
     The length attribute specifies the length or size of the list.
 
     Retrieve the first TABLE element and create a HTMLCollection by invoking
@@ -2011,7 +2011,7 @@ HTMLCollection05 : function () {
       var rowsnodeList;
       var rowLength;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2025,11 +2025,11 @@ testNode = nodeList.item(0);
       rowLength = rowsnodeList.length;
 
       assertEquals("rowIndexLink",4,rowLength);
-       
+
 },
 /**
-* 
-    An item(index) method retrieves an item specified by ordinal index   
+*
+    An item(index) method retrieves an item specified by ordinal index
     (Test for index=0).
 
     Retrieve the first TABLE element and create a HTMLCollection by invoking
@@ -2050,7 +2050,7 @@ HTMLCollection06 : function () {
       var rowsnodeList;
       var vrowindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2065,11 +2065,11 @@ testNode = nodeList.item(0);
       vrowindex = rowNode.rowIndex;
 
       assertEquals("rowIndexLink",0,vrowindex);
-       
+
 },
 /**
-* 
-    An item(index) method retrieves an item specified by ordinal index   
+*
+    An item(index) method retrieves an item specified by ordinal index
     (Test for index=3).
 
     Retrieve the first TABLE element and create a HTMLCollection by invoking
@@ -2089,7 +2089,7 @@ HTMLCollection07 : function () {
       var rowsnodeList;
       var vrowindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2104,11 +2104,11 @@ testNode = nodeList.item(0);
       vrowindex = rowNode.rowIndex;
 
       assertEquals("rowIndexLink",3,vrowindex);
-       
+
 },
 /**
-* 
-    Nodes in a HTMLCollection object are numbered in tree order.         
+*
+    Nodes in a HTMLCollection object are numbered in tree order.
     (Depth-first traversal order).
 
     Retrieve the first TABLE element and create a HTMLCollection by invoking
@@ -2128,7 +2128,7 @@ HTMLCollection08 : function () {
       var rowsnodeList;
       var vrowindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2143,14 +2143,14 @@ testNode = nodeList.item(0);
       vrowindex = rowNode.rowIndex;
 
       assertEquals("rowIndexLink",2,vrowindex);
-       
+
 },
 /**
-* 
-    The item(index) method returns null if the index is out of range.     
+*
+    The item(index) method returns null if the index is out of range.
 
     Retrieve the first TABLE element and create a HTMLCollection by invoking
-    the "rows" attribute.  Invoke the item(index) method with an index   
+    the "rows" attribute.  Invoke the item(index) method with an index
     of 5.  This index is out of range and should return null.
 
 * @author NIST
@@ -2166,7 +2166,7 @@ HTMLCollection09 : function () {
       var rowsnodeList;
       var vrowindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2179,17 +2179,17 @@ testNode = nodeList.item(0);
 
       rowNode = rowsnodeList.item(5);
       assertNull("rowIndexLink",rowNode);
-    
+
 },
 /**
-* 
-    The namedItem(name) method retrieves a node using a name.  It first   
+*
+    The namedItem(name) method retrieves a node using a name.  It first
     searches for a node with a matching id attribute.  If it doesn't find
     one, it then searches for a Node with a matching name attribute, but only
     on those elements that are allowed a name attribute.
 
     Retrieve the first FORM element and create a HTMLCollection by invoking
-    the elements attribute.  The first SELECT element is further retrieved 
+    the elements attribute.  The first SELECT element is further retrieved
     using the elements name attribute since the id attribute doesn't match.
 
 * @author NIST
@@ -2205,7 +2205,7 @@ HTMLCollection10 : function () {
       var formsnodeList;
       var vname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2220,17 +2220,17 @@ testNode = nodeList.item(0);
       vname = formNode.nodeName;
 
       assertEqualsAutoCase("element", "nameIndexLink","SELECT",vname);
-       
+
 },
 /**
-* 
-    The namedItem(name) method retrieves a node using a name.  It first   
+*
+    The namedItem(name) method retrieves a node using a name.  It first
     searches for a node with a matching id attribute.  If it doesn't find
     one, it then searches for a Node with a matching name attribute, but only
     on those elements that are allowed a name attribute.
 
     Retrieve the first FORM element and create a HTMLCollection by invoking
-    the elements attribute.  The first SELECT element is further retrieved 
+    the elements attribute.  The first SELECT element is further retrieved
     using the elements id attribute.
 
 * @author NIST
@@ -2246,7 +2246,7 @@ HTMLCollection11 : function () {
       var formsnodeList;
       var vname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2261,18 +2261,18 @@ testNode = nodeList.item(0);
       vname = formNode.nodeName;
 
       assertEqualsAutoCase("element", "nameIndexLink","select",vname);
-       
+
 },
 /**
-* 
-    The namedItem(name) method retrieves a node using a name.  It first   
+*
+    The namedItem(name) method retrieves a node using a name.  It first
     searches for a node with a matching id attribute.  If it doesn't find
     one, it then searches for a Node with a matching name attribute, but only
     on those elements that are allowed a name attribute. If there isn't
     a matching node the method returns null.
 
     Retrieve the first FORM element and create a HTMLCollection by invoking
-    the elements attribute.  The method returns null since there is not a 
+    the elements attribute.  The method returns null since there is not a
     match of the name or id attribute.
 
 * @author NIST
@@ -2287,7 +2287,7 @@ HTMLCollection12 : function () {
       var formNode;
       var formsnodeList;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2300,14 +2300,14 @@ testNode = nodeList.item(0);
 
       formNode = formsnodeList.namedItem("select9");
       assertNull("nameIndexLink",formNode);
-    
+
 },
 /**
-* 
+*
     The compact attribute specifies a boolean value on whether to display
-    the list more compactly. 
+    the list more compactly.
 
-    Retrieve the compact attribute and examine its value.  
+    Retrieve the compact attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -2320,7 +2320,7 @@ HTMLDirectoryElement01 : function () {
       var testNode;
       var vcompact;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2335,10 +2335,10 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The align attribute specifies the horizontal text alignment.
 
-    Retrieve the align attribute and examine its value.  
+    Retrieve the align attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -2351,7 +2351,7 @@ HTMLDivElement01 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2363,14 +2363,14 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
+*
     The compact attribute specifies a boolean value on whether to display
-    the list more compactly. 
+    the list more compactly.
 
-    Retrieve the compact attribute and examine its value.  
+    Retrieve the compact attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -2383,7 +2383,7 @@ HTMLDlistElement01 : function () {
       var testNode;
       var vcompact;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2398,8 +2398,8 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
-    The title attribute is the specified title as a string.      
+*
+    The title attribute is the specified title as a string.
 
     Retrieve the title attribute and examine its value.
 
@@ -2413,7 +2413,7 @@ HTMLDocument01 : function () {
     var nodeList;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2422,10 +2422,10 @@ HTMLDocument01 : function () {
       vtitle = doc.title;
 
       assertEquals("titleLink","NIST DOM HTML Test - DOCUMENT",vtitle);
-       
+
 },
 /**
-* 
+*
     The referrer attribute returns the URI of the page that linked to this
     page.
 
@@ -2442,7 +2442,7 @@ HTMLDocument02 : function () {
       var testNode;
       var vreferrer;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2451,10 +2451,10 @@ HTMLDocument02 : function () {
       vreferrer = doc.referrer;
 
       assertEquals("referrerLink","",vreferrer);
-       
+
 },
 /**
-* 
+*
     The domain attribute specifies the domain name of the server that served
     the document, or null if the server cannot be identified by a domain name.
 
@@ -2471,7 +2471,7 @@ HTMLDocument03 : function () {
       var testNode;
       var vdomain;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2480,11 +2480,11 @@ HTMLDocument03 : function () {
       vdomain = doc.domain;
 
       assertEquals("domainLink","",vdomain);
-       
+
 },
 /**
-* 
-    The URL attribute specifies the absolute URI of the document.        
+*
+    The URL attribute specifies the absolute URI of the document.
 
     Retrieve the URL attribute and examine its value.
 
@@ -2499,7 +2499,7 @@ HTMLDocument04 : function () {
       var testNode;
       var vurl;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2511,7 +2511,7 @@ HTMLDocument04 : function () {
 
 },
 /**
-* 
+*
     The body attribute is the element that contains the content for the
     document.
 
@@ -2529,7 +2529,7 @@ HTMLDocument05 : function () {
       var vbody;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2540,10 +2540,10 @@ HTMLDocument05 : function () {
       vid = vbody.id;
 
       assertEquals("idLink","TEST-BODY",vid);
-       
+
 },
 /**
-* 
+*
     The images attribute returns a collection of all IMG elements in a document.
 
     Retrieve the images attribute from the document and examine its value.
@@ -2560,7 +2560,7 @@ HTMLDocument07 : function () {
       var vimages;
       var vlength;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2571,11 +2571,11 @@ HTMLDocument07 : function () {
       vlength = vimages.length;
 
       assertEquals("lengthLink",1,vlength);
-       
+
 },
 /**
-* 
-    The applets attribute returns a collection of all OBJECT elements that 
+*
+    The applets attribute returns a collection of all OBJECT elements that
     include applets abd APPLET elements in a document.
 
     Retrieve the applets attribute from the document and examine its value.
@@ -2592,7 +2592,7 @@ HTMLDocument08 : function () {
       var vapplets;
       var vlength;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2603,10 +2603,10 @@ HTMLDocument08 : function () {
       vlength = vapplets.length;
 
       assertEquals("length",4,vlength);
-       
+
 },
 /**
-* 
+*
     The links attribute returns a collection of all AREA and A elements
     in a document with a value for the href attribute.
 
@@ -2624,7 +2624,7 @@ HTMLDocument09 : function () {
       var vlinks;
       var vlength;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2635,10 +2635,10 @@ HTMLDocument09 : function () {
       vlength = vlinks.length;
 
       assertEquals("lengthLink",3,vlength);
-       
+
 },
 /**
-* 
+*
     The forms attribute returns a collection of all the forms in a document.
 
     Retrieve the forms attribute from the document and examine its value.
@@ -2655,7 +2655,7 @@ HTMLDocument10 : function () {
       var vforms;
       var vlength;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2666,10 +2666,10 @@ HTMLDocument10 : function () {
       vlength = vforms.length;
 
       assertEquals("lengthLink",1,vlength);
-       
+
 },
 /**
-* 
+*
     The anchors attribute returns a collection of all A elements with values
     for the name attribute.
 
@@ -2687,7 +2687,7 @@ HTMLDocument11 : function () {
       var vanchors;
       var vlength;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2698,10 +2698,10 @@ HTMLDocument11 : function () {
       vlength = vanchors.length;
 
       assertEquals("lengthLink",1,vlength);
-       
+
 },
 /**
-* 
+*
     The cookie attribute returns the cookies associated with this document.
 
     Retrieve the cookie attribute and examine its value.
@@ -2716,7 +2716,7 @@ HTMLDocument12 : function () {
     var nodeList;
       var vcookie;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2725,12 +2725,12 @@ HTMLDocument12 : function () {
       vcookie = doc.cookie;
 
       assertEquals("cookieLink","",vcookie);
-       
+
 },
 /**
-* 
+*
     The getElementsByName method returns the (possibly empty) collection
-    of elements whose name value is given by the elementName.  
+    of elements whose name value is given by the elementName.
 
     Retrieve all the elements whose name attribute is "mapid".
     Check the length of the nodelist.  It should be 1.
@@ -2744,7 +2744,7 @@ HTMLDocument13 : function () {
     if(checkInitialization(builder, "HTMLDocument13") != null) return;
     var nodeList;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2755,9 +2755,9 @@ HTMLDocument13 : function () {
 
 },
 /**
-* 
+*
     The getElementsByName method returns the (possibly empty) collection
-    of elements whose name value is given by the elementName.  
+    of elements whose name value is given by the elementName.
 
     Retrieve all the elements whose name attribute is "noid".
     Check the length of the nodelist.  It should be 0 since
@@ -2772,7 +2772,7 @@ HTMLDocument14 : function () {
     if(checkInitialization(builder, "HTMLDocument14") != null) return;
     var nodeList;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2783,9 +2783,9 @@ HTMLDocument14 : function () {
 
 },
 /**
-* 
+*
     The getElementById method returns the Element whose id is given by
-    elementId.  If no such element exists, returns null.  
+    elementId.  If no such element exists, returns null.
 
     Retrieve the element whose id is "mapid".
     Check the value of the element.
@@ -2803,7 +2803,7 @@ HTMLDocument15 : function () {
     var elementNode;
       var elementValue;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2813,12 +2813,12 @@ HTMLDocument15 : function () {
       elementValue = elementNode.nodeName;
 
       assertEqualsAutoCase("element", "elementId","map",elementValue);
-       
+
 },
 /**
-* 
+*
     The getElementById method returns the Element whose id is given by
-    elementId.  If no such element exists, returns null.  
+    elementId.  If no such element exists, returns null.
 
     Retrieve the element whose id is "noid".
     The value returned should be null since there are not any elements with
@@ -2837,7 +2837,7 @@ HTMLDocument16 : function () {
     var elementNode;
       var elementValue;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2845,10 +2845,10 @@ HTMLDocument16 : function () {
       doc = load(docRef, "doc", "document");
       elementNode = doc.getElementById("noid");
       assertNull("elementId",elementNode);
-    
+
 },
 /**
-* 
+*
 Clears the current document using HTMLDocument.open immediately followed by close.
 
 * @author Curt Arnold
@@ -2861,7 +2861,7 @@ HTMLDocument17 : function () {
     var doc;
       var bodyElem;
       var bodyChild;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2871,21 +2871,21 @@ HTMLDocument17 : function () {
       doc.close();
       bodyElem = doc.body;
 
-      
+
 	if(
-	
+
 	(bodyElem != null)
 
 	) {
 	bodyChild = bodyElem.firstChild;
 
       assertNull("bodyContainsChildren",bodyChild);
-    
+
 	}
-	
+
 },
 /**
-* 
+*
 Calls HTMLDocument.close on a document that has not been opened for modification.
 
 * @author Curt Arnold
@@ -2895,17 +2895,17 @@ HTMLDocument18 : function () {
    var success;
     if(checkInitialization(builder, "HTMLDocument18") != null) return;
     var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "document");
       doc.close();
-      
+
 },
 /**
-* 
+*
 Replaces the current document with a valid HTML document using HTMLDocument.open, write and close.
 
 * @author Curt Arnold
@@ -2919,26 +2919,26 @@ HTMLDocument19 : function () {
     var doc;
       var docElem;
       var title;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "document");
       doc.open();
-      
+
 	if(
-	
+
 	(builder.contentType == "text/html")
 
 	) {
 	doc.write("&lt;html>");
-      
+
 	}
-	
+
 		else {
 			doc.write("&lt;html xmlns='http://www.w3.org/1999/xhtml'>");
-      
+
 		}
 	doc.write("&lt;body>");
       doc.write("&lt;title>Replacement&lt;/title>");
@@ -2949,10 +2949,10 @@ HTMLDocument19 : function () {
       doc.write("&lt;/body>");
       doc.write("&lt;/html>");
       doc.close();
-      
+
 },
 /**
-* 
+*
 Replaces the current document with a valid HTML document using HTMLDocument.open, writeln and close.
 
 * @author Curt Arnold
@@ -2966,26 +2966,26 @@ HTMLDocument20 : function () {
     var doc;
       var docElem;
       var title;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "document");
       doc.open();
-      
+
 	if(
-	
+
 	(builder.contentType == "text/html")
 
 	) {
 	doc.writeln("&lt;html>");
-      
+
 	}
-	
+
 		else {
 			doc.writeln("&lt;html xmlns='http://www.w3.org/1999/xhtml'>");
-      
+
 		}
 	doc.writeln("&lt;body>");
       doc.writeln("&lt;title>Replacement&lt;/title>");
@@ -2996,10 +2996,10 @@ HTMLDocument20 : function () {
       doc.writeln("&lt;/body>");
       doc.writeln("&lt;/html>");
       doc.close();
-      
+
 },
 /**
-* 
+*
 Replaces the current document checks that writeln adds a new line.
 
 * @author Curt Arnold
@@ -3017,26 +3017,26 @@ HTMLDocument21 : function () {
       var preElem;
       var preText;
       var preValue;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "document");
       doc.open();
-      
+
 	if(
-	
+
 	(builder.contentType == "text/html")
 
 	) {
 	doc.writeln("&lt;html>");
-      
+
 	}
-	
+
 		else {
 			doc.writeln("&lt;html xmlns='http://www.w3.org/1999/xhtml'>");
-      
+
 		}
 	doc.writeln("&lt;body>");
       doc.writeln("&lt;title>Replacement&lt;/title>");
@@ -3052,10 +3052,10 @@ HTMLDocument21 : function () {
       doc.writeln("&lt;/body>");
       doc.writeln("&lt;/html>");
       doc.close();
-      
+
 },
 /**
-* 
+*
 Checks that Node.isSupported("hTmL", null) returns true.
 
 * @author Curt Arnold
@@ -3069,7 +3069,7 @@ HTMLDocument22 : function () {
       var state;
       var version = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3080,7 +3080,7 @@ HTMLDocument22 : function () {
 
 },
 /**
-* 
+*
 Checks that Node.isSupported("hTmL", "2.0") returns true.
 
 * @author Curt Arnold
@@ -3093,7 +3093,7 @@ HTMLDocument23 : function () {
     var doc;
       var state;
       var version = "2.0";
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3104,7 +3104,7 @@ HTMLDocument23 : function () {
 
 },
 /**
-* 
+*
 Checks that Node.isSupported("xhTmL", null) returns true if hasFeature("XML", null) is true.
 
 * @author Curt Arnold
@@ -3119,7 +3119,7 @@ HTMLDocument24 : function () {
       var hasXML;
       var version = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3128,10 +3128,10 @@ HTMLDocument24 : function () {
       hasXML = doc.isSupported("XML",version);
       state = doc.isSupported("xhTmL",version);
       assertEquals("isSupportedXHTML",hasXML,state);
-       
+
 },
 /**
-* 
+*
 Checks that Node.isSupported("xhTmL", "2.0") returns true if hasFeature("XML", "2.0") is true.
 
 * @author Curt Arnold
@@ -3145,7 +3145,7 @@ HTMLDocument25 : function () {
       var state;
       var hasXML;
       var version = "2.0";
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3154,10 +3154,10 @@ HTMLDocument25 : function () {
       hasXML = doc.isSupported("XML",version);
       state = doc.isSupported("xhTmL",version);
       assertEquals("isSupportedXHTML",hasXML,state);
-       
+
 },
 /**
-* 
+*
 Checks that Node.isSupported("cOrE", null) returns true.
 
 * @author Curt Arnold
@@ -3171,7 +3171,7 @@ HTMLDocument26 : function () {
       var state;
       var version = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3182,7 +3182,7 @@ HTMLDocument26 : function () {
 
 },
 /**
-* 
+*
 Checks that Node.isSupported("cOrE", "2.0") returns true.
 
 * @author Curt Arnold
@@ -3195,7 +3195,7 @@ HTMLDocument27 : function () {
     var doc;
       var state;
       var version = "2.0";
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3206,10 +3206,10 @@ HTMLDocument27 : function () {
 
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the HEAD element and examine its value.  
+    Retrieve the id attribute of the HEAD element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3222,7 +3222,7 @@ HTMLElement01 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3234,13 +3234,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-HEAD",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the SUB element and examine its value.  
+    Retrieve the id attribute of the SUB element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3253,7 +3253,7 @@ HTMLElement02 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3265,13 +3265,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-SUB",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the SUP element and examine its value.  
+    Retrieve the id attribute of the SUP element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3284,7 +3284,7 @@ HTMLElement03 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3296,13 +3296,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-SUP",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the SPAN element and examine its value.  
+    Retrieve the id attribute of the SPAN element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3315,7 +3315,7 @@ HTMLElement04 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3327,13 +3327,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-SPAN",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the BDO element and examine its value.  
+    Retrieve the id attribute of the BDO element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3346,7 +3346,7 @@ HTMLElement05 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3358,13 +3358,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-BDO",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the TT element and examine its value.  
+    Retrieve the id attribute of the TT element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3377,7 +3377,7 @@ HTMLElement06 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3389,13 +3389,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-TT",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the I element and examine its value.  
+    Retrieve the id attribute of the I element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3408,7 +3408,7 @@ HTMLElement07 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3420,13 +3420,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-I",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the B element and examine its value.  
+    Retrieve the id attribute of the B element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3439,7 +3439,7 @@ HTMLElement08 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3451,13 +3451,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-B",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the U element and examine its value.  
+    Retrieve the id attribute of the U element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3470,7 +3470,7 @@ HTMLElement09 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3482,13 +3482,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-U",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the S element and examine its value.  
+    Retrieve the id attribute of the S element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3501,7 +3501,7 @@ HTMLElement10 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3513,13 +3513,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-S",vid);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the SMALL element and examine its value.  
+    Retrieve the dir attribute of the SMALL element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3532,7 +3532,7 @@ HTMLElement100 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3544,13 +3544,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the EM element and examine its value.  
+    Retrieve the dir attribute of the EM element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3563,7 +3563,7 @@ HTMLElement101 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3575,13 +3575,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the STRONG element and examine its value.  
+    Retrieve the dir attribute of the STRONG element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3594,7 +3594,7 @@ HTMLElement102 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3606,13 +3606,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the DFN element and examine its value.  
+    Retrieve the dir attribute of the DFN element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3625,7 +3625,7 @@ HTMLElement103 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3637,14 +3637,14 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the CODE element and examine its value.  
+    Retrieve the dir attribute of the CODE element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3657,7 +3657,7 @@ HTMLElement104 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3669,13 +3669,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the SAMP element and examine its value.  
+    Retrieve the dir attribute of the SAMP element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3688,7 +3688,7 @@ HTMLElement105 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3700,13 +3700,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the KBD element and examine its value.  
+    Retrieve the dir attribute of the KBD element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3719,7 +3719,7 @@ HTMLElement106 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3731,13 +3731,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the VAR element and examine its value.  
+    Retrieve the dir attribute of the VAR element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3750,7 +3750,7 @@ HTMLElement107 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3762,13 +3762,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the CITE element and examine its value.  
+    Retrieve the dir attribute of the CITE element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3781,7 +3781,7 @@ HTMLElement108 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3793,13 +3793,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the ACRONYM element and examine its value.  
+    Retrieve the dir attribute of the ACRONYM element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3812,7 +3812,7 @@ HTMLElement109 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3824,13 +3824,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the STRIKE element and examine its value.  
+    Retrieve the id attribute of the STRIKE element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3843,7 +3843,7 @@ HTMLElement11 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3855,13 +3855,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-STRIKE",vid);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the ABBR element and examine its value.  
+    Retrieve the dir attribute of the ABBR element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3874,7 +3874,7 @@ HTMLElement110 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3886,13 +3886,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the DD element and examine its value.  
+    Retrieve the dir attribute of the DD element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3905,7 +3905,7 @@ HTMLElement111 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3917,13 +3917,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the DT element and examine its value.  
+    Retrieve the dir attribute of the DT element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3936,7 +3936,7 @@ HTMLElement112 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3948,13 +3948,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the NOFRAMES element and examine its value.  
+    Retrieve the dir attribute of the NOFRAMES element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3967,7 +3967,7 @@ HTMLElement113 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3979,13 +3979,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the NOSCRIPT element and examine its value.  
+    Retrieve the dir attribute of the NOSCRIPT element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -3998,7 +3998,7 @@ HTMLElement114 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4010,13 +4010,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the ADDRESS element and examine its value.  
+    Retrieve the dir attribute of the ADDRESS element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4029,7 +4029,7 @@ HTMLElement115 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4041,13 +4041,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the CENTER element and examine its value.  
+    Retrieve the dir attribute of the CENTER element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4060,7 +4060,7 @@ HTMLElement116 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4072,13 +4072,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the HEAD element and examine its value.  
+    Retrieve the class attribute of the HEAD element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4091,7 +4091,7 @@ HTMLElement117 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4103,13 +4103,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","HEAD-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the SUB element and examine its value.  
+    Retrieve the class attribute of the SUB element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4122,7 +4122,7 @@ HTMLElement118 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4134,13 +4134,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","SUB-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the SUP element and examine its value.  
+    Retrieve the class attribute of the SUP element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4153,7 +4153,7 @@ HTMLElement119 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4165,13 +4165,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","SUP-class",vclassname);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the BIG element and examine its value.  
+    Retrieve the id attribute of the BIG element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4184,7 +4184,7 @@ HTMLElement12 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4196,13 +4196,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-BIG",vid);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the SPAN element and examine its value.  
+    Retrieve the class attribute of the SPAN element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4215,7 +4215,7 @@ HTMLElement120 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4227,13 +4227,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","SPAN-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the BDO element and examine its value.  
+    Retrieve the class attribute of the BDO element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4246,7 +4246,7 @@ HTMLElement121 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4258,13 +4258,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","BDO-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the TT element and examine its value.  
+    Retrieve the class attribute of the TT element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4277,7 +4277,7 @@ HTMLElement122 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4289,13 +4289,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","TT-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the I element and examine its value.  
+    Retrieve the class attribute of the I element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4308,7 +4308,7 @@ HTMLElement123 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4320,13 +4320,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","I-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the B element and examine its value.  
+    Retrieve the class attribute of the B element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4339,7 +4339,7 @@ HTMLElement124 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4351,13 +4351,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","B-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the U element and examine its value.  
+    Retrieve the class attribute of the U element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4370,7 +4370,7 @@ HTMLElement125 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4382,13 +4382,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","U-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the S element and examine its value.  
+    Retrieve the class attribute of the S element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4401,7 +4401,7 @@ HTMLElement126 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4413,13 +4413,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","S-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the STRIKE element and examine its value.  
+    Retrieve the class attribute of the STRIKE element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4432,7 +4432,7 @@ HTMLElement127 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4444,13 +4444,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","STRIKE-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the BIG element and examine its value.  
+    Retrieve the class attribute of the BIG element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4463,7 +4463,7 @@ HTMLElement128 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4475,13 +4475,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","BIG-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the SMALL element and examine its value.  
+    Retrieve the class attribute of the SMALL element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4494,7 +4494,7 @@ HTMLElement129 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4506,13 +4506,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","SMALL-class",vclassname);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the SMALL element and examine its value.  
+    Retrieve the id attribute of the SMALL element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4525,7 +4525,7 @@ HTMLElement13 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4537,13 +4537,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-SMALL",vid);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the EM element and examine its value.  
+    Retrieve the class attribute of the EM element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4556,7 +4556,7 @@ HTMLElement130 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4568,13 +4568,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","EM-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the STRONG element and examine its value.  
+    Retrieve the class attribute of the STRONG element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4587,7 +4587,7 @@ HTMLElement131 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4599,13 +4599,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","STRONG-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the DFN element and examine its value.  
+    Retrieve the class attribute of the DFN element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4618,7 +4618,7 @@ HTMLElement132 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4630,13 +4630,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","DFN-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the CODE element and examine its value.  
+    Retrieve the class attribute of the CODE element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4649,7 +4649,7 @@ HTMLElement133 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4661,13 +4661,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","CODE-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the SAMP element and examine its value.  
+    Retrieve the class attribute of the SAMP element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4680,7 +4680,7 @@ HTMLElement134 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4692,13 +4692,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","SAMP-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the KBD element and examine its value.  
+    Retrieve the class attribute of the KBD element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4711,7 +4711,7 @@ HTMLElement135 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4723,13 +4723,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","KBD-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the VAR element and examine its value.  
+    Retrieve the class attribute of the VAR element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4742,7 +4742,7 @@ HTMLElement136 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4754,13 +4754,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","VAR-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the CITE element and examine its value.  
+    Retrieve the class attribute of the CITE element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4773,7 +4773,7 @@ HTMLElement137 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4785,13 +4785,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","CITE-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the ACRONYM element and examine its value.  
+    Retrieve the class attribute of the ACRONYM element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4804,7 +4804,7 @@ HTMLElement138 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4816,13 +4816,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","ACRONYM-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the ABBR element and examine its value.  
+    Retrieve the class attribute of the ABBR element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4835,7 +4835,7 @@ HTMLElement139 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4847,13 +4847,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","ABBR-class",vclassname);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the EM element and examine its value.  
+    Retrieve the id attribute of the EM element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4866,7 +4866,7 @@ HTMLElement14 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4878,13 +4878,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-EM",vid);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the DD element and examine its value.  
+    Retrieve the class attribute of the DD element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4897,7 +4897,7 @@ HTMLElement140 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4909,13 +4909,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","DD-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the DT element and examine its value.  
+    Retrieve the class attribute of the DT element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4928,7 +4928,7 @@ HTMLElement141 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4940,13 +4940,14 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","DT-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the NOFRAMES element and examine its value.  
+
+    Retrieve the class attribute of the NOFRAMES element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4959,7 +4960,7 @@ HTMLElement142 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4971,13 +4972,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","NOFRAMES-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the NOSCRIPT element and examine its value.  
+    Retrieve the class attribute of the NOSCRIPT element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -4990,7 +4991,7 @@ HTMLElement143 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5002,13 +5003,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","NOSCRIPT-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the ADDRESS element and examine its value.  
+    Retrieve the class attribute of the ADDRESS element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5021,7 +5022,7 @@ HTMLElement144 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5033,13 +5034,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","ADDRESS-class",vclassname);
-       
+
 },
 /**
-* 
-    The className attribute specifies the class attribute of the element. 
+*
+    The className attribute specifies the class attribute of the element.
 
-    Retrieve the class attribute of the CENTER element and examine its value.  
+    Retrieve the class attribute of the CENTER element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5052,7 +5053,7 @@ HTMLElement145 : function () {
       var testNode;
       var vclassname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5064,13 +5065,13 @@ testNode = nodeList.item(0);
       vclassname = testNode.className;
 
       assertEquals("classNameLink","CENTER-class",vclassname);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the STRONG element and examine its value.  
+    Retrieve the id attribute of the STRONG element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5083,7 +5084,7 @@ HTMLElement15 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5095,13 +5096,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-STRONG",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the DFN element and examine its value.  
+    Retrieve the id attribute of the DFN element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5114,7 +5115,7 @@ HTMLElement16 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5126,13 +5127,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-DFN",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the CODE element and examine its value.  
+    Retrieve the id attribute of the CODE element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5145,7 +5146,7 @@ HTMLElement17 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5157,13 +5158,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-CODE",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the SAMP element and examine its value.  
+    Retrieve the id attribute of the SAMP element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5176,7 +5177,7 @@ HTMLElement18 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5188,13 +5189,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-SAMP",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the KBD element and examine its value.  
+    Retrieve the id attribute of the KBD element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5207,7 +5208,7 @@ HTMLElement19 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5219,13 +5220,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-KBD",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the VAR element and examine its value.  
+    Retrieve the id attribute of the VAR element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5238,7 +5239,7 @@ HTMLElement20 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5250,13 +5251,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-VAR",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the CITE element and examine its value.  
+    Retrieve the id attribute of the CITE element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5269,7 +5270,7 @@ HTMLElement21 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5281,13 +5282,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-CITE",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the ACRONYM element and examine its value.  
+    Retrieve the id attribute of the ACRONYM element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5300,7 +5301,7 @@ HTMLElement22 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5312,13 +5313,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-ACRONYM",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the ABBR element and examine its value.  
+    Retrieve the id attribute of the ABBR element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5331,7 +5332,7 @@ HTMLElement23 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5343,13 +5344,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-ABBR",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the DD element and examine its value.  
+    Retrieve the id attribute of the DD element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5362,7 +5363,7 @@ HTMLElement24 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5374,13 +5375,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-DD",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the DT element and examine its value.  
+    Retrieve the id attribute of the DT element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5393,7 +5394,7 @@ HTMLElement25 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5405,13 +5406,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-DT",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the NOFRAMES element and examine its value.  
+    Retrieve the id attribute of the NOFRAMES element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5424,7 +5425,7 @@ HTMLElement26 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5436,13 +5437,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-NOFRAMES",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the NOSCRIPT element and examine its value.  
+    Retrieve the id attribute of the NOSCRIPT element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5455,7 +5456,7 @@ HTMLElement27 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5467,13 +5468,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-NOSCRIPT",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the ADDRESS element and examine its value.  
+    Retrieve the id attribute of the ADDRESS element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5486,7 +5487,7 @@ HTMLElement28 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5498,13 +5499,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-ADDRESS",vid);
-       
+
 },
 /**
-* 
-    The id specifies the elements identifier. 
+*
+    The id specifies the elements identifier.
 
-    Retrieve the id attribute of the CENTER element and examine its value.  
+    Retrieve the id attribute of the CENTER element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5517,7 +5518,7 @@ HTMLElement29 : function () {
       var testNode;
       var vid;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5529,13 +5530,13 @@ testNode = nodeList.item(0);
       vid = testNode.id;
 
       assertEquals("idLink","Test-CENTER",vid);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the HEAD element and examine its value.  
+    Retrieve the title attribute of the HEAD element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5548,7 +5549,7 @@ HTMLElement30 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5560,13 +5561,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","HEAD Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the SUB element and examine its value.  
+    Retrieve the title attribute of the SUB element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5579,7 +5580,7 @@ HTMLElement31 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5591,13 +5592,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","SUB Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the SUP element and examine its value.  
+    Retrieve the title attribute of the SUP element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5610,7 +5611,7 @@ HTMLElement32 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5622,13 +5623,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","SUP Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the SPAN element and examine its value.  
+    Retrieve the title attribute of the SPAN element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5641,7 +5642,7 @@ HTMLElement33 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5653,13 +5654,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","SPAN Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the BDO element and examine its value.  
+    Retrieve the title attribute of the BDO element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5672,7 +5673,7 @@ HTMLElement34 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5684,13 +5685,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","BDO Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the TT element and examine its value.  
+    Retrieve the title attribute of the TT element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5703,7 +5704,7 @@ HTMLElement35 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5715,13 +5716,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","TT Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the I element and examine its value.  
+    Retrieve the title attribute of the I element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5734,7 +5735,7 @@ HTMLElement36 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5746,13 +5747,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","I Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the B element and examine its value.  
+    Retrieve the title attribute of the B element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5765,7 +5766,7 @@ HTMLElement37 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5777,13 +5778,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","B Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the U element and examine its value.  
+    Retrieve the title attribute of the U element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5796,7 +5797,7 @@ HTMLElement38 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5808,13 +5809,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","U Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the S element and examine its value.  
+    Retrieve the title attribute of the S element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5827,7 +5828,7 @@ HTMLElement39 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5839,13 +5840,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","S Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the STRIKE element and examine its value.  
+    Retrieve the title attribute of the STRIKE element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5858,7 +5859,7 @@ HTMLElement40 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5870,13 +5871,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","STRIKE Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the BIG element and examine its value.  
+    Retrieve the title attribute of the BIG element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5889,7 +5890,7 @@ HTMLElement41 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5901,13 +5902,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","BIG Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the SMALL element and examine its value.  
+    Retrieve the title attribute of the SMALL element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5920,7 +5921,7 @@ HTMLElement42 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5932,13 +5933,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","SMALL Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the EM element and examine its value.  
+    Retrieve the title attribute of the EM element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5951,7 +5952,7 @@ HTMLElement43 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5963,13 +5964,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","EM Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the STRONG element and examine its value.  
+    Retrieve the title attribute of the STRONG element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -5982,7 +5983,7 @@ HTMLElement44 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5994,13 +5995,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","STRONG Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the DFN element and examine its value.  
+    Retrieve the title attribute of the DFN element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6013,7 +6014,7 @@ HTMLElement45 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6025,13 +6026,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","DFN Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the CODE element and examine its value.  
+    Retrieve the title attribute of the CODE element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6044,7 +6045,7 @@ HTMLElement46 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6056,13 +6057,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","CODE Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the SAMP element and examine its value.  
+    Retrieve the title attribute of the SAMP element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6075,7 +6076,7 @@ HTMLElement47 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6087,13 +6088,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","SAMP Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the KBD element and examine its value.  
+    Retrieve the title attribute of the KBD element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6106,7 +6107,7 @@ HTMLElement48 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6118,13 +6119,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","KBD Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the VAR element and examine its value.  
+    Retrieve the title attribute of the VAR element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6137,7 +6138,7 @@ HTMLElement49 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6149,13 +6150,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","VAR Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the CITE element and examine its value.  
+    Retrieve the title attribute of the CITE element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6168,7 +6169,7 @@ HTMLElement50 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6180,13 +6181,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","CITE Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the ACRONYM element and examine its value.  
+    Retrieve the title attribute of the ACRONYM element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6199,7 +6200,7 @@ HTMLElement51 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6211,13 +6212,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","ACRONYM Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the ABBR element and examine its value.  
+    Retrieve the title attribute of the ABBR element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6230,7 +6231,7 @@ HTMLElement52 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6242,13 +6243,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","ABBR Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the DD element and examine its value.  
+    Retrieve the title attribute of the DD element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6261,7 +6262,7 @@ HTMLElement53 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6273,13 +6274,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","DD Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the DT element and examine its value.  
+    Retrieve the title attribute of the DT element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6292,7 +6293,7 @@ HTMLElement54 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6304,13 +6305,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","DT Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the NOFRAMES element and examine its value.  
+    Retrieve the title attribute of the NOFRAMES element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6323,7 +6324,7 @@ HTMLElement55 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6335,13 +6336,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","NOFRAMES Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the NOSCRIPT element and examine its value.  
+    Retrieve the title attribute of the NOSCRIPT element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6354,7 +6355,7 @@ HTMLElement56 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6366,13 +6367,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","NOSCRIPT Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the ADDRESS element and examine its value.  
+    Retrieve the title attribute of the ADDRESS element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6385,7 +6386,7 @@ HTMLElement57 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6397,13 +6398,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","ADDRESS Element",vtitle);
-       
+
 },
 /**
-* 
-    The title attribute specifies the elements advisory title. 
+*
+    The title attribute specifies the elements advisory title.
 
-    Retrieve the title attribute of the CENTER element and examine its value.  
+    Retrieve the title attribute of the CENTER element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6416,7 +6417,7 @@ HTMLElement58 : function () {
       var testNode;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6428,13 +6429,13 @@ testNode = nodeList.item(0);
       vtitle = testNode.title;
 
       assertEquals("titleLink","CENTER Element",vtitle);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the HEAD element and examine its value.  
+    Retrieve the lang attribute of the HEAD element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6447,7 +6448,7 @@ HTMLElement59 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6459,13 +6460,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the SUB element and examine its value.  
+    Retrieve the lang attribute of the SUB element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6478,7 +6479,7 @@ HTMLElement60 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6490,13 +6491,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the SUP element and examine its value.  
+    Retrieve the lang attribute of the SUP element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6509,7 +6510,7 @@ HTMLElement61 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6521,13 +6522,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the SPAN element and examine its value.  
+    Retrieve the lang attribute of the SPAN element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6540,7 +6541,7 @@ HTMLElement62 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6552,13 +6553,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the BDO element and examine its value.  
+    Retrieve the lang attribute of the BDO element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6571,7 +6572,7 @@ HTMLElement63 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6583,13 +6584,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the TT element and examine its value.  
+    Retrieve the lang attribute of the TT element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6602,7 +6603,7 @@ HTMLElement64 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6614,13 +6615,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the I element and examine its value.  
+    Retrieve the lang attribute of the I element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6633,7 +6634,7 @@ HTMLElement65 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6645,13 +6646,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the B element and examine its value.  
+    Retrieve the lang attribute of the B element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6664,7 +6665,7 @@ HTMLElement66 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6676,13 +6677,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the U element and examine its value.  
+    Retrieve the lang attribute of the U element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6695,7 +6696,7 @@ HTMLElement67 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6707,13 +6708,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the S element and examine its value.  
+    Retrieve the lang attribute of the S element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6726,7 +6727,7 @@ HTMLElement68 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6738,13 +6739,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the STRIKE element and examine its value.  
+    Retrieve the lang attribute of the STRIKE element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6757,7 +6758,7 @@ HTMLElement69 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6769,13 +6770,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the BIG element and examine its value.  
+    Retrieve the lang attribute of the BIG element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6788,7 +6789,7 @@ HTMLElement70 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6800,13 +6801,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the SMALL element and examine its value.  
+    Retrieve the lang attribute of the SMALL element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6819,7 +6820,7 @@ HTMLElement71 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6831,13 +6832,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the EM element and examine its value.  
+    Retrieve the lang attribute of the EM element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6850,7 +6851,7 @@ HTMLElement72 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6862,13 +6863,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the STRONG element and examine its value.  
+    Retrieve the lang attribute of the STRONG element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6881,7 +6882,7 @@ HTMLElement73 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6893,13 +6894,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the DFN element and examine its value.  
+    Retrieve the lang attribute of the DFN element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6912,7 +6913,7 @@ HTMLElement74 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6924,13 +6925,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the CODE element and examine its value.  
+    Retrieve the lang attribute of the CODE element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6943,7 +6944,7 @@ HTMLElement75 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6955,13 +6956,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the SAMP element and examine its value.  
+    Retrieve the lang attribute of the SAMP element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -6974,7 +6975,7 @@ HTMLElement76 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6986,13 +6987,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the KBD element and examine its value.  
+    Retrieve the lang attribute of the KBD element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7005,7 +7006,7 @@ HTMLElement77 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7017,13 +7018,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the VAR element and examine its value.  
+    Retrieve the lang attribute of the VAR element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7036,7 +7037,7 @@ HTMLElement78 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7048,13 +7049,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the CITE element and examine its value.  
+    Retrieve the lang attribute of the CITE element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7067,7 +7068,7 @@ HTMLElement79 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7079,13 +7080,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the ACRONYM element and examine its value.  
+    Retrieve the lang attribute of the ACRONYM element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7098,7 +7099,7 @@ HTMLElement80 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7110,13 +7111,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the ABBR element and examine its value.  
+    Retrieve the lang attribute of the ABBR element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7129,7 +7130,7 @@ HTMLElement81 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7141,13 +7142,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the DD element and examine its value.  
+    Retrieve the lang attribute of the DD element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7160,7 +7161,7 @@ HTMLElement82 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7172,13 +7173,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the DT element and examine its value.  
+    Retrieve the lang attribute of the DT element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7191,7 +7192,7 @@ HTMLElement83 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7203,13 +7204,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the NOFRAMES element and examine its value.  
+    Retrieve the lang attribute of the NOFRAMES element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7222,7 +7223,7 @@ HTMLElement84 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7234,13 +7235,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the NOSCRIPT element and examine its value.  
+    Retrieve the lang attribute of the NOSCRIPT element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7253,7 +7254,7 @@ HTMLElement85 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7265,13 +7266,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the ADDRESS element and examine its value.  
+    Retrieve the lang attribute of the ADDRESS element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7284,7 +7285,7 @@ HTMLElement86 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7296,13 +7297,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The lang attribute specifies the language code defined in RFC 1766. 
+*
+    The lang attribute specifies the language code defined in RFC 1766.
 
-    Retrieve the lang attribute of the CENTER element and examine its value.  
+    Retrieve the lang attribute of the CENTER element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7315,7 +7316,7 @@ HTMLElement87 : function () {
       var testNode;
       var vlang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7327,13 +7328,13 @@ testNode = nodeList.item(0);
       vlang = testNode.lang;
 
       assertEquals("langLink","en",vlang);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the HEAD element and examine its value.  
+    Retrieve the dir attribute of the HEAD element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7346,7 +7347,7 @@ HTMLElement88 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7358,13 +7359,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the SUB element and examine its value.  
+    Retrieve the dir attribute of the SUB element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7377,7 +7378,7 @@ HTMLElement89 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7389,13 +7390,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the SUP element and examine its value.  
+    Retrieve the dir attribute of the SUP element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7408,7 +7409,7 @@ HTMLElement90 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7420,13 +7421,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the SPAN element and examine its value.  
+    Retrieve the dir attribute of the SPAN element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7439,7 +7440,7 @@ HTMLElement91 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7451,13 +7452,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the BDO element and examine its value.  
+    Retrieve the dir attribute of the BDO element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7470,7 +7471,7 @@ HTMLElement92 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7482,13 +7483,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the TT element and examine its value.  
+    Retrieve the dir attribute of the TT element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7501,7 +7502,7 @@ HTMLElement93 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7513,13 +7514,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the I element and examine its value.  
+    Retrieve the dir attribute of the I element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7532,7 +7533,7 @@ HTMLElement94 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7544,13 +7545,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the B element and examine its value.  
+    Retrieve the dir attribute of the B element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7563,7 +7564,7 @@ HTMLElement95 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7575,13 +7576,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the U element and examine its value.  
+    Retrieve the dir attribute of the U element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7594,7 +7595,7 @@ HTMLElement96 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7606,13 +7607,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the S element and examine its value.  
+    Retrieve the dir attribute of the S element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7625,7 +7626,7 @@ HTMLElement97 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7637,13 +7638,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the STRIKE element and examine its value.  
+    Retrieve the dir attribute of the STRIKE element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7656,7 +7657,7 @@ HTMLElement98 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7668,13 +7669,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables. 
+*
+    The dir attribute specifies the base direction of directionally neutral text and the directionality of tables.
 
-    Retrieve the dir attribute of the BIG element and examine its value.  
+    Retrieve the dir attribute of the BIG element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7687,7 +7688,7 @@ HTMLElement99 : function () {
       var testNode;
       var vdir;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7699,13 +7700,13 @@ testNode = nodeList.item(0);
       vdir = testNode.dir;
 
       assertEquals("dirLink","ltr",vdir);
-       
+
 },
 /**
-* 
-    The form attribute returns the FORM element containing this control. 
+*
+    The form attribute returns the FORM element containing this control.
 
-    Retrieve the form attribute and examine its value.  
+    Retrieve the form attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7719,7 +7720,7 @@ HTMLFieldSetElement01 : function () {
       var vform;
       var fNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7733,14 +7734,14 @@ testNode = nodeList.item(0);
       vform = fNode.id;
 
       assertEquals("formLink","form2",vform);
-       
+
 },
 /**
-* 
-    The form attribute returns null if control in not within the context of 
-    form. 
+*
+    The form attribute returns null if control in not within the context of
+    form.
 
-    Retrieve the form attribute and examine its value.  
+    Retrieve the form attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7753,7 +7754,7 @@ HTMLFieldSetElement02 : function () {
       var testNode;
       var vform;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7765,13 +7766,13 @@ testNode = nodeList.item(1);
       vform = testNode.form;
 
       assertNull("formNullLink",vform);
-    
+
 },
 /**
-* 
-    The color attribute specifies the font's color. 
+*
+    The color attribute specifies the font's color.
 
-    Retrieve the color attribute and examine its value.  
+    Retrieve the color attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7784,7 +7785,7 @@ HTMLFontElement01 : function () {
       var testNode;
       var vcolor;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7796,13 +7797,13 @@ testNode = nodeList.item(0);
       vcolor = testNode.color;
 
       assertEquals("colorLink","#000000",vcolor);
-       
+
 },
 /**
-* 
-    The face attribute specifies the font's face identifier. 
+*
+    The face attribute specifies the font's face identifier.
 
-    Retrieve the face attribute and examine its value.  
+    Retrieve the face attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7816,7 +7817,7 @@ HTMLFontElement02 : function () {
       var testNode;
       var vface;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7828,13 +7829,13 @@ testNode = nodeList.item(0);
       vface = testNode.face;
 
       assertEquals("faceLink","arial,helvetica",vface);
-       
+
 },
 /**
-* 
-    The size attribute specifies the font's size. 
+*
+    The size attribute specifies the font's size.
 
-    Retrieve the size attribute and examine its value.  
+    Retrieve the size attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7847,7 +7848,7 @@ HTMLFontElement03 : function () {
       var testNode;
       var vsize;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7859,14 +7860,14 @@ testNode = nodeList.item(0);
       vsize = testNode.size;
 
       assertEquals("sizeLink","4",vsize);
-       
+
 },
 /**
-* 
+*
     The elements attribute specifies a collection of all control element
-    in the form. 
+    in the form.
 
-    Retrieve the elements attribute and examine its value.  
+    Retrieve the elements attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7880,7 +7881,7 @@ HTMLFormElement01 : function () {
       var testNode;
       var velements;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7894,14 +7895,14 @@ testNode = nodeList.item(0);
       velements = elementnodeList.length;
 
       assertEquals("elementsLink",3,velements);
-       
+
 },
 /**
-* 
+*
     The length attribute specifies the number of form controls
-    in the form. 
+    in the form.
 
-    Retrieve the length attribute and examine its value.  
+    Retrieve the length attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7915,7 +7916,7 @@ HTMLFormElement02 : function () {
       var testNode;
       var vlength;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7927,13 +7928,13 @@ testNode = nodeList.item(0);
       vlength = testNode.length;
 
       assertEquals("lengthLink",3,vlength);
-       
+
 },
 /**
-* 
-    The id(name) attribute specifies the name of the form. 
+*
+    The id(name) attribute specifies the name of the form.
 
-    Retrieve the id attribute and examine its value.  
+    Retrieve the id attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7946,7 +7947,7 @@ HTMLFormElement03 : function () {
       var testNode;
       var vname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7958,14 +7959,14 @@ testNode = nodeList.item(0);
       vname = testNode.id;
 
       assertEquals("nameLink","form1",vname);
-       
+
 },
 /**
-* 
+*
     The acceptCharset attribute specifies the list of character sets
-    supported by the server. 
+    supported by the server.
 
-    Retrieve the acceptCharset attribute and examine its value.  
+    Retrieve the acceptCharset attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -7978,7 +7979,7 @@ HTMLFormElement04 : function () {
       var testNode;
       var vacceptcharset;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7990,13 +7991,13 @@ testNode = nodeList.item(0);
       vacceptcharset = testNode.acceptCharset;
 
       assertEquals("acceptCharsetLink","US-ASCII",vacceptcharset);
-       
+
 },
 /**
-* 
-    The action attribute specifies the server-side form handler. 
+*
+    The action attribute specifies the server-side form handler.
 
-    Retrieve the action attribute and examine its value.  
+    Retrieve the action attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -8009,7 +8010,7 @@ HTMLFormElement05 : function () {
       var testNode;
       var vaction;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8024,10 +8025,10 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The enctype attribute specifies the content of the submitted form.
 
-    Retrieve the enctype attribute and examine its value.  
+    Retrieve the enctype attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -8040,7 +8041,7 @@ HTMLFormElement06 : function () {
       var testNode;
       var venctype;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8052,13 +8053,13 @@ testNode = nodeList.item(0);
       venctype = testNode.enctype;
 
       assertEquals("enctypeLink","application/x-www-form-urlencoded",venctype);
-       
+
 },
 /**
-* 
-    The method attribute specifies the HTTP method used to submit the form. 
+*
+    The method attribute specifies the HTTP method used to submit the form.
 
-    Retrieve the method attribute and examine its value.  
+    Retrieve the method attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -8071,7 +8072,7 @@ HTMLFormElement07 : function () {
       var testNode;
       var vmethod;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8083,13 +8084,13 @@ testNode = nodeList.item(0);
       vmethod = testNode.method;
 
       assertEquals("methodLink","post",vmethod);
-       
+
 },
 /**
-* 
-    The target attribute specifies the frame to render the resource in.     
+*
+    The target attribute specifies the frame to render the resource in.
 
-    Retrieve the target attribute and examine it's value.  
+    Retrieve the target attribute and examine it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -8102,7 +8103,7 @@ HTMLFormElement08 : function () {
       var testNode;
       var vtarget;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8114,10 +8115,10 @@ testNode = nodeList.item(0);
       vtarget = testNode.target;
 
       assertEquals("targetLink","dynamic",vtarget);
-       
+
 },
 /**
-* 
+*
 HTMLFormElement.reset restores the forms default values.
 
 * @author Curt Arnold
@@ -8129,7 +8130,7 @@ HTMLFormElement09 : function () {
     var nodeList;
       var testNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8139,10 +8140,10 @@ HTMLFormElement09 : function () {
       assertSize("Asize",1,nodeList);
 testNode = nodeList.item(0);
       testNode.reset();
-      
+
 },
 /**
-* 
+*
 HTMLFormElement.submit submits the form.
 
 * @author Curt Arnold
@@ -8154,7 +8155,7 @@ HTMLFormElement10 : function () {
     var nodeList;
       var testNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8164,16 +8165,16 @@ HTMLFormElement10 : function () {
       assertSize("Asize",1,nodeList);
 testNode = nodeList.item(0);
       testNode.submit();
-      
+
 },
 /**
-* 
-    The frameBorder attribute specifies the request for frame borders.    
+*
+    The frameBorder attribute specifies the request for frame borders.
     (frameBorder=1 A border is drawn)
     (FrameBorder=0 A border is not drawn)
 
     Retrieve the frameBorder attribute of the first FRAME element and examine
-    it's value.  
+    it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -8186,7 +8187,8 @@ HTMLFrameElement01 : function () {
       var testNode;
       var vframeborder;
       var doc;
-      
+
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8198,15 +8200,15 @@ testNode = nodeList.item(0);
       vframeborder = testNode.frameBorder;
 
       assertEquals("frameborderLink","1",vframeborder);
-       
+
 },
 /**
-* 
+*
     The longDesc attribute specifies a URI designating a long description
     of this image or frame.
 
     Retrieve the longDesc attribute of the first FRAME element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Rick Rivello
@@ -8219,7 +8221,7 @@ HTMLFrameElement02 : function () {
       var testNode;
       var vlongdesc;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8231,14 +8233,14 @@ testNode = nodeList.item(0);
       vlongdesc = testNode.longDesc;
 
       assertEquals("longdescLink","about:blank",vlongdesc);
-       
+
 },
 /**
-* 
+*
     The marginHeight attribute specifies the frame margin height, in pixels.
 
     Retrieve the marginHeight attribute of the first FRAME element and examine
-    it's value.  
+    it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -8251,7 +8253,7 @@ HTMLFrameElement03 : function () {
       var testNode;
       var vmarginheight;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8263,14 +8265,14 @@ testNode = nodeList.item(0);
       vmarginheight = testNode.marginHeight;
 
       assertEquals("marginheightLink","10",vmarginheight);
-       
+
 },
 /**
-* 
+*
     The marginWidth attribute specifies the frame margin width, in pixels.
 
     Retrieve the marginWidth attribute of the first FRAME element and examine
-    it's value.  
+    it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -8283,7 +8285,7 @@ HTMLFrameElement04 : function () {
       var testNode;
       var vmarginwidth;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8295,15 +8297,15 @@ testNode = nodeList.item(0);
       vmarginwidth = testNode.marginWidth;
 
       assertEquals("marginwidthLink","5",vmarginwidth);
-       
+
 },
 /**
-* 
-    The name attribute specifies the frame name(object of the target 
-    attribute).    
+*
+    The name attribute specifies the frame name(object of the target
+    attribute).
 
     Retrieve the name attribute of the first FRAME element and examine
-    it's value.  
+    it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -8316,7 +8318,7 @@ HTMLFrameElement05 : function () {
       var testNode;
       var vname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8328,15 +8330,15 @@ testNode = nodeList.item(0);
       vname = testNode.name;
 
       assertEquals("nameLink","Frame1",vname);
-       
+
 },
 /**
-* 
+*
     The noResize attribute specifies if the user can resize the frame.  When
     true, forbid user from resizing frame.
 
     Retrieve the noResize attribute of the first FRAME element and examine
-    it's value.  
+    it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -8349,7 +8351,7 @@ HTMLFrameElement06 : function () {
       var testNode;
       var vnoresize;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8364,12 +8366,12 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The scrolling attribute specifies whether or not the frame should have
     scrollbars.
 
     Retrieve the scrolling attribute of the first FRAME element and examine
-    it's value.  
+    it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -8382,7 +8384,7 @@ HTMLFrameElement07 : function () {
       var testNode;
       var vscrolling;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8394,14 +8396,14 @@ testNode = nodeList.item(0);
       vscrolling = testNode.scrolling;
 
       assertEquals("scrollingLink","yes",vscrolling);
-       
+
 },
 /**
-* 
+*
     The src attribute specifies a URI designating the initial frame contents.
 
     Retrieve the src attribute of the first FRAME element and examine
-    it's value.  
+    it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -8414,7 +8416,7 @@ HTMLFrameElement08 : function () {
       var testNode;
       var vsrc;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8429,12 +8431,12 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The contentDocument attribute specifies the document this frame contains,
     if there is any and it is available, or null otherwise.
 
     Retrieve the contentDocument attribute of the first FRAME element
-    and examine its TITLE value.  
+    and examine its TITLE value.
 
 * @author NIST
 * @author Rick Rivello
@@ -8447,7 +8449,7 @@ HTMLFrameElement09 : function () {
       var cd;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8464,12 +8466,12 @@ HTMLFrameElement09 : function () {
       };
 },
 /**
-* 
-    The cols attribute specifies the number of columns of frames in the    
+*
+    The cols attribute specifies the number of columns of frames in the
     frameset.
 
     Retrieve the cols attribute of the first FRAMESET element and examine
-    it's value.  
+    it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -8482,7 +8484,7 @@ HTMLFrameSetElement01 : function () {
       var testNode;
       var vcols;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8494,15 +8496,15 @@ testNode = nodeList.item(0);
       vcols = testNode.cols;
 
       assertEquals("colsLink","20, 80",vcols);
-       
+
 },
 /**
-* 
-    The rows attribute specifies the number of rows of frames in the    
+*
+    The rows attribute specifies the number of rows of frames in the
     frameset.
 
     Retrieve the rows attribute of the second FRAMESET element and examine
-    it's value.  
+    it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -8515,7 +8517,7 @@ HTMLFrameSetElement02 : function () {
       var testNode;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8527,13 +8529,13 @@ testNode = nodeList.item(1);
       vrows = testNode.rows;
 
       assertEquals("rowsLink","100, 200",vrows);
-       
+
 },
 /**
-* 
-    The align attribute specifies the rule alignment on the page. 
+*
+    The align attribute specifies the rule alignment on the page.
 
-    Retrieve the align attribute and examine its value.  
+    Retrieve the align attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -8546,7 +8548,7 @@ HTMLHRElement01 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8558,14 +8560,14 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
+*
     The noShade attribute specifies that the rule should be drawn as
-    a solid color. 
+    a solid color.
 
-    Retrieve the noShade attribute and examine its value.  
+    Retrieve the noShade attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -8578,7 +8580,7 @@ HTMLHRElement02 : function () {
       var testNode;
       var vnoshade;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8593,10 +8595,10 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
-    The size attribute specifies the height of the rule. 
+*
+    The size attribute specifies the height of the rule.
 
-    Retrieve the size attribute and examine its value.  
+    Retrieve the size attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -8609,7 +8611,7 @@ HTMLHRElement03 : function () {
       var testNode;
       var vsize;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8621,13 +8623,13 @@ testNode = nodeList.item(0);
       vsize = testNode.size;
 
       assertEquals("sizeLink","5",vsize);
-       
+
 },
 /**
-* 
-    The width attribute specifies the width of the rule. 
+*
+    The width attribute specifies the width of the rule.
 
-    Retrieve the width attribute and examine its value.  
+    Retrieve the width attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -8640,7 +8642,7 @@ HTMLHRElement04 : function () {
       var testNode;
       var vwidth;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8652,13 +8654,13 @@ testNode = nodeList.item(0);
       vwidth = testNode.width;
 
       assertEquals("widthLink","400",vwidth);
-       
+
 },
 /**
-* 
-    The profile attribute specifies a URI designating a metadata profile. 
+*
+    The profile attribute specifies a URI designating a metadata profile.
 
-    Retrieve the profile attribute and examine its value.  
+    Retrieve the profile attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -8671,7 +8673,7 @@ HTMLHeadElement01 : function () {
       var testNode;
       var vprofile;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8686,10 +8688,10 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
-    The align attribute specifies the horizontal text alignment(H1). 
+*
+    The align attribute specifies the horizontal text alignment(H1).
 
-    Retrieve the align attribute and examine its value.  
+    Retrieve the align attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -8702,7 +8704,7 @@ HTMLHeadingElement01 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8714,13 +8716,13 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
-    The align attribute specifies the horizontal text alignment(H2). 
+*
+    The align attribute specifies the horizontal text alignment(H2).
 
-    Retrieve the align attribute and examine its value.  
+    Retrieve the align attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -8733,7 +8735,7 @@ HTMLHeadingElement02 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8745,13 +8747,13 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","left",valign);
-       
+
 },
 /**
-* 
-    The align attribute specifies the horizontal text alignment(H3). 
+*
+    The align attribute specifies the horizontal text alignment(H3).
 
-    Retrieve the align attribute and examine its value.  
+    Retrieve the align attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -8764,7 +8766,7 @@ HTMLHeadingElement03 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8776,13 +8778,13 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","right",valign);
-       
+
 },
 /**
-* 
-    The align attribute specifies the horizontal text alignment(H4). 
+*
+    The align attribute specifies the horizontal text alignment(H4).
 
-    Retrieve the align attribute and examine its value.  
+    Retrieve the align attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -8795,7 +8797,7 @@ HTMLHeadingElement04 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8807,13 +8809,13 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","justify",valign);
-       
+
 },
 /**
-* 
-    The align attribute specifies the horizontal text alignment(H5). 
+*
+    The align attribute specifies the horizontal text alignment(H5).
 
-    Retrieve the align attribute and examine its value.  
+    Retrieve the align attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -8826,7 +8828,7 @@ HTMLHeadingElement05 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8838,13 +8840,13 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
-    The align attribute specifies the horizontal text alignment(H6). 
+*
+    The align attribute specifies the horizontal text alignment(H6).
 
-    Retrieve the align attribute and examine its value.  
+    Retrieve the align attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -8857,7 +8859,7 @@ HTMLHeadingElement06 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8869,14 +8871,14 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","left",valign);
-       
+
 },
 /**
-* 
+*
     The version attribute specifies version information about the document's
-    DTD. 
+    DTD.
 
-    Retrieve the version attribute and examine its value.  
+    Retrieve the version attribute and examine its value.
 
     Test is only applicable to HTML, version attribute is not supported in XHTML.
 
@@ -8891,7 +8893,7 @@ HTMLHtmlElement01 : function () {
       var testNode;
       var vversion;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8902,24 +8904,24 @@ HTMLHtmlElement01 : function () {
 testNode = nodeList.item(0);
       vversion = testNode.version;
 
-      
+
 	if(
-	
+
 	(builder.contentType == "text/html")
 
 	) {
 	assertEquals("versionLink","-//W3C//DTD HTML 4.01 Transitional//EN",vversion);
-       
+
 	}
-	
+
 },
 /**
-* 
+*
     The align attribute aligns this object(vertically or horizontally with
     respect to its surrounding text.
 
     Retrieve the align attribute of the first IFRAME element and examine
-    it's value.  
+    it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -8932,7 +8934,7 @@ HTMLIFrameElement01 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8944,16 +8946,16 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","top",valign);
-       
+
 },
 /**
-* 
-    The frameBorder attribute specifies the request for frame borders.    
+*
+    The frameBorder attribute specifies the request for frame borders.
     (frameBorder=1 A border is drawn)
     (FrameBorder=0 A border is not drawn)
 
     Retrieve the frameBorder attribute of the first IFRAME element and examine
-    it's value.  
+    it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -8966,7 +8968,7 @@ HTMLIFrameElement02 : function () {
       var testNode;
       var vframeborder;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8978,14 +8980,14 @@ testNode = nodeList.item(0);
       vframeborder = testNode.frameBorder;
 
       assertEquals("frameborderLink","1",vframeborder);
-       
+
 },
 /**
-* 
-    The height attribute specifies the frame height. 
+*
+    The height attribute specifies the frame height.
 
     Retrieve the height attribute of the first IFRAME element and examine
-    it's value.  
+    it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -8998,7 +9000,7 @@ HTMLIFrameElement03 : function () {
       var testNode;
       var vheight;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9010,15 +9012,15 @@ testNode = nodeList.item(0);
       vheight = testNode.height;
 
       assertEquals("heightLink","50",vheight);
-       
+
 },
 /**
-* 
+*
     The longDesc attribute specifies a URI designating a long description
     of this image or frame.
 
     Retrieve the longDesc attribute of the first IFRAME element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Rick Rivello
@@ -9031,7 +9033,7 @@ HTMLIFrameElement04 : function () {
       var testNode;
       var vlongdesc;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9043,14 +9045,14 @@ testNode = nodeList.item(0);
       vlongdesc = testNode.longDesc;
 
       assertEquals("longdescLink","about:blank",vlongdesc);
-       
+
 },
 /**
-* 
+*
     The marginWidth attribute specifies the frame margin width, in pixels.
 
     Retrieve the marginWidth attribute of the first FRAME element and examine
-    it's value.  
+    it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -9063,7 +9065,7 @@ HTMLIFrameElement05 : function () {
       var testNode;
       var vmarginwidth;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9075,14 +9077,14 @@ testNode = nodeList.item(0);
       vmarginwidth = testNode.marginWidth;
 
       assertEquals("marginwidthLink","5",vmarginwidth);
-       
+
 },
 /**
-* 
+*
     The marginHeight attribute specifies the frame margin height, in pixels.
 
     Retrieve the marginHeight attribute of the first IFRAME element and examine
-    it's value.  
+    it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -9095,7 +9097,7 @@ HTMLIFrameElement06 : function () {
       var testNode;
       var vmarginheight;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9107,15 +9109,15 @@ testNode = nodeList.item(0);
       vmarginheight = testNode.marginHeight;
 
       assertEquals("marginheightLink","10",vmarginheight);
-       
+
 },
 /**
-* 
-    The name attribute specifies the frame name(object of the target 
-    attribute).    
+*
+    The name attribute specifies the frame name(object of the target
+    attribute).
 
     Retrieve the name attribute of the first IFRAME element and examine
-    it's value.  
+    it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -9128,7 +9130,7 @@ HTMLIFrameElement07 : function () {
       var testNode;
       var vname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9140,15 +9142,15 @@ testNode = nodeList.item(0);
       vname = testNode.name;
 
       assertEquals("nameLink","Iframe1",vname);
-       
+
 },
 /**
-* 
+*
     The scrolling attribute specifies whether or not the frame should have
     scrollbars.
 
     Retrieve the scrolling attribute of the first FRAME element and examine
-    it's value.  
+    it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -9161,7 +9163,7 @@ HTMLIFrameElement08 : function () {
       var testNode;
       var vscrolling;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9173,14 +9175,14 @@ testNode = nodeList.item(0);
       vscrolling = testNode.scrolling;
 
       assertEquals("scrollingLink","yes",vscrolling);
-       
+
 },
 /**
-* 
+*
     The src attribute specifies a URI designating the initial frame contents.
 
     Retrieve the src attribute of the first FRAME element and examine
-    it's value.  
+    it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -9193,7 +9195,7 @@ HTMLIFrameElement09 : function () {
       var testNode;
       var vsrc;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9208,11 +9210,11 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
-    The width attribute specifies the frame width. 
+*
+    The width attribute specifies the frame width.
 
     Retrieve the width attribute of the first IFRAME element and examine
-    it's value.  
+    it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -9225,7 +9227,7 @@ HTMLIFrameElement10 : function () {
       var testNode;
       var vwidth;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9237,12 +9239,12 @@ testNode = nodeList.item(0);
       vwidth = testNode.width;
 
       assertEquals("widthLink","60",vwidth);
-       
+
 },
 /**
-* 
+*
     Retrieve the contentDocument attribute of the second IFRAME element
-    and examine its title.  
+    and examine its title.
 
 * @author NIST
 * @author Rick Rivello
@@ -9255,7 +9257,7 @@ HTMLIFrameElement11 : function () {
       var cd;
       var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9271,10 +9273,10 @@ HTMLIFrameElement11 : function () {
       };
 },
 /**
-* 
+*
     The name attribute specifies the name of the element.
 
-    Retrieve the name attribute and examine its value.  
+    Retrieve the name attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -9287,7 +9289,7 @@ HTMLImageElement01 : function () {
       var testNode;
       var vname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9299,14 +9301,14 @@ testNode = nodeList.item(0);
       vname = testNode.name;
 
       assertEquals("nameLink","IMAGE-1",vname);
-       
+
 },
 /**
-* 
+*
     The align attribute aligns this object with respect to its surrounding
     text.
 
-    Retrieve the align attribute and examine its value.  
+    Retrieve the align attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -9319,7 +9321,7 @@ HTMLImageElement02 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9331,14 +9333,14 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","middle",valign);
-       
+
 },
 /**
-* 
+*
     The alt attribute specifies an alternative text for user agenst not
     rendering the normal content of this element.
 
-    Retrieve the alt attribute and examine its value.  
+    Retrieve the alt attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -9351,7 +9353,7 @@ HTMLImageElement03 : function () {
       var testNode;
       var valt;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9363,13 +9365,13 @@ testNode = nodeList.item(0);
       valt = testNode.alt;
 
       assertEquals("altLink","DTS IMAGE LOGO",valt);
-       
+
 },
 /**
-* 
+*
     The border attribute specifies the width of the border around the image.
 
-    Retrieve the border attribute and examine its value.  
+    Retrieve the border attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -9382,7 +9384,7 @@ HTMLImageElement04 : function () {
       var testNode;
       var vborder;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9394,13 +9396,13 @@ testNode = nodeList.item(0);
       vborder = testNode.border;
 
       assertEquals("borderLink","0",vborder);
-       
+
 },
 /**
-* 
+*
     The height attribute overrides the natural "height" of the image.
 
-    Retrieve the height attribute and examine it's value.  
+    Retrieve the height attribute and examine it's value.
 
 * @author NIST
 * @author Mary Brady
@@ -9413,7 +9415,7 @@ HTMLImageElement05 : function () {
       var testNode;
       var vheight;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9425,14 +9427,14 @@ testNode = nodeList.item(0);
       vheight = testNode.height;
 
       assertEquals("heightLink",47,vheight);
-       
+
 },
 /**
-* 
-    The hspace attribute specifies the horizontal space to the left and     
+*
+    The hspace attribute specifies the horizontal space to the left and
     right of this image.
 
-    Retrieve the hspace attribute and examine it's value.  
+    Retrieve the hspace attribute and examine it's value.
 
 * @author NIST
 * @author Mary Brady
@@ -9445,7 +9447,7 @@ HTMLImageElement06 : function () {
       var testNode;
       var vhspace;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9457,13 +9459,13 @@ testNode = nodeList.item(0);
       vhspace = testNode.hspace;
 
       assertEquals("hspaceLink",4,vhspace);
-       
+
 },
 /**
-* 
+*
     The isMap attribute indicates the use of server-side image map.
 
-    Retrieve the isMap attribute and examine its value.  
+    Retrieve the isMap attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -9476,7 +9478,7 @@ HTMLImageElement07 : function () {
       var testNode;
       var vismap;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9491,11 +9493,11 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The longDesc attribute contains an URI designating a long description
     of this image or frame.
 
-    Retrieve the longDesc attribute and examine its value.  
+    Retrieve the longDesc attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -9508,7 +9510,7 @@ HTMLImageElement08 : function () {
       var testNode;
       var vlongdesc;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9523,10 +9525,10 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The src attribute contains an URI designating the source of this image.
 
-    Retrieve the src attribute and examine its value.  
+    Retrieve the src attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -9539,7 +9541,7 @@ HTMLImageElement09 : function () {
       var testNode;
       var vsrc;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9554,10 +9556,10 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The useMap attribute specifies to use the client-side image map.
 
-    Retrieve the useMap attribute and examine its value.  
+    Retrieve the useMap attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -9570,7 +9572,7 @@ HTMLImageElement10 : function () {
       var testNode;
       var vusemap;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9582,14 +9584,14 @@ testNode = nodeList.item(0);
       vusemap = testNode.useMap;
 
       assertEquals("useMapLink","#DTS-MAP",vusemap);
-       
+
 },
 /**
-* 
-    The vspace attribute specifies the vertical space above and below this  
+*
+    The vspace attribute specifies the vertical space above and below this
     image.
 
-    Retrieve the vspace attribute and examine it's value.  
+    Retrieve the vspace attribute and examine it's value.
 
 * @author NIST
 * @author Mary Brady
@@ -9602,7 +9604,7 @@ HTMLImageElement11 : function () {
       var testNode;
       var vvspace;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9614,13 +9616,13 @@ testNode = nodeList.item(0);
       vvspace = testNode.vspace;
 
       assertEquals("vspaceLink",10,vvspace);
-       
+
 },
 /**
-* 
-    The width attribute overrides the natural "width" of the image.  
+*
+    The width attribute overrides the natural "width" of the image.
 
-    Retrieve the width attribute and examine it's value.  
+    Retrieve the width attribute and examine it's value.
 
 * @author NIST
 * @author Mary Brady
@@ -9633,7 +9635,7 @@ HTMLImageElement12 : function () {
       var testNode;
       var vwidth;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9645,15 +9647,15 @@ testNode = nodeList.item(0);
       vwidth = testNode.width;
 
       assertEquals("widthLink",115,vwidth);
-       
+
 },
 /**
-* 
+*
     The defaultValue attribute represents the HTML value of the attribute
-    when the type attribute has the value of "Text", "File" or "Password".  
+    when the type attribute has the value of "Text", "File" or "Password".
 
     Retrieve the defaultValue attribute of the 1st INPUT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -9666,7 +9668,7 @@ HTMLInputElement01 : function () {
       var testNode;
       var vdefaultvalue;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9678,15 +9680,15 @@ testNode = nodeList.item(0);
       vdefaultvalue = testNode.defaultValue;
 
       assertEquals("defaultValueLink","Password",vdefaultvalue);
-       
+
 },
 /**
-* 
+*
     The defaultChecked attribute represents the HTML checked attribute of
-    the element when the type attribute has the value checkbox or radio. 
+    the element when the type attribute has the value checkbox or radio.
 
     Retrieve the defaultValue attribute of the 4th INPUT element and
-    examine its value.  
+    examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -9699,7 +9701,7 @@ HTMLInputElement02 : function () {
       var testNode;
       var vdefaultchecked;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9714,10 +9716,10 @@ testNode = nodeList.item(3);
 
 },
 /**
-* 
-    The form attribute returns the FORM element containing this control. 
+*
+    The form attribute returns the FORM element containing this control.
 
-    Retrieve the form attribute of the 1st INPUT element and examine its value.  
+    Retrieve the form attribute of the 1st INPUT element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -9731,7 +9733,7 @@ HTMLInputElement03 : function () {
       var vform;
       var fNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9745,15 +9747,15 @@ testNode = nodeList.item(0);
       vform = fNode.id;
 
       assertEquals("formLink","form1",vform);
-       
+
 },
 /**
-* 
+*
     The accept attribute is a comma-seperated list of content types that
     a server processing this form will handle correctly.
 
     Retrieve the accept attribute of the 9th INPUT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -9766,7 +9768,7 @@ HTMLInputElement04 : function () {
       var testNode;
       var vaccept;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9778,15 +9780,15 @@ testNode = nodeList.item(8);
       vaccept = testNode.accept;
 
       assertEquals("acceptLink","GIF,JPEG",vaccept);
-       
+
 },
 /**
-* 
+*
     The accessKey attribute is a single character access key to give access
     to the form control.
 
     Retrieve the accessKey attribute of the 2nd INPUT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -9799,7 +9801,7 @@ HTMLInputElement05 : function () {
       var testNode;
       var vaccesskey;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9811,15 +9813,15 @@ testNode = nodeList.item(1);
       vaccesskey = testNode.accessKey;
 
       assertEquals("accesskeyLink","c",vaccesskey);
-       
+
 },
 /**
-* 
-    The align attribute aligns this object(vertically or horizontally) 
+*
+    The align attribute aligns this object(vertically or horizontally)
     with respect to the surrounding text.
 
     Retrieve the align attribute of the 4th INPUT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -9832,7 +9834,7 @@ HTMLInputElement06 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9844,15 +9846,15 @@ testNode = nodeList.item(3);
       valign = testNode.align;
 
       assertEquals("alignLink","bottom".toLowerCase(),valign.toLowerCase());
-       
+
 },
 /**
-* 
+*
     The alt attribute alternates text for user agents not rendering the
     normal content of this element.
 
     Retrieve the alt attribute of the 1st INPUT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -9865,7 +9867,7 @@ HTMLInputElement07 : function () {
       var testNode;
       var valt;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9877,15 +9879,15 @@ testNode = nodeList.item(0);
       valt = testNode.alt;
 
       assertEquals("altLink","Password entry",valt);
-       
+
 },
 /**
-* 
+*
     The checked attribute represents the current state of the corresponding
     form control when type has the value Radio or Checkbox.
 
     Retrieve the accept attribute of the 3rd INPUT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -9898,7 +9900,7 @@ HTMLInputElement08 : function () {
       var testNode;
       var vchecked;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9913,11 +9915,11 @@ testNode = nodeList.item(2);
 
 },
 /**
-* 
+*
     The disabled attribute has a TRUE value if it is explicitly set.
 
     Retrieve the disabled attribute of the 7th INPUT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -9930,7 +9932,7 @@ HTMLInputElement09 : function () {
       var testNode;
       var vdisabled;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9945,12 +9947,12 @@ testNode = nodeList.item(6);
 
 },
 /**
-* 
+*
     The maxLength attribute is the maximum number of text characters for text
     fields, when type has the value of Text or Password.
 
     Retrieve the maxLenght attribute of the 1st INPUT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -9963,7 +9965,7 @@ HTMLInputElement10 : function () {
       var testNode;
       var vmaxlength;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9975,15 +9977,15 @@ testNode = nodeList.item(0);
       vmaxlength = testNode.maxLength;
 
       assertEquals("maxlengthLink",5,vmaxlength);
-       
+
 },
 /**
-* 
+*
     The name attribute is the form control or object name when submitted with
     a form.
 
     Retrieve the name attribute of the 1st INPUT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -9996,7 +9998,7 @@ HTMLInputElement11 : function () {
       var testNode;
       var vname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10008,15 +10010,15 @@ testNode = nodeList.item(0);
       vname = testNode.name;
 
       assertEquals("nameLink","Password",vname);
-       
+
 },
 /**
-* 
+*
     The readOnly attribute indicates that this control is read-only when
     type has a value of text or password only.
 
     Retrieve the readOnly attribute of the 1st INPUT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10029,7 +10031,7 @@ HTMLInputElement12 : function () {
       var testNode;
       var vreadonly;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10044,12 +10046,12 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The size attribute contains the size information.  Its precise meaning
     is specific to each type of field.
 
     Retrieve the size attribute of the 1st INPUT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10062,7 +10064,7 @@ HTMLInputElement13 : function () {
       var testNode;
       var vsize;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10074,15 +10076,15 @@ testNode = nodeList.item(0);
       vsize = testNode.size;
 
       assertEquals("size",25,vsize);
-       
+
 },
 /**
-* 
+*
     The src attribute specifies the location of the image to decorate the
     graphical submit button when the type has the value Image.
 
     Retrieve the src attribute of the 8th INPUT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10095,7 +10097,7 @@ HTMLInputElement14 : function () {
       var testNode;
       var vsrc;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10110,12 +10112,12 @@ testNode = nodeList.item(7);
 
 },
 /**
-* 
+*
     The tabIndex attribute is an index that represents the elements position
     in the tabbing order.
 
     Retrieve the tabIndex attribute of the 3rd INPUT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10128,7 +10130,7 @@ HTMLInputElement15 : function () {
       var testNode;
       var vtabindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10140,14 +10142,14 @@ testNode = nodeList.item(2);
       vtabindex = testNode.tabIndex;
 
       assertEquals("tabindexLink",9,vtabindex);
-       
+
 },
 /**
-* 
+*
     The type attribute is the type of control created.
 
     Retrieve the type attribute of the 1st INPUT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10160,7 +10162,7 @@ HTMLInputElement16 : function () {
       var testNode;
       var vtype;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10172,14 +10174,14 @@ testNode = nodeList.item(0);
       vtype = testNode.type;
 
       assertEquals("typeLink","password",vtype);
-       
+
 },
 /**
-* 
+*
     The useMap attribute specifies the use of the client-side image map.
 
     Retrieve the useMap attribute of the 8th INPUT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10192,7 +10194,7 @@ HTMLInputElement17 : function () {
       var testNode;
       var vusemap;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10204,15 +10206,15 @@ testNode = nodeList.item(7);
       vusemap = testNode.useMap;
 
       assertEquals("usemapLink","#submit-map",vusemap);
-       
+
 },
 /**
-* 
-    The value attribute is the current content of the corresponding form 
+*
+    The value attribute is the current content of the corresponding form
     control when the type attribute has the value Text, File or Password.
 
     Retrieve the value attribute of the 2nd INPUT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10225,7 +10227,7 @@ HTMLInputElement18 : function () {
       var testNode;
       var vvalue;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10237,10 +10239,10 @@ testNode = nodeList.item(1);
       vvalue = testNode.value;
 
       assertEquals("valueLink","ReHire",vvalue);
-       
+
 },
 /**
-* 
+*
 HTMLInputElement.blur should surrender input focus.
 
 * @author Curt Arnold
@@ -10252,7 +10254,7 @@ HTMLInputElement19 : function () {
     var nodeList;
       var testNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10262,10 +10264,10 @@ HTMLInputElement19 : function () {
       assertSize("Asize",9,nodeList);
 testNode = nodeList.item(1);
       testNode.blur();
-      
+
 },
 /**
-* 
+*
 HTMLInputElement.focus should capture input focus.
 
 * @author Curt Arnold
@@ -10277,7 +10279,7 @@ HTMLInputElement20 : function () {
     var nodeList;
       var testNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10287,10 +10289,10 @@ HTMLInputElement20 : function () {
       assertSize("Asize",9,nodeList);
 testNode = nodeList.item(1);
       testNode.focus();
-      
+
 },
 /**
-* 
+*
 HTMLInputElement.click should change the state of checked on a radio button.
 
 * @author Curt Arnold
@@ -10303,7 +10305,7 @@ HTMLInputElement21 : function () {
       var testNode;
       var doc;
       var checked;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10322,7 +10324,7 @@ testNode.click();
 
 },
 /**
-* 
+*
 HTMLInputElement.select should select the contents of a text area.
 
 * @author Curt Arnold
@@ -10335,7 +10337,7 @@ HTMLInputElement22 : function () {
       var testNode;
       var doc;
       var checked;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10345,13 +10347,13 @@ HTMLInputElement22 : function () {
       assertSize("Asize",9,nodeList);
 testNode = nodeList.item(0);
       testNode.select();
-      
+
 },
 /**
-* 
-    The form attribute returns the FORM element containing this control. 
+*
+    The form attribute returns the FORM element containing this control.
 
-    Retrieve the form attribute and examine its value.  
+    Retrieve the form attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10366,7 +10368,7 @@ HTMLIsIndexElement01 : function () {
       var fNode;
       var doc;
       var prompt;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10388,11 +10390,11 @@ vform = fNode.id;
 
 },
 /**
-* 
-    The form attribute returns null if control in not within the context of 
-    form. 
+*
+    The form attribute returns null if control in not within the context of
+    form.
 
-    Retrieve the form attribute and examine its value.  
+    Retrieve the form attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10406,7 +10408,7 @@ HTMLIsIndexElement02 : function () {
       var vform;
       var doc;
       var prompt;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10425,11 +10427,11 @@ prompt = testNode.prompt;
 
 },
 /**
-* 
+*
     The prompt attribute specifies the prompt message.
 
     Retrieve the prompt attribute of the 1st isindex element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10442,7 +10444,7 @@ HTMLIsIndexElement03 : function () {
       var testNode;
       var vprompt;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10454,13 +10456,13 @@ testNode = nodeList.item(0);
       vprompt = testNode.prompt;
 
       assertEquals("promptLink","New Employee: ",vprompt);
-       
+
 },
 /**
-* 
-    The type attribute is a list item bullet style. 
+*
+    The type attribute is a list item bullet style.
 
-    Retrieve the type attribute and examine its value.  
+    Retrieve the type attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10473,7 +10475,7 @@ HTMLLIElement01 : function () {
       var testNode;
       var vtype;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10485,13 +10487,13 @@ testNode = nodeList.item(0);
       vtype = testNode.type;
 
       assertEquals("typeLink","square",vtype);
-       
+
 },
 /**
-* 
-    The value attribute is a reset sequence number when used in OL. 
+*
+    The value attribute is a reset sequence number when used in OL.
 
-    Retrieve the value attribute and examine its value.  
+    Retrieve the value attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10504,7 +10506,7 @@ HTMLLIElement02 : function () {
       var testNode;
       var vvalue;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10516,13 +10518,13 @@ testNode = nodeList.item(0);
       vvalue = testNode.value;
 
       assertEquals("valueLink",2,vvalue);
-       
+
 },
 /**
-* 
-    The form attribute returns the FORM element containing this control. 
+*
+    The form attribute returns the FORM element containing this control.
 
-    Retrieve the form attribute and examine its value.  
+    Retrieve the form attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10536,7 +10538,7 @@ HTMLLabelElement01 : function () {
       var vform;
       var fNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10550,14 +10552,14 @@ testNode = nodeList.item(0);
       vform = fNode.id;
 
       assertEquals("formLink","form1",vform);
-       
+
 },
 /**
-* 
-    The form attribute returns null if control in not within the context of 
-    form. 
+*
+    The form attribute returns null if control in not within the context of
+    form.
 
-    Retrieve the form attribute and examine its value.  
+    Retrieve the form attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10570,7 +10572,7 @@ HTMLLabelElement02 : function () {
       var testNode;
       var vform;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10582,10 +10584,10 @@ testNode = nodeList.item(1);
       vform = testNode.form;
 
       assertNull("formNullLink",vform);
-    
+
 },
 /**
-* 
+*
     The accessKey attribute is a single character access key to give access
     to the form control.
 
@@ -10602,7 +10604,7 @@ HTMLLabelElement03 : function () {
       var testNode;
       var vaccesskey;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10614,14 +10616,14 @@ testNode = nodeList.item(0);
       vaccesskey = testNode.accessKey;
 
       assertEquals("accesskeyLink","b",vaccesskey);
-       
+
 },
 /**
-* 
+*
     The htmlFor attribute links this label with another form control by
     id attribute.
 
-    Retrieve the htmlFor attribute of the first LABEL element 
+    Retrieve the htmlFor attribute of the first LABEL element
     and examine its value.
 
 * @author NIST
@@ -10635,7 +10637,7 @@ HTMLLabelElement04 : function () {
       var testNode;
       var vhtmlfor;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10647,14 +10649,14 @@ testNode = nodeList.item(0);
       vhtmlfor = testNode.htmlFor;
 
       assertEquals("htmlForLink","input1",vhtmlfor);
-       
+
 },
 /**
-* 
-    The form attribute returns the FORM element containing this control. 
+*
+    The form attribute returns the FORM element containing this control.
 
     Retrieve the form attribute from the first LEGEND element
-    and examine its value.  
+    and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10668,7 +10670,7 @@ HTMLLegendElement01 : function () {
       var vform;
       var fNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10682,14 +10684,14 @@ testNode = nodeList.item(0);
       vform = fNode.id;
 
       assertEquals("formLink","form1",vform);
-       
+
 },
 /**
-* 
-    The form attribute returns null if control in not within the context of 
-    form. 
+*
+    The form attribute returns null if control in not within the context of
+    form.
 
-    Retrieve the second ELEMENT and examine its form element.  
+    Retrieve the second ELEMENT and examine its form element.
 
 * @author NIST
 * @author Mary Brady
@@ -10702,7 +10704,7 @@ HTMLLegendElement02 : function () {
       var testNode;
       var vform;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10714,10 +10716,10 @@ testNode = nodeList.item(1);
       vform = testNode.form;
 
       assertNull("formNullLink",vform);
-    
+
 },
 /**
-* 
+*
     The accessKey attribute is a single character access key to give access
     to the form control.
 
@@ -10734,7 +10736,7 @@ HTMLLegendElement03 : function () {
       var testNode;
       var vaccesskey;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10746,11 +10748,11 @@ testNode = nodeList.item(0);
       vaccesskey = testNode.accessKey;
 
       assertEquals("accesskeyLink","b",vaccesskey);
-       
+
 },
 /**
-* 
-    The align attribute specifies the text alignment relative to FIELDSET. 
+*
+    The align attribute specifies the text alignment relative to FIELDSET.
 
     Retrieve the align attribute and examine its value.
 
@@ -10765,7 +10767,7 @@ HTMLLegendElement04 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10777,13 +10779,13 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","top",valign);
-       
+
 },
 /**
-* 
-    The disabled attribute enables/disables the link.   
+*
+    The disabled attribute enables/disables the link.
 
-    Retrieve the disabled attribute and examine its value.  
+    Retrieve the disabled attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10796,7 +10798,7 @@ HTMLLinkElement01 : function () {
       var testNode;
       var vdisabled;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10811,11 +10813,11 @@ testNode = nodeList.item(1);
 
 },
 /**
-* 
+*
     The charset attribute indicates the character encoding of the linked
     resource.
 
-    Retrieve the charset attribute and examine its value.  
+    Retrieve the charset attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10828,7 +10830,7 @@ HTMLLinkElement02 : function () {
       var testNode;
       var vcharset;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10840,13 +10842,13 @@ testNode = nodeList.item(0);
       vcharset = testNode.charset;
 
       assertEquals("charsetLink","Latin-1",vcharset);
-       
+
 },
 /**
-* 
-    The href attribute specifies the URI of the linked resource.     
+*
+    The href attribute specifies the URI of the linked resource.
 
-    Retrieve the href attribute and examine its value.  
+    Retrieve the href attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10859,7 +10861,7 @@ HTMLLinkElement03 : function () {
       var testNode;
       var vhref;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10874,10 +10876,10 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The hreflang attribute specifies the language code of the linked resource.
 
-    Retrieve the hreflang attribute and examine its value.  
+    Retrieve the hreflang attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10890,7 +10892,7 @@ HTMLLinkElement04 : function () {
       var testNode;
       var vhreflang;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10902,13 +10904,13 @@ testNode = nodeList.item(0);
       vhreflang = testNode.hreflang;
 
       assertEquals("hreflangLink","en",vhreflang);
-       
+
 },
 /**
-* 
-    The media attribute specifies the targeted media.     
+*
+    The media attribute specifies the targeted media.
 
-    Retrieve the media attribute and examine its value.  
+    Retrieve the media attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10921,7 +10923,7 @@ HTMLLinkElement05 : function () {
       var testNode;
       var vmedia;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10933,13 +10935,13 @@ testNode = nodeList.item(0);
       vmedia = testNode.media;
 
       assertEquals("mediaLink","screen",vmedia);
-       
+
 },
 /**
-* 
-    The rel attribute specifies the forward link type.     
+*
+    The rel attribute specifies the forward link type.
 
-    Retrieve the rel attribute and examine its value.  
+    Retrieve the rel attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10952,7 +10954,7 @@ HTMLLinkElement06 : function () {
       var testNode;
       var vrel;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10964,13 +10966,13 @@ testNode = nodeList.item(0);
       vrel = testNode.rel;
 
       assertEquals("relLink","Glossary",vrel);
-       
+
 },
 /**
-* 
-    The rev attribute specifies the reverse link type.     
+*
+    The rev attribute specifies the reverse link type.
 
-    Retrieve the rev attribute and examine its value.  
+    Retrieve the rev attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -10983,7 +10985,7 @@ HTMLLinkElement07 : function () {
       var testNode;
       var vrev;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10995,13 +10997,13 @@ testNode = nodeList.item(1);
       vrev = testNode.rev;
 
       assertEquals("revLink","stylesheet",vrev);
-       
+
 },
 /**
-* 
-    The type attribute specifies the advisory content type. 
+*
+    The type attribute specifies the advisory content type.
 
-    Retrieve the type attribute and examine its value.  
+    Retrieve the type attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11014,7 +11016,7 @@ HTMLLinkElement08 : function () {
       var testNode;
       var vtype;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11026,13 +11028,13 @@ testNode = nodeList.item(0);
       vtype = testNode.type;
 
       assertEquals("typeLink","text/html",vtype);
-       
+
 },
 /**
-* 
+*
     The target attribute specifies the frame to render the resource in.
 
-    Retrieve the target attribute and examine it's value.  
+    Retrieve the target attribute and examine it's value.
 
 * @author NIST
 * @author Rick Rivello
@@ -11045,7 +11047,7 @@ HTMLLinkElement09 : function () {
       var testNode;
       var vtarget;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11057,13 +11059,13 @@ testNode = nodeList.item(0);
       vtarget = testNode.target;
 
       assertEquals("targetLink","dynamic",vtarget);
-       
+
 },
 /**
-* 
+*
     The  areas attribute is a list of areas defined for the image map.
 
-    Retrieve the areas attribute and find the number of areas defined.  
+    Retrieve the areas attribute and find the number of areas defined.
 
 * @author NIST
 * @author Mary Brady
@@ -11077,7 +11079,7 @@ HTMLMapElement01 : function () {
       var testNode;
       var vareas;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11091,13 +11093,13 @@ testNode = nodeList.item(0);
       vareas = areasnodeList.length;
 
       assertEquals("areasLink",3,vareas);
-       
+
 },
 /**
-* 
-    The name attribute names the map(for use with usemap). 
+*
+    The name attribute names the map(for use with usemap).
 
-    Retrieve the name attribute and examine its value.  
+    Retrieve the name attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11110,7 +11112,7 @@ HTMLMapElement02 : function () {
       var testNode;
       var vname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11122,14 +11124,14 @@ testNode = nodeList.item(0);
       vname = testNode.name;
 
       assertEquals("mapLink","mapid",vname);
-       
+
 },
 /**
-* 
+*
     The compact attribute specifies a boolean value on whether to display
-    the list more compactly. 
+    the list more compactly.
 
-    Retrieve the compact attribute and examine its value.  
+    Retrieve the compact attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11142,7 +11144,7 @@ HTMLMenuElement01 : function () {
       var testNode;
       var vcompact;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11157,10 +11159,10 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
-    The content attribute specifies associated information. 
+*
+    The content attribute specifies associated information.
 
-    Retrieve the content attribute and examine its value.  
+    Retrieve the content attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11173,7 +11175,7 @@ HTMLMetaElement01 : function () {
       var testNode;
       var vcontent;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11185,13 +11187,13 @@ testNode = nodeList.item(0);
       vcontent = testNode.content;
 
       assertEquals("contentLink","text/html; CHARSET=utf-8",vcontent);
-       
+
 },
 /**
-* 
+*
     The httpEquiv attribute specifies an HTTP respnse header name.
 
-    Retrieve the httpEquiv attribute and examine its value.  
+    Retrieve the httpEquiv attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11204,7 +11206,7 @@ HTMLMetaElement02 : function () {
       var testNode;
       var vhttpequiv;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11216,13 +11218,13 @@ testNode = nodeList.item(0);
       vhttpequiv = testNode.httpEquiv;
 
       assertEquals("httpEquivLink","Content-Type",vhttpequiv);
-       
+
 },
 /**
-* 
-    The name attribute specifies the meta information name. 
+*
+    The name attribute specifies the meta information name.
 
-    Retrieve the name attribute and examine its value.  
+    Retrieve the name attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11235,7 +11237,7 @@ HTMLMetaElement03 : function () {
       var testNode;
       var vname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11247,13 +11249,13 @@ testNode = nodeList.item(0);
       vname = testNode.name;
 
       assertEquals("nameLink","Meta-Name",vname);
-       
+
 },
 /**
-* 
-    The scheme attribute specifies a select form of content. 
+*
+    The scheme attribute specifies a select form of content.
 
-    Retrieve the scheme attribute and examine its value.  
+    Retrieve the scheme attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11266,7 +11268,7 @@ HTMLMetaElement04 : function () {
       var testNode;
       var vscheme;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11278,14 +11280,14 @@ testNode = nodeList.item(0);
       vscheme = testNode.scheme;
 
       assertEquals("schemeLink","NIST",vscheme);
-       
+
 },
 /**
-* 
+*
     The cite attribute specifies an URI designating a document that describes
     the reason for the change.
 
-    Retrieve the cite attribute of the INS element and examine its value.  
+    Retrieve the cite attribute of the INS element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11298,7 +11300,7 @@ HTMLModElement01 : function () {
       var testNode;
       var vcite;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11313,10 +11315,10 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
-    The dateTime attribute specifies the date and time of the change. 
+*
+    The dateTime attribute specifies the date and time of the change.
 
-    Retrieve the dateTime attribute of the INS element and examine its value.  
+    Retrieve the dateTime attribute of the INS element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11329,7 +11331,7 @@ HTMLModElement02 : function () {
       var testNode;
       var vdatetime;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11341,14 +11343,14 @@ testNode = nodeList.item(0);
       vdatetime = testNode.dateTime;
 
       assertEquals("dateTimeLink","January 1, 2002",vdatetime);
-       
+
 },
 /**
-* 
+*
     The cite attribute specifies an URI designating a document that describes
     the reason for the change.
 
-    Retrieve the cite attribute of the DEL element and examine its value.  
+    Retrieve the cite attribute of the DEL element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11361,7 +11363,7 @@ HTMLModElement03 : function () {
       var testNode;
       var vcite;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11376,10 +11378,10 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
-    The dateTime attribute specifies the date and time of the change. 
+*
+    The dateTime attribute specifies the date and time of the change.
 
-    Retrieve the dateTime attribute of the DEL element and examine its value.  
+    Retrieve the dateTime attribute of the DEL element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11392,7 +11394,7 @@ HTMLModElement04 : function () {
       var testNode;
       var vdatetime;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11404,14 +11406,14 @@ testNode = nodeList.item(0);
       vdatetime = testNode.dateTime;
 
       assertEquals("dateTimeLink","January 2, 2002",vdatetime);
-       
+
 },
 /**
-* 
+*
     The compact attribute specifies a boolean value on whether to display
-    the list more compactly. 
+    the list more compactly.
 
-    Retrieve the compact attribute and examine its value.  
+    Retrieve the compact attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11424,7 +11426,7 @@ HTMLOListElement01 : function () {
       var testNode;
       var vcompact;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11439,10 +11441,10 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
-    The start attribute specifies the starting sequence number.        
+*
+    The start attribute specifies the starting sequence number.
 
-    Retrieve the start attribute and examine its value.  
+    Retrieve the start attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11455,7 +11457,7 @@ HTMLOListElement02 : function () {
       var testNode;
       var vstart;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11467,13 +11469,13 @@ testNode = nodeList.item(0);
       vstart = testNode.start;
 
       assertEquals("startLink",1,vstart);
-       
+
 },
 /**
-* 
-    The type attribute specifies the numbering style.        
+*
+    The type attribute specifies the numbering style.
 
-    Retrieve the type attribute and examine its value.  
+    Retrieve the type attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11486,7 +11488,7 @@ HTMLOListElement03 : function () {
       var testNode;
       var vtype;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11498,13 +11500,13 @@ testNode = nodeList.item(0);
       vtype = testNode.type;
 
       assertEquals("typeLink","1",vtype);
-       
+
 },
 /**
-* 
-    The form attribute returns the FORM element containing this control. 
+*
+    The form attribute returns the FORM element containing this control.
 
-    Retrieve the form attribute and examine its value.  
+    Retrieve the form attribute and examine its value.
 
 * @author NIST
 * @author Rick Rivello
@@ -11518,7 +11520,7 @@ HTMLObjectElement01 : function () {
       var fNode;
       var vform;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11532,14 +11534,14 @@ testNode = nodeList.item(1);
       vform = fNode.id;
 
       assertEquals("idLink","object2",vform);
-       
+
 },
 /**
-* 
+*
 The code attribute specifies an Applet class file.
 
 Retrieve the code attribute of the second OBJECT element and examine
-its value.  Should be "" since CODE is not a valid attribute for OBJECT.     
+its value.  Should be "" since CODE is not a valid attribute for OBJECT.
 
 * @author NIST
 * @author Mary Brady
@@ -11552,7 +11554,7 @@ HTMLObjectElement02 : function () {
       var testNode;
       var vcode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11564,15 +11566,15 @@ testNode = nodeList.item(1);
       vcode = testNode.code;
 
       assertEquals("codeLink","",vcode);
-       
+
 },
 /**
-* 
+*
     The align attribute specifies the alignment of this object with respect
     to its surrounding text.
 
     Retrieve the align attribute of the first OBJECT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11585,7 +11587,7 @@ HTMLObjectElement03 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11597,14 +11599,14 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","middle",valign);
-       
+
 },
 /**
-* 
+*
     The archive attribute specifies a space-separated list of archives.
 
     Retrieve the archive attribute of the first OBJECT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11617,7 +11619,7 @@ HTMLObjectElement04 : function () {
       var testNode;
       var varchive;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11629,14 +11631,14 @@ testNode = nodeList.item(0);
       varchive = testNode.archive;
 
       assertEquals("archiveLink","",varchive);
-       
+
 },
 /**
-* 
+*
     The border attribute specifies the widht of the border around the object.
 
     Retrieve the border attribute of the first OBJECT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11649,7 +11651,7 @@ HTMLObjectElement05 : function () {
       var testNode;
       var vborder;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11661,15 +11663,15 @@ testNode = nodeList.item(0);
       vborder = testNode.border;
 
       assertEquals("borderLink","0",vborder);
-       
+
 },
 /**
-* 
-    The codeBase attribute specifies the base URI for the classid, data and   
+*
+    The codeBase attribute specifies the base URI for the classid, data and
     archive attributes.
 
     Retrieve the codeBase attribute of the first OBJECT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11682,7 +11684,7 @@ HTMLObjectElement06 : function () {
       var testNode;
       var vcodebase;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11697,12 +11699,12 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
-    The codeType attribute specifies the data downloaded via the classid 
+*
+    The codeType attribute specifies the data downloaded via the classid
     attribute.
 
     Retrieve the codeType attribute of the second OBJECT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11715,7 +11717,8 @@ HTMLObjectElement07 : function () {
       var testNode;
       var vcodetype;
       var doc;
-      
+
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11727,14 +11730,14 @@ testNode = nodeList.item(1);
       vcodetype = testNode.codeType;
 
       assertEquals("codetypeLink","image/gif",vcodetype);
-       
+
 },
 /**
-* 
+*
     The data attribute specifies the URI of the location of the objects data.
 
     Retrieve the data attribute of the first OBJECT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11747,7 +11750,7 @@ HTMLObjectElement08 : function () {
       var testNode;
       var vdata;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11762,12 +11765,12 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
-    The declare attribute specifies this object should be declared only and  
+*
+    The declare attribute specifies this object should be declared only and
     no instance of it should be created.
 
     Retrieve the declare attribute of the second OBJECT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11780,7 +11783,7 @@ HTMLObjectElement09 : function () {
       var testNode;
       var vdeclare;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11795,12 +11798,12 @@ testNode = nodeList.item(1);
 
 },
 /**
-* 
-    The height attribute overrides the value of the actual height of the    
+*
+    The height attribute overrides the value of the actual height of the
     object.
 
     Retrieve the height attribute of the first OBJECT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11813,7 +11816,7 @@ HTMLObjectElement10 : function () {
       var testNode;
       var vheight;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11825,15 +11828,15 @@ testNode = nodeList.item(0);
       vheight = testNode.height;
 
       assertEquals("heightLink","60",vheight);
-       
+
 },
 /**
-* 
+*
     The hspace attribute specifies the horizontal space to the left and right
     of this image, applet or object.
 
     Retrieve the hspace attribute of the first OBJECT element and examine
-    it's value.  
+    it's value.
 
 * @author NIST
 * @author Mary Brady
@@ -11846,7 +11849,7 @@ HTMLObjectElement11 : function () {
       var testNode;
       var vhspace;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11858,15 +11861,15 @@ testNode = nodeList.item(0);
       vhspace = testNode.hspace;
 
       assertEquals("hspaceLink",0,vhspace);
-       
+
 },
 /**
-* 
-    The standby attribute specifies a message to render while loading the    
+*
+    The standby attribute specifies a message to render while loading the
     object.
 
     Retrieve the standby attribute of the first OBJECT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11879,7 +11882,7 @@ HTMLObjectElement12 : function () {
       var testNode;
       var vstandby;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11891,15 +11894,15 @@ testNode = nodeList.item(0);
       vstandby = testNode.standby;
 
       assertEquals("alignLink","Loading Image ...",vstandby);
-       
+
 },
 /**
-* 
-    The tabIndex attribute specifies the elements position in the tabbing     
+*
+    The tabIndex attribute specifies the elements position in the tabbing
     order.
 
     Retrieve the tabIndex attribute of the first OBJECT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11912,7 +11915,7 @@ HTMLObjectElement13 : function () {
       var testNode;
       var vtabindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11924,15 +11927,15 @@ testNode = nodeList.item(0);
       vtabindex = testNode.tabIndex;
 
       assertEquals("tabIndexLink",0,vtabindex);
-       
+
 },
 /**
-* 
-    The type attribute specifies the content type for data downloaded via 
+*
+    The type attribute specifies the content type for data downloaded via
     the data attribute.
 
     Retrieve the type attribute of the first OBJECT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11945,7 +11948,7 @@ HTMLObjectElement14 : function () {
       var testNode;
       var vtype;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11957,14 +11960,14 @@ testNode = nodeList.item(0);
       vtype = testNode.type;
 
       assertEquals("typeLink","image/gif",vtype);
-       
+
 },
 /**
-* 
+*
     The useMap attribute specifies the used client-side image map.
 
     Retrieve the useMap attribute of the first OBJECT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -11977,7 +11980,7 @@ HTMLObjectElement15 : function () {
       var testNode;
       var vusemap;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11989,15 +11992,15 @@ testNode = nodeList.item(0);
       vusemap = testNode.useMap;
 
       assertEquals("useMapLink","#DivLogo-map",vusemap);
-       
+
 },
 /**
-* 
-    The vspace attribute specifies the vertical space above or below this    
+*
+    The vspace attribute specifies the vertical space above or below this
     image, applet or object.
 
     Retrieve the vspace attribute of the first OBJECT element and examine
-    it's value.  
+    it's value.
 
 * @author NIST
 * @author Mary Brady
@@ -12010,7 +12013,7 @@ HTMLObjectElement16 : function () {
       var testNode;
       var vvspace;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12022,14 +12025,14 @@ testNode = nodeList.item(0);
       vvspace = testNode.vspace;
 
       assertEquals("vspaceLink",0,vvspace);
-       
+
 },
 /**
-* 
-    The width attribute overrides the original width value.                
+*
+    The width attribute overrides the original width value.
 
     Retrieve the width attribute of the first OBJECT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -12042,7 +12045,7 @@ HTMLObjectElement17 : function () {
       var testNode;
       var vwidth;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12054,15 +12057,15 @@ testNode = nodeList.item(0);
       vwidth = testNode.width;
 
       assertEquals("widthLink","550",vwidth);
-       
+
 },
 /**
-* 
+*
     The name attribute specifies form control or object name when submitted
     with a form.
 
     Retrieve the name attribute of the second OBJECT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -12075,7 +12078,7 @@ HTMLObjectElement18 : function () {
       var testNode;
       var vname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12087,14 +12090,14 @@ testNode = nodeList.item(1);
       vname = testNode.name;
 
       assertEquals("vspaceLink","OBJECT2",vname);
-       
+
 },
 /**
-* 
-    The form attribute returns null if control in not within the context of 
-    form. 
+*
+    The form attribute returns null if control in not within the context of
+    form.
 
-    Retrieve the form attribute and examine its value.  
+    Retrieve the form attribute and examine its value.
 
 * @author NIST
 * @author Rick Rivello
@@ -12107,7 +12110,7 @@ HTMLObjectElement19 : function () {
       var testNode;
       var vform;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12119,10 +12122,10 @@ testNode = nodeList.item(0);
       vform = testNode.form;
 
       assertNull("formNullLink",vform);
-    
+
 },
 /**
-* 
+*
     The contentDocument attribute specifies the document this object contains,
     if there is any and it is available, or null otherwise.
 
@@ -12138,7 +12141,7 @@ HTMLObjectElement20 : function () {
       var vtitle;
       var doc;
       var nodeList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12149,14 +12152,14 @@ HTMLObjectElement20 : function () {
       cd = testNode.contentDocument;
 
       assertNull("noContentDocument",cd);
-    
+
 },
 /**
-* 
+*
     The disabled attribute indicates that the control is unavailable in
     this context.
 
-    Retrieve the disabled attribute and examine its value.  
+    Retrieve the disabled attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -12169,7 +12172,7 @@ HTMLOptGroupElement01 : function () {
       var testNode;
       var vdisabled;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12184,10 +12187,10 @@ testNode = nodeList.item(1);
 
 },
 /**
-* 
+*
     The label attribute specifies the label assigned to this option group.
 
-    Retrieve the label attribute and examine its value.  
+    Retrieve the label attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -12200,7 +12203,7 @@ HTMLOptGroupElement02 : function () {
       var testNode;
       var vlabel;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12212,14 +12215,14 @@ testNode = nodeList.item(0);
       vlabel = testNode.label;
 
       assertEquals("labelLink","Regular Employees",vlabel);
-       
+
 },
 /**
-* 
-    The form attribute returns the FORM element containing this control. 
+*
+    The form attribute returns the FORM element containing this control.
 
     Retrieve the form attribute from the first SELECT element
-    and examine its value.  
+    and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -12233,7 +12236,7 @@ HTMLOptionElement01 : function () {
       var vform;
       var fNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12247,15 +12250,15 @@ testNode = nodeList.item(0);
       vform = fNode.id;
 
       assertEquals("formLink","form1",vform);
-       
+
 },
 /**
-* 
-    The form attribute returns null if control in not within the context of 
-    a form. 
+*
+    The form attribute returns null if control in not within the context of
+    a form.
 
     Retrieve the first OPTION attribute from the second select element and
-    examine its form element.  
+    examine its form element.
 
 * @author NIST
 * @author Mary Brady
@@ -12268,7 +12271,7 @@ HTMLOptionElement02 : function () {
       var testNode;
       var vform;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12280,11 +12283,11 @@ testNode = nodeList.item(6);
       vform = testNode.form;
 
       assertNull("formNullLink",vform);
-    
+
 },
 /**
-* 
-    The defaultSelected attribute contains the value of the selected 
+*
+    The defaultSelected attribute contains the value of the selected
     attribute.
 
     Retrieve the defaultSelected attribute from the first OPTION element
@@ -12301,7 +12304,7 @@ HTMLOptionElement03 : function () {
       var testNode;
       var vdefaultselected;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12316,11 +12319,11 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The text attribute contains the text contained within the option element.
 
     Retrieve the text attribute from the second OPTION element
-    and examine its value.  
+    and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -12333,7 +12336,7 @@ HTMLOptionElement04 : function () {
       var testNode;
       var vtext;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12345,15 +12348,15 @@ testNode = nodeList.item(1);
       vtext = testNode.text;
 
       assertEquals("textLink","EMP10002",vtext);
-       
+
 },
 /**
-* 
-    The index attribute indicates th index of this OPTION in ints parent      
+*
+    The index attribute indicates th index of this OPTION in ints parent
     SELECT.
 
     Retrieve the index attribute from the seventh OPTION element
-    and examine its value.  
+    and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -12366,7 +12369,7 @@ HTMLOptionElement05 : function () {
       var testNode;
       var vindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12378,10 +12381,10 @@ testNode = nodeList.item(6);
       vindex = testNode.index;
 
       assertEquals("indexLink",1,vindex);
-       
+
 },
 /**
-* 
+*
     The disabled attribute indicates that this control is not available
     within this context.
 
@@ -12399,7 +12402,7 @@ HTMLOptionElement06 : function () {
       var testNode;
       var vdisabled;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12414,12 +12417,12 @@ testNode = nodeList.item(9);
 
 },
 /**
-* 
-    The label attribute is used in hierarchical menus.  It specifies          
+*
+    The label attribute is used in hierarchical menus.  It specifies
     a shorter label for an option that the content of the OPTION element.
 
     Retrieve the label attribute from the second OPTION element
-    and examine its value.  
+    and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -12432,7 +12435,7 @@ HTMLOptionElement07 : function () {
       var testNode;
       var vlabel;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12444,10 +12447,10 @@ testNode = nodeList.item(1);
       vlabel = testNode.label;
 
       assertEquals("labelLink","l1",vlabel);
-       
+
 },
 /**
-* 
+*
     The selected attribute indicates the current state of the corresponding
     form control in an interactive user-agent.
 
@@ -12465,7 +12468,7 @@ HTMLOptionElement08 : function () {
       var testNode;
       var vselected;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12480,11 +12483,11 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
-    The value attribute contains the current form control value. 
+*
+    The value attribute contains the current form control value.
 
     Retrieve the value attribute from the first OPTION element
-    and examine its value.  
+    and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -12497,7 +12500,7 @@ HTMLOptionElement09 : function () {
       var testNode;
       var vvalue;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12509,12 +12512,12 @@ testNode = nodeList.item(0);
       vvalue = testNode.value;
 
       assertEquals("valueLink","10001",vvalue);
-       
+
 },
 /**
-* 
+*
     An HTMLOptionsCollection is a list of nodes representing HTML option
-    element. 
+    element.
     The length attribute specifies the length or size of the list.
 
     Retrieve the first SELECT element and create a HTMLOptionsCollection
@@ -12532,7 +12535,7 @@ HTMLOptionsCollection01 : function () {
       var optionsList;
       var vlength;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12546,10 +12549,10 @@ testNode = nodeList.item(0);
       vlength = optionsList.length;
 
       assertEquals("lengthLink",5,vlength);
-       
+
 },
 /**
-* 
+*
     An HTMLOptionsCollection is a list of nodes representing HTML option
     element.
     An individual node may be accessed by either ordinal index, the node's
@@ -12559,7 +12562,7 @@ testNode = nodeList.item(0);
 
     Retrieve the first SELECT element.  Create a HTMLOptionsCollection.
     Retrieve the fourth item in the list and examine its firstChild's
-    nodeValue. 
+    nodeValue.
 
 * @author NIST
 * @author Rick Rivello
@@ -12575,7 +12578,7 @@ HTMLOptionsCollection02 : function () {
       var optionsList;
       var vvalue;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12592,10 +12595,10 @@ testNode = nodeList.item(0);
       vvalue = optionsValueNode.nodeValue;
 
       assertEquals("valueIndexLink","EMP10004",vvalue);
-       
+
 },
 /**
-* 
+*
     An HTMLOptionsCollection is a list of nodes representing HTML option
     element.
     An individual node may be accessed by either ordinal index, the node's
@@ -12622,7 +12625,7 @@ HTMLOptionsCollection03 : function () {
       var formsnodeList;
       var vname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12637,10 +12640,10 @@ testNode = nodeList.item(0);
       vname = optionsNode.nodeName;
 
       assertEqualsAutoCase("element", "nameIndexLink","select",vname);
-       
+
 },
 /**
-* 
+*
     An HTMLOptionsCollection is a list of nodes representing HTML option
     element.
     An individual node may be accessed by either ordinal index, the node's
@@ -12667,7 +12670,7 @@ HTMLOptionsCollection04 : function () {
       var formsnodeList;
       var vname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12682,10 +12685,10 @@ testNode = nodeList.item(0);
       vname = optionsNode.nodeName;
 
       assertEqualsAutoCase("element", "nameIndexLink","select",vname);
-       
+
 },
 /**
-* 
+*
     An HTMLOptionsCollection is a list of nodes representing HTML option
     element.
     An individual node may be accessed by either ordinal index, the node's
@@ -12714,7 +12717,7 @@ HTMLOptionsCollection05 : function () {
       var formsnodeList;
       var vname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12727,15 +12730,15 @@ testNode = nodeList.item(0);
 
       optionsNode = formsnodeList.namedItem("select9");
       assertNull("nameIndexLink",optionsNode);
-    
+
 },
 /**
-* 
+*
     An HTMLOptionsCollection is a list of nodes representing HTML option
     element.
     An individual node may be accessed by either ordinal index, the node's
     name or id attributes.  (Test ordinal index).
-    The item() method retrieves a node specified by ordinal index.  
+    The item() method retrieves a node specified by ordinal index.
     A value of null is returned if the index is out of range.
 
     Retrieve the first SELECT element.  Create a HTMLOptionsCollection.
@@ -12756,7 +12759,7 @@ HTMLOptionsCollection06 : function () {
       var optionsList;
       var vvalue;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12769,10 +12772,10 @@ testNode = nodeList.item(0);
 
       optionsNode = optionsList.item(10);
       assertNull("optionsIndexLink",optionsNode);
-    
+
 },
 /**
-* 
+*
     An HTMLOptionsCollection is a list of nodes representing HTML option
     element.
     An individual node may be accessed by either ordinal index, the node's
@@ -12782,7 +12785,7 @@ testNode = nodeList.item(0);
 
     Retrieve the first SELECT element.  Create a HTMLOptionsCollection.
     Retrieve the first item in the list and examine its firstChild's
-    nodeValue. 
+    nodeValue.
 
 * @author NIST
 * @author Rick Rivello
@@ -12798,7 +12801,7 @@ HTMLOptionsCollection07 : function () {
       var optionsList;
       var vvalue;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12815,10 +12818,10 @@ testNode = nodeList.item(0);
       vvalue = optionsValueNode.nodeValue;
 
       assertEquals("valueIndexLink","EMP10001",vvalue);
-       
+
 },
 /**
-* 
+*
     The align attribute specifies the horizontal text alignment.
 
     Retrieve the align attribute and examine its value.
@@ -12834,7 +12837,7 @@ HTMLParagraphElement01 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12846,10 +12849,10 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
+*
     The  name attribute specifies the name of the run-time parameter.
 
     Retrieve the name attribute and examine its value.
@@ -12865,7 +12868,7 @@ HTMLParamElement01 : function () {
       var testNode;
       var vname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12877,10 +12880,10 @@ testNode = nodeList.item(0);
       vname = testNode.name;
 
       assertEquals("nameLink","image3",vname);
-       
+
 },
 /**
-* 
+*
     The value attribute specifies the value of the run-time parameter.
 
     Retrieve the value attribute and examine its value.
@@ -12896,7 +12899,7 @@ HTMLParamElement02 : function () {
       var testNode;
       var vvalue;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12911,7 +12914,7 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The valueType attribute specifies information about the meaning of the
     value specified by the value attribute.
 
@@ -12928,7 +12931,7 @@ HTMLParamElement03 : function () {
       var testNode;
       var vvaluetype;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12940,10 +12943,10 @@ testNode = nodeList.item(0);
       vvaluetype = testNode.valueType;
 
       assertEquals("valueTypeLink","ref",vvaluetype);
-       
+
 },
 /**
-* 
+*
     The type attribute specifies the content type for the value attribute
     when valuetype has the value ref.
 
@@ -12960,7 +12963,7 @@ HTMLParamElement04 : function () {
       var testNode;
       var vtype;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12972,13 +12975,13 @@ testNode = nodeList.item(0);
       vtype = testNode.type;
 
       assertEquals("typeLink","image/gif",vtype);
-       
+
 },
 /**
-* 
+*
     The width attribute specifies the fixed width for content.
 
-    Retrieve the width attribute and examine its value.  
+    Retrieve the width attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -12991,7 +12994,7 @@ HTMLPreElement01 : function () {
       var testNode;
       var vwidth;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13003,14 +13006,14 @@ testNode = nodeList.item(0);
       vwidth = testNode.width;
 
       assertEquals("widthLink",277,vwidth);
-       
+
 },
 /**
-* 
-    The cite attribute specifies a URI designating a source document 
-    or message. 
+*
+    The cite attribute specifies a URI designating a source document
+    or message.
 
-    Retrieve the cite attribute from the Q element and examine its value.  
+    Retrieve the cite attribute from the Q element and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -13023,7 +13026,7 @@ HTMLQuoteElement01 : function () {
       var testNode;
       var vcite;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13038,12 +13041,12 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
-    The cite attribute specifies a URI designating a source document 
-    or message. 
+*
+    The cite attribute specifies a URI designating a source document
+    or message.
 
-    Retrieve the cite attribute from the BLOCKQUOTE element and 
-    examine its value.  
+    Retrieve the cite attribute from the BLOCKQUOTE element and
+    examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -13056,7 +13059,7 @@ HTMLQuoteElement02 : function () {
       var testNode;
       var vcite;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13071,10 +13074,10 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
-    The text attribute specifies the script content of the element. 
+*
+    The text attribute specifies the script content of the element.
 
-    Retrieve the text attribute and examine its value.  
+    Retrieve the text attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -13087,7 +13090,7 @@ HTMLScriptElement01 : function () {
       var testNode;
       var vtext;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13099,14 +13102,14 @@ testNode = nodeList.item(0);
       vtext = testNode.text;
 
       assertEquals("textLink","var a=2;",vtext);
-       
+
 },
 /**
-* 
+*
     The charset attribute specifies the character encoding of the linked
     resource.
 
-    Retrieve the charset attribute and examine its value.  
+    Retrieve the charset attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -13119,7 +13122,7 @@ HTMLScriptElement02 : function () {
       var testNode;
       var vcharset;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13131,14 +13134,14 @@ testNode = nodeList.item(0);
       vcharset = testNode.charset;
 
       assertEquals("charsetLink","US-ASCII",vcharset);
-       
+
 },
 /**
-* 
+*
     The defer attribute specifies the user agent can defer processing of
     the script.
 
-    Retrieve the defer attribute and examine its value.  
+    Retrieve the defer attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -13151,7 +13154,7 @@ HTMLScriptElement03 : function () {
       var testNode;
       var vdefer;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13166,10 +13169,10 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The src attribute specifies a URI designating an external script.
 
-    Retrieve the src attribute and examine its value.  
+    Retrieve the src attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -13182,7 +13185,7 @@ HTMLScriptElement04 : function () {
       var testNode;
       var vsrc;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13197,10 +13200,10 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The type attribute specifies the content of the script language.
 
-    Retrieve the type attribute and examine its value.  
+    Retrieve the type attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -13213,7 +13216,7 @@ HTMLScriptElement05 : function () {
       var testNode;
       var vtype;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13225,10 +13228,10 @@ testNode = nodeList.item(0);
       vtype = testNode.type;
 
       assertEquals("typeLink","text/javaScript",vtype);
-       
+
 },
 /**
-* 
+*
 htmlFor is described as for future use.  Test accesses the value, but makes no assertions about its value.
 
 * @author Curt Arnold
@@ -13241,7 +13244,7 @@ HTMLScriptElement06 : function () {
       var testNode;
       var htmlFor;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13252,10 +13255,10 @@ HTMLScriptElement06 : function () {
 testNode = nodeList.item(0);
       htmlFor = testNode.htmlFor;
 
-      
+
 },
 /**
-* 
+*
 event is described as for future use.  Test accesses the value, but makes no assertions about its value.
 
 * @author Curt Arnold
@@ -13268,7 +13271,7 @@ HTMLScriptElement07 : function () {
       var testNode;
       var event;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13279,15 +13282,15 @@ HTMLScriptElement07 : function () {
 testNode = nodeList.item(0);
       event = testNode.event;
 
-      
+
 },
 /**
-* 
+*
     The type attribute is the string "select-multiple" when multiple
     attribute is true.
 
-    Retrieve the type attribute from the first SELECT element and 
-    examine its value.  
+    Retrieve the type attribute from the first SELECT element and
+    examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -13300,7 +13303,7 @@ HTMLSelectElement01 : function () {
       var testNode;
       var vtype;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13312,15 +13315,15 @@ testNode = nodeList.item(0);
       vtype = testNode.type;
 
       assertEquals("typeLink","select-multiple",vtype);
-       
+
 },
 /**
-* 
-    The selectedIndex attribute specifies the ordinal index of the selected  
+*
+    The selectedIndex attribute specifies the ordinal index of the selected
     option.
 
-    Retrieve the selectedIndex attribute from the first SELECT element and 
-    examine its value.  
+    Retrieve the selectedIndex attribute from the first SELECT element and
+    examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -13333,7 +13336,7 @@ HTMLSelectElement02 : function () {
       var testNode;
       var vselectedindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13345,18 +13348,18 @@ testNode = nodeList.item(0);
       vselectedindex = testNode.selectedIndex;
 
       assertEquals("selectedIndexLink",0,vselectedindex);
-       
+
 },
 /**
-* 
-    The selectedIndex attribute specifies the ordinal index of the selected  
+*
+    The selectedIndex attribute specifies the ordinal index of the selected
     option.  If no element is selected -1 is returned.
 
-    Retrieve the selectedIndex attribute from the second SELECT element and 
-    examine its value.  
+    Retrieve the selectedIndex attribute from the second SELECT element and
+    examine its value.
 
     Per http://www.w3.org/TR/html401/interact/forms.html#h-17.6.1,
-    without an explicit selected attribute, user agent behavior is 
+    without an explicit selected attribute, user agent behavior is
     undefined.  There is no way to coerce no option to be selected.
 
 * @author NIST
@@ -13370,7 +13373,7 @@ HTMLSelectElement03 : function () {
       var testNode;
       var vselectedindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13381,14 +13384,14 @@ HTMLSelectElement03 : function () {
 testNode = nodeList.item(1);
       vselectedindex = testNode.selectedIndex;
 
-      
+
 },
 /**
-* 
-    The value attribute specifies the current form control value.    
+*
+    The value attribute specifies the current form control value.
 
-    Retrieve the value attribute from the first SELECT element and 
-    examine its value.  
+    Retrieve the value attribute from the first SELECT element and
+    examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -13401,7 +13404,7 @@ HTMLSelectElement04 : function () {
       var testNode;
       var vvalue;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13413,14 +13416,14 @@ testNode = nodeList.item(0);
       vvalue = testNode.value;
 
       assertEquals("valueLink","EMP1",vvalue);
-       
+
 },
 /**
-* 
+*
     The length attribute specifies the number of options in this select.
 
-    Retrieve the length attribute from the first SELECT element and 
-    examine its value.  
+    Retrieve the length attribute from the first SELECT element and
+    examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -13433,7 +13436,7 @@ HTMLSelectElement05 : function () {
       var testNode;
       var vlength;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13445,14 +13448,14 @@ testNode = nodeList.item(0);
       vlength = testNode.length;
 
       assertEquals("lengthLink",5,vlength);
-       
+
 },
 /**
-* 
-    The form attribute returns the FORM element containing this control. 
+*
+    The form attribute returns the FORM element containing this control.
 
     Retrieve the form attribute from the first SELECT element
-    and examine its value.  
+    and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -13466,7 +13469,7 @@ HTMLSelectElement06 : function () {
       var vform;
       var fNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13480,15 +13483,15 @@ testNode = nodeList.item(0);
       vform = fNode.id;
 
       assertEquals("formLink","form1",vform);
-       
+
 },
 /**
-* 
-    The form attribute returns null if control in not within the context of 
-    a form. 
+*
+    The form attribute returns null if control in not within the context of
+    a form.
 
     Retrieve the second SELECT element and
-    examine its form element.  
+    examine its form element.
 
 * @author NIST
 * @author Mary Brady
@@ -13501,7 +13504,7 @@ HTMLSelectElement07 : function () {
       var testNode;
       var vform;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13513,15 +13516,15 @@ testNode = nodeList.item(1);
       vform = testNode.form;
 
       assertNull("formNullLink",vform);
-    
+
 },
 /**
-* 
+*
     The options attribute returns a collection of OPTION elements contained
     by this element.
 
     Retrieve the options attribute from the first SELECT element and
-    examine the items of the returned collection. 
+    examine the items of the returned collection.
 
 * @author NIST
 * @author Mary Brady
@@ -13546,7 +13549,7 @@ HTMLSelectElement08 : function () {
       expectedOptions[3] = "option";
       expectedOptions[4] = "option";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13565,10 +13568,10 @@ testNode = nodeList.item(0);
 
 	}
    assertEqualsListAutoCase("element", "optionsLink",expectedOptions,result);
-       
+
 },
 /**
-* 
+*
     The disabled attribute indicates that this control is not available
     within this context.
 
@@ -13586,7 +13589,7 @@ HTMLSelectElement09 : function () {
       var testNode;
       var vdisabled;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13601,7 +13604,7 @@ testNode = nodeList.item(2);
 
 },
 /**
-* 
+*
     The multiple attribute(if true) indicates that multiple OPTION elements
     may be selected
 
@@ -13619,7 +13622,7 @@ HTMLSelectElement10 : function () {
       var testNode;
       var vmultiple;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13634,12 +13637,12 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The name attribute specifies the form control or object name when
     submitted with a form.
 
-    Retrieve the name attribute from the first SELECT element and 
-    examine its value.  
+    Retrieve the name attribute from the first SELECT element and
+    examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -13652,7 +13655,7 @@ HTMLSelectElement11 : function () {
       var testNode;
       var vname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13664,14 +13667,14 @@ testNode = nodeList.item(0);
       vname = testNode.name;
 
       assertEquals("nameLink","select1",vname);
-       
+
 },
 /**
-* 
+*
     The size attribute specifies the number of visible rows.
 
-    Retrieve the size attribute from the first SELECT element and 
-    examine its value.  
+    Retrieve the size attribute from the first SELECT element and
+    examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -13684,7 +13687,7 @@ HTMLSelectElement12 : function () {
       var testNode;
       var vsize;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13696,15 +13699,15 @@ testNode = nodeList.item(0);
       vsize = testNode.size;
 
       assertEquals("sizeLink",1,vsize);
-       
+
 },
 /**
-* 
+*
     The tabIndex attribute specifies an index that represents the elements
     position in the tabbing order.
 
-    Retrieve the tabIndex attribute from the first SELECT element and 
-    examine its value.  
+    Retrieve the tabIndex attribute from the first SELECT element and
+    examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -13717,7 +13720,7 @@ HTMLSelectElement13 : function () {
       var testNode;
       var vtabindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13729,10 +13732,10 @@ testNode = nodeList.item(0);
       vtabindex = testNode.tabIndex;
 
       assertEquals("tabIndexLink",7,vtabindex);
-       
+
 },
 /**
-* 
+*
 focus should give the select element input focus.
 
 * @author Curt Arnold
@@ -13744,7 +13747,7 @@ HTMLSelectElement14 : function () {
     var nodeList;
       var testNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13754,10 +13757,10 @@ HTMLSelectElement14 : function () {
       assertSize("Asize",3,nodeList);
 testNode = nodeList.item(0);
       testNode.focus();
-      
+
 },
 /**
-* 
+*
 blur should surrender input focus.
 
 * @author Curt Arnold
@@ -13769,7 +13772,7 @@ HTMLSelectElement15 : function () {
     var nodeList;
       var testNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13779,10 +13782,10 @@ HTMLSelectElement15 : function () {
       assertSize("Asize",3,nodeList);
 testNode = nodeList.item(0);
       testNode.blur();
-      
+
 },
 /**
-* 
+*
 Removes an option using HTMLSelectElement.remove.
 
 * @author Curt Arnold
@@ -13796,7 +13799,7 @@ HTMLSelectElement16 : function () {
       var doc;
       var optLength;
       var selected;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13812,10 +13815,10 @@ testNode = nodeList.item(0);
        selected = testNode.selectedIndex;
 
       assertEquals("selected",-1,selected);
-       
+
 },
 /**
-* 
+*
 Removes a non-existant option using HTMLSelectElement.remove.
 
 * @author Curt Arnold
@@ -13829,7 +13832,7 @@ HTMLSelectElement17 : function () {
       var doc;
       var optLength;
       var selected;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13845,10 +13848,10 @@ testNode = nodeList.item(0);
        selected = testNode.selectedIndex;
 
       assertEquals("selected",0,selected);
-       
+
 },
 /**
-* 
+*
 Add a new option at the end of an select using HTMLSelectElement.add.
 
 * @author Curt Arnold
@@ -13870,7 +13873,7 @@ HTMLSelectElement18 : function () {
       var retNode;
       var nullNode = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13896,10 +13899,10 @@ testNode = nodeList.item(0);
       optValue = optText.nodeValue;
 
       assertEquals("lastValue","EMP31415",optValue);
-       
+
 },
 /**
-* 
+*
 Add a new option before the selected node using HTMLSelectElement.add.
 
 * @author Curt Arnold
@@ -13921,7 +13924,7 @@ HTMLSelectElement19 : function () {
       var retNode;
       var options;
       var selectedNode;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13951,10 +13954,10 @@ testNode = nodeList.item(0);
       optValue = optText.nodeValue;
 
       assertEquals("lastValue","EMP31415",optValue);
-       
+
 },
 /**
-* 
+*
 Attempting to add an new option using HTMLSelectElement.add before a node that is not a child of the select
 element should raise a NOT_FOUND_ERR.
 
@@ -13975,7 +13978,7 @@ HTMLSelectElement20 : function () {
       var options;
       var otherSelect;
       var selectedNode;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -13991,7 +13994,7 @@ testNode = nodeList.item(0);
       options = otherSelect.options;
 
       selectedNode = options.item(0);
-      
+
 	{
 		success = false;
 		try {
@@ -14005,8 +14008,8 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
-    The disabled attribute enables/disables the stylesheet.            
+*
+    The disabled attribute enables/disables the stylesheet.
 
     Retrieve the disabled attribute and examine its value.
 
@@ -14021,7 +14024,7 @@ HTMLStyleElement01 : function () {
       var testNode;
       var vdisabled;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14036,10 +14039,10 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The media attribute identifies the intended medium of the style info.
 
-    Retrieve the media attribute and examine its value.  
+    Retrieve the media attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14052,7 +14055,7 @@ HTMLStyleElement02 : function () {
       var testNode;
       var vmedia;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14064,13 +14067,13 @@ testNode = nodeList.item(0);
       vmedia = testNode.media;
 
       assertEquals("mediaLink","screen",vmedia);
-       
+
 },
 /**
-* 
+*
     The type attribute specifies the style sheet language(Internet media type).
 
-    Retrieve the type attribute and examine its value.  
+    Retrieve the type attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14083,7 +14086,7 @@ HTMLStyleElement03 : function () {
       var testNode;
       var vtype;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14095,14 +14098,14 @@ testNode = nodeList.item(0);
       vtype = testNode.type;
 
       assertEquals("typeLink","text/css",vtype);
-       
+
 },
 /**
-* 
+*
     The align attribute specifies the caption alignment with respect to
     the table.
 
-    Retrieve the align attribute and examine its value.  
+    Retrieve the align attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14115,7 +14118,7 @@ HTMLTableCaptionElement01 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14127,14 +14130,14 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","top",valign);
-       
+
 },
 /**
-* 
-    The  cellIndex attribute specifies the index of this cell in the row(TH). 
+*
+    The  cellIndex attribute specifies the index of this cell in the row(TH).
 
     Retrieve the cellIndex attribute of the first TH element and examine its
-    value.  
+    value.
 
 * @author NIST
 * @author Mary Brady
@@ -14147,7 +14150,7 @@ HTMLTableCellElement01 : function () {
       var testNode;
       var vcellindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14159,14 +14162,14 @@ testNode = nodeList.item(0);
       vcellindex = testNode.cellIndex;
 
       assertEquals("cellIndexLink",0,vcellindex);
-       
+
 },
 /**
-* 
-    The  cellIndex attribute specifies the index of this cell in the row(TD). 
+*
+    The  cellIndex attribute specifies the index of this cell in the row(TD).
 
     Retrieve the cellIndex attribute of the first TD element and examine its
-    value.  
+    value.
 
 * @author NIST
 * @author Mary Brady
@@ -14179,7 +14182,7 @@ HTMLTableCellElement02 : function () {
       var testNode;
       var vcellindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14191,14 +14194,14 @@ testNode = nodeList.item(0);
       vcellindex = testNode.cellIndex;
 
       assertEquals("cellIndexLink",0,vcellindex);
-       
+
 },
 /**
-* 
+*
     The abbr attribute specifies the abbreviation for table header cells(TH).
 
     Retrieve the abbr attribute from the second TH element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14211,7 +14214,7 @@ HTMLTableCellElement03 : function () {
       var testNode;
       var vabbr;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14223,14 +14226,14 @@ testNode = nodeList.item(1);
       vabbr = testNode.abbr;
 
       assertEquals("abbrLink","hd1",vabbr);
-       
+
 },
 /**
-* 
+*
     The abbr attribute specifies the abbreviation for table data cells(TD).
 
     Retrieve the abbr attribute from the second TD element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14243,7 +14246,7 @@ HTMLTableCellElement04 : function () {
       var testNode;
       var vabbr;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14255,15 +14258,15 @@ testNode = nodeList.item(1);
       vabbr = testNode.abbr;
 
       assertEquals("abbrLink","hd2",vabbr);
-       
+
 },
 /**
-* 
+*
     The align attribute specifies the horizontal alignment for table
     header cells(TH).
 
     Retrieve the align attribute from the second TH element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14276,7 +14279,7 @@ HTMLTableCellElement05 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14288,15 +14291,15 @@ testNode = nodeList.item(1);
       valign = testNode.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
+*
     The align attribute specifies the horizontal alignment for table
     data cells(TD).
 
     Retrieve the align attribute from the second TD element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14309,7 +14312,7 @@ HTMLTableCellElement06 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14321,15 +14324,15 @@ testNode = nodeList.item(1);
       valign = testNode.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
+*
     The axis attribute specifies the names group of related headers for table
     header cells(TH).
 
     Retrieve the align attribute from the second TH element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14342,7 +14345,7 @@ HTMLTableCellElement07 : function () {
       var testNode;
       var vaxis;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14354,15 +14357,15 @@ testNode = nodeList.item(1);
       vaxis = testNode.axis;
 
       assertEquals("axisLink","center",vaxis);
-       
+
 },
 /**
-* 
+*
     The axis attribute specifies the names group of related headers for table
     data cells(TD).
 
     Retrieve the axis attribute from the second TD element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14375,7 +14378,7 @@ HTMLTableCellElement08 : function () {
       var testNode;
       var vaxis;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14387,15 +14390,15 @@ testNode = nodeList.item(1);
       vaxis = testNode.axis;
 
       assertEquals("axisLink","center",vaxis);
-       
+
 },
 /**
-* 
-    The bgColor attribute specifies the cells background color for 
+*
+    The bgColor attribute specifies the cells background color for
     table header cells(TH).
 
     Retrieve the bgColor attribute from the second TH element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14408,7 +14411,7 @@ HTMLTableCellElement09 : function () {
       var testNode;
       var vbgcolor;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14420,15 +14423,15 @@ testNode = nodeList.item(1);
       vbgcolor = testNode.bgColor;
 
       assertEquals("bgColorLink","#00FFFF".toLowerCase(),vbgcolor.toLowerCase());
-       
+
 },
 /**
-* 
+*
     The bgColor attribute specifies the cells background color for table
     data cells(TD).
 
     Retrieve the bgColor attribute from the second TD element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14441,7 +14444,7 @@ HTMLTableCellElement10 : function () {
       var testNode;
       var vbgcolor;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14453,15 +14456,15 @@ testNode = nodeList.item(1);
       vbgcolor = testNode.bgColor;
 
       assertEquals("bgColorLink","#FF0000".toLowerCase(),vbgcolor.toLowerCase());
-       
+
 },
 /**
-* 
-    The char attribute specifies the alignment character for cells in a column  
+*
+    The char attribute specifies the alignment character for cells in a column
     of table header cells(TH).
 
     Retrieve the char attribute from the second TH element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14474,7 +14477,7 @@ HTMLTableCellElement11 : function () {
       var testNode;
       var vch;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14486,15 +14489,15 @@ testNode = nodeList.item(1);
       vch = testNode.ch;
 
       assertEquals("chLink",":",vch);
-       
+
 },
 /**
-* 
+*
     The char attribute specifies the alignment character for cells in a column
     of table data cells(TD).
 
     Retrieve the char attribute from the second TD element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14507,7 +14510,7 @@ HTMLTableCellElement12 : function () {
       var testNode;
       var vch;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14519,15 +14522,15 @@ testNode = nodeList.item(1);
       vch = testNode.ch;
 
       assertEquals("chLink",":",vch);
-       
+
 },
 /**
-* 
-    The charoff attribute specifies the offset of alignment characacter  
+*
+    The charoff attribute specifies the offset of alignment characacter
     of table header cells(TH).
 
     Retrieve the charoff attribute from the second TH element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14540,7 +14543,7 @@ HTMLTableCellElement13 : function () {
       var testNode;
       var vcharoff;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14552,15 +14555,15 @@ testNode = nodeList.item(1);
       vcharoff = testNode.chOff;
 
       assertEquals("chOffLink","1",vcharoff);
-       
+
 },
 /**
-* 
-    The charoff attribute specifies the offset of alignment character 
+*
+    The charoff attribute specifies the offset of alignment character
     of table data cells(TD).
 
     Retrieve the charoff attribute from the second TD element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14573,7 +14576,7 @@ HTMLTableCellElement14 : function () {
       var testNode;
       var vcharoff;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14585,15 +14588,15 @@ testNode = nodeList.item(1);
       vcharoff = testNode.chOff;
 
       assertEquals("chOffLink","1",vcharoff);
-       
+
 },
 /**
-* 
+*
     The colSpan attribute specifies the number of columns spanned by a table
-    header(TH) cell. 
+    header(TH) cell.
 
     Retrieve the colspan attribute of the second TH element and examine its
-    value.  
+    value.
 
 * @author NIST
 * @author Mary Brady
@@ -14606,7 +14609,7 @@ HTMLTableCellElement15 : function () {
       var testNode;
       var vcolspan;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14618,15 +14621,15 @@ testNode = nodeList.item(1);
       vcolspan = testNode.colSpan;
 
       assertEquals("colSpanLink",1,vcolspan);
-       
+
 },
 /**
-* 
-    The colSpan attribute specifies the number of columns spanned by a    
+*
+    The colSpan attribute specifies the number of columns spanned by a
     table data(TD) cell.
 
     Retrieve the colSpan attribute of the second TD element and examine its
-    value.  
+    value.
 
 * @author NIST
 * @author Mary Brady
@@ -14639,7 +14642,7 @@ HTMLTableCellElement16 : function () {
       var testNode;
       var vcolspan;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14651,15 +14654,15 @@ testNode = nodeList.item(1);
       vcolspan = testNode.colSpan;
 
       assertEquals("colSpanLink",1,vcolspan);
-       
+
 },
 /**
-* 
-    The headers attribute specifies a list of id attribute values for          
+*
+    The headers attribute specifies a list of id attribute values for
     table header cells(TH).
 
     Retrieve the headers attribute from the second TH element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14672,7 +14675,7 @@ HTMLTableCellElement17 : function () {
       var testNode;
       var vheaders;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14684,15 +14687,15 @@ testNode = nodeList.item(1);
       vheaders = testNode.headers;
 
       assertEquals("headersLink","header-1",vheaders);
-       
+
 },
 /**
-* 
-    The headers attribute specifies a list of id attribute values for 
+*
+    The headers attribute specifies a list of id attribute values for
     table data cells(TD).
 
     Retrieve the headers attribute from the second TD element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14705,7 +14708,7 @@ HTMLTableCellElement18 : function () {
       var testNode;
       var vheaders;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14717,14 +14720,14 @@ testNode = nodeList.item(1);
       vheaders = testNode.headers;
 
       assertEquals("headersLink","header-3",vheaders);
-       
+
 },
 /**
-* 
+*
     The height attribute specifies the cell height.
 
     Retrieve the height attribute from the second TH element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14737,7 +14740,7 @@ HTMLTableCellElement19 : function () {
       var testNode;
       var vheight;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14749,14 +14752,14 @@ testNode = nodeList.item(1);
       vheight = testNode.height;
 
       assertEquals("heightLink","50",vheight);
-       
+
 },
 /**
-* 
-    The height attribute specifies the cell height.                  
+*
+    The height attribute specifies the cell height.
 
     Retrieve the height attribute from the second TD element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14769,7 +14772,7 @@ HTMLTableCellElement20 : function () {
       var testNode;
       var vheight;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14781,14 +14784,14 @@ testNode = nodeList.item(1);
       vheight = testNode.height;
 
       assertEquals("heightLink","50",vheight);
-       
+
 },
 /**
-* 
-    The noWrap attribute supresses word wrapping.                    
+*
+    The noWrap attribute supresses word wrapping.
 
     Retrieve the noWrap attribute of the second TH Element and
-    examine its value.  
+    examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14801,7 +14804,7 @@ HTMLTableCellElement21 : function () {
       var testNode;
       var vnowrap;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14816,11 +14819,11 @@ testNode = nodeList.item(1);
 
 },
 /**
-* 
-    The noWrap attribute supresses word wrapping.                    
+*
+    The noWrap attribute supresses word wrapping.
 
     Retrieve the noWrap attribute of the second TD Element and
-    examine its value.  
+    examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14833,7 +14836,7 @@ HTMLTableCellElement22 : function () {
       var testNode;
       var vnowrap;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14848,12 +14851,12 @@ testNode = nodeList.item(1);
 
 },
 /**
-* 
+*
     The rowSpan attribute specifies the number of rows spanned by a table
-    header(TH) cell. 
+    header(TH) cell.
 
     Retrieve the rowSpan attribute of the second TH element and examine its
-    value.  
+    value.
 
 * @author NIST
 * @author Mary Brady
@@ -14866,7 +14869,7 @@ HTMLTableCellElement23 : function () {
       var testNode;
       var vrowspan;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14878,15 +14881,15 @@ testNode = nodeList.item(1);
       vrowspan = testNode.rowSpan;
 
       assertEquals("rowSpanLink",1,vrowspan);
-       
+
 },
 /**
-* 
-    The rowSpan attribute specifies the number of rows spanned by a    
+*
+    The rowSpan attribute specifies the number of rows spanned by a
     table data(TD) cell.
 
     Retrieve the rowSpan attribute of the second TD element and examine its
-    value.  
+    value.
 
 * @author NIST
 * @author Mary Brady
@@ -14899,7 +14902,7 @@ HTMLTableCellElement24 : function () {
       var testNode;
       var vrowspan;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14911,14 +14914,14 @@ testNode = nodeList.item(1);
       vrowspan = testNode.rowSpan;
 
       assertEquals("rowSpanLink",1,vrowspan);
-       
+
 },
 /**
-* 
-    The scope attribute specifies the scope covered by header cells.         
+*
+    The scope attribute specifies the scope covered by header cells.
 
     Retrieve the scope attribute from the second TH element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14931,7 +14934,7 @@ HTMLTableCellElement25 : function () {
       var testNode;
       var vscope;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14943,14 +14946,14 @@ testNode = nodeList.item(1);
       vscope = testNode.scope;
 
       assertEquals("scopeLink","col",vscope);
-       
+
 },
 /**
-* 
-    The scope attribute specifies the scope covered by data cells.  
+*
+    The scope attribute specifies the scope covered by data cells.
 
     Retrieve the scope attribute from the second TD element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14963,7 +14966,7 @@ HTMLTableCellElement26 : function () {
       var testNode;
       var vscope;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -14975,14 +14978,14 @@ testNode = nodeList.item(1);
       vscope = testNode.scope;
 
       assertEquals("scopeLink","col",vscope);
-       
+
 },
 /**
-* 
-    The vAlign attribute specifies the vertical alignment of data in cell.    
+*
+    The vAlign attribute specifies the vertical alignment of data in cell.
 
     Retrieve the vAlign attribute from the second TH element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -14995,7 +14998,7 @@ HTMLTableCellElement27 : function () {
       var testNode;
       var vvalign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15007,14 +15010,14 @@ testNode = nodeList.item(1);
       vvalign = testNode.vAlign;
 
       assertEquals("vAlignLink","middle",vvalign);
-       
+
 },
 /**
-* 
+*
     The vAlign attribute specifies the vertical alignment of data in cell.
 
     Retrieve the vAlign attribute from the second TD element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -15027,7 +15030,7 @@ HTMLTableCellElement28 : function () {
       var testNode;
       var vvalign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15039,14 +15042,14 @@ testNode = nodeList.item(1);
       vvalign = testNode.vAlign;
 
       assertEquals("vAlignLink","middle",vvalign);
-       
+
 },
 /**
-* 
-    The width attribute specifies the cells width.         
+*
+    The width attribute specifies the cells width.
 
     Retrieve the width attribute from the second TH element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -15059,7 +15062,7 @@ HTMLTableCellElement29 : function () {
       var testNode;
       var vwidth;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15071,14 +15074,14 @@ testNode = nodeList.item(1);
       vwidth = testNode.width;
 
       assertEquals("widthLink","170",vwidth);
-       
+
 },
 /**
-* 
-    The width attribute specifies the cells width.  
+*
+    The width attribute specifies the cells width.
 
     Retrieve the width attribute from the second TD element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -15091,7 +15094,7 @@ HTMLTableCellElement30 : function () {
       var testNode;
       var vwidth;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15103,15 +15106,15 @@ testNode = nodeList.item(1);
       vwidth = testNode.width;
 
       assertEquals("widthLink","175",vwidth);
-       
+
 },
 /**
-* 
+*
     The align attribute specifies the horizontal alignment of cell data
     in column(COL).
 
     Retrieve the align attribute from the COL element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -15124,7 +15127,7 @@ HTMLTableColElement01 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15136,15 +15139,15 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
+*
     The align attribute specifies the horizontal alignment of cell data
     in column(COLGROUP).
 
     Retrieve the align attribute from the COLGROUP element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -15157,7 +15160,7 @@ HTMLTableColElement02 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15169,15 +15172,15 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
+*
     The char attribute specifies the alignment character for cells
     in a column(COL).
 
     Retrieve the char attribute from the COL element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -15190,7 +15193,7 @@ HTMLTableColElement03 : function () {
       var testNode;
       var vch;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15202,15 +15205,15 @@ testNode = nodeList.item(0);
       vch = testNode.ch;
 
       assertEquals("chLink","*",vch);
-       
+
 },
 /**
-* 
+*
     The char attribute specifies the alignment character for cells
     in a column(COLGROUP).
 
     Retrieve the char attribute from the COLGROUP element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -15223,7 +15226,7 @@ HTMLTableColElement04 : function () {
       var testNode;
       var vch;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15235,14 +15238,14 @@ testNode = nodeList.item(0);
       vch = testNode.ch;
 
       assertEquals("chLink","$",vch);
-       
+
 },
 /**
-* 
-    The charoff attribute specifies offset of alignment character(COL).   
+*
+    The charoff attribute specifies offset of alignment character(COL).
 
     Retrieve the charoff attribute from the COL element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -15255,7 +15258,7 @@ HTMLTableColElement05 : function () {
       var testNode;
       var vchoff;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15267,14 +15270,14 @@ testNode = nodeList.item(0);
       vchoff = testNode.chOff;
 
       assertEquals("chLink","20",vchoff);
-       
+
 },
 /**
-* 
-    The charoff attribute specifies offset of alignment character(COLGROUP).   
+*
+    The charoff attribute specifies offset of alignment character(COLGROUP).
 
     Retrieve the charoff attribute from the COLGROUP element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -15287,7 +15290,7 @@ HTMLTableColElement06 : function () {
       var testNode;
       var vchoff;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15299,15 +15302,15 @@ testNode = nodeList.item(0);
       vchoff = testNode.chOff;
 
       assertEquals("chLink","15",vchoff);
-       
+
 },
 /**
-* 
+*
     The span attribute indicates the number of columns in a group or affected
     by a grouping(COL).
 
     Retrieve the span attribute of the COL element and examine its
-    value.  
+    value.
 
 * @author NIST
 * @author Mary Brady
@@ -15320,7 +15323,7 @@ HTMLTableColElement07 : function () {
       var testNode;
       var vspan;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15332,15 +15335,15 @@ testNode = nodeList.item(0);
       vspan = testNode.span;
 
       assertEquals("spanLink",1,vspan);
-       
+
 },
 /**
-* 
+*
     The span attribute indicates the number of columns in a group or affected
     by a grouping(COLGROUP).
 
     Retrieve the span attribute of the COLGROUP element and examine its
-    value.  
+    value.
 
 * @author NIST
 * @author Mary Brady
@@ -15353,7 +15356,7 @@ HTMLTableColElement08 : function () {
       var testNode;
       var vspan;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15365,15 +15368,15 @@ testNode = nodeList.item(0);
       vspan = testNode.span;
 
       assertEquals("spanLink",2,vspan);
-       
+
 },
 /**
-* 
+*
     The vAlign attribute specifies the vertical alignment of cell data
     in column(COL).
 
     Retrieve the vAlign attribute from the COL element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -15386,7 +15389,7 @@ HTMLTableColElement09 : function () {
       var testNode;
       var vvalign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15398,15 +15401,15 @@ testNode = nodeList.item(0);
       vvalign = testNode.vAlign;
 
       assertEquals("vAlignLink","middle",vvalign);
-       
+
 },
 /**
-* 
+*
     The vAlign attribute specifies the vertical alignment of cell data
     in column(COLGROUP).
 
     Retrieve the vAlign attribute from the COLGROUP element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -15419,7 +15422,7 @@ HTMLTableColElement10 : function () {
       var testNode;
       var vvalign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15431,14 +15434,14 @@ testNode = nodeList.item(0);
       vvalign = testNode.vAlign;
 
       assertEquals("vAlignLink","middle",vvalign);
-       
+
 },
 /**
-* 
+*
     The width attribute specifies the default column width(COL).
 
     Retrieve the width attribute from the COL element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -15451,7 +15454,7 @@ HTMLTableColElement11 : function () {
       var testNode;
       var vwidth;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15463,14 +15466,14 @@ testNode = nodeList.item(0);
       vwidth = testNode.width;
 
       assertEquals("widthLink","20",vwidth);
-       
+
 },
 /**
-* 
+*
     The width attribute specifies the default column width(COLGORUP).
 
     Retrieve the width attribute from the COLGROUP element and examine
-    its value. 
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -15483,7 +15486,7 @@ HTMLTableColElement12 : function () {
       var testNode;
       var vwidth;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15495,10 +15498,10 @@ testNode = nodeList.item(0);
       vwidth = testNode.width;
 
       assertEquals("widthLink","20",vwidth);
-       
+
 },
 /**
-* 
+*
     The caption attribute returns the tables CAPTION.
 
     Retrieve the align attribute of the CAPTION element from the second
@@ -15516,7 +15519,7 @@ HTMLTableElement01 : function () {
       var vcaption;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15530,14 +15533,14 @@ testNode = nodeList.item(1);
       valign = vcaption.align;
 
       assertEquals("alignLink","top",valign);
-       
+
 },
 /**
-* 
+*
     The caption attribute returns the tables CAPTION or void if it does not
     exist.
 
-    Retrieve the CAPTION element from within the first TABLE element.  
+    Retrieve the CAPTION element from within the first TABLE element.
     Since one does not exist it should be void.
 
 * @author NIST
@@ -15551,7 +15554,7 @@ HTMLTableElement02 : function () {
       var testNode;
       var vcaption;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15563,10 +15566,10 @@ testNode = nodeList.item(0);
       vcaption = testNode.caption;
 
       assertNull("captionLink",vcaption);
-    
+
 },
 /**
-* 
+*
     The tHead attribute returns the tables THEAD.
 
     Retrieve the align attribute of the THEAD element from the second
@@ -15584,7 +15587,7 @@ HTMLTableElement03 : function () {
       var vsection;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15598,14 +15601,14 @@ testNode = nodeList.item(1);
       valign = vsection.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
+*
     The tHead attribute returns the tables THEAD or null if it does not
     exist.
 
-    Retrieve the THEAD element from within the first TABLE element.  
+    Retrieve the THEAD element from within the first TABLE element.
     Since one does not exist it should be null.
 
 * @author NIST
@@ -15619,7 +15622,7 @@ HTMLTableElement04 : function () {
       var testNode;
       var vsection;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15631,10 +15634,10 @@ testNode = nodeList.item(0);
       vsection = testNode.tHead;
 
       assertNull("sectionLink",vsection);
-    
+
 },
 /**
-* 
+*
     The tFoot attribute returns the tables TFOOT.
 
     Retrieve the align attribute of the TFOOT element from the second
@@ -15652,7 +15655,7 @@ HTMLTableElement05 : function () {
       var vsection;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15666,14 +15669,14 @@ testNode = nodeList.item(1);
       valign = vsection.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
+*
     The tFoot attribute returns the tables TFOOT or null if it does not
     exist.
 
-    Retrieve the TFOOT element from within the first TABLE element.  
+    Retrieve the TFOOT element from within the first TABLE element.
     Since one does not exist it should be null.
 
 * @author NIST
@@ -15687,7 +15690,7 @@ HTMLTableElement06 : function () {
       var testNode;
       var vsection;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15699,15 +15702,15 @@ testNode = nodeList.item(0);
       vsection = testNode.tFoot;
 
       assertNull("sectionLink",vsection);
-    
+
 },
 /**
-* 
+*
     The rows attribute returns a collection of all the rows in the table,
     including al in THEAD, TFOOT, all TBODY elements.
 
     Retrieve the rows attribute from the second TABLE element and
-    examine the items of the returned collection. 
+    examine the items of the returned collection.
 
 * @author NIST
 * @author Mary Brady
@@ -15730,7 +15733,7 @@ HTMLTableElement07 : function () {
       expectedOptions[2] = "tr";
       expectedOptions[3] = "tr";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15749,15 +15752,16 @@ testNode = nodeList.item(1);
 
 	}
    assertEqualsListAutoCase("element", "rowsLink",expectedOptions,result);
-       
+
 },
 /**
-* 
-    The tBodies attribute returns a collection of all the defined 
+*
+    The tBodies attribute returns a collection of all the defined
+
     table bodies.
 
     Retrieve the tBodies attribute from the second TABLE element and
-    examine the items of the returned collection. 
+    examine the items of the returned collection.
 
 * @author NIST
 * @author Mary Brady
@@ -15777,7 +15781,7 @@ HTMLTableElement08 : function () {
       expectedOptions = new Array();
       expectedOptions[0] = "tbody";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15796,16 +15800,16 @@ testNode = nodeList.item(1);
 
 	}
    assertEqualsListAutoCase("element", "tbodiesLink",expectedOptions,result);
-       
+
 },
 /**
-* 
-    The tBodies attribute returns a collection of all the defined 
+*
+    The tBodies attribute returns a collection of all the defined
     table bodies.
 
     Retrieve the tBodies attribute from the third TABLE element and
     examine the items of the returned collection. Tests multiple TBODY
-    elements. 
+    elements.
 
 * @author NIST
 * @author Mary Brady
@@ -15827,7 +15831,7 @@ HTMLTableElement09 : function () {
       expectedOptions[1] = "tbody";
       expectedOptions[2] = "tbody";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15846,15 +15850,15 @@ testNode = nodeList.item(2);
 
 	}
    assertEqualsListAutoCase("element", "tbodiesLink",expectedOptions,result);
-       
+
 },
 /**
-* 
+*
     The align attribute specifies the table's position with respect to the
-    rest of the document. 
+    rest of the document.
 
     Retrieve the align attribute of the first TABLE element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -15867,7 +15871,7 @@ HTMLTableElement10 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15879,14 +15883,14 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
+*
     The bgColor attribute specifies cell background color.
 
     Retrieve the bgColor attribute of the first TABLE element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -15899,7 +15903,7 @@ HTMLTableElement11 : function () {
       var testNode;
       var vbgcolor;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15911,14 +15915,14 @@ testNode = nodeList.item(1);
       vbgcolor = testNode.bgColor;
 
       assertEquals("bgColorLink","#ff0000",vbgcolor);
-       
+
 },
 /**
-* 
+*
     The border attribute specifies the width of the border around the table.
 
     Retrieve the border attribute of the first TABLE element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -15931,7 +15935,7 @@ HTMLTableElement12 : function () {
       var testNode;
       var vborder;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15943,15 +15947,15 @@ testNode = nodeList.item(1);
       vborder = testNode.border;
 
       assertEquals("borderLink","4",vborder);
-       
+
 },
 /**
-* 
+*
     The cellpadding attribute specifies the horizontal and vertical space
     between cell content and cell borders.
 
     Retrieve the cellpadding attribute of the first TABLE element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -15964,7 +15968,7 @@ HTMLTableElement13 : function () {
       var testNode;
       var vcellpadding;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -15976,15 +15980,15 @@ testNode = nodeList.item(1);
       vcellpadding = testNode.cellPadding;
 
       assertEquals("cellPaddingLink","2",vcellpadding);
-       
+
 },
 /**
-* 
+*
     The cellSpacing attribute specifies the horizontal and vertical separation
-    between cells.        
+    between cells.
 
     Retrieve the cellSpacing attribute of the first TABLE element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -15997,7 +16001,7 @@ HTMLTableElement14 : function () {
       var testNode;
       var cellSpacing;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16009,14 +16013,14 @@ testNode = nodeList.item(1);
       cellSpacing = testNode.cellSpacing;
 
       assertEquals("cellSpacingLink","2",cellSpacing);
-       
+
 },
 /**
-* 
-    The frame attribute specifies which external table borders to render.  
+*
+    The frame attribute specifies which external table borders to render.
 
     Retrieve the frame attribute of the first TABLE element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -16029,7 +16033,7 @@ HTMLTableElement15 : function () {
       var testNode;
       var vframe;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16041,14 +16045,14 @@ testNode = nodeList.item(1);
       vframe = testNode.frame;
 
       assertEquals("frameLink","border",vframe);
-       
+
 },
 /**
-* 
-    The rules attribute specifies which internal table borders to render. 
+*
+    The rules attribute specifies which internal table borders to render.
 
     Retrieve the rules attribute of the first TABLE element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -16061,7 +16065,7 @@ HTMLTableElement16 : function () {
       var testNode;
       var vrules;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16073,15 +16077,15 @@ testNode = nodeList.item(1);
       vrules = testNode.rules;
 
       assertEquals("rulesLink","all",vrules);
-       
+
 },
 /**
-* 
-    The summary attribute is a description about the purpose or structure   
-    of a table.    
+*
+    The summary attribute is a description about the purpose or structure
+    of a table.
 
     Retrieve the summary attribute of the first TABLE element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -16094,7 +16098,7 @@ HTMLTableElement17 : function () {
       var testNode;
       var vsummary;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16106,14 +16110,14 @@ testNode = nodeList.item(1);
       vsummary = testNode.summary;
 
       assertEquals("summaryLink","HTML Control Table",vsummary);
-       
+
 },
 /**
-* 
+*
     The width attribute specifies the desired table width.
 
     Retrieve the width attribute of the first TABLE element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -16126,7 +16130,7 @@ HTMLTableElement18 : function () {
       var testNode;
       var vwidth;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16138,10 +16142,10 @@ testNode = nodeList.item(1);
       vwidth = testNode.width;
 
       assertEquals("widthLink","680",vwidth);
-       
+
 },
 /**
-* 
+*
     The createTHead() method creates a table header row or returns
     an existing one.
 
@@ -16163,7 +16167,7 @@ HTMLTableElement19 : function () {
       var vsection2;
       var newHead;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16182,14 +16186,14 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The createTHead() method creates a table header row or returns
     an existing one.
 
-    Try to create a new THEAD element on the second TABLE element.  
+    Try to create a new THEAD element on the second TABLE element.
     Since a THEAD element already exists in the TABLE element a new
     THEAD element is not created and information from the already
-    existing THEAD element is returned.  
+    existing THEAD element is returned.
 
 * @author NIST
 * @author Rick Rivello
@@ -16204,7 +16208,7 @@ HTMLTableElement20 : function () {
       var newHead;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16219,11 +16223,11 @@ testNode = nodeList.item(1);
       valign = vsection.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
-    The deleteTHead() method deletes the header from the table. 
+*
+    The deleteTHead() method deletes the header from the table.
 
     The deleteTHead() method will delete the THEAD Element from the
     second TABLE element.  First make sure that the THEAD element exists
@@ -16250,7 +16254,7 @@ HTMLTableElement21 : function () {
       expectedResult[0] = 4;
       expectedResult[1] = 3;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16276,10 +16280,10 @@ testNode.deleteTHead();
 
       result[result.length] = vrows;
 assertEqualsList("rowsLink",expectedResult,result);
-       
+
 },
 /**
-* 
+*
     The createTFoot() method creates a table footer row or returns
     an existing one.
 
@@ -16301,7 +16305,7 @@ HTMLTableElement22 : function () {
       var vsection2;
       var newFoot;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16320,14 +16324,14 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The createTFoot() method creates a table footer row or returns
     an existing one.
 
-    Try to create a new TFOOT element on the second TABLE element.  
+    Try to create a new TFOOT element on the second TABLE element.
     Since a TFOOT element already exists in the TABLE element a new
     TFOOT element is not created and information from the already
-    existing TFOOT element is returned.  
+    existing TFOOT element is returned.
 
 * @author NIST
 * @author Rick Rivello
@@ -16342,7 +16346,7 @@ HTMLTableElement23 : function () {
       var newFoot;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16357,11 +16361,11 @@ testNode = nodeList.item(1);
       valign = vsection.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
-    The deleteTFoot() method deletes the footer from the table. 
+*
+    The deleteTFoot() method deletes the footer from the table.
 
     The deleteTFoot() method will delete the TFOOT Element from the
     second TABLE element.  First make sure that the TFOOT element exists
@@ -16388,7 +16392,7 @@ HTMLTableElement24 : function () {
       expectedResult[0] = 4;
       expectedResult[1] = 3;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16414,15 +16418,15 @@ testNode.deleteTFoot();
 
       result[result.length] = vrows;
 assertEqualsList("rowsLink",expectedResult,result);
-       
+
 },
 /**
-* 
+*
     The createCaption() method creates a new table caption object or returns
     an existing one.
 
     Create a new CAPTION element on the first TABLE element.  Since
-    one does not currently exist the CAPTION element is created.  
+    one does not currently exist the CAPTION element is created.
 
 * @author NIST
 * @author Rick Rivello
@@ -16437,7 +16441,7 @@ HTMLTableElement25 : function () {
       var vsection2;
       var newCaption;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16456,7 +16460,7 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The createCaption() method creates a new table caption object or returns
     an existing one.
 
@@ -16478,7 +16482,7 @@ HTMLTableElement26 : function () {
       var newCaption;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16496,13 +16500,13 @@ newCaption = testNode.createCaption();
       valign = vcaption.align;
 
       assertEquals("alignLink","top",valign);
-       
+
 },
 /**
-* 
+*
     The deleteCaption() method deletes the table caption.
 
-    Delete the CAPTION element on the second TABLE element.  
+    Delete the CAPTION element on the second TABLE element.
 
 * @author NIST
 * @author Rick Rivello
@@ -16517,7 +16521,7 @@ HTMLTableElement27 : function () {
       var vsection2;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16533,16 +16537,16 @@ testNode.deleteCaption();
       vsection2 = testNode.caption;
 
       assertNull("vsection2Id",vsection2);
-    
+
 },
 /**
-* 
+*
     The insertRow() method inserts a new empty table row.
-    
+
     Retrieve the second TABLE element and invoke the insertRow() method
     with an index of 0. Currently the zero indexed row is in the THEAD
     section of the TABLE.  The number of rows in the THEAD section before
-    insertion of the new row is one.  After the new row is inserted the number 
+    insertion of the new row is one.  After the new row is inserted the number
     of rows in the THEAD section is two.
 
 * @author NIST
@@ -16560,7 +16564,7 @@ HTMLTableElement28 : function () {
       var vsection2;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16584,16 +16588,16 @@ testNode = nodeList.item(1);
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink2",2,vrows);
-       
+
 },
 /**
-* 
-    The insertRow() method inserts a new empty table row. 
-    
+*
+    The insertRow() method inserts a new empty table row.
+
     Retrieve the second TABLE element and invoke the insertRow() method
     with an index of two. Currently the 2nd indexed row is in the TBODY
     section of the TABLE.  The number of rows in the TBODY section before
-    insertion of the new row is two.  After the new row is inserted the number 
+    insertion of the new row is two.  After the new row is inserted the number
     of rows in the TBODY section is three.
 
 * @author NIST
@@ -16613,7 +16617,7 @@ HTMLTableElement29 : function () {
       var vsection2;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16639,17 +16643,17 @@ testNode = nodeList.item(1);
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink2",3,vrows);
-       
+
 },
 /**
-* 
-    The insertRow() method inserts a new empty table row.  
-    
+*
+    The insertRow() method inserts a new empty table row.
+
     Retrieve the second TABLE element and invoke the insertRow() method
     with an index of four. After the new row is inserted the number of rows
     in the table should be five.
     Also the number of rows in the TFOOT section before
-    insertion of the new row is one.  After the new row is inserted the number 
+    insertion of the new row is one.  After the new row is inserted the number
     of rows in the TFOOT section is two.
 
 * @author NIST
@@ -16667,7 +16671,7 @@ HTMLTableElement30 : function () {
       var vsection1;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16701,14 +16705,14 @@ testNode = nodeList.item(1);
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink3",2,vrows);
-       
+
 },
 /**
-* 
+*
     The insertRow() method inserts a new empty table row.  In addition, when
     the table is empty the row is inserted into a TBODY which is created
     and inserted into the table.
-    
+
     Load the table1 file which has a non-empty table element.
     Create an empty TABLE element and append to the document.
     Check to make sure that the empty TABLE element doesn't
@@ -16733,7 +16737,7 @@ HTMLTableElement31 : function () {
       var doc;
       var table;
       var tbodiesLength;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16757,14 +16761,14 @@ tbodiesnodeList = tableNode.tBodies;
       tbodiesLength = tbodiesnodeList.length;
 
       assertEquals("Asize4",1,tbodiesLength);
-       
+
 },
 /**
-* 
-    The deleteRow() method deletes a table row.  
-    
+*
+    The deleteRow() method deletes a table row.
+
     Retrieve the second TABLE element and invoke the deleteRow() method
-    with an index of 0(first row). Currently there are four rows in the 
+    with an index of 0(first row). Currently there are four rows in the
     table.  After the deleteRow() method is called there should be
     three rows in the table.
 
@@ -16780,7 +16784,7 @@ HTMLTableElement32 : function () {
       var rowsnodeList;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16800,14 +16804,14 @@ testNode = nodeList.item(1);
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink2",3,vrows);
-       
+
 },
 /**
-* 
-    The deleteRow() method deletes a table row.  
-    
+*
+    The deleteRow() method deletes a table row.
+
     Retrieve the second TABLE element and invoke the deleteRow() method
-    with an index of 3(last row). Currently there are four rows in the  
+    with an index of 3(last row). Currently there are four rows in the
     table.  The deleteRow() method is called and now there should be three.
 
 * @author NIST
@@ -16822,7 +16826,7 @@ HTMLTableElement33 : function () {
       var rowsnodeList;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16842,13 +16846,13 @@ testNode = nodeList.item(1);
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink2",3,vrows);
-       
+
 },
 /**
-* 
+*
     The insertRow() method throws a INDEX_SIZE_ERR DOMException
-    if the specified index is greater than the number of rows. 
- 
+    if the specified index is greater than the number of rows.
+
     Retrieve the second TABLE element which has four rows.  Try
     to insert a new row using an index of five.  This should throw
     a INDEX_SIZE_ERR DOMException since there are only four rows.
@@ -16865,7 +16869,7 @@ HTMLTableElement34 : function () {
       var testNode;
       var newRow;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16874,7 +16878,7 @@ HTMLTableElement34 : function () {
       nodeList = doc.getElementsByTagName("table");
       assertSize("Asize",3,nodeList);
 testNode = nodeList.item(1);
-      
+
 	{
 		success = false;
 		try {
@@ -16889,13 +16893,13 @@ testNode = nodeList.item(1);
 },
 
 /**
-* 
+*
     The insertRow() method throws a INDEX_SIZE_ERR DOMException
-    if the specified index is negative. 
- 
+    if the specified index is negative.
+
     Retrieve the second TABLE element which has four rows.  Try
     to insert a new row using an index of negative five.  This should throw
-    a INDEX_SIZE_ERR DOMException since the index is negative.   
+    a INDEX_SIZE_ERR DOMException since the index is negative.
 
 * @author NIST
 * @author Rick Rivello
@@ -16909,7 +16913,7 @@ HTMLTableElement35 : function () {
       var testNode;
       var newRow;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16918,7 +16922,7 @@ HTMLTableElement35 : function () {
       nodeList = doc.getElementsByTagName("table");
       assertSize("Asize",3,nodeList);
 testNode = nodeList.item(1);
-      
+
 	{
 		success = false;
 		try {
@@ -16932,10 +16936,10 @@ testNode = nodeList.item(1);
 
 },
 /**
-* 
+*
     The deleteRow() method throws a INDEX_SIZE_ERR DOMException
-    if the specified index is greater than the number of rows. 
- 
+    if the specified index is greater than the number of rows.
+
     Retrieve the second TABLE element which has four rows.  Try
     to delete a new row using an index of five.  This should throw
     a INDEX_SIZE_ERR DOMException since there are only four rows.
@@ -16951,7 +16955,7 @@ HTMLTableElement36 : function () {
     var nodeList;
       var testNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -16960,7 +16964,7 @@ HTMLTableElement36 : function () {
       nodeList = doc.getElementsByTagName("table");
       assertSize("Asize",3,nodeList);
 testNode = nodeList.item(1);
-      
+
 	{
 		success = false;
 		try {
@@ -16974,10 +16978,10 @@ testNode = nodeList.item(1);
 
 },
 /**
-* 
+*
     The deleteRow() method throws a INDEX_SIZE_ERR DOMException
-    if the specified index is equal the number of rows. 
- 
+    if the specified index is equal the number of rows.
+
     Retrieve the second TABLE element which has four rows.  Try
     to delete a new row using an index of four.  This should throw
     a INDEX_SIZE_ERR DOMException since the index is equal to the
@@ -16994,7 +16998,7 @@ HTMLTableElement37 : function () {
     var nodeList;
       var testNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17003,7 +17007,7 @@ HTMLTableElement37 : function () {
       nodeList = doc.getElementsByTagName("table");
       assertSize("Asize",3,nodeList);
 testNode = nodeList.item(1);
-      
+
 	{
 		success = false;
 		try {
@@ -17017,13 +17021,13 @@ testNode = nodeList.item(1);
 
 },
 /**
-* 
+*
     The deleteRow() method throws a INDEX_SIZE_ERR DOMException
-    if the specified index is negative. 
- 
+    if the specified index is negative.
+
     Retrieve the second TABLE element which has four rows.  Try
     to delete a new row using an index of negative five.  This should throw
-    a INDEX_SIZE_ERR DOMException since the index is negative.   
+    a INDEX_SIZE_ERR DOMException since the index is negative.
 
 * @author NIST
 * @author Rick Rivello
@@ -17036,7 +17040,7 @@ HTMLTableElement38 : function () {
     var nodeList;
       var testNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17045,7 +17049,7 @@ HTMLTableElement38 : function () {
       nodeList = doc.getElementsByTagName("table");
       assertSize("Asize",3,nodeList);
 testNode = nodeList.item(1);
-      
+
 	{
 		success = false;
 		try {
@@ -17059,15 +17063,15 @@ testNode = nodeList.item(1);
 
 },
 /**
-* 
-    The insertRow() method inserts a new empty table row. 
+*
+    The insertRow() method inserts a new empty table row.
     If index is -1 or equal to the number of rows, the new row
     is appended.
-    
+
     Retrieve the second TABLE element and invoke the insertRow() method
-    with an index of negative one.   
+    with an index of negative one.
     The number of rows in the TBODY section before insertion with an index
-    of negative one is two.  After the new row is inserted the number 
+    of negative one is two.  After the new row is inserted the number
     of rows in the TBODY section is three.
 
 * @author NIST
@@ -17087,7 +17091,7 @@ HTMLTableElement39 : function () {
       var vsection2;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17113,15 +17117,15 @@ testNode = nodeList.item(1);
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink2",3,vrows);
-       
+
 },
 /**
-* 
+*
     The deleteRow() method deletes a table row.  If the index is -1
-    the last row of the table is deleted. 
-    
+    the last row of the table is deleted.
+
     Retrieve the second TABLE element and invoke the deleteRow() method
-    with an index of negative one. Currently there are four rows in the  
+    with an index of negative one. Currently there are four rows in the
     table.  The deleteRow() method is called and now there should be three.
 
 * @author NIST
@@ -17136,7 +17140,7 @@ HTMLTableElement40 : function () {
       var rowsnodeList;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17150,23 +17154,24 @@ testNode = nodeList.item(1);
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink1",4,vrows);
+
        testNode.deleteRow(-1);
       rowsnodeList = testNode.rows;
 
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink2",3,vrows);
-       
+
 },
 /**
-* 
-    The rowIndex attribute specifies the index of the row, relative to the   
+*
+    The rowIndex attribute specifies the index of the row, relative to the
     entire table, starting from 0.  This is in document tree order and
     not display order.  The rowIndex does not take into account sections
     (THEAD, TFOOT, or TBODY) within the table.
 
-    Retrieve the third TR element within the document and examine 
-    its rowIndex value.  
+    Retrieve the third TR element within the document and examine
+    its rowIndex value.
 
 * @author NIST
 * @author Mary Brady
@@ -17179,7 +17184,7 @@ HTMLTableRowElement01 : function () {
       var testNode;
       var vrowindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17191,15 +17196,15 @@ testNode = nodeList.item(3);
       vrowindex = testNode.rowIndex;
 
       assertEquals("rowIndexLink",1,vrowindex);
-       
+
 },
 /**
-* 
-    The sectionRowIndex attribute specifies the index of this row, relative   
-    to the current section(THEAD, TFOOT, or TBODY),starting from 0. 
+*
+    The sectionRowIndex attribute specifies the index of this row, relative
+    to the current section(THEAD, TFOOT, or TBODY),starting from 0.
 
-    Retrieve the second TR(1st In THEAD) element within the document and 
-    examine its sectionRowIndex value.  
+    Retrieve the second TR(1st In THEAD) element within the document and
+    examine its sectionRowIndex value.
 
 * @author NIST
 * @author Mary Brady
@@ -17212,7 +17217,7 @@ HTMLTableRowElement02 : function () {
       var testNode;
       var vsectionrowindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17224,15 +17229,15 @@ testNode = nodeList.item(1);
       vsectionrowindex = testNode.sectionRowIndex;
 
       assertEquals("sectionRowIndexLink",0,vsectionrowindex);
-       
+
 },
 /**
-* 
-    The sectionRowIndex attribute specifies the index of this row, relative   
-    to the current section(THEAD, TFOOT, or TBODY),starting from 0. 
+*
+    The sectionRowIndex attribute specifies the index of this row, relative
+    to the current section(THEAD, TFOOT, or TBODY),starting from 0.
 
-    Retrieve the third TR(1st In TFOOT) element within the document and 
-    examine its sectionRowIndex value.  
+    Retrieve the third TR(1st In TFOOT) element within the document and
+    examine its sectionRowIndex value.
 
 * @author NIST
 * @author Mary Brady
@@ -17245,7 +17250,7 @@ HTMLTableRowElement03 : function () {
       var testNode;
       var vsectionrowindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17257,15 +17262,15 @@ testNode = nodeList.item(2);
       vsectionrowindex = testNode.sectionRowIndex;
 
       assertEquals("sectionRowIndexLink",0,vsectionrowindex);
-       
+
 },
 /**
-* 
-    The sectionRowIndex attribute specifies the index of this row, relative   
-    to the current section(THEAD, TFOOT, or TBODY),starting from 0. 
+*
+    The sectionRowIndex attribute specifies the index of this row, relative
+    to the current section(THEAD, TFOOT, or TBODY),starting from 0.
 
-    Retrieve the fifth TR(2nd In TBODY) element within the document and 
-    examine its sectionRowIndex value.  
+    Retrieve the fifth TR(2nd In TBODY) element within the document and
+    examine its sectionRowIndex value.
 
 * @author NIST
 * @author Mary Brady
@@ -17278,7 +17283,7 @@ HTMLTableRowElement04 : function () {
       var testNode;
       var vsectionrowindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17290,10 +17295,10 @@ testNode = nodeList.item(4);
       vsectionrowindex = testNode.sectionRowIndex;
 
       assertEquals("sectionRowIndexLink",1,vsectionrowindex);
-       
+
 },
 /**
-* 
+*
     The cells attribute specifies the collection of cells in this row.
 
     Retrieve the fourth TR element and examine the value of
@@ -17311,7 +17316,7 @@ HTMLTableRowElement05 : function () {
       var testNode;
       var vcells;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17325,15 +17330,15 @@ testNode = nodeList.item(3);
       vcells = cellsnodeList.length;
 
       assertEquals("cellsLink",6,vcells);
-       
+
 },
 /**
-* 
-    The align attribute specifies the horizontal alignment of data within 
-    cells of this row.    
+*
+    The align attribute specifies the horizontal alignment of data within
+    cells of this row.
 
     Retrieve the align attribute of the second TR element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -17346,7 +17351,7 @@ HTMLTableRowElement06 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17358,14 +17363,14 @@ testNode = nodeList.item(1);
       valign = testNode.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
-    The bgColor attribute specifies the background color of rows. 
+*
+    The bgColor attribute specifies the background color of rows.
 
     Retrieve the bgColor attribute of the second TR element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -17378,7 +17383,7 @@ HTMLTableRowElement07 : function () {
       var testNode;
       var vbgcolor;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17390,14 +17395,14 @@ testNode = nodeList.item(1);
       vbgcolor = testNode.bgColor;
 
       assertEquals("bgColorLink","#00FFFF".toLowerCase(),vbgcolor.toLowerCase());
-       
+
 },
 /**
-* 
+*
     The ch attribute specifies the alignment character for cells in a column.
 
     Retrieve the char attribute of the second TR element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -17410,7 +17415,7 @@ HTMLTableRowElement08 : function () {
       var testNode;
       var vch;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17422,14 +17427,14 @@ testNode = nodeList.item(1);
       vch = testNode.ch;
 
       assertEquals("chLink","*",vch);
-       
+
 },
 /**
-* 
-    The chOff attribute specifies the offset of alignment character. 
+*
+    The chOff attribute specifies the offset of alignment character.
 
     Retrieve the charoff attribute of the second TR element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -17442,7 +17447,7 @@ HTMLTableRowElement09 : function () {
       var testNode;
       var vchoff;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17454,15 +17459,15 @@ testNode = nodeList.item(1);
       vchoff = testNode.chOff;
 
       assertEquals("charOffLink","1",vchoff);
-       
+
 },
 /**
-* 
-    The vAlign attribute specifies the vertical alignment of data within 
-    cells of this row.    
+*
+    The vAlign attribute specifies the vertical alignment of data within
+    cells of this row.
 
     Retrieve the vAlign attribute of the second TR element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -17475,7 +17480,7 @@ HTMLTableRowElement10 : function () {
       var testNode;
       var vvalign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17487,15 +17492,15 @@ testNode = nodeList.item(1);
       vvalign = testNode.vAlign;
 
       assertEquals("vAlignLink","middle",vvalign);
-       
+
 },
 /**
-* 
-    The insertCell() method inserts an empty TD cell into this row. 
+*
+    The insertCell() method inserts an empty TD cell into this row.
 
-    
+
     Retrieve the fourth TR element and examine the value of
-    the cells length attribute which should be set to six.  
+    the cells length attribute which should be set to six.
     Check the value of the first TD element.  Invoke the
     insertCell() which will create an empty TD cell at the
     zero index position.  Check the value of the newly created
@@ -17518,7 +17523,7 @@ HTMLTableRowElement11 : function () {
       var newCell;
       var vcells;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17549,15 +17554,15 @@ testNode = nodeList.item(3);
       cellNode = trNode.firstChild;
 
       assertNull("value2Link",cellNode);
-    
+
 },
 /**
-* 
-    The insertCell() method inserts an empty TD cell into this row. 
+*
+    The insertCell() method inserts an empty TD cell into this row.
 
-    
+
     Retrieve the fourth TR element and examine the value of
-    the cells length attribute which should be set to six.  
+    the cells length attribute which should be set to six.
     Check the value of the last TD element.  Invoke the
     insertCell() which will append the empty cell to the end of the list.
     Check the value of the newly created cell and make sure it is null
@@ -17579,7 +17584,7 @@ HTMLTableRowElement12 : function () {
       var newCell;
       var vcells;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17610,19 +17615,19 @@ testNode = nodeList.item(3);
       cellNode = trNode.firstChild;
 
       assertNull("value2Link",cellNode);
-    
+
 },
 /**
-* 
-    The deleteCell() method deletes a cell from the current row.   
+*
+    The deleteCell() method deletes a cell from the current row.
 
-    
+
     Retrieve the fourth TR element and examine the value of
-    the cells length attribute which should be set to six.  
+    the cells length attribute which should be set to six.
     Check the value of the first TD element.  Invoke the
     deleteCell() method which will delete a cell from the current row.
     Check the value of the cell at the zero index and also check
-    the number of cells which should now be five. 
+    the number of cells which should now be five.
 
 * @author NIST
 * @author Rick Rivello
@@ -17639,7 +17644,7 @@ HTMLTableRowElement13 : function () {
       var value;
       var vcells;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17672,19 +17677,19 @@ testNode = nodeList.item(3);
       value = cellNode.nodeValue;
 
       assertEquals("value2Link","Margaret Martin",value);
-       
+
 },
 /**
-* 
-    The deleteCell() method deletes a cell from the current row.   
+*
+    The deleteCell() method deletes a cell from the current row.
 
-    
+
     Retrieve the fourth TR element and examine the value of
-    the cells length attribute which should be set to six.  
+    the cells length attribute which should be set to six.
     Check the value of the third(index 2) TD element.  Invoke the
     deleteCell() method which will delete a cell from the current row.
     Check the value of the third cell(index 2) and also check
-    the number of cells which should now be five. 
+    the number of cells which should now be five.
 
 * @author NIST
 * @author Rick Rivello
@@ -17701,7 +17706,7 @@ HTMLTableRowElement14 : function () {
       var value;
       var vcells;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17734,13 +17739,13 @@ testNode = nodeList.item(3);
       value = cellNode.nodeValue;
 
       assertEquals("value2Link","56,000",value);
-       
+
 },
 /**
-* 
+*
     The insertCell() method throws a INDEX_SIZE_ERR DOMException
-    if the specified index is greater than the number of cells. 
- 
+    if the specified index is greater than the number of cells.
+
     Retrieve the fourth TR element which has six cells.  Try
     to insert a cell using an index of seven.  This should throw
     a INDEX_SIZE_ERR DOMException since there are only six cells.
@@ -17757,7 +17762,7 @@ HTMLTableRowElement15 : function () {
       var testNode;
       var newCell;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17766,7 +17771,7 @@ HTMLTableRowElement15 : function () {
       nodeList = doc.getElementsByTagName("tr");
       assertSize("Asize",5,nodeList);
 testNode = nodeList.item(3);
-      
+
 	{
 		success = false;
 		try {
@@ -17780,13 +17785,13 @@ testNode = nodeList.item(3);
 
 },
 /**
-* 
+*
     The insertCell() method throws a INDEX_SIZE_ERR DOMException
-    if the specified index is negative. 
- 
+    if the specified index is negative.
+
     Retrieve the fourth TR element which has six cells.  Try
     to insert a cell using an index of negative seven.  This should throw
-    a INDEX_SIZE_ERR DOMException since the index is negative.   
+    a INDEX_SIZE_ERR DOMException since the index is negative.
 
 * @author NIST
 * @author Rick Rivello
@@ -17800,7 +17805,7 @@ HTMLTableRowElement16 : function () {
       var testNode;
       var newCell;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17809,7 +17814,7 @@ HTMLTableRowElement16 : function () {
       nodeList = doc.getElementsByTagName("tr");
       assertSize("Asize",5,nodeList);
 testNode = nodeList.item(3);
-      
+
 	{
 		success = false;
 		try {
@@ -17823,10 +17828,10 @@ testNode = nodeList.item(3);
 
 },
 /**
-* 
+*
     The deleteCell() method throws a INDEX_SIZE_ERR DOMException
-    if the specified index is greater than the number of cells. 
- 
+    if the specified index is greater than the number of cells.
+
     Retrieve the fourth TR element which has six cells.  Try
     to delete a cell using an index of seven.  This should throw
     a INDEX_SIZE_ERR DOMException since there are only six cells.
@@ -17842,7 +17847,7 @@ HTMLTableRowElement17 : function () {
     var nodeList;
       var testNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17851,7 +17856,7 @@ HTMLTableRowElement17 : function () {
       nodeList = doc.getElementsByTagName("tr");
       assertSize("Asize",5,nodeList);
 testNode = nodeList.item(3);
-      
+
 	{
 		success = false;
 		try {
@@ -17865,10 +17870,10 @@ testNode = nodeList.item(3);
 
 },
 /**
-* 
+*
     The deleteCell() method throws a INDEX_SIZE_ERR DOMException
-    if the specified index is equal to the number of cells. 
- 
+    if the specified index is equal to the number of cells.
+
     Retrieve the fourth TR element which has six cells.  Try
     to delete a cell using an index of six.  This should throw
     a INDEX_SIZE_ERR DOMException since there are only six cells.
@@ -17884,7 +17889,7 @@ HTMLTableRowElement18 : function () {
     var nodeList;
       var testNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17893,7 +17898,7 @@ HTMLTableRowElement18 : function () {
       nodeList = doc.getElementsByTagName("tr");
       assertSize("Asize",5,nodeList);
 testNode = nodeList.item(3);
-      
+
 	{
 		success = false;
 		try {
@@ -17907,10 +17912,10 @@ testNode = nodeList.item(3);
 
 },
 /**
-* 
+*
     The deleteCell() method throws a INDEX_SIZE_ERR DOMException
-    if the specified index is negative. 
- 
+    if the specified index is negative.
+
     Retrieve the fourth TR element which has six cells.  Try
     to delete a cell using an index of negative six.  This should throw
     a INDEX_SIZE_ERR DOMException since the index is negative.
@@ -17926,7 +17931,7 @@ HTMLTableRowElement19 : function () {
     var nodeList;
       var testNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -17935,7 +17940,7 @@ HTMLTableRowElement19 : function () {
       nodeList = doc.getElementsByTagName("tr");
       assertSize("Asize",5,nodeList);
 testNode = nodeList.item(3);
-      
+
 	{
 		success = false;
 		try {
@@ -17949,14 +17954,14 @@ testNode = nodeList.item(3);
 
 },
 /**
-* 
-    The insertCell() method inserts an empty TD cell into this row. 
+*
+    The insertCell() method inserts an empty TD cell into this row.
     If index is -1 or equal to the number of cells, the new cell is
     appended.
 
-    
+
     Retrieve the fourth TR element and examine the value of
-    the cells length attribute which should be set to six.  
+    the cells length attribute which should be set to six.
     Check the value of the last TD element.  Invoke the
     insertCell() with an index of negative one
     which will append the empty cell to the end of the list.
@@ -17979,7 +17984,7 @@ HTMLTableRowElement20 : function () {
       var newCell;
       var vcells;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18010,20 +18015,20 @@ testNode = nodeList.item(3);
       cellNode = trNode.firstChild;
 
       assertNull("value2Link",cellNode);
-    
+
 },
 /**
-* 
+*
     The deleteCell() method deletes a cell from the currtent row.  If
     the index is -1 the last cell in the row is deleted.
 
-    
+
     Retrieve the fourth TR element and examine the value of
-    the cells length attribute which should be set to six.  
+    the cells length attribute which should be set to six.
     Check the value of the last TD element.  Invoke the
     deleteCell() with an index of negative one
-    which will delete the last cell in the row. 
-    Check the value of the of the last cell 
+    which will delete the last cell in the row.
+    Check the value of the of the last cell
     and also the numbers of cells should now be five.
 
 * @author NIST
@@ -18041,7 +18046,7 @@ HTMLTableRowElement21 : function () {
       var value;
       var vcells;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18074,15 +18079,15 @@ testNode = nodeList.item(3);
       value = cellNode.nodeValue;
 
       assertEquals("value2Link","Female",value);
-       
+
 },
 /**
-* 
-    The align attribute specifies the horizontal alignment of data within 
-    cells.    
+*
+    The align attribute specifies the horizontal alignment of data within
+    cells.
 
     Retrieve the align attribute of the first THEAD element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -18095,7 +18100,7 @@ HTMLTableSectionElement01 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18107,15 +18112,15 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
-    The align attribute specifies the horizontal alignment of data within 
-    cells.    
+*
+    The align attribute specifies the horizontal alignment of data within
+    cells.
 
     Retrieve the align attribute of the first TFOOT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -18128,7 +18133,7 @@ HTMLTableSectionElement02 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18140,15 +18145,15 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
-    The align attribute specifies the horizontal alignment of data within 
-    cells.    
+*
+    The align attribute specifies the horizontal alignment of data within
+    cells.
 
     Retrieve the align attribute of the first TBODY element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -18161,7 +18166,7 @@ HTMLTableSectionElement03 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18173,15 +18178,15 @@ testNode = nodeList.item(1);
       valign = testNode.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
+*
     The ch attribute specifies the alignment character for cells in a
     column.
 
     Retrieve the char attribute of the first THEAD element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -18194,7 +18199,7 @@ HTMLTableSectionElement04 : function () {
       var testNode;
       var vch;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18206,15 +18211,15 @@ testNode = nodeList.item(0);
       vch = testNode.ch;
 
       assertEquals("chLink","*",vch);
-       
+
 },
 /**
-* 
+*
     The ch attribute specifies the alignment character for cells in a
     column.
 
     Retrieve the char attribute of the first TFOOT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -18227,7 +18232,7 @@ HTMLTableSectionElement05 : function () {
       var testNode;
       var vch;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18239,15 +18244,15 @@ testNode = nodeList.item(0);
       vch = testNode.ch;
 
       assertEquals("chLink","+",vch);
-       
+
 },
 /**
-* 
+*
     The ch attribute specifies the alignment character for cells in a
     column.
 
     Retrieve the char attribute of the first TBODY element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -18260,7 +18265,7 @@ HTMLTableSectionElement06 : function () {
       var testNode;
       var vch;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18272,14 +18277,14 @@ testNode = nodeList.item(1);
       vch = testNode.ch;
 
       assertEquals("chLink","$",vch);
-       
+
 },
 /**
-* 
+*
     The chOff attribute specifies the offset of alignment character.
 
     Retrieve the charoff attribute of the first THEAD element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -18292,7 +18297,7 @@ HTMLTableSectionElement07 : function () {
       var testNode;
       var vcharoff;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18304,14 +18309,14 @@ testNode = nodeList.item(0);
       vcharoff = testNode.chOff;
 
       assertEquals("chOffLink","1",vcharoff);
-       
+
 },
 /**
-* 
+*
     The chOff attribute specifies the offset of alignment character.
 
     Retrieve the charoff attribute of the first TFOOT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -18324,7 +18329,7 @@ HTMLTableSectionElement08 : function () {
       var testNode;
       var vcharoff;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18336,14 +18341,14 @@ testNode = nodeList.item(0);
       vcharoff = testNode.chOff;
 
       assertEquals("chOffLink","2",vcharoff);
-       
+
 },
 /**
-* 
+*
     The chOff attribute specifies the offset of alignment character.
 
     Retrieve the charoff attribute of the first TBODY element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -18356,7 +18361,7 @@ HTMLTableSectionElement09 : function () {
       var testNode;
       var vcharoff;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18368,15 +18373,15 @@ testNode = nodeList.item(1);
       vcharoff = testNode.chOff;
 
       assertEquals("chOffLink","3",vcharoff);
-       
+
 },
 /**
-* 
+*
     The vAlign attribute specifies the vertical alignment of cell data in
-    column. 
+    column.
 
     Retrieve the vAlign attribute of the first THEAD element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -18389,7 +18394,7 @@ HTMLTableSectionElement10 : function () {
       var testNode;
       var vvalign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18401,15 +18406,15 @@ testNode = nodeList.item(0);
       vvalign = testNode.vAlign;
 
       assertEquals("vAlignLink","middle",vvalign);
-       
+
 },
 /**
-* 
+*
     The vAlign attribute specifies the vertical alignment of cell data in
-    column. 
+    column.
 
     Retrieve the vAlign attribute of the first TFOOT element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -18422,7 +18427,7 @@ HTMLTableSectionElement11 : function () {
       var testNode;
       var vvalign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18434,15 +18439,15 @@ testNode = nodeList.item(0);
       vvalign = testNode.vAlign;
 
       assertEquals("vAlignLink","middle",vvalign);
-       
+
 },
 /**
-* 
+*
     The vAlign attribute specifies the vertical alignment of cell data in
-    column. 
+    column.
 
     Retrieve the vAlign attribute of the first TBODY element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -18455,7 +18460,7 @@ HTMLTableSectionElement12 : function () {
       var testNode;
       var vvalign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18467,11 +18472,11 @@ testNode = nodeList.item(1);
       vvalign = testNode.vAlign;
 
       assertEquals("vAlignLink","middle",vvalign);
-       
+
 },
 /**
-* 
-    The rows attribute specifies the collection of rows in this table section. 
+*
+    The rows attribute specifies the collection of rows in this table section.
 
     Retrieve the first THEAD element and examine the value of
     the rows length attribute.
@@ -18488,7 +18493,7 @@ HTMLTableSectionElement13 : function () {
       var testNode;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18502,11 +18507,11 @@ testNode = nodeList.item(0);
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink",1,vrows);
-       
+
 },
 /**
-* 
-    The rows attribute specifies the collection of rows in this table section. 
+*
+    The rows attribute specifies the collection of rows in this table section.
 
     Retrieve the first TFOOT element and examine the value of
     the rows length attribute.
@@ -18523,7 +18528,7 @@ HTMLTableSectionElement14 : function () {
       var testNode;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18537,11 +18542,11 @@ testNode = nodeList.item(0);
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink",1,vrows);
-       
+
 },
 /**
-* 
-    The rows attribute specifies the collection of rows in this table section. 
+*
+    The rows attribute specifies the collection of rows in this table section.
 
     Retrieve the first TBODY element and examine the value of
     the rows length attribute.
@@ -18558,7 +18563,7 @@ HTMLTableSectionElement15 : function () {
       var testNode;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18572,15 +18577,15 @@ testNode = nodeList.item(1);
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink",2,vrows);
-       
+
 },
 /**
-* 
-    The insertRow() method inserts a new empty table row.  
-    
+*
+    The insertRow() method inserts a new empty table row.
+
     Retrieve the first THEAD element and invoke the insertRow() method
-    with an index of 0.  The nuber of rows in the THEAD section before 
-    insertion of the new row is one.  After the new row is inserted the number 
+    with an index of 0.  The nuber of rows in the THEAD section before
+    insertion of the new row is one.  After the new row is inserted the number
     of rows in the THEAD section is two.
 
 * @author NIST
@@ -18596,7 +18601,7 @@ HTMLTableSectionElement16 : function () {
       var rowsnodeList;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18616,15 +18621,15 @@ testNode = nodeList.item(0);
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink2",2,vrows);
-       
+
 },
 /**
-* 
-    The insertRow() method inserts a new empty table row.  
-    
+*
+    The insertRow() method inserts a new empty table row.
+
     Retrieve the first TFOOT element and invoke the insertRow() method
-    with an index of 0.  The nuber of rows in the TFOOT section before 
-    insertion of the new row is one.  After the new row is inserted the number 
+    with an index of 0.  The nuber of rows in the TFOOT section before
+    insertion of the new row is one.  After the new row is inserted the number
     of rows in the TFOOT section is two.
 
 * @author NIST
@@ -18640,7 +18645,7 @@ HTMLTableSectionElement17 : function () {
       var rowsnodeList;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18660,15 +18665,15 @@ testNode = nodeList.item(0);
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink2",2,vrows);
-       
+
 },
 /**
-* 
+*
     The insertRow() method inserts a new empty table row.
-    
+
     Retrieve the first TBODY element and invoke the insertRow() method
-    with an index of 0.  The nuber of rows in the TBODY section before 
-    insertion of the new row is two.  After the new row is inserted the number 
+    with an index of 0.  The nuber of rows in the TBODY section before
+    insertion of the new row is two.  After the new row is inserted the number
     of rows in the TBODY section is three.
 
 * @author NIST
@@ -18684,7 +18689,7 @@ HTMLTableSectionElement18 : function () {
       var rowsnodeList;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18704,16 +18709,16 @@ testNode = nodeList.item(1);
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink2",3,vrows);
-       
+
 },
 /**
-* 
-    The insertRow() method inserts a new empty table row.  
-    
+*
+    The insertRow() method inserts a new empty table row.
+
     Retrieve the first THEAD element and invoke the insertRow() method
-    with an index of 1.  The nuber of rows in the THEAD section before 
+    with an index of 1.  The nuber of rows in the THEAD section before
     insertion of the new row is one therefore the new row is appended.
-    After the new row is inserted the number of rows in the THEAD 
+    After the new row is inserted the number of rows in the THEAD
     section is two.
 
 * @author NIST
@@ -18729,7 +18734,7 @@ HTMLTableSectionElement19 : function () {
       var rowsnodeList;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18749,16 +18754,16 @@ testNode = nodeList.item(0);
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink2",2,vrows);
-       
+
 },
 /**
-* 
-    The insertRow() method inserts a new empty table row.  
-    
+*
+    The insertRow() method inserts a new empty table row.
+
     Retrieve the first TFOOT element and invoke the insertRow() method
-    with an index of one.  The nuber of rows in the TFOOT section before 
+    with an index of one.  The nuber of rows in the TFOOT section before
     insertion of the new row is one therefore the new row is appended.
-    After the new row is inserted the number of rows in the TFOOT section 
+    After the new row is inserted the number of rows in the TFOOT section
     is two.
 
 * @author NIST
@@ -18774,7 +18779,7 @@ HTMLTableSectionElement20 : function () {
       var rowsnodeList;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18794,16 +18799,16 @@ testNode = nodeList.item(0);
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink2",2,vrows);
-       
+
 },
 /**
-* 
-    The insertRow() method inserts a new empty table row.  
-    
+*
+    The insertRow() method inserts a new empty table row.
+
     Retrieve the first TBODY element and invoke the insertRow() method
-    with an index of two.  The number of rows in the TBODY section before 
-    insertion of the new row is two therefore the row is appended. 
-    After the new row is inserted the number of rows in the TBODY section is 
+    with an index of two.  The number of rows in the TBODY section before
+    insertion of the new row is two therefore the row is appended.
+    After the new row is inserted the number of rows in the TBODY section is
     three.
 
 * @author NIST
@@ -18820,7 +18825,7 @@ HTMLTableSectionElement21 : function () {
       var rowsnodeList;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18840,15 +18845,15 @@ testNode = nodeList.item(1);
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink2",3,vrows);
-       
+
 },
 /**
-* 
-    The deleteRow() method deletes a row from this section.  
-    
+*
+    The deleteRow() method deletes a row from this section.
+
     Retrieve the first THEAD element and invoke the deleteRow() method
-    with an index of 0.  The nuber of rows in the THEAD section before 
-    the deletion of the row is one.  After the row is deleted the number 
+    with an index of 0.  The nuber of rows in the THEAD section before
+    the deletion of the row is one.  After the row is deleted the number
     of rows in the THEAD section is zero.
 
 * @author NIST
@@ -18863,7 +18868,7 @@ HTMLTableSectionElement22 : function () {
       var rowsnodeList;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18883,15 +18888,15 @@ testNode = nodeList.item(0);
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink2",0,vrows);
-       
+
 },
 /**
-* 
-    The deleteRow() method deletes a row from this section.  
-    
+*
+    The deleteRow() method deletes a row from this section.
+
     Retrieve the first TFOOT element and invoke the deleteRow() method
-    with an index of 0.  The nuber of rows in the TFOOT section before 
-    the deletion of the row is one.  After the row is deleted the number 
+    with an index of 0.  The nuber of rows in the TFOOT section before
+    the deletion of the row is one.  After the row is deleted the number
     of rows in the TFOOT section is zero.
 
 * @author NIST
@@ -18906,7 +18911,7 @@ HTMLTableSectionElement23 : function () {
       var rowsnodeList;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18926,15 +18931,15 @@ testNode = nodeList.item(0);
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink2",0,vrows);
-       
+
 },
 /**
-* 
-    The deleteRow() method deletes a row from this section. 
-    
+*
+    The deleteRow() method deletes a row from this section.
+
     Retrieve the first TBODY element and invoke the deleteRow() method
-    with an index of 0.  The nuber of rows in the TBODY section before 
-    the deletion of the row is two.  After the row is deleted the number 
+    with an index of 0.  The nuber of rows in the TBODY section before
+    the deletion of the row is two.  After the row is deleted the number
     of rows in the TBODY section is one.
 
 * @author NIST
@@ -18949,7 +18954,7 @@ HTMLTableSectionElement24 : function () {
       var rowsnodeList;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -18969,13 +18974,13 @@ testNode = nodeList.item(1);
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink2",1,vrows);
-       
+
 },
 /**
-* 
+*
     The insertRow() method throws a INDEX_SIZE_ERR DOMException
-    if the specified index is greater than the number of rows. 
- 
+    if the specified index is greater than the number of rows.
+
     Retrieve the first THEAD element which has one row.  Try
     to insert a new row using an index of two.  This should throw
     a INDEX_SIZE_ERR DOMException since there is only one row.
@@ -18992,7 +18997,7 @@ HTMLTableSectionElement25 : function () {
       var testNode;
       var newRow;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19001,7 +19006,7 @@ HTMLTableSectionElement25 : function () {
       nodeList = doc.getElementsByTagName("thead");
       assertSize("Asize",1,nodeList);
 testNode = nodeList.item(0);
-      
+
 	{
 		success = false;
 		try {
@@ -19015,10 +19020,10 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The insertRow() method throws a INDEX_SIZE_ERR DOMException
-    if the specified index is negative. 
- 
+    if the specified index is negative.
+
     Retrieve the first THEAD element which has one row.  Try
     to insert a new row using an index of negative two.  This should throw
     a INDEX_SIZE_ERR DOMException since the index is negative.
@@ -19035,7 +19040,7 @@ HTMLTableSectionElement26 : function () {
       var testNode;
       var newRow;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19044,7 +19049,7 @@ HTMLTableSectionElement26 : function () {
       nodeList = doc.getElementsByTagName("thead");
       assertSize("Asize",1,nodeList);
 testNode = nodeList.item(0);
-      
+
 	{
 		success = false;
 		try {
@@ -19058,10 +19063,10 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The deleteRow() method throws a INDEX_SIZE_ERR DOMException
     if the specified index is greater than the number of rows.
- 
+
     Retrieve the first THEAD element which has one row.  Try
     to delete a row using an index of two.  This should throw
     a INDEX_SIZE_ERR DOMException since the index is greater than the
@@ -19078,7 +19083,7 @@ HTMLTableSectionElement27 : function () {
     var nodeList;
       var testNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19087,7 +19092,7 @@ HTMLTableSectionElement27 : function () {
       nodeList = doc.getElementsByTagName("thead");
       assertSize("Asize",1,nodeList);
 testNode = nodeList.item(0);
-      
+
 	{
 		success = false;
 		try {
@@ -19101,10 +19106,10 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The deleteRow() method throws a INDEX_SIZE_ERR DOMException
     if the specified index is equal to the number of rows.
- 
+
     Retrieve the first THEAD element which has one row.  Try
     to delete a row using an index of 1.  This should throw
     a INDEX_SIZE_ERR DOMException since the index is equal to the
@@ -19121,7 +19126,7 @@ HTMLTableSectionElement28 : function () {
     var nodeList;
       var testNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19130,7 +19135,7 @@ HTMLTableSectionElement28 : function () {
       nodeList = doc.getElementsByTagName("thead");
       assertSize("Asize",1,nodeList);
 testNode = nodeList.item(0);
-      
+
 	{
 		success = false;
 		try {
@@ -19144,13 +19149,13 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The deleteRow() method throws a INDEX_SIZE_ERR DOMException
     if the specified index is negative.
- 
+
     Retrieve the first THEAD element which has one row.  Try
     to delete a row using an index of negative two.  This should throw
-    a INDEX_SIZE_ERR DOMException since the index is negative.       
+    a INDEX_SIZE_ERR DOMException since the index is negative.
 
 * @author NIST
 * @author Rick Rivello
@@ -19163,7 +19168,7 @@ HTMLTableSectionElement29 : function () {
     var nodeList;
       var testNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19172,7 +19177,7 @@ HTMLTableSectionElement29 : function () {
       nodeList = doc.getElementsByTagName("thead");
       assertSize("Asize",1,nodeList);
 testNode = nodeList.item(0);
-      
+
 	{
 		success = false;
 		try {
@@ -19186,16 +19191,16 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
     The insertRow() method inserts a new empty table row.  The new
     row is inserted immediately before the current indexth row in this
     section.  If index is -1 or equal to the number of rows in this section,
     the new row is appended.
-    
+
     Retrieve the first THEAD element and invoke the insertRow() method
-    with an index of negative one.  Since the index is negative one the 
+    with an index of negative one.  Since the index is negative one the
     new row is appended.
-    After the new row is appended the number of rows in the THEAD 
+    After the new row is appended the number of rows in the THEAD
     section is two.
 
 * @author NIST
@@ -19211,7 +19216,7 @@ HTMLTableSectionElement30 : function () {
       var rowsnodeList;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19231,18 +19236,18 @@ testNode = nodeList.item(0);
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink2",2,vrows);
-       
+
 },
 /**
-* 
+*
     The deleteRow() method deletes a row from this section.  The index
     starts from 0 and is relative only to the rows contained inside
     this section, not all the rows in the table.  If the index is -1
     the last row will be deleted.
-    
+
     Retrieve the second TBODY element and invoke the deleteRow() method
-    with an index of -1.  The nuber of rows in the THEAD section before 
-    the deletion of the row is two.  After the row is deleted the number 
+    with an index of -1.  The nuber of rows in the THEAD section before
+    the deletion of the row is two.  After the row is deleted the number
     of rows in the TBODY section is one.
 
 * @author NIST
@@ -19257,7 +19262,7 @@ HTMLTableSectionElement31 : function () {
       var rowsnodeList;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19277,15 +19282,15 @@ testNode = nodeList.item(1);
       vrows = rowsnodeList.length;
 
       assertEquals("rowsLink2",1,vrows);
-       
+
 },
 /**
-* 
+*
     The defaultValue attribute represents the HTML value of the attribute
-    when the type attribute has the value of "Text", "File" or "Password".  
+    when the type attribute has the value of "Text", "File" or "Password".
 
     Retrieve the defaultValue attribute of the 2nd TEXTAREA element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -19298,7 +19303,7 @@ HTMLTextAreaElement01 : function () {
       var testNode;
       var vdefaultvalue;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19310,14 +19315,14 @@ testNode = nodeList.item(1);
       vdefaultvalue = testNode.defaultValue;
 
       assertEquals("defaultValueLink","TEXTAREA2",vdefaultvalue);
-       
+
 },
 /**
-* 
-    The form attribute returns the FORM element containing this control. 
+*
+    The form attribute returns the FORM element containing this control.
 
     Retrieve the form attribute from the first TEXTAREA element
-    and examine its value.  
+    and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -19331,7 +19336,7 @@ HTMLTextAreaElement02 : function () {
       var vform;
       var fNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19345,15 +19350,15 @@ testNode = nodeList.item(0);
       vform = fNode.id;
 
       assertEquals("formLink","form1",vform);
-       
+
 },
 /**
-* 
-    The form attribute returns null if control in not within the context of 
-    a form. 
+*
+    The form attribute returns null if control in not within the context of
+    a form.
 
     Retrieve the second TEXTAREA element and
-    examine its form element.  
+    examine its form element.
 
 * @author NIST
 * @author Mary Brady
@@ -19366,7 +19371,7 @@ HTMLTextAreaElement03 : function () {
       var testNode;
       var vform;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19378,15 +19383,15 @@ testNode = nodeList.item(1);
       vform = testNode.form;
 
       assertNull("formNullLink",vform);
-    
+
 },
 /**
-* 
-    The accessKey attribute specifies a single character access key to 
+*
+    The accessKey attribute specifies a single character access key to
     give access to the form control.
 
     Retrieve the accessKey attribute of the 1st TEXTAREA element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -19399,7 +19404,7 @@ HTMLTextAreaElement04 : function () {
       var testNode;
       var vaccesskey;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19411,14 +19416,14 @@ testNode = nodeList.item(0);
       vaccesskey = testNode.accessKey;
 
       assertEquals("accessKeyLink","c",vaccesskey);
-       
+
 },
 /**
-* 
+*
     The cols attribute specifies the width of control(in characters).
 
     Retrieve the cols attribute of the 1st TEXTAREA element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -19431,7 +19436,7 @@ HTMLTextAreaElement05 : function () {
       var testNode;
       var vcols;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19443,10 +19448,10 @@ testNode = nodeList.item(0);
       vcols = testNode.cols;
 
       assertEquals("colsLink",20,vcols);
-       
+
 },
 /**
-* 
+*
     The disabled attribute specifies the control is unavailable in this
     context.
 
@@ -19464,7 +19469,7 @@ HTMLTextAreaElement06 : function () {
       var testNode;
       var vdisabled;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19479,12 +19484,12 @@ testNode = nodeList.item(1);
 
 },
 /**
-* 
+*
     The name attribute specifies the form control or object name when
     submitted with a form.
 
     Retrieve the name attribute of the 1st TEXTAREA element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -19497,7 +19502,7 @@ HTMLTextAreaElement07 : function () {
       var testNode;
       var vname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19509,10 +19514,10 @@ testNode = nodeList.item(0);
       vname = testNode.name;
 
       assertEquals("nameLink","text1",vname);
-       
+
 },
 /**
-* 
+*
     The readOnly attribute specifies this control is read-only.
 
     Retrieve the readOnly attribute from the 3rd TEXTAREA element and
@@ -19529,7 +19534,7 @@ HTMLTextAreaElement08 : function () {
       var testNode;
       var vreadonly;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19544,11 +19549,11 @@ testNode = nodeList.item(2);
 
 },
 /**
-* 
+*
     The rows attribute specifies the number of text rowns.
 
     Retrieve the rows attribute of the 1st TEXTAREA element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -19561,7 +19566,7 @@ HTMLTextAreaElement09 : function () {
       var testNode;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19573,15 +19578,15 @@ testNode = nodeList.item(0);
       vrows = testNode.rows;
 
       assertEquals("rowsLink",7,vrows);
-       
+
 },
 /**
-* 
+*
     The tabIndex attribute is an index that represents the element's position
     in the tabbing order.
 
     Retrieve the tabIndex attribute of the 1st TEXTAREA element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -19594,7 +19599,7 @@ HTMLTextAreaElement10 : function () {
       var testNode;
       var vtabindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19606,14 +19611,14 @@ testNode = nodeList.item(0);
       vtabindex = testNode.tabIndex;
 
       assertEquals("tabIndexLink",5,vtabindex);
-       
+
 },
 /**
-* 
-    The type attribute specifies the type of this form control.      
+*
+    The type attribute specifies the type of this form control.
 
     Retrieve the type attribute of the 1st TEXTAREA element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -19627,7 +19632,7 @@ HTMLTextAreaElement11 : function () {
       var testNode;
       var vtype;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19639,15 +19644,15 @@ testNode = nodeList.item(0);
       vtype = testNode.type;
 
       assertEquals("typeLink","textarea",vtype);
-       
+
 },
 /**
-* 
+*
     The value attribute represents the current contents of the corresponding
     form control, in an interactive user agent.
 
     Retrieve the value attribute of the 1st TEXTAREA element and examine
-    its value.  
+    its value.
 
 * @author NIST
 * @author Mary Brady
@@ -19660,7 +19665,7 @@ HTMLTextAreaElement12 : function () {
       var testNode;
       var vvalue;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19672,10 +19677,10 @@ testNode = nodeList.item(0);
       vvalue = testNode.value;
 
       assertEquals("valueLink","TEXTAREA1",vvalue);
-       
+
 },
 /**
-* 
+*
 Calling HTMLTextAreaElement.blur should surrender input focus.
 
 * @author Curt Arnold
@@ -19687,7 +19692,7 @@ HTMLTextAreaElement13 : function () {
     var nodeList;
       var testNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19697,10 +19702,10 @@ HTMLTextAreaElement13 : function () {
       assertSize("Asize",3,nodeList);
 testNode = nodeList.item(0);
       testNode.blur();
-      
+
 },
 /**
-* 
+*
 Calling HTMLTextAreaElement.focus should capture input focus.
 
 * @author Curt Arnold
@@ -19712,7 +19717,7 @@ HTMLTextAreaElement14 : function () {
     var nodeList;
       var testNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19722,10 +19727,10 @@ HTMLTextAreaElement14 : function () {
       assertSize("Asize",3,nodeList);
 testNode = nodeList.item(0);
       testNode.focus();
-      
+
 },
 /**
-* 
+*
 Calling HTMLTextAreaElement.select should select the text area.
 
 * @author Curt Arnold
@@ -19737,7 +19742,7 @@ HTMLTextAreaElement15 : function () {
     var nodeList;
       var testNode;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19747,11 +19752,11 @@ HTMLTextAreaElement15 : function () {
       assertSize("Asize",3,nodeList);
 testNode = nodeList.item(0);
       testNode.select();
-      
+
 },
 /**
-* 
-    The text attribute is the specified title as a string.      
+*
+    The text attribute is the specified title as a string.
 
     Retrieve the text attribute and examine its value.
 
@@ -19766,7 +19771,7 @@ HTMLTitleElement01 : function () {
       var testNode;
       var vtext;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19778,14 +19783,14 @@ testNode = nodeList.item(0);
       vtext = testNode.text;
 
       assertEquals("textLink","NIST DOM HTML Test - TITLE",vtext);
-       
+
 },
 /**
-* 
+*
     The compact attribute specifies whether to reduce spacing between list
-    items. 
+    items.
 
-    Retrieve the compact attribute and examine its value.  
+    Retrieve the compact attribute and examine its value.
 
 * @author NIST
 * @author Mary Brady
@@ -19798,7 +19803,7 @@ HTMLUListElement01 : function () {
       var testNode;
       var vcompact;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19813,8 +19818,8 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
-    The type attribute specifies the bullet style.      
+*
+    The type attribute specifies the bullet style.
 
     Retrieve the type attribute and examine its value.
 
@@ -19829,7 +19834,7 @@ HTMLUListElement02 : function () {
       var testNode;
       var vtype;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19841,10 +19846,10 @@ testNode = nodeList.item(0);
       vtype = testNode.type;
 
       assertEquals("typeLink","disc",vtype);
-       
+
 },
 /**
-* 
+*
 A single character access key to give access to the form control.
 The value of attribute accessKey of the anchor element is read and checked against the expected value.
 
@@ -19859,7 +19864,7 @@ anchor01 : function () {
       var testNode;
       var vaccesskey;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19871,10 +19876,10 @@ testNode = nodeList.item(0);
       vaccesskey = testNode.accessKey;
 
       assertEquals("accessKeyLink","g",vaccesskey);
-       
+
 },
 /**
-* 
+*
 The character encoding of the linked resource.
 The value of attribute charset of the anchor element is read and checked against the expected value.
 
@@ -19889,7 +19894,7 @@ anchor02 : function () {
       var testNode;
       var vcharset;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19901,10 +19906,10 @@ testNode = nodeList.item(0);
       vcharset = testNode.charset;
 
       assertEquals("charsetLink","US-ASCII",vcharset);
-       
+
 },
 /**
-* 
+*
 Comma-separated list of lengths, defining an active region geometry.
 The value of attribute coords of the anchor element is read and checked against the expected value.
 
@@ -19919,7 +19924,7 @@ anchor03 : function () {
       var testNode;
       var vcoords;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19931,10 +19936,10 @@ testNode = nodeList.item(0);
       vcoords = testNode.coords;
 
       assertEquals("coordsLink","0,0,100,100",vcoords);
-       
+
 },
 /**
-* 
+*
 The URI of the linked resource.
 The value of attribute href of the anchor element is read and checked against the expected value.
 
@@ -19949,7 +19954,7 @@ anchor04 : function () {
       var testNode;
       var vhref;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19964,7 +19969,7 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
 Advisory content type.
 The value of attribute type of the anchor element is read and checked against the expected value.
 
@@ -19979,7 +19984,7 @@ anchor05 : function () {
       var testNode;
       var vtype;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -19991,10 +19996,10 @@ testNode = nodeList.item(0);
       vtype = testNode.type;
 
       assertEquals("typeLink","image/gif",vtype);
-       
+
 },
 /**
-* 
+*
 The shape of the active area. The coordinates are given by coords
 The value of attribute shape of the anchor element is read and checked against the expected value.
 
@@ -20009,7 +20014,7 @@ anchor06 : function () {
       var testNode;
       var vshape;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20021,10 +20026,10 @@ testNode = nodeList.item(0);
       vshape = testNode.shape;
 
       assertEquals("shapeLink","rect",vshape);
-       
+
 },
 /**
-* 
+*
 
 
 * @author Netscape
@@ -20038,7 +20043,7 @@ area01 : function () {
       var testNode;
       var vcoords;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20050,10 +20055,10 @@ testNode = nodeList.item(0);
       vcoords = testNode.coords;
 
       assertEquals("coordsLink","0,2,45,45",vcoords);
-       
+
 },
 /**
-* 
+*
 
 
 * @author Netscape
@@ -20067,7 +20072,7 @@ area02 : function () {
       var testNode;
       var vnohref;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20082,7 +20087,7 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
 
 
 * @author Netscape
@@ -20096,7 +20101,7 @@ area03 : function () {
       var testNode;
       var vtabindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20108,10 +20113,10 @@ testNode = nodeList.item(0);
       vtabindex = testNode.tabIndex;
 
       assertEquals("tabIndexLink",10,vtabindex);
-       
+
 },
 /**
-* 
+*
 
 
 * @author Netscape
@@ -20125,7 +20130,7 @@ area04 : function () {
       var testNode;
       var vaccesskey;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20137,10 +20142,10 @@ testNode = nodeList.item(0);
       vaccesskey = testNode.accessKey;
 
       assertEquals("accessKeyLink","a",vaccesskey);
-       
+
 },
 /**
-* 
+*
 The value of attribute color of the basefont element is read and checked against the expected value.
 
 * @author Netscape
@@ -20154,7 +20159,7 @@ basefont01 : function () {
       var testNode;
       var vcolor;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20166,10 +20171,10 @@ testNode = nodeList.item(0);
       vcolor = testNode.color;
 
       assertEquals("colorLink","#000000",vcolor);
-       
+
 },
 /**
-* 
+*
 Color of active links (after mouse-button down, but before mouse-button up).
 The value of attribute alink of the body element is read and checked against the expected value.
 
@@ -20184,7 +20189,7 @@ body01 : function () {
       var testNode;
       var valink;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20196,11 +20201,11 @@ testNode = nodeList.item(0);
       valink = testNode.aLink;
 
       assertEquals("aLinkLink","#0000ff",valink);
-       
+
 },
 /**
-* 
-Returns the FORM element containing this control. Returns null if this control is not within the context of a form. 
+*
+Returns the FORM element containing this control. Returns null if this control is not within the context of a form.
 
 * @author Netscape
 * @author Sivakiran Tummala
@@ -20213,7 +20218,7 @@ button01 : function () {
       var testNode;
       var vform;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20225,10 +20230,10 @@ testNode = nodeList.item(1);
       vform = testNode.form;
 
       assertNull("formLink",vform);
-    
+
 },
 /**
-* 
+*
 The value of attribute name of the form element which contains this button is read and checked against the expected value.
 
 * @author Netscape
@@ -20236,6 +20241,7 @@ The value of attribute name of the form element which contains this button is re
 * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-71254493
 * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
 */
+
 button02 : function () {
    var success;
     if(checkInitialization(builder, "button02") != null) return;
@@ -20244,7 +20250,7 @@ button02 : function () {
       var formNode;
       var vfname;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20258,10 +20264,10 @@ testNode = nodeList.item(0);
       vfname = formNode.id;
 
       assertEquals("formLink","form2",vfname);
-       
+
 },
 /**
-* 
+*
 The value of attribute action of the form element which contains this button is read and checked against the expected value
 
 * @author Netscape
@@ -20277,7 +20283,7 @@ button03 : function () {
       var formNode;
       var vfaction;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20291,10 +20297,10 @@ testNode = nodeList.item(0);
       vfaction = formNode.action;
 
       assertEquals("formLink","...",vfaction);
-       
+
 },
 /**
-* 
+*
 The value of attribute method of the form element which contains this button is read and checked against the expected value
 
 * @author Netscape
@@ -20310,7 +20316,7 @@ button04 : function () {
       var formNode;
       var vfmethod;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20324,10 +20330,10 @@ testNode = nodeList.item(0);
       vfmethod = formNode.method;
 
       assertEquals("formLink","POST".toLowerCase(),vfmethod.toLowerCase());
-       
+
 },
 /**
-* 
+*
 A single character access key to give access to the form control.
 The value of attribute accessKey of the button element is read and checked against the expected value.
 
@@ -20342,7 +20348,7 @@ button05 : function () {
       var testNode;
       var vakey;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20354,10 +20360,10 @@ testNode = nodeList.item(0);
       vakey = testNode.accessKey;
 
       assertEquals("accessKeyLink","f".toLowerCase(),vakey.toLowerCase());
-       
+
 },
 /**
-* 
+*
 Index that represents the element's position in the tabbing order.
 The value of attribute tabIndex of the button element is read and checked against the expected value.
 
@@ -20372,7 +20378,7 @@ button06 : function () {
       var testNode;
       var vtabIndex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20384,10 +20390,10 @@ testNode = nodeList.item(0);
       vtabIndex = testNode.tabIndex;
 
       assertEquals("tabIndexLink",20,vtabIndex);
-       
+
 },
 /**
-* 
+*
 The type of button
 The value of attribute type of the button element is read and checked against the expected value.
 
@@ -20402,7 +20408,7 @@ button07 : function () {
       var testNode;
       var vtype;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20414,11 +20420,11 @@ testNode = nodeList.item(0);
       vtype = testNode.type;
 
       assertEquals("typeLink","reset",vtype);
-       
+
 },
 /**
-* 
-The control is unavailable in this context. 
+*
+The control is unavailable in this context.
 The boolean value of attribute disabled of the button element is read and checked against the expected value.
 
 * @author Netscape
@@ -20432,7 +20438,7 @@ button08 : function () {
       var testNode;
       var vdisabled;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20447,7 +20453,7 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
+*
 The current form control value.
 The value of attribute value of the button element is read and checked against the expected value.
 
@@ -20462,7 +20468,7 @@ button09 : function () {
       var testNode;
       var vvalue;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20474,10 +20480,10 @@ testNode = nodeList.item(0);
       vvalue = testNode.value;
 
       assertEquals("typeLink","Reset Disabled Button",vvalue);
-       
+
 },
 /**
-* 
+*
 
 
 * @author Netscape
@@ -20491,7 +20497,7 @@ dlist01 : function () {
       var testNode;
       var vcompact;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20506,8 +20512,8 @@ testNode = nodeList.item(0);
 
 },
 /**
-* 
-Retrieve the title attribute of HTMLDocument and examine it's value.  
+*
+Retrieve the title attribute of HTMLDocument and examine it's value.
 
 * @author Netscape
 * @author Sivakiran Tummala
@@ -20518,7 +20524,7 @@ doc01 : function () {
     if(checkInitialization(builder, "doc01") != null) return;
     var vtitle;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20527,10 +20533,10 @@ doc01 : function () {
       vtitle = doc.title;
 
       assertEquals("titleLink","NIST DOM HTML Test - Anchor",vtitle);
-       
+
 },
 /**
-* 
+*
 hasFeature("hTmL", null) should return true.
 
 * @author Curt Arnold
@@ -20550,7 +20556,7 @@ assertTrue("hasHTMLnull",state);
 
 },
 /**
-* 
+*
 hasFeature("hTmL", "2.0") should return true.
 
 * @author Curt Arnold
@@ -20569,7 +20575,7 @@ assertTrue("hasHTML2",state);
 
 },
 /**
-* 
+*
 hasFeature("xhTmL", null) should return true if hasFeature("XML", null) returns true.
 
 * @author Curt Arnold
@@ -20588,10 +20594,10 @@ hasFeature03 : function () {
 hasXML = domImpl.hasFeature("XML",version);
 state = domImpl.hasFeature("xhTmL",version);
 assertEquals("hasXHTML",hasXML,state);
-       
+
 },
 /**
-* 
+*
 hasFeature("xhTmL", "2.0") should return true if hasFeature("XML", "2.0") returns true.
 
 * @author Curt Arnold
@@ -20609,10 +20615,10 @@ hasFeature04 : function () {
 hasXML = domImpl.hasFeature("XML",version);
 state = domImpl.hasFeature("xhTmL",version);
 assertEquals("hasXHTML",hasXML,state);
-       
+
 },
 /**
-* 
+*
 hasFeature("cOrE", null) should return true.
 
 * @author Curt Arnold
@@ -20632,7 +20638,7 @@ assertTrue("hasCore",state);
 
 },
 /**
-* 
+*
 hasFeature("cOrE", "2.0") should return true.
 
 * @author Curt Arnold
@@ -20651,8 +20657,8 @@ assertTrue("hasCore",state);
 
 },
 /**
-* 
-Returns the FORM element containing this control. Returns null if this control is not within the context of a form. 
+*
+Returns the FORM element containing this control. Returns null if this control is not within the context of a form.
 The value of attribute form of the object element is read and checked against the expected value.
 
 * @author Netscape
@@ -20666,7 +20672,7 @@ object01 : function () {
       var testNode;
       var vform;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20678,10 +20684,10 @@ testNode = nodeList.item(0);
       vform = testNode.form;
 
       assertNull("formLink",vform);
-    
+
 },
 /**
-* 
+*
 Aligns this object (vertically or horizontally) with respect to its surrounding text.
 The value of attribute align of the object element is read and checked against the expected value.
 
@@ -20696,7 +20702,7 @@ object02 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20708,10 +20714,10 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","middle",valign);
-       
+
 },
 /**
-* 
+*
 Space-separated list of archives
 The value of attribute archive of the object element is read and checked against the expected value.
 
@@ -20726,7 +20732,7 @@ object03 : function () {
       var testNode;
       var varchive;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20738,10 +20744,10 @@ testNode = nodeList.item(0);
       varchive = testNode.archive;
 
       assertEquals("archiveLink","",varchive);
-       
+
 },
 /**
-* 
+*
 Width of border around the object.
 The value of attribute border of the object element is read and checked against the expected value.
 
@@ -20756,7 +20762,7 @@ object04 : function () {
       var testNode;
       var vborder;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20768,10 +20774,10 @@ testNode = nodeList.item(0);
       vborder = testNode.border;
 
       assertEquals("borderLink","0",vborder);
-       
+
 },
 /**
-* 
+*
 Base URI for classid, data, and archive attributes.
 The value of attribute codebase of the object element is read and checked against the expected value.
 
@@ -20786,7 +20792,7 @@ object05 : function () {
       var testNode;
       var vcodebase;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20798,11 +20804,11 @@ testNode = nodeList.item(0);
       vcodebase = testNode.codeBase;
 
       assertEquals("codebaseLink","http://xw2k.sdct.itl.nist.gov/brady/dom/",vcodebase);
-       
+
 },
 /**
-* 
-A URI specifying the location of the object's data. 
+*
+A URI specifying the location of the object's data.
 The value of attribute data of the object element is read and checked against the expected value.
 
 * @author Netscape
@@ -20816,7 +20822,7 @@ object06 : function () {
       var testNode;
       var vdata;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20828,10 +20834,10 @@ testNode = nodeList.item(0);
       vdata = testNode.data;
 
       assertEquals("dataLink","./pix/logo.gif",vdata);
-       
+
 },
 /**
-* 
+*
 The value of attribute height of the object element is read and checked against the expected value.
 
 * @author Netscape
@@ -20845,7 +20851,7 @@ object07 : function () {
       var testNode;
       var vheight;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20857,10 +20863,10 @@ testNode = nodeList.item(0);
       vheight = testNode.height;
 
       assertEquals("heightLink","60",vheight);
-       
+
 },
 /**
-* 
+*
 Horizontal space to the left and right of this image, applet, or object.
 The value of attribute hspace of the object element is read and checked against the expected value.
 
@@ -20875,7 +20881,7 @@ object08 : function () {
       var testNode;
       var vhspace;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20887,10 +20893,10 @@ testNode = nodeList.item(0);
       vhspace = testNode.hspace;
 
       assertEquals("hspaceLink",0,vhspace);
-       
+
 },
 /**
-* 
+*
 Message to render while loading the object.
 The value of attribute standby of the object element is read and checked against the expected value.
 
@@ -20905,7 +20911,7 @@ object09 : function () {
       var testNode;
       var vstandby;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20917,10 +20923,10 @@ testNode = nodeList.item(0);
       vstandby = testNode.standby;
 
       assertEquals("standbyLink","Loading Image ...",vstandby);
-       
+
 },
 /**
-* 
+*
 Index that represents the element's position in the tabbing order.
 The value of attribute tabIndex of the object element is read and checked against the expected value.
 
@@ -20935,7 +20941,7 @@ object10 : function () {
       var testNode;
       var vtabindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20947,10 +20953,10 @@ testNode = nodeList.item(0);
       vtabindex = testNode.tabIndex;
 
       assertEquals("tabIndexLink",0,vtabindex);
-       
+
 },
 /**
-* 
+*
 Content type for data downloaded via data attribute.
 The value of attribute type of the object element is read and checked against the expected value.
 
@@ -20965,7 +20971,7 @@ object11 : function () {
       var testNode;
       var vtype;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -20977,10 +20983,10 @@ testNode = nodeList.item(0);
       vtype = testNode.type;
 
       assertEquals("typeLink","image/gif",vtype);
-       
+
 },
 /**
-* 
+*
 The value of attribute usemap of the object element is read and checked against the expected value.
 
 * @author Netscape
@@ -20994,7 +21000,7 @@ object12 : function () {
       var testNode;
       var vusemap;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21006,10 +21012,10 @@ testNode = nodeList.item(0);
       vusemap = testNode.useMap;
 
       assertEquals("useMapLink","#DivLogo-map",vusemap);
-       
+
 },
 /**
-* 
+*
 Vertical space above and below this image, applet, or object.
 The value of attribute vspace of the object element is read and checked against the expected value.
 
@@ -21024,7 +21030,7 @@ object13 : function () {
       var testNode;
       var vvspace;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21036,10 +21042,10 @@ testNode = nodeList.item(0);
       vvspace = testNode.vspace;
 
       assertEquals("vspaceLink",0,vvspace);
-       
+
 },
 /**
-* 
+*
 The value of attribute width of the object element is read and checked against the expected value.
 
 * @author Netscape
@@ -21053,7 +21059,7 @@ object14 : function () {
       var testNode;
       var vwidth;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21065,10 +21071,10 @@ testNode = nodeList.item(0);
       vwidth = testNode.width;
 
       assertEquals("widthLink","550",vwidth);
-       
+
 },
 /**
-* 
+*
 Content type for data downloaded via classid attribute.
 The value of attribute codetype of the object element is read and checked against the expected value.
 
@@ -21083,7 +21089,7 @@ object15 : function () {
       var testNode;
       var vcodetype;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21095,11 +21101,11 @@ testNode = nodeList.item(1);
       vcodetype = testNode.codeType;
 
       assertEquals("codeTypeLink","image/gif",vcodetype);
-       
+
 },
 /**
-* 
-Returns the table's CAPTION, or void if none exists. 
+*
+Returns the table's CAPTION, or void if none exists.
 The value of attribute caption of the table element is read and checked against the expected value.
 
 * @author Netscape
@@ -21113,7 +21119,7 @@ table01 : function () {
       var testNode;
       var vcaption;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21125,10 +21131,10 @@ testNode = nodeList.item(0);
       vcaption = testNode.caption;
 
       assertNull("captionLink",vcaption);
-    
+
 },
 /**
-* 
+*
 Caption alignment with respect to the table.
 The value of attribute align of the tablecaption element is read and checked against the expected value.
 
@@ -21144,7 +21150,7 @@ table02 : function () {
       var vcaption;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21158,10 +21164,10 @@ testNode = nodeList.item(1);
       valign = vcaption.align;
 
       assertEquals("alignLink","top",valign);
-       
+
 },
 /**
-* 
+*
 Alignment character for cells in a column.
 The value of attribute ch of the tablesection element is read and checked against the expected value.
 
@@ -21177,7 +21183,7 @@ table03 : function () {
       var vsection;
       var vch;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21191,10 +21197,10 @@ testNode = nodeList.item(1);
       vch = vsection.ch;
 
       assertEquals("chLink","*",vch);
-       
+
 },
 /**
-* 
+*
 Horizontal alignment of data in cells.
 The value of attribute align of the tablesection element is read and checked against the expected value.
 
@@ -21210,7 +21216,7 @@ table04 : function () {
       var vsection;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21224,10 +21230,10 @@ testNode = nodeList.item(1);
       valign = vsection.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
+*
 Vertical alignment of data in cells.
 The value of attribute valign of the tablesection element is read and checked against the expected value.
 
@@ -21243,7 +21249,7 @@ table06 : function () {
       var vsection;
       var vvAlign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21257,10 +21263,10 @@ testNode = nodeList.item(1);
       vvAlign = vsection.vAlign;
 
       assertEquals("vAlignLink","middle",vvAlign);
-       
+
 },
 /**
-* 
+*
 The collection of rows in this table section.
 The value of attribute rows of the tablesection element is read and checked against the expected value.
 
@@ -21277,7 +21283,7 @@ table07 : function () {
       var vcollection;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21293,10 +21299,10 @@ testNode = nodeList.item(1);
       vrows = vcollection.length;
 
       assertEquals("vrowsLink",1,vrows);
-       
+
 },
 /**
-* 
+*
 Horizontal alignment of data in cells.
 The value of attribute align of the tablesection element is read and checked against the expected value.
 
@@ -21312,7 +21318,7 @@ table08 : function () {
       var vsection;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21326,10 +21332,10 @@ testNode = nodeList.item(1);
       valign = vsection.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
+*
 Vertical alignment of data in cells.
 The value of attribute valign of the table element is read and checked against the expected value.
 
@@ -21345,7 +21351,7 @@ table09 : function () {
       var vsection;
       var vvalign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21359,10 +21365,10 @@ testNode = nodeList.item(1);
       vvalign = vsection.vAlign;
 
       assertEquals("alignLink","middle",vvalign);
-       
+
 },
 /**
-* 
+*
 Alignment character for cells in a column.
 The value of attribute ch of the tablesection element is read and checked against the expected value.
 
@@ -21378,7 +21384,7 @@ table10 : function () {
       var vsection;
       var vch;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21392,10 +21398,10 @@ testNode = nodeList.item(1);
       vch = vsection.ch;
 
       assertEquals("chLink","+",vch);
-       
+
 },
 /**
-* 
+*
 Offset of alignment character.
 The value of attribute choff of the tablesection element is read and checked against the expected value.
 
@@ -21411,7 +21417,7 @@ table12 : function () {
       var vsection;
       var vchoff;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21425,10 +21431,10 @@ testNode = nodeList.item(1);
       vchoff = vsection.chOff;
 
       assertEquals("choffLink","1",vchoff);
-       
+
 },
 /**
-* 
+*
 The collection of rows in this table section.
 The value of attribute rows of the tablesection element is read and checked against the expected value.
 
@@ -21445,7 +21451,7 @@ table15 : function () {
       var vcollection;
       var vrows;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21461,10 +21467,10 @@ testNode = nodeList.item(1);
       vrows = vcollection.length;
 
       assertEquals("vrowsLink",1,vrows);
-       
+
 },
 /**
-* 
+*
 Offset of alignment character.
 The value of attribute chOff of the tablesection element is read and checked against the expected value.
 
@@ -21480,7 +21486,7 @@ table17 : function () {
       var vsection;
       var vchoff;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21494,11 +21500,11 @@ testNode = nodeList.item(1);
       vchoff = vsection.chOff;
 
       assertEquals("choffLink","2",vchoff);
-       
+
 },
 /**
-* 
-The index of this cell in the row. 
+*
+The index of this cell in the row.
 The value of attribute cellIndex of the tablecell element is read and checked against the expected value.
 
 * @author Netscape
@@ -21512,7 +21518,7 @@ table18 : function () {
       var testNode;
       var vcindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21524,12 +21530,12 @@ testNode = nodeList.item(1);
       vcindex = testNode.cellIndex;
 
       assertEquals("cellIndexLink",1,vcindex);
-       
+
 },
 /**
-* 
+*
 Abbreviation for header cells.
-The index of this cell in the row. 
+The index of this cell in the row.
 The value of attribute abbr of the tablecell element is read and checked against the expected value.
 
 * @author Netscape
@@ -21543,7 +21549,7 @@ table19 : function () {
       var testNode;
       var vabbr;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21555,10 +21561,10 @@ testNode = nodeList.item(1);
       vabbr = testNode.abbr;
 
       assertEquals("abbrLink","hd2",vabbr);
-       
+
 },
 /**
-* 
+*
 Names group of related headers.
 The value of attribute axis of the tablecell element is read and checked against the expected value.
 
@@ -21573,7 +21579,7 @@ table20 : function () {
       var testNode;
       var vaxis;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21585,10 +21591,10 @@ testNode = nodeList.item(1);
       vaxis = testNode.axis;
 
       assertEquals("axisLink","center",vaxis);
-       
+
 },
 /**
-* 
+*
 Horizontal alignment of data in cell.
 The value of attribute align of the tablecell element is read and checked against the expected value.
 
@@ -21603,7 +21609,7 @@ table21 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21615,10 +21621,10 @@ testNode = nodeList.item(1);
       valign = testNode.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
+*
 Cell background color.
 The value of attribute bgColor of the tablecell element is read and checked against the expected value.
 
@@ -21633,7 +21639,7 @@ table22 : function () {
       var testNode;
       var vbgcolor;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21645,10 +21651,10 @@ testNode = nodeList.item(1);
       vbgcolor = testNode.bgColor;
 
       assertEquals("bgcolorLink","#FF0000".toLowerCase(),vbgcolor.toLowerCase());
-       
+
 },
 /**
-* 
+*
 Alignment character for cells in a column.
 The value of attribute char of the tablecell element is read and checked against the expected value.
 
@@ -21663,7 +21669,7 @@ table23 : function () {
       var testNode;
       var vch;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21675,10 +21681,10 @@ testNode = nodeList.item(1);
       vch = testNode.ch;
 
       assertEquals("chLink",":",vch);
-       
+
 },
 /**
-* 
+*
 offset of alignment character.
 The value of attribute chOff of the tablecell element is read and checked against the expected value.
 
@@ -21693,7 +21699,7 @@ table24 : function () {
       var testNode;
       var vchoff;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21705,10 +21711,10 @@ testNode = nodeList.item(1);
       vchoff = testNode.chOff;
 
       assertEquals("chOffLink","1",vchoff);
-       
+
 },
 /**
-* 
+*
 Number of columns spanned by cell.
 The value of attribute colspan of the tablecell element is read and checked against the expected value.
 
@@ -21723,7 +21729,7 @@ table25 : function () {
       var testNode;
       var vcolspan;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21735,10 +21741,10 @@ testNode = nodeList.item(1);
       vcolspan = testNode.colSpan;
 
       assertEquals("colSpanLink",1,vcolspan);
-       
+
 },
 /**
-* 
+*
 The value of attribute height of the tablecell element is read and checked against the expected value.
 
 * @author Netscape
@@ -21752,7 +21758,7 @@ table26 : function () {
       var testNode;
       var vheight;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21764,10 +21770,10 @@ testNode = nodeList.item(1);
       vheight = testNode.height;
 
       assertEquals("heightLink","50",vheight);
-       
+
 },
 /**
-* 
+*
 Suppress word wrapping.
 The value of attribute nowrap of the tablecell element is read and checked against the expected value.
 
@@ -21782,7 +21788,7 @@ table27 : function () {
       var testNode;
       var vnowrap;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21797,7 +21803,7 @@ testNode = nodeList.item(1);
 
 },
 /**
-* 
+*
 Number of rows spanned by cell.
 The value of attribute rowspan of the tablecell element is read and checked against the expected value.
 
@@ -21812,7 +21818,7 @@ table28 : function () {
       var testNode;
       var vrowspan;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21824,10 +21830,10 @@ testNode = nodeList.item(1);
       vrowspan = testNode.rowSpan;
 
       assertEquals("rowSpanLink",1,vrowspan);
-       
+
 },
 /**
-* 
+*
 Scope covered by header cells.
 The value of attribute scope of the tablecell element is read and checked against the expected value.
 
@@ -21842,7 +21848,7 @@ table29 : function () {
       var testNode;
       var vscope;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21854,10 +21860,10 @@ testNode = nodeList.item(1);
       vscope = testNode.scope;
 
       assertEquals("scopeLink","col",vscope);
-       
+
 },
 /**
-* 
+*
 List of id attribute values for header cells.
 The value of attribute headers of the tablecell element is read and checked against the expected value.
 
@@ -21872,7 +21878,7 @@ table30 : function () {
       var testNode;
       var vheaders;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21884,10 +21890,10 @@ testNode = nodeList.item(1);
       vheaders = testNode.headers;
 
       assertEquals("headersLink","header-3",vheaders);
-       
+
 },
 /**
-* 
+*
 Vertical alignment of data in cell.
 The value of attribute valign of the tablecell element is read and checked against the expected value.
 
@@ -21902,7 +21908,7 @@ table31 : function () {
       var testNode;
       var vvalign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21914,10 +21920,10 @@ testNode = nodeList.item(1);
       vvalign = testNode.vAlign;
 
       assertEquals("vAlignLink","middle",vvalign);
-       
+
 },
 /**
-* 
+*
 cell width.
 The value of attribute width of the table element is read and checked against the expected value.
 
@@ -21932,7 +21938,7 @@ table32 : function () {
       var testNode;
       var vwidth;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21944,10 +21950,10 @@ testNode = nodeList.item(1);
       vwidth = testNode.width;
 
       assertEquals("vwidthLink","175",vwidth);
-       
+
 },
 /**
-* 
+*
 Specifies the table's position with respect to the rest of the document.
 The value of attribute align of the table element is read and checked against the expected value.
 
@@ -21962,7 +21968,7 @@ table33 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -21974,10 +21980,10 @@ testNode = nodeList.item(1);
       valign = testNode.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
+*
 The width of the border around the table.
 The value of attribute border of the table element is read and checked against the expected value.
 
@@ -21992,7 +21998,7 @@ table34 : function () {
       var testNode;
       var vborder;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -22004,10 +22010,10 @@ testNode = nodeList.item(1);
       vborder = testNode.border;
 
       assertEquals("borderLink","4",vborder);
-       
+
 },
 /**
-* 
+*
 Cell background color.
 The value of attribute bgcolor of the table element is read and checked against the expected value.
 
@@ -22022,7 +22028,7 @@ table35 : function () {
       var testNode;
       var vbgcolor;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -22034,10 +22040,10 @@ testNode = nodeList.item(1);
       vbgcolor = testNode.bgColor;
 
       assertEquals("bgcolorLink","#ff0000",vbgcolor);
-       
+
 },
 /**
-* 
+*
 Specifies which external table borders to render.
 The value of attribute frame of the table element is read and checked against the expected value.
 
@@ -22052,7 +22058,7 @@ table36 : function () {
       var testNode;
       var vframe;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -22064,10 +22070,10 @@ testNode = nodeList.item(1);
       vframe = testNode.frame;
 
       assertEquals("frameLink","border",vframe);
-       
+
 },
 /**
-* 
+*
 Specifies the horizontal and vertical space between cell content and cell borders. The value of attribute cellpadding of the table element is read and checked against the expected value.
 
 * @author Netscape
@@ -22081,7 +22087,7 @@ table37 : function () {
       var testNode;
       var vcellpadding;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -22093,10 +22099,10 @@ testNode = nodeList.item(1);
       vcellpadding = testNode.cellPadding;
 
       assertEquals("cellpaddingLink","2",vcellpadding);
-       
+
 },
 /**
-* 
+*
 Specifies the horizontal and vertical separation between cells.
 The value of attribute cellspacing of the table element is read and checked against the expected value.
 
@@ -22111,7 +22117,7 @@ table38 : function () {
       var testNode;
       var vcellspacing;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -22123,10 +22129,10 @@ testNode = nodeList.item(1);
       vcellspacing = testNode.cellSpacing;
 
       assertEquals("cellspacingLink","2",vcellspacing);
-       
+
 },
 /**
-* 
+*
 Supplementary description about the purpose or structure of a table.
 The value of attribute summary of the table element is read and checked against the expected value.
 
@@ -22141,7 +22147,7 @@ table39 : function () {
       var testNode;
       var vsummary;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -22153,10 +22159,10 @@ testNode = nodeList.item(1);
       vsummary = testNode.summary;
 
       assertEquals("summaryLink","HTML Control Table",vsummary);
-       
+
 },
 /**
-* 
+*
 Specifies which internal table borders to render.
 The value of attribute rules of the table element is read and checked against the expected value.
 
@@ -22171,7 +22177,7 @@ table40 : function () {
       var testNode;
       var vrules;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -22183,11 +22189,11 @@ testNode = nodeList.item(1);
       vrules = testNode.rules;
 
       assertEquals("rulesLink","all",vrules);
-       
+
 },
 /**
-* 
-Specifies the desired table width. 
+*
+Specifies the desired table width.
 The value of attribute width of the table element is read and checked against the expected value.
 
 * @author Netscape
@@ -22201,7 +22207,7 @@ table41 : function () {
       var testNode;
       var vwidth;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -22213,10 +22219,10 @@ testNode = nodeList.item(1);
       vwidth = testNode.width;
 
       assertEquals("widthLink","680",vwidth);
-       
+
 },
 /**
-* 
+*
 Horizontal alignment of data within cells of this row.
 The value of attribute align of the tablerow element is read and checked against the expected value.
 
@@ -22231,7 +22237,7 @@ table42 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -22243,10 +22249,10 @@ testNode = nodeList.item(1);
       valign = testNode.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
+*
 Background color for rows.
 The value of attribute bgcolor of the tablerow element is read and checked against the expected value.
 
@@ -22261,7 +22267,7 @@ table43 : function () {
       var testNode;
       var vbgcolor;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -22273,10 +22279,10 @@ testNode = nodeList.item(1);
       vbgcolor = testNode.bgColor;
 
       assertEquals("bgcolorLink","#00FFFF".toLowerCase(),vbgcolor.toLowerCase());
-       
+
 },
 /**
-* 
+*
 Vertical alignment of data within cells of this row.
 The value of attribute valign of the tablerow element is read and checked against the expected value.
 
@@ -22291,7 +22297,7 @@ table44 : function () {
       var testNode;
       var vvalign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -22303,10 +22309,10 @@ testNode = nodeList.item(1);
       vvalign = testNode.vAlign;
 
       assertEquals("valignLink","middle",vvalign);
-       
+
 },
 /**
-* 
+*
 Alignment character for cells in a column.
 The value of attribute ch of the tablerow element is read and checked against the expected value.
 
@@ -22321,7 +22327,7 @@ table45 : function () {
       var testNode;
       var vch;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -22333,10 +22339,10 @@ testNode = nodeList.item(1);
       vch = testNode.ch;
 
       assertEquals("vchLink","*",vch);
-       
+
 },
 /**
-* 
+*
 Offset of alignment character.
 The value of attribute choff of the tablerow element is read and checked against the expected value.
 
@@ -22351,7 +22357,7 @@ table46 : function () {
       var testNode;
       var vchoff;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -22363,11 +22369,11 @@ testNode = nodeList.item(1);
       vchoff = testNode.chOff;
 
       assertEquals("choffLink","1",vchoff);
-       
+
 },
 /**
-* 
-The index of this row, relative to the entire table. 
+*
+The index of this row, relative to the entire table.
 The value of attribute rowIndex of the table element is read and checked against the expected value.
 
 * @author Netscape
@@ -22381,7 +22387,7 @@ table47 : function () {
       var testNode;
       var vrindex;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -22393,10 +22399,10 @@ testNode = nodeList.item(4);
       vrindex = testNode.rowIndex;
 
       assertEquals("rowIndexLink",2,vrindex);
-       
+
 },
 /**
-* 
+*
 Horizontal alignment of cell data in column.
 The value of attribute align of the tablecol element is read and checked against the expected value.
 
@@ -22411,7 +22417,7 @@ table48 : function () {
       var testNode;
       var valign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -22423,10 +22429,10 @@ testNode = nodeList.item(0);
       valign = testNode.align;
 
       assertEquals("alignLink","center",valign);
-       
+
 },
 /**
-* 
+*
 Alignment character for cells in a column.
 The value of attribute ch of the tablecol element is read and checked against the expected value.
 
@@ -22441,7 +22447,7 @@ table49 : function () {
       var testNode;
       var vch;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -22453,10 +22459,10 @@ testNode = nodeList.item(0);
       vch = testNode.ch;
 
       assertEquals("chLink","*",vch);
-       
+
 },
 /**
-* 
+*
 Offset of alignment character.
 The value of attribute choff of the tablecol element is read and checked against the expected value.
 
@@ -22471,7 +22477,7 @@ table50 : function () {
       var testNode;
       var vchoff;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -22483,10 +22489,10 @@ testNode = nodeList.item(0);
       vchoff = testNode.chOff;
 
       assertEquals("chOffLink","20",vchoff);
-       
+
 },
 /**
-* 
+*
 Indicates the number of columns in a group or affected by a grouping.
 The value of attribute span of the tablecol element is read and checked against the expected value.
 
@@ -22501,7 +22507,7 @@ table51 : function () {
       var testNode;
       var vspan;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -22513,10 +22519,10 @@ testNode = nodeList.item(0);
       vspan = testNode.span;
 
       assertEquals("spanLink",1,vspan);
-       
+
 },
 /**
-* 
+*
 Vertical alignment of cell data in column.
 The value of attribute valign of the tablecol element is read and checked against the expected value.
 
@@ -22531,7 +22537,7 @@ table52 : function () {
       var testNode;
       var vvalign;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -22543,10 +22549,10 @@ testNode = nodeList.item(0);
       vvalign = testNode.vAlign;
 
       assertEquals("vAlignLink","middle",vvalign);
-       
+
 },
 /**
-* 
+*
 Default column width.
 The value of attribute width of the tablecol element is read and checked against the expected value.
 
@@ -22561,7 +22567,7 @@ table53 : function () {
       var testNode;
       var vwidth;
       var doc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -22573,5 +22579,5 @@ testNode = nodeList.item(0);
       vwidth = testNode.width;
 
       assertEquals("widthLink","20",vwidth);
-       
+
 }}
