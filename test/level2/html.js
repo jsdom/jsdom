@@ -23,6 +23,7 @@ HTMLAnchorElement01 : function () {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "anchor");
+      console.log(HtmlToDom)
       nodeList = doc.getElementsByTagName("a");
       assertSize("Asize",1,nodeList);
 testNode = nodeList.item(0);
@@ -55,6 +56,7 @@ HTMLAnchorElement02 : function () {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "anchor");
+
       nodeList = doc.getElementsByTagName("a");
       assertSize("Asize",1,nodeList);
 testNode = nodeList.item(0);
