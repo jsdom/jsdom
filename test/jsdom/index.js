@@ -118,6 +118,21 @@ exports.tests = {
                    doc2.getElementById("test").innerHTML);
       
     }
+  },
+
+  importNode: function() {
+    var caught = false;
+    try {
+      var doc1 = jsdom.jsdom('<html><body><h1 id="headline">Hello World</h1></body></html>'),
+          doc2 = jsdom.jsdom();
+
+      doc2.body.appendChild(doc2.importNode(doc1.getElementById('headline'), true));
+      doc1.getElementById('headline').className = 'foo';
+    }
+    catch (err) {
+      caught = err;
+    }
+    assertFalse("Importing nodes should not fail", caught);
   }
 
 };
