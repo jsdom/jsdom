@@ -123,11 +123,11 @@ exports.tests = {
   importNode: function() {
     var caught = false;
     try {
-      var doc1 = jsdom.jsdom('<html><body><h1 id="headline">Hello World</h1></body></html>'),
+      var doc1 = jsdom.jsdom('<html><body><h1 id="headline">Hello <span id="world">World</span></h1></body></html>'),
           doc2 = jsdom.jsdom();
 
       doc2.body.appendChild(doc2.importNode(doc1.getElementById('headline'), true));
-      doc1.getElementById('headline').className = 'foo';
+      doc2.getElementById('world').className = 'foo';
     }
     catch (err) {
       caught = err;
