@@ -58,6 +58,9 @@
     "implements": [
         "http://www.w3.org/TR/REC-DOM-Level-1"
     ],
+    "dependencies": {
+       "htmlparser": ">=1.7.0"
+    },
     "engines" : { "node" : ">=0.1.9" },
     "directories": {
         "lib": "lib"
