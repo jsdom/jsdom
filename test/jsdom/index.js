@@ -116,8 +116,16 @@ exports.tests = {
       assertEquals("js should not be executed",
                    'hello from html',
                    doc2.getElementById("test").innerHTML);
-      
-    }
+
+    };
+  },
+
+  window_is_augmented_with_dom_features : function() {
+    var document = jsdom.jsdom(),
+        window   = document.createWindow();
+
+    assertEquals("window must be augmented", true, window._augmented);
+    assertNotNull("window must include Element", window.Element);
   }
 
 };
