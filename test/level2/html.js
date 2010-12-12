@@ -18,12 +18,12 @@ HTMLAnchorElement01 : function () {
       var vaccesskey;
       var doc;
 
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "anchor");
-      console.log(HtmlToDom)
       nodeList = doc.getElementsByTagName("a");
       assertSize("Asize",1,nodeList);
 testNode = nodeList.item(0);
