@@ -59,7 +59,7 @@
         "http://www.w3.org/TR/REC-DOM-Level-1"
     ],
     "dependencies": {
-       "mjsunit.runner": ">=0.1.0"
+       "htmlparser": ">=1.7.0"
     },
     "engines" : { "node" : ">=0.1.9" },
     "directories": {
