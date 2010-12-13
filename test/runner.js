@@ -122,7 +122,7 @@ var suites = {
 
       global.level2 = require("../lib/jsdom/level2/html").dom.level2.html;
       global.getImplementation = function() {
-        var doc = new (core.HTMLDocument)();
+        var doc = new (global.level2.HTMLDocument)();
         return doc.implementation;
       };
     }
