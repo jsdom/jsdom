@@ -64,7 +64,7 @@ exports.tests = {
     }
     assertEquals('Should throw HIERARCHY_ERR', 3, caught._code);
   },
-  
+
   apply_jsdom_features_at_build_time : function() {
     var doc  = new (jsdom.defaultLevel.Document)(),
         doc2 = new (jsdom.defaultLevel.Document)(),
@@ -77,7 +77,7 @@ exports.tests = {
       assertTrue("Document has all of the default features",
                  doc.implementation.hasFeature(defaults[i]));
     }
-    
+
     jsdom.applyDocumentFeatures(doc2, {
       'FetchExternalResources' : false
     });
@@ -104,7 +104,7 @@ exports.tests = {
                    'hello from javascript',
                    doc.getElementById("test").innerHTML);
     };
-    
+
     doc2 = jsdom.jsdom(html, null, {
       features : {
         FetchExternalResources   : ['script'],
@@ -116,7 +116,6 @@ exports.tests = {
       assertEquals("js should not be executed",
                    'hello from html',
                    doc2.getElementById("test").innerHTML);
-      
     }
   },
 
@@ -133,6 +132,15 @@ exports.tests = {
       caught = err;
     }
     assertFalse("Importing nodes should not fail", caught);
+
+  },
+
+  window_is_augmented_with_dom_features : function() {
+    var document = jsdom.jsdom(),
+        window   = document.createWindow();
+
+    assertEquals("window must be augmented", true, window._augmented);
+    assertNotNull("window must include Element", window.Element);
   }
 
 };
