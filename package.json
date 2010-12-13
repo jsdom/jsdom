@@ -61,6 +61,9 @@
     "dependencies": {
        "htmlparser": ">=1.7.0"
     },
+    "devDependiencies" : {
+      "mjsunit.runner" : ">=0.1.0"
+    },
     "engines" : { "node" : ">=0.1.9" },
     "directories": {
         "lib": "./lib/jsdom"
