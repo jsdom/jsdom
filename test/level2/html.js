@@ -22597,4 +22597,32 @@ document_write_before_loaded : function() {
   doc.write("hello world");
   assertEquals("#Anchor's innerHTML should be set", 
                'hello world', anchor.innerHTML);
+},
+event_default_action : function() {
+    var success;
+    if(checkInitialization(builder, "event_default_action") != null) return;
+    var doc;
+    var target;
+    var evt;
+    var preventDefault;
+    var performedDefault = false;
+    
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+
+    doc = load(docRef, "doc", "anchor");
+
+    var a = doc.getElementById("Anchor");
+    a.addEventListener("foo", function() {}, true);
+	  evt = doc.createEvent("Events");
+    evt.initEvent("foo",false,false);
+    
+    a._eventDefaults['foo'] = function(event) {
+      performedDefault = true;
+    }
+    preventDefault = a.dispatchEvent(evt);
+    assertFalse("preventDefault", preventDefault);
+    assertTrue("performedDefault", performedDefault);
 }}
