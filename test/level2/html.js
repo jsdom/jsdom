@@ -22582,4 +22582,19 @@ testNode = nodeList.item(0);
 
       assertEquals("widthLink","20",vwidth);
 
+},
+document_write_before_loaded : function() {
+  if(checkInitialization(builder, "table53") != null) return;
+  var anchor, doc, docRef = null;
+  if (typeof(this.doc) != 'undefined') {
+    docRef = this.doc;
+  }
+
+  doc = load(docRef, "doc", "anchor");
+  doc.innerHTML = "<html><body><p><a id='Anchor'>Anchor Text</a></body></html>";
+  anchor = doc.getElementById("Anchor");
+  doc.readyState = 'loading';
+  doc.write("hello world");
+  assertEquals("#Anchor's innerHTML should be set", 
+               'hello world', anchor.innerHTML);
 }}
