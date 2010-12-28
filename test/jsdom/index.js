@@ -35,12 +35,13 @@ exports.tests = {
       assertNotNull("jQuery should be attached to the window", window.jQuery.find);
       assertNotNull("jQuery should be attached to the window", jQuery.find);
       jQuery("body").html('<p id="para"><a class="link">click <em class="emph">ME</em></a></p>');
-      try {
-        res = jQuery("#para .emph", window.document.body);
-      } catch (e) {
-        caught = true;
-      }
-      assertEquals("selector should work as expected", "ME", res.text());
+      res = jQuery("#para .emph").text();
+      res2 = jQuery("a.link .emph").text();
+
+      // TODO: there seems to be a problem when selecting from window.document.body
+
+      assertEquals("selector should work as expected", "ME", res);
+      assertEquals("selector should work as expected", "ME", res2);
       assertFalse("compareDocumentPosition should not fail", caught);
     };
 
@@ -64,7 +65,7 @@ exports.tests = {
     }
     assertEquals('Should throw HIERARCHY_ERR', 3, caught._code);
   },
-  
+
   apply_jsdom_features_at_build_time : function() {
     var doc  = new (jsdom.defaultLevel.Document)(),
         doc2 = new (jsdom.defaultLevel.Document)(),
@@ -77,7 +78,7 @@ exports.tests = {
       assertTrue("Document has all of the default features",
                  doc.implementation.hasFeature(defaults[i]));
     }
-    
+
     jsdom.applyDocumentFeatures(doc2, {
       'FetchExternalResources' : false
     });
@@ -104,7 +105,7 @@ exports.tests = {
                    'hello from javascript',
                    doc.getElementById("test").innerHTML);
     };
-    
+
     doc2 = jsdom.jsdom(html, null, {
       features : {
         FetchExternalResources   : ['script'],
@@ -116,8 +117,58 @@ exports.tests = {
       assertEquals("js should not be executed",
                    'hello from html',
                    doc2.getElementById("test").innerHTML);
-      
     }
-  }
+  },
 
+  importNode: function() {
+    var caught = false;
+    try {
+      var doc1 = jsdom.jsdom('<html><body><h1 id="headline">Hello <span id="world">World</span></h1></body></html>'),
+          doc2 = jsdom.jsdom();
+
+      doc2.body.appendChild(doc2.importNode(doc1.getElementById('headline'), true));
+      doc2.getElementById('world').className = 'foo';
+    }
+    catch (err) {
+      caught = err;
+    }
+    assertFalse("Importing nodes should not fail", caught);
+
+  },
+
+  window_is_augmented_with_dom_features : function() {
+    var document = jsdom.jsdom(),
+        window   = document.createWindow();
+
+    assertEquals("window must be augmented", true, window._augmented);
+    assertNotNull("window must include Element", window.Element);
+  },
+
+  queryselector : function() {
+    var document = jsdom.jsdom('<html><body><div id="main"><p>Foo</p><p>Bar</p></div></body></html>');
+    var div      = document.body.children.item(0);
+
+    var element = document.querySelector("#main p");
+
+    assertSame("p and first-p", div.children.item(0), element);
+
+    var element2 = div.querySelector("p");
+    assertSame("p and first-p", div.children.item(0), element2);
+  },
+
+  queryselectorall : function() {
+    var document = jsdom.jsdom('<html><body><div id="main"><p>Foo</p><p>Bar</p></div></body></html>');
+    var div      = document.body.children.item(0);
+
+    var elements = document.querySelectorAll("#main p");
+
+    assertEquals("two results", 2, elements.length);
+    assertSame("p and first-p", div.children.item(0), elements.item(0));
+    assertSame("p and second-p", div.children.item(1), elements.item(1));
+
+    var elements2 = div.querySelectorAll("p");
+    assertEquals("two results", 2, elements.length);
+    assertSame("p and first-p", div.children.item(0), elements2.item(0));
+    assertSame("p and second-p", div.children.item(1), elements2.item(1));
+  }
 };

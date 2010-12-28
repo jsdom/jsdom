@@ -1,6 +1,6 @@
 {
     "name": "jsdom",
-    "version": "0.1.20",
+    "version": "0.1.21",
     "description": "CommonJS implementation of the DOM intended to be platform independent and as minimal/light as possible while completely adhering to the w3c DOM specifications.",
     "keywords": [
         "dom",
@@ -59,11 +59,14 @@
         "http://www.w3.org/TR/REC-DOM-Level-1"
     ],
     "dependencies": {
-       "mjsunit.runner": ">=0.1.0"
+       "htmlparser": ">=1.7.0"
+    },
+    "devDependiencies" : {
+      "mjsunit.runner" : ">=0.1.0"
     },
     "engines" : { "node" : ">=0.1.9" },
     "directories": {
-        "lib": "lib"
+        "lib": "./lib/jsdom"
     },
     "main": "./lib/jsdom"
 }
