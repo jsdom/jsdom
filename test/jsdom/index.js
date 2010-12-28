@@ -145,8 +145,13 @@ exports.tests = {
   },
 
   queryselector : function() {
-    var document = jsdom.jsdom('<html><body><div id="main"><p>Foo</p><p>Bar</p></div></body></html>');
-    var div      = document.body.children.item(0);
+    var html     = '<html><body><div id="main"><p>Foo</p><p>Bar</p></div></body></html>',
+        document = jsdom.jsdom(html, null, {
+          features : {
+            'QuerySelector' : ['1.0']
+          }
+        }),
+        div      = document.body.children.item(0);
 
     var element = document.querySelector("#main p");
 
@@ -157,10 +162,14 @@ exports.tests = {
   },
 
   queryselectorall : function() {
-    var document = jsdom.jsdom('<html><body><div id="main"><p>Foo</p><p>Bar</p></div></body></html>');
-    var div      = document.body.children.item(0);
-
-    var elements = document.querySelectorAll("#main p");
+    var html     = '<html><body><div id="main"><p>Foo</p><p>Bar</p></div></body></html>',
+        document = jsdom.jsdom(html, null, {
+          features : {
+            'QuerySelector' : ['1.0']
+          }
+        }),
+        div      = document.body.children.item(0),
+        elements = document.querySelectorAll("#main p");
 
     assertEquals("two results", 2, elements.length);
     assertSame("p and first-p", div.children.item(0), elements.item(0));
