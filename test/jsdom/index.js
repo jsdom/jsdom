@@ -141,6 +141,33 @@ exports.tests = {
 
     assertEquals("window must be augmented", true, window._augmented);
     assertNotNull("window must include Element", window.Element);
-  }
+  },
 
+  queryselector : function() {
+    var document = jsdom.jsdom('<html><body><div id="main"><p>Foo</p><p>Bar</p></div></body></html>');
+    var div      = document.body.children.item(0);
+
+    var element = document.querySelector("#main p");
+
+    assertSame("p and first-p", div.children.item(0), element);
+
+    var element2 = div.querySelector("p");
+    assertSame("p and first-p", div.children.item(0), element2);
+  },
+
+  queryselectorall : function() {
+    var document = jsdom.jsdom('<html><body><div id="main"><p>Foo</p><p>Bar</p></div></body></html>');
+    var div      = document.body.children.item(0);
+
+    var elements = document.querySelectorAll("#main p");
+
+    assertEquals("two results", 2, elements.length);
+    assertSame("p and first-p", div.children.item(0), elements.item(0));
+    assertSame("p and second-p", div.children.item(1), elements.item(1));
+
+    var elements2 = div.querySelectorAll("p");
+    assertEquals("two results", 2, elements.length);
+    assertSame("p and first-p", div.children.item(0), elements2.item(0));
+    assertSame("p and second-p", div.children.item(1), elements2.item(1));
+  }
 };
