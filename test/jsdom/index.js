@@ -170,5 +170,21 @@ exports.tests = {
     assertEquals("two results", 2, elements.length);
     assertSame("p and first-p", div.children.item(0), elements2.item(0));
     assertSame("p and second-p", div.children.item(1), elements2.item(1));
+  },
+  
+  scripts_share_a_global_context : function() {
+    var window = jsdom.jsdom('<html><head><script type="text/javascript">\
+window.hello = { value: "hello" };\
+window.bye = "good";\
+</script><script type="text/javascript">\
+hello.value += " world";\
+window.bye = bye + "bye"\
+</script></head><body></body></html>').createWindow();
+
+   assertEquals("window should be the global context",
+                "hello world", window.hello.value);
+   assertEquals("window should be the global context",
+                "goodbye", window.bye);
   }
+  
 };
