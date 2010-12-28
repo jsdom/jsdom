@@ -37,6 +37,10 @@
         {
             "name" : "Matthew (http://github.com/matthewpflueger/)",
             "email": "N.A."
+        },
+        {
+          "name"  : "Olivier El Mekki (http://blog.olivier-elmekki.com/)",
+          "email" : "unknown"
         }
     ],
     "bugs": {
