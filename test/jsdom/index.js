@@ -22,7 +22,7 @@ exports.tests = {
   },
 
   jquerify : function() {
-    var jQueryFile = "/../../example/jquery/jquery.js",
+    var jQueryFile = __dirname + "/../../example/jquery/jquery.js",
         jQueryUrl = "http://code.jquery.com/jquery-1.4.2.min.js",
         caught = false,
         res = null;
@@ -194,6 +194,74 @@ window.bye = bye + "bye"\
                 "hello world", window.hello.value);
    assertEquals("window should be the global context",
                 "goodbye", window.bye);
-  }
-  
+  },
+  url_resolution: function() {
+      var html = '\
+  <html>\
+    <head></head>\
+    <body>\
+      <a href="http://example.com" id="link1">link1</a>\
+      <a href="/local.html" id="link2">link2</a>\
+      <a href="local.html" id="link3">link3</a>\
+      <a href="../../local.html" id="link4">link4</a>\
+      <a href="#here" id="link5">link5</a>\
+      <a href="//example.com/protocol/avoidance.html" id="link6">protocol</a>\
+    </body>\
+  </html>'
+
+      function testLocal() {
+        var url = '/path/to/docroot/index.html'
+        var doc = jsdom.jsdom(html, null, {url: url});
+        assertEquals("Absolute URL should be left alone", 'http://example.com', doc.getElementById("link1").href);
+        assertEquals("Relative URL should be resolved", '/local.html', doc.getElementById("link2").href);
+        assertEquals("Relative URL should be resolved", '/path/to/docroot/local.html', doc.getElementById("link3").href);
+        assertEquals("Relative URL should be resolved", '/path/local.html', doc.getElementById("link4").href);
+        assertEquals("Relative URL should be resolved", '/path/to/docroot/index.html#here', doc.getElementById("link5").href);
+        //assertEquals("Protocol-less URL should be resolved", '//prototol/avoidance.html', doc.getElementById("link6").href);
+      }
+
+      function testRemote() {
+        var url = 'http://example.com/path/to/docroot/index.html'
+        var doc = jsdom.jsdom(html, null, {url: url});
+        assertEquals("Absolute URL should be left alone", 'http://example.com', 
+                     doc.getElementById("link1").href);
+        assertEquals("Relative URL should be resolved", 'http://example.com/local.html', 
+                     doc.getElementById("link2").href);
+        assertEquals("Relative URL should be resolved", 'http://example.com/path/to/docroot/local.html', 
+                     doc.getElementById("link3").href);
+        assertEquals("Relative URL should be resolved", 'http://example.com/path/local.html', 
+                     doc.getElementById("link4").href);
+        assertEquals("Relative URL should be resolved", 'http://example.com/path/to/docroot/index.html#here', 
+                     doc.getElementById("link5").href);
+        assertEquals("Relative URL should be resolved", 'http://example.com/protocol/avoidance.html', 
+                     doc.getElementById("link6").href);
+      }
+
+      function testBase() {
+        var url  = 'blahblahblah-invalid', 
+            doc  = jsdom.jsdom(html, null, {url: url}),
+            base = doc.createElement("base");
+            
+        base.href = 'http://example.com/path/to/docroot/index.html';
+        doc.getElementsByTagName("head").item(0).appendChild(base);
+        
+        assertEquals("Absolute URL should be left alone", 'http://example.com', 
+                     doc.getElementById("link1").href);
+        assertEquals("Relative URL should be resolved", 'http://example.com/local.html', 
+                     doc.getElementById("link2").href);
+        assertEquals("Relative URL should be resolved", 'http://example.com/path/to/docroot/local.html', 
+                     doc.getElementById("link3").href);
+        assertEquals("Relative URL should be resolved", 'http://example.com/path/local.html', 
+                     doc.getElementById("link4").href);
+        assertEquals("Relative URL should be resolved", 'http://example.com/path/to/docroot/index.html#here', 
+                     doc.getElementById("link5").href);
+        assertEquals("Relative URL should be resolved", 'http://example.com/protocol/avoidance.html', 
+                     doc.getElementById("link6").href);
+      }
+
+      testLocal();
+      testRemote();
+
+      testBase();
+    },  
 };
