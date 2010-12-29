@@ -183,17 +183,26 @@ exports.tests = {
   
   scripts_share_a_global_context : function() {
     var window = jsdom.jsdom('<html><head><script type="text/javascript">\
-window.hello = { value: "hello" };\
+hello = "hello";\
 window.bye = "good";\
+var abc = 123;\
 </script><script type="text/javascript">\
-hello.value += " world";\
-window.bye = bye + "bye"\
+hello += " world";\
+bye = bye + "bye";\
+(function() { var hidden = "hidden"; window.exposed = hidden; })();\
 </script></head><body></body></html>').createWindow();
 
    assertEquals("window should be the global context",
-                "hello world", window.hello.value);
+                "hello world", window.hello);
+
    assertEquals("window should be the global context",
                 "goodbye", window.bye);
+
+   assertEquals('local vars should not leak out to the window', 
+                123, window.abc);
+
+   assertTrue('vars in a closure are safe', typeof window.hidden === 'undefined');
+   assertEquals('vars exposed to the window are global', 'hidden', window.exposed);
   },
   url_resolution: function() {
       var html = '\
