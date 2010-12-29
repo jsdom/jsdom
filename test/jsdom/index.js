@@ -148,7 +148,7 @@ exports.tests = {
     var html     = '<html><body><div id="main"><p>Foo</p><p>Bar</p></div></body></html>',
         document = jsdom.jsdom(html, null, {
           features : {
-            'QuerySelector' : ['1.0']
+            'QuerySelector' : true
           }
         }),
         div      = document.body.children.item(0);
@@ -165,7 +165,7 @@ exports.tests = {
     var html     = '<html><body><div id="main"><p>Foo</p><p>Bar</p></div></body></html>',
         document = jsdom.jsdom(html, null, {
           features : {
-            'QuerySelector' : ['1.0']
+            'QuerySelector' : true
           }
         }),
         div      = document.body.children.item(0),
