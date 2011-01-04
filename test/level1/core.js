@@ -18973,7 +18973,6 @@ exports.tests = {
 
         clonedNode = employeeNode.cloneNode(true);
         clonedList = clonedNode.childNodes;
-
         for(var indexN100AE = 0;indexN100AE < clonedList.length; indexN100AE++) {
           clonedChild = clonedList.item(indexN100AE);
           clonedChildName = clonedChild.nodeName;

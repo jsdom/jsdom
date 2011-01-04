@@ -18,6 +18,7 @@ HTMLAnchorElement01 : function () {
       var vaccesskey;
       var doc;
 
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -55,6 +56,7 @@ HTMLAnchorElement02 : function () {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "anchor");
+
       nodeList = doc.getElementsByTagName("a");
       assertSize("Asize",1,nodeList);
 testNode = nodeList.item(0);
@@ -22580,4 +22582,47 @@ testNode = nodeList.item(0);
 
       assertEquals("widthLink","20",vwidth);
 
+},
+document_write_before_loaded : function() {
+  if(checkInitialization(builder, "table53") != null) return;
+  var anchor, doc, docRef = null;
+  if (typeof(this.doc) != 'undefined') {
+    docRef = this.doc;
+  }
+
+  doc = load(docRef, "doc", "anchor");
+  doc.innerHTML = "<html><body><p><a id='Anchor'>Anchor Text</a></body></html>";
+  anchor = doc.getElementById("Anchor");
+  doc.readyState = 'loading';
+  doc.write("hello world");
+  assertEquals("#Anchor's innerHTML should be set", 
+               'hello world', anchor.innerHTML);
+},
+event_default_action : function() {
+    var success;
+    if(checkInitialization(builder, "event_default_action") != null) return;
+    var doc;
+    var target;
+    var evt;
+    var preventDefault;
+    var performedDefault = false;
+    
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+
+    doc = load(docRef, "doc", "anchor");
+
+    var a = doc.getElementById("Anchor");
+    a.addEventListener("foo", function() {}, true);
+	  evt = doc.createEvent("Events");
+    evt.initEvent("foo",false,false);
+    
+    a._eventDefaults['foo'] = function(event) {
+      performedDefault = true;
+    }
+    preventDefault = a.dispatchEvent(evt);
+    assertFalse("preventDefault", preventDefault);
+    assertTrue("performedDefault", performedDefault);
 }}
