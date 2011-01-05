@@ -24387,5 +24387,39 @@ exports.tests = {
                       doc.implementation.hasFeature('TestingFeature'));
           
           
+        },
+        /*
+        splitText
+        
+        Breaks this Text node into two Text nodes at the specified offset, keeping both in 
+        the tree as siblings. This node then only contains all the content up to the offset 
+        point. And a new Text node, which is inserted as the next sibling of this node, 
+        contains all the content at and after the offset point
+        
+        This test ensures that the new text node is inserted at the correct location. This 
+        test does not actually test the splitText offsets and other behavior as that is
+        handled in previous tests.
+        
+        */
+        maintainsplittextlocation : function() {
+          var success, doc, children, docRef, firstTextNode;
+          if(checkInitialization(builder, "maintainsplittextlocation") != null) return;
+
+          doc = load(docRef, "doc", "extra");
+          children = doc.getElementsByTagName('splitTextTest').item(0).childNodes;
+          firstTextNode = children.item(0);
+          assertTrue('Original children count should be 2', children.length === 2);
+          children.item(0).splitText('5');
+
+          assertTrue('After split, the children count should be 3', children.length === 3);
+
+          assertTrue('After split, the last child should be an ELEMENT_NODE',
+                      children.item(children.length-1).nodeType === doc.ELEMENT_NODE);
+
+          assertTrue('After split the first child should still be the same object as before',
+                      children.item(0) === firstTextNode);
+          
+          assertTrue('After split the second child should be a text node',
+                      children.item(1).nodeType === doc.TEXT_NODE);
         }
 		};
