@@ -31,7 +31,7 @@ global.builder = {
   testDirectory: ""
 };
 
-global.load = function(docRef, doc, name) {
+global.load = global.originalLoad = function(docRef, doc, name) {
   var file = "./" + global.builder.testDirectory +
              "/files/" + name + "." + global.builder.type,
       fn = require(file);
@@ -131,7 +131,7 @@ var suites = {
       global.builder.contentType   = "text/xml";
       global.builder.type          = "xml";
       global.builder.testDirectory = "level3/core";
-
+      global.load                  = global.originalLoad;
       global.DOMErrorMonitor = function() {
         this.allErrors = new Array();
       }
@@ -148,11 +148,11 @@ var suites = {
               }
           }
       }
-      var core = require("../lib/jsdom/level3/core").dom.level3.core;
+      var level3core = require("../lib/jsdom/level3/core").dom.level3.core;
       global.getImplementation = function() {
         return {
           createDocument : function() {
-            return new (core.Document)();
+            return new (level3core.Document)();
           }
         };
       }
