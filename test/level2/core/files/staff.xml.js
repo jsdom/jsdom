@@ -75,13 +75,13 @@ exports.staff = function() {
   // create 5 employees
   for (var i=0; i<5; i++)
   {
-    var employee = doc.createElementNS("http://www.w3.org/2000/xmlns/","p");
-    var address  = doc.createElementNS("http://www.w3.org/2000/xmlns/","acronym");
-    var name     = doc.createElementNS("http://www.w3.org/2000/xmlns/","strong");
-    var position = doc.createElementNS("http://www.w3.org/2000/xmlns/","code");
-    var gender   = doc.createElementNS("http://www.w3.org/2000/xmlns/","var");
-    var id       = doc.createElementNS("http://www.w3.org/2000/xmlns/","em");
-    var salary   = doc.createElementNS("http://www.w3.org/2000/xmlns/","sup");
+    var employee = doc.createElementNS("http://www.w3.org/2000/xmlns/","employee");
+    var address  = doc.createElementNS("http://www.w3.org/2000/xmlns/","address");
+    var name     = doc.createElementNS("http://www.w3.org/2000/xmlns/","name");
+    var position = doc.createElementNS("http://www.w3.org/2000/xmlns/","position");
+    var gender   = doc.createElementNS("http://www.w3.org/2000/xmlns/","gender");
+    var id       = doc.createElementNS("http://www.w3.org/2000/xmlns/","id");
+    var salary   = doc.createElementNS("http://www.w3.org/2000/xmlns/","salary");
 
     employee.appendChild(doc.createTextNode("\r\n"));
     employee.appendChild(id);
