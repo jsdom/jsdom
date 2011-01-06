@@ -15139,7 +15139,9 @@ nodecomparedocumentposition10 : function () {
       doc = load(docRef, "doc", "hc_staff");
       elemList = doc.getElementsByTagName("p");
       elem = elemList.item(3);
-      dir = elem.getAttributeNode("dir");
+      elemList = elem.getElementsByTagName("acronym") 
+      elem = elemList.item(0);
+      dir = elem.getAttributeNode("title");
       attrPosition = dir.compareDocumentPosition(doc);
       assertEquals("nodecomparedocumentpositionPRECEDINGContains10",10,attrPosition);
        
@@ -15170,8 +15172,8 @@ nodecomparedocumentposition11 : function () {
       doc = load(docRef, "doc", "hc_staff");
       elemList = doc.getElementsByTagName("p");
       elem = elemList.item(3);
-      newAttr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
-      replacedAttr = elem.setAttributeNodeNS(newAttr);
+      newAttr = doc.createAttribute("title");
+      replacedAttr = elem.setAttributeNode(newAttr);
       attrPosition = newAttr.compareDocumentPosition(doc);
       assertEquals("nodecomparedocumentpositionPRECEDINGContains11",10,attrPosition);
        
@@ -15309,9 +15311,9 @@ nodecomparedocumentposition15 : function () {
       docElem = doc.documentElement;
 
       docFrag = doc.createDocumentFragment();
-      attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
-      attrNode = docElem.setAttributeNodeNS(attr);
-      appendedChild = docFrag.appendChild(docElem);
+      attr = doc.createAttribute("title");
+      docElem.setAttributeNode(attr);
+      docFrag.appendChild(docElem);
       docFragChild = docFrag.firstChild;
 
       docFragChildPosition = docFragChild.compareDocumentPosition(attr);
@@ -16163,7 +16165,8 @@ nodecomparedocumentposition36 : function () {
       doc = load(docRef, "doc", "hc_staff");
       elemList = doc.getElementsByTagName("p");
       elem = elemList.item(3);
-      attr = elem.getAttributeNode("dir");
+      attr = doc.createAttribute("title");
+      elem.setAttributeNode(attr);
       elemListFollows = doc.getElementsByTagName("strong");
       elemFollows = elemListFollows.item(3);
       attrPosition = attr.compareDocumentPosition(elemFollows);
@@ -16238,7 +16241,6 @@ nodecomparedocumentposition38 : function () {
       elem = elemList.item(3);
       attr = elem.getAttributeNode("class");
       txt = attr.firstChild;
-
       attrPosition = attr.compareDocumentPosition(txt);
       assertEquals("nodecomparedocumentpositionIsContainsFollowing38",20,attrPosition);
        attrChildPosition = txt.compareDocumentPosition(attr);
