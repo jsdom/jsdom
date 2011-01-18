@@ -33,24 +33,24 @@ the `DOMImplementation` that every `Document` has. These features can be tweaked
 
 1. When you create a new `Document` using the jsdom builder (`require('jsdom').jsdom()`)
 
-      var jsdom = require('jsdom').jsdom,
-          doc   = jsdom("<html><body></body></html>", null, {
-            features: {
-              FetchExternalResources : ['img']
-            }
-          });
+        var jsdom = require('jsdom').jsdom,
+            doc   = jsdom("<html><body></body></html>", null, {
+              features: {
+                FetchExternalResources : ['img']
+              }
+            });
 
  Do note, that this will only affect the document that is currently being created.  All other documents
 will use the defaults specified below (see: Default Features)
 
 2. Previous to creating any documents you can modify the defaults for all future documents
     
-      require('jsdom').defaultDocumentFeatures = {
-        FetchExternalResources   : ['script'], 
-        ProcessExternalResources : false,
-        MutationEvents           : false,
-        QuerySelector            : false
-      }
+        require('jsdom').defaultDocumentFeatures = {
+          FetchExternalResources   : ['script'], 
+          ProcessExternalResources : false,
+          MutationEvents           : false,
+          QuerySelector            : false
+        }
 
 
 
