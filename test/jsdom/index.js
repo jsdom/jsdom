@@ -74,6 +74,7 @@ exports.tests = {
         l = defaults.length;
 
     jsdom.applyDocumentFeatures(doc);
+
     for (i=0; i<l; i++) {
       assertTrue("Document has all of the default features",
                  doc.implementation.hasFeature(defaults[i]));
@@ -100,6 +101,7 @@ exports.tests = {
 </html>';
 
     var doc = jsdom.jsdom(html), doc2;
+
     doc.onload = function() {
       assertEquals("js should be executed",
                    'hello from javascript',
@@ -114,7 +116,7 @@ exports.tests = {
     });
 
     doc2.onload = function() {
-      assertEquals("js should not be executed",
+      assertEquals("js should not be executed (doc2)",
                    'hello from html',
                    doc2.getElementById("test").innerHTML);
     }
