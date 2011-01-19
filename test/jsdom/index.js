@@ -63,7 +63,7 @@ exports.tests = {
     catch (e) {
       caught = e;
     }
-    assertEquals('Should throw HIERARCHY_ERR', 3, caught._code);
+    assertEquals('Should throw HIERARCHY_ERR', 3, caught.code);
   },
 
   apply_jsdom_features_at_build_time : function() {
