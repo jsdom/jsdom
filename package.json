@@ -1,9 +1,10 @@
 {
     "name": "jsdom",
     "version": "0.1.23",
-    "description": "CommonJS implementation of the DOM intended to be platform independent and as minimal/light as possible while completely adhering to the w3c DOM specifications.",
+    "description": "Javascript implementation of the w3c Document Object Model",
     "keywords": [
         "dom",
+        "w3c",
         "javascript"
     ],
     "maintainers": [
