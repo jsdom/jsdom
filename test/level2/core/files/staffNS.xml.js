@@ -45,12 +45,22 @@ exports.staffNS = function() {
   entElement.setAttribute("domestic", "MALE");
   defaultAttributes.setNamedItem(entElement);
 
-  var defaultAddress = doc.createElementNS("http://www.w3.org/2000/xmlns/","address");
+  var defaultAddress = doc.createElement("address");
   defaultAddress.setAttribute("street", "Yes");
   defaultAttributes.setNamedItem(defaultAddress);
 
+  //var defaultEmpAddress = doc.createElementNS('emp:address');
+  
+/*  <!ELEMENT emp:address (#PCDATA) >
+  <!ATTLIST emp:address emp:domestic CDATA #IMPLIED>
+  <!ATTLIST emp:address street CDATA #IMPLIED>
+  <!ATTLIST emp:address emp:zone ID #IMPLIED>
+  <!ATTLIST emp:address emp:district CDATA 'DISTRICT'>
+  <!ATTLIST emp:address emp:local1 CDATA 'FALSE'>
+*/
   doc.doctype = new dom.DocumentType(doc, "staff", entities, notations, defaultAttributes);
   doc.doctype._systemId = "staffNS.dtd";
+  doc.doctype._publicId = "STAFF";
   doc.implementation = implementation;
 
   var staff     = doc.createElementNS("http://www.w3.org/2000/xmlns/","staff");
@@ -158,6 +168,7 @@ exports.staffNS = function() {
   ************************************/
   employee = doc.createElementNS("http://www.nist.gov", "emp:employee");
   address  = doc.createElementNS("http://www.nist.gov", "emp:address");
+  console.log(address.toJSON());
   name     = doc.createElementNS("http://www.altavista.com", "nm:name");
   position = doc.createElementNS("http://www.nist.gov", "emp:position");
   gender   = doc.createElementNS("http://www.nist.gov", "emp:gender");
