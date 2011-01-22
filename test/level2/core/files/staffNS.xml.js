@@ -168,7 +168,6 @@ exports.staffNS = function() {
   ************************************/
   employee = doc.createElementNS("http://www.nist.gov", "emp:employee");
   address  = doc.createElementNS("http://www.nist.gov", "emp:address");
-  console.log(address.toJSON());
   name     = doc.createElementNS("http://www.altavista.com", "nm:name");
   position = doc.createElementNS("http://www.nist.gov", "emp:position");
   gender   = doc.createElementNS("http://www.nist.gov", "emp:gender");
