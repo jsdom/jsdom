@@ -49,8 +49,9 @@ exports.staffNS = function() {
   defaultAddress.setAttribute("street", "Yes");
   defaultAttributes.setNamedItem(defaultAddress);
 
-  //var defaultEmpAddress = doc.createElementNS('emp:address');
-
+  var defaultEmpAddress = doc.createElementNS("http://www.nist.gov", 'emp:address');
+  defaultEmpAddress.setAttributeNS("http://www.nist.gov", "emp:district", "");
+  defaultAttributes.setNamedItem(defaultEmpAddress);
 /*  <!ELEMENT emp:address (#PCDATA) >
   <!ATTLIST emp:address emp:domestic CDATA #IMPLIED>
   <!ATTLIST emp:address street CDATA #IMPLIED>
@@ -70,13 +71,13 @@ exports.staffNS = function() {
   /************************************
   *          EMPLOYEEE 1              *
   ************************************/
-  employee = doc.createElementNS("http://www.w3.org/2000/xmlns/","employee");
-  address  = doc.createElementNS("http://www.w3.org/2000/xmlns/","address");
-  name     = doc.createElementNS("http://www.w3.org/2000/xmlns/","name");
-  position = doc.createElementNS("http://www.w3.org/2000/xmlns/","position");
-  gender   = doc.createElementNS("http://www.w3.org/2000/xmlns/","gender");
-  id       = doc.createElementNS("http://www.w3.org/2000/xmlns/","employeeId");
-  salary   = doc.createElementNS("http://www.w3.org/2000/xmlns/","salary");
+  employee = doc.createElementNS("http://www.nist.gov","employee");
+  address  = doc.createElementNS("http://www.nist.gov","address");
+  name     = doc.createElementNS("http://www.nist.gov","name");
+  position = doc.createElementNS("http://www.nist.gov","position");
+  gender   = doc.createElementNS("http://www.nist.gov","gender");
+  id       = doc.createElementNS("http://www.nist.gov","employeeId");
+  salary   = doc.createElementNS("http://www.nist.gov","salary");
 
   employee.appendChild(id);
   employee.appendChild(name);
@@ -85,10 +86,6 @@ exports.staffNS = function() {
   employee.appendChild(gender);
   employee.appendChild(address);
   staff.appendChild(employee);
-
-  employee.namespaceURI = "http://www.nist.gov";
-  employee.setAttribute("xmlns", "http://www.nist.gov")
-  employee.setAttributeNS("http://www.nist.gov", "xmlns:dmstc", "http://www.usa.com");
 
   id.appendChild(doc.createTextNode("EMP0001"));
   salary.appendChild(doc.createTextNode("56,000"));
@@ -138,7 +135,7 @@ exports.staffNS = function() {
   /************************************
   *          EMPLOYEEE 3              *
   ************************************/
-  employee = doc.createElementNS("http://www.nist.gov","employee");
+  employee = doc.createElementNS("http://www.w3.org/2000/xmlns/","employee");
   address  = doc.createElementNS("http://www.w3.org/2000/xmlns/","address");
   name     = doc.createElementNS("http://www.w3.org/2000/xmlns/","name");
   position = doc.createElementNS("http://www.w3.org/2000/xmlns/","position");
@@ -199,7 +196,7 @@ exports.staffNS = function() {
   *          EMPLOYEEE 5              *
   ************************************/
   employee = doc.createElementNS("http://www.w3.org/2000/xmlns/","employee");
-  address  = doc.createElementNS("http://www.w3.org/2000/xmlns/","address");
+  address  = doc.createElementNS("http://www.nist.gov","address");
   name     = doc.createElementNS("http://www.w3.org/2000/xmlns/","name");
   position = doc.createElementNS("http://www.w3.org/2000/xmlns/","position");
   gender   = doc.createElementNS("http://www.w3.org/2000/xmlns/","gender");
