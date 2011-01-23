@@ -50,15 +50,14 @@ exports.staffNS = function() {
   defaultAttributes.setNamedItem(defaultAddress);
 
   var defaultEmpAddress = doc.createElementNS("http://www.nist.gov", 'emp:address');
-  defaultEmpAddress.setAttributeNS("http://www.nist.gov", "emp:district", "");
+  defaultEmpAddress.setAttributeNS("http://www.nist.gov", "emp:district", "DISTRICT");
+  defaultEmpAddress.setAttributeNS("http://www.nist.gov", "emp:local1", "FALSE");
   defaultAttributes.setNamedItem(defaultEmpAddress);
-/*  <!ELEMENT emp:address (#PCDATA) >
-  <!ATTLIST emp:address emp:domestic CDATA #IMPLIED>
-  <!ATTLIST emp:address street CDATA #IMPLIED>
-  <!ATTLIST emp:address emp:zone ID #IMPLIED>
-  <!ATTLIST emp:address emp:district CDATA 'DISTRICT'>
-  <!ATTLIST emp:address emp:local1 CDATA 'FALSE'>
-*/
+
+  var defaultEmpEmployee = doc.createElementNS("http://www.nist.gov", 'emp:employee');
+  defaultEmpEmployee.setAttribute('defaultAttr', 'defaultVal');
+  defaultAttributes.setNamedItem(defaultEmpEmployee);
+
   doc.doctype = new dom.DocumentType(doc, "staff", entities, notations, defaultAttributes);
   doc.doctype._systemId = "staffNS.dtd";
   doc.doctype._publicId = "STAFF";
