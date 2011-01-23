@@ -1,9 +1,9 @@
 exports.tests = {
 /**
-* 
-	The "getOwnerElement()" will return the Element node this attribute is attached to or 
-	null if this attribute is not in use.  
-  
+*
+	The "getOwnerElement()" will return the Element node this attribute is attached to or
+	null if this attribute is not in use.
+
    Retreive the default attribute defaultAttr and check its owner element.  Verify if the name
    the nodeName of the returned ownerElement is emp:employee.
 
@@ -42,13 +42,13 @@ attrgetownerelement01 : function () {
       ownerElementName = ownerElement.nodeName;
 
       assertEquals("attrgetownerelement01","emp:employee",ownerElementName);
-       
+
 },
 /**
-* 
+*
   The "getOwnerElement()" will return the Element node this attribute
-  is attached to or null if this attribute is not in use.  
-  
+  is attached to or null if this attribute is not in use.
+
   Create a new element and attribute node, attach the attribute to the element.
   Check the value of owner element of the new attribute node
 
@@ -65,7 +65,7 @@ attrgetownerelement02 : function () {
       var ownerElementName;
       var attr;
       var newAttr;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -80,16 +80,16 @@ attrgetownerelement02 : function () {
       ownerElementName = ownerElement.nodeName;
 
       assertEquals("attrgetownerelement02","root".toLowerCase(),ownerElementName.toLowerCase());
-       
+
 },
 /**
-* 
+*
 
   The "getOwnerElement()" will return the Element node this attribute
 
-  is attached to or null if this attribute is not in use.  
+  is attached to or null if this attribute is not in use.
 
-  
+
 
   Create a new attribute node for this document node.  Since the newly attribute is
 
@@ -106,7 +106,7 @@ attrgetownerelement03 : function () {
     var doc;
       var ownerElement;
       var attr;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -116,14 +116,14 @@ attrgetownerelement03 : function () {
       ownerElement = attr.ownerElement;
 
       assertNull("attrgetownerelement03",ownerElement);
-    
+
 },
 /**
-* 
-  The "getOwnerElement()" will return the Element node this attribute is attached to or 
-  null if this attribute is not in use.  
-  Import an attribute node to another document.  If an Attr node is imported, its 
-  ownerElement attribute should be set to null.  Verify if the ownerElement has been set 
+*
+  The "getOwnerElement()" will return the Element node this attribute is attached to or
+  null if this attribute is not in use.
+  Import an attribute node to another document.  If an Attr node is imported, its
+  ownerElement attribute should be set to null.  Verify if the ownerElement has been set
   to null.
 
 * @author IBM
@@ -140,13 +140,13 @@ attrgetownerelement04 : function () {
       var attr;
       var attrImp;
       var addresses;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var docImpRef = null;
       if (typeof(this.docImp) != 'undefined') {
         docImpRef = this.docImp;
@@ -160,15 +160,15 @@ attr = element.getAttributeNodeNS("http://www.nist.gov","zone");
       ownerElement = attrImp.ownerElement;
 
       assertNull("attrgetownerelement04",ownerElement);
-    
+
 },
 /**
-* 
-  The "getOwnerElement()" will return the Element node this attribute is attached to 
-  or null if this attribute is not in use.  
-  
-  Retreive an element and its attributes.  Then remove the element and check the name of 
-  the ownerElement of attribute of the attribute "street".  
+*
+  The "getOwnerElement()" will return the Element node this attribute is attached to
+  or null if this attribute is not in use.
+
+  Retreive an element and its attributes.  Then remove the element and check the name of
+  the ownerElement of attribute of the attribute "street".
 
 * @author IBM
 * @author Neil Delima
@@ -189,7 +189,7 @@ attrgetownerelement05 : function () {
       var nodeMap;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -208,14 +208,14 @@ attrgetownerelement05 : function () {
       ownerElementName = ownerElement.nodeName;
 
       assertEquals("attrgetownerelement05","address",ownerElementName);
-       
+
 },
 /**
-* 
-    The "createAttributeNS(namespaceURI,qualifiedName)" method for a 
+*
+    The "createAttributeNS(namespaceURI,qualifiedName)" method for a
    Document should raise NAMESPACE_ERR DOMException
    if qualifiedName is malformed.
-   
+
    Invoke method createAttributeNS(namespaceURI,qualifiedName) on
    the XMLNS Document with namespaceURI being "http://www.ecommerce.org/",
    qualifiedName as "prefix::local".  Method should raise
@@ -234,13 +234,13 @@ createAttributeNS01 : function () {
       var malformedName = "prefix::local";
       var doc;
       var newAttr;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
 	{
 		success = false;
 		try {
@@ -254,11 +254,11 @@ createAttributeNS01 : function () {
 
 },
 /**
-* 
-    The "createAttributeNS(namespaceURI,qualifiedName)" method for a 
+*
+    The "createAttributeNS(namespaceURI,qualifiedName)" method for a
    Document should raise NAMESPACE_ERR DOMException
    if qualifiedName has a prefix and namespaceURI is null.
-   
+
    Invoke method createAttributeNS(namespaceURI,qualifiedName) on this document
    with namespaceURI being null and qualifiedName contains the prefix "person".
    Method should raise NAMESPACE_ERR DOMException.
@@ -277,13 +277,13 @@ createAttributeNS02 : function () {
       var qualifiedName = "prefix:local";
       var doc;
       var newAttr;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
 	{
 		success = false;
 		try {
@@ -297,11 +297,11 @@ createAttributeNS02 : function () {
 
 },
 /**
-* 
-    The "createAttributeNS(namespaceURI,qualifiedName)" method for a 
+*
+    The "createAttributeNS(namespaceURI,qualifiedName)" method for a
    Document should raise INVALID_CHARACTER_ERR DOMException
    if qualifiedName contains an illegal character.
-   
+
    Invoke method createAttributeNS(namespaceURI,qualifiedName) on this document
    with qualifiedName containing an illegal character from illegalChars[].
    Method should raise INVALID_CHARACTER_ERR DOMException for all
@@ -348,7 +348,7 @@ createAttributeNS03 : function () {
       illegalQNames[25] = "person:a ";
       illegalQNames[26] = "person:\"";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -356,7 +356,7 @@ createAttributeNS03 : function () {
       doc = load(docRef, "doc", "staffNS");
       for(var indexN10090 = 0;indexN10090 < illegalQNames.length; indexN10090++) {
       qualifiedName = illegalQNames[indexN10090];
-      
+
 	{
 		success = false;
 		try {
@@ -369,15 +369,15 @@ createAttributeNS03 : function () {
 	}
 
 	}
-   
+
 },
 /**
-* 
-    The "createAttributeNS(namespaceURI,qualifiedName)" method for a 
+*
+    The "createAttributeNS(namespaceURI,qualifiedName)" method for a
    Document should raise NAMESPACE_ERR DOMException
    if qualifiedName has the "xml" prefix and namespaceURI is different
    from "http://www.w3.org/XML/1998/namespace".
-   
+
    Invoke method createAttributeNS(namespaceURI,qualifiedName) on this document
    with qualifiedName being "xml:attr1 and namespaceURI equals
    the string "http://www.w3.org/XML/1998/namespaces" (which differs from the required
@@ -397,13 +397,13 @@ createAttributeNS04 : function () {
       var qualifiedName = "xml:attr1";
       var doc;
       var newAttr;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
 	{
 		success = false;
 		try {
@@ -417,11 +417,11 @@ createAttributeNS04 : function () {
 
 },
 /**
-* 
-    The "createAttributeNS(namespaceURI,qualifiedName)" method for a 
+*
+    The "createAttributeNS(namespaceURI,qualifiedName)" method for a
    Document should return a new Attr object given that all parameters are
    valid and correctly formed.
-   
+
    Invoke method createAttributeNS(namespaceURI,qualifiedName) on this document with
    parameters equal "http://www.ecommerce.org/" and "ecom:local"
    respectively. Method should return a new Attr object whose name is "ecom:local".
@@ -438,7 +438,7 @@ createAttributeNS05 : function () {
       var doc;
       var newAttr;
       var attrName;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -448,10 +448,10 @@ createAttributeNS05 : function () {
       attrName = newAttr.name;
 
       assertEquals("throw_Equals",qualifiedName,attrName);
-       
+
 },
 /**
-* 
+*
 Document.createAttributeNS with an empty qualified name should cause an INVALID_CHARACTER_ERR.
 
 * @author Curt Arnold
@@ -466,13 +466,13 @@ createAttributeNS06 : function () {
       var qualifiedName;
       var doc;
       var newAttr;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "hc_staff");
-      
+
 	{
 		success = false;
 		try {
@@ -486,13 +486,13 @@ createAttributeNS06 : function () {
 
 },
 /**
-* 
-  The "createDocument(namespaceURI,qualifiedName,doctype)" method for a 
+*
+  The "createDocument(namespaceURI,qualifiedName,doctype)" method for a
   DOMImplementation should raise NAMESPACE_ERR DOMException
   if parameter qualifiedName is malformed.
-  
+
   Retrieve the DOMImplementation on the XMLNS Document.
-  Invoke method createDocument(namespaceURI,qualifiedName,doctype) 
+  Invoke method createDocument(namespaceURI,qualifiedName,doctype)
   on the retrieved DOMImplementation with namespaceURI being
   the literal string "http://www.ecommerce.org/", qualifiedName as
   "prefix::local", and doctype as null.  Method should raise
@@ -514,7 +514,7 @@ createDocument01 : function () {
 
       var domImpl;
       var aNewDoc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -535,11 +535,11 @@ createDocument01 : function () {
 
 },
 /**
-* 
-    The "createDocument(namespaceURI,qualifiedName,doctype)" method for a 
+*
+    The "createDocument(namespaceURI,qualifiedName,doctype)" method for a
    DOMImplementation should raise NAMESPACE_ERR DOMException
    if qualifiedName has a prefix and namespaceURI is null.
-   
+
    Invoke method createDocument(namespaceURI,qualifiedName,doctype) on
    this domimplementation with namespaceURI being null and qualifiedName
    equals "k:local". Method should raise NAMESPACE_ERR DOMException.
@@ -561,7 +561,7 @@ createDocument02 : function () {
 
       var domImpl;
       var aNewDoc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -582,11 +582,11 @@ createDocument02 : function () {
 
 },
 /**
-* 
-    The "createDocument(namespaceURI,qualifiedName,doctype)" method for a 
+*
+    The "createDocument(namespaceURI,qualifiedName,doctype)" method for a
    DOMImplementation should raise WRONG_DOCUMENT_ERR DOMException
    if parameter doctype has been used with a different document.
-   
+
    Invoke method createDocument(namespaceURI,qualifiedName,doctype) on
    this domimplementation where doctype is the type of this document.
    Method should raise WRONG_DOCUMENT_ERR DOMException.
@@ -606,7 +606,7 @@ createDocument03 : function () {
       var docType;
       var domImpl;
       var aNewDoc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -629,11 +629,11 @@ createDocument03 : function () {
 
 },
 /**
-* 
-    The "createDocument(namespaceURI,qualifiedName,doctype)" method for a 
+*
+    The "createDocument(namespaceURI,qualifiedName,doctype)" method for a
    DOMImplementation should raise WRONG_DOCUMENT_ERR DOMException
    if parameter doctype was created from a different implementation.
-   
+
    Invoke method createDocument(namespaceURI,qualifiedName,doctype) on
    a domimplementation that is different from this domimplementation.
    Doctype is the type of this document.
@@ -654,13 +654,13 @@ createDocument04 : function () {
       var docType;
       var domImpl;
       var aNewDoc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var aNewDocRef = null;
       if (typeof(this.aNewDoc) != 'undefined') {
         aNewDocRef = this.aNewDoc;
@@ -683,11 +683,11 @@ createDocument04 : function () {
 
 },
 /**
-* 
-    The "createDocument(namespaceURI,qualifiedName,doctype)" method for a 
+*
+    The "createDocument(namespaceURI,qualifiedName,doctype)" method for a
    DOMImplementation should raise INVALID_CHARACTER_ERR DOMException
    if parameter qualifiedName contains an illegal character.
-   
+
    Invoke method createDocument(namespaceURI,qualifiedName,doctype) on
    this domimplementation with namespaceURI equals "http://www.ecommerce.org/schema",
    doctype is null and qualifiedName contains an illegal character from
@@ -738,7 +738,7 @@ createDocument05 : function () {
       illegalQNames[25] = "namespaceURI:a ";
       illegalQNames[26] = "namespaceURI:\"";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -760,17 +760,17 @@ createDocument05 : function () {
 	}
 
 	}
-   
+
 },
 /**
-* 
-  The "createDocument(namespaceURI,qualifiedName,doctype)" method for a 
+*
+  The "createDocument(namespaceURI,qualifiedName,doctype)" method for a
   DOMImplementation should raise NAMESPACE_ERR DOMException
   if qualifiedName has the "xml" prefix and namespaceURI different from
   "http://www.w3.org/XML/1998/namespace"
-  
+
   Invoke method createDocument(namespaceURI,qualifiedName,doctype) on
-  this domimplementation with qualifiedName "xml:local" 
+  this domimplementation with qualifiedName "xml:local"
   and namespaceURI as the string
   "http://www.ecommerce.org/schema" (which is different from the required
   "http://www.w3.org/XML/1998/namespace"). Method should raise
@@ -792,7 +792,7 @@ createDocument06 : function () {
 
       var domImpl;
       var aNewDoc;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -813,12 +813,12 @@ createDocument06 : function () {
 
 },
 /**
-* 
-    The "createDocument(namespaceURI,qualifiedName,doctype)" method for a 
-   DOMImplementation should return a new xml Document object of the 
+*
+    The "createDocument(namespaceURI,qualifiedName,doctype)" method for a
+   DOMImplementation should return a new xml Document object of the
    specified type with its document element given that all parameters are
    valid and correctly formed.
-   
+
    Invoke method createDocument(namespaceURI,qualifiedName,doctype) on
    this domimplementation. namespaceURI is "http://www.ecommerce.org/schema"
    qualifiedName is "y:x" and doctype is null.
@@ -840,7 +840,7 @@ createDocument07 : function () {
       var aNewDoc;
       var nodeName;
       var nodeValue;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -854,10 +854,10 @@ aNewDoc = domImpl.createDocument(namespaceURI,qualifiedName,docType);
 
       assertEquals("nodeName","#document",nodeName);
        assertNull("nodeValue",nodeValue);
-    
+
 },
 /**
-* 
+*
 DOMImplementation.createDocument with an empty qualified name should cause an INVALID_CHARACTER_ERR.
 
 * @author Curt Arnold
@@ -889,11 +889,11 @@ createDocument08 : function () {
 
 },
 /**
-* 
-  The "createDocumentType(qualifiedName,publicId,systemId)" method for a 
+*
+  The "createDocumentType(qualifiedName,publicId,systemId)" method for a
   DOMImplementation should raise NAMESPACE_ERR DOMException if
   qualifiedName is malformed.
-  
+
   Retrieve the DOMImplementation on the XMLNS Document.
   Invoke method createDocumentType(qualifiedName,publicId,systemId)
   on the retrieved DOMImplementation with qualifiedName being the literal
@@ -915,7 +915,7 @@ createDocumentType01 : function () {
       var doc;
       var domImpl;
       var newType;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -936,11 +936,11 @@ createDocumentType01 : function () {
 
 },
 /**
-* 
-    The "createDocumentType(qualifiedName,publicId,systemId)" method for a 
+*
+    The "createDocumentType(qualifiedName,publicId,systemId)" method for a
    DOMImplementation should raise INVALID_CHARACTER_ERR DOMException if
    qualifiedName contains an illegal character.
-   
+
    Invoke method createDocumentType(qualifiedName,publicId,systemId) on
    this domimplementation with qualifiedName containing an illegal character
    from illegalChars[]. Method should raise INVALID_CHARACTER_ERR
@@ -990,7 +990,7 @@ createDocumentType02 : function () {
       illegalQNames[25] = "edi:a ";
       illegalQNames[26] = "edi:\"";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1012,14 +1012,14 @@ createDocumentType02 : function () {
 	}
 
 	}
-   
+
 },
 /**
-* 
-    The "createDocumentType(qualifiedName,publicId,systemId)" method for a 
-   DOMImplementation should return a new DocumentType node 
+*
+    The "createDocumentType(qualifiedName,publicId,systemId)" method for a
+   DOMImplementation should return a new DocumentType node
    given that qualifiedName is valid and correctly formed.
-   
+
    Invoke method createDocumentType(qualifiedName,publicId,systemId) on
    this domimplementation with qualifiedName "prefix:myDoc".
    Method should return a new DocumentType node.
@@ -1041,7 +1041,7 @@ createDocumentType03 : function () {
 
       var nodeName;
       var nodeValue;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1055,10 +1055,10 @@ newType = domImpl.createDocumentType(qualifiedName,publicId,systemId);
        nodeValue = newType.nodeValue;
 
       assertNull("nodeValue",nodeValue);
-    
+
 },
 /**
-* 
+*
 DOMImplementation.createDocumentType with an empty name should cause an INVALID_CHARACTER_ERR.
 
 * @author Curt Arnold
@@ -1090,11 +1090,11 @@ createDocumentType04 : function () {
 
 },
 /**
-* 
-    The "createElementNS(namespaceURI,qualifiedName)" method for a 
-   Document should raise NAMESPACE_ERR DOMException if 
+*
+    The "createElementNS(namespaceURI,qualifiedName)" method for a
+   Document should raise NAMESPACE_ERR DOMException if
    qualifiedName is malformed.
-   
+
    Invoke method createElementNS(namespaceURI,qualifiedName) on
    the XMLNS Document with namespaceURI being the literal string
    "http://www.ecommerce.org/", and qualifiedName as "prefix::local".
@@ -1113,13 +1113,13 @@ createElementNS01 : function () {
       var malformedName = "prefix::local";
       var doc;
       var newElement;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
 	{
 		success = false;
 		try {
@@ -1133,11 +1133,11 @@ createElementNS01 : function () {
 
 },
 /**
-* 
-    The "createElementNS(namespaceURI,qualifiedName)" method for a 
-   Document should raise NAMESPACE_ERR DOMException if 
+*
+    The "createElementNS(namespaceURI,qualifiedName)" method for a
+   Document should raise NAMESPACE_ERR DOMException if
    qualifiedName has a prefix and namespaceURI is null.
-   
+
    Invoke method createElementNS(namespaceURI,qualifiedName) on this document
    with namespaceURI being null and qualifiedName being "elem:attr1".
    Method should raise NAMESPACE_ERR DOMException.
@@ -1156,13 +1156,13 @@ createElementNS02 : function () {
       var qualifiedName = "prefix:local";
       var doc;
       var newElement;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
 	{
 		success = false;
 		try {
@@ -1176,11 +1176,11 @@ createElementNS02 : function () {
 
 },
 /**
-* 
-    The "createElementNS(namespaceURI,qualifiedName)" method for a 
-   Document should raise INVALID_CHARACTER_ERR DOMException if 
+*
+    The "createElementNS(namespaceURI,qualifiedName)" method for a
+   Document should raise INVALID_CHARACTER_ERR DOMException if
    qualifiedName contains an illegal character.
-   
+
    Invoke method createElementNS(namespaceURI,qualifiedName) on this document
    with qualifiedName containing an illegal character from illegalChars[].
    Method should raise INVALID_CHARACTER_ERR DOMException for all characters
@@ -1229,7 +1229,7 @@ createElementNS03 : function () {
       illegalQNames[25] = "person:a ";
       illegalQNames[26] = "person:\"";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1237,7 +1237,7 @@ createElementNS03 : function () {
       doc = load(docRef, "doc", "staffNS");
       for(var indexN10098 = 0;indexN10098 < illegalQNames.length; indexN10098++) {
       qualifiedName = illegalQNames[indexN10098];
-      
+
 	{
 		success = false;
 		try {
@@ -1250,18 +1250,18 @@ createElementNS03 : function () {
 	}
 
 	}
-   
+
 },
 /**
-* 
+*
    The "createElementNS(namespaceURI,qualifiedName") method for
    a Document should raise NAMESPACE_ERR DOMException if the
    qualifiedName has an "xml" prefix and the namespaceURI is different
    from http://www.w3.org/XML/1998/namespace".
-   
+
    Invoke method createElementNS(namespaceURI,qualifiedName) on this document
    with qualifiedName being "xml:element1" and namespaceURI equals the string
-   "http://www.w3.org/XML/1997/namespace" (which differs from the required 
+   "http://www.w3.org/XML/1997/namespace" (which differs from the required
    string "http://www.w3.org/XML/1998/namespace").
    Method should raise NAMESPACE_ERR DOMException.
 
@@ -1278,13 +1278,13 @@ createElementNS04 : function () {
       var qualifiedName = "xml:element1";
       var doc;
       var newElement;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
 	{
 		success = false;
 		try {
@@ -1298,11 +1298,11 @@ createElementNS04 : function () {
 
 },
 /**
-* 
-    The "createElementNS(namespaceURI,qualifiedName)" method for a 
+*
+    The "createElementNS(namespaceURI,qualifiedName)" method for a
    Document should return a new Element object given that all parameters
    are valid and correctly formed.
-   
+
    Invoke method createElementNS(namespaceURI,qualifiedName on this document
    with namespaceURI as "http://www.nist.gov" and qualifiedName as "gov:faculty".
    Method should return a new Element object whose name is "gov:faculty".
@@ -1319,7 +1319,7 @@ createElementNS05 : function () {
       var doc;
       var newElement;
       var elementName;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1329,10 +1329,10 @@ createElementNS05 : function () {
       elementName = newElement.tagName;
 
       assertEquals("throw_Equals",qualifiedName,elementName);
-       
+
 },
 /**
-* 
+*
 Document.createElementNS with an empty qualified name should cause an INVALID_CHARACTER_ERR.
 
 * @author Curt Arnold
@@ -1349,13 +1349,13 @@ createElementNS06 : function () {
       var done;
       var newElement;
       var charact;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "hc_staff");
-      
+
 	{
 		success = false;
 		try {
@@ -1369,11 +1369,11 @@ createElementNS06 : function () {
 
 },
 /**
-* 
+*
 	The method createAttributeNS creates an attribute of the given qualified name and namespace URI
-	
-	Invoke the createAttributeNS method on this Document object with a null 
-	namespaceURI, and a qualifiedName without a prefix.  This should return a valid Attr 
+
+	Invoke the createAttributeNS method on this Document object with a null
+	namespaceURI, and a qualifiedName without a prefix.  This should return a valid Attr
 	node object.
 
 * @author IBM
@@ -1392,7 +1392,7 @@ documentcreateattributeNS01 : function () {
       var name;
       var nodeName;
       var nodeValue;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1404,13 +1404,13 @@ documentcreateattributeNS01 : function () {
       nodeValue = attribute.nodeValue;
 
       assertEquals("documentcreateattributeNS01","test",nodeName);
-       
+
 },
 /**
-* 
+*
 	The method createAttributeNS creates an attribute of the given qualified name and namespace URI
-	
-	Invoke the createAttributeNS method on this Document object with a valid values for 
+
+	Invoke the createAttributeNS method on this Document object with a valid values for
 	namespaceURI, and a qualifiedName as below.  This should return a valid Attr node.
 
 * @author IBM
@@ -1429,7 +1429,7 @@ documentcreateattributeNS02 : function () {
       var nodeValue;
       var prefix;
       var namespaceURI;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1466,18 +1466,18 @@ documentcreateattributeNS02 : function () {
        assertEquals("documentcreateattributeNS02_att2_nodeName","xmlns",nodeName);
        assertEquals("documentcreateattributeNS02_att2_nodeValue","",nodeValue);
        assertEquals("documentcreateattributeNS02_att2_namespaceURI","http://www.w3.org/2000/xmlns/",namespaceURI);
-       
+
 },
 /**
-* 
+*
 
-	The method createAttributeNS raises an INVALID_CHARACTER_ERR if the specified 
+	The method createAttributeNS raises an INVALID_CHARACTER_ERR if the specified
 
 	qualified name contains an illegal character
 
-	
 
-	Invoke the createAttributeNS method on this Document object with a valid value for 
+
+	Invoke the createAttributeNS method on this Document object with a valid value for
 
 	namespaceURI, and qualifiedNames that contain illegal characters.  Check if the an
 
@@ -1507,7 +1507,7 @@ documentcreateattributeNS03 : function () {
       qualifiedNames[7] = ">";
       qualifiedNames[8] = "<";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1515,7 +1515,7 @@ documentcreateattributeNS03 : function () {
       doc = load(docRef, "doc", "staffNS");
       for(var indexN1005A = 0;indexN1005A < qualifiedNames.length; indexN1005A++) {
       qualifiedName = qualifiedNames[indexN1005A];
-      
+
 	{
 		success = false;
 		try {
@@ -1528,18 +1528,18 @@ documentcreateattributeNS03 : function () {
 	}
 
 	}
-   
+
 },
 /**
-* 
+*
 
-	The method createAttributeNS raises a NAMESPACE_ERR if the specified qualified name 
+	The method createAttributeNS raises a NAMESPACE_ERR if the specified qualified name
 
 	is malformed.
 
-	
 
-	Invoke the createAttributeNS method on this Document object with a valid value for 
+
+	Invoke the createAttributeNS method on this Document object with a valid value for
 
 	namespaceURI, and malformed qualifiedNames.  Check if the a NAMESPACE_ERR was thrown.
 
@@ -1563,7 +1563,7 @@ documentcreateattributeNS04 : function () {
       qualifiedNames[3] = "a:b:c";
       qualifiedNames[4] = "_::a";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1571,7 +1571,7 @@ documentcreateattributeNS04 : function () {
       doc = load(docRef, "doc", "staffNS");
       for(var indexN1004E = 0;indexN1004E < qualifiedNames.length; indexN1004E++) {
       qualifiedName = qualifiedNames[indexN1004E];
-      
+
 	{
 		success = false;
 		try {
@@ -1584,14 +1584,14 @@ documentcreateattributeNS04 : function () {
 	}
 
 	}
-   
+
 },
 /**
-* 
-	The method createAttributeNS raises a NAMESPACE_ERR if the qualifiedName has a prefix and 
+*
+	The method createAttributeNS raises a NAMESPACE_ERR if the qualifiedName has a prefix and
 	the namespaceURI is null.
-	
-	Invoke the createAttributeNS method on a new Document object with a null value for 
+
+	Invoke the createAttributeNS method on a new Document object with a null value for
 	namespaceURI, and a valid qualifiedName.  Check if a NAMESPACE_ERR is thrown.
 
 * @author IBM
@@ -1611,7 +1611,7 @@ documentcreateattributeNS05 : function () {
       var namespaceURI = null;
 
       var qualifiedName = "abc:def";
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1619,7 +1619,7 @@ documentcreateattributeNS05 : function () {
       doc = load(docRef, "doc", "staffNS");
       domImpl = doc.implementation;
 newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","dom:doc",docType);
-      
+
 	{
 		success = false;
 		try {
@@ -1633,11 +1633,11 @@ newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","dom:doc",docType);
 
 },
 /**
-* 
-	The method createAttributeNS raises a NAMESPACE_ERR if the qualifiedName has a prefix that 
+*
+	The method createAttributeNS raises a NAMESPACE_ERR if the qualifiedName has a prefix that
 	is "xml" and the namespaceURI is different from "http://www.w3.org/XML/1998/namespace".
-	
-	Invoke the createAttributeNS method on a new DOMImplementation object with  the qualifiedName 
+
+	Invoke the createAttributeNS method on a new DOMImplementation object with  the qualifiedName
 	as xml:root and namespaceURI as http://www.w3.org/XML/1998 /namespace.
 	Check if the NAMESPACE_ERR exception is thrown.
 
@@ -1657,7 +1657,7 @@ documentcreateattributeNS06 : function () {
       var attribute;
       var namespaceURI = "http://www.w3.org/XML/1998 /namespace";
       var qualifiedName = "xml:root";
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1665,7 +1665,7 @@ documentcreateattributeNS06 : function () {
       doc = load(docRef, "doc", "staffNS");
       domImpl = doc.implementation;
 newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","dom:doc",docType);
-      
+
 	{
 		success = false;
 		try {
@@ -1679,17 +1679,17 @@ newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","dom:doc",docType);
 
 },
 /**
-* 
+*
 
-	The method createAttributeNS raises a NAMESPACE_ERR if the qualifiedName is xmlns and 
+	The method createAttributeNS raises a NAMESPACE_ERR if the qualifiedName is xmlns and
 
 	the namespaceURI is different from http://www.w3.org/2000/xmlns
 
-	
 
-	Invoke the createAttributeNS method on this DOMImplementation object with  
 
-	the qualifiedName as xmlns and namespaceURI as http://www.W3.org/2000/xmlns.  
+	Invoke the createAttributeNS method on this DOMImplementation object with
+
+	the qualifiedName as xmlns and namespaceURI as http://www.W3.org/2000/xmlns.
 
 	Check if the NAMESPACE_ERR exception is thrown.
 
@@ -1706,13 +1706,13 @@ documentcreateattributeNS07 : function () {
       var attribute;
       var namespaceURI = "http://www.W3.org/2000/xmlns";
       var qualifiedName = "xmlns";
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
 	{
 		success = false;
 		try {
@@ -1726,11 +1726,11 @@ documentcreateattributeNS07 : function () {
 
 },
 /**
-* 
+*
 
-	The method createElementNS creates an element of the given valid qualifiedName and NamespaceURI. 
+	The method createElementNS creates an element of the given valid qualifiedName and NamespaceURI.
 
-	
+
 
 	Invoke the createElementNS method on this Document object with a valid namespaceURI
 
@@ -1754,7 +1754,7 @@ documentcreateelementNS01 : function () {
       var localName;
       var prefix;
       var tagName;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1776,16 +1776,16 @@ documentcreateelementNS01 : function () {
        assertEquals("documentcreateelementNS01_localName","XML",localName);
        assertEquals("documentcreateelementNS01_prefix","XML",prefix);
        assertEquals("documentcreateelementNS01_tagName","XML:XML",tagName);
-       
+
 },
 /**
-* 
+*
 
-	The method createElementNS creates an element of the given valid qualifiedName and NamespaceURI. 
+	The method createElementNS creates an element of the given valid qualifiedName and NamespaceURI.
 
-	
 
-	Invoke the createElementNS method on this Document object with null values for namespaceURI, 
+
+	Invoke the createElementNS method on this Document object with null values for namespaceURI,
 
 	and a qualifiedName with an invalid character and check if an INVALID_CHARACTER_ERR is thrown.
 
@@ -1803,13 +1803,13 @@ documentcreateelementNS02 : function () {
       var namespaceURI = null;
 
       var qualifiedName = "^^";
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
 	{
 		success = false;
 		try {
@@ -1823,15 +1823,15 @@ documentcreateelementNS02 : function () {
 
 },
 /**
-* 
+*
 
-	The method createElementNS raises a NAMESPACE_ERR if the qualifiedName has a prefix and 
+	The method createElementNS raises a NAMESPACE_ERR if the qualifiedName has a prefix and
 
 	the namespaceURI is null.
 
-	
 
-	Invoke the createElementNS method on a new Document object with a null value for 
+
+	Invoke the createElementNS method on a new Document object with a null value for
 
 	namespaceURI, and a valid qualifiedName.  Check if a NAMESPACE_ERR is thrown.
 
@@ -1849,13 +1849,13 @@ documentcreateelementNS05 : function () {
       var namespaceURI = null;
 
       var qualifiedName = "null:xml";
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
 	{
 		success = false;
 		try {
@@ -1869,12 +1869,12 @@ documentcreateelementNS05 : function () {
 
 },
 /**
-* 
-    The method createElementNS raises a NAMESPACE_ERR if the qualifiedName 
+*
+    The method createElementNS raises a NAMESPACE_ERR if the qualifiedName
     has a prefix that is "xml" and the namespaceURI is different
     from http://www.w3.org/XML/1998/namespace
-	
-	Invoke the createElementNS method on this DOMImplementation object with  
+
+	Invoke the createElementNS method on this DOMImplementation object with
 	the qualifiedName as xml:root and namespaceURI as http://www.w3.org/xml/1998/namespace
 	Check if the NAMESPACE_ERR exception is thrown.
 
@@ -1894,7 +1894,7 @@ documentcreateelementNS06 : function () {
       var element;
       var namespaceURI = "http://www.w3.org/xml/1998/namespace ";
       var qualifiedName = "xml:root";
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1902,7 +1902,7 @@ documentcreateelementNS06 : function () {
       doc = load(docRef, "doc", "staffNS");
       domImpl = doc.implementation;
 newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","dom:doc",docType);
-      
+
 	{
 		success = false;
 		try {
@@ -1916,15 +1916,15 @@ newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","dom:doc",docType);
 
 },
 /**
-* 
+*
 
 	The method getElementById returns the element whose ID is given by elementId.
 
 	If not such element exists, returns null.
 
-	
 
-	Invoke the getElementById method on this Document object with an invalid elementId. 
+
+	Invoke the getElementById method on this Document object with an invalid elementId.
 
 	This should return a null element.
 
@@ -1940,7 +1940,7 @@ documentgetelementbyid01 : function () {
     var doc;
       var element;
       var elementId = "---";
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1948,14 +1948,14 @@ documentgetelementbyid01 : function () {
       doc = load(docRef, "doc", "staffNS");
       element = doc.getElementById(elementId);
       assertNull("documentgetelementbyid01",element);
-    
+
 },
 /**
-* 
-	The method getElementsByTagNameNS returns a NodeList of all the Elements with 
-	a given local name and namespace URI in the order in which they are encountered 
+*
+	The method getElementsByTagNameNS returns a NodeList of all the Elements with
+	a given local name and namespace URI in the order in which they are encountered
 	in a preorder traversal of the Document tree.
-	
+
 	Invoke the getElementsByTagNameNS method on a new Document object with the values of
 	namespaceURI=* and localName=*.  This should return a nodeList of 1 item.
 
@@ -1976,7 +1976,7 @@ documentgetelementsbytagnameNS01 : function () {
       var childList;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -1989,15 +1989,15 @@ newDoc = domImpl.createDocument(nullNS,"root",docType);
 
 },
 /**
-* 
-	The method getElementsByTagNameNS returns a NodeList of all the Elements with 
-	a given local name and namespace URI in the order in which they are encountered 
+*
+	The method getElementsByTagNameNS returns a NodeList of all the Elements with
+	a given local name and namespace URI in the order in which they are encountered
 	in a preorder traversal of the Document tree.
-	
-	
+
+
 	Create a new element having a local name="employeeId" belonging to the namespace "test"
 	and append it to this document.  Invoke the getElementsByTagNameNS method on a this
-	Document object with the values of namespaceURI=* and localName="elementId".  This 
+	Document object with the values of namespaceURI=* and localName="elementId".  This
 	should return a nodeList of 6 item.  Check the length of the nodeList returned.
 
 * @author IBM
@@ -2013,7 +2013,7 @@ documentgetelementsbytagnameNS02 : function () {
       var element;
       var childList;
       var appendedChild;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2028,11 +2028,11 @@ documentgetelementsbytagnameNS02 : function () {
 
 },
 /**
-* 
-	The method getElementsByTagNameNS returns a NodeList of all the Elements with 
-	a given local name and namespace URI in the order in which they are encountered 
+*
+	The method getElementsByTagNameNS returns a NodeList of all the Elements with
+	a given local name and namespace URI in the order in which they are encountered
 	in a preorder traversal of the Document tree.
-	
+
 	Invoke the getElementsByTagNameNS method on a new Document object with the values of
 	namespaceURI=** and localName=**.  This should return a nodeList of 0 items.
 
@@ -2046,7 +2046,7 @@ documentgetelementsbytagnameNS03 : function () {
     if(checkInitialization(builder, "documentgetelementsbytagnameNS03") != null) return;
     var doc;
       var childList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2057,13 +2057,13 @@ documentgetelementsbytagnameNS03 : function () {
 
 },
 /**
-* 
-	The method getElementsByTagNameNS returns a NodeList of all the Elements with 
-	a given local name and namespace URI in the order in which they are encountered 
+*
+	The method getElementsByTagNameNS returns a NodeList of all the Elements with
+	a given local name and namespace URI in the order in which they are encountered
 	in a preorder traversal of the Document tree.
-	
+
 	Invoke the getElementsByTagNameNS method on a new Document object with the values of
-	namespaceURI="null" and localName="0".  This should return a nodeList of 0 items.  
+	namespaceURI="null" and localName="0".  This should return a nodeList of 0 items.
 
 * @author IBM
 * @author Neil Delima
@@ -2078,7 +2078,7 @@ documentgetelementsbytagnameNS04 : function () {
       var childList;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2089,14 +2089,14 @@ documentgetelementsbytagnameNS04 : function () {
 
 },
 /**
-* 
-	The method getElementsByTagNameNS returns a NodeList of all the Elements with 
-	a given local name and namespace URI in the order in which they are encountered 
+*
+	The method getElementsByTagNameNS returns a NodeList of all the Elements with
+	a given local name and namespace URI in the order in which they are encountered
 	in a preorder traversal of the Document tree.
-	
-	
-	Invoke the getElementsByTagNameNS method on a this Document object with the 
-	values of namespaceURI=null and localName="elementId".  This 
+
+
+	Invoke the getElementsByTagNameNS method on a this Document object with the
+	values of namespaceURI=null and localName="elementId".  This
 	should return a nodeList of 0 item.  Check the length of the nodeList returned.
 
 * @author IBM
@@ -2109,7 +2109,7 @@ documentgetelementsbytagnameNS05 : function () {
     if(checkInitialization(builder, "documentgetelementsbytagnameNS05") != null) return;
     var doc;
       var childList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2120,15 +2120,15 @@ documentgetelementsbytagnameNS05 : function () {
 
 },
 /**
-* 
-	The importNode method imports a node from another document to this document. 
-	The returned node has no parent; (parentNode is null). The source node is not 
+*
+	The importNode method imports a node from another document to this document.
+	The returned node has no parent; (parentNode is null). The source node is not
 	altered or removed from the original document but a new copy of the source node
 	is created.
-	
-	Using the method importNode with deep=true, import the attribute, "street" of the second 
-	element node, from a list of nodes whose local names are "address" and namespaceURI 
-	"http://www.nist.gov" into the same document.  Check the parentNode, nodeName, 
+
+	Using the method importNode with deep=true, import the attribute, "street" of the second
+	element node, from a list of nodes whose local names are "address" and namespaceURI
+	"http://www.nist.gov" into the same document.  Check the parentNode, nodeName,
 	nodeType and nodeValue of the imported node to verify if it has been imported correctly.
 
 * @author IBM
@@ -2147,7 +2147,7 @@ documentimportnode01 : function () {
       var nodeName;
       var nodeType;
       var nodeValue;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2166,18 +2166,18 @@ documentimportnode01 : function () {
       assertEquals("documentimportnode01_nodeName","street",nodeName);
        assertEquals("documentimportnode01_nodeType",2,nodeType);
        assertEquals("documentimportnode01_nodeValue","Yes",nodeValue);
-       
+
 },
 /**
-* 
-	The importNode method imports a node from another document to this document. 
-	The returned node has no parent; (parentNode is null). The source node is not 
+*
+	The importNode method imports a node from another document to this document.
+	The returned node has no parent; (parentNode is null). The source node is not
 	altered or removed from the original document but a new copy of the source node
 	is created.
-	
-	Using the method importNode with deep=false, import the attribute, "emp:zone" of the 
+
+	Using the method importNode with deep=false, import the attribute, "emp:zone" of the
 	element node which is retreived by its elementId="CANADA", into the another document.
-	Check the parentNode, nodeName, nodeType and nodeValue of the imported node to 
+	Check the parentNode, nodeName, nodeType and nodeValue of the imported node to
 	verify if it has been imported correctly.
 
 * @author IBM
@@ -2198,13 +2198,13 @@ documentimportnode02 : function () {
       var nodeValue;
       var addresses;
       var attrsParent;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var docImportedRef = null;
       if (typeof(this.docImported) != 'undefined') {
         docImportedRef = this.docImported;
@@ -2226,20 +2226,20 @@ documentimportnode02 : function () {
     assertEquals("documentimportnode02_nodeName","emp:zone",nodeName);
        assertEquals("documentimportnode02_nodeType",2,nodeType);
        assertEquals("documentimportnode02_nodeValue","CANADA",nodeValue);
-       
+
 },
 /**
-* 
-	The importNode method imports a node from another document to this document. 
-	The returned node has no parent; (parentNode is null). The source node is not 
+*
+	The importNode method imports a node from another document to this document.
+	The returned node has no parent; (parentNode is null). The source node is not
 	altered or removed from the original document but a new copy of the source node
 	is created.
-	
-	Using the method importNode with deep=false, import the default Attribute attribute, 
-	"defaultAttr" of the second element node whose namespaceURI="http://www.nist.gov" and 
+
+	Using the method importNode with deep=false, import the default Attribute attribute,
+	"defaultAttr" of the second element node whose namespaceURI="http://www.nist.gov" and
 	localName="defaultAttr", into the same document.
-	Check the parentNode, nodeName, nodeType and nodeValue of the imported node to 
-	verify if it has been imported correctly.  
+	Check the parentNode, nodeName, nodeType and nodeValue of the imported node to
+	verify if it has been imported correctly.
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core
@@ -2256,7 +2256,7 @@ documentimportnode03 : function () {
       var nodeName;
       var nodeType;
       var nodeValue;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2275,20 +2275,20 @@ documentimportnode03 : function () {
       assertEquals("documentimportnode03_nodeName","defaultAttr",nodeName);
        assertEquals("documentimportnode03_nodeType",2,nodeType);
        assertEquals("documentimportnode03_nodeValue","defaultVal",nodeValue);
-       
+
 },
 /**
-* 
-	The importNode method imports a node from another document to this document. 
-	The returned node has no parent; (parentNode is null). The source node is not 
+*
+	The importNode method imports a node from another document to this document.
+	The returned node has no parent; (parentNode is null). The source node is not
 	altered or removed from the original document but a new copy of the source node
 	is created.
-	
-	Using the method importNode with deep=true, import the default Attribute attribute, 
-	"defaultAttr" of the second element node whose namespaceURI="http://www.nist.gov" and 
+
+	Using the method importNode with deep=true, import the default Attribute attribute,
+	"defaultAttr" of the second element node whose namespaceURI="http://www.nist.gov" and
 	localName="defaultAttr", into a new document.
-	Check the parentNode, nodeName, nodeType and nodeValue of the imported node to 
-	verify if it has been imported correctly.  
+	Check the parentNode, nodeName, nodeType and nodeValue of the imported node to
+	verify if it has been imported correctly.
 
 * @author IBM
 * @author Neil Delima
@@ -2310,7 +2310,7 @@ documentimportnode04 : function () {
       var nodeName;
       var nodeType;
       var nodeValue;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2331,18 +2331,18 @@ newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","l2:root",docType);
       assertEquals("documentimportnode04_nodeName","defaultAttr",nodeName);
        assertEquals("documentimportnode04_nodeType",2,nodeType);
        assertEquals("documentimportnode04_nodeValue","defaultVal",nodeValue);
-       
+
 },
 /**
-* 
-	The importNode method imports a node from another document to this document. 
-	The returned node has no parent; (parentNode is null). The source node is not 
+*
+	The importNode method imports a node from another document to this document.
+	The returned node has no parent; (parentNode is null). The source node is not
 	altered or removed from the original document but a new copy of the source node
 	is created.
-	
-	Using the method importNode with deep=false, import a newly created attribute node, 
+
+	Using the method importNode with deep=false, import a newly created attribute node,
 	into the another document.
-	Check the nodeName, nodeType and nodeValue namespaceURI of the imported node to 
+	Check the nodeName, nodeType and nodeValue namespaceURI of the imported node to
 	verify if it has been imported correctly.
 
 * @author IBM
@@ -2361,13 +2361,13 @@ documentimportnode05 : function () {
       var nodeType;
       var nodeValue;
       var namespaceURI;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var docImportedRef = null;
       if (typeof(this.docImported) != 'undefined') {
         docImportedRef = this.docImported;
@@ -2387,15 +2387,15 @@ documentimportnode05 : function () {
        assertEquals("documentimportnode05_nodeType",2,nodeType);
        assertEquals("documentimportnode05_nodeValue","",nodeValue);
        assertEquals("documentimportnode05_namespaceURI","http://www.w3.org/DOM/Test",namespaceURI);
-       
+
 },
 /**
-* 
-	The importNode method imports a node from another document to this document. 
+*
+	The importNode method imports a node from another document to this document.
 	A NOT_SUPPORTED_ERR is raised if the type of node being imported is
 	not supported
-	
-	Using the method importNode with deep=false, try to import this document object to itself. 
+
+	Using the method importNode with deep=false, try to import this document object to itself.
 	Since Document nodes cannot be imported, a NOT_SUPPORTED_ERR should be raised.
 
 * @author IBM
@@ -2408,13 +2408,13 @@ documentimportnode06 : function () {
     if(checkInitialization(builder, "documentimportnode06") != null) return;
     var doc;
       var docImported;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
 	{
 		success = false;
 		try {
@@ -2428,13 +2428,13 @@ documentimportnode06 : function () {
 
 },
 /**
-* 
-	The importNode method imports a node from another document to this document. 
+*
+	The importNode method imports a node from another document to this document.
 	A NOT_SUPPORTED_ERR is raised if the type of node being imported is
 	not supported
-	
-	Using the method importNode with deep=true, try to import this Document's 
-	DocumentType object. Since DocumentType nodes cannot be imported, a 
+
+	Using the method importNode with deep=true, try to import this Document's
+	DocumentType object. Since DocumentType nodes cannot be imported, a
 	NOT_SUPPORTED_ERR should be raised.
 
 * @author IBM
@@ -2448,7 +2448,7 @@ documentimportnode07 : function () {
     var doc;
       var imported;
       var docType;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2456,7 +2456,7 @@ documentimportnode07 : function () {
       doc = load(docRef, "doc", "staffNS");
       docType = doc.doctype;
 
-      
+
 	{
 		success = false;
 		try {
@@ -2470,11 +2470,11 @@ documentimportnode07 : function () {
 
 },
 /**
-* 
-	The importNode method imports a node from another document to this document. 
+*
+	The importNode method imports a node from another document to this document.
 	A NOT_SUPPORTED_ERR is raised if the type of node being imported is
 	not supported
-	
+
 	Using the method importNode with deep=true, try to import a newly created DOcumentType
 	node. Since DocumentType nodes cannot be imported, a NOT_SUPPORTED_ERR should be raised.
 
@@ -2493,7 +2493,7 @@ documentimportnode08 : function () {
       var domImpl;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2501,7 +2501,7 @@ documentimportnode08 : function () {
       doc = load(docRef, "doc", "staffNS");
       domImpl = doc.implementation;
 docType = domImpl.createDocumentType("test:root",nullNS,nullNS);
-      
+
 	{
 		success = false;
 		try {
@@ -2515,15 +2515,15 @@ docType = domImpl.createDocumentType("test:root",nullNS,nullNS);
 
 },
 /**
-* 
-	The importNode method imports a node from another document to this document. 
-	The returned node has no parent; (parentNode is null). The source node is not 
+*
+	The importNode method imports a node from another document to this document.
+	The returned node has no parent; (parentNode is null). The source node is not
 	altered or removed from the original document but a new copy of the source node
 	is created.
-	
+
 	Using the method importNode with deep=false, import a newly created DocumentFragment node
-	with the first address element from this Document appended to it into this document. 
-	Since deep=false, an empty DocumentFragment should be returned 
+	with the first address element from this Document appended to it into this document.
+	Since deep=false, an empty DocumentFragment should be returned
 
 * @author IBM
 * @author Neil Delima
@@ -2540,7 +2540,7 @@ documentimportnode09 : function () {
       var addressNode;
       var appendedChild;
       var importedDocFrag;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2556,15 +2556,15 @@ documentimportnode09 : function () {
 
 },
 /**
-* 
-	The importNode method imports a node from another document to this document. 
-	The returned node has no parent; (parentNode is null). The source node is not 
+*
+	The importNode method imports a node from another document to this document.
+	The returned node has no parent; (parentNode is null). The source node is not
 	altered or removed from the original document but a new copy of the source node
 	is created.
-	
+
 	Using the method importNode with deep=false, import a newly created DocumentFragment node
-	with the first address element from this Document appended to it into this document. 
-	Since deep=true, a DocumentFragment with its child should be returned 
+	with the first address element from this Document appended to it into this document.
+	Since deep=true, a DocumentFragment with its child should be returned
 
 * @author IBM
 * @author Neil Delima
@@ -2581,7 +2581,7 @@ documentimportnode10 : function () {
       var addressNode;
       var appendedChild;
       var importedDocFrag;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2597,12 +2597,12 @@ documentimportnode10 : function () {
 
 },
 /**
-* 
-	The importNode method imports a node from another document to this document. 
-	The returned node has no parent; (parentNode is null). The source node is not 
+*
+	The importNode method imports a node from another document to this document.
+	The returned node has no parent; (parentNode is null). The source node is not
 	altered or removed from the original document but a new copy of the source node
 	is created.
-	
+
 	Using the method importNode with deep=false, import this Document's documentElement
 	node.  Verify if the node has been imported correctly by its nodeName atttribute and
 	if the original document is not altered by checking if hasChildNodes returns false.
@@ -2621,7 +2621,7 @@ documentimportnode11 : function () {
       var success;
       var nodeNameOrig;
       var nodeNameImported;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2637,15 +2637,15 @@ nodeNameImported = imported.nodeName;
       nodeNameOrig = docElement.nodeName;
 
       assertEquals("documentimportnode11_NodeName",nodeNameImported,nodeNameOrig);
-       
+
 },
 /**
-* 
-	The importNode method imports a node from another document to this document. 
-	The returned node has no parent; (parentNode is null). The source node is not 
+*
+	The importNode method imports a node from another document to this document.
+	The returned node has no parent; (parentNode is null). The source node is not
 	altered or removed from the original document but a new copy of the source node
 	is created.
-	
+
 	Using the method importNode with deep=true, import the first address element node of this
 	Document.  Verify if the node has been imported correctly by checking the length of the
 	this elements childNode list before and after the import.
@@ -2666,7 +2666,7 @@ documentimportnode12 : function () {
       var importedChildren;
       var addressElemLen;
       var importedLen;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2684,18 +2684,18 @@ documentimportnode12 : function () {
       importedLen = importedChildren.length;
 
       assertEquals("documentimportnode12",importedLen,addressElemLen);
-       
+
 },
 /**
-* 
-	The importNode method imports a node from another document to this document. 
-	The returned node has no parent; (parentNode is null). The source node is not 
+*
+	The importNode method imports a node from another document to this document.
+	The returned node has no parent; (parentNode is null). The source node is not
 	altered or removed from the original document but a new copy of the source node
 	is created.
-	
+
 	Using the method importNode with deep=false, import the first employee element node of this
 	Document.  Verify if the node has been imported correctly by checking the length of the
-	this elements childNode list before and after the import.  
+	this elements childNode list before and after the import.
 
 * @author IBM
 * @author Neil Delima
@@ -2711,7 +2711,7 @@ documentimportnode13 : function () {
       var importedList;
       var employeeElem;
       var importedLen;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2725,14 +2725,14 @@ documentimportnode13 : function () {
       importedLen = importedList.length;
 
       assertEquals("documentimportnode13",0,importedLen);
-       
+
 },
 /**
-* 
+*
 	Using the method importNode with deep=true, import the fourth employee element node of this
-	Document.  Verify if the node has been imported correctly by checking 
+	Document.  Verify if the node has been imported correctly by checking
 	if the default attribute present on this node has not been imported
-	and an explicit attribute has been imported.  
+	and an explicit attribute has been imported.
 
 * @author IBM
 * @author Neil Delima
@@ -2756,7 +2756,7 @@ documentimportnode14 : function () {
       var attrValue;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2771,17 +2771,17 @@ newDoc = domImpl.createDocument(nullNS,"staff",nullDocType);
       assertNull("defaultAttrNotImported",attrNode);
     attrValue = imported.getAttributeNS("http://www.w3.org/2000/xmlns/","emp");
       assertEquals("explicitAttrImported","http://www.nist.gov",attrValue);
-       
+
 },
 /**
-* 
-	The importNode method imports a node from another document to this document. 
-	The returned node has no parent; (parentNode is null). The source node is not 
+*
+	The importNode method imports a node from another document to this document.
+	The returned node has no parent; (parentNode is null). The source node is not
 	altered or removed from the original document but a new copy of the source node
 	is created.
-	
+
 	Using the method importNode with deep=true, import a newly created Text node for this
-	Document.  Verify if the node has been imported correctly by checking the value of the 
+	Document.  Verify if the node has been imported correctly by checking the value of the
 	imported text node.
 
 * @author IBM
@@ -2797,13 +2797,13 @@ documentimportnode15 : function () {
       var textImport;
       var textToImport;
       var nodeValue;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var docImpRef = null;
       if (typeof(this.docImp) != 'undefined') {
         docImpRef = this.docImp;
@@ -2814,17 +2814,17 @@ documentimportnode15 : function () {
       nodeValue = textImport.nodeValue;
 
       assertEquals("documentimportnode15","Document.importNode test for a TEXT_NODE",nodeValue);
-       
+
 },
 /**
-* 
-	The importNode method imports a node from another document to this document. 
-	The returned node has no parent; (parentNode is null). The source node is not 
+*
+	The importNode method imports a node from another document to this document.
+	The returned node has no parent; (parentNode is null). The source node is not
 	altered or removed from the original document but a new copy of the source node
 	is created.
-	
+
 	Using the method importNode with deep=true, import a newly created Comment node for this
-	Document.  Verify if the node has been imported correctly by checking the value of the 
+	Document.  Verify if the node has been imported correctly by checking the value of the
 	imported Comment node.
 
 * @author IBM
@@ -2840,13 +2840,13 @@ documentimportnode17 : function () {
       var commentImport;
       var commentToImport;
       var nodeValue;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var docImpRef = null;
       if (typeof(this.docImp) != 'undefined') {
         docImpRef = this.docImp;
@@ -2857,17 +2857,17 @@ documentimportnode17 : function () {
       nodeValue = commentImport.nodeValue;
 
       assertEquals("documentimportnode17","Document.importNode test for a COMMENT_NODE",nodeValue);
-       
+
 },
 /**
-* 
-	The importNode method imports a node from another document to this document. 
-	The returned node has no parent; (parentNode is null). The source node is not 
+*
+	The importNode method imports a node from another document to this document.
+	The returned node has no parent; (parentNode is null). The source node is not
 	altered or removed from the original document but a new copy of the source node
 	is created.
-	
+
 	Using the method importNode with deep=true, import a newly created PI node for this
-	Document.  Verify if the node has been imported correctly by checking the PITarget and 
+	Document.  Verify if the node has been imported correctly by checking the PITarget and
 	PIData values of the imported PI node.
 
 * @author IBM
@@ -2884,13 +2884,13 @@ documentimportnode18 : function () {
       var piToImport;
       var piData;
       var piTarget;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var docImpRef = null;
       if (typeof(this.docImp) != 'undefined') {
         docImpRef = this.docImp;
@@ -2904,17 +2904,17 @@ documentimportnode18 : function () {
 
       assertEquals("documentimportnode18_Target","Target",piTarget);
        assertEquals("documentimportnode18_Data","Data",piData);
-       
+
 },
 /**
-* 
-	The importNode method imports a node from another document to this document. 
-	The returned node has no parent; (parentNode is null). The source node is not 
+*
+	The importNode method imports a node from another document to this document.
+	The returned node has no parent; (parentNode is null). The source node is not
 	altered or removed from the original document but a new copy of the source node
 	is created.
-	
+
 	Using the method importNode with deep=true/false, import a entity nodes ent2 and ent6
-	from this document to a new document object.  Verify if the nodes have been 
+	from this document to a new document object.  Verify if the nodes have been
 	imported correctly by checking the nodeNames of the imported nodes and public and system ids.
 
 * @author IBM
@@ -2942,7 +2942,7 @@ documentimportnode19 : function () {
       var nodeNameImp;
       var systemIdImp;
       var notationNameImp;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -2989,18 +2989,18 @@ entity2 = nodeMap.getNamedItem("ent2");
       notationNameImp = entityImp6.notationName;
 
       assertEquals("documentimportnode19_Ent6NotationName",notationName,notationNameImp);
-       
+
 },
 /**
-* 
-	The importNode method imports a node from another document to this document. 
-	The returned node has no parent; (parentNode is null). The source node is not 
+*
+	The importNode method imports a node from another document to this document.
+	The returned node has no parent; (parentNode is null). The source node is not
 	altered or removed from the original document but a new copy of the source node
 	is created.
-	
-	Using the method importNode with deep=true, import a entity node ent4 
+
+	Using the method importNode with deep=true, import a entity node ent4
 	from this document to a new document object.  The replacement text of this entity is an element
-	node, a cdata node and a pi.  Verify if the nodes have been 
+	node, a cdata node and a pi.  Verify if the nodes have been
 	imported correctly by checking the nodeNames of the imported element node, the data for the
 	cdata nodes and the PItarget and PIData for the pi nodes.
 
@@ -3031,7 +3031,7 @@ documentimportnode20 : function () {
       var cdataVal;
       var piTargetVal;
       var piDataVal;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3066,22 +3066,22 @@ docType = doc.doctype;
        assertEquals("documentimportnode20_Cdata","Element data",cdataVal);
        assertEquals("documentimportnode20_PITarget","PItarget",piTargetVal);
        assertEquals("documentimportnode20_PIData","PIdata",piDataVal);
-       
+
 },
 /**
-* 
-	The importNode method imports a node from another document to this document. 
-	The returned node has no parent; (parentNode is null). The source node is not 
+*
+	The importNode method imports a node from another document to this document.
+	The returned node has no parent; (parentNode is null). The source node is not
 	altered or removed from the original document but a new copy of the source node
 	is created.
-	
-	Using the method importNode with deep=true, retreive the entity refs present in the 
-	second element node whose tagName is address and import these nodes into another document. 
-	Verify if the nodes have been imported correctly by checking the nodeNames of the 
+
+	Using the method importNode with deep=true, retreive the entity refs present in the
+	second element node whose tagName is address and import these nodes into another document.
+	Verify if the nodes have been imported correctly by checking the nodeNames of the
 	imported nodes, since they are imported into a new document which doesnot have thes defined,
 	the imported nodes should not have any children.
-	Now import the entityRef nodes into the same document and verify if the nodes have been 
-	imported correctly by checking the nodeNames of the imported nodes, and by checking the 
+	Now import the entityRef nodes into the same document and verify if the nodes have been
+	imported correctly by checking the nodeNames of the imported nodes, and by checking the
 	value of the replacement text of the imported nodes.
 
 * @author IBM
@@ -3113,7 +3113,7 @@ documentimportnode21 : function () {
       var nodeImp2;
       var nodeValueImp2;
       var nodeValueImp3;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3153,17 +3153,17 @@ docImp = domImpl.createDocument("http://www.w3.org/DOM/Test","a:b",docTypeNull);
 
       assertEquals("documentimportnode21_Ent2NodeValue","1900 Dallas Road",nodeValueImp2);
        assertEquals("documentimportnode21_Ent3Nodevalue","Texas",nodeValueImp3);
-       
+
 },
 /**
-* 
-	The importNode method imports a node from another document to this document. 
-	The returned node has no parent; (parentNode is null). The source node is not 
+*
+	The importNode method imports a node from another document to this document.
+	The returned node has no parent; (parentNode is null). The source node is not
 	altered or removed from the original document but a new copy of the source node
 	is created.
-	
-	Using the method importNode with deep=true/false, import two notaiton nodes into the 
-	same and different documnet objects.  In each case check if valid public and systemids 
+
+	Using the method importNode with deep=true/false, import two notaiton nodes into the
+	same and different documnet objects.  In each case check if valid public and systemids
 	are returned if any and if none, check if a null value was returned.
 
 * @author IBM
@@ -3197,7 +3197,7 @@ documentimportnode22 : function () {
       var systemId2;
       var systemId2Imp;
       var systemId2NewImp;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3244,12 +3244,12 @@ notation1 = nodeMap.getNamedItem("notation1");
        assertEquals("documentimportnode22_N2NSID",systemId2,systemId2NewImp);
        assertNull("documentimportnode22_N2PID",publicId2Imp);
     assertNull("documentimportnode22_N2NPID",publicId2Imp);
-    
+
 },
 /**
-* 
-    The method getInternalSubset() returns the internal subset as a string. 
-  
+*
+    The method getInternalSubset() returns the internal subset as a string.
+
     Create a new DocumentType node with null values for publicId and systemId.
     Verify that its internal subset is null.
 
@@ -3267,7 +3267,7 @@ documenttypeinternalSubset01 : function () {
       var internal;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3278,12 +3278,12 @@ docType = domImpl.createDocumentType("l2:root",nullNS,nullNS);
       internal = docType.internalSubset;
 
       assertNull("internalSubsetNull",internal);
-    
+
 },
 /**
-* 
+*
     The method getInternalSubset() returns the public identifier of the external subset.
-  
+
     Create a new DocumentType node with the value "PUB" for its publicId.
     Check the value of the publicId attribute using getPublicId().
 
@@ -3301,7 +3301,7 @@ documenttypepublicid01 : function () {
       var publicId;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3312,12 +3312,12 @@ docType = domImpl.createDocumentType("l2:root","PUB",nullNS);
       publicId = docType.publicId;
 
       assertEquals("documenttypepublicid01","PUB",publicId);
-       
+
 },
 /**
-* 
+*
     The method getInternalSubset() returns the public identifier of the external subset.
-  
+
     Create a new DocumentType node with the value "SYS" for its systemId and PUB for
     its publicId.  Check the value of the systemId and pbulicId attributes.
 
@@ -3333,7 +3333,7 @@ documenttypesystemid01 : function () {
       var domImpl;
       var publicId;
       var systemId;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3347,22 +3347,22 @@ docType = domImpl.createDocumentType("l2:root","PUB","SYS");
 
       assertEquals("documenttypepublicid01","PUB",publicId);
        assertEquals("documenttypesystemid01","SYS",systemId);
-       
+
 },
 /**
-* 
+*
 
-    The createDocument method with valid arguments, should create a DOM Document of 
+    The createDocument method with valid arguments, should create a DOM Document of
 
-    the specified type.  
+    the specified type.
 
-    
 
-    Call the createDocument on this DOMImplementation with 
 
-    createDocument ("http://www.w3.org/DOMTest/L2",see the array below for valid QNames,null).  
+    Call the createDocument on this DOMImplementation with
 
-    Check if the returned Document object is is empty with no Document Element.	
+    createDocument ("http://www.w3.org/DOMTest/L2",see the array below for valid QNames,null).
+
+    Check if the returned Document object is is empty with no Document Element.
 
 
 * @author IBM
@@ -3391,7 +3391,7 @@ domimplementationcreatedocument03 : function () {
       qualifiedNames[8] = "a-b:c";
       qualifiedNames[9] = "a-b:c";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3404,22 +3404,22 @@ for(var indexN1006B = 0;indexN1006B < qualifiedNames.length; indexN1006B++) {
       assertNotNull("domimplementationcreatedocument03",newDoc);
 
 	}
-   
+
 },
 /**
-* 
+*
 
-	The createDocument method should throw a NAMESPACE_ERR if the qualifiedName has 
+	The createDocument method should throw a NAMESPACE_ERR if the qualifiedName has
 
 	a prefix and the namespaceURI is null.
 
-    
 
-    Call the createDocument on this DOMImplementation with null namespaceURI and a 
 
-    qualifiedName that has a namespace prefix using this DOMImplementation.  
+    Call the createDocument on this DOMImplementation with null namespaceURI and a
 
-    Check if the NAMESPACE_ERR is thrown.  
+    qualifiedName that has a namespace prefix using this DOMImplementation.
+
+    Check if the NAMESPACE_ERR is thrown.
 
 
 * @author IBM
@@ -3438,7 +3438,7 @@ domimplementationcreatedocument04 : function () {
       var qualifiedName = "dom:root";
       var docType = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3459,17 +3459,17 @@ domimplementationcreatedocument04 : function () {
 
 },
 /**
-* 
+*
 
-	The createDocument method should throw a NAMESPACE_ERR if the qualifiedName has 
+	The createDocument method should throw a NAMESPACE_ERR if the qualifiedName has
 
-	a prefix that is xml and the namespaceURI is different from 
+	a prefix that is xml and the namespaceURI is different from
 
 	http://www..w3.org/XML/1998/namespace.
 
-	
 
-	Call the createDocument on this DOMImplementation with namespaceURI that is 
+
+	Call the createDocument on this DOMImplementation with namespaceURI that is
 
 	http://www.w3.org/xml/1998/namespace and a qualifiedName that has the prefix xml
 
@@ -3490,7 +3490,7 @@ domimplementationcreatedocument05 : function () {
       var qualifiedName = "xml:root";
       var docType = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3511,17 +3511,17 @@ domimplementationcreatedocument05 : function () {
 
 },
 /**
-* 
+*
 
-	The createDocument method should raise a NAMESPACE_ERR if the qualifiedName is malformed 
+	The createDocument method should raise a NAMESPACE_ERR if the qualifiedName is malformed
 
-	    
+
 
 	Invoke the createDocument method on this DOMImplementation object with null values
 
-	for namespaceURI and docType and a malformed qualifiedName.  
+	for namespaceURI and docType and a malformed qualifiedName.
 
-	The NAMESPACE_ERR should be raised. 
+	The NAMESPACE_ERR should be raised.
 
 
 * @author IBM
@@ -3537,7 +3537,7 @@ domimplementationcreatedocument07 : function () {
       var namespaceURI = "http://www.w3.org/DOMTest/level2";
       var docType = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3558,12 +3558,12 @@ domimplementationcreatedocument07 : function () {
 
 },
 /**
-* 
+*
 	The method createDocumentType with valid values for qualifiedName, publicId and
 	systemId should create an empty DocumentType node.
-	
+
 	Invoke createDocument on this DOMImplementation with a valid qualifiedName and different
-	publicIds and systemIds.  Check if the the DocumentType node was created with its 
+	publicIds and systemIds.  Check if the the DocumentType node was created with its
 	ownerDocument attribute set to null.
 
 * @author IBM
@@ -3588,7 +3588,7 @@ domimplementationcreatedocumenttype01 : function () {
       systemIds[0] = "";
       systemIds[1] = "test";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3604,24 +3604,24 @@ for(var indexN1005D = 0;indexN1005D < publicIds.length; indexN1005D++) {
 ownerDocument = newDocType.ownerDocument;
 
       assertNull("domimplementationcreatedocumenttype01_ownerDocument",ownerDocument);
-    
+
 	}
-   
+
 	}
-   
+
 },
 /**
-* 
+*
 
 	The method createDocumentType with valid values for qualifiedName, publicId and
 
 	systemId should create an empty DocumentType node.
 
-	
 
-	Invoke createDocument on this DOMImplementation with a different valid qualifiedNames 
 
-	and a valid publicId and systemId.  Check if the the DocumentType node was created 
+	Invoke createDocument on this DOMImplementation with a different valid qualifiedNames
+
+	and a valid publicId and systemId.  Check if the the DocumentType node was created
 
 	with its ownerDocument attribute set to null.
 
@@ -3656,7 +3656,7 @@ domimplementationcreatedocumenttype02 : function () {
       qualifiedNames[12] = "a-b:c.j";
       qualifiedNames[13] = "a-b:c";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3670,20 +3670,20 @@ for(var indexN10077 = 0;indexN10077 < qualifiedNames.length; indexN10077++) {
 ownerDocument = newDocType.ownerDocument;
 
       assertNull("domimplementationcreatedocumenttype02_ownerDocument",ownerDocument);
-    
+
 	}
-   
+
 },
 /**
-* 
+*
 
-	The method createDocumentType should raise a INVALID_CHARACTER_ERR if the qualifiedName 
+	The method createDocumentType should raise a INVALID_CHARACTER_ERR if the qualifiedName
 
 	contains an illegal characters.
 
-	
 
-	Invoke createDocument on this DOMImplementation with qualifiedNames having illegal characters. 
+
+	Invoke createDocument on this DOMImplementation with qualifiedNames having illegal characters.
 
 	Check if an INVALID_CHARACTER_ERR is raised in each case.
 
@@ -3717,7 +3717,7 @@ domimplementationcreatedocumenttype04 : function () {
       qualifiedNames[12] = "(";
       qualifiedNames[13] = ")";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3726,7 +3726,7 @@ domimplementationcreatedocumenttype04 : function () {
       domImpl = doc.implementation;
 for(var indexN10073 = 0;indexN10073 < qualifiedNames.length; indexN10073++) {
       qualifiedName = qualifiedNames[indexN10073];
-      
+
 	{
 		success = false;
 		try {
@@ -3739,10 +3739,10 @@ for(var indexN10073 = 0;indexN10073 < qualifiedNames.length; indexN10073++) {
 	}
 
 	}
-   
+
 },
 /**
-* 
+*
 
     The "feature" parameter in the
 
@@ -3752,9 +3752,9 @@ for(var indexN10073 = 0;indexN10073 < qualifiedNames.length; indexN10073++) {
 
    (Test for feature core, lower case)
 
-   
 
-   Retrieve the entire DOM document and invoke its 
+
+   Retrieve the entire DOM document and invoke its
 
    "load(null, "doc", "staffNS").implementation" method.  This should create a
 
@@ -3775,7 +3775,7 @@ domimplementationfeaturecore : function () {
     var doc;
       var domImpl;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3787,7 +3787,7 @@ assertTrue("domimplementationFeaturecoreAssert",state);
 
 },
 /**
-* 
+*
 
     The "feature" parameter in the
 
@@ -3795,11 +3795,11 @@ assertTrue("domimplementationFeaturecoreAssert",state);
 
    of the feature.  Legal values are XML and HTML.
 
-   (Test for feature "xml" and version "2.0") 
+   (Test for feature "xml" and version "2.0")
 
-   
 
-   Retrieve the entire DOM document and invoke its 
+
+   Retrieve the entire DOM document and invoke its
 
    "load(null, "doc", "staffNS").implementation" method.  This should create a
 
@@ -3820,7 +3820,7 @@ domimplementationfeaturexmlversion2 : function () {
     var doc;
       var domImpl;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3832,12 +3832,12 @@ assertTrue("domimplementationFeaturexmlVersion2Assert",state);
 
 },
 /**
-* 
+*
 	The method "hasFeature(feature,version)" tests if the DOMImplementation implements
 	a specific feature and if so returns true.
-	
-	Call the hasFeature method on this DOMImplementation with a combination of features 
-	versions as below.  Valid feature names are case insensitive and versions "2.0", 
+
+	Call the hasFeature method on this DOMImplementation with a combination of features
+	versions as below.  Valid feature names are case insensitive and versions "2.0",
 	"1.0" and if the version is not specified, supporting any version of the feature
 	should return true.  Check if the value returned value was true.
 
@@ -3864,7 +3864,7 @@ domimplementationhasfeature01 : function () {
       featuresCore[0] = "Core";
       featuresCore[1] = "CORE";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3888,14 +3888,14 @@ success = domImpl.hasFeature(featureCore,version2);
 assertTrue("domimplementationhasfeature01_Core_3",success);
 
 	}
-   
+
 },
 /**
-* 
+*
 	The method "hasFeature(feature,version)" tests if the DOMImplementation implements
 	a specific feature and if not returns false.
-	
-	Call the hasFeature method on this DOMImplementation with a unfimiliar values for 
+
+	Call the hasFeature method on this DOMImplementation with a unfimiliar values for
 	feature and version.  Check if the value returned was false.
 
 * @author IBM
@@ -3908,7 +3908,7 @@ domimplementationhasfeature02 : function () {
     var doc;
       var domImpl;
       var success;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3920,13 +3920,13 @@ assertFalse("domimplementationhasfeature02",success);
 
 },
 /**
-* 
+*
       The method getAttributeNodeNS retrieves an Attr node by local name and namespace URI.
-      Create a new element node and add 2 new attribute nodes to it that have the same 
-      local name but different namespaceURIs and prefixes.  
-      Retrieve an attribute using namespace and localname and check its value, name and 
+      Create a new element node and add 2 new attribute nodes to it that have the same
+      local name but different namespaceURIs and prefixes.
+      Retrieve an attribute using namespace and localname and check its value, name and
       namespaceURI.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAtNodeNS
@@ -3946,7 +3946,7 @@ elementgetattributenodens01 : function () {
       var attNodeName;
       var attrLocalName;
       var attrNS;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -3973,14 +3973,14 @@ elementgetattributenodens01 : function () {
        assertEquals("elementgetattributenodens01_attrNodeName","l2:att",attNodeName);
        assertEquals("elementgetattributenodens01_attrLocalName","att",attrLocalName);
        assertEquals("elementgetattributenodens01_attrNs","http://www.w3.org/DOM/Level2",attrNS);
-       
+
 },
 /**
-* 
-      The method getAttributeNodeNS retrieves an Attr node by local name and namespace URI.  
+*
+      The method getAttributeNodeNS retrieves an Attr node by local name and namespace URI.
       Create a new element node and add a new attribute node to it.  Using the getAttributeNodeNS,
       retrieve the newly added attribute node and check its value.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAtNodeNS
@@ -3993,7 +3993,7 @@ elementgetattributenodens02 : function () {
       var attribute;
       var newAttribute1;
       var attrValue;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4006,14 +4006,14 @@ elementgetattributenodens02 : function () {
       attrValue = attribute.nodeValue;
 
       assertEquals("elementgetattributenodens02","",attrValue);
-       
+
 },
 /**
-* 
+*
       The method getAttributeNodeNS retrieves an Attr node by local name and namespace URI.
       Using the getAttributeNodeNS, retrieve and verify the value of the default
       attribute node.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAtNodeNS
@@ -4029,7 +4029,7 @@ elementgetattributenodens03 : function () {
       var childList;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4041,14 +4041,14 @@ elementgetattributenodens03 : function () {
       attrValue = attribute.nodeValue;
 
       assertEquals("elementgetattributenodens03","defaultVal",attrValue);
-       
+
 },
 /**
-* 
-      The method getAttributeNS retrieves an attribute value by local name and namespace URI.  
-      Using the getAttributeNodeNS, retreive and verify the value of the default 
+*
+      The method getAttributeNS retrieves an attribute value by local name and namespace URI.
+      Using the getAttributeNodeNS, retreive and verify the value of the default
       attribute node.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAttrNS
@@ -4063,7 +4063,7 @@ elementgetattributens02 : function () {
       var childList;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4073,22 +4073,22 @@ elementgetattributens02 : function () {
       element = childList.item(1);
       attrValue = element.getAttributeNS(nullNS,"defaultAttr");
       assertEquals("elementgetattributens02","defaultVal",attrValue);
-       
+
 },
 /**
-* 
+*
 
-      The method getElementsByTagNameNS returns a NodeList of all the Elements with a given local 
+      The method getElementsByTagNameNS returns a NodeList of all the Elements with a given local
 
-      name and namespace URI in the order in which they are encountered in a preorder traversal 
+      name and namespace URI in the order in which they are encountered in a preorder traversal
 
-      of the Document tree. 
+      of the Document tree.
 
-      Invoke getElementsByTagNameNS on the documentElement with values for namespaceURI '*' and 
+      Invoke getElementsByTagNameNS on the documentElement with values for namespaceURI '*' and
 
-      localName '*'.  Verify if this returns a nodeList of 0 elements. 
+      localName '*'.  Verify if this returns a nodeList of 0 elements.
 
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
@@ -4099,7 +4099,7 @@ elementgetelementsbytagnamens02 : function () {
     var doc;
       var element;
       var elementList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4112,15 +4112,15 @@ elementgetelementsbytagnamens02 : function () {
 
 },
 /**
-* 
-      Returns a NodeList of all the Elements with a given local name and namespace URI in the 
-      order in which they are encountered in a preorder traversal of the Document tree. 
-      Create a new element node ('root') and append three newly created child nodes (all have 
-      local name 'child' and defined in different namespaces). 
+*
+      Returns a NodeList of all the Elements with a given local name and namespace URI in the
+      order in which they are encountered in a preorder traversal of the Document tree.
+      Create a new element node ('root') and append three newly created child nodes (all have
+      local name 'child' and defined in different namespaces).
       Test 1: invoke getElementsByTagNameNS to retrieve one of the children.
-      Test 2: invoke getElementsByTagNameNS with the value of namespace equals to '*', and 
-      verify that the node list has length of 3. 
-    
+      Test 2: invoke getElementsByTagNameNS with the value of namespace equals to '*', and
+      verify that the node list has length of 3.
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
@@ -4138,7 +4138,7 @@ elementgetelementsbytagnamens04 : function () {
       var elementList;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4158,21 +4158,21 @@ elementList = element.getElementsByTagNameNS("*","child");
 
 },
 /**
-* 
+*
 
-      Returns a NodeList of all the Elements with a given local name and namespace URI in the 
+      Returns a NodeList of all the Elements with a given local name and namespace URI in the
 
-      order in which they are encountered in a preorder traversal of the Document tree. 
+      order in which they are encountered in a preorder traversal of the Document tree.
 
       Invoke getElementsByTagNameNS on the documentElement with the following values:
 
-      namespaceURI: 'http://www.altavista.com' 
+      namespaceURI: 'http://www.altavista.com'
 
-      localName: '*'.  
+      localName: '*'.
 
-      Verify if this returns a nodeList of 1 elements. 
+      Verify if this returns a nodeList of 1 elements.
 
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
@@ -4183,7 +4183,7 @@ elementgetelementsbytagnamens05 : function () {
     var doc;
       var element;
       var elementList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4196,15 +4196,15 @@ elementgetelementsbytagnamens05 : function () {
 
 },
 /**
-* 
+*
 
-      The method hasAttribute returns true when an attribute with a given name is specified 
+      The method hasAttribute returns true when an attribute with a given name is specified
 
       on this element or has a default value, false otherwise
 
       Invoke the hasAttribute method to check if the documentElement has attributres.
 
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
@@ -4215,7 +4215,7 @@ elementhasattribute01 : function () {
     var doc;
       var element;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4228,12 +4228,12 @@ elementhasattribute01 : function () {
 
 },
 /**
-* 
-      The method hasAttribute returns true when an attribute with a given name is specified 
+*
+      The method hasAttribute returns true when an attribute with a given name is specified
       on this element or has a default value, false otherwise
       Invoke the hasAttribute method to on an element with default attributes and verify if it
       returns true.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
@@ -4245,7 +4245,7 @@ elementhasattribute02 : function () {
       var element;
       var state;
       var elementList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4259,14 +4259,14 @@ state = element.hasAttribute("defaultAttr");
 
 },
 /**
-* 
-      The method hasAttribute returns true when an attribute with a given name is specified 
+*
+      The method hasAttribute returns true when an attribute with a given name is specified
       on this element or has a default value, false otherwise.
 
       Create an element Node and an attribute Node.  Invoke hasAttribute method
       to verify that there is no attribute. Append the attribute node to the element node.
       Invoke the hasAttribute method on the element and verify if it returns true.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
@@ -4279,7 +4279,7 @@ elementhasattribute03 : function () {
       var state;
       var attribute;
       var newAttribute;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4295,13 +4295,13 @@ newAttribute = element.setAttributeNode(attribute);
 
 },
 /**
-* 
-      The method hasAttribute returns true when an attribute with a given name is specified 
+*
+      The method hasAttribute returns true when an attribute with a given name is specified
       on this element or has a default value, false otherwise.
 
       Create an element Node and an attribute Node and add the attribute node to the element.
       Invoke the hasAttribute method on the element and verify if the method returns true.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
@@ -4314,7 +4314,7 @@ elementhasattribute04 : function () {
       var state;
       var attribute;
       var newAttribute;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4328,14 +4328,14 @@ elementhasattribute04 : function () {
 
 },
 /**
-* 
-      The method hasAttributeNS returns true when an attribute with a given local name 
-      and namespace 
-      URI is specified on this element or has a default value, false otherwise. 
-      
-      Retreive the first employee element node.  Invoke the hasAttributeNS method to check if it 
+*
+      The method hasAttributeNS returns true when an attribute with a given local name
+      and namespace
+      URI is specified on this element or has a default value, false otherwise.
+
+      Retreive the first employee element node.  Invoke the hasAttributeNS method to check if it
       has the xmlns attribute that belongs to the namespace http://www.w3.org/2000/xmlns/.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttrNS
@@ -4347,7 +4347,7 @@ elementhasattributens01 : function () {
       var element;
       var state;
       var elementList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4360,16 +4360,16 @@ elementhasattributens01 : function () {
 
 },
 /**
-* 
-      The method hasAttributeNS returns true when an attribute with a given local 
-      name and namespace URI is specified on this element or has a default value, 
-      false otherwise. 
+*
+      The method hasAttributeNS returns true when an attribute with a given local
+      name and namespace URI is specified on this element or has a default value,
+      false otherwise.
 
-      Create a new element and attribute node that belong to the same namespace.  
-      Add the attribute node to the element node.  Check if the newly created element 
-      node has an attribute by invoking the hasAttributeNS method with appropriate 
+      Create a new element and attribute node that belong to the same namespace.
+      Add the attribute node to the element node.  Check if the newly created element
+      node has an attribute by invoking the hasAttributeNS method with appropriate
       values for the namespaceURI and localName parameters.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttrNS
@@ -4382,7 +4382,7 @@ elementhasattributens02 : function () {
       var state;
       var attribute;
       var newAttribute;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4396,16 +4396,16 @@ elementhasattributens02 : function () {
 
 },
 /**
-* 
-      The method hasAttributeNS returns true when an attribute with a given local name 
-      and namespace URI is specified on this element or has a default value, 
-      false otherwise. 
-      
-      Create a new element and an attribute node that has an empty namespace.  
-      Add the attribute node to the element node.  Check if the newly created element 
-      node has an attribute by invoking the hasAttributeNS method with appropriate 
+*
+      The method hasAttributeNS returns true when an attribute with a given local name
+      and namespace URI is specified on this element or has a default value,
+      false otherwise.
+
+      Create a new element and an attribute node that has an empty namespace.
+      Add the attribute node to the element node.  Check if the newly created element
+      node has an attribute by invoking the hasAttributeNS method with appropriate
       values for the namespaceURI and localName parameters.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttrNS
@@ -4421,7 +4421,7 @@ elementhasattributens03 : function () {
       var newAttribute;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4436,13 +4436,13 @@ attribute = doc.createAttributeNS(nullNS,"domestic");
 
 },
 /**
-* 
+*
       The method removeAttributeNS removes an attribute by local name and namespace URI.
-      Create a new element and add a new attribute node to it. 
-      Remove the attribute node using the removeAttributeNodeNS method.  
+      Create a new element and add a new attribute node to it.
+      Remove the attribute node using the removeAttributeNodeNS method.
       Check if the attribute was remove by invoking the hasAttributeNS
       method on the element and check if it returns false.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElRemAtNS
@@ -4455,7 +4455,7 @@ elementremoveattributens01 : function () {
       var state;
       var attribute;
       var newAttribute;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4470,17 +4470,17 @@ elementremoveattributens01 : function () {
 
 },
 /**
-* 
-      Testing Element.setAttributeNodeNS: If an attribute with that local name 
+*
+      Testing Element.setAttributeNodeNS: If an attribute with that local name
       and that namespace URI is already present in the element, it is replaced
       by the new one.
 
       Create a new element and two new attribute nodes (in the same namespace
-      and same localNames).  
-      Add the two new attribute nodes to the element node using the 
+      and same localNames).
+      Add the two new attribute nodes to the element node using the
       setAttributeNodeNS method.  Check that only one attribute is added, check
       the value of this attribute.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
@@ -4499,7 +4499,7 @@ elementsetattributenodens01 : function () {
       var attributes;
       var newAttribute;
       var length;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4524,15 +4524,15 @@ elementsetattributenodens01 : function () {
       length = attributes.length;
 
       assertEquals("length",1,length);
-       
+
 },
 /**
-* 
+*
       Test the setAttributeNodeNS method.
-      Retreive the street attribute from the second address element node.  
+      Retreive the street attribute from the second address element node.
       Clone it and add it to the first address node.  The INUSE_ATTRIBUTE_ERR exception
       should not be thrown. Check the name and value of the newly added node.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
@@ -4552,7 +4552,7 @@ elementsetattributenodens02 : function () {
       var attrValue;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4570,17 +4570,17 @@ elementsetattributenodens02 : function () {
 
       assertEquals("elementsetattributenodens02_attrName","street",attrName);
        assertEquals("elementsetattributenodens02_attrValue","Yes",attrValue);
-       
+
 },
 /**
-* 
-      The method setAttributeNodeNS adds a new attribute and raises the 
-      INUSE_ATTRIBUTE_ERR exception if the newAttr is already an attribute of 
-      another Element object. 
-      
+*
+      The method setAttributeNodeNS adds a new attribute and raises the
+      INUSE_ATTRIBUTE_ERR exception if the newAttr is already an attribute of
+      another Element object.
+
       Retreive an attribute node of an existing element node.  Attempt to add it to an another
       element node.  Check if the INUSE_ATTRIBUTE_ERR exception is thrown.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
@@ -4596,7 +4596,7 @@ elementsetattributenodens03 : function () {
       var elementList;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4606,7 +4606,7 @@ elementsetattributenodens03 : function () {
       element1 = elementList.item(1);
       attribute = element1.getAttributeNodeNS(nullNS,"street");
       element2 = elementList.item(2);
-      
+
 	{
 		success = false;
 		try {
@@ -4620,14 +4620,14 @@ elementsetattributenodens03 : function () {
 
 },
 /**
-* 
-      The method setAttributeNodeNS Adds a new attribute and raises an INUSE_ATTRIBUTE_ERR 
-      if newAttr is already an attribute of another Element object. 
-      
+*
+      The method setAttributeNodeNS Adds a new attribute and raises an INUSE_ATTRIBUTE_ERR
+      if newAttr is already an attribute of another Element object.
+
       Create two new element nodes and a new attribute node.  Attempt to add the same attribute
       node to the same two element nodes.
       Check if an INUSE_ATTRIBUTE_ERR is thrown.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
@@ -4640,7 +4640,7 @@ elementsetattributenodens04 : function () {
       var element2;
       var attribute;
       var newAttribute;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4650,7 +4650,7 @@ elementsetattributenodens04 : function () {
       element2 = doc.createElementNS("http://www.w3.org/DOM/Test","elem2");
       attribute = doc.createAttributeNS("http://www.w3.org/DOM/Test","attr");
       newAttribute = element1.setAttributeNodeNS(attribute);
-      
+
 	{
 		success = false;
 		try {
@@ -4664,14 +4664,14 @@ elementsetattributenodens04 : function () {
 
 },
 /**
-* 
-      The method setAttributeNodeNS Adds a new attribute and raises 
-      an WRONG_DOCUMENT_ERR if newAttr was created from a different document 
+*
+      The method setAttributeNodeNS Adds a new attribute and raises
+      an WRONG_DOCUMENT_ERR if newAttr was created from a different document
       than the one that created the element.
-      Create new element and attribute nodes in different documents.  
+      Create new element and attribute nodes in different documents.
       Attempt to add the attribute node to the element node.
       Check if an WRONG_DOCUMENT_ERR is thrown.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
@@ -4684,13 +4684,13 @@ elementsetattributenodens05 : function () {
       var element;
       var attribute;
       var newAttribute;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var docAltRef = null;
       if (typeof(this.docAlt) != 'undefined') {
         docAltRef = this.docAlt;
@@ -4698,7 +4698,7 @@ elementsetattributenodens05 : function () {
       docAlt = load(docAltRef, "docAlt", "staffNS");
       element = doc.createElementNS("http://www.w3.org/DOM/Test","elem1");
       attribute = docAlt.createAttributeNS("http://www.w3.org/DOM/Test","attr");
-      
+
 	{
 		success = false;
 		try {
@@ -4712,11 +4712,11 @@ elementsetattributenodens05 : function () {
 
 },
 /**
-* 
-	The method setAttributeNodeNS Adds a new attribute and raises an WRONG_DOCUMENT_ERR if this node 
+*
+	The method setAttributeNodeNS Adds a new attribute and raises an WRONG_DOCUMENT_ERR if this node
 	is readonly.
 
-	Attempt to add an attribute node to an element node which is part of the replacement text of 
+	Attempt to add an attribute node to an element node which is part of the replacement text of
 	a read-only EntityReference node.
 	Check if a NO_MODIFICATION_ALLOWED_ERR is thrown.
 
@@ -4735,7 +4735,7 @@ elementsetattributenodens06 : function () {
       var elementList;
       var newAttribute;
       var newChild;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4750,7 +4750,7 @@ elementsetattributenodens06 : function () {
 
       element = elementList.item(0);
       attribute2 = doc.createAttributeNS("http://www.w3.org/DOM/Test","attr2");
-      
+
 	{
 		success = false;
 		try {
@@ -4764,12 +4764,12 @@ elementsetattributenodens06 : function () {
 
 },
 /**
-* 
+*
       The method setAttributeNS adds a new attribute.
-      Create a new element and add a new attribute node to it using the setAttributeNS method. 
-      Check if the attribute was correctly set by invoking the getAttributeNodeNS method 
+      Create a new element and add a new attribute node to it using the setAttributeNS method.
+      Check if the attribute was correctly set by invoking the getAttributeNodeNS method
       and checking the nodeName and nodeValue of the returned nodes.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
@@ -4782,7 +4782,7 @@ elementsetattributens01 : function () {
       var attribute;
       var attrName;
       var attrValue;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4797,16 +4797,16 @@ elementsetattributens01 : function () {
 
       assertEquals("elementsetattributens01_attrName","attr",attrName);
        assertEquals("elementsetattributens01_attrValue","value",attrValue);
-       
+
 },
 /**
-* 
+*
       The method setAttributeNS adds a new attribute.
-      
-      Retrieve an existing element node with attributes and add a new attribute node to it using 
-      the setAttributeNS method.   Check if the attribute was correctly set by invoking the 
+
+      Retrieve an existing element node with attributes and add a new attribute node to it using
+      the setAttributeNS method.   Check if the attribute was correctly set by invoking the
       getAttributeNodeNS method and checking the nodeName and nodeValue of the returned nodes.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
@@ -4820,7 +4820,7 @@ elementsetattributens02 : function () {
       var elementList;
       var attrName;
       var attrValue;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4836,17 +4836,17 @@ elementsetattributens02 : function () {
 
       assertEquals("elementsetattributens02_attrName","this:street",attrName);
        assertEquals("elementsetattributens02_attrValue","Silver Street",attrValue);
-       
+
 },
 /**
-* 
+*
       The method setAttributeNS adds a new attribute.
-      Retreive an existing element node with a default attribute node and 
-      add two new attribute nodes that have the same local name as the 
-      default attribute but different namespaceURI to it using the setAttributeNS method.   
+      Retreive an existing element node with a default attribute node and
+      add two new attribute nodes that have the same local name as the
+      default attribute but different namespaceURI to it using the setAttributeNS method.
       Check if the attribute was correctly set by invoking the getAttributeNodeNS method
       and checking the nodeName and nodeValue of the returned nodes.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
@@ -4860,7 +4860,7 @@ elementsetattributens03 : function () {
       var elementList;
       var attrName;
       var attrValue;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4878,16 +4878,16 @@ element.setAttributeNS("http://www.w3.org/DOM/Test/1","defaultAttr","default1");
 
       assertEquals("elementsetattributens03_attrName","defaultAttr",attrName);
        assertEquals("elementsetattributens03_attrValue","default1",attrValue);
-       
+
 },
 /**
-* 
-      The method setAttributeNS adds a new attribute and raises a INVALID_CHARACTER_ERR if 
+*
+      The method setAttributeNS adds a new attribute and raises a INVALID_CHARACTER_ERR if
       the specified qualified name contains an illegal character.
-      Invoke the setAttributeNS method on this Element object with a valid value for 
+      Invoke the setAttributeNS method on this Element object with a valid value for
       namespaceURI, and qualifiedNames that contain illegal characters.  Check if the an
       INVALID_CHARACTER_ERR was thrown.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
@@ -4909,7 +4909,7 @@ elementsetattributens04 : function () {
       qualifiedNames[7] = ">";
       qualifiedNames[8] = "<";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -4918,7 +4918,7 @@ elementsetattributens04 : function () {
       element = doc.createElementNS("http://www.w3.org/DOM/Test/L2","dom:elem");
       for(var indexN10058 = 0;indexN10058 < qualifiedNames.length; indexN10058++) {
       qualifiedName = qualifiedNames[indexN10058];
-      
+
 	{
 		success = false;
 		try {
@@ -4931,15 +4931,15 @@ elementsetattributens04 : function () {
 	}
 
 	}
-   
+
 },
 /**
-* 
-      The method setAttributeNS adds a new attribute and raises a NAMESPACE_ERR if the 
+*
+      The method setAttributeNS adds a new attribute and raises a NAMESPACE_ERR if the
       qualifiedName has a prefix and the namespaceURI is null.
-      Invoke the setAttributeNS method on a new Element object with null namespaceURI and a 
+      Invoke the setAttributeNS method on a new Element object with null namespaceURI and a
       qualifiedName that has a namespace prefix.  Check if the NAMESPACE_ERR was thrown.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
@@ -4952,14 +4952,14 @@ elementsetattributens05 : function () {
       var element;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
       element = doc.createElementNS("http://www.w3.org/DOM/Test/L2","dom:elem");
-      
+
 	{
 		success = false;
 		try {
@@ -4973,16 +4973,16 @@ elementsetattributens05 : function () {
 
 },
 /**
-* 
-      The method setAttributeNS adds a new attribute and raises a NAMESPACE_ERR 
-      if the qualifiedName, or its prefix, is "xmlns" and the namespaceURI is 
+*
+      The method setAttributeNS adds a new attribute and raises a NAMESPACE_ERR
+      if the qualifiedName, or its prefix, is "xmlns" and the namespaceURI is
       different from "http://www.w3.org/2000/xmlns/".
-      
-      Invoke the setAttributeNS method on a new Element object with namespaceURI that is 
+
+      Invoke the setAttributeNS method on a new Element object with namespaceURI that is
       http://www.w3.org/DOMTest/level2 and a qualifiedName that has the prefix xmlns and once
-      again with a qualifiedName that is xmlns.  
+      again with a qualifiedName that is xmlns.
       Check if the NAMESPACE_ERR was thrown.
-    
+
 * @author IBM
 * @author Neil Delima
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
@@ -4992,14 +4992,14 @@ elementsetattributens08 : function () {
     if(checkInitialization(builder, "elementsetattributens08") != null) return;
     var doc;
       var element;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
       element = doc.createElementNS("http://www.w3.org/DOMTest/level2","dom:elem");
-      
+
 	{
 		success = false;
 		try {
@@ -5024,21 +5024,21 @@ elementsetattributens08 : function () {
 
 },
 /**
-* 
+*
 
-    The "setAttributeNS(namespaceURI,qualifiedName,value)" method raises a 
+    The "setAttributeNS(namespaceURI,qualifiedName,value)" method raises a
 
    NAMESPACE_ERR DOMException if the specified
 
    qualifiedName has a prefix and the namespaceURI is null.
 
-   
+
 
    Attempt to add a new attribute on the first employee node.
 
    An exception should be raised since the "qualifiedName" has a
 
-   prefix and the namespaceURI is null. 
+   prefix and the namespaceURI is null.
 
 
 * @author NIST
@@ -5055,7 +5055,7 @@ elementsetattributensurinull : function () {
       var doc;
       var elementList;
       var testAddr;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5063,7 +5063,7 @@ elementsetattributensurinull : function () {
       doc = load(docRef, "doc", "staff");
       elementList = doc.getElementsByTagName("employee");
       testAddr = elementList.item(0);
-      
+
 	{
 		success = false;
 		try {
@@ -5077,12 +5077,12 @@ elementsetattributensurinull : function () {
 
 },
 /**
-* 
+*
     The "getAttributeNS(namespaceURI,localName)" method retrieves an
    attribute value by local name and NamespaceURI.
-   
+
    Retrieve the first "emp:address" element.
-   The value returned by the "getAttributeNS()" method should be the 
+   The value returned by the "getAttributeNS()" method should be the
    value "DISTRICT" since the attribute has a default value.
 
 * @author NIST
@@ -5100,7 +5100,7 @@ getAttributeNS01 : function () {
       var elementList;
       var testAddr;
       var attrValue;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5110,17 +5110,17 @@ getAttributeNS01 : function () {
       testAddr = elementList.item(0);
       attrValue = testAddr.getAttributeNS(namespaceURI,localName);
       assertEquals("attrValue","DISTRICT",attrValue);
-       
+
 },
 /**
-* 
+*
     The "getAttributeNS(namespaceURI,localName)" method retrieves an
    attribute value by local name and NamespaceURI.
-   
+
    Retrieve the first "emp:address" element.
    Create a new attribute with the "createAttributeNS()" method.
    Add the new attribute with the "setAttributeNS()" method.
-   The value returned by the "getAttributeNS()" method should be the 
+   The value returned by the "getAttributeNS()" method should be the
    empty string since the attribute does not have a default value.
 
 * @author NIST
@@ -5139,7 +5139,7 @@ getAttributeNS02 : function () {
       var testAddr;
       var districtAttr;
       var attrValue;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5154,15 +5154,15 @@ districtAttr = testAddr.setAttributeNodeNS(newAttribute);
       testAddr = elementList.item(0);
       attrValue = testAddr.getAttributeNS(namespaceURI,localName);
       assertEquals("throw_Equals","",attrValue);
-       
+
 },
 /**
-* 
+*
     The "getAttributeNS(namespaceURI,localName)" method retrieves an
    attribute value by local name and NamespaceURI.
-   
+
    Retrieve the first "emp:address" element.
-   The value returned by the "getAttributeNS()" method for the emp:domestic attribute 
+   The value returned by the "getAttributeNS()" method for the emp:domestic attribute
    should be the empty string since the attribute does not have a specified value
    because it was removed by the "removeAttributeNS()" method.
 
@@ -5179,7 +5179,7 @@ getAttributeNS03 : function () {
       var elementList;
       var testAddr;
       var attrValue;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5191,17 +5191,17 @@ getAttributeNS03 : function () {
 testAddr.removeAttributeNS(namespaceURI,localName);
       attrValue = testAddr.getAttributeNS(namespaceURI,localName);
       assertEquals("throw_Equals","",attrValue);
-       
+
 },
 /**
-* 
+*
     The "getAttributeNS(namespaceURI,localName)" method retrieves an
    attribute value by local name and NamespaceURI.
-   
+
    Retrieve the first "emp:address" element.
    Create a new attribute with the "createAttributeNS()" method.
    Add the new attribute and value with the "setAttributeNS()" method.
-   The value returned by the "getAttributeNS()" method should be  
+   The value returned by the "getAttributeNS()" method should be
    the string "NewValue" since the attribute had a specified value.
 
 * @author NIST
@@ -5220,7 +5220,7 @@ getAttributeNS04 : function () {
       var testAddr;
       var districtAttr;
       var attrValue;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5233,14 +5233,14 @@ getAttributeNS04 : function () {
 testAddr.setAttributeNS(namespaceURI,qualifiedName,"NewValue");
       attrValue = testAddr.getAttributeNS(namespaceURI,localName);
       assertEquals("throw_Equals","NewValue",attrValue);
-       
+
 },
 /**
-* 
+*
     The "getAttributeNS(namespaceURI,localName)" method retrieves an
    attribute value by local name and NamespaceURI.
-   
-   Retrieve the first emp:address element node 
+
+   Retrieve the first emp:address element node
    and retrieve the emp:domestic attribute.  The method returns an
    Attr value as a string, the "value" can be examined to ensure the
    proper attribute value was retrieved.
@@ -5256,7 +5256,7 @@ getAttributeNS05 : function () {
       var elementList;
       var testAddr;
       var attrValue;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5267,14 +5267,14 @@ getAttributeNS05 : function () {
       assertNotNull("empAddrNotNull",testAddr);
 attrValue = testAddr.getAttributeNS("http://www.nist.gov","domestic");
       assertEquals("attrValue","Yes",attrValue);
-       
+
 },
 /**
-* 
+*
     The "getAttributeNodeNS(namespaceURI,localName)" method retrieves an
    attribute node by local name and NamespaceURI.
-   
-   Retrieve the first emp:address element node. 
+
+   Retrieve the first emp:address element node.
    The getAttributeNodeNS method returns an
    Attr node, the "value" can be examined to ensure the
    proper attribute node was retrieved.  This attribute
@@ -5293,7 +5293,7 @@ getAttributeNodeNS01 : function () {
       var elementList;
       var testAddr;
       var attribute;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5304,14 +5304,14 @@ getAttributeNodeNS01 : function () {
       assertNotNull("empAddrNotNull",testAddr);
 attribute = testAddr.getAttributeNodeNS(namespaceURI,localName);
       assertNull("throw_Null",attribute);
-    
+
 },
 /**
-* 
+*
     The "getAttributeNodeNS(namespaceURI,localName)" method retrieves an
    attribute node by local name and NamespaceURI.
-   
-   Retrieve the first emp:address element node. 
+
+   Retrieve the first emp:address element node.
    The getAttributeNodeNS method returns an
    Attr node, the "value" can be examined to ensure the
    proper attribute node was retrieved.
@@ -5328,7 +5328,7 @@ getAttributeNodeNS02 : function () {
       var testAddr;
       var attribute;
       var attrName;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5341,13 +5341,13 @@ attribute = testAddr.getAttributeNodeNS("http://www.nist.gov","domestic");
       attrName = attribute.nodeName;
 
       assertEquals("attrName","emp:domestic",attrName);
-       
+
 },
 /**
-* 
-    The "getElementById(elementId)" method for a 
+*
+    The "getElementById(elementId)" method for a
    Document should return an element whose ID matches elementId.
-   
+
    Invoke method getElementById(elementId) on this document
    with elementId equals "CANADA".  Method should return an element
    whose tag name is "emp:address".
@@ -5363,7 +5363,7 @@ getElementById01 : function () {
     var doc;
       var element;
       var tagname;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5373,15 +5373,15 @@ getElementById01 : function () {
       tagname = element.tagName;
 
       assertEquals("throw_Equals","emp:address",tagname);
-       
+
 },
 /**
-* 
-    
-   The "getElementById(elementId)" method for a 
+*
+
+   The "getElementById(elementId)" method for a
    Document should return null if elementId does not identify any
    elements in this document.
-   
+
    Invoke method getElementById(elementId) on this document
    with elementId equals "Cancun". Method should return null.
 
@@ -5394,7 +5394,7 @@ getElementById02 : function () {
     if(checkInitialization(builder, "getElementById02") != null) return;
     var doc;
       var element;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5402,14 +5402,14 @@ getElementById02 : function () {
       doc = load(docRef, "doc", "staffNS");
       element = doc.getElementById("Cancun");
       assertNull("throw_Null",element);
-    
+
 },
 /**
-* 
-    The "getElementsByTagNameNS(namespaceURI,localName)" method for a 
+*
+    The "getElementsByTagNameNS(namespaceURI,localName)" method for a
    Document should return a new NodeList of all Elements that have a namespace
    when local name is specified as ' '.
-   
+
    Invoke method getElementsByTagNameNS(namespaceURI,localName) on this document
    with namespaceURI and localName as " ".
    Method should return a new NodeList of 37 elements.
@@ -5425,7 +5425,7 @@ getElementsByTagNameNS01 : function () {
       var localName = "*";
       var doc;
       var newList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5436,15 +5436,15 @@ getElementsByTagNameNS01 : function () {
 
 },
 /**
-* 
-    The "getElementsByTagNameNS(namespaceURI,localName)" method for a 
+*
+    The "getElementsByTagNameNS(namespaceURI,localName)" method for a
    Document should return a new NodeList of all Elements with a given
    localName and namespaceURI in the order they were encountered in a preorder
    traversal of the document tree.
-   
+
    Invoke method getElementsByTagNameNS(namespaceURI,localName) on this document
    with namespaceURI being " " and localName is "employee".
-   Method should return a new NodeList containing five Elements. 
+   Method should return a new NodeList containing five Elements.
    Retrieve the FOURTH element whose name should be "emp:employee".
 
 * @author NIST
@@ -5459,7 +5459,7 @@ getElementsByTagNameNS02 : function () {
       var newElement;
       var prefix;
       var lname;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5474,16 +5474,16 @@ newElement = newList.item(3);
        lname = newElement.localName;
 
       assertEquals("lname","employee",lname);
-       
+
 },
 /**
-* 
+*
     The "getElementsByTagNameNS(namespaceURI,localName)" method returns a NodeList
    of all descendant Elements with a given local name and namespace URI in the
    order in which they are encountered in a preorder traversal of this Element tree.
-   
+
    Create a NodeList of all the descendant elements
-   using the "http://www.nist.gov" as the namespaceURI and the special value " " as the 
+   using the "http://www.nist.gov" as the namespaceURI and the special value " " as the
    localName.
    The method should return a NodeList of elements that have "http://www.nist.gov
    as a namespace URI.
@@ -5517,7 +5517,7 @@ getElementsByTagNameNS03 : function () {
       expectedResult[12] = "emp:address";
       expectedResult[13] = "address";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5532,19 +5532,19 @@ getElementsByTagNameNS03 : function () {
 
 	}
    assertEqualsList("nodeNames",expectedResult,result);
-       
+
 },
 /**
-* 
+*
     The "getElementsByTagNameNS(namespaceURI,localName)" method returns a NodeList
    of all descendant Elements with a given local name and namespace URI in the
    order in which they are encountered in a preorder traversal of this Element tree.
-   
+
    Create a NodeList of all the descendant elements
-   using the special value " " as the namespaceURI and "address" as the 
+   using the special value " " as the namespaceURI and "address" as the
    localName.
    The method should return a NodeList of Elements that have
-   "address" as the local name.  
+   "address" as the local name.
 
 * @author NIST
 * @author Mary Brady
@@ -5566,7 +5566,7 @@ getElementsByTagNameNS04 : function () {
       expectedResult[3] = "emp:address";
       expectedResult[4] = "address";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5581,19 +5581,19 @@ getElementsByTagNameNS04 : function () {
 
 	}
    assertEqualsList("nodeNames",expectedResult,result);
-       
+
 },
 /**
-* 
+*
     The "getElementsByTagNameNS(namespaceURI,localName)" method returns a NodeList
    of all descendant Elements with a given local name and namespace URI in the
    order in which they are encountered in a preorder traversal of this Element tree.
-   
+
    Create a NodeList of all the descendant elements
-   using the "http://www.nist.gov" as the namespaceURI and "nomatch" as the 
+   using the "http://www.nist.gov" as the namespaceURI and "nomatch" as the
    localName.
    The method should return a NodeList whose length is
-   "0".  
+   "0".
 
 * @author NIST
 * @author Mary Brady
@@ -5606,7 +5606,7 @@ getElementsByTagNameNS05 : function () {
       var localName = "nomatch";
       var doc;
       var elementList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5617,16 +5617,16 @@ getElementsByTagNameNS05 : function () {
 
 },
 /**
-* 
+*
     The "getElementsByTagNameNS(namespaceURI,localName)" method returns a NodeList
    of all descendant Elements with a given local name and namespace URI in the
    order in which they are encountered in a preorder traversal of this Element tree.
-   
+
    Create a NodeList of all the descendant elements
-   using the "http://www.nomatch.com" as the namespaceURI and "address" as the 
+   using the "http://www.nomatch.com" as the namespaceURI and "address" as the
    localName.
    The method should return a NodeList whose length is
-   "0".  
+   "0".
 
 * @author NIST
 * @author Mary Brady
@@ -5637,7 +5637,7 @@ getElementsByTagNameNS06 : function () {
     if(checkInitialization(builder, "getElementsByTagNameNS06") != null) return;
     var doc;
       var elementList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5648,16 +5648,16 @@ getElementsByTagNameNS06 : function () {
 
 },
 /**
-* 
+*
     The "getElementsByTagNameNS(namespaceURI,localName)" method returns a NodeList
    of all descendant Elements with a given local name and namespace URI in the
    order in which they are encountered in a preorder traversal of this Element tree.
-   
+
    Create a NodeList of all the descendant elements
-   using the string "http://www.nist.gov" as the namespaceURI and "address" as the 
+   using the string "http://www.nist.gov" as the namespaceURI and "address" as the
    localName.
    The method should return a NodeList whose length is
-   "3".  
+   "3".
 
 * @author NIST
 * @author Mary Brady
@@ -5668,7 +5668,7 @@ getElementsByTagNameNS07 : function () {
     if(checkInitialization(builder, "getElementsByTagNameNS07") != null) return;
     var doc;
       var elementList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5679,7 +5679,7 @@ getElementsByTagNameNS07 : function () {
 
 },
 /**
-* 
+*
     Element.getElementsByTagNameNS('*','*') should return all child
     elements.  There is some contention on whether this should match
     unqualified elements, this test reflects the interpretation that
@@ -5697,7 +5697,7 @@ getElementsByTagNameNS08 : function () {
     var doc;
       var docElem;
       var newList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5710,15 +5710,15 @@ getElementsByTagNameNS08 : function () {
 
 },
 /**
-* 
-    The "getElementsByTagNameNS(namespaceURI,localName)" method for a 
+*
+    The "getElementsByTagNameNS(namespaceURI,localName)" method for a
    Element should return a new NodeList of all descendant Elements with a given
    localName and namespaceURI in the order they were encountered in a preorder
    traversal of the document tree.
-   
+
    Invoke method getElementsByTagNameNS(namespaceURI,localName) on the document
    element with namespaceURI being "*" and localName is "employee".
-   Method should return a new NodeList containing five Elements. 
+   Method should return a new NodeList containing five Elements.
    Retrieve the FOURTH element whose name should be "emp:employee".
 
    Derived from getElementsByTagNameNS02 and reflects its interpretation
@@ -5737,7 +5737,7 @@ getElementsByTagNameNS09 : function () {
       var prefix;
       var lname;
       var docElem;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5754,16 +5754,16 @@ newElement = newList.item(3);
        lname = newElement.localName;
 
       assertEquals("lname","employee",lname);
-       
+
 },
 /**
-* 
+*
     The "getElementsByTagNameNS(namespaceURI,localName)" method returns a NodeList
    of all descendant Elements with a given local name and namespace URI in the
    order in which they are encountered in a preorder traversal of this Element tree.
-   
+
    Create a NodeList of all the descendant elements of the document element
-   using the "http://www.nist.gov" as the namespaceURI and the special value "*" as the 
+   using the "http://www.nist.gov" as the namespaceURI and the special value "*" as the
    localName.
    The method should return a NodeList of elements that have "http://www.nist.gov
    as a namespace URI.
@@ -5800,7 +5800,7 @@ getElementsByTagNameNS10 : function () {
       expectedResult[12] = "emp:address";
       expectedResult[13] = "address";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5817,19 +5817,19 @@ getElementsByTagNameNS10 : function () {
 
 	}
    assertEqualsList("nodeNames",expectedResult,result);
-       
+
 },
 /**
-* 
+*
     The "getElementsByTagNameNS(namespaceURI,localName)" method returns a NodeList
    of all descendant Elements with a given local name and namespace URI in the
    order in which they are encountered in a preorder traversal of this Element tree.
-   
+
    Create a NodeList of all the descendant elements
-   using the special value "*" as the namespaceURI and "address" as the 
+   using the special value "*" as the namespaceURI and "address" as the
    localName.
    The method should return a NodeList of Elements that have
-   "address" as the local name.  
+   "address" as the local name.
 
    This test is derived from getElementsByTagNameNS04
 
@@ -5853,7 +5853,7 @@ getElementsByTagNameNS11 : function () {
       expectedResult[3] = "emp:address";
       expectedResult[4] = "address";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5870,18 +5870,18 @@ getElementsByTagNameNS11 : function () {
 
 	}
    assertEqualsList("nodeNames",expectedResult,result);
-       
+
 },
 /**
-* 
+*
     The "getElementsByTagNameNS(namespaceURI,localName)" method returns a NodeList
    of all descendant Elements with a given local name and namespace URI in the
    order in which they are encountered in a preorder traversal of this Element tree.
-   
+
    Create a NodeList of all the descendant elements
-   using the "http://www.nist.gov" as the namespaceURI and "nomatch" as the 
+   using the "http://www.nist.gov" as the namespaceURI and "nomatch" as the
    localName.
-   The method should return a NodeList whose length is "0".  
+   The method should return a NodeList whose length is "0".
 
    This test is a modification of getElementsByTagName05
 
@@ -5894,7 +5894,7 @@ getElementsByTagNameNS12 : function () {
     var doc;
       var docElem;
       var elementList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5907,16 +5907,16 @@ getElementsByTagNameNS12 : function () {
 
 },
 /**
-* 
+*
     The "getElementsByTagNameNS(namespaceURI,localName)" method returns a NodeList
    of all descendant Elements with a given local name and namespace URI in the
    order in which they are encountered in a preorder traversal of this Element tree.
-   
+
    Create a NodeList of all the descendant elements
-   using the "http://www.nomatch.com" as the namespaceURI and "address" as the 
+   using the "http://www.nomatch.com" as the namespaceURI and "address" as the
    localName.
    The method should return a NodeList whose length is
-   "0".  
+   "0".
 
 * @author Curt Arnold
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1938918D
@@ -5927,7 +5927,7 @@ getElementsByTagNameNS13 : function () {
     var doc;
       var docElem;
       var elementList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5940,16 +5940,16 @@ getElementsByTagNameNS13 : function () {
 
 },
 /**
-* 
+*
     The "getElementsByTagNameNS(namespaceURI,localName)" method returns a NodeList
    of all descendant Elements with a given local name and namespace URI in the
    order in which they are encountered in a preorder traversal of this Element tree.
-   
+
    Create a NodeList of all the descendant elements
-   using the string "http://www.nist.gov" as the namespaceURI and "address" as the 
+   using the string "http://www.nist.gov" as the namespaceURI and "address" as the
    localName.
    The method should return a NodeList whose length is
-   "3".  
+   "3".
 
 * @author Curt Arnold
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1938918D
@@ -5960,7 +5960,7 @@ getElementsByTagNameNS14 : function () {
     var doc;
       var docElem;
       var elementList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -5973,10 +5973,10 @@ getElementsByTagNameNS14 : function () {
 
 },
 /**
-* 
-    The "getNamedItemNS(namespaceURI,localName)" method for a 
-   NamedNodeMap should return a node specified by localName and namespaceURI 
-   
+*
+    The "getNamedItemNS(namespaceURI,localName)" method for a
+   NamedNodeMap should return a node specified by localName and namespaceURI
+
    Retrieve a list of elements with tag name "address".
    Access the second element from the list and get its attributes.
    Try to retrieve the attribute node with local name "domestic"
@@ -5996,7 +5996,7 @@ getNamedItemNS01 : function () {
       var attributes;
       var domesticAttr;
       var attrName;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6010,14 +6010,14 @@ getNamedItemNS01 : function () {
       attrName = domesticAttr.nodeName;
 
       assertEquals("attrName","dmstc:domestic",attrName);
-       
+
 },
 /**
-* 
-    The "getNamedItemNS(namespaceURI,localName)" method for a 
+*
+    The "getNamedItemNS(namespaceURI,localName)" method for a
    NamedNodeMap should return null
    if parameters do not identify any node in this map.
-   
+
    Retrieve a list of elements with tag name "address".
    Access the second element from the list and get its attributes.
    Try to retrieve an attribute node with local name "domest"
@@ -6039,7 +6039,7 @@ getNamedItemNS02 : function () {
       var testEmployee;
       var attributes;
       var newAttr;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6051,10 +6051,10 @@ getNamedItemNS02 : function () {
 
       newAttr = attributes.getNamedItemNS(namespaceURI,localName);
       assertNull("throw_Null",newAttr);
-    
+
 },
 /**
-* 
+*
 Entity nodes are not namespaced and should not be retrievable using
 getNamedItemNS.
 
@@ -6072,7 +6072,7 @@ getNamedItemNS03 : function () {
       var entity;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6085,10 +6085,10 @@ getNamedItemNS03 : function () {
       assertNotNull("entitiesNotNull",entities);
 entity = entities.getNamedItemNS(nullNS,"ent1");
       assertNull("entityNull",entity);
-    
+
 },
 /**
-* 
+*
 Notation nodes are not namespaced and should not be retrievable using
 getNamedItemNS.
 
@@ -6106,7 +6106,7 @@ getNamedItemNS04 : function () {
       var notation;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6119,11 +6119,11 @@ getNamedItemNS04 : function () {
       assertNotNull("notationsNotNull",notations);
 notation = notations.getNamedItemNS(nullNS,"notation1");
       assertNull("notationNull",notation);
-    
+
 },
 /**
-* 
-    The "hasAttribute()" method for an Element should 
+*
+    The "hasAttribute()" method for an Element should
    return true if the element has an attribute with the given name.
 
    Retrieve the first "address" element and the "hasAttribute()" method
@@ -6140,7 +6140,7 @@ hasAttribute01 : function () {
       var elementList;
       var testNode;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6153,8 +6153,8 @@ hasAttribute01 : function () {
 
 },
 /**
-* 
-    The "hasAttribute()" method for an Element should 
+*
+    The "hasAttribute()" method for an Element should
    return true if the element has an attribute with the given name.
 
    Retrieve the first "address" element and the "hasAttribute()" method
@@ -6172,7 +6172,7 @@ hasAttribute02 : function () {
       var elementList;
       var testNode;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6185,8 +6185,8 @@ hasAttribute02 : function () {
 
 },
 /**
-* 
-    The "hasAttribute()" method for an Element should 
+*
+    The "hasAttribute()" method for an Element should
    return false if the element does not have an attribute with the given name.
 
    Retrieve the first "address" element and the "hasAttribute()" method
@@ -6203,7 +6203,7 @@ hasAttribute03 : function () {
       var elementList;
       var testNode;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6216,8 +6216,8 @@ hasAttribute03 : function () {
 
 },
 /**
-* 
-    The "hasAttribute()" method for an Element should 
+*
+    The "hasAttribute()" method for an Element should
    return true if the element has an attribute with the given name.
 
    Retrieve the first "address" element and the "hasAttribute()" method
@@ -6235,7 +6235,7 @@ hasAttribute04 : function () {
       var elementList;
       var testNode;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6248,9 +6248,9 @@ hasAttribute04 : function () {
 
 },
 /**
-* 
-    
-   The "hasAttributeNS()" method for an Element should 
+*
+
+   The "hasAttributeNS()" method for an Element should
    return false if the element does not have an attribute with the given local name
    and/or a namespace URI specified on this element or does not have a default value.
 
@@ -6271,7 +6271,7 @@ hasAttributeNS01 : function () {
       var elementList;
       var testNode;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6284,9 +6284,9 @@ hasAttributeNS01 : function () {
 
 },
 /**
-* 
-    The "hasAttributeNS()" method for an Element should 
-   return false if the element does not have an attribute with the given local name 
+*
+    The "hasAttributeNS()" method for an Element should
+   return false if the element does not have an attribute with the given local name
    and/or namespace URI specified on this element or does not have a default value.
 
    Retrieve the first "address" element and the "hasAttributeNS()" method
@@ -6306,7 +6306,7 @@ hasAttributeNS02 : function () {
       var elementList;
       var testNode;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6319,13 +6319,13 @@ hasAttributeNS02 : function () {
 
 },
 /**
-* 
-    The "hasAttributeNS()" method for an Element should 
-   return false if the element does not have an attribute with the given local name 
+*
+    The "hasAttributeNS()" method for an Element should
+   return false if the element does not have an attribute with the given local name
    and/or namespace URI specified on this element or does not have a default value.
 
    Retrieve the first "emp:address" element.
-   The boolean value returned by the "hasAttributeNS()" should be false 
+   The boolean value returned by the "hasAttributeNS()" should be false
    since the attribute does not have a default value.
 
 * @author NIST
@@ -6341,7 +6341,7 @@ hasAttributeNS03 : function () {
       var elementList;
       var testNode;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6355,13 +6355,13 @@ state = testNode.hasAttributeNS(namespaceURI,localName);
 
 },
 /**
-* 
-    The "hasAttributeNS()" method for an Element should 
-   return true if the attribute with the given local name 
+*
+    The "hasAttributeNS()" method for an Element should
+   return true if the attribute with the given local name
    and namespace URI has a default value.
 
    Retrieve the first "emp:address" element.
-   The boolean value returned by the "hasAttributeNS()" should be true 
+   The boolean value returned by the "hasAttributeNS()" should be true
    since the attribute has a default value.
 
 * @author NIST
@@ -6377,7 +6377,7 @@ hasAttributeNS04 : function () {
       var elementList;
       var testNode;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6391,8 +6391,8 @@ state = testNode.hasAttributeNS(namespaceURI,localName);
 
 },
 /**
-* 
-    The "hasAttributeNS()" method for an Element should 
+*
+    The "hasAttributeNS()" method for an Element should
    return true if the element has an attribute with the given local name
    and the namespace URI is specified on this element or has a default value.
 
@@ -6413,7 +6413,7 @@ hasAttributeNS05 : function () {
       var elementList;
       var testNode;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6426,9 +6426,9 @@ hasAttributeNS05 : function () {
 
 },
 /**
-* 
-    The "hasAttributes()" method for a node should 
-    return false if the node does not have an attribute. 
+*
+    The "hasAttributes()" method for a node should
+    return false if the node does not have an attribute.
 
     Retrieve the first "name" node and invoke the "hasAttributes()" method.
     The method should return false since the node does not have an attribute.
@@ -6444,7 +6444,7 @@ hasAttributes01 : function () {
       var addrList;
       var addrNode;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6457,9 +6457,9 @@ hasAttributes01 : function () {
 
 },
 /**
-* 
-    The "hasAttributes()" method for a node should 
-    return true if the node has attributes. 
+*
+    The "hasAttributes()" method for a node should
+    return true if the node has attributes.
 
     Retrieve the first address node and the "hasAttributes()" method
     should return true since the node has "domestic" as an attribute.
@@ -6475,7 +6475,7 @@ hasAttributes02 : function () {
       var addrList;
       var addrNode;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6488,8 +6488,8 @@ hasAttributes02 : function () {
 
 },
 /**
-* 
-An attempt to add remove an entity using removeNamedItemNS should result in 
+*
+An attempt to add remove an entity using removeNamedItemNS should result in
 a NO_MODIFICATION_ERR or a NOT_FOUND_ERR.
 
 * @author Curt Arnold
@@ -6503,7 +6503,7 @@ hc_entitiesremovenameditemns1 : function () {
       var entities;
       var docType;
       var retval;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6511,9 +6511,9 @@ hc_entitiesremovenameditemns1 : function () {
       doc = load(docRef, "doc", "hc_staff");
       docType = doc.doctype;
 
-      
+
 	if(
-	
+
 	!(
 	(builder.contentType == "text/html")
 )
@@ -6527,9 +6527,9 @@ entities = docType.entities;
       try {
       retval = entities.removeNamedItemNS("http://www.w3.org/1999/xhtml","alpha");
       fail("throw_NO_MOD_OR_NOT_FOUND_ERR");
-     
+
       } catch (ex) {
-		  if (typeof(ex.code) != 'undefined') {      
+		  if (typeof(ex.code) != 'undefined') {
        switch(ex.code) {
        case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
        break;
@@ -6538,17 +6538,17 @@ entities = docType.entities;
           default:
           throw ex;
           }
-       } else { 
+       } else {
        throw ex;
         }
          }
-        
+
 	}
-	
+
 },
 /**
-* 
-An attempt to add an element to the named node map returned by entities should 
+*
+An attempt to add an element to the named node map returned by entities should
 result in a NO_MODIFICATION_ERR or HIERARCHY_REQUEST_ERR.
 
 * @author Curt Arnold
@@ -6563,7 +6563,7 @@ hc_entitiessetnameditemns1 : function () {
       var docType;
       var retval;
       var elem;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6571,9 +6571,9 @@ hc_entitiessetnameditemns1 : function () {
       doc = load(docRef, "doc", "hc_staff");
       docType = doc.doctype;
 
-      
+
 	if(
-	
+
 	!(
 	(builder.contentType == "text/html")
 )
@@ -6584,13 +6584,13 @@ entities = docType.entities;
 
       assertNotNull("entitiesNotNull",entities);
 elem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
-      
+
       try {
       retval = entities.setNamedItemNS(elem);
       fail("throw_HIER_OR_NO_MOD_ERR");
-     
+
       } catch (ex) {
-		  if (typeof(ex.code) != 'undefined') {      
+		  if (typeof(ex.code) != 'undefined') {
        switch(ex.code) {
        case /* HIERARCHY_REQUEST_ERR */ 3 :
        break;
@@ -6599,16 +6599,16 @@ elem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
           default:
           throw ex;
           }
-       } else { 
+       } else {
        throw ex;
         }
          }
-        
+
 	}
-	
+
 },
 /**
-* 
+*
 Attempt to insert an element into an attribute list,
 should raise a HIERARCHY_REQUEST_ERR.
 
@@ -6625,7 +6625,7 @@ hc_namednodemapinvalidtype1 : function () {
       var docElem;
       var newElem;
       var retval;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6636,7 +6636,7 @@ hc_namednodemapinvalidtype1 : function () {
       attributes = docElem.attributes;
 
       newElem = doc.createElement("html");
-      
+
 	{
 		success = false;
 		try {
@@ -6650,7 +6650,7 @@ hc_namednodemapinvalidtype1 : function () {
 
 },
 /**
-* 
+*
 Create a document fragment with two adjacent text nodes, normalize and see if the text nodes
 were combined.
 
@@ -6666,7 +6666,7 @@ hc_nodedocumentfragmentnormalize1 : function () {
       var nodeValue;
       var txtNode;
       var retval;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6686,10 +6686,10 @@ hc_nodedocumentfragmentnormalize1 : function () {
        retval = txtNode.nextSibling;
 
       assertNull("singleChild",retval);
-    
+
 },
 /**
-* 
+*
 Create a document fragment with an empty text node, after normalization there should be no child nodes.
 were combined.
 
@@ -6705,7 +6705,7 @@ hc_nodedocumentfragmentnormalize2 : function () {
       var nodeValue;
       var txtNode;
       var retval;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6718,11 +6718,11 @@ hc_nodedocumentfragmentnormalize2 : function () {
       txtNode = docFragment.firstChild;
 
       assertNull("noChild",txtNode);
-    
+
 },
 /**
-* 
-An attempt to add remove an notation using removeNamedItemNS should result in 
+*
+An attempt to add remove an notation using removeNamedItemNS should result in
 a NO_MODIFICATION_ERR or a NOT_FOUND_ERR.
 
 * @author Curt Arnold
@@ -6736,7 +6736,7 @@ hc_notationsremovenameditemns1 : function () {
       var notations;
       var docType;
       var retval;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6744,9 +6744,9 @@ hc_notationsremovenameditemns1 : function () {
       doc = load(docRef, "doc", "hc_staff");
       docType = doc.doctype;
 
-      
+
 	if(
-	
+
 	!(
 	(builder.contentType == "text/html")
 )
@@ -6760,9 +6760,9 @@ notations = docType.notations;
       try {
       retval = notations.removeNamedItemNS("http://www.w3.org/1999/xhtml","alpha");
       fail("throw_NO_MOD_OR_NOT_FOUND_ERR");
-     
+
       } catch (ex) {
-		  if (typeof(ex.code) != 'undefined') {      
+		  if (typeof(ex.code) != 'undefined') {
        switch(ex.code) {
        case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
        break;
@@ -6771,17 +6771,17 @@ notations = docType.notations;
           default:
           throw ex;
           }
-       } else { 
+       } else {
        throw ex;
         }
          }
-        
+
 	}
-	
+
 },
 /**
-* 
-An attempt to add an element to the named node map returned by notations should 
+*
+An attempt to add an element to the named node map returned by notations should
 result in a NO_MODIFICATION_ERR or HIERARCHY_REQUEST_ERR.
 
 * @author Curt Arnold
@@ -6796,7 +6796,7 @@ hc_notationssetnameditemns1 : function () {
       var docType;
       var retval;
       var elem;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -6804,9 +6804,9 @@ hc_notationssetnameditemns1 : function () {
       doc = load(docRef, "doc", "hc_staff");
       docType = doc.doctype;
 
-      
+
 	if(
-	
+
 	!(
 	(builder.contentType == "text/html")
 )
@@ -6817,13 +6817,13 @@ notations = docType.notations;
 
       assertNotNull("notationsNotNull",notations);
 elem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
-      
+
       try {
       retval = notations.setNamedItemNS(elem);
       fail("throw_HIER_OR_NO_MOD_ERR");
-     
+
       } catch (ex) {
-		  if (typeof(ex.code) != 'undefined') {      
+		  if (typeof(ex.code) != 'undefined') {
        switch(ex.code) {
        case /* HIERARCHY_REQUEST_ERR */ 3 :
        break;
@@ -6832,22 +6832,22 @@ elem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
           default:
           throw ex;
           }
-       } else { 
+       } else {
        throw ex;
         }
          }
-        
+
 	}
-	
+
 },
 /**
-* 
-    The "importNode(importedNode,deep)" method for a 
+*
+    The "importNode(importedNode,deep)" method for a
    Document should import the given importedNode into that Document.
-   The importedNode is of type Attr. 
+   The importedNode is of type Attr.
    The ownerElement is set to null. Specified flag is set to true.
    Children is imported.
-   
+
    Create a new attribute whose name is "elem:attr1" in a different document.
    Create a child Text node with value "importedText" for the attribute node above.
    Invoke method importNode(importedNode,deep) on this document with
@@ -6883,13 +6883,13 @@ importNode01 : function () {
       expectedResult[0] = "elem:attr1";
       expectedResult[1] = "importedText";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var aNewDocRef = null;
       if (typeof(this.aNewDoc) != 'undefined') {
         aNewDocRef = this.aNewDoc;
@@ -6924,15 +6924,15 @@ nodeName = aNode.nodeName;
       childValue = child.nodeValue;
 
       assertEquals("childValue","importedText",childValue);
-       
+
 },
 /**
-* 
-    The "importNode(importedNode,deep)" method for a 
+*
+    The "importNode(importedNode,deep)" method for a
    Document should import the given importedNode into that Document.
    The importedNode is of type CData_Section.
-   
-   Create a CDATASection node with value being the string "this is CDATASection data" in 
+
+   Create a CDATASection node with value being the string "this is CDATASection data" in
    a different document.  Invoke method importNode(importedNode,deep) on
    this document.  Method should return a CDATASection node whose value matches
    the above string. The returned node should belong to this document whose systemId is "staff.dtd"
@@ -6952,13 +6952,13 @@ importNode02 : function () {
       var docType;
       var system;
       var value;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var aNewDocRef = null;
       if (typeof(this.aNewDoc) != 'undefined') {
         aNewDocRef = this.aNewDoc;
@@ -6977,15 +6977,15 @@ docType = ownerDocument.doctype;
 value = aNode.nodeValue;
 
       assertEquals("nodeValue","this is CDATASection data",value);
-       
+
 },
 /**
-* 
-    The "importNode(importedNode,deep)" method for a 
+*
+    The "importNode(importedNode,deep)" method for a
    Document should import the given importedNode into that Document.
    The importedNode is of type Comment.
-   
-   Create a comment node with value being the string "this is a comment" in 
+
+   Create a comment node with value being the string "this is a comment" in
    a different document.  Invoke method importNode(importedNode,deep) on
    this document.  Method should return a comment node whose value matches
    the above string. The returned node should belong to this document whose
@@ -7006,13 +7006,13 @@ importNode03 : function () {
       var docType;
       var system;
       var value;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var aNewDocRef = null;
       if (typeof(this.aNewDoc) != 'undefined') {
         aNewDocRef = this.aNewDoc;
@@ -7031,14 +7031,14 @@ docType = ownerDocument.doctype;
 value = aNode.nodeValue;
 
       assertEquals("nodeValue","this is a comment",value);
-       
+
 },
 /**
-* 
-    The "importNode(importedNode,deep)" method for a 
+*
+    The "importNode(importedNode,deep)" method for a
    Document should import the given importedNode into that Document.
    The importedNode is of type Document_Fragment.
-   
+
    Create a DocumentFragment in a different document.
    Create a Comment child node for the Document Fragment.
    Invoke method importNode(importedNode,deep) on this document
@@ -7061,13 +7061,13 @@ importNode04 : function () {
       var children;
       var child;
       var childValue;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staff");
-      
+
       var aNewDocRef = null;
       if (typeof(this.aNewDoc) != 'undefined') {
         aNewDocRef = this.aNewDoc;
@@ -7085,19 +7085,19 @@ child = aNode.firstChild;
       childValue = child.nodeValue;
 
       assertEquals("descendant1","descendant1",childValue);
-       
+
 },
 /**
-* 
-    The "importNode(importedNode,deep)" method for a 
+*
+    The "importNode(importedNode,deep)" method for a
    Document should import the given importedNode into that Document.
    The importedNode is of type Element.
-   
+
    Retrieve element "emp:address" from staffNS.xml document.
    Invoke method importNode(importedNode,deep) on this document
    with importedNode being the element from above and deep is false.
-   Method should return an element node whose name matches "emp:address" 
-   and whose children are not imported. The returned node should 
+   Method should return an element node whose name matches "emp:address"
+   and whose children are not imported. The returned node should
    belong to this document whose systemId is "staff.dtd"
 
 * @author NIST
@@ -7117,13 +7117,13 @@ importNode05 : function () {
       var system;
       var name;
       var addresses;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var aNewDocRef = null;
       if (typeof(this.aNewDoc) != 'undefined') {
         aNewDocRef = this.aNewDoc;
@@ -7145,14 +7145,14 @@ ownerDocument = aNode.ownerDocument;
 name = aNode.nodeName;
 
       assertEquals("nodeName","emp:address",name);
-       
+
 },
 /**
-* 
-    The "importNode(importedNode,deep)" method for a 
+*
+    The "importNode(importedNode,deep)" method for a
    Document should import the given importedNode into that Document.
    The importedNode is of type Element.
-   
+
    Retrieve element "emp:address" from staffNS.xml document.
    Invoke method importNode(importedNode,deep) on this document
    with importedNode being the element from above and deep is true.
@@ -7175,13 +7175,13 @@ importNode06 : function () {
       var child;
       var value;
       var addresses;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var aNewDocRef = null;
       if (typeof(this.aNewDoc) != 'undefined') {
         aNewDocRef = this.aNewDoc;
@@ -7201,16 +7201,16 @@ name = aNode.nodeName;
       value = child.nodeValue;
 
       assertEquals("nodeValue","27 South Road. Dallas, texas 98556",value);
-       
+
 },
 /**
-* 
-    The "importNode(importedNode,deep)" method for a 
+*
+    The "importNode(importedNode,deep)" method for a
    Document should import the given importedNode into that Document.
    The importedNode is of type Element.
    If this document defines default attributes for this element name (importedNode),
    those default attributes are assigned.
-   
+
    Create an element whose name is "emp:employee" in a different document.
    Invoke method importNode(importedNode,deep) on this document which
    defines default attribute for the element name "emp:employee".
@@ -7234,13 +7234,13 @@ importNode07 : function () {
       var lname;
       var namespaceURI = "http://www.nist.gov";
       var qualifiedName = "emp:employee";
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var aNewDocRef = null;
       if (typeof(this.aNewDoc) != 'undefined') {
         aNewDocRef = this.aNewDoc;
@@ -7258,19 +7258,19 @@ name = aNode.nodeName;
       lname = attr.localName;
 
       assertEquals("lname","defaultAttr",lname);
-       
+
 },
 /**
-* 
-    The "importNode(importedNode,deep)" method for a 
+*
+    The "importNode(importedNode,deep)" method for a
    Document should import the given importedNode into that Document.
    The importedNode is of type Document_Fragment.
-   
+
    Create a DocumentFragment in a different document.
    Invoke method importNode(importedNode,deep) on this document
    with importedNode being the newly created DocumentFragment.
    Method should return an empty DocumentFragment that belongs
-   to this document whose systemId is "staff.dtd" 
+   to this document whose systemId is "staff.dtd"
 
 * @author NIST
 * @author Mary Brady
@@ -7288,13 +7288,13 @@ importNode08 : function () {
       var ownerDocument;
       var docType;
       var system;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var aNewDocRef = null;
       if (typeof(this.aNewDoc) != 'undefined') {
         aNewDocRef = this.aNewDoc;
@@ -7314,12 +7314,12 @@ ownerDocument = aNode.ownerDocument;
 
 },
 /**
-* 
-    The "importNode(importedNode,deep)" method for a 
+*
+    The "importNode(importedNode,deep)" method for a
    Document should import the given importedNode into that Document.
    The importedNode is of type Entity.
-   
-   Retrieve entity "ent6" from staffNS.xml document.  
+
+   Retrieve entity "ent6" from staffNS.xml document.
    Invoke method importNode(importedNode,deep) on this document.
    Method should return a node of type Entity whose publicId, systemId and
    notationName attributes are copied.
@@ -7344,13 +7344,13 @@ importNode09 : function () {
       var entityName;
       var publicVal;
       var notationName;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var aNewDocRef = null;
       if (typeof(this.aNewDoc) != 'undefined') {
         aNewDocRef = this.aNewDoc;
@@ -7382,15 +7382,15 @@ entityName = entity1.nodeName;
 notationName = entity1.notationName;
 
       assertEquals("notationName","notation2",notationName);
-       
+
 },
 /**
-* 
-    The "importNode(importedNode,deep)" method for a 
+*
+    The "importNode(importedNode,deep)" method for a
    Document should import the given importedNode into that Document.
    The importedNode is of type Entity_Reference.
    Only the EntityReference is copied, regardless of deep's value.
-   
+
    Create an entity reference whose name is "entRef1" in a different document.
    Give it value "entRef1Value".
    Invoke method importNode(importedNode,deep) on this document with importedNode
@@ -7413,13 +7413,13 @@ importNode10 : function () {
       var docType;
       var system;
       var name;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var aNewDocRef = null;
       if (typeof(this.aNewDoc) != 'undefined') {
         aNewDocRef = this.aNewDoc;
@@ -7440,16 +7440,16 @@ entRef.nodeValue = "entRef1Value";
 name = aNode.nodeName;
 
       assertEquals("nodeName","entRef1",name);
-       
+
 },
 /**
-* 
-    The "importNode(importedNode,deep)" method for a 
+*
+    The "importNode(importedNode,deep)" method for a
    Document should import the given importedNode into that Document.
    The importedNode is of type Entity_Reference.
    Only the EntityReference is copied, regardless of deep's value.
    If the Document provides a definition for the entity name, its value is assigned.
-   
+
    Create an entity reference whose name is "ent3" in a different document.
    Invoke method importNode(importedNode,deep) on this document with importedNode
    being "ent3".
@@ -7470,13 +7470,13 @@ importNode11 : function () {
       var name;
       var child;
       var childValue;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staff");
-      
+
       var aNewDocRef = null;
       if (typeof(this.aNewDoc) != 'undefined') {
         aNewDocRef = this.aNewDoc;
@@ -7494,15 +7494,15 @@ aNode = doc.importNode(entRef,true);
 childValue = child.nodeValue;
 
       assertEquals("childValue","Texas",childValue);
-       
+
 },
 /**
-* 
-    The "importNode(importedNode,deep)" method for a 
+*
+    The "importNode(importedNode,deep)" method for a
    Document should import the given importedNode into that Document.
    The importedNode is of type Entity.
-   
-   Retrieve entity "ent4" from staffNS.xml document.  
+
+   Retrieve entity "ent4" from staffNS.xml document.
    Invoke method importNode(importedNode,deep) on this document with deep as false.
    Method should return a node of type Entity whose descendant is copied.
    The returned node should belong to this document whose systemId is "staffNS.dtd"
@@ -7526,13 +7526,13 @@ importNode12 : function () {
       var entityName;
       var child;
       var childName;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var aNewDocRef = null;
       if (typeof(this.aNewDoc) != 'undefined') {
         aNewDocRef = this.aNewDoc;
@@ -7561,18 +7561,18 @@ entityName = entity1.nodeName;
 childName = child.nodeName;
 
       assertEquals("childName","entElement1",childName);
-       
+
 },
 /**
-* 
-    The "importNode(importedNode,deep)" method for a 
+*
+    The "importNode(importedNode,deep)" method for a
    Document should import the given importedNode into that Document.
    The importedNode is of type Notation.
-   
+
    Retrieve notation named "notation1" from document staffNS.xml.
    Invoke method importNode(importedNode,deep) where importedNode
    contains the retrieved notation and deep is false.  Method should
-   return a node of type notation whose name is "notation1". 
+   return a node of type notation whose name is "notation1".
    The returned node should belong to this document whose systemId is "staff.dtd"
 
 * @author NIST
@@ -7592,13 +7592,13 @@ importNode13 : function () {
       var docType;
       var system;
       var publicVal;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var aNewDocRef = null;
       if (typeof(this.aNewDoc) != 'undefined') {
         aNewDocRef = this.aNewDoc;
@@ -7624,17 +7624,17 @@ publicVal = aNode.publicId;
        system = aNode.systemId;
 
       assertNull("notationSystemId",system);
-    
+
 },
 /**
-* 
-    The "importNode(importedNode,deep)" method for a 
+*
+    The "importNode(importedNode,deep)" method for a
    Document should import the given importedNode into that Document.
    The importedNode is of type Processing Instruction.
-   
-   Create a processing instruction with target as "target1" and data as "data1" 
+
+   Create a processing instruction with target as "target1" and data as "data1"
    in a different document. Invoke method importNode(importedNode,deep) on this document.
-   Method should return a processing instruction whose target and data match the given 
+   Method should return a processing instruction whose target and data match the given
    parameters. The returned PI should belong to this document whose systemId is "staff.dtd".
 
 * @author NIST
@@ -7655,13 +7655,13 @@ importNode14 : function () {
       var data;
       var result = new Array();
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var aNewDocRef = null;
       if (typeof(this.aNewDoc) != 'undefined') {
         aNewDocRef = this.aNewDoc;
@@ -7683,18 +7683,18 @@ target = aNode.target;
        data = aNode.data;
 
       assertEquals("piData","data1",data);
-       
+
 },
 /**
-* 
-    The "importNode(importedNode,deep)" method for a 
+*
+    The "importNode(importedNode,deep)" method for a
    Document should import the given importedNode into that Document.
    The importedNode is of type Text.
-   
-   Create a text node with value being the string "this is text data" in 
+
+   Create a text node with value being the string "this is text data" in
    a different document.  Invoke method importNode(importedNode,deep) on
    this document.  Method should return a text node whose value matches
-   the above string. The returned node should belong to this document 
+   the above string. The returned node should belong to this document
    whose systemId is "staff.dtd"
 
 * @author NIST
@@ -7712,13 +7712,13 @@ importNode15 : function () {
       var docType;
       var system;
       var value;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var aNewDocRef = null;
       if (typeof(this.aNewDoc) != 'undefined') {
         aNewDocRef = this.aNewDoc;
@@ -7737,17 +7737,17 @@ docType = ownerDocument.doctype;
 value = aNode.nodeValue;
 
       assertEquals("nodeValue","this is text data",value);
-       
+
 },
 /**
-* 
-    The "importNode(importedNode,deep)" method for a 
+*
+    The "importNode(importedNode,deep)" method for a
    Document should raise NOT_SUPPORTED_ERR DOMException if
    the type of node being imported is DocumentType.
-   
+
    Retrieve document staff.xml and get its type.
    Invoke method importNode(importedNode,deep) where importedNode
-   contains the document type of the staff.xml.  
+   contains the document type of the staff.xml.
    Method should raise NOT_SUPPORT_ERR DOMException.
 
 * @author NIST
@@ -7763,13 +7763,13 @@ importNode16 : function () {
       var anotherDoc;
       var docType;
       var node;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var anotherDocRef = null;
       if (typeof(this.anotherDoc) != 'undefined') {
         anotherDocRef = this.anotherDoc;
@@ -7777,7 +7777,7 @@ importNode16 : function () {
       anotherDoc = load(anotherDocRef, "anotherDoc", "staffNS");
       docType = anotherDoc.doctype;
 
-      
+
 	{
 		success = false;
 		try {
@@ -7791,11 +7791,11 @@ importNode16 : function () {
 
 },
 /**
-* 
-    The "importNode(importedNode,deep)" method for a 
+*
+    The "importNode(importedNode,deep)" method for a
    Document should raise NOT_SUPPORTED_ERR DOMException if
    the type of node being imported is Document.
-   
+
    Retrieve staff.xml document.
    Invoke method importNode(importedNode,deep) where importedNode
    contains staff.xml and deep is true.
@@ -7813,19 +7813,19 @@ importNode17 : function () {
     var doc;
       var anotherDoc;
       var node;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var anotherDocRef = null;
       if (typeof(this.anotherDoc) != 'undefined') {
         anotherDocRef = this.anotherDoc;
       }
       anotherDoc = load(anotherDocRef, "anotherDoc", "staffNS");
-      
+
 	{
 		success = false;
 		try {
@@ -7839,13 +7839,13 @@ importNode17 : function () {
 
 },
 /**
-* 
-    The "getInternalSubset()" method returns 
+*
+    The "getInternalSubset()" method returns
    the internal subset as a string or null if there is none.
    This does not contain the delimiting brackets.
-   
+
    Retrieve the documenttype.
-   Apply the "getInternalSubset()" method.  Null is returned since there 
+   Apply the "getInternalSubset()" method.  Null is returned since there
    is not an internal subset.
 
 * @author NIST
@@ -7858,7 +7858,7 @@ internalSubset01 : function () {
     var doc;
       var docType;
       var internal;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7869,17 +7869,17 @@ internalSubset01 : function () {
       internal = docType.internalSubset;
 
       assertNull("internalSubsetNull",internal);
-    
+
 },
 /**
-* 
+*
     The "feature" parameter in the
     isSupported(feature,version)" method is the name
     of the feature and the version is the version number of the
     feature to test.   XXX is NOT a legal value for the feature parameter.
     The method should return "false" since XXX is not a valid feature.
-    
-    Retrieve the root node of the DOM document by invoking 
+
+    Retrieve the root node of the DOM document by invoking
     the "getDocumentElement()" method.   This should create a
     node object on which the "isSupported(feature,version)"
     method is invoked with "feature" equal to "XXX" and version to "1.0".
@@ -7895,7 +7895,7 @@ isSupported01 : function () {
     var doc;
       var rootNode;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7908,14 +7908,14 @@ isSupported01 : function () {
 
 },
 /**
-* 
+*
     The "feature" parameter in the
     isSupported(feature,version)" method is the name
     of the feature and the version is the version number of the
     feature to test.   XML is a legal value for the feature parameter.
     The method should return "false" since 9.0 is not a valid version.
-    
-    Retrieve the root node of the DOM document by invoking 
+
+    Retrieve the root node of the DOM document by invoking
     the "getDocumentElement()" method.   This should create a
     node object on which the "isSupported(feature,version)"
     method is invoked with "feature" equal to "XML" and version to "9.0".
@@ -7931,7 +7931,7 @@ isSupported02 : function () {
     var doc;
       var rootNode;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7944,16 +7944,16 @@ isSupported02 : function () {
 
 },
 /**
-* 
+*
     The "feature" parameter in the
     isSupported(feature,version)" method is the name
     of the feature and the version is the version number of the
-    feature to test.   XML is a legal value for the feature parameter 
-    (Test for xml, lower case). 
+    feature to test.   XML is a legal value for the feature parameter
+    (Test for xml, lower case).
     Legal values for the version parameter are 1.0 and 2.0
     (Test for 1.0).
-    
-    Retrieve the root node of the DOM document by invoking 
+
+    Retrieve the root node of the DOM document by invoking
     the "getDocumentElement()" method.   This should create a
     node object on which the "isSupported(feature,version)"
     method is invoked with "feature" equal to "xml" and the version equal to 1.0.
@@ -7969,7 +7969,7 @@ isSupported04 : function () {
     var doc;
       var rootNode;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -7982,16 +7982,16 @@ isSupported04 : function () {
 
 },
 /**
-* 
+*
     The "feature" parameter in the
     isSupported(feature,version)" method is the name
     of the feature and the version is the version number of the
-    feature to test.   Core is a legal value for the feature parameter 
-    (Test for core, lower case). 
+    feature to test.   Core is a legal value for the feature parameter
+    (Test for core, lower case).
     Legal values for the version parameter are 1.0 and 2.0
     (Test for 2.0).
-    
-    Retrieve the root node of the DOM document by invoking 
+
+    Retrieve the root node of the DOM document by invoking
     the "getDocumentElement()" method.   This should create a
     node object on which the "isSupported(feature,version)"
     method is invoked with "feature" equal to "core" and the version equal to 2.0.
@@ -8007,7 +8007,7 @@ isSupported05 : function () {
     var doc;
       var rootNode;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8020,16 +8020,16 @@ isSupported05 : function () {
 
 },
 /**
-* 
+*
     The "feature" parameter in the
     isSupported(feature,version)" method is the name
     of the feature and the version is the version number of the
     feature to test.   XML is a legal value for the feature parameter
-    (Test for xml, lower case). 
+    (Test for xml, lower case).
     Legal values for the version parameter are 1.0 and 2.0
     (Test for 2.0).
-    
-    Retrieve the root node of the DOM document by invoking 
+
+    Retrieve the root node of the DOM document by invoking
     the "getDocumentElement()" method.   This should create a
     node object on which the "isSupported(feature,version)"
     method is invoked with "feature" equal to "xml" and the version equal to 2.0.
@@ -8045,7 +8045,7 @@ isSupported06 : function () {
     var doc;
       var rootNode;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8058,16 +8058,16 @@ isSupported06 : function () {
 
 },
 /**
-* 
+*
     The "feature" parameter in the
     isSupported(feature,version)" method is the name
     of the feature and the version is the version number of the
     feature to test.   XML is a legal value for the feature parameter
-    (Test for XML). 
+    (Test for XML).
     If the version is not specified, supporting any version of the
     method to return true.
-    
-    Retrieve the root node of the DOM document by invoking 
+
+    Retrieve the root node of the DOM document by invoking
     the "getDocumentElement()" method.   This should create a
     node object on which the "isSupported(feature,version)"
     method is invoked with "feature" equal to "XML" and the version equal blank.
@@ -8083,7 +8083,7 @@ isSupported07 : function () {
     var doc;
       var rootNode;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8096,16 +8096,16 @@ isSupported07 : function () {
 
 },
 /**
-* 
+*
     The "feature" parameter in the
     isSupported(feature,version)" method is the name
     of the feature and the version is the version number of the
-    feature to test.   XML is a legal value for the feature parameter 
-    (Test for XML, upper case). 
+    feature to test.   XML is a legal value for the feature parameter
+    (Test for XML, upper case).
     Legal values for the version parameter are 1.0 and 2.0
     (Test for 1.0).
-    
-    Retrieve the root node of the DOM document by invoking 
+
+    Retrieve the root node of the DOM document by invoking
     the "getDocumentElement()" method.   This should create a
     node object on which the "isSupported(feature,version)"
     method is invoked with "feature" equal to "XML" and the version equal to 1.0.
@@ -8121,7 +8121,7 @@ isSupported09 : function () {
     var doc;
       var rootNode;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8134,16 +8134,16 @@ isSupported09 : function () {
 
 },
 /**
-* 
+*
     The "feature" parameter in the
     isSupported(feature,version)" method is the name
     of the feature and the version is the version number of the
     feature to test.   CORE is a legal value for the feature parameter
-    (Test for CORE, upper case). 
+    (Test for CORE, upper case).
     Legal values for the version parameter are 1.0 and 2.0
     (Test for 2.0).
-    
-    Retrieve the root node of the DOM document by invoking 
+
+    Retrieve the root node of the DOM document by invoking
     the "getDocumentElement()" method.   This should create a
     node object on which the "isSupported(feature,version)"
     method is invoked with "feature" equal to "CORE" and the version equal to 2.0.
@@ -8159,7 +8159,7 @@ isSupported10 : function () {
     var doc;
       var rootNode;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8172,16 +8172,16 @@ isSupported10 : function () {
 
 },
 /**
-* 
+*
     The "feature" parameter in the
     isSupported(feature,version)" method is the name
     of the feature and the version is the version number of the
     feature to test.   XML is a legal value for the feature parameter
-    (Test for XML, upper case). 
+    (Test for XML, upper case).
     Legal values for the version parameter are 1.0 and 2.0
     (Test for 2.0).
-    
-    Retrieve the root node of the DOM document by invoking 
+
+    Retrieve the root node of the DOM document by invoking
     the "getDocumentElement()" method.   This should create a
     node object on which the "isSupported(feature,version)"
     method is invoked with "feature" equal to "XML" and the version equal to 2.0.
@@ -8197,7 +8197,7 @@ isSupported11 : function () {
     var doc;
       var rootNode;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8210,16 +8210,16 @@ isSupported11 : function () {
 
 },
 /**
-* 
+*
     The "feature" parameter in the
     isSupported(feature,version)" method is the name
     of the feature and the version is the version number of the
-    feature to test.   CORE is a legal value for the feature parameter 
-    (Test for CORE, upper case). 
+    feature to test.   CORE is a legal value for the feature parameter
+    (Test for CORE, upper case).
     Legal values for the version parameter are 1.0 and 2.0
     (Test for 1.0).
-    
-    Retrieve the root node of the DOM document by invoking 
+
+    Retrieve the root node of the DOM document by invoking
     the "getDocumentElement()" method.   This should create a
     node object on which the "isSupported(feature,version)"
     method is invoked with "feature" equal to "CORE" and the version equal to 1.0.
@@ -8253,7 +8253,7 @@ isSupported12 : function () {
       var rootNode;
       var featureElement;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8266,17 +8266,17 @@ isSupported12 : function () {
 for(var indexN10078 = 0;indexN10078 < features.length; indexN10078++) {
       featureElement = features[indexN10078];
       state = rootNode.isSupported(featureElement,"1.0");
-      
+
 	}
    for(var indexN10083 = 0;indexN10083 < features.length; indexN10083++) {
       featureElement = features[indexN10083];
       state = rootNode.isSupported(featureElement,"2.0");
-      
+
 	}
-   
+
 },
 /**
-* 
+*
 Calls isSupported("Core","") should return true for all implementations (by extension of core-14).
 
 * @author Curt Arnold
@@ -8289,7 +8289,7 @@ isSupported13 : function () {
     var doc;
       var rootNode;
       var state;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8302,7 +8302,7 @@ isSupported13 : function () {
 
 },
 /**
-* 
+*
 Calls isSupported("Core",null) should return true for all implementations (by extension of core-14).
 
 * @author Curt Arnold
@@ -8317,7 +8317,7 @@ isSupported14 : function () {
       var state;
       var nullString = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8330,15 +8330,15 @@ isSupported14 : function () {
 
 },
 /**
-* 
+*
     The "getLocalName()" method for a Node
     returns the local part of the qualified name of this node,
     and for nodes of any type other than ELEMENT_NODE and ATTRIBUTE_NODE
     and nodes created with a DOM Level 1 method, this is null.
-    
-    Retrieve the first emp:address node and get the attributes of this node."   
+
+    Retrieve the first emp:address node and get the attributes of this node."
     Then apply the getLocalName() method to the emp:domestic attribute.
-    The method should return "domestic". 
+    The method should return "domestic".
 
 * @author NIST
 * @author Mary Brady
@@ -8352,7 +8352,7 @@ localName01 : function () {
       var testAddr;
       var addrAttr;
       var localName;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8365,18 +8365,18 @@ addrAttr = testAddr.getAttributeNode("emp:domestic");
       localName = addrAttr.localName;
 
       assertEquals("localName","domestic",localName);
-       
+
 },
 /**
-* 
+*
   The "getLocalName()" method for a Node
   returns the local part of the qualified name of this node,
   and for nodes of any type other than ELEMENT_NODE and ATTRIBUTE_NODE
   and nodes created with a DOM Level 1 method, this is null.
-  
+
   Create an new Element with the createElement() method.
-  Invoke the "getLocalName()" method on the newly created element  
-  node will cause "null" to be returned. 
+  Invoke the "getLocalName()" method on the newly created element
+  node will cause "null" to be returned.
 
 * @author NIST
 * @author Mary Brady
@@ -8388,7 +8388,7 @@ localName02 : function () {
     var doc;
       var createdNode;
       var localName;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8398,18 +8398,18 @@ localName02 : function () {
       localName = createdNode.localName;
 
       assertNull("localNameNull",localName);
-    
+
 },
 /**
-* 
+*
     The "getLocalName()" method for a Node
     returns the local part of the qualified name of this node,
     and for nodes of any type other than ELEMENT_NODE and ATTRIBUTE_NODE
     and nodes created with a DOM Level 1 method, this is null.
-    
+
     Retrieve the first employeeId node and get the first child of this node.
-    Since the first child is Text node invoking the "getLocalName()"   
-    method will cause "null" to be returned. 
+    Since the first child is Text node invoking the "getLocalName()"
+    method will cause "null" to be returned.
 
 * @author NIST
 * @author Mary Brady
@@ -8423,7 +8423,7 @@ localName03 : function () {
       var testEmployee;
       var textNode;
       var localName;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8436,17 +8436,17 @@ localName03 : function () {
       localName = textNode.localName;
 
       assertNull("textNodeLocalName",localName);
-    
+
 },
 /**
-* 
+*
     The "getLocalName()" method for a Node
     returns the local part of the qualified name of this node,
     and for nodes of any type other than ELEMENT_NODE and ATTRIBUTE_NODE
     and nodes created with a DOM Level 1 method, this is null.
-    
-    Retrieve the first employee node and invoke the "getLocalName()"   
-    method.   The method should return "employee". 
+
+    Retrieve the first employee node and invoke the "getLocalName()"
+    method.   The method should return "employee".
 
 * @author NIST
 * @author Mary Brady
@@ -8459,7 +8459,7 @@ localName04 : function () {
       var elementList;
       var testEmployee;
       var employeeLocalName;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8470,11 +8470,11 @@ localName04 : function () {
       employeeLocalName = testEmployee.localName;
 
       assertEquals("lname","employee",employeeLocalName);
-       
+
 },
 /**
-* 
-	Using the method getNamedItemNS, retreive the entity "ent1" and notation "notation1" 
+*
+	Using the method getNamedItemNS, retreive the entity "ent1" and notation "notation1"
 	from a NamedNodeMap of this DocumentTypes entities and notations.
 	Both should be null since entities and notations are not namespaced.
 
@@ -8498,7 +8498,7 @@ namednodemapgetnameditemns01 : function () {
       var notationName;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8516,15 +8516,15 @@ entity = entities.getNamedItemNS(nullNS,"ent1");
       assertNull("entityNull",entity);
     notation = notations.getNamedItemNS(nullNS,"notation1");
       assertNull("notationNull",notation);
-    
+
 },
 /**
-* 
-	The method getNamedItemNS retrieves a node specified by local name and namespace URI. 
-	
+*
+	The method getNamedItemNS retrieves a node specified by local name and namespace URI.
+
 	Using the method getNamedItemNS, retreive an attribute node having namespaceURI=http://www.nist.gov
-	and localName=domestic, from a NamedNodeMap of attribute nodes, for the second element 
-	whose namespaceURI=http://www.nist.gov and localName=address.  Verify if the attr node 
+	and localName=domestic, from a NamedNodeMap of attribute nodes, for the second element
+	whose namespaceURI=http://www.nist.gov and localName=address.  Verify if the attr node
 	has been retreived successfully by checking its nodeName atttribute.
 
 * @author IBM
@@ -8540,7 +8540,7 @@ namednodemapgetnameditemns02 : function () {
       var attribute;
       var elementList;
       var attrName;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8554,14 +8554,14 @@ namednodemapgetnameditemns02 : function () {
       attrName = attribute.nodeName;
 
       assertEquals("namednodemapgetnameditemns02","emp:domestic",attrName);
-       
+
 },
 /**
-* 
-    The method getNamedItemNS retrieves a node specified by local name and namespace URI. 
-  
+*
+    The method getNamedItemNS retrieves a node specified by local name and namespace URI.
+
     Create a new Element node and add 2 new attribute nodes having the same local name but different
-    namespace names and namespace prefixes to it.  Using the getNamedItemNS retreive the second attribute node.  
+    namespace names and namespace prefixes to it.  Using the getNamedItemNS retreive the second attribute node.
     Verify if the attr node has been retreived successfully by checking its nodeName atttribute.
 
 * @author IBM
@@ -8579,7 +8579,7 @@ namednodemapgetnameditemns03 : function () {
       var newAttr2;
       var newAttribute;
       var attrName;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8596,15 +8596,15 @@ namednodemapgetnameditemns03 : function () {
       attrName = attribute.nodeName;
 
       assertEquals("namednodemapgetnameditemns03","L2:att",attrName);
-       
+
 },
 /**
-* 
-    The method getNamedItemNS retrieves a node specified by local name and namespace URI. 
-  
+*
+    The method getNamedItemNS retrieves a node specified by local name and namespace URI.
+
     Retreive the second address element node having localName=adrress.
     Create a new attribute node having the same name as an existing node but different namespaceURI
-    and add it to this element.  Using the getNamedItemNS retreive the newly created attribute 
+    and add it to this element.  Using the getNamedItemNS retreive the newly created attribute
     node from a nodemap of attributes of the retreive element node.
     Verify if the attr node has been retreived successfully by checking its nodeName atttribute.
 
@@ -8623,7 +8623,7 @@ namednodemapgetnameditemns04 : function () {
       var newAttribute;
       var elementList;
       var attrName;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8639,12 +8639,12 @@ namednodemapgetnameditemns04 : function () {
       attrName = attribute.nodeName;
 
       assertEquals("namednodemapgetnameditemns04","street",attrName);
-       
+
 },
 /**
-* 
-	The method getNamedItemNS retrieves a node specified by local name and namespace URI. 
-	
+*
+	The method getNamedItemNS retrieves a node specified by local name and namespace URI.
+
 	Retreieve the second address element and its attribute into a named node map.
 	Try retreiving the street attribute from the namednodemap using the
 	default namespace uri and the street attribute name.  Since the default
@@ -8662,7 +8662,7 @@ namednodemapgetnameditemns05 : function () {
       var element;
       var attribute;
       var elementList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8674,13 +8674,13 @@ namednodemapgetnameditemns05 : function () {
 
       attribute = attributes.getNamedItemNS("*","street");
       assertNull("namednodemapgetnameditemns05",attribute);
-    
+
 },
 /**
-* 
-    Retreive the second address element node having localName=adrress.  Retreive the attributes 
-    of this element into 2 nodemaps.  Create a new attribute node and add it to this element.  
-    Since NamedNodeMaps are live each one should get updated, using the getNamedItemNS retreive 
+*
+    Retreive the second address element node having localName=adrress.  Retreive the attributes
+    of this element into 2 nodemaps.  Create a new attribute node and add it to this element.
+    Since NamedNodeMaps are live each one should get updated, using the getNamedItemNS retreive
     the newly created attribute from each node map.
     Verify if the attr node has been retreived successfully by checking its nodeName atttribute.
 
@@ -8700,7 +8700,7 @@ namednodemapgetnameditemns06 : function () {
       var newAttribute;
       var elementList;
       var attrName;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8722,12 +8722,12 @@ namednodemapgetnameditemns06 : function () {
       attrName = attribute.nodeName;
 
       assertEquals("namednodemapgetnameditemnsMap206","street",attrName);
-       
+
 },
 /**
-* 
-	The method removeNamedItemNS removes a node specified by local name and namespace 
-	
+*
+	The method removeNamedItemNS removes a node specified by local name and namespace
+
 	Retreive an attribute node and then remove from the NamedNodeMap.  Verify if the attribute
 	node was actually remove from the node map.
 
@@ -8743,7 +8743,7 @@ namednodemapremovenameditemns01 : function () {
       var element;
       var attribute;
       var elementList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8756,16 +8756,16 @@ namednodemapremovenameditemns01 : function () {
       attribute = attributes.removeNamedItemNS("http://www.nist.gov","domestic");
       attribute = attributes.getNamedItemNS("http://www.nist.gov","domestic");
       assertNull("namednodemapremovenameditemns01",attribute);
-    
+
 },
 /**
-* 
-   The method removeNamedItemNS removes a node specified by local name and namespace 
-   A removed attribute may be known to have a default value when this map contains the 
-   attributes attached to an element, as returned by the attributes attribute of the Node 
-   interface. If so, an attribute immediately appears containing the default value as well 
+*
+   The method removeNamedItemNS removes a node specified by local name and namespace
+   A removed attribute may be known to have a default value when this map contains the
+   attributes attached to an element, as returned by the attributes attribute of the Node
+   interface. If so, an attribute immediately appears containing the default value as well
    as the corresponding namespace URI, local name, and prefix when applicable.
-    
+
 	Retreive a default attribute node.  Remove it from the NodeMap.  Check if a new one immediately
 	appears containing the default value.
 
@@ -8785,7 +8785,7 @@ namednodemapremovenameditemns02 : function () {
       var attrValue;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8801,12 +8801,12 @@ namednodemapremovenameditemns02 : function () {
 
       assertNotNull("namednodemapremovenameditemns02",attribute);
 assertEquals("namednodemapremovenameditemns02_attrValue","defaultVal",attrValue);
-       
+
 },
 /**
-* 
-   The method removeNamedItemNS removes a node specified by local name and namespace 
-      
+*
+   The method removeNamedItemNS removes a node specified by local name and namespace
+
 	Create a new element node and add 2 new attribute nodes to it that have the same localName
 	but different namespaceURI's.  Remove the first attribute node from the namedNodeMap of the
 	new element node and check to see that the second attribute still exists.
@@ -8826,7 +8826,7 @@ namednodemapremovenameditemns03 : function () {
       var attribute1;
       var attribute2;
       var nodeName;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8844,12 +8844,12 @@ namednodemapremovenameditemns03 : function () {
       nodeName = attribute.nodeName;
 
       assertEquals("namednodemapremovenameditemns02","L2:att",nodeName);
-       
+
 },
 /**
-* 
-   The method removeNamedItemNS removes a node specified by local name and namespace 
-      
+*
+   The method removeNamedItemNS removes a node specified by local name and namespace
+
 	Attempt to remove the xmlns and dmstc attributes of the first element node with the localName
 	employee.  Verify if the 2 attributes were successfully removed.
 
@@ -8866,7 +8866,7 @@ namednodemapremovenameditemns04 : function () {
       var attribute;
       var attributeRemoved;
       var elementList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8882,11 +8882,11 @@ namednodemapremovenameditemns04 : function () {
     attributeRemoved = attributes.removeNamedItemNS("http://www.w3.org/2000/xmlns/","dmstc");
       attribute = attributes.getNamedItemNS("http://www.w3.org/2000/xmlns/","dmstc");
       assertNull("namednodemapremovenameditemns04_2",attribute);
-    
+
 },
 /**
-* 
-	Retreive an entity and notation node and remove the first notation from the 
+*
+	Retreive an entity and notation node and remove the first notation from the
 	entity node map and first entity node from the notation map.  Since both these
 	maps are readonly, a NO_MODIFICATION_ALLOWED_ERR should be raised.
 
@@ -8907,7 +8907,7 @@ namednodemapremovenameditemns05 : function () {
       var removedNode;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8925,9 +8925,9 @@ notations = docType.notations;
       try {
       removedNode = entities.removeNamedItemNS(nullNS,"ent1");
       fail("entity_throw_DOMException");
-     
+
       } catch (ex) {
-		  if (typeof(ex.code) != 'undefined') {      
+		  if (typeof(ex.code) != 'undefined') {
        switch(ex.code) {
        case /* NOT_FOUND_ERR */ 8 :
        break;
@@ -8936,17 +8936,17 @@ notations = docType.notations;
           default:
           throw ex;
           }
-       } else { 
+       } else {
        throw ex;
         }
          }
-        
+
       try {
       removedNode = notations.removeNamedItemNS(nullNS,"notation1");
       fail("notation_throw_DOMException");
-     
+
       } catch (ex) {
-		  if (typeof(ex.code) != 'undefined') {      
+		  if (typeof(ex.code) != 'undefined') {
        switch(ex.code) {
        case /* NOT_FOUND_ERR */ 8 :
        break;
@@ -8955,18 +8955,18 @@ notations = docType.notations;
           default:
           throw ex;
           }
-       } else { 
+       } else {
        throw ex;
         }
          }
-        
+
 },
 /**
-* 
-   The method removeNamedItemNS removes a node using its namespaceURI and localName and 
-   raises a NOT_FOUND_ERR if there is no node with the specified namespaceURI and 
+*
+   The method removeNamedItemNS removes a node using its namespaceURI and localName and
+   raises a NOT_FOUND_ERR if there is no node with the specified namespaceURI and
    localName in this map
-    
+
 	Retreive an attribute node into a namednodemap.  While removing it from the map specify
 	an incorrect namespaceURI.  This should raise a NOT_FOUND_ERR.
 
@@ -8982,7 +8982,7 @@ namednodemapremovenameditemns06 : function () {
       var element;
       var attribute;
       var elementList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -8992,7 +8992,7 @@ namednodemapremovenameditemns06 : function () {
       element = elementList.item(1);
       attributes = element.attributes;
 
-      
+
 	{
 		success = false;
 		try {
@@ -9006,11 +9006,11 @@ namednodemapremovenameditemns06 : function () {
 
 },
 /**
-* 
-   The method removeNamedItemNS removes a node using its namespaceURI and localName and 
-   raises a NOT_FOUND_ERR if there is no node with the specified namespaceURI and 
+*
+   The method removeNamedItemNS removes a node using its namespaceURI and localName and
+   raises a NOT_FOUND_ERR if there is no node with the specified namespaceURI and
    localName in this map
-    
+
 	Retreive an attribute node from a namednodemap.  While removing it from the map specify
 	an incorrect localName.  This should raise a NOT_FOUND_ERR.
 
@@ -9026,7 +9026,7 @@ namednodemapremovenameditemns07 : function () {
       var element;
       var attribute;
       var elementList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9036,7 +9036,7 @@ namednodemapremovenameditemns07 : function () {
       element = elementList.item(1);
       attributes = element.attributes;
 
-      
+
 	{
 		success = false;
 		try {
@@ -9050,14 +9050,14 @@ namednodemapremovenameditemns07 : function () {
 
 },
 /**
-* 
-   The method removeNamedItemNS removes a node using its namespaceURI and localName and 
-   raises a NOT_FOUND_ERR if there is no node with the specified namespaceURI and 
+*
+   The method removeNamedItemNS removes a node using its namespaceURI and localName and
+   raises a NOT_FOUND_ERR if there is no node with the specified namespaceURI and
    localName in this map
-    
+
 	Retreive an attribute node from a namednodemap.  Remove the attribute node from the document
-	object.  Since NamedNodeMaps are live it should also automatically get removed from 
-	the node map.  And so if an attempt is made to remove it using removeAttributeNS, this should 
+	object.  Since NamedNodeMaps are live it should also automatically get removed from
+	the node map.  And so if an attempt is made to remove it using removeAttributeNS, this should
 	raise a NOT_FOUND_ERR.
 
 * @author IBM
@@ -9072,7 +9072,7 @@ namednodemapremovenameditemns08 : function () {
       var element;
       var attribute;
       var elementList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9083,7 +9083,7 @@ namednodemapremovenameditemns08 : function () {
       attributes = element.attributes;
 
       element.removeAttributeNS("http://www.nist.gov","domestic");
-      
+
 	{
 		success = false;
 		try {
@@ -9097,12 +9097,12 @@ namednodemapremovenameditemns08 : function () {
 
 },
 /**
-* 
-   The method removeNamedItemNS removes a node using its namespaceURI and localName and 
-   raises a NOT_FOUND_ERR if there is no node with the specified namespaceURI and 
+*
+   The method removeNamedItemNS removes a node using its namespaceURI and localName and
+   raises a NOT_FOUND_ERR if there is no node with the specified namespaceURI and
    localName in this map
-    
-	Retreive an attribute node.  Remove the attribute node from the node map.  
+
+	Retreive an attribute node.  Remove the attribute node from the node map.
 	Check the element object to ensure that the attribute node has been removed from it.
 
 * @author IBM
@@ -9118,7 +9118,7 @@ namednodemapremovenameditemns09 : function () {
       var element;
       var attribute;
       var elementList;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9133,16 +9133,16 @@ namednodemapremovenameditemns09 : function () {
 
       attribute = newAttributes.getNamedItemNS("http://www.nist.gov","domestic");
       assertNull("namednodemapremovenameditemns09",attribute);
-    
+
 },
 /**
-* 
-	The method setNamedItemNS adds a node using its namespaceURI and localName. If a node with 
-	that namespace URI and that local name is already present in this map, it is replaced 
+*
+	The method setNamedItemNS adds a node using its namespaceURI and localName. If a node with
+	that namespace URI and that local name is already present in this map, it is replaced
 	by the new one.
-	
-	Retreive the first element whose localName is address and namespaceURI http://www.nist.gov", 
-	and put its attributes into a named node map.  Create a new attribute node and add it to this map.  
+
+	Retreive the first element whose localName is address and namespaceURI http://www.nist.gov",
+	and put its attributes into a named node map.  Create a new attribute node and add it to this map.
 	Verify if the attr node was successfully added by checking the nodeName of the retreived atttribute.
 
 * @author IBM
@@ -9160,7 +9160,7 @@ namednodemapsetnameditemns01 : function () {
       var newAttr1;
       var elementList;
       var attrName;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9176,16 +9176,16 @@ namednodemapsetnameditemns01 : function () {
       attrName = attribute.nodeName;
 
       assertEquals("namednodemapsetnameditemns01","streets",attrName);
-       
+
 },
 /**
-* 
-	The method setNamedItemNS adds a node using its namespaceURI and localName. If a node with 
-	that namespace URI and that local name is already present in this map, it is replaced 
+*
+	The method setNamedItemNS adds a node using its namespaceURI and localName. If a node with
+	that namespace URI and that local name is already present in this map, it is replaced
 	by the new one.
-	
-	Create a new element and attribute Node and add the newly created attribute node to the elements 
-	NamedNodeMap.  Verify if the new attr node has been successfully added to the map by checking 
+
+	Create a new element and attribute Node and add the newly created attribute node to the elements
+	NamedNodeMap.  Verify if the new attr node has been successfully added to the map by checking
 	the nodeName of the retreived atttribute from the list of attribute nodes in this map.
 
 
@@ -9203,7 +9203,7 @@ namednodemapsetnameditemns02 : function () {
       var attribute1;
       var newNode;
       var attrName;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9218,18 +9218,18 @@ namednodemapsetnameditemns02 : function () {
       attrName = attribute.nodeName;
 
       assertEquals("namednodemapsetnameditemns02","L1:att",attrName);
-       
+
 },
 /**
-* 
-	The method setNamedItemNS adds a node using its namespaceURI and localName and 
-	raises a WRONG_DOCUMENT_ERR if arg was created from a different document than the 
+*
+	The method setNamedItemNS adds a node using its namespaceURI and localName and
+	raises a WRONG_DOCUMENT_ERR if arg was created from a different document than the
 	one that created this map.
-	
+
 	Retreieve the second element whose local name is address and its attribute into a named node map.
 	Do the same for another document and retreive its street attribute.  Call the setNamedItemNS
 	using the first namedNodeMap and the retreive street attribute of the second.  This should
-	raise a WRONG_DOCUMENT_ERR. 
+	raise a WRONG_DOCUMENT_ERR.
 
 * @author IBM
 * @author Neil Delima
@@ -9252,7 +9252,7 @@ namednodemapsetnameditemns03 : function () {
       var newNode;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9262,7 +9262,7 @@ namednodemapsetnameditemns03 : function () {
       element = elementList.item(1);
       attributes = element.attributes;
 
-      
+
       var docAltRef = null;
       if (typeof(this.docAlt) != 'undefined') {
         docAltRef = this.docAlt;
@@ -9274,7 +9274,7 @@ namednodemapsetnameditemns03 : function () {
 
       attr = attributesAlt.getNamedItemNS(nullNS,"street");
       newNode = attributesAlt.removeNamedItemNS(nullNS,"street");
-      
+
 	{
 		success = false;
 		try {
@@ -9288,15 +9288,15 @@ namednodemapsetnameditemns03 : function () {
 
 },
 /**
-* 
-	The method setNamedItemNS adds a node using its namespaceURI and localName and 
-	raises a WRONG_DOCUMENT_ERR if arg was created from a different document than the 
+*
+	The method setNamedItemNS adds a node using its namespaceURI and localName and
+	raises a WRONG_DOCUMENT_ERR if arg was created from a different document than the
 	one that created this map.
-	
+
 	Retreieve the second element whose local name is address and its attribute into a named node map.
-	Create a new document and a new attribute node in it.  Call the setNamedItemNS using the first 
+	Create a new document and a new attribute node in it.  Call the setNamedItemNS using the first
 	namedNodeMap and the new attribute node attribute of the new document.  This should
-	raise a WRONG_DOCUMENT_ERR. 
+	raise a WRONG_DOCUMENT_ERR.
 
 * @author IBM
 * @author Neil Delima
@@ -9318,7 +9318,7 @@ namednodemapsetnameditemns04 : function () {
       var newNode;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9331,7 +9331,7 @@ namednodemapsetnameditemns04 : function () {
       domImpl = doc.implementation;
 docAlt = domImpl.createDocument(nullNS,"newDoc",docType);
       attrAlt = docAlt.createAttributeNS(nullNS,"street");
-      
+
 	{
 		success = false;
 		try {
@@ -9345,8 +9345,8 @@ docAlt = domImpl.createDocument(nullNS,"newDoc",docType);
 
 },
 /**
-* 
-	Retreive an entity and notation node and add the first notation to the 
+*
+	Retreive an entity and notation node and add the first notation to the
 	notation node map and first entity node to the entity map.  Since both these
 	maps are for readonly node, a NO_MODIFICATION_ALLOWED_ERR should be raised.
 
@@ -9369,7 +9369,7 @@ namednodemapsetnameditemns05 : function () {
       var newNode;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9385,7 +9385,7 @@ notations = docType.notations;
       assertNotNull("notationsNotNull",notations);
 entity = entities.getNamedItem("ent1");
       notation = notations.getNamedItem("notation1");
-      
+
 	{
 		success = false;
 		try {
@@ -9410,9 +9410,9 @@ entity = entities.getNamedItem("ent1");
 
 },
 /**
-* 
+*
 	Retreieve the first element whose localName is address and its attributes into a named node map.
-	Retreiving the domestic attribute from the namednodemap.  
+	Retreiving the domestic attribute from the namednodemap.
 	Retreieve the second element whose localName is address and its attributes into a named node map.
 	Invoke setNamedItemNS on the second NamedNodeMap specifying the first domestic attribute from
 	the first map.  This should raise an INUSE_ATTRIBIUTE_ERR.
@@ -9430,7 +9430,7 @@ namednodemapsetnameditemns06 : function () {
       var element;
       var attr;
       var newNode;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9444,7 +9444,7 @@ namednodemapsetnameditemns06 : function () {
       element = elementList.item(1);
       attributes = element.attributes;
 
-      
+
 	{
 		success = false;
 		try {
@@ -9458,15 +9458,15 @@ namednodemapsetnameditemns06 : function () {
 
 },
 /**
-* 
-	The method setNamedItemNS adds a node using its namespaceURI and localName and 
-	raises a INUSE_ATTRIBUTE_ERR Raised if arg is an Attr that is already an 
-	attribute of another Element object. 
-	
+*
+	The method setNamedItemNS adds a node using its namespaceURI and localName and
+	raises a INUSE_ATTRIBUTE_ERR Raised if arg is an Attr that is already an
+	attribute of another Element object.
+
 	Retreieve the attributes of first element whose localName is address into a named node map.
 	Retreive the attribute whose namespaceURI=http://www.usa.com and localName=domestic
-	from the NamedNodeMap.  Retreieve the attributes of second element whose localName is address 
-	into a named node map.  Call the setNamedItemNS method on the second nodemap with the domestic 
+	from the NamedNodeMap.  Retreieve the attributes of second element whose localName is address
+	into a named node map.  Call the setNamedItemNS method on the second nodemap with the domestic
 	attribute that was retreived and removed from the first nodeMap as an argument.
 	Assuming that when an attribute is removed from a nodemap, it still remains in the domtree
 	his should raise an INUSE_ATTRIBIUTE_ERR.
@@ -9484,7 +9484,7 @@ namednodemapsetnameditemns07 : function () {
       var element;
       var attr;
       var newNode;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9498,7 +9498,7 @@ namednodemapsetnameditemns07 : function () {
       element = elementList.item(1);
       attributes = element.attributes;
 
-      
+
 	{
 		success = false;
 		try {
@@ -9512,14 +9512,14 @@ namednodemapsetnameditemns07 : function () {
 
 },
 /**
-* 
-    raises a INUSE_ATTRIBUTE_ERR Raised if arg is an Attr that is already an 
-    attribute of another Element object. 
+*
+    raises a INUSE_ATTRIBUTE_ERR Raised if arg is an Attr that is already an
+    attribute of another Element object.
 
 	Retreieve the first element whose localName is address and its attributes into a named node map.
-	Retreiving the domestic attribute from the namednodemap.	 Retreieve the second element whose 
-	localName is address and its attributes into a named node map.	Invoke setNamedItemNS on the 
-	second NamedNodeMap specifying the attribute from the first map.  
+	Retreiving the domestic attribute from the namednodemap.	 Retreieve the second element whose
+	localName is address and its attributes into a named node map.	Invoke setNamedItemNS on the
+	second NamedNodeMap specifying the attribute from the first map.
 	This should raise an INUSE_ATTRIBIUTE_ERR.
 
 * @author IBM
@@ -9535,7 +9535,7 @@ namednodemapsetnameditemns08 : function () {
       var element;
       var attr;
       var newNode;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9549,7 +9549,7 @@ namednodemapsetnameditemns08 : function () {
       element = elementList.item(1);
       attributes = element.attributes;
 
-      
+
 	{
 		success = false;
 		try {
@@ -9563,10 +9563,10 @@ namednodemapsetnameditemns08 : function () {
 
 },
 /**
-* 
-	The method setNamedItemNS adds a node using its namespaceURI and localName and 
+*
+	The method setNamedItemNS adds a node using its namespaceURI and localName and
 	raises a NO_MODIFICATION_ALLOWED_ERR if this map is readonly.
-	
+
 	Create a new attribute node and attempt to add it to the nodemap of entities and notations
 	for this documenttype.  This should reaise a NO_MODIFICATION_ALLOWED_ERR.
 
@@ -9583,7 +9583,7 @@ namednodemapsetnameditemns09 : function () {
       var notations;
       var attr;
       var newNode;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9596,7 +9596,7 @@ namednodemapsetnameditemns09 : function () {
       notations = docType.notations;
 
       attr = doc.createAttributeNS("http://www.w3.org/DOM/Test","test");
-      
+
 	{
 		success = false;
 		try {
@@ -9621,9 +9621,9 @@ namednodemapsetnameditemns09 : function () {
 
 },
 /**
-* 
-    The method setNamedItemNS adds a node using its namespaceURI and localName and 
-    raises a HIERARCHY_REQUEST_ERR if an attempt is made to add a node doesn't belong 
+*
+    The method setNamedItemNS adds a node using its namespaceURI and localName and
+    raises a HIERARCHY_REQUEST_ERR if an attempt is made to add a node doesn't belong
     in this NamedNodeMap.
 
 	 Attempt to add an entity to a NamedNodeMap of attribute nodes,
@@ -9647,7 +9647,7 @@ namednodemapsetnameditemns10 : function () {
       var element;
       var elementList;
       var newNode;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9663,7 +9663,7 @@ entity = entities.getNamedItem("ent1");
       element = elementList.item(0);
       attributes = element.attributes;
 
-      
+
 	{
 		success = false;
 		try {
@@ -9677,9 +9677,9 @@ entity = entities.getNamedItem("ent1");
 
 },
 /**
-* 
-    The method setNamedItemNS adds a node using its namespaceURI and localName and 
-    raises a HIERARCHY_REQUEST_ERR if an attempt is made to add a node doesn't belong 
+*
+    The method setNamedItemNS adds a node using its namespaceURI and localName and
+    raises a HIERARCHY_REQUEST_ERR if an attempt is made to add a node doesn't belong
     in this NamedNodeMap.
 
 	 Attempt to add a notation node to a NamedNodeMap of attribute nodes,
@@ -9704,7 +9704,7 @@ namednodemapsetnameditemns11 : function () {
       var newNode;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9720,7 +9720,7 @@ notation = notations.getNamedItem("notation1");
       element = elementList.item(0);
       attributes = element.attributes;
 
-      
+
 	{
 		success = false;
 		try {
@@ -9734,14 +9734,14 @@ notation = notations.getNamedItem("notation1");
 
 },
 /**
-* 
+*
     The "getNamespaceURI()" method for an Attribute
     returns the namespace URI of this node, or null if unspecified.
-    
+
     Retrieve the first "emp:address" node which has an attribute of "emp:district"
     that is specified in the DTD.
-    Invoke the "getNamespaceURI()" method on the attribute.   
-    The method should return "http://www.nist.gov". 
+    Invoke the "getNamespaceURI()" method on the attribute.
+    The method should return "http://www.nist.gov".
 
 * @author NIST
 * @author Mary Brady
@@ -9756,7 +9756,7 @@ namespaceURI01 : function () {
       var testAddr;
       var addrAttr;
       var attrNamespaceURI;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9768,16 +9768,16 @@ namespaceURI01 : function () {
       attrNamespaceURI = addrAttr.namespaceURI;
 
       assertEquals("namespaceURI","http://www.nist.gov",attrNamespaceURI);
-       
+
 },
 /**
-* 
+*
     The "getNamespaceURI()" method for an Attribute
     returns the namespace URI of this node, or null if unspecified.
-    
+
     Retrieve the first emp:address node and get the emp:domestic attribute.
-    Invoke the "getNamespaceURI()" method on the attribute.   
-    The method should return "http://www.nist.gov". 
+    Invoke the "getNamespaceURI()" method on the attribute.
+    The method should return "http://www.nist.gov".
 
 * @author NIST
 * @author Mary Brady
@@ -9791,7 +9791,7 @@ namespaceURI02 : function () {
       var testAddr;
       var addrAttr;
       var attrNamespaceURI;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9804,15 +9804,15 @@ addrAttr = testAddr.getAttributeNodeNS("http://www.nist.gov","domestic");
       attrNamespaceURI = addrAttr.namespaceURI;
 
       assertEquals("namespaceURI","http://www.nist.gov",attrNamespaceURI);
-       
+
 },
 /**
-* 
+*
     The "getNamespaceURI()" method for a Node
     returns the namespace URI of this node, or null if unspecified.
-    
-    Retrieve the first employee node and invoke the "getNamespaceURI()"   
-    method.   The method should return "http://www.nist.gov". 
+
+    Retrieve the first employee node and invoke the "getNamespaceURI()"
+    method.   The method should return "http://www.nist.gov".
 
 * @author NIST
 * @author Mary Brady
@@ -9825,7 +9825,7 @@ namespaceURI03 : function () {
       var elementList;
       var testEmployee;
       var employeeNamespace;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9837,15 +9837,15 @@ namespaceURI03 : function () {
 employeeNamespace = testEmployee.namespaceURI;
 
       assertEquals("namespaceURI","http://www.nist.gov",employeeNamespace);
-       
+
 },
 /**
-* 
+*
     The "getNamespaceURI()" method for a Node
     returns the namespace URI of this node, or null if unspecified.
-    
-    Retrieve the second employee node and invoke the "getNamespaceURI()"   
-    method.   The method should return "null". 
+
+    Retrieve the second employee node and invoke the "getNamespaceURI()"
+    method.   The method should return "null".
 
 * @author NIST
 * @author Mary Brady
@@ -9858,7 +9858,7 @@ namespaceURI04 : function () {
       var elementList;
       var testEmployee;
       var employeeNamespace;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9869,12 +9869,12 @@ namespaceURI04 : function () {
       employeeNamespace = testEmployee.namespaceURI;
 
       assertNull("throw_Null",employeeNamespace);
-    
+
 },
 /**
-* 
+*
 	The method getLocalName returns the local part of the qualified name of this node.
-	
+
 	Ceate two new element nodes and atribute nodes, with and without namespace prefixes.
 	Retreive the local part of their qualified names using getLocalName and verrify
 	if it is correct.
@@ -9895,7 +9895,7 @@ nodegetlocalname03 : function () {
       var localQElemName;
       var localAttrName;
       var localQAttrName;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9917,14 +9917,14 @@ nodegetlocalname03 : function () {
        assertEquals("nodegetlocalname03_localQElemName","qelem",localQElemName);
        assertEquals("nodegetlocalname03_localAttrName","attr",localAttrName);
        assertEquals("nodegetlocalname03_localQAttrName","qattr",localQAttrName);
-       
+
 },
 /**
-* 
+*
 	The method getNamespaceURI returns the namespace URI of this node, or null if it is unspecified
-	For nodes of any type other than ELEMENT_NODE and ATTRIBUTE_NODE and nodes created with 
+	For nodes of any type other than ELEMENT_NODE and ATTRIBUTE_NODE and nodes created with
 	a DOM Level 1 method, such as createElement from the Document interface, this is always null.
-  
+
 	Ceate two new element nodes and atribute nodes, with and without namespace prefixes.
 	Retreive their namespaceURI's using getNamespaceURI and verrify if it is correct.
 
@@ -9947,7 +9947,7 @@ nodegetnamespaceuri03 : function () {
       var attrNSURINull;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -9969,12 +9969,12 @@ nodegetnamespaceuri03 : function () {
        assertNull("nodegetnamespaceuri03_1",elemNSURINull);
     assertEquals("nodegetnamespaceuri03_attrNSURI","http://www.w3.org/DOM/Test/attr",attrNSURI);
        assertNull("nodegetnamespaceuri03_2",attrNSURINull);
-    
+
 },
 /**
-* 
+*
 	The method getOwnerDocument returns the Document object associated with this node
-  
+
 	Create a new DocumentType node.  Since this node is not used with any Document yet
 	verify if the ownerDocument is null.
 
@@ -9992,7 +9992,7 @@ nodegetownerdocument01 : function () {
       var docType;
       var nullID = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10003,12 +10003,12 @@ docType = domImpl.createDocumentType("mydoc",nullID,nullID);
       ownerDoc = docType.ownerDocument;
 
       assertNull("nodegetownerdocument01",ownerDoc);
-    
+
 },
 /**
-* 
+*
 	The method getOwnerDocument returns the Document object associated with this node
-  
+
 	Create a new Document node.  Since this node is not used with any Document yet
 	verify if the ownerDocument is null.  Create a new element Node on the new Document
 	object.  Check the ownerDocument of the new element node.
@@ -10030,7 +10030,7 @@ nodegetownerdocument02 : function () {
       var docType;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10049,9 +10049,9 @@ docType = domImpl.createDocumentType("mydoc",nullNS,nullNS);
 
 },
 /**
-* 
+*
     The method getPrefix returns the namespace prefix of this node, or null if it is unspecified.
-  
+
 	 Ceate two new element nodes and atribute nodes, with and without namespace prefixes.
 	 Retreive the prefix part of their qualified names using getPrefix and verify
 	 if it is correct.
@@ -10072,7 +10072,7 @@ nodegetprefix03 : function () {
       var elemPrefix;
       var attrNoPrefix;
       var attrPrefix;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10094,14 +10094,14 @@ nodegetprefix03 : function () {
     assertEquals("nodegetprefix03_2","qual",elemPrefix);
        assertNull("nodegetprefix03_3",attrNoPrefix);
     assertEquals("nodegetprefix03_4","qual",attrPrefix);
-       
+
 },
 /**
-* 
+*
 	The method hasAttributes returns whether this node (if it is an element) has any attributes.
 
 	Retreive an element node without attributes.  Verify if hasAttributes returns false.
-	Retreive another element node with attributes.  Verify if hasAttributes returns true.	
+	Retreive another element node with attributes.  Verify if hasAttributes returns true.
 
 * @author IBM
 * @author Neil Delima
@@ -10114,7 +10114,7 @@ nodehasattributes01 : function () {
       var element;
       var elementList;
       var hasAttributes;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10131,7 +10131,7 @@ elementList = doc.getElementsByTagName("address");
 
 },
 /**
-* 
+*
 
 	The method hasAttributes returns whether this node (if it is an element) has any attributes.
 
@@ -10152,7 +10152,7 @@ nodehasattributes02 : function () {
     var doc;
       var docType;
       var hasAttributes;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10165,7 +10165,7 @@ nodehasattributes02 : function () {
 
 },
 /**
-* 
+*
 	The method hasAttributes returns whether this node (if it is an element) has any attributes.
 
 	Retreive an element node with a default attributes.  Verify if hasAttributes returns true.
@@ -10181,7 +10181,7 @@ nodehasattributes03 : function () {
       var element;
       var elementList;
       var hasAttributes;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10195,10 +10195,10 @@ hasAttributes = element.hasAttributes();
 
 },
 /**
-* 
+*
 	The method hasAttributes returns whether this node (if it is an element) has any attributes.
 
-	Create a new Document, Element and Attr node.  Add the Attr to the Element and append the 
+	Create a new Document, Element and Attr node.  Add the Attr to the Element and append the
 	Element to the Document.  Retreive the newly created element node from the document and check
 	if it has attributes using hasAttributes.
 
@@ -10222,7 +10222,7 @@ nodehasattributes04 : function () {
       var appendedChild;
       var elementList;
       var hasAttributes;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10243,11 +10243,11 @@ newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","test",docType);
 
 },
 /**
-* 
-	The method "isSupported(feature,version)" Tests whether the DOM implementation 
-	implements a specific feature and that feature is supported by this node. 
-	
-	Call the isSupported method on the document element node with a combination of features 
+*
+	The method "isSupported(feature,version)" Tests whether the DOM implementation
+	implements a specific feature and that feature is supported by this node.
+
+	Call the isSupported method on the document element node with a combination of features
 	versions and versions as below.  Valid feature names are case insensitive and versions
 	"2.0", "1.0" and if the version is not specified, supporting any version of the feature
 	should return true.  Check if the value returned value was true.
@@ -10275,7 +10275,7 @@ nodeissupported01 : function () {
       featuresCore[0] = "Core";
       featuresCore[1] = "CORE";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10300,14 +10300,14 @@ success = element.isSupported(featureCore,version1);
       assertTrue("nodeissupported01_Core3",success);
 
 	}
-   
+
 },
 /**
-* 
-	The method "isSupported(feature,version)" Tests whether the DOM implementation 
-	implements a specific feature and that feature is supported by this node. 
-	
-	Call the isSupported method on a new attribute node with a combination of features 
+*
+	The method "isSupported(feature,version)" Tests whether the DOM implementation
+	implements a specific feature and that feature is supported by this node.
+
+	Call the isSupported method on a new attribute node with a combination of features
 	versions and versions as below.  Valid feature names are case insensitive and versions
 	"2.0", "1.0" and if the version is not specified, supporting any version of the feature
 	should return true.  Check if the value returned value was true.
@@ -10335,7 +10335,7 @@ nodeissupported02 : function () {
       featuresCore[0] = "Core";
       featuresCore[1] = "CORE";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10359,16 +10359,16 @@ success = attribute.isSupported(featureCore,version1);
       assertTrue("nodeissupported02_Core3",success);
 
 	}
-   
+
 },
 /**
-* 
+*
 
-	The method "isSupported(feature,version)" Tests whether the DOM implementation 
+	The method "isSupported(feature,version)" Tests whether the DOM implementation
 
-	implements a specific feature and that feature is supported by this node. 
+	implements a specific feature and that feature is supported by this node.
 
-	
+
 
 	Call the isSupported method specifying empty strings for feature and version on a docType
 
@@ -10385,7 +10385,7 @@ nodeissupported03 : function () {
     var doc;
       var docType;
       var success;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10398,11 +10398,11 @@ nodeissupported03 : function () {
 
 },
 /**
-* 
-	The method "isSupported(feature,version)" Tests whether the DOM implementation 
-	implements a specific feature and that feature is supported by this node. 
-	
-	Call the isSupported method specifying empty strings for feature and version on a 
+*
+	The method "isSupported(feature,version)" Tests whether the DOM implementation
+	implements a specific feature and that feature is supported by this node.
+
+	Call the isSupported method specifying empty strings for feature and version on a
 	new EntityReference node.  Check if the value returned value was false.
 
 * @author IBM
@@ -10415,7 +10415,7 @@ nodeissupported04 : function () {
     var doc;
       var entRef;
       var success;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10428,15 +10428,15 @@ success = entRef.isSupported("XML CORE","");
 
 },
 /**
-* 
+*
 
-	The method "isSupported(feature,version)" Tests whether the DOM implementation 
+	The method "isSupported(feature,version)" Tests whether the DOM implementation
 
-	implements a specific feature and that feature is supported by this node. 
+	implements a specific feature and that feature is supported by this node.
 
-	
 
-	Call the isSupported method specifying bad values for feature and version on a new 
+
+	Call the isSupported method specifying bad values for feature and version on a new
 
 	Processing Instruction node.  Check if the value returned from this method value was false.
 
@@ -10451,7 +10451,7 @@ nodeissupported05 : function () {
     var doc;
       var pi;
       var success;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10463,15 +10463,15 @@ nodeissupported05 : function () {
 
 },
 /**
-* 
-	The method "normalize" puts all Text nodes in the full depth of the sub-tree underneath 
-	this Node, including attribute nodes, into a "normal" form where only structure 
-	(e.g., elements, comments, processing instructions, CDATA sections, and entity references) 
-	separates Text nodes, i.e., there are neither adjacent Text nodes nor empty Text nodes. 
-	
-	Create a dom tree consisting of elements, comments, processing instructions, CDATA sections, 
+*
+	The method "normalize" puts all Text nodes in the full depth of the sub-tree underneath
+	this Node, including attribute nodes, into a "normal" form where only structure
+	(e.g., elements, comments, processing instructions, CDATA sections, and entity references)
+	separates Text nodes, i.e., there are neither adjacent Text nodes nor empty Text nodes.
+
+	Create a dom tree consisting of elements, comments, processing instructions, CDATA sections,
 	and entity references nodes seperated by text nodes.  Check the length of the node list of each
-	before and after normalize has been called.  
+	before and after normalize has been called.
 
 * @author IBM
 * @author Neil Delima
@@ -10503,7 +10503,7 @@ nodenormalize01 : function () {
       var entRef;
       var elementList;
       var appendedChild;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10612,11 +10612,11 @@ elementList = element7.childNodes;
 
 },
 /**
-* 
-	The method setPrefix sets the namespace prefix of this node.  Note that setting this attribute, 
-	when permitted, changes the nodeName attribute, which holds the qualified name, as well as the 
+*
+	The method setPrefix sets the namespace prefix of this node.  Note that setting this attribute,
+	when permitted, changes the nodeName attribute, which holds the qualified name, as well as the
 	tagName and name attributes of the Element and Attr interfaces, when applicable.
-	
+
 	Create a new element node with a namespace prefix.  Add it to a new DocumentFragment Node without
 	a prefix.  Call setPrefix on the elemen node.  Check if the prefix was set correctly on the element.
 
@@ -10633,7 +10633,7 @@ nodesetprefix01 : function () {
       var elementTagName;
       var elementNodeName;
       var appendedChild;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10650,12 +10650,12 @@ nodesetprefix01 : function () {
 
       assertEquals("nodesetprefix01_tagname","dmstc:address",elementTagName);
        assertEquals("nodesetprefix01_nodeName","dmstc:address",elementNodeName);
-       
+
 },
 /**
-* 
-	The method setPrefix sets the namespace prefix of this node.  Note that setting this attribute, 
-	when permitted, changes the nodeName attribute, which holds the qualified name, as well as the 
+*
+	The method setPrefix sets the namespace prefix of this node.  Note that setting this attribute,
+	when permitted, changes the nodeName attribute, which holds the qualified name, as well as the
 	tagName and name attributes of the Element and Attr interfaces, when applicable.
 
 	Create a new attribute node and add it to an element node with an existing attribute having
@@ -10678,7 +10678,7 @@ nodesetprefix02 : function () {
       var elementList;
       var attrName;
       var newAttrName;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10697,13 +10697,13 @@ nodesetprefix02 : function () {
 
       assertEquals("nodesetprefix02_attrName","dmstc:domestic",attrName);
        assertEquals("nodesetprefix02_newAttrName","dom:address",newAttrName);
-       
+
 },
 /**
-* 
+*
 	The method setPrefix raises a NAMESPACE_ERR if the namespaceURI of this node is null.
-	
-	Create a new element node without a namespace prefix.  Call setPrefix on the newly created elemenent node.  
+
+	Create a new element node without a namespace prefix.  Call setPrefix on the newly created elemenent node.
 	Check if a NAMESPACE_ERR is thrown.
 
 * @author IBM
@@ -10715,14 +10715,14 @@ nodesetprefix03 : function () {
     if(checkInitialization(builder, "nodesetprefix03") != null) return;
     var doc;
       var element;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
       element = doc.createElement("address");
-      
+
 	{
 		success = false;
 		try {
@@ -10737,7 +10737,7 @@ nodesetprefix03 : function () {
 
 },
 /**
-* 
+*
 	The method setPrefix raises a NAMESPACE_ERR if the namespaceURI of this node is null.
 
 	Retreive the a default Attribute node which does not have a namespace prefix. Call the setPrefix
@@ -10757,7 +10757,7 @@ nodesetprefix04 : function () {
       var elementList;
       var nullNS = null;
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10767,7 +10767,7 @@ nodesetprefix04 : function () {
       element = elementList.item(0);
       assertNotNull("empEmployeeNotNull",element);
 attribute = element.getAttributeNodeNS(nullNS,"defaultAttr");
-      
+
 	{
 		success = false;
 		try {
@@ -10782,7 +10782,7 @@ attribute = element.getAttributeNodeNS(nullNS,"defaultAttr");
 
 },
 /**
-* 
+*
 	The method setPrefix raises a NAMESPACE_ERR if the specified prefix is malformed.
 
 	Create a new namespace aware element node and call the setPrefix method on it with several malformed
@@ -10805,7 +10805,7 @@ nodesetprefix05 : function () {
       prefixValues[3] = "_::";
       prefixValues[4] = "a:0:c";
 
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10814,7 +10814,7 @@ nodesetprefix05 : function () {
       element = doc.createElementNS("http://www.w3.org/DOM/Test/L2","dom:elem");
       for(var indexN10050 = 0;indexN10050 < prefixValues.length; indexN10050++) {
       prefixValue = prefixValues[indexN10050];
-      
+
 	{
 		success = false;
 		try {
@@ -10828,15 +10828,15 @@ nodesetprefix05 : function () {
 	}
 
 	}
-   
+
 },
 /**
-* 
-	The method setPrefix raises a NAMESPACE_ERR if the specified prefix is "xml" and the namespaceURI 
+*
+	The method setPrefix raises a NAMESPACE_ERR if the specified prefix is "xml" and the namespaceURI
 	of this node is different from "http://www.w3.org/XML/1998/namespace".
 
 	Invoke the setPrefix method on this Element object with namespaceURI that is different from
-	http://www..w3.org/xml/1998/namespace and a prefix whose values is xml.  
+	http://www..w3.org/xml/1998/namespace and a prefix whose values is xml.
 	Check if the NAMESPACE_ERR was thrown.
 
 * @author IBM
@@ -10848,14 +10848,14 @@ nodesetprefix06 : function () {
     if(checkInitialization(builder, "nodesetprefix06") != null) return;
     var doc;
       var element;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
       element = doc.createElementNS("http://www.w3.org/DOM/Test/L2","dom:elem");
-      
+
 	{
 		success = false;
 		try {
@@ -10870,9 +10870,9 @@ nodesetprefix06 : function () {
 
 },
 /**
-* 
-	The method setPrefix raises a NAMESPACE_ERR if this node is an attribute and the specified 
-	prefix is "xmlns" and the namespaceURI of this node is different from 
+*
+	The method setPrefix raises a NAMESPACE_ERR if this node is an attribute and the specified
+	prefix is "xmlns" and the namespaceURI of this node is different from
 	"http://www.w3.org/2000/xmlns/".
 
 	Create a new attribute node whose namespaceURI is different form "http://www.w3.org/2000/xmlns/"
@@ -10888,14 +10888,14 @@ nodesetprefix07 : function () {
     if(checkInitialization(builder, "nodesetprefix07") != null) return;
     var doc;
       var attribute;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
       attribute = doc.createAttributeNS("http://www.w3.org/DOM/Test/L2","abc:elem");
-      
+
 	{
 		success = false;
 		try {
@@ -10910,8 +10910,8 @@ nodesetprefix07 : function () {
 
 },
 /**
-* 
-	The method setPrefix raises a NAMESPACE_ERR if this node is an attribute and the qualifiedName 
+*
+	The method setPrefix raises a NAMESPACE_ERR if this node is an attribute and the qualifiedName
 	of this node is "xmlns
 
 	Retreive an attribute node whose qualifiedName is xmlns.  Try setting a prefix on this node.
@@ -10928,7 +10928,7 @@ nodesetprefix08 : function () {
       var element;
       var elementList;
       var attribute;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -10937,7 +10937,7 @@ nodesetprefix08 : function () {
       elementList = doc.getElementsByTagName("employee");
       element = elementList.item(0);
       attribute = element.getAttributeNode("xmlns");
-      
+
 	{
 		success = false;
 		try {
@@ -10952,10 +10952,10 @@ nodesetprefix08 : function () {
 
 },
 /**
-* 
+*
 	The method setPrefix raises a INVALID_CHARACTER_ERR if the specified prefix contains an illegal character.
 
-	Create a new namespace aware element node and call the setPrefix method on it with a prefix having 
+	Create a new namespace aware element node and call the setPrefix method on it with a prefix having
 	an invalid character.  Check if a NAMESPACE_ERR is thrown.
 
 * @author IBM
@@ -10968,14 +10968,14 @@ nodesetprefix09 : function () {
     var doc;
       var value = "#$%&'()@";
       var element;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
       element = doc.createElementNS("http://www.w3.org/DOM/Test/L2","dom:elem");
-      
+
 	{
 		success = false;
 		try {
@@ -10990,13 +10990,13 @@ nodesetprefix09 : function () {
 
 },
 /**
-* 
+*
     The "normalize()" method puts all the nodes in the full
-    depth of the sub-tree underneath this element into a 
-    "normal" form. 
-    
+    depth of the sub-tree underneath this element into a
+    "normal" form.
+
     Retrieve the third employee and access its second child.
-    This child contains a block of text that is spread 
+    This child contains a block of text that is spread
     across multiple lines.   The content of the "name" child
     should be parsed and treated as a single Text node.
 
@@ -11017,7 +11017,7 @@ normalize01 : function () {
       var textList;
       var textNode;
       var data;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11034,14 +11034,14 @@ normalize01 : function () {
       data = textNode.data;
 
       assertEquals("data","Roger\n Jones",data);
-       
+
 },
 /**
-* 
+*
     The "getOwnerDocument()" method returns null if the target
     node itself is a DocumentType which is not used with any document yet.
-    
-    Invoke the "getOwnerDocument()" method on the master 
+
+    Invoke the "getOwnerDocument()" method on the master
     document.   The DocumentType returned should be null.
 
 * @author NIST
@@ -11053,7 +11053,7 @@ ownerDocument01 : function () {
     if(checkInitialization(builder, "ownerDocument01") != null) return;
     var doc;
       var ownerDocument;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11062,14 +11062,14 @@ ownerDocument01 : function () {
       ownerDocument = doc.ownerDocument;
 
       assertNull("throw_Null",ownerDocument);
-    
+
 },
 /**
-* 
+*
     The "getOwnerElement()" will return the Element node this attribute
-  is attached to or null if this attribute is not in use.  
+  is attached to or null if this attribute is not in use.
   Get the "domestic" attribute from the first "address" node.
-  Apply the "getOwnerElement()" method to get the Element associated 
+  Apply the "getOwnerElement()" method to get the Element associated
   with the attribute.  The value returned should be "address".
 
 * @author NIST
@@ -11086,7 +11086,7 @@ ownerElement01 : function () {
       var domesticAttr;
       var elementNode;
       var name;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11102,14 +11102,14 @@ ownerElement01 : function () {
       name = elementNode.nodeName;
 
       assertEquals("throw_Equals","address",name);
-       
+
 },
 /**
-* 
+*
     The "getOwnerElement()" will return the Element node this attribute
-  is attached to or null if this attribute is not in use.  
+  is attached to or null if this attribute is not in use.
   Create a new attribute.
-  Apply the "getOwnerElement()" method to get the Element associated 
+  Apply the "getOwnerElement()" method to get the Element associated
   with the attribute.  The value returned should be "null" since this
   attribute is not in use.
 
@@ -11123,7 +11123,7 @@ ownerElement02 : function () {
     var doc;
       var newAttr;
       var elementNode;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11133,18 +11133,18 @@ ownerElement02 : function () {
       elementNode = newAttr.ownerElement;
 
       assertNull("throw_Null",elementNode);
-    
+
 },
 /**
-* 
+*
     The "getPrefix()" method for a Node
     returns the namespace prefix of the node,
     and for nodes of any type other than ELEMENT_NODE and ATTRIBUTE_NODE
     and nodes created with a DOM Level 1 method, this is null.
-    
+
     Create an new Element with the createElement() method.
-    Invoke the "getPrefix()" method on the newly created element   
-    node will cause "null" to be returned. 
+    Invoke the "getPrefix()" method on the newly created element
+    node will cause "null" to be returned.
 
 * @author NIST
 * @author Mary Brady
@@ -11156,7 +11156,7 @@ prefix01 : function () {
     var doc;
       var createdNode;
       var prefix;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11166,18 +11166,18 @@ prefix01 : function () {
       prefix = createdNode.prefix;
 
       assertNull("throw_Null",prefix);
-    
+
 },
 /**
-* 
+*
     The "getPrefix()" method
     returns the namespace prefix of this node, or null if unspecified.
     For nodes of any type other than ELEMENT_NODE and ATTRIBUTE_NODE,
     this is always null.
-    
+
     Retrieve the first emp:employeeId node and get the first child of this node.
-    Since the first child is Text node invoking the "getPrefix()"   
-    method will cause "null" to be returned. 
+    Since the first child is Text node invoking the "getPrefix()"
+    method will cause "null" to be returned.
 
 * @author NIST
 * @author Mary Brady
@@ -11191,7 +11191,7 @@ prefix02 : function () {
       var testEmployee;
       var textNode;
       var prefix;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11205,15 +11205,15 @@ textNode = testEmployee.firstChild;
       prefix = textNode.prefix;
 
       assertNull("textNodePrefix",prefix);
-    
+
 },
 /**
-* 
+*
     The "getPrefix()" method for a node
     returns the namespace prefix of this node, or null if it is unspecified.
-    
-    Retrieve the first emp:employee node and invoke the getPrefix() method."   
-    The method should return "emp". 
+
+    Retrieve the first emp:employee node and invoke the getPrefix() method."
+    The method should return "emp".
 
 * @author NIST
 * @author Mary Brady
@@ -11226,7 +11226,7 @@ prefix03 : function () {
       var elementList;
       var testEmployee;
       var prefix;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11238,15 +11238,15 @@ prefix03 : function () {
 prefix = testEmployee.prefix;
 
       assertEquals("prefix","emp",prefix);
-       
+
 },
 /**
-* 
+*
     The "getPrefix()" method for a node
     returns the namespace prefix of this node, or null if it is unspecified.
-    
-    Retrieve the first employee node and invoke the getPrefix() method."   
-    The method should return "null". 
+
+    Retrieve the first employee node and invoke the getPrefix() method."
+    The method should return "null".
 
 * @author NIST
 * @author Mary Brady
@@ -11259,7 +11259,7 @@ prefix04 : function () {
       var elementList;
       var testEmployee;
       var prefix;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11270,18 +11270,18 @@ prefix04 : function () {
       prefix = testEmployee.prefix;
 
       assertNull("throw_Null",prefix);
-    
+
 },
 /**
-* 
-    The "setPrefix(prefix)" method raises a 
+*
+    The "setPrefix(prefix)" method raises a
     NAMESPACE_ERR DOMException if the specified node is an attribute
     and the specified prefix is xmlns and the namespaceURI is different from
     http://www.w3.org/2000/xmlns.
-    
+
     Attempt to insert "xmlns" as the new namespace prefix on the emp:domestic
     attribute within the emp:address node.
-    An exception should be raised since the namespaceURI of this node is not 
+    An exception should be raised since the namespaceURI of this node is not
     http://www.w3.org/2000/xmlns.
 
 * @author NIST
@@ -11297,7 +11297,7 @@ prefix05 : function () {
       var elementList;
       var addrNode;
       var addrAttr;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11307,7 +11307,7 @@ prefix05 : function () {
       addrNode = elementList.item(0);
       assertNotNull("empAddrNotNull",addrNode);
 addrAttr = addrNode.getAttributeNode("emp:domestic");
-      
+
 	{
 		success = false;
 		try {
@@ -11322,13 +11322,13 @@ addrAttr = addrNode.getAttributeNode("emp:domestic");
 
 },
 /**
-* 
-    The "setPrefix(prefix)" method raises a 
+*
+    The "setPrefix(prefix)" method raises a
     INVALID_CHARACTER_ERR DOMException if the specified
     prefix contains an illegal character.
-    
+
     Attempt to insert a new namespace prefix on the first employee node.
-    An exception should be raised since the namespace prefix has an invalid 
+    An exception should be raised since the namespace prefix has an invalid
     character.
 
 * @author NIST
@@ -11343,7 +11343,7 @@ prefix06 : function () {
     var doc;
       var elementList;
       var employeeNode;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11351,7 +11351,7 @@ prefix06 : function () {
       doc = load(docRef, "doc", "staffNS");
       elementList = doc.getElementsByTagName("employee");
       employeeNode = elementList.item(0);
-      
+
 	{
 		success = false;
 		try {
@@ -11366,13 +11366,13 @@ prefix06 : function () {
 
 },
 /**
-* 
-    The "setPrefix(prefix)" method raises a 
+*
+    The "setPrefix(prefix)" method raises a
     NAMESPACE_ERR DOMException if the specified
     prefix if malformed.
-    
+
     Attempt to insert a new namespace prefix on the second employee node.
-    An exception should be raised since the namespace prefix is malformed. 
+    An exception should be raised since the namespace prefix is malformed.
 
 * @author NIST
 * @author Mary Brady
@@ -11386,7 +11386,7 @@ prefix07 : function () {
     var doc;
       var elementList;
       var employeeNode;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11394,7 +11394,7 @@ prefix07 : function () {
       doc = load(docRef, "doc", "staffNS");
       elementList = doc.getElementsByTagName("employee");
       employeeNode = elementList.item(0);
-      
+
 	{
 		success = false;
 		try {
@@ -11409,13 +11409,13 @@ prefix07 : function () {
 
 },
 /**
-* 
-  The "setPrefix(prefix)" method causes the 
+*
+  The "setPrefix(prefix)" method causes the
   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
   if the node is readonly.
-  
+
   Obtain the children of the THIRD "gender" element.  The elements
-  content is an entity reference.  Get the FIRST item 
+  content is an entity reference.  Get the FIRST item
   from the entity reference and execute the "setPrefix(prefix)" method.
   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
 
@@ -11435,7 +11435,7 @@ prefix08 : function () {
       var entElement;
       var createdNode;
       var nodeType;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11447,7 +11447,7 @@ prefix08 : function () {
 
       nodeType = entRef.nodeType;
 
-      
+
 	if(
 	(1 == nodeType)
 	) {
@@ -11459,7 +11459,7 @@ prefix08 : function () {
 
       assertNotNull("entElement",entElement);
 createdNode = doc.createElement("text3");
-      
+
 	{
 		success = false;
 		try {
@@ -11474,15 +11474,15 @@ createdNode = doc.createElement("text3");
 
 },
 /**
-* 
-    The "setPrefix(prefix)" method raises a 
+*
+    The "setPrefix(prefix)" method raises a
     NAMESPACE_ERR DOMException if the specified node is an attribute
-    and the qualifiedName of this node is xmlns. 
-    
+    and the qualifiedName of this node is xmlns.
+
     Attempt to set the prefix on the xmlns attribute within the fourth address
     element.
     An exception should be raised since the qualifiedName of this attribute
-    is "xmlns". 
+    is "xmlns".
 
 * @author NIST
 * @author Mary Brady
@@ -11497,7 +11497,7 @@ prefix09 : function () {
       var elementList;
       var addrNode;
       var addrAttr;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11520,14 +11520,14 @@ prefix09 : function () {
 
 },
 /**
-* 
-    The "setPrefix(prefix)" method raises a 
+*
+    The "setPrefix(prefix)" method raises a
     NAMESPACE_ERR DOMException if the specified
     prefix is xml and the namespaceURI is different from
     http://www.w3.org/XML/1998/namespace.
-    
+
     Attempt to insert "xml" as the new namespace prefix on the first employee node.
-    An exception should be raised since the namespaceURI of this node is not 
+    An exception should be raised since the namespaceURI of this node is not
     http://www.w3.org/XML/1998/namespace.
 
 * @author NIST
@@ -11542,7 +11542,7 @@ prefix10 : function () {
     var doc;
       var elementList;
       var employeeNode;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11550,7 +11550,7 @@ prefix10 : function () {
       doc = load(docRef, "doc", "staffNS");
       elementList = doc.getElementsByTagName("employee");
       employeeNode = elementList.item(1);
-      
+
 	{
 		success = false;
 		try {
@@ -11565,14 +11565,14 @@ prefix10 : function () {
 
 },
 /**
-* 
-    The "setPrefix(prefix)" method raises a 
+*
+    The "setPrefix(prefix)" method raises a
     NAMESPACE_ERR DOMException if the specified
     prefix is set on a node with a namespaceURI that is null.
-    
+
     Attempt to insert a new namespace prefix on the second employee node.
     An exception should be raised since the namespace prefix is set
-    on a node whose namespaceURI is null. 
+    on a node whose namespaceURI is null.
 
 * @author NIST
 * @author Mary Brady
@@ -11587,7 +11587,7 @@ prefix11 : function () {
       var elementList;
       var employeeNode;
       var namespaceURI;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11597,7 +11597,7 @@ prefix11 : function () {
       employeeNode = elementList.item(1);
       namespaceURI = employeeNode.namespaceURI;
 
-      
+
 	{
 		success = false;
 		try {
@@ -11612,10 +11612,10 @@ prefix11 : function () {
 
 },
 /**
-* 
+*
     The "getPublicId()" method of a documenttype node contains
    the public identifier associated with the external subset.
-   
+
    Retrieve the documenttype.
    Apply the "getPublicId()" method.  The string "STAFF" should be
    returned.
@@ -11630,7 +11630,7 @@ publicId01 : function () {
     var doc;
       var docType;
       var publicId;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11641,17 +11641,17 @@ publicId01 : function () {
       publicId = docType.publicId;
 
       assertEquals("throw_Equals","STAFF",publicId);
-       
+
 },
 /**
-* 
-    The "removeAttributeNS(namespaceURI,localName)" method for an attribute causes the 
+*
+    The "removeAttributeNS(namespaceURI,localName)" method for an attribute causes the
    DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
    if the node is readonly.
-   
+
    Obtain the children of the THIRD "gender" element.  The elements
    content is an entity reference.  Try to remove an attribute
-   from the entity reference by executing the 
+   from the entity reference by executing the
    "removeAttributeNS(namespaceURI,localName)" method.
    This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
 
@@ -11671,7 +11671,7 @@ removeAttributeNS01 : function () {
       var gList;
       var genElement;
       var nodeType;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11683,7 +11683,7 @@ removeAttributeNS01 : function () {
 
       nodeType = gen.nodeType;
 
-      
+
 	if(
 	(1 == nodeType)
 	) {
@@ -11709,14 +11709,14 @@ removeAttributeNS01 : function () {
 
 },
 /**
-* 
-    The "removeAttributeNS(namespaceURI,localName)" removes an attribute by 
+*
+    The "removeAttributeNS(namespaceURI,localName)" removes an attribute by
    local name and namespace URI.  If the removed attribute has a
    default value it is immediately replaced.  The replacing attribute has the same
    namespace URI and local name, as well as the original prefix.
-   
+
    Retrieve the attribute named "emp:local" from emp:address
-   node, then remove the "emp:local" 
+   node, then remove the "emp:local"
    attribute by invoking the "removeAttributeNS(namespaceURI,localName)" method.
    The "emp:local" attribute has a default value defined in the
    DTD file, that value should immediately replace the old
@@ -11738,7 +11738,7 @@ removeAttributeNS02 : function () {
       var namespaceURI;
       var localName;
       var prefix;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11761,19 +11761,19 @@ removeAttributeNS02 : function () {
        assertEquals("uri","http://www.nist.gov",namespaceURI);
        assertEquals("lname","local1",localName);
        assertEquals("prefix","emp",prefix);
-       
+
 },
 /**
-* 
-    The "removeNamedItemNS(namespaceURI,localName)" method for a 
+*
+    The "removeNamedItemNS(namespaceURI,localName)" method for a
    NamedNodeMap should remove a node specified by localName and namespaceURI.
-   
+
    Retrieve a list of elements with tag name "address".
    Access the second element from the list and get its attributes.
    Try to remove the attribute node with local name "domestic"
-   and namespace uri "http://www.usa.com" with 
+   and namespace uri "http://www.usa.com" with
    method removeNamedItemNS(namespaceURI,localName).
-   Check to see if the node has been removed. 
+   Check to see if the node has been removed.
 
 * @author NIST
 * @author Mary Brady
@@ -11788,7 +11788,7 @@ removeNamedItemNS01 : function () {
       var attributes;
       var newAttr;
       var removedNode;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11802,18 +11802,18 @@ removeNamedItemNS01 : function () {
       assertNotNull("retval",removedNode);
 newAttr = attributes.getNamedItem("dmstc:domestic");
       assertNull("nodeRemoved",newAttr);
-    
+
 },
 /**
-* 
-    The "removeNamedItemNS(namespaceURI,localName)" method for a 
+*
+    The "removeNamedItemNS(namespaceURI,localName)" method for a
    NamedNodeMap should raise NOT_FOUND_ERR DOMException if
    there is no node with the specified namespaceURI and localName in this map.
-   
+
    Retrieve a list of elements with tag name "address".
    Access the second element from the list and get its attributes.
    Try to remove an attribute node with local name "domest"
-   and namespace uri "http://www.usa.com" with 
+   and namespace uri "http://www.usa.com" with
    method removeNamedItemNS(namespaceURI,localName).
    This should raise NOT_FOUND_ERR DOMException.
 
@@ -11833,7 +11833,7 @@ removeNamedItemNS02 : function () {
       var testAddress;
       var attributes;
       var removedNode;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11843,7 +11843,7 @@ removeNamedItemNS02 : function () {
       testAddress = elementList.item(1);
       attributes = testAddress.attributes;
 
-      
+
 	{
 		success = false;
 		try {
@@ -11857,11 +11857,11 @@ removeNamedItemNS02 : function () {
 
 },
 /**
-* 
-  The "removeNamedItemNS(namespaceURI,localName)" method for a 
+*
+  The "removeNamedItemNS(namespaceURI,localName)" method for a
   NamedNodeMap should raise NO_MODIFICATION_ALLOWED_ERR DOMException if
   this map is readonly.
-  
+
   Retrieve a list of "gender" elements. Get access to the THIRD element
   which contains an ENTITY_REFERENCE child node.  Try to remove the attribute
   in the node's map with method removeNamedItemNS(namespaceURI,localName).
@@ -11889,7 +11889,7 @@ removeNamedItemNS03 : function () {
       var attributes;
       var removedNode;
       var nodeType;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11902,7 +11902,7 @@ removeNamedItemNS03 : function () {
       child = nList.item(0);
       nodeType = child.nodeType;
 
-      
+
 	if(
 	(1 == nodeType)
 	) {
@@ -11916,7 +11916,7 @@ removeNamedItemNS03 : function () {
       assertNotNull("notnull",child2);
 attributes = child2.attributes;
 
-      
+
 	{
 		success = false;
 		try {
@@ -11930,13 +11930,13 @@ attributes = child2.attributes;
 
 },
 /**
-* 
-    The "setAttributeNS(namespaceURI,qualifiedName,Value)" method raises a 
+*
+    The "setAttributeNS(namespaceURI,qualifiedName,Value)" method raises a
    INVALID_CHARACTER_ERR DOMException if the specified
    prefix contains an illegal character.
-   
+
    Attempt to add a new attribute on the first employee node.
-   An exception should be raised since the "qualifiedName" has an invalid 
+   An exception should be raised since the "qualifiedName" has an invalid
    character.
 
 * @author NIST
@@ -11953,7 +11953,7 @@ setAttributeNS01 : function () {
       var doc;
       var elementList;
       var testAddr;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -11961,7 +11961,7 @@ setAttributeNS01 : function () {
       doc = load(docRef, "doc", "staffNS");
       elementList = doc.getElementsByTagName("employee");
       testAddr = elementList.item(0);
-      
+
 	{
 		success = false;
 		try {
@@ -11975,13 +11975,13 @@ setAttributeNS01 : function () {
 
 },
 /**
-* 
-    The "setAttributeNS(namespaceURI,qualifiedName,value)" method raises a 
+*
+    The "setAttributeNS(namespaceURI,qualifiedName,value)" method raises a
    NAMESPACE_ERR DOMException if the specified
    qualifiedName if malformed.
-   
+
    Attempt to add a new attribute on the second employee node.
-   An exception should be raised since the "qualifiedName" is malformed. 
+   An exception should be raised since the "qualifiedName" is malformed.
 
 * @author NIST
 * @author Mary Brady
@@ -11997,7 +11997,7 @@ setAttributeNS02 : function () {
       var doc;
       var elementList;
       var testAddr;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12005,7 +12005,7 @@ setAttributeNS02 : function () {
       doc = load(docRef, "doc", "staffNS");
       elementList = doc.getElementsByTagName("emp:employee");
       testAddr = elementList.item(0);
-      
+
 	{
 		success = false;
 		try {
@@ -12019,14 +12019,14 @@ setAttributeNS02 : function () {
 
 },
 /**
-* 
-    The "setAttributeNS(namespaceURI,qualifiedName,value)" method for an attribute causes the 
+*
+    The "setAttributeNS(namespaceURI,qualifiedName,value)" method for an attribute causes the
    DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
    if the node is readonly.
-   
+
    Obtain the children of the THIRD "gender" element.  The elements
    content is an entity reference.  Try to set an attribute
-   in the entity reference by executing the 
+   in the entity reference by executing the
    "setAttributeNS(namespaceURI,qualifiedName,value)" method.
    This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
 
@@ -12049,7 +12049,7 @@ setAttributeNS03 : function () {
       var gList;
       var genElement;
       var nodeType;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12062,7 +12062,7 @@ setAttributeNS03 : function () {
       gen = genList.item(0);
       nodeType = gen.nodeType;
 
-      
+
 	if(
 	(1 == nodeType)
 	) {
@@ -12088,19 +12088,19 @@ setAttributeNS03 : function () {
 
 },
 /**
-* 
+*
     The "setAttributeNS(namespaceURI,qualifiedName,value)" method adds a new attribute.
    If an attribute with the same local name and namespace URI is already present
    on the element, its prefix is changed to be the prefix part of the "qualifiedName",
    and its vale is changed to be the "value" paramter.
    null value if no previously existing Attr node with the
    same name was replaced.
-   
+
    Add a new attribute to the "emp:address" element.
    Check to see if the new attribute has been successfully added to the document
    by getting the attributes value, namespace URI, local Name and prefix.
-   The prefix will be changed to the prefix part of the "qualifiedName" 
-   and its value changed to the "value" parameter.    
+   The prefix will be changed to the prefix part of the "qualifiedName"
+   and its value changed to the "value" parameter.
 
 * @author NIST
 * @author Mary Brady
@@ -12117,7 +12117,7 @@ setAttributeNS04 : function () {
       var resultNamespaceURI;
       var resultLocalName;
       var resultPrefix;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12139,17 +12139,17 @@ testAddr.setAttributeNS("http://www.nist.gov","newprefix:zone","newValue");
        resultPrefix = addrAttr.prefix;
 
       assertEquals("prefix","newprefix",resultPrefix);
-       
+
 },
 /**
-* 
+*
     The "setAttributeNS(namespaceURI,qualifiedName,value)" method adds a new attribute.
    If an attribute with the same local name and namespace URI is already present
    on the element, its prefix is changed to be the prefix part of the "qualifiedName",
    and its vale is changed to be the "value" paramter.
    null value if no previously existing Attr node with the
    same name was replaced.
-   
+
    Add a new attribute to the "emp:address" element.
    Check to see if the new attribute has been successfully added to the document.
    The new attribute "<newValue>" contains markup and therefore is escaped
@@ -12170,7 +12170,7 @@ setAttributeNS05 : function () {
       var testAddr;
       var addrAttr;
       var resultAttr;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12182,17 +12182,17 @@ setAttributeNS05 : function () {
 testAddr.setAttributeNS(namespaceURI,qualifiedName,"<newValue>");
       resultAttr = testAddr.getAttributeNS(namespaceURI,localName);
       assertEquals("throw_Equals","<newValue>",resultAttr);
-       
+
 },
 /**
-* 
-    The "setAttributeNS(namespaceURI,localName,value)" method raises a 
+*
+    The "setAttributeNS(namespaceURI,localName,value)" method raises a
    NAMESPACE_ERR DOMException if the "qualifiedName" has a
    prefix of "xml" and the namespaceURI is different from
    http://www.w3.org/XML/1998/namespace.
-   
+
    Attempt to add an attribute with a prefix of "xml" as the on the first employee node.
-   An exception should be raised since the namespaceURI of this node is not 
+   An exception should be raised since the namespaceURI of this node is not
    http://www.w3.org/XML/1998/namespace.
 
 * @author NIST
@@ -12209,7 +12209,7 @@ setAttributeNS06 : function () {
       var doc;
       var elementList;
       var testAddr;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12217,7 +12217,7 @@ setAttributeNS06 : function () {
       doc = load(docRef, "doc", "staffNS");
       elementList = doc.getElementsByTagName("employee");
       testAddr = elementList.item(0);
-      
+
 	{
 		success = false;
 		try {
@@ -12231,15 +12231,15 @@ setAttributeNS06 : function () {
 
 },
 /**
-* 
-    The "setAttributeNS(namespaceURI,localName,value)" method raises a 
+*
+    The "setAttributeNS(namespaceURI,localName,value)" method raises a
    NAMESPACE_ERR DOMException if the "qualifiedName" has a
    value of "xmlns" and the namespaceURI is different from
    http://www.w3.org/2000/xmlns.
-   
-   Attempt to add an attribute with a "qualifiedName" of "xmlns" as the 
+
+   Attempt to add an attribute with a "qualifiedName" of "xmlns" as the
    on the first employee node.
-   An exception should be raised since the namespaceURI of this node is not 
+   An exception should be raised since the namespaceURI of this node is not
    http://www.w3.org/2000/xmlns.
 
 * @author NIST
@@ -12256,7 +12256,7 @@ setAttributeNS07 : function () {
       var doc;
       var elementList;
       var testAddr;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12264,7 +12264,7 @@ setAttributeNS07 : function () {
       doc = load(docRef, "doc", "staffNS");
       elementList = doc.getElementsByTagName("employee");
       testAddr = elementList.item(0);
-      
+
 	{
 		success = false;
 		try {
@@ -12278,14 +12278,14 @@ setAttributeNS07 : function () {
 
 },
 /**
-* 
+*
     The "setAttributeNS(namespaceURI,qualifiedName,value)" method adds a new attribute.
    If an attribute with the same local name and namespace URI is already present
    on the element, its prefix is changed to be the prefix part of the "qualifiedName",
    and its vale is changed to be the "value" paramter.
    null value if no previously existing Attr node with the
    same name was replaced.
-   
+
    Add a new attribute to the "emp:address" element.
    Check to see if the new attribute has been successfully added to the document
    by getting the attributes value, namespace URI, local Name and prefix.
@@ -12308,7 +12308,7 @@ setAttributeNS09 : function () {
       var resultNamespaceURI;
       var resultLocalName;
       var resultPrefix;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12330,10 +12330,10 @@ testAddr.setAttributeNS(namespaceURI,qualifiedName,"newValue");
        resultPrefix = addrAttr.prefix;
 
       assertEquals("prefix","emp",resultPrefix);
-       
+
 },
 /**
-* 
+*
 Element.setAttributeNS with an empty qualified name should cause an INVALID_CHARACTER_ERR.
 
 * @author Curt Arnold
@@ -12349,7 +12349,7 @@ setAttributeNS10 : function () {
       var doc;
       var elementList;
       var testAddr;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12357,7 +12357,7 @@ setAttributeNS10 : function () {
       doc = load(docRef, "doc", "hc_staff");
       elementList = doc.getElementsByTagName("em");
       testAddr = elementList.item(0);
-      
+
 	{
 		success = false;
 		try {
@@ -12371,11 +12371,11 @@ setAttributeNS10 : function () {
 
 },
 /**
-* 
-    The "setAttributeNode(newAttr)" method raises an 
-   "INUSE_ATTRIBUTE_ERR DOMException if the "newAttr" 
+*
+    The "setAttributeNode(newAttr)" method raises an
+   "INUSE_ATTRIBUTE_ERR DOMException if the "newAttr"
    is already an attribute of another element.
-   
+
    Retrieve the first emp:address and append
    a newly created element.  The "createAttributeNS(namespaceURI,qualifiedName)"
    and "setAttributeNodeNS(newAttr)" methods are invoked
@@ -12404,7 +12404,7 @@ setAttributeNodeNS01 : function () {
       var appendedChild;
       var setAttr1;
       var setAttr2;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12417,7 +12417,7 @@ newElement = doc.createElement("newElement");
       appendedChild = testAddr.appendChild(newElement);
       newAttr = doc.createAttributeNS(namespaceURI,qualifiedName);
       setAttr1 = newElement.setAttributeNodeNS(newAttr);
-      
+
 	{
 		success = false;
 		try {
@@ -12431,14 +12431,14 @@ newElement = doc.createElement("newElement");
 
 },
 /**
-* 
-    The "setAttributeNodeNS(namespaceURI,qualifiedName,value)" method for an attribute causes the 
+*
+    The "setAttributeNodeNS(namespaceURI,qualifiedName,value)" method for an attribute causes the
    DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
    if the node is readonly.
-   
+
    Obtain the children of the THIRD "gender" element.  The elements
    content is an entity reference.  Try to set an attribute
-   in the entity reference by executing the 
+   in the entity reference by executing the
    "setAttributeNodeNS(newAttr)" method.
    This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
 
@@ -12460,7 +12460,7 @@ setAttributeNodeNS02 : function () {
       var genElement;
       var newAttr;
       var setAttr1;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12472,7 +12472,7 @@ setAttributeNodeNS02 : function () {
       genElement = gList.item(0);
       assertNotNull("notnull",genElement);
 newAttr = doc.createAttributeNS("www.xyz.com","emp:local1");
-      
+
 	{
 		success = false;
 		try {
@@ -12486,11 +12486,11 @@ newAttr = doc.createAttributeNS("www.xyz.com","emp:local1");
 
 },
 /**
-* 
+*
     The "setAttributeNodeNS(newAttr)" adds a new attribute.
    If an attribute with that local name and that namespaceURI is already
    present in the element, it is replaced by the new one.
-   
+
    Retrieve the first emp:address element and add a new attribute
    to the element.  Since an attribute with the same local name
    and namespaceURI as the newly created attribute does not exist
@@ -12512,7 +12512,7 @@ setAttributeNodeNS03 : function () {
       var testAddr;
       var newAttr;
       var newAddrAttr;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12524,14 +12524,14 @@ setAttributeNodeNS03 : function () {
 newAttr = doc.createAttributeNS(namespaceURI,qualifiedName);
       newAddrAttr = testAddr.setAttributeNodeNS(newAttr);
       assertNull("throw_Null",newAddrAttr);
-    
+
 },
 /**
-* 
+*
     The "setAttributeNodeNS(newAttr)" adds a new attribute.
    If an attribute with that local name and that namespaceURI is already
    present in the element, it is replaced by the new one.
-   
+
    Retrieve the first emp:address element and add a new attribute
    to the element.  Since an attribute with the same local name
    and namespaceURI already exists, it is replaced by the new one and
@@ -12552,7 +12552,7 @@ setAttributeNodeNS04 : function () {
       var newAttr;
       var newAddrAttr;
       var newName;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12566,15 +12566,15 @@ newAttr = doc.createAttributeNS("http://www.nist.gov","xxx:domestic");
       newName = newAddrAttr.nodeName;
 
       assertEquals("nodeName","emp:domestic",newName);
-       
+
 },
 /**
-* 
-    The "setAttributeNodeNS(newAttr)" method raises an 
-   "WRONG_DOCUMENT_ERR DOMException if the "newAttr" 
+*
+    The "setAttributeNodeNS(newAttr)" method raises an
+   "WRONG_DOCUMENT_ERR DOMException if the "newAttr"
    was created from a different document than the one that
    created this document.
-   
+
    Retrieve the first emp:address and attempt to set a new
    attribute node.  The new
    attribute was created from a document other than the
@@ -12600,13 +12600,13 @@ setAttributeNodeNS05 : function () {
       var elementList;
       var testAddr;
       var setAttr1;
-      
+
       var doc1Ref = null;
       if (typeof(this.doc1) != 'undefined') {
         doc1Ref = this.doc1;
       }
       doc1 = load(doc1Ref, "doc1", "staffNS");
-      
+
       var doc2Ref = null;
       if (typeof(this.doc2) != 'undefined') {
         doc2Ref = this.doc2;
@@ -12615,7 +12615,7 @@ setAttributeNodeNS05 : function () {
       newAttr = doc2.createAttributeNS(namespaceURI,qualifiedName);
       elementList = doc1.getElementsByTagName("emp:address");
       testAddr = elementList.item(0);
-      
+
 	{
 		success = false;
 		try {
@@ -12629,11 +12629,11 @@ setAttributeNodeNS05 : function () {
 
 },
 /**
-* 
-    The "setNamedItemNS(arg)" method for a 
-   NamedNodeMap should raise INUSE_ATTRIBUTE_ERR DOMException if 
+*
+    The "setNamedItemNS(arg)" method for a
+   NamedNodeMap should raise INUSE_ATTRIBUTE_ERR DOMException if
    arg is an Attr that is already an attribute of another Element object.
-   
+
    Retrieve an attr node from the third "address" element whose local name
    is "domestic" and namespaceURI is "http://www.netzero.com".
    Invoke method setNamedItemNS(arg) on the map of the first "address" element with
@@ -12657,7 +12657,7 @@ setNamedItemNS01 : function () {
       var testAddress;
       var map;
       var setNode;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12671,7 +12671,7 @@ setNamedItemNS01 : function () {
       testAddress = elementList.item(0);
       map = testAddress.attributes;
 
-      
+
 	{
 		success = false;
 		try {
@@ -12685,11 +12685,11 @@ setNamedItemNS01 : function () {
 
 },
 /**
-* 
-    The "setNamedItemNS(arg)" method for a 
+*
+    The "setNamedItemNS(arg)" method for a
    NamedNodeMap should raise WRONG_DOCUMENT_ERR DOMException if arg was
    created from a different document than the one that created this map.
-   
+
    Create an attr node in a different document with qualifiedName equals
    "dmstc:domestic" and namespaceURI is "http://www.usa.com".
    Access the namednodemap of the first "address" element in this document.
@@ -12714,13 +12714,13 @@ setNamedItemNS02 : function () {
       var testAddress;
       var attributes;
       var setNode;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
       }
       doc = load(docRef, "doc", "staffNS");
-      
+
       var anotherDocRef = null;
       if (typeof(this.anotherDoc) != 'undefined') {
         anotherDocRef = this.anotherDoc;
@@ -12733,7 +12733,7 @@ setNamedItemNS02 : function () {
       testAddress = elementList.item(0);
       attributes = testAddress.attributes;
 
-      
+
 	{
 		success = false;
 		try {
@@ -12747,11 +12747,11 @@ setNamedItemNS02 : function () {
 
 },
 /**
-* 
-    The "setNamedItemNS(arg)" method for a 
+*
+    The "setNamedItemNS(arg)" method for a
    NamedNodeMap should add a node using its namespaceURI and localName given that
    there is no existing node with the same namespaceURI and localName in the map.
-   
+
    Create an attr node with namespaceURI "http://www.nist.gov",qualifiedName
    "prefix:newAttr" and value "newValue".
    Invoke method setNamedItemNS(arg) on the map of the first "address"
@@ -12775,7 +12775,7 @@ setNamedItemNS03 : function () {
       var retnode;
       var value;
       var setNode;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12793,19 +12793,19 @@ setNamedItemNS03 : function () {
       value = retnode.nodeValue;
 
       assertEquals("throw_Equals","newValue",value);
-       
+
 },
 /**
-* 
-  The "setNamedItemNS(arg)" method for a 
-  NamedNodeMap should raise NO_MODIFICATION_ALLOWED_ERR DOMException if 
+*
+  The "setNamedItemNS(arg)" method for a
+  NamedNodeMap should raise NO_MODIFICATION_ALLOWED_ERR DOMException if
   this map is readonly.
-  
+
   Retrieve a list of "gender" elements. Get access to the THIRD element
   which contains an ENTITY_REFERENCE child node.  Get access to the node's
-  map. Try to add an attribute node specified by arg with 
+  map. Try to add an attribute node specified by arg with
   method setNamedItemNS(arg).  This should result in NO_MODIFICATION_ALLOWED_ERR
-  DOMException. 
+  DOMException.
 
 * @author NIST
 * @author Mary Brady
@@ -12829,7 +12829,7 @@ setNamedItemNS04 : function () {
       var arg;
       var setNode;
       var nodeType;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12842,7 +12842,7 @@ setNamedItemNS04 : function () {
       child = nList.item(0);
       nodeType = child.nodeType;
 
-      
+
 	if(
 	(1 == nodeType)
 	) {
@@ -12857,7 +12857,7 @@ setNamedItemNS04 : function () {
 attributes = child2.attributes;
 
       arg = attributes.getNamedItemNS(namespaceURI,localName);
-      
+
 	{
 		success = false;
 		try {
@@ -12871,11 +12871,11 @@ attributes = child2.attributes;
 
 },
 /**
-* 
-    The "setNamedItemNS(arg)" method for a 
+*
+    The "setNamedItemNS(arg)" method for a
    NamedNodeMap should replace an existing node n1 found in the map with arg if n1
    has the same namespaceURI and localName as arg and return n1.
-   
+
    Create an attribute node in with namespaceURI "http://www.usa.com"
    and qualifiedName "dmstc:domestic" whose value is "newVal".
    Invoke method setNamedItemNS(arg) on the map of the first "address"
@@ -12898,7 +12898,7 @@ setNamedItemNS05 : function () {
       var attributes;
       var retnode;
       var value;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;
@@ -12915,13 +12915,13 @@ setNamedItemNS05 : function () {
       value = retnode.nodeValue;
 
       assertEquals("throw_Equals","Yes",value);
-       
+
 },
 /**
-* 
+*
     The "getSystemId()" method of a documenttype node contains
    the system identifier associated with the external subset.
-   
+
    Retrieve the documenttype.
    Apply the "getSystemId()" method.  The string "staffNS.dtd" should be
    returned.
@@ -12931,14 +12931,13 @@ setNamedItemNS05 : function () {
 * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-Core-DocType-systemId
 */
 systemId01 : function () {
-return;
    var success;
     if(checkInitialization(builder, "systemId01") != null) return;
     var doc;
       var docType;
       var systemId;
       var index;
-      
+
       var docRef = null;
       if (typeof(this.doc) != 'undefined') {
         docRef = this.doc;

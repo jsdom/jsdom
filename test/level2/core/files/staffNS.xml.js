@@ -50,7 +50,7 @@ exports.staffNS = function() {
   defaultAttributes.setNamedItem(defaultAddress);
 
   //var defaultEmpAddress = doc.createElementNS('emp:address');
-  
+
 /*  <!ELEMENT emp:address (#PCDATA) >
   <!ATTLIST emp:address emp:domestic CDATA #IMPLIED>
   <!ATTLIST emp:address street CDATA #IMPLIED>
@@ -156,7 +156,7 @@ exports.staffNS = function() {
   employee.setAttributeNS("http://www.nist.gov", "xmlns:dmstc", "http://www.netzero.com");
   id.appendChild(doc.createTextNode("EMP0003"));
   salary.appendChild(doc.createTextNode("100,000"));
-  address.setAttributeNS("http://www.usa.com", "dmstc:domestic", "Yes");
+  address.setAttributeNS("http://www.netzero.com", "dmstc:domestic", "Yes");
   address.setAttribute("street", "No");
   address.appendChild(doc.createTextNode("PO Box 27 Irving, texas 98553"));
   name.appendChild(doc.createTextNode("Roger\n Jones")) ;
