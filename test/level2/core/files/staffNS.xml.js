@@ -182,8 +182,9 @@ exports.staffNS = function() {
   employee.setAttributeNS("http://www.altavista.com", "xmlns:nm", "http://www.altavista.com");
   id.appendChild(doc.createTextNode("EMP0004"));
   salary.appendChild(doc.createTextNode("95,000"));
-  address.setAttribute("emp:domestic", "Yes");
-  address.setAttribute("emp:street", "Y");
+  address.setAttributeNS("http://www.nist.gov", "emp:domestic", "Yes");
+  address.setAttributeNS("http://www.nist.gov", "emp:street", "Y");
+  address.setAttributeNS("http://www.nist.gov", "emp:local1", "TRUE");
   var ent1Ref = doc.createEntityReference("ent1");
   //address.attributes.getNamedItem("street").childNodes.push(ent1Ref);
   address.appendChild(doc.createTextNode("27 South Road. Dallas, Texas 98556"));
