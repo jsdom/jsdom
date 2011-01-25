@@ -11695,7 +11695,7 @@ removeAttributeNS01 : function () {
 
       genElement = gList.item(0);
       assertNotNull("notnull",genElement);
-
+console.log(genElement.nodeType);
 	{
 		success = false;
 		try {
