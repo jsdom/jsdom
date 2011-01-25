@@ -97,13 +97,13 @@ exports.staffNS = function() {
   /************************************
   *          EMPLOYEEE 2              *
   ************************************/
-  employee = doc.createElementNS("http://www.w3.org/2000/xmlns/","employee");
-  address  = doc.createElementNS("http://www.w3.org/2000/xmlns/","address");
-  name     = doc.createElementNS("http://www.w3.org/2000/xmlns/","name");
-  position = doc.createElementNS("http://www.w3.org/2000/xmlns/","position");
-  gender   = doc.createElementNS("http://www.w3.org/2000/xmlns/","gender");
-  id       = doc.createElementNS("http://www.w3.org/2000/xmlns/","employeeId");
-  salary   = doc.createElementNS("http://www.w3.org/2000/xmlns/","salary");
+  employee = doc.createElementNS(null,"employee");
+  address  = doc.createElementNS(null,"address");
+  name     = doc.createElementNS(null,"name");
+  position = doc.createElementNS(null,"position");
+  gender   = doc.createElementNS(null,"gender");
+  id       = doc.createElementNS(null,"employeeId");
+  salary   = doc.createElementNS(null,"salary");
 
   employee.appendChild(id);
   employee.appendChild(name);
