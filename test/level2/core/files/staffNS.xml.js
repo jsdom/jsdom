@@ -184,6 +184,7 @@ exports.staffNS = function() {
   salary.appendChild(doc.createTextNode("95,000"));
   address.setAttributeNS("http://www.nist.gov", "emp:domestic", "Yes");
   address.setAttributeNS("http://www.nist.gov", "emp:street", "Y");
+  address.setAttributeNS("http://www.nist.gov", "emp:zone", "CANADA");
   address.setAttributeNS("http://www.nist.gov", "emp:local1", "TRUE");
   var ent1Ref = doc.createEntityReference("ent1");
   //address.attributes.getNamedItem("street").childNodes.push(ent1Ref);
