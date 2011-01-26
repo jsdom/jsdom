@@ -15,15 +15,24 @@ exports.staff = function() {
     doc.createNotationNode("notation2",null, "notation2File")
   );
 
-  // TODO: consider importing the master list of entities
-  //       http://www.w3schools.com/tags/ref_symbols.asp
+  var entElement = doc.createElementNS("http://www.w3.org/2000/xmlns/","entElement1");
+  entElement.setAttributeNS(null, "xmlns:local1", "www.xyz.com");
+  entElement.appendChild(doc.createTextNode("Element data"));
+  var procElement = doc.createProcessingInstruction("PItarget", "PfIdata");
+  var ent4 = doc.createEntityNode("ent4",entElement, procElement);
+
+  var ent5 = doc.createEntityNode("ent5");
+  ent5.publicId = "entityURI";
+  ent5.systemId = "entityFile";
+  ent5.notationName = "notation1";
+
   var entities = new dom.EntityNodeMap(
     doc,
-    doc.createEntityNode("alpha", "α"),
-    doc.createEntityNode("beta", "&#946;"),
-    doc.createEntityNode("gamma", "&#947;"),
-    doc.createEntityNode("delta", "&#948;"),
-    doc.createEntityNode("epsilon", "&#949;")
+    doc.createEntityNode("ent1", doc.createTextNode("es")),
+    doc.createEntityNode("ent2",doc.createTextNode("1900 Dallas Road")),
+    doc.createEntityNode("ent3",doc.createTextNode("Texas")),
+    ent4,
+    ent5
   );
 
   // <!ATTLIST acronym dir CDATA "ltr">
@@ -113,7 +122,7 @@ exports.staff = function() {
   addresses[2].setAttribute("street", "No");
   addresses[2].appendChild(doc.createTextNode("PO Box 27 Irving, texas 98553"));
   names[2].appendChild(doc.createTextNode("Roger\n Jones")) ;
-  genders[2].appendChild(doc.createEntityReference("&delta;"));//Text("&delta;"));
+  genders[2].appendChild(doc.createEntityReference("&ent4;"));//Text("&delta;"));
   positions[2].appendChild(doc.createTextNode("Department Manager"));
 
   ids[3].appendChild(doc.createTextNode("EMP0004"));
