@@ -181,6 +181,11 @@ exports.tests = {
     assertEquals("two results", 2, elements.length);
     assertSame("p and first-p", div.children.item(0), elements2.item(0));
     assertSame("p and second-p", div.children.item(1), elements2.item(1));
+
+    var elements3 = div.querySelectorAll("#main p");
+    assertEquals("two results", 2, elements.length);
+    assertSame("p and first-p", div.children.item(0), elements.item(0));
+    assertSame("p and second-p", div.children.item(1), elements.item(1));
   },
   
   scripts_share_a_global_context : function() {
