@@ -55,7 +55,7 @@ exports.staffNS = function() {
   defaultAttributes.setNamedItem(defaultEmpAddress);
 
   var defaultEmpEmployee = doc.createElementNS("http://www.nist.gov", 'emp:employee');
-  defaultEmpEmployee.setAttribute('defaultAttr', 'defaultVal');
+  defaultEmpEmployee.setAttributeNS(null, 'defaultAttr', 'defaultVal');
   defaultAttributes.setNamedItem(defaultEmpEmployee);
 
   doc.doctype = new dom.DocumentType(doc, "staff", entities, notations, defaultAttributes);
@@ -180,6 +180,8 @@ exports.staffNS = function() {
 
   employee.setAttributeNS("http://www.nist.gov", "xmlns:emp", "http://www.nist.gov");
   employee.setAttributeNS("http://www.altavista.com", "xmlns:nm", "http://www.altavista.com");
+  employee.setAttributeNS(null, 'defaultAttr', 'defaultVal');
+
   id.appendChild(doc.createTextNode("EMP0004"));
   salary.appendChild(doc.createTextNode("95,000"));
   address.setAttributeNS("http://www.nist.gov", "emp:domestic", "Yes");
