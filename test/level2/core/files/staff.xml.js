@@ -88,6 +88,9 @@ exports.staff = function() {
     employee.appendChild(doc.createTextNode("\r\n"));
     staff.appendChild(employee);
 
+    // default address
+    address.setAttribute("street", "Yes");
+
     names.push(name);
     employees.push(employee);
     addresses.push(address);
@@ -100,6 +103,7 @@ exports.staff = function() {
   ids[0].appendChild(doc.createTextNode("EMP0001"));
   salaries[0].appendChild(doc.createTextNode("56,000"));
   addresses[0].setAttribute("domestic", "Yes");
+
   addresses[0].appendChild(doc.createTextNode('1230 North Ave. Dallas, Texas 98551'));
   names[0].appendChild(doc.createTextNode("Margaret Martin"));
   genders[0].appendChild(doc.createTextNode("Female"));
