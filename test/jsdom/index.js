@@ -23,7 +23,7 @@ exports.tests = {
 
   jquerify : function() {
     var jQueryFile = __dirname + "/../../example/jquery/jquery.js",
-        jQueryUrl = "http://code.jquery.com/jquery-1.4.2.min.js",
+        jQueryUrl = "http://code.jquery.com/jquery-1.4.4.min.js",
         caught = false,
         res = null;
 
@@ -38,12 +38,17 @@ exports.tests = {
       res = jQuery("#para .emph").text();
       res2 = jQuery("a.link .emph").text();
 
-      // TODO: there seems to be a problem when selecting from window.document.body
+      assertEquals("selecting from body",
+                   jQuery('p#para a.link',window.document.body).attr('class'),
+                   'link');
+
+      assertTrue('jQuery version 1.4.4', jQuery('body').jquery === '1.4.4');
 
       assertEquals("selector should work as expected", "ME", res);
       assertEquals("selector should work as expected", "ME", res2);
       assertFalse("compareDocumentPosition should not fail", caught);
     };
+
 
     jsdom.jQueryify(tmpWindow(), jQueryFile, testFunction);
     jsdom.jQueryify(tmpWindow(), jQueryUrl, testFunction);
@@ -186,12 +191,12 @@ exports.tests = {
     assertEquals("two results", 2, elements3.length);
     assertSame("p and first-p", div.children.item(0), elements3.item(0));
     assertSame("p and second-p", div.children.item(1), elements3.item(1));
-    
-    var topNode = document.createElement('p'), 
+
+    var topNode = document.createElement('p'),
         newNode = document.createElement('p');
     topNode.id = "fuz";
     newNode.id = "buz";
-    
+
     topNode.appendChild(newNode);
     var elements4 = topNode.querySelectorAll("#fuz #buz");
     assertEquals("one result", 1, elements4.length);
