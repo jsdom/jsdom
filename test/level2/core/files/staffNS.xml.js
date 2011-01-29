@@ -86,6 +86,8 @@ exports.staffNS = function() {
   employee.appendChild(address);
   staff.appendChild(employee);
 
+  employee.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "http://www.nist.gov");
+
   id.appendChild(doc.createTextNode("EMP0001"));
   salary.appendChild(doc.createTextNode("56,000"));
   address.appendChild(doc.createTextNode('1230 North Ave. Dallas, Texas 98551'));
