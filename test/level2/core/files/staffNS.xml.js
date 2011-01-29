@@ -185,8 +185,11 @@ exports.staffNS = function() {
   address.setAttributeNS("http://www.nist.gov", "emp:domestic", "Yes");
   address.setAttributeNS("http://www.nist.gov", "emp:street", "Y");
   address.setAttributeNS("http://www.nist.gov", "emp:zone", "CANADA");
+  address.setAttributeNS("http://www.nist.gov", "emp:district", "DISTRICT");
   address.setAttributeNS("http://www.nist.gov", "emp:local1", "TRUE");
+
   var ent1Ref = doc.createEntityReference("ent1");
+
   //address.attributes.getNamedItem("street").childNodes.push(ent1Ref);
   address.appendChild(doc.createTextNode("27 South Road. Dallas, Texas 98556"));
   name.appendChild(doc.createTextNode("Jeny Oconnor"));
