@@ -117,7 +117,7 @@ exports.staffNS = function() {
   id.appendChild(doc.createTextNode("EMP0002"));
   salary.appendChild(doc.createTextNode("35,000"));
   address.setAttributeNS("http://www.usa.com", "dmstc:domestic", "Yes");
-  address.setAttribute("street", "Yes");
+  address.setAttributeNS(null, "street", "Yes");
   address.appendChild(doc.createEntityReference("ent2"));
   address.appendChild(doc.createTextNode(" Dallas, "));
   address.appendChild(doc.createEntityReference("ent3"));
