@@ -218,6 +218,7 @@ exports.staffNS = function() {
   id.appendChild(doc.createTextNode("EMP0005"));
   salary.appendChild(doc.createTextNode("90,000"));
   address.setAttribute("street", "Yes");
+  address.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "http://www.nist.gov");
   address.appendChild(doc.createTextNode("1821 Nordic. Road, Irving Texas 98558"));
   name.appendChild(doc.createTextNode("Robert Myers"));
   gender.appendChild(doc.createTextNode("male"));
