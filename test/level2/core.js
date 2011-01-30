@@ -2770,7 +2770,6 @@ newDoc = domImpl.createDocument(nullNS,"staff",nullDocType);
       attrNode = imported.getAttributeNodeNS(nullNS,"defaultAttr");
       assertNull("defaultAttrNotImported",attrNode);
 
-      console.log(Object.keys(imported.attributes._nodes))
     attrValue = imported.getAttributeNS("http://www.w3.org/2000/xmlns/","emp");
       assertEquals("explicitAttrImported","http://www.nist.gov",attrValue);
 
