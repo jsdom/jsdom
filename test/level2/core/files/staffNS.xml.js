@@ -20,7 +20,7 @@ exports.staffNS = function() {
 
 //<entElement domestic='Yes'>Element data</entElement><?PItarget PIdata?>
   var entElement = doc.createElementNS("http://www.w3.org/2000/xmlns/","entElement1");
-  entElement.setAttributeNS(null, "xmlns:local1", "www.xyz.com");
+  entElement.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:local1", "www.xyz.com");
   entElement.appendChild(doc.createTextNode("Element data"));
   var procElement = doc.createProcessingInstruction("PItarget", "PfIdata");
   var ent4 = doc.createEntityNode("ent4",entElement, procElement);
