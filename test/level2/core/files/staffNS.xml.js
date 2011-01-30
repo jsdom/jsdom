@@ -93,6 +93,7 @@ exports.staffNS = function() {
   staff.appendChild(employee);
 
   employee.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns", "http://www.nist.gov");
+  employee.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:dmstc", "http://www.usa.com");
 
   id.appendChild(doc.createTextNode("EMP0001"));
   salary.appendChild(doc.createTextNode("56,000"));
