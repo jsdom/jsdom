@@ -187,7 +187,7 @@ exports.staffNS = function() {
   id.appendChild(doc.createTextNode("EMP0004"));
   salary.appendChild(doc.createTextNode("95,000"));
   address.setAttributeNS("http://www.nist.gov", "emp:domestic", "Yes");
-  address.setAttributeNS("http://www.nist.gov", "emp:street", "Y");
+  address.setAttributeNS(null, "street", "Y");
 
   // This behavior appears to be undefined!
   address.setAttributeNS("http://www.nist.gov", "emp:zone", "CANADA");
