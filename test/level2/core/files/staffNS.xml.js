@@ -195,6 +195,8 @@ exports.staffNS = function() {
   salary.appendChild(doc.createTextNode("95,000"));
   address.setAttributeNS("http://www.nist.gov", "emp:domestic", "Yes");
   address.setAttributeNS(null, "street", "Y");
+  address.getAttributeNodeNS(null, "street").appendChild(doc.createEntityReference('&ent1;'))
+
 
   // This behavior appears to be undefined!
   address.setAttributeNS("http://www.nist.gov", "emp:zone", "CANADA");
