@@ -199,7 +199,7 @@ exports.staffNS = function() {
   var ent1Ref = doc.createEntityReference("ent1");
 
   //address.attributes.getNamedItem("street").childNodes.push(ent1Ref);
-  address.appendChild(doc.createTextNode("27 South Road. Dallas, Texas 98556"));
+  address.appendChild(doc.createTextNode("27 South Road. Dallas, texas 98556"));
   name.appendChild(doc.createTextNode("Jeny Oconnor"));
   gender.appendChild(doc.createTextNode("Female"));
   position.appendChild(doc.createTextNode("Personal Director"));
