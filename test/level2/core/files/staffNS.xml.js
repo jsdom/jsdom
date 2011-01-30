@@ -22,7 +22,7 @@ exports.staffNS = function() {
   var entElement = doc.createElementNS("http://www.w3.org/2000/xmlns/","entElement1");
   entElement.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:local1", "www.xyz.com");
   entElement.appendChild(doc.createTextNode("Element data"));
-  var procElement = doc.createProcessingInstruction("PItarget", "PfIdata");
+  var procElement = doc.createProcessingInstruction("PItarget", "PIdata");
   var ent4 = doc.createEntityNode("ent4",entElement, procElement);
 
   var ent5 = doc.createEntityNode("ent5");
@@ -30,13 +30,19 @@ exports.staffNS = function() {
   ent5.systemId = "entityFile";
   ent5.notationName = "notation1";
 
+  var ent6 = doc.createEntityNode("ent6");
+  ent6.publicId = "uri";
+  ent6.systemId = "file";
+  ent6.notationName = "notation2";
+
   var entities = new dom.EntityNodeMap(
     doc,
     doc.createEntityNode("ent1", doc.createTextNode("es")),
     doc.createEntityNode("ent2",doc.createTextNode("1900 Dallas Road")),
     doc.createEntityNode("ent3",doc.createTextNode("Texas")),
     ent4,
-    ent5
+    ent5,
+    ent6
   );
 
   var defaultAttributes = new dom.NamedNodeMap(doc);
@@ -115,7 +121,7 @@ exports.staffNS = function() {
   employee.appendChild(address);
   staff.appendChild(employee);
 
-  employee.setAttributeNS("http://www.nist.gov", "xmlns:dmstc", "http://www.usa.com");
+  employee.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:dmstc", "http://www.usa.com");
   id.appendChild(doc.createTextNode("EMP0002"));
   salary.appendChild(doc.createTextNode("35,000"));
   address.setAttributeNS("http://www.usa.com", "dmstc:domestic", "Yes");
@@ -151,7 +157,7 @@ exports.staffNS = function() {
   employee.appendChild(gender);
   employee.appendChild(address);
   staff.appendChild(employee);
-  employee.setAttributeNS("http://www.nist.gov", "xmlns:dmstc", "http://www.netzero.com");
+  employee.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:dmstc", "http://www.netzero.com");
   id.appendChild(doc.createTextNode("EMP0003"));
   salary.appendChild(doc.createTextNode("100,000"));
   address.setAttributeNS("http://www.netzero.com", "dmstc:domestic", "Yes");
@@ -180,8 +186,8 @@ exports.staffNS = function() {
   employee.appendChild(address);
   staff.appendChild(employee);
 
-  employee.setAttributeNS("http://www.nist.gov", "xmlns:emp", "http://www.nist.gov");
-  employee.setAttributeNS("http://www.altavista.com", "xmlns:nm", "http://www.altavista.com");
+  employee.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:emp", "http://www.nist.gov");
+  employee.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:nm", "http://www.altavista.com");
   employee.setAttributeNS(null, 'defaultAttr', 'defaultVal');
 
   id.appendChild(doc.createTextNode("EMP0004"));
