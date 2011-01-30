@@ -1,9 +1,9 @@
 exports.tests = {
   /**
-  * 
+  *
   Attr nodes may be associated with Element nodes contained within a DocumentFragment.
-  Create a new DocumentFragment and add a newly created Element node(with one attribute).  
-  Once the element is added, its attribute should be available as an attribute associated 
+  Create a new DocumentFragment and add a newly created Element node(with one attribute).
+  Once the element is added, its attribute should be available as an attribute associated
   with an Element within a DocumentFragment.
 
   * @author NIST
@@ -44,15 +44,15 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "setValue()" method for an attribute creates a 
+  *
+  The "setValue()" method for an attribute creates a
   Text node with the unparsed content of the string.
-  Retrieve the attribute named "street" from the last 
-  child of of the fourth employee and assign the "Y&ent1;" 
+  Retrieve the attribute named "street" from the last
+  child of of the fourth employee and assign the "Y&ent1;"
   string to its value attribute.  This value is not yet
   parsed and therefore should still be the same upon
   retrieval. This test uses the "getNamedItem(name)" method
-  from the NamedNodeMap interface.  
+  from the NamedNodeMap interface.
 
   * @author NIST
   * @author Mary Brady
@@ -90,15 +90,15 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "setNodeValue()" method for an attribute creates a 
+  *
+  The "setNodeValue()" method for an attribute creates a
   Text node with the unparsed content of the string.
-  Retrieve the attribute named "street" from the last 
-  child of of the fourth employee and assign the "Y&ent1;" 
+  Retrieve the attribute named "street" from the last
+  child of of the fourth employee and assign the "Y&ent1;"
   string to its value attribute.  This value is not yet
   parsed and therefore should still be the same upon
   retrieval. This test uses the "getNamedItem(name)" method
-  from the NamedNodeMap interface. 
+  from the NamedNodeMap interface.
 
   * @author Curt Arnold
   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
@@ -135,16 +135,16 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   If there is not an explicit value assigned to an attribute
   and there is a declaration for this attribute and that
   declaration includes a default value, then that default
   value is the attributes default value.
-  Retrieve the attribute named "street" from the last 
-  child of of the first employee and examine its 
+  Retrieve the attribute named "street" from the last
+  child of of the first employee and examine its
   value.  That value should be the value given the
-  attribute in the DTD file.  The test uses the 
-  "getNamedItem(name)" method from the NamedNodeMap 
+  attribute in the DTD file.  The test uses the
+  "getNamedItem(name)" method from the NamedNodeMap
   interface.
 
   * @author NIST
@@ -179,10 +179,10 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   If an Attr is explicitly assigned any value, then that value is the attributes effective value.
-  Retrieve the attribute named "domestic" from the last child of of the first employee 
-  and examine its nodeValue attribute.  This test uses the "getNamedItem(name)" method 
+  Retrieve the attribute named "domestic" from the last child of of the first employee
+  and examine its nodeValue attribute.  This test uses the "getNamedItem(name)" method
   from the NamedNodeMap interface.
 
   * @author NIST
@@ -216,16 +216,16 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "getValue()" method will return the value of the
   attribute as a string.  The general entity references
   are replaced with their values.
-  Retrieve the attribute named "street" from the last 
-  child of of the fourth employee and examine the string 
+  Retrieve the attribute named "street" from the last
+  child of of the fourth employee and examine the string
   returned by the "getValue()" method.  The value should
   be set to "Yes" after the EntityReference is
-  replaced with its value.  This test uses the  
-  "getNamedItem(name)" method from the NamedNodeMap 
+  replaced with its value.  This test uses the
+  "getNamedItem(name)" method from the NamedNodeMap
   interface.
 
   * @author NIST
@@ -258,11 +258,11 @@ exports.tests = {
 
   },
   /**
-  * 
-  The getNodeName() method of an Attribute node. 
-  Retrieve the attribute named street from the last 
-  child of of the second employee and examine its 
-  NodeName.  This test uses the getNamedItem(name) method from the NamedNodeMap 
+  *
+  The getNodeName() method of an Attribute node.
+  Retrieve the attribute named street from the last
+  child of of the second employee and examine its
+  NodeName.  This test uses the getNamedItem(name) method from the NamedNodeMap
   interface.
 
   * @author NIST
@@ -299,7 +299,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "getNextSibling()" method for an Attr node should return null.
   Retrieve the attribute named "domestic" from the last child of of the
   first employee and examine its NextSibling node.  This test uses the
@@ -336,14 +336,14 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "getSpecified()" method for an Attr node should 
+  *
+  The "getSpecified()" method for an Attr node should
   be set to false if the attribute was not explicitly given
   a value.
-  Retrieve the attribute named "street" from the last 
-  child of of the first employee and examine the value 
-  returned by the "getSpecified()" method.  This test uses 
-  the "getNamedItem(name)" method from the NamedNodeMap 
+  Retrieve the attribute named "street" from the last
+  child of of the first employee and examine the value
+  returned by the "getSpecified()" method.  This test uses
+  the "getNamedItem(name)" method from the NamedNodeMap
   interface.
 
   * @author NIST
@@ -377,7 +377,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "getParentNode()" method for an Attr node should return null.  Retrieve
   the attribute named "domestic" from the last child of the first employee
   and examine its parentNode attribute.  This test also uses the "getNamedItem(name)"
@@ -414,7 +414,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "getPreviousSibling()" method for an Attr node should return null.
   Retrieve the attribute named "domestic" from the last child of of the
   first employee and examine its PreviousSibling node.  This test uses the
@@ -451,7 +451,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   Removing a child node from an attribute in an entity reference
   should result in an NO_MODIFICATION_ALLOWED_ERR DOMException.
 
@@ -497,7 +497,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   Replacing a child node from an attribute in an entity reference
   should result in an NO_MODIFICATION_ALLOWED_ERR DOMException.
 
@@ -545,8 +545,8 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "setValue()" method for an attribute causes the 
+  *
+  The "setValue()" method for an attribute causes the
   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
   if the node is readonly.
   Obtain the children of the THIRD "gender" element.  The elements
@@ -623,13 +623,13 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "setValue()" method for an attribute causes the 
+  *
+  The "setValue()" method for an attribute causes the
   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
   if the node is readonly.
 
   Create an entity reference using document.createEntityReference()
-  Get the "domestic" attribute from the entity 
+  Get the "domestic" attribute from the entity
   reference and execute the "setValue()" method.
   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
 
@@ -697,14 +697,14 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "getSpecified()" method for an Attr node should 
+  *
+  The "getSpecified()" method for an Attr node should
   be set to true if the attribute was explicitly given
   a value.
-  Retrieve the attribute named "domestic" from the last 
-  child of of the first employee and examine the value 
-  returned by the "getSpecified()" method.  This test uses 
-  the "getNamedItem(name)" method from the NamedNodeMap 
+  Retrieve the attribute named "domestic" from the last
+  child of of the first employee and examine the value
+  returned by the "getSpecified()" method.  This test uses
+  the "getNamedItem(name)" method from the NamedNodeMap
   interface.
 
   * @author NIST
@@ -737,11 +737,11 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "getSpecified()" method for an Attr node should return true if the 
-  value of the attribute is changed. 
-  Retrieve the attribute named "street" from the last 
-  child of of the THIRD employee and change its 
+  *
+  The "getSpecified()" method for an Attr node should return true if the
+  value of the attribute is changed.
+  Retrieve the attribute named "street" from the last
+  child of of the THIRD employee and change its
   value to "Yes"(which is the default DTD value).  This
   should cause the "getSpecified()" method to be true.
   This test uses the "setAttribute(name,value)" method
@@ -779,7 +779,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   To respecify the attribute to its default value from
   the DTD, the attribute must be deleted.  This will then
   make a new attribute available with the "getSpecified()"
@@ -826,7 +826,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   Retrieve the last CDATASection node located inside the
   second child of the second employee and examine its
   content.  Since the CDATASection interface inherits
@@ -866,7 +866,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   Adjacent CDATASection nodes cannot be merged together by
   use of the "normalize()" method from the Element interface.
   Retrieve second child of the second employee and invoke
@@ -911,14 +911,14 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "appendData(arg)" method appends a string to the end 
+  *
+  The "appendData(arg)" method appends a string to the end
   of the character data of the node.
 
-  Retrieve the character data from the second child 
+  Retrieve the character data from the second child
   of the first employee.  The appendData(arg) method is
-  called with arg=", Esquire".  The method should append 
-  the specified data to the already existing character  
+  called with arg=", Esquire".  The method should append
+  the specified data to the already existing character
   data.  The new value return by the "getLength()" method
   should be 24.
 
@@ -954,15 +954,15 @@ exports.tests = {
 
   },
   /**
-  * 
-  On successful invocation of the "appendData(arg)" 
+  *
+  On successful invocation of the "appendData(arg)"
   method the "getData()" method provides access to the
   concatentation of data and the specified string.
 
-  Retrieve the character data from the second child 
+  Retrieve the character data from the second child
   of the first employee.  The appendData(arg) method is
-  called with arg=", Esquire".  The method should append 
-  the specified data to the already existing character  
+  called with arg=", Esquire".  The method should append
+  the specified data to the already existing character
   data.  The new value return by the "getData()" method
   should be "Margaret Martin, Esquire".
 
@@ -996,11 +996,11 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "appendData(arg)" method raises a NO_MODIFICATION_ALLOWED_ERR 
-  DOMException if the node is readonly.  
+  *
+  The "appendData(arg)" method raises a NO_MODIFICATION_ALLOWED_ERR
+  DOMException if the node is readonly.
   Obtain the children of the THIRD "gender" element.  The elements
-  content is an entity reference.  Get the FIRST item 
+  content is an entity reference.  Get the FIRST item
   from the entity reference and execute the "appendData(arg)" method.
   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
 
@@ -1062,8 +1062,8 @@ exports.tests = {
 
   },
   /**
-  * 
-  Create an ent3 entity reference and call appendData on a text child, should thrown a NO_MODIFICATION_ALLOWED_ERR. 
+  *
+  Create an ent3 entity reference and call appendData on a text child, should thrown a NO_MODIFICATION_ALLOWED_ERR.
 
   * @author Curt Arnold
   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
@@ -1109,7 +1109,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "deleteData(offset,count)" method removes a range of
   characters from the node.  Delete data at the beginning
   of the character data.
@@ -1150,9 +1150,9 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "deleteData(offset,count)" method removes a range of 
-  characters from the node.  Delete data at the end 
+  *
+  The "deleteData(offset,count)" method removes a range of
+  characters from the node.  Delete data at the end
   of the character data.
 
   Retrieve the character data from the last child of the
@@ -1192,11 +1192,11 @@ exports.tests = {
 
   },
   /**
-  * 
-  If the sum of the offset and count used in the        
+  *
+  If the sum of the offset and count used in the
   "deleteData(offset,count) method is greater than the
   length of the character data then all the characters
-  from the offset to the end of the data are deleted. 
+  from the offset to the end of the data are deleted.
 
   Retrieve the character data from the last child of the
   first employee.  The "deleteData(offset,count)"
@@ -1236,10 +1236,10 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   On successful invocation of the "deleteData(offset,count)"
   method, the "getData()" and "getLength()" methods reflect
-  the changes. 
+  the changes.
 
   Retrieve the character data from the last child of the
   first employee.  The "deleteData(offset,count)"
@@ -1287,9 +1287,9 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "deleteData(offset,count)" method removes a range of 
-  characters from the node.  Delete data in the middle 
+  *
+  The "deleteData(offset,count)" method removes a range of
+  characters from the node.  Delete data in the middle
   of the character data.
 
   Retrieve the character data from the last child of the
@@ -1329,11 +1329,11 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "deleteData(offset,count)" method raises a NO_MODIFICATION_ALLOWED_ERR 
-  DOMException if the node is readonly.   
+  *
+  The "deleteData(offset,count)" method raises a NO_MODIFICATION_ALLOWED_ERR
+  DOMException if the node is readonly.
   Obtain the children of the THIRD "gender" element.  The elements
-  content is an entity reference.  Get the FIRST item 
+  content is an entity reference.  Get the FIRST item
   from the entity reference and execute the "deleteData(offset,count)" method.
   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
 
@@ -1395,8 +1395,8 @@ exports.tests = {
 
   },
   /**
-  * 
-  Create an ent3 entity reference and call deleteData on a text child, should thrown a NO_MODIFICATION_ALLOWED_ERR. 
+  *
+  Create an ent3 entity reference and call deleteData on a text child, should thrown a NO_MODIFICATION_ALLOWED_ERR.
 
   * @author Curt Arnold
   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
@@ -1442,17 +1442,17 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
 
-  The "getData()" method retrieves the character data 
+  The "getData()" method retrieves the character data
 
   currently stored in the node.
 
-  Retrieve the character data from the second child 
+  Retrieve the character data from the second child
 
-  of the first employee and invoke the "getData()" 
+  of the first employee and invoke the "getData()"
 
-  method.  The method returns the character data 
+  method.  The method returns the character data
 
   string.
 
@@ -1485,12 +1485,12 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "getLength()" method returns the number of characters 
+  *
+  The "getLength()" method returns the number of characters
   stored in this nodes data.
-  Retrieve the character data from the second 
-  child of the first employee and examine the 
-  value returned by the getLength() method.  
+  Retrieve the character data from the second
+  child of the first employee and examine the
+  value returned by the getLength() method.
 
   * @author NIST
   * @author Mary Brady
@@ -1523,10 +1523,10 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "deleteData(offset,count)" method raises an
-  INDEX_SIZE_ERR DOMException if the specified count 
-  is negative. 
+  INDEX_SIZE_ERR DOMException if the specified count
+  is negative.
 
   Retrieve the character data of the last child of the
   first employee and invoke its "deleteData(offset,count)"
@@ -1570,10 +1570,10 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "deleteData(offset,count)" method raises an
   INDEX_SIZE_ERR DOMException if the specified offset
-  is greater that the number of characters in the string. 
+  is greater that the number of characters in the string.
 
   Retrieve the character data of the last child of the
   first employee and invoke its "deleteData(offset,count)"
@@ -1620,10 +1620,10 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "deleteData(offset,count)" method raises an
   INDEX_SIZE_ERR DOMException if the specified offset
-  is negative. 
+  is negative.
 
   Retrieve the character data of the last child of the
   first employee and invoke its "deleteData(offset,count)"
@@ -1668,10 +1668,10 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "insertData(offset,arg)" method raises an
   INDEX_SIZE_ERR DOMException if the specified offset
-  is greater than the number of characters in the string. 
+  is greater than the number of characters in the string.
 
   Retrieve the character data of the last child of the
   first employee and invoke its insertData"(offset,arg)"
@@ -1717,10 +1717,10 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "insertData(offset,arg)" method raises an
   INDEX_SIZE_ERR DOMException if the specified offset
-  is negative. 
+  is negative.
 
   Retrieve the character data of the last child of the
   first employee and invoke its insertData"(offset,arg)"
@@ -1764,10 +1764,10 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "replaceData(offset,count,arg)" method raises an
   INDEX_SIZE_ERR DOMException if the specified count
-  is negative. 
+  is negative.
 
   Retrieve the character data of the last child of the
   first employee and invoke its
@@ -1812,10 +1812,10 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "replaceData(offset,count,arg)" method raises an
   INDEX_SIZE_ERR DOMException if the specified offset
-  is greater than the length of the string. 
+  is greater than the length of the string.
 
   Retrieve the character data of the last child of the
   first employee and invoke its
@@ -1862,10 +1862,10 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "replaceData(offset,count,arg)" method raises an
   INDEX_SIZE_ERR DOMException if the specified offset
-  is negative. 
+  is negative.
 
   Retrieve the character data of the last child of the
   first employee and invoke its
@@ -1911,10 +1911,10 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "substringData(offset,count)" method raises an
-  INDEX_SIZE_ERR DOMException if the specified count 
-  is negative. 
+  INDEX_SIZE_ERR DOMException if the specified count
+  is negative.
 
   Retrieve the character data of the last child of the
   first employee and invoke its "substringData(offset,count)
@@ -1959,10 +1959,10 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "substringData(offset,count)" method raises an
   INDEX_SIZE_ERR DOMException if the specified offset
-  is negative. 
+  is negative.
 
   Retrieve the character data of the last child of the
   first employee and invoke its "substringData(offset,count)
@@ -2007,7 +2007,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "substringData(offset,count)" method raises an
   INDEX_SIZE_ERR DOMException if the specified offset
   is greater than the number of characters in the string.
@@ -2057,7 +2057,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "insertData(offset,arg)" method will insert a string
   at the specified character offset.  Insert the data at
   the beginning of the character data.
@@ -2098,15 +2098,15 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "insertData(offset,arg)" method will insert a string 
-  at the specified character offset.  Insert the data at 
-  the end of the character data. 
+  *
+  The "insertData(offset,arg)" method will insert a string
+  at the specified character offset.  Insert the data at
+  the end of the character data.
 
-  Retrieve the character data from the second child of  
+  Retrieve the character data from the second child of
   the first employee.  The "insertData(offset,arg)"
   method is then called with offset=15 and arg=", Esquire".
-  The method should insert the string ", Esquire" at 
+  The method should insert the string ", Esquire" at
   position 15.  The new value of the character data should
   be "Margaret Martin, Esquire".
 
@@ -2140,12 +2140,12 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "insertData(offset,arg)" method will insert a string 
-  at the specified character offset.  Insert the data in 
-  the middle of the character data. 
+  *
+  The "insertData(offset,arg)" method will insert a string
+  at the specified character offset.  Insert the data in
+  the middle of the character data.
 
-  Retrieve the character data from the second child of  
+  Retrieve the character data from the second child of
   the first employee.  The "insertData(offset,arg)"
   method is then called with offset=9 and arg="Ann".
   The method should insert the string "Ann" at position 9.
@@ -2182,11 +2182,11 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "insertData(offset,arg)" method raises a NO_MODIFICATION_ALLOWED_ERR 
-  DOMException if the node is readonly.   
+  *
+  The "insertData(offset,arg)" method raises a NO_MODIFICATION_ALLOWED_ERR
+  DOMException if the node is readonly.
   Obtain the children of the THIRD "gender" element.  The elements
-  content is an entity reference.  Get the FIRST item 
+  content is an entity reference.  Get the FIRST item
   from the entity reference and execute the "insertData(offset,arg)" method.
   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
 
@@ -2248,8 +2248,8 @@ exports.tests = {
 
   },
   /**
-  * 
-  Create an ent3 entity reference and call insertData on a text child, should thrown a NO_MODIFICATION_ALLOWED_ERR. 
+  *
+  Create an ent3 entity reference and call insertData on a text child, should thrown a NO_MODIFICATION_ALLOWED_ERR.
 
   * @author Curt Arnold
   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
@@ -2293,7 +2293,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "replaceData(offset,count,arg)" method replaces the
   characters starting at the specified offset with the
   specified string.  Test for replacement in the
@@ -2334,16 +2334,16 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "replaceData(offset,count,arg)" method replaces the 
+  *
+  The "replaceData(offset,count,arg)" method replaces the
   characters starting at the specified offset with the
-  specified string.  Test for replacement at the 
+  specified string.  Test for replacement at the
   end of the data.
 
   Retrieve the character data from the last child of the
   first employee.  The "replaceData(offset,count,arg)"
   method is then called with offset=30 and count=5 and
-  arg="98665".  The method should replace characters 30  
+  arg="98665".  The method should replace characters 30
   thru 34 of the character data with "98665".
 
   * @author NIST
@@ -2376,16 +2376,16 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "replaceData(offset,count,arg)" method replaces the 
+  *
+  The "replaceData(offset,count,arg)" method replaces the
   characters starting at the specified offset with the
-  specified string.  Test the situation where the length 
+  specified string.  Test the situation where the length
   of the arg string is greater than the specified offset.
 
   Retrieve the character data from the last child of the
   first employee.  The "replaceData(offset,count,arg)"
   method is then called with offset=0 and count=4 and
-  arg="260030".  The method should replace characters one  
+  arg="260030".  The method should replace characters one
   thru four with "260030".  Note that the length of the
   specified string is greater that the specified offset.
 
@@ -2419,8 +2419,8 @@ exports.tests = {
 
   },
   /**
-  * 
-  If the sum of the offset and count exceeds the length then 
+  *
+  If the sum of the offset and count exceeds the length then
   all the characters to the end of the data are replaced.
 
   Retrieve the character data from the last child of the
@@ -2460,16 +2460,16 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "replaceData(offset,count,arg)" method replaces the 
+  *
+  The "replaceData(offset,count,arg)" method replaces the
   characters starting at the specified offset with the
-  specified string.  Test for replacement in the 
+  specified string.  Test for replacement in the
   middle of the data.
 
   Retrieve the character data from the last child of the
   first employee.  The "replaceData(offset,count,arg)"
   method is then called with offset=5 and count=5 and
-  arg="South".  The method should replace characters five  
+  arg="South".  The method should replace characters five
   thru 9 of the character data with "South".
 
   * @author NIST
@@ -2502,12 +2502,12 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "replaceData(offset,count,arg)" method raises a NO_MODIFICATION_ALLOWED_ERR 
+  *
+  The "replaceData(offset,count,arg)" method raises a NO_MODIFICATION_ALLOWED_ERR
   DOMException if the node is readonly.
 
   Obtain the children of the THIRD "gender" element.  The elements
-  content is an entity reference.  Get the FIRST item 
+  content is an entity reference.  Get the FIRST item
   from the entity reference and execute the "replaceData(offset,count,arg)" method.
   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
 
@@ -2569,8 +2569,8 @@ exports.tests = {
 
   },
   /**
-  * 
-  Create an ent3 entity reference and call replaceData on a text child, should thrown a NO_MODIFICATION_ALLOWED_ERR. 
+  *
+  Create an ent3 entity reference and call replaceData on a text child, should thrown a NO_MODIFICATION_ALLOWED_ERR.
 
   * @author Curt Arnold
   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
@@ -2616,11 +2616,11 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "setData(data)" method raises a NO_MODIFICATION_ALLOWED_ERR 
+  *
+  The "setData(data)" method raises a NO_MODIFICATION_ALLOWED_ERR
   DOMException if the node is readonly.
   Obtain the children of the THIRD "gender" element.  The elements
-  content is an entity reference.  Get the FIRST item 
+  content is an entity reference.  Get the FIRST item
   from the entity reference and execute the "setData(data)" method.
   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
 
@@ -2683,8 +2683,8 @@ exports.tests = {
 
   },
   /**
-  * 
-  Create an ent3 entity reference and call setData on a text child, should thrown a NO_MODIFICATION_ALLOWED_ERR. 
+  *
+  Create an ent3 entity reference and call setData on a text child, should thrown a NO_MODIFICATION_ALLOWED_ERR.
 
   * @author Curt Arnold
   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
@@ -2729,11 +2729,11 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "setNodeValue()" method changes the character data 
+  *
+  The "setNodeValue()" method changes the character data
   currently stored in the node.
-  Retrieve the character data from the second child 
-  of the first employee and invoke the "setNodeValue()" 
+  Retrieve the character data from the second child
+  of the first employee and invoke the "setNodeValue()"
   method, call "getData()" and compare.
 
   * @author Curt Arnold
@@ -2769,15 +2769,15 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   If the sum of the "offset" and "count" exceeds the
   "length" then the "substringData(offset,count)" method
-  returns all the characters to the end of the data. 
+  returns all the characters to the end of the data.
 
-  Retrieve the character data from the second child 
-  of the first employee and access part of the data 
+  Retrieve the character data from the second child
+  of the first employee and access part of the data
   by using the substringData(offset,count) method
-  with offset=9 and count=10.  The method should return 
+  with offset=9 and count=10.  The method should return
   the substring "Martin" since offset+count > length
   (19 > 15).
 
@@ -2808,14 +2808,14 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "substringData(offset,count)" method returns the 
+  *
+  The "substringData(offset,count)" method returns the
   specified string.
 
-  Retrieve the character data from the second child 
-  of the first employee and access part of the data 
+  Retrieve the character data from the second child
+  of the first employee and access part of the data
   by using the substringData(offset,count) method.  The
-  method should return the specified substring starting 
+  method should return the specified substring starting
   at position "offset" and extract "count" characters.
   The method should return the string "Margaret".
 
@@ -2846,10 +2846,10 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   A comment is all the characters between the starting
-  '<!--' and ending '-->' 
-  Retrieve the nodes of the DOM document.  Search for a 
+  '<!--' and ending '-->'
+  Retrieve the nodes of the DOM document.  Search for a
   comment node and the content is its value.
 
   * @author NIST
@@ -2900,12 +2900,12 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "createAttribute(name)" method creates an Attribute 
+  *
+  The "createAttribute(name)" method creates an Attribute
   node of the given name.
 
-  Retrieve the entire DOM document and invoke its 
-  "createAttribute(name)" method.  It should create a  
+  Retrieve the entire DOM document and invoke its
+  "createAttribute(name)" method.  It should create a
   new Attribute node with the given name. The name, value
   and type of the newly created object are retrieved and
   output.
@@ -2941,12 +2941,12 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "createCDATASection(data)" method creates a new 
+  *
+  The "createCDATASection(data)" method creates a new
   CDATASection node whose value is the specified string.
-  Retrieve the entire DOM document and invoke its 
+  Retrieve the entire DOM document and invoke its
   "createCDATASection(data)" method.  It should create a
-  new CDATASection node whose "data" is the specified 
+  new CDATASection node whose "data" is the specified
   string.  The content, name and type are retrieved and
   output.
 
@@ -2981,10 +2981,10 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "createComment(data)" method creates a new Comment
-  node given the specified string. 
-  Retrieve the entire DOM document and invoke its 
+  node given the specified string.
+  Retrieve the entire DOM document and invoke its
   "createComment(data)" method.  It should create a new
   Comment node whose "data" is the specified string.
   The content, name and type are retrieved and output.
@@ -3020,11 +3020,11 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "createDocumentFragment()" method creates an empty 
+  *
+  The "createDocumentFragment()" method creates an empty
   DocumentFragment object.
-  Retrieve the entire DOM document and invoke its 
-  "createDocumentFragment()" method.  The content, name, 
+  Retrieve the entire DOM document and invoke its
+  "createDocumentFragment()" method.  The content, name,
   type and value of the newly created object are output.
 
   * @author NIST
@@ -3065,13 +3065,13 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "createElement(tagName)" method creates an Element 
+  *
+  The "createElement(tagName)" method creates an Element
   of the type specified.
-  Retrieve the entire DOM document and invoke its 
+  Retrieve the entire DOM document and invoke its
   "createElement(tagName)" method with tagName="address".
   The method should create an instance of an Element node
-  whose tagName is "address".  The NodeName, NodeType 
+  whose tagName is "address".  The NodeName, NodeType
   and NodeValue are returned.
 
   * @author NIST
@@ -3105,14 +3105,14 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The tagName parameter in the "createElement(tagName)"
   method is case-sensitive for XML documents.
-  Retrieve the entire DOM document and invoke its 
+  Retrieve the entire DOM document and invoke its
   "createElement(tagName)" method twice.  Once for tagName
   equal to "address" and once for tagName equal to "ADDRESS"
   Each call should create a distinct Element node.  The
-  newly created Elements are then assigned attributes 
+  newly created Elements are then assigned attributes
   that are retrieved.
 
   * @author NIST
@@ -3145,17 +3145,17 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "createElement(tagName)" method creates an Element 
+  *
+  The "createElement(tagName)" method creates an Element
   of the type specified.  In addition, if there are known attributes
   with default values, Attr nodes representing them are automatically
   created and attached to the element.
-  Retrieve the entire DOM document and invoke its 
+  Retrieve the entire DOM document and invoke its
   "createElement(tagName)" method with tagName="address".
   The method should create an instance of an Element node
-  whose tagName is "address".  The tagName "address" has an 
+  whose tagName is "address".  The tagName "address" has an
   attribute with default values, therefore the newly created element
-  will have them.  
+  will have them.
 
   * @author NIST
   * @author Mary Brady
@@ -3192,13 +3192,13 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "createEntityReference(name)" method creates an 
+  *
+  The "createEntityReference(name)" method creates an
   EntityReferrence node.
 
-  Retrieve the entire DOM document and invoke its 
-  "createEntityReference(name)" method.  It should create 
-  a new EntityReference node for the Entity with the 
+  Retrieve the entire DOM document and invoke its
+  "createEntityReference(name)" method.  It should create
+  a new EntityReference node for the Entity with the
   given name.  The name, value and type are retrieved and
   output.
 
@@ -3236,15 +3236,15 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "createEntityReference(name)" method creates an 
+  *
+  The "createEntityReference(name)" method creates an
   EntityReference node.  In addition, if the referenced entity
   is known, the child list of the "EntityReference" node
   is the same as the corresponding "Entity" node.
 
-  Retrieve the entire DOM document and invoke its 
-  "createEntityReference(name)" method.  It should create 
-  a new EntityReference node for the Entity with the 
+  Retrieve the entire DOM document and invoke its
+  "createEntityReference(name)" method.  It should create
+  a new EntityReference node for the Entity with the
   given name.  The referenced entity is known, therefore the child
   list of the "EntityReference" node is the same as the corresponding
   "Entity" node.
@@ -3284,14 +3284,14 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "createProcessingInstruction(target,data)" method 
+  *
+  The "createProcessingInstruction(target,data)" method
   creates a new ProcessingInstruction node with the
   specified name and data string.
 
-  Retrieve the entire DOM document and invoke its 
-  "createProcessingInstruction(target,data)" method.  
-  It should create a new PI node with the specified target 
+  Retrieve the entire DOM document and invoke its
+  "createProcessingInstruction(target,data)" method.
+  It should create a new PI node with the specified target
   and data.  The target, data and type are retrieved and
   output.
 
@@ -3331,11 +3331,11 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "createTextNode(data)" method creates a Text node 
+  *
+  The "createTextNode(data)" method creates a Text node
   given the specfied string.
-  Retrieve the entire DOM document and invoke its 
-  "createTextNode(data)" method.  It should create a 
+  Retrieve the entire DOM document and invoke its
+  "createTextNode(data)" method.  It should create a
   new Text node whose "data" is the specified string.
   The NodeName and NodeType are also checked.
 
@@ -3370,10 +3370,10 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "getDoctype()" method returns the Document 
+  *
+  The "getDoctype()" method returns the Document
   Type Declaration associated with this document.
-  Retrieve the entire DOM document and invoke its 
+  Retrieve the entire DOM document and invoke its
   "getDoctype()" method.  The name of the document
   type should be returned.  The "getName()" method
   should be equal to "staff" or "svg".
@@ -3422,11 +3422,11 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "getDoctype()" method returns null for XML documents
   without a document type declaration.
-  Retrieve the XML document without a DTD and invoke the 
-  "getDoctype()" method.  It should return null. 
+  Retrieve the XML document without a DTD and invoke the
+  "getDoctype()" method.  It should return null.
 
   * @author NIST
   * @author Mary Brady
@@ -3449,13 +3449,13 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "getElementsByTagName(tagName)" method returns a 
+  *
+  The "getElementsByTagName(tagName)" method returns a
   NodeList of all the Elements with a given tagName.
 
-  Retrieve the entire DOM document and invoke its 
+  Retrieve the entire DOM document and invoke its
   "getElementsByTagName(tagName)" method with tagName
-  equal to "name".  The method should return a NodeList 
+  equal to "name".  The method should return a NodeList
   that contains 5 elements.
 
   * @author NIST
@@ -3478,9 +3478,9 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   Retrieve the entire DOM document, invoke
-  getElementsByTagName("*") and check the length of the NodeList. 
+  getElementsByTagName("*") and check the length of the NodeList.
 
   * @author NIST
   * @author Mary Brady
@@ -3515,14 +3515,14 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "getElementsByTagName(tagName)" method returns a 
+  *
+  The "getElementsByTagName(tagName)" method returns a
   NodeList of all the Elements with a given tagName
   in a pre-order traversal of the tree.
 
-  Retrieve the entire DOM document and invoke its 
+  Retrieve the entire DOM document and invoke its
   "getElementsByTagName(tagName)" method with tagName
-  equal to "name".  The method should return a NodeList 
+  equal to "name".  The method should return a NodeList
   that contains 5 elements.  The FOURTH item in the
   list is retrieved and output.
 
@@ -3554,11 +3554,11 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "getImplementation()" method returns the 
-  DOMImplementation object that handles this document. 
-  Retrieve the entire DOM document and invoke its 
-  "getImplementation()" method.  It should return a 
+  *
+  The "getImplementation()" method returns the
+  DOMImplementation object that handles this document.
+  Retrieve the entire DOM document and invoke its
+  "getImplementation()" method.  It should return a
   DOMImplementation whose "hasFeature("XML","1.0")
   method returns the boolean value "true".
 
@@ -3584,10 +3584,10 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "getDocumentElement()" method provides direct access 
+  *
+  The "getDocumentElement()" method provides direct access
   to the child node that is the root element of the document.
-  Retrieve the entire DOM document and invoke its 
+  Retrieve the entire DOM document and invoke its
   "getDocumentElement()" method.  It should return an
   Element node whose NodeName is "staff" (or "svg").
 
@@ -3629,14 +3629,14 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "createAttribute(tagName)" method raises an
   INVALID_CHARACTER_ERR DOMException if the specified
-  tagName contains an invalid character. 
+  tagName contains an invalid character.
 
-  Retrieve the entire DOM document and invoke its 
+  Retrieve the entire DOM document and invoke its
   "createAttribute(tagName)" method with the tagName equal
-  to the string "invalid^Name".  Due to the invalid 
+  to the string "invalid^Name".  Due to the invalid
   character the desired EXCEPTION should be raised.
 
   * @author NIST
@@ -3672,14 +3672,14 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "createElement(tagName)" method raises an
   INVALID_CHARACTER_ERR DOMException if the specified
-  tagName contains an invalid character. 
+  tagName contains an invalid character.
 
-  Retrieve the entire DOM document and invoke its 
+  Retrieve the entire DOM document and invoke its
   "createElement(tagName)" method with the tagName equal
-  to the string "invalid^Name".  Due to the invalid 
+  to the string "invalid^Name".  Due to the invalid
   character the desired EXCEPTION should be raised.
 
   * @author NIST
@@ -3715,10 +3715,10 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "createEntityReference(tagName)" method raises an
   INVALID_CHARACTER_ERR DOMException if the specified
-  tagName contains an invalid character. 
+  tagName contains an invalid character.
 
   * @author NIST
   * @author Mary Brady
@@ -3775,7 +3775,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   Creating an entity reference with an empty name should cause an INVALID_CHARACTER_ERR.
 
   * @author Curt Arnold
@@ -3832,10 +3832,10 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "createProcessingInstruction(target,data) method 
+  *
+  The "createProcessingInstruction(target,data) method
   raises an INVALID_CHARACTER_ERR DOMException if the
-  specified tagName contains an invalid character. 
+  specified tagName contains an invalid character.
 
   * @author NIST
   * @author Mary Brady
@@ -3892,7 +3892,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   Creating a processing instruction with an empty target should cause an INVALID_CHARACTER_ERR.
 
   * @author Curt Arnold
@@ -3949,8 +3949,8 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "getName()" method contains the name of the DTD. 
+  *
+  The "getName()" method contains the name of the DTD.
 
   Retrieve the Document Type for this document and examine
   the string returned by the "getName()" method.
@@ -3995,11 +3995,11 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "getEntities()" method is a NamedNodeMap that contains
-  the general entities for this document. 
+  the general entities for this document.
 
-  Retrieve the Document Type for this document and create 
+  Retrieve the Document Type for this document and create
   a NamedNodeMap of all its entities.  The entire map is
   traversed and the names of the entities are retrieved.
   There should be 5 entities.  Duplicates should be ignored.
@@ -4070,11 +4070,11 @@ exports.tests = {
 
   },
   /**
-  * 
-  Duplicate entities are to be discarded. 
-  Retrieve the Document Type for this document and create 
-  a NamedNodeMap of all its entities.  The entity named 
-  "ent1" is defined twice and therefore that last 
+  *
+  Duplicate entities are to be discarded.
+  Retrieve the Document Type for this document and create
+  a NamedNodeMap of all its entities.  The entity named
+  "ent1" is defined twice and therefore that last
   occurrance should be discarded.
 
   * @author NIST
@@ -4116,12 +4116,12 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   Every node in the map returned by the "getEntities()"
   method implements the Entity interface.
 
-  Retrieve the Document Type for this document and create 
-  a NamedNodeMap of all its entities.  Traverse the 
+  Retrieve the Document Type for this document and create
+  a NamedNodeMap of all its entities.  Traverse the
   entire list and examine the NodeType of each node
   in the list.
 
@@ -4159,8 +4159,8 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "getNotations()" method creates a NamedNodeMap that   
+  *
+  The "getNotations()" method creates a NamedNodeMap that
   contains all the notations declared in the DTD.
 
   Retrieve the Document Type for this document and create
@@ -4209,7 +4209,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   Every node in the map returned by the "getNotations()"
   method implements the Notation interface.
 
@@ -4251,7 +4251,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   hasFeature("XML", "") should return true for implementations that can read staff files.
 
   * @author NIST
@@ -4277,7 +4277,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   hasFeature("XML", null) should return true for implementations that can read staff documents.
 
   * @author NIST
@@ -4305,7 +4305,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   hasFeature("xml", "1.0") should return true for implementations that can read staff documents.
 
   * @author NIST
@@ -4330,14 +4330,14 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "setAttribute(name,value)" method adds a new attribute
-  to the Element 
+  to the Element
 
-  Retrieve the last child of the last employee, then 
-  add an attribute to it by invoking the             
+  Retrieve the last child of the last employee, then
+  add an attribute to it by invoking the
   "setAttribute(name,value)" method.  It should create
-  a "name" attribute with an assigned value equal to 
+  a "name" attribute with an assigned value equal to
   "value".
 
   * @author NIST
@@ -4365,13 +4365,13 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   Elements may have attributes associated with them.
 
   Retrieve the first attribute from the last child of
-  the first employee and invoke the "getSpecified()" 
-  method.  This test is only intended to show that   
-  Elements can actually have attributes.  This test uses  
+  the first employee and invoke the "getSpecified()"
+  method.  This test is only intended to show that
+  Elements can actually have attributes.  This test uses
   the "getNamedItem(name)" method from the NamedNodeMap
   interface.
 
@@ -4405,16 +4405,16 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "setAttribute(name,value)" method adds a new attribute
   to the Element.  If the "name" is already present, then
   its value should be changed to the new one that is in
-  the "value" parameter. 
+  the "value" parameter.
 
-  Retrieve the last child of the fourth employee, then add 
-  an attribute to it by invoking the 
+  Retrieve the last child of the fourth employee, then add
+  an attribute to it by invoking the
   "setAttribute(name,value)" method.  Since the name of the
-  used attribute("street") is already present in this     
+  used attribute("street") is already present in this
   element, then its value should be changed to the new one
   of the "value" parameter.
 
@@ -4443,12 +4443,12 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "setAttributeNode(newAttr)" method adds a new 
-  attribute to the Element.  
+  *
+  The "setAttributeNode(newAttr)" method adds a new
+  attribute to the Element.
 
   Retrieve first address element and add
-  a new attribute node to it by invoking its         
+  a new attribute node to it by invoking its
   "setAttributeNode(newAttr)" method.  This test makes use
   of the "createAttribute(name)" method from the Document
   interface.
@@ -4485,7 +4485,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "getAttributeNode(name)" method retrieves an
   attribute node by name.
 
@@ -4521,7 +4521,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "getAttributeNode(name)" method retrieves an
   attribute node by name.  It should return null if the
   "name" attribute does not exist.
@@ -4555,14 +4555,14 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "getAttribute(name)" method returns an empty 
-  string if no value was assigned to an attribute and 
+  *
+  The "getAttribute(name)" method returns an empty
+  string if no value was assigned to an attribute and
   no default value was given in the DTD file.
 
   Retrieve the last child of the last employee, then
   invoke "getAttribute(name)" method, where "name" is an
-  attribute without a specified or DTD default value. 
+  attribute without a specified or DTD default value.
   The "getAttribute(name)" method should return the empty
   string.  This method makes use of the
   "createAttribute(newAttr)" method from the Document
@@ -4596,7 +4596,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "getElementsByTagName(name)" method returns a list
   of all descendant Elements with the given tag name.
   Test for an empty list.
@@ -4627,7 +4627,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   Element.getElementsByTagName("employee") should return a NodeList whose length is
   "5" in the order the children were encountered.
 
@@ -4676,7 +4676,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "getElementsByTagName(name)" method returns a list
   of all descendant Elements with the given tag name.
 
@@ -4705,7 +4705,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "getElementsByTagName(name)" method may use the
   special value "*" to match all tags in the element
   tree.
@@ -4758,17 +4758,17 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
 
-  The "getTagName()" method returns the 
+  The "getTagName()" method returns the
 
-  tagName of an element.    
+  tagName of an element.
 
 
 
-  Invoke the "getTagName()" method one the 
+  Invoke the "getTagName()" method one the
 
-  root node. The value returned should be "staff". 
+  root node. The value returned should be "staff".
 
 
   * @author NIST
@@ -4809,9 +4809,9 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "setAttributeNode(newAttr)" method raises an 
-  "INUSE_ATTRIBUTE_ERR DOMException if the "newAttr" 
+  *
+  The "setAttributeNode(newAttr)" method raises an
+  "INUSE_ATTRIBUTE_ERR DOMException if the "newAttr"
   is already an attribute of another element.
 
   Retrieve the last child of the second employee and append
@@ -4866,21 +4866,21 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
 
-  The "setAttribute(name,value)" method raises an 
+  The "setAttribute(name,value)" method raises an
 
-  "INVALID_CHARACTER_ERR DOMException if the specified 
+  "INVALID_CHARACTER_ERR DOMException if the specified
 
   name contains an invalid character.
 
 
 
-  Retrieve the last child of the first employee and 
+  Retrieve the last child of the first employee and
 
-  call its "setAttribute(name,value)" method with    
+  call its "setAttribute(name,value)" method with
 
-  "name" containing an invalid character. 
+  "name" containing an invalid character.
 
 
   * @author NIST
@@ -4918,13 +4918,13 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "normalize()" method puts all the nodes in the full
-  depth of the sub-tree underneath this element into a 
-  "normal" form. 
+  depth of the sub-tree underneath this element into a
+  "normal" form.
 
   Retrieve the third employee and access its second child.
-  This child contains a block of text that is spread 
+  This child contains a block of text that is spread
   across multiple lines.  The content of the "name" child
   should be parsed and treated as a single Text node.
 
@@ -4960,7 +4960,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "removeAttributeNode(oldAttr)" method raises a
   NOT_FOUND_ERR DOMException if the "oldAttr" attribute
   is not an attribute of the element.
@@ -4968,7 +4968,7 @@ exports.tests = {
   Retrieve the last employee and attempt to remove
   a non existing attribute node.  This should cause the
   intended exception to be raised.  This test makes use
-  of the "createAttribute(name)" method from the Document 
+  of the "createAttribute(name)" method from the Document
   interface.
 
   * @author NIST
@@ -5009,13 +5009,13 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "removeAttribute(name)" removes an attribute by name.
   If the attribute has a default value, it is immediately
   replaced.
 
   Retrieve the attribute named "street" from the last child
-  of the fourth employee, then remove the "street" 
+  of the fourth employee, then remove the "street"
   attribute by invoking the "removeAttribute(name)" method.
   The "street" attribute has a default value defined in the
   DTD file, that value should immediately replace the old
@@ -5047,12 +5047,12 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "removeAttributeNode(oldAttr)" method removes the 
-  specified attribute. 
+  *
+  The "removeAttributeNode(oldAttr)" method removes the
+  specified attribute.
 
   Retrieve the last child of the third employee, add a
-  new "district" node to it and then try to remove it. 
+  new "district" node to it and then try to remove it.
   To verify that the node was removed use the
   "getNamedItem(name)" method from the NamedNodeMap
   interface.  It also uses the "getAttributes()" method
@@ -5089,12 +5089,12 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "removeAttributeNode(oldAttr)" method returns the
-  node that was removed. 
+  node that was removed.
 
   Retrieve the last child of the third employee and
-  remove its "street" Attr node.  The method should  
+  remove its "street" Attr node.  The method should
   return the old attribute node.
 
   * @author NIST
@@ -5126,8 +5126,8 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "removeAttributeNode(oldAttr)" method for an attribute causes the 
+  *
+  The "removeAttributeNode(oldAttr)" method for an attribute causes the
   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
   if the node is readonly.
 
@@ -5200,13 +5200,13 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "removeAttributeNode(oldAttr)" method for an attribute causes the 
+  *
+  The "removeAttributeNode(oldAttr)" method for an attribute causes the
   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
   if the node is readonly.
 
   Create an entity reference and add it to the children of the THIRD "gender" element.
-  Try to remove the "domestic" attribute from the entity 
+  Try to remove the "domestic" attribute from the entity
   reference by executing the "removeAttributeNode(oldAttr)" method.
   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
 
@@ -5262,8 +5262,8 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "removeAttribute(name)" method for an attribute causes the 
+  *
+  The "removeAttribute(name)" method for an attribute causes the
   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
   if the node is readonly.
 
@@ -5330,12 +5330,12 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "removeAttribute(name)" method for an attribute causes the 
+  *
+  The "removeAttribute(name)" method for an attribute causes the
   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
   if the node is readonly.
 
-  Create an reference the entity ent4 and add it to the THIRD "gender" element.  
+  Create an reference the entity ent4 and add it to the THIRD "gender" element.
   Try to remove the "domestic" attribute from the entity reference by executing the "removeAttribute(name)" method.
   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
 
@@ -5383,11 +5383,11 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "removeAttributeNode(oldAttr)" method removes the
-  specified attribute node and restores any default values. 
+  specified attribute node and restores any default values.
 
-  Retrieve the last child of the third employeed and 
+  Retrieve the last child of the third employeed and
   remove its "street" Attr node.  Since this node has a
   default value defined in the DTD file, that default
   should immediately be the new value.
@@ -5421,8 +5421,8 @@ exports.tests = {
 
   },
   /**
-  * 
-  This test calls setAttributeNode to replace an attribute with itself.  
+  *
+  This test calls setAttributeNode to replace an attribute with itself.
   Since the node is not an attribute of another Element, it would
   be inappropriate to throw an INUSE_ATTRIBUTE_ERR.
 
@@ -5455,19 +5455,19 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "setAttributeNode(newAttr)" method adds a new
   attribute to the Element.  If the "newAttr" Attr node is
   already present in this element, it should replace the
-  existing one. 
+  existing one.
 
-  Retrieve the last child of the third employee and add a 
-  new attribute node by invoking the "setAttributeNode(new 
-    Attr)" method.  The new attribute node to be added is 
+  Retrieve the last child of the third employee and add a
+  new attribute node by invoking the "setAttributeNode(new
+    Attr)" method.  The new attribute node to be added is
     "street", which is already present in this element.  The
-    method should replace the existing Attr node with the 
+    method should replace the existing Attr node with the
     new one.  This test uses the "createAttribute(name)"
-    method from the Document interface. 
+    method from the Document interface.
 
     * @author NIST
     * @author Mary Brady
@@ -5496,7 +5496,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     If the "setAttributeNode(newAttr)" method replaces an
     existing Attr node with the same name, then it should
     return the previously existing Attr node.
@@ -5537,15 +5537,15 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "getAttributes()" method(Node Interface) may
     be used to retrieve the set of all attributes of an
-    element. 
+    element.
 
     Create a list of all the attributes of the last child
     of the first employee by using the "getAttributes()"
-    method.  Examine the length of the attribute list.  
-    This test uses the "getLength()" method from the        
+    method.  Examine the length of the attribute list.
+    This test uses the "getLength()" method from the
     NameNodeMap interface.
 
     * @author NIST
@@ -5574,7 +5574,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "getAttribute(name)" method returns an attribute
     value by name.
 
@@ -5606,13 +5606,13 @@ exports.tests = {
 
     },
     /**
-    * 
-    The "getElementsByTagName()" method returns a NodeList 
-    of all descendant elements with a given tagName.    
+    *
+    The "getElementsByTagName()" method returns a NodeList
+    of all descendant elements with a given tagName.
 
     Invoke the "getElementsByTagName()" method and create
-    a NodeList of "position" elements.  Retrieve the second 
-    "position" element in the list and return the NodeName. 
+    a NodeList of "position" elements.  Retrieve the second
+    "position" element in the list and return the NodeName.
 
     * @author NIST
     * @author Mary Brady
@@ -5643,8 +5643,8 @@ exports.tests = {
 
     },
     /**
-    * 
-    The "setAttributeNode(newAttr)" method for an attribute causes the 
+    *
+    The "setAttributeNode(newAttr)" method for an attribute causes the
     DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
     if the node is readonly.
 
@@ -5710,8 +5710,8 @@ exports.tests = {
 
     },
     /**
-    * 
-    The "setAttributeNode(newAttr)" method for an attribute causes the 
+    *
+    The "setAttributeNode(newAttr)" method for an attribute causes the
     DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
     if the node is readonly.
 
@@ -5767,17 +5767,17 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "setAttributeNode(newAttr)" method returns the
     null value if no previously existing Attr node with the
     same name was replaced.
 
-    Retrieve the last child of the third employee and add a 
-    new attribute to it.  The new attribute node added is 
-    "district", which is not part of this Element.  The   
-    method should return the null value.   
+    Retrieve the last child of the third employee and add a
+    new attribute to it.  The new attribute node added is
+    "district", which is not part of this Element.  The
+    method should return the null value.
     This test uses the "createAttribute(name)"
-    method from the Document interface. 
+    method from the Document interface.
 
     * @author NIST
     * @author Mary Brady
@@ -5805,8 +5805,8 @@ exports.tests = {
 
     },
     /**
-    * 
-    The "setAttribute(name,value)" method for an attribute causes the 
+    *
+    The "setAttribute(name,value)" method for an attribute causes the
     DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
     if the node is readonly.
 
@@ -5858,12 +5858,12 @@ exports.tests = {
 
     },
     /**
-    * 
-    The "setAttribute(name,value)" method for an attribute causes the 
+    *
+    The "setAttribute(name,value)" method for an attribute causes the
     DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
     if the node is readonly.
 
-    Add an ent4 reference to the children of the THIRD "gender" element.  
+    Add an ent4 reference to the children of the THIRD "gender" element.
     Try to remove the "domestic" attribute
     from the entity reference by executing the "setAttribute(name,value)" method.
     This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
@@ -5911,11 +5911,11 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
 
-    The "setAttributeNode(newAttr)" method raises an 
+    The "setAttributeNode(newAttr)" method raises an
 
-    "WRONG_DOCUMENT_ERR DOMException if the "newAttr" 
+    "WRONG_DOCUMENT_ERR DOMException if the "newAttr"
 
     was created from a different document than the one that
 
@@ -5983,11 +5983,11 @@ exports.tests = {
 
     },
     /**
-    * 
-    The nodeName attribute that is inherited from Node  
+    *
+    The nodeName attribute that is inherited from Node
     contains the name of the entity.
 
-    Retrieve the entity named "ent1" and access its name by 
+    Retrieve the entity named "ent1" and access its name by
     invoking the "getNodeName()" method inherited from
     the Node interface.
 
@@ -6023,12 +6023,12 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "getPublicId()" method of an Entity node contains
     the public identifier associated with the entity, if
     one was specified.
 
-    Retrieve the entity named "ent5" and access its  
+    Retrieve the entity named "ent5" and access its
     public identifier.  The string "entityURI" should be
     returned.
 
@@ -6073,14 +6073,14 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "getPublicId()" method of an Entity node contains
     the public identifier associated with the entity, if
     one was not specified a null value should be returned.
 
-    Retrieve the entity named "ent1" and access its  
+    Retrieve the entity named "ent1" and access its
     public identifier.  Since a public identifier was not
-    specified for this entity, the "getPublicId()" method 
+    specified for this entity, the "getPublicId()" method
     should return null.
 
     * @author NIST
@@ -6114,7 +6114,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Appends a text node to an attribute and checks if the value of
     the attribute is changed.
 
@@ -6164,7 +6164,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Attempts to append an element to the child nodes of an attribute.
 
     * @author Curt Arnold
@@ -6209,7 +6209,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Appends a document fragment to an attribute and checks if the value of
     the attribute is changed.
 
@@ -6265,7 +6265,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Attempt to append a CDATASection to an attribute which should result
     in a HIERARCHY_REQUEST_ERR.
 
@@ -6334,7 +6334,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Attempt to append a node from another document to an attribute which should result
     in a WRONG_DOCUMENT_ERR.
 
@@ -6387,7 +6387,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Creates an new attribute node and appends a text node.
 
     * @author Curt Arnold
@@ -6432,7 +6432,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Checks that Node.childNodes for an attribute node contains
     the expected text node.
 
@@ -6474,7 +6474,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Checks Node.childNodes for an attribute with multiple child nodes.
 
     * @author Curt Arnold
@@ -6522,7 +6522,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Appends a text node to an attribute and clones the node.
 
     * @author Curt Arnold
@@ -6575,9 +6575,9 @@ exports.tests = {
 
     },
     /**
-    * 
-    Create a new DocumentFragment and add a newly created Element node(with one attribute).  
-    Once the element is added, its attribute should be available as an attribute associated 
+    *
+    Create a new DocumentFragment and add a newly created Element node(with one attribute).
+    Once the element is added, its attribute should be available as an attribute associated
     with an Element within a DocumentFragment.
 
     * @author Curt Arnold
@@ -6631,15 +6631,15 @@ exports.tests = {
 
     },
     /**
-    * 
-    The "setValue()" method for an attribute creates a 
+    *
+    The "setValue()" method for an attribute creates a
     Text node with the unparsed content of the string.
-    Retrieve the attribute named "class" from the last 
-    child of of the fourth employee and assign the "Y&ent1;" 
+    Retrieve the attribute named "class" from the last
+    child of of the fourth employee and assign the "Y&ent1;"
     string to its value attribute.  This value is not yet
     parsed and therefore should still be the same upon
     retrieval. This test uses the "getNamedItem(name)" method
-    from the NamedNodeMap interface.  
+    from the NamedNodeMap interface.
 
     * @author Curt Arnold
     * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
@@ -6676,15 +6676,15 @@ exports.tests = {
 
     },
     /**
-    * 
-    The "setNodeValue()" method for an attribute creates a 
+    *
+    The "setNodeValue()" method for an attribute creates a
     Text node with the unparsed content of the string.
-    Retrieve the attribute named "class" from the last 
-    child of of the fourth employee and assign the "Y&ent1;" 
+    Retrieve the attribute named "class" from the last
+    child of of the fourth employee and assign the "Y&ent1;"
     string to its value attribute.  This value is not yet
     parsed and therefore should still be the same upon
     retrieval. This test uses the "getNamedItem(name)" method
-    from the NamedNodeMap interface. 
+    from the NamedNodeMap interface.
 
     * @author Curt Arnold
     * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
@@ -6721,10 +6721,10 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     If an Attr is explicitly assigned any value, then that value is the attributes effective value.
-    Retrieve the attribute named "domestic" from the last child of of the first employee 
-    and examine its nodeValue attribute.  This test uses the "getNamedItem(name)" method 
+    Retrieve the attribute named "domestic" from the last child of of the first employee
+    and examine its nodeValue attribute.  This test uses the "getNamedItem(name)" method
     from the NamedNodeMap interface.
 
     * @author Curt Arnold
@@ -6757,7 +6757,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Checks that Node.firstChild for an attribute node contains
     the expected text node.
 
@@ -6802,7 +6802,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Checks the value of an attribute that contains entity references.
 
     * @author Curt Arnold
@@ -6837,7 +6837,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Checks the value of an attribute that contains entity references.
 
     * @author Curt Arnold
@@ -6900,7 +6900,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Checks that Node.hasChildNodes() is true for an attribute with content.
 
     * @author Curt Arnold
@@ -6935,7 +6935,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Appends a text node to an attribute and checks if the value of
     the attribute is changed.
 
@@ -6993,7 +6993,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Prepends a text node to an attribute and checks if the value of
     the attribute is changed.
 
@@ -7052,7 +7052,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Appends a document fragment to an attribute and checks if the value of
     the attribute is changed.
 
@@ -7116,7 +7116,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Prepends a document fragment to an attribute and checks if the value of
     the attribute is changed.
 
@@ -7181,7 +7181,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Attempt to append a CDATASection to an attribute which should result
     in a HIERARCHY_REQUEST_ERR.
 
@@ -7251,7 +7251,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Attempt to append a text node from another document to an attribute which should result
     in a WRONG_DOCUMENT_ERR.
 
@@ -7305,7 +7305,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Appends a document fragment containing a CDATASection to an attribute.
 
     * @author Curt Arnold
@@ -7382,7 +7382,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Checks that Node.lastChild for an attribute node contains
     the expected text node.
 
@@ -7427,9 +7427,9 @@ exports.tests = {
 
     },
     /**
-    * 
-    Retrieve the attribute named class from the last 
-    child of of the second "p" element and examine its 
+    *
+    Retrieve the attribute named class from the last
+    child of of the second "p" element and examine its
     NodeName.
 
     * @author Curt Arnold
@@ -7468,7 +7468,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "getNextSibling()" method for an Attr node should return null.
     Retrieve the attribute named "domestic" from the last child of of the
     first employee and examine its NextSibling node.  This test uses the
@@ -7504,7 +7504,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Appends a text node to an attribute, normalizes the attribute
     and checks for a single child node.
 
@@ -7555,7 +7555,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "getParentNode()" method for an Attr node should return null.  Retrieve
     the attribute named "domestic" from the last child of the first employee
     and examine its parentNode attribute.  This test also uses the "getNamedItem(name)"
@@ -7591,7 +7591,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "getPreviousSibling()" method for an Attr node should return null.
     Retrieve the attribute named "domestic" from the last child of of the
     first employee and examine its PreviousSibling node.  This test uses the
@@ -7627,7 +7627,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Removes the child node of an attribute and checks that the value is empty.
 
     * @author Curt Arnold
@@ -7677,7 +7677,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Attempts to remove a freshly created text node which should result in a NOT_FOUND_ERR exception.
 
     * @author Curt Arnold
@@ -7721,7 +7721,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Replaces a text node of an attribute and checks if the value of
     the attribute is changed.
 
@@ -7774,7 +7774,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Replaces a text node of an attribute with a document fragment and checks if the value of
     the attribute is changed.
 
@@ -7833,7 +7833,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Sets Attr.value on an attribute that only has a simple value.
 
     * @author Curt Arnold
@@ -7886,7 +7886,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Sets Attr.value on an attribute that should contain multiple child nodes.
 
     * @author Curt Arnold
@@ -7942,14 +7942,14 @@ exports.tests = {
 
     },
     /**
-    * 
-    The "getSpecified()" method for an Attr node should 
+    *
+    The "getSpecified()" method for an Attr node should
     be set to true if the attribute was explicitly given
     a value.
-    Retrieve the attribute named "domestic" from the last 
-    child of of the first employee and examine the value 
-    returned by the "getSpecified()" method.  This test uses 
-    the "getNamedItem(name)" method from the NamedNodeMap 
+    Retrieve the attribute named "domestic" from the last
+    child of of the first employee and examine the value
+    returned by the "getSpecified()" method.  This test uses
+    the "getNamedItem(name)" method from the NamedNodeMap
     interface.
 
     * @author Curt Arnold
@@ -7981,11 +7981,11 @@ exports.tests = {
 
     },
     /**
-    * 
-    The "getSpecified()" method for an Attr node should return true if the 
-    value of the attribute is changed. 
-    Retrieve the attribute named "class" from the last 
-    child of of the THIRD employee and change its 
+    *
+    The "getSpecified()" method for an Attr node should return true if the
+    value of the attribute is changed.
+    Retrieve the attribute named "class" from the last
+    child of of the THIRD employee and change its
     value to "Yes"(which is the default DTD value).  This
     should cause the "getSpecified()" method to be true.
     This test uses the "setAttribute(name,value)" method
@@ -8022,14 +8022,14 @@ exports.tests = {
 
     },
     /**
-    * 
-    The "appendData(arg)" method appends a string to the end 
+    *
+    The "appendData(arg)" method appends a string to the end
     of the character data of the node.
 
-    Retrieve the character data from the second child 
+    Retrieve the character data from the second child
     of the first employee.  The appendData(arg) method is
-    called with arg=", Esquire".  The method should append 
-    the specified data to the already existing character  
+    called with arg=", Esquire".  The method should append
+    the specified data to the already existing character
     data.  The new value return by the "getLength()" method
     should be 24.
 
@@ -8064,15 +8064,15 @@ exports.tests = {
 
     },
     /**
-    * 
-    On successful invocation of the "appendData(arg)" 
+    *
+    On successful invocation of the "appendData(arg)"
     method the "getData()" method provides access to the
     concatentation of data and the specified string.
 
-    Retrieve the character data from the second child 
+    Retrieve the character data from the second child
     of the first employee.  The appendData(arg) method is
-    called with arg=", Esquire".  The method should append 
-    the specified data to the already existing character  
+    called with arg=", Esquire".  The method should append
+    the specified data to the already existing character
     data.  The new value return by the "getData()" method
     should be "Margaret Martin, Esquire".
 
@@ -8105,7 +8105,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "deleteData(offset,count)" method removes a range of
     characters from the node.  Delete data at the beginning
     of the character data.
@@ -8145,9 +8145,9 @@ exports.tests = {
 
     },
     /**
-    * 
-    The "deleteData(offset,count)" method removes a range of 
-    characters from the node.  Delete data at the end 
+    *
+    The "deleteData(offset,count)" method removes a range of
+    characters from the node.  Delete data at the end
     of the character data.
 
     Retrieve the character data from the last child of the
@@ -8186,11 +8186,11 @@ exports.tests = {
 
     },
     /**
-    * 
-    If the sum of the offset and count used in the        
+    *
+    If the sum of the offset and count used in the
     "deleteData(offset,count) method is greater than the
     length of the character data then all the characters
-    from the offset to the end of the data are deleted. 
+    from the offset to the end of the data are deleted.
 
     Retrieve the character data from the last child of the
     first employee.  The "deleteData(offset,count)"
@@ -8229,10 +8229,10 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     On successful invocation of the "deleteData(offset,count)"
     method, the "getData()" and "getLength()" methods reflect
-    the changes. 
+    the changes.
 
     Retrieve the character data from the last child of the
     first employee.  The "deleteData(offset,count)"
@@ -8279,9 +8279,9 @@ exports.tests = {
 
     },
     /**
-    * 
-    The "deleteData(offset,count)" method removes a range of 
-    characters from the node.  Delete data in the middle 
+    *
+    The "deleteData(offset,count)" method removes a range of
+    characters from the node.  Delete data in the middle
     of the character data.
 
     Retrieve the character data from the last child of the
@@ -8320,17 +8320,17 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
 
-    The "getData()" method retrieves the character data 
+    The "getData()" method retrieves the character data
 
     currently stored in the node.
 
-    Retrieve the character data from the second child 
+    Retrieve the character data from the second child
 
-    of the first employee and invoke the "getData()" 
+    of the first employee and invoke the "getData()"
 
-    method.  The method returns the character data 
+    method.  The method returns the character data
 
     string.
 
@@ -8362,12 +8362,12 @@ exports.tests = {
 
     },
     /**
-    * 
-    The "getLength()" method returns the number of characters 
+    *
+    The "getLength()" method returns the number of characters
     stored in this nodes data.
-    Retrieve the character data from the second 
-    child of the first employee and examine the 
-    value returned by the getLength() method.  
+    Retrieve the character data from the second
+    child of the first employee and examine the
+    value returned by the getLength() method.
 
     * @author Curt Arnold
     * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
@@ -8399,10 +8399,10 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "deleteData(offset,count)" method raises an
-    INDEX_SIZE_ERR DOMException if the specified count 
-    is negative. 
+    INDEX_SIZE_ERR DOMException if the specified count
+    is negative.
 
     Retrieve the character data of the last child of the
     first employee and invoke its "deleteData(offset,count)"
@@ -8446,10 +8446,10 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "deleteData(offset,count)" method raises an
     INDEX_SIZE_ERR DOMException if the specified offset
-    is greater that the number of characters in the string. 
+    is greater that the number of characters in the string.
 
     Retrieve the character data of the last child of the
     first employee and invoke its "deleteData(offset,count)"
@@ -8495,10 +8495,10 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "deleteData(offset,count)" method raises an
     INDEX_SIZE_ERR DOMException if the specified offset
-    is negative. 
+    is negative.
 
     Retrieve the character data of the last child of the
     first employee and invoke its "deleteData(offset,count)"
@@ -8542,10 +8542,10 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "insertData(offset,arg)" method raises an
     INDEX_SIZE_ERR DOMException if the specified offset
-    is greater than the number of characters in the string. 
+    is greater than the number of characters in the string.
 
     Retrieve the character data of the last child of the
     first employee and invoke its insertData"(offset,arg)"
@@ -8590,10 +8590,10 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "insertData(offset,arg)" method raises an
     INDEX_SIZE_ERR DOMException if the specified offset
-    is negative. 
+    is negative.
 
     Retrieve the character data of the last child of the
     first employee and invoke its insertData"(offset,arg)"
@@ -8636,10 +8636,10 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "replaceData(offset,count,arg)" method raises an
     INDEX_SIZE_ERR DOMException if the specified count
-    is negative. 
+    is negative.
 
     Retrieve the character data of the last child of the
     first employee and invoke its
@@ -8684,10 +8684,10 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "replaceData(offset,count,arg)" method raises an
     INDEX_SIZE_ERR DOMException if the specified offset
-    is greater than the length of the string. 
+    is greater than the length of the string.
 
     Retrieve the character data of the last child of the
     first employee and invoke its
@@ -8733,10 +8733,10 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "replaceData(offset,count,arg)" method raises an
     INDEX_SIZE_ERR DOMException if the specified offset
-    is negative. 
+    is negative.
 
     Retrieve the character data of the last child of the
     first employee and invoke its
@@ -8781,10 +8781,10 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "substringData(offset,count)" method raises an
-    INDEX_SIZE_ERR DOMException if the specified count 
-    is negative. 
+    INDEX_SIZE_ERR DOMException if the specified count
+    is negative.
 
     Retrieve the character data of the last child of the
     first employee and invoke its "substringData(offset,count)
@@ -8828,10 +8828,10 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "substringData(offset,count)" method raises an
     INDEX_SIZE_ERR DOMException if the specified offset
-    is negative. 
+    is negative.
 
     Retrieve the character data of the last child of the
     first employee and invoke its "substringData(offset,count)
@@ -8875,7 +8875,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "substringData(offset,count)" method raises an
     INDEX_SIZE_ERR DOMException if the specified offset
     is greater than the number of characters in the string.
@@ -8924,7 +8924,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "insertData(offset,arg)" method will insert a string
     at the specified character offset.  Insert the data at
     the beginning of the character data.
@@ -8964,15 +8964,15 @@ exports.tests = {
 
     },
     /**
-    * 
-    The "insertData(offset,arg)" method will insert a string 
-    at the specified character offset.  Insert the data at 
-    the end of the character data. 
+    *
+    The "insertData(offset,arg)" method will insert a string
+    at the specified character offset.  Insert the data at
+    the end of the character data.
 
-    Retrieve the character data from the second child of  
+    Retrieve the character data from the second child of
     the first employee.  The "insertData(offset,arg)"
     method is then called with offset=15 and arg=", Esquire".
-    The method should insert the string ", Esquire" at 
+    The method should insert the string ", Esquire" at
     position 15.  The new value of the character data should
     be "Margaret Martin, Esquire".
 
@@ -9005,12 +9005,12 @@ exports.tests = {
 
     },
     /**
-    * 
-    The "insertData(offset,arg)" method will insert a string 
-    at the specified character offset.  Insert the data in 
-    the middle of the character data. 
+    *
+    The "insertData(offset,arg)" method will insert a string
+    at the specified character offset.  Insert the data in
+    the middle of the character data.
 
-    Retrieve the character data from the second child of  
+    Retrieve the character data from the second child of
     the first employee.  The "insertData(offset,arg)"
     method is then called with offset=9 and arg="Ann".
     The method should insert the string "Ann" at position 9.
@@ -9046,7 +9046,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "replaceData(offset,count,arg)" method replaces the
     characters starting at the specified offset with the
     specified string.  Test for replacement in the
@@ -9086,16 +9086,16 @@ exports.tests = {
 
     },
     /**
-    * 
-    The "replaceData(offset,count,arg)" method replaces the 
+    *
+    The "replaceData(offset,count,arg)" method replaces the
     characters starting at the specified offset with the
-    specified string.  Test for replacement at the 
+    specified string.  Test for replacement at the
     end of the data.
 
     Retrieve the character data from the last child of the
     first employee.  The "replaceData(offset,count,arg)"
     method is then called with offset=30 and count=5 and
-    arg="98665".  The method should replace characters 30  
+    arg="98665".  The method should replace characters 30
     thru 34 of the character data with "98665".
 
     * @author Curt Arnold
@@ -9127,16 +9127,16 @@ exports.tests = {
 
     },
     /**
-    * 
-    The "replaceData(offset,count,arg)" method replaces the 
+    *
+    The "replaceData(offset,count,arg)" method replaces the
     characters starting at the specified offset with the
-    specified string.  Test the situation where the length 
+    specified string.  Test the situation where the length
     of the arg string is greater than the specified offset.
 
     Retrieve the character data from the last child of the
     first employee.  The "replaceData(offset,count,arg)"
     method is then called with offset=0 and count=4 and
-    arg="260030".  The method should replace characters one  
+    arg="260030".  The method should replace characters one
     thru four with "260030".  Note that the length of the
     specified string is greater that the specified offset.
 
@@ -9169,8 +9169,8 @@ exports.tests = {
 
     },
     /**
-    * 
-    If the sum of the offset and count exceeds the length then 
+    *
+    If the sum of the offset and count exceeds the length then
     all the characters to the end of the data are replaced.
 
     Retrieve the character data from the last child of the
@@ -9209,16 +9209,16 @@ exports.tests = {
 
     },
     /**
-    * 
-    The "replaceData(offset,count,arg)" method replaces the 
+    *
+    The "replaceData(offset,count,arg)" method replaces the
     characters starting at the specified offset with the
-    specified string.  Test for replacement in the 
+    specified string.  Test for replacement in the
     middle of the data.
 
     Retrieve the character data from the last child of the
     first employee.  The "replaceData(offset,count,arg)"
     method is then called with offset=5 and count=5 and
-    arg="South".  The method should replace characters five  
+    arg="South".  The method should replace characters five
     thru 9 of the character data with "South".
 
     * @author Curt Arnold
@@ -9250,11 +9250,11 @@ exports.tests = {
 
     },
     /**
-    * 
-    The "setNodeValue()" method changes the character data 
+    *
+    The "setNodeValue()" method changes the character data
     currently stored in the node.
-    Retrieve the character data from the second child 
-    of the first employee and invoke the "setNodeValue()" 
+    Retrieve the character data from the second child
+    of the first employee and invoke the "setNodeValue()"
     method, call "getData()" and compare.
 
     * @author Curt Arnold
@@ -9290,15 +9290,15 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     If the sum of the "offset" and "count" exceeds the
     "length" then the "substringData(offset,count)" method
-    returns all the characters to the end of the data. 
+    returns all the characters to the end of the data.
 
-    Retrieve the character data from the second child 
-    of the first employee and access part of the data 
+    Retrieve the character data from the second child
+    of the first employee and access part of the data
     by using the substringData(offset,count) method
-    with offset=9 and count=10.  The method should return 
+    with offset=9 and count=10.  The method should return
     the substring "Martin" since offset+count > length
     (19 > 15).
 
@@ -9328,14 +9328,14 @@ exports.tests = {
 
     },
     /**
-    * 
-    The "substringData(offset,count)" method returns the 
+    *
+    The "substringData(offset,count)" method returns the
     specified string.
 
-    Retrieve the character data from the second child 
-    of the first employee and access part of the data 
+    Retrieve the character data from the second child
+    of the first employee and access part of the data
     by using the substringData(offset,count) method.  The
-    method should return the specified substring starting 
+    method should return the specified substring starting
     at position "offset" and extract "count" characters.
     The method should return the string "Margaret".
 
@@ -9365,10 +9365,10 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     A comment is all the characters between the starting
-    '<!--' and ending '-->' 
-    Retrieve the nodes of the DOM document.  Search for a 
+    '<!--' and ending '-->'
+    Retrieve the nodes of the DOM document.  Search for a
     comment node and the content is its value.
 
     * @author Curt Arnold
@@ -9427,9 +9427,9 @@ exports.tests = {
 
   },
   /**
-  * 
-  Retrieve the entire DOM document and invoke its 
-  "createAttribute(name)" method.  It should create a  
+  *
+  Retrieve the entire DOM document and invoke its
+  "createAttribute(name)" method.  It should create a
   new Attribute node with the given name. The name, value
   and type of the newly created object are retrieved and
   output.
@@ -9467,10 +9467,10 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "createComment(data)" method creates a new Comment
-  node given the specified string. 
-  Retrieve the entire DOM document and invoke its 
+  node given the specified string.
+  Retrieve the entire DOM document and invoke its
   "createComment(data)" method.  It should create a new
   Comment node whose "data" is the specified string.
   The content, name and type are retrieved and output.
@@ -9505,11 +9505,11 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "createDocumentFragment()" method creates an empty 
+  *
+  The "createDocumentFragment()" method creates an empty
   DocumentFragment object.
-  Retrieve the entire DOM document and invoke its 
-  "createDocumentFragment()" method.  The content, name, 
+  Retrieve the entire DOM document and invoke its
+  "createDocumentFragment()" method.  The content, name,
   type and value of the newly created object are output.
 
   * @author Curt Arnold
@@ -9549,13 +9549,13 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "createElement(tagName)" method creates an Element 
+  *
+  The "createElement(tagName)" method creates an Element
   of the type specified.
-  Retrieve the entire DOM document and invoke its 
+  Retrieve the entire DOM document and invoke its
   "createElement(tagName)" method with tagName="acronym".
   The method should create an instance of an Element node
-  whose tagName is "acronym".  The NodeName, NodeType 
+  whose tagName is "acronym".  The NodeName, NodeType
   and NodeValue are returned.
 
   * @author Curt Arnold
@@ -9588,14 +9588,14 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The tagName parameter in the "createElement(tagName)"
   method is case-sensitive for XML documents.
-  Retrieve the entire DOM document and invoke its 
+  Retrieve the entire DOM document and invoke its
   "createElement(tagName)" method twice.  Once for tagName
   equal to "acronym" and once for tagName equal to "ACRONYM"
   Each call should create a distinct Element node.  The
-  newly created Elements are then assigned attributes 
+  newly created Elements are then assigned attributes
   that are retrieved.
 
   Modified on 27 June 2003 to avoid setting an invalid style
@@ -9638,11 +9638,11 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "createTextNode(data)" method creates a Text node 
+  *
+  The "createTextNode(data)" method creates a Text node
   given the specfied string.
-  Retrieve the entire DOM document and invoke its 
-  "createTextNode(data)" method.  It should create a 
+  Retrieve the entire DOM document and invoke its
+  "createTextNode(data)" method.  It should create a
   new Text node whose "data" is the specified string.
   The NodeName and NodeType are also checked.
 
@@ -9676,7 +9676,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   Access Document.doctype for hc_staff, if not text/html should return DocumentType node.
   HTML implementations may return null.
 
@@ -9709,7 +9709,7 @@ exports.tests = {
       if((builder.contentType == "image/svg+xml")) {
         assertEquals("nodeNameSVG","svg",docTypeName);
       } else if (builder.contentType === "text/xml") {
-        
+
         // this was not an xml test originally.
       } else {
         assertEquals("nodeName","html",docTypeName);
@@ -9725,13 +9725,13 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "getElementsByTagName(tagName)" method returns a 
+  *
+  The "getElementsByTagName(tagName)" method returns a
   NodeList of all the Elements with a given tagName.
 
-  Retrieve the entire DOM document and invoke its 
+  Retrieve the entire DOM document and invoke its
   "getElementsByTagName(tagName)" method with tagName
-  equal to "strong".  The method should return a NodeList 
+  equal to "strong".  The method should return a NodeList
   that contains 5 elements.
 
   * @author Curt Arnold
@@ -9753,11 +9753,11 @@ exports.tests = {
 
   },
   /**
-  * 
-  Retrieve the entire DOM document and invoke its 
+  *
+  Retrieve the entire DOM document and invoke its
   "getElementsByTagName(tagName)" method with tagName
-  equal to "*".  The method should return a NodeList 
-  that contains all the elements of the document. 
+  equal to "*".  The method should return a NodeList
+  that contains all the elements of the document.
 
   * @author Curt Arnold
   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-A6C9094
@@ -9881,7 +9881,7 @@ exports.tests = {
       (builder.contentType == "image/svg+xml")
 
     ) {
-      
+
       assertEqualsListAutoCase("element", "svgTagNames",svgExpectedNames,actualNames);
 
     }
@@ -9893,14 +9893,14 @@ exports.tests = {
 
   },
   /**
-  * 
-  The "getElementsByTagName(tagName)" method returns a 
+  *
+  The "getElementsByTagName(tagName)" method returns a
   NodeList of all the Elements with a given tagName
   in a pre-order traversal of the tree.
 
-  Retrieve the entire DOM document and invoke its 
+  Retrieve the entire DOM document and invoke its
   "getElementsByTagName(tagName)" method with tagName
-  equal to "strong".  The method should return a NodeList 
+  equal to "strong".  The method should return a NodeList
   that contains 5 elements.  The FOURTH item in the
   list is retrieved and output.
 
@@ -9931,10 +9931,10 @@ exports.tests = {
 
   },
   /**
-  * 
-  Retrieve the entire DOM document and invoke its 
-  "getImplementation()" method.  If contentType="text/html", 
-  DOMImplementation.hasFeature("HTML","1.0") should be true.  
+  *
+  Retrieve the entire DOM document and invoke its
+  "getImplementation()" method.  If contentType="text/html",
+  DOMImplementation.hasFeature("HTML","1.0") should be true.
   Otherwise, DOMImplementation.hasFeature("XML", "1.0")
   should be true.
 
@@ -9975,8 +9975,8 @@ exports.tests = {
 
   },
   /**
-  * 
-  Load a document and invoke its 
+  *
+  Load a document and invoke its
   "getDocumentElement()" method.
 
   * @author Curt Arnold
@@ -10016,14 +10016,14 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "createAttribute(tagName)" method raises an
   INVALID_CHARACTER_ERR DOMException if the specified
-  tagName contains an invalid character. 
+  tagName contains an invalid character.
 
-  Retrieve the entire DOM document and invoke its 
+  Retrieve the entire DOM document and invoke its
   "createAttribute(tagName)" method with the tagName equal
-  to the string "invalid^Name".  Due to the invalid 
+  to the string "invalid^Name".  Due to the invalid
   character the desired EXCEPTION should be raised.
 
   * @author Curt Arnold
@@ -10058,7 +10058,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   Creating an attribute with an empty name should cause an INVALID_CHARACTER_ERR.
 
   * @author Curt Arnold
@@ -10093,14 +10093,14 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   The "createElement(tagName)" method raises an
   INVALID_CHARACTER_ERR DOMException if the specified
-  tagName contains an invalid character. 
+  tagName contains an invalid character.
 
-  Retrieve the entire DOM document and invoke its 
+  Retrieve the entire DOM document and invoke its
   "createElement(tagName)" method with the tagName equal
-  to the string "invalid^Name".  Due to the invalid 
+  to the string "invalid^Name".  Due to the invalid
   character the desired EXCEPTION should be raised.
 
   * @author Curt Arnold
@@ -10135,7 +10135,7 @@ exports.tests = {
 
   },
   /**
-  * 
+  *
   Creating an element with an empty name should cause an INVALID_CHARACTER_ERR.
 
   * @author Curt Arnold
@@ -10170,8 +10170,8 @@ exports.tests = {
 
   },
   /**
-  * 
-  Load a document and invoke its 
+  *
+  Load a document and invoke its
   "getImplementation()" method.  This should create a
   DOMImplementation object whose "hasFeature(feature,
     version)" method is invoked with version equal to "".
@@ -10214,8 +10214,8 @@ exports.tests = {
 
     },
     /**
-    * 
-    Load a document and invoke its 
+    *
+    Load a document and invoke its
     "getImplementation()" method.  This should create a
     DOMImplementation object whose "hasFeature(feature,
       version)" method is invoked with version equal to null.
@@ -10260,8 +10260,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      Retrieve the entire DOM document and invoke its 
+      *
+      Retrieve the entire DOM document and invoke its
       "getImplementation()" method.  This should create a
       DOMImplementation object whose "hasFeature(feature,
         version)" method is invoked with "feature" equal to "html" or "xml".
@@ -10303,14 +10303,14 @@ exports.tests = {
 
         },
         /**
-        * 
+        *
         The "setAttribute(name,value)" method adds a new attribute
-        to the Element 
+        to the Element
 
-        Retrieve the last child of the last employee, then 
-        add an attribute to it by invoking the             
+        Retrieve the last child of the last employee, then
+        add an attribute to it by invoking the
         "setAttribute(name,value)" method.  It should create
-        a "strong" attribute with an assigned value equal to 
+        a "strong" attribute with an assigned value equal to
         "value".
 
         * @author Curt Arnold
@@ -10338,11 +10338,11 @@ exports.tests = {
 
         },
         /**
-        * 
+        *
         Retrieve the first attribute from the last child of
-        the first employee and invoke the "getSpecified()" 
-        method.  This test is only intended to show that   
-        Elements can actually have attributes.  This test uses  
+        the first employee and invoke the "getSpecified()"
+        method.  This test is only intended to show that
+        Elements can actually have attributes.  This test uses
         the "getNamedItem(name)" method from the NamedNodeMap
         interface.
 
@@ -10375,16 +10375,16 @@ exports.tests = {
 
         },
         /**
-        * 
+        *
         The "setAttribute(name,value)" method adds a new attribute
         to the Element.  If the "strong" is already present, then
         its value should be changed to the new one that is in
-        the "value" parameter. 
+        the "value" parameter.
 
-        Retrieve the last child of the fourth employee, then add 
-        an attribute to it by invoking the 
+        Retrieve the last child of the fourth employee, then add
+        an attribute to it by invoking the
         "setAttribute(name,value)" method.  Since the name of the
-        used attribute("class") is already present in this     
+        used attribute("class") is already present in this
         element, then its value should be changed to the new one
         of the "value" parameter.
 
@@ -10412,12 +10412,12 @@ exports.tests = {
 
         },
         /**
-        * 
-        The "setAttributeNode(newAttr)" method adds a new 
-        attribute to the Element.  
+        *
+        The "setAttributeNode(newAttr)" method adds a new
+        attribute to the Element.
 
         Retrieve first address element and add
-        a new attribute node to it by invoking its         
+        a new attribute node to it by invoking its
         "setAttributeNode(newAttr)" method.  This test makes use
         of the "createAttribute(name)" method from the Document
         interface.
@@ -10454,7 +10454,7 @@ exports.tests = {
 
         },
         /**
-        * 
+        *
         Retrieve the attribute "title" from the last child
         of the first "p" element and check its node name.
 
@@ -10486,7 +10486,7 @@ exports.tests = {
 
         },
         /**
-        * 
+        *
         The "getAttributeNode(name)" method retrieves an
         attribute node by name.  It should return null if the
         "strong" attribute does not exist.
@@ -10519,14 +10519,14 @@ exports.tests = {
 
         },
         /**
-        * 
-        The "getAttribute(name)" method returns an empty 
-        string if no value was assigned to an attribute and 
+        *
+        The "getAttribute(name)" method returns an empty
+        string if no value was assigned to an attribute and
         no default value was given in the DTD file.
 
         Retrieve the last child of the last employee, then
         invoke "getAttribute(name)" method, where "strong" is an
-        attribute without a specified or DTD default value. 
+        attribute without a specified or DTD default value.
         The "getAttribute(name)" method should return the empty
         string.  This method makes use of the
         "createAttribute(newAttr)" method from the Document
@@ -10560,7 +10560,7 @@ exports.tests = {
 
         },
         /**
-        * 
+        *
         The "getElementsByTagName(name)" method returns a list
         of all descendant Elements with the given tag name.
         Test for an empty list.
@@ -10590,7 +10590,7 @@ exports.tests = {
 
         },
         /**
-        * 
+        *
         The "getElementsByTagName(name)" method returns a list
         of all descendant Elements in the order the children
         were encountered in a pre order traversal of the element
@@ -10652,7 +10652,7 @@ exports.tests = {
 
         },
         /**
-        * 
+        *
         The "getElementsByTagName(name)" method returns a list
         of all descendant Elements with the given tag name.
 
@@ -10680,7 +10680,7 @@ exports.tests = {
 
         },
         /**
-        * 
+        *
         The "getElementsByTagName(name)" method may use the
         special value "*" to match all tags in the element
         tree.
@@ -10732,9 +10732,9 @@ exports.tests = {
 
         },
         /**
-        * 
-        Invoke the "getTagName()" method one the 
-        root node. The value returned should be "html" or "svg". 
+        *
+        Invoke the "getTagName()" method one the
+        root node. The value returned should be "html" or "svg".
 
         * @author Curt Arnold
         * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-104682815
@@ -10773,9 +10773,9 @@ exports.tests = {
 
         },
         /**
-        * 
-        The "setAttributeNode(newAttr)" method raises an 
-        "INUSE_ATTRIBUTE_ERR DOMException if the "newAttr" 
+        *
+        The "setAttributeNode(newAttr)" method raises an
+        "INUSE_ATTRIBUTE_ERR DOMException if the "newAttr"
         is already an attribute of another element.
 
         * @author Curt Arnold
@@ -10822,14 +10822,14 @@ exports.tests = {
 
         },
         /**
-        * 
-        The "setAttribute(name,value)" method raises an 
-        "INVALID_CHARACTER_ERR DOMException if the specified 
-        name contains an invalid character.   
+        *
+        The "setAttribute(name,value)" method raises an
+        "INVALID_CHARACTER_ERR DOMException if the specified
+        name contains an invalid character.
 
-        Retrieve the last child of the first employee and 
-        call its "setAttribute(name,value)" method with    
-        "strong" containing an invalid character. 
+        Retrieve the last child of the first employee and
+        call its "setAttribute(name,value)" method with
+        "strong" containing an invalid character.
 
         * @author Curt Arnold
         * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='INVALID_CHARACTER_ERR'])
@@ -10865,7 +10865,7 @@ exports.tests = {
 
         },
         /**
-        * 
+        *
         Calling Element.setAttribute with an empty name will cause an INVALID_CHARACTER_ERR.
 
         * @author Curt Arnold
@@ -10902,7 +10902,7 @@ exports.tests = {
 
         },
         /**
-        * 
+        *
         Append a couple of text nodes to the first sup element, normalize the
         document element and check that the element has been normalized.
 
@@ -10946,7 +10946,7 @@ exports.tests = {
 
         },
         /**
-        * 
+        *
         Add an empty text node to an existing attribute node, normalize the containing element
         and check that the attribute node has eliminated the empty text.
 
@@ -10993,7 +10993,7 @@ exports.tests = {
 
         },
         /**
-        * 
+        *
         The "removeAttributeNode(oldAttr)" method raises a
         NOT_FOUND_ERR DOMException if the "oldAttr" attribute
         is not an attribute of the element.
@@ -11001,7 +11001,7 @@ exports.tests = {
         Retrieve the last employee and attempt to remove
         a non existing attribute node.  This should cause the
         intended exception to be raised.  This test makes use
-        of the "createAttribute(name)" method from the Document 
+        of the "createAttribute(name)" method from the Document
         interface.
 
         * @author Curt Arnold
@@ -11041,7 +11041,7 @@ exports.tests = {
 
         },
         /**
-        * 
+        *
         The "removeAttribute(name)" removes an attribute by name.
         If the attribute has a default value, it is immediately
         replaced.  However, there is no default values in the HTML
@@ -11072,12 +11072,12 @@ exports.tests = {
 
         },
         /**
-        * 
-        The "removeAttributeNode(oldAttr)" method removes the 
-        specified attribute. 
+        *
+        The "removeAttributeNode(oldAttr)" method removes the
+        specified attribute.
 
         Retrieve the last child of the third employee, add a
-        new "lang" attribute to it and then try to remove it. 
+        new "lang" attribute to it and then try to remove it.
         To verify that the node was removed use the
         "getNamedItem(name)" method from the NamedNodeMap
         interface.  It also uses the "getAttributes()" method
@@ -11114,12 +11114,12 @@ exports.tests = {
 
         },
         /**
-        * 
+        *
         The "removeAttributeNode(oldAttr)" method returns the
-        node that was removed. 
+        node that was removed.
 
         Retrieve the last child of the third employee and
-        remove its "class" Attr node.  The method should  
+        remove its "class" Attr node.  The method should
         return the old attribute node.
 
         * @author Curt Arnold
@@ -11151,8 +11151,8 @@ exports.tests = {
 
         },
         /**
-        * 
-        This test calls setAttributeNode to replace an attribute with itself.  
+        *
+        This test calls setAttributeNode to replace an attribute with itself.
         Since the node is not an attribute of another Element, it would
         be inappropriate to throw an INUSE_ATTRIBUTE_ERR.
 
@@ -11186,19 +11186,19 @@ exports.tests = {
 
         },
         /**
-        * 
+        *
         The "setAttributeNode(newAttr)" method adds a new
         attribute to the Element.  If the "newAttr" Attr node is
         already present in this element, it should replace the
-        existing one. 
+        existing one.
 
-        Retrieve the last child of the third employee and add a 
-        new attribute node by invoking the "setAttributeNode(new 
-          Attr)" method.  The new attribute node to be added is 
+        Retrieve the last child of the third employee and add a
+        new attribute node by invoking the "setAttributeNode(new
+          Attr)" method.  The new attribute node to be added is
           "class", which is already present in this element.  The
-          method should replace the existing Attr node with the 
+          method should replace the existing Attr node with the
           new one.  This test uses the "createAttribute(name)"
-          method from the Document interface. 
+          method from the Document interface.
 
           * @author Curt Arnold
           */
@@ -11226,7 +11226,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           If the "setAttributeNode(newAttr)" method replaces an
           existing Attr node with the same name, then it should
           return the previously existing Attr node.
@@ -11267,7 +11267,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           Create a list of all the attributes of the last child
           of the first "p" element by using the "getAttributes()"
           method.
@@ -11329,7 +11329,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "getAttribute(name)" method returns an attribute
           value by name.
 
@@ -11360,13 +11360,13 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "getElementsByTagName()" method returns a NodeList 
-          of all descendant elements with a given tagName.    
+          *
+          The "getElementsByTagName()" method returns a NodeList
+          of all descendant elements with a given tagName.
 
           Invoke the "getElementsByTagName()" method and create
-          a NodeList of "code" elements.  Retrieve the second 
-          "code" element in the list and return the NodeName. 
+          a NodeList of "code" elements.  Retrieve the second
+          "code" element in the list and return the NodeName.
 
           * @author Curt Arnold
           * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
@@ -11396,17 +11396,17 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "setAttributeNode(newAttr)" method returns the
           null value if no previously existing Attr node with the
           same name was replaced.
 
-          Retrieve the last child of the third employee and add a 
-          new attribute to it.  The new attribute node added is 
-          "lang", which is not part of this Element.  The   
-          method should return the null value.   
+          Retrieve the last child of the third employee and add a
+          new attribute to it.  The new attribute node added is
+          "lang", which is not part of this Element.  The
+          method should return the null value.
           This test uses the "createAttribute(name)"
-          method from the Document interface. 
+          method from the Document interface.
 
           * @author Curt Arnold
           * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
@@ -11434,9 +11434,9 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "setAttributeNode(newAttr)" method raises an 
-          "WRONG_DOCUMENT_ERR DOMException if the "newAttr" 
+          *
+          The "setAttributeNode(newAttr)" method raises an
+          "WRONG_DOCUMENT_ERR DOMException if the "newAttr"
           was created from a different document than the one that
           created this document.
 
@@ -11493,7 +11493,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           An attempt to add remove an entity should result in a NO_MODIFICATION_ERR.
 
           * @author Curt Arnold
@@ -11543,8 +11543,8 @@ exports.tests = {
 
           },
           /**
-          * 
-          An attempt to add an element to the named node map returned by entities should 
+          *
+          An attempt to add an element to the named node map returned by entities should
           result in a NO_MODIFICATION_ERR or HIERARCHY_REQUEST_ERR.
 
           * @author Curt Arnold
@@ -11586,7 +11586,7 @@ exports.tests = {
                 fail("throw_HIER_OR_NO_MOD_ERR");
 
               } catch (ex) {
-                if (typeof(ex.code) != 'undefined') {      
+                if (typeof(ex.code) != 'undefined') {
                   switch(ex.code) {
                     case /* HIERARCHY_REQUEST_ERR */ 3 :
                     break;
@@ -11595,7 +11595,7 @@ exports.tests = {
                     default:
                     throw ex;
                   }
-                } else { 
+                } else {
                   throw ex;
                 }
               }
@@ -11604,7 +11604,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           Create a NamedNodeMap object from the attributes of the
           last child of the third "p" element and traverse the
           list from index 0 thru length -1.  All indices should
@@ -11663,8 +11663,8 @@ exports.tests = {
 
           },
           /**
-          * 
-          Retrieve the second "p" element and create a NamedNodeMap 
+          *
+          Retrieve the second "p" element and create a NamedNodeMap
           listing of the attributes of the last child.  Once the
           list is created an invocation of the "getNamedItem(name)"
           method is done with name="title".  This should result
@@ -11702,7 +11702,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "setNamedItem(arg)" method raises a
           INUSE_ATTRIBUTE_ERR DOMException if "arg" is an
           Attr that is already in an attribute of another Element.
@@ -11759,15 +11759,15 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "removeNamedItem(name)" method raises a 
+          *
+          The "removeNamedItem(name)" method raises a
           NOT_FOUND_ERR DOMException if there is not a node
           named "strong" in the map.
 
           Create a NamedNodeMap object from the attributes of the
           last child of the third employee and attempt to remove
           the "lang" attribute.  There is not a node named
-          "lang" in the list and therefore the desired   
+          "lang" in the list and therefore the desired
           exception should be raised.
 
           * @author Curt Arnold
@@ -11808,7 +11808,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           Retrieve the second "p" element and evaluate Node.attributes.length.
 
           * @author Curt Arnold
@@ -11853,11 +11853,11 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "removeNamedItem(name)" method removes a node 
-          specified by name. 
+          *
+          The "removeNamedItem(name)" method removes a node
+          specified by name.
 
-          Retrieve the third employee and create a NamedNodeMap 
+          Retrieve the third employee and create a NamedNodeMap
           object of the attributes of the last child.  Once the
           list is created invoke the "removeNamedItem(name)"
           method with name="class".  This should result
@@ -11895,8 +11895,8 @@ exports.tests = {
 
           },
           /**
-          * 
-          Retrieve the second p element and create a NamedNodeMap 
+          *
+          Retrieve the second p element and create a NamedNodeMap
           listing of the attributes of the last child.  Once the
           list is created an invocation of the "getNamedItem(name)"
           method is done with name="class".  This should result
@@ -11939,9 +11939,9 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "item(index)" method returns the indexth item in 
-          the map(test for first item). 
+          *
+          The "item(index)" method returns the indexth item in
+          the map(test for first item).
 
           Retrieve the second "acronym" get the NamedNodeMap of the attributes. Since the
           DOM does not specify an order of these nodes the contents
@@ -12007,9 +12007,9 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "item(index)" method returns the indexth item in 
-          the map(test for last item). 
+          *
+          The "item(index)" method returns the indexth item in
+          the map(test for last item).
 
           Retrieve the second "acronym" and get the attribute name. Since the
           DOM does not specify an order of these nodes the contents
@@ -12077,14 +12077,14 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "getNamedItem(name)" method returns null of the 
-          specified name did not identify any node in the map. 
+          *
+          The "getNamedItem(name)" method returns null of the
+          specified name did not identify any node in the map.
 
-          Retrieve the second employee and create a NamedNodeMap 
+          Retrieve the second employee and create a NamedNodeMap
           listing of the attributes of the last child.  Once the
           list is created an invocation of the "getNamedItem(name)"
-          method is done with name="lang".  This name does not 
+          method is done with name="lang".  This name does not
           match any names in the list therefore the method should
           return null.
 
@@ -12116,14 +12116,14 @@ exports.tests = {
 
           },
           /**
-          * 
-          Retrieve the second "p" element and create a NamedNodeMap 
+          *
+          Retrieve the second "p" element and create a NamedNodeMap
           object from the attributes of the last child by
           invoking the "getAttributes()" method.  Once the
           list is created an invocation of the "setNamedItem(arg)"
           method is done with arg=newAttr, where newAttr is a
           new Attr Node previously created.  The "setNamedItem(arg)"
-          method should add then new node to the NamedNodeItem 
+          method should add then new node to the NamedNodeItem
           object by using its "nodeName" attribute("lang').
           This node is then retrieved using the "getNamedItem(name)"
           method.
@@ -12165,12 +12165,12 @@ exports.tests = {
 
           },
           /**
-          * 
-          If the "setNamedItem(arg)" method replaces an already 
-          existing node with the same name then the already 
+          *
+          If the "setNamedItem(arg)" method replaces an already
+          existing node with the same name then the already
           existing node is returned.
 
-          Retrieve the third employee and create a NamedNodeMap 
+          Retrieve the third employee and create a NamedNodeMap
           object from the attributes of the last child by
           invoking the "getAttributes()" method.  Once the
           list is created an invocation of the "setNamedItem(arg)"
@@ -12178,7 +12178,7 @@ exports.tests = {
           new Attr Node previously created and whose node name
           already exists in the map.  The "setNamedItem(arg)"
           method should replace the already existing node with
-          the new one and return the existing node.   
+          the new one and return the existing node.
           This test uses the "createAttribute(name)" method from
           the document interface.
 
@@ -12215,12 +12215,12 @@ exports.tests = {
 
           },
           /**
-          * 
-          If the node to be added by the "setNamedItem(arg)" method 
+          *
+          If the node to be added by the "setNamedItem(arg)" method
           already exists in the NamedNodeMap, it is replaced by
           the new one.
 
-          Retrieve the second employee and create a NamedNodeMap 
+          Retrieve the second employee and create a NamedNodeMap
           object from the attributes of the last child by
           invoking the "getAttributes()" method.  Once the
           list is created an invocation of the "setNamedItem(arg)"
@@ -12228,7 +12228,7 @@ exports.tests = {
           new Attr Node previously created and whose node name
           already exists in the map.  The "setNamedItem(arg)"
           method should replace the already existing node with
-          the new one.   
+          the new one.
           This node is then retrieved using the "getNamedItem(name)"
           method.  This test uses the "createAttribute(name)"
           method from the document interface
@@ -12267,11 +12267,11 @@ exports.tests = {
 
           },
           /**
-          * 
-          If the "setNamedItem(arg)" method does not replace an 
-          existing node with the same name then it returns null. 
+          *
+          If the "setNamedItem(arg)" method does not replace an
+          existing node with the same name then it returns null.
 
-          Retrieve the third employee and create a NamedNodeMap 
+          Retrieve the third employee and create a NamedNodeMap
           object from the attributes of the last child.
           Once the list is created the "setNamedItem(arg)" method
           is invoked with arg=newAttr, where newAttr is a
@@ -12311,15 +12311,15 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "setNamedItem(arg)" method raises a 
+          *
+          The "setNamedItem(arg)" method raises a
           WRONG_DOCUMENT_ERR DOMException if "arg" was created
           from a different document than the one that created
-          the NamedNodeMap. 
+          the NamedNodeMap.
 
           Create a NamedNodeMap object from the attributes of the
           last child of the third employee and attempt to add
-          another Attr node to it that was created from a 
+          another Attr node to it that was created from a
           different DOM document.  This should raise the desired
           exception.  This method uses the "createAttribute(name)"
           method from the Document interface.
@@ -12372,7 +12372,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           Retrieve the second "p" and append a "br" Element
           node to the list of children.   The last node in the list
           is then retrieved and its NodeName examined.   The
@@ -12413,13 +12413,13 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           If the "newChild" is already in the tree, it is first
           removed before the new one is appended.
 
-          Retrieve the "em" second employee and   
+          Retrieve the "em" second employee and
           append the first child to the end of the list.   After
-          the "appendChild(newChild)" method is invoked the first 
+          the "appendChild(newChild)" method is invoked the first
           child should be the one that was second and the last
           child should be the one that was first.
 
@@ -12491,12 +12491,12 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           If the "newChild" is a DocumentFragment object then
           all its content is added to the child list of this node.
 
           Create and populate a new DocumentFragment object and
-          append it to the second employee.   After the 
+          append it to the second employee.   After the
           "appendChild(newChild)" method is invoked retrieve the
           new nodes at the end of the list, they should be the
           two Element nodes from the DocumentFragment.
@@ -12567,11 +12567,11 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "appendChild(newChild)" method returns the node
           added.
 
-          Append a newly created node to the child list of the 
+          Append a newly created node to the child list of the
           second employee and check the NodeName returned.   The
           "getNodeName()" method should return "br".
 
@@ -12608,8 +12608,8 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "appendChild(newChild)" method raises a 
+          *
+          The "appendChild(newChild)" method raises a
           HIERARCHY_REQUEST_ERR DOMException if this node is of
           a type that does not allow children of the type "newChild"
           to be inserted.
@@ -12656,15 +12656,15 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "appendChild(newChild)" method raises a 
+          *
+          The "appendChild(newChild)" method raises a
           WRONG_DOCUMENT_ERR DOMException if the "newChild" was
-          created from a different document than the one that 
+          created from a different document than the one that
           created this node.
 
-          Retrieve the second employee and attempt to append    
-          a node created from a different document.   An attempt 
-          to make such a replacement should raise the desired 
+          Retrieve the second employee and attempt to append
+          a node created from a different document.   An attempt
+          to make such a replacement should raise the desired
           exception.
 
           * @author Curt Arnold
@@ -12712,14 +12712,14 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "appendChild(newChild)" method raises a 
-          HIERARCHY_REQUEST_ERR DOMException if the node to 
+          *
+          The "appendChild(newChild)" method raises a
+          HIERARCHY_REQUEST_ERR DOMException if the node to
           append is one of this node's ancestors.
 
-          Retrieve the second employee and attempt to append 
+          Retrieve the second employee and attempt to append
           an ancestor node(root node) to it.
-          An attempt to make such an addition should raise the 
+          An attempt to make such an addition should raise the
           desired exception.
 
           * @author Curt Arnold
@@ -12762,7 +12762,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "getAttributes()" method invoked on an Attribute
           Node returns null.
 
@@ -12800,11 +12800,11 @@ exports.tests = {
 
           },
           /**
-          * 
-          Retrieve the Attribute named "title" from the last 
-          child of the first p element and check the string returned 
-          by the "getNodeName()" method.   It should be equal to 
-          "title". 
+          *
+          Retrieve the Attribute named "title" from the last
+          child of the first p element and check the string returned
+          by the "getNodeName()" method.   It should be equal to
+          "title".
 
           * @author Curt Arnold
           * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
@@ -12833,7 +12833,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
 
           The "getNodeType()" method for an Attribute Node
 
@@ -12843,9 +12843,9 @@ exports.tests = {
 
           Retrieve the first attribute from the last child of
 
-          the first employee and invoke the "getNodeType()"   
+          the first employee and invoke the "getNodeType()"
 
-          method.   The method should return 2. 
+          method.   The method should return 2.
 
 
           * @author Curt Arnold
@@ -12874,15 +12874,15 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
 
-          The string returned by the "getNodeValue()" method for an 
+          The string returned by the "getNodeValue()" method for an
           Attribute Node is the value of the Attribute.
 
-          Retrieve the Attribute named "title" from the last 
-          child of the first "p" and check the string returned 
-          by the "getNodeValue()" method.   It should be equal to 
-          "Yes". 
+          Retrieve the Attribute named "title" from the last
+          child of the first "p" and check the string returned
+          by the "getNodeValue()" method.   It should be equal to
+          "Yes".
 
           * @author Curt Arnold
           * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
@@ -12910,10 +12910,10 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
 
           The "getChildNodes()" method returns a NodeList
-          that contains all children of this node. 
+          that contains all children of this node.
 
           Retrieve the second employee and check the NodeList
           returned by the "getChildNodes()" method.   The
@@ -12977,7 +12977,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The NodeList returned by the "getChildNodes()" method
           is live.   Changes on the node's children are immediately
           reflected on the nodes returned in the NodeList.
@@ -13054,11 +13054,11 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "getChildNodes()" method returns a NodeList
           that contains all children of this node.   If there
-          are not any children, this is a NodeList that does not 
-          contain any nodes. 
+          are not any children, this is a NodeList that does not
+          contain any nodes.
 
           Retrieve the character data of the second "em" node and
           invoke the "getChildNodes()" method.   The
@@ -13095,7 +13095,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           Retrieve the second acronym element and invoke
           the cloneNode method.   The
           duplicate node returned by the method should copy the
@@ -13162,7 +13162,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "cloneNode(deep)" method does not copy text unless it
           is deep cloned.(Test for deep=false)
 
@@ -13202,7 +13202,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The duplicate node returned by the "cloneNode(deep)"
           method does not have a ParentNode.
 
@@ -13237,7 +13237,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "cloneNode(deep)" method returns a copy of the node
           only if deep=false.
 
@@ -13281,14 +13281,14 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "cloneNode(deep)" method returns a copy of the node
           and the subtree under it if deep=true.
 
           Retrieve the second employee and invoke the
           "cloneNode(deep)" method with deep=true.   The
           method should clone this node and the subtree under it.
-          The NodeName of each child in the returned node is 
+          The NodeName of each child in the returned node is
           checked to insure the entire subtree under the second
           employee was cloned.
 
@@ -13344,7 +13344,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "cloneNode(deep)" method does not copy text unless it
           is deep cloned.(Test for deep=true)
 
@@ -13383,14 +13383,14 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "getAttributes()" method invoked on a Comment 
+          *
+          The "getAttributes()" method invoked on a Comment
           Node returns null.
 
           Find any comment that is an immediate child of the root
           and assert that Node.attributes is null.  Then create
           a new comment node (in case they had been omitted) and
-          make the assertion.    
+          make the assertion.
 
           * @author Curt Arnold
           * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
@@ -13436,12 +13436,12 @@ exports.tests = {
 
           },
           /**
-          * 
-          The string returned by the "getNodeName()" method for a 
+          *
+          The string returned by the "getNodeName()" method for a
           Comment Node is "#comment".
 
-          Retrieve the Comment node in the XML file 
-          and check the string returned by the "getNodeName()" 
+          Retrieve the Comment node in the XML file
+          and check the string returned by the "getNodeName()"
           method.   It should be equal to "#comment".
 
           * @author Curt Arnold
@@ -13488,13 +13488,13 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "getNodeType()" method for a Comment Node
           returns the constant value 8.
 
           Retrieve the nodes from the document and check for
-          a comment node and invoke the "getNodeType()" method.   This should   
-          return 8. 
+          a comment node and invoke the "getNodeType()" method.   This should
+          return 8.
 
           * @author Curt Arnold
           * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
@@ -13539,12 +13539,12 @@ exports.tests = {
 
           },
           /**
-          * 
-          The string returned by the "getNodeValue()" method for a 
+          *
+          The string returned by the "getNodeValue()" method for a
           Comment Node is the content of the comment.
 
-          Retrieve the comment in the XML file and   
-          check the string returned by the "getNodeValue()" method. 
+          Retrieve the comment in the XML file and
+          check the string returned by the "getNodeValue()" method.
           It should be equal to "This is comment number 1".
 
           * @author Curt Arnold
@@ -13590,13 +13590,13 @@ exports.tests = {
 
           },
           /**
-          * 
-          The string returned by the "getNodeName()" method for a 
+          *
+          The string returned by the "getNodeName()" method for a
           DocumentFragment Node is "#document-frament".
 
           Retrieve the DOM document and invoke the
-          "createDocumentFragment()" method and check the string      
-          returned by the "getNodeName()" method.   It should be 
+          "createDocumentFragment()" method and check the string
+          returned by the "getNodeName()" method.   It should be
           equal to "#document-fragment".
 
           * @author Curt Arnold
@@ -13622,14 +13622,14 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "getNodeType()" method for a DocumentFragment Node
           returns the constant value 11.
 
-          Invoke the "createDocumentFragment()" method and    
+          Invoke the "createDocumentFragment()" method and
           examine the NodeType of the document fragment
-          returned by the "getNodeType()" method.   The method 
-          should return 11. 
+          returned by the "getNodeType()" method.   The method
+          should return 11.
 
           * @author Curt Arnold
           * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
@@ -13654,13 +13654,13 @@ exports.tests = {
 
           },
           /**
-          * 
-          The string returned by the "getNodeValue()" method for a 
+          *
+          The string returned by the "getNodeValue()" method for a
           DocumentFragment Node is null.
 
           Retrieve the DOM document and invoke the
-          "createDocumentFragment()" method and check the string      
-          returned by the "getNodeValue()" method.   It should be 
+          "createDocumentFragment()" method and check the string
+          returned by the "getNodeValue()" method.   It should be
           equal to null.
 
           * @author Curt Arnold
@@ -13692,7 +13692,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "getAttributes()" method invoked on a Document
           Node returns null.
 
@@ -13721,12 +13721,12 @@ exports.tests = {
 
           },
           /**
-          * 
-          The string returned by the "getNodeName()" method for a 
+          *
+          The string returned by the "getNodeName()" method for a
           Document Node is "#document".
 
           Retrieve the DOM document and check the string returned
-          by the "getNodeName()" method.   It should be equal to 
+          by the "getNodeName()" method.   It should be equal to
           "#document".
 
           * @author Curt Arnold
@@ -13750,12 +13750,12 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "getNodeType()" method for a Document Node
           returns the constant value 9.
 
-          Retrieve the document and invoke the "getNodeType()" 
-          method.   The method should return 9. 
+          Retrieve the document and invoke the "getNodeType()"
+          method.   The method should return 9.
 
           * @author Curt Arnold
           * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
@@ -13778,13 +13778,13 @@ exports.tests = {
 
           },
           /**
-          * 
-          The string returned by the "getNodeValue()" method for a 
+          *
+          The string returned by the "getNodeValue()" method for a
           Document Node is null.
 
           Retrieve the DOM Document and check the string returned
-          by the "getNodeValue()" method.   It should be equal to 
-          null. 
+          by the "getNodeValue()" method.   It should be equal to
+          null.
 
 
           * @author Curt Arnold
@@ -13808,7 +13808,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           Retrieve the third "acronym" element and evaluate Node.attributes.
 
           * @author Curt Arnold
@@ -13871,11 +13871,11 @@ exports.tests = {
 
           },
           /**
-          * 
-          Retrieve the first Element Node(Root Node) of the   
-          DOM object and check the string returned by the            
+          *
+          Retrieve the first Element Node(Root Node) of the
+          DOM object and check the string returned by the
           "getNodeName()" method.   It should be equal to its
-          tagName. 
+          tagName.
 
           * @author Curt Arnold
           * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
@@ -13914,12 +13914,12 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "getNodeType()" method for an Element Node
           returns the constant value 1.
 
-          Retrieve the root node and invoke the "getNodeType()"   
-          method.   The method should return 1. 
+          Retrieve the root node and invoke the "getNodeType()"
+          method.   The method should return 1.
 
           * @author Curt Arnold
           * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
@@ -13944,8 +13944,8 @@ exports.tests = {
 
           },
           /**
-          * 
-          The string returned by the "getNodeValue()" method for an 
+          *
+          The string returned by the "getNodeValue()" method for an
           Element Node is null.
 
           * @author Curt Arnold
@@ -13971,9 +13971,9 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "getFirstChild()" method returns the first child
-          of this node. 
+          of this node.
 
           Retrieve the second employee and invoke the
           "getFirstChild()" method.   The NodeName returned
@@ -14019,7 +14019,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           If there is not a first child then the "getFirstChild()"
           method returns null.
 
@@ -14054,9 +14054,9 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "getLastChild()" method returns the last child
-          of this node. 
+          of this node.
 
           Retrieve the second employee and invoke the
           "getLastChild()" method.   The NodeName returned
@@ -14089,7 +14089,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
 
           If there is not a last child then the "getLastChild()"
           method returns null.
@@ -14125,9 +14125,9 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "getNextSibling()" method returns the node immediately
-          following this node. 
+          following this node.
 
           Retrieve the first child of the second employee and
           invoke the "getNextSibling()" method.   It should return
@@ -14160,7 +14160,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
 
           If there is not a node immediately following this node the
 
@@ -14172,7 +14172,7 @@ exports.tests = {
 
           invoke the "getNextSibling()" method.   It should
 
-          be set to null. 
+          be set to null.
 
 
           * @author Curt Arnold
@@ -14202,7 +14202,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           Evaluate Node.ownerDocument on the second "p" element.
 
           * @author Curt Arnold
@@ -14249,7 +14249,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
 
           The "getOwnerDocument()" method returns null if the target
 
@@ -14257,7 +14257,7 @@ exports.tests = {
 
 
 
-          Invoke the "getOwnerDocument()" method on the master 
+          Invoke the "getOwnerDocument()" method on the master
 
           document.   The Document returned should be null.
 
@@ -14282,11 +14282,11 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "getPreviousSibling()" method returns the node
-          immediately preceding this node. 
+          immediately preceding this node.
 
-          Retrieve the second child of the second employee and    
+          Retrieve the second child of the second employee and
           invoke the "getPreviousSibling()" method.   It should
           return a node with a NodeName of "#text".
 
@@ -14317,7 +14317,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
 
           If there is not a node immediately preceding this node the
 
@@ -14329,7 +14329,7 @@ exports.tests = {
 
           invoke the "getPreviousSibling()" method.   It should
 
-          be set to null. 
+          be set to null.
 
 
           * @author Curt Arnold
@@ -14359,11 +14359,11 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "hasChildNodes()" method returns true if the node
           has children.
 
-          Retrieve the root node("staff") and invoke the 
+          Retrieve the root node("staff") and invoke the
           "hasChildNodes()" method.   It should return the boolean
           value "true".
 
@@ -14390,7 +14390,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "hasChildNodes()" method returns false if the node
           does not have any children.
 
@@ -14425,9 +14425,9 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "insertBefore(newChild,refChild)" method inserts the
-          node "newChild" before the node "refChild". 
+          node "newChild" before the node "refChild".
 
           Insert a newly created Element node before the second
           sup element in the document and check the "newChild"
@@ -14496,16 +14496,16 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           If the "newChild" is a DocumentFragment object then all
           its children are inserted in the same order before the
-          the "refChild". 
+          the "refChild".
 
           Create a DocumentFragment object and populate it with
           two Element nodes.   Retrieve the second employee and
           insert the newly created DocumentFragment before its
           fourth child.   The second employee should now have two
-          extra children("newChild1" and "newChild2") at 
+          extra children("newChild1" and "newChild2") at
           positions fourth and fifth respectively.
 
           * @author Curt Arnold
@@ -14555,8 +14555,8 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "insertBefore(newChild,refChild)" method raises a 
+          *
+          The "insertBefore(newChild,refChild)" method raises a
           HIERARCHY_REQUEST_ERR DOMException if this node is of
           a type that does not allow children of the type "newChild"
           to be inserted.
@@ -14609,13 +14609,13 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "insertBefore(newChild,refChild)" method raises a 
+          *
+          The "insertBefore(newChild,refChild)" method raises a
           WRONG_DOCUMENT_ERR DOMException if the "newChild" was
-          created from a different document than the one that 
+          created from a different document than the one that
           created this node.
 
-          Retrieve the second employee and attempt to insert a new 
+          Retrieve the second employee and attempt to insert a new
           child that was created from a different document than the
           one that created the second employee.   An attempt to
           insert such a child should raise the desired exception.
@@ -14668,13 +14668,13 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           If the "newChild" is already in the tree, the
           "insertBefore(newChild,refChild)" method must first
           remove it before the insertion takes place.
 
           Insert a node Element ("em") that is already
-          present in the tree.   The existing node should be 
+          present in the tree.   The existing node should be
           removed first and the new one inserted.   The node is
           inserted at a different position in the tree to assure
           that it was indeed inserted.
@@ -14737,14 +14737,14 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "insertBefore(newChild,refChild)" method raises a 
+          *
+          The "insertBefore(newChild,refChild)" method raises a
           HIERARCHY_REQUEST_ERR DOMException if the node to be
           inserted is one of this nodes ancestors.
 
           Retrieve the second employee and attempt to insert a
-          node that is one of its ancestors(root node).   An 
-          attempt to insert such a node should raise the 
+          node that is one of its ancestors(root node).   An
+          attempt to insert such a node should raise the
           desired exception.
 
           * @author Curt Arnold
@@ -14790,13 +14790,13 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "insertBefore(newChild,refchild)" method returns 
+          *
+          The "insertBefore(newChild,refchild)" method returns
           the node being inserted.
 
           Insert an Element node before the fourth
           child of the second employee and check the node
-          returned from the "insertBefore(newChild,refChild)" 
+          returned from the "insertBefore(newChild,refChild)"
           method.   The node returned should be "newChild".
 
           * @author Curt Arnold
@@ -14834,8 +14834,8 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "insertBefore(newChild,refChild)" method raises a 
+          *
+          The "insertBefore(newChild,refChild)" method raises a
           NOT_FOUND_ERR DOMException if the reference child is
           not a child of this node.
 
@@ -14885,10 +14885,10 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           If the "refChild" is null then the
           "insertBefore(newChild,refChild)" method inserts the
-          node "newChild" at the end of the list of children. 
+          node "newChild" at the end of the list of children.
 
           Retrieve the second employee and invoke the
           "insertBefore(newChild,refChild)" method with
@@ -14934,11 +14934,11 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           Create a list of all the children elements of the third
           employee and access its first child by using an index
           of 0.  This should result in the whitspace before "em" being
-          selected (em when ignoring whitespace).  
+          selected (em when ignoring whitespace).
           Further we evaluate its content(by using
             the "getNodeName()" method) to ensure the proper
             element was accessed.
@@ -14987,12 +14987,12 @@ exports.tests = {
 
             },
             /**
-            * 
+            *
             The "getLength()" method returns the number of nodes
             in the list.
 
             Create a list of all the children elements of the third
-            employee and invoke the "getLength()" method. 
+            employee and invoke the "getLength()" method.
             It should contain the value 13.
 
             * @author Curt Arnold
@@ -15034,11 +15034,11 @@ exports.tests = {
 
             },
             /**
-            * 
+            *
             The "getLength()" method returns the number of nodes
             in the list.(Test for EMPTY list)
 
-            Create a list of all the children of the Text node 
+            Create a list of all the children of the Text node
             inside the first child of the third employee and
             invoke the "getLength()" method.   It should contain
             the value 0.
@@ -15074,7 +15074,7 @@ exports.tests = {
 
             },
             /**
-            * 
+            *
             The items in the list are accessible via an integral
             index starting from zero.
             (Index not equal 0)
@@ -15125,9 +15125,9 @@ exports.tests = {
 
             },
             /**
-            * 
+            *
             Create a list of all the children elements of the third
-            employee and access its first child by invoking the 
+            employee and access its first child by invoking the
             "item(index)" method with an index=0.  This should
             result in node with a nodeName of "#text" or "em".
 
@@ -15172,9 +15172,9 @@ exports.tests = {
 
             },
             /**
-            * 
+            *
             Create a list of all the children elements of the third
-            employee and access its last child by invoking the 
+            employee and access its last child by invoking the
             "item(index)" method with an index=length-1.  This should
             result in node with nodeName="#text" or acronym.
             * @author Curt Arnold
@@ -15223,12 +15223,12 @@ exports.tests = {
 
             },
             /**
-            * 
+            *
             The range of valid child node indices is 0 thru length -1
 
             Create a list of all the children elements of the third
             employee and traverse the list from index=0 thru
-            length -1.     
+            length -1.
 
             * @author Curt Arnold
             * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-203510337
@@ -15290,11 +15290,11 @@ exports.tests = {
 
             },
             /**
-            * 
+            *
             The "getParentNode()" method returns the parent
-            of this node. 
+            of this node.
 
-            Retrieve the second employee and invoke the 
+            Retrieve the second employee and invoke the
             "getParentNode()" method on this node.   It should
             be set to "body".
 
@@ -15325,11 +15325,11 @@ exports.tests = {
 
             },
             /**
-            * 
+            *
             The "getParentNode()" method invoked on a node that has
-            just been created and not yet added to the tree is null. 
+            just been created and not yet added to the tree is null.
 
-            Create a new "employee" Element node using the             
+            Create a new "employee" Element node using the
             "createElement(name)" method from the Document interface.
             Since this new node has not yet been added to the tree,
             the "getParentNode()" method will return null.
@@ -15357,10 +15357,10 @@ exports.tests = {
 
             },
             /**
-            * 
+            *
             The "removeChild(oldChild)" method removes the child node
             indicated by "oldChild" from the list of children and
-            returns it. 
+            returns it.
 
             Remove the first employee by invoking the
             "removeChild(oldChild)" method an checking the
@@ -15398,12 +15398,12 @@ exports.tests = {
 
             },
             /**
-            * 
-            The "removeChild(oldChild)" method returns 
+            *
+            The "removeChild(oldChild)" method returns
             the node being removed.
 
-            Remove the first child of the second employee 
-            and check the NodeName returned by the 
+            Remove the first child of the second employee
+            and check the NodeName returned by the
             "removeChild(oldChild)" method.   The returned node
             should have a NodeName equal to "#text".
 
@@ -15444,9 +15444,9 @@ exports.tests = {
 
             },
             /**
-            * 
+            *
             The "removeChild(oldChild)" method removes the node
-            indicated by "oldChild". 
+            indicated by "oldChild".
 
             Retrieve the second p element and remove its first child.
             After the removal, the second p element should have 5 element
@@ -15522,8 +15522,8 @@ exports.tests = {
 
             },
             /**
-            * 
-            The "removeChild(oldChild)" method raises a 
+            *
+            The "removeChild(oldChild)" method raises a
             NOT_FOUND_ERR DOMException if the old child is
             not a child of this node.
 
@@ -15569,9 +15569,9 @@ exports.tests = {
 
             },
             /**
-            * 
-            The "replaceChild(newChild,oldChild)" method replaces 
-            the node "oldChild" with the node "newChild". 
+            *
+            The "replaceChild(newChild,oldChild)" method replaces
+            the node "oldChild" with the node "newChild".
 
             Replace the first element of the second employee with
             a newly created Element node.   Check the first position
@@ -15614,13 +15614,13 @@ exports.tests = {
 
             },
             /**
-            * 
-            The "replaceChild(newChild,oldChild)" method raises a 
+            *
+            The "replaceChild(newChild,oldChild)" method raises a
             HIERARCHY_REQUEST_ERR DOMException if this node is of
             a type that does not allow children of the type "newChild"
             to be inserted.
 
-            Retrieve the root node and attempt to replace 
+            Retrieve the root node and attempt to replace
             one of its children with a newly created Attr node.
             An Element node cannot have children of the "Attr"
             type, therefore the desired exception should be raised.
@@ -15668,15 +15668,15 @@ exports.tests = {
 
             },
             /**
-            * 
-            The "replaceChild(newChild,oldChild)" method raises a 
+            *
+            The "replaceChild(newChild,oldChild)" method raises a
             WRONG_DOCUMENT_ERR DOMException if the "newChild" was
-            created from a different document than the one that 
+            created from a different document than the one that
             created this node.
 
-            Retrieve the second employee and attempt to replace one   
-            of its children with a node created from a different 
-            document.   An attempt to make such a replacement 
+            Retrieve the second employee and attempt to replace one
+            of its children with a node created from a different
+            document.   An attempt to make such a replacement
             should raise the desired exception.
 
             * @author Curt Arnold
@@ -15727,7 +15727,7 @@ exports.tests = {
 
             },
             /**
-            * 
+            *
             If the "newChild" is already in the tree, it is first
             removed before the new one is added.
 
@@ -15800,14 +15800,14 @@ exports.tests = {
 
             },
             /**
-            * 
-            The "replaceChild(newChild,oldChild)" method raises a 
+            *
+            The "replaceChild(newChild,oldChild)" method raises a
             HIERARCHY_REQUEST_ERR DOMException if the node to put
             in is one of this node's ancestors.
 
             Retrieve the second employee and attempt to replace
             one of its children with an ancestor node(root node).
-            An attempt to make such a replacement should raise the 
+            An attempt to make such a replacement should raise the
             desired exception.
 
             * @author Curt Arnold
@@ -15853,12 +15853,12 @@ exports.tests = {
 
             },
             /**
-            * 
-            The "replaceChild(newChild,oldChild)" method returns 
+            *
+            The "replaceChild(newChild,oldChild)" method returns
             the node being replaced.
 
             Replace the second Element of the second employee with
-            a newly created node Element and check the NodeName 
+            a newly created node Element and check the NodeName
             returned by the "replaceChild(newChild,oldChild)"
             method.   The returned node should have a NodeName equal
             to "em".
@@ -15898,8 +15898,8 @@ exports.tests = {
 
             },
             /**
-            * 
-            The "replaceChild(newChild,oldChild)" method raises a 
+            *
+            The "replaceChild(newChild,oldChild)" method raises a
             NOT_FOUND_ERR DOMException if the old child is
             not a child of this node.
 
@@ -15947,7 +15947,7 @@ exports.tests = {
 
             },
             /**
-            * 
+            *
             The "getAttributes()" method invoked on a Text
             Node returns null.
 
@@ -15983,8 +15983,8 @@ exports.tests = {
 
             },
             /**
-            * 
-            The string returned by the "getNodeName()" method for a 
+            *
+            The string returned by the "getNodeName()" method for a
             Text Node is "#text".
 
             * @author Curt Arnold
@@ -16014,7 +16014,7 @@ exports.tests = {
 
             },
             /**
-            * 
+            *
 
             The "getNodeType()" method for a Text Node
 
@@ -16024,9 +16024,9 @@ exports.tests = {
 
             Retrieve the Text node from the last child of
 
-            the first employee and invoke the "getNodeType()"   
+            the first employee and invoke the "getNodeType()"
 
-            method.   The method should return 3. 
+            method.   The method should return 3.
 
 
             * @author Curt Arnold
@@ -16056,14 +16056,14 @@ exports.tests = {
 
             },
             /**
-            * 
-            The string returned by the "getNodeValue()" method for a 
+            *
+            The string returned by the "getNodeValue()" method for a
             Text Node is the content of the Text node.
 
-            Retrieve the Text node from the last child of the first 
-            employee and check the string returned by the 
-            "getNodeValue()" method.   It should be equal to 
-            "1230 North Ave. Dallas, Texas 98551". 
+            Retrieve the Text node from the last child of the first
+            employee and check the string returned by the
+            "getNodeValue()" method.   It should be equal to
+            "1230 North Ave. Dallas, Texas 98551".
 
             * @author Curt Arnold
             * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
@@ -16092,7 +16092,7 @@ exports.tests = {
 
             },
             /**
-            * 
+            *
             An element is created, setNodeValue is called with a non-null argument, but getNodeValue
             should still return null.
 
@@ -16124,7 +16124,7 @@ exports.tests = {
 
             },
             /**
-            * 
+            *
             An comment is created, setNodeValue is called with a non-null argument, but getNodeValue
             should still return null.
 
@@ -16156,7 +16156,7 @@ exports.tests = {
 
             },
             /**
-            * 
+            *
             An entity reference is created, setNodeValue is called with a non-null argument, but getNodeValue
             should still return null.
 
@@ -16177,48 +16177,25 @@ exports.tests = {
               }
               doc = load(docRef, "doc", "hc_staff");
 
-              // TODO: rework this when we go html
 
-              if(
+              // this code path is invalid... hc_staff is always html and doesn't
+              // include an entity=ent1
+              newNode = doc.createEntityReference("ent1");
 
-                (builder.contentType == "text/html" || true)
+              assertNotNull("createdEntRefNotNull",newNode);
 
-              ) {
+              newValue = newNode.nodeValue;
 
-                {
-                  success = false;
-                  try {
-                    newNode = doc.createEntityReference("ent1");
-                  }
-                  catch(ex) {
-                    success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-                  }
-                  assertTrue("throw_NOT_SUPPORTED_ERR",success);
-                }
+              assertNull("initiallyNull",newValue);
+              newNode.nodeValue = "This should have no effect";
 
-              }
+              newValue = newNode.nodeValue;
 
-              else {
-                // this code path is invalid... hc_staff is always html and doesn't 
-                // include an entity=ent1
-                newNode = doc.createEntityReference("ent1");
-
-                assertNotNull("createdEntRefNotNull",newNode);
-
-                newValue = newNode.nodeValue;
-
-                assertNull("initiallyNull",newValue);
-                newNode.nodeValue = "This should have no effect";
-
-                newValue = newNode.nodeValue;
-
-                assertNull("nullAfterAttemptedChange",newValue);
-
-              }
+              assertNull("nullAfterAttemptedChange",newValue);
 
             },
             /**
-            * 
+            *
             An document type accessed, setNodeValue is called with a non-null argument, but getNodeValue
             should still return null.
 
@@ -16244,7 +16221,7 @@ exports.tests = {
 
               (
                 (newNode != null)
-                || 
+                ||
                 (builder.contentType == "text/html")
               )
             );
@@ -16268,7 +16245,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           A document fragment is created, setNodeValue is called with a non-null argument, but getNodeValue
           should still return null.
 
@@ -16300,7 +16277,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           An document is accessed, setNodeValue is called with a non-null argument, but getNodeValue
           should still return null.
 
@@ -16330,7 +16307,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           An Entity is accessed, setNodeValue is called with a non-null argument, but getNodeValue
           should still return null.
 
@@ -16381,7 +16358,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           An notation is accessed, setNodeValue is called with a non-null argument, but getNodeValue
           should still return null.
 
@@ -16432,7 +16409,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           An attempt to add remove an notation should result in a NO_MODIFICATION_ERR.
 
           * @author Curt Arnold
@@ -16482,8 +16459,8 @@ exports.tests = {
 
           },
           /**
-          * 
-          An attempt to add an element to the named node map returned by notations should 
+          *
+          An attempt to add an element to the named node map returned by notations should
           result in a NO_MODIFICATION_ERR or HIERARCHY_REQUEST_ERR.
 
           * @author Curt Arnold
@@ -16525,7 +16502,7 @@ exports.tests = {
                 fail("throw_HIER_OR_NO_MOD_ERR");
 
               } catch (ex) {
-                if (typeof(ex.code) != 'undefined') {      
+                if (typeof(ex.code) != 'undefined') {
                   switch(ex.code) {
                     case /* HIERARCHY_REQUEST_ERR */ 3 :
                     break;
@@ -16534,7 +16511,7 @@ exports.tests = {
                     default:
                     throw ex;
                   }
-                } else { 
+                } else {
                   throw ex;
                 }
               }
@@ -16543,12 +16520,12 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "splitText(offset)" method raises an
           INDEX_SIZE_ERR DOMException if the specified offset is
           negative.
 
-          Retrieve the textual data from the second child of the 
+          Retrieve the textual data from the second child of the
           third employee and invoke the "splitText(offset)" method.
           The desired exception should be raised since the offset
           is a negative number.
@@ -16590,12 +16567,12 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "splitText(offset)" method raises an
           INDEX_SIZE_ERR DOMException if the specified offset is
           greater than the number of characters in the Text node.
 
-          Retrieve the textual data from the second child of the 
+          Retrieve the textual data from the second child of the
           third employee and invoke the "splitText(offset)" method.
           The desired exception should be raised since the offset
           is a greater than the number of characters in the Text
@@ -16639,9 +16616,9 @@ exports.tests = {
 
           },
           /**
-          * 
-          Retrieve the textual data from the last child of the 
-          second employee.   That node is composed of two   
+          *
+          Retrieve the textual data from the last child of the
+          second employee.   That node is composed of two
           EntityReference nodes and two Text nodes.   After
           the content node is parsed, the "acronym" Element
           should contain four children with each one of the
@@ -16726,10 +16703,10 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "splitText(offset)" method returns the new Text node.
 
-          Retrieve the textual data from the last child of the 
+          Retrieve the textual data from the last child of the
           first employee and invoke the "splitText(offset)" method.
           The method should return the new Text node.   The offset
           value used for this test is 30.   The "getNodeValue()"
@@ -16766,12 +16743,12 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "splitText(offset)" method breaks the Text node into
           two Text nodes at the specified offset keeping each node
           as siblings in the tree.
 
-          Retrieve the textual data from the second child of the 
+          Retrieve the textual data from the second child of the
           third employee and invoke the "splitText(offset)" method.
           The method splits the Text node into two new sibling
           Text nodes keeping both of them in the tree.   This test
@@ -16810,12 +16787,12 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           After the "splitText(offset)" method breaks the Text node
           into two Text nodes, the new Text node contains all the
           content at and after the offset point.
 
-          Retrieve the textual data from the second child of the 
+          Retrieve the textual data from the second child of the
           third employee and invoke the "splitText(offset)" method.
           The new Text node should contain all the content
           at and after the offset point.   The "getNodeValue()"
@@ -16852,12 +16829,12 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           After the "splitText(offset)" method breaks the Text node
           into two Text nodes, the original node contains all the
           content up to the offset point.
 
-          Retrieve the textual data from the second child of the 
+          Retrieve the textual data from the second child of the
           third employee and invoke the "splitText(offset)" method.
           The original Text node should contain all the content
           up to the offset point.   The "getNodeValue()" method
@@ -16893,16 +16870,16 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           If there is not any markup inside an Element or Attr node
-          content, then the text is contained in a single object   
+          content, then the text is contained in a single object
           implementing the Text interface that is the only child
           of the element.
 
-          Retrieve the textual data from the second child of the 
-          third employee.   That Text node contains a block of 
+          Retrieve the textual data from the second child of the
+          third employee.   That Text node contains a block of
           multiple text lines without markup, so they should be
-          treated as a single Text node.   The "getNodeValue()"    
+          treated as a single Text node.   The "getNodeValue()"
           method should contain the combination of the two lines.
 
           * @author Curt Arnold
@@ -16933,7 +16910,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The range of valid child node indices is 0 to Length -1.
 
           Create a NamedNodeMap object from the attributes of the
@@ -16974,11 +16951,11 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "getNamedItem(name)" method retrieves a node 
-          specified by name. 
+          *
+          The "getNamedItem(name)" method retrieves a node
+          specified by name.
 
-          Retrieve the second employee and create a NamedNodeMap 
+          Retrieve the second employee and create a NamedNodeMap
           listing of the attributes of the last child.  Once the
           list is created an invocation of the "getNamedItem(name)"
           method is done with name="domestic".  This should result
@@ -17015,7 +16992,7 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "setNamedItem(arg)" method raises a
           INUSE_ATTRIBUTE_ERR DOMException if "arg" is an
           Attr that is already in an attribute of another Element.
@@ -17073,15 +17050,15 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "removeNamedItem(name)" method raises a 
+          *
+          The "removeNamedItem(name)" method raises a
           NOT_FOUND_ERR DOMException if there is not a node
           named "name" in the map.
 
           Create a NamedNodeMap object from the attributes of the
           last child of the third employee and attempt to remove
           the "district" attribute.  There is not a node named
-          "district" in the list and therefore the desired   
+          "district" in the list and therefore the desired
           exception should be raised.
 
           * @author NIST
@@ -17122,11 +17099,11 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "getLength()" method returns the number of nodes
-          in the map. 
+          in the map.
 
-          Retrieve the second employee and create a NamedNodeMap 
+          Retrieve the second employee and create a NamedNodeMap
           listing of the attributes of the last child.  Once the
           list is created an invocation of the "getLength()"
           method is executed.  The number of nodes should be 2.
@@ -17160,11 +17137,11 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "removeNamedItem(name)" method removes a node 
-          specified by name. 
+          *
+          The "removeNamedItem(name)" method removes a node
+          specified by name.
 
-          Retrieve the third employee and create a NamedNodeMap 
+          Retrieve the third employee and create a NamedNodeMap
           object of the attributes of the last child.  Once the
           list is created invoke the "removeNamedItem(name)"
           method with name="street".  This should result
@@ -17207,12 +17184,12 @@ exports.tests = {
 
           },
           /**
-          * 
-          If the node removed by the "removeNamedItem(name)" method 
+          *
+          If the node removed by the "removeNamedItem(name)" method
           is an Attr node with a default value it is immediately
-          replaced. 
+          replaced.
 
-          Retrieve the third employee and create a NamedNodeMap 
+          Retrieve the third employee and create a NamedNodeMap
           object of the attributes of the last child.  Once the
           list is created invoke the "removeNamedItem(name)"
           method with name="street".  The "removeNamedItem(name)"
@@ -17257,11 +17234,11 @@ exports.tests = {
 
           },
           /**
-          * 
+          *
           The "removeNamedItem(name)" method returns the node
-          removed from the map.  
+          removed from the map.
 
-          Retrieve the third employee and create a NamedNodeMap 
+          Retrieve the third employee and create a NamedNodeMap
           object of the attributes of the last child.  Once the
           list is created invoke the "removeNamedItem(name)"
           method with name="street".  The "removeNamedItem(name)"
@@ -17299,11 +17276,11 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "getNamedItem(name)" method returns a node of any 
-          type specified by name. 
+          *
+          The "getNamedItem(name)" method returns a node of any
+          type specified by name.
 
-          Retrieve the second employee and create a NamedNodeMap 
+          Retrieve the second employee and create a NamedNodeMap
           listing of the attributes of the last child.  Once the
           list is created an invocation of the "getNamedItem(name)"
           method is done with name="street".  This should result
@@ -17346,11 +17323,11 @@ exports.tests = {
 
           },
           /**
-          * 
-          The "item(index)" method returns the indexth item in 
-          the map(test for first item). 
+          *
+          The "item(index)" method returns the indexth item in
+          the map(test for first item).
 
-          Retrieve the second employee and create a NamedNodeMap 
+          Retrieve the second employee and create a NamedNodeMap
           listing of the attributes of the last child. Since the
           DOM does not specify an order of these nodes the contents
           of the FIRST node can contain either "domestic" or "street".
@@ -17390,11 +17367,11 @@ exports.tests = {
 
         },
         /**
-        * 
-        The "item(index)" method returns the indexth item in 
-        the map(test for last item). 
+        *
+        The "item(index)" method returns the indexth item in
+        the map(test for last item).
 
-        Retrieve the second employee and create a NamedNodeMap 
+        Retrieve the second employee and create a NamedNodeMap
         listing of the attributes of the last child. Since the
         DOM does not specify an order of these nodes the contents
         of the LAST node can contain either "domestic" or "street".
@@ -17434,14 +17411,14 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "getNamedItem(name)" method returns null of the 
-      specified name did not identify any node in the map. 
+      *
+      The "getNamedItem(name)" method returns null of the
+      specified name did not identify any node in the map.
 
-      Retrieve the second employee and create a NamedNodeMap 
+      Retrieve the second employee and create a NamedNodeMap
       listing of the attributes of the last child.  Once the
       list is created an invocation of the "getNamedItem(name)"
-      method is done with name="district".  This name does not 
+      method is done with name="district".  This name does not
       match any names in the list therefore the method should
       return null.
 
@@ -17472,17 +17449,17 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "setNamedItem(arg)" method adds a node using its 
-      nodeName attribute. 
+      *
+      The "setNamedItem(arg)" method adds a node using its
+      nodeName attribute.
 
-      Retrieve the second employee and create a NamedNodeMap 
+      Retrieve the second employee and create a NamedNodeMap
       object from the attributes of the last child by
       invoking the "getAttributes()" method.  Once the
       list is created an invocation of the "setNamedItem(arg)"
       method is done with arg=newAttr, where newAttr is a
       new Attr Node previously created.  The "setNamedItem(arg)"
-      method should add then new node to the NamedNodeItem 
+      method should add then new node to the NamedNodeItem
       object by using its "nodeName" attribute("district').
       This node is then retrieved using the "getNamedItem(name)"
       method.  This test uses the "createAttribute(name)"
@@ -17523,12 +17500,12 @@ exports.tests = {
 
       },
       /**
-      * 
-      If the "setNamedItem(arg)" method replaces an already 
-      existing node with the same name then the already 
+      *
+      If the "setNamedItem(arg)" method replaces an already
+      existing node with the same name then the already
       existing node is returned.
 
-      Retrieve the third employee and create a NamedNodeMap 
+      Retrieve the third employee and create a NamedNodeMap
       object from the attributes of the last child by
       invoking the "getAttributes()" method.  Once the
       list is created an invocation of the "setNamedItem(arg)"
@@ -17536,7 +17513,7 @@ exports.tests = {
       new Attr Node previously created and whose node name
       already exists in the map.  The "setNamedItem(arg)"
       method should replace the already existing node with
-      the new one and return the existing node.   
+      the new one and return the existing node.
       This test uses the "createAttribute(name)" method from
       the document interface.
 
@@ -17573,12 +17550,12 @@ exports.tests = {
 
       },
       /**
-      * 
-      If the node to be added by the "setNamedItem(arg)" method 
+      *
+      If the node to be added by the "setNamedItem(arg)" method
       already exists in the NamedNodeMap, it is replaced by
       the new one.
 
-      Retrieve the second employee and create a NamedNodeMap 
+      Retrieve the second employee and create a NamedNodeMap
       object from the attributes of the last child by
       invoking the "getAttributes()" method.  Once the
       list is created an invocation of the "setNamedItem(arg)"
@@ -17586,7 +17563,7 @@ exports.tests = {
       new Attr Node previously created and whose node name
       already exists in the map.  The "setNamedItem(arg)"
       method should replace the already existing node with
-      the new one.   
+      the new one.
       This node is then retrieved using the "getNamedItem(name)"
       method.  This test uses the "createAttribute(name)"
       method from the document interface
@@ -17626,11 +17603,11 @@ exports.tests = {
 
       },
       /**
-      * 
-      If the "setNamedItem(arg)" method does not replace an 
-      existing node with the same name then it returns null. 
+      *
+      If the "setNamedItem(arg)" method does not replace an
+      existing node with the same name then it returns null.
 
-      Retrieve the third employee and create a NamedNodeMap 
+      Retrieve the third employee and create a NamedNodeMap
       object from the attributes of the last child.
       Once the list is created the "setNamedItem(arg)" method
       is invoked with arg=newAttr, where newAttr is a
@@ -17670,15 +17647,15 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "setNamedItem(arg)" method raises a 
+      *
+      The "setNamedItem(arg)" method raises a
       WRONG_DOCUMENT_ERR DOMException if "arg" was created
       from a different document than the one that created
-      the NamedNodeMap. 
+      the NamedNodeMap.
 
       Create a NamedNodeMap object from the attributes of the
       last child of the third employee and attempt to add
-      another Attr node to it that was created from a 
+      another Attr node to it that was created from a
       different DOM document.  This should raise the desired
       exception.  This method uses the "createAttribute(name)"
       method from the Document interface.
@@ -17731,7 +17708,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "appendChild(newChild)" method adds the node
       "newChild" to the end of the list of children of the
       node.
@@ -17776,13 +17753,13 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       If the "newChild" is already in the tree, it is first
       removed before the new one is appended.
 
-      Retrieve the first child of the second employee and   
+      Retrieve the first child of the second employee and
       append the first child to the end of the list.   After
-      the "appendChild(newChild)" method is invoked the first 
+      the "appendChild(newChild)" method is invoked the first
       child should be the one that was second and the last
       child should be the one that was first.
 
@@ -17841,9 +17818,9 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       Create and populate a new DocumentFragment object and
-      append it to the second employee.   After the 
+      append it to the second employee.   After the
       "appendChild(newChild)" method is invoked retrieve the
       new nodes at the end of the list, they should be the
       two Element nodes from the DocumentFragment.
@@ -17913,11 +17890,11 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "appendChild(newChild)" method returns the node
       added.
 
-      Append a newly created node to the child list of the 
+      Append a newly created node to the child list of the
       second employee and check the NodeName returned.   The
       "getNodeName()" method should return "newChild".
 
@@ -17954,8 +17931,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "appendChild(newChild)" method raises a 
+      *
+      The "appendChild(newChild)" method raises a
       HIERARCHY_REQUEST_ERR DOMException if this node is of
       a type that does not allow children of the type "newChild"
       to be inserted.
@@ -18003,15 +17980,15 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "appendChild(newChild)" method raises a 
+      *
+      The "appendChild(newChild)" method raises a
       WRONG_DOCUMENT_ERR DOMException if the "newChild" was
-      created from a different document than the one that 
+      created from a different document than the one that
       created this node.
 
-      Retrieve the second employee and attempt to append    
-      a node created from a different document.   An attempt 
-      to make such a replacement should raise the desired 
+      Retrieve the second employee and attempt to append
+      a node created from a different document.   An attempt
+      to make such a replacement should raise the desired
       exception.
 
       * @author NIST
@@ -18060,14 +18037,14 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "appendChild(newChild)" method raises a 
-      HIERARCHY_REQUEST_ERR DOMException if the node to 
+      *
+      The "appendChild(newChild)" method raises a
+      HIERARCHY_REQUEST_ERR DOMException if the node to
       append is one of this node's ancestors.
 
-      Retrieve the second employee and attempt to append 
+      Retrieve the second employee and attempt to append
       an ancestor node(root node) to it.
-      An attempt to make such an addition should raise the 
+      An attempt to make such an addition should raise the
       desired exception.
 
       * @author NIST
@@ -18110,13 +18087,13 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "appendChild(newChild)" method causes the 
+      *
+      The "appendChild(newChild)" method causes the
       DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
       if the node is readonly.
 
       Obtain the children of the THIRD "gender" element.   The elements
-      content is an entity reference.   Get the FIRST item 
+      content is an entity reference.   Get the FIRST item
       from the entity reference and execute the "appendChild(newChild)" method.
       This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
 
@@ -18177,8 +18154,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "appendChild(newChild)" method causes the 
+      *
+      The "appendChild(newChild)" method causes the
       DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
       if the node is readonly.
 
@@ -18222,7 +18199,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getAttributes()" method invoked on an Attribute
       Node returns null.
 
@@ -18261,21 +18238,21 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
 
-      The string returned by the "getNodeName()" method for an 
+      The string returned by the "getNodeName()" method for an
 
       Attribute Node is the name of the Attribute.
 
 
 
-      Retrieve the Attribute named "domestic" from the last 
+      Retrieve the Attribute named "domestic" from the last
 
-      child of the first employee and check the string returned 
+      child of the first employee and check the string returned
 
-      by the "getNodeName()" method.   It should be equal to 
+      by the "getNodeName()" method.   It should be equal to
 
-      "domestic". 
+      "domestic".
 
 
       * @author NIST
@@ -18305,7 +18282,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
 
       The "getNodeType()" method for an Attribute Node
 
@@ -18315,9 +18292,9 @@ exports.tests = {
 
       Retrieve the first attribute from the last child of
 
-      the first employee and invoke the "getNodeType()"   
+      the first employee and invoke the "getNodeType()"
 
-      method.   The method should return 2. 
+      method.   The method should return 2.
 
 
       * @author NIST
@@ -18347,21 +18324,21 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
 
-      The string returned by the "getNodeValue()" method for an 
+      The string returned by the "getNodeValue()" method for an
 
       Attribute Node is the value of the Attribute.
 
 
 
-      Retrieve the Attribute named "domestic" from the last 
+      Retrieve the Attribute named "domestic" from the last
 
-      child of the first employee and check the string returned 
+      child of the first employee and check the string returned
 
-      by the "getNodeValue()" method.   It should be equal to 
+      by the "getNodeValue()" method.   It should be equal to
 
-      "Yes". 
+      "Yes".
 
 
       * @author NIST
@@ -18391,7 +18368,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getAttributes()" method invoked on a CDATASection
       Node returns null.
 
@@ -18439,14 +18416,14 @@ exports.tests = {
 
       },
       /**
-      * 
-      The string returned by the "getNodeName()" method for a 
+      *
+      The string returned by the "getNodeName()" method for a
       CDATASection Node is #cdata-section".
 
       Retrieve the CDATASection node inside the second child
-      of the second employee and check the string returned 
-      by the "getNodeName()" method.   It should be equal to 
-      "#cdata-section". 
+      of the second employee and check the string returned
+      by the "getNodeName()" method.   It should be equal to
+      "#cdata-section".
 
       * @author NIST
       * @author Mary Brady
@@ -18487,13 +18464,13 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getNodeType()" method for a CDATASection Node
       returns the constant value 4.
 
       Retrieve the CDATASection node contained inside the
-      second child of the second employee and invoke the 
-      "getNodeType()" method.   The method should return 4. 
+      second child of the second employee and invoke the
+      "getNodeType()" method.   The method should return 4.
 
       * @author NIST
       * @author Mary Brady
@@ -18533,14 +18510,14 @@ exports.tests = {
 
       },
       /**
-      * 
-      The string returned by the "getNodeValue()" method for a 
-      CDATASection Node is the content of the CDATASection. 
+      *
+      The string returned by the "getNodeValue()" method for a
+      CDATASection Node is the content of the CDATASection.
 
       Retrieve the CDATASection node inside the second child
-      of the second employee and check the string returned 
-      by the "getNodeValue()" method.   It should be equal to 
-      "This is a CDATA Section with EntityReference number 2 
+      of the second employee and check the string returned
+      by the "getNodeValue()" method.   It should be equal to
+      "This is a CDATA Section with EntityReference number 2
       &ent2;".
 
       * @author NIST
@@ -18583,7 +18560,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       Collect the element names from Node.childNodes and check against expectations.
 
       * @author NIST
@@ -18639,7 +18616,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       Add an element and check that the previously retrieved childNodes NodeList
       is live.
 
@@ -18679,11 +18656,11 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getChildNodes()" method returns a NodeList
       that contains all children of this node.   If there
-      are not any children, this is a NodeList that does not 
-      contain any nodes. 
+      are not any children, this is a NodeList that does not
+      contain any nodes.
 
       Retrieve the Text node from the second child of the second
       employee and invoke the "getChildNodes()" method.   The
@@ -18722,7 +18699,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       If the cloneNode method is used to clone an
       Element node, all the attributes of the Element are
       copied along with their values.
@@ -18774,7 +18751,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "cloneNode(deep)" method does not copy text unless it
       is deep cloned.(Test for deep=false)
 
@@ -18815,7 +18792,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The duplicate node returned by the "cloneNode(deep)"
       method does not have a ParentNode.
 
@@ -18851,7 +18828,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "cloneNode(deep)" method returns a copy of the node
       only if deep=false.
 
@@ -18896,14 +18873,14 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "cloneNode(deep)" method returns a copy of the node
       and the subtree under it if deep=true.
 
       Retrieve the second employee and invoke the
       "cloneNode(deep)" method with deep=true.   The
       method should clone this node and the subtree under it.
-      The NodeName of each child in the returned node is 
+      The NodeName of each child in the returned node is
       checked to insure the entire subtree under the second
       employee was cloned.
 
@@ -18985,7 +18962,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       Retrieve the second salary and
       the "cloneNode(deep)" method with deep=true.   The
       duplicate node returned by the method should copy
@@ -19022,14 +18999,14 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "getAttributes()" method invoked on a Comment 
+      *
+      The "getAttributes()" method invoked on a Comment
       Node returns null.
 
       Find any comment that is an immediate child of the root
       and assert that Node.attributes is null.  Then create
       a new comment node (in case they had been omitted) and
-      make the assertion.    
+      make the assertion.
 
       * @author NIST
       * @author Mary Brady
@@ -19075,12 +19052,12 @@ exports.tests = {
 
       },
       /**
-      * 
-      The string returned by the "getNodeName()" method for a 
+      *
+      The string returned by the "getNodeName()" method for a
       Comment Node is "#comment".
 
-      Retrieve the Comment node in the XML file 
-      and check the string returned by the "getNodeName()" 
+      Retrieve the Comment node in the XML file
+      and check the string returned by the "getNodeName()"
       method.   It should be equal to "#comment".
 
       * @author NIST
@@ -19122,13 +19099,13 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getNodeType()" method for a Comment Node
       returns the constant value 8.
 
       Retrieve the nodes from the document and check for
-      a comment node and invoke the "getNodeType()" method.   This should   
-      return 8. 
+      a comment node and invoke the "getNodeType()" method.   This should
+      return 8.
 
       * @author NIST
       * @author Mary Brady
@@ -19169,12 +19146,12 @@ exports.tests = {
 
       },
       /**
-      * 
-      The string returned by the "getNodeValue()" method for a 
+      *
+      The string returned by the "getNodeValue()" method for a
       Comment Node is the content of the comment.
 
-      Retrieve the comment in the XML file and   
-      check the string returned by the "getNodeValue()" method. 
+      Retrieve the comment in the XML file and
+      check the string returned by the "getNodeValue()" method.
       It should be equal to "This is comment number 1".
 
       * @author NIST
@@ -19216,13 +19193,13 @@ exports.tests = {
 
       },
       /**
-      * 
-      The string returned by the "getNodeName()" method for a 
+      *
+      The string returned by the "getNodeName()" method for a
       DocumentFragment Node is "#document-frament".
 
       Retrieve the DOM document and invoke the
-      "createDocumentFragment()" method and check the string      
-      returned by the "getNodeName()" method.   It should be 
+      "createDocumentFragment()" method and check the string
+      returned by the "getNodeName()" method.   It should be
       equal to "#document-fragment".
 
       * @author NIST
@@ -19249,14 +19226,14 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getNodeType()" method for a DocumentFragment Node
       returns the constant value 11.
 
-      Invoke the "createDocumentFragment()" method and    
+      Invoke the "createDocumentFragment()" method and
       examine the NodeType of the document fragment
-      returned by the "getNodeType()" method.   The method 
-      should return 11. 
+      returned by the "getNodeType()" method.   The method
+      should return 11.
 
       * @author NIST
       * @author Mary Brady
@@ -19282,13 +19259,13 @@ exports.tests = {
 
       },
       /**
-      * 
-      The string returned by the "getNodeValue()" method for a 
+      *
+      The string returned by the "getNodeValue()" method for a
       DocumentFragment Node is null.
 
       Retrieve the DOM document and invoke the
-      "createDocumentFragment()" method and check the string      
-      returned by the "getNodeValue()" method.   It should be 
+      "createDocumentFragment()" method and check the string
+      returned by the "getNodeValue()" method.   It should be
       equal to null.
 
       * @author NIST
@@ -19321,7 +19298,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getAttributes()" method invoked on a Document
       Node returns null.
 
@@ -19347,12 +19324,12 @@ exports.tests = {
 
       },
       /**
-      * 
-      The string returned by the "getNodeName()" method for a 
+      *
+      The string returned by the "getNodeName()" method for a
       Document Node is "#document".
 
       Retrieve the DOM document and check the string returned
-      by the "getNodeName()" method.   It should be equal to 
+      by the "getNodeName()" method.   It should be equal to
       "#document".
 
       * @author NIST
@@ -19377,12 +19354,12 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getNodeType()" method for a Document Node
       returns the constant value 9.
 
-      Retrieve the document and invoke the "getNodeType()" 
-      method.   The method should return 9. 
+      Retrieve the document and invoke the "getNodeType()"
+      method.   The method should return 9.
 
       * @author NIST
       * @author Mary Brady
@@ -19406,13 +19383,13 @@ exports.tests = {
 
       },
       /**
-      * 
-      The string returned by the "getNodeValue()" method for a 
+      *
+      The string returned by the "getNodeValue()" method for a
       Document Node is null.
 
       Retrieve the DOM Document and check the string returned
-      by the "getNodeValue()" method.   It should be equal to 
-      null. 
+      by the "getNodeValue()" method.   It should be equal to
+      null.
 
 
       * @author NIST
@@ -19437,10 +19414,10 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       Retrieve the DOCTYPE declaration from the XML file and
-      check the string returned by the "getNodeName()" 
-      method.   It should be equal to "staff" or "svg". 
+      check the string returned by the "getNodeName()"
+      method.   It should be equal to "staff" or "svg".
 
       * @author NIST
       * @author Mary Brady
@@ -19480,7 +19457,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getNodeType()" method for a DocumentType Node
       returns the constant value 10.
 
@@ -19509,8 +19486,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      The string returned by the "getNodeValue()" method for a 
+      *
+      The string returned by the "getNodeValue()" method for a
       DocumentType Node is null.
 
       * @author NIST
@@ -19537,7 +19514,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getAttributes()" method invoked on an Element
       Node returns a NamedNodeMap containing the attributes
       of this node.
@@ -19545,7 +19522,7 @@ exports.tests = {
       Retrieve the last child of the third employee and
       invoke the "getAttributes()" method.   It should return
       a NamedNodeMap containing the attributes of the Element
-      node. 
+      node.
 
       * @author NIST
       * @author Mary Brady
@@ -19587,21 +19564,21 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
 
-      The string returned by the "getNodeName()" method for an 
+      The string returned by the "getNodeName()" method for an
 
-      Element Node is its tagName. 
+      Element Node is its tagName.
 
 
 
-      Retrieve the first Element Node(Root Node) of the   
+      Retrieve the first Element Node(Root Node) of the
 
-      DOM object and check the string returned by the            
+      DOM object and check the string returned by the
 
       "getNodeName()" method.   It should be equal to its
 
-      tagName. 
+      tagName.
 
 
       * @author NIST
@@ -19642,12 +19619,12 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getNodeType()" method for an Element Node
       returns the constant value 1.
 
-      Retrieve the root node and invoke the "getNodeType()"   
-      method.   The method should return 1. 
+      Retrieve the root node and invoke the "getNodeType()"
+      method.   The method should return 1.
 
       * @author NIST
       * @author Mary Brady
@@ -19673,8 +19650,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      The string returned by the "getNodeValue()" method for an 
+      *
+      The string returned by the "getNodeValue()" method for an
       Element Node is null.
 
       * @author NIST
@@ -19701,8 +19678,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "getAttributes()" method invoked on an Entity 
+      *
+      The "getAttributes()" method invoked on an Entity
       Node returns null.
 
       * @author NIST
@@ -19737,7 +19714,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       Check the nodeName of the entity returned by DocumentType.entities.getNamedItem("ent1").
 
       * @author NIST
@@ -19772,7 +19749,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getNodeType()" method for an Entity Node
       returns the constant value 6.
 
@@ -19808,8 +19785,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      The string returned by the "getNodeValue()" method for an 
+      *
+      The string returned by the "getNodeValue()" method for an
       Entity Node is null.
 
       * @author NIST
@@ -19844,8 +19821,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "getAttributes()" method invoked on an EntityReference 
+      *
+      The "getAttributes()" method invoked on an EntityReference
       Node returns null.
 
       * @author NIST
@@ -19887,14 +19864,14 @@ exports.tests = {
 
       },
       /**
-      * 
-      The string returned by the "getNodeName()" method for an 
+      *
+      The string returned by the "getNodeName()" method for an
       EntityReference Node is the name of the entity referenced.
 
       Retrieve the first Entity Reference node from the last
-      child of the second employee and check the string 
-      returned by the "getNodeName()" method.   It should be 
-      equal to "ent2". 
+      child of the second employee and check the string
+      returned by the "getNodeName()" method.   It should be
+      equal to "ent2".
 
       * @author NIST
       * @author Mary Brady
@@ -19935,13 +19912,13 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getNodeType()" method for an EntityReference Node
       returns the constant value 5.
 
       Retrieve the EntityReference node from the last child
-      of the second employee and invoke the "getNodeType()"   
-      method.   The method should return 5. 
+      of the second employee and invoke the "getNodeType()"
+      method.   The method should return 5.
 
       * @author NIST
       * @author Mary Brady
@@ -19981,13 +19958,13 @@ exports.tests = {
 
       },
       /**
-      * 
-      The string returned by the "getNodeValue()" method for an 
+      *
+      The string returned by the "getNodeValue()" method for an
       EntityReference Node is null.
 
       Retrieve the first Entity Reference node from the last
-      child of the second employee and check the string 
-      returned by the "getNodeValue()" method.   It should be 
+      child of the second employee and check the string
+      returned by the "getNodeValue()" method.   It should be
       equal to null.
 
       * @author NIST
@@ -20029,8 +20006,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      The string returned by the "getNodeValue()" method for an 
+      *
+      The string returned by the "getNodeValue()" method for an
       Entity Node is always null and "setNodeValue" should have no effect.
 
       * @author Curt Arnold
@@ -20067,9 +20044,9 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getFirstChild()" method returns the first child
-      of this node. 
+      of this node.
 
       * @author NIST
       * @author Mary Brady
@@ -20109,7 +20086,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
 
       If there is not a first child then the "getFirstChild()"
 
@@ -20157,9 +20134,9 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getLastChild()" method returns the last child
-      of this node. 
+      of this node.
 
       * @author NIST
       * @author Mary Brady
@@ -20199,7 +20176,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
 
       If there is not a last child then the "getLastChild()"
 
@@ -20247,9 +20224,9 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getNextSibling()" method returns the node immediately
-      following this node. 
+      following this node.
 
       * @author NIST
       * @author Mary Brady
@@ -20289,7 +20266,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
 
       If there is not a node immediately following this node the
 
@@ -20301,7 +20278,7 @@ exports.tests = {
 
       invoke the "getNextSibling()" method.   It should
 
-      be set to null. 
+      be set to null.
 
 
       * @author NIST
@@ -20332,11 +20309,11 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getOwnerDocument()" method returns the Document
       object associated with this node.
 
-      Retrieve the second employee and examine Document 
+      Retrieve the second employee and examine Document
       returned by the "getOwnerDocument()" method.   Invoke
       the "getDocumentElement()" on the Document which will
       return an Element that is equal to "staff".
@@ -20386,7 +20363,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getOwnerDocument()" method returns null if the target
       node itself is a document.
 
@@ -20411,9 +20388,9 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getPreviousSibling()" method returns the node
-      immediately preceding this node. 
+      immediately preceding this node.
 
       * @author NIST
       * @author Mary Brady
@@ -20453,7 +20430,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
 
       If there is not a node immediately preceding this node the
 
@@ -20465,7 +20442,7 @@ exports.tests = {
 
       invoke the "getPreviousSibling()" method.   It should
 
-      be set to null. 
+      be set to null.
 
 
       * @author NIST
@@ -20496,11 +20473,11 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "hasChildNodes()" method returns true if the node
       has children.
 
-      Retrieve the root node("staff") and invoke the 
+      Retrieve the root node("staff") and invoke the
       "hasChildNodes()" method.   It should return the boolean
       value "true".
 
@@ -20528,11 +20505,11 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "hasChildNodes()" method returns false if the node
       does not have any children.
 
-      Retrieve the Text node inside the first child of the 
+      Retrieve the Text node inside the first child of the
       second employee and invoke the "hasChildNodes()" method.
       It should return the boolean value "false".
 
@@ -20569,9 +20546,9 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "insertBefore(newChild,refChild)" method inserts the
-      node "newChild" before the node "refChild". 
+      node "newChild" before the node "refChild".
 
       Insert a newly created Element node before the eigth
       child of the second employee and check the "newChild"
@@ -20662,16 +20639,16 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       If the "newChild" is a DocumentFragment object then all
       its children are inserted in the same order before the
-      the "refChild". 
+      the "refChild".
 
       Create a DocumentFragment object and populate it with
       two Element nodes.   Retrieve the second employee and
       insert the newly created DocumentFragment before its
       fourth child.   The second employee should now have two
-      extra children("newChild1" and "newChild2") at 
+      extra children("newChild1" and "newChild2") at
       positions fourth and fifth respectively.
 
       * @author NIST
@@ -20721,8 +20698,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "insertBefore(newChild,refChild)" method raises a 
+      *
+      The "insertBefore(newChild,refChild)" method raises a
       HIERARCHY_REQUEST_ERR DOMException if this node is of
       a type that does not allow children of the type "newChild"
       to be inserted.
@@ -20774,13 +20751,13 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "insertBefore(newChild,refChild)" method raises a 
+      *
+      The "insertBefore(newChild,refChild)" method raises a
       WRONG_DOCUMENT_ERR DOMException if the "newChild" was
-      created from a different document than the one that 
+      created from a different document than the one that
       created this node.
 
-      Retrieve the second employee and attempt to insert a new 
+      Retrieve the second employee and attempt to insert a new
       child that was created from a different document than the
       one that created the second employee.   An attempt to
       insert such a child should raise the desired exception.
@@ -20833,13 +20810,13 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       If the "newChild" is already in the tree, the
       "insertBefore(newChild,refChild)" method must first
       remove it before the insertion takes place.
 
       Insert a node Element ("employeeId") that is already
-      present in the tree.   The existing node should be 
+      present in the tree.   The existing node should be
       removed first and the new one inserted.   The node is
       inserted at a different position in the tree to assure
       that it was indeed inserted.
@@ -20928,14 +20905,14 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "insertBefore(newChild,refChild)" method raises a 
+      *
+      The "insertBefore(newChild,refChild)" method raises a
       HIERARCHY_REQUEST_ERR DOMException if the node to be
       inserted is one of this nodes ancestors.
 
       Retrieve the second employee and attempt to insert a
-      node that is one of its ancestors(root node).   An 
-      attempt to insert such a node should raise the 
+      node that is one of its ancestors(root node).   An
+      attempt to insert such a node should raise the
       desired exception.
 
       * @author NIST
@@ -20983,13 +20960,13 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "insertBefore(newChild,refchild)" method returns 
+      *
+      The "insertBefore(newChild,refchild)" method returns
       the node being inserted.
 
       Insert an Element node before the fourth
       child of the second employee and check the node
-      returned from the "insertBefore(newChild,refChild)" 
+      returned from the "insertBefore(newChild,refChild)"
       method.   The node returned should be "newChild".
 
       * @author NIST
@@ -21027,13 +21004,13 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "insertBefore(newChild,refChild)" method causes the 
+      *
+      The "insertBefore(newChild,refChild)" method causes the
       DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
       if the node is readonly.
 
       Obtain the children of the THIRD "gender" element.   The elements
-      content is an entity reference.   Get the FIRST item 
+      content is an entity reference.   Get the FIRST item
       from the entity reference and execute the "insertBefore(newChild,refChild)" method.
       This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
 
@@ -21096,8 +21073,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "insertBefore(newChild,refChild)" method causes the 
+      *
+      The "insertBefore(newChild,refChild)" method causes the
       DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
       if the node is readonly.
 
@@ -21143,8 +21120,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "insertBefore(newChild,refChild)" method raises a 
+      *
+      The "insertBefore(newChild,refChild)" method raises a
       NOT_FOUND_ERR DOMException if the reference child is
       not a child of this node.
 
@@ -21194,10 +21171,10 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       If the "refChild" is null then the
       "insertBefore(newChild,refChild)" method inserts the
-      node "newChild" at the end of the list of children. 
+      node "newChild" at the end of the list of children.
 
       Retrieve the second employee and invoke the
       "insertBefore(newChild,refChild)" method with
@@ -21243,7 +21220,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       Create a list of all the children elements of the third
       employee and access its first child by using an index
       of 0.
@@ -21284,7 +21261,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getLength()" method returns the number of nodes
       in the list should be 6 (no whitespace) or 13.
 
@@ -21320,11 +21297,11 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     The "getLength()" method returns the number of nodes
     in the list.(Test for EMPTY list)
 
-    Create a list of all the children of the Text node 
+    Create a list of all the children of the Text node
     inside the first child of the third employee and
     invoke the "getLength()" method.   It should contain
     the value 0.
@@ -21362,7 +21339,7 @@ exports.tests = {
 
     },
     /**
-    * 
+    *
     Create a list of all the children elements of the third
     employee and access its fourth child by using an index
     of 3.  This should result in "name" being
@@ -21414,7 +21391,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       Get the first child of the third employee using NodeList.item(0)
       which will either be a Text node (whitespace) or employeeId element.
 
@@ -21462,7 +21439,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       Get this last child of the third employee using NodeList.item(NodeList.length - 1)
       and check that it is either a Text element (with whitespace) or an address element.
 
@@ -21513,12 +21490,12 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The range of valid child node indices is 0 thru length -1
 
       Create a list of all the children elements of the third
       employee and traverse the list from index=0 thru
-      length -1.     
+      length -1.
 
       * @author NIST
       * @author Mary Brady
@@ -21594,13 +21571,13 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "getAttributes()" method invoked on a Notation 
+      *
+      The "getAttributes()" method invoked on a Notation
       Node returns null.
 
       Retrieve the Notation declaration inside the DocumentType
-      node and invoke the "getAttributes()" method on the 
-      Notation Node.   It should return null. 
+      node and invoke the "getAttributes()" method on the
+      Notation Node.   It should return null.
 
       * @author NIST
       * @author Mary Brady
@@ -21634,14 +21611,14 @@ exports.tests = {
 
       },
       /**
-      * 
-      The string returned by the "getNodeName()" method for a 
+      *
+      The string returned by the "getNodeName()" method for a
       Notation Node is the name of the notation.
 
-      Retrieve the Notation declaration inside the   
-      DocumentType node and check the string returned 
-      by the "getNodeName()" method.   It should be equal to 
-      "notation1". 
+      Retrieve the Notation declaration inside the
+      DocumentType node and check the string returned
+      by the "getNodeName()" method.   It should be equal to
+      "notation1".
 
       * @author NIST
       * @author Mary Brady
@@ -21675,13 +21652,13 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getNodeType()" method for an Notation Node
       returns the constant value 12.
 
-      Retrieve the Notation declaration in the DocumentType 
+      Retrieve the Notation declaration in the DocumentType
       node and invoke the "getNodeType()" method.   The method
-      should return 12. 
+      should return 12.
 
       * @author NIST
       * @author Mary Brady
@@ -21715,14 +21692,14 @@ exports.tests = {
 
       },
       /**
-      * 
-      The string returned by the "getNodeValue()" method for a 
+      *
+      The string returned by the "getNodeValue()" method for a
       Notation Node is null.
 
-      Retrieve the Notation declaration inside the 
-      DocumentType node and check the string returned 
-      by the "getNodeValue()" method.   It should be equal to 
-      null. 
+      Retrieve the Notation declaration inside the
+      DocumentType node and check the string returned
+      by the "getNodeValue()" method.   It should be equal to
+      null.
 
       * @author NIST
       * @author Mary Brady
@@ -21756,11 +21733,11 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getParentNode()" method returns the parent
-      of this node. 
+      of this node.
 
-      Retrieve the second employee and invoke the 
+      Retrieve the second employee and invoke the
       "getParentNode()" method on this node.   It should
       be set to "staff".
 
@@ -21806,11 +21783,11 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getParentNode()" method invoked on a node that has
-      just been created and not yet added to the tree is null. 
+      just been created and not yet added to the tree is null.
 
-      Create a new "employee" Element node using the             
+      Create a new "employee" Element node using the
       "createElement(name)" method from the Document interface.
       Since this new node has not yet been added to the tree,
       the "getParentNode()" method will return null.
@@ -21838,17 +21815,17 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
 
-      The "getAttributes()" method invoked on a Processing 
+      The "getAttributes()" method invoked on a Processing
 
       Instruction Node returns null.
 
 
 
-      Retrieve the Processing Instruction node and invoke 
+      Retrieve the Processing Instruction node and invoke
 
-      the "getAttributes()" method.   It should return null. 
+      the "getAttributes()" method.   It should return null.
 
 
       * @author NIST
@@ -21877,19 +21854,19 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
 
-      The string returned by the "getNodeName()" method for a 
+      The string returned by the "getNodeName()" method for a
 
       Processing Instruction Node is the target.
 
 
 
-      Retrieve the Processing Instruction Node in the XML file 
+      Retrieve the Processing Instruction Node in the XML file
 
-      and check the string returned by the "getNodeName()" 
+      and check the string returned by the "getNodeName()"
 
-      method.   It should be equal to "XML-STYLE". 
+      method.   It should be equal to "XML-STYLE".
 
 
       * @author NIST
@@ -21918,9 +21895,9 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
 
-      The "getNodeType()" method for a Processing Instruction 
+      The "getNodeType()" method for a Processing Instruction
 
       node returns the constant value 7.
 
@@ -21928,9 +21905,9 @@ exports.tests = {
 
       Retrieve a NodeList of child elements from the document.
 
-      Retrieve the first child and invoke the "getNodeType()"   
+      Retrieve the first child and invoke the "getNodeType()"
 
-      method.   The method should return 7. 
+      method.   The method should return 7.
 
 
       * @author NIST
@@ -21959,13 +21936,13 @@ exports.tests = {
 
       },
       /**
-      * 
-      The string returned by the "getNodeValue()" method for a 
+      *
+      The string returned by the "getNodeValue()" method for a
       Processing Instruction Node is the content of the
       Processing Instruction(exclude the target).
 
-      Retrieve the Processing Instruction node in the XML file 
-      and check the string returned by the "getNodeValue()" 
+      Retrieve the Processing Instruction node in the XML file
+      and check the string returned by the "getNodeValue()"
       method.   It should be equal to "PIDATA".
 
       * @author NIST
@@ -21994,7 +21971,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       Setting the nodeValue should change the value returned by
       nodeValue and ProcessingInstruction.getData.
 
@@ -22031,10 +22008,10 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "removeChild(oldChild)" method removes the child node
       indicated by "oldChild" from the list of children and
-      returns it. 
+      returns it.
 
       Remove the first employee by invoking the
       "removeChild(oldChild)" method an checking the
@@ -22072,9 +22049,9 @@ exports.tests = {
 
       },
       /**
-      * 
-      Remove the first child of the second employee 
-      and check the NodeName returned by the 
+      *
+      Remove the first child of the second employee
+      and check the NodeName returned by the
       "removeChild(oldChild)" method.   The returned node
       should have a NodeName equal to "#text" or employeeId depending on whitespace.
 
@@ -22125,9 +22102,9 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       Retrieve the second employee and remove its first child.
-      After the removal, the second employee should have five or twelve 
+      After the removal, the second employee should have five or twelve
       children and the first child should now be the child
       that used to be at the second position in the list.
 
@@ -22185,13 +22162,13 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "removeChild(oldChild)" method causes the 
+      *
+      The "removeChild(oldChild)" method causes the
       DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
       if the node is readonly.
 
       Obtain the children of the THIRD "gender" element.   The elements
-      content is an entity reference.   Get the FIRST item 
+      content is an entity reference.   Get the FIRST item
       from the entity reference and execute the "removeChild(oldChild)" method.
       This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
 
@@ -22250,8 +22227,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "removeChild(oldChild)" method causes the 
+      *
+      The "removeChild(oldChild)" method causes the
       DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
       if the node is readonly.
 
@@ -22297,8 +22274,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "removeChild(oldChild)" method raises a 
+      *
+      The "removeChild(oldChild)" method raises a
       NOT_FOUND_ERR DOMException if the old child is
       not a child of this node.
 
@@ -22345,9 +22322,9 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "replaceChild(newChild,oldChild)" method replaces 
-      the node "oldChild" with the node "newChild". 
+      *
+      The "replaceChild(newChild,oldChild)" method replaces
+      the node "oldChild" with the node "newChild".
 
       Replace the first element of the second employee with
       a newly created Element node.   Check the first position
@@ -22390,13 +22367,13 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "replaceChild(newChild,oldChild)" method raises a 
+      *
+      The "replaceChild(newChild,oldChild)" method raises a
       HIERARCHY_REQUEST_ERR DOMException if this node is of
       a type that does not allow children of the type "newChild"
       to be inserted.
 
-      Retrieve the root node and attempt to replace 
+      Retrieve the root node and attempt to replace
       one of its children with a newly created Attr node.
       An Element node cannot have children of the "Attr"
       type, therefore the desired exception should be raised.
@@ -22443,15 +22420,15 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "replaceChild(newChild,oldChild)" method raises a 
+      *
+      The "replaceChild(newChild,oldChild)" method raises a
       WRONG_DOCUMENT_ERR DOMException if the "newChild" was
-      created from a different document than the one that 
+      created from a different document than the one that
       created this node.
 
-      Retrieve the second employee and attempt to replace one   
-      of its children with a node created from a different 
-      document.   An attempt to make such a replacement 
+      Retrieve the second employee and attempt to replace one
+      of its children with a node created from a different
+      document.   An attempt to make such a replacement
       should raise the desired exception.
 
       * @author NIST
@@ -22502,10 +22479,10 @@ exports.tests = {
 
       },
       /**
-      * 
-      Retrieve the second employee and replace its TWELFTH 
+      *
+      Retrieve the second employee and replace its TWELFTH
       child(address) with its SECOND child(employeeId).   After the
-      replacement the second child should now be the one that used   
+      replacement the second child should now be the one that used
       to be at the third position and the TWELFTH child should be the
       one that used to be at the SECOND position.
 
@@ -22597,14 +22574,14 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "replaceChild(newChild,oldChild)" method raises a 
+      *
+      The "replaceChild(newChild,oldChild)" method raises a
       HIERARCHY_REQUEST_ERR DOMException if the node to put
       in is one of this node's ancestors.
 
       Retrieve the second employee and attempt to replace
       one of its children with an ancestor node(root node).
-      An attempt to make such a replacement should raise the 
+      An attempt to make such a replacement should raise the
       desired exception.
 
       * @author NIST
@@ -22652,9 +22629,9 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       Replace the second Element of the second employee with
-      a newly created node Element and check the NodeName 
+      a newly created node Element and check the NodeName
       returned by the "replaceChild(newChild,oldChild)"
       method.   The returned node should have a NodeName equal
       to "employeeId".
@@ -22708,13 +22685,13 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "replaceChild(newChild,oldChild)" method causes the 
+      *
+      The "replaceChild(newChild,oldChild)" method causes the
       DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
       if the node is readonly.
 
       Obtain the children of the THIRD "gender" element.   The elements
-      content is an entity reference.   Get the FIRST item 
+      content is an entity reference.   Get the FIRST item
       from the entity reference and execute the "replaceChild(newChild,oldChild)" method.
       This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
 
@@ -22774,8 +22751,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "replaceChild(newChild,oldChild)" method causes the 
+      *
+      The "replaceChild(newChild,oldChild)" method causes the
       DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
       if the node is readonly.
 
@@ -22822,8 +22799,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "replaceChild(newChild,oldChild)" method raises a 
+      *
+      The "replaceChild(newChild,oldChild)" method raises a
       NOT_FOUND_ERR DOMException if the old child is
       not a child of this node.
 
@@ -22872,13 +22849,13 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "setNodeValue(nodeValue)" method causes the 
+      *
+      The "setNodeValue(nodeValue)" method causes the
       DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
       if the node is readonly.
 
       Obtain the children of the THIRD "gender" element.   The elements
-      content is an entity reference.   Get the SECOND item 
+      content is an entity reference.   Get the SECOND item
       from the entity reference and execute the "setNodeValue(nodeValue)" method.
       This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
 
@@ -22942,7 +22919,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       Create an entity reference and execute the "setNodeValue(nodeValue)" method.
       This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
 
@@ -22985,7 +22962,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getAttributes()" method invoked on a Text
       Node returns null.
 
@@ -23022,9 +22999,9 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
 
-      The string returned by the "getNodeName()" method for a 
+      The string returned by the "getNodeName()" method for a
 
       Text Node is "#text".
 
@@ -23032,11 +23009,11 @@ exports.tests = {
 
       Retrieve the Text Node from the last child of the
 
-      first employee and check the string returned 
+      first employee and check the string returned
 
-      by the "getNodeName()" method.   It should be equal to 
+      by the "getNodeName()" method.   It should be equal to
 
-      "#text". 
+      "#text".
 
 
       * @author NIST
@@ -23067,7 +23044,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
 
       The "getNodeType()" method for a Text Node
 
@@ -23077,9 +23054,9 @@ exports.tests = {
 
       Retrieve the Text node from the last child of
 
-      the first employee and invoke the "getNodeType()"   
+      the first employee and invoke the "getNodeType()"
 
-      method.   The method should return 3. 
+      method.   The method should return 3.
 
 
       * @author NIST
@@ -23110,14 +23087,14 @@ exports.tests = {
 
       },
       /**
-      * 
-      The string returned by the "getNodeValue()" method for a 
+      *
+      The string returned by the "getNodeValue()" method for a
       Text Node is the content of the Text node.
 
-      Retrieve the Text node from the last child of the first 
-      employee and check the string returned by the 
-      "getNodeValue()" method.   It should be equal to 
-      "1230 North Ave. Dallas, Texas 98551". 
+      Retrieve the Text node from the last child of the first
+      employee and check the string returned by the
+      "getNodeValue()" method.   It should be equal to
+      "1230 North Ave. Dallas, Texas 98551".
 
       * @author NIST
       * @author Mary Brady
@@ -23147,7 +23124,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       An element is created, setNodeValue is called with a non-null argument, but getNodeValue
       should still return null.
 
@@ -23179,7 +23156,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       An comment is created, setNodeValue is called with a non-null argument, but getNodeValue
       should still return null.
 
@@ -23211,7 +23188,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       An entity reference is created, setNodeValue is called with a non-null argument, but getNodeValue
       should still return null.
 
@@ -23244,7 +23221,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       An document type accessed, setNodeValue is called with a non-null argument, but getNodeValue
       should still return null.
 
@@ -23278,7 +23255,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       A document fragment is created, setNodeValue is called with a non-null argument, but getNodeValue
       should still return null.
 
@@ -23310,7 +23287,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       An document is accessed, setNodeValue is called with a non-null argument, but getNodeValue
       should still return null.
 
@@ -23340,7 +23317,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       An Entity is accessed, setNodeValue is called with a non-null argument, but getNodeValue
       should still return null.
 
@@ -23381,7 +23358,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       An notation is accessed, setNodeValue is called with a non-null argument, but getNodeValue
       should still return null.
 
@@ -23422,7 +23399,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       An processing instruction is created, setNodeValue is called with a non-null argument, but getNodeValue
       should still return null.
 
@@ -23454,8 +23431,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      Retrieve the notation named "notation1" and access its 
+      *
+      Retrieve the notation named "notation1" and access its
       name by invoking the "getNodeName()" method inherited
       from the Node interface.
 
@@ -23491,8 +23468,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      Retrieve the notation named "notation1" and access its  
+      *
+      Retrieve the notation named "notation1" and access its
       public identifier.  The string "notation1File" should be
       returned.
 
@@ -23527,12 +23504,12 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getPublicId()" method of a Notation node contains
       the public identifier associated with the notation, if
       one was not specified a null value should be returned.
 
-      Retrieve the notation named "notation2" and access its  
+      Retrieve the notation named "notation2" and access its
       public identifier.  Since a public identifier was not
       specified for this notation, the "getPublicId()" method
       should return null.
@@ -23568,12 +23545,12 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "getSystemId()" method of a Notation node contains
       the system identifier associated with the notation, if
       one was specified.
 
-      Retrieve the notation named "notation2" and access its  
+      Retrieve the notation named "notation2" and access its
       system identifier.  The string "notation2File" should be
       returned.
 
@@ -23609,8 +23586,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      Retrieve the notation named "notation1" and access its  
+      *
+      Retrieve the notation named "notation1" and access its
       system identifier.  Since a system identifier was not
       specified for this notation, the "getSystemId()" method
       should return null.
@@ -23646,14 +23623,14 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "getData()" method returns the content of the  
+      *
+      The "getData()" method returns the content of the
       processing instruction.  It starts at the first non
       white character following the target and ends at the
       character immediately preceding the "?>".
 
-      Retrieve the ProcessingInstruction node located  
-      immediately after the prolog.  Create a nodelist of the 
+      Retrieve the ProcessingInstruction node located
+      immediately after the prolog.  Create a nodelist of the
       child nodes of this document.  Invoke the "getData()"
       method on the first child in the list. This should
       return the content of the ProcessingInstruction.
@@ -23684,13 +23661,13 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "getTarget()" method returns the target of the  
+      *
+      The "getTarget()" method returns the target of the
       processing instruction.  It is the first token following
       the markup that begins the processing instruction.
 
-      Retrieve the ProcessingInstruction node located  
-      immediately after the prolog.  Create a nodelist of the 
+      Retrieve the ProcessingInstruction node located
+      immediately after the prolog.  Create a nodelist of the
       child nodes of this document.  Invoke the "getTarget()"
       method on the first child in the list. This should
       return the target of the ProcessingInstruction.
@@ -23721,8 +23698,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "setData(data)" method for a processing instruction causes the 
+      *
+      The "setData(data)" method for a processing instruction causes the
       DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
       if the node is readonly.
 
@@ -23775,8 +23752,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "setData(data)" method for a processing instruction causes the 
+      *
+      The "setData(data)" method for a processing instruction causes the
       DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
       if the node is readonly.
 
@@ -23833,12 +23810,12 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "splitText(offset)" method raises an
       INDEX_SIZE_ERR DOMException if the specified offset is
       negative.
 
-      Retrieve the textual data from the second child of the 
+      Retrieve the textual data from the second child of the
       third employee and invoke the "splitText(offset)" method.
       The desired exception should be raised since the offset
       is a negative number.
@@ -23881,12 +23858,12 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "splitText(offset)" method raises an
       INDEX_SIZE_ERR DOMException if the specified offset is
       greater than the number of characters in the Text node.
 
-      Retrieve the textual data from the second child of the 
+      Retrieve the textual data from the second child of the
       third employee and invoke the "splitText(offset)" method.
       The desired exception should be raised since the offset
       is a greater than the number of characters in the Text
@@ -23931,9 +23908,9 @@ exports.tests = {
 
       },
       /**
-      * 
-      Retrieve the textual data from the last child of the 
-      second employee.   That node is composed of two   
+      *
+      Retrieve the textual data from the last child of the
+      second employee.   That node is composed of two
       EntityReference nodes and two Text nodes.   After
       the content node is parsed, the "address" Element
       should contain four children with each one of the
@@ -24019,10 +23996,10 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "splitText(offset)" method returns the new Text node.
 
-      Retrieve the textual data from the last child of the 
+      Retrieve the textual data from the last child of the
       first employee and invoke the "splitText(offset)" method.
       The method should return the new Text node.   The offset
       value used for this test is 30.   The "getNodeValue()"
@@ -24060,8 +24037,8 @@ exports.tests = {
 
       },
       /**
-      * 
-      The "splitText(offset)" method raises a 
+      *
+      The "splitText(offset)" method raises a
       NO_MODIFICATION_ALLOWED_ERR DOMException if the
       node is readonly.
 
@@ -24129,7 +24106,7 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       Create an ent3 reference and execute the "splitText(offset)" method.
       This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
 
@@ -24172,12 +24149,12 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       The "splitText(offset)" method breaks the Text node into
       two Text nodes at the specified offset keeping each node
       as siblings in the tree.
 
-      Retrieve the textual data from the second child of the 
+      Retrieve the textual data from the second child of the
       third employee and invoke the "splitText(offset)" method.
       The method splits the Text node into two new sibling
       Text nodes keeping both of them in the tree.   This test
@@ -24217,12 +24194,12 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       After the "splitText(offset)" method breaks the Text node
       into two Text nodes, the new Text node contains all the
       content at and after the offset point.
 
-      Retrieve the textual data from the second child of the 
+      Retrieve the textual data from the second child of the
       third employee and invoke the "splitText(offset)" method.
       The new Text node should contain all the content
       at and after the offset point.   The "getNodeValue()"
@@ -24260,12 +24237,12 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       After the "splitText(offset)" method breaks the Text node
       into two Text nodes, the original node contains all the
       content up to the offset point.
 
-      Retrieve the textual data from the second child of the 
+      Retrieve the textual data from the second child of the
       third employee and invoke the "splitText(offset)" method.
       The original Text node should contain all the content
       up to the offset point.   The "getNodeValue()" method
@@ -24302,16 +24279,16 @@ exports.tests = {
 
       },
       /**
-      * 
+      *
       If there is not any markup inside an Element or Attr node
-      content, then the text is contained in a single object   
+      content, then the text is contained in a single object
       implementing the Text interface that is the only child
       of the element.
 
-      Retrieve the textual data from the second child of the 
-      third employee.   That Text node contains a block of 
+      Retrieve the textual data from the second child of the
+      third employee.   That Text node contains a block of
       multiple text lines without markup, so they should be
-      treated as a single Text node.   The "getNodeValue()"    
+      treated as a single Text node.   The "getNodeValue()"
       method should contain the combination of the two lines.
 
       * @author NIST
