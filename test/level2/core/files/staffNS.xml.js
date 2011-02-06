@@ -47,21 +47,21 @@ exports.staffNS = function() {
 
   var defaultAttributes = new dom.NamedNodeMap(doc);
   var entElement = doc.createElementNS("http://www.w3.org/2000/xmlns/","entElement");
-  entElement.setAttribute("attr1", "Attr");
-  entElement.setAttribute("domestic", "MALE");
+  entElement.setAttribute("attr1", "Attr").specified = false;
+  entElement.setAttribute("domestic", "MALE").specified = false;
   defaultAttributes.setNamedItem(entElement);
 
   var defaultAddress = doc.createElement("address");
-  defaultAddress.setAttribute("street", "Yes");
+  defaultAddress.setAttribute("street", "Yes").specified = false;
   defaultAttributes.setNamedItem(defaultAddress);
 
   var defaultEmpAddress = doc.createElementNS("http://www.nist.gov", 'emp:address');
-  defaultEmpAddress.setAttributeNS("http://www.nist.gov", "emp:district", "DISTRICT");
-  defaultEmpAddress.setAttributeNS("http://www.nist.gov", "emp:local1", "FALSE");
+  defaultEmpAddress.setAttributeNS("http://www.nist.gov", "emp:district", "DISTRICT").specified = false;
+  defaultEmpAddress.setAttributeNS("http://www.nist.gov", "emp:local1", "FALSE").specified = false;
   defaultAttributes.setNamedItem(defaultEmpAddress);
 
   var defaultEmpEmployee = doc.createElementNS("http://www.nist.gov", 'emp:employee');
-  defaultEmpEmployee.setAttributeNS(null, 'defaultAttr', 'defaultVal');
+  defaultEmpEmployee.setAttributeNS(null, 'defaultAttr', 'defaultVal').specified = false;
   defaultAttributes.setNamedItem(defaultEmpEmployee);
 
   doc.doctype = new dom.DocumentType(doc, "staff", entities, notations, defaultAttributes);
@@ -189,7 +189,7 @@ exports.staffNS = function() {
 
   employee.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:emp", "http://www.nist.gov");
   employee.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:nm", "http://www.altavista.com");
-  employee.setAttributeNS(null, 'defaultAttr', 'defaultVal');
+  employee.setAttributeNS(null, 'defaultAttr', 'defaultVal').specified = false;
 
   id.appendChild(doc.createTextNode("EMP0004"));
   salary.appendChild(doc.createTextNode("95,000"));
