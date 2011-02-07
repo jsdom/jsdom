@@ -46,6 +46,10 @@
         {
           "name"  : "Shimon Dookdin",
           "email" : "helpmepro1@gmail.com"
+        },
+        {
+          "name"  : "Daniel Cassidy (http://www.danielcassidy.me.uk/)",
+          "email" : "mail@danielcassidy.me.uk"
         }
     ],
     "bugs": {
