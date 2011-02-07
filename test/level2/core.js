@@ -4392,6 +4392,7 @@ elementhasattributens02 : function () {
       element = doc.createElementNS("http://www.w3.org/DOM","address");
       attribute = doc.createAttributeNS("http://www.w3.org/DOM","domestic");
       newAttribute = element.setAttributeNode(attribute);
+      console.log(element.attributes._nsStore);
       state = element.hasAttributeNS("http://www.w3.org/DOM","domestic");
       assertTrue("hasDomesticAttr",state);
 
