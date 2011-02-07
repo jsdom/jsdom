@@ -49,20 +49,20 @@ exports.staffNS = function() {
   var entElement = doc.createElementNS("http://www.w3.org/2000/xmlns/","entElement");
   entElement.setAttribute("attr1", "Attr").specified = false;
   entElement.setAttribute("domestic", "MALE").specified = false;
-  defaultAttributes.setNamedItem(entElement);
+  defaultAttributes.setNamedItemNS(entElement);
 
   var defaultAddress = doc.createElement("address");
-  defaultAddress.setAttribute("street", "Yes").specified = false;
+  defaultAddress.setAttributeNS("http://www.w3.org/2000/xmlns/", "street", "Yes").specified = false;
   defaultAttributes.setNamedItem(defaultAddress);
 
   var defaultEmpAddress = doc.createElementNS("http://www.nist.gov", 'emp:address');
   defaultEmpAddress.setAttributeNS("http://www.nist.gov", "emp:district", "DISTRICT").specified = false;
   defaultEmpAddress.setAttributeNS("http://www.nist.gov", "emp:local1", "FALSE").specified = false;
-  defaultAttributes.setNamedItem(defaultEmpAddress);
+  defaultAttributes.setNamedItemNS(defaultEmpAddress);
 
   var defaultEmpEmployee = doc.createElementNS("http://www.nist.gov", 'emp:employee');
   defaultEmpEmployee.setAttributeNS(null, 'defaultAttr', 'defaultVal').specified = false;
-  defaultAttributes.setNamedItem(defaultEmpEmployee);
+  defaultAttributes.setNamedItemNS(defaultEmpEmployee);
 
   doc.doctype = new dom.DocumentType(doc, "staff", entities, notations, defaultAttributes);
   doc.doctype._systemId = "staffNS.dtd";
