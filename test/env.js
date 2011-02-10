@@ -1,5 +1,5 @@
 
-var jsdom = require("../lib/jsdom");
+var jsdom = require('../lib/jsdom');
 
 jsdom.env({
 
@@ -12,9 +12,9 @@ jsdom.env({
 
     var $ = window.jQuery;
 
-    $("body").html("Let's Rock!")
+    $('body').html('Let\'s Rock!')
 
-    console.log($('html').html());
+    return $('html')[0].outerHTML;
 
   }
 
