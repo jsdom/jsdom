@@ -53,6 +53,31 @@ exports.tests = {
     jsdom.jQueryify(tmpWindow(), jQueryFile, testFunction);
     jsdom.jQueryify(tmpWindow(), jQueryUrl, testFunction);
   },
+
+  env : function() {
+
+    jsdom.env({
+
+        scripts: ['/../../example/jquery/jquery.js'],
+        document: '/../../test/jsdom/files/env.html'
+
+      },
+
+      function(window) {
+
+        var $ = window.jQuery;
+
+        $('body').text('Let\'s Rock!');
+
+        $('html')[0].outerHTML;
+
+        assertTrue("jsdom.env() should load jquery, a document and add some text to the body.",
+          $('body').text().length > 0);
+
+      }
+    );
+  },
+  
   plain_window_document : function() {
     var window = (jsdom.createWindow());
     assertTrue("jsdom.createWindow() should create a documentless window",
