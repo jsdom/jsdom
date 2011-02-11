@@ -1,4 +1,6 @@
-var sys = require("sys");
+var sys = require("sys"),
+    path = require("path");
+    
 exports.tests = {
 
   build_window : function() {
@@ -57,23 +59,23 @@ exports.tests = {
   env : function() {
 
     jsdom.env({
-
-        scripts: ['/../../example/jquery/jquery.js'],
-        document: '/../../test/jsdom/files/env.html'
-
+    
+        scripts: [path.join(__dirname, '..', '..', 'example', 'jquery', 'jquery.js')],
+        html: path.join(__dirname, 'files', 'env.html')
+    
       },
-
+    
       function(window) {
-
+    
         var $ = window.jQuery;
-
+    
         $('body').text('Let\'s Rock!');
-
+    
         $('html')[0].outerHTML;
-
+    
         assertTrue("jsdom.env() should load jquery, a document and add some text to the body.",
           $('body').text().length > 0);
-
+    
       }
     );
   },
