@@ -95,6 +95,13 @@ var suites = {
       global.builder.testDirectory = "level2/core";
     }
   },
+  "level2/core-extra" : { cases: require("./level2/core-extra").tests, setUp : function () {
+      mixin(global, require("../lib/jsdom/level2/core").dom.level2.core);
+      global.builder.contentType   = "text/xml";
+      global.builder.type          = "xml";
+      global.builder.testDirectory = "level2/core";
+    }
+  },
   "level2/events" : { cases: require("./level2/events").tests, setUp : function() {
       mixin(global, require("../lib/jsdom/level2/events").dom.level2.events);
       global.events = require("../lib/jsdom/level2/events").dom.level2.events;
