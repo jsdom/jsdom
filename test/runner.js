@@ -99,7 +99,7 @@ var suites = {
       mixin(global, require("../lib/jsdom/level2/core").dom.level2.core);
       global.builder.contentType   = "text/xml";
       global.builder.type          = "xml";
-      global.builder.testDirectory = "level2/core";
+      global.builder.testDirectory = "level2/core-extra";
     }
   },
   "level2/events" : { cases: require("./level2/events").tests, setUp : function() {
