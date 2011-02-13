@@ -181,5 +181,36 @@ exports.tests = {
     doc.write('<html><body><p></p><p></p></body></html>');
     doc.body.innerHTML = '';
     assertTrue('still has children', doc.body.childNodes.length == 0);
-  }
+  },
+  serialize_html5_doctype : function () {
+    var dom = new browser.DOMImplementation();
+    var doctype = dom.createDocumentType('html');
+    var document = dom.createDocument(null, null, doctype);
+    assertTrue('HTML 5 doctype did not serialize correctly',
+        /^\s*<!DOCTYPE html>/.test(document.outerHTML));
+  },
+  serialize_html4_strict_doctype : function () {
+    var dom = new browser.DOMImplementation();
+    var doctype = dom.createDocumentType('html',
+        '-//W3C//DTD HTML 4.01//EN',
+        'http://www.w3.org/TR/html4/strict.dtd');
+    var document = dom.createDocument(null, null, doctype);
+    assertTrue('HTML 4 strict doctype did not serialize correctly',
+        /^\s*<!DOCTYPE html PUBLIC "-\/\/W3C\/\/DTD HTML 4.01\/\/EN" "http:\/\/www.w3.org\/TR\/html4\/strict.dtd">/.
+            test(document.outerHTML));
+  },
+  serialize_system_doctype : function () {
+    var dom = new browser.DOMImplementation();
+    var doctype = dom.createDocumentType('foo', null, 'foo.dtd');
+    var document = dom.createDocument(null, null, doctype);
+    assertTrue('Doctype did not serialize correctly',
+        /^\s*<!DOCTYPE foo SYSTEM "foo.dtd">/.test(document.outerHTML));
+  },
+  serialize_doctype_containing_quotes : function () {
+    var dom = new browser.DOMImplementation();
+    var doctype = dom.createDocumentType('foo', null, 'foo "bar".dtd');
+    var document = dom.createDocument(null, null, doctype);
+    assertTrue('Doctype did not serialize correctly',
+        /^\s*<!DOCTYPE foo SYSTEM \'foo "bar".dtd\'>/.test(document.outerHTML));
+  },
 };
