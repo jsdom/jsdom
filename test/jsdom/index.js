@@ -61,12 +61,12 @@ exports.tests = {
       code : [
         path.join(__dirname, '..', '..', 'example', 'jquery', 'jquery.js')
       ],
-      done : function(err, window) {
-        var $ = window.jQuery;
-        $('body').text('Let\'s Rock!');
-        $('html')[0].outerHTML;
-        assertTrue("jsdom.env() should load jquery, a document and add some text to the body.",
-                   $('body').text().length > 0);
+      done : function(errors, window) {
+        assertNull('there should have been no errors', errors)
+        var $ = window.jQuery, text = 'Let\'s Rock!';
+        $('body').text(text);
+        assertEquals("jsdom.env() should load jquery, a document and add some text to the body.",
+                   $('body').text(), text);
       }
     });
   },
@@ -75,8 +75,8 @@ exports.tests = {
     var html = "<html><body><p>hello world!</p></body></html>";
     jsdom.env({
       html : html,
-      done : function(err, window) {
-        assertNull("error should be null", err);
+      done : function(errors, window) {
+        assertNull("error should be null", errors);
         assertNotNull("window should be valid", window.location);
       }
     })
@@ -86,9 +86,10 @@ exports.tests = {
     var html = "<html><body><p>hello world!</p></body></html>";
     jsdom.env({
       html : html,
-      code : ['path/to/invalid.js'],
-      done : function(err, window) {
-        assertNotNull("error should not be null", err);
+      code : ['path/to/invalid.js', 'another/invalid.js'],
+      done : function(errors, window) {
+        assertNotNull("error should not be null", errors);
+        assertEquals("errors is an array", errors.length, 2)
         assertNotNull("window should be valid", window.location);
       }
     });
@@ -114,9 +115,9 @@ exports.tests = {
     jsdom.env({
       html : "http://127.0.0.1:64000/html",
       code : "http://127.0.0.1:64000/js",
-      done : function(err, window) {
+      done : function(errors, window) {
         server.close();
-        assertNull("error should not be null", err);
+        assertNull("error should not be null", errors);
         assertNotNull("window should be valid", window.location);
         assertEquals("script should execute on our window", window.attachedHere, 123);
         assertEquals("anchor text", window.document.getElementsByTagName("a").item(0).innerHTML, 'World');
