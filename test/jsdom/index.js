@@ -51,33 +51,77 @@ exports.tests = {
       assertFalse("compareDocumentPosition should not fail", caught);
     };
 
-
     jsdom.jQueryify(tmpWindow(), jQueryFile, testFunction);
     jsdom.jQueryify(tmpWindow(), jQueryUrl, testFunction);
   },
 
-  env : function() {
+  env_with_absolute_file : function() {
+    jsdom.env({
+      html : path.join(__dirname, 'files', 'env.html'),
+      code : [
+        path.join(__dirname, '..', '..', 'example', 'jquery', 'jquery.js')
+      ],
+      done : function(err, window) {
+        var $ = window.jQuery;
+        $('body').text('Let\'s Rock!');
+        $('html')[0].outerHTML;
+        assertTrue("jsdom.env() should load jquery, a document and add some text to the body.",
+                   $('body').text().length > 0);
+      }
+    });
+  },
+
+  env_with_html : function() {
+    var html = "<html><body><p>hello world!</p></body></html>";
+    jsdom.env({
+      html : html,
+      done : function(err, window) {
+        assertNull("error should be null", err);
+        assertNotNull("window should be valid", window.location);
+      }
+    })
+  },
+
+  env_with_non_existant_script : function() {
+    var html = "<html><body><p>hello world!</p></body></html>";
+    jsdom.env({
+      html : html,
+      code : ['path/to/invalid.js'],
+      done : function(err, window) {
+        assertNotNull("error should not be null", err);
+        assertNotNull("window should be valid", window.location);
+      }
+    });
+  },
+
+  env_with_url : function() {
+    // spawn an http server
+    var
+    routes = {
+      "/js" : "window.attachedHere = 123",
+      "/html" : "<a href='/path/to/hello'>World</a>"
+    },
+    server = require("http").createServer(function(req, res) {
+      res.writeHead(200, {
+        "Content-length" : routes[req.url].length
+      });
+      res.end(routes[req.url]);
+    }),
+    html = "<html><body><p>hello world!</p></body></html>";
+
+    server.listen(64000);
 
     jsdom.env({
-    
-        scripts: [path.join(__dirname, '..', '..', 'example', 'jquery', 'jquery.js')],
-        html: path.join(__dirname, 'files', 'env.html')
-    
-      },
-    
-      function(window) {
-    
-        var $ = window.jQuery;
-    
-        $('body').text('Let\'s Rock!');
-    
-        $('html')[0].outerHTML;
-    
-        assertTrue("jsdom.env() should load jquery, a document and add some text to the body.",
-          $('body').text().length > 0);
-    
+      html : "http://127.0.0.1:64000/html",
+      code : "http://127.0.0.1:64000/js",
+      done : function(err, window) {
+        server.close();
+        assertNull("error should not be null", err);
+        assertNotNull("window should be valid", window.location);
+        assertEquals("script should execute on our window", window.attachedHere, 123);
+        assertEquals("anchor text", window.document.getElementsByTagName("a").item(0).innerHTML, 'World');
       }
-    );
+    });
   },
   
   plain_window_document : function() {
