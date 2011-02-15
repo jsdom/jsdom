@@ -341,5 +341,22 @@ bye = bye + "bye";\
       assertTrue("Element stringify", "9" === a.innerHTML);
       assertTrue("Attribute stringify",
                  "123" === a.getAttributeNode('id').nodeValue);
+    },
+    auto_tostring : function() {
+      var fs     = require("fs"),
+          buffer = fs.readFileSync(__dirname + "/files/env.html"),
+          caught = false,
+          dom    = null,
+          count  = 0;
+
+      try {
+        dom = jsdom.jsdom(buffer);
+      } catch (e) {
+        caught = true;
+      }
+
+      assertFalse("buffer's should automatically be stringified", caught);
+      count = dom.documentElement.getElementsByTagName("*").length;
+      assertEquals("should parse as per usual", count, 3)
     }
 };
