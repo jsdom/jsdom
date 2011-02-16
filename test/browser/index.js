@@ -212,5 +212,5 @@ exports.tests = {
     var document = dom.createDocument(null, null, doctype);
     assertTrue('Doctype did not serialize correctly',
         /^\s*<!DOCTYPE foo SYSTEM \'foo "bar".dtd\'>/.test(document.outerHTML));
-  },
+  }
 };

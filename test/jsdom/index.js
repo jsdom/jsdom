@@ -486,5 +486,12 @@ bye = bye + "bye";\
       assertFalse("buffer's should automatically be stringified", caught);
       count = dom.documentElement.getElementsByTagName("*").length;
       assertEquals("should parse as per usual", count, 3)
+    },
+
+    document_should_expose_location : function() {
+      var window = jsdom.jsdom("").createWindow();
+      assertTrue('document.location and window.location', 
+                   window.document.location === window.location);
     }
+    
 };
