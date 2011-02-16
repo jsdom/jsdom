@@ -1,15 +1,15 @@
 # jsdom
 
-CommonJS implementation of the DOM intended to be platform independent and as minimal/light as
-possible while completely adhering to the w3c DOM specifications.
+A javascript implementation of the W3C DOM.
 
-Currently Implemented and w3c Compliant:
+W3C Test Compliance:
 
-  - DOM Level 1 (html/svg/xml)
-  - DOM Level 2 (html/events) with partial level2/core support
-  - Browser (BOM) Augmentation (getElementsByClassName, getElementById, etc..)
+  - DOM Level 1 html/svg/xml (100%)
+  - DOM Level 2 html/events/core (100%)
+  - DOM Level 3 core (14%)
 
-# Installation
+
+# Install
 
     npm install jsdom
 
