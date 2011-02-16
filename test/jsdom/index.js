@@ -125,6 +125,87 @@ exports.tests = {
     });
   },
   
+  env_processArguments_invalid_args : function() {
+    var caught = 0;
+
+    try {
+      jsdom.env.processArguments();
+    } catch (e) {
+      caught++;
+    }
+
+    try {
+      jsdom.env.processArguments({});
+    } catch (e) {
+      caught++;
+    }
+
+    try {
+      jsdom.env.processArguments([{
+        html : 'abc123'
+      }]);
+    } catch (e) {
+      caught++;
+    }
+
+    try {
+      jsdom.env.processArguments([{
+        done : function() {}
+      }]);
+    } catch (e) {
+      caught++;
+    }
+
+    assertEquals("the previous ops should be caught", caught, 4);
+  },
+  
+  env_processArguments_config_object : function() {
+    var config = jsdom.env.processArguments([{
+      html : "",
+      done : function() {}
+    }]);
+
+    assertNotNull("has done", config.done);
+    assertNotNull("has html", config.html);
+  },
+
+  env_processArguments_object_and_callback : function() {
+    var config = jsdom.env.processArguments([{
+      html : ""
+    },
+    function() {}
+    ]);
+
+    assertNotNull("has done", config.done);
+    assertNotNull("has html", config.html);
+  },
+
+  env_processArguments_all_args_no_config : function() {
+    var config = jsdom.env.processArguments([
+      "<html></html>",
+      ['script.js'],
+      function() {}
+    ]);
+
+    assertNotNull("has done", config.done);
+    assertNotNull("has html", config.html);
+    assertEquals('script length should be 1', 1, config.code.length);
+  },
+
+  env_processArguments_all_args_with_config : function() {
+    var config = jsdom.env.processArguments([
+      "<html></html>",
+      ['script.js'],
+      { features : [] },
+      function() {},
+    ]);
+
+    assertNotNull("has done", config.done);
+    assertNotNull("has html", config.html);
+    assertEquals('script length should be 1', 1, config.code.length);
+    assertNotNull("has config.features", config.config.features);
+  },
+  
   plain_window_document : function() {
     var window = (jsdom.createWindow());
     assertTrue("jsdom.createWindow() should create a documentless window",
