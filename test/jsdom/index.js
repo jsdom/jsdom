@@ -58,7 +58,7 @@ exports.tests = {
   env_with_absolute_file : function() {
     jsdom.env({
       html : path.join(__dirname, 'files', 'env.html'),
-      code : [
+      scripts : [
         path.join(__dirname, '..', '..', 'example', 'jquery', 'jquery.js')
       ],
       done : function(errors, window) {
@@ -85,9 +85,9 @@ exports.tests = {
   env_with_non_existant_script : function() {
     var html = "<html><body><p>hello world!</p></body></html>";
     jsdom.env({
-      html : html,
-      code : ['path/to/invalid.js', 'another/invalid.js'],
-      done : function(errors, window) {
+      html    : html,
+      scripts : ['path/to/invalid.js', 'another/invalid.js'],
+      done    : function(errors, window) {
         assertNotNull("error should not be null", errors);
         assertEquals("errors is an array", errors.length, 2)
         assertNotNull("window should be valid", window.location);
@@ -113,9 +113,9 @@ exports.tests = {
     server.listen(64000);
 
     jsdom.env({
-      html : "http://127.0.0.1:64000/html",
-      code : "http://127.0.0.1:64000/js",
-      done : function(errors, window) {
+      html    : "http://127.0.0.1:64000/html",
+      scripts : "http://127.0.0.1:64000/js",
+      done    : function(errors, window) {
         server.close();
         assertNull("error should not be null", errors);
         assertNotNull("window should be valid", window.location);
@@ -171,13 +171,15 @@ exports.tests = {
 
   env_processArguments_object_and_callback : function() {
     var config = jsdom.env.processArguments([{
-      html : ""
+      html    : "",
+      scripts : ['path/to/some.js', 'another/path/to.js']
     },
     function() {}
     ]);
 
     assertNotNull("has done", config.done);
     assertNotNull("has html", config.html);
+    assertEquals('has code', 2, config.scripts.length);
   },
 
   env_processArguments_all_args_no_config : function() {
@@ -189,7 +191,7 @@ exports.tests = {
 
     assertNotNull("has done", config.done);
     assertNotNull("has html", config.html);
-    assertEquals('script length should be 1', 1, config.code.length);
+    assertEquals('script length should be 1', 1, config.scripts.length);
   },
 
   env_processArguments_all_args_with_config : function() {
@@ -202,7 +204,7 @@ exports.tests = {
 
     assertNotNull("has done", config.done);
     assertNotNull("has html", config.html);
-    assertEquals('script length should be 1', 1, config.code.length);
+    assertEquals('script length should be 1', 1, config.scripts.length);
     assertNotNull("has config.features", config.config.features);
   },
   
