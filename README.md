@@ -61,7 +61,7 @@ or with raw html
     - `errors` : array of errors
     - `window` : a brand new window
 
-    _example:_  jsdom.env("<html />", function(`errors`, `window`) {})
+    _example:_  jsdom.env(html, function(`errors`, `window`) {})
 
 
 If you would like to specify a configuration object
