@@ -38,14 +38,20 @@ or with raw html
 
 or with a configuration object
 
-    // Run some jQuery on a html fragment
+    // Print all of the news items on hackernews
     var jsdom = require('jsdom');
     
     jsdom.env('http://news.ycombinator.com/', [
       'http://code.jquery.com/jquery-1.5.min.js'
     ], function(errors, window) {
-      $()
+      var $ = window.$;
+
+      console.log('HN Links');
+      $('td.title:not(:last) a').each(function() {
+        console.log(' -', $(this).text());
+      });
     });
+
 
 ### How it works
   `jsdom.env` is built for ease of use, which is rare in the world of the DOM!  Since the web has some absolutely horrible javascript on it, as of jsdom 0.2.0 `jsdom.env` will not process external resources (scripts, images, etc).  If you want to process the javascript use one of the methods below (`jsdom.jsdom` or `jsdom.jQueryify`)
