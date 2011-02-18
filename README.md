@@ -21,8 +21,9 @@ or
 
 # Easymode
 
-Bootstrapping a DOM is never easy, that is why a new method, jsdom.env(), has been
-added in jsdom 0.2.0 which should make everyone's lives easier.
+Bootstrapping a DOM generally a difficult process involving many error prone steps.
+We didn't want jsdom to fall into the same trap, and that is why a new method, jsdom.env(),
+has been added in jsdom 0.2.0 which should make everyone's lives easier.
 
     // Count all of the links from the nodejs build page
     var jsdom = require("jsdom");
@@ -44,26 +45,52 @@ or with raw html
       console.log("contents of a.the-link:", window.$("a.the-link").text());
     });
 
-or with a configuration object
+## How it works
+  `jsdom.env` is built for ease of use, which is rare in the dom environment!  Since the web has some absolutely horrible javascript on it, as of jsdom 0.2.0 `jsdom.env` will not process external resources (scripts, images, etc).  If you want to process the javascript use one of the methods below (`jsdom.jsdom` or `jsdom.jQueryify`)
 
-    // Fetch the first page of hackernews links
-    var jsdom = require('jsdom');
-    
-    jsdom.env({
-      html    : "http://news.ycombinator.com/",
-      scripts : ['http://code.jquery.com/jquery-1.5.min.js'],
-      done    : function(errors, window) {
-        console.log("HN Links");
-        window.$("td.title a").each(function() {
-          console.log(" - " + window.$(this).text());
-        });
-      }
-    });
+    jsdom.env(html, [scripts], [options], callback)
+
+  - `html` (**required**)
+    May be a url, html fragment, or file
+
+  - `scripts` (**optional**)
+    May contain files or urls
+ 
+  - `callback` (**required**)
+    Takes 2 arguments: 
+    - `errors` : array of errors
+    - `window` : a brand new window
+
+    _example:_  jsdom.env("<html />", function(`errors`, `window`) {})
 
 
-# Flexibility
+If you would like to specify a configuration object
 
-One of the stated goals of jsdom is to be as minimal and light as possible. This section details how
+    jsdom.env({ /* config */ })
+
+  - config.html    : see `html` above
+  - config.scripts : see `scripts` above
+  - config.done    : see `callback` above
+
+# For the hardcore
+
+If you want to spawn a document/window and specify all sorts of options this is the section for you. This section covers the jsdom.jsdom method:
+
+    var jsdom  = require("jsdom").jsdom
+        window = jsdom(html, level, options)
+ 
+ - `html` is a full html document
+ - `level` is `null` (which means level3) by default, but you can pas another level if you'd like.
+
+
+        var jsdom = require('jsdom'),
+             doc  = jsdom.jsdom('<html><body></body></html>', jsdom.dom.level1.core)
+     
+ - `options` see the **Flexibility** section below
+
+## Flexibility
+
+One of the goals of jsdom is to be as minimal and light as possible. This section details how
 someone can change the behavior of `Document`s on the fly.  These features are baked into
 the `DOMImplementation` that every `Document` has, and may be tweaked in two ways:
 
@@ -81,28 +108,28 @@ will use the defaults specified below (see: Default Features)
 
 2. Previous to creating any documents you can modify the defaults for all future documents
     
-    require('jsdom').defaultDocumentFeatures = {
-      FetchExternalResources   : ['script'], 
-      ProcessExternalResources : false,
-      MutationEvents           : false,
-      QuerySelector            : false
-    }
+        require('jsdom').defaultDocumentFeatures = {
+          FetchExternalResources   : ['script'], 
+          ProcessExternalResources : false,
+          MutationEvents           : false,
+          QuerySelector            : false
+        }
 
 
 
-## Default Features
+### Default Features
 
 Default features are extremely important for jsdom as they lower the configuration requirement and present developers a set of consistent default behaviors. The following sections detail the available features, their defaults, and the values that jsdom uses.
 
 
-### FetchExternalResources
+#### FetchExternalResources
 **Default**: ['script']
 
 **Allowed**: ['script', 'img', 'css', 'frame', 'link'] or false
 
 Enables/Disables fetching files over the filesystem/http
 
-### ProcessExternalResources
+#### ProcessExternalResources
 **Default** ['script']
 
 **Allowed** ['script'] or false
@@ -112,21 +139,23 @@ By default, jsdom executes text content in a SCRIPT and the text retrieved from 
 Support for frames is in the works
 
 
-### MutationEvents
+#### MutationEvents
 **Default** : '2.0'
 
 **Allowed** : '2.0' or false
 
 Initially enabled to be up to spec. Disable this if you do not need mutation events and want jsdom to be a bit more efficient.
 
-### QuerySelector
+#### QuerySelector
 **Default** : false
 
 **Allowed** : true
 
 This feature is backed by [sizzle][]
 
-[sizzle]: http://sizzlejs.com/ but currently causes problems with some libraries.  Enable if you want `document.querySelector` and friends, but be aware that many libraries feature detect for this, and it may cause you a bit of trouble.
+[sizzle][] but currently causes problems with some libraries.  Enable if you want `document.querySelector` and friends, but be aware that many libraries feature detect for this, and it may cause you a bit of trouble.
+
+[sizzle]:http://sizzlejs.com/
 
 # More Examples
 

@@ -1,7 +1,7 @@
 {
     "name": "jsdom",
-    "version": "0.1.23",
-    "description": "Javascript implementation of the w3c Document Object Model",
+    "version": "0.2.0",
+    "description": "A javascript implementation of the W3C DOM",
     "keywords": [
         "dom",
         "w3c",
@@ -50,6 +50,13 @@
         {
           "name"  : "Daniel Cassidy (http://www.danielcassidy.me.uk/)",
           "email" : "mail@danielcassidy.me.uk"
+        },
+        {
+          "name"  : "Sam Ruby (http://intertwingly.net/blog/)",
+          "email" : "N/A"
+        },
+        {
+          "name"  : "hij1nx (http://github.com/hij1nx)",
         }
     ],
     "bugs": {
@@ -72,7 +79,8 @@
         "http://www.w3.org/TR/REC-DOM-Level-1"
     ],
     "dependencies": {
-       "htmlparser": ">=1.7.0"
+       "htmlparser": ">=1.7.0",
+       "request"   : ">=1.9.0"
     },
     "devDependiencies" : {
       "mjsunit.runner" : ">=0.1.0"
