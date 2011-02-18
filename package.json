@@ -80,7 +80,7 @@
     ],
     "dependencies": {
        "htmlparser": ">=1.7.0",
-       "request"   : ">=1.9.0"
+       "request"   : ">=1.0.0"
     },
     "devDependiencies" : {
       "mjsunit.runner" : ">=0.1.0"
