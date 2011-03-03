@@ -19,11 +19,11 @@ exports.hc_staff = function() {
   //       http://www.w3schools.com/tags/ref_symbols.asp
   var entities = new dom.EntityNodeMap(
     doc,
-    doc.createEntityNode("alpha", "α"),
-    doc.createEntityNode("beta", "&#946;"),
-    doc.createEntityNode("gamma", "&#947;"),
-    doc.createEntityNode("delta", "&#948;"),
-    doc.createEntityNode("epsilon", "&#949;")
+    doc.createEntityNode("alpha", doc.createTextNode("α")),
+    doc.createEntityNode("beta", doc.createTextNode("&#946;")),
+    doc.createEntityNode("gamma", doc.createTextNode("&#947;")),
+    doc.createEntityNode("delta", doc.createTextNode("&#948;")),
+    doc.createEntityNode("epsilon", doc.createTextNode("&#949;"))
   );
 
   // <!ATTLIST acronym dir CDATA "ltr">
