@@ -319,324 +319,193 @@ exports['dispatch event'] = testcase({
   }
 })
 
-var foo = {
-  /**
-   *
-   The Event.initEvent method is called for event returned by DocumentEvent.createEvent("events")
-   and the state is checked to see if it reflects the parameters.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-Event-initEvent
-   */
-  initEvent01 : function () {
-    var success;
-    if(checkInitialization(builder, "initEvent01") != null) return;
-    var doc;
-    var event;
-    var expectedEventType = "rotate";
-    var actualEventType;
-    var expectedCanBubble = true;
-    var actualCanBubble;
-    var expectedCancelable = false;
-    var actualCancelable;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
-    event = doc.createEvent("Events");
-    assertNotNull("notnull",event);
-    event.initEvent(expectedEventType,expectedCanBubble,expectedCancelable);
-    actualEventType = event.type;
-
-    assertEquals("type",expectedEventType,actualEventType);
-    actualCancelable = event.cancelable;
-
-    assertEquals("cancelable",expectedCancelable,actualCancelable);
-    actualCanBubble = event.bubbles;
-
-    assertEquals("canBubble",expectedCanBubble,actualCanBubble);
-
-  },
-  /**
-   *
-   The Event.initEvent method is called for event returned by DocumentEvent.createEvent("events")
-   and the state is checked to see if it reflects the parameters.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-Event-initEvent
-   */
-  initEvent02 : function () {
-    var success;
-    if(checkInitialization(builder, "initEvent02") != null) return;
-    var doc;
-    var event;
-    var expectedEventType = "rotate";
-    var actualEventType;
-    var expectedCanBubble = false;
-    var actualCanBubble;
-    var expectedCancelable = true;
-    var actualCancelable;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
-    event = doc.createEvent("Events");
-    assertNotNull("notnull",event);
-    event.initEvent(expectedEventType,expectedCanBubble,expectedCancelable);
-    actualEventType = event.type;
-
-    assertEquals("type",expectedEventType,actualEventType);
-    actualCancelable = event.cancelable;
-
-    assertEquals("cancelable",expectedCancelable,actualCancelable);
-    actualCanBubble = event.bubbles;
-
-    assertEquals("canBubble",expectedCanBubble,actualCanBubble);
-
-  },
-  /**
-   *
-   The Event.initEvent method is called for event returned by DocumentEvent.createEvent("events")
-   and the state is checked to see if it reflects the parameters.  initEvent may be
-   called multiple times and the last time is definitive.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-Event-initEvent
-   */
-  initEvent03 : function () {
-    var success;
-    if(checkInitialization(builder, "initEvent03") != null) return;
-    var doc;
-    var event;
-    var expectedEventType = "rotate";
-    var actualEventType;
-    var actualCanBubble;
-    var actualCancelable;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
-    event = doc.createEvent("Events");
-    assertNotNull("notnull",event);
-    event.initEvent("rotate",true,true);
-    actualEventType = event.type;
-
-    assertEquals("type","rotate",actualEventType);
-    actualCancelable = event.cancelable;
-
-    assertEquals("cancelable",true,actualCancelable);
-    actualCanBubble = event.bubbles;
-
-    assertEquals("canBubble",true,actualCanBubble);
-    event.initEvent("shear",false,false);
-    actualEventType = event.type;
-
-    assertEquals("type2","shear",actualEventType);
-    actualCancelable = event.cancelable;
-
-    assertEquals("cancelable2",false,actualCancelable);
-    actualCanBubble = event.bubbles;
-
-    assertEquals("canBubble2",false,actualCanBubble);
-
-  },
-  /**
-   *
-   The Event.initEvent method is called for event returned by
-   DocumentEvent.createEvent("MutationEvents")
-   and the state is checked to see if it reflects the parameters.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-Event-initEvent
-   */
-  initEvent04 : function () {
-    var success;
-    if(checkInitialization(builder, "initEvent04") != null) return;
-    var doc;
-    var event;
-    var expectedEventType = "rotate";
-    var actualEventType;
-    var expectedCanBubble = true;
-    var actualCanBubble;
-    var expectedCancelable = false;
-    var actualCancelable;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
-    event = doc.createEvent("MutationEvents");
-    assertNotNull("notnull",event);
-    event.initEvent(expectedEventType,expectedCanBubble,expectedCancelable);
-    actualEventType = event.type;
-
-    assertEquals("type",expectedEventType,actualEventType);
-    actualCancelable = event.cancelable;
-
-    assertEquals("cancelable",expectedCancelable,actualCancelable);
-    actualCanBubble = event.bubbles;
-
-    assertEquals("canBubble",expectedCanBubble,actualCanBubble);
-
-  },
-  /**
-   *
-   The Event.initEvent method is called for event returned by
-   DocumentEvent.createEvent("MutationEvents")
-   and the state is checked to see if it reflects the parameters.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-Event-initEvent
-   */
-  initEvent05 : function () {
-    var success;
-    if(checkInitialization(builder, "initEvent05") != null) return;
-    var doc;
-    var event;
-    var expectedEventType = "rotate";
-    var actualEventType;
-    var expectedCanBubble = false;
-    var actualCanBubble;
-    var expectedCancelable = true;
-    var actualCancelable;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
-    event = doc.createEvent("MutationEvents");
-    assertNotNull("notnull",event);
-    event.initEvent(expectedEventType,expectedCanBubble,expectedCancelable);
-    actualEventType = event.type;
-
-    assertEquals("type",expectedEventType,actualEventType);
-    actualCancelable = event.cancelable;
-
-    assertEquals("cancelable",expectedCancelable,actualCancelable);
-    actualCanBubble = event.bubbles;
-
-    assertEquals("canBubble",expectedCanBubble,actualCanBubble);
-  },
-  /**
-   *
-   The Event.initEvent method is called for event returned by
-   DocumentEvent.createEvent("MutationEvents")
-   and the state is checked to see if it reflects the parameters.  initEvent may be
-   called multiple times and the last time is definitive.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-Event-initEvent
-   */
-  initEvent06 : function () {
-    var success;
-    if(checkInitialization(builder, "initEvent06") != null) return;
-    var doc;
-    var event;
-    var expectedEventType = "rotate";
-    var actualEventType;
-    var actualCanBubble;
-    var actualCancelable;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
-    event = doc.createEvent("MutationEvents");
-    assertNotNull("notnull",event);
-    event.initEvent("rotate",true,true);
-    actualEventType = event.type;
-
-    assertEquals("type","rotate",actualEventType);
-    actualCancelable = event.cancelable;
-
-    assertEquals("cancelable",true,actualCancelable);
-    actualCanBubble = event.bubbles;
-
-    assertEquals("canBubble",true,actualCanBubble);
-    event.initEvent("shear",false,false);
-    actualEventType = event.type;
-
-    assertEquals("type2","shear",actualEventType);
-    actualCancelable = event.cancelable;
-
-    assertEquals("cancelable2",false,actualCancelable);
-    actualCanBubble = event.bubbles;
-
-    assertEquals("canBubble2",false,actualCanBubble);
+exports['init event'] = testcase({
+  setUp: function(cb){
+    this.doc = require('./events/files/hc_staff.xml').hc_staff();
+    this.event_types = ['Events', 'MutationEvents']
+    cb();
   },
 
-  /*
-   * All capturing listeners in a direct line from dispatched node will receive the event
-   */
-  captureEvent01: function() {
-    var success;
-    if(checkInitialization(builder, "captureEvent01") != null) return;
-    var doc;
-    var target;
-    var evt;
-    var preventDefault;
-    var monitor = new EventMonitor();
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-
-    doc = load(docRef, "doc", "hc_staff");
-    var plist = doc.getElementsByTagName("p");
-    plist.item(0).addEventListener("foo", monitor.handleEvent, true);
-    plist.item(0).firstChild.addEventListener("foo", monitor.handleEvent, false);
-    evt = doc.createEvent("Events");
-    evt.initEvent("foo",true,false);
-    preventDefault = plist.item(0).firstChild.dispatchEvent(evt);
-
-    assertSize("atCount",1,monitor.atEvents);
-    assertSize("bubbleCount",0,monitor.bubbledEvents);
-    assertSize("captureCount",1,monitor.capturedEvents);
+  tearDown: function(cb){
+    this.doc = undefined;
+    this.event_types = undefined;
+    delete(this.doc);
+    delete(this.event_types);
+    cb();
   },
 
-  /*
-   * All non-capturing listeners in a direct line from dispatched node will receive a bubbling event
-   */
-  bubbleEvent01: function() {
-    var success;
-    if(checkInitialization(builder, "bubbleEvent01") != null) return;
-    var doc;
-    var target;
-    var evt;
-    var preventDefault;
-    var monitor = new EventMonitor();
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-
-    doc = load(docRef, "doc", "hc_staff");
-    var plist = doc.getElementsByTagName("p");
-    plist.item(0).addEventListener("foo", monitor.handleEvent, false);
-    plist.item(0).firstChild.addEventListener("foo", monitor.handleEvent, false);
-    evt = doc.createEvent("Events");
-    evt.initEvent("foo",true,false);
-    preventDefault = plist.item(0).firstChild.dispatchEvent(evt);
-
-    assertSize("atCount",1,monitor.atEvents);
-    assertSize("bubbleCount",1,monitor.bubbledEvents);
-    assertSize("captureCount",0,monitor.capturedEvents);
+  // The Event.initEvent method is called for event returned by DocumentEvent.createEvent("Events") and DocumentEvent.createEvent("MutationEvents")
+  // The state is checked to see if it reflects the parameters.
+  // @author Curt Arnold
+  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-Event-initEvent
+  'set state from params, bubble no cancel': function (test) {
+    var doc = this.doc;
+    test.expect(8);
+    this.event_types.forEach(function(type){
+      var event = doc.createEvent(type);
+      test.notEqual(event, null, 'event should not be null');
+      event.initEvent('rotate', true, false);
+      test.equal(event.type, 'rotate', 'event type should be \"rotate\" for ' + type);
+      test.equal(event.bubbles, true, 'event should bubble for ' + type);
+      test.equal(event.cancelable, false, 'event should not be cancelable for ' + type);
+    })
+    test.done();
   },
 
-  /*
-   * Calling stopPropagation on an event will prevent the target from receiving the event
-   */
+  // The Event.initEvent method is called for event returned by DocumentEvent.createEvent("Events") and DocumentEvent.createEvent("MutationEvents")
+  // The state is checked to see if it reflects the parameters.
+  // @author Curt Arnold
+  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-Event-initEvent
+  'set state from params, cancel no bubble': function (test) {
+    var doc = this.doc;
+    test.expect(8);
+    this.event_types.forEach(function(type){
+      var event = doc.createEvent(type);
+      test.notEqual(event, null, 'event should not be null');
+      event.initEvent('rotate', false, true);
+      test.equal(event.type, 'rotate', 'event type should be \"rotate\" for ' + type);
+      test.equal(event.bubbles, false, 'event should not bubble for ' + type);
+      test.equal(event.cancelable, true, 'event should be cancelable for ' + type);
+    })
+    test.done();
+  },
+
+  // The Event.initEvent method is called for event returned by DocumentEvent.createEvent("Events") and DocumentEvent.createEvent("MutationEvents")
+  // The state is checked to see if it reflects the parameters.
+  // initEvent may be called multiple times and the last time is definitive.
+  // @author Curt Arnold
+  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-Event-initEvent
+  'initEvent called multiple times, final time is definitive': function (test) {
+    var doc = this.doc;
+    test.expect(14);
+    this.event_types.forEach(function(type){
+      var event = doc.createEvent(type);
+      test.notEqual(event, null, 'event should not be null for ' + type);
+      // rotate
+      event.initEvent("rotate", true, true);
+      test.equal(event.type, 'rotate', 'event type should be \"rotate\" for ' + type);
+      test.equal(event.bubbles, true, 'event should bubble for ' + type);
+      test.equal(event.cancelable, true, 'event should be cancelable for ' + type);
+      // shear
+      event.initEvent("shear", false, false);
+      test.equal(event.type, 'shear', 'event type should be \"shear\" for ' + type);
+      test.equal(event.bubbles, false, 'event should not bubble for ' + type);
+      test.equal(event.cancelable, false, 'event should not be cancelable for ' + type);
+    })
+    test.done();
+  },
+})
+
+exports['capture event'] = testcase({
+  setUp: function(cb){
+    this.doc = require('./events/files/hc_staff.xml').hc_staff();
+    this.monitor = new EventMonitor();
+    this.plist = this.doc.getElementsByTagName("p");
+    this.event = this.doc.createEvent("Events");
+    this.event.initEvent("foo",true,false);
+    cb();
+  },
+
+  tearDown: function(cb){
+    var self = this;
+    ['doc', 'monitor', 'plist', 'event'].forEach(function(x){
+      this[x] = undefined;
+      delete(this[x]);
+    })
+    cb();
+  },
+
+  'all capturing listeners in a direct line from dispatched node will receive the event': function(test) {
+    this.plist.item(0).addEventListener("foo", this.monitor.handleEvent, true);
+    this.plist.item(0).firstChild.addEventListener("foo", this.monitor.handleEvent, false);
+    this.plist.item(0).firstChild.dispatchEvent(this.event);
+    test.expect(3);
+    test.equal(this.monitor.atEvents.length, 1, 'should be at 1 event');
+    test.equal(this.monitor.bubbledEvents.length, 0, 'should not have any bubbled events');
+    test.equal(this.monitor.capturedEvents.length, 1, 'should have captured 1 event');
+    test.done();
+  },
+
+  'only capture listeners in a direct line from target to the document node should receive the event': function(test) {
+    var self = this;
+    this.doc.getElementsByTagName("title").item(0).addEventListener("foo", this.monitor.handleEvent, true);
+    this.plist.item(0).addEventListener("foo", function(event) { event.preventDefault(); self.monitor.handleEvent(event) }, false);
+    this.plist.item(0).firstChild.addEventListener("foo", this.monitor.handleEvent, false);
+    var return_val = this.plist.item(0).firstChild.dispatchEvent(this.event);
+    test.expect(4);
+    test.equal(return_val, false, 'dispatchEvent should return *false*');
+    test.equal(this.monitor.atEvents.length, 1, 'should be at 1 event');
+    test.equal(this.monitor.bubbledEvents.length, 1, 'should have bubbled 1 event');
+    test.equal(this.monitor.capturedEvents.length, 0, 'should not have captured any events');
+    test.done();
+  }
+})
+
+// 101 lines
+exports['bubble event'] = testcase({
+  setUp: function(cb){
+    this.doc = require('./events/files/hc_staff.xml').hc_staff();
+    this.monitor = new EventMonitor();
+    this.plist = this.doc.getElementsByTagName("p");
+    this.event = this.doc.createEvent("Events");
+    this.event.initEvent("foo",true,false);
+    cb();
+  },
+
+  tearDown: function(cb){
+    var self = this;
+    ['doc', 'monitor', 'plist', 'event'].forEach(function(x){
+      this[x] = undefined;
+      delete(this[x]);
+    })
+    cb();
+  },
+
+  'all non-capturing listeners in a direct line from dispatched node will receive a bubbling event': function(test) {
+    this.plist.item(0).addEventListener("foo", this.monitor.handleEvent, false);
+    this.plist.item(0).firstChild.addEventListener("foo", this.monitor.handleEvent, false);
+    this.plist.item(0).firstChild.dispatchEvent(this.event);
+    test.expect(3);
+    test.equal(this.monitor.atEvents.length, 1, 'should be at 1 event');
+    test.equal(this.monitor.bubbledEvents.length, 1, 'should have 1 bubbled event');
+    test.equal(this.monitor.capturedEvents.length, 0, 'should not have any captured events');
+    test.done();
+  },
+
+  'only bubble listeners in a direct line from target to the document node should receive the event': function(test) {
+    var self = this;
+    this.doc.getElementsByTagName("title").item(0).addEventListener("foo", this.monitor.handleEvent, false);
+    this.plist.item(0).addEventListener("foo", function(event) { event.preventDefault(); self.monitor.handleEvent(event) }, true);
+    this.plist.item(0).firstChild.addEventListener("foo", this.monitor.handleEvent, false);
+    var return_val = this.plist.item(0).firstChild.dispatchEvent(this.event);
+    test.expect(4);
+    test.equal(return_val, false, 'dispatchEvent should return *false*');
+    test.equal(this.monitor.atEvents.length, 1, 'should be at 1 event');
+    test.equal(this.monitor.bubbledEvents.length, 0, 'should not have any bubbled events');
+    test.equal(this.monitor.capturedEvents.length, 1, 'should have captured 1 event');
+    test.done();
+  },
+
+  'if an event does not bubble, bubble listeners should not receive the event': function(test) {
+    var self = this;
+    this.doc.getElementsByTagName("body").item(0).addEventListener("foo", this.monitor.handleEvent, true);
+    this.plist.item(0).addEventListener("foo", function(event) { event.preventDefault(); self.monitor.handleEvent(event) }, false);
+    this.plist.item(0).firstChild.addEventListener("foo", this.monitor.handleEvent, false);
+    this.event.initEvent("foo",false,false);
+    var return_val = this.plist.item(0).firstChild.dispatchEvent(this.event);
+    test.expect(4);
+    test.equal(return_val, false, 'dispatchEvent should return *false*');
+    test.equal(this.monitor.atEvents.length, 1, 'should be at 1 event');
+    test.equal(this.monitor.bubbledEvents.length, 0, 'should not have any bubbled events');
+    test.equal(this.monitor.capturedEvents.length, 1, 'should have captured 1 event');
+    test.done();
+  }
+})
+
+/*
+// 64 lines
+exports['stop propagation'] = testcase({
+  // Calling stopPropagation on an event will prevent the target from receiving the event
   stopPropagation01: function() {
     var success;
     if(checkInitialization(builder, "stopPropagation01") != null) return;
@@ -664,9 +533,7 @@ var foo = {
     assertSize("captureCount",1,monitor.capturedEvents);
   },
 
-  /*
-   * Calling stopPropagation on an event will prevent all listeners from receiving the event
-   */
+  // Calling stopPropagation on an event will prevent all listeners from receiving the event
   stopPropagation02: function() {
     var success;
     if(checkInitialization(builder, "stopPropagation02") != null) return;
@@ -696,11 +563,12 @@ var foo = {
     assertSize("atCount",1,monitor.atEvents);
     assertSize("bubbleCount",1,monitor.bubbledEvents);
     assertSize("captureCount",0,monitor.capturedEvents);
-  },
+  }
+})
 
-  /*
-   * A cancelable event can have its default event disabled
-   */
+// 70 lines
+exports['prevent default'] = testcase({
+  // A cancelable event can have its default event disabled
   preventDefault01: function() {
     var success;
     if(checkInitialization(builder, "preventDefault01") != null) return;
@@ -733,9 +601,7 @@ var foo = {
     assertSize("captureCount",1,monitor.capturedEvents);
   },
 
-  /*
-   * A non-cancelable event cannot have its default event disabled
-   */
+  // A non-cancelable event cannot have its default event disabled
   preventDefault02: function() {
     var success;
     if(checkInitialization(builder, "preventDefault02") != null) return;
@@ -766,112 +632,6 @@ var foo = {
     assertSize("atCount",1,monitor.atEvents);
     assertSize("bubbleCount",1,monitor.bubbledEvents);
     assertSize("captureCount",1,monitor.capturedEvents);
-  },
-
-
-  /*
-   * Only capture listeners in a direct line from target to the document node should receive the event
-   */
-  captureEvent02: function() {
-    var success;
-    if(checkInitialization(builder, "captureEvent02") != null) return;
-    var doc;
-    var target;
-    var evt;
-    var preventDefault;
-    var monitor = new EventMonitor();
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-
-    doc = load(docRef, "doc", "hc_staff");
-
-    var titleList = doc.getElementsByTagName("title");
-    titleList.item(0).addEventListener("foo", monitor.handleEvent, true);
-
-    var plist = doc.getElementsByTagName("p");
-    plist.item(0).addEventListener("foo", function(evt) { evt.preventDefault(); monitor.handleEvent(evt) }, false);
-    plist.item(0).firstChild.addEventListener("foo", monitor.handleEvent, false);
-    evt = doc.createEvent("Events");
-    evt.initEvent("foo",true,false);
-    preventDefault = plist.item(0).firstChild.dispatchEvent(evt);
-
-    assertFalse("preventDefault", preventDefault);
-    assertSize("atCount",1,monitor.atEvents);
-    assertSize("bubbleCount",1,monitor.bubbledEvents);
-    assertSize("captureCount",0,monitor.capturedEvents);
-  },
-
-  /*
-   * Only bubble listeners in a direct line from target to the document node should receive the event
-   */
-  bubbleEvent02: function() {
-    var success;
-    if(checkInitialization(builder, "bubbleEvent02") != null) return;
-    var doc;
-    var target;
-    var evt;
-    var preventDefault;
-    var monitor = new EventMonitor();
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-
-    doc = load(docRef, "doc", "hc_staff");
-
-    var titleList = doc.getElementsByTagName("title");
-    titleList.item(0).addEventListener("foo", monitor.handleEvent, false);
-
-    var plist = doc.getElementsByTagName("p");
-    plist.item(0).addEventListener("foo", function(evt) { evt.preventDefault(); monitor.handleEvent(evt) }, true);
-    plist.item(0).firstChild.addEventListener("foo", monitor.handleEvent, false);
-    evt = doc.createEvent("Events");
-    evt.initEvent("foo",true,false);
-    preventDefault = plist.item(0).firstChild.dispatchEvent(evt);
-
-    assertFalse("preventDefault", preventDefault);
-    assertSize("atCount",1,monitor.atEvents);
-    assertSize("bubbleCount",0,monitor.bubbledEvents);
-    assertSize("captureCount",1,monitor.capturedEvents);
-  },
-
-  /*
-   * If an event does not bubble, bubble listeners should not receive the event
-   */
-  bubbleEvent03: function() {
-    var success;
-    if(checkInitialization(builder, "bubbleEvent03") != null) return;
-    var doc;
-    var target;
-    var evt;
-    var preventDefault;
-    var monitor = new EventMonitor();
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-
-    doc = load(docRef, "doc", "hc_staff");
-
-    var bodyList = doc.getElementsByTagName("body");
-    bodyList.item(0).addEventListener("foo", monitor.handleEvent, true);
-
-
-    var plist = doc.getElementsByTagName("p");
-    plist.item(0).addEventListener("foo", function(evt) { evt.preventDefault(); monitor.handleEvent(evt) }, false);
-    plist.item(0).firstChild.addEventListener("foo", monitor.handleEvent, false);
-    evt = doc.createEvent("Events");
-    evt.initEvent("foo",false,false);
-    preventDefault = plist.item(0).firstChild.dispatchEvent(evt);
-
-    assertFalse("preventDefault", preventDefault);
-    assertSize("atCount",1,monitor.atEvents);
-    assertSize("bubbleCount",0,monitor.bubbledEvents);
-    assertSize("captureCount",1,monitor.capturedEvents);
   }
-}
+})
+*/
