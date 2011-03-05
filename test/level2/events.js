@@ -1,49 +1,5 @@
 var sys = require('sys');
 var testcase = require('nodeunit').testCase;
-
-// NOTE: only used in one test
-var EventListenerN65595 = function(events, listeners) {
-  this.events = events;
-  this.listeners = listeners;
-}
-
-// This method is called whenever an event occurs of the type for which theEventListenerinterface was registered.
-// @param evt
-// TheEventcontains contextual information about the event. It also contains thestopPropagationandpreventDefaultmethods which are used in determining the event's flow and default action.
-EventListenerN65595.prototype.handleEvent = function(evt) {
-  // bring class variables into scope
-  var events = listener1.events,
-      listeners = listener1.listeners,
-      target;
-  events[events.length] = evt;
-  target = evt.currentTarget;
-  for(var i=0; i<listeners.length; i++) {
-    target.removeEventListener("foo", listeners[i].handleEvent, false);
-  }
-}
-
-// NOTE: only used in one test (same test as N65595)
-var EventListenerN65652 = function(events, listeners) {
-  this.events = events;
-  this.listeners = listeners;
-}
-
-// This method is called whenever an event occurs of the type for which theEventListenerinterface was registered.
-// @param evt
-// TheEventcontains contextual information about the event. It also contains thestopPropagationandpreventDefaultmethods which are used in determining the event's flow and default action.
-EventListenerN65652.prototype.handleEvent = function(evt) {
-  // bring class variables into scope
-  var events = listener2.events,
-      listeners = listener2.listeners,
-      target;
-  events[events.length] = evt;
-  target = evt.currentTarget;
-  for(var i=0; i<listeners.length; i++) {
-    target.removeEventListener("foo", listeners[i].handleEvent, false);
-  }
-}
-
-// NOTE: used in "dispatch event"
 var EventMonitor = function() {
   self = this;
   self.atEvents = [];
@@ -292,19 +248,28 @@ exports['dispatch event'] = testcase({
   // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-EventTarget-dispatchEvent
   // @see http://www.w3.org/TR/DOM-Level-2-Events/events#xpointer(id('Events-EventTarget-dispatchEvent')/raises/exception[@name='EventException']/descr/p[substring-before(.,':')='UNSPECIFIED_EVENT_TYPE_ERR'])
   'two EventListeners which both handle by unregistering itself and the other': function (test) {
-    var listeners = new Array();
-    var events = new Array();
-    listener1 = new EventListenerN65595(events, listeners);
-    listener2 = new EventListenerN65652(events, listeners);
-
-    listeners[listeners.length] = listener1;
-    listeners[listeners.length] = listener2;
+    // setup
+    var es = [];
+    var ls = [];
+    var EventListener1 = function() { ls.push(this); }
+    var EventListener2 = function() { ls.push(this); }
+    EventListener1.prototype.handleEvent = function(event) { _handleEvent(event); }
+    EventListener2.prototype.handleEvent = function(event) { _handleEvent(event); }
+    var _handleEvent = function(event) {
+      es.push(event);
+      ls.forEach(function(l){
+        event.currentTarget.removeEventListener("foo", l.handleEvent, false);
+      })
+    }
+    // test
+    var listener1 = new EventListener1();
+    var listener2 = new EventListener2();
     this.doc.addEventListener("foo", listener1.handleEvent, false);
     this.doc.addEventListener("foo", listener2.handleEvent, false);
     var event = this.doc.createEvent("Events");
     event.initEvent("foo",true,false);
     this.doc.dispatchEvent(event);
-    test.equal(events.length, 1, 'should only be handled by one EventListener');
+    test.equal(es.length, 1, 'should only be handled by one EventListener');
     test.done();
   }
 })
