@@ -7,14 +7,9 @@ var EventListenerN65595 = function(events, listeners) {
   this.listeners = listeners;
 }
 
-/**
- *
- This method is called whenever an event occurs of the type for which theEventListenerinterface was registered.
-
- * @param evt
- TheEventcontains contextual information about the event. It also contains thestopPropagationandpreventDefaultmethods which are used in determining the event's flow and default action.
-
-*/
+// This method is called whenever an event occurs of the type for which theEventListenerinterface was registered.
+// @param evt
+// TheEventcontains contextual information about the event. It also contains thestopPropagationandpreventDefaultmethods which are used in determining the event's flow and default action.
 EventListenerN65595.prototype.handleEvent = function(evt) {
   // bring class variables into scope
   var events = listener1.events,
@@ -33,14 +28,9 @@ var EventListenerN65652 = function(events, listeners) {
   this.listeners = listeners;
 }
 
-/**
- *
- This method is called whenever an event occurs of the type for which theEventListenerinterface was registered.
-
- * @param evt
- TheEventcontains contextual information about the event. It also contains thestopPropagationandpreventDefaultmethods which are used in determining the event's flow and default action.
-
-*/
+// This method is called whenever an event occurs of the type for which theEventListenerinterface was registered.
+// @param evt
+// TheEventcontains contextual information about the event. It also contains thestopPropagationandpreventDefaultmethods which are used in determining the event's flow and default action.
 EventListenerN65652.prototype.handleEvent = function(evt) {
   // bring class variables into scope
   var events = listener2.events,
@@ -441,7 +431,6 @@ exports['capture event'] = testcase({
   }
 })
 
-// 101 lines
 exports['bubble event'] = testcase({
   setUp: function(cb){
     this.doc = require('./events/files/hc_staff.xml').hc_staff();
@@ -502,136 +491,96 @@ exports['bubble event'] = testcase({
   }
 })
 
-/*
-// 64 lines
 exports['stop propagation'] = testcase({
-  // Calling stopPropagation on an event will prevent the target from receiving the event
-  stopPropagation01: function() {
-    var success;
-    if(checkInitialization(builder, "stopPropagation01") != null) return;
-    var doc;
-    var target;
-    var evt;
-    var preventDefault;
-    var monitor = new EventMonitor();
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-
-    doc = load(docRef, "doc", "hc_staff");
-    var plist = doc.getElementsByTagName("p");
-    plist.item(0).addEventListener("foo", function(evt) { evt.stopPropagation(); monitor.handleEvent(evt) }, true);
-    plist.item(0).firstChild.addEventListener("foo", monitor.handleEvent, false);
-    evt = doc.createEvent("Events");
-    evt.initEvent("foo",true,false);
-    preventDefault = plist.item(0).firstChild.dispatchEvent(evt);
-
-    assertSize("atCount",0,monitor.atEvents);
-    assertSize("bubbleCount",0,monitor.bubbledEvents);
-    assertSize("captureCount",1,monitor.capturedEvents);
+  setUp: function(cb){
+    this.doc = require('./events/files/hc_staff.xml').hc_staff();
+    this.monitor = new EventMonitor();
+    this.plist = this.doc.getElementsByTagName("p");
+    this.event = this.doc.createEvent("Events");
+    this.event.initEvent("foo",true,false);
+    cb();
   },
 
-  // Calling stopPropagation on an event will prevent all listeners from receiving the event
-  stopPropagation02: function() {
-    var success;
-    if(checkInitialization(builder, "stopPropagation02") != null) return;
-    var doc;
-    var target;
-    var evt;
-    var preventDefault;
-    var monitor = new EventMonitor();
+  tearDown: function(cb){
+    var self = this;
+    ['doc', 'monitor', 'plist', 'event'].forEach(function(x){
+      this[x] = undefined;
+      delete(this[x]);
+    })
+    cb();
+  },
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
+  'should prevent the target from receiving the event': function(test) {
+    var self = this;
+    this.plist.item(0).addEventListener("foo", function(event) { event.stopPropagation(); self.monitor.handleEvent(event) }, true);
+    this.plist.item(0).firstChild.addEventListener("foo", this.monitor.handleEvent, false);
+    this.plist.item(0).firstChild.dispatchEvent(this.event);
+    test.expect(3);
+    test.equal(this.monitor.atEvents.length, 0, 'should be at 0 events');
+    test.equal(this.monitor.bubbledEvents.length, 0, 'should have no bubbled events');
+    test.equal(this.monitor.capturedEvents.length, 1, 'should have 1 captured event');
+    test.done();
+  },
 
-    doc = load(docRef, "doc", "hc_staff");
-
-    var bodyList = doc.getElementsByTagName("body");
-    bodyList.item(0).addEventListener("foo", monitor.handleEvent, false);
-
-    var plist = doc.getElementsByTagName("p");
-    plist.item(0).addEventListener("foo", function(evt) { evt.stopPropagation(); monitor.handleEvent(evt) }, false);
-    plist.item(0).firstChild.addEventListener("foo", monitor.handleEvent, false);
-    evt = doc.createEvent("Events");
-    evt.initEvent("foo",true,false);
-    preventDefault = plist.item(0).firstChild.dispatchEvent(evt);
-
-    assertSize("atCount",1,monitor.atEvents);
-    assertSize("bubbleCount",1,monitor.bubbledEvents);
-    assertSize("captureCount",0,monitor.capturedEvents);
+  'should prevent all listeners from receiving the event': function(test) {
+    var self = this;
+    this.doc.getElementsByTagName("body").item(0).addEventListener("foo", this.monitor.handleEvent, false);
+    this.plist.item(0).addEventListener("foo", function(event) { event.stopPropagation(); self.monitor.handleEvent(event) }, false);
+    this.plist.item(0).firstChild.addEventListener("foo", this.monitor.handleEvent, false);
+    this.plist.item(0).firstChild.dispatchEvent(this.event);
+    test.expect(3);
+    test.equal(this.monitor.atEvents.length, 1, 'should be at 1 event');
+    test.equal(this.monitor.bubbledEvents.length, 1, 'should have 1 bubbled event');
+    test.equal(this.monitor.capturedEvents.length, 0, 'should have no captured events');
+    test.done();
   }
 })
 
-// 70 lines
 exports['prevent default'] = testcase({
-  // A cancelable event can have its default event disabled
-  preventDefault01: function() {
-    var success;
-    if(checkInitialization(builder, "preventDefault01") != null) return;
-    var doc;
-    var target;
-    var evt;
-    var preventDefault;
-    var monitor = new EventMonitor();
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-
-    doc = load(docRef, "doc", "hc_staff");
-
-    var bodyList = doc.getElementsByTagName("body");
-    bodyList.item(0).addEventListener("foo", monitor.handleEvent, true);
-
-    var plist = doc.getElementsByTagName("p");
-    plist.item(0).addEventListener("foo", function(evt) { evt.preventDefault(); monitor.handleEvent(evt) }, false);
-    plist.item(0).firstChild.addEventListener("foo", monitor.handleEvent, false);
-    evt = doc.createEvent("Events");
-    evt.initEvent("foo",true,true);
-    preventDefault = plist.item(0).firstChild.dispatchEvent(evt);
-
-    assertTrue("preventDefault", preventDefault);
-    assertSize("atCount",1,monitor.atEvents);
-    assertSize("bubbleCount",1,monitor.bubbledEvents);
-    assertSize("captureCount",1,monitor.capturedEvents);
+  setUp: function(cb){
+    this.doc = require('./events/files/hc_staff.xml').hc_staff();
+    this.monitor = new EventMonitor();
+    this.plist = this.doc.getElementsByTagName("p");
+    this.event = this.doc.createEvent("Events");
+    this.event.initEvent("foo",true,true);
+    cb();
   },
 
-  // A non-cancelable event cannot have its default event disabled
-  preventDefault02: function() {
-    var success;
-    if(checkInitialization(builder, "preventDefault02") != null) return;
-    var doc;
-    var target;
-    var evt;
-    var preventDefault;
-    var monitor = new EventMonitor();
+  tearDown: function(cb){
+    var self = this;
+    ['doc', 'monitor', 'plist', 'event'].forEach(function(x){
+      this[x] = undefined;
+      delete(this[x]);
+    })
+    cb();
+  },
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
+  'a cancelable event can have its default event disabled': function(test) {
+    var self = this;
+    this.doc.getElementsByTagName("body").item(0).addEventListener("foo", this.monitor.handleEvent, true);
+    this.plist.item(0).addEventListener("foo", function(event) { event.preventDefault(); self.monitor.handleEvent(event) }, false);
+    this.plist.item(0).firstChild.addEventListener("foo", this.monitor.handleEvent, false);
+    var return_val = this.plist.item(0).firstChild.dispatchEvent(this.event);
+    test.expect(4);
+    test.equal(return_val, true, 'dispatchEvent should return *true*');
+    test.equal(this.monitor.atEvents.length, 1, 'should be at 1 event');
+    test.equal(this.monitor.bubbledEvents.length, 1, 'should have bubbled 1 event');
+    test.equal(this.monitor.capturedEvents.length, 1, 'should have captured 1 event');
+    test.done();
+  },
 
-    doc = load(docRef, "doc", "hc_staff");
-
-    var bodyList = doc.getElementsByTagName("body");
-    bodyList.item(0).addEventListener("foo", monitor.handleEvent, true);
-
-    var plist = doc.getElementsByTagName("p");
-    plist.item(0).addEventListener("foo", function(evt) { evt.preventDefault(); monitor.handleEvent(evt) }, false);
-    plist.item(0).firstChild.addEventListener("foo", monitor.handleEvent, false);
-    evt = doc.createEvent("Events");
-    evt.initEvent("foo",true,false);
-    preventDefault = plist.item(0).firstChild.dispatchEvent(evt);
-
-    assertFalse("preventDefault", preventDefault);
-    assertSize("atCount",1,monitor.atEvents);
-    assertSize("bubbleCount",1,monitor.bubbledEvents);
-    assertSize("captureCount",1,monitor.capturedEvents);
+  'a non-cancelable event cannot have its default event disabled': function(test) {
+    var self = this;
+    this.doc.getElementsByTagName("body").item(0).addEventListener("foo", this.monitor.handleEvent, true);
+    this.plist.item(0).addEventListener("foo", function(event) { event.preventDefault(); self.monitor.handleEvent(event) }, false);
+    this.plist.item(0).firstChild.addEventListener("foo", this.monitor.handleEvent, false);
+    this.event.initEvent("foo",true,false);
+    var return_val = this.plist.item(0).firstChild.dispatchEvent(this.event);
+    test.expect(4);
+    test.equal(return_val, false, 'dispatchEvent should return *false*');
+    test.equal(this.monitor.atEvents.length, 1, 'should be at 1 event');
+    test.equal(this.monitor.bubbledEvents.length, 1, 'should have bubbled 1 event');
+    test.equal(this.monitor.capturedEvents.length, 1, 'should have captured 1 event');
+    test.done();
   }
 })
-*/
