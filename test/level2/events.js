@@ -47,62 +47,21 @@ exports['EventTarget interface'] = function (test) {
 // An object implementing the Event interface is created by using DocumentEvent.createEvent method with an eventType
 // @author Curt Arnold
 // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-DocumentEvent-createEvent
-exports['create event'] = testcase({
-  setUp: function(cb){
-    this.doc = require('./events/files/hc_staff.xml').hc_staff();
-    cb();
-  },
-
-  tearDown: function(cb){
-    this.doc = undefined;
-    delete(this.doc);
-    cb();
-  },
-
-  'type equals Events': function (test) {
-    var event = this.doc.createEvent("Events");
-    test.expect(2);
-    test.notEqual(event, null, "should not be null");
-    test.ok((event instanceof events.Event),"should be instanceof Event");
-    test.done();
-  },
-
-  // Only applicable if implementation supports MutationEvents.
-  'type equals MutationEvents': function (test) {
-    var event = this.doc.createEvent("MutationEvents");
-    test.expect(2);
-    test.notEqual(event, null, "should not be null");
-    test.ok((event instanceof events.MutationEvent),"should be instanceof MutationEvent");
-    test.done();
-  },
-
-  // Only applicable if implementation supports the "UIEvents" feature.
-  'type equals UIEvents': function (test) {
-    var event = this.doc.createEvent("UIEvents");
-    test.expect(2);
-    test.notEqual(event, null, "should not be null");
-    test.ok((event instanceof events.UIEvent),"should be instanceof UIEvent");
-    test.done();
-  },
-
-  // Only applicable if implementation supports the "MouseEvents" feature.
-  'type equals MouseEvents': function (test) {
-    var event = this.doc.createEvent("MouseEvents");
-    test.expect(2);
-    test.notEqual(event, null, "should not be null");
-    test.ok((event instanceof events.MouseEvent),"should be instanceof MouseEvent");
-    test.done();
-  },
-
-  // Only applicable if implementation supports the "HTMLEvents" feature.
-  'type equals HTMLEvents': function (test) {
-    var event = this.doc.createEvent("HTMLEvents");
-    test.expect(2);
-    test.notEqual(event, null, "should not be null");
-    test.ok((event instanceof events.HTMLEvent),"should be instanceof HTMLEvent");
-    test.done();
-  },
-})
+exports['create event with each event type'] = function(test){
+  var doc = require('./events/files/hc_staff.xml').hc_staff(),
+      event_types = {'Events': events.Event,
+                     'MutationEvents': events.MutationEvent,
+                     'UIEvents': events.UIEvent,
+                     'MouseEvents': events.MouseEvent ,
+                     'HTMLEvents': events.HTMLEvent};
+  test.expect(10);
+  for (var type in event_types) {
+    var event = doc.createEvent(type);
+    test.notEqual(event, null, "should not be null for " + type);
+    test.ok((event instanceof event_types[type]),"should be instanceof " + type);
+  }
+  test.done();
+}
 
 exports['dispatch event'] = testcase({
   setUp: function(cb){
