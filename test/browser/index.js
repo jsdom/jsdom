@@ -212,5 +212,44 @@ exports.tests = {
     var document = dom.createDocument(null, null, doctype);
     assertTrue('Doctype did not serialize correctly',
         /^\s*<!DOCTYPE foo SYSTEM \'foo "bar".dtd\'>/.test(document.outerHTML));
+  },
+  basic_nodelist_indexOf : function() {
+    var doc = new browser.Document();
+
+    var html = doc.createElement("html");
+    doc.appendChild(html);
+
+    var body = doc.createElement("body");
+    html.appendChild(body);
+
+    var p = doc.createElement("p");
+    body.appendChild(p);
+
+    var div = doc.createElement("div");
+    body.appendChild(div);
+
+    var span = doc.createElement("span");
+    body.appendChild(span);
+
+    var index = body.childNodes.indexOf(span);
+    assertEquals("indexOf 'span' in childNodes", 2, index);
+  },
+  nonexistant_nodelist_indexOf : function() {
+    var doc = new browser.Document();
+
+    var html = doc.createElement("html");
+    doc.appendChild(html);
+
+    var body = doc.createElement("body");
+    html.appendChild(body);
+
+    var p = doc.createElement("p");
+    body.appendChild(p);
+
+    var div = doc.createElement("div");
+    p.appendChild(div);
+
+    var index = body.childNodes.indexOf(div);
+    assertEquals("indexOf 'span' in childNodes", -1, index);
   }
 };
