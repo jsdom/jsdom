@@ -23,6 +23,13 @@ var EventMonitor = function() {
     }
   };
 };
+var cleanup = function(xs) {
+  var self = this;
+  xs.forEach(function(x){
+    self[x] = undefined;
+    delete(self[x]);
+  })
+}
 
 global.events = require("../../lib/jsdom/level2/events").dom.level2.events;
 
@@ -74,8 +81,7 @@ exports['dispatch event'] = testcase({
   },
 
   tearDown: function(cb){
-    this.doc = undefined;
-    delete(this.doc);
+    cleanup.call(this, ['doc']);
     cb();
   },
 
@@ -209,78 +215,60 @@ exports['dispatch event'] = testcase({
   }
 })
 
+// The Event.initEvent method is called for event returned by DocumentEvent.createEvent("Events") and DocumentEvent.createEvent("MutationEvents")
+// The state is checked to see if it reflects the parameters.
+// @author Curt Arnold
+// @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-Event-initEvent
 exports['init event'] = testcase({
   setUp: function(cb){
-    this.doc = require('./events/files/hc_staff.xml').hc_staff();
-    this.event_types = ['Events', 'MutationEvents']
+    var doc = require('./events/files/hc_staff.xml').hc_staff();
+    this._events = ['Events', 'MutationEvents'].map(function(t){ return(doc.createEvent(t)); })
     cb();
   },
 
   tearDown: function(cb){
-    this.doc = undefined;
-    this.event_types = undefined;
-    delete(this.doc);
-    delete(this.event_types);
+    cleanup.call(this, ['_events']);
     cb();
   },
 
-  // The Event.initEvent method is called for event returned by DocumentEvent.createEvent("Events") and DocumentEvent.createEvent("MutationEvents")
-  // The state is checked to see if it reflects the parameters.
-  // @author Curt Arnold
-  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-Event-initEvent
   'set state from params, bubble no cancel': function (test) {
-    var doc = this.doc;
     test.expect(8);
-    this.event_types.forEach(function(type){
-      var event = doc.createEvent(type);
-      test.notEqual(event, null, 'event should not be null');
+    this._events.forEach(function(event){
+      test.notEqual(event, null, 'event should not be null for ' + event.eventType);
       event.initEvent('rotate', true, false);
-      test.equal(event.type, 'rotate', 'event type should be \"rotate\" for ' + type);
-      test.equal(event.bubbles, true, 'event should bubble for ' + type);
-      test.equal(event.cancelable, false, 'event should not be cancelable for ' + type);
+      test.equal(event.type, 'rotate', 'event type should be \"rotate\" for ' + event.eventType);
+      test.equal(event.bubbles, true, 'event should bubble for ' + event.eventType);
+      test.equal(event.cancelable, false, 'event should not be cancelable for ' + event.eventType);
     })
     test.done();
   },
 
-  // The Event.initEvent method is called for event returned by DocumentEvent.createEvent("Events") and DocumentEvent.createEvent("MutationEvents")
-  // The state is checked to see if it reflects the parameters.
-  // @author Curt Arnold
-  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-Event-initEvent
   'set state from params, cancel no bubble': function (test) {
-    var doc = this.doc;
     test.expect(8);
-    this.event_types.forEach(function(type){
-      var event = doc.createEvent(type);
-      test.notEqual(event, null, 'event should not be null');
+    this._events.forEach(function(event){
+      test.notEqual(event, null, 'event should not be null for' + event.eventType);
       event.initEvent('rotate', false, true);
-      test.equal(event.type, 'rotate', 'event type should be \"rotate\" for ' + type);
-      test.equal(event.bubbles, false, 'event should not bubble for ' + type);
-      test.equal(event.cancelable, true, 'event should be cancelable for ' + type);
+      test.equal(event.type, 'rotate', 'event type should be \"rotate\" for ' + event.eventType);
+      test.equal(event.bubbles, false, 'event should not bubble for ' + event.eventType);
+      test.equal(event.cancelable, true, 'event should be cancelable for ' + event.eventType);
     })
     test.done();
   },
 
-  // The Event.initEvent method is called for event returned by DocumentEvent.createEvent("Events") and DocumentEvent.createEvent("MutationEvents")
-  // The state is checked to see if it reflects the parameters.
-  // initEvent may be called multiple times and the last time is definitive.
-  // @author Curt Arnold
-  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-Event-initEvent
   'initEvent called multiple times, final time is definitive': function (test) {
-    var doc = this.doc;
     test.expect(14);
-    this.event_types.forEach(function(type){
-      var event = doc.createEvent(type);
-      test.notEqual(event, null, 'event should not be null for ' + type);
+    this._events.forEach(function(event){
+      test.notEqual(event, null, 'event should not be null for ' + event.eventType);
       // rotate
       event.initEvent("rotate", true, true);
-      test.equal(event.type, 'rotate', 'event type should be \"rotate\" for ' + type);
-      test.equal(event.bubbles, true, 'event should bubble for ' + type);
-      test.equal(event.cancelable, true, 'event should be cancelable for ' + type);
+      test.equal(event.type, 'rotate', 'event type should be \"rotate\" for ' + event.eventType);
+      test.equal(event.bubbles, true, 'event should bubble for ' + event.eventType);
+      test.equal(event.cancelable, true, 'event should be cancelable for ' + event.eventType);
       // shear
       event.initEvent("shear", false, false);
-      test.equal(event.type, 'shear', 'event type should be \"shear\" for ' + type);
-      test.equal(event.bubbles, false, 'event should not bubble for ' + type);
-      test.equal(event.cancelable, false, 'event should not be cancelable for ' + type);
+      test.equal(event.type, 'shear', 'event type should be \"shear\" for ' + event.eventType);
+      test.equal(event.bubbles, false, 'event should not bubble for ' + event.eventType);
+      test.equal(event.cancelable, false, 'event should not be cancelable for ' + event.eventType);
     })
     test.done();
   },
@@ -297,11 +285,7 @@ exports['capture event'] = testcase({
   },
 
   tearDown: function(cb){
-    var self = this;
-    ['doc', 'monitor', 'plist', 'event'].forEach(function(x){
-      this[x] = undefined;
-      delete(this[x]);
-    })
+    cleanup.call(this, ['doc', 'monitor', 'plist', 'event']);
     cb();
   },
 
@@ -342,11 +326,7 @@ exports['bubble event'] = testcase({
   },
 
   tearDown: function(cb){
-    var self = this;
-    ['doc', 'monitor', 'plist', 'event'].forEach(function(x){
-      this[x] = undefined;
-      delete(this[x]);
-    })
+    cleanup.call(this, ['doc', 'monitor', 'plist', 'event']);
     cb();
   },
 
@@ -402,11 +382,7 @@ exports['stop propagation'] = testcase({
   },
 
   tearDown: function(cb){
-    var self = this;
-    ['doc', 'monitor', 'plist', 'event'].forEach(function(x){
-      this[x] = undefined;
-      delete(this[x]);
-    })
+    cleanup.call(this,['doc', 'monitor', 'plist', 'event']);
     cb();
   },
 
@@ -447,11 +423,7 @@ exports['prevent default'] = testcase({
   },
 
   tearDown: function(cb){
-    var self = this;
-    ['doc', 'monitor', 'plist', 'event'].forEach(function(x){
-      this[x] = undefined;
-      delete(this[x]);
-    })
+    cleanup.call(this,['doc', 'monitor', 'plist', 'event']);
     cb();
   },
 
