@@ -63,6 +63,10 @@ exports['create event with each event type'] = function(test){
   test.done();
 }
 
+// @author Curt Arnold
+// @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-EventTarget-dispatchEvent
+// @see http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-17189187
+// @see http://www.w3.org/TR/DOM-Level-2-Events/events#xpointer(id('Events-EventTarget-dispatchEvent')/raises/exception[@name='EventException']/descr/p[substring-before(.,':')='UNSPECIFIED_EVENT_TYPE_ERR'])
 exports['dispatch event'] = testcase({
   setUp: function(cb){
     this.doc = require('./events/files/hc_staff.xml').hc_staff();
@@ -75,49 +79,36 @@ exports['dispatch event'] = testcase({
     cb();
   },
 
-  // A null reference passed to EventTarget.dispatchEvent() should raise an implementation or platform exception.
-  // @author Curt Arnold
-  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-EventTarget-dispatchEvent
-  // @see http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-17189187
-  'passing a null reference': function (test) {
+  'a null reference passed to dispatchEvent': function (test) {
     var doc = this.doc;
     test.throws(function(){ doc.dispatchEvent(null) }, events.EventException, 'should throw an exception');
     // TODO: figure out the best way to test (exception.code == 0) and (exception.message == 'Null event')
     test.done();
   },
 
-  // A created but not initialized event is passed to EventTarget.dispatchEvent(). Should raise UNSPECIFIED_EVENT_TYPE_ERR EventException.
-  // @author Curt Arnold
-  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-EventTarget-dispatchEvent
-  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#xpointer(id('Events-EventTarget-dispatchEvent')/raises/exception[@name='EventException']/descr/p[substring-before(.,':')='UNSPECIFIED_EVENT_TYPE_ERR'])
-  'passing an uninitialized event': function (test) {
+  'a created but not initialized event passed to dispatchEvent': function (test) {
     var doc = this.doc,
         event_types = ['Events', 'MutationEvents', 'UIEvents', 'MouseEvents', 'HTMLEvents'];
-    test.expect(5);
-    event_types.forEach(function(event){
-      test.throws(function(){ doc.dispatchEvent(doc.createEvent(event)) }, events.EventException, 'type '+ event + ' should throw an exception');
+    test.expect(event_types.length);
+    event_types.forEach(function(type){
+      test.throws(function(){ doc.dispatchEvent(doc.createEvent(type)) }, events.EventException, 'should throw an exception for ' + type);
+      // Should raise UNSPECIFIED_EVENT_TYPE_ERR EventException.
       // TODO: figure out the best way to test (exception.code == 0) and (exception.message == 'Uninitialized event')
     })
     test.done();
   },
 
-  // An Event initialized with a empty name is passed to EventTarget.dispatchEvent().  Should raise UNSPECIFIED_EVENT_TYPE_ERR EventException.
-  // @author Curt Arnold
-  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-EventTarget-dispatchEvent
-  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#xpointer(id('Events-EventTarget-dispatchEvent')/raises/exception[@name='EventException']/descr/p[substring-before(.,':')='UNSPECIFIED_EVENT_TYPE_ERR'])
-  'passing an initialized, empty event': function (test) {
+  'an Event initialized with a empty name passed to dispatchEvent': function (test) {
     var doc = this.doc,
         event = doc.createEvent("Events");
     event.initEvent("",false,false);
     test.throws(function(){ doc.dispatchEvent(event) }, events.EventException, 'should throw an exception');
+    // Should raise UNSPECIFIED_EVENT_TYPE_ERR EventException.
     // TODO: figure out the best way to test (exception.code == 0) and (exception.message == 'Uninitialized event')
     test.done();
   },
 
   // An EventListener registered on the target node with capture false, should recieve any event fired on that node.
-  // @author Curt Arnold
-  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-EventTarget-dispatchEvent
-  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#xpointer(id('Events-EventTarget-dispatchEvent')/raises/exception[@name='EventException']/descr/p[substring-before(.,':')='UNSPECIFIED_EVENT_TYPE_ERR'])
   'EventListener with capture false': function (test) {
     var monitor = new EventMonitor();
     this.doc.addEventListener("foo", monitor.handleEvent, false);
@@ -133,9 +124,6 @@ exports['dispatch event'] = testcase({
 
   // An event is dispatched to the document with a capture listener attached.
   // A capturing EventListener will not be triggered by events dispatched directly to the EventTarget upon which it is registered.
-  // @author Curt Arnold
-  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-EventTarget-dispatchEvent
-  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#xpointer(id('Events-EventTarget-dispatchEvent')/raises/exception[@name='EventException']/descr/p[substring-before(.,':')='UNSPECIFIED_EVENT_TYPE_ERR'])
   'EventListener with capture true': function (test) {
     var monitor = new EventMonitor();
     this.doc.addEventListener("foo", monitor.handleEvent, true);
@@ -150,9 +138,6 @@ exports['dispatch event'] = testcase({
   },
 
   // The same monitor is registered twice and an event is dispatched.  The monitor should recieve only one handleEvent call.
-  // @author Curt Arnold
-  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-EventTarget-dispatchEvent
-  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#xpointer(id('Events-EventTarget-dispatchEvent')/raises/exception[@name='EventException']/descr/p[substring-before(.,':')='UNSPECIFIED_EVENT_TYPE_ERR'])
   'EventListener is registered twice': function (test) {
     var monitor = new EventMonitor();
     this.doc.addEventListener("foo", monitor.handleEvent, false);
@@ -168,9 +153,6 @@ exports['dispatch event'] = testcase({
   },
 
   // The same monitor is registered twice, removed once, and an event is dispatched. The monitor should recieve only no handleEvent calls.
-  // @author Curt Arnold
-  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-EventTarget-dispatchEvent
-  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#xpointer(id('Events-EventTarget-dispatchEvent')/raises/exception[@name='EventException']/descr/p[substring-before(.,':')='UNSPECIFIED_EVENT_TYPE_ERR'])
   'EventListener is registered twice, removed once': function (test) {
     var monitor = new EventMonitor();
     this.doc.addEventListener("foo", monitor.handleEvent, false);
@@ -185,9 +167,6 @@ exports['dispatch event'] = testcase({
 
   // A monitor is added, multiple calls to removeEventListener are made with similar but not identical arguments, and an event is dispatched.
   // The monitor should recieve handleEvent calls.
-  // @author Curt Arnold
-  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-EventTarget-dispatchEvent
-  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#xpointer(id('Events-EventTarget-dispatchEvent')/raises/exception[@name='EventException']/descr/p[substring-before(.,':')='UNSPECIFIED_EVENT_TYPE_ERR'])
   'EventListener is registered, other listeners (similar but not identical) are removed': function (test) {
     var monitor = new EventMonitor();
     var other = {handleEvent: function(){}}
@@ -203,9 +182,6 @@ exports['dispatch event'] = testcase({
   },
 
   // Two listeners are registered on the same target, each of which will remove both itself and the other on the first event.  Only one should see the event since event listeners can never be invoked after being removed.
-  // @author Curt Arnold
-  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-EventTarget-dispatchEvent
-  // @see http://www.w3.org/TR/DOM-Level-2-Events/events#xpointer(id('Events-EventTarget-dispatchEvent')/raises/exception[@name='EventException']/descr/p[substring-before(.,':')='UNSPECIFIED_EVENT_TYPE_ERR'])
   'two EventListeners which both handle by unregistering itself and the other': function (test) {
     // setup
     var es = [];
