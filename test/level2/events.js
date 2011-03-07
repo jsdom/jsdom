@@ -1,5 +1,6 @@
 var sys = require('sys');
 var testcase = require('nodeunit').testCase;
+var events = require("../../lib/jsdom/level2/events").dom.level2.events;
 var EventMonitor = function() {
   self = this;
   self.atEvents = [];
@@ -40,8 +41,6 @@ var _tearDown = function(xs) {
     delete(self[x]);
   })
 }
-
-global.events = require("../../lib/jsdom/level2/events").dom.level2.events;
 
 // A document is created using implementation.createDocument and cast to a DocumentEvent interface.
 // @author Curt Arnold
