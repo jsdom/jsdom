@@ -1,4 +1,3 @@
-var sys = require('sys');
 var testcase = require('nodeunit').testCase;
 var events = require("../../lib/jsdom/level2/events").dom.level2.events;
 var EventMonitor = function() {
