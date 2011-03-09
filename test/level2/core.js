@@ -12921,38 +12921,21 @@ exports[''] = testcase({
   }
 })
 
-exports[''] = testcase({
-  /**
-   *
-   The "getSystemId()" method of a documenttype node contains
-   the system identifier associated with the external subset.
+/**
+ *
+ The "getSystemId()" method of a documenttype node contains the system identifier associated with the external subset.
 
-   Retrieve the documenttype.
-   Apply the "getSystemId()" method.  The string "staffNS.dtd" should be
-   returned.
+ Retrieve the documenttype.
+ Apply the "getSystemId()" method.  The string "staffNS.dtd" should be returned.
 
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-Core-DocType-systemId
-   */
-  systemId01 : function () {
-    var success;
-    if(checkInitialization(builder, "systemId01") != null) return;
-    var doc;
-    var docType;
-    var systemId;
-    var index;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
-    docType = doc.doctype;
-
-    systemId = docType.systemId;
-
-    assertURIEquals("systemId",null,null,null,"staffNS.dtd",null,null,null,null,systemId);
-
-  }
-})
+ * @author NIST
+ * @author Mary Brady
+ * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-Core-DocType-systemId
+ */
+exports['systemId01'] = function (test) {
+  var doc = require('./core/files/staffNS.xml').staffNS();
+  var docType = doc.doctype;
+  assertURIEquals("systemId",null,null,null,"staffNS.dtd",null,null,null,null,docType.systemId);
+  test.ok(false);
+  test.done();
+}
