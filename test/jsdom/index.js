@@ -492,6 +492,19 @@ bye = bye + "bye";\
       var window = jsdom.jsdom("").createWindow();
       assertTrue('document.location and window.location', 
                    window.document.location === window.location);
+    },
+
+    childNodes_updates_on_insertChild : function() {
+      var window = jsdom.jsdom("").createWindow();
+      var div = window.document.createElement("div")
+      var text = window.document.createTextNode("bar")
+      div.appendChild(text);
+      assertEquals("childNodes NodeList should update after appendChild",
+                   text, div.childNodes[0])
+
+      text = window.document.createTextNode("bar")
+      div.insertBefore(text, null);
+      assertEquals("childNodes NodeList should update after insertBefore",
+                   text, div.childNodes[1])
     }
-    
 };
