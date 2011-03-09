@@ -85,14 +85,10 @@ exports['createAttributeNS'] = testcase({
     var success;
     var namespaceURI = "http://www.ecommerce.org/";
     var malformedName = "prefix::local";
-    var doc;
     var newAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
 
     {
       success = false;
@@ -127,14 +123,10 @@ exports['createAttributeNS'] = testcase({
     var namespaceURI = null;
 
     var qualifiedName = "prefix:local";
-    var doc;
     var newAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
 
     {
       success = false;
@@ -168,7 +160,6 @@ exports['createAttributeNS'] = testcase({
     var success;
     var namespaceURI = "http://www.wedding.com/";
     var qualifiedName;
-    var doc;
     var newAttr;
     illegalQNames = new Array();
     illegalQNames[0] = "person:{";
@@ -200,11 +191,8 @@ exports['createAttributeNS'] = testcase({
     illegalQNames[26] = "person:\"";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     for(var indexN10090 = 0;indexN10090 < illegalQNames.length; indexN10090++) {
       qualifiedName = illegalQNames[indexN10090];
 
@@ -245,14 +233,10 @@ exports['createAttributeNS'] = testcase({
     var success;
     var namespaceURI = "http://www.w3.org/XML/1998/namespaces";
     var qualifiedName = "xml:attr1";
-    var doc;
     var newAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
 
     {
       success = false;
@@ -284,15 +268,11 @@ exports['createAttributeNS'] = testcase({
     var success;
     var namespaceURI = "http://www.ecommerce.org/";
     var qualifiedName = "econm:local";
-    var doc;
     var newAttr;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     newAttr = doc.createAttributeNS(namespaceURI,qualifiedName);
     attrName = newAttr.name;
 
@@ -312,14 +292,10 @@ exports['createAttributeNS'] = testcase({
     var success;
     var namespaceURI = "http://www.example.com/";
     var qualifiedName;
-    var doc;
     var newAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+
+    var doc = require('./core/files/hc_staff.xml').hc_staff();
 
     {
       success = false;
@@ -359,17 +335,13 @@ exports['createDocument'] = testcase({
     var success;
     var namespaceURI = "http://www.ecommerce.org/";
     var malformedName = "prefix::local";
-    var doc;
     var docType = null;
 
     var domImpl;
     var aNewDoc;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
 
     {
@@ -405,17 +377,13 @@ exports['createDocument'] = testcase({
     var namespaceURI = null;
 
     var qualifiedName = "k:local";
-    var doc;
     var docType = null;
 
     var domImpl;
     var aNewDoc;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
 
     {
@@ -450,16 +418,12 @@ exports['createDocument'] = testcase({
     var success;
     var namespaceURI = "http://www.ecommerce.org/schema";
     var qualifiedName = "namespaceURI:x";
-    var doc;
     var docType;
     var domImpl;
     var aNewDoc;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docType = doc.doctype;
 
     domImpl = doc.implementation;
@@ -497,26 +461,12 @@ exports['createDocument'] = testcase({
     var success;
     var namespaceURI = "http://www.ecommerce.org/schema";
     var qualifiedName = "namespaceURI:x";
-    var doc;
     var docType;
     var domImpl;
-    var aNewDoc;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
-
-    var aNewDocRef = null;
-    if (typeof(this.aNewDoc) != 'undefined') {
-      aNewDocRef = this.aNewDoc;
-    }
-    aNewDoc = load(aNewDocRef, "aNewDoc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var aNewDoc = require('./core/files/staffNS.xml').staffNS();
     docType = doc.doctype;
-
     domImpl = aNewDoc.implementation;
-
     {
       success = false;
       try {
@@ -527,7 +477,6 @@ exports['createDocument'] = testcase({
       }
       assertTrue("throw_WRONG_DOCUMENT_ERR",success);
     }
-
   },
   /**
    *
@@ -549,7 +498,6 @@ exports['createDocument'] = testcase({
     var success;
     var namespaceURI = "http://www.ecommerce.org/schema";
     var qualifiedName;
-    var doc;
     var docType = null;
 
     var domImpl;
@@ -585,11 +533,8 @@ exports['createDocument'] = testcase({
     illegalQNames[26] = "namespaceURI:\"";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     for(var indexN1009A = 0;indexN1009A < illegalQNames.length; indexN1009A++) {
       qualifiedName = illegalQNames[indexN1009A];
       domImpl = doc.implementation;
@@ -632,17 +577,13 @@ exports['createDocument'] = testcase({
     var success;
     var namespaceURI = "http://ecommerce.org/schema";
     var qualifiedName = "xml:local";
-    var doc;
     var docType = null;
 
     var domImpl;
     var aNewDoc;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
 
     {
@@ -677,7 +618,6 @@ exports['createDocument'] = testcase({
     var success;
     var namespaceURI = "http://www.ecommerce.org/schema";
     var qualifiedName = "y:x";
-    var doc;
     var docType = null;
 
     var domImpl;
@@ -685,11 +625,8 @@ exports['createDocument'] = testcase({
     var nodeName;
     var nodeValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     aNewDoc = domImpl.createDocument(namespaceURI,qualifiedName,docType);
     nodeName = aNewDoc.nodeName;
@@ -716,7 +653,7 @@ exports['createDocument'] = testcase({
     var domImpl;
     var aNewDoc;
     var charact;
-    var doc = load(null, "doc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
 
     {
@@ -757,15 +694,11 @@ exports['createDocumentType'] = testcase({
     var publicId = "STAFF";
     var systemId = "staff.xml";
     var malformedName = "prefix::local";
-    var doc;
     var domImpl;
     var newType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
 
     {
@@ -801,7 +734,6 @@ exports['createDocumentType'] = testcase({
     var publicId = "http://www.localhost.com/";
     var systemId = "myDoc.dtd";
     var qualifiedName;
-    var doc;
     var docType = null;
 
     var domImpl;
@@ -835,11 +767,8 @@ exports['createDocumentType'] = testcase({
     illegalQNames[26] = "edi:\"";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     for(var indexN1009A = 0;indexN1009A < illegalQNames.length; indexN1009A++) {
       qualifiedName = illegalQNames[indexN1009A];
       domImpl = doc.implementation;
@@ -878,18 +807,14 @@ exports['createDocumentType'] = testcase({
     var qualifiedName = "prefix:myDoc";
     var publicId = "http://www.localhost.com";
     var systemId = "myDoc.dtd";
-    var doc;
     var domImpl;
     var newType = null;
 
     var nodeName;
     var nodeValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     newType = domImpl.createDocumentType(qualifiedName,publicId,systemId);
     nodeName = newType.nodeName;
@@ -915,9 +840,7 @@ exports['createDocumentType'] = testcase({
     var systemId = "myDoc.dtd";
     var qualifiedName;
     var docType = null;
-
-    var domImpl;
-    domImpl = load(null, "doc", "staffNS").implementation;
+    var domImpl = require('./core/files/staffNS.xml').staffNS().implementation;
 
     {
       success = false;
@@ -955,14 +878,10 @@ exports['createElementNS'] = testcase({
     var success;
     var namespaceURI = "http://www.ecommerce.org/";
     var malformedName = "prefix::local";
-    var doc;
     var newElement;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
 
     {
       success = false;
@@ -997,14 +916,10 @@ exports['createElementNS'] = testcase({
     var namespaceURI = null;
 
     var qualifiedName = "prefix:local";
-    var doc;
     var newElement;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
 
     {
       success = false;
@@ -1038,7 +953,6 @@ exports['createElementNS'] = testcase({
     var success;
     var namespaceURI = "http://www.wedding.com/";
     var qualifiedName;
-    var doc;
     var done;
     var newElement;
     var charact;
@@ -1072,11 +986,8 @@ exports['createElementNS'] = testcase({
     illegalQNames[26] = "person:\"";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     for(var indexN10098 = 0;indexN10098 < illegalQNames.length; indexN10098++) {
       qualifiedName = illegalQNames[indexN10098];
 
@@ -1117,14 +1028,10 @@ exports['createElementNS'] = testcase({
     var success;
     var namespaceURI = "http://www.w3.org/XML/1998/namespaces";
     var qualifiedName = "xml:element1";
-    var doc;
     var newElement;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
 
     {
       success = false;
@@ -1156,15 +1063,11 @@ exports['createElementNS'] = testcase({
     var success;
     var namespaceURI = "http://www.nist.gov";
     var qualifiedName = "gov:faculty";
-    var doc;
     var newElement;
     var elementName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     newElement = doc.createElementNS(namespaceURI,qualifiedName);
     elementName = newElement.tagName;
 
@@ -1184,16 +1087,12 @@ exports['createElementNS'] = testcase({
     var success;
     var namespaceURI = "http://www.example.com/";
     var qualifiedName;
-    var doc;
     var done;
     var newElement;
     var charact;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+
+    var doc = require('./core/files/hc_staff.xml').hc_staff();
 
     {
       success = false;
@@ -1225,7 +1124,6 @@ exports['documentcreateattributeNS'] = testcase({
    */
   documentcreateattributeNS01 : function () {
     var success;
-    var doc;
     var attribute;
     var namespaceURI = null;
 
@@ -1234,11 +1132,8 @@ exports['documentcreateattributeNS'] = testcase({
     var nodeName;
     var nodeValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     attribute = doc.createAttributeNS(namespaceURI,qualifiedName);
     nodeName = attribute.nodeName;
 
@@ -1261,7 +1156,6 @@ exports['documentcreateattributeNS'] = testcase({
    */
   documentcreateattributeNS02 : function () {
     var success;
-    var doc;
     var attribute1;
     var attribute2;
     var name;
@@ -1270,11 +1164,8 @@ exports['documentcreateattributeNS'] = testcase({
     var prefix;
     var namespaceURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     attribute1 = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:xml");
     name = attribute1.name;
 
@@ -1331,7 +1222,6 @@ exports['documentcreateattributeNS'] = testcase({
    */
   documentcreateattributeNS03 : function () {
     var success;
-    var doc;
     var attribute;
     var namespaceURI = "http://www.w3.org/DOM/Test/Level2";
     var qualifiedName;
@@ -1347,11 +1237,8 @@ exports['documentcreateattributeNS'] = testcase({
     qualifiedNames[8] = "<";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     for(var indexN1005A = 0;indexN1005A < qualifiedNames.length; indexN1005A++) {
       qualifiedName = qualifiedNames[indexN1005A];
 
@@ -1390,7 +1277,6 @@ exports['documentcreateattributeNS'] = testcase({
    */
   documentcreateattributeNS04 : function () {
     var success;
-    var doc;
     var attribute;
     var namespaceURI = "http://www.w3.org/DOM/Test/Level2";
     var qualifiedName;
@@ -1402,11 +1288,8 @@ exports['documentcreateattributeNS'] = testcase({
     qualifiedNames[4] = "_::a";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     for(var indexN1004E = 0;indexN1004E < qualifiedNames.length; indexN1004E++) {
       qualifiedName = qualifiedNames[indexN1004E];
 
@@ -1439,7 +1322,6 @@ exports['documentcreateattributeNS'] = testcase({
    */
   documentcreateattributeNS05 : function () {
     var success;
-    var doc;
     var newDoc;
     var docType = null;
 
@@ -1449,11 +1331,8 @@ exports['documentcreateattributeNS'] = testcase({
 
     var qualifiedName = "abc:def";
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","dom:doc",docType);
 
@@ -1485,7 +1364,6 @@ exports['documentcreateattributeNS'] = testcase({
    */
   documentcreateattributeNS06 : function () {
     var success;
-    var doc;
     var newDoc;
     var docType = null;
 
@@ -1494,11 +1372,8 @@ exports['documentcreateattributeNS'] = testcase({
     var namespaceURI = "http://www.w3.org/XML/1998 /namespace";
     var qualifiedName = "xml:root";
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","dom:doc",docType);
 
@@ -1537,16 +1412,12 @@ exports['documentcreateattributeNS'] = testcase({
    */
   documentcreateattributeNS07 : function () {
     var success;
-    var doc;
     var attribute;
     var namespaceURI = "http://www.W3.org/2000/xmlns";
     var qualifiedName = "xmlns";
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
 
     {
       success = false;
@@ -1582,7 +1453,6 @@ exports['documentcreateelementNS'] = testcase({
    */
   documentcreateelementNS01 : function () {
     var success;
-    var doc;
     var element;
     var namespaceURI = "http://www.w3.org/DOM/Test/level2";
     var qualifiedName = "XML:XML";
@@ -1592,11 +1462,8 @@ exports['documentcreateelementNS'] = testcase({
     var prefix;
     var tagName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.createElementNS(namespaceURI,qualifiedName);
     nodeName = element.nodeName;
 
@@ -1634,17 +1501,13 @@ exports['documentcreateelementNS'] = testcase({
    */
   documentcreateelementNS02 : function () {
     var success;
-    var doc;
     var element;
     var namespaceURI = null;
 
     var qualifiedName = "^^";
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
 
     {
       success = false;
@@ -1679,17 +1542,13 @@ exports['documentcreateelementNS'] = testcase({
    */
   documentcreateelementNS05 : function () {
     var success;
-    var doc;
     var element;
     var namespaceURI = null;
 
     var qualifiedName = "null:xml";
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
 
     {
       success = false;
@@ -1720,7 +1579,6 @@ exports['documentcreateelementNS'] = testcase({
    */
   documentcreateelementNS06 : function () {
     var success;
-    var doc;
     var newDoc;
     var docType = null;
 
@@ -1729,11 +1587,8 @@ exports['documentcreateelementNS'] = testcase({
     var namespaceURI = "http://www.w3.org/xml/1998/namespace ";
     var qualifiedName = "xml:root";
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","dom:doc",docType);
 
@@ -1773,15 +1628,11 @@ exports['documentgetelementby'] = testcase({
    */
   documentgetelementbyid01 : function () {
     var success;
-    var doc;
     var element;
     var elementId = "---";
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.getElementById(elementId);
     assertNull("documentgetelementbyid01",element);
 
@@ -1803,7 +1654,6 @@ exports['documentgetelementby'] = testcase({
    */
   documentgetelementsbytagnameNS01 : function () {
     var success;
-    var doc;
     var newDoc;
     var docType = null;
 
@@ -1812,11 +1662,8 @@ exports['documentgetelementby'] = testcase({
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument(nullNS,"root",docType);
     childList = newDoc.getElementsByTagNameNS("*","*");
@@ -1842,17 +1689,13 @@ exports['documentgetelementby'] = testcase({
    */
   documentgetelementsbytagnameNS02 : function () {
     var success;
-    var doc;
     var docElem;
     var element;
     var childList;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docElem = doc.documentElement;
 
     element = doc.createElementNS("test","employeeId");
@@ -1877,14 +1720,10 @@ exports['documentgetelementby'] = testcase({
    */
   documentgetelementsbytagnameNS03 : function () {
     var success;
-    var doc;
     var childList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     childList = doc.getElementsByTagNameNS("**","*");
     assertSize("documentgetelementsbytagnameNS03",0,childList);
 
@@ -1906,16 +1745,12 @@ exports['documentgetelementby'] = testcase({
    */
   documentgetelementsbytagnameNS04 : function () {
     var success;
-    var doc;
     var childList;
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     childList = doc.getElementsByTagNameNS(nullNS,"0");
     assertSize("documentgetelementsbytagnameNS04",0,childList);
 
@@ -1938,14 +1773,10 @@ exports['documentgetelementby'] = testcase({
    */
   documentgetelementsbytagnameNS05 : function () {
     var success;
-    var doc;
     var childList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     childList = doc.getElementsByTagNameNS("null","elementId");
     assertSize("documentgetelementsbytagnameNS05",0,childList);
 
@@ -1972,7 +1803,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode01 : function () {
     var success;
-    var doc;
     var element;
     var attr;
     var childList;
@@ -1981,11 +1811,8 @@ exports['documentimportnode'] = testcase({
     var nodeType;
     var nodeValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     childList = doc.getElementsByTagNameNS("http://www.nist.gov","address");
     element = childList.item(1);
     attr = element.getAttributeNode("street");
@@ -2020,8 +1847,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode02 : function () {
     var success;
-    var doc;
-    var docImported;
     var element;
     var attr;
     var importedAttr;
@@ -2031,17 +1856,9 @@ exports['documentimportnode'] = testcase({
     var addresses;
     var attrsParent;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
 
-    var docImportedRef = null;
-    if (typeof(this.docImported) != 'undefined') {
-      docImportedRef = this.docImported;
-    }
-    docImported = load(docImportedRef, "docImported", "staff");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var docImported = require('./core/files/staff.xml').staff();
     addresses = doc.getElementsByTagNameNS("http://www.nist.gov","address");
     element = addresses.item(1);
     attr = element.getAttributeNodeNS("http://www.nist.gov","zone");
@@ -2079,7 +1896,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode03 : function () {
     var success;
-    var doc;
     var element;
     var attr;
     var childList;
@@ -2088,11 +1904,8 @@ exports['documentimportnode'] = testcase({
     var nodeType;
     var nodeValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     childList = doc.getElementsByTagNameNS("http://www.nist.gov","employee");
     element = childList.item(1);
     attr = element.getAttributeNode("defaultAttr");
@@ -2128,7 +1941,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode04 : function () {
     var success;
-    var doc;
     var newDoc;
     var docType = null;
 
@@ -2141,11 +1953,8 @@ exports['documentimportnode'] = testcase({
     var nodeType;
     var nodeValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","l2:root",docType);
     childList = doc.getElementsByTagNameNS("http://www.nist.gov","employee");
@@ -2182,8 +1991,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode05 : function () {
     var success;
-    var doc;
-    var docImported;
     var attr;
     var importedAttr;
     var nodeName;
@@ -2191,17 +1998,9 @@ exports['documentimportnode'] = testcase({
     var nodeValue;
     var namespaceURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
 
-    var docImportedRef = null;
-    if (typeof(this.docImported) != 'undefined') {
-      docImportedRef = this.docImported;
-    }
-    docImported = load(docImportedRef, "docImported", "staff");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var docImported = require('./core/files/staff.xml').staff();
     attr = doc.createAttributeNS("http://www.w3.org/DOM/Test","a_:b0");
     importedAttr = docImported.importNode(attr,false);
     nodeName = importedAttr.nodeName;
@@ -2234,14 +2033,10 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode06 : function () {
     var success;
-    var doc;
     var docImported;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
 
     {
       success = false;
@@ -2272,15 +2067,11 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode07 : function () {
     var success;
-    var doc;
     var imported;
     var docType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docType = doc.doctype;
 
 
@@ -2313,18 +2104,14 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode08 : function () {
     var success;
-    var doc;
     var imported;
     var docType;
     var domImpl;
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     docType = domImpl.createDocumentType("test:root",nullNS,nullNS);
 
@@ -2358,7 +2145,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode09 : function () {
     var success;
-    var doc;
     var docFragment;
     var childList;
     var success;
@@ -2366,11 +2152,8 @@ exports['documentimportnode'] = testcase({
     var appendedChild;
     var importedDocFrag;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docFragment = doc.createDocumentFragment();
     childList = doc.getElementsByTagNameNS("*","address");
     addressNode = childList.item(0);
@@ -2398,7 +2181,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode10 : function () {
     var success;
-    var doc;
     var docFragment;
     var childList;
     var success;
@@ -2406,11 +2188,8 @@ exports['documentimportnode'] = testcase({
     var appendedChild;
     var importedDocFrag;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docFragment = doc.createDocumentFragment();
     childList = doc.getElementsByTagNameNS("*","address");
     addressNode = childList.item(0);
@@ -2438,18 +2217,14 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode11 : function () {
     var success;
-    var doc;
     var docElement;
     var imported;
     var success;
     var nodeNameOrig;
     var nodeNameImported;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docElement = doc.documentElement;
 
     imported = doc.importNode(docElement,false);
@@ -2480,7 +2255,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode12 : function () {
     var success;
-    var doc;
     var childList;
     var imported;
     var addressElem;
@@ -2489,11 +2263,8 @@ exports['documentimportnode'] = testcase({
     var addressElemLen;
     var importedLen;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     childList = doc.getElementsByTagNameNS("*","address");
     addressElem = childList.item(0);
     imported = doc.importNode(addressElem,true);
@@ -2526,18 +2297,14 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode13 : function () {
     var success;
-    var doc;
     var childList;
     var imported;
     var importedList;
     var employeeElem;
     var importedLen;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     childList = doc.getElementsByTagNameNS("*","employee");
     employeeElem = childList.item(0);
     imported = doc.importNode(employeeElem,false);
@@ -2564,27 +2331,18 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode14 : function () {
     var success;
-    var doc;
     var newDoc;
-    var domImpl;
     var nullDocType = null;
-
     var childList;
     var imported;
     var employeeElem;
     var attrNode;
     var attrValue;
     var nullNS = null;
-
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
     childList = doc.getElementsByTagNameNS("*","employee");
     employeeElem = childList.item(3);
-    domImpl = load(null, "doc", "staffNS").implementation;
+    var domImpl = require('./core/files/staffNS.xml').staffNS().implementation;
     newDoc = domImpl.createDocument(nullNS,"staff",nullDocType);
     imported = newDoc.importNode(employeeElem,true);
     attrNode = imported.getAttributeNodeNS(nullNS,"defaultAttr");
@@ -2612,23 +2370,13 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode15 : function () {
     var success;
-    var doc;
-    var docImp;
     var textImport;
     var textToImport;
     var nodeValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
 
-    var docImpRef = null;
-    if (typeof(this.docImp) != 'undefined') {
-      docImpRef = this.docImp;
-    }
-    docImp = load(docImpRef, "docImp", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var docImp = require('./core/files/staffNS.xml').staffNS();
     textToImport = doc.createTextNode("Document.importNode test for a TEXT_NODE");
     textImport = doc.importNode(textToImport,true);
     nodeValue = textImport.nodeValue;
@@ -2654,23 +2402,13 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode17 : function () {
     var success;
-    var doc;
-    var docImp;
     var commentImport;
     var commentToImport;
     var nodeValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
 
-    var docImpRef = null;
-    if (typeof(this.docImp) != 'undefined') {
-      docImpRef = this.docImp;
-    }
-    docImp = load(docImpRef, "docImp", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var docImp = require('./core/files/staffNS.xml').staffNS();
     commentToImport = doc.createComment("Document.importNode test for a COMMENT_NODE");
     commentImport = doc.importNode(commentToImport,true);
     nodeValue = commentImport.nodeValue;
@@ -2696,24 +2434,14 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode18 : function () {
     var success;
-    var doc;
-    var docImp;
     var piImport;
     var piToImport;
     var piData;
     var piTarget;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
 
-    var docImpRef = null;
-    if (typeof(this.docImp) != 'undefined') {
-      docImpRef = this.docImp;
-    }
-    docImp = load(docImpRef, "docImp", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var docImp = require('./core/files/staffNS.xml').staffNS();
     piToImport = doc.createProcessingInstruction("Target","Data");
     piImport = doc.importNode(piToImport,false);
     piTarget = piImport.target;
@@ -2742,7 +2470,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode19 : function () {
     var success;
-    var doc;
     var docTypeNull = null;
 
     var docImp;
@@ -2760,11 +2487,8 @@ exports['documentimportnode'] = testcase({
     var systemIdImp;
     var notationNameImp;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     docType = doc.doctype;
 
@@ -2828,7 +2552,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode20 : function () {
     var success;
-    var doc;
     var docImp;
     var domImpl;
     var docType;
@@ -2848,11 +2571,8 @@ exports['documentimportnode'] = testcase({
     var piTargetVal;
     var piDataVal;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     docType = doc.doctype;
 
@@ -2907,7 +2627,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode21 : function () {
     var success;
-    var doc;
     var docTypeNull = null;
 
     var docImp;
@@ -2929,11 +2648,8 @@ exports['documentimportnode'] = testcase({
     var nodeValueImp2;
     var nodeValueImp3;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     docImp = domImpl.createDocument("http://www.w3.org/DOM/Test","a:b",docTypeNull);
     addressList = doc.getElementsByTagName("address");
@@ -2988,7 +2704,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode22 : function () {
     var success;
-    var doc;
     var docTypeNull = null;
 
     var docImp;
@@ -3012,11 +2727,8 @@ exports['documentimportnode'] = testcase({
     var systemId2Imp;
     var systemId2NewImp;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     docType = doc.doctype;
 
@@ -3077,18 +2789,14 @@ exports[''] = testcase({
    */
   documenttypeinternalSubset01 : function () {
     var success;
-    var doc;
     var docType;
     var domImpl;
     var internal;
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     docType = domImpl.createDocumentType("l2:root",nullNS,nullNS);
     internal = docType.internalSubset;
@@ -3113,18 +2821,14 @@ exports[''] = testcase({
    */
   documenttypepublicid01 : function () {
     var success;
-    var doc;
     var docType;
     var domImpl;
     var publicId;
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     docType = domImpl.createDocumentType("l2:root","PUB",nullNS);
     publicId = docType.publicId;
@@ -3148,17 +2852,13 @@ exports[''] = testcase({
    */
   documenttypesystemid01 : function () {
     var success;
-    var doc;
     var docType;
     var domImpl;
     var publicId;
     var systemId;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     docType = domImpl.createDocumentType("l2:root","PUB","SYS");
     publicId = docType.publicId;
@@ -3194,7 +2894,6 @@ exports['domimplementationcreatedocument'] = testcase({
    */
   domimplementationcreatedocument03 : function () {
     var success;
-    var doc;
     var domImpl;
     var newDoc;
     var docType = null;
@@ -3214,11 +2913,8 @@ exports['domimplementationcreatedocument'] = testcase({
     qualifiedNames[9] = "a-b:c";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     for(var indexN1006B = 0;indexN1006B < qualifiedNames.length; indexN1006B++) {
       qualifiedName = qualifiedNames[indexN1006B];
@@ -3251,7 +2947,6 @@ exports['domimplementationcreatedocument'] = testcase({
    */
   domimplementationcreatedocument04 : function () {
     var success;
-    var doc;
     var domImpl;
     var newDoc;
     var namespaceURI = null;
@@ -3260,11 +2955,8 @@ exports['domimplementationcreatedocument'] = testcase({
     var docType = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
 
     {
@@ -3303,7 +2995,6 @@ exports['domimplementationcreatedocument'] = testcase({
    */
   domimplementationcreatedocument05 : function () {
     var success;
-    var doc;
     var domImpl;
     var newDoc;
     var namespaceURI = "http://www.w3.org/xml/1998/namespace";
@@ -3311,11 +3002,8 @@ exports['domimplementationcreatedocument'] = testcase({
     var docType = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
 
     {
@@ -3350,18 +3038,14 @@ exports['domimplementationcreatedocument'] = testcase({
    */
   domimplementationcreatedocument07 : function () {
     var success;
-    var doc;
     var domImpl;
     var newDoc;
     var namespaceURI = "http://www.w3.org/DOMTest/level2";
     var docType = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
 
     {
@@ -3391,7 +3075,6 @@ exports['domimplementationcreatedocument'] = testcase({
    */
   domimplementationcreatedocumenttype01 : function () {
     var success;
-    var doc;
     var domImpl;
     var newDocType;
     var ownerDocument;
@@ -3407,11 +3090,8 @@ exports['domimplementationcreatedocument'] = testcase({
     systemIds[1] = "test";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     for(var indexN1005D = 0;indexN1005D < publicIds.length; indexN1005D++) {
       publicId = publicIds[indexN1005D];
@@ -3450,7 +3130,6 @@ exports['domimplementationcreatedocument'] = testcase({
    */
   domimplementationcreatedocumenttype02 : function () {
     var success;
-    var doc;
     var domImpl;
     var newDocType;
     var ownerDocument;
@@ -3474,11 +3153,8 @@ exports['domimplementationcreatedocument'] = testcase({
     qualifiedNames[13] = "a-b:c";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     for(var indexN10077 = 0;indexN10077 < qualifiedNames.length; indexN10077++) {
       qualifiedName = qualifiedNames[indexN10077];
@@ -3511,7 +3187,6 @@ exports['domimplementationcreatedocument'] = testcase({
    */
   domimplementationcreatedocumenttype04 : function () {
     var success;
-    var doc;
     var domImpl;
     var newDocType;
     var publicId = "http://www.w3.org/DOM/Test/dom2.dtd";
@@ -3534,11 +3209,8 @@ exports['domimplementationcreatedocument'] = testcase({
     qualifiedNames[13] = ")";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     for(var indexN10073 = 0;indexN10073 < qualifiedNames.length; indexN10073++) {
       qualifiedName = qualifiedNames[indexN10073];
@@ -3575,7 +3247,7 @@ exports[''] = testcase({
 
    Retrieve the entire DOM document and invoke its
 
-   "load(null, "doc", "staffNS").implementation" method.  This should create a
+   "document.implementation" method.  This should create a
 
    DOMImplementation object whose "hasFeature(feature,
 
@@ -3590,15 +3262,11 @@ exports[''] = testcase({
    */
   domimplementationfeaturecore : function () {
     var success;
-    var doc;
     var domImpl;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     domImpl = doc.implementation;
     state = domImpl.hasFeature("core","2.0");
     assertTrue("domimplementationFeaturecoreAssert",state);
@@ -3622,7 +3290,7 @@ exports[''] = testcase({
 
    Retrieve the entire DOM document and invoke its
 
-   "load(null, "doc", "staffNS").implementation" method.  This should create a
+   "document.implementation" method.  This should create a
 
    DOMImplementation object whose "hasFeature(feature,
 
@@ -3637,15 +3305,11 @@ exports[''] = testcase({
    */
   domimplementationfeaturexmlversion2 : function () {
     var success;
-    var doc;
     var domImpl;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     domImpl = doc.implementation;
     state = domImpl.hasFeature("xml","2.0");
     assertTrue("domimplementationFeaturexmlVersion2Assert",state);
@@ -3670,7 +3334,6 @@ exports[''] = testcase({
    */
   domimplementationhasfeature01 : function () {
     var success;
-    var doc;
     var domImpl;
     var version = "";
     var version1 = "1.0";
@@ -3687,11 +3350,8 @@ exports[''] = testcase({
     featuresCore[1] = "CORE";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     for(var indexN10063 = 0;indexN10063 < featuresXML.length; indexN10063++) {
       featureXML = featuresXML[indexN10063];
@@ -3726,15 +3386,11 @@ exports[''] = testcase({
    */
   domimplementationhasfeature02 : function () {
     var success;
-    var doc;
     var domImpl;
     var success;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     success = domImpl.hasFeature("Blah Blah","");
     assertFalse("domimplementationhasfeature02",success);
@@ -3757,7 +3413,6 @@ exports[''] = testcase({
    */
   elementgetattributenodens01 : function () {
     var success;
-    var doc;
     var element;
     var attribute1;
     var attribute2;
@@ -3770,11 +3425,8 @@ exports[''] = testcase({
     var attrLocalName;
     var attrNS;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.createElementNS("namespaceURI","root");
     attribute1 = doc.createAttributeNS("http://www.w3.org/DOM/Level2","l2:att");
     newAttribute1 = element.setAttributeNodeNS(attribute1);
@@ -3810,17 +3462,13 @@ exports[''] = testcase({
    */
   elementgetattributenodens02 : function () {
     var success;
-    var doc;
     var element;
     var attribute;
     var newAttribute1;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.createElementNS("namespaceURI","root");
     attribute = doc.createAttributeNS("http://www.w3.org/DOM/Level2","l2:att");
     newAttribute1 = element.setAttributeNodeNS(attribute);
@@ -3843,7 +3491,6 @@ exports[''] = testcase({
    */
   elementgetattributenodens03 : function () {
     var success;
-    var doc;
     var element;
     var attribute;
     var attrValue;
@@ -3851,11 +3498,8 @@ exports[''] = testcase({
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     childList = doc.getElementsByTagNameNS("http://www.nist.gov","employee");
     element = childList.item(1);
     attribute = element.getAttributeNodeNS(nullNS,"defaultAttr");
@@ -3880,18 +3524,14 @@ exports[''] = testcase({
    */
   elementgetattributens02 : function () {
     var success;
-    var doc;
     var element;
     var attrValue;
     var childList;
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     childList = doc.getElementsByTagNameNS("http://www.nist.gov","employee");
     element = childList.item(1);
     attrValue = element.getAttributeNS(nullNS,"defaultAttr");
@@ -3921,15 +3561,11 @@ exports[''] = testcase({
    */
   elementgetelementsbytagnamens02 : function () {
     var success;
-    var doc;
     var element;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.documentElement;
 
     elementList = element.getElementsByTagNameNS("**","*");
@@ -3953,7 +3589,6 @@ exports[''] = testcase({
    */
   elementgetelementsbytagnamens04 : function () {
     var success;
-    var doc;
     var element;
     var child1;
     var child2;
@@ -3963,11 +3598,8 @@ exports[''] = testcase({
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.createElementNS("http://www.w3.org/DOM","root");
     child1 = doc.createElementNS("http://www.w3.org/DOM/Level1","dom:child");
     child2 = doc.createElementNS(nullNS,"child");
@@ -4003,15 +3635,11 @@ exports[''] = testcase({
    */
   elementgetelementsbytagnamens05 : function () {
     var success;
-    var doc;
     var element;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.documentElement;
 
     elementList = element.getElementsByTagNameNS("http://www.altavista.com","*");
@@ -4037,15 +3665,11 @@ exports[''] = testcase({
    */
   elementhasattribute01 : function () {
     var success;
-    var doc;
     var element;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     element = doc.documentElement;
 
     state = element.hasAttribute("");
@@ -4065,16 +3689,12 @@ exports[''] = testcase({
    */
   elementhasattribute02 : function () {
     var success;
-    var doc;
     var element;
     var state;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:employee");
     element = elementList.item(0);
     assertNotNull("empEmployeeNotNull",element);
@@ -4097,17 +3717,13 @@ exports[''] = testcase({
    */
   elementhasattribute03 : function () {
     var success;
-    var doc;
     var element;
     var state;
     var attribute;
     var newAttribute;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     element = doc.createElement("address");
     attribute = doc.createAttribute("domestic");
     state = element.hasAttribute("domestic");
@@ -4131,17 +3747,13 @@ exports[''] = testcase({
    */
   elementhasattribute04 : function () {
     var success;
-    var doc;
     var element;
     var state;
     var attribute;
     var newAttribute;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     element = doc.createElement("address");
     attribute = doc.createAttribute("domestic");
     newAttribute = element.setAttributeNode(attribute);
@@ -4167,16 +3779,12 @@ exports[''] = testcase({
    */
   elementhasattributens01 : function () {
     var success;
-    var doc;
     var element;
     var state;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("*","employee");
     element = elementList.item(0);
     state = element.hasAttributeNS("http://www.w3.org/2000/xmlns/","xmlns");
@@ -4200,17 +3808,13 @@ exports[''] = testcase({
    */
   elementhasattributens02 : function () {
     var success;
-    var doc;
     var element;
     var state;
     var attribute;
     var newAttribute;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     element = doc.createElementNS("http://www.w3.org/DOM","address");
     attribute = doc.createAttributeNS("http://www.w3.org/DOM","domestic");
     newAttribute = element.setAttributeNode(attribute);
@@ -4236,7 +3840,6 @@ exports[''] = testcase({
    */
   elementhasattributens03 : function () {
     var success;
-    var doc;
     var element;
     var state;
     var attribute;
@@ -4244,11 +3847,8 @@ exports[''] = testcase({
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     element = doc.createElementNS("http://www.w3.org/DOM","address");
     assertNotNull("createElementNotNull",element);
     attribute = doc.createAttributeNS(nullNS,"domestic");
@@ -4274,17 +3874,13 @@ exports[''] = testcase({
    */
   elementremoveattributens01 : function () {
     var success;
-    var doc;
     var element;
     var state;
     var attribute;
     var newAttribute;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     element = doc.createElementNS("http://www.w3.org/DOM","elem");
     attribute = doc.createAttributeNS("http://www.w3.org/DOM/Test/createAttributeNS","attr");
     newAttribute = element.setAttributeNodeNS(attribute);
@@ -4314,7 +3910,6 @@ exports[''] = testcase({
    */
   elementsetattributenodens01 : function () {
     var success;
-    var doc;
     var element;
     var attribute1;
     var attribute2;
@@ -4326,11 +3921,8 @@ exports[''] = testcase({
     var newAttribute;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     element = doc.createElementNS("http://www.w3.org/DOM/Test/Level2","new:element");
     attribute1 = doc.createAttributeNS("http://www.w3.org/DOM/Test/att1","p1:att");
     attribute2 = doc.createAttributeNS("http://www.w3.org/DOM/Test/att1","p2:att");
@@ -4366,7 +3958,6 @@ exports[''] = testcase({
    */
   elementsetattributenodens02 : function () {
     var success;
-    var doc;
     var element;
     var element2;
     var attribute;
@@ -4378,11 +3969,8 @@ exports[''] = testcase({
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("http://www.nist.gov","address");
     element = elementList.item(1);
     attribute = element.getAttributeNodeNS(nullNS,"street");
@@ -4412,7 +4000,6 @@ exports[''] = testcase({
    */
   elementsetattributenodens03 : function () {
     var success;
-    var doc;
     var element1;
     var element2;
     var attribute;
@@ -4421,11 +4008,8 @@ exports[''] = testcase({
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("http://www.nist.gov","address");
     element1 = elementList.item(1);
     attribute = element1.getAttributeNodeNS(nullNS,"street");
@@ -4458,17 +4042,13 @@ exports[''] = testcase({
    */
   elementsetattributenodens04 : function () {
     var success;
-    var doc;
     var element1;
     var element2;
     var attribute;
     var newAttribute;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element1 = doc.createElementNS("http://www.w3.org/DOM/Test","elem1");
     element2 = doc.createElementNS("http://www.w3.org/DOM/Test","elem2");
     attribute = doc.createAttributeNS("http://www.w3.org/DOM/Test","attr");
@@ -4501,23 +4081,13 @@ exports[''] = testcase({
    */
   elementsetattributenodens05 : function () {
     var success;
-    var doc;
-    var docAlt;
     var element;
     var attribute;
     var newAttribute;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
 
-    var docAltRef = null;
-    if (typeof(this.docAlt) != 'undefined') {
-      docAltRef = this.docAlt;
-    }
-    docAlt = load(docAltRef, "docAlt", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var docAlt = require('./core/files/staffNS.xml').staffNS();
     element = doc.createElementNS("http://www.w3.org/DOM/Test","elem1");
     attribute = docAlt.createAttributeNS("http://www.w3.org/DOM/Test","attr");
 
@@ -4548,7 +4118,6 @@ exports[''] = testcase({
    */
   elementsetattributenodens06 : function () {
     var success;
-    var doc;
     var element;
     var attribute;
     var attribute2;
@@ -4557,11 +4126,8 @@ exports[''] = testcase({
     var newAttribute;
     var newChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.createElementNS("http://www.w3.org/DOM/Test","elem1");
     attribute = doc.createAttributeNS("http://www.w3.org/DOM/Test","attr");
     entRef = doc.createEntityReference("ent4");
@@ -4600,17 +4166,13 @@ exports[''] = testcase({
    */
   elementsetattributens01 : function () {
     var success;
-    var doc;
     var element;
     var attribute;
     var attrName;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     element = doc.createElementNS("http://www.w3.org/DOM","dom:elem");
     element.setAttributeNS("http://www.w3.org/DOM/Test/setAttributeNS","attr","value");
     attribute = element.getAttributeNodeNS("http://www.w3.org/DOM/Test/setAttributeNS","attr");
@@ -4636,18 +4198,14 @@ exports[''] = testcase({
    */
   elementsetattributens02 : function () {
     var success;
-    var doc;
     var element;
     var attribute;
     var elementList;
     var attrName;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     elementList = doc.getElementsByTagNameNS("*","address");
     element = elementList.item(0);
     element.setAttributeNS("http://www.w3.org/DOM/Test/setAttributeNS","this:street","Silver Street");
@@ -4675,18 +4233,14 @@ exports[''] = testcase({
    */
   elementsetattributens03 : function () {
     var success;
-    var doc;
     var element;
     var attribute;
     var elementList;
     var attrName;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:employee");
     element = elementList.item(0);
     assertNotNull("empEmployeeNotNull",element);
@@ -4715,7 +4269,6 @@ exports[''] = testcase({
    */
   elementsetattributens04 : function () {
     var success;
-    var doc;
     var element;
     var qualifiedName;
     qualifiedNames = new Array();
@@ -4730,11 +4283,8 @@ exports[''] = testcase({
     qualifiedNames[8] = "<";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.createElementNS("http://www.w3.org/DOM/Test/L2","dom:elem");
     for(var indexN10058 = 0;indexN10058 < qualifiedNames.length; indexN10058++) {
       qualifiedName = qualifiedNames[indexN10058];
@@ -4767,16 +4317,12 @@ exports[''] = testcase({
    */
   elementsetattributens05 : function () {
     var success;
-    var doc;
     var element;
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.createElementNS("http://www.w3.org/DOM/Test/L2","dom:elem");
 
     {
@@ -4808,14 +4354,10 @@ exports[''] = testcase({
    */
   elementsetattributens08 : function () {
     var success;
-    var doc;
     var element;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.createElementNS("http://www.w3.org/DOMTest/level2","dom:elem");
 
     {
@@ -4872,15 +4414,11 @@ exports[''] = testcase({
     var namespaceURI = null;
 
     var qualifiedName = "emp:qualifiedName";
-    var doc;
     var elementList;
     var testAddr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     elementList = doc.getElementsByTagName("employee");
     testAddr = elementList.item(0);
 
@@ -4918,16 +4456,12 @@ exports[''] = testcase({
     var namespaceURI = "http://www.nist.gov";
     var localName = "district";
     var qualifiedName = "emp:district";
-    var doc;
     var elementList;
     var testAddr;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
     attrValue = testAddr.getAttributeNS(namespaceURI,localName);
@@ -4954,18 +4488,14 @@ exports[''] = testcase({
     var namespaceURI = "http://www.nist.gov";
     var localName = "district";
     var qualifiedName = "emp:district";
-    var doc;
     var newAttribute;
     var elementList;
     var testAddr;
     var districtAttr;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     newAttribute = doc.createAttributeNS(namespaceURI,qualifiedName);
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
@@ -4995,16 +4525,12 @@ exports[''] = testcase({
     var success;
     var namespaceURI = "http://www.nist.gov";
     var localName = "domestic";
-    var doc;
     var elementList;
     var testAddr;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
     assertNotNull("empAddrNotNull",testAddr);
@@ -5033,18 +4559,14 @@ exports[''] = testcase({
     var namespaceURI = "http://www.nist.gov";
     var localName = "blank";
     var qualifiedName = "emp:blank";
-    var doc;
     var newAttribute;
     var elementList;
     var testAddr;
     var districtAttr;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     newAttribute = doc.createAttributeNS(namespaceURI,qualifiedName);
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
@@ -5070,16 +4592,12 @@ exports[''] = testcase({
    */
   getAttributeNS05 : function () {
     var success;
-    var doc;
     var elementList;
     var testAddr;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
     assertNotNull("empAddrNotNull",testAddr);
@@ -5109,16 +4627,12 @@ exports[''] = testcase({
     var success;
     var namespaceURI = "http://www.nist.gov";
     var localName = "invalidlocalname";
-    var doc;
     var elementList;
     var testAddr;
     var attribute;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
     assertNotNull("empAddrNotNull",testAddr);
@@ -5142,17 +4656,13 @@ exports[''] = testcase({
    */
   getAttributeNodeNS02 : function () {
     var success;
-    var doc;
     var elementList;
     var testAddr;
     var attribute;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
     assertNotNull("empAddrNotNull",testAddr);
@@ -5181,15 +4691,11 @@ exports[''] = testcase({
    */
   getElementById01 : function () {
     var success;
-    var doc;
     var element;
     var tagname;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.getElementById("CANADA");
     tagname = element.tagName;
 
@@ -5212,14 +4718,10 @@ exports[''] = testcase({
    */
   getElementById02 : function () {
     var success;
-    var doc;
     var element;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.getElementById("Cancun");
     assertNull("throw_Null",element);
 
@@ -5245,14 +4747,10 @@ exports[''] = testcase({
     var success;
     var namespaceURI = "*";
     var localName = "*";
-    var doc;
     var newList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     newList = doc.getElementsByTagNameNS(namespaceURI,localName);
     assertSize("throw_Size",37,newList);
 
@@ -5275,17 +4773,13 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS02 : function () {
     var success;
-    var doc;
     var newList;
     var newElement;
     var prefix;
     var lname;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     newList = doc.getElementsByTagNameNS("*","employee");
     assertSize("employeeCount",5,newList);
     newElement = newList.item(3);
@@ -5315,7 +4809,6 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS03 : function () {
     var success;
-    var doc;
     var elementList;
     var child;
     var childName;
@@ -5338,11 +4831,8 @@ exports[''] = testcase({
     expectedResult[13] = "address";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("http://www.nist.gov","*");
     for(var indexN10076 = 0;indexN10076 < elementList.length; indexN10076++) {
       child = elementList.item(indexN10076);
@@ -5372,7 +4862,6 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS04 : function () {
     var success;
-    var doc;
     var elementList;
     var child;
     var childName;
@@ -5386,11 +4875,8 @@ exports[''] = testcase({
     expectedResult[4] = "address";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("*","address");
     for(var indexN10059 = 0;indexN10059 < elementList.length; indexN10059++) {
       child = elementList.item(indexN10059);
@@ -5422,14 +4908,10 @@ exports[''] = testcase({
     var success;
     var namespaceURI = "http://www.nist.gov";
     var localName = "nomatch";
-    var doc;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS(namespaceURI,localName);
     assertSize("throw_Size",0,elementList);
 
@@ -5452,14 +4934,10 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS06 : function () {
     var success;
-    var doc;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("http://www.nomatch.com","address");
     assertSize("matchSize",0,elementList);
 
@@ -5482,14 +4960,10 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS07 : function () {
     var success;
-    var doc;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("http://www.nist.gov","address");
     assertSize("addresses",3,elementList);
 
@@ -5509,15 +4983,11 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS08 : function () {
     var success;
-    var doc;
     var docElem;
     var newList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docElem = doc.documentElement;
 
     newList = docElem.getElementsByTagNameNS("*","*");
@@ -5545,18 +5015,14 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS09 : function () {
     var success;
-    var doc;
     var newList;
     var newElement;
     var prefix;
     var lname;
     var docElem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docElem = doc.documentElement;
 
     newList = docElem.getElementsByTagNameNS("*","employee");
@@ -5590,7 +5056,6 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS10 : function () {
     var success;
-    var doc;
     var docElem;
     var elementList;
     var child;
@@ -5614,11 +5079,8 @@ exports[''] = testcase({
     expectedResult[13] = "address";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docElem = doc.documentElement;
 
     elementList = docElem.getElementsByTagNameNS("http://www.nist.gov","*");
@@ -5651,7 +5113,6 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS11 : function () {
     var success;
-    var doc;
     var docElem;
     var elementList;
     var child;
@@ -5666,11 +5127,8 @@ exports[''] = testcase({
     expectedResult[4] = "address";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docElem = doc.documentElement;
 
     elementList = docElem.getElementsByTagNameNS("*","address");
@@ -5702,15 +5160,11 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS12 : function () {
     var success;
-    var doc;
     var docElem;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docElem = doc.documentElement;
 
     elementList = docElem.getElementsByTagNameNS("http://www.nist.gov","nomatch");
@@ -5734,15 +5188,11 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS13 : function () {
     var success;
-    var doc;
     var docElem;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docElem = doc.documentElement;
 
     elementList = docElem.getElementsByTagNameNS("http://www.nomatch.com","address");
@@ -5766,15 +5216,11 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS14 : function () {
     var success;
-    var doc;
     var docElem;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docElem = doc.documentElement;
 
     elementList = docElem.getElementsByTagNameNS("http://www.nist.gov","address");
@@ -5801,18 +5247,14 @@ exports[''] = testcase({
    */
   getNamedItemNS01 : function () {
     var success;
-    var doc;
     var elementList;
     var testEmployee;
     var attributes;
     var domesticAttr;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -5844,17 +5286,13 @@ exports[''] = testcase({
     var success;
     var namespaceURI = "http://www.usa.com";
     var localName = "domest";
-    var doc;
     var elementList;
     var testEmployee;
     var attributes;
     var newAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -5875,18 +5313,14 @@ exports[''] = testcase({
    */
   getNamedItemNS03 : function () {
     var success;
-    var doc;
     var docType;
     var entities;
     var entity;
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docType = doc.doctype;
 
     entities = docType.entities;
@@ -5908,18 +5342,14 @@ exports[''] = testcase({
    */
   getNamedItemNS04 : function () {
     var success;
-    var doc;
     var docType;
     var notations;
     var notation;
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docType = doc.doctype;
 
     notations = docType.notations;
@@ -5946,16 +5376,12 @@ exports[''] = testcase({
    */
   hasAttribute01 : function () {
     var success;
-    var doc;
     var elementList;
     var testNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     elementList = doc.getElementsByTagName("address");
     testNode = elementList.item(4);
     state = testNode.hasAttribute("domestic");
@@ -5977,16 +5403,12 @@ exports[''] = testcase({
    */
   hasAttribute02 : function () {
     var success;
-    var doc;
     var elementList;
     var testNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     elementList = doc.getElementsByTagName("address");
     testNode = elementList.item(0);
     state = testNode.hasAttribute("street");
@@ -6007,16 +5429,12 @@ exports[''] = testcase({
    */
   hasAttribute03 : function () {
     var success;
-    var doc;
     var elementList;
     var testNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     elementList = doc.getElementsByTagName("address");
     testNode = elementList.item(0);
     state = testNode.hasAttribute("nomatch");
@@ -6038,16 +5456,12 @@ exports[''] = testcase({
    */
   hasAttribute04 : function () {
     var success;
-    var doc;
     var elementList;
     var testNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("address");
     testNode = elementList.item(0);
     state = testNode.hasAttribute("dmstc:domestic");
@@ -6076,16 +5490,12 @@ exports[''] = testcase({
     var success;
     var localName = "nomatch";
     var namespaceURI = "http://www.usa.com";
-    var doc;
     var elementList;
     var testNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("address");
     testNode = elementList.item(0);
     state = testNode.hasAttributeNS(namespaceURI,localName);
@@ -6110,16 +5520,12 @@ exports[''] = testcase({
     var success;
     var localName = "domestic";
     var namespaceURI = "http://www.nomatch.com";
-    var doc;
     var elementList;
     var testNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("address");
     testNode = elementList.item(0);
     state = testNode.hasAttributeNS(namespaceURI,localName);
@@ -6144,16 +5550,12 @@ exports[''] = testcase({
     var success;
     var localName = "blank";
     var namespaceURI = "http://www.nist.gov";
-    var doc;
     var elementList;
     var testNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:address");
     testNode = elementList.item(0);
     assertNotNull("empAddrNotNull",testNode);
@@ -6179,16 +5581,12 @@ exports[''] = testcase({
     var success;
     var localName = "district";
     var namespaceURI = "http://www.nist.gov";
-    var doc;
     var elementList;
     var testNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:address");
     testNode = elementList.item(0);
     assertNotNull("empAddressNotNull",testNode);
@@ -6214,16 +5612,12 @@ exports[''] = testcase({
     var success;
     var localName = "domestic";
     var namespaceURI = "http://www.usa.com";
-    var doc;
     var elementList;
     var testNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("address");
     testNode = elementList.item(0);
     state = testNode.hasAttributeNS(namespaceURI,localName);
@@ -6247,16 +5641,12 @@ exports[''] = testcase({
    */
   hasAttributes01 : function () {
     var success;
-    var doc;
     var addrList;
     var addrNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     addrList = doc.getElementsByTagName("name");
     addrNode = addrList.item(0);
     state = addrNode.hasAttributes();
@@ -6277,16 +5667,12 @@ exports[''] = testcase({
    */
   hasAttributes02 : function () {
     var success;
-    var doc;
     var addrList;
     var addrNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     addrList = doc.getElementsByTagName("address");
     addrNode = addrList.item(0);
     state = addrNode.hasAttributes();
@@ -6307,16 +5693,12 @@ exports[''] = testcase({
    */
   hc_entitiesremovenameditemns1 : function () {
     var success;
-    var doc;
     var entities;
     var docType;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+
+    var doc = require('./core/files/hc_staff.xml').hc_staff();
     docType = doc.doctype;
 
 
@@ -6352,17 +5734,13 @@ exports[''] = testcase({
    */
   hc_entitiessetnameditemns1 : function () {
     var success;
-    var doc;
     var entities;
     var docType;
     var retval;
     var elem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+
+    var doc = require('./core/files/hc_staff.xml').hc_staff();
     docType = doc.doctype;
 
 
@@ -6403,17 +5781,13 @@ exports[''] = testcase({
    */
   hc_namednodemapinvalidtype1 : function () {
     var success;
-    var doc;
     var attributes;
     var docElem;
     var newElem;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+
+    var doc = require('./core/files/hc_staff.xml').hc_staff();
     docElem = doc.documentElement;
 
     attributes = docElem.attributes;
@@ -6443,17 +5817,13 @@ exports[''] = testcase({
    */
   hc_nodedocumentfragmentnormalize1 : function () {
     var success;
-    var doc;
     var docFragment;
     var nodeValue;
     var txtNode;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+
+    var doc = require('./core/files/hc_staff.xml').hc_staff();
     docFragment = doc.createDocumentFragment();
     txtNode = doc.createTextNode("foo");
     retval = docFragment.appendChild(txtNode);
@@ -6481,17 +5851,13 @@ exports[''] = testcase({
    */
   hc_nodedocumentfragmentnormalize2 : function () {
     var success;
-    var doc;
     var docFragment;
     var nodeValue;
     var txtNode;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+
+    var doc = require('./core/files/hc_staff.xml').hc_staff();
     docFragment = doc.createDocumentFragment();
     txtNode = doc.createTextNode("");
     retval = docFragment.appendChild(txtNode);
@@ -6512,16 +5878,12 @@ exports[''] = testcase({
    */
   hc_notationsremovenameditemns1 : function () {
     var success;
-    var doc;
     var notations;
     var docType;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+
+    var doc = require('./core/files/hc_staff.xml').hc_staff();
     docType = doc.doctype;
 
 
@@ -6560,17 +5922,13 @@ exports[''] = testcase({
    */
   hc_notationssetnameditemns1 : function () {
     var success;
-    var doc;
     var notations;
     var docType;
     var retval;
     var elem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+
+    var doc = require('./core/files/hc_staff.xml').hc_staff();
     docType = doc.doctype;
 
 
@@ -6624,8 +5982,6 @@ exports[''] = testcase({
    */
   importNode01 : function () {
     var success;
-    var doc;
-    var aNewDoc;
     var newAttr;
     var importedChild;
     var aNode;
@@ -6639,23 +5995,11 @@ exports[''] = testcase({
     var child;
     var childValue;
     var result = new Array();
-
     expectedResult = new Array();
     expectedResult[0] = "elem:attr1";
     expectedResult[1] = "importedText";
-
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
-
-    var aNewDocRef = null;
-    if (typeof(this.aNewDoc) != 'undefined') {
-      aNewDocRef = this.aNewDoc;
-    }
-    aNewDoc = load(aNewDocRef, "aNewDoc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var aNewDoc = require('./core/files/staffNS.xml').staffNS();
     newAttr = aNewDoc.createAttribute("elem:attr1");
     importedChild = aNewDoc.createTextNode("importedText");
     aNode = newAttr.appendChild(importedChild);
@@ -6704,8 +6048,6 @@ exports[''] = testcase({
    */
   importNode02 : function () {
     var success;
-    var doc;
-    var aNewDoc;
     var cDataSec;
     var aNode;
     var ownerDocument;
@@ -6713,17 +6055,9 @@ exports[''] = testcase({
     var system;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
 
-    var aNewDocRef = null;
-    if (typeof(this.aNewDoc) != 'undefined') {
-      aNewDocRef = this.aNewDoc;
-    }
-    aNewDoc = load(aNewDocRef, "aNewDoc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var aNewDoc = require('./core/files/staffNS.xml').staffNS();
     cDataSec = aNewDoc.createCDATASection("this is CDATASection data");
     aNode = doc.importNode(cDataSec,false);
     ownerDocument = aNode.ownerDocument;
@@ -6757,8 +6091,6 @@ exports[''] = testcase({
    */
   importNode03 : function () {
     var success;
-    var doc;
-    var aNewDoc;
     var comment;
     var aNode;
     var ownerDocument;
@@ -6766,17 +6098,9 @@ exports[''] = testcase({
     var system;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
 
-    var aNewDocRef = null;
-    if (typeof(this.aNewDoc) != 'undefined') {
-      aNewDocRef = this.aNewDoc;
-    }
-    aNewDoc = load(aNewDocRef, "aNewDoc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var aNewDoc = require('./core/files/staffNS.xml').staffNS();
     comment = aNewDoc.createComment("this is a comment");
     aNode = doc.importNode(comment,false);
     ownerDocument = aNode.ownerDocument;
@@ -6811,26 +6135,14 @@ exports[''] = testcase({
    */
   importNode04 : function () {
     var success;
-    var doc;
-    var aNewDoc;
     var docFrag;
     var comment;
     var aNode;
     var children;
     var child;
     var childValue;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
-
-    var aNewDocRef = null;
-    if (typeof(this.aNewDoc) != 'undefined') {
-      aNewDocRef = this.aNewDoc;
-    }
-    aNewDoc = load(aNewDocRef, "aNewDoc", "staff");
+    var doc = require('./core/files/staff.xml').staff();
+    var aNewDoc = require('./core/files/staff.xml').staff();
     docFrag = aNewDoc.createDocumentFragment();
     comment = aNewDoc.createComment("descendant1");
     aNode = docFrag.appendChild(comment);
@@ -6864,8 +6176,6 @@ exports[''] = testcase({
    */
   importNode05 : function () {
     var success;
-    var doc;
-    var aNewDoc;
     var element;
     var aNode;
     var hasChild;
@@ -6875,17 +6185,9 @@ exports[''] = testcase({
     var name;
     var addresses;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
 
-    var aNewDocRef = null;
-    if (typeof(this.aNewDoc) != 'undefined') {
-      aNewDocRef = this.aNewDoc;
-    }
-    aNewDoc = load(aNewDocRef, "aNewDoc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var aNewDoc = require('./core/files/staffNS.xml').staffNS();
     addresses = aNewDoc.getElementsByTagName("emp:address");
     element = addresses.item(0);
     assertNotNull("empAddressNotNull",element);
@@ -6922,8 +6224,6 @@ exports[''] = testcase({
    */
   importNode06 : function () {
     var success;
-    var doc;
-    var aNewDoc;
     var element;
     var aNode;
     var hasChild;
@@ -6932,17 +6232,9 @@ exports[''] = testcase({
     var value;
     var addresses;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
 
-    var aNewDocRef = null;
-    if (typeof(this.aNewDoc) != 'undefined') {
-      aNewDocRef = this.aNewDoc;
-    }
-    aNewDoc = load(aNewDocRef, "aNewDoc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var aNewDoc = require('./core/files/staffNS.xml').staffNS();
     addresses = aNewDoc.getElementsByTagName("emp:address");
     element = addresses.item(0);
     assertNotNull("empAddressNotNull",element);
@@ -6979,8 +6271,6 @@ exports[''] = testcase({
    */
   importNode07 : function () {
     var success;
-    var doc;
-    var aNewDoc;
     var element;
     var aNode;
     var attributes;
@@ -6990,17 +6280,9 @@ exports[''] = testcase({
     var namespaceURI = "http://www.nist.gov";
     var qualifiedName = "emp:employee";
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
 
-    var aNewDocRef = null;
-    if (typeof(this.aNewDoc) != 'undefined') {
-      aNewDocRef = this.aNewDoc;
-    }
-    aNewDoc = load(aNewDocRef, "aNewDoc", "staff");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var aNewDoc = require('./core/files/staff.xml').staff();
     element = aNewDoc.createElementNS(namespaceURI,qualifiedName);
     aNode = doc.importNode(element,false);
     attributes = aNode.attributes;
@@ -7034,8 +6316,6 @@ exports[''] = testcase({
    */
   importNode08 : function () {
     var success;
-    var doc;
-    var aNewDoc;
     var docFrag;
     var aNode;
     var hasChild;
@@ -7043,17 +6323,9 @@ exports[''] = testcase({
     var docType;
     var system;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
 
-    var aNewDocRef = null;
-    if (typeof(this.aNewDoc) != 'undefined') {
-      aNewDocRef = this.aNewDoc;
-    }
-    aNewDoc = load(aNewDocRef, "aNewDoc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var aNewDoc = require('./core/files/staffNS.xml').staffNS();
     docFrag = aNewDoc.createDocumentFragment();
     aNode = doc.importNode(docFrag,false);
     hasChild = aNode.hasChildNodes();
@@ -7085,8 +6357,6 @@ exports[''] = testcase({
    */
   importNode09 : function () {
     var success;
-    var doc;
-    var aNewDoc;
     var doc1Type;
     var entityList;
     var entity2;
@@ -7098,17 +6368,9 @@ exports[''] = testcase({
     var publicVal;
     var notationName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
 
-    var aNewDocRef = null;
-    if (typeof(this.aNewDoc) != 'undefined') {
-      aNewDocRef = this.aNewDoc;
-    }
-    aNewDoc = load(aNewDocRef, "aNewDoc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var aNewDoc = require('./core/files/staffNS.xml').staffNS();
     docType = aNewDoc.doctype;
 
     entityList = docType.entities;
@@ -7157,8 +6419,6 @@ exports[''] = testcase({
    */
   importNode10 : function () {
     var success;
-    var doc;
-    var aNewDoc;
     var entRef;
     var aNode;
     var ownerDocument;
@@ -7166,17 +6426,9 @@ exports[''] = testcase({
     var system;
     var name;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
 
-    var aNewDocRef = null;
-    if (typeof(this.aNewDoc) != 'undefined') {
-      aNewDocRef = this.aNewDoc;
-    }
-    aNewDoc = load(aNewDocRef, "aNewDoc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var aNewDoc = require('./core/files/staffNS.xml').staffNS();
     entRef = aNewDoc.createEntityReference("entRef1");
     assertNotNull("createdEntRefNotNull",entRef);
     entRef.nodeValue = "entRef1Value";
@@ -7214,25 +6466,15 @@ exports[''] = testcase({
    */
   importNode11 : function () {
     var success;
-    var doc;
-    var aNewDoc;
     var entRef;
     var aNode;
     var name;
     var child;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
 
-    var aNewDocRef = null;
-    if (typeof(this.aNewDoc) != 'undefined') {
-      aNewDocRef = this.aNewDoc;
-    }
-    aNewDoc = load(aNewDocRef, "aNewDoc", "staff");
+    var doc = require('./core/files/staff.xml').staff();
+    var aNewDoc = require('./core/files/staff.xml').staff();
     entRef = aNewDoc.createEntityReference("ent3");
     assertNotNull("createdEntRefNotNull",entRef);
     aNode = doc.importNode(entRef,true);
@@ -7264,8 +6506,6 @@ exports[''] = testcase({
    */
   importNode12 : function () {
     var success;
-    var doc;
-    var aNewDoc;
     var doc1Type;
     var entityList;
     var entity2;
@@ -7277,17 +6517,9 @@ exports[''] = testcase({
     var child;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
 
-    var aNewDocRef = null;
-    if (typeof(this.aNewDoc) != 'undefined') {
-      aNewDocRef = this.aNewDoc;
-    }
-    aNewDoc = load(aNewDocRef, "aNewDoc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var aNewDoc = require('./core/files/staffNS.xml').staffNS();
     doc1Type = aNewDoc.doctype;
 
     entityList = doc1Type.entities;
@@ -7331,8 +6563,6 @@ exports[''] = testcase({
    */
   importNode13 : function () {
     var success;
-    var doc;
-    var aNewDoc;
     var doc1Type;
     var notationList;
     var notation;
@@ -7342,17 +6572,9 @@ exports[''] = testcase({
     var system;
     var publicVal;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
 
-    var aNewDocRef = null;
-    if (typeof(this.aNewDoc) != 'undefined') {
-      aNewDocRef = this.aNewDoc;
-    }
-    aNewDoc = load(aNewDocRef, "aNewDoc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var aNewDoc = require('./core/files/staffNS.xml').staffNS();
     doc1Type = aNewDoc.doctype;
 
     notationList = doc1Type.notations;
@@ -7392,8 +6614,6 @@ exports[''] = testcase({
    */
   importNode14 : function () {
     var success;
-    var doc;
-    var aNewDoc;
     var pi;
     var aNode;
     var ownerDocument;
@@ -7404,17 +6624,9 @@ exports[''] = testcase({
     var result = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
 
-    var aNewDocRef = null;
-    if (typeof(this.aNewDoc) != 'undefined') {
-      aNewDocRef = this.aNewDoc;
-    }
-    aNewDoc = load(aNewDocRef, "aNewDoc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var aNewDoc = require('./core/files/staffNS.xml').staffNS();
     pi = aNewDoc.createProcessingInstruction("target1","data1");
     aNode = doc.importNode(pi,false);
     ownerDocument = aNode.ownerDocument;
@@ -7451,8 +6663,6 @@ exports[''] = testcase({
    */
   importNode15 : function () {
     var success;
-    var doc;
-    var aNewDoc;
     var text;
     var aNode;
     var ownerDocument;
@@ -7460,17 +6670,9 @@ exports[''] = testcase({
     var system;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
 
-    var aNewDocRef = null;
-    if (typeof(this.aNewDoc) != 'undefined') {
-      aNewDocRef = this.aNewDoc;
-    }
-    aNewDoc = load(aNewDocRef, "aNewDoc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var aNewDoc = require('./core/files/staffNS.xml').staffNS();
     text = aNewDoc.createTextNode("this is text data");
     aNode = doc.importNode(text,false);
     ownerDocument = aNode.ownerDocument;
@@ -7505,22 +6707,12 @@ exports[''] = testcase({
    */
   importNode16 : function () {
     var success;
-    var doc;
-    var anotherDoc;
     var docType;
     var node;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
 
-    var anotherDocRef = null;
-    if (typeof(this.anotherDoc) != 'undefined') {
-      anotherDocRef = this.anotherDoc;
-    }
-    anotherDoc = load(anotherDocRef, "anotherDoc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var anotherDoc = require('./core/files/staffNS.xml').staffNS();
     docType = anotherDoc.doctype;
 
 
@@ -7555,21 +6747,11 @@ exports[''] = testcase({
    */
   importNode17 : function () {
     var success;
-    var doc;
-    var anotherDoc;
     var node;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
 
-    var anotherDocRef = null;
-    if (typeof(this.anotherDoc) != 'undefined') {
-      anotherDocRef = this.anotherDoc;
-    }
-    anotherDoc = load(anotherDocRef, "anotherDoc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var anotherDoc = require('./core/files/staffNS.xml').staffNS();
 
     {
       success = false;
@@ -7602,15 +6784,11 @@ exports[''] = testcase({
    */
   internalSubset01 : function () {
     var success;
-    var doc;
     var docType;
     var internal;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff2");
+
+    var doc = require('./core/files/staff2.xml').staff2();
     docType = doc.doctype;
 
     internal = docType.internalSubset;
@@ -7638,15 +6816,11 @@ exports[''] = testcase({
    */
   isSupported01 : function () {
     var success;
-    var doc;
     var rootNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("XXX","1.0");
@@ -7673,15 +6847,11 @@ exports[''] = testcase({
    */
   isSupported02 : function () {
     var success;
-    var doc;
     var rootNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("XML","9.0");
@@ -7710,15 +6880,11 @@ exports[''] = testcase({
    */
   isSupported04 : function () {
     var success;
-    var doc;
     var rootNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("xml","1.0");
@@ -7747,15 +6913,11 @@ exports[''] = testcase({
    */
   isSupported05 : function () {
     var success;
-    var doc;
     var rootNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("core","2.0");
@@ -7784,15 +6946,11 @@ exports[''] = testcase({
    */
   isSupported06 : function () {
     var success;
-    var doc;
     var rootNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("xml","2.0");
@@ -7821,15 +6979,11 @@ exports[''] = testcase({
    */
   isSupported07 : function () {
     var success;
-    var doc;
     var rootNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("XML","");
@@ -7858,15 +7012,11 @@ exports[''] = testcase({
    */
   isSupported09 : function () {
     var success;
-    var doc;
     var rootNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("XML","1.0");
@@ -7895,15 +7045,11 @@ exports[''] = testcase({
    */
   isSupported10 : function () {
     var success;
-    var doc;
     var rootNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("CORE","2.0");
@@ -7932,15 +7078,11 @@ exports[''] = testcase({
    */
   isSupported11 : function () {
     var success;
-    var doc;
     var rootNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("XML","2.0");
@@ -7986,16 +7128,12 @@ exports[''] = testcase({
     features[13] = "Traversal";
     features[14] = "bogus.bogus.bogus";
 
-    var doc;
     var rootNode;
     var featureElement;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("Core","2.0");
@@ -8022,15 +7160,11 @@ exports[''] = testcase({
    */
   isSupported13 : function () {
     var success;
-    var doc;
     var rootNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("Core","");
@@ -8047,17 +7181,13 @@ exports[''] = testcase({
    */
   isSupported14 : function () {
     var success;
-    var doc;
     var rootNode;
     var state;
     var nullString = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("Core",nullString);
@@ -8084,17 +7214,13 @@ exports[''] = testcase({
    */
   localName01 : function () {
     var success;
-    var doc;
     var elementList;
     var testAddr;
     var addrAttr;
     var localName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
     assertNotNull("empAddrNotNull",testAddr);
@@ -8121,15 +7247,11 @@ exports[''] = testcase({
    */
   localName02 : function () {
     var success;
-    var doc;
     var createdNode;
     var localName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     createdNode = doc.createElement("test:employee");
     localName = createdNode.localName;
 
@@ -8153,17 +7275,13 @@ exports[''] = testcase({
    */
   localName03 : function () {
     var success;
-    var doc;
     var elementList;
     var testEmployee;
     var textNode;
     var localName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("employeeId");
     testEmployee = elementList.item(0);
     textNode = testEmployee.firstChild;
@@ -8189,16 +7307,12 @@ exports[''] = testcase({
    */
   localName04 : function () {
     var success;
-    var doc;
     var elementList;
     var testEmployee;
     var employeeLocalName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("employee");
     testEmployee = elementList.item(0);
     employeeLocalName = testEmployee.localName;
@@ -8224,7 +7338,6 @@ exports[''] = testcase({
    */
   namednodemapgetnameditemns01 : function () {
     var success;
-    var doc;
     var docType;
     var entities;
     var notations;
@@ -8235,11 +7348,8 @@ exports[''] = testcase({
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docType = doc.doctype;
 
     entities = docType.entities;
@@ -8269,18 +7379,14 @@ exports[''] = testcase({
    */
   namednodemapgetnameditemns02 : function () {
     var success;
-    var doc;
     var attributes;
     var element;
     var attribute;
     var elementList;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("http://www.nist.gov","address");
     element = elementList.item(1);
     attributes = element.attributes;
@@ -8305,7 +7411,6 @@ exports[''] = testcase({
    */
   namednodemapgetnameditemns03 : function () {
     var success;
-    var doc;
     var attributes;
     var element;
     var attribute;
@@ -8314,11 +7419,8 @@ exports[''] = testcase({
     var newAttribute;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.createElementNS("http://www.w3.org/DOM/Test","root");
     newAttr1 = doc.createAttributeNS("http://www.w3.org/DOM/L1","L1:att");
     newAttribute = element.setAttributeNodeNS(newAttr1);
@@ -8348,7 +7450,6 @@ exports[''] = testcase({
    */
   namednodemapgetnameditemns04 : function () {
     var success;
-    var doc;
     var attributes;
     var element;
     var attribute;
@@ -8357,11 +7458,8 @@ exports[''] = testcase({
     var elementList;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("*","address");
     element = elementList.item(1);
     newAttr1 = doc.createAttributeNS("http://www.w3.org/DOM/L1","street");
@@ -8389,17 +7487,13 @@ exports[''] = testcase({
    */
   namednodemapgetnameditemns05 : function () {
     var success;
-    var doc;
     var attributes;
     var element;
     var attribute;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("*","address");
     element = elementList.item(1);
     attributes = element.attributes;
@@ -8422,7 +7516,6 @@ exports[''] = testcase({
    */
   namednodemapgetnameditemns06 : function () {
     var success;
-    var doc;
     var attributesMap1;
     var attributesMap2;
     var element;
@@ -8432,11 +7525,8 @@ exports[''] = testcase({
     var elementList;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("*","address");
     element = elementList.item(1);
     attributesMap1 = element.attributes;
@@ -8471,17 +7561,13 @@ exports[''] = testcase({
    */
   namednodemapremovenameditemns01 : function () {
     var success;
-    var doc;
     var attributes;
     var element;
     var attribute;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("http://www.nist.gov","address");
     element = elementList.item(1);
     attributes = element.attributes;
@@ -8509,7 +7595,6 @@ exports[''] = testcase({
    */
   namednodemapremovenameditemns02 : function () {
     var success;
-    var doc;
     var attributes;
     var element;
     var attribute;
@@ -8518,11 +7603,8 @@ exports[''] = testcase({
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("http://www.nist.gov","employee");
     element = elementList.item(1);
     attributes = element.attributes;
@@ -8549,7 +7631,6 @@ exports[''] = testcase({
    */
   namednodemapremovenameditemns03 : function () {
     var success;
-    var doc;
     var attributes;
     var element;
     var attribute;
@@ -8558,11 +7639,8 @@ exports[''] = testcase({
     var attribute2;
     var nodeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.createElementNS("http://www.w3.org/DOM/Test","root");
     attribute1 = doc.createAttributeNS("http://www.w3.org/DOM/L1","L1:att");
     newAttribute = element.setAttributeNodeNS(attribute1);
@@ -8590,18 +7668,14 @@ exports[''] = testcase({
    */
   namednodemapremovenameditemns04 : function () {
     var success;
-    var doc;
     var attributes;
     var element;
     var attribute;
     var attributeRemoved;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("*","employee");
     element = elementList.item(0);
     attributes = element.attributes;
@@ -8629,7 +7703,6 @@ exports[''] = testcase({
    */
   namednodemapremovenameditemns05 : function () {
     var success;
-    var doc;
     var docType;
     var entities;
     var notations;
@@ -8637,11 +7710,8 @@ exports[''] = testcase({
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docType = doc.doctype;
 
     entities = docType.entities;
@@ -8705,17 +7775,13 @@ exports[''] = testcase({
    */
   namednodemapremovenameditemns06 : function () {
     var success;
-    var doc;
     var attributes;
     var element;
     var attribute;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("http://www.nist.gov","employee");
     element = elementList.item(1);
     attributes = element.attributes;
@@ -8748,17 +7814,13 @@ exports[''] = testcase({
    */
   namednodemapremovenameditemns07 : function () {
     var success;
-    var doc;
     var attributes;
     var element;
     var attribute;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("http://www.nist.gov","employee");
     element = elementList.item(1);
     attributes = element.attributes;
@@ -8793,17 +7855,13 @@ exports[''] = testcase({
    */
   namednodemapremovenameditemns08 : function () {
     var success;
-    var doc;
     var attributes;
     var element;
     var attribute;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("http://www.nist.gov","address");
     element = elementList.item(1);
     attributes = element.attributes;
@@ -8837,18 +7895,14 @@ exports[''] = testcase({
    */
   namednodemapremovenameditemns09 : function () {
     var success;
-    var doc;
     var attributes;
     var newAttributes;
     var element;
     var attribute;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("http://www.nist.gov","address");
     element = elementList.item(1);
     attributes = element.attributes;
@@ -8879,7 +7933,6 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns01 : function () {
     var success;
-    var doc;
     var attributes;
     var element;
     var attribute;
@@ -8888,11 +7941,8 @@ exports[''] = testcase({
     var elementList;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("http://www.nist.gov","address");
     element = elementList.item(0);
     attributes = element.attributes;
@@ -8922,7 +7972,6 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns02 : function () {
     var success;
-    var doc;
     var attributes;
     var element;
     var attribute;
@@ -8930,11 +7979,8 @@ exports[''] = testcase({
     var newNode;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.createElementNS("http://www.w3.org/DOM/Test","root");
     attribute1 = doc.createAttributeNS("http://www.w3.org/DOM/L1","L1:att");
     attributes = element.attributes;
@@ -8965,8 +8011,6 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns03 : function () {
     var success;
-    var doc;
-    var docAlt;
     var attributes;
     var attributesAlt;
     var elementList;
@@ -8978,21 +8022,12 @@ exports[''] = testcase({
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("*","address");
     element = elementList.item(1);
     attributes = element.attributes;
-
-
-    var docAltRef = null;
-    if (typeof(this.docAlt) != 'undefined') {
-      docAltRef = this.docAlt;
-    }
-    docAlt = load(docAltRef, "docAlt", "staffNS");
+    var docAlt = require('./core/files/staffNS.xml').staffNS();
     elementListAlt = docAlt.getElementsByTagNameNS("*","address");
     elementAlt = elementListAlt.item(1);
     attributesAlt = elementAlt.attributes;
@@ -9030,7 +8065,6 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns04 : function () {
     var success;
-    var doc;
     var domImpl;
     var docAlt;
     var docType = null;
@@ -9043,11 +8077,8 @@ exports[''] = testcase({
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("*","address");
     element = elementList.item(1);
     attributes = element.attributes;
@@ -9083,7 +8114,6 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns05 : function () {
     var success;
-    var doc;
     var docType;
     var entities;
     var notations;
@@ -9093,11 +8123,8 @@ exports[''] = testcase({
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docType = doc.doctype;
 
     entities = docType.entities;
@@ -9146,18 +8173,14 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns06 : function () {
     var success;
-    var doc;
     var attributes;
     var elementList;
     var element;
     var attr;
     var newNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("*","address");
     element = elementList.item(0);
     attributes = element.attributes;
@@ -9199,18 +8222,14 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns07 : function () {
     var success;
-    var doc;
     var attributes;
     var elementList;
     var element;
     var attr;
     var newNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("*","address");
     element = elementList.item(0);
     attributes = element.attributes;
@@ -9249,18 +8268,14 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns08 : function () {
     var success;
-    var doc;
     var attributes;
     var elementList;
     var element;
     var attr;
     var newNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("*","address");
     element = elementList.item(0);
     attributes = element.attributes;
@@ -9296,18 +8311,14 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns09 : function () {
     var success;
-    var doc;
     var docType;
     var entities;
     var notations;
     var attr;
     var newNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docType = doc.doctype;
 
     entities = docType.entities;
@@ -9356,7 +8367,6 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns10 : function () {
     var success;
-    var doc;
     var docType;
     var entities;
     var attributes;
@@ -9366,11 +8376,8 @@ exports[''] = testcase({
     var elementList;
     var newNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docType = doc.doctype;
 
     entities = docType.entities;
@@ -9411,7 +8418,6 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns11 : function () {
     var success;
-    var doc;
     var docType;
     var notations;
     var attributes;
@@ -9422,11 +8428,8 @@ exports[''] = testcase({
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docType = doc.doctype;
 
     notations = docType.notations;
@@ -9470,17 +8473,13 @@ exports[''] = testcase({
    */
   namespaceURI01 : function () {
     var success;
-    var doc;
     var elementList;
     var testAddr;
     var addrAttr;
     var attrNamespaceURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
     addrAttr = testAddr.getAttributeNodeNS("http://www.nist.gov","district");
@@ -9504,17 +8503,13 @@ exports[''] = testcase({
    */
   namespaceURI02 : function () {
     var success;
-    var doc;
     var elementList;
     var testAddr;
     var addrAttr;
     var attrNamespaceURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
     assertNotNull("empAddressNotNull",testAddr);
@@ -9538,16 +8533,12 @@ exports[''] = testcase({
    */
   namespaceURI03 : function () {
     var success;
-    var doc;
     var elementList;
     var testEmployee;
     var employeeNamespace;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("employee");
     testEmployee = elementList.item(0);
     assertNotNull("employeeNotNull",testEmployee);
@@ -9570,16 +8561,12 @@ exports[''] = testcase({
    */
   namespaceURI04 : function () {
     var success;
-    var doc;
     var elementList;
     var testEmployee;
     var employeeNamespace;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("employee");
     testEmployee = elementList.item(1);
     employeeNamespace = testEmployee.namespaceURI;
@@ -9604,7 +8591,6 @@ exports[''] = testcase({
    */
   nodegetlocalname03 : function () {
     var success;
-    var doc;
     var element;
     var qelement;
     var attr;
@@ -9614,11 +8600,8 @@ exports[''] = testcase({
     var localAttrName;
     var localQAttrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     element = doc.createElementNS("http://www.w3.org/DOM/Test/elem","elem");
     qelement = doc.createElementNS("http://www.w3.org/DOM/Test/elem","qual:qelem");
     attr = doc.createAttributeNS("http://www.w3.org/DOM/Test/attr","attr");
@@ -9653,7 +8636,6 @@ exports[''] = testcase({
    */
   nodegetnamespaceuri03 : function () {
     var success;
-    var doc;
     var element;
     var elementNS;
     var attr;
@@ -9665,11 +8647,8 @@ exports[''] = testcase({
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     element = doc.createElementNS(nullNS,"elem");
     elementNS = doc.createElementNS("http://www.w3.org/DOM/Test/elem","qual:qelem");
     attr = doc.createAttributeNS(nullNS,"attr");
@@ -9702,18 +8681,14 @@ exports[''] = testcase({
    */
   nodegetownerdocument01 : function () {
     var success;
-    var doc;
     var ownerDoc;
     var domImpl;
     var docType;
     var nullID = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     domImpl = doc.implementation;
     docType = domImpl.createDocumentType("mydoc",nullID,nullID);
     ownerDoc = docType.ownerDocument;
@@ -9736,7 +8711,6 @@ exports[''] = testcase({
    */
   nodegetownerdocument02 : function () {
     var success;
-    var doc;
     var newDoc;
     var newElem;
     var ownerDocDoc;
@@ -9746,11 +8720,8 @@ exports[''] = testcase({
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     domImpl = doc.implementation;
     docType = domImpl.createDocumentType("mydoc",nullNS,nullNS);
     newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","mydoc",docType);
@@ -9777,7 +8748,6 @@ exports[''] = testcase({
    */
   nodegetprefix03 : function () {
     var success;
-    var doc;
     var element;
     var qelement;
     var attr;
@@ -9787,11 +8757,8 @@ exports[''] = testcase({
     var attrNoPrefix;
     var attrPrefix;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     element = doc.createElementNS("http://www.w3.org/DOM/Test/elem","elem");
     qelement = doc.createElementNS("http://www.w3.org/DOM/Test/elem","qual:qelem");
     attr = doc.createAttributeNS("http://www.w3.org/DOM/Test/attr","attr");
@@ -9826,16 +8793,12 @@ exports[''] = testcase({
    */
   nodehasattributes01 : function () {
     var success;
-    var doc;
     var element;
     var elementList;
     var hasAttributes;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     elementList = doc.getElementsByTagName("employee");
     element = elementList.item(0);
     hasAttributes = element.hasAttributes();
@@ -9864,15 +8827,11 @@ exports[''] = testcase({
    */
   nodehasattributes02 : function () {
     var success;
-    var doc;
     var docType;
     var hasAttributes;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docType = doc.doctype;
 
     hasAttributes = docType.hasAttributes();
@@ -9891,16 +8850,12 @@ exports[''] = testcase({
    */
   nodehasattributes03 : function () {
     var success;
-    var doc;
     var element;
     var elementList;
     var hasAttributes;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:employee");
     element = elementList.item(0);
     assertNotNull("empEmployeeNotNull",element);
@@ -9922,7 +8877,6 @@ exports[''] = testcase({
    */
   nodehasattributes04 : function () {
     var success;
-    var doc;
     var newDoc;
     var docType = null;
 
@@ -9936,11 +8890,8 @@ exports[''] = testcase({
     var elementList;
     var hasAttributes;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","test",docType);
     element = newDoc.createElementNS("http://www.w3.org/DOM/Test","dom:elem");
@@ -9974,7 +8925,6 @@ exports[''] = testcase({
    */
   nodeissupported01 : function () {
     var success;
-    var doc;
     var element;
     var version = "";
     var version1 = "1.0";
@@ -9991,11 +8941,8 @@ exports[''] = testcase({
     featuresCore[1] = "CORE";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.documentElement;
 
     for(var indexN10063 = 0;indexN10063 < featuresXML.length; indexN10063++) {
@@ -10033,7 +8980,6 @@ exports[''] = testcase({
    */
   nodeissupported02 : function () {
     var success;
-    var doc;
     var attribute;
     var version = "";
     var version1 = "1.0";
@@ -10050,11 +8996,8 @@ exports[''] = testcase({
     featuresCore[1] = "CORE";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     attribute = doc.createAttribute("TestAttr");
     for(var indexN10064 = 0;indexN10064 < featuresXML.length; indexN10064++) {
       featureXML = featuresXML[indexN10064];
@@ -10095,15 +9038,11 @@ exports[''] = testcase({
    */
   nodeissupported03 : function () {
     var success;
-    var doc;
     var docType;
     var success;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docType = doc.doctype;
 
     success = docType.isSupported("","");
@@ -10124,15 +9063,11 @@ exports[''] = testcase({
    */
   nodeissupported04 : function () {
     var success;
-    var doc;
     var entRef;
     var success;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     entRef = doc.createEntityReference("ent1");
     assertNotNull("createdEntRefNotNull",entRef);
     success = entRef.isSupported("XML CORE","");
@@ -10159,15 +9094,11 @@ exports[''] = testcase({
    */
   nodeissupported05 : function () {
     var success;
-    var doc;
     var pi;
     var success;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     pi = doc.createProcessingInstruction("PITarget","PIData");
     success = pi.isSupported("-","+");
     assertFalse("nodeissupported05",success);
@@ -10193,7 +9124,6 @@ exports[''] = testcase({
    */
   nodenormalize01 : function () {
     var success;
-    var doc;
     var newDoc;
     var domImpl;
     var docType;
@@ -10217,11 +9147,8 @@ exports[''] = testcase({
     var elementList;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","dom:root",docTypeNull);
     element1 = newDoc.createElement("element1");
@@ -10339,18 +9266,14 @@ exports[''] = testcase({
    */
   nodesetprefix01 : function () {
     var success;
-    var doc;
     var docFragment;
     var element;
     var elementTagName;
     var elementNodeName;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     docFragment = doc.createDocumentFragment();
     element = doc.createElementNS("http://www.w3.org/DOM/Test","emp:address");
     appendedChild = docFragment.appendChild(element);
@@ -10381,7 +9304,6 @@ exports[''] = testcase({
    */
   nodesetprefix02 : function () {
     var success;
-    var doc;
     var element;
     var attribute;
     var newAttribute;
@@ -10390,11 +9312,8 @@ exports[''] = testcase({
     var attrName;
     var newAttrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("address");
     element = elementList.item(1);
     newAttribute = doc.createAttributeNS("http://www.w3.org/DOM/Test","test:address");
@@ -10423,14 +9342,10 @@ exports[''] = testcase({
    */
   nodesetprefix03 : function () {
     var success;
-    var doc;
     var element;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.createElement("address");
 
     {
@@ -10460,18 +9375,14 @@ exports[''] = testcase({
    */
   nodesetprefix04 : function () {
     var success;
-    var doc;
     var element;
     var attribute;
     var elementList;
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:employee");
     element = elementList.item(0);
     assertNotNull("empEmployeeNotNull",element);
@@ -10503,7 +9414,6 @@ exports[''] = testcase({
    */
   nodesetprefix05 : function () {
     var success;
-    var doc;
     var element;
     var prefixValue;
     prefixValues = new Array();
@@ -10514,11 +9424,8 @@ exports[''] = testcase({
     prefixValues[4] = "a:0:c";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.createElementNS("http://www.w3.org/DOM/Test/L2","dom:elem");
     for(var indexN10050 = 0;indexN10050 < prefixValues.length; indexN10050++) {
       prefixValue = prefixValues[indexN10050];
@@ -10553,14 +9460,10 @@ exports[''] = testcase({
    */
   nodesetprefix06 : function () {
     var success;
-    var doc;
     var element;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.createElementNS("http://www.w3.org/DOM/Test/L2","dom:elem");
 
     {
@@ -10592,14 +9495,10 @@ exports[''] = testcase({
    */
   nodesetprefix07 : function () {
     var success;
-    var doc;
     var attribute;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     attribute = doc.createAttributeNS("http://www.w3.org/DOM/Test/L2","abc:elem");
 
     {
@@ -10629,16 +9528,12 @@ exports[''] = testcase({
    */
   nodesetprefix08 : function () {
     var success;
-    var doc;
     var element;
     var elementList;
     var attribute;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("employee");
     element = elementList.item(0);
     attribute = element.getAttributeNode("xmlns");
@@ -10669,15 +9564,11 @@ exports[''] = testcase({
    */
   nodesetprefix09 : function () {
     var success;
-    var doc;
     var value = "#$%&'()@";
     var element;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.createElementNS("http://www.w3.org/DOM/Test/L2","dom:elem");
 
     {
@@ -10713,7 +9604,6 @@ exports[''] = testcase({
    */
   normalize01 : function () {
     var success;
-    var doc;
     var root;
     var elementList;
     var firstChild;
@@ -10721,11 +9611,8 @@ exports[''] = testcase({
     var textNode;
     var data;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     root = doc.documentElement;
 
     root.normalize();
@@ -10756,14 +9643,10 @@ exports[''] = testcase({
    */
   ownerDocument01 : function () {
     var success;
-    var doc;
     var ownerDocument;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     ownerDocument = doc.ownerDocument;
 
     assertNull("throw_Null",ownerDocument);
@@ -10783,7 +9666,6 @@ exports[''] = testcase({
    */
   ownerElement01 : function () {
     var success;
-    var doc;
     var addressList;
     var testNode;
     var attributes;
@@ -10791,11 +9673,8 @@ exports[''] = testcase({
     var elementNode;
     var name;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -10823,15 +9702,11 @@ exports[''] = testcase({
    */
   ownerElement02 : function () {
     var success;
-    var doc;
     var newAttr;
     var elementNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     newAttr = doc.createAttribute("newAttribute");
     elementNode = newAttr.ownerElement;
 
@@ -10858,15 +9733,11 @@ exports[''] = testcase({
    */
   prefix01 : function () {
     var success;
-    var doc;
     var createdNode;
     var prefix;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     createdNode = doc.createElement("test:employee");
     prefix = createdNode.prefix;
 
@@ -10890,17 +9761,13 @@ exports[''] = testcase({
    */
   prefix02 : function () {
     var success;
-    var doc;
     var elementList;
     var testEmployee;
     var textNode;
     var prefix;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:employeeId");
     testEmployee = elementList.item(0);
     assertNotNull("empEmployeeNotNull",testEmployee);
@@ -10925,16 +9792,12 @@ exports[''] = testcase({
    */
   prefix03 : function () {
     var success;
-    var doc;
     var elementList;
     var testEmployee;
     var prefix;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:employee");
     testEmployee = elementList.item(0);
     assertNotNull("empEmployeeNotNull",testEmployee);
@@ -10957,16 +9820,12 @@ exports[''] = testcase({
    */
   prefix04 : function () {
     var success;
-    var doc;
     var elementList;
     var testEmployee;
     var prefix;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("employee");
     testEmployee = elementList.item(0);
     prefix = testEmployee.prefix;
@@ -10994,16 +9853,12 @@ exports[''] = testcase({
    */
   prefix05 : function () {
     var success;
-    var doc;
     var elementList;
     var addrNode;
     var addrAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:address");
     addrNode = elementList.item(0);
     assertNotNull("empAddrNotNull",addrNode);
@@ -11040,15 +9895,11 @@ exports[''] = testcase({
    */
   prefix06 : function () {
     var success;
-    var doc;
     var elementList;
     var employeeNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(0);
 
@@ -11082,15 +9933,11 @@ exports[''] = testcase({
    */
   prefix07 : function () {
     var success;
-    var doc;
     var elementList;
     var employeeNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(0);
 
@@ -11126,7 +9973,6 @@ exports[''] = testcase({
    */
   prefix08 : function () {
     var success;
-    var doc;
     var genderList;
     var genderNode;
     var entRef;
@@ -11134,11 +9980,8 @@ exports[''] = testcase({
     var createdNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+
+    var doc = require('./core/files/staff.xml').staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entRef = genderNode.firstChild;
@@ -11190,16 +10033,12 @@ exports[''] = testcase({
    */
   prefix09 : function () {
     var success;
-    var doc;
     var elementList;
     var addrNode;
     var addrAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("address");
     addrNode = elementList.item(3);
     addrAttr = addrNode.getAttributeNode("xmlns");
@@ -11235,15 +10074,11 @@ exports[''] = testcase({
    */
   prefix10 : function () {
     var success;
-    var doc;
     var elementList;
     var employeeNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
 
@@ -11278,16 +10113,12 @@ exports[''] = testcase({
    */
   prefix11 : function () {
     var success;
-    var doc;
     var elementList;
     var employeeNode;
     var namespaceURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     namespaceURI = employeeNode.namespaceURI;
@@ -11321,15 +10152,11 @@ exports[''] = testcase({
    */
   publicId01 : function () {
     var success;
-    var doc;
     var docType;
     var publicId;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
     docType = doc.doctype;
 
     publicId = docType.publicId;
@@ -11555,7 +10382,6 @@ exports['setAttributeNS'] = testcase({
     var success;
     var namespaceURI = "http://www.nist.gov";
     var qualifiedName = "emp:qual?name";
-    var doc;
     var elementList;
     var testAddr;
     elementList = doc.getElementsByTagName("employee");
@@ -11592,7 +10418,6 @@ exports['setAttributeNS'] = testcase({
     var success;
     var namespaceURI = "http://www.nist.gov";
     var qualifiedName = "emp:";
-    var doc;
     var elementList;
     var testAddr;
     elementList = doc.getElementsByTagName("emp:employee");
@@ -11632,7 +10457,6 @@ exports['setAttributeNS'] = testcase({
     var success;
     var namespaceURI = "www.xyz.com";
     var qualifiedName = "emp:local1";
-    var doc;
     var genderList;
     var gender;
     var genList;
@@ -11751,7 +10575,6 @@ exports['setAttributeNS'] = testcase({
     var success;
     var namespaceURI = "http://www.nist.gov";
     var qualifiedName = "xml:qualifiedName";
-    var doc;
     var elementList;
     var testAddr;
     elementList = doc.getElementsByTagName("employee");
@@ -11791,7 +10614,6 @@ exports['setAttributeNS'] = testcase({
     var success;
     var namespaceURI = "http://www.nist.gov";
     var qualifiedName = "xmlns";
-    var doc;
     var elementList;
     var testAddr;
     elementList = doc.getElementsByTagName("employee");
@@ -11864,7 +10686,6 @@ exports['setAttributeNS'] = testcase({
     var doc = require('./core/files/hc_staff.xml').hc_staff();
     var success;
     var namespaceURI = "http://www.example.gov";
-    var doc;
     var elementList;
     var testAddr;
     elementList = doc.getElementsByTagName("em");
