@@ -62,7 +62,7 @@ exports['attrgetownerelement'] = testcase({
     test.done();
   }
 })
-
+var foo = function (){
 exports['createAttributeNS'] = testcase({
   /**
    *
@@ -12367,8 +12367,9 @@ exports[''] = testcase({
 
   }
 })
+}
 
-exports[''] = testcase({
+exports['setAttributeNodeNS'] = testcase({
   /**
    *
    The "setAttributeNode(newAttr)" method raises an
@@ -12390,12 +12391,10 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAtNodeNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    */
-  setAttributeNodeNS01 : function () {
+  setAttributeNodeNS01 : function (test) {
     var success;
-    if(checkInitialization(builder, "setAttributeNodeNS01") != null) return;
     var namespaceURI = "http://www.newattr.com";
     var qualifiedName = "emp:newAttr";
-    var doc;
     var newElement;
     var newAttr;
     var elementList;
@@ -12403,20 +12402,14 @@ exports[''] = testcase({
     var appendedChild;
     var setAttr1;
     var setAttr2;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
-    assertNotNull("empAddrNotNull",testAddr);
+    test.notEqual(testAddr, null, 'empAddrNotNull');
     newElement = doc.createElement("newElement");
     appendedChild = testAddr.appendChild(newElement);
     newAttr = doc.createAttributeNS(namespaceURI,qualifiedName);
     setAttr1 = newElement.setAttributeNodeNS(newAttr);
-
     {
       success = false;
       try {
@@ -12425,9 +12418,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 10);
       }
-      assertTrue("throw_INUSE_ATTRIBUTE_ERR",success);
+      test.ok(success, 'throw_INUSE_ATTRIBUTE_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -12447,10 +12440,8 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAtNodeNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    */
-  setAttributeNodeNS02 : function () {
+  setAttributeNodeNS02 : function (test) {
     var success;
-    if(checkInitialization(builder, "setAttributeNodeNS02") != null) return;
-    var doc;
     var genderList;
     var gender;
     var genList;
@@ -12459,19 +12450,13 @@ exports[''] = testcase({
     var genElement;
     var newAttr;
     var setAttr1;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
     gen = doc.createEntityReference("ent4");
     gList = gen.childNodes;
-
     genElement = gList.item(0);
-    assertNotNull("notnull",genElement);
+    // assertNotNull("notnull",genElement);
+    test.notEqual(genElement, null, 'genElement should not be null');
     newAttr = doc.createAttributeNS("www.xyz.com","emp:local1");
-
     {
       success = false;
       try {
@@ -12480,9 +12465,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -12501,29 +12486,14 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
    */
-  setAttributeNodeNS03 : function () {
-    var success;
-    if(checkInitialization(builder, "setAttributeNodeNS03") != null) return;
-    var namespaceURI = "http://www.newattr.com";
-    var qualifiedName = "emp:newAttr";
-    var doc;
-    var elementList;
-    var testAddr;
-    var newAttr;
-    var newAddrAttr;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
-    elementList = doc.getElementsByTagName("emp:address");
-    testAddr = elementList.item(0);
-    assertNotNull("empAddrNotNull",testAddr);
-    newAttr = doc.createAttributeNS(namespaceURI,qualifiedName);
-    newAddrAttr = testAddr.setAttributeNodeNS(newAttr);
-    assertNull("throw_Null",newAddrAttr);
-
+  setAttributeNodeNS03 : function (test) {
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var testAddr = doc.getElementsByTagName("emp:address").item(0);
+    test.notEqual(testAddr, null, 'testAddr should not be null');
+    var newAttr = doc.createAttributeNS('http://www.newattr.com', 'emp:newAttr');
+    var newAddrAttr = testAddr.setAttributeNodeNS(newAttr);
+    test.equal(newAddrAttr, null, 'newAddrAttr should be null');
+    test.done();
   },
   /**
    *
@@ -12542,30 +12512,14 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-F68D095
    */
-  setAttributeNodeNS04 : function () {
-    var success;
-    if(checkInitialization(builder, "setAttributeNodeNS04") != null) return;
-    var doc;
-    var elementList;
-    var testAddr;
-    var newAttr;
-    var newAddrAttr;
-    var newName;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
-    elementList = doc.getElementsByTagName("emp:address");
-    testAddr = elementList.item(0);
-    assertNotNull("empAddrNotNull",testAddr);
-    newAttr = doc.createAttributeNS("http://www.nist.gov","xxx:domestic");
-    newAddrAttr = testAddr.setAttributeNodeNS(newAttr);
-    newName = newAddrAttr.nodeName;
-
-    assertEquals("nodeName","emp:domestic",newName);
-
+  setAttributeNodeNS04 : function (test) {
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var testAddr = doc.getElementsByTagName("emp:address").item(0);
+    test.notEqual(testAddr, null, 'testAddr should not be null');
+    var newAttr = doc.createAttributeNS("http://www.nist.gov","xxx:domestic");
+    var newAddrAttr = testAddr.setAttributeNodeNS(newAttr);
+    test.equal(newAddrAttr.nodeName, 'emp:domestic')
+    test.done();
   },
   /**
    *
@@ -12588,33 +12542,19 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAtNodeNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='WRONG_DOCUMENT_ERR'])
    */
-  setAttributeNodeNS05 : function () {
+  setAttributeNodeNS05 : function (test) {
+    var doc1 = require('./core/files/staffNS.xml').staffNS();
+    var doc2 = require('./core/files/staffNS.xml').staffNS();
     var success;
-    if(checkInitialization(builder, "setAttributeNodeNS05") != null) return;
     var namespaceURI = "http://www.newattr.com";
     var qualifiedName = "emp:newAttr";
-    var doc1;
-    var doc2;
     var newAttr;
     var elementList;
     var testAddr;
     var setAttr1;
-
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "staffNS");
-
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "staffNS");
     newAttr = doc2.createAttributeNS(namespaceURI,qualifiedName);
     elementList = doc1.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
-
     {
       success = false;
       try {
@@ -12623,24 +12563,20 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
+      test.done();
     }
-
   }
 })
 
-exports[''] = testcase({
+exports['setNamedItemNS'] = testcase({
   /**
    *
-   The "setNamedItemNS(arg)" method for a
-   NamedNodeMap should raise INUSE_ATTRIBUTE_ERR DOMException if
-   arg is an Attr that is already an attribute of another Element object.
+   The "setNamedItemNS(arg)" method for a NamedNodeMap should raise INUSE_ATTRIBUTE_ERR DOMException if arg is an Attr that is already an attribute of another Element object.
 
-   Retrieve an attr node from the third "address" element whose local name
-   is "domestic" and namespaceURI is "http://www.netzero.com".
-   Invoke method setNamedItemNS(arg) on the map of the first "address" element with
-   arg being the attr node from above.  Method should raise
-   INUSE_ATTRIBUTE_ERR DOMException.
+   Retrieve an attr node from the third "address" element whose local name is "domestic" and namespaceURI is "http://www.netzero.com".
+   Invoke method setNamedItemNS(arg) on the map of the first "address" element with arg being the attr node from above.
+   Method should raise INUSE_ATTRIBUTE_ERR DOMException.
 
    * @author NIST
    * @author Mary Brady
@@ -12648,10 +12584,8 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-setNamedItemNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    */
-  setNamedItemNS01 : function () {
+  setNamedItemNS01 : function (test) {
     var success;
-    if(checkInitialization(builder, "setNamedItemNS01") != null) return;
-    var doc;
     var elementList;
     var anotherElement;
     var anotherMap;
@@ -12659,12 +12593,7 @@ exports[''] = testcase({
     var testAddress;
     var map;
     var setNode;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("address");
     anotherElement = elementList.item(2);
     anotherMap = anotherElement.attributes;
@@ -12672,8 +12601,6 @@ exports[''] = testcase({
     arg = anotherMap.getNamedItemNS("http://www.netzero.com","domestic");
     testAddress = elementList.item(0);
     map = testAddress.attributes;
-
-
     {
       success = false;
       try {
@@ -12682,10 +12609,11 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 10);
       }
-      assertTrue("throw_INUSE_ATTRIBUTE_ERR",success);
+      test.ok(success, 'throw_INUSE_ATTRIBUTE_ERR');
+      test.done();
     }
-
   },
+
   /**
    *
    The "setNamedItemNS(arg)" method for a
@@ -12704,38 +12632,23 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-setNamedItemNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='WRONG_DOCUMENT_ERR'])
    */
-  setNamedItemNS02 : function () {
+  setNamedItemNS02 : function (test) {
     var success;
-    if(checkInitialization(builder, "setNamedItemNS02") != null) return;
     var namespaceURI = "http://www.usa.com";
     var qualifiedName = "dmstc:domestic";
-    var doc;
-    var anotherDoc;
     var arg;
     var elementList;
     var testAddress;
     var attributes;
     var setNode;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
-
-    var anotherDocRef = null;
-    if (typeof(this.anotherDoc) != 'undefined') {
-      anotherDocRef = this.anotherDoc;
-    }
-    anotherDoc = load(anotherDocRef, "anotherDoc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var anotherDoc = require('./core/files/staffNS.xml').staffNS();
     arg = anotherDoc.createAttributeNS(namespaceURI,qualifiedName);
     arg.nodeValue = "Maybe";
 
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(0);
     attributes = testAddress.attributes;
-
-
     {
       success = false;
       try {
@@ -12744,59 +12657,36 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
+      test.done();
     }
-
   },
+
   /**
    *
-   The "setNamedItemNS(arg)" method for a
-   NamedNodeMap should add a node using its namespaceURI and localName given that
-   there is no existing node with the same namespaceURI and localName in the map.
+   The "setNamedItemNS(arg)" method for a NamedNodeMap should add a node using its namespaceURI and localName given that there is no existing node with the same namespaceURI and localName in the map.
 
-   Create an attr node with namespaceURI "http://www.nist.gov",qualifiedName
-   "prefix:newAttr" and value "newValue".
-   Invoke method setNamedItemNS(arg) on the map of the first "address"
-   element where arg is identified by the namespaceURI and qualifiedName
-   from above.  Method should return the newly added attr node.
+   Create an attr node with namespaceURI "http://www.nist.gov",qualifiedName "prefix:newAttr" and value "newValue".
+   Invoke method setNamedItemNS(arg) on the map of the first "address" element where arg is identified by the namespaceURI and qualifiedName from above.
+   Method should return the newly added attr node.
 
    * @author NIST
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-F68D080
    */
-  setNamedItemNS03 : function () {
-    var success;
-    if(checkInitialization(builder, "setNamedItemNS03") != null) return;
+  setNamedItemNS03 : function (test) {
     var namespaceURI = "http://www.nist.gov";
-    var qualifiedName = "prefix:newAttr";
-    var doc;
-    var arg;
-    var elementList;
-    var testAddress;
-    var attributes;
-    var retnode;
-    var value;
-    var setNode;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
-    arg = doc.createAttributeNS(namespaceURI,qualifiedName);
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var arg = doc.createAttributeNS(namespaceURI, "prefix:newAttr");
     arg.nodeValue = "newValue";
-
-    elementList = doc.getElementsByTagName("address");
-    testAddress = elementList.item(0);
-    attributes = testAddress.attributes;
-
-    setNode = attributes.setNamedItemNS(arg);
-    retnode = attributes.getNamedItemNS(namespaceURI,"newAttr");
-    value = retnode.nodeValue;
-
-    assertEquals("throw_Equals","newValue",value);
-
+    var attributes = doc.getElementsByTagName("address").item(0).attributes;
+    attributes.setNamedItemNS(arg);
+    var retnode = attributes.getNamedItemNS(namespaceURI,"newAttr");
+    // assertEquals("throw_Equals", "newValue", retnode.nodeValue);
+    test.equal(retnode.nodeValue, 'newValue');
+    test.done();
   },
+
   /**
    *
    The "setNamedItemNS(arg)" method for a
@@ -12815,12 +12705,10 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-setNamedItemNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    */
-  setNamedItemNS04 : function () {
+  setNamedItemNS04 : function (test) {
     var success;
-    if(checkInitialization(builder, "setNamedItemNS04") != null) return;
     var namespaceURI = "http://www.w3.org/2000/xmlns/";
     var localName = "local1";
-    var doc;
     var elementList;
     var testAddress;
     var nList;
@@ -12831,35 +12719,23 @@ exports[''] = testcase({
     var arg;
     var setNode;
     var nodeType;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
+    var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("gender");
     testAddress = elementList.item(2);
     nList = testAddress.childNodes;
 
     child = nList.item(0);
     nodeType = child.nodeType;
-
-
-    if(
-      (1 == nodeType)
-    ) {
+    if(1 == nodeType) {
       child = doc.createEntityReference("ent4");
-      assertNotNull("createdEntRefNotNull",child);
-
+      test.notEqual(child, null, 'createdEntRefNotNull');
     }
     n2List = child.childNodes;
-
     child2 = n2List.item(0);
-    assertNotNull("notnull",child2);
+    test.notEqual(child2, null, 'child2 should not be null');
     attributes = child2.attributes;
 
     arg = attributes.getNamedItemNS(namespaceURI,localName);
-
     {
       success = false;
       try {
@@ -12868,10 +12744,11 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
-
+    test.done();
   },
+
   /**
    *
    The "setNamedItemNS(arg)" method for a
@@ -12888,54 +12765,25 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
    */
-  setNamedItemNS05 : function () {
-    var success;
-    if(checkInitialization(builder, "setNamedItemNS05") != null) return;
-    var namespaceURI = "http://www.usa.com";
-    var qualifiedName = "dmstc:domestic";
-    var doc;
-    var arg;
-    var elementList;
-    var testAddress;
-    var attributes;
-    var retnode;
-    var value;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
-    arg = doc.createAttributeNS(namespaceURI,qualifiedName);
+  setNamedItemNS05 : function (test) {
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var arg = doc.createAttributeNS("http://www.usa.com", "dmstc:domestic");
     arg.nodeValue = "newValue";
-
-    elementList = doc.getElementsByTagName("address");
-    testAddress = elementList.item(0);
-    attributes = testAddress.attributes;
-
-    retnode = attributes.setNamedItemNS(arg);
-    value = retnode.nodeValue;
-
-    assertEquals("throw_Equals","Yes",value);
-
+    var attributes = doc.getElementsByTagName("address").item(0).attributes;
+    var retnode = attributes.setNamedItemNS(arg);
+    test.equal(retnode.nodeValue, 'Yes');
+    test.done();
   }
 })
 
-/**
- *
- The "getSystemId()" method of a documenttype node contains the system identifier associated with the external subset.
-
- Retrieve the documenttype.
- Apply the "getSystemId()" method.  The string "staffNS.dtd" should be returned.
-
- * @author NIST
- * @author Mary Brady
- * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-Core-DocType-systemId
- */
+// The "getSystemId()" method of a documenttype node contains the system identifier associated with the external subset.
+// Retrieve the documenttype.
+// Apply the "getSystemId()" method.  The string "staffNS.dtd" should be returned.
+// @author NIST
+// @author Mary Brady
+// @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-Core-DocType-systemId
 exports['systemId01'] = function (test) {
   var doc = require('./core/files/staffNS.xml').staffNS();
-  var docType = doc.doctype;
-  assertURIEquals("systemId",null,null,null,"staffNS.dtd",null,null,null,null,docType.systemId);
-  test.ok(false);
+  test.equal(doc.doctype.systemId, 'staffNS.dtd')
   test.done();
 }
