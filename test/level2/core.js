@@ -62,7 +62,7 @@ exports['attrgetownerelement'] = testcase({
     test.done();
   }
 })
-var foo = function (){
+
 exports['createAttributeNS'] = testcase({
   /**
    *
@@ -11338,9 +11338,8 @@ exports[''] = testcase({
 
   }
 })
-}
 
-exports[''] = testcase({
+exports['remove attribute or namedItem NS'] = testcase({
   /**
    *
    The "removeAttributeNS(namespaceURI,localName)" method for an attribute causes the
@@ -11359,51 +11358,23 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElRemAtNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElRemAtNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    */
-  removeAttributeNS01 : function () {
-    var success;
-    var doc;
-    var genderList;
-    var gender;
-    var gen;
-    var gList;
-    var genElement;
-    var nodeType;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
+  removeAttributeNS01 : function (test) {
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var gender = doc.getElementsByTagName("gender").item(2).firstChild;
+    // if(1 == gender.nodeType) {
+    //   gender = doc.createEntityReference("ent4");
+    //   test.notEqual(gender, null, 'gender should not be null')
+    // }
+    var genElement = gender.childNodes.item(0);
+    test.notEqual(genElement, null, 'genElement should not be null')
+    var success = false;
+    try {
+      genElement.removeAttributeNS("www.xyz.com","local1");
+    } catch(ex) {
+      success = (typeof(ex.code) != 'undefined' && ex.code == 7);
     }
-    doc = load(docRef, "doc", "staffNS");
-    genderList = doc.getElementsByTagName("gender");
-    gender = genderList.item(2);
-    gen = gender.firstChild;
-
-    nodeType = gen.nodeType;
-
-
-    if(
-      (1 == nodeType)
-    ) {
-      gen = doc.createEntityReference("ent4");
-      assertNotNull("createdEntRefNotNull",gen);
-
-    }
-    gList = gen.childNodes;
-
-    genElement = gList.item(0);
-    assertNotNull("notnull",genElement);
-
-    {
-      success = false;
-      try {
-        genElement.removeAttributeNS("www.xyz.com","local1");
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
-    }
-
+    test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
+    test.done();
   },
   /**
    *
@@ -11424,9 +11395,8 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElRemAtNS
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=238
    */
-  removeAttributeNS02 : function () {
-    var success;
-    var doc;
+  removeAttributeNS02 : function (test) {
+    var doc = require('./core/files/staffNS.xml').staffNS();
     var elementList;
     var testAddr;
     var addrAttr;
@@ -11434,12 +11404,6 @@ exports[''] = testcase({
     var namespaceURI;
     var localName;
     var prefix;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
     testAddr.removeAttributeNS("http://www.nist.gov","local1");
@@ -11448,16 +11412,13 @@ exports[''] = testcase({
     addrAttr = testAddr.getAttributeNodeNS("http://www.nist.gov","local1");
     attr = testAddr.getAttributeNS("http://www.nist.gov","local1");
     namespaceURI = addrAttr.namespaceURI;
-
     localName = addrAttr.localName;
-
     prefix = testAddr.prefix;
-
-    assertEquals("attr","FALSE",attr);
-    assertEquals("uri","http://www.nist.gov",namespaceURI);
-    assertEquals("lname","local1",localName);
-    assertEquals("prefix","emp",prefix);
-
+    test.equal(attr, 'FALSE');
+    test.equal(namespaceURI, 'http://www.nist.gov');
+    test.equal(localName, 'local1');
+    test.equal(prefix, 'emp');
+    test.done();
   },
   /**
    *
@@ -11475,29 +11436,15 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1074577549
    */
-  removeNamedItemNS01 : function () {
-    var success;
-    var doc;
-    var elementList;
-    var testAddress;
-    var attributes;
-    var newAttr;
-    var removedNode;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
-    elementList = doc.getElementsByTagName("address");
-    testAddress = elementList.item(1);
-    attributes = testAddress.attributes;
-
-    removedNode = attributes.removeNamedItemNS("http://www.usa.com","domestic");
-    assertNotNull("retval",removedNode);
-    newAttr = attributes.getNamedItem("dmstc:domestic");
-    assertNull("nodeRemoved",newAttr);
-
+  removeNamedItemNS01 : function (test) {
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var testAddress = doc.getElementsByTagName("address").item(1);
+    var attributes = testAddress.attributes;
+    var removedNode = attributes.removeNamedItemNS("http://www.usa.com","domestic");
+    test.notEqual(removedNode, null, 'removedNode should not be null');
+    var newAttr = attributes.getNamedItem("dmstc:domestic");
+    test.equal(newAttr, null, 'newAttr should be null');
+    test.done();
   },
   /**
    *
@@ -11518,37 +11465,27 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-removeNamedItemNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-removeNamedItemNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NOT_FOUND_ERR'])
    */
-  removeNamedItemNS02 : function () {
+  removeNamedItemNS02 : function (test) {
+    var doc = require('./core/files/staffNS.xml').staffNS();
     var success;
     var namespaceURI = "http://www.usa.com";
     var localName = "domest";
-    var doc;
     var elementList;
     var testAddress;
     var attributes;
     var removedNode;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(1);
     attributes = testAddress.attributes;
-
-
-    {
-      success = false;
-      try {
-        removedNode = attributes.removeNamedItemNS(namespaceURI,localName);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 8);
-      }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+    success = false;
+    try {
+      removedNode = attributes.removeNamedItemNS(namespaceURI,localName);
     }
-
+    catch(ex) {
+      success = (typeof(ex.code) != 'undefined' && ex.code == 8);
+    }
+    test.ok(success, 'throw_NOT_FOUND_ERR')
+    test.done();
   },
   /**
    *
@@ -11568,59 +11505,31 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-removeNamedItemNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-removeNamedItemNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    */
-  removeNamedItemNS03 : function () {
+  removeNamedItemNS03 : function (test) {
+    var doc = require('./core/files/staffNS.xml').staffNS();
     var success;
     var namespaceURI = "http://www.w3.org/2000/xmlns/";
     var localName = "local1";
-    var doc;
-    var elementList;
-    var testAddress;
-    var nList;
-    var child;
-    var n2List;
-    var child2;
-    var attributes;
-    var removedNode;
-    var nodeType;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
+    var elementList = doc.getElementsByTagName("gender");
+    var testAddress = elementList.item(2);
+    var nList = testAddress.childNodes;
+    var child = nList.item(0);
+    // if(1 == child.nodeType) {
+    //   child = doc.createEntityReference("ent4");
+    //   test.notEqual(child, null, 'child should not be null');
+    // }
+    var n2List = child.childNodes;
+    var child2 = n2List.item(0);
+    test.notEqual(child2, null, 'child2 should not be null');
+    var attributes = child2.attributes;
+    success = false;
+    try {
+      attributes.removeNamedItemNS(namespaceURI,localName);
+    } catch(ex) {
+      success = (typeof(ex.code) != 'undefined' && ex.code == 7);
     }
-    doc = load(docRef, "doc", "staffNS");
-    elementList = doc.getElementsByTagName("gender");
-    testAddress = elementList.item(2);
-    nList = testAddress.childNodes;
-
-    child = nList.item(0);
-    nodeType = child.nodeType;
-
-
-    if(
-      (1 == nodeType)
-    ) {
-      child = doc.createEntityReference("ent4");
-      assertNotNull("createdEntRefNotNull",child);
-
-    }
-    n2List = child.childNodes;
-
-    child2 = n2List.item(0);
-    assertNotNull("notnull",child2);
-    attributes = child2.attributes;
-
-
-    {
-      success = false;
-      try {
-        removedNode = attributes.removeNamedItemNS(namespaceURI,localName);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
-    }
-
+    test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
+    test.done();
   }
 })
 
