@@ -11634,6 +11634,7 @@ exports[''] = testcase({
 
   }
 })
+}
 
 exports[''] = testcase({
   /**
@@ -11924,7 +11925,7 @@ exports[''] = testcase({
   }
 })
 
-exports[''] = testcase({
+exports['setAttributeNS'] = testcase({
   /**
    *
    The "setAttributeNS(namespaceURI,qualifiedName,Value)" method raises a
@@ -11941,23 +11942,16 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    */
-  setAttributeNS01 : function () {
+  setAttributeNS01 : function (test) {
+    var doc = require('./core/files/staffNS.xml').staffNS();
     var success;
-    if(checkInitialization(builder, "setAttributeNS01") != null) return;
     var namespaceURI = "http://www.nist.gov";
     var qualifiedName = "emp:qual?name";
     var doc;
     var elementList;
     var testAddr;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
     elementList = doc.getElementsByTagName("employee");
     testAddr = elementList.item(0);
-
     {
       success = false;
       try {
@@ -11966,9 +11960,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("throw_INVALID_CHARACTER_ERR",success);
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
-
+    test.done()
   },
   /**
    *
@@ -11985,23 +11979,16 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  setAttributeNS02 : function () {
+  setAttributeNS02 : function (test) {
+    var doc = require('./core/files/staffNS.xml').staffNS();
     var success;
-    if(checkInitialization(builder, "setAttributeNS02") != null) return;
     var namespaceURI = "http://www.nist.gov";
     var qualifiedName = "emp:";
     var doc;
     var elementList;
     var testAddr;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
     elementList = doc.getElementsByTagName("emp:employee");
     testAddr = elementList.item(0);
-
     {
       success = false;
       try {
@@ -12010,9 +11997,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done()
   },
   /**
    *
@@ -12032,9 +12019,9 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    */
-  setAttributeNS03 : function () {
+  setAttributeNS03 : function (test) {
+    var doc = require('./core/files/staffNS.xml').staffNS();
     var success;
-    if(checkInitialization(builder, "setAttributeNS03") != null) return;
     var namespaceURI = "www.xyz.com";
     var qualifiedName = "emp:local1";
     var doc;
@@ -12045,32 +12032,18 @@ exports[''] = testcase({
     var gList;
     var genElement;
     var nodeType;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     genList = gender.childNodes;
-
     gen = genList.item(0);
     nodeType = gen.nodeType;
-
-
-    if(
-      (1 == nodeType)
-    ) {
+    if(1 == nodeType) {
       gen = doc.createEntityReference("ent4");
-      assertNotNull("createdEntRefNotNull",gen);
-
+      test.notEqual(gen, null, 'created entity reference should not be null');
     }
     gList = gen.childNodes;
-
     genElement = gList.item(0);
-    assertNotNull("notnull",genElement);
-
+    test.notEqual(genElement, null, 'genElement should not be null');
     {
       success = false;
       try {
@@ -12079,9 +12052,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
-
+    test.done()
   },
   /**
    *
@@ -12102,40 +12075,21 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#
    */
-  setAttributeNS04 : function () {
-    var success;
-    if(checkInitialization(builder, "setAttributeNS04") != null) return;
-    var doc;
-    var elementList;
-    var testAddr;
-    var addrAttr;
-    var resultAttr;
+  setAttributeNS04 : function (test) {
+    var doc = require('./core/files/staffNS.xml').staffNS();
     var resultNamespaceURI;
     var resultLocalName;
     var resultPrefix;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
-    elementList = doc.getElementsByTagName("emp:address");
-    testAddr = elementList.item(0);
-    assertNotNull("empAddrNotNull",testAddr);
+    var testAddr = doc.getElementsByTagName("emp:address").item(0);
+    test.notEqual(testAddr, null, 'testAddr should not be null');
     testAddr.setAttributeNS("http://www.nist.gov","newprefix:zone","newValue");
-    addrAttr = testAddr.getAttributeNodeNS("http://www.nist.gov","zone");
-    resultAttr = testAddr.getAttributeNS("http://www.nist.gov","zone");
-    assertEquals("attrValue","newValue",resultAttr);
-    resultNamespaceURI = addrAttr.namespaceURI;
-
-    assertEquals("nsuri","http://www.nist.gov",resultNamespaceURI);
-    resultLocalName = addrAttr.localName;
-
-    assertEquals("lname","zone",resultLocalName);
-    resultPrefix = addrAttr.prefix;
-
-    assertEquals("prefix","newprefix",resultPrefix);
-
+    var addrAttr = testAddr.getAttributeNodeNS("http://www.nist.gov","zone");
+    var resultAttr = testAddr.getAttributeNS("http://www.nist.gov","zone");
+    test.equal(resultAttr, 'newValue');
+    test.equal(addrAttr.namespaceURI, 'http://www.nist.gov')
+    test.equal(addrAttr.localName, 'zone');
+    test.equal(addrAttr.prefix, 'newprefix')
+    test.done()
   },
   /**
    *
@@ -12155,30 +12109,17 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAttrNS
    */
-  setAttributeNS05 : function () {
-    var success;
-    if(checkInitialization(builder, "setAttributeNS05") != null) return;
+  setAttributeNS05 : function (test) {
+    var doc = require('./core/files/staffNS.xml').staffNS();
     var localName = "newAttr";
     var namespaceURI = "http://www.newattr.com";
     var qualifiedName = "emp:newAttr";
-    var doc;
-    var elementList;
-    var testAddr;
-    var addrAttr;
-    var resultAttr;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
-    elementList = doc.getElementsByTagName("emp:address");
-    testAddr = elementList.item(0);
-    assertNotNull("empAddrNotNull",testAddr);
-    testAddr.setAttributeNS(namespaceURI,qualifiedName,"<newValue>");
-    resultAttr = testAddr.getAttributeNS(namespaceURI,localName);
-    assertEquals("throw_Equals","<newValue>",resultAttr);
-
+    var testAddr = doc.getElementsByTagName("emp:address").item(0);
+    test.notEqual(testAddr, null, 'testAddr should not be null');
+    testAddr.setAttributeNS(namespaceURI, qualifiedName, "<newValue>");
+    var resultAttr = testAddr.getAttributeNS(namespaceURI, localName);
+    test.equal(resultAttr, '<newValue>');
+    test.done()
   },
   /**
    *
@@ -12197,23 +12138,16 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  setAttributeNS06 : function () {
+  setAttributeNS06 : function (test) {
+    var doc = require('./core/files/staffNS.xml').staffNS();
     var success;
-    if(checkInitialization(builder, "setAttributeNS06") != null) return;
     var namespaceURI = "http://www.nist.gov";
     var qualifiedName = "xml:qualifiedName";
     var doc;
     var elementList;
     var testAddr;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
     elementList = doc.getElementsByTagName("employee");
     testAddr = elementList.item(0);
-
     {
       success = false;
       try {
@@ -12222,9 +12156,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done()
   },
   /**
    *
@@ -12244,23 +12178,16 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  setAttributeNS07 : function () {
+  setAttributeNS07 : function (test) {
+    var doc = require('./core/files/staffNS.xml').staffNS();
     var success;
-    if(checkInitialization(builder, "setAttributeNS07") != null) return;
     var namespaceURI = "http://www.nist.gov";
     var qualifiedName = "xmlns";
     var doc;
     var elementList;
     var testAddr;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
     elementList = doc.getElementsByTagName("employee");
     testAddr = elementList.item(0);
-
     {
       success = false;
       try {
@@ -12269,9 +12196,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done()
   },
   /**
    *
@@ -12290,13 +12217,12 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
    */
-  setAttributeNS09 : function () {
-    var success;
-    if(checkInitialization(builder, "setAttributeNS09") != null) return;
+  setAttributeNS09 : function (test) {
+    test.expect(5);
+    var doc = require('./core/files/staffNS.xml').staffNS();
     var localName = "newAttr";
     var namespaceURI = "http://www.newattr.com";
     var qualifiedName = "emp:newAttr";
-    var doc;
     var elementList;
     var testAddr;
     var addrAttr;
@@ -12304,29 +12230,17 @@ exports[''] = testcase({
     var resultNamespaceURI;
     var resultLocalName;
     var resultPrefix;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staffNS");
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
-    assertNotNull("empAddrNotNull",testAddr);
+    test.notEqual(testAddr, null, 'testAddr should not be null');
     testAddr.setAttributeNS(namespaceURI,qualifiedName,"newValue");
     addrAttr = testAddr.getAttributeNodeNS(namespaceURI,localName);
     resultAttr = testAddr.getAttributeNS(namespaceURI,localName);
-    assertEquals("attrValue","newValue",resultAttr);
-    resultNamespaceURI = addrAttr.namespaceURI;
-
-    assertEquals("nsuri","http://www.newattr.com",resultNamespaceURI);
-    resultLocalName = addrAttr.localName;
-
-    assertEquals("lname","newAttr",resultLocalName);
-    resultPrefix = addrAttr.prefix;
-
-    assertEquals("prefix","emp",resultPrefix);
-
+    test.equal(resultAttr, 'newValue');
+    test.equal(addrAttr.namespaceURI, 'http://www.newattr.com');
+    test.equal(addrAttr.localName, 'newAttr');
+    test.equal(addrAttr.prefix, 'emp');
+    test.done()
   },
   /**
    *
@@ -12338,22 +12252,15 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  setAttributeNS10 : function () {
+  setAttributeNS10 : function (test) {
+    var doc = require('./core/files/hc_staff.xml').hc_staff();
     var success;
-    if(checkInitialization(builder, "setAttributeNS10") != null) return;
     var namespaceURI = "http://www.example.gov";
     var doc;
     var elementList;
     var testAddr;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("em");
     testAddr = elementList.item(0);
-
     {
       success = false;
       try {
@@ -12362,12 +12269,11 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("throw_INVALID_CHARACTER_ERR",success);
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
-
+    test.done()
   }
 })
-}
 
 exports['setAttributeNodeNS'] = testcase({
   /**
