@@ -83,7 +83,6 @@ exports['createAttributeNS'] = testcase({
    */
   createAttributeNS01 : function () {
     var success;
-    if(checkInitialization(builder, "createAttributeNS01") != null) return;
     var namespaceURI = "http://www.ecommerce.org/";
     var malformedName = "prefix::local";
     var doc;
@@ -125,7 +124,6 @@ exports['createAttributeNS'] = testcase({
    */
   createAttributeNS02 : function () {
     var success;
-    if(checkInitialization(builder, "createAttributeNS02") != null) return;
     var namespaceURI = null;
 
     var qualifiedName = "prefix:local";
@@ -168,7 +166,6 @@ exports['createAttributeNS'] = testcase({
    */
   createAttributeNS03 : function () {
     var success;
-    if(checkInitialization(builder, "createAttributeNS03") != null) return;
     var namespaceURI = "http://www.wedding.com/";
     var qualifiedName;
     var doc;
@@ -246,7 +243,6 @@ exports['createAttributeNS'] = testcase({
    */
   createAttributeNS04 : function () {
     var success;
-    if(checkInitialization(builder, "createAttributeNS04") != null) return;
     var namespaceURI = "http://www.w3.org/XML/1998/namespaces";
     var qualifiedName = "xml:attr1";
     var doc;
@@ -286,7 +282,6 @@ exports['createAttributeNS'] = testcase({
    */
   createAttributeNS05 : function () {
     var success;
-    if(checkInitialization(builder, "createAttributeNS05") != null) return;
     var namespaceURI = "http://www.ecommerce.org/";
     var qualifiedName = "econm:local";
     var doc;
@@ -315,7 +310,6 @@ exports['createAttributeNS'] = testcase({
    */
   createAttributeNS06 : function () {
     var success;
-    if(checkInitialization(builder, "createAttributeNS06") != null) return;
     var namespaceURI = "http://www.example.com/";
     var qualifiedName;
     var doc;
@@ -363,7 +357,6 @@ exports['createDocument'] = testcase({
    */
   createDocument01 : function () {
     var success;
-    if(checkInitialization(builder, "createDocument01") != null) return;
     var namespaceURI = "http://www.ecommerce.org/";
     var malformedName = "prefix::local";
     var doc;
@@ -409,7 +402,6 @@ exports['createDocument'] = testcase({
    */
   createDocument02 : function () {
     var success;
-    if(checkInitialization(builder, "createDocument02") != null) return;
     var namespaceURI = null;
 
     var qualifiedName = "k:local";
@@ -456,7 +448,6 @@ exports['createDocument'] = testcase({
    */
   createDocument03 : function () {
     var success;
-    if(checkInitialization(builder, "createDocument03") != null) return;
     var namespaceURI = "http://www.ecommerce.org/schema";
     var qualifiedName = "namespaceURI:x";
     var doc;
@@ -504,7 +495,6 @@ exports['createDocument'] = testcase({
    */
   createDocument04 : function () {
     var success;
-    if(checkInitialization(builder, "createDocument04") != null) return;
     var namespaceURI = "http://www.ecommerce.org/schema";
     var qualifiedName = "namespaceURI:x";
     var doc;
@@ -557,7 +547,6 @@ exports['createDocument'] = testcase({
    */
   createDocument05 : function () {
     var success;
-    if(checkInitialization(builder, "createDocument05") != null) return;
     var namespaceURI = "http://www.ecommerce.org/schema";
     var qualifiedName;
     var doc;
@@ -641,7 +630,6 @@ exports['createDocument'] = testcase({
    */
   createDocument06 : function () {
     var success;
-    if(checkInitialization(builder, "createDocument06") != null) return;
     var namespaceURI = "http://ecommerce.org/schema";
     var qualifiedName = "xml:local";
     var doc;
@@ -687,7 +675,6 @@ exports['createDocument'] = testcase({
    */
   createDocument07 : function () {
     var success;
-    if(checkInitialization(builder, "createDocument07") != null) return;
     var namespaceURI = "http://www.ecommerce.org/schema";
     var qualifiedName = "y:x";
     var doc;
@@ -723,7 +710,6 @@ exports['createDocument'] = testcase({
    */
   createDocument08 : function () {
     var success;
-    if(checkInitialization(builder, "createDocument08") != null) return;
     var namespaceURI = "http://www.example.org/schema";
     var docType = null;
 
@@ -768,7 +754,6 @@ exports['createDocumentType'] = testcase({
    */
   createDocumentType01 : function () {
     var success;
-    if(checkInitialization(builder, "createDocumentType01") != null) return;
     var publicId = "STAFF";
     var systemId = "staff.xml";
     var malformedName = "prefix::local";
@@ -813,7 +798,6 @@ exports['createDocumentType'] = testcase({
    */
   createDocumentType02 : function () {
     var success;
-    if(checkInitialization(builder, "createDocumentType02") != null) return;
     var publicId = "http://www.localhost.com/";
     var systemId = "myDoc.dtd";
     var qualifiedName;
@@ -890,7 +874,6 @@ exports['createDocumentType'] = testcase({
    */
   createDocumentType03 : function () {
     var success;
-    if(checkInitialization(builder, "createDocumentType03") != null) return;
     var namespaceURI = "http://ecommerce.org/schema";
     var qualifiedName = "prefix:myDoc";
     var publicId = "http://www.localhost.com";
@@ -928,7 +911,6 @@ exports['createDocumentType'] = testcase({
    */
   createDocumentType04 : function () {
     var success;
-    if(checkInitialization(builder, "createDocumentType04") != null) return;
     var publicId = "http://www.example.com/";
     var systemId = "myDoc.dtd";
     var qualifiedName;
@@ -971,7 +953,6 @@ exports['createElementNS'] = testcase({
    */
   createElementNS01 : function () {
     var success;
-    if(checkInitialization(builder, "createElementNS01") != null) return;
     var namespaceURI = "http://www.ecommerce.org/";
     var malformedName = "prefix::local";
     var doc;
@@ -1013,7 +994,6 @@ exports['createElementNS'] = testcase({
    */
   createElementNS02 : function () {
     var success;
-    if(checkInitialization(builder, "createElementNS02") != null) return;
     var namespaceURI = null;
 
     var qualifiedName = "prefix:local";
@@ -1056,7 +1036,6 @@ exports['createElementNS'] = testcase({
    */
   createElementNS03 : function () {
     var success;
-    if(checkInitialization(builder, "createElementNS03") != null) return;
     var namespaceURI = "http://www.wedding.com/";
     var qualifiedName;
     var doc;
@@ -1136,7 +1115,6 @@ exports['createElementNS'] = testcase({
    */
   createElementNS04 : function () {
     var success;
-    if(checkInitialization(builder, "createElementNS04") != null) return;
     var namespaceURI = "http://www.w3.org/XML/1998/namespaces";
     var qualifiedName = "xml:element1";
     var doc;
@@ -1176,7 +1154,6 @@ exports['createElementNS'] = testcase({
    */
   createElementNS05 : function () {
     var success;
-    if(checkInitialization(builder, "createElementNS05") != null) return;
     var namespaceURI = "http://www.nist.gov";
     var qualifiedName = "gov:faculty";
     var doc;
@@ -1205,7 +1182,6 @@ exports['createElementNS'] = testcase({
    */
   createElementNS06 : function () {
     var success;
-    if(checkInitialization(builder, "createElementNS06") != null) return;
     var namespaceURI = "http://www.example.com/";
     var qualifiedName;
     var doc;
@@ -1249,7 +1225,6 @@ exports['documentcreateattributeNS'] = testcase({
    */
   documentcreateattributeNS01 : function () {
     var success;
-    if(checkInitialization(builder, "documentcreateattributeNS01") != null) return;
     var doc;
     var attribute;
     var namespaceURI = null;
@@ -1286,7 +1261,6 @@ exports['documentcreateattributeNS'] = testcase({
    */
   documentcreateattributeNS02 : function () {
     var success;
-    if(checkInitialization(builder, "documentcreateattributeNS02") != null) return;
     var doc;
     var attribute1;
     var attribute2;
@@ -1357,7 +1331,6 @@ exports['documentcreateattributeNS'] = testcase({
    */
   documentcreateattributeNS03 : function () {
     var success;
-    if(checkInitialization(builder, "documentcreateattributeNS03") != null) return;
     var doc;
     var attribute;
     var namespaceURI = "http://www.w3.org/DOM/Test/Level2";
@@ -1417,7 +1390,6 @@ exports['documentcreateattributeNS'] = testcase({
    */
   documentcreateattributeNS04 : function () {
     var success;
-    if(checkInitialization(builder, "documentcreateattributeNS04") != null) return;
     var doc;
     var attribute;
     var namespaceURI = "http://www.w3.org/DOM/Test/Level2";
@@ -1467,7 +1439,6 @@ exports['documentcreateattributeNS'] = testcase({
    */
   documentcreateattributeNS05 : function () {
     var success;
-    if(checkInitialization(builder, "documentcreateattributeNS05") != null) return;
     var doc;
     var newDoc;
     var docType = null;
@@ -1514,7 +1485,6 @@ exports['documentcreateattributeNS'] = testcase({
    */
   documentcreateattributeNS06 : function () {
     var success;
-    if(checkInitialization(builder, "documentcreateattributeNS06") != null) return;
     var doc;
     var newDoc;
     var docType = null;
@@ -1567,7 +1537,6 @@ exports['documentcreateattributeNS'] = testcase({
    */
   documentcreateattributeNS07 : function () {
     var success;
-    if(checkInitialization(builder, "documentcreateattributeNS07") != null) return;
     var doc;
     var attribute;
     var namespaceURI = "http://www.W3.org/2000/xmlns";
@@ -1613,7 +1582,6 @@ exports['documentcreateelementNS'] = testcase({
    */
   documentcreateelementNS01 : function () {
     var success;
-    if(checkInitialization(builder, "documentcreateelementNS01") != null) return;
     var doc;
     var element;
     var namespaceURI = "http://www.w3.org/DOM/Test/level2";
@@ -1666,7 +1634,6 @@ exports['documentcreateelementNS'] = testcase({
    */
   documentcreateelementNS02 : function () {
     var success;
-    if(checkInitialization(builder, "documentcreateelementNS02") != null) return;
     var doc;
     var element;
     var namespaceURI = null;
@@ -1712,7 +1679,6 @@ exports['documentcreateelementNS'] = testcase({
    */
   documentcreateelementNS05 : function () {
     var success;
-    if(checkInitialization(builder, "documentcreateelementNS05") != null) return;
     var doc;
     var element;
     var namespaceURI = null;
@@ -1754,7 +1720,6 @@ exports['documentcreateelementNS'] = testcase({
    */
   documentcreateelementNS06 : function () {
     var success;
-    if(checkInitialization(builder, "documentcreateelementNS06") != null) return;
     var doc;
     var newDoc;
     var docType = null;
@@ -1808,7 +1773,6 @@ exports['documentgetelementby'] = testcase({
    */
   documentgetelementbyid01 : function () {
     var success;
-    if(checkInitialization(builder, "documentgetelementbyid01") != null) return;
     var doc;
     var element;
     var elementId = "---";
@@ -1839,7 +1803,6 @@ exports['documentgetelementby'] = testcase({
    */
   documentgetelementsbytagnameNS01 : function () {
     var success;
-    if(checkInitialization(builder, "documentgetelementsbytagnameNS01") != null) return;
     var doc;
     var newDoc;
     var docType = null;
@@ -1879,7 +1842,6 @@ exports['documentgetelementby'] = testcase({
    */
   documentgetelementsbytagnameNS02 : function () {
     var success;
-    if(checkInitialization(builder, "documentgetelementsbytagnameNS02") != null) return;
     var doc;
     var docElem;
     var element;
@@ -1915,7 +1877,6 @@ exports['documentgetelementby'] = testcase({
    */
   documentgetelementsbytagnameNS03 : function () {
     var success;
-    if(checkInitialization(builder, "documentgetelementsbytagnameNS03") != null) return;
     var doc;
     var childList;
 
@@ -1945,7 +1906,6 @@ exports['documentgetelementby'] = testcase({
    */
   documentgetelementsbytagnameNS04 : function () {
     var success;
-    if(checkInitialization(builder, "documentgetelementsbytagnameNS04") != null) return;
     var doc;
     var childList;
     var nullNS = null;
@@ -1978,7 +1938,6 @@ exports['documentgetelementby'] = testcase({
    */
   documentgetelementsbytagnameNS05 : function () {
     var success;
-    if(checkInitialization(builder, "documentgetelementsbytagnameNS05") != null) return;
     var doc;
     var childList;
 
@@ -2013,7 +1972,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode01 : function () {
     var success;
-    if(checkInitialization(builder, "documentimportnode01") != null) return;
     var doc;
     var element;
     var attr;
@@ -2062,7 +2020,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode02 : function () {
     var success;
-    if(checkInitialization(builder, "documentimportnode02") != null) return;
     var doc;
     var docImported;
     var element;
@@ -2122,7 +2079,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode03 : function () {
     var success;
-    if(checkInitialization(builder, "documentimportnode03") != null) return;
     var doc;
     var element;
     var attr;
@@ -2172,7 +2128,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode04 : function () {
     var success;
-    if(checkInitialization(builder, "documentimportnode04") != null) return;
     var doc;
     var newDoc;
     var docType = null;
@@ -2227,7 +2182,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode05 : function () {
     var success;
-    if(checkInitialization(builder, "documentimportnode05") != null) return;
     var doc;
     var docImported;
     var attr;
@@ -2280,7 +2234,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode06 : function () {
     var success;
-    if(checkInitialization(builder, "documentimportnode06") != null) return;
     var doc;
     var docImported;
 
@@ -2319,7 +2272,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode07 : function () {
     var success;
-    if(checkInitialization(builder, "documentimportnode07") != null) return;
     var doc;
     var imported;
     var docType;
@@ -2361,7 +2313,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode08 : function () {
     var success;
-    if(checkInitialization(builder, "documentimportnode08") != null) return;
     var doc;
     var imported;
     var docType;
@@ -2407,7 +2358,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode09 : function () {
     var success;
-    if(checkInitialization(builder, "documentimportnode09") != null) return;
     var doc;
     var docFragment;
     var childList;
@@ -2448,7 +2398,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode10 : function () {
     var success;
-    if(checkInitialization(builder, "documentimportnode10") != null) return;
     var doc;
     var docFragment;
     var childList;
@@ -2489,7 +2438,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode11 : function () {
     var success;
-    if(checkInitialization(builder, "documentimportnode11") != null) return;
     var doc;
     var docElement;
     var imported;
@@ -2532,7 +2480,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode12 : function () {
     var success;
-    if(checkInitialization(builder, "documentimportnode12") != null) return;
     var doc;
     var childList;
     var imported;
@@ -2579,7 +2526,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode13 : function () {
     var success;
-    if(checkInitialization(builder, "documentimportnode13") != null) return;
     var doc;
     var childList;
     var imported;
@@ -2618,7 +2564,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode14 : function () {
     var success;
-    if(checkInitialization(builder, "documentimportnode14") != null) return;
     var doc;
     var newDoc;
     var domImpl;
@@ -2667,7 +2612,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode15 : function () {
     var success;
-    if(checkInitialization(builder, "documentimportnode15") != null) return;
     var doc;
     var docImp;
     var textImport;
@@ -2710,7 +2654,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode17 : function () {
     var success;
-    if(checkInitialization(builder, "documentimportnode17") != null) return;
     var doc;
     var docImp;
     var commentImport;
@@ -2753,7 +2696,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode18 : function () {
     var success;
-    if(checkInitialization(builder, "documentimportnode18") != null) return;
     var doc;
     var docImp;
     var piImport;
@@ -2800,7 +2742,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode19 : function () {
     var success;
-    if(checkInitialization(builder, "documentimportnode19") != null) return;
     var doc;
     var docTypeNull = null;
 
@@ -2887,7 +2828,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode20 : function () {
     var success;
-    if(checkInitialization(builder, "documentimportnode20") != null) return;
     var doc;
     var docImp;
     var domImpl;
@@ -2967,7 +2907,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode21 : function () {
     var success;
-    if(checkInitialization(builder, "documentimportnode21") != null) return;
     var doc;
     var docTypeNull = null;
 
@@ -3049,7 +2988,6 @@ exports['documentimportnode'] = testcase({
    */
   documentimportnode22 : function () {
     var success;
-    if(checkInitialization(builder, "documentimportnode22") != null) return;
     var doc;
     var docTypeNull = null;
 
@@ -3139,7 +3077,6 @@ exports[''] = testcase({
    */
   documenttypeinternalSubset01 : function () {
     var success;
-    if(checkInitialization(builder, "documenttypeinternalSubset01") != null) return;
     var doc;
     var docType;
     var domImpl;
@@ -3176,7 +3113,6 @@ exports[''] = testcase({
    */
   documenttypepublicid01 : function () {
     var success;
-    if(checkInitialization(builder, "documenttypepublicid01") != null) return;
     var doc;
     var docType;
     var domImpl;
@@ -3212,7 +3148,6 @@ exports[''] = testcase({
    */
   documenttypesystemid01 : function () {
     var success;
-    if(checkInitialization(builder, "documenttypesystemid01") != null) return;
     var doc;
     var docType;
     var domImpl;
@@ -3259,7 +3194,6 @@ exports['domimplementationcreatedocument'] = testcase({
    */
   domimplementationcreatedocument03 : function () {
     var success;
-    if(checkInitialization(builder, "domimplementationcreatedocument03") != null) return;
     var doc;
     var domImpl;
     var newDoc;
@@ -3317,7 +3251,6 @@ exports['domimplementationcreatedocument'] = testcase({
    */
   domimplementationcreatedocument04 : function () {
     var success;
-    if(checkInitialization(builder, "domimplementationcreatedocument04") != null) return;
     var doc;
     var domImpl;
     var newDoc;
@@ -3370,7 +3303,6 @@ exports['domimplementationcreatedocument'] = testcase({
    */
   domimplementationcreatedocument05 : function () {
     var success;
-    if(checkInitialization(builder, "domimplementationcreatedocument05") != null) return;
     var doc;
     var domImpl;
     var newDoc;
@@ -3418,7 +3350,6 @@ exports['domimplementationcreatedocument'] = testcase({
    */
   domimplementationcreatedocument07 : function () {
     var success;
-    if(checkInitialization(builder, "domimplementationcreatedocument07") != null) return;
     var doc;
     var domImpl;
     var newDoc;
@@ -3460,7 +3391,6 @@ exports['domimplementationcreatedocument'] = testcase({
    */
   domimplementationcreatedocumenttype01 : function () {
     var success;
-    if(checkInitialization(builder, "domimplementationcreatedocumenttype01") != null) return;
     var doc;
     var domImpl;
     var newDocType;
@@ -3520,7 +3450,6 @@ exports['domimplementationcreatedocument'] = testcase({
    */
   domimplementationcreatedocumenttype02 : function () {
     var success;
-    if(checkInitialization(builder, "domimplementationcreatedocumenttype02") != null) return;
     var doc;
     var domImpl;
     var newDocType;
@@ -3582,7 +3511,6 @@ exports['domimplementationcreatedocument'] = testcase({
    */
   domimplementationcreatedocumenttype04 : function () {
     var success;
-    if(checkInitialization(builder, "domimplementationcreatedocumenttype04") != null) return;
     var doc;
     var domImpl;
     var newDocType;
@@ -3662,7 +3590,6 @@ exports[''] = testcase({
    */
   domimplementationfeaturecore : function () {
     var success;
-    if(checkInitialization(builder, "domimplementationfeaturecore") != null) return;
     var doc;
     var domImpl;
     var state;
@@ -3710,7 +3637,6 @@ exports[''] = testcase({
    */
   domimplementationfeaturexmlversion2 : function () {
     var success;
-    if(checkInitialization(builder, "domimplementationfeaturexmlversion2") != null) return;
     var doc;
     var domImpl;
     var state;
@@ -3744,7 +3670,6 @@ exports[''] = testcase({
    */
   domimplementationhasfeature01 : function () {
     var success;
-    if(checkInitialization(builder, "domimplementationhasfeature01") != null) return;
     var doc;
     var domImpl;
     var version = "";
@@ -3801,7 +3726,6 @@ exports[''] = testcase({
    */
   domimplementationhasfeature02 : function () {
     var success;
-    if(checkInitialization(builder, "domimplementationhasfeature02") != null) return;
     var doc;
     var domImpl;
     var success;
@@ -3833,7 +3757,6 @@ exports[''] = testcase({
    */
   elementgetattributenodens01 : function () {
     var success;
-    if(checkInitialization(builder, "elementgetattributenodens01") != null) return;
     var doc;
     var element;
     var attribute1;
@@ -3887,7 +3810,6 @@ exports[''] = testcase({
    */
   elementgetattributenodens02 : function () {
     var success;
-    if(checkInitialization(builder, "elementgetattributenodens02") != null) return;
     var doc;
     var element;
     var attribute;
@@ -3921,7 +3843,6 @@ exports[''] = testcase({
    */
   elementgetattributenodens03 : function () {
     var success;
-    if(checkInitialization(builder, "elementgetattributenodens03") != null) return;
     var doc;
     var element;
     var attribute;
@@ -3959,7 +3880,6 @@ exports[''] = testcase({
    */
   elementgetattributens02 : function () {
     var success;
-    if(checkInitialization(builder, "elementgetattributens02") != null) return;
     var doc;
     var element;
     var attrValue;
@@ -4001,7 +3921,6 @@ exports[''] = testcase({
    */
   elementgetelementsbytagnamens02 : function () {
     var success;
-    if(checkInitialization(builder, "elementgetelementsbytagnamens02") != null) return;
     var doc;
     var element;
     var elementList;
@@ -4034,7 +3953,6 @@ exports[''] = testcase({
    */
   elementgetelementsbytagnamens04 : function () {
     var success;
-    if(checkInitialization(builder, "elementgetelementsbytagnamens04") != null) return;
     var doc;
     var element;
     var child1;
@@ -4085,7 +4003,6 @@ exports[''] = testcase({
    */
   elementgetelementsbytagnamens05 : function () {
     var success;
-    if(checkInitialization(builder, "elementgetelementsbytagnamens05") != null) return;
     var doc;
     var element;
     var elementList;
@@ -4120,7 +4037,6 @@ exports[''] = testcase({
    */
   elementhasattribute01 : function () {
     var success;
-    if(checkInitialization(builder, "elementhasattribute01") != null) return;
     var doc;
     var element;
     var state;
@@ -4149,7 +4065,6 @@ exports[''] = testcase({
    */
   elementhasattribute02 : function () {
     var success;
-    if(checkInitialization(builder, "elementhasattribute02") != null) return;
     var doc;
     var element;
     var state;
@@ -4182,7 +4097,6 @@ exports[''] = testcase({
    */
   elementhasattribute03 : function () {
     var success;
-    if(checkInitialization(builder, "elementhasattribute03") != null) return;
     var doc;
     var element;
     var state;
@@ -4217,7 +4131,6 @@ exports[''] = testcase({
    */
   elementhasattribute04 : function () {
     var success;
-    if(checkInitialization(builder, "elementhasattribute04") != null) return;
     var doc;
     var element;
     var state;
@@ -4254,7 +4167,6 @@ exports[''] = testcase({
    */
   elementhasattributens01 : function () {
     var success;
-    if(checkInitialization(builder, "elementhasattributens01") != null) return;
     var doc;
     var element;
     var state;
@@ -4288,7 +4200,6 @@ exports[''] = testcase({
    */
   elementhasattributens02 : function () {
     var success;
-    if(checkInitialization(builder, "elementhasattributens02") != null) return;
     var doc;
     var element;
     var state;
@@ -4325,7 +4236,6 @@ exports[''] = testcase({
    */
   elementhasattributens03 : function () {
     var success;
-    if(checkInitialization(builder, "elementhasattributens03") != null) return;
     var doc;
     var element;
     var state;
@@ -4364,7 +4274,6 @@ exports[''] = testcase({
    */
   elementremoveattributens01 : function () {
     var success;
-    if(checkInitialization(builder, "elementremoveattributens01") != null) return;
     var doc;
     var element;
     var state;
@@ -4405,7 +4314,6 @@ exports[''] = testcase({
    */
   elementsetattributenodens01 : function () {
     var success;
-    if(checkInitialization(builder, "elementsetattributenodens01") != null) return;
     var doc;
     var element;
     var attribute1;
@@ -4458,7 +4366,6 @@ exports[''] = testcase({
    */
   elementsetattributenodens02 : function () {
     var success;
-    if(checkInitialization(builder, "elementsetattributenodens02") != null) return;
     var doc;
     var element;
     var element2;
@@ -4505,7 +4412,6 @@ exports[''] = testcase({
    */
   elementsetattributenodens03 : function () {
     var success;
-    if(checkInitialization(builder, "elementsetattributenodens03") != null) return;
     var doc;
     var element1;
     var element2;
@@ -4552,7 +4458,6 @@ exports[''] = testcase({
    */
   elementsetattributenodens04 : function () {
     var success;
-    if(checkInitialization(builder, "elementsetattributenodens04") != null) return;
     var doc;
     var element1;
     var element2;
@@ -4596,7 +4501,6 @@ exports[''] = testcase({
    */
   elementsetattributenodens05 : function () {
     var success;
-    if(checkInitialization(builder, "elementsetattributenodens05") != null) return;
     var doc;
     var docAlt;
     var element;
@@ -4644,7 +4548,6 @@ exports[''] = testcase({
    */
   elementsetattributenodens06 : function () {
     var success;
-    if(checkInitialization(builder, "elementsetattributenodens06") != null) return;
     var doc;
     var element;
     var attribute;
@@ -4697,7 +4600,6 @@ exports[''] = testcase({
    */
   elementsetattributens01 : function () {
     var success;
-    if(checkInitialization(builder, "elementsetattributens01") != null) return;
     var doc;
     var element;
     var attribute;
@@ -4734,7 +4636,6 @@ exports[''] = testcase({
    */
   elementsetattributens02 : function () {
     var success;
-    if(checkInitialization(builder, "elementsetattributens02") != null) return;
     var doc;
     var element;
     var attribute;
@@ -4774,7 +4675,6 @@ exports[''] = testcase({
    */
   elementsetattributens03 : function () {
     var success;
-    if(checkInitialization(builder, "elementsetattributens03") != null) return;
     var doc;
     var element;
     var attribute;
@@ -4815,7 +4715,6 @@ exports[''] = testcase({
    */
   elementsetattributens04 : function () {
     var success;
-    if(checkInitialization(builder, "elementsetattributens04") != null) return;
     var doc;
     var element;
     var qualifiedName;
@@ -4868,7 +4767,6 @@ exports[''] = testcase({
    */
   elementsetattributens05 : function () {
     var success;
-    if(checkInitialization(builder, "elementsetattributens05") != null) return;
     var doc;
     var element;
     var nullNS = null;
@@ -4910,7 +4808,6 @@ exports[''] = testcase({
    */
   elementsetattributens08 : function () {
     var success;
-    if(checkInitialization(builder, "elementsetattributens08") != null) return;
     var doc;
     var element;
 
@@ -4972,7 +4869,6 @@ exports[''] = testcase({
    */
   elementsetattributensurinull : function () {
     var success;
-    if(checkInitialization(builder, "elementsetattributensurinull") != null) return;
     var namespaceURI = null;
 
     var qualifiedName = "emp:qualifiedName";
@@ -5019,7 +4915,6 @@ exports[''] = testcase({
    */
   getAttributeNS01 : function () {
     var success;
-    if(checkInitialization(builder, "getAttributeNS01") != null) return;
     var namespaceURI = "http://www.nist.gov";
     var localName = "district";
     var qualifiedName = "emp:district";
@@ -5056,7 +4951,6 @@ exports[''] = testcase({
    */
   getAttributeNS02 : function () {
     var success;
-    if(checkInitialization(builder, "getAttributeNS02") != null) return;
     var namespaceURI = "http://www.nist.gov";
     var localName = "district";
     var qualifiedName = "emp:district";
@@ -5099,7 +4993,6 @@ exports[''] = testcase({
    */
   getAttributeNS03 : function () {
     var success;
-    if(checkInitialization(builder, "getAttributeNS03") != null) return;
     var namespaceURI = "http://www.nist.gov";
     var localName = "domestic";
     var doc;
@@ -5137,7 +5030,6 @@ exports[''] = testcase({
    */
   getAttributeNS04 : function () {
     var success;
-    if(checkInitialization(builder, "getAttributeNS04") != null) return;
     var namespaceURI = "http://www.nist.gov";
     var localName = "blank";
     var qualifiedName = "emp:blank";
@@ -5178,7 +5070,6 @@ exports[''] = testcase({
    */
   getAttributeNS05 : function () {
     var success;
-    if(checkInitialization(builder, "getAttributeNS05") != null) return;
     var doc;
     var elementList;
     var testAddr;
@@ -5216,7 +5107,6 @@ exports[''] = testcase({
    */
   getAttributeNodeNS01 : function () {
     var success;
-    if(checkInitialization(builder, "getAttributeNodeNS01") != null) return;
     var namespaceURI = "http://www.nist.gov";
     var localName = "invalidlocalname";
     var doc;
@@ -5252,7 +5142,6 @@ exports[''] = testcase({
    */
   getAttributeNodeNS02 : function () {
     var success;
-    if(checkInitialization(builder, "getAttributeNodeNS02") != null) return;
     var doc;
     var elementList;
     var testAddr;
@@ -5292,7 +5181,6 @@ exports[''] = testcase({
    */
   getElementById01 : function () {
     var success;
-    if(checkInitialization(builder, "getElementById01") != null) return;
     var doc;
     var element;
     var tagname;
@@ -5324,7 +5212,6 @@ exports[''] = testcase({
    */
   getElementById02 : function () {
     var success;
-    if(checkInitialization(builder, "getElementById02") != null) return;
     var doc;
     var element;
 
@@ -5356,7 +5243,6 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS01 : function () {
     var success;
-    if(checkInitialization(builder, "getElementsByTagNameNS01") != null) return;
     var namespaceURI = "*";
     var localName = "*";
     var doc;
@@ -5389,7 +5275,6 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS02 : function () {
     var success;
-    if(checkInitialization(builder, "getElementsByTagNameNS02") != null) return;
     var doc;
     var newList;
     var newElement;
@@ -5430,7 +5315,6 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS03 : function () {
     var success;
-    if(checkInitialization(builder, "getElementsByTagNameNS03") != null) return;
     var doc;
     var elementList;
     var child;
@@ -5488,7 +5372,6 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS04 : function () {
     var success;
-    if(checkInitialization(builder, "getElementsByTagNameNS04") != null) return;
     var doc;
     var elementList;
     var child;
@@ -5537,7 +5420,6 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS05 : function () {
     var success;
-    if(checkInitialization(builder, "getElementsByTagNameNS05") != null) return;
     var namespaceURI = "http://www.nist.gov";
     var localName = "nomatch";
     var doc;
@@ -5570,7 +5452,6 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS06 : function () {
     var success;
-    if(checkInitialization(builder, "getElementsByTagNameNS06") != null) return;
     var doc;
     var elementList;
 
@@ -5601,7 +5482,6 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS07 : function () {
     var success;
-    if(checkInitialization(builder, "getElementsByTagNameNS07") != null) return;
     var doc;
     var elementList;
 
@@ -5629,7 +5509,6 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS08 : function () {
     var success;
-    if(checkInitialization(builder, "getElementsByTagNameNS08") != null) return;
     var doc;
     var docElem;
     var newList;
@@ -5666,7 +5545,6 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS09 : function () {
     var success;
-    if(checkInitialization(builder, "getElementsByTagNameNS09") != null) return;
     var doc;
     var newList;
     var newElement;
@@ -5712,7 +5590,6 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS10 : function () {
     var success;
-    if(checkInitialization(builder, "getElementsByTagNameNS10") != null) return;
     var doc;
     var docElem;
     var elementList;
@@ -5774,7 +5651,6 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS11 : function () {
     var success;
-    if(checkInitialization(builder, "getElementsByTagNameNS11") != null) return;
     var doc;
     var docElem;
     var elementList;
@@ -5826,7 +5702,6 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS12 : function () {
     var success;
-    if(checkInitialization(builder, "getElementsByTagNameNS12") != null) return;
     var doc;
     var docElem;
     var elementList;
@@ -5859,7 +5734,6 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS13 : function () {
     var success;
-    if(checkInitialization(builder, "getElementsByTagNameNS13") != null) return;
     var doc;
     var docElem;
     var elementList;
@@ -5892,7 +5766,6 @@ exports[''] = testcase({
    */
   getElementsByTagNameNS14 : function () {
     var success;
-    if(checkInitialization(builder, "getElementsByTagNameNS14") != null) return;
     var doc;
     var docElem;
     var elementList;
@@ -5928,7 +5801,6 @@ exports[''] = testcase({
    */
   getNamedItemNS01 : function () {
     var success;
-    if(checkInitialization(builder, "getNamedItemNS01") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -5970,7 +5842,6 @@ exports[''] = testcase({
    */
   getNamedItemNS02 : function () {
     var success;
-    if(checkInitialization(builder, "getNamedItemNS02") != null) return;
     var namespaceURI = "http://www.usa.com";
     var localName = "domest";
     var doc;
@@ -6004,7 +5875,6 @@ exports[''] = testcase({
    */
   getNamedItemNS03 : function () {
     var success;
-    if(checkInitialization(builder, "getNamedItemNS03") != null) return;
     var doc;
     var docType;
     var entities;
@@ -6038,7 +5908,6 @@ exports[''] = testcase({
    */
   getNamedItemNS04 : function () {
     var success;
-    if(checkInitialization(builder, "getNamedItemNS04") != null) return;
     var doc;
     var docType;
     var notations;
@@ -6077,7 +5946,6 @@ exports[''] = testcase({
    */
   hasAttribute01 : function () {
     var success;
-    if(checkInitialization(builder, "hasAttribute01") != null) return;
     var doc;
     var elementList;
     var testNode;
@@ -6109,7 +5977,6 @@ exports[''] = testcase({
    */
   hasAttribute02 : function () {
     var success;
-    if(checkInitialization(builder, "hasAttribute02") != null) return;
     var doc;
     var elementList;
     var testNode;
@@ -6140,7 +6007,6 @@ exports[''] = testcase({
    */
   hasAttribute03 : function () {
     var success;
-    if(checkInitialization(builder, "hasAttribute03") != null) return;
     var doc;
     var elementList;
     var testNode;
@@ -6172,7 +6038,6 @@ exports[''] = testcase({
    */
   hasAttribute04 : function () {
     var success;
-    if(checkInitialization(builder, "hasAttribute04") != null) return;
     var doc;
     var elementList;
     var testNode;
@@ -6209,7 +6074,6 @@ exports[''] = testcase({
    */
   hasAttributeNS01 : function () {
     var success;
-    if(checkInitialization(builder, "hasAttributeNS01") != null) return;
     var localName = "nomatch";
     var namespaceURI = "http://www.usa.com";
     var doc;
@@ -6244,7 +6108,6 @@ exports[''] = testcase({
    */
   hasAttributeNS02 : function () {
     var success;
-    if(checkInitialization(builder, "hasAttributeNS02") != null) return;
     var localName = "domestic";
     var namespaceURI = "http://www.nomatch.com";
     var doc;
@@ -6279,7 +6142,6 @@ exports[''] = testcase({
    */
   hasAttributeNS03 : function () {
     var success;
-    if(checkInitialization(builder, "hasAttributeNS03") != null) return;
     var localName = "blank";
     var namespaceURI = "http://www.nist.gov";
     var doc;
@@ -6315,7 +6177,6 @@ exports[''] = testcase({
    */
   hasAttributeNS04 : function () {
     var success;
-    if(checkInitialization(builder, "hasAttributeNS04") != null) return;
     var localName = "district";
     var namespaceURI = "http://www.nist.gov";
     var doc;
@@ -6351,7 +6212,6 @@ exports[''] = testcase({
    */
   hasAttributeNS05 : function () {
     var success;
-    if(checkInitialization(builder, "hasAttributeNS05") != null) return;
     var localName = "domestic";
     var namespaceURI = "http://www.usa.com";
     var doc;
@@ -6387,7 +6247,6 @@ exports[''] = testcase({
    */
   hasAttributes01 : function () {
     var success;
-    if(checkInitialization(builder, "hasAttributes01") != null) return;
     var doc;
     var addrList;
     var addrNode;
@@ -6418,7 +6277,6 @@ exports[''] = testcase({
    */
   hasAttributes02 : function () {
     var success;
-    if(checkInitialization(builder, "hasAttributes02") != null) return;
     var doc;
     var addrList;
     var addrNode;
@@ -6449,7 +6307,6 @@ exports[''] = testcase({
    */
   hc_entitiesremovenameditemns1 : function () {
     var success;
-    if(checkInitialization(builder, "hc_entitiesremovenameditemns1") != null) return;
     var doc;
     var entities;
     var docType;
@@ -6463,39 +6320,26 @@ exports[''] = testcase({
     docType = doc.doctype;
 
 
-    if(
-
-      !(
-	(builder.contentType == "text/html")
-      )
-
-    ) {
-      assertNotNull("docTypeNotNull",docType);
-      entities = docType.entities;
-
-      assertNotNull("entitiesNotNull",entities);
-
-      try {
-        retval = entities.removeNamedItemNS("http://www.w3.org/1999/xhtml","alpha");
-        fail("throw_NO_MOD_OR_NOT_FOUND_ERR");
-
-      } catch (ex) {
-	if (typeof(ex.code) != 'undefined') {
-          switch(ex.code) {
-          case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
-            break;
-          case /* NOT_FOUND_ERR */ 8 :
-            break;
-          default:
-            throw ex;
-          }
-        } else {
+    assertNotNull("docTypeNotNull",docType);
+    entities = docType.entities;
+    assertNotNull("entitiesNotNull",entities);
+    try {
+      retval = entities.removeNamedItemNS("http://www.w3.org/1999/xhtml","alpha");
+      fail("throw_NO_MOD_OR_NOT_FOUND_ERR");
+    } catch (ex) {
+      if (typeof(ex.code) != 'undefined') {
+        switch(ex.code) {
+        case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
+          break;
+        case /* NOT_FOUND_ERR */ 8 :
+          break;
+        default:
           throw ex;
         }
+      } else {
+        throw ex;
       }
-
     }
-
   },
   /**
    *
@@ -6508,7 +6352,6 @@ exports[''] = testcase({
    */
   hc_entitiessetnameditemns1 : function () {
     var success;
-    if(checkInitialization(builder, "hc_entitiessetnameditemns1") != null) return;
     var doc;
     var entities;
     var docType;
@@ -6523,40 +6366,30 @@ exports[''] = testcase({
     docType = doc.doctype;
 
 
-    if(
+    assertNotNull("docTypeNotNull",docType);
+    entities = docType.entities;
 
-      !(
-	(builder.contentType == "text/html")
-      )
+    assertNotNull("entitiesNotNull",entities);
+    elem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
 
-    ) {
-      assertNotNull("docTypeNotNull",docType);
-      entities = docType.entities;
+    try {
+      retval = entities.setNamedItemNS(elem);
+      fail("throw_HIER_OR_NO_MOD_ERR");
 
-      assertNotNull("entitiesNotNull",entities);
-      elem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
-
-      try {
-        retval = entities.setNamedItemNS(elem);
-        fail("throw_HIER_OR_NO_MOD_ERR");
-
-      } catch (ex) {
-	if (typeof(ex.code) != 'undefined') {
-          switch(ex.code) {
-          case /* HIERARCHY_REQUEST_ERR */ 3 :
-            break;
-          case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
-            break;
-          default:
-            throw ex;
-          }
-        } else {
+    } catch (ex) {
+      if (typeof(ex.code) != 'undefined') {
+        switch(ex.code) {
+        case /* HIERARCHY_REQUEST_ERR */ 3 :
+          break;
+        case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
+          break;
+        default:
           throw ex;
         }
+      } else {
+        throw ex;
       }
-
     }
-
   },
   /**
    *
@@ -6570,7 +6403,6 @@ exports[''] = testcase({
    */
   hc_namednodemapinvalidtype1 : function () {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapinvalidtype1") != null) return;
     var doc;
     var attributes;
     var docElem;
@@ -6611,7 +6443,6 @@ exports[''] = testcase({
    */
   hc_nodedocumentfragmentnormalize1 : function () {
     var success;
-    if(checkInitialization(builder, "hc_nodedocumentfragmentnormalize1") != null) return;
     var doc;
     var docFragment;
     var nodeValue;
@@ -6650,7 +6481,6 @@ exports[''] = testcase({
    */
   hc_nodedocumentfragmentnormalize2 : function () {
     var success;
-    if(checkInitialization(builder, "hc_nodedocumentfragmentnormalize2") != null) return;
     var doc;
     var docFragment;
     var nodeValue;
@@ -6682,7 +6512,6 @@ exports[''] = testcase({
    */
   hc_notationsremovenameditemns1 : function () {
     var success;
-    if(checkInitialization(builder, "hc_notationsremovenameditemns1") != null) return;
     var doc;
     var notations;
     var docType;
@@ -6696,39 +6525,29 @@ exports[''] = testcase({
     docType = doc.doctype;
 
 
-    if(
+    assertNotNull("docTypeNotNull",docType);
+    notations = docType.notations;
 
-      !(
-	(builder.contentType == "text/html")
-      )
+    assertNotNull("notationsNotNull",notations);
 
-    ) {
-      assertNotNull("docTypeNotNull",docType);
-      notations = docType.notations;
+    try {
+      retval = notations.removeNamedItemNS("http://www.w3.org/1999/xhtml","alpha");
+      fail("throw_NO_MOD_OR_NOT_FOUND_ERR");
 
-      assertNotNull("notationsNotNull",notations);
-
-      try {
-        retval = notations.removeNamedItemNS("http://www.w3.org/1999/xhtml","alpha");
-        fail("throw_NO_MOD_OR_NOT_FOUND_ERR");
-
-      } catch (ex) {
-	if (typeof(ex.code) != 'undefined') {
-          switch(ex.code) {
-          case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
-            break;
-          case /* NOT_FOUND_ERR */ 8 :
-            break;
-          default:
-            throw ex;
-          }
-        } else {
+    } catch (ex) {
+      if (typeof(ex.code) != 'undefined') {
+        switch(ex.code) {
+        case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
+          break;
+        case /* NOT_FOUND_ERR */ 8 :
+          break;
+        default:
           throw ex;
         }
+      } else {
+        throw ex;
       }
-
     }
-
   },
   /**
    *
@@ -6741,7 +6560,6 @@ exports[''] = testcase({
    */
   hc_notationssetnameditemns1 : function () {
     var success;
-    if(checkInitialization(builder, "hc_notationssetnameditemns1") != null) return;
     var doc;
     var notations;
     var docType;
@@ -6756,40 +6574,30 @@ exports[''] = testcase({
     docType = doc.doctype;
 
 
-    if(
+    assertNotNull("docTypeNotNull",docType);
+    notations = docType.notations;
 
-      !(
-	(builder.contentType == "text/html")
-      )
+    assertNotNull("notationsNotNull",notations);
+    elem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
 
-    ) {
-      assertNotNull("docTypeNotNull",docType);
-      notations = docType.notations;
+    try {
+      retval = notations.setNamedItemNS(elem);
+      fail("throw_HIER_OR_NO_MOD_ERR");
 
-      assertNotNull("notationsNotNull",notations);
-      elem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
-
-      try {
-        retval = notations.setNamedItemNS(elem);
-        fail("throw_HIER_OR_NO_MOD_ERR");
-
-      } catch (ex) {
-	if (typeof(ex.code) != 'undefined') {
-          switch(ex.code) {
-          case /* HIERARCHY_REQUEST_ERR */ 3 :
-            break;
-          case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
-            break;
-          default:
-            throw ex;
-          }
-        } else {
+    } catch (ex) {
+      if (typeof(ex.code) != 'undefined') {
+        switch(ex.code) {
+        case /* HIERARCHY_REQUEST_ERR */ 3 :
+          break;
+        case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
+          break;
+        default:
           throw ex;
         }
+      } else {
+        throw ex;
       }
-
     }
-
   }
 })
 
@@ -6816,7 +6624,6 @@ exports[''] = testcase({
    */
   importNode01 : function () {
     var success;
-    if(checkInitialization(builder, "importNode01") != null) return;
     var doc;
     var aNewDoc;
     var newAttr;
@@ -6897,7 +6704,6 @@ exports[''] = testcase({
    */
   importNode02 : function () {
     var success;
-    if(checkInitialization(builder, "importNode02") != null) return;
     var doc;
     var aNewDoc;
     var cDataSec;
@@ -6951,7 +6757,6 @@ exports[''] = testcase({
    */
   importNode03 : function () {
     var success;
-    if(checkInitialization(builder, "importNode03") != null) return;
     var doc;
     var aNewDoc;
     var comment;
@@ -7006,7 +6811,6 @@ exports[''] = testcase({
    */
   importNode04 : function () {
     var success;
-    if(checkInitialization(builder, "importNode04") != null) return;
     var doc;
     var aNewDoc;
     var docFrag;
@@ -7060,7 +6864,6 @@ exports[''] = testcase({
    */
   importNode05 : function () {
     var success;
-    if(checkInitialization(builder, "importNode05") != null) return;
     var doc;
     var aNewDoc;
     var element;
@@ -7119,7 +6922,6 @@ exports[''] = testcase({
    */
   importNode06 : function () {
     var success;
-    if(checkInitialization(builder, "importNode06") != null) return;
     var doc;
     var aNewDoc;
     var element;
@@ -7177,7 +6979,6 @@ exports[''] = testcase({
    */
   importNode07 : function () {
     var success;
-    if(checkInitialization(builder, "importNode07") != null) return;
     var doc;
     var aNewDoc;
     var element;
@@ -7233,7 +7034,6 @@ exports[''] = testcase({
    */
   importNode08 : function () {
     var success;
-    if(checkInitialization(builder, "importNode08") != null) return;
     var doc;
     var aNewDoc;
     var docFrag;
@@ -7285,7 +7085,6 @@ exports[''] = testcase({
    */
   importNode09 : function () {
     var success;
-    if(checkInitialization(builder, "importNode09") != null) return;
     var doc;
     var aNewDoc;
     var doc1Type;
@@ -7358,7 +7157,6 @@ exports[''] = testcase({
    */
   importNode10 : function () {
     var success;
-    if(checkInitialization(builder, "importNode10") != null) return;
     var doc;
     var aNewDoc;
     var entRef;
@@ -7416,7 +7214,6 @@ exports[''] = testcase({
    */
   importNode11 : function () {
     var success;
-    if(checkInitialization(builder, "importNode11") != null) return;
     var doc;
     var aNewDoc;
     var entRef;
@@ -7467,7 +7264,6 @@ exports[''] = testcase({
    */
   importNode12 : function () {
     var success;
-    if(checkInitialization(builder, "importNode12") != null) return;
     var doc;
     var aNewDoc;
     var doc1Type;
@@ -7535,7 +7331,6 @@ exports[''] = testcase({
    */
   importNode13 : function () {
     var success;
-    if(checkInitialization(builder, "importNode13") != null) return;
     var doc;
     var aNewDoc;
     var doc1Type;
@@ -7597,7 +7392,6 @@ exports[''] = testcase({
    */
   importNode14 : function () {
     var success;
-    if(checkInitialization(builder, "importNode14") != null) return;
     var doc;
     var aNewDoc;
     var pi;
@@ -7657,7 +7451,6 @@ exports[''] = testcase({
    */
   importNode15 : function () {
     var success;
-    if(checkInitialization(builder, "importNode15") != null) return;
     var doc;
     var aNewDoc;
     var text;
@@ -7712,7 +7505,6 @@ exports[''] = testcase({
    */
   importNode16 : function () {
     var success;
-    if(checkInitialization(builder, "importNode16") != null) return;
     var doc;
     var anotherDoc;
     var docType;
@@ -7763,7 +7555,6 @@ exports[''] = testcase({
    */
   importNode17 : function () {
     var success;
-    if(checkInitialization(builder, "importNode17") != null) return;
     var doc;
     var anotherDoc;
     var node;
@@ -7811,7 +7602,6 @@ exports[''] = testcase({
    */
   internalSubset01 : function () {
     var success;
-    if(checkInitialization(builder, "internalSubset01") != null) return;
     var doc;
     var docType;
     var internal;
@@ -7848,7 +7638,6 @@ exports[''] = testcase({
    */
   isSupported01 : function () {
     var success;
-    if(checkInitialization(builder, "isSupported01") != null) return;
     var doc;
     var rootNode;
     var state;
@@ -7884,7 +7673,6 @@ exports[''] = testcase({
    */
   isSupported02 : function () {
     var success;
-    if(checkInitialization(builder, "isSupported02") != null) return;
     var doc;
     var rootNode;
     var state;
@@ -7922,7 +7710,6 @@ exports[''] = testcase({
    */
   isSupported04 : function () {
     var success;
-    if(checkInitialization(builder, "isSupported04") != null) return;
     var doc;
     var rootNode;
     var state;
@@ -7960,7 +7747,6 @@ exports[''] = testcase({
    */
   isSupported05 : function () {
     var success;
-    if(checkInitialization(builder, "isSupported05") != null) return;
     var doc;
     var rootNode;
     var state;
@@ -7998,7 +7784,6 @@ exports[''] = testcase({
    */
   isSupported06 : function () {
     var success;
-    if(checkInitialization(builder, "isSupported06") != null) return;
     var doc;
     var rootNode;
     var state;
@@ -8036,7 +7821,6 @@ exports[''] = testcase({
    */
   isSupported07 : function () {
     var success;
-    if(checkInitialization(builder, "isSupported07") != null) return;
     var doc;
     var rootNode;
     var state;
@@ -8074,7 +7858,6 @@ exports[''] = testcase({
    */
   isSupported09 : function () {
     var success;
-    if(checkInitialization(builder, "isSupported09") != null) return;
     var doc;
     var rootNode;
     var state;
@@ -8112,7 +7895,6 @@ exports[''] = testcase({
    */
   isSupported10 : function () {
     var success;
-    if(checkInitialization(builder, "isSupported10") != null) return;
     var doc;
     var rootNode;
     var state;
@@ -8150,7 +7932,6 @@ exports[''] = testcase({
    */
   isSupported11 : function () {
     var success;
-    if(checkInitialization(builder, "isSupported11") != null) return;
     var doc;
     var rootNode;
     var state;
@@ -8188,7 +7969,6 @@ exports[''] = testcase({
    */
   isSupported12 : function () {
     var success;
-    if(checkInitialization(builder, "isSupported12") != null) return;
     features = new Array();
     features[0] = "Core";
     features[1] = "XML";
@@ -8242,7 +8022,6 @@ exports[''] = testcase({
    */
   isSupported13 : function () {
     var success;
-    if(checkInitialization(builder, "isSupported13") != null) return;
     var doc;
     var rootNode;
     var state;
@@ -8268,7 +8047,6 @@ exports[''] = testcase({
    */
   isSupported14 : function () {
     var success;
-    if(checkInitialization(builder, "isSupported14") != null) return;
     var doc;
     var rootNode;
     var state;
@@ -8306,7 +8084,6 @@ exports[''] = testcase({
    */
   localName01 : function () {
     var success;
-    if(checkInitialization(builder, "localName01") != null) return;
     var doc;
     var elementList;
     var testAddr;
@@ -8344,7 +8121,6 @@ exports[''] = testcase({
    */
   localName02 : function () {
     var success;
-    if(checkInitialization(builder, "localName02") != null) return;
     var doc;
     var createdNode;
     var localName;
@@ -8377,7 +8153,6 @@ exports[''] = testcase({
    */
   localName03 : function () {
     var success;
-    if(checkInitialization(builder, "localName03") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -8414,7 +8189,6 @@ exports[''] = testcase({
    */
   localName04 : function () {
     var success;
-    if(checkInitialization(builder, "localName04") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -8450,7 +8224,6 @@ exports[''] = testcase({
    */
   namednodemapgetnameditemns01 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapgetnameditemns01") != null) return;
     var doc;
     var docType;
     var entities;
@@ -8496,7 +8269,6 @@ exports[''] = testcase({
    */
   namednodemapgetnameditemns02 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapgetnameditemns02") != null) return;
     var doc;
     var attributes;
     var element;
@@ -8533,7 +8305,6 @@ exports[''] = testcase({
    */
   namednodemapgetnameditemns03 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapgetnameditemns03") != null) return;
     var doc;
     var attributes;
     var element;
@@ -8577,7 +8348,6 @@ exports[''] = testcase({
    */
   namednodemapgetnameditemns04 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapgetnameditemns04") != null) return;
     var doc;
     var attributes;
     var element;
@@ -8619,7 +8389,6 @@ exports[''] = testcase({
    */
   namednodemapgetnameditemns05 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapgetnameditemns05") != null) return;
     var doc;
     var attributes;
     var element;
@@ -8653,7 +8422,6 @@ exports[''] = testcase({
    */
   namednodemapgetnameditemns06 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapgetnameditemns06") != null) return;
     var doc;
     var attributesMap1;
     var attributesMap2;
@@ -8703,7 +8471,6 @@ exports[''] = testcase({
    */
   namednodemapremovenameditemns01 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapremovenameditemns01") != null) return;
     var doc;
     var attributes;
     var element;
@@ -8742,7 +8509,6 @@ exports[''] = testcase({
    */
   namednodemapremovenameditemns02 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapremovenameditemns02") != null) return;
     var doc;
     var attributes;
     var element;
@@ -8783,7 +8549,6 @@ exports[''] = testcase({
    */
   namednodemapremovenameditemns03 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapremovenameditemns03") != null) return;
     var doc;
     var attributes;
     var element;
@@ -8825,7 +8590,6 @@ exports[''] = testcase({
    */
   namednodemapremovenameditemns04 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapremovenameditemns04") != null) return;
     var doc;
     var attributes;
     var element;
@@ -8865,7 +8629,6 @@ exports[''] = testcase({
    */
   namednodemapremovenameditemns05 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapremovenameditemns05") != null) return;
     var doc;
     var docType;
     var entities;
@@ -8942,7 +8705,6 @@ exports[''] = testcase({
    */
   namednodemapremovenameditemns06 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapremovenameditemns06") != null) return;
     var doc;
     var attributes;
     var element;
@@ -8986,7 +8748,6 @@ exports[''] = testcase({
    */
   namednodemapremovenameditemns07 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapremovenameditemns07") != null) return;
     var doc;
     var attributes;
     var element;
@@ -9032,7 +8793,6 @@ exports[''] = testcase({
    */
   namednodemapremovenameditemns08 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapremovenameditemns08") != null) return;
     var doc;
     var attributes;
     var element;
@@ -9077,7 +8837,6 @@ exports[''] = testcase({
    */
   namednodemapremovenameditemns09 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapremovenameditemns09") != null) return;
     var doc;
     var attributes;
     var newAttributes;
@@ -9120,7 +8879,6 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns01 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapsetnameditemns01") != null) return;
     var doc;
     var attributes;
     var element;
@@ -9164,7 +8922,6 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns02 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapsetnameditemns02") != null) return;
     var doc;
     var attributes;
     var element;
@@ -9208,7 +8965,6 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns03 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapsetnameditemns03") != null) return;
     var doc;
     var docAlt;
     var attributes;
@@ -9274,7 +9030,6 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns04 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapsetnameditemns04") != null) return;
     var doc;
     var domImpl;
     var docAlt;
@@ -9328,7 +9083,6 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns05 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapsetnameditemns05") != null) return;
     var doc;
     var docType;
     var entities;
@@ -9392,7 +9146,6 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns06 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapsetnameditemns06") != null) return;
     var doc;
     var attributes;
     var elementList;
@@ -9446,7 +9199,6 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns07 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapsetnameditemns07") != null) return;
     var doc;
     var attributes;
     var elementList;
@@ -9497,7 +9249,6 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns08 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapsetnameditemns08") != null) return;
     var doc;
     var attributes;
     var elementList;
@@ -9545,7 +9296,6 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns09 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapsetnameditemns09") != null) return;
     var doc;
     var docType;
     var entities;
@@ -9606,7 +9356,6 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns10 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapsetnameditemns10") != null) return;
     var doc;
     var docType;
     var entities;
@@ -9662,7 +9411,6 @@ exports[''] = testcase({
    */
   namednodemapsetnameditemns11 : function () {
     var success;
-    if(checkInitialization(builder, "namednodemapsetnameditemns11") != null) return;
     var doc;
     var docType;
     var notations;
@@ -9722,7 +9470,6 @@ exports[''] = testcase({
    */
   namespaceURI01 : function () {
     var success;
-    if(checkInitialization(builder, "namespaceURI01") != null) return;
     var doc;
     var elementList;
     var testAddr;
@@ -9757,7 +9504,6 @@ exports[''] = testcase({
    */
   namespaceURI02 : function () {
     var success;
-    if(checkInitialization(builder, "namespaceURI02") != null) return;
     var doc;
     var elementList;
     var testAddr;
@@ -9792,7 +9538,6 @@ exports[''] = testcase({
    */
   namespaceURI03 : function () {
     var success;
-    if(checkInitialization(builder, "namespaceURI03") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -9825,7 +9570,6 @@ exports[''] = testcase({
    */
   namespaceURI04 : function () {
     var success;
-    if(checkInitialization(builder, "namespaceURI04") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -9860,7 +9604,6 @@ exports[''] = testcase({
    */
   nodegetlocalname03 : function () {
     var success;
-    if(checkInitialization(builder, "nodegetlocalname03") != null) return;
     var doc;
     var element;
     var qelement;
@@ -9910,7 +9653,6 @@ exports[''] = testcase({
    */
   nodegetnamespaceuri03 : function () {
     var success;
-    if(checkInitialization(builder, "nodegetnamespaceuri03") != null) return;
     var doc;
     var element;
     var elementNS;
@@ -9960,7 +9702,6 @@ exports[''] = testcase({
    */
   nodegetownerdocument01 : function () {
     var success;
-    if(checkInitialization(builder, "nodegetownerdocument01") != null) return;
     var doc;
     var ownerDoc;
     var domImpl;
@@ -9995,7 +9736,6 @@ exports[''] = testcase({
    */
   nodegetownerdocument02 : function () {
     var success;
-    if(checkInitialization(builder, "nodegetownerdocument02") != null) return;
     var doc;
     var newDoc;
     var newElem;
@@ -10037,7 +9777,6 @@ exports[''] = testcase({
    */
   nodegetprefix03 : function () {
     var success;
-    if(checkInitialization(builder, "nodegetprefix03") != null) return;
     var doc;
     var element;
     var qelement;
@@ -10087,7 +9826,6 @@ exports[''] = testcase({
    */
   nodehasattributes01 : function () {
     var success;
-    if(checkInitialization(builder, "nodehasattributes01") != null) return;
     var doc;
     var element;
     var elementList;
@@ -10126,7 +9864,6 @@ exports[''] = testcase({
    */
   nodehasattributes02 : function () {
     var success;
-    if(checkInitialization(builder, "nodehasattributes02") != null) return;
     var doc;
     var docType;
     var hasAttributes;
@@ -10154,7 +9891,6 @@ exports[''] = testcase({
    */
   nodehasattributes03 : function () {
     var success;
-    if(checkInitialization(builder, "nodehasattributes03") != null) return;
     var doc;
     var element;
     var elementList;
@@ -10186,7 +9922,6 @@ exports[''] = testcase({
    */
   nodehasattributes04 : function () {
     var success;
-    if(checkInitialization(builder, "nodehasattributes04") != null) return;
     var doc;
     var newDoc;
     var docType = null;
@@ -10239,7 +9974,6 @@ exports[''] = testcase({
    */
   nodeissupported01 : function () {
     var success;
-    if(checkInitialization(builder, "nodeissupported01") != null) return;
     var doc;
     var element;
     var version = "";
@@ -10299,7 +10033,6 @@ exports[''] = testcase({
    */
   nodeissupported02 : function () {
     var success;
-    if(checkInitialization(builder, "nodeissupported02") != null) return;
     var doc;
     var attribute;
     var version = "";
@@ -10362,7 +10095,6 @@ exports[''] = testcase({
    */
   nodeissupported03 : function () {
     var success;
-    if(checkInitialization(builder, "nodeissupported03") != null) return;
     var doc;
     var docType;
     var success;
@@ -10392,7 +10124,6 @@ exports[''] = testcase({
    */
   nodeissupported04 : function () {
     var success;
-    if(checkInitialization(builder, "nodeissupported04") != null) return;
     var doc;
     var entRef;
     var success;
@@ -10428,7 +10159,6 @@ exports[''] = testcase({
    */
   nodeissupported05 : function () {
     var success;
-    if(checkInitialization(builder, "nodeissupported05") != null) return;
     var doc;
     var pi;
     var success;
@@ -10463,7 +10193,6 @@ exports[''] = testcase({
    */
   nodenormalize01 : function () {
     var success;
-    if(checkInitialization(builder, "nodenormalize01") != null) return;
     var doc;
     var newDoc;
     var domImpl;
@@ -10610,7 +10339,6 @@ exports[''] = testcase({
    */
   nodesetprefix01 : function () {
     var success;
-    if(checkInitialization(builder, "nodesetprefix01") != null) return;
     var doc;
     var docFragment;
     var element;
@@ -10653,7 +10381,6 @@ exports[''] = testcase({
    */
   nodesetprefix02 : function () {
     var success;
-    if(checkInitialization(builder, "nodesetprefix02") != null) return;
     var doc;
     var element;
     var attribute;
@@ -10696,7 +10423,6 @@ exports[''] = testcase({
    */
   nodesetprefix03 : function () {
     var success;
-    if(checkInitialization(builder, "nodesetprefix03") != null) return;
     var doc;
     var element;
 
@@ -10734,7 +10460,6 @@ exports[''] = testcase({
    */
   nodesetprefix04 : function () {
     var success;
-    if(checkInitialization(builder, "nodesetprefix04") != null) return;
     var doc;
     var element;
     var attribute;
@@ -10778,7 +10503,6 @@ exports[''] = testcase({
    */
   nodesetprefix05 : function () {
     var success;
-    if(checkInitialization(builder, "nodesetprefix05") != null) return;
     var doc;
     var element;
     var prefixValue;
@@ -10829,7 +10553,6 @@ exports[''] = testcase({
    */
   nodesetprefix06 : function () {
     var success;
-    if(checkInitialization(builder, "nodesetprefix06") != null) return;
     var doc;
     var element;
 
@@ -10869,7 +10592,6 @@ exports[''] = testcase({
    */
   nodesetprefix07 : function () {
     var success;
-    if(checkInitialization(builder, "nodesetprefix07") != null) return;
     var doc;
     var attribute;
 
@@ -10907,7 +10629,6 @@ exports[''] = testcase({
    */
   nodesetprefix08 : function () {
     var success;
-    if(checkInitialization(builder, "nodesetprefix08") != null) return;
     var doc;
     var element;
     var elementList;
@@ -10948,7 +10669,6 @@ exports[''] = testcase({
    */
   nodesetprefix09 : function () {
     var success;
-    if(checkInitialization(builder, "nodesetprefix09") != null) return;
     var doc;
     var value = "#$%&'()@";
     var element;
@@ -10993,7 +10713,6 @@ exports[''] = testcase({
    */
   normalize01 : function () {
     var success;
-    if(checkInitialization(builder, "normalize01") != null) return;
     var doc;
     var root;
     var elementList;
@@ -11037,7 +10756,6 @@ exports[''] = testcase({
    */
   ownerDocument01 : function () {
     var success;
-    if(checkInitialization(builder, "ownerDocument01") != null) return;
     var doc;
     var ownerDocument;
 
@@ -11065,7 +10783,6 @@ exports[''] = testcase({
    */
   ownerElement01 : function () {
     var success;
-    if(checkInitialization(builder, "ownerElement01") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -11106,7 +10823,6 @@ exports[''] = testcase({
    */
   ownerElement02 : function () {
     var success;
-    if(checkInitialization(builder, "ownerElement02") != null) return;
     var doc;
     var newAttr;
     var elementNode;
@@ -11142,7 +10858,6 @@ exports[''] = testcase({
    */
   prefix01 : function () {
     var success;
-    if(checkInitialization(builder, "prefix01") != null) return;
     var doc;
     var createdNode;
     var prefix;
@@ -11175,7 +10890,6 @@ exports[''] = testcase({
    */
   prefix02 : function () {
     var success;
-    if(checkInitialization(builder, "prefix02") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -11211,7 +10925,6 @@ exports[''] = testcase({
    */
   prefix03 : function () {
     var success;
-    if(checkInitialization(builder, "prefix03") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -11244,7 +10957,6 @@ exports[''] = testcase({
    */
   prefix04 : function () {
     var success;
-    if(checkInitialization(builder, "prefix04") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -11282,7 +10994,6 @@ exports[''] = testcase({
    */
   prefix05 : function () {
     var success;
-    if(checkInitialization(builder, "prefix05") != null) return;
     var doc;
     var elementList;
     var addrNode;
@@ -11329,7 +11040,6 @@ exports[''] = testcase({
    */
   prefix06 : function () {
     var success;
-    if(checkInitialization(builder, "prefix06") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -11372,7 +11082,6 @@ exports[''] = testcase({
    */
   prefix07 : function () {
     var success;
-    if(checkInitialization(builder, "prefix07") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -11417,7 +11126,6 @@ exports[''] = testcase({
    */
   prefix08 : function () {
     var success;
-    if(checkInitialization(builder, "prefix08") != null) return;
     var doc;
     var genderList;
     var genderNode;
@@ -11482,7 +11190,6 @@ exports[''] = testcase({
    */
   prefix09 : function () {
     var success;
-    if(checkInitialization(builder, "prefix09") != null) return;
     var doc;
     var elementList;
     var addrNode;
@@ -11528,7 +11235,6 @@ exports[''] = testcase({
    */
   prefix10 : function () {
     var success;
-    if(checkInitialization(builder, "prefix10") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -11572,7 +11278,6 @@ exports[''] = testcase({
    */
   prefix11 : function () {
     var success;
-    if(checkInitialization(builder, "prefix11") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -11616,7 +11321,6 @@ exports[''] = testcase({
    */
   publicId01 : function () {
     var success;
-    if(checkInitialization(builder, "publicId01") != null) return;
     var doc;
     var docType;
     var publicId;
@@ -11657,7 +11361,6 @@ exports[''] = testcase({
    */
   removeAttributeNS01 : function () {
     var success;
-    if(checkInitialization(builder, "removeAttributeNS01") != null) return;
     var doc;
     var genderList;
     var gender;
@@ -11723,7 +11426,6 @@ exports[''] = testcase({
    */
   removeAttributeNS02 : function () {
     var success;
-    if(checkInitialization(builder, "removeAttributeNS02") != null) return;
     var doc;
     var elementList;
     var testAddr;
@@ -11775,7 +11477,6 @@ exports[''] = testcase({
    */
   removeNamedItemNS01 : function () {
     var success;
-    if(checkInitialization(builder, "removeNamedItemNS01") != null) return;
     var doc;
     var elementList;
     var testAddress;
@@ -11819,7 +11520,6 @@ exports[''] = testcase({
    */
   removeNamedItemNS02 : function () {
     var success;
-    if(checkInitialization(builder, "removeNamedItemNS02") != null) return;
     var namespaceURI = "http://www.usa.com";
     var localName = "domest";
     var doc;
@@ -11870,7 +11570,6 @@ exports[''] = testcase({
    */
   removeNamedItemNS03 : function () {
     var success;
-    if(checkInitialization(builder, "removeNamedItemNS03") != null) return;
     var namespaceURI = "http://www.w3.org/2000/xmlns/";
     var localName = "local1";
     var doc;
