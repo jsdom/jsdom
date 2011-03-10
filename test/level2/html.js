@@ -36,10 +36,10 @@ exports.tests = {
     }
     doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vaccesskey = testNode.accessKey;
-    assertEquals("accessKeyLink","g",vaccesskey);
+    test.equal(vaccesskey, "g", "accessKeyLink");
     test.done();
   },
 
@@ -64,10 +64,10 @@ exports.tests = {
     }
     doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcharset = testNode.charset;
-    assertEquals("charsetLink","US-ASCII",vcharset);
+    test.equal(vcharset, "US-ASCII", "charsetLink");
     test.done();
   },
 
@@ -92,10 +92,10 @@ exports.tests = {
     }
     doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcoords = testNode.coords;
-    assertEquals("coordsLink","0,0,100,100",vcoords);
+    test.equal(vcoords, "0,0,100,100", "coordsLink");
     test.done();
   },
 
@@ -119,7 +119,7 @@ exports.tests = {
     }
     doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vhref = testNode.href;
     assertURIEquals("hrefLink",null,null,null,"submit.gif",null,null,null,null,vhref);
@@ -146,10 +146,10 @@ exports.tests = {
     }
     doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vhreflink = testNode.hreflang;
-    assertEquals("hreflangLink","en",vhreflink);
+    test.equal(vhreflink, "en", "hreflangLink");
     test.done();
   },
 
@@ -173,10 +173,10 @@ exports.tests = {
     }
     doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vname = testNode.name;
-    assertEquals("nameLink","Anchor",vname);
+    test.equal(vname, "Anchor", "nameLink");
     test.done();
   },
 
@@ -200,10 +200,10 @@ exports.tests = {
     }
     doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vrel = testNode.rel;
-    assertEquals("relLink","GLOSSARY",vrel);
+    test.equal(vrel, "GLOSSARY", "relLink");
     test.done();
   },
 
@@ -227,10 +227,10 @@ exports.tests = {
     }
     doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vrev = testNode.rev;
-    assertEquals("revLink","STYLESHEET",vrev);
+    test.equal(vrev, "STYLESHEET", "revLink");
     test.done();
   },
 
@@ -254,10 +254,10 @@ exports.tests = {
     }
     doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vshape = testNode.shape;
-    assertEquals("shapeLink","rect",vshape);
+    test.equal(vshape, "rect", "shapeLink");
     test.done();
   },
 
@@ -282,10 +282,10 @@ exports.tests = {
     }
     doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtabindex = testNode.tabIndex;
-    assertEquals("tabIndexLink",22,vtabindex);
+    test.equal(vtabindex, 22, "tabIndexLink");
     test.done();
   },
 
@@ -309,10 +309,10 @@ exports.tests = {
     }
     doc = load("anchor2");
     nodeList = doc.getElementsByTagName("a");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtarget = testNode.target;
-    assertEquals("targetLink","dynamic",vtarget);
+    test.equal(vtarget, "dynamic", "targetLink");
     test.done();
   },
 
@@ -336,10 +336,10 @@ exports.tests = {
     }
     doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtype = testNode.type;
-    assertEquals("typeLink","image/gif",vtype);
+    test.equal(vtype, "image/gif", "typeLink");
     test.done();
   },
 
@@ -360,7 +360,7 @@ exports.tests = {
     }
     doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     testNode.blur();
     test.done();
@@ -383,7 +383,7 @@ exports.tests = {
     }
     doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     testNode.focus();
     test.done();
@@ -410,10 +410,10 @@ exports.tests = {
     }
     doc = load("applet");
     nodeList = doc.getElementsByTagName("applet");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","bottom".toLowerCase(),valign.toLowerCase());
+    test.equal(valign.toLowerCase(), "bottom".toLowerCase(), "alignLink");
     test.done();
   },
 
@@ -438,10 +438,10 @@ exports.tests = {
     }
     doc = load("applet");
     nodeList = doc.getElementsByTagName("applet");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valt = testNode.alt;
-    assertEquals("altLink","Applet Number 1",valt);
+    test.equal(valt, "Applet Number 1", "altLink");
     test.done();
   },
 
@@ -465,10 +465,10 @@ exports.tests = {
     }
     doc = load("applet");
     nodeList = doc.getElementsByTagName("applet");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     varchive = testNode.archive;
-    assertEquals("archiveLink","",varchive);
+    test.equal(varchive, "", "archiveLink");
     test.done();
   },
 
@@ -492,10 +492,10 @@ exports.tests = {
     }
     doc = load("applet");
     nodeList = doc.getElementsByTagName("applet");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcode = testNode.code;
-    assertEquals("codeLink","org/w3c/domts/DOMTSApplet.class",vcode);
+    test.equal(vcode, "org/w3c/domts/DOMTSApplet.class", "codeLink");
     test.done();
   },
 
@@ -519,10 +519,10 @@ exports.tests = {
     }
     doc = load("applet");
     nodeList = doc.getElementsByTagName("applet");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcodebase = testNode.codeBase;
-    assertEquals("codebase","applets",vcodebase);
+    test.equal(vcodebase, "applets", "codebase");
     test.done();
   },
 
@@ -546,10 +546,10 @@ exports.tests = {
     }
     doc = load("applet");
     nodeList = doc.getElementsByTagName("applet");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vheight = testNode.height;
-    assertEquals("heightLink","306",vheight);
+    test.equal(vheight, "306", "heightLink");
     test.done();
   },
 
@@ -574,10 +574,10 @@ exports.tests = {
     }
     doc = load("applet");
     nodeList = doc.getElementsByTagName("applet");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vhspace = testNode.hspace;
-    assertEquals("hspaceLink",0,vhspace);
+    test.equal(vhspace, 0, "hspaceLink");
     test.done();
   },
 
@@ -601,10 +601,10 @@ exports.tests = {
     }
     doc = load("applet");
     nodeList = doc.getElementsByTagName("applet");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vname = testNode.name;
-    assertEquals("nameLink","applet1",vname);
+    test.equal(vname, "applet1", "nameLink");
     test.done();
   },
 
@@ -629,10 +629,10 @@ exports.tests = {
     }
     doc = load("applet");
     nodeList = doc.getElementsByTagName("applet");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vvspace = testNode.vspace;
-    assertEquals("vspaceLink",0,vvspace);
+    test.equal(vvspace, 0, "vspaceLink");
     test.done();
   },
 
@@ -656,10 +656,10 @@ exports.tests = {
     }
     doc = load("applet");
     nodeList = doc.getElementsByTagName("applet");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vwidth = testNode.width;
-    assertEquals("widthLink","301",vwidth);
+    test.equal(vwidth, "301", "widthLink");
     test.done();
   },
 
@@ -684,10 +684,10 @@ exports.tests = {
     }
     doc = load("applet2");
     nodeList = doc.getElementsByTagName("applet");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vobject = testNode.object;
-    assertEquals("object","DOMTSApplet.dat",vobject);
+    test.equal(vobject, "DOMTSApplet.dat", "object");
     test.done();
   },
 
@@ -712,10 +712,10 @@ exports.tests = {
     }
     doc = load("area");
     nodeList = doc.getElementsByTagName("area");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vaccesskey = testNode.accessKey;
-    assertEquals("alignLink","a",vaccesskey);
+    test.equal(vaccesskey, "a", "alignLink");
     test.done();
   },
 
@@ -740,10 +740,10 @@ exports.tests = {
     }
     doc = load("area");
     nodeList = doc.getElementsByTagName("area");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valt = testNode.alt;
-    assertEquals("altLink","Domain",valt);
+    test.equal(valt, "Domain", "altLink");
     test.done();
   },
 
@@ -768,10 +768,10 @@ exports.tests = {
     }
     doc = load("area");
     nodeList = doc.getElementsByTagName("area");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcoords = testNode.coords;
-    assertEquals("coordsLink","0,2,45,45",vcoords);
+    test.equal(vcoords, "0,2,45,45", "coordsLink");
     test.done();
   },
 
@@ -795,7 +795,7 @@ exports.tests = {
     }
     doc = load("area");
     nodeList = doc.getElementsByTagName("area");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vhref = testNode.href;
     assertURIEquals("hrefLink",null,null,null,"dletter.html",null,null,null,null,vhref);
@@ -822,10 +822,10 @@ exports.tests = {
     }
     doc = load("area");
     nodeList = doc.getElementsByTagName("area");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vnohref = testNode.noHref;
-    assertFalse("noHrefLink",vnohref);
+    test.equal(vnohref, false, 'vnohref should be *false*');
     test.done();
   },
 
@@ -849,10 +849,10 @@ exports.tests = {
     }
     doc = load("area");
     nodeList = doc.getElementsByTagName("area");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vshape = testNode.shape;
-    assertEquals("shapeLink","rect".toLowerCase(),vshape.toLowerCase());
+    test.equal(vshape.toLowerCase(), "rect".toLowerCase(), "shapeLink");
     test.done();
   },
 
@@ -877,10 +877,10 @@ exports.tests = {
     }
     doc = load("area");
     nodeList = doc.getElementsByTagName("area");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtabindex = testNode.tabIndex;
-    assertEquals("tabIndexLink",10,vtabindex);
+    test.equal(vtabindex, 10, "tabIndexLink");
     test.done();
   },
 
@@ -904,10 +904,10 @@ exports.tests = {
     }
     doc = load("area2");
     nodeList = doc.getElementsByTagName("area");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtarget = testNode.target;
-    assertEquals("targetLink","dynamic",vtarget);
+    test.equal(vtarget, "dynamic", "targetLink");
     test.done();
   },
 
@@ -931,10 +931,10 @@ exports.tests = {
     }
     doc = load("br");
     nodeList = doc.getElementsByTagName("br");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclear = testNode.clear;
-    assertEquals("clearLink","none",vclear);
+    test.equal(vclear, "none", "clearLink");
     test.done();
   },
 
@@ -958,10 +958,10 @@ exports.tests = {
     }
     doc = load("base");
     nodeList = doc.getElementsByTagName("base");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vhref = testNode.href;
-    assertEquals("hrefLink","about:blank",vhref);
+    test.equal(vhref, "about:blank", "hrefLink");
     test.done();
   },
 
@@ -985,10 +985,10 @@ exports.tests = {
     }
     doc = load("base2");
     nodeList = doc.getElementsByTagName("base");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtarget = testNode.target;
-    assertEquals("targetLink","Frame1",vtarget);
+    test.equal(vtarget, "Frame1", "targetLink");
     test.done();
   },
 
@@ -1012,10 +1012,10 @@ exports.tests = {
     }
     doc = load("basefont");
     nodeList = doc.getElementsByTagName("basefont");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcolor = testNode.color;
-    assertEquals("colorLink","#000000",vcolor);
+    test.equal(vcolor, "#000000", "colorLink");
     test.done();
   },
 
@@ -1039,10 +1039,10 @@ exports.tests = {
     }
     doc = load("basefont");
     nodeList = doc.getElementsByTagName("basefont");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vface = testNode.face;
-    assertEquals("faceLink","arial,helvitica",vface);
+    test.equal(vface, "arial,helvitica", "faceLink");
     test.done();
   },
 
@@ -1066,10 +1066,10 @@ exports.tests = {
     }
     doc = load("basefont");
     nodeList = doc.getElementsByTagName("basefont");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vsize = testNode.size;
-    assertEquals("sizeLink",4,vsize);
+    test.equal(vsize, 4, "sizeLink");
     test.done();
   },
 
@@ -1093,10 +1093,10 @@ exports.tests = {
     }
     doc = load("body");
     nodeList = doc.getElementsByTagName("body");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valink = testNode.aLink;
-    assertEquals("aLinkLink","#0000ff",valink);
+    test.equal(valink, "#0000ff", "aLinkLink");
     test.done();
   },
 
@@ -1121,10 +1121,10 @@ exports.tests = {
     }
     doc = load("body");
     nodeList = doc.getElementsByTagName("body");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vbackground = testNode.background;
-    assertEquals("backgroundLink","./pix/back1.gif",vbackground);
+    test.equal(vbackground, "./pix/back1.gif", "backgroundLink");
     test.done();
   },
 
@@ -1148,10 +1148,10 @@ exports.tests = {
     }
     doc = load("body");
     nodeList = doc.getElementsByTagName("body");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vbgcolor = testNode.bgColor;
-    assertEquals("bgColorLink","#ffff00",vbgcolor);
+    test.equal(vbgcolor, "#ffff00", "bgColorLink");
     test.done();
   },
 
@@ -1176,10 +1176,10 @@ exports.tests = {
     }
     doc = load("body");
     nodeList = doc.getElementsByTagName("body");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlink = testNode.link;
-    assertEquals("linkLink","#ff0000",vlink);
+    test.equal(vlink, "#ff0000", "linkLink");
     test.done();
   },
 
@@ -1203,10 +1203,10 @@ exports.tests = {
     }
     doc = load("body");
     nodeList = doc.getElementsByTagName("body");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtext = testNode.text;
-    assertEquals("textLink","#000000",vtext);
+    test.equal(vtext, "#000000", "textLink");
     test.done();
   },
 
@@ -1231,10 +1231,10 @@ exports.tests = {
     }
     doc = load("body");
     nodeList = doc.getElementsByTagName("body");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vvlink = testNode.vLink;
-    assertEquals("vLinkLink","#00ffff",vvlink);
+    test.equal(vvlink, "#00ffff", "vLinkLink");
     test.done();
   },
 
@@ -1258,7 +1258,7 @@ exports.tests = {
     doc = load("document");
     body = doc.body;
     state = body.isSupported("hTmL",version);
-    assertTrue("isSupportedHTML",state);
+    test.ok(state, 'isSupportedHTML');
     test.done();
   },
 
@@ -1282,7 +1282,7 @@ exports.tests = {
     doc = load("document");
     body = doc.body;
     state = body.isSupported("hTmL",version);
-    assertTrue("isSupportedHTML",state);
+    test.ok(state, 'isSupportedHTML');
     test.done();
   },
 
@@ -1308,7 +1308,7 @@ exports.tests = {
     body = doc.body;
     hasXML = body.isSupported("XML",version);
     state = body.isSupported("xhTmL",version);
-    assertEquals("isSupportedXHTML",hasXML,state);
+    test.equal(state, hasXML, "isSupportedXHTML");
     test.done();
   },
 
@@ -1334,7 +1334,7 @@ exports.tests = {
     body = doc.body;
     hasXML = body.isSupported("XML",version);
     state = body.isSupported("xhTmL",version);
-    assertEquals("isSupportedXHTML",hasXML,state);
+    test.equal(state, hasXML, "isSupportedXHTML");
     test.done();
   },
 
@@ -1358,7 +1358,7 @@ exports.tests = {
     doc = load("document");
     body = doc.body;
     state = body.isSupported("cOrE",version);
-    assertTrue("isSupportedCore",state);
+    test.ok(state, 'isSupportedCore');
     test.done();
   },
 
@@ -1382,7 +1382,7 @@ exports.tests = {
     doc = load("document");
     body = doc.body;
     state = body.isSupported("cOrE",version);
-    assertTrue("isSupportedCore",state);
+    test.ok(state, 'isSupportedCore');
     test.done();
   },
 
@@ -1407,11 +1407,11 @@ exports.tests = {
     }
     doc = load("button");
     nodeList = doc.getElementsByTagName("button");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     fNode = testNode.form;
     vform = fNode.id;
-    assertEquals("formLink","form2",vform);
+    test.equal(vform, "form2", "formLink");
     test.done();
   },
 
@@ -1436,10 +1436,10 @@ exports.tests = {
     }
     doc = load("button");
     nodeList = doc.getElementsByTagName("button");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vform = testNode.form;
-    assertNull("formNullLink",vform);
+    test.equal(formNullLink, null, 'formNullLink should be null');
     test.done();
   },
 
@@ -1464,10 +1464,10 @@ exports.tests = {
     }
     doc = load("button");
     nodeList = doc.getElementsByTagName("button");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vaccesskey = testNode.accessKey;
-    assertEquals("accessKeyLink","f",vaccesskey);
+    test.equal(vaccesskey, "f", "accessKeyLink");
     test.done();
   },
 
@@ -1492,10 +1492,10 @@ exports.tests = {
     }
     doc = load("button");
     nodeList = doc.getElementsByTagName("button");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vdisabled = testNode.disabled;
-    assertTrue("disabledLink",vdisabled);
+    test.ok(vdisabled, 'disabledLink');
     test.done();
   },
 
@@ -1520,10 +1520,10 @@ exports.tests = {
     }
     doc = load("button");
     nodeList = doc.getElementsByTagName("button");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vname = testNode.name;
-    assertEquals("nameLink","disabledButton",vname);
+    test.equal(vname, "disabledButton", "nameLink");
     test.done();
   },
 
@@ -1548,10 +1548,10 @@ exports.tests = {
     }
     doc = load("button");
     nodeList = doc.getElementsByTagName("button");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vtabindex = testNode.tabIndex;
-    assertEquals("tabIndexLink",20,vtabindex);
+    test.equal(vtabindex, 20, "tabIndexLink");
     test.done();
   },
 
@@ -1575,10 +1575,10 @@ exports.tests = {
     }
     doc = load("button");
     nodeList = doc.getElementsByTagName("button");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vtype = testNode.type;
-    assertEquals("typeLink","reset",vtype);
+    test.equal(vtype, "reset", "typeLink");
     test.done();
   },
 
@@ -1602,10 +1602,10 @@ exports.tests = {
     }
     doc = load("button");
     nodeList = doc.getElementsByTagName("button");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vvalue = testNode.value;
-    assertEquals("valueLink","Reset Disabled Button",vvalue);
+    test.equal(vvalue, "Reset Disabled Button", "valueLink");
     test.done();
   },
 
@@ -1634,12 +1634,12 @@ exports.tests = {
     }
     doc = load("collection");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     rowsnodeList = testNode.rows;
     rowNode = rowsnodeList.item(0);
     vrowindex = rowNode.rowIndex;
-    assertEquals("rowIndexLink",0,vrowindex);
+    test.equal(vrowindex, 0, "rowIndexLink");
     test.done();
   },
 
@@ -1668,7 +1668,7 @@ exports.tests = {
     }
     doc = load("collection");
     nodeList = doc.getElementsByTagName("form");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     formsnodeList = testNode.elements;
     formNode = formsnodeList.namedItem("select1");
@@ -1702,7 +1702,7 @@ exports.tests = {
     }
     doc = load("collection");
     nodeList = doc.getElementsByTagName("form");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     formsnodeList = testNode.elements;
     formNode = formsnodeList.namedItem("selectId");
@@ -1742,7 +1742,7 @@ exports.tests = {
     }
     doc = load("collection");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     rowsnodeList = testNode.rows;
     rowLength1 = rowsnodeList.length;
@@ -1750,7 +1750,7 @@ exports.tests = {
     newRow = testNode.insertRow(4);
     rowLength2 = rowsnodeList.length;
     result[result.length] = rowLength2;
-    assertEqualsList("rowIndexLink",expectedResult,result);
+    test.deepEqual(result, expectedResult, 'rowIndexLink');
     test.done();
   },
 
@@ -1777,11 +1777,11 @@ exports.tests = {
     }
     doc = load("collection");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     rowsnodeList = testNode.rows;
     rowLength = rowsnodeList.length;
-    assertEquals("rowIndexLink",4,rowLength);
+    test.equal(rowLength, 4, "rowIndexLink");
     test.done();
   },
 
@@ -1811,12 +1811,12 @@ exports.tests = {
     }
     doc = load("collection");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     rowsnodeList = testNode.rows;
     rowNode = rowsnodeList.item(0);
     vrowindex = rowNode.rowIndex;
-    assertEquals("rowIndexLink",0,vrowindex);
+    test.equal(vrowindex, 0, "rowIndexLink");
     test.done();
   },
 
@@ -1845,12 +1845,12 @@ exports.tests = {
     }
     doc = load("collection");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     rowsnodeList = testNode.rows;
     rowNode = rowsnodeList.item(3);
     vrowindex = rowNode.rowIndex;
-    assertEquals("rowIndexLink",3,vrowindex);
+    test.equal(vrowindex, 3, "rowIndexLink");
     test.done();
   },
 
@@ -1879,12 +1879,12 @@ exports.tests = {
     }
     doc = load("collection");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     rowsnodeList = testNode.rows;
     rowNode = rowsnodeList.item(2);
     vrowindex = rowNode.rowIndex;
-    assertEquals("rowIndexLink",2,vrowindex);
+    test.equal(vrowindex, 2, "rowIndexLink");
     test.done();
   },
 
@@ -1912,11 +1912,11 @@ exports.tests = {
     }
     doc = load("collection");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     rowsnodeList = testNode.rows;
     rowNode = rowsnodeList.item(5);
-    assertNull("rowIndexLink",rowNode);
+    test.equal(rowIndexLink, null, 'rowIndexLink should be null');
     test.done();
   },
 
@@ -1947,7 +1947,7 @@ exports.tests = {
     }
     doc = load("collection");
     nodeList = doc.getElementsByTagName("form");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     formsnodeList = testNode.elements;
     formNode = formsnodeList.namedItem("select1");
@@ -1983,7 +1983,7 @@ exports.tests = {
     }
     doc = load("collection");
     nodeList = doc.getElementsByTagName("form");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     formsnodeList = testNode.elements;
     formNode = formsnodeList.namedItem("selectId");
@@ -2019,11 +2019,11 @@ exports.tests = {
     }
     doc = load("collection");
     nodeList = doc.getElementsByTagName("form");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     formsnodeList = testNode.elements;
     formNode = formsnodeList.namedItem("select9");
-    assertNull("nameIndexLink",formNode);
+    test.equal(nameIndexLink, null, 'nameIndexLink should be null');
     test.done();
   },
 
@@ -2048,10 +2048,10 @@ exports.tests = {
     }
     doc = load("directory");
     nodeList = doc.getElementsByTagName("dir");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcompact = testNode.compact;
-    assertTrue("compactLink",vcompact);
+    test.ok(vcompact, 'compactLink');
     test.done();
   },
 
@@ -2075,10 +2075,10 @@ exports.tests = {
     }
     doc = load("div");
     nodeList = doc.getElementsByTagName("div");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -2103,10 +2103,10 @@ exports.tests = {
     }
     doc = load("dl");
     nodeList = doc.getElementsByTagName("dl");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcompact = testNode.compact;
-    assertTrue("compactLink",vcompact);
+    test.ok(vcompact, 'compactLink');
     test.done();
   },
 
@@ -2129,7 +2129,7 @@ exports.tests = {
     }
     doc = load("document");
     vtitle = doc.title;
-    assertEquals("titleLink","NIST DOM HTML Test - DOCUMENT",vtitle);
+    test.equal(vtitle, "NIST DOM HTML Test - DOCUMENT", "titleLink");
     test.done();
   },
 
@@ -2154,7 +2154,7 @@ exports.tests = {
     }
     doc = load("document");
     vreferrer = doc.referrer;
-    assertEquals("referrerLink","",vreferrer);
+    test.equal(vreferrer, "", "referrerLink");
     test.done();
   },
 
@@ -2179,7 +2179,7 @@ exports.tests = {
     }
     doc = load("document");
     vdomain = doc.domain;
-    assertEquals("domainLink","",vdomain);
+    test.equal(vdomain, "", "domainLink");
     test.done();
   },
 
@@ -2230,7 +2230,7 @@ exports.tests = {
     doc = load("document");
     vbody = doc.body;
     vid = vbody.id;
-    assertEquals("idLink","TEST-BODY",vid);
+    test.equal(vid, "TEST-BODY", "idLink");
     test.done();
   },
 
@@ -2256,7 +2256,7 @@ exports.tests = {
     doc = load("document");
     vimages = doc.images;
     vlength = vimages.length;
-    assertEquals("lengthLink",1,vlength);
+    test.equal(vlength, 1, "lengthLink");
     test.done();
   },
 
@@ -2283,7 +2283,7 @@ exports.tests = {
     doc = load("document");
     vapplets = doc.applets;
     vlength = vapplets.length;
-    assertEquals("length",4,vlength);
+    test.equal(vlength, 4, "length");
     test.done();
   },
 
@@ -2310,7 +2310,7 @@ exports.tests = {
     doc = load("document");
     vlinks = doc.links;
     vlength = vlinks.length;
-    assertEquals("lengthLink",3,vlength);
+    test.equal(vlength, 3, "lengthLink");
     test.done();
   },
 
@@ -2336,7 +2336,7 @@ exports.tests = {
     doc = load("document");
     vforms = doc.forms;
     vlength = vforms.length;
-    assertEquals("lengthLink",1,vlength);
+    test.equal(vlength, 1, "lengthLink");
     test.done();
   },
 
@@ -2363,7 +2363,7 @@ exports.tests = {
     doc = load("document");
     vanchors = doc.anchors;
     vlength = vanchors.length;
-    assertEquals("lengthLink",1,vlength);
+    test.equal(vlength, 1, "lengthLink");
     test.done();
   },
 
@@ -2386,7 +2386,7 @@ exports.tests = {
     }
     doc = load("document");
     vcookie = doc.cookie;
-    assertEquals("cookieLink","",vcookie);
+    test.equal(vcookie, "", "cookieLink");
     test.done();
   },
 
@@ -2410,7 +2410,7 @@ exports.tests = {
     }
     doc = load("document");
     nodeList = doc.getElementsByName("mapid");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     test.done();
   },
 
@@ -2435,7 +2435,7 @@ exports.tests = {
     }
     doc = load("document");
     nodeList = doc.getElementsByName("noid");
-    assertSize("Asize",0,nodeList);
+    test.equal(nodeList.length, 0, 'Asize');
     test.done();
   },
 
@@ -2491,7 +2491,7 @@ exports.tests = {
     }
     doc = load("document");
     elementNode = doc.getElementById("noid");
-    assertNull("elementId",elementNode);
+    test.equal(elementId, null, 'elementId should be null');
     test.done();
   },
 
@@ -2519,7 +2519,7 @@ exports.tests = {
       (bodyElem != null)
     ) {
       bodyChild = bodyElem.firstChild;
-      assertNull("bodyContainsChildren",bodyChild);
+      test.equal(bodyContainsChildren, null, 'bodyContainsChildren should be null');
     }
     test.done();
   },
@@ -2686,7 +2686,7 @@ exports.tests = {
     }
     doc = load("document");
     state = doc.isSupported("hTmL",version);
-    assertTrue("isSupportedHTML",state);
+    test.ok(state, 'isSupportedHTML');
     test.done();
   },
 
@@ -2708,7 +2708,7 @@ exports.tests = {
     }
     doc = load("document");
     state = doc.isSupported("hTmL",version);
-    assertTrue("isSupportedHTML",state);
+    test.ok(state, 'isSupportedHTML');
     test.done();
   },
 
@@ -2732,7 +2732,7 @@ exports.tests = {
     doc = load("document");
     hasXML = doc.isSupported("XML",version);
     state = doc.isSupported("xhTmL",version);
-    assertEquals("isSupportedXHTML",hasXML,state);
+    test.equal(state, hasXML, "isSupportedXHTML");
     test.done();
   },
 
@@ -2756,7 +2756,7 @@ exports.tests = {
     doc = load("document");
     hasXML = doc.isSupported("XML",version);
     state = doc.isSupported("xhTmL",version);
-    assertEquals("isSupportedXHTML",hasXML,state);
+    test.equal(state, hasXML, "isSupportedXHTML");
     test.done();
   },
 
@@ -2778,7 +2778,7 @@ exports.tests = {
     }
     doc = load("document");
     state = doc.isSupported("cOrE",version);
-    assertTrue("isSupportedCore",state);
+    test.ok(state, 'isSupportedCore');
     test.done();
   },
 
@@ -2800,7 +2800,7 @@ exports.tests = {
     }
     doc = load("document");
     state = doc.isSupported("cOrE",version);
-    assertTrue("isSupportedCore",state);
+    test.ok(state, 'isSupportedCore');
     test.done();
   },
 
@@ -2824,10 +2824,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("head");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-HEAD",vid);
+    test.equal(vid, "Test-HEAD", "idLink");
     test.done();
   },
 
@@ -2851,10 +2851,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("sub");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-SUB",vid);
+    test.equal(vid, "Test-SUB", "idLink");
     test.done();
   },
 
@@ -2878,10 +2878,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("sup");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-SUP",vid);
+    test.equal(vid, "Test-SUP", "idLink");
     test.done();
   },
 
@@ -2905,10 +2905,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("span");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-SPAN",vid);
+    test.equal(vid, "Test-SPAN", "idLink");
     test.done();
   },
 
@@ -2932,10 +2932,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("bdo");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-BDO",vid);
+    test.equal(vid, "Test-BDO", "idLink");
     test.done();
   },
 
@@ -2959,10 +2959,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("tt");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-TT",vid);
+    test.equal(vid, "Test-TT", "idLink");
     test.done();
   },
 
@@ -2986,10 +2986,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("i");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-I",vid);
+    test.equal(vid, "Test-I", "idLink");
     test.done();
   },
 
@@ -3013,10 +3013,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("b");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-B",vid);
+    test.equal(vid, "Test-B", "idLink");
     test.done();
   },
 
@@ -3040,10 +3040,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("u");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-U",vid);
+    test.equal(vid, "Test-U", "idLink");
     test.done();
   },
 
@@ -3067,10 +3067,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("s");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-S",vid);
+    test.equal(vid, "Test-S", "idLink");
     test.done();
   },
 
@@ -3094,10 +3094,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("small");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -3121,10 +3121,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("em");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -3148,10 +3148,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("strong");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -3175,10 +3175,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("dfn");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -3202,10 +3202,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("code");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -3229,10 +3229,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("samp");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -3256,10 +3256,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("kbd");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -3283,10 +3283,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("var");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -3310,10 +3310,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("cite");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -3337,10 +3337,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("acronym");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -3364,10 +3364,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("strike");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-STRIKE",vid);
+    test.equal(vid, "Test-STRIKE", "idLink");
     test.done();
   },
 
@@ -3391,10 +3391,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("abbr");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -3418,10 +3418,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("dd");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -3445,10 +3445,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("dt");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -3472,10 +3472,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("noframes");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -3499,10 +3499,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("noscript");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -3526,10 +3526,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("address");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -3553,10 +3553,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("center");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -3580,10 +3580,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("head");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","HEAD-class",vclassname);
+    test.equal(vclassname, "HEAD-class", "classNameLink");
     test.done();
   },
 
@@ -3607,10 +3607,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("sub");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","SUB-class",vclassname);
+    test.equal(vclassname, "SUB-class", "classNameLink");
     test.done();
   },
 
@@ -3634,10 +3634,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("sup");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","SUP-class",vclassname);
+    test.equal(vclassname, "SUP-class", "classNameLink");
     test.done();
   },
 
@@ -3661,10 +3661,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("big");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-BIG",vid);
+    test.equal(vid, "Test-BIG", "idLink");
     test.done();
   },
 
@@ -3688,10 +3688,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("span");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","SPAN-class",vclassname);
+    test.equal(vclassname, "SPAN-class", "classNameLink");
     test.done();
   },
 
@@ -3715,10 +3715,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("bdo");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","BDO-class",vclassname);
+    test.equal(vclassname, "BDO-class", "classNameLink");
     test.done();
   },
 
@@ -3742,10 +3742,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("tt");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","TT-class",vclassname);
+    test.equal(vclassname, "TT-class", "classNameLink");
     test.done();
   },
 
@@ -3769,10 +3769,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("i");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","I-class",vclassname);
+    test.equal(vclassname, "I-class", "classNameLink");
     test.done();
   },
 
@@ -3796,10 +3796,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("b");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","B-class",vclassname);
+    test.equal(vclassname, "B-class", "classNameLink");
     test.done();
   },
 
@@ -3823,10 +3823,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("u");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","U-class",vclassname);
+    test.equal(vclassname, "U-class", "classNameLink");
     test.done();
   },
 
@@ -3850,10 +3850,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("s");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","S-class",vclassname);
+    test.equal(vclassname, "S-class", "classNameLink");
     test.done();
   },
 
@@ -3877,10 +3877,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("strike");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","STRIKE-class",vclassname);
+    test.equal(vclassname, "STRIKE-class", "classNameLink");
     test.done();
   },
 
@@ -3904,10 +3904,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("big");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","BIG-class",vclassname);
+    test.equal(vclassname, "BIG-class", "classNameLink");
     test.done();
   },
 
@@ -3931,10 +3931,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("small");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","SMALL-class",vclassname);
+    test.equal(vclassname, "SMALL-class", "classNameLink");
     test.done();
   },
 
@@ -3958,10 +3958,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("small");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-SMALL",vid);
+    test.equal(vid, "Test-SMALL", "idLink");
     test.done();
   },
 
@@ -3985,10 +3985,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("em");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","EM-class",vclassname);
+    test.equal(vclassname, "EM-class", "classNameLink");
     test.done();
   },
 
@@ -4012,10 +4012,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("strong");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","STRONG-class",vclassname);
+    test.equal(vclassname, "STRONG-class", "classNameLink");
     test.done();
   },
 
@@ -4039,10 +4039,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("dfn");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","DFN-class",vclassname);
+    test.equal(vclassname, "DFN-class", "classNameLink");
     test.done();
   },
 
@@ -4066,10 +4066,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("code");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","CODE-class",vclassname);
+    test.equal(vclassname, "CODE-class", "classNameLink");
     test.done();
   },
 
@@ -4093,10 +4093,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("samp");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","SAMP-class",vclassname);
+    test.equal(vclassname, "SAMP-class", "classNameLink");
     test.done();
   },
 
@@ -4120,10 +4120,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("kbd");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","KBD-class",vclassname);
+    test.equal(vclassname, "KBD-class", "classNameLink");
     test.done();
   },
 
@@ -4147,10 +4147,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("var");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","VAR-class",vclassname);
+    test.equal(vclassname, "VAR-class", "classNameLink");
     test.done();
   },
 
@@ -4174,10 +4174,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("cite");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","CITE-class",vclassname);
+    test.equal(vclassname, "CITE-class", "classNameLink");
     test.done();
   },
 
@@ -4201,10 +4201,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("acronym");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","ACRONYM-class",vclassname);
+    test.equal(vclassname, "ACRONYM-class", "classNameLink");
     test.done();
   },
 
@@ -4228,10 +4228,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("abbr");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","ABBR-class",vclassname);
+    test.equal(vclassname, "ABBR-class", "classNameLink");
     test.done();
   },
 
@@ -4255,10 +4255,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("em");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-EM",vid);
+    test.equal(vid, "Test-EM", "idLink");
     test.done();
   },
 
@@ -4282,10 +4282,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("dd");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","DD-class",vclassname);
+    test.equal(vclassname, "DD-class", "classNameLink");
     test.done();
   },
 
@@ -4309,10 +4309,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("dt");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","DT-class",vclassname);
+    test.equal(vclassname, "DT-class", "classNameLink");
     test.done();
   },
 
@@ -4336,10 +4336,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("noframes");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","NOFRAMES-class",vclassname);
+    test.equal(vclassname, "NOFRAMES-class", "classNameLink");
     test.done();
   },
 
@@ -4363,10 +4363,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("noscript");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","NOSCRIPT-class",vclassname);
+    test.equal(vclassname, "NOSCRIPT-class", "classNameLink");
     test.done();
   },
 
@@ -4390,10 +4390,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("address");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","ADDRESS-class",vclassname);
+    test.equal(vclassname, "ADDRESS-class", "classNameLink");
     test.done();
   },
 
@@ -4417,10 +4417,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("center");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vclassname = testNode.className;
-    assertEquals("classNameLink","CENTER-class",vclassname);
+    test.equal(vclassname, "CENTER-class", "classNameLink");
     test.done();
   },
 
@@ -4444,10 +4444,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("strong");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-STRONG",vid);
+    test.equal(vid, "Test-STRONG", "idLink");
     test.done();
   },
 
@@ -4471,10 +4471,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("dfn");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-DFN",vid);
+    test.equal(vid, "Test-DFN", "idLink");
     test.done();
   },
 
@@ -4498,10 +4498,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("code");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-CODE",vid);
+    test.equal(vid, "Test-CODE", "idLink");
     test.done();
   },
 
@@ -4525,10 +4525,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("samp");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-SAMP",vid);
+    test.equal(vid, "Test-SAMP", "idLink");
     test.done();
   },
 
@@ -4552,10 +4552,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("kbd");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-KBD",vid);
+    test.equal(vid, "Test-KBD", "idLink");
     test.done();
   },
 
@@ -4579,10 +4579,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("var");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-VAR",vid);
+    test.equal(vid, "Test-VAR", "idLink");
     test.done();
   },
 
@@ -4606,10 +4606,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("cite");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-CITE",vid);
+    test.equal(vid, "Test-CITE", "idLink");
     test.done();
   },
 
@@ -4633,10 +4633,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("acronym");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-ACRONYM",vid);
+    test.equal(vid, "Test-ACRONYM", "idLink");
     test.done();
   },
 
@@ -4660,10 +4660,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("abbr");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-ABBR",vid);
+    test.equal(vid, "Test-ABBR", "idLink");
     test.done();
   },
 
@@ -4687,10 +4687,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("dd");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-DD",vid);
+    test.equal(vid, "Test-DD", "idLink");
     test.done();
   },
 
@@ -4714,10 +4714,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("dt");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-DT",vid);
+    test.equal(vid, "Test-DT", "idLink");
     test.done();
   },
 
@@ -4741,10 +4741,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("noframes");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-NOFRAMES",vid);
+    test.equal(vid, "Test-NOFRAMES", "idLink");
     test.done();
   },
 
@@ -4768,10 +4768,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("noscript");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-NOSCRIPT",vid);
+    test.equal(vid, "Test-NOSCRIPT", "idLink");
     test.done();
   },
 
@@ -4795,10 +4795,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("address");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-ADDRESS",vid);
+    test.equal(vid, "Test-ADDRESS", "idLink");
     test.done();
   },
 
@@ -4822,10 +4822,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("center");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vid = testNode.id;
-    assertEquals("idLink","Test-CENTER",vid);
+    test.equal(vid, "Test-CENTER", "idLink");
     test.done();
   },
 
@@ -4849,10 +4849,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("head");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","HEAD Element",vtitle);
+    test.equal(vtitle, "HEAD Element", "titleLink");
     test.done();
   },
 
@@ -4876,10 +4876,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("sub");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","SUB Element",vtitle);
+    test.equal(vtitle, "SUB Element", "titleLink");
     test.done();
   },
 
@@ -4903,10 +4903,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("sup");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","SUP Element",vtitle);
+    test.equal(vtitle, "SUP Element", "titleLink");
     test.done();
   },
 
@@ -4930,10 +4930,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("span");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","SPAN Element",vtitle);
+    test.equal(vtitle, "SPAN Element", "titleLink");
     test.done();
   },
 
@@ -4957,10 +4957,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("bdo");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","BDO Element",vtitle);
+    test.equal(vtitle, "BDO Element", "titleLink");
     test.done();
   },
 
@@ -4984,10 +4984,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("tt");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","TT Element",vtitle);
+    test.equal(vtitle, "TT Element", "titleLink");
     test.done();
   },
 
@@ -5011,10 +5011,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("i");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","I Element",vtitle);
+    test.equal(vtitle, "I Element", "titleLink");
     test.done();
   },
 
@@ -5038,10 +5038,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("b");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","B Element",vtitle);
+    test.equal(vtitle, "B Element", "titleLink");
     test.done();
   },
 
@@ -5065,10 +5065,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("u");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","U Element",vtitle);
+    test.equal(vtitle, "U Element", "titleLink");
     test.done();
   },
 
@@ -5092,10 +5092,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("s");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","S Element",vtitle);
+    test.equal(vtitle, "S Element", "titleLink");
     test.done();
   },
 
@@ -5119,10 +5119,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("strike");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","STRIKE Element",vtitle);
+    test.equal(vtitle, "STRIKE Element", "titleLink");
     test.done();
   },
 
@@ -5146,10 +5146,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("big");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","BIG Element",vtitle);
+    test.equal(vtitle, "BIG Element", "titleLink");
     test.done();
   },
 
@@ -5173,10 +5173,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("small");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","SMALL Element",vtitle);
+    test.equal(vtitle, "SMALL Element", "titleLink");
     test.done();
   },
 
@@ -5200,10 +5200,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("em");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","EM Element",vtitle);
+    test.equal(vtitle, "EM Element", "titleLink");
     test.done();
   },
 
@@ -5227,10 +5227,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("strong");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","STRONG Element",vtitle);
+    test.equal(vtitle, "STRONG Element", "titleLink");
     test.done();
   },
 
@@ -5254,10 +5254,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("dfn");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","DFN Element",vtitle);
+    test.equal(vtitle, "DFN Element", "titleLink");
     test.done();
   },
 
@@ -5281,10 +5281,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("code");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","CODE Element",vtitle);
+    test.equal(vtitle, "CODE Element", "titleLink");
     test.done();
   },
 
@@ -5308,10 +5308,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("samp");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","SAMP Element",vtitle);
+    test.equal(vtitle, "SAMP Element", "titleLink");
     test.done();
   },
 
@@ -5335,10 +5335,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("kbd");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","KBD Element",vtitle);
+    test.equal(vtitle, "KBD Element", "titleLink");
     test.done();
   },
 
@@ -5362,10 +5362,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("var");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","VAR Element",vtitle);
+    test.equal(vtitle, "VAR Element", "titleLink");
     test.done();
   },
 
@@ -5389,10 +5389,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("cite");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","CITE Element",vtitle);
+    test.equal(vtitle, "CITE Element", "titleLink");
     test.done();
   },
 
@@ -5416,10 +5416,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("acronym");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","ACRONYM Element",vtitle);
+    test.equal(vtitle, "ACRONYM Element", "titleLink");
     test.done();
   },
 
@@ -5443,10 +5443,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("abbr");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","ABBR Element",vtitle);
+    test.equal(vtitle, "ABBR Element", "titleLink");
     test.done();
   },
 
@@ -5470,10 +5470,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("dd");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","DD Element",vtitle);
+    test.equal(vtitle, "DD Element", "titleLink");
     test.done();
   },
 
@@ -5497,10 +5497,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("dt");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","DT Element",vtitle);
+    test.equal(vtitle, "DT Element", "titleLink");
     test.done();
   },
 
@@ -5524,10 +5524,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("noframes");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","NOFRAMES Element",vtitle);
+    test.equal(vtitle, "NOFRAMES Element", "titleLink");
     test.done();
   },
 
@@ -5551,10 +5551,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("noscript");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","NOSCRIPT Element",vtitle);
+    test.equal(vtitle, "NOSCRIPT Element", "titleLink");
     test.done();
   },
 
@@ -5578,10 +5578,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("address");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","ADDRESS Element",vtitle);
+    test.equal(vtitle, "ADDRESS Element", "titleLink");
     test.done();
   },
 
@@ -5605,10 +5605,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("center");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vtitle = testNode.title;
-    assertEquals("titleLink","CENTER Element",vtitle);
+    test.equal(vtitle, "CENTER Element", "titleLink");
     test.done();
   },
 
@@ -5632,10 +5632,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("head");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -5659,10 +5659,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("sub");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -5686,10 +5686,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("sup");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -5713,10 +5713,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("span");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -5740,10 +5740,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("bdo");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -5767,10 +5767,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("tt");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -5794,10 +5794,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("i");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -5821,10 +5821,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("b");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -5848,10 +5848,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("u");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -5875,10 +5875,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("s");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -5902,10 +5902,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("strike");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -5929,10 +5929,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("big");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -5956,10 +5956,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("small");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -5983,10 +5983,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("em");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -6010,10 +6010,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("strong");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -6037,10 +6037,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("dfn");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -6064,10 +6064,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("code");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -6091,10 +6091,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("samp");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -6118,10 +6118,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("kbd");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -6145,10 +6145,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("var");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -6172,10 +6172,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("cite");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -6199,10 +6199,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("acronym");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -6226,10 +6226,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("abbr");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -6253,10 +6253,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("dd");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -6280,10 +6280,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("dt");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -6307,10 +6307,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("noframes");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -6334,10 +6334,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("noscript");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -6361,10 +6361,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("address");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -6388,10 +6388,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("center");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vlang = testNode.lang;
-    assertEquals("langLink","en",vlang);
+    test.equal(vlang, "en", "langLink");
     test.done();
   },
 
@@ -6415,10 +6415,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("head");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -6442,10 +6442,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("sub");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -6469,10 +6469,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("sup");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -6496,10 +6496,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("span");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -6523,10 +6523,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("bdo");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -6550,10 +6550,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("tt");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -6577,10 +6577,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("i");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -6604,10 +6604,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("b");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -6631,10 +6631,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("u");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -6658,10 +6658,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("s");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -6685,10 +6685,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("strike");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -6712,10 +6712,10 @@ exports.tests = {
     }
     doc = load("element");
     nodeList = doc.getElementsByTagName("big");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdir = testNode.dir;
-    assertEquals("dirLink","ltr",vdir);
+    test.equal(vdir, "ltr", "dirLink");
     test.done();
   },
 
@@ -6740,11 +6740,11 @@ exports.tests = {
     }
     doc = load("fieldset");
     nodeList = doc.getElementsByTagName("fieldset");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     fNode = testNode.form;
     vform = fNode.id;
-    assertEquals("formLink","form2",vform);
+    test.equal(vform, "form2", "formLink");
     test.done();
   },
 
@@ -6769,10 +6769,10 @@ exports.tests = {
     }
     doc = load("fieldset");
     nodeList = doc.getElementsByTagName("fieldset");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vform = testNode.form;
-    assertNull("formNullLink",vform);
+    test.equal(formNullLink, null, 'formNullLink should be null');
     test.done();
   },
 
@@ -6796,10 +6796,10 @@ exports.tests = {
     }
     doc = load("font");
     nodeList = doc.getElementsByTagName("font");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcolor = testNode.color;
-    assertEquals("colorLink","#000000",vcolor);
+    test.equal(vcolor, "#000000", "colorLink");
     test.done();
   },
 
@@ -6824,10 +6824,10 @@ exports.tests = {
     }
     doc = load("font");
     nodeList = doc.getElementsByTagName("font");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vface = testNode.face;
-    assertEquals("faceLink","arial,helvetica",vface);
+    test.equal(vface, "arial,helvitica", "faceLink");
     test.done();
   },
 
@@ -6851,10 +6851,10 @@ exports.tests = {
     }
     doc = load("font");
     nodeList = doc.getElementsByTagName("font");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vsize = testNode.size;
-    assertEquals("sizeLink","4",vsize);
+    test.equal(vsize, "4", "sizeLink");
     test.done();
   },
 
@@ -6880,11 +6880,11 @@ exports.tests = {
     }
     doc = load("form");
     nodeList = doc.getElementsByTagName("form");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     elementnodeList = testNode.elements;
     velements = elementnodeList.length;
-    assertEquals("elementsLink",3,velements);
+    test.equal(velements, 3, "elementsLink");
     test.done();
   },
 
@@ -6910,10 +6910,10 @@ exports.tests = {
     }
     doc = load("form");
     nodeList = doc.getElementsByTagName("form");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlength = testNode.length;
-    assertEquals("lengthLink",3,vlength);
+    test.equal(vlength, 3, "lengthLink");
     test.done();
   },
 
@@ -6937,10 +6937,10 @@ exports.tests = {
     }
     doc = load("form");
     nodeList = doc.getElementsByTagName("form");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vname = testNode.id;
-    assertEquals("nameLink","form1",vname);
+    test.equal(vname, "form1", "nameLink");
     test.done();
   },
 
@@ -6965,10 +6965,10 @@ exports.tests = {
     }
     doc = load("form");
     nodeList = doc.getElementsByTagName("form");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vacceptcharset = testNode.acceptCharset;
-    assertEquals("acceptCharsetLink","US-ASCII",vacceptcharset);
+    test.equal(vacceptcharset, "US-ASCII", "acceptCharsetLink");
     test.done();
   },
 
@@ -6992,7 +6992,7 @@ exports.tests = {
     }
     doc = load("form");
     nodeList = doc.getElementsByTagName("form");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vaction = testNode.action;
     assertURIEquals("actionLink",null,null,null,"getData.pl",null,null,null,null,vaction);
@@ -7019,10 +7019,10 @@ exports.tests = {
     }
     doc = load("form");
     nodeList = doc.getElementsByTagName("form");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     venctype = testNode.enctype;
-    assertEquals("enctypeLink","application/x-www-form-urlencoded",venctype);
+    test.equal(venctype, "application/x-www-form-urlencoded", "enctypeLink");
     test.done();
   },
 
@@ -7046,10 +7046,10 @@ exports.tests = {
     }
     doc = load("form");
     nodeList = doc.getElementsByTagName("form");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vmethod = testNode.method;
-    assertEquals("methodLink","post",vmethod);
+    test.equal(vmethod, "post", "methodLink");
     test.done();
   },
 
@@ -7073,10 +7073,10 @@ exports.tests = {
     }
     doc = load("form2");
     nodeList = doc.getElementsByTagName("form");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtarget = testNode.target;
-    assertEquals("targetLink","dynamic",vtarget);
+    test.equal(vtarget, "dynamic", "targetLink");
     test.done();
   },
 
@@ -7097,7 +7097,7 @@ exports.tests = {
     }
     doc = load("form2");
     nodeList = doc.getElementsByTagName("form");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     testNode.reset();
     test.done();
@@ -7120,7 +7120,7 @@ exports.tests = {
     }
     doc = load("form3");
     nodeList = doc.getElementsByTagName("form");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     testNode.submit();
     test.done();
@@ -7149,10 +7149,10 @@ exports.tests = {
     }
     doc = load("frame");
     nodeList = doc.getElementsByTagName("frame");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vframeborder = testNode.frameBorder;
-    assertEquals("frameborderLink","1",vframeborder);
+    test.equal(vframeborder, "1", "frameborderLink");
     test.done();
   },
 
@@ -7178,10 +7178,10 @@ exports.tests = {
     }
     doc = load("frame");
     nodeList = doc.getElementsByTagName("frame");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vlongdesc = testNode.longDesc;
-    assertEquals("longdescLink","about:blank",vlongdesc);
+    test.equal(vlongdesc, "about:blank", "longdescLink");
     test.done();
   },
 
@@ -7206,10 +7206,10 @@ exports.tests = {
     }
     doc = load("frame");
     nodeList = doc.getElementsByTagName("frame");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vmarginheight = testNode.marginHeight;
-    assertEquals("marginheightLink","10",vmarginheight);
+    test.equal(vmarginheight, "10", "marginheightLink");
     test.done();
   },
 
@@ -7234,10 +7234,10 @@ exports.tests = {
     }
     doc = load("frame");
     nodeList = doc.getElementsByTagName("frame");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vmarginwidth = testNode.marginWidth;
-    assertEquals("marginwidthLink","5",vmarginwidth);
+    test.equal(vmarginwidth, "5", "marginwidthLink");
     test.done();
   },
 
@@ -7263,10 +7263,10 @@ exports.tests = {
     }
     doc = load("frame");
     nodeList = doc.getElementsByTagName("frame");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vname = testNode.name;
-    assertEquals("nameLink","Frame1",vname);
+    test.equal(vname, "Frame1", "nameLink");
     test.done();
   },
 
@@ -7292,10 +7292,10 @@ exports.tests = {
     }
     doc = load("frame");
     nodeList = doc.getElementsByTagName("frame");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vnoresize = testNode.noResize;
-    assertTrue("noresizeLink",vnoresize);
+    test.ok(vnoresize, 'noresizeLink');
     test.done();
   },
 
@@ -7321,10 +7321,10 @@ exports.tests = {
     }
     doc = load("frame");
     nodeList = doc.getElementsByTagName("frame");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vscrolling = testNode.scrolling;
-    assertEquals("scrollingLink","yes",vscrolling);
+    test.equal(vscrolling, "yes", "scrollingLink");
     test.done();
   },
 
@@ -7349,7 +7349,7 @@ exports.tests = {
     }
     doc = load("frame");
     nodeList = doc.getElementsByTagName("frame");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vsrc = testNode.src;
     assertURIEquals("srcLink",null,null,null,null,"right",null,null,null,vsrc);
@@ -7382,7 +7382,7 @@ exports.tests = {
       cd = testNode.contentDocument;
       vtitle = cd.title;
       // Updated as per: http://lists.w3.org/Archives/Public/www-dom/2009JulSep/0026.html
-      assertEquals("titleLink","NIST DOM HTML Test - FRAME",vtitle);
+      test.equal(vtitle, "NIST DOM HTML Test - FRAME", "titleLink");
     };
     test.done();
   },
@@ -7409,10 +7409,10 @@ exports.tests = {
     }
     doc = load("frameset");
     nodeList = doc.getElementsByTagName("frameset");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vcols = testNode.cols;
-    assertEquals("colsLink","20, 80",vcols);
+    test.equal(vcols, "20, 80", "colsLink");
     test.done();
   },
 
@@ -7438,10 +7438,10 @@ exports.tests = {
     }
     doc = load("frameset");
     nodeList = doc.getElementsByTagName("frameset");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vrows = testNode.rows;
-    assertEquals("rowsLink","100, 200",vrows);
+    test.equal(vrows, "100, 200", "rowsLink");
     test.done();
   },
 
@@ -7465,10 +7465,10 @@ exports.tests = {
     }
     doc = load("hr");
     nodeList = doc.getElementsByTagName("hr");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -7493,10 +7493,10 @@ exports.tests = {
     }
     doc = load("hr");
     nodeList = doc.getElementsByTagName("hr");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vnoshade = testNode.noShade;
-    assertTrue("noShadeLink",vnoshade);
+    test.ok(vnoshade, 'noShadeLink');
     test.done();
   },
 
@@ -7520,10 +7520,10 @@ exports.tests = {
     }
     doc = load("hr");
     nodeList = doc.getElementsByTagName("hr");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vsize = testNode.size;
-    assertEquals("sizeLink","5",vsize);
+    test.equal(vsize, "5", "sizeLink");
     test.done();
   },
 
@@ -7547,10 +7547,10 @@ exports.tests = {
     }
     doc = load("hr");
     nodeList = doc.getElementsByTagName("hr");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vwidth = testNode.width;
-    assertEquals("widthLink","400",vwidth);
+    test.equal(vwidth, "400", "widthLink");
     test.done();
   },
 
@@ -7574,7 +7574,7 @@ exports.tests = {
     }
     doc = load("head");
     nodeList = doc.getElementsByTagName("head");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vprofile = testNode.profile;
     assertURIEquals("profileLink",null,null,null,"profile",null,null,null,null,vprofile);
@@ -7601,10 +7601,10 @@ exports.tests = {
     }
     doc = load("heading");
     nodeList = doc.getElementsByTagName("h1");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -7628,10 +7628,10 @@ exports.tests = {
     }
     doc = load("heading");
     nodeList = doc.getElementsByTagName("h2");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","left",valign);
+    test.equal(valign, "left", "alignLink");
     test.done();
   },
 
@@ -7655,10 +7655,10 @@ exports.tests = {
     }
     doc = load("heading");
     nodeList = doc.getElementsByTagName("h3");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","right",valign);
+    test.equal(valign, "right", "alignLink");
     test.done();
   },
 
@@ -7682,10 +7682,10 @@ exports.tests = {
     }
     doc = load("heading");
     nodeList = doc.getElementsByTagName("h4");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","justify",valign);
+    test.equal(valign, "justify", "alignLink");
     test.done();
   },
 
@@ -7709,10 +7709,10 @@ exports.tests = {
     }
     doc = load("heading");
     nodeList = doc.getElementsByTagName("h5");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -7736,10 +7736,10 @@ exports.tests = {
     }
     doc = load("heading");
     nodeList = doc.getElementsByTagName("h6");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","left",valign);
+    test.equal(valign, "left", "alignLink");
     test.done();
   },
 
@@ -7765,13 +7765,13 @@ exports.tests = {
     }
     doc = load("html");
     nodeList = doc.getElementsByTagName("html");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vversion = testNode.version;
     if(
       (builder.contentType == "text/html")
     ) {
-      assertEquals("versionLink","-//W3C//DTD HTML 4.01 Transitional//EN",vversion);
+      test.equal(vversion, "-//W3C//DTD HTML 4.01 Transitional//EN", "versionLink");
     }
     test.done();
   },
@@ -7798,10 +7798,10 @@ exports.tests = {
     }
     doc = load("iframe");
     nodeList = doc.getElementsByTagName("iframe");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","top",valign);
+    test.equal(valign, "top", "alignLink");
     test.done();
   },
 
@@ -7828,10 +7828,10 @@ exports.tests = {
     }
     doc = load("iframe");
     nodeList = doc.getElementsByTagName("iframe");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vframeborder = testNode.frameBorder;
-    assertEquals("frameborderLink","1",vframeborder);
+    test.equal(vframeborder, "1", "frameborderLink");
     test.done();
   },
 
@@ -7856,10 +7856,10 @@ exports.tests = {
     }
     doc = load("iframe");
     nodeList = doc.getElementsByTagName("iframe");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vheight = testNode.height;
-    assertEquals("heightLink","50",vheight);
+    test.equal(vheight, "50", "heightLink");
     test.done();
   },
 
@@ -7885,10 +7885,10 @@ exports.tests = {
     }
     doc = load("iframe");
     nodeList = doc.getElementsByTagName("iframe");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlongdesc = testNode.longDesc;
-    assertEquals("longdescLink","about:blank",vlongdesc);
+    test.equal(vlongdesc, "about:blank", "longdescLink");
     test.done();
   },
 
@@ -7913,10 +7913,10 @@ exports.tests = {
     }
     doc = load("iframe");
     nodeList = doc.getElementsByTagName("iframe");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vmarginwidth = testNode.marginWidth;
-    assertEquals("marginwidthLink","5",vmarginwidth);
+    test.equal(vmarginwidth, "5", "marginwidthLink");
     test.done();
   },
 
@@ -7941,10 +7941,10 @@ exports.tests = {
     }
     doc = load("iframe");
     nodeList = doc.getElementsByTagName("iframe");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vmarginheight = testNode.marginHeight;
-    assertEquals("marginheightLink","10",vmarginheight);
+    test.equal(vmarginheight, "10", "marginheightLink");
     test.done();
   },
 
@@ -7970,10 +7970,10 @@ exports.tests = {
     }
     doc = load("iframe");
     nodeList = doc.getElementsByTagName("iframe");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vname = testNode.name;
-    assertEquals("nameLink","Iframe1",vname);
+    test.equal(vname, "Iframe1", "nameLink");
     test.done();
   },
 
@@ -7999,10 +7999,10 @@ exports.tests = {
     }
     doc = load("iframe");
     nodeList = doc.getElementsByTagName("iframe");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vscrolling = testNode.scrolling;
-    assertEquals("scrollingLink","yes",vscrolling);
+    test.equal(vscrolling, "yes", "scrollingLink");
     test.done();
   },
 
@@ -8027,7 +8027,7 @@ exports.tests = {
     }
     doc = load("iframe");
     nodeList = doc.getElementsByTagName("iframe");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vsrc = testNode.src;
     assertURIEquals("srcLink",null,null,null,null,"right",null,null,null,vsrc);
@@ -8055,10 +8055,10 @@ exports.tests = {
     }
     doc = load("iframe");
     nodeList = doc.getElementsByTagName("iframe");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vwidth = testNode.width;
-    assertEquals("widthLink","60",vwidth);
+    test.equal(vwidth, "60", "widthLink");
     test.done();
   },
 
@@ -8085,7 +8085,7 @@ exports.tests = {
       testNode = doc.getElementById("Iframe2");
       cd = testNode.contentDocument;
       vtitle = cd.title;
-      assertEquals("titleLink","NIST DOM HTML Test - FRAME",vtitle);
+      test.equal(vtitle, "NIST DOM HTML Test - FRAME", "titleLink");
     };
     test.done();
   },
@@ -8110,10 +8110,10 @@ exports.tests = {
     }
     doc = load("img");
     nodeList = doc.getElementsByTagName("img");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vname = testNode.name;
-    assertEquals("nameLink","IMAGE-1",vname);
+    test.equal(vname, "IMAGE-1", "nameLink");
     test.done();
   },
 
@@ -8138,10 +8138,10 @@ exports.tests = {
     }
     doc = load("img");
     nodeList = doc.getElementsByTagName("img");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","middle",valign);
+    test.equal(valign, "middle", "alignLink");
     test.done();
   },
 
@@ -8166,10 +8166,10 @@ exports.tests = {
     }
     doc = load("img");
     nodeList = doc.getElementsByTagName("img");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valt = testNode.alt;
-    assertEquals("altLink","DTS IMAGE LOGO",valt);
+    test.equal(valt, "DTS IMAGE LOGO", "altLink");
     test.done();
   },
 
@@ -8193,10 +8193,10 @@ exports.tests = {
     }
     doc = load("img");
     nodeList = doc.getElementsByTagName("img");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vborder = testNode.border;
-    assertEquals("borderLink","0",vborder);
+    test.equal(vborder, "0", "borderLink");
     test.done();
   },
 
@@ -8220,10 +8220,10 @@ exports.tests = {
     }
     doc = load("img");
     nodeList = doc.getElementsByTagName("img");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vheight = testNode.height;
-    assertEquals("heightLink",47,vheight);
+    test.equal(vheight, 47, "heightLink");
     test.done();
   },
 
@@ -8248,10 +8248,10 @@ exports.tests = {
     }
     doc = load("img");
     nodeList = doc.getElementsByTagName("img");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vhspace = testNode.hspace;
-    assertEquals("hspaceLink",4,vhspace);
+    test.equal(vhspace, 4, "hspaceLink");
     test.done();
   },
 
@@ -8275,10 +8275,10 @@ exports.tests = {
     }
     doc = load("img");
     nodeList = doc.getElementsByTagName("img");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vismap = testNode.isMap;
-    assertFalse("isMapLink",vismap);
+    test.equal(vismap, false, 'vismap should be *false*');
     test.done();
   },
 
@@ -8303,7 +8303,7 @@ exports.tests = {
     }
     doc = load("img");
     nodeList = doc.getElementsByTagName("img");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlongdesc = testNode.longDesc;
     assertURIEquals("longDescLink",null,null,null,"desc.html",null,null,null,null,vlongdesc);
@@ -8330,7 +8330,7 @@ exports.tests = {
     }
     doc = load("img");
     nodeList = doc.getElementsByTagName("img");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vsrc = testNode.src;
     assertURIEquals("srcLink",null,null,null,"dts.gif",null,null,null,null,vsrc);
@@ -8357,10 +8357,10 @@ exports.tests = {
     }
     doc = load("img");
     nodeList = doc.getElementsByTagName("img");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vusemap = testNode.useMap;
-    assertEquals("useMapLink","#DTS-MAP",vusemap);
+    test.equal(vusemap, "#DTS-MAP", "useMapLink");
     test.done();
   },
 
@@ -8385,10 +8385,10 @@ exports.tests = {
     }
     doc = load("img");
     nodeList = doc.getElementsByTagName("img");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vvspace = testNode.vspace;
-    assertEquals("vspaceLink",10,vvspace);
+    test.equal(vvspace, 10, "vspaceLink");
     test.done();
   },
 
@@ -8412,10 +8412,10 @@ exports.tests = {
     }
     doc = load("img");
     nodeList = doc.getElementsByTagName("img");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vwidth = testNode.width;
-    assertEquals("widthLink",115,vwidth);
+    test.equal(vwidth, 115, "widthLink");
     test.done();
   },
 
@@ -8441,10 +8441,10 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(0);
     vdefaultvalue = testNode.defaultValue;
-    assertEquals("defaultValueLink","Password",vdefaultvalue);
+    test.equal(vdefaultvalue, "Password", "defaultValueLink");
     test.done();
   },
 
@@ -8470,10 +8470,10 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(3);
     vdefaultchecked = testNode.defaultChecked;
-    assertTrue("defaultCheckedLink",vdefaultchecked);
+    test.ok(vdefaultchecked, 'defaultCheckedLink');
     test.done();
   },
 
@@ -8498,11 +8498,11 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(0);
     fNode = testNode.form;
     vform = fNode.id;
-    assertEquals("formLink","form1",vform);
+    test.equal(vform, "form1", "formLink");
     test.done();
   },
 
@@ -8528,10 +8528,10 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(8);
     vaccept = testNode.accept;
-    assertEquals("acceptLink","GIF,JPEG",vaccept);
+    test.equal(vaccept, 'GIF,JPEG', 'acceptLink');
     test.done();
   },
 
@@ -8557,10 +8557,10 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(1);
     vaccesskey = testNode.accessKey;
-    assertEquals("accesskeyLink","c",vaccesskey);
+    test.equal(vaccesskey, "c", "accesskeyLink");
     test.done();
   },
 
@@ -8586,10 +8586,10 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(3);
     valign = testNode.align;
-    assertEquals("alignLink","bottom".toLowerCase(),valign.toLowerCase());
+    test.equal(valign.toLowerCase(), "bottom".toLowerCase(), "alignLink");
     test.done();
   },
 
@@ -8615,10 +8615,10 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(0);
     valt = testNode.alt;
-    assertEquals("altLink","Password entry",valt);
+    test.equal(valt, "Password entry", "altLink");
     test.done();
   },
 
@@ -8644,10 +8644,10 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(2);
     vchecked = testNode.checked;
-    assertTrue("checkedLink",vchecked);
+    test.ok(vchecked, 'checkedLink');
     test.done();
   },
 
@@ -8672,10 +8672,10 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(6);
     vdisabled = testNode.disabled;
-    assertTrue("disabledLink",vdisabled);
+    test.ok(vdisabled, 'disabledLink');
     test.done();
   },
 
@@ -8701,10 +8701,10 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(0);
     vmaxlength = testNode.maxLength;
-    assertEquals("maxlengthLink",5,vmaxlength);
+    test.equal(vmaxlength, 5, "maxlengthLink");
     test.done();
   },
 
@@ -8730,10 +8730,10 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(0);
     vname = testNode.name;
-    assertEquals("nameLink","Password",vname);
+    test.equal(vname, "Password", "nameLink");
     test.done();
   },
 
@@ -8759,10 +8759,10 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(0);
     vreadonly = testNode.readOnly;
-    assertTrue("readonlyLink",vreadonly);
+    test.ok(vreadonly, 'readonlyLink');
     test.done();
   },
 
@@ -8788,10 +8788,10 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(0);
     vsize = testNode.size;
-    assertEquals("size",25,vsize);
+    test.equal(vsize, 25, "size");
     test.done();
   },
 
@@ -8817,7 +8817,7 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(7);
     vsrc = testNode.src;
     assertURIEquals("srcLink",null,null,null,"submit.gif",null,null,null,null,vsrc);
@@ -8846,10 +8846,10 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(2);
     vtabindex = testNode.tabIndex;
-    assertEquals("tabindexLink",9,vtabindex);
+    test.equal(vtabindex, 9, "tabindexLink");
     test.done();
   },
 
@@ -8874,10 +8874,10 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(0);
     vtype = testNode.type;
-    assertEquals("typeLink","password",vtype);
+    test.equal(vtype, "password", "typeLink");
     test.done();
   },
 
@@ -8902,10 +8902,10 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(7);
     vusemap = testNode.useMap;
-    assertEquals("usemapLink","#submit-map",vusemap);
+    test.equal(vusemap, "#submit-map", "usemapLink");
     test.done();
   },
 
@@ -8931,10 +8931,10 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(1);
     vvalue = testNode.value;
-    assertEquals("valueLink","ReHire",vvalue);
+    test.equal(vvalue, "ReHire", "valueLink");
     test.done();
   },
 
@@ -8955,7 +8955,7 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(1);
     testNode.blur();
     test.done();
@@ -8978,7 +8978,7 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(1);
     testNode.focus();
     test.done();
@@ -9002,13 +9002,13 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(1);
     checked = testNode.checked;
-    assertFalse("notCheckedBeforeClick",checked);
+    test.equal(checked, false, 'checked should be *false*');
     testNode.click();
     checked = testNode.checked;
-    assertTrue("checkedAfterClick",checked);
+    test.ok(checked, 'checkedAfterClick');
     test.done();
   },
 
@@ -9030,7 +9030,7 @@ exports.tests = {
     }
     doc = load("input");
     nodeList = doc.getElementsByTagName("input");
-    assertSize("Asize",9,nodeList);
+    test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(0);
     testNode.select();
     test.done();
@@ -9059,14 +9059,14 @@ exports.tests = {
     doc = load("isindex");
     nodeList = doc.getElementsByTagName("isindex");
     testNode = nodeList.item(0);
-    assertNotNull("notnull",testNode);
+    test.notEqual(testNode, null, 'testNode should not be null');
     prompt = testNode.prompt;
-    assertEquals("IsIndex.Prompt","New Employee: ",prompt);
+    test.equal(prompt, "New Employee: ", "IsIndex.Prompt");
     fNode = testNode.form;
-    assertNotNull("formNotNull",fNode);
+    test.notEqual(fNode, null, 'fNode should not be null');
     vform = fNode.id;
-    assertEquals("formLink","form1",vform);
-    assertSize("Asize",2,nodeList);
+    test.equal(vform, "form1", "formLink");
+    test.equal(nodeList.length, 2, 'Asize');
     test.done();
   },
 
@@ -9093,12 +9093,12 @@ exports.tests = {
     doc = load("isindex");
     nodeList = doc.getElementsByTagName("isindex");
     testNode = nodeList.item(1);
-    assertNotNull("notnull",testNode);
+    test.notEqual(testNode, null, 'testNode should not be null');
     prompt = testNode.prompt;
-    assertEquals("IsIndex.Prompt","Old Employee: ",prompt);
+    test.equal(prompt, "Old Employee: ", "IsIndex.Prompt");
     vform = testNode.form;
-    assertNull("formNullLink",vform);
-    assertSize("Asize",2,nodeList);
+    test.equal(formNullLink, null, 'formNullLink should be null');
+    test.equal(nodeList.length, 2, 'Asize');
     test.done();
   },
 
@@ -9123,10 +9123,10 @@ exports.tests = {
     }
     doc = load("isindex");
     nodeList = doc.getElementsByTagName("isindex");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vprompt = testNode.prompt;
-    assertEquals("promptLink","New Employee: ",vprompt);
+    test.equal(vprompt, "New Employee: ", "promptLink");
     test.done();
   },
 
@@ -9150,10 +9150,10 @@ exports.tests = {
     }
     doc = load("li");
     nodeList = doc.getElementsByTagName("li");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vtype = testNode.type;
-    assertEquals("typeLink","square",vtype);
+    test.equal(vtype, "square", "typeLink");
     test.done();
   },
 
@@ -9177,10 +9177,10 @@ exports.tests = {
     }
     doc = load("li");
     nodeList = doc.getElementsByTagName("li");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vvalue = testNode.value;
-    assertEquals("valueLink",2,vvalue);
+    test.equal(vvalue, 2, "valueLink");
     test.done();
   },
 
@@ -9205,11 +9205,11 @@ exports.tests = {
     }
     doc = load("label");
     nodeList = doc.getElementsByTagName("label");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     fNode = testNode.form;
     vform = fNode.id;
-    assertEquals("formLink","form1",vform);
+    test.equal(vform, "form1", "formLink");
     test.done();
   },
 
@@ -9234,10 +9234,10 @@ exports.tests = {
     }
     doc = load("label");
     nodeList = doc.getElementsByTagName("label");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vform = testNode.form;
-    assertNull("formNullLink",vform);
+    test.equal(formNullLink, null, 'formNullLink should be null');
     test.done();
   },
 
@@ -9262,10 +9262,10 @@ exports.tests = {
     }
     doc = load("label");
     nodeList = doc.getElementsByTagName("label");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vaccesskey = testNode.accessKey;
-    assertEquals("accesskeyLink","b",vaccesskey);
+    test.equal(vaccesskey, "b", "accesskeyLink");
     test.done();
   },
 
@@ -9291,10 +9291,10 @@ exports.tests = {
     }
     doc = load("label");
     nodeList = doc.getElementsByTagName("label");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vhtmlfor = testNode.htmlFor;
-    assertEquals("htmlForLink","input1",vhtmlfor);
+    test.equal(vhtmlfor, "input1", "htmlForLink");
     test.done();
   },
 
@@ -9320,11 +9320,11 @@ exports.tests = {
     }
     doc = load("legend");
     nodeList = doc.getElementsByTagName("legend");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     fNode = testNode.form;
     vform = fNode.id;
-    assertEquals("formLink","form1",vform);
+    test.equal(vform, "form1", "formLink");
     test.done();
   },
 
@@ -9349,10 +9349,10 @@ exports.tests = {
     }
     doc = load("legend");
     nodeList = doc.getElementsByTagName("legend");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vform = testNode.form;
-    assertNull("formNullLink",vform);
+    test.equal(formNullLink, null, 'formNullLink should be null');
     test.done();
   },
 
@@ -9377,10 +9377,10 @@ exports.tests = {
     }
     doc = load("legend");
     nodeList = doc.getElementsByTagName("legend");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vaccesskey = testNode.accessKey;
-    assertEquals("accesskeyLink","b",vaccesskey);
+    test.equal(vaccesskey, "b", "accesskeyLink");
     test.done();
   },
 
@@ -9404,10 +9404,10 @@ exports.tests = {
     }
     doc = load("legend");
     nodeList = doc.getElementsByTagName("legend");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","top",valign);
+    test.equal(valign, "top", "alignLink");
     test.done();
   },
 
@@ -9431,10 +9431,10 @@ exports.tests = {
     }
     doc = load("link");
     nodeList = doc.getElementsByTagName("link");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vdisabled = testNode.disabled;
-    assertFalse("disabled",vdisabled);
+    test.equal(vdisabled, false, 'vdisabled should be *false*');
     test.done();
   },
 
@@ -9459,10 +9459,10 @@ exports.tests = {
     }
     doc = load("link");
     nodeList = doc.getElementsByTagName("link");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vcharset = testNode.charset;
-    assertEquals("charsetLink","Latin-1",vcharset);
+    test.equal(vcharset, "Latin-1", "charsetLink");
     test.done();
   },
 
@@ -9486,7 +9486,7 @@ exports.tests = {
     }
     doc = load("link");
     nodeList = doc.getElementsByTagName("link");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vhref = testNode.href;
     assertURIEquals("hrefLink",null,null,null,"glossary.html",null,null,null,null,vhref);
@@ -9513,10 +9513,10 @@ exports.tests = {
     }
     doc = load("link");
     nodeList = doc.getElementsByTagName("link");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vhreflang = testNode.hreflang;
-    assertEquals("hreflangLink","en",vhreflang);
+    test.equal(vhreflang, "en", "hreflangLink");
     test.done();
   },
 
@@ -9540,10 +9540,10 @@ exports.tests = {
     }
     doc = load("link");
     nodeList = doc.getElementsByTagName("link");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vmedia = testNode.media;
-    assertEquals("mediaLink","screen",vmedia);
+    test.equal(vmedia, "screen", "mediaLink");
     test.done();
   },
 
@@ -9567,10 +9567,10 @@ exports.tests = {
     }
     doc = load("link");
     nodeList = doc.getElementsByTagName("link");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vrel = testNode.rel;
-    assertEquals("relLink","Glossary",vrel);
+    test.equal(vrel, "Glossary", "relLink");
     test.done();
   },
 
@@ -9594,10 +9594,10 @@ exports.tests = {
     }
     doc = load("link");
     nodeList = doc.getElementsByTagName("link");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vrev = testNode.rev;
-    assertEquals("revLink","stylesheet",vrev);
+    test.equal(vrev, "stylesheet", "revLink");
     test.done();
   },
 
@@ -9621,10 +9621,10 @@ exports.tests = {
     }
     doc = load("link");
     nodeList = doc.getElementsByTagName("link");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vtype = testNode.type;
-    assertEquals("typeLink","text/html",vtype);
+    test.equal(vtype, "text/html", "typeLink");
     test.done();
   },
 
@@ -9648,10 +9648,10 @@ exports.tests = {
     }
     doc = load("link2");
     nodeList = doc.getElementsByTagName("link");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vtarget = testNode.target;
-    assertEquals("targetLink","dynamic",vtarget);
+    test.equal(vtarget, "dynamic", "targetLink");
     test.done();
   },
 
@@ -9676,11 +9676,11 @@ exports.tests = {
     }
     doc = load("map");
     nodeList = doc.getElementsByTagName("map");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     areasnodeList = testNode.areas;
     vareas = areasnodeList.length;
-    assertEquals("areasLink",3,vareas);
+    test.equal(vareas, 3, "areasLink");
     test.done();
   },
 
@@ -9704,10 +9704,10 @@ exports.tests = {
     }
     doc = load("map");
     nodeList = doc.getElementsByTagName("map");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vname = testNode.name;
-    assertEquals("mapLink","mapid",vname);
+    test.equal(vname, "mapid", "mapLink");
     test.done();
   },
 
@@ -9732,10 +9732,10 @@ exports.tests = {
     }
     doc = load("menu");
     nodeList = doc.getElementsByTagName("menu");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcompact = testNode.compact;
-    assertTrue("compactLink",vcompact);
+    test.ok(vcompact, 'compactLink');
     test.done();
   },
 
@@ -9759,10 +9759,10 @@ exports.tests = {
     }
     doc = load("meta");
     nodeList = doc.getElementsByTagName("meta");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcontent = testNode.content;
-    assertEquals("contentLink","text/html; CHARSET=utf-8",vcontent);
+    test.equal(vcontent, "text/html; CHARSET=utf-8", "contentLink");
     test.done();
   },
 
@@ -9786,10 +9786,10 @@ exports.tests = {
     }
     doc = load("meta");
     nodeList = doc.getElementsByTagName("meta");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vhttpequiv = testNode.httpEquiv;
-    assertEquals("httpEquivLink","Content-Type",vhttpequiv);
+    test.equal(vhttpequiv, "Content-Type", "httpEquivLink");
     test.done();
   },
 
@@ -9813,10 +9813,10 @@ exports.tests = {
     }
     doc = load("meta");
     nodeList = doc.getElementsByTagName("meta");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vname = testNode.name;
-    assertEquals("nameLink","Meta-Name",vname);
+    test.equal(vname, "Meta-Name", "nameLink");
     test.done();
   },
 
@@ -9840,10 +9840,10 @@ exports.tests = {
     }
     doc = load("meta");
     nodeList = doc.getElementsByTagName("meta");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vscheme = testNode.scheme;
-    assertEquals("schemeLink","NIST",vscheme);
+    test.equal(vscheme, "NIST", "schemeLink");
     test.done();
   },
 
@@ -9868,7 +9868,7 @@ exports.tests = {
     }
     doc = load("mod");
     nodeList = doc.getElementsByTagName("ins");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcite = testNode.cite;
     assertURIEquals("citeLink",null,null,null,"ins-reasons.html",null,null,null,null,vcite);
@@ -9895,10 +9895,10 @@ exports.tests = {
     }
     doc = load("mod");
     nodeList = doc.getElementsByTagName("ins");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdatetime = testNode.dateTime;
-    assertEquals("dateTimeLink","January 1, 2002",vdatetime);
+    test.equal(vdatetime, "January 1, 2002", "dateTimeLink");
     test.done();
   },
 
@@ -9923,7 +9923,7 @@ exports.tests = {
     }
     doc = load("mod");
     nodeList = doc.getElementsByTagName("del");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcite = testNode.cite;
     assertURIEquals("citeLink",null,null,null,"del-reasons.html",null,null,null,null,vcite);
@@ -9950,10 +9950,10 @@ exports.tests = {
     }
     doc = load("mod");
     nodeList = doc.getElementsByTagName("del");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdatetime = testNode.dateTime;
-    assertEquals("dateTimeLink","January 2, 2002",vdatetime);
+    test.equal(vdatetime, "January 2, 2002", "dateTimeLink");
     test.done();
   },
 
@@ -9978,10 +9978,10 @@ exports.tests = {
     }
     doc = load("olist");
     nodeList = doc.getElementsByTagName("ol");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcompact = testNode.compact;
-    assertTrue("compactLink",vcompact);
+    test.ok(vcompact, 'compactLink');
     test.done();
   },
 
@@ -10005,10 +10005,10 @@ exports.tests = {
     }
     doc = load("olist");
     nodeList = doc.getElementsByTagName("ol");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vstart = testNode.start;
-    assertEquals("startLink",1,vstart);
+    test.equal(vstart, 1, "startLink");
     test.done();
   },
 
@@ -10032,10 +10032,10 @@ exports.tests = {
     }
     doc = load("olist");
     nodeList = doc.getElementsByTagName("ol");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtype = testNode.type;
-    assertEquals("typeLink","1",vtype);
+    test.equal(vtype, "1", "typeLink");
     test.done();
   },
 
@@ -10060,11 +10060,11 @@ exports.tests = {
     }
     doc = load("object2");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     fNode = testNode.form;
     vform = fNode.id;
-    assertEquals("idLink","object2",vform);
+    test.equal(vform, "object2", "idLink");
     test.done();
   },
 
@@ -10089,10 +10089,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vcode = testNode.code;
-    assertEquals("codeLink","",vcode);
+    test.equal(vcode, "", "codeLink");
     test.done();
   },
 
@@ -10118,10 +10118,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","middle",valign);
+    test.equal(valign, "middle", "alignLink");
     test.done();
   },
 
@@ -10146,10 +10146,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     varchive = testNode.archive;
-    assertEquals("archiveLink","",varchive);
+    test.equal(varchive, "", "archiveLink");
     test.done();
   },
 
@@ -10174,10 +10174,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vborder = testNode.border;
-    assertEquals("borderLink","0",vborder);
+    test.equal(vborder, "0", "borderLink");
     test.done();
   },
 
@@ -10203,7 +10203,7 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vcodebase = testNode.codeBase;
     assertURIEquals("codebaseLink",null,"//xw2k.sdct.itl.nist.gov/brady/dom/",null,null,null,null,null,null,vcodebase);
@@ -10232,10 +10232,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vcodetype = testNode.codeType;
-    assertEquals("codetypeLink","image/gif",vcodetype);
+    test.equal(vcodetype, "image/gif", "codetypeLink");
     test.done();
   },
 
@@ -10260,7 +10260,7 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vdata = testNode.data;
     assertURIEquals("dataLink",null,null,null,"logo.gif",null,null,null,null,vdata);
@@ -10289,10 +10289,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vdeclare = testNode.declare;
-    assertTrue("declareLink",vdeclare);
+    test.ok(vdeclare, 'declareLink');
     test.done();
   },
 
@@ -10318,10 +10318,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vheight = testNode.height;
-    assertEquals("heightLink","60",vheight);
+    test.equal(vheight, "60", "heightLink");
     test.done();
   },
 
@@ -10347,10 +10347,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vhspace = testNode.hspace;
-    assertEquals("hspaceLink",0,vhspace);
+    test.equal(vhspace, 0, "hspaceLink");
     test.done();
   },
 
@@ -10376,10 +10376,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vstandby = testNode.standby;
-    assertEquals("alignLink","Loading Image ...",vstandby);
+    test.equal(vstandby, "Loading Image ...", "alignLink");
     test.done();
   },
 
@@ -10405,10 +10405,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vtabindex = testNode.tabIndex;
-    assertEquals("tabIndexLink",0,vtabindex);
+    test.equal(vtabindex, 0, "tabIndexLink");
     test.done();
   },
 
@@ -10434,10 +10434,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vtype = testNode.type;
-    assertEquals("typeLink","image/gif",vtype);
+    test.equal(vtype, "image/gif", "typeLink");
     test.done();
   },
 
@@ -10462,10 +10462,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vusemap = testNode.useMap;
-    assertEquals("useMapLink","#DivLogo-map",vusemap);
+    test.equal(vusemap, "#DivLogo-map", "useMapLink");
     test.done();
   },
 
@@ -10491,10 +10491,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vvspace = testNode.vspace;
-    assertEquals("vspaceLink",0,vvspace);
+    test.equal(vvspace, 0, "vspaceLink");
     test.done();
   },
 
@@ -10519,10 +10519,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vwidth = testNode.width;
-    assertEquals("widthLink","550",vwidth);
+    test.equal(vwidth, "550", "widthLink");
     test.done();
   },
 
@@ -10548,10 +10548,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vname = testNode.name;
-    assertEquals("vspaceLink","OBJECT2",vname);
+    test.equal(vname, "OBJECT2", "vspaceLink");
     test.done();
   },
 
@@ -10576,10 +10576,10 @@ exports.tests = {
     }
     doc = load("object2");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vform = testNode.form;
-    assertNull("formNullLink",vform);
+    test.equal(formNullLink, null, 'formNullLink should be null');
     test.done();
   },
 
@@ -10606,7 +10606,7 @@ exports.tests = {
     nodeList = doc.getElementsByTagName("object");
     testNode = nodeList.item(1);
     cd = testNode.contentDocument;
-    assertNull("noContentDocument",cd);
+    test.equal(noContentDocument, null, 'noContentDocument should be null');
     test.done();
   },
 
@@ -10631,10 +10631,10 @@ exports.tests = {
     }
     doc = load("optgroup");
     nodeList = doc.getElementsByTagName("optgroup");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vdisabled = testNode.disabled;
-    assertTrue("disabledLink",vdisabled);
+    test.ok(vdisabled, 'disabledLink');
     test.done();
   },
 
@@ -10658,10 +10658,10 @@ exports.tests = {
     }
     doc = load("optgroup");
     nodeList = doc.getElementsByTagName("optgroup");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vlabel = testNode.label;
-    assertEquals("labelLink","Regular Employees",vlabel);
+    test.equal(vlabel, "Regular Employees", "labelLink");
     test.done();
   },
 
@@ -10687,11 +10687,11 @@ exports.tests = {
     }
     doc = load("option");
     nodeList = doc.getElementsByTagName("option");
-    assertSize("Asize",10,nodeList);
+    test.equal(nodeList.length, 10, 'Asize');
     testNode = nodeList.item(0);
     fNode = testNode.form;
     vform = fNode.id;
-    assertEquals("formLink","form1",vform);
+    test.equal(vform, "form1", "formLink");
     test.done();
   },
 
@@ -10717,10 +10717,10 @@ exports.tests = {
     }
     doc = load("option");
     nodeList = doc.getElementsByTagName("option");
-    assertSize("Asize",10,nodeList);
+    test.equal(nodeList.length, 10, 'Asize');
     testNode = nodeList.item(6);
     vform = testNode.form;
-    assertNull("formNullLink",vform);
+    test.equal(formNullLink, null, 'formNullLink should be null');
     test.done();
   },
 
@@ -10746,10 +10746,10 @@ exports.tests = {
     }
     doc = load("option");
     nodeList = doc.getElementsByTagName("option");
-    assertSize("Asize",10,nodeList);
+    test.equal(nodeList.length, 10, 'Asize');
     testNode = nodeList.item(0);
     vdefaultselected = testNode.defaultSelected;
-    assertTrue("defaultSelectedLink",vdefaultselected);
+    test.ok(vdefaultselected, 'defaultSelectedLink');
     test.done();
   },
 
@@ -10774,10 +10774,10 @@ exports.tests = {
     }
     doc = load("option");
     nodeList = doc.getElementsByTagName("option");
-    assertSize("Asize",10,nodeList);
+    test.equal(nodeList.length, 10, 'Asize');
     testNode = nodeList.item(1);
     vtext = testNode.text;
-    assertEquals("textLink","EMP10002",vtext);
+    test.equal(vtext, "EMP10002", "textLink");
     test.done();
   },
 
@@ -10803,10 +10803,10 @@ exports.tests = {
     }
     doc = load("option");
     nodeList = doc.getElementsByTagName("option");
-    assertSize("Asize",10,nodeList);
+    test.equal(nodeList.length, 10, 'Asize');
     testNode = nodeList.item(6);
     vindex = testNode.index;
-    assertEquals("indexLink",1,vindex);
+    test.equal(vindex, 1, "indexLink");
     test.done();
   },
 
@@ -10832,10 +10832,10 @@ exports.tests = {
     }
     doc = load("option");
     nodeList = doc.getElementsByTagName("option");
-    assertSize("Asize",10,nodeList);
+    test.equal(nodeList.length, 10, 'Asize');
     testNode = nodeList.item(9);
     vdisabled = testNode.disabled;
-    assertTrue("disabledLink",vdisabled);
+    test.ok(vdisabled, 'disabledLink');
     test.done();
   },
 
@@ -10861,10 +10861,10 @@ exports.tests = {
     }
     doc = load("option");
     nodeList = doc.getElementsByTagName("option");
-    assertSize("Asize",10,nodeList);
+    test.equal(nodeList.length, 10, 'Asize');
     testNode = nodeList.item(1);
     vlabel = testNode.label;
-    assertEquals("labelLink","l1",vlabel);
+    test.equal(vlabel, "l1", "labelLink");
     test.done();
   },
 
@@ -10890,10 +10890,10 @@ exports.tests = {
     }
     doc = load("option");
     nodeList = doc.getElementsByTagName("option");
-    assertSize("Asize",10,nodeList);
+    test.equal(nodeList.length, 10, 'Asize');
     testNode = nodeList.item(0);
     vselected = testNode.defaultSelected;
-    assertTrue("selectedLink",vselected);
+    test.ok(vselected, 'selectedLink');
     test.done();
   },
 
@@ -10918,10 +10918,10 @@ exports.tests = {
     }
     doc = load("option");
     nodeList = doc.getElementsByTagName("option");
-    assertSize("Asize",10,nodeList);
+    test.equal(nodeList.length, 10, 'Asize');
     testNode = nodeList.item(0);
     vvalue = testNode.value;
-    assertEquals("valueLink","10001",vvalue);
+    test.equal(vvalue, "10001", "valueLink");
     test.done();
   },
 
@@ -10949,11 +10949,11 @@ exports.tests = {
     }
     doc = load("optionscollection");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     optionsList = testNode.options;
     vlength = optionsList.length;
-    assertEquals("lengthLink",5,vlength);
+    test.equal(vlength, 5, "lengthLink");
     test.done();
   },
 
@@ -10987,13 +10987,13 @@ exports.tests = {
     }
     doc = load("optionscollection");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     optionsList = testNode.options;
     optionsNode = optionsList.item(3);
     optionsValueNode = optionsNode.firstChild;
     vvalue = optionsValueNode.nodeValue;
-    assertEquals("valueIndexLink","EMP10004",vvalue);
+    test.equal(vvalue, "EMP10004", "valueIndexLink");
     test.done();
   },
 
@@ -11028,7 +11028,7 @@ exports.tests = {
     }
     doc = load("optionscollection");
     nodeList = doc.getElementsByTagName("form");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     formsnodeList = testNode.elements;
     optionsNode = formsnodeList.namedItem("select1");
@@ -11068,7 +11068,7 @@ exports.tests = {
     }
     doc = load("optionscollection");
     nodeList = doc.getElementsByTagName("form");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     formsnodeList = testNode.elements;
     optionsNode = formsnodeList.namedItem("selectId");
@@ -11110,11 +11110,11 @@ exports.tests = {
     }
     doc = load("optionscollection");
     nodeList = doc.getElementsByTagName("form");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     formsnodeList = testNode.elements;
     optionsNode = formsnodeList.namedItem("select9");
-    assertNull("nameIndexLink",optionsNode);
+    test.equal(nameIndexLink, null, 'nameIndexLink should be null');
     test.done();
   },
 
@@ -11148,11 +11148,11 @@ exports.tests = {
     }
     doc = load("optionscollection");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     optionsList = testNode.options;
     optionsNode = optionsList.item(10);
-    assertNull("optionsIndexLink",optionsNode);
+    test.equal(optionsIndexLink, null, 'optionsIndexLink should be null');
     test.done();
   },
 
@@ -11186,13 +11186,13 @@ exports.tests = {
     }
     doc = load("optionscollection");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     optionsList = testNode.options;
     optionsNode = optionsList.item(0);
     optionsValueNode = optionsNode.firstChild;
     vvalue = optionsValueNode.nodeValue;
-    assertEquals("valueIndexLink","EMP10001",vvalue);
+    test.equal(vvalue, "EMP10001", "valueIndexLink");
     test.done();
   },
 
@@ -11216,10 +11216,10 @@ exports.tests = {
     }
     doc = load("paragraph");
     nodeList = doc.getElementsByTagName("p");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -11243,10 +11243,10 @@ exports.tests = {
     }
     doc = load("param");
     nodeList = doc.getElementsByTagName("param");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vname = testNode.name;
-    assertEquals("nameLink","image3",vname);
+    test.equal(vname, "image3", "nameLink");
     test.done();
   },
 
@@ -11270,7 +11270,7 @@ exports.tests = {
     }
     doc = load("param");
     nodeList = doc.getElementsByTagName("param");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vvalue = testNode.value;
     assertURIEquals("valueLink",null,null,null,"file.gif",null,null,null,null,vvalue);
@@ -11298,10 +11298,10 @@ exports.tests = {
     }
     doc = load("param");
     nodeList = doc.getElementsByTagName("param");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vvaluetype = testNode.valueType;
-    assertEquals("valueTypeLink","ref",vvaluetype);
+    test.equal(vvaluetype, "ref", "valueTypeLink");
     test.done();
   },
 
@@ -11326,10 +11326,10 @@ exports.tests = {
     }
     doc = load("param");
     nodeList = doc.getElementsByTagName("param");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtype = testNode.type;
-    assertEquals("typeLink","image/gif",vtype);
+    test.equal(vtype, "image/gif", "typeLink");
     test.done();
   },
 
@@ -11353,10 +11353,10 @@ exports.tests = {
     }
     doc = load("pre");
     nodeList = doc.getElementsByTagName("pre");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vwidth = testNode.width;
-    assertEquals("widthLink",277,vwidth);
+    test.equal(vwidth, 277, "widthLink");
     test.done();
   },
 
@@ -11381,7 +11381,7 @@ exports.tests = {
     }
     doc = load("quote");
     nodeList = doc.getElementsByTagName("q");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcite = testNode.cite;
     assertURIEquals("citeLink",null,null,null,"Q.html",null,null,null,null,vcite);
@@ -11410,7 +11410,7 @@ exports.tests = {
     }
     doc = load("quote");
     nodeList = doc.getElementsByTagName("blockquote");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcite = testNode.cite;
     assertURIEquals("citeLink",null,null,null,"BLOCKQUOTE.html",null,null,null,null,vcite);
@@ -11437,10 +11437,10 @@ exports.tests = {
     }
     doc = load("script");
     nodeList = doc.getElementsByTagName("script");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtext = testNode.text;
-    assertEquals("textLink","var a=2;",vtext);
+    test.equal(vtext, "var a=2;", "textLink");
     test.done();
   },
 
@@ -11465,10 +11465,10 @@ exports.tests = {
     }
     doc = load("script");
     nodeList = doc.getElementsByTagName("script");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcharset = testNode.charset;
-    assertEquals("charsetLink","US-ASCII",vcharset);
+    test.equal(vcharset, "US-ASCII", "charsetLink");
     test.done();
   },
 
@@ -11493,10 +11493,10 @@ exports.tests = {
     }
     doc = load("script");
     nodeList = doc.getElementsByTagName("script");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdefer = testNode.defer;
-    assertTrue("deferLink",vdefer);
+    test.ok(vdefer, 'deferLink');
     test.done();
   },
 
@@ -11520,7 +11520,7 @@ exports.tests = {
     }
     doc = load("script");
     nodeList = doc.getElementsByTagName("script");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vsrc = testNode.src;
     assertURIEquals("srcLink",null,null,null,"script1.js",null,null,null,null,vsrc);
@@ -11547,10 +11547,10 @@ exports.tests = {
     }
     doc = load("script");
     nodeList = doc.getElementsByTagName("script");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtype = testNode.type;
-    assertEquals("typeLink","text/javaScript",vtype);
+    test.equal(vtype, "text/javaScript", "typeLink");
     test.done();
   },
 
@@ -11572,7 +11572,7 @@ exports.tests = {
     }
     doc = load("script");
     nodeList = doc.getElementsByTagName("script");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     htmlFor = testNode.htmlFor;
     test.done();
@@ -11596,7 +11596,7 @@ exports.tests = {
     }
     doc = load("script");
     nodeList = doc.getElementsByTagName("script");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     event = testNode.event;
     test.done();
@@ -11624,10 +11624,10 @@ exports.tests = {
     }
     doc = load("select");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vtype = testNode.type;
-    assertEquals("typeLink","select-multiple",vtype);
+    test.equal(vtype, "select-multiple", "typeLink");
     test.done();
   },
 
@@ -11653,10 +11653,10 @@ exports.tests = {
     }
     doc = load("select");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vselectedindex = testNode.selectedIndex;
-    assertEquals("selectedIndexLink",0,vselectedindex);
+    test.equal(vselectedindex, 0, "selectedIndexLink");
     test.done();
   },
 
@@ -11685,7 +11685,7 @@ exports.tests = {
     }
     doc = load("select");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vselectedindex = testNode.selectedIndex;
     test.done();
@@ -11712,10 +11712,10 @@ exports.tests = {
     }
     doc = load("select");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vvalue = testNode.value;
-    assertEquals("valueLink","EMP1",vvalue);
+    test.equal(vvalue, "EMP1", "valueLink");
     test.done();
   },
 
@@ -11740,10 +11740,10 @@ exports.tests = {
     }
     doc = load("select");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vlength = testNode.length;
-    assertEquals("lengthLink",5,vlength);
+    test.equal(vlength, 5, "lengthLink");
     test.done();
   },
 
@@ -11769,11 +11769,11 @@ exports.tests = {
     }
     doc = load("select");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     fNode = testNode.form;
     vform = fNode.id;
-    assertEquals("formLink","form1",vform);
+    test.equal(vform, "form1", "formLink");
     test.done();
   },
 
@@ -11799,10 +11799,10 @@ exports.tests = {
     }
     doc = load("select");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vform = testNode.form;
-    assertNull("formNullLink",vform);
+    test.equal(formNullLink, null, 'formNullLink should be null');
     test.done();
   },
 
@@ -11838,7 +11838,7 @@ exports.tests = {
     }
     doc = load("select");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     optionsnodeList = testNode.options;
     for(var indexN10070 = 0;indexN10070 < optionsnodeList.length; indexN10070++) {
@@ -11872,10 +11872,10 @@ exports.tests = {
     }
     doc = load("select");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(2);
     vdisabled = testNode.disabled;
-    assertTrue("disabledLink",vdisabled);
+    test.ok(vdisabled, 'disabledLink');
     test.done();
   },
 
@@ -11901,10 +11901,10 @@ exports.tests = {
     }
     doc = load("select");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vmultiple = testNode.multiple;
-    assertTrue("multipleLink",vmultiple);
+    test.ok(vmultiple, 'multipleLink');
     test.done();
   },
 
@@ -11930,10 +11930,10 @@ exports.tests = {
     }
     doc = load("select");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vname = testNode.name;
-    assertEquals("nameLink","select1",vname);
+    test.equal(vname, "select1", "nameLink");
     test.done();
   },
 
@@ -11958,10 +11958,10 @@ exports.tests = {
     }
     doc = load("select");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vsize = testNode.size;
-    assertEquals("sizeLink",1,vsize);
+    test.equal(vsize, 1, "sizeLink");
     test.done();
   },
 
@@ -11987,10 +11987,10 @@ exports.tests = {
     }
     doc = load("select");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vtabindex = testNode.tabIndex;
-    assertEquals("tabIndexLink",7,vtabindex);
+    test.equal(vtabindex, 7, "tabIndexLink");
     test.done();
   },
 
@@ -12011,7 +12011,7 @@ exports.tests = {
     }
     doc = load("select");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     testNode.focus();
     test.done();
@@ -12034,7 +12034,7 @@ exports.tests = {
     }
     doc = load("select");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     testNode.blur();
     test.done();
@@ -12059,13 +12059,13 @@ exports.tests = {
     }
     doc = load("select");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     testNode.remove(0);
     optLength = testNode.length;
-    assertEquals("optLength",4,optLength);
+    test.equal(optLength, 4, "optLength");
     selected = testNode.selectedIndex;
-    assertEquals("selected",-1,selected);
+    test.equal(selected, -1, "selected");
     test.done();
   },
 
@@ -12088,13 +12088,13 @@ exports.tests = {
     }
     doc = load("select");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     testNode.remove(6);
     optLength = testNode.length;
-    assertEquals("optLength",5,optLength);
+    test.equal(optLength, 5, "optLength");
     selected = testNode.selectedIndex;
-    assertEquals("selected",0,selected);
+    test.equal(selected, 0, "selected");
     test.done();
   },
 
@@ -12124,20 +12124,20 @@ exports.tests = {
     }
     doc = load("select");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     newOpt = doc.createElement("option");
     newOptText = doc.createTextNode("EMP31415");
     retNode = newOpt.appendChild(newOptText);
     testNode.add(newOpt,nullNode);
     optLength = testNode.length;
-    assertEquals("optLength",6,optLength);
+    test.equal(optLength, 6, "optLength");
     selected = testNode.selectedIndex;
-    assertEquals("selected",0,selected);
+    test.equal(selected, 0, "selected");
     opt = testNode.lastChild;
     optText = opt.firstChild;
     optValue = optText.nodeValue;
-    assertEquals("lastValue","EMP31415",optValue);
+    test.equal(optValue, "EMP31415", "lastValue");
     test.done();
   },
 
@@ -12168,7 +12168,7 @@ exports.tests = {
     }
     doc = load("select");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     newOpt = doc.createElement("option");
     newOptText = doc.createTextNode("EMP31415");
@@ -12177,14 +12177,14 @@ exports.tests = {
     selectedNode = options.item(0);
     testNode.add(newOpt,selectedNode);
     optLength = testNode.length;
-    assertEquals("optLength",6,optLength);
+    test.equal(optLength, 6, "optLength");
     selected = testNode.selectedIndex;
-    assertEquals("selected",1,selected);
+    test.equal(selected, 1, "selected");
     options = testNode.options;
     opt = options.item(0);
     optText = opt.firstChild;
     optValue = optText.nodeValue;
-    assertEquals("lastValue","EMP31415",optValue);
+    test.equal(optValue, "EMP31415", "lastValue");
     test.done();
   },
 
@@ -12214,7 +12214,7 @@ exports.tests = {
     }
     doc = load("select");
     nodeList = doc.getElementsByTagName("select");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     otherSelect = nodeList.item(1);
     newOpt = doc.createElement("option");
@@ -12230,7 +12230,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
     test.done();
   },
@@ -12255,10 +12255,10 @@ exports.tests = {
     }
     doc = load("style");
     nodeList = doc.getElementsByTagName("style");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vdisabled = testNode.disabled;
-    assertFalse("disabledLink",vdisabled);
+    test.equal(vdisabled, false, 'vdisabled should be *false*');
     test.done();
   },
 
@@ -12282,10 +12282,10 @@ exports.tests = {
     }
     doc = load("style");
     nodeList = doc.getElementsByTagName("style");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vmedia = testNode.media;
-    assertEquals("mediaLink","screen",vmedia);
+    test.equal(vmedia, "screen", "mediaLink");
     test.done();
   },
 
@@ -12309,10 +12309,10 @@ exports.tests = {
     }
     doc = load("style");
     nodeList = doc.getElementsByTagName("style");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtype = testNode.type;
-    assertEquals("typeLink","text/css",vtype);
+    test.equal(vtype, "text/css", "typeLink");
     test.done();
   },
 
@@ -12337,10 +12337,10 @@ exports.tests = {
     }
     doc = load("tablecaption");
     nodeList = doc.getElementsByTagName("caption");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","top",valign);
+    test.equal(valign, "top", "alignLink");
     test.done();
   },
 
@@ -12365,10 +12365,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(0);
     vcellindex = testNode.cellIndex;
-    assertEquals("cellIndexLink",0,vcellindex);
+    test.equal(vcellindex, 0, "cellIndexLink");
     test.done();
   },
 
@@ -12393,10 +12393,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(0);
     vcellindex = testNode.cellIndex;
-    assertEquals("cellIndexLink",0,vcellindex);
+    test.equal(vcellindex, 0, "cellIndexLink");
     test.done();
   },
 
@@ -12421,10 +12421,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vabbr = testNode.abbr;
-    assertEquals("abbrLink","hd1",vabbr);
+    test.equal(vabbr, "hd1", "abbrLink");
     test.done();
   },
 
@@ -12449,10 +12449,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vabbr = testNode.abbr;
-    assertEquals("abbrLink","hd2",vabbr);
+    test.equal(vabbr, "hd2", "abbrLink");
     test.done();
   },
 
@@ -12478,10 +12478,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     valign = testNode.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -12507,10 +12507,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     valign = testNode.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -12536,10 +12536,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vaxis = testNode.axis;
-    assertEquals("axisLink","center",vaxis);
+    test.equal(vaxis, "center", "axisLink");
     test.done();
   },
 
@@ -12565,10 +12565,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vaxis = testNode.axis;
-    assertEquals("axisLink","center",vaxis);
+    test.equal(vaxis, "center", "axisLink");
     test.done();
   },
 
@@ -12594,10 +12594,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vbgcolor = testNode.bgColor;
-    assertEquals("bgColorLink","#00FFFF".toLowerCase(),vbgcolor.toLowerCase());
+    test.equal(vbgcolor.toLowerCase(), "#00FFFF".toLowerCase(), "bgColorLink");
     test.done();
   },
 
@@ -12623,10 +12623,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vbgcolor = testNode.bgColor;
-    assertEquals("bgColorLink","#FF0000".toLowerCase(),vbgcolor.toLowerCase());
+    test.equal(vbgcolor.toLowerCase(), "#FF0000".toLowerCase(), "bgColorLink");
     test.done();
   },
 
@@ -12652,10 +12652,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vch = testNode.ch;
-    assertEquals("chLink",":",vch);
+    test.equal(vch, ":", "chLink");
     test.done();
   },
 
@@ -12681,10 +12681,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vch = testNode.ch;
-    assertEquals("chLink",":",vch);
+    test.equal(vch, ":", "chLink");
     test.done();
   },
 
@@ -12710,10 +12710,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vcharoff = testNode.chOff;
-    assertEquals("chOffLink","1",vcharoff);
+    test.equal(vcharoff, "1", "chOffLink");
     test.done();
   },
 
@@ -12739,10 +12739,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vcharoff = testNode.chOff;
-    assertEquals("chOffLink","1",vcharoff);
+    test.equal(vcharoff, "1", "chOffLink");
     test.done();
   },
 
@@ -12768,10 +12768,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vcolspan = testNode.colSpan;
-    assertEquals("colSpanLink",1,vcolspan);
+    test.equal(vcolspan, 1, "colSpanLink");
     test.done();
   },
 
@@ -12797,10 +12797,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vcolspan = testNode.colSpan;
-    assertEquals("colSpanLink",1,vcolspan);
+    test.equal(vcolspan, 1, "colSpanLink");
     test.done();
   },
 
@@ -12826,10 +12826,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vheaders = testNode.headers;
-    assertEquals("headersLink","header-1",vheaders);
+    test.equal(vheaders, "header-1", "headersLink");
     test.done();
   },
 
@@ -12855,10 +12855,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vheaders = testNode.headers;
-    assertEquals("headersLink","header-3",vheaders);
+    test.equal(vheaders, "header-3", "headersLink");
     test.done();
   },
 
@@ -12883,10 +12883,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vheight = testNode.height;
-    assertEquals("heightLink","50",vheight);
+    test.equal(vheight, "50", "heightLink");
     test.done();
   },
 
@@ -12911,10 +12911,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vheight = testNode.height;
-    assertEquals("heightLink","50",vheight);
+    test.equal(vheight, "50", "heightLink");
     test.done();
   },
 
@@ -12939,10 +12939,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vnowrap = testNode.noWrap;
-    assertTrue("noWrapLink",vnowrap);
+    test.ok(vnowrap, 'noWrapLink');
     test.done();
   },
 
@@ -12967,10 +12967,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vnowrap = testNode.noWrap;
-    assertTrue("noWrapLink",vnowrap);
+    test.ok(vnowrap, 'noWrapLink');
     test.done();
   },
 
@@ -12996,10 +12996,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vrowspan = testNode.rowSpan;
-    assertEquals("rowSpanLink",1,vrowspan);
+    test.equal(vrowspan, 1, "rowSpanLink");
     test.done();
   },
 
@@ -13025,10 +13025,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vrowspan = testNode.rowSpan;
-    assertEquals("rowSpanLink",1,vrowspan);
+    test.equal(vrowspan, 1, "rowSpanLink");
     test.done();
   },
 
@@ -13053,10 +13053,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vscope = testNode.scope;
-    assertEquals("scopeLink","col",vscope);
+    test.equal(vscope, "col", "scopeLink");
     test.done();
   },
 
@@ -13081,10 +13081,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vscope = testNode.scope;
-    assertEquals("scopeLink","col",vscope);
+    test.equal(vscope, "col", "scopeLink");
     test.done();
   },
 
@@ -13109,10 +13109,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vvalign = testNode.vAlign;
-    assertEquals("vAlignLink","middle",vvalign);
+    test.equal(vvalign, "middle", "vAlignLink");
     test.done();
   },
 
@@ -13137,10 +13137,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vvalign = testNode.vAlign;
-    assertEquals("vAlignLink","middle",vvalign);
+    test.equal(vvalign, "middle", "vAlignLink");
     test.done();
   },
 
@@ -13165,10 +13165,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vwidth = testNode.width;
-    assertEquals("widthLink","170",vwidth);
+    test.equal(vwidth, "170", "widthLink");
     test.done();
   },
 
@@ -13193,10 +13193,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vwidth = testNode.width;
-    assertEquals("widthLink","175",vwidth);
+    test.equal(vwidth, "175", "widthLink");
     test.done();
   },
 
@@ -13222,10 +13222,10 @@ exports.tests = {
     }
     doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -13251,10 +13251,10 @@ exports.tests = {
     }
     doc = load("tablecol");
     nodeList = doc.getElementsByTagName("colgroup");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -13280,10 +13280,10 @@ exports.tests = {
     }
     doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vch = testNode.ch;
-    assertEquals("chLink","*",vch);
+    test.equal(vch, "*", "chLink");
     test.done();
   },
 
@@ -13309,10 +13309,10 @@ exports.tests = {
     }
     doc = load("tablecol");
     nodeList = doc.getElementsByTagName("colgroup");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vch = testNode.ch;
-    assertEquals("chLink","$",vch);
+    test.equal(vch, "$", "chLink");
     test.done();
   },
 
@@ -13337,10 +13337,10 @@ exports.tests = {
     }
     doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vchoff = testNode.chOff;
-    assertEquals("chLink","20",vchoff);
+    test.equal(vchoff, "20", "chLink");
     test.done();
   },
 
@@ -13365,10 +13365,10 @@ exports.tests = {
     }
     doc = load("tablecol");
     nodeList = doc.getElementsByTagName("colgroup");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vchoff = testNode.chOff;
-    assertEquals("chLink","15",vchoff);
+    test.equal(vchoff, "15", "chLink");
     test.done();
   },
 
@@ -13394,10 +13394,10 @@ exports.tests = {
     }
     doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vspan = testNode.span;
-    assertEquals("spanLink",1,vspan);
+    test.equal(vspan, 1, "spanLink");
     test.done();
   },
 
@@ -13423,10 +13423,10 @@ exports.tests = {
     }
     doc = load("tablecol");
     nodeList = doc.getElementsByTagName("colgroup");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vspan = testNode.span;
-    assertEquals("spanLink",2,vspan);
+    test.equal(vspan, 2, "spanLink");
     test.done();
   },
 
@@ -13452,10 +13452,10 @@ exports.tests = {
     }
     doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vvalign = testNode.vAlign;
-    assertEquals("vAlignLink","middle",vvalign);
+    test.equal(vvalign, "middle", "vAlignLink");
     test.done();
   },
 
@@ -13481,10 +13481,10 @@ exports.tests = {
     }
     doc = load("tablecol");
     nodeList = doc.getElementsByTagName("colgroup");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vvalign = testNode.vAlign;
-    assertEquals("vAlignLink","middle",vvalign);
+    test.equal(vvalign, "middle", "vAlignLink");
     test.done();
   },
 
@@ -13509,10 +13509,10 @@ exports.tests = {
     }
     doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vwidth = testNode.width;
-    assertEquals("widthLink","20",vwidth);
+    test.equal(vwidth, "20", "widthLink");
     test.done();
   },
 
@@ -13537,10 +13537,10 @@ exports.tests = {
     }
     doc = load("tablecol");
     nodeList = doc.getElementsByTagName("colgroup");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vwidth = testNode.width;
-    assertEquals("widthLink","20",vwidth);
+    test.equal(vwidth, "20", "widthLink");
     test.done();
   },
 
@@ -13566,11 +13566,11 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vcaption = testNode.caption;
     valign = vcaption.align;
-    assertEquals("alignLink","top",valign);
+    test.equal(valign, "top", "alignLink");
     test.done();
   },
 
@@ -13596,10 +13596,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vcaption = testNode.caption;
-    assertNull("captionLink",vcaption);
+    test.equal(captionLink, null, 'captionLink should be null');
     test.done();
   },
 
@@ -13625,11 +13625,11 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vsection = testNode.tHead;
     valign = vsection.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -13655,10 +13655,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vsection = testNode.tHead;
-    assertNull("sectionLink",vsection);
+    test.equal(sectionLink, null, 'sectionLink should be null');
     test.done();
   },
 
@@ -13684,11 +13684,11 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vsection = testNode.tFoot;
     valign = vsection.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -13714,10 +13714,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vsection = testNode.tFoot;
-    assertNull("sectionLink",vsection);
+    test.equal(sectionLink, null, 'sectionLink should be null');
     test.done();
   },
 
@@ -13751,7 +13751,7 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     rowsnodeList = testNode.rows;
     for(var indexN10069 = 0;indexN10069 < rowsnodeList.length; indexN10069++) {
@@ -13790,7 +13790,7 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     tbodiesnodeList = testNode.tBodies;
     for(var indexN10060 = 0;indexN10060 < tbodiesnodeList.length; indexN10060++) {
@@ -13832,7 +13832,7 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(2);
     tbodiesnodeList = testNode.tBodies;
     for(var indexN10066 = 0;indexN10066 < tbodiesnodeList.length; indexN10066++) {
@@ -13866,10 +13866,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -13894,10 +13894,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vbgcolor = testNode.bgColor;
-    assertEquals("bgColorLink","#ff0000",vbgcolor);
+    test.equal(vbgcolor, "#ff0000", "bgColorLink");
     test.done();
   },
 
@@ -13922,10 +13922,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vborder = testNode.border;
-    assertEquals("borderLink","4",vborder);
+    test.equal(vborder, "4", "borderLink");
     test.done();
   },
 
@@ -13951,10 +13951,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vcellpadding = testNode.cellPadding;
-    assertEquals("cellPaddingLink","2",vcellpadding);
+    test.equal(vcellpadding, "2", "cellPaddingLink");
     test.done();
   },
 
@@ -13980,10 +13980,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     cellSpacing = testNode.cellSpacing;
-    assertEquals("cellSpacingLink","2",cellSpacing);
+    test.equal(cellSpacing, "2", "cellSpacingLink");
     test.done();
   },
 
@@ -14008,10 +14008,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vframe = testNode.frame;
-    assertEquals("frameLink","border",vframe);
+    test.equal(vframe, "border", "frameLink");
     test.done();
   },
 
@@ -14036,10 +14036,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vrules = testNode.rules;
-    assertEquals("rulesLink","all",vrules);
+    test.equal(vrules, "all", "rulesLink");
     test.done();
   },
 
@@ -14065,10 +14065,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vsummary = testNode.summary;
-    assertEquals("summaryLink","HTML Control Table",vsummary);
+    test.equal(vsummary, "HTML Control Table", "summaryLink");
     test.done();
   },
 
@@ -14093,10 +14093,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vwidth = testNode.width;
-    assertEquals("widthLink","680",vwidth);
+    test.equal(vwidth, "680", "widthLink");
     test.done();
   },
 
@@ -14126,13 +14126,13 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vsection1 = testNode.tHead;
-    assertNull("vsection1Id",vsection1);
+    test.equal(vsection1Id, null, 'vsection1Id should be null');
     newHead = testNode.createTHead();
     vsection2 = testNode.tHead;
-    assertNotNull("vsection2Id",vsection2);
+    test.notEqual(vsection2, null, 'vsection2 should not be null');
     test.done();
   },
 
@@ -14162,12 +14162,12 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     newHead = testNode.createTHead();
     vsection = testNode.tHead;
     valign = vsection.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -14201,10 +14201,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vsection1 = testNode.tHead;
-    assertNotNull("vsection1Id",vsection1);
+    test.notEqual(vsection1, null, 'vsection1 should not be null');
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
     result[result.length] = vrows;
@@ -14213,7 +14213,7 @@ exports.tests = {
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
     result[result.length] = vrows;
-    assertEqualsList("rowsLink",expectedResult,result);
+    test.deepEqual(result, expectedResult, 'rowsLink');
     test.done();
   },
 
@@ -14243,13 +14243,13 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vsection1 = testNode.tFoot;
-    assertNull("vsection1Id",vsection1);
+    test.equal(vsection1Id, null, 'vsection1Id should be null');
     newFoot = testNode.createTFoot();
     vsection2 = testNode.tFoot;
-    assertNotNull("vsection2Id",vsection2);
+    test.notEqual(vsection2, null, 'vsection2 should not be null');
     test.done();
   },
 
@@ -14279,12 +14279,12 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     newFoot = testNode.createTFoot();
     vsection = testNode.tFoot;
     valign = vsection.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -14318,10 +14318,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vsection1 = testNode.tFoot;
-    assertNotNull("vsection1Id",vsection1);
+    test.notEqual(vsection1, null, 'vsection1 should not be null');
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
     result[result.length] = vrows;
@@ -14330,7 +14330,7 @@ exports.tests = {
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
     result[result.length] = vrows;
-    assertEqualsList("rowsLink",expectedResult,result);
+    test.deepEqual(result, expectedResult, 'rowsLink');
     test.done();
   },
 
@@ -14358,13 +14358,13 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vsection1 = testNode.caption;
-    assertNull("vsection1Id",vsection1);
+    test.equal(vsection1Id, null, 'vsection1Id should be null');
     newCaption = testNode.createCaption();
     vsection2 = testNode.caption;
-    assertNotNull("vsection2Id",vsection2);
+    test.notEqual(vsection2, null, 'vsection2 should not be null');
     test.done();
   },
 
@@ -14394,14 +14394,14 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vsection1 = testNode.caption;
-    assertNotNull("vsection1Id",vsection1);
+    test.notEqual(vsection1, null, 'vsection1 should not be null');
     newCaption = testNode.createCaption();
     vcaption = testNode.caption;
     valign = vcaption.align;
-    assertEquals("alignLink","top",valign);
+    test.equal(valign, "top", "alignLink");
     test.done();
   },
 
@@ -14427,13 +14427,13 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vsection1 = testNode.caption;
-    assertNotNull("vsection1Id",vsection1);
+    test.notEqual(vsection1, null, 'vsection1 should not be null');
     testNode.deleteCaption();
     vsection2 = testNode.caption;
-    assertNull("vsection2Id",vsection2);
+    test.equal(vsection2Id, null, 'vsection2Id should be null');
     test.done();
   },
 
@@ -14465,17 +14465,17 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vsection1 = testNode.tHead;
     rowsnodeList = vsection1.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink1",1,vrows);
+    test.equal(vrows, 1, "rowsLink1");
     newRow = testNode.insertRow(0);
     vsection2 = testNode.tHead;
     rowsnodeList = vsection2.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink2",2,vrows);
+    test.equal(vrows, 2, "rowsLink2");
     test.done();
   },
 
@@ -14509,19 +14509,19 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     tbodiesnodeList = testNode.tBodies;
     bodyNode = tbodiesnodeList.item(0);
     rowsnodeList = bodyNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink1",2,vrows);
+    test.equal(vrows, 2, "rowsLink1");
     newRow = testNode.insertRow(2);
     tbodiesnodeList = testNode.tBodies;
     bodyNode = tbodiesnodeList.item(0);
     rowsnodeList = bodyNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink2",3,vrows);
+    test.equal(vrows, 3, "rowsLink2");
     test.done();
   },
 
@@ -14554,23 +14554,23 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink1",4,vrows);
+    test.equal(vrows, 4, "rowsLink1");
     vsection1 = testNode.tFoot;
     rowsnodeList = vsection1.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink",1,vrows);
+    test.equal(vrows, 1, "rowsLink");
     newRow = testNode.insertRow(4);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink2",5,vrows);
+    test.equal(vrows, 5, "rowsLink2");
     vsection1 = testNode.tFoot;
     rowsnodeList = vsection1.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink3",2,vrows);
+    test.equal(vrows, 2, "rowsLink3");
     test.done();
   },
 
@@ -14607,19 +14607,19 @@ exports.tests = {
     }
     doc = load("table1");
     nodeList = doc.getElementsByTagName("body");
-    assertSize("tableSize1",1,nodeList);
+    test.equal(nodeList.length, 1, 'tableSize1');
     testNode = nodeList.item(0);
     table = doc.createElement("table");
     tableNode = testNode.appendChild(table);
     nodeList = doc.getElementsByTagName("table");
-    assertSize("tableSize2",2,nodeList);
+    test.equal(nodeList.length, 2, 'tableSize2');
     tbodiesnodeList = tableNode.tBodies;
     tbodiesLength = tbodiesnodeList.length;
-    assertEquals("Asize3",0,tbodiesLength);
+    test.equal(tbodiesLength, 0, "Asize3");
     newRow = tableNode.insertRow(0);
     tbodiesnodeList = tableNode.tBodies;
     tbodiesLength = tbodiesnodeList.length;
-    assertEquals("Asize4",1,tbodiesLength);
+    test.equal(tbodiesLength, 1, "Asize4");
     test.done();
   },
 
@@ -14647,15 +14647,15 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink1",4,vrows);
+    test.equal(vrows, 4, "rowsLink1");
     testNode.deleteRow(0);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink2",3,vrows);
+    test.equal(vrows, 3, "rowsLink2");
     test.done();
   },
 
@@ -14682,15 +14682,15 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink1",4,vrows);
+    test.equal(vrows, 4, "rowsLink1");
     testNode.deleteRow(3);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink2",3,vrows);
+    test.equal(vrows, 3, "rowsLink2");
     test.done();
   },
 
@@ -14718,7 +14718,7 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     {
       success = false;
@@ -14728,7 +14728,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("HTMLTableElement34",success);
+      test.ok(success, 'HTMLTableElement34');
     }
     test.done();
   },
@@ -14757,7 +14757,7 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     {
       success = false;
@@ -14767,7 +14767,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("HTMLTableElement35",success);
+      test.ok(success, 'HTMLTableElement35');
     }
     test.done();
   },
@@ -14795,7 +14795,7 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     {
       success = false;
@@ -14805,7 +14805,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("HTMLTableElement36",success);
+      test.ok(success, 'HTMLTableElement36');
     }
     test.done();
   },
@@ -14834,7 +14834,7 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     {
       success = false;
@@ -14844,7 +14844,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("HTMLTableElement37",success);
+      test.ok(success, 'HTMLTableElement37');
     }
     test.done();
   },
@@ -14872,7 +14872,7 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     {
       success = false;
@@ -14882,7 +14882,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("HTMLTableElement38",success);
+      test.ok(success, 'HTMLTableElement38');
     }
     test.done();
   },
@@ -14919,19 +14919,19 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     tbodiesnodeList = testNode.tBodies;
     bodyNode = tbodiesnodeList.item(0);
     rowsnodeList = bodyNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink1",2,vrows);
+    test.equal(vrows, 2, "rowsLink1");
     newRow = testNode.insertRow(-1);
     tbodiesnodeList = testNode.tBodies;
     bodyNode = tbodiesnodeList.item(0);
     rowsnodeList = bodyNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink2",3,vrows);
+    test.equal(vrows, 3, "rowsLink2");
     test.done();
   },
 
@@ -14959,15 +14959,15 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink1",4,vrows);
+    test.equal(vrows, 4, "rowsLink1");
     testNode.deleteRow(-1);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink2",3,vrows);
+    test.equal(vrows, 3, "rowsLink2");
     test.done();
   },
 
@@ -14995,10 +14995,10 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(3);
     vrowindex = testNode.rowIndex;
-    assertEquals("rowIndexLink",1,vrowindex);
+    test.equal(vrowindex, 1, "rowIndexLink");
     test.done();
   },
 
@@ -15024,10 +15024,10 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(1);
     vsectionrowindex = testNode.sectionRowIndex;
-    assertEquals("sectionRowIndexLink",0,vsectionrowindex);
+    test.equal(vsectionrowindex, 0, "sectionRowIndexLink");
     test.done();
   },
 
@@ -15053,10 +15053,10 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(2);
     vsectionrowindex = testNode.sectionRowIndex;
-    assertEquals("sectionRowIndexLink",0,vsectionrowindex);
+    test.equal(vsectionrowindex, 0, "sectionRowIndexLink");
     test.done();
   },
 
@@ -15082,10 +15082,10 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(4);
     vsectionrowindex = testNode.sectionRowIndex;
-    assertEquals("sectionRowIndexLink",1,vsectionrowindex);
+    test.equal(vsectionrowindex, 1, "sectionRowIndexLink");
     test.done();
   },
 
@@ -15111,11 +15111,11 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(3);
     cellsnodeList = testNode.cells;
     vcells = cellsnodeList.length;
-    assertEquals("cellsLink",6,vcells);
+    test.equal(vcells, 6, "cellsLink");
     test.done();
   },
 
@@ -15141,10 +15141,10 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(1);
     valign = testNode.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -15169,10 +15169,10 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(1);
     vbgcolor = testNode.bgColor;
-    assertEquals("bgColorLink","#00FFFF".toLowerCase(),vbgcolor.toLowerCase());
+    test.equal(vbgcolor.toLowerCase(), "#00FFFF".toLowerCase(), "bgColorLink");
     test.done();
   },
 
@@ -15197,10 +15197,10 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(1);
     vch = testNode.ch;
-    assertEquals("chLink","*",vch);
+    test.equal(vch, "*", "chLink");
     test.done();
   },
 
@@ -15225,10 +15225,10 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(1);
     vchoff = testNode.chOff;
-    assertEquals("charOffLink","1",vchoff);
+    test.equal(vchoff, "1", "charOffLink");
     test.done();
   },
 
@@ -15254,10 +15254,10 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(1);
     vvalign = testNode.vAlign;
-    assertEquals("vAlignLink","middle",vvalign);
+    test.equal(vvalign, "middle", "vAlignLink");
     test.done();
   },
 
@@ -15292,23 +15292,23 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(3);
     cellsnodeList = testNode.cells;
     vcells = cellsnodeList.length;
-    assertEquals("cellsLink1",6,vcells);
+    test.equal(vcells, 6, "cellsLink1");
     trNode = cellsnodeList.item(0);
     cellNode = trNode.firstChild;
     value = cellNode.nodeValue;
-    assertEquals("value1Link","EMP0001",value);
+    test.equal(value, "EMP0001", "value1Link");
     newCell = testNode.insertCell(0);
     testNode = nodeList.item(3);
     cellsnodeList = testNode.cells;
     vcells = cellsnodeList.length;
-    assertEquals("cellsLink2",7,vcells);
+    test.equal(vcells, 7, "cellsLink2");
     trNode = cellsnodeList.item(0);
     cellNode = trNode.firstChild;
-    assertNull("value2Link",cellNode);
+    test.equal(value2Link, null, 'value2Link should be null');
     test.done();
   },
 
@@ -15342,23 +15342,23 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(3);
     cellsnodeList = testNode.cells;
     vcells = cellsnodeList.length;
-    assertEquals("cellsLink1",6,vcells);
+    test.equal(vcells, 6, "cellsLink1");
     trNode = cellsnodeList.item(5);
     cellNode = trNode.firstChild;
     value = cellNode.nodeValue;
-    assertEquals("value1Link","1230 North Ave. Dallas, Texas 98551",value);
+    test.equal(value, "1230 North Ave. Dallas, Texas 98551", "value1Link");
     newCell = testNode.insertCell(6);
     testNode = nodeList.item(3);
     cellsnodeList = testNode.cells;
     vcells = cellsnodeList.length;
-    assertEquals("cellsLink2",7,vcells);
+    test.equal(vcells, 7, "cellsLink2");
     trNode = cellsnodeList.item(6);
     cellNode = trNode.firstChild;
-    assertNull("value2Link",cellNode);
+    test.equal(value2Link, null, 'value2Link should be null');
     test.done();
   },
 
@@ -15391,24 +15391,24 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(3);
     cellsnodeList = testNode.cells;
     vcells = cellsnodeList.length;
-    assertEquals("cellsLink1",6,vcells);
+    test.equal(vcells, 6, "cellsLink1");
     trNode = cellsnodeList.item(0);
     cellNode = trNode.firstChild;
     value = cellNode.nodeValue;
-    assertEquals("value1Link","EMP0001",value);
+    test.equal(value, "EMP0001", "value1Link");
     testNode.deleteCell(0);
     testNode = nodeList.item(3);
     cellsnodeList = testNode.cells;
     vcells = cellsnodeList.length;
-    assertEquals("cellsLink2",5,vcells);
+    test.equal(vcells, 5, "cellsLink2");
     trNode = cellsnodeList.item(0);
     cellNode = trNode.firstChild;
     value = cellNode.nodeValue;
-    assertEquals("value2Link","Margaret Martin",value);
+    test.equal(value, "Margaret Martin", "value2Link");
     test.done();
   },
 
@@ -15441,24 +15441,24 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(3);
     cellsnodeList = testNode.cells;
     vcells = cellsnodeList.length;
-    assertEquals("cellsLink1",6,vcells);
+    test.equal(vcells, 6, "cellsLink1");
     trNode = cellsnodeList.item(2);
     cellNode = trNode.firstChild;
     value = cellNode.nodeValue;
-    assertEquals("value1Link","Accountant",value);
+    test.equal(value, "Accountant", "value1Link");
     testNode.deleteCell(2);
     testNode = nodeList.item(3);
     cellsnodeList = testNode.cells;
     vcells = cellsnodeList.length;
-    assertEquals("cellsLink2",5,vcells);
+    test.equal(vcells, 5, "cellsLink2");
     trNode = cellsnodeList.item(2);
     cellNode = trNode.firstChild;
     value = cellNode.nodeValue;
-    assertEquals("value2Link","56,000",value);
+    test.equal(value, "56,000", "value2Link");
     test.done();
   },
 
@@ -15486,7 +15486,7 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(3);
     {
       success = false;
@@ -15496,7 +15496,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("HTMLTableRowElement15",success);
+      test.ok(success, 'HTMLTableRowElement15');
     }
     test.done();
   },
@@ -15525,7 +15525,7 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(3);
     {
       success = false;
@@ -15535,7 +15535,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("HTMLTableRowElement16",success);
+      test.ok(success, 'HTMLTableRowElement16');
     }
     test.done();
   },
@@ -15563,7 +15563,7 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(3);
     {
       success = false;
@@ -15573,7 +15573,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("HTMLTableRowElement17",success);
+      test.ok(success, 'HTMLTableRowElement17');
     }
     test.done();
   },
@@ -15601,7 +15601,7 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(3);
     {
       success = false;
@@ -15611,7 +15611,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("HTMLTableRowElement18",success);
+      test.ok(success, 'HTMLTableRowElement18');
     }
     test.done();
   },
@@ -15639,7 +15639,7 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(3);
     {
       success = false;
@@ -15649,7 +15649,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("HTMLTableRowElement19",success);
+      test.ok(success, 'HTMLTableRowElement19');
     }
     test.done();
   },
@@ -15687,23 +15687,23 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(3);
     cellsnodeList = testNode.cells;
     vcells = cellsnodeList.length;
-    assertEquals("cellsLink1",6,vcells);
+    test.equal(vcells, 6, "cellsLink1");
     trNode = cellsnodeList.item(5);
     cellNode = trNode.firstChild;
     value = cellNode.nodeValue;
-    assertEquals("value1Link","1230 North Ave. Dallas, Texas 98551",value);
+    test.equal(value, "1230 North Ave. Dallas, Texas 98551", "value1Link");
     newCell = testNode.insertCell(-1);
     testNode = nodeList.item(3);
     cellsnodeList = testNode.cells;
     vcells = cellsnodeList.length;
-    assertEquals("cellsLink2",7,vcells);
+    test.equal(vcells, 7, "cellsLink2");
     trNode = cellsnodeList.item(6);
     cellNode = trNode.firstChild;
-    assertNull("value2Link",cellNode);
+    test.equal(value2Link, null, 'value2Link should be null');
     test.done();
   },
 
@@ -15738,24 +15738,24 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(3);
     cellsnodeList = testNode.cells;
     vcells = cellsnodeList.length;
-    assertEquals("cellsLink1",6,vcells);
+    test.equal(vcells, 6, "cellsLink1");
     trNode = cellsnodeList.item(5);
     cellNode = trNode.firstChild;
     value = cellNode.nodeValue;
-    assertEquals("value1Link","1230 North Ave. Dallas, Texas 98551",value);
+    test.equal(value, "1230 North Ave. Dallas, Texas 98551", "value1Link");
     testNode.deleteCell(-1);
     testNode = nodeList.item(3);
     cellsnodeList = testNode.cells;
     vcells = cellsnodeList.length;
-    assertEquals("cellsLink2",5,vcells);
+    test.equal(vcells, 5, "cellsLink2");
     trNode = cellsnodeList.item(4);
     cellNode = trNode.firstChild;
     value = cellNode.nodeValue;
-    assertEquals("value2Link","Female",value);
+    test.equal(value, "Female", "value2Link");
     test.done();
   },
 
@@ -15781,10 +15781,10 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -15810,10 +15810,10 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tfoot");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -15839,10 +15839,10 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tbody");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     valign = testNode.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -15868,10 +15868,10 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vch = testNode.ch;
-    assertEquals("chLink","*",vch);
+    test.equal(vch, "*", "chLink");
     test.done();
   },
 
@@ -15897,10 +15897,10 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tfoot");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vch = testNode.ch;
-    assertEquals("chLink","+",vch);
+    test.equal(vch, "+", "chLink");
     test.done();
   },
 
@@ -15926,10 +15926,10 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tbody");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vch = testNode.ch;
-    assertEquals("chLink","$",vch);
+    test.equal(vch, "$", "chLink");
     test.done();
   },
 
@@ -15954,10 +15954,10 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcharoff = testNode.chOff;
-    assertEquals("chOffLink","1",vcharoff);
+    test.equal(vcharoff, "1", "chOffLink");
     test.done();
   },
 
@@ -15982,10 +15982,10 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tfoot");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcharoff = testNode.chOff;
-    assertEquals("chOffLink","2",vcharoff);
+    test.equal(vcharoff, "2", "chOffLink");
     test.done();
   },
 
@@ -16010,10 +16010,10 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tbody");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vcharoff = testNode.chOff;
-    assertEquals("chOffLink","3",vcharoff);
+    test.equal(vcharoff, "3", "chOffLink");
     test.done();
   },
 
@@ -16039,10 +16039,10 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vvalign = testNode.vAlign;
-    assertEquals("vAlignLink","middle",vvalign);
+    test.equal(vvalign, "middle", "vAlignLink");
     test.done();
   },
 
@@ -16068,10 +16068,10 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tfoot");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vvalign = testNode.vAlign;
-    assertEquals("vAlignLink","middle",vvalign);
+    test.equal(vvalign, "middle", "vAlignLink");
     test.done();
   },
 
@@ -16097,10 +16097,10 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tbody");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vvalign = testNode.vAlign;
-    assertEquals("vAlignLink","middle",vvalign);
+    test.equal(vvalign, "middle", "vAlignLink");
     test.done();
   },
 
@@ -16126,11 +16126,11 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink",1,vrows);
+    test.equal(vrows, 1, "rowsLink");
     test.done();
   },
 
@@ -16156,11 +16156,11 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tfoot");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink",1,vrows);
+    test.equal(vrows, 1, "rowsLink");
     test.done();
   },
 
@@ -16186,11 +16186,11 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tbody");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink",2,vrows);
+    test.equal(vrows, 2, "rowsLink");
     test.done();
   },
 
@@ -16219,15 +16219,15 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink1",1,vrows);
+    test.equal(vrows, 1, "rowsLink1");
     newRow = testNode.insertRow(0);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink2",2,vrows);
+    test.equal(vrows, 2, "rowsLink2");
     test.done();
   },
 
@@ -16256,15 +16256,15 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tfoot");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink1",1,vrows);
+    test.equal(vrows, 1, "rowsLink1");
     newRow = testNode.insertRow(0);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink2",2,vrows);
+    test.equal(vrows, 2, "rowsLink2");
     test.done();
   },
 
@@ -16293,15 +16293,15 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tbody");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink1",2,vrows);
+    test.equal(vrows, 2, "rowsLink1");
     newRow = testNode.insertRow(0);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink2",3,vrows);
+    test.equal(vrows, 3, "rowsLink2");
     test.done();
   },
 
@@ -16331,15 +16331,15 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink1",1,vrows);
+    test.equal(vrows, 1, "rowsLink1");
     newRow = testNode.insertRow(1);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink2",2,vrows);
+    test.equal(vrows, 2, "rowsLink2");
     test.done();
   },
 
@@ -16369,15 +16369,15 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tfoot");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink1",1,vrows);
+    test.equal(vrows, 1, "rowsLink1");
     newRow = testNode.insertRow(1);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink2",2,vrows);
+    test.equal(vrows, 2, "rowsLink2");
     test.done();
   },
 
@@ -16408,15 +16408,15 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tbody");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink1",2,vrows);
+    test.equal(vrows, 2, "rowsLink1");
     newRow = testNode.insertRow(2);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink2",3,vrows);
+    test.equal(vrows, 3, "rowsLink2");
     test.done();
   },
 
@@ -16444,15 +16444,15 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink1",1,vrows);
+    test.equal(vrows, 1, "rowsLink1");
     testNode.deleteRow(0);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink2",0,vrows);
+    test.equal(vrows, 0, "rowsLink2");
     test.done();
   },
 
@@ -16480,15 +16480,15 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tfoot");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink1",1,vrows);
+    test.equal(vrows, 1, "rowsLink1");
     testNode.deleteRow(0);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink2",0,vrows);
+    test.equal(vrows, 0, "rowsLink2");
     test.done();
   },
 
@@ -16516,15 +16516,15 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tbody");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink1",2,vrows);
+    test.equal(vrows, 2, "rowsLink1");
     testNode.deleteRow(0);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink2",1,vrows);
+    test.equal(vrows, 1, "rowsLink2");
     test.done();
   },
 
@@ -16552,7 +16552,7 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     {
       success = false;
@@ -16562,7 +16562,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("HTMLTableSectionElement25",success);
+      test.ok(success, 'HTMLTableSectionElement25');
     }
     test.done();
   },
@@ -16591,7 +16591,7 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     {
       success = false;
@@ -16601,7 +16601,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("HTMLTableSectionElement26",success);
+      test.ok(success, 'HTMLTableSectionElement26');
     }
     test.done();
   },
@@ -16630,7 +16630,7 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     {
       success = false;
@@ -16640,7 +16640,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("HTMLTableSectionElement27",success);
+      test.ok(success, 'HTMLTableSectionElement27');
     }
     test.done();
   },
@@ -16669,7 +16669,7 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     {
       success = false;
@@ -16679,7 +16679,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("HTMLTableSectionElement28",success);
+      test.ok(success, 'HTMLTableSectionElement28');
     }
     test.done();
   },
@@ -16707,7 +16707,7 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     {
       success = false;
@@ -16717,7 +16717,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("HTMLTableSectionElement29",success);
+      test.ok(success, 'HTMLTableSectionElement29');
     }
     test.done();
   },
@@ -16751,15 +16751,15 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink1",1,vrows);
+    test.equal(vrows, 1, "rowsLink1");
     newRow = testNode.insertRow(-1);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink2",2,vrows);
+    test.equal(vrows, 2, "rowsLink2");
     test.done();
   },
 
@@ -16790,15 +16790,15 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tbody");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink1",2,vrows);
+    test.equal(vrows, 2, "rowsLink1");
     testNode.deleteRow(-1);
     rowsnodeList = testNode.rows;
     vrows = rowsnodeList.length;
-    assertEquals("rowsLink2",1,vrows);
+    test.equal(vrows, 1, "rowsLink2");
     test.done();
   },
 
@@ -16824,10 +16824,10 @@ exports.tests = {
     }
     doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vdefaultvalue = testNode.defaultValue;
-    assertEquals("defaultValueLink","TEXTAREA2",vdefaultvalue);
+    test.equal(vdefaultvalue, "TEXTAREA2", "defaultValueLink");
     test.done();
   },
 
@@ -16853,11 +16853,11 @@ exports.tests = {
     }
     doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     fNode = testNode.form;
     vform = fNode.id;
-    assertEquals("formLink","form1",vform);
+    test.equal(vform, "form1", "formLink");
     test.done();
   },
 
@@ -16883,10 +16883,10 @@ exports.tests = {
     }
     doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vform = testNode.form;
-    assertNull("formNullLink",vform);
+    test.equal(formNullLink, null, 'formNullLink should be null');
     test.done();
   },
 
@@ -16912,10 +16912,10 @@ exports.tests = {
     }
     doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vaccesskey = testNode.accessKey;
-    assertEquals("accessKeyLink","c",vaccesskey);
+    test.equal(vaccesskey, "c", "accessKeyLink");
     test.done();
   },
 
@@ -16940,10 +16940,10 @@ exports.tests = {
     }
     doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vcols = testNode.cols;
-    assertEquals("colsLink",20,vcols);
+    test.equal(vcols, 20, "colsLink");
     test.done();
   },
 
@@ -16969,10 +16969,10 @@ exports.tests = {
     }
     doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vdisabled = testNode.disabled;
-    assertTrue("disabledLink",vdisabled);
+    test.ok(vdisabled, 'disabledLink');
     test.done();
   },
 
@@ -16998,10 +16998,10 @@ exports.tests = {
     }
     doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vname = testNode.name;
-    assertEquals("nameLink","text1",vname);
+    test.equal(vname, "text1", "nameLink");
     test.done();
   },
 
@@ -17026,10 +17026,10 @@ exports.tests = {
     }
     doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(2);
     vreadonly = testNode.readOnly;
-    assertTrue("readOnlyLink",vreadonly);
+    test.ok(vreadonly, 'readOnlyLink');
     test.done();
   },
 
@@ -17054,10 +17054,10 @@ exports.tests = {
     }
     doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vrows = testNode.rows;
-    assertEquals("rowsLink",7,vrows);
+    test.equal(vrows, 7, "rowsLink");
     test.done();
   },
 
@@ -17083,10 +17083,10 @@ exports.tests = {
     }
     doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vtabindex = testNode.tabIndex;
-    assertEquals("tabIndexLink",5,vtabindex);
+    test.equal(vtabindex, 5, "tabIndexLink");
     test.done();
   },
 
@@ -17112,10 +17112,10 @@ exports.tests = {
     }
     doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vtype = testNode.type;
-    assertEquals("typeLink","textarea",vtype);
+    test.equal(vtype, "textarea", "typeLink");
     test.done();
   },
 
@@ -17141,10 +17141,10 @@ exports.tests = {
     }
     doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vvalue = testNode.value;
-    assertEquals("valueLink","TEXTAREA1",vvalue);
+    test.equal(vvalue, "TEXTAREA1", "valueLink");
     test.done();
   },
 
@@ -17165,7 +17165,7 @@ exports.tests = {
     }
     doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     testNode.blur();
     test.done();
@@ -17188,7 +17188,7 @@ exports.tests = {
     }
     doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     testNode.focus();
     test.done();
@@ -17211,7 +17211,7 @@ exports.tests = {
     }
     doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     testNode.select();
     test.done();
@@ -17237,10 +17237,10 @@ exports.tests = {
     }
     doc = load("title");
     nodeList = doc.getElementsByTagName("title");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtext = testNode.text;
-    assertEquals("textLink","NIST DOM HTML Test - TITLE",vtext);
+    test.equal(vtext, "NIST DOM HTML Test - TITLE", "textLink");
     test.done();
   },
 
@@ -17265,10 +17265,10 @@ exports.tests = {
     }
     doc = load("ulist");
     nodeList = doc.getElementsByTagName("ul");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vcompact = testNode.compact;
-    assertTrue("compactLink",vcompact);
+    test.ok(vcompact, 'compactLink');
     test.done();
   },
 
@@ -17292,10 +17292,10 @@ exports.tests = {
     }
     doc = load("ulist");
     nodeList = doc.getElementsByTagName("ul");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vtype = testNode.type;
-    assertEquals("typeLink","disc",vtype);
+    test.equal(vtype, "disc", "typeLink");
     test.done();
   },
 
@@ -17319,10 +17319,10 @@ exports.tests = {
     }
     doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vaccesskey = testNode.accessKey;
-    assertEquals("accessKeyLink","g",vaccesskey);
+    test.equal(vaccesskey, "g", "accessKeyLink");
     test.done();
   },
 
@@ -17346,10 +17346,10 @@ exports.tests = {
     }
     doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcharset = testNode.charset;
-    assertEquals("charsetLink","US-ASCII",vcharset);
+    test.equal(vcharset, "US-ASCII", "charsetLink");
     test.done();
   },
 
@@ -17373,10 +17373,10 @@ exports.tests = {
     }
     doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcoords = testNode.coords;
-    assertEquals("coordsLink","0,0,100,100",vcoords);
+    test.equal(vcoords, "0,0,100,100", "coordsLink");
     test.done();
   },
 
@@ -17400,7 +17400,7 @@ exports.tests = {
     }
     doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vhref = testNode.href;
     assertURIEquals("hrefLink",null,null,null,"submit.gif",null,null,null,true,vhref);
@@ -17427,10 +17427,10 @@ exports.tests = {
     }
     doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtype = testNode.type;
-    assertEquals("typeLink","image/gif",vtype);
+    test.equal(vtype, "image/gif", "typeLink");
     test.done();
   },
 
@@ -17454,10 +17454,10 @@ exports.tests = {
     }
     doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vshape = testNode.shape;
-    assertEquals("shapeLink","rect",vshape);
+    test.equal(vshape, "rect", "shapeLink");
     test.done();
   },
 
@@ -17479,10 +17479,10 @@ exports.tests = {
     }
     doc = load("area");
     nodeList = doc.getElementsByTagName("area");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcoords = testNode.coords;
-    assertEquals("coordsLink","0,2,45,45",vcoords);
+    test.equal(vcoords, "0,2,45,45", "coordsLink");
     test.done();
   },
 
@@ -17504,10 +17504,10 @@ exports.tests = {
     }
     doc = load("area");
     nodeList = doc.getElementsByTagName("area");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vnohref = testNode.noHref;
-    assertFalse("noHrefLink",vnohref);
+    test.equal(vnohref, false, 'vnohref should be *false*');
     test.done();
   },
 
@@ -17529,10 +17529,10 @@ exports.tests = {
     }
     doc = load("area");
     nodeList = doc.getElementsByTagName("area");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vtabindex = testNode.tabIndex;
-    assertEquals("tabIndexLink",10,vtabindex);
+    test.equal(vtabindex, 10, "tabIndexLink");
     test.done();
   },
 
@@ -17554,10 +17554,10 @@ exports.tests = {
     }
     doc = load("area");
     nodeList = doc.getElementsByTagName("area");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vaccesskey = testNode.accessKey;
-    assertEquals("accessKeyLink","a",vaccesskey);
+    test.equal(vaccesskey, "a", "accessKeyLink");
     test.done();
   },
 
@@ -17580,10 +17580,10 @@ exports.tests = {
     }
     doc = load("basefont");
     nodeList = doc.getElementsByTagName("basefont");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcolor = testNode.color;
-    assertEquals("colorLink","#000000",vcolor);
+    test.equal(vcolor, "#000000", "colorLink");
     test.done();
   },
 
@@ -17607,10 +17607,10 @@ exports.tests = {
     }
     doc = load("body");
     nodeList = doc.getElementsByTagName("body");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valink = testNode.aLink;
-    assertEquals("aLinkLink","#0000ff",valink);
+    test.equal(valink, "#0000ff", "aLinkLink");
     test.done();
   },
 
@@ -17633,10 +17633,10 @@ exports.tests = {
     }
     doc = load("button");
     nodeList = doc.getElementsByTagName("button");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vform = testNode.form;
-    assertNull("formLink",vform);
+    test.equal(formLink, null, 'formLink should be null');
     test.done();
   },
 
@@ -17661,11 +17661,11 @@ exports.tests = {
     }
     doc = load("button");
     nodeList = doc.getElementsByTagName("button");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     formNode = testNode.form;
     vfname = formNode.id;
-    assertEquals("formLink","form2",vfname);
+    test.equal(vfname, "form2", "formLink");
     test.done();
   },
 
@@ -17690,11 +17690,11 @@ exports.tests = {
     }
     doc = load("button");
     nodeList = doc.getElementsByTagName("button");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     formNode = testNode.form;
     vfaction = formNode.action;
-    assertEquals("formLink","...",vfaction);
+    test.equal(vfaction, "...", "formLink");
     test.done();
   },
 
@@ -17719,11 +17719,11 @@ exports.tests = {
     }
     doc = load("button");
     nodeList = doc.getElementsByTagName("button");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     formNode = testNode.form;
     vfmethod = formNode.method;
-    assertEquals("formLink","POST".toLowerCase(),vfmethod.toLowerCase());
+    test.equal(vfmethod.toLowerCase(), "POST".toLowerCase(), "formLink");
     test.done();
   },
 
@@ -17747,10 +17747,10 @@ exports.tests = {
     }
     doc = load("button");
     nodeList = doc.getElementsByTagName("button");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vakey = testNode.accessKey;
-    assertEquals("accessKeyLink","f".toLowerCase(),vakey.toLowerCase());
+    test.equal(vakey.toLowerCase(), "f".toLowerCase(), "accessKeyLink");
     test.done();
   },
 
@@ -17774,10 +17774,10 @@ exports.tests = {
     }
     doc = load("button");
     nodeList = doc.getElementsByTagName("button");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vtabIndex = testNode.tabIndex;
-    assertEquals("tabIndexLink",20,vtabIndex);
+    test.equal(vtabIndex, 20, "tabIndexLink");
     test.done();
   },
 
@@ -17801,10 +17801,10 @@ exports.tests = {
     }
     doc = load("button");
     nodeList = doc.getElementsByTagName("button");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vtype = testNode.type;
-    assertEquals("typeLink","reset",vtype);
+    test.equal(vtype, "reset", "typeLink");
     test.done();
   },
 
@@ -17828,10 +17828,10 @@ exports.tests = {
     }
     doc = load("button");
     nodeList = doc.getElementsByTagName("button");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vdisabled = testNode.disabled;
-    assertTrue("disabledLink",vdisabled);
+    test.ok(vdisabled, 'disabledLink');
     test.done();
   },
 
@@ -17855,10 +17855,10 @@ exports.tests = {
     }
     doc = load("button");
     nodeList = doc.getElementsByTagName("button");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vvalue = testNode.value;
-    assertEquals("typeLink","Reset Disabled Button",vvalue);
+    test.equal(vvalue, "Reset Disabled Button", "typeLink");
     test.done();
   },
 
@@ -17880,10 +17880,10 @@ exports.tests = {
     }
     doc = load("dl");
     nodeList = doc.getElementsByTagName("dl");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcompact = testNode.compact;
-    assertTrue("compactLink",vcompact);
+    test.ok(vcompact, 'compactLink');
     test.done();
   },
 
@@ -17904,7 +17904,7 @@ exports.tests = {
     }
     doc = load("anchor");
     vtitle = doc.title;
-    assertEquals("titleLink","NIST DOM HTML Test - Anchor",vtitle);
+    test.equal(vtitle, "NIST DOM HTML Test - Anchor", "titleLink");
     test.done();
   },
 
@@ -17922,7 +17922,7 @@ exports.tests = {
     var state;
     domImpl = getImplementation();
     state = domImpl.hasFeature("hTmL",version);
-    assertTrue("hasHTMLnull",state);
+    test.ok(state, 'hasHTMLnull');
     test.done();
   },
 
@@ -17940,7 +17940,7 @@ exports.tests = {
     var state;
     domImpl = getImplementation();
     state = domImpl.hasFeature("hTmL",version);
-    assertTrue("hasHTML2",state);
+    test.ok(state, 'hasHTML2');
     test.done();
   },
 
@@ -17960,7 +17960,7 @@ exports.tests = {
     domImpl = getImplementation();
     hasXML = domImpl.hasFeature("XML",version);
     state = domImpl.hasFeature("xhTmL",version);
-    assertEquals("hasXHTML",hasXML,state);
+    test.equal(state, hasXML, "hasXHTML");
     test.done();
   },
 
@@ -17980,7 +17980,7 @@ exports.tests = {
     domImpl = getImplementation();
     hasXML = domImpl.hasFeature("XML",version);
     state = domImpl.hasFeature("xhTmL",version);
-    assertEquals("hasXHTML",hasXML,state);
+    test.equal(state, hasXML, "hasXHTML");
     test.done();
   },
 
@@ -17998,7 +17998,7 @@ exports.tests = {
     var state;
     domImpl = getImplementation();
     state = domImpl.hasFeature("cOrE",version);
-    assertTrue("hasCore",state);
+    test.ok(state, 'hasCore');
     test.done();
   },
 
@@ -18016,7 +18016,7 @@ exports.tests = {
     var state;
     domImpl = getImplementation();
     state = domImpl.hasFeature("cOrE",version);
-    assertTrue("hasCore",state);
+    test.ok(state, 'hasCore');
     test.done();
   },
 
@@ -18040,10 +18040,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vform = testNode.form;
-    assertNull("formLink",vform);
+    test.equal(formLink, null, 'formLink should be null');
     test.done();
   },
 
@@ -18067,10 +18067,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","middle",valign);
+    test.equal(valign, "middle", "alignLink");
     test.done();
   },
 
@@ -18094,10 +18094,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     varchive = testNode.archive;
-    assertEquals("archiveLink","",varchive);
+    test.equal(varchive, "", "archiveLink");
     test.done();
   },
 
@@ -18121,10 +18121,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vborder = testNode.border;
-    assertEquals("borderLink","0",vborder);
+    test.equal(vborder, "0", "borderLink");
     test.done();
   },
 
@@ -18148,10 +18148,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vcodebase = testNode.codeBase;
-    assertEquals("codebaseLink","http://xw2k.sdct.itl.nist.gov/brady/dom/",vcodebase);
+    test.equal(vcodebase, "http://xw2k.sdct.itl.nist.gov/brady/dom/", "codebaseLink");
     test.done();
   },
 
@@ -18175,10 +18175,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vdata = testNode.data;
-    assertEquals("dataLink","./pix/logo.gif",vdata);
+    test.equal(vdata, "./pix/logo.gif", "dataLink");
     test.done();
   },
 
@@ -18201,10 +18201,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vheight = testNode.height;
-    assertEquals("heightLink","60",vheight);
+    test.equal(vheight, "60", "heightLink");
     test.done();
   },
 
@@ -18228,10 +18228,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vhspace = testNode.hspace;
-    assertEquals("hspaceLink",0,vhspace);
+    test.equal(vhspace, 0, "hspaceLink");
     test.done();
   },
 
@@ -18255,10 +18255,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vstandby = testNode.standby;
-    assertEquals("standbyLink","Loading Image ...",vstandby);
+    test.equal(vstandby, "Loading Image ...", "standbyLink");
     test.done();
   },
 
@@ -18282,10 +18282,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vtabindex = testNode.tabIndex;
-    assertEquals("tabIndexLink",0,vtabindex);
+    test.equal(vtabindex, 0, "tabIndexLink");
     test.done();
   },
 
@@ -18309,10 +18309,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vtype = testNode.type;
-    assertEquals("typeLink","image/gif",vtype);
+    test.equal(vtype, "image/gif", "typeLink");
     test.done();
   },
 
@@ -18335,10 +18335,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vusemap = testNode.useMap;
-    assertEquals("useMapLink","#DivLogo-map",vusemap);
+    test.equal(vusemap, "#DivLogo-map", "useMapLink");
     test.done();
   },
 
@@ -18362,10 +18362,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vvspace = testNode.vspace;
-    assertEquals("vspaceLink",0,vvspace);
+    test.equal(vvspace, 0, "vspaceLink");
     test.done();
   },
 
@@ -18388,10 +18388,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vwidth = testNode.width;
-    assertEquals("widthLink","550",vwidth);
+    test.equal(vwidth, "550", "widthLink");
     test.done();
   },
 
@@ -18415,10 +18415,10 @@ exports.tests = {
     }
     doc = load("object");
     nodeList = doc.getElementsByTagName("object");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vcodetype = testNode.codeType;
-    assertEquals("codeTypeLink","image/gif",vcodetype);
+    test.equal(vcodetype, "image/gif", "codeTypeLink");
     test.done();
   },
 
@@ -18442,10 +18442,10 @@ exports.tests = {
     }
     doc = load("table1");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcaption = testNode.caption;
-    assertNull("captionLink",vcaption);
+    test.equal(captionLink, null, 'captionLink should be null');
     test.done();
   },
 
@@ -18470,11 +18470,11 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vcaption = testNode.caption;
     valign = vcaption.align;
-    assertEquals("alignLink","top",valign);
+    test.equal(valign, "top", "alignLink");
     test.done();
   },
 
@@ -18499,11 +18499,11 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vsection = testNode.tHead;
     vch = vsection.ch;
-    assertEquals("chLink","*",vch);
+    test.equal(vch, "*", "chLink");
     test.done();
   },
 
@@ -18528,11 +18528,11 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vsection = testNode.tHead;
     valign = vsection.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -18557,11 +18557,11 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vsection = testNode.tFoot;
     vvAlign = vsection.vAlign;
-    assertEquals("vAlignLink","middle",vvAlign);
+    test.equal(vvAlign, "middle", "vAlignLink");
     test.done();
   },
 
@@ -18587,12 +18587,12 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vsection = testNode.tFoot;
     vcollection = vsection.rows;
     vrows = vcollection.length;
-    assertEquals("vrowsLink",1,vrows);
+    test.equal(vrows, 1, "vrowsLink");
     test.done();
   },
 
@@ -18617,11 +18617,11 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vsection = testNode.tFoot;
     valign = vsection.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -18646,11 +18646,11 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vsection = testNode.tHead;
     vvalign = vsection.vAlign;
-    assertEquals("alignLink","middle",vvalign);
+    test.equal(vvalign, "middle", "alignLink");
     test.done();
   },
 
@@ -18675,11 +18675,11 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vsection = testNode.tFoot;
     vch = vsection.ch;
-    assertEquals("chLink","+",vch);
+    test.equal(vch, "+", "chLink");
     test.done();
   },
 
@@ -18704,11 +18704,11 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vsection = testNode.tHead;
     vchoff = vsection.chOff;
-    assertEquals("choffLink","1",vchoff);
+    test.equal(vchoff, "1", "choffLink");
     test.done();
   },
 
@@ -18734,12 +18734,12 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vsection = testNode.tHead;
     vcollection = vsection.rows;
     vrows = vcollection.length;
-    assertEquals("vrowsLink",1,vrows);
+    test.equal(vrows, 1, "vrowsLink");
     test.done();
   },
 
@@ -18764,11 +18764,11 @@ exports.tests = {
     }
     doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",2,nodeList);
+    test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vsection = testNode.tFoot;
     vchoff = vsection.chOff;
-    assertEquals("choffLink","2",vchoff);
+    test.equal(vchoff, "2", "choffLink");
     test.done();
   },
 
@@ -18792,10 +18792,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vcindex = testNode.cellIndex;
-    assertEquals("cellIndexLink",1,vcindex);
+    test.equal(vcindex, 1, "cellIndexLink");
     test.done();
   },
 
@@ -18820,10 +18820,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vabbr = testNode.abbr;
-    assertEquals("abbrLink","hd2",vabbr);
+    test.equal(vabbr, "hd2", "abbrLink");
     test.done();
   },
 
@@ -18847,10 +18847,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vaxis = testNode.axis;
-    assertEquals("axisLink","center",vaxis);
+    test.equal(vaxis, "center", "axisLink");
     test.done();
   },
 
@@ -18874,10 +18874,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     valign = testNode.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -18901,10 +18901,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vbgcolor = testNode.bgColor;
-    assertEquals("bgcolorLink","#FF0000".toLowerCase(),vbgcolor.toLowerCase());
+    test.equal(vbgcolor.toLowerCase(), "#FF0000".toLowerCase(), "bgcolorLink");
     test.done();
   },
 
@@ -18928,10 +18928,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vch = testNode.ch;
-    assertEquals("chLink",":",vch);
+    test.equal(vch, ":", "chLink");
     test.done();
   },
 
@@ -18955,10 +18955,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vchoff = testNode.chOff;
-    assertEquals("chOffLink","1",vchoff);
+    test.equal(vchoff, "1", "chOffLink");
     test.done();
   },
 
@@ -18982,10 +18982,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vcolspan = testNode.colSpan;
-    assertEquals("colSpanLink",1,vcolspan);
+    test.equal(vcolspan, 1, "colSpanLink");
     test.done();
   },
 
@@ -19008,10 +19008,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vheight = testNode.height;
-    assertEquals("heightLink","50",vheight);
+    test.equal(vheight, "50", "heightLink");
     test.done();
   },
 
@@ -19035,10 +19035,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vnowrap = testNode.noWrap;
-    assertTrue("nowrapLink",vnowrap);
+    test.ok(vnowrap, 'nowrapLink');
     test.done();
   },
 
@@ -19062,10 +19062,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vrowspan = testNode.rowSpan;
-    assertEquals("rowSpanLink",1,vrowspan);
+    test.equal(vrowspan, 1, "rowSpanLink");
     test.done();
   },
 
@@ -19089,10 +19089,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vscope = testNode.scope;
-    assertEquals("scopeLink","col",vscope);
+    test.equal(vscope, "col", "scopeLink");
     test.done();
   },
 
@@ -19116,10 +19116,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vheaders = testNode.headers;
-    assertEquals("headersLink","header-3",vheaders);
+    test.equal(vheaders, "header-3", "headersLink");
     test.done();
   },
 
@@ -19143,10 +19143,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vvalign = testNode.vAlign;
-    assertEquals("vAlignLink","middle",vvalign);
+    test.equal(vvalign, "middle", "vAlignLink");
     test.done();
   },
 
@@ -19170,10 +19170,10 @@ exports.tests = {
     }
     doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
-    assertSize("Asize",4,nodeList);
+    test.equal(nodeList.length, 4, 'Asize');
     testNode = nodeList.item(1);
     vwidth = testNode.width;
-    assertEquals("vwidthLink","175",vwidth);
+    test.equal(vwidth, "175", "vwidthLink");
     test.done();
   },
 
@@ -19197,10 +19197,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     valign = testNode.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -19224,10 +19224,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vborder = testNode.border;
-    assertEquals("borderLink","4",vborder);
+    test.equal(vborder, "4", "borderLink");
     test.done();
   },
 
@@ -19251,10 +19251,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vbgcolor = testNode.bgColor;
-    assertEquals("bgcolorLink","#ff0000",vbgcolor);
+    test.equal(vbgcolor, "#ff0000", "bgcolorLink");
     test.done();
   },
 
@@ -19278,10 +19278,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vframe = testNode.frame;
-    assertEquals("frameLink","border",vframe);
+    test.equal(vframe, "border", "frameLink");
     test.done();
   },
 
@@ -19304,10 +19304,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vcellpadding = testNode.cellPadding;
-    assertEquals("cellpaddingLink","2",vcellpadding);
+    test.equal(vcellpadding, "2", "cellpaddingLink");
     test.done();
   },
 
@@ -19331,10 +19331,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vcellspacing = testNode.cellSpacing;
-    assertEquals("cellspacingLink","2",vcellspacing);
+    test.equal(vcellspacing, "2", "cellspacingLink");
     test.done();
   },
 
@@ -19358,10 +19358,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vsummary = testNode.summary;
-    assertEquals("summaryLink","HTML Control Table",vsummary);
+    test.equal(vsummary, "HTML Control Table", "summaryLink");
     test.done();
   },
 
@@ -19385,10 +19385,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vrules = testNode.rules;
-    assertEquals("rulesLink","all",vrules);
+    test.equal(vrules, "all", "rulesLink");
     test.done();
   },
 
@@ -19412,10 +19412,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("table");
-    assertSize("Asize",3,nodeList);
+    test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vwidth = testNode.width;
-    assertEquals("widthLink","680",vwidth);
+    test.equal(vwidth, "680", "widthLink");
     test.done();
   },
 
@@ -19439,10 +19439,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",8,nodeList);
+    test.equal(nodeList.length, 8, 'Asize');
     testNode = nodeList.item(1);
     valign = testNode.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -19466,10 +19466,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",8,nodeList);
+    test.equal(nodeList.length, 8, 'Asize');
     testNode = nodeList.item(1);
     vbgcolor = testNode.bgColor;
-    assertEquals("bgcolorLink","#00FFFF".toLowerCase(),vbgcolor.toLowerCase());
+    test.equal(vbgcolor.toLowerCase(), "#00FFFF".toLowerCase(), "bgcolorLink");
     test.done();
   },
 
@@ -19493,10 +19493,10 @@ exports.tests = {
     }
     doc = load("table");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",8,nodeList);
+    test.equal(nodeList.length, 8, 'Asize');
     testNode = nodeList.item(1);
     vvalign = testNode.vAlign;
-    assertEquals("valignLink","middle",vvalign);
+    test.equal(vvalign, "middle", "valignLink");
     test.done();
   },
 
@@ -19520,10 +19520,10 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(1);
     vch = testNode.ch;
-    assertEquals("vchLink","*",vch);
+    test.equal(vch, "*", "vchLink");
     test.done();
   },
 
@@ -19547,10 +19547,10 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(1);
     vchoff = testNode.chOff;
-    assertEquals("choffLink","1",vchoff);
+    test.equal(vchoff, "1", "choffLink");
     test.done();
   },
 
@@ -19574,10 +19574,10 @@ exports.tests = {
     }
     doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
-    assertSize("Asize",5,nodeList);
+    test.equal(nodeList.length, 5, 'Asize');
     testNode = nodeList.item(4);
     vrindex = testNode.rowIndex;
-    assertEquals("rowIndexLink",2,vrindex);
+    test.equal(vrindex, 2, "rowIndexLink");
     test.done();
   },
 
@@ -19601,10 +19601,10 @@ exports.tests = {
     }
     doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     valign = testNode.align;
-    assertEquals("alignLink","center",valign);
+    test.equal(valign, "center", "alignLink");
     test.done();
   },
 
@@ -19628,10 +19628,10 @@ exports.tests = {
     }
     doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vch = testNode.ch;
-    assertEquals("chLink","*",vch);
+    test.equal(vch, "*", "chLink");
     test.done();
   },
 
@@ -19655,10 +19655,10 @@ exports.tests = {
     }
     doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vchoff = testNode.chOff;
-    assertEquals("chOffLink","20",vchoff);
+    test.equal(vchoff, "20", "chOffLink");
     test.done();
   },
 
@@ -19682,10 +19682,10 @@ exports.tests = {
     }
     doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vspan = testNode.span;
-    assertEquals("spanLink",1,vspan);
+    test.equal(vspan, 1, "spanLink");
     test.done();
   },
 
@@ -19709,10 +19709,10 @@ exports.tests = {
     }
     doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vvalign = testNode.vAlign;
-    assertEquals("vAlignLink","middle",vvalign);
+    test.equal(vvalign, "middle", "vAlignLink");
     test.done();
   },
 
@@ -19736,10 +19736,10 @@ exports.tests = {
     }
     doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
-    assertSize("Asize",1,nodeList);
+    test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vwidth = testNode.width;
-    assertEquals("widthLink","20",vwidth);
+    test.equal(vwidth, "20", "widthLink");
     test.done();
   },
 
@@ -19753,8 +19753,7 @@ exports.tests = {
     anchor = doc.getElementById("Anchor");
     doc.readyState = 'loading';
     doc.write("hello world");
-    assertEquals("#Anchor's innerHTML should be set",
-                 'hello world', anchor.innerHTML);
+    test.equal(anchor.innerHTML, 'hello world', "#Anchor's innerHTML should be set");
     test.done();
   },
 
@@ -19780,8 +19779,8 @@ exports.tests = {
       performedDefault = true;
     }
     preventDefault = a.dispatchEvent(evt);
-    assertFalse("preventDefault", preventDefault);
-    assertTrue("performedDefault", performedDefault);
+    test.equal(preventDefault, false, 'preventDefault should be *false*');
+    test.ok(performedDefault, 'performedDefault');
     test.done();
   }
 }
