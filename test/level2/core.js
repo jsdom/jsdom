@@ -4831,7 +4831,7 @@ exports['getElementsByTagNameNS'] = testcase({
       result[result.length] = childName;
 
     }
-    assertEqualsList("nodeNames",expectedResult,result);
+    test.deepEqual(result, expectedResult, 'nodeNames');
     test.done();
   },
   /**
@@ -4875,7 +4875,7 @@ exports['getElementsByTagNameNS'] = testcase({
       result[result.length] = childName;
 
     }
-    assertEqualsList("nodeNames",expectedResult,result);
+    test.deepEqual(result, expectedResult, 'nodeNames');
     test.done();
   },
   /**
@@ -5081,7 +5081,7 @@ exports['getElementsByTagNameNS'] = testcase({
       result[result.length] = childName;
 
     }
-    assertEqualsList("nodeNames",expectedResult,result);
+    test.deepEqual(result, expectedResult, 'nodeNames');
     test.done();
   },
   /**
@@ -5129,7 +5129,7 @@ exports['getElementsByTagNameNS'] = testcase({
       result[result.length] = childName;
 
     }
-    assertEqualsList("nodeNames",expectedResult,result);
+    test.deepEqual(result, expectedResult, 'nodeNames');
     test.done();
   },
   /**
@@ -5981,8 +5981,6 @@ exports['importNode'] = testcase({
     var aNode;
     var ownerDocument;
     var attrOwnerElement;
-    var docType;
-    var system;
     var specified;
     var childList;
     var nodeName;
@@ -5999,13 +5997,8 @@ exports['importNode'] = testcase({
     aNode = newAttr.appendChild(importedChild);
     aNode = doc.importNode(newAttr,false);
     ownerDocument = aNode.ownerDocument;
-
-    docType = ownerDocument.doctype;
-
-    system = docType.systemId;
-
     test.notEqual(aNode, null, 'aNode should be null');
-    assertURIEquals("systemId",null,null,null,"staffNS.dtd",null,null,null,null,system);
+    test.equal(doc.doctype.systemId, 'staffNS.dtd')
     attrOwnerElement = aNode.ownerElement;
 
     test.equal(attrOwnerElement, null, 'attrOwnerElement should not be null');
@@ -6045,26 +6038,14 @@ exports['importNode'] = testcase({
     var cDataSec;
     var aNode;
     var ownerDocument;
-    var docType;
-    var system;
-    var value;
-
-
     var doc = require('./core/files/staffNS.xml').staffNS();
     var aNewDoc = require('./core/files/staffNS.xml').staffNS();
     cDataSec = aNewDoc.createCDATASection("this is CDATASection data");
     aNode = doc.importNode(cDataSec,false);
     ownerDocument = aNode.ownerDocument;
-
     test.notEqual(ownerDocument, null, 'ownerDocument should be null');
-    docType = ownerDocument.doctype;
-
-    system = docType.systemId;
-
-    assertURIEquals("dtdSystemId",null,null,null,"staffNS.dtd",null,null,null,null,system);
-    value = aNode.nodeValue;
-
-    test.equal(value, "this is CDATASection data", "nodeValue");
+    test.equal(doc.doctype.systemId, 'staffNS.dtd')
+    test.equal(aNode.nodeValue, "this is CDATASection data", "nodeValue");
     test.done();
   },
   /**
@@ -6084,30 +6065,17 @@ exports['importNode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
   importNode03: function(test) {
-    var success;
     var comment;
     var aNode;
     var ownerDocument;
-    var docType;
-    var system;
-    var value;
-
-
     var doc = require('./core/files/staffNS.xml').staffNS();
     var aNewDoc = require('./core/files/staffNS.xml').staffNS();
     comment = aNewDoc.createComment("this is a comment");
     aNode = doc.importNode(comment,false);
     ownerDocument = aNode.ownerDocument;
-
     test.notEqual(ownerDocument, null, 'ownerDocument should be null');
-    docType = ownerDocument.doctype;
-
-    system = docType.systemId;
-
-    assertURIEquals("systemId",null,null,null,"staffNS.dtd",null,null,null,null,system);
-    value = aNode.nodeValue;
-
-    test.equal(value, "this is a comment", "nodeValue");
+    test.equal(doc.doctype.systemId, 'staffNS.dtd')
+    test.equal(aNode.nodeValue, "this is a comment", "nodeValue");
     test.done();
   },
   /**
@@ -6169,17 +6137,11 @@ exports['importNode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
   importNode05: function(test) {
-    var success;
     var element;
     var aNode;
     var hasChild;
     var ownerDocument;
-    var docType;
-    var system;
-    var name;
     var addresses;
-
-
     var doc = require('./core/files/staffNS.xml').staffNS();
     var aNewDoc = require('./core/files/staffNS.xml').staffNS();
     addresses = aNewDoc.getElementsByTagName("emp:address");
@@ -6189,15 +6151,8 @@ exports['importNode'] = testcase({
     hasChild = aNode.hasChildNodes();
     test.equal(hasChild, false, 'hasChild should be *false*');
     ownerDocument = aNode.ownerDocument;
-
-    docType = ownerDocument.doctype;
-
-    system = docType.systemId;
-
-    assertURIEquals("dtdSystemId",null,null,null,"staffNS.dtd",null,null,null,null,system);
-    name = aNode.nodeName;
-
-    test.equal(name, "emp:address", "nodeName");
+    test.equal(doc.doctype.systemId, 'staffNS.dtd')
+    test.equal(aNode.nodeName, "emp:address", "nodeName");
     test.done();
   },
   /**
@@ -6309,15 +6264,10 @@ exports['importNode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-Core-DocType-systemId
    */
   importNode08: function(test) {
-    var success;
     var docFrag;
     var aNode;
     var hasChild;
     var ownerDocument;
-    var docType;
-    var system;
-
-
     var doc = require('./core/files/staffNS.xml').staffNS();
     var aNewDoc = require('./core/files/staffNS.xml').staffNS();
     docFrag = aNewDoc.createDocumentFragment();
@@ -6325,12 +6275,7 @@ exports['importNode'] = testcase({
     hasChild = aNode.hasChildNodes();
     test.equal(hasChild, false, 'hasChild should be *false*');
     ownerDocument = aNode.ownerDocument;
-
-    docType = ownerDocument.doctype;
-
-    system = docType.systemId;
-
-    assertURIEquals("system",null,null,null,"staffNS.dtd",null,null,null,null,system);
+    test.equal(doc.doctype.systemId, 'staffNS.dtd')
     test.done();
   },
   /**
@@ -6350,47 +6295,17 @@ exports['importNode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
   importNode09: function(test) {
-    var success;
-    var doc1Type;
-    var entityList;
-    var entity2;
-    var entity1;
-    var ownerDocument;
-    var docType;
-    var system;
-    var entityName;
-    var publicVal;
-    var notationName;
-
-
     var doc = require('./core/files/staffNS.xml').staffNS();
     var aNewDoc = require('./core/files/staffNS.xml').staffNS();
-    docType = aNewDoc.doctype;
-
-    entityList = docType.entities;
-
+    var entityList = aNewDoc.doctype.entities;
     test.notEqual(entityList, null, 'entityList should be null');
-    entity2 = entityList.getNamedItem("ent6");
-    entity1 = doc.importNode(entity2,false);
-    ownerDocument = entity1.ownerDocument;
-
-    docType = ownerDocument.doctype;
-
-    system = docType.systemId;
-
-    assertURIEquals("dtdSystemId",null,null,null,"staffNS.dtd",null,null,null,null,system);
-    entityName = entity1.nodeName;
-
-    test.equal(entityName, "ent6", "entityName");
-    publicVal = entity1.publicId;
-
-    test.equal(publicVal, "uri", "entityPublicId");
-    system = entity1.systemId;
-
-    assertURIEquals("entitySystemId",null,null,null,"file",null,null,null,null,system);
-    notationName = entity1.notationName;
-
-    test.equal(notationName, "notation2", "notationName");
+    var entity2 = entityList.getNamedItem("ent6");
+    var entity1 = doc.importNode(entity2,false);
+    test.equal(entity1.ownerDocument.doctype.systemId, 'staffNS.dtd')
+    test.equal(entity1.nodeName, "ent6", "entityName");
+    test.equal(entity1.publicId, "uri", "entityPublicId");
+    test.equal(entity1.systemId, 'file')
+    test.equal(entity1.notationName, "notation2", "notationName");
     test.done();
   },
   /**
@@ -6412,32 +6327,14 @@ exports['importNode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
   importNode10: function(test) {
-    var success;
-    var entRef;
-    var aNode;
-    var ownerDocument;
-    var docType;
-    var system;
-    var name;
-
-
     var doc = require('./core/files/staffNS.xml').staffNS();
     var aNewDoc = require('./core/files/staffNS.xml').staffNS();
-    entRef = aNewDoc.createEntityReference("entRef1");
+    var entRef = aNewDoc.createEntityReference("entRef1");
     test.notEqual(entRef, null, 'entRef should be null');
     entRef.nodeValue = "entRef1Value";
-
-    aNode = doc.importNode(entRef,false);
-    ownerDocument = aNode.ownerDocument;
-
-    docType = ownerDocument.doctype;
-
-    system = docType.systemId;
-
-    assertURIEquals("systemId",null,null,null,"staffNS.dtd",null,null,null,null,system);
-    name = aNode.nodeName;
-
-    test.equal(name, "entRef1", "nodeName");
+    var aNode = doc.importNode(entRef,false);
+    test.equal(aNode.ownerDocument.doctype.systemId, 'staffNS.dtd')
+    test.equal(aNode.nodeName, "entRef1", "nodeName");
     test.done();
   },
   /**
@@ -6499,44 +6396,16 @@ exports['importNode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
   importNode12: function(test) {
-    var success;
-    var doc1Type;
-    var entityList;
-    var entity2;
-    var entity1;
-    var ownerDocument;
-    var docType;
-    var system;
-    var entityName;
-    var child;
-    var childName;
-
-
     var doc = require('./core/files/staffNS.xml').staffNS();
     var aNewDoc = require('./core/files/staffNS.xml').staffNS();
-    doc1Type = aNewDoc.doctype;
-
-    entityList = doc1Type.entities;
-
+    var entityList = aNewDoc.doctype.entities;
     test.notEqual(entityList, null, 'entityList should be null');
-    entity2 = entityList.getNamedItem("ent4");
-    entity1 = doc.importNode(entity2,true);
-    ownerDocument = entity1.ownerDocument;
-
-    docType = ownerDocument.doctype;
-
-    system = docType.systemId;
-
-    assertURIEquals("systemId",null,null,null,"staffNS.dtd",null,null,null,null,system);
-    entityName = entity1.nodeName;
-
-    test.equal(entityName, "ent4", "entityName");
-    child = entity1.firstChild;
-
-    test.notEqual(child, null, 'child should be null');
-    childName = child.nodeName;
-
-    test.equal(childName, "entElement1", "childName");
+    var entity2 = entityList.getNamedItem("ent4");
+    var entity1 = doc.importNode(entity2,true);
+    test.equal(entity1.ownerDocument.doctype.systemId, 'staffNS.dtd')
+    test.equal(entity1.nodeName, "ent4", "entityName");
+    test.notEqual(entity1.firstChild, null, 'child should be null');
+    test.equal(entity1.firstChild.nodeName, "entElement1", "childName");
     test.done();
   },
   /**
@@ -6556,39 +6425,15 @@ exports['importNode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
   importNode13: function(test) {
-    var success;
-    var doc1Type;
-    var notationList;
-    var notation;
-    var aNode;
-    var ownerDocument;
-    var docType;
-    var system;
-    var publicVal;
-
-
     var doc = require('./core/files/staffNS.xml').staffNS();
     var aNewDoc = require('./core/files/staffNS.xml').staffNS();
-    doc1Type = aNewDoc.doctype;
-
-    notationList = doc1Type.notations;
-
+    var notationList = aNewDoc.doctype.notations;
     test.notEqual(notationList, null, 'notationList should be null');
-    notation = notationList.getNamedItem("notation1");
-    aNode = doc.importNode(notation,false);
-    ownerDocument = aNode.ownerDocument;
-
-    docType = ownerDocument.doctype;
-
-    system = docType.systemId;
-
-    assertURIEquals("systemId",null,null,null,"staffNS.dtd",null,null,null,null,system);
-    publicVal = aNode.publicId;
-
-    test.equal(publicVal, "notation1File", "publicId");
-    system = aNode.systemId;
-
-    test.equal(system, null, 'system should not be null');
+    var notation = notationList.getNamedItem("notation1");
+    var aNode = doc.importNode(notation,false);
+    test.equal(aNode.ownerDocument.doctype.systemId, 'staffNS.dtd')
+    test.equal(aNode.publicId, "notation1File", "publicId");
+    test.equal(aNode.systemId, null, 'system should be null');
     test.done();
   },
   /**
@@ -6607,35 +6452,15 @@ exports['importNode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
   importNode14: function(test) {
-    var success;
-    var pi;
-    var aNode;
-    var ownerDocument;
-    var docType;
-    var system;
-    var target;
-    var data;
-    var result = new Array();
-
-
-
     var doc = require('./core/files/staffNS.xml').staffNS();
     var aNewDoc = require('./core/files/staffNS.xml').staffNS();
-    pi = aNewDoc.createProcessingInstruction("target1","data1");
-    aNode = doc.importNode(pi,false);
-    ownerDocument = aNode.ownerDocument;
-
-    test.notEqual(ownerDocument, null, 'ownerDocument should be null');
-    docType = ownerDocument.doctype;
-
-    system = docType.systemId;
-
-    assertURIEquals("systemId",null,null,null,"staffNS.dtd",null,null,null,null,system);
+    var pi = aNewDoc.createProcessingInstruction("target1","data1");
+    var aNode = doc.importNode(pi,false);
+    test.notEqual(aNode.ownerDocument, null, 'ownerDocument should be null');
+    test.equal(aNode.ownerDocument.doctype.systemId, 'staffNS.dtd')
     target = aNode.target;
-
     test.equal(target, "target1", "piTarget");
     data = aNode.data;
-
     test.equal(data, "data1", "piData");
     test.done();
   },
@@ -6656,30 +6481,13 @@ exports['importNode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
   importNode15: function(test) {
-    var success;
-    var text;
-    var aNode;
-    var ownerDocument;
-    var docType;
-    var system;
-    var value;
-
-
     var doc = require('./core/files/staffNS.xml').staffNS();
     var aNewDoc = require('./core/files/staffNS.xml').staffNS();
-    text = aNewDoc.createTextNode("this is text data");
-    aNode = doc.importNode(text,false);
-    ownerDocument = aNode.ownerDocument;
-
-    test.notEqual(ownerDocument, null, 'ownerDocument should be null');
-    docType = ownerDocument.doctype;
-
-    system = docType.systemId;
-
-    assertURIEquals("systemId",null,null,null,"staffNS.dtd",null,null,null,null,system);
-    value = aNode.nodeValue;
-
-    test.equal(value, "this is text data", "nodeValue");
+    var text = aNewDoc.createTextNode("this is text data");
+    var aNode = doc.importNode(text,false);
+    test.notEqual(aNode.ownerDocument, null, 'ownerDocument should be null');
+    test.equal(aNode.ownerDocument.doctype.systemId, 'staffNS.dtd')
+    test.equal(aNode.nodeValue, "this is text data", "nodeValue");
     test.done();
   },
   /**
