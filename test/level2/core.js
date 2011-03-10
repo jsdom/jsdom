@@ -18,7 +18,7 @@ exports['attrgetownerelement'] = testcase({
 
   // Retreive the default attribute defaultAttr and check its owner element.  Verify if the name the nodeName of the returned ownerElement is emp:employee.
   // @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
-  attrgetownerelement01: function (test) {
+  attrgetownerelement01: function(test) {
     var element = this.doc.getElementsByTagNameNS("http://www.nist.gov","employee").item(1);
     var attr = element.attributes.getNamedItemNS(null,"defaultAttr");
     test.equal(attr.ownerElement.nodeName, 'emp:employee');
@@ -26,7 +26,7 @@ exports['attrgetownerelement'] = testcase({
   },
 
   // Create a new element and attribute node, attach the attribute to the element. Check the value of owner element of the new attribute node
-  attrgetownerelement02: function (test) {
+  attrgetownerelement02: function(test) {
     var element = this.doc.createElement("root");
     var attr = this.doc.createAttributeNS("http://www.w3.org/DOM/L1","L1:att");
     element.setAttributeNodeNS(attr);
@@ -35,14 +35,14 @@ exports['attrgetownerelement'] = testcase({
   },
 
   // Create a new attribute node for this document node.  Since the newly attribute is not in use its owner element should be null.
-  attrgetownerelement03: function (test) {
+  attrgetownerelement03: function(test) {
     var attr = this.doc.createAttributeNS("http://www.w3.org/DOM","dom:attr");
     test.equal(attr.ownerElement, null, 'should be null')
     test.done();
   },
 
   // Import an attribute node to another document.  If an Attr node is imported, its ownerElement attribute should be set to null.  Verify if the ownerElement has been set to null.
-  attrgetownerelement04: function (test) {
+  attrgetownerelement04: function(test) {
     var docImport = require('./core/files/staff.xml').staff();
     var element = this.doc.getElementsByTagNameNS("http://www.nist.gov","address").item(1);
     test.notEqual(element, null, 'element should not be null');
@@ -54,7 +54,7 @@ exports['attrgetownerelement'] = testcase({
 
   // Retreive an element and its attributes.  Then remove the element and check the name of the ownerElement of attribute of the attribute "street".
   // @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
-  attrgetownerelement05: function (test) {
+  attrgetownerelement05: function(test) {
     var element = this.doc.getElementsByTagNameNS("*","address").item(1);
     element.parentNode.removeChild(element);
     var attr = element.attributes.getNamedItemNS(null, "street");
@@ -81,7 +81,7 @@ exports['createAttributeNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-DocCrAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  createAttributeNS01 : function () {
+  createAttributeNS01: function(test) {
     var success;
     var namespaceURI = "http://www.ecommerce.org/";
     var malformedName = "prefix::local";
@@ -98,9 +98,9 @@ exports['createAttributeNS'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -118,7 +118,7 @@ exports['createAttributeNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-DocCrAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  createAttributeNS02 : function () {
+  createAttributeNS02: function(test) {
     var success;
     var namespaceURI = null;
 
@@ -136,9 +136,9 @@ exports['createAttributeNS'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -156,7 +156,7 @@ exports['createAttributeNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-DocCrAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    */
-  createAttributeNS03 : function () {
+  createAttributeNS03: function(test) {
     var success;
     var namespaceURI = "http://www.wedding.com/";
     var qualifiedName;
@@ -204,11 +204,11 @@ exports['createAttributeNS'] = testcase({
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 5);
 	}
-	assertTrue("throw_INVALID_CHARACTER_ERR",success);
+	test.ok(success, 'throw_INVALID_CHARACTER_ERR');
       }
 
     }
-
+    test.done();
   },
   /**
    *
@@ -229,7 +229,7 @@ exports['createAttributeNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-DocCrAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  createAttributeNS04 : function () {
+  createAttributeNS04: function(test) {
     var success;
     var namespaceURI = "http://www.w3.org/XML/1998/namespaces";
     var qualifiedName = "xml:attr1";
@@ -246,9 +246,9 @@ exports['createAttributeNS'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -264,7 +264,7 @@ exports['createAttributeNS'] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1112119403
    */
-  createAttributeNS05 : function () {
+  createAttributeNS05: function(test) {
     var success;
     var namespaceURI = "http://www.ecommerce.org/";
     var qualifiedName = "econm:local";
@@ -276,8 +276,8 @@ exports['createAttributeNS'] = testcase({
     newAttr = doc.createAttributeNS(namespaceURI,qualifiedName);
     attrName = newAttr.name;
 
-    assertEquals("throw_Equals",qualifiedName,attrName);
-
+    test.equal(attrName, qualifiedName, "throw_Equals");
+    test.done();
   },
   /**
    *
@@ -288,7 +288,7 @@ exports['createAttributeNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-DocCrAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  createAttributeNS06 : function () {
+  createAttributeNS06: function(test) {
     var success;
     var namespaceURI = "http://www.example.com/";
     var qualifiedName;
@@ -305,9 +305,9 @@ exports['createAttributeNS'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("throw_INVALID_CHARACTER_ERR",success);
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
-
+    test.done();
   }
 })
 
@@ -331,7 +331,7 @@ exports['createDocument'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('Level-2-Core-DOM-createDocument')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  createDocument01 : function () {
+  createDocument01: function(test) {
     var success;
     var namespaceURI = "http://www.ecommerce.org/";
     var malformedName = "prefix::local";
@@ -352,9 +352,9 @@ exports['createDocument'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -372,7 +372,7 @@ exports['createDocument'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('Level-2-Core-DOM-createDocument')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  createDocument02 : function () {
+  createDocument02: function(test) {
     var success;
     var namespaceURI = null;
 
@@ -394,9 +394,9 @@ exports['createDocument'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -414,7 +414,7 @@ exports['createDocument'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('Level-2-Core-DOM-createDocument')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='WRONG_DOCUMENT_ERR'])
    */
-  createDocument03 : function () {
+  createDocument03: function(test) {
     var success;
     var namespaceURI = "http://www.ecommerce.org/schema";
     var qualifiedName = "namespaceURI:x";
@@ -436,9 +436,9 @@ exports['createDocument'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -457,7 +457,7 @@ exports['createDocument'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('Level-2-Core-DOM-createDocument')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='WRONG_DOCUMENT_ERR'])
    */
-  createDocument04 : function () {
+  createDocument04: function(test) {
     var success;
     var namespaceURI = "http://www.ecommerce.org/schema";
     var qualifiedName = "namespaceURI:x";
@@ -475,8 +475,9 @@ exports['createDocument'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
+    test.done();
   },
   /**
    *
@@ -494,7 +495,7 @@ exports['createDocument'] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#
    */
-  createDocument05 : function () {
+  createDocument05: function(test) {
     var success;
     var namespaceURI = "http://www.ecommerce.org/schema";
     var qualifiedName;
@@ -547,11 +548,11 @@ exports['createDocument'] = testcase({
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 5);
 	}
-	assertTrue("throw_INVALID_CHARACTER_ERR",success);
+	test.ok(success, 'throw_INVALID_CHARACTER_ERR');
       }
 
     }
-
+    test.done();
   },
   /**
    *
@@ -573,7 +574,7 @@ exports['createDocument'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('Level-2-Core-DOM-createDocument')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  createDocument06 : function () {
+  createDocument06: function(test) {
     var success;
     var namespaceURI = "http://ecommerce.org/schema";
     var qualifiedName = "xml:local";
@@ -594,9 +595,9 @@ exports['createDocument'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -614,7 +615,7 @@ exports['createDocument'] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
    */
-  createDocument07 : function () {
+  createDocument07: function(test) {
     var success;
     var namespaceURI = "http://www.ecommerce.org/schema";
     var qualifiedName = "y:x";
@@ -633,9 +634,9 @@ exports['createDocument'] = testcase({
 
     nodeValue = aNewDoc.nodeValue;
 
-    assertEquals("nodeName","#document",nodeName);
-    assertNull("nodeValue",nodeValue);
-
+    test.equal(nodeName, "#document", "nodeName");
+    test.equal(nodeValue, null, 'nodeValue should not be null');
+    test.done();
   },
   /**
    *
@@ -645,7 +646,7 @@ exports['createDocument'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  createDocument08 : function () {
+  createDocument08: function(test) {
     var success;
     var namespaceURI = "http://www.example.org/schema";
     var docType = null;
@@ -664,9 +665,9 @@ exports['createDocument'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("throw_INVALID_CHARACTER_ERR",success);
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
-
+    test.done();
   }
 })
 
@@ -689,7 +690,7 @@ exports['createDocumentType'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocType
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('Level-2-Core-DOM-createDocType')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  createDocumentType01 : function () {
+  createDocumentType01: function(test) {
     var success;
     var publicId = "STAFF";
     var systemId = "staff.xml";
@@ -709,9 +710,9 @@ exports['createDocumentType'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -729,7 +730,7 @@ exports['createDocumentType'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocType
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('Level-2-Core-DOM-createDocType')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    */
-  createDocumentType02 : function () {
+  createDocumentType02: function(test) {
     var success;
     var publicId = "http://www.localhost.com/";
     var systemId = "myDoc.dtd";
@@ -781,11 +782,11 @@ exports['createDocumentType'] = testcase({
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 5);
 	}
-	assertTrue("throw_INVALID_CHARACTER_ERR",success);
+	test.ok(success, 'throw_INVALID_CHARACTER_ERR');
       }
 
     }
-
+    test.done();
   },
   /**
    *
@@ -801,7 +802,7 @@ exports['createDocumentType'] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocType
    */
-  createDocumentType03 : function () {
+  createDocumentType03: function(test) {
     var success;
     var namespaceURI = "http://ecommerce.org/schema";
     var qualifiedName = "prefix:myDoc";
@@ -819,11 +820,11 @@ exports['createDocumentType'] = testcase({
     newType = domImpl.createDocumentType(qualifiedName,publicId,systemId);
     nodeName = newType.nodeName;
 
-    assertEquals("nodeName","prefix:myDoc",nodeName);
+    test.equal(nodeName, "prefix:myDoc", "nodeName");
     nodeValue = newType.nodeValue;
 
-    assertNull("nodeValue",nodeValue);
-
+    test.equal(nodeValue, null, 'nodeValue should not be null');
+    test.done();
   },
   /**
    *
@@ -834,7 +835,7 @@ exports['createDocumentType'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('Level-2-Core-DOM-createDocType')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  createDocumentType04 : function () {
+  createDocumentType04: function(test) {
     var success;
     var publicId = "http://www.example.com/";
     var systemId = "myDoc.dtd";
@@ -850,9 +851,9 @@ exports['createDocumentType'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("throw_INVALID_CHARACTER_ERR",success);
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
-
+    test.done();
   }
 })
 
@@ -874,7 +875,7 @@ exports['createElementNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrElNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-DocCrElNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  createElementNS01 : function () {
+  createElementNS01: function(test) {
     var success;
     var namespaceURI = "http://www.ecommerce.org/";
     var malformedName = "prefix::local";
@@ -891,9 +892,9 @@ exports['createElementNS'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -911,7 +912,7 @@ exports['createElementNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrElNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-DocCrElNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  createElementNS02 : function () {
+  createElementNS02: function(test) {
     var success;
     var namespaceURI = null;
 
@@ -929,9 +930,9 @@ exports['createElementNS'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -949,7 +950,7 @@ exports['createElementNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrElNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-DocCrElNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    */
-  createElementNS03 : function () {
+  createElementNS03: function(test) {
     var success;
     var namespaceURI = "http://www.wedding.com/";
     var qualifiedName;
@@ -999,11 +1000,11 @@ exports['createElementNS'] = testcase({
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 5);
 	}
-	assertTrue("throw_INVALID_CHARACTER_ERR",success);
+	test.ok(success, 'throw_INVALID_CHARACTER_ERR');
       }
 
     }
-
+    test.done();
   },
   /**
    *
@@ -1024,7 +1025,7 @@ exports['createElementNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrElNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-DocCrElNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  createElementNS04 : function () {
+  createElementNS04: function(test) {
     var success;
     var namespaceURI = "http://www.w3.org/XML/1998/namespaces";
     var qualifiedName = "xml:element1";
@@ -1041,9 +1042,9 @@ exports['createElementNS'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -1059,7 +1060,7 @@ exports['createElementNS'] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-104682815
    */
-  createElementNS05 : function () {
+  createElementNS05: function(test) {
     var success;
     var namespaceURI = "http://www.nist.gov";
     var qualifiedName = "gov:faculty";
@@ -1071,8 +1072,8 @@ exports['createElementNS'] = testcase({
     newElement = doc.createElementNS(namespaceURI,qualifiedName);
     elementName = newElement.tagName;
 
-    assertEquals("throw_Equals",qualifiedName,elementName);
-
+    test.equal(elementName, qualifiedName, "throw_Equals");
+    test.done();
   },
   /**
    *
@@ -1083,7 +1084,7 @@ exports['createElementNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-DocCrElNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  createElementNS06 : function () {
+  createElementNS06: function(test) {
     var success;
     var namespaceURI = "http://www.example.com/";
     var qualifiedName;
@@ -1102,9 +1103,9 @@ exports['createElementNS'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("throw_INVALID_CHARACTER_ERR",success);
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
-
+    test.done();
   }
 })
 
@@ -1122,7 +1123,7 @@ exports['documentcreateattributeNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
    */
-  documentcreateattributeNS01 : function () {
+  documentcreateattributeNS01: function(test) {
     var success;
     var attribute;
     var namespaceURI = null;
@@ -1139,8 +1140,8 @@ exports['documentcreateattributeNS'] = testcase({
 
     nodeValue = attribute.nodeValue;
 
-    assertEquals("documentcreateattributeNS01","test",nodeName);
-
+    test.equal(nodeName, "test", "documentcreateattributeNS01");
+    test.done();
   },
   /**
    *
@@ -1154,7 +1155,7 @@ exports['documentcreateattributeNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
    */
-  documentcreateattributeNS02 : function () {
+  documentcreateattributeNS02: function(test) {
     var success;
     var attribute1;
     var attribute2;
@@ -1177,11 +1178,11 @@ exports['documentcreateattributeNS'] = testcase({
 
     namespaceURI = attribute1.namespaceURI;
 
-    assertEquals("documentcreateattributeNS02_att1_name","xml:xml",name);
-    assertEquals("documentcreateattributeNS02_att1_nodeName","xml:xml",nodeName);
-    assertEquals("documentcreateattributeNS02_att1_nodeValue","",nodeValue);
-    assertEquals("documentcreateattributeNS02_att1_prefix","xml",prefix);
-    assertEquals("documentcreateattributeNS02_att1_namespaceURI","http://www.w3.org/XML/1998/namespace",namespaceURI);
+    test.equal(name, "xml:xml", "documentcreateattributeNS02_att1_name");
+    test.equal(nodeName, "xml:xml", "documentcreateattributeNS02_att1_nodeName");
+    test.equal(nodeValue, "", "documentcreateattributeNS02_att1_nodeValue");
+    test.equal(prefix, "xml", "documentcreateattributeNS02_att1_prefix");
+    test.equal(namespaceURI, "http://www.w3.org/XML/1998/namespace", "documentcreateattributeNS02_att1_namespaceURI");
     attribute2 = doc.createAttributeNS("http://www.w3.org/2000/xmlns/","xmlns");
     name = attribute2.name;
 
@@ -1193,11 +1194,11 @@ exports['documentcreateattributeNS'] = testcase({
 
     namespaceURI = attribute2.namespaceURI;
 
-    assertEquals("documentcreateattributeNS02_att2_name","xmlns",name);
-    assertEquals("documentcreateattributeNS02_att2_nodeName","xmlns",nodeName);
-    assertEquals("documentcreateattributeNS02_att2_nodeValue","",nodeValue);
-    assertEquals("documentcreateattributeNS02_att2_namespaceURI","http://www.w3.org/2000/xmlns/",namespaceURI);
-
+    test.equal(name, "xmlns", "documentcreateattributeNS02_att2_name");
+    test.equal(nodeName, "xmlns", "documentcreateattributeNS02_att2_nodeName");
+    test.equal(nodeValue, "", "documentcreateattributeNS02_att2_nodeValue");
+    test.equal(namespaceURI, "http://www.w3.org/2000/xmlns/", "documentcreateattributeNS02_att2_namespaceURI");
+    test.done();
   },
   /**
    *
@@ -1220,7 +1221,7 @@ exports['documentcreateattributeNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
    */
-  documentcreateattributeNS03 : function () {
+  documentcreateattributeNS03: function(test) {
     var success;
     var attribute;
     var namespaceURI = "http://www.w3.org/DOM/Test/Level2";
@@ -1250,11 +1251,11 @@ exports['documentcreateattributeNS'] = testcase({
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 5);
 	}
-	assertTrue("documentcreateattributeNS03",success);
+	test.ok(success, 'documentcreateattributeNS03');
       }
 
     }
-
+    test.done();
   },
   /**
    *
@@ -1275,7 +1276,7 @@ exports['documentcreateattributeNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
    */
-  documentcreateattributeNS04 : function () {
+  documentcreateattributeNS04: function(test) {
     var success;
     var attribute;
     var namespaceURI = "http://www.w3.org/DOM/Test/Level2";
@@ -1301,11 +1302,11 @@ exports['documentcreateattributeNS'] = testcase({
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 14);
 	}
-	assertTrue("documentcreateattributeNS04",success);
+	test.ok(success, 'documentcreateattributeNS04');
       }
 
     }
-
+    test.done();
   },
   /**
    *
@@ -1320,7 +1321,7 @@ exports['documentcreateattributeNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
    */
-  documentcreateattributeNS05 : function () {
+  documentcreateattributeNS05: function(test) {
     var success;
     var newDoc;
     var docType = null;
@@ -1344,9 +1345,9 @@ exports['documentcreateattributeNS'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("documentcreateattributeNS05",success);
+      test.ok(success, 'documentcreateattributeNS05');
     }
-
+    test.done();
   },
   /**
    *
@@ -1362,7 +1363,7 @@ exports['documentcreateattributeNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
    */
-  documentcreateattributeNS06 : function () {
+  documentcreateattributeNS06: function(test) {
     var success;
     var newDoc;
     var docType = null;
@@ -1385,9 +1386,9 @@ exports['documentcreateattributeNS'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("documentcreateattributeNS06",success);
+      test.ok(success, 'documentcreateattributeNS06');
     }
-
+    test.done();
   },
   /**
    *
@@ -1410,7 +1411,7 @@ exports['documentcreateattributeNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrAttrNS
    */
-  documentcreateattributeNS07 : function () {
+  documentcreateattributeNS07: function(test) {
     var success;
     var attribute;
     var namespaceURI = "http://www.W3.org/2000/xmlns";
@@ -1427,9 +1428,9 @@ exports['documentcreateattributeNS'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("documentcreateattributeNS07",success);
+      test.ok(success, 'documentcreateattributeNS07');
     }
-
+    test.done();
   }
 })
 
@@ -1451,7 +1452,7 @@ exports['documentcreateelementNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrElNS
    */
-  documentcreateelementNS01 : function () {
+  documentcreateelementNS01: function(test) {
     var success;
     var element;
     var namespaceURI = "http://www.w3.org/DOM/Test/level2";
@@ -1475,12 +1476,12 @@ exports['documentcreateelementNS'] = testcase({
 
     tagName = element.tagName;
 
-    assertEquals("documentcreateelementNS01_nodeName","XML:XML",nodeName);
-    assertEquals("documentcreateelementNS01_namespaceURI","http://www.w3.org/DOM/Test/level2",nsURI);
-    assertEquals("documentcreateelementNS01_localName","XML",localName);
-    assertEquals("documentcreateelementNS01_prefix","XML",prefix);
-    assertEquals("documentcreateelementNS01_tagName","XML:XML",tagName);
-
+    test.equal(nodeName, "XML:XML", "documentcreateelementNS01_nodeName");
+    test.equal(nsURI, "http://www.w3.org/DOM/Test/level2", "documentcreateelementNS01_namespaceURI");
+    test.equal(localName, "XML", "documentcreateelementNS01_localName");
+    test.equal(prefix, "XML", "documentcreateelementNS01_prefix");
+    test.equal(tagName, "XML:XML", "documentcreateelementNS01_tagName");
+    test.done();
   },
   /**
    *
@@ -1499,7 +1500,7 @@ exports['documentcreateelementNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrElNS
    */
-  documentcreateelementNS02 : function () {
+  documentcreateelementNS02: function(test) {
     var success;
     var element;
     var namespaceURI = null;
@@ -1517,9 +1518,9 @@ exports['documentcreateelementNS'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("documentcreateelementNS02",success);
+      test.ok(success, 'documentcreateelementNS02');
     }
-
+    test.done();
   },
   /**
    *
@@ -1540,7 +1541,7 @@ exports['documentcreateelementNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrElNS
    */
-  documentcreateelementNS05 : function () {
+  documentcreateelementNS05: function(test) {
     var success;
     var element;
     var namespaceURI = null;
@@ -1558,9 +1559,9 @@ exports['documentcreateelementNS'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("documentcreateelementNS05",success);
+      test.ok(success, 'documentcreateelementNS05');
     }
-
+    test.done();
   },
   /**
    *
@@ -1577,7 +1578,7 @@ exports['documentcreateelementNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-DocCrElNS
    */
-  documentcreateelementNS06 : function () {
+  documentcreateelementNS06: function(test) {
     var success;
     var newDoc;
     var docType = null;
@@ -1600,9 +1601,9 @@ exports['documentcreateelementNS'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("documentcreateelementNS06",success);
+      test.ok(success, 'documentcreateelementNS06');
     }
-
+    test.done();
   }
 })
 
@@ -1626,7 +1627,7 @@ exports['documentgetelementby'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBId
    */
-  documentgetelementbyid01 : function () {
+  documentgetelementbyid01: function(test) {
     var success;
     var element;
     var elementId = "---";
@@ -1634,8 +1635,8 @@ exports['documentgetelementby'] = testcase({
 
     var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.getElementById(elementId);
-    assertNull("documentgetelementbyid01",element);
-
+    test.equal(element, null, 'element should not be null');
+    test.done();
   },
   /**
    *
@@ -1652,7 +1653,7 @@ exports['documentgetelementby'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    */
-  documentgetelementsbytagnameNS01 : function () {
+  documentgetelementsbytagnameNS01: function(test) {
     var success;
     var newDoc;
     var docType = null;
@@ -1667,8 +1668,8 @@ exports['documentgetelementby'] = testcase({
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument(nullNS,"root",docType);
     childList = newDoc.getElementsByTagNameNS("*","*");
-    assertSize("documentgetelementsbytagnameNS01",1,childList);
-
+    test.equal(childList.length, 1, "documentgetelementsbytagnameNS01");
+    test.done();
   },
   /**
    *
@@ -1687,7 +1688,7 @@ exports['documentgetelementby'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
    */
-  documentgetelementsbytagnameNS02 : function () {
+  documentgetelementsbytagnameNS02: function(test) {
     var success;
     var docElem;
     var element;
@@ -1701,8 +1702,8 @@ exports['documentgetelementby'] = testcase({
     element = doc.createElementNS("test","employeeId");
     appendedChild = docElem.appendChild(element);
     childList = doc.getElementsByTagNameNS("*","employeeId");
-    assertSize("documentgetelementsbytagnameNS02",6,childList);
-
+    test.equal(childList.length, 6, "documentgetelementsbytagnameNS02");
+    test.done();
   },
   /**
    *
@@ -1718,15 +1719,15 @@ exports['documentgetelementby'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
    */
-  documentgetelementsbytagnameNS03 : function () {
+  documentgetelementsbytagnameNS03: function(test) {
     var success;
     var childList;
 
 
     var doc = require('./core/files/staffNS.xml').staffNS();
     childList = doc.getElementsByTagNameNS("**","*");
-    assertSize("documentgetelementsbytagnameNS03",0,childList);
-
+    test.equal(childList.length, 0, "documentgetelementsbytagnameNS03");
+    test.done();
   },
   /**
    *
@@ -1743,7 +1744,7 @@ exports['documentgetelementby'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    */
-  documentgetelementsbytagnameNS04 : function () {
+  documentgetelementsbytagnameNS04: function(test) {
     var success;
     var childList;
     var nullNS = null;
@@ -1752,8 +1753,8 @@ exports['documentgetelementby'] = testcase({
 
     var doc = require('./core/files/staffNS.xml').staffNS();
     childList = doc.getElementsByTagNameNS(nullNS,"0");
-    assertSize("documentgetelementsbytagnameNS04",0,childList);
-
+    test.equal(childList.length, 0, "documentgetelementsbytagnameNS04");
+    test.done();
   },
   /**
    *
@@ -1771,15 +1772,15 @@ exports['documentgetelementby'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
    */
-  documentgetelementsbytagnameNS05 : function () {
+  documentgetelementsbytagnameNS05: function(test) {
     var success;
     var childList;
 
 
     var doc = require('./core/files/staffNS.xml').staffNS();
     childList = doc.getElementsByTagNameNS("null","elementId");
-    assertSize("documentgetelementsbytagnameNS05",0,childList);
-
+    test.equal(childList.length, 0, "documentgetelementsbytagnameNS05");
+    test.done();
   }
 })
 
@@ -1801,7 +1802,7 @@ exports['documentimportnode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  documentimportnode01 : function () {
+  documentimportnode01: function(test) {
     var success;
     var element;
     var attr;
@@ -1823,10 +1824,10 @@ exports['documentimportnode'] = testcase({
 
     nodeType = importedAttr.nodeType;
 
-    assertEquals("documentimportnode01_nodeName","street",nodeName);
-    assertEquals("documentimportnode01_nodeType",2,nodeType);
-    assertEquals("documentimportnode01_nodeValue","Yes",nodeValue);
-
+    test.equal(nodeName, "street", "documentimportnode01_nodeName");
+    test.equal(nodeType, 2, "documentimportnode01_nodeType");
+    test.equal(nodeValue, "Yes", "documentimportnode01_nodeValue");
+    test.done();
   },
   /**
    *
@@ -1845,7 +1846,7 @@ exports['documentimportnode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  documentimportnode02 : function () {
+  documentimportnode02: function(test) {
     var success;
     var element;
     var attr;
@@ -1871,11 +1872,11 @@ exports['documentimportnode'] = testcase({
 
     attrsParent = importedAttr.parentNode;
 
-    assertNull("documentimportnode02_parentNull",attrsParent);
-    assertEquals("documentimportnode02_nodeName","emp:zone",nodeName);
-    assertEquals("documentimportnode02_nodeType",2,nodeType);
-    assertEquals("documentimportnode02_nodeValue","CANADA",nodeValue);
-
+    test.equal(attrsParent, null, 'attrsParent should not be null');
+    test.equal(nodeName, "emp:zone", "documentimportnode02_nodeName");
+    test.equal(nodeType, 2, "documentimportnode02_nodeType");
+    test.equal(nodeValue, "CANADA", "documentimportnode02_nodeValue");
+    test.done();
   },
   /**
    *
@@ -1894,7 +1895,7 @@ exports['documentimportnode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  documentimportnode03 : function () {
+  documentimportnode03: function(test) {
     var success;
     var element;
     var attr;
@@ -1916,10 +1917,10 @@ exports['documentimportnode'] = testcase({
 
     nodeType = importedAttr.nodeType;
 
-    assertEquals("documentimportnode03_nodeName","defaultAttr",nodeName);
-    assertEquals("documentimportnode03_nodeType",2,nodeType);
-    assertEquals("documentimportnode03_nodeValue","defaultVal",nodeValue);
-
+    test.equal(nodeName, "defaultAttr", "documentimportnode03_nodeName");
+    test.equal(nodeType, 2, "documentimportnode03_nodeType");
+    test.equal(nodeValue, "defaultVal", "documentimportnode03_nodeValue");
+    test.done();
   },
   /**
    *
@@ -1939,7 +1940,7 @@ exports['documentimportnode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  documentimportnode04 : function () {
+  documentimportnode04: function(test) {
     var success;
     var newDoc;
     var docType = null;
@@ -1967,10 +1968,10 @@ exports['documentimportnode'] = testcase({
 
     nodeType = importedAttr.nodeType;
 
-    assertEquals("documentimportnode04_nodeName","defaultAttr",nodeName);
-    assertEquals("documentimportnode04_nodeType",2,nodeType);
-    assertEquals("documentimportnode04_nodeValue","defaultVal",nodeValue);
-
+    test.equal(nodeName, "defaultAttr", "documentimportnode04_nodeName");
+    test.equal(nodeType, 2, "documentimportnode04_nodeType");
+    test.equal(nodeValue, "defaultVal", "documentimportnode04_nodeValue");
+    test.done();
   },
   /**
    *
@@ -1989,7 +1990,7 @@ exports['documentimportnode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  documentimportnode05 : function () {
+  documentimportnode05: function(test) {
     var success;
     var attr;
     var importedAttr;
@@ -2011,11 +2012,11 @@ exports['documentimportnode'] = testcase({
 
     namespaceURI = importedAttr.namespaceURI;
 
-    assertEquals("documentimportnode05_nodeName","a_:b0",nodeName);
-    assertEquals("documentimportnode05_nodeType",2,nodeType);
-    assertEquals("documentimportnode05_nodeValue","",nodeValue);
-    assertEquals("documentimportnode05_namespaceURI","http://www.w3.org/DOM/Test",namespaceURI);
-
+    test.equal(nodeName, "a_:b0", "documentimportnode05_nodeName");
+    test.equal(nodeType, 2, "documentimportnode05_nodeType");
+    test.equal(nodeValue, "", "documentimportnode05_nodeValue");
+    test.equal(namespaceURI, "http://www.w3.org/DOM/Test", "documentimportnode05_namespaceURI");
+    test.done();
   },
   /**
    *
@@ -2031,7 +2032,7 @@ exports['documentimportnode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  documentimportnode06 : function () {
+  documentimportnode06: function(test) {
     var success;
     var docImported;
 
@@ -2046,9 +2047,9 @@ exports['documentimportnode'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("throw_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -2065,7 +2066,7 @@ exports['documentimportnode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  documentimportnode07 : function () {
+  documentimportnode07: function(test) {
     var success;
     var imported;
     var docType;
@@ -2083,9 +2084,9 @@ exports['documentimportnode'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("throw_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -2102,7 +2103,7 @@ exports['documentimportnode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    */
-  documentimportnode08 : function () {
+  documentimportnode08: function(test) {
     var success;
     var imported;
     var docType;
@@ -2123,9 +2124,9 @@ exports['documentimportnode'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("throw_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -2143,7 +2144,7 @@ exports['documentimportnode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  documentimportnode09 : function () {
+  documentimportnode09: function(test) {
     var success;
     var docFragment;
     var childList;
@@ -2160,8 +2161,8 @@ exports['documentimportnode'] = testcase({
     appendedChild = docFragment.appendChild(addressNode);
     importedDocFrag = doc.importNode(docFragment,false);
     success = importedDocFrag.hasChildNodes();
-    assertFalse("documentimportnode09",success);
-
+    test.equal(success, false, 'success should be *false*');
+    test.done();
   },
   /**
    *
@@ -2179,7 +2180,7 @@ exports['documentimportnode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  documentimportnode10 : function () {
+  documentimportnode10: function(test) {
     var success;
     var docFragment;
     var childList;
@@ -2196,8 +2197,8 @@ exports['documentimportnode'] = testcase({
     appendedChild = docFragment.appendChild(addressNode);
     importedDocFrag = doc.importNode(docFragment,true);
     success = importedDocFrag.hasChildNodes();
-    assertTrue("documentimportnode10",success);
-
+    test.ok(success, 'documentimportnode10');
+    test.done();
   },
   /**
    *
@@ -2215,7 +2216,7 @@ exports['documentimportnode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  documentimportnode11 : function () {
+  documentimportnode11: function(test) {
     var success;
     var docElement;
     var imported;
@@ -2229,13 +2230,13 @@ exports['documentimportnode'] = testcase({
 
     imported = doc.importNode(docElement,false);
     success = imported.hasChildNodes();
-    assertFalse("documentimportnode11",success);
+    test.equal(success, false, 'success should be *false*');
     nodeNameImported = imported.nodeName;
 
     nodeNameOrig = docElement.nodeName;
 
-    assertEquals("documentimportnode11_NodeName",nodeNameImported,nodeNameOrig);
-
+    test.equal(nodeNameOrig, nodeNameImported, "documentimportnode11_NodeName");
+    test.done();
   },
   /**
    *
@@ -2253,7 +2254,7 @@ exports['documentimportnode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  documentimportnode12 : function () {
+  documentimportnode12: function(test) {
     var success;
     var childList;
     var imported;
@@ -2276,8 +2277,8 @@ exports['documentimportnode'] = testcase({
 
     importedLen = importedChildren.length;
 
-    assertEquals("documentimportnode12",importedLen,addressElemLen);
-
+    test.equal(addressElemLen, importedLen, "documentimportnode12");
+    test.done();
   },
   /**
    *
@@ -2295,7 +2296,7 @@ exports['documentimportnode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  documentimportnode13 : function () {
+  documentimportnode13: function(test) {
     var success;
     var childList;
     var imported;
@@ -2312,8 +2313,8 @@ exports['documentimportnode'] = testcase({
 
     importedLen = importedList.length;
 
-    assertEquals("documentimportnode13",0,importedLen);
-
+    test.equal(importedLen, 0, "documentimportnode13");
+    test.done();
   },
   /**
    *
@@ -2329,7 +2330,7 @@ exports['documentimportnode'] = testcase({
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=402
    */
-  documentimportnode14 : function () {
+  documentimportnode14: function(test) {
     var success;
     var newDoc;
     var nullDocType = null;
@@ -2346,11 +2347,11 @@ exports['documentimportnode'] = testcase({
     newDoc = domImpl.createDocument(nullNS,"staff",nullDocType);
     imported = newDoc.importNode(employeeElem,true);
     attrNode = imported.getAttributeNodeNS(nullNS,"defaultAttr");
-    assertNull("defaultAttrNotImported",attrNode);
+    test.equal(attrNode, null, 'attrNode should not be null');
 
     attrValue = imported.getAttributeNS("http://www.w3.org/2000/xmlns/","emp");
-    assertEquals("explicitAttrImported","http://www.nist.gov",attrValue);
-
+    test.equal(attrValue, "http://www.nist.gov", "explicitAttrImported");
+    test.done();
   },
   /**
    *
@@ -2368,7 +2369,7 @@ exports['documentimportnode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  documentimportnode15 : function () {
+  documentimportnode15: function(test) {
     var success;
     var textImport;
     var textToImport;
@@ -2381,8 +2382,8 @@ exports['documentimportnode'] = testcase({
     textImport = doc.importNode(textToImport,true);
     nodeValue = textImport.nodeValue;
 
-    assertEquals("documentimportnode15","Document.importNode test for a TEXT_NODE",nodeValue);
-
+    test.equal(nodeValue, "Document.importNode test for a TEXT_NODE", "documentimportnode15");
+    test.done();
   },
   /**
    *
@@ -2400,7 +2401,7 @@ exports['documentimportnode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  documentimportnode17 : function () {
+  documentimportnode17: function(test) {
     var success;
     var commentImport;
     var commentToImport;
@@ -2413,8 +2414,8 @@ exports['documentimportnode'] = testcase({
     commentImport = doc.importNode(commentToImport,true);
     nodeValue = commentImport.nodeValue;
 
-    assertEquals("documentimportnode17","Document.importNode test for a COMMENT_NODE",nodeValue);
-
+    test.equal(nodeValue, "Document.importNode test for a COMMENT_NODE", "documentimportnode17");
+    test.done();
   },
   /**
    *
@@ -2432,7 +2433,7 @@ exports['documentimportnode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  documentimportnode18 : function () {
+  documentimportnode18: function(test) {
     var success;
     var piImport;
     var piToImport;
@@ -2448,9 +2449,9 @@ exports['documentimportnode'] = testcase({
 
     piData = piImport.data;
 
-    assertEquals("documentimportnode18_Target","Target",piTarget);
-    assertEquals("documentimportnode18_Data","Data",piData);
-
+    test.equal(piTarget, "Target", "documentimportnode18_Target");
+    test.equal(piData, "Data", "documentimportnode18_Data");
+    test.done();
   },
   /**
    *
@@ -2468,7 +2469,7 @@ exports['documentimportnode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  documentimportnode19 : function () {
+  documentimportnode19: function(test) {
     var success;
     var docTypeNull = null;
 
@@ -2495,7 +2496,7 @@ exports['documentimportnode'] = testcase({
     docImp = domImpl.createDocument("http://www.w3.org/DOM/Test","a:b",docTypeNull);
     nodeMap = docType.entities;
 
-    assertNotNull("entitiesNotNull",nodeMap);
+    test.notEqual(nodeMap, null, 'nodeMap should be null');
     entity2 = nodeMap.getNamedItem("ent2");
     entity6 = nodeMap.getNamedItem("ent6");
     entityImp2 = docImp.importNode(entity2,false);
@@ -2504,33 +2505,33 @@ exports['documentimportnode'] = testcase({
 
     nodeNameImp = entityImp2.nodeName;
 
-    assertEquals("documentimportnode19_Ent2NodeName",nodeName,nodeNameImp);
+    test.equal(nodeNameImp, nodeName, "documentimportnode19_Ent2NodeName");
     nodeName = entity6.nodeName;
 
     nodeNameImp = entityImp6.nodeName;
 
-    assertEquals("documentimportnode19_Ent6NodeName",nodeName,nodeNameImp);
+    test.equal(nodeNameImp, nodeName, "documentimportnode19_Ent6NodeName");
     systemId = entity2.systemId;
 
     systemIdImp = entityImp2.systemId;
 
-    assertEquals("documentimportnode19_Ent2SystemId",systemId,systemIdImp);
+    test.equal(systemIdImp, systemId, "documentimportnode19_Ent2SystemId");
     systemId = entity6.systemId;
 
     systemIdImp = entityImp6.systemId;
 
-    assertEquals("documentimportnode19_Ent6SystemId",systemId,systemIdImp);
+    test.equal(systemIdImp, systemId, "documentimportnode19_Ent6SystemId");
     notationName = entity2.notationName;
 
     notationNameImp = entityImp2.notationName;
 
-    assertEquals("documentimportnode19_Ent2NotationName",notationName,notationNameImp);
+    test.equal(notationNameImp, notationName, "documentimportnode19_Ent2NotationName");
     notationName = entity6.notationName;
 
     notationNameImp = entityImp6.notationName;
 
-    assertEquals("documentimportnode19_Ent6NotationName",notationName,notationNameImp);
-
+    test.equal(notationNameImp, notationName, "documentimportnode19_Ent6NotationName");
+    test.done();
   },
   /**
    *
@@ -2550,7 +2551,7 @@ exports['documentimportnode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  documentimportnode20 : function () {
+  documentimportnode20: function(test) {
     var success;
     var docImp;
     var domImpl;
@@ -2598,11 +2599,11 @@ exports['documentimportnode'] = testcase({
 
     piDataVal = pi.data;
 
-    assertEquals("documentimportnode20_Ent4NodeName",ent4Name,ent4ImpName);
-    assertEquals("documentimportnode20_Cdata","Element data",cdataVal);
-    assertEquals("documentimportnode20_PITarget","PItarget",piTargetVal);
-    assertEquals("documentimportnode20_PIData","PIdata",piDataVal);
-
+    test.equal(ent4ImpName, ent4Name, "documentimportnode20_Ent4NodeName");
+    test.equal(cdataVal, "Element data", "documentimportnode20_Cdata");
+    test.equal(piTargetVal, "PItarget", "documentimportnode20_PITarget");
+    test.equal(piDataVal, "PIdata", "documentimportnode20_PIData");
+    test.done();
   },
   /**
    *
@@ -2625,7 +2626,7 @@ exports['documentimportnode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  documentimportnode21 : function () {
+  documentimportnode21: function(test) {
     var success;
     var docTypeNull = null;
 
@@ -2668,8 +2669,8 @@ exports['documentimportnode'] = testcase({
 
     nodeNameImp3 = entRefImp3.nodeName;
 
-    assertEquals("documentimportnode21_Ent2NodeName",nodeName2,nodeNameImp2);
-    assertEquals("documentimportnode21_Ent3NodeName",nodeName3,nodeNameImp3);
+    test.equal(nodeNameImp2, nodeName2, "documentimportnode21_Ent2NodeName");
+    test.equal(nodeNameImp3, nodeName3, "documentimportnode21_Ent3NodeName");
     entRefImp2 = doc.importNode(entRef2,true);
     entRefImp3 = doc.importNode(entRef3,false);
     nodes = entRefImp2.childNodes;
@@ -2682,9 +2683,9 @@ exports['documentimportnode'] = testcase({
     nodeImp3 = nodes.item(0);
     nodeValueImp3 = nodeImp3.nodeValue;
 
-    assertEquals("documentimportnode21_Ent2NodeValue","1900 Dallas Road",nodeValueImp2);
-    assertEquals("documentimportnode21_Ent3Nodevalue","Texas",nodeValueImp3);
-
+    test.equal(nodeValueImp2, "1900 Dallas Road", "documentimportnode21_Ent2NodeValue");
+    test.equal(nodeValueImp3, "Texas", "documentimportnode21_Ent3Nodevalue");
+    test.done();
   },
   /**
    *
@@ -2702,7 +2703,7 @@ exports['documentimportnode'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  documentimportnode22 : function () {
+  documentimportnode22: function(test) {
     var success;
     var docTypeNull = null;
 
@@ -2735,7 +2736,7 @@ exports['documentimportnode'] = testcase({
     docImp = domImpl.createDocument("http://www.w3.org/DOM/Test","a:b",docTypeNull);
     nodeMap = docType.notations;
 
-    assertNotNull("notationsNotNull",nodeMap);
+    test.notEqual(nodeMap, null, 'nodeMap should be null');
     notation1 = nodeMap.getNamedItem("notation1");
     notation2 = nodeMap.getNamedItem("notation2");
     notationImp1 = doc.importNode(notation1,true);
@@ -2762,19 +2763,19 @@ exports['documentimportnode'] = testcase({
 
     systemId2NewImp = notation2.systemId;
 
-    assertEquals("documentimportnode22_N1PID",publicId1,publicId1Imp);
-    assertEquals("documentimportnode22_N1NPID",publicId1,publicId1NewImp);
-    assertNull("documentimportnode22_N1SID",systemId1Imp);
-    assertNull("documentimportnode22_N1NSID",systemId1NewImp);
-    assertEquals("documentimportnode22_N2SID",systemId2,systemId2Imp);
-    assertEquals("documentimportnode22_N2NSID",systemId2,systemId2NewImp);
-    assertNull("documentimportnode22_N2PID",publicId2Imp);
-    assertNull("documentimportnode22_N2NPID",publicId2Imp);
-
+    test.equal(publicId1Imp, publicId1, "documentimportnode22_N1PID");
+    test.equal(publicId1NewImp, publicId1, "documentimportnode22_N1NPID");
+    test.equal(systemId1Imp, null, 'systemId1Imp should not be null');
+    test.equal(systemId1NewImp, null, 'systemId1NewImp should not be null');
+    test.equal(systemId2Imp, systemId2, "documentimportnode22_N2SID");
+    test.equal(systemId2NewImp, systemId2, "documentimportnode22_N2NSID");
+    test.equal(publicId2Imp, null, 'publicId2Imp should not be null');
+    test.equal(publicId2Imp, null, 'publicId2Imp should not be null');
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['documenttypeinternalSubset'] = testcase({
   /**
    *
    The method getInternalSubset() returns the internal subset as a string.
@@ -2787,7 +2788,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-Core-DocType-internalSubset
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    */
-  documenttypeinternalSubset01 : function () {
+  documenttypeinternalSubset01: function(test) {
     var success;
     var docType;
     var domImpl;
@@ -2801,12 +2802,12 @@ exports[''] = testcase({
     docType = domImpl.createDocumentType("l2:root",nullNS,nullNS);
     internal = docType.internalSubset;
 
-    assertNull("internalSubsetNull",internal);
-
+    test.equal(internal, null, 'internal should not be null');
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['documenttypepublicid'] = testcase({
   /**
    *
    The method getInternalSubset() returns the public identifier of the external subset.
@@ -2819,7 +2820,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-Core-DocType-publicId
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    */
-  documenttypepublicid01 : function () {
+  documenttypepublicid01: function(test) {
     var success;
     var docType;
     var domImpl;
@@ -2833,12 +2834,12 @@ exports[''] = testcase({
     docType = domImpl.createDocumentType("l2:root","PUB",nullNS);
     publicId = docType.publicId;
 
-    assertEquals("documenttypepublicid01","PUB",publicId);
-
+    test.equal(publicId, "PUB", "documenttypepublicid01");
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['documenttypesystemid'] = testcase({
   /**
    *
    The method getInternalSubset() returns the public identifier of the external subset.
@@ -2850,7 +2851,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-Core-DocType-systemId
    */
-  documenttypesystemid01 : function () {
+  documenttypesystemid01: function(test) {
     var success;
     var docType;
     var domImpl;
@@ -2865,9 +2866,9 @@ exports[''] = testcase({
 
     systemId = docType.systemId;
 
-    assertEquals("documenttypepublicid01","PUB",publicId);
-    assertEquals("documenttypesystemid01","SYS",systemId);
-
+    test.equal(publicId, "PUB", "documenttypepublicid01");
+    test.equal(systemId, "SYS", "documenttypesystemid01");
+    test.done();
   }
 })
 
@@ -2892,7 +2893,7 @@ exports['domimplementationcreatedocument'] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
    */
-  domimplementationcreatedocument03 : function () {
+  domimplementationcreatedocument03: function(test) {
     var success;
     var domImpl;
     var newDoc;
@@ -2919,10 +2920,10 @@ exports['domimplementationcreatedocument'] = testcase({
     for(var indexN1006B = 0;indexN1006B < qualifiedNames.length; indexN1006B++) {
       qualifiedName = qualifiedNames[indexN1006B];
       newDoc = domImpl.createDocument(namespaceURI,qualifiedName,docType);
-      assertNotNull("domimplementationcreatedocument03",newDoc);
+      test.notEqual(newDoc, null, 'newDoc should be null');
 
     }
-
+    test.done();
   },
   /**
    *
@@ -2945,7 +2946,7 @@ exports['domimplementationcreatedocument'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
    */
-  domimplementationcreatedocument04 : function () {
+  domimplementationcreatedocument04: function(test) {
     var success;
     var domImpl;
     var newDoc;
@@ -2967,9 +2968,9 @@ exports['domimplementationcreatedocument'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("domimplementationcreatedocument04",success);
+      test.ok(success, 'domimplementationcreatedocument04');
     }
-
+    test.done();
   },
   /**
    *
@@ -2993,7 +2994,7 @@ exports['domimplementationcreatedocument'] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
    */
-  domimplementationcreatedocument05 : function () {
+  domimplementationcreatedocument05: function(test) {
     var success;
     var domImpl;
     var newDoc;
@@ -3014,9 +3015,9 @@ exports['domimplementationcreatedocument'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("domimplementationcreatedocument05",success);
+      test.ok(success, 'domimplementationcreatedocument05');
     }
-
+    test.done();
   },
   /**
    *
@@ -3036,7 +3037,7 @@ exports['domimplementationcreatedocument'] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
    */
-  domimplementationcreatedocument07 : function () {
+  domimplementationcreatedocument07: function(test) {
     var success;
     var domImpl;
     var newDoc;
@@ -3056,9 +3057,9 @@ exports['domimplementationcreatedocument'] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("domimplementationcreatedocument07",success);
+      test.ok(success, 'domimplementationcreatedocument07');
     }
-
+    test.done();
   },
   /**
    *
@@ -3073,7 +3074,7 @@ exports['domimplementationcreatedocument'] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
    */
-  domimplementationcreatedocumenttype01 : function () {
+  domimplementationcreatedocumenttype01: function(test) {
     var success;
     var domImpl;
     var newDocType;
@@ -3098,15 +3099,15 @@ exports['domimplementationcreatedocument'] = testcase({
       for(var indexN10061 = 0;indexN10061 < systemIds.length; indexN10061++) {
         systemId = systemIds[indexN10061];
         newDocType = domImpl.createDocumentType(qualifiedName,publicId,systemId);
-        assertNotNull("domimplementationcreatedocumenttype01_newDocType",newDocType);
+        test.notEqual(newDocType, null, 'newDocType should be null');
         ownerDocument = newDocType.ownerDocument;
 
-        assertNull("domimplementationcreatedocumenttype01_ownerDocument",ownerDocument);
+        test.equal(ownerDocument, null, 'ownerDocument should not be null');
 
       }
 
     }
-
+    test.done();
   },
   /**
    *
@@ -3128,7 +3129,7 @@ exports['domimplementationcreatedocument'] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocType
    */
-  domimplementationcreatedocumenttype02 : function () {
+  domimplementationcreatedocumenttype02: function(test) {
     var success;
     var domImpl;
     var newDocType;
@@ -3159,13 +3160,13 @@ exports['domimplementationcreatedocument'] = testcase({
     for(var indexN10077 = 0;indexN10077 < qualifiedNames.length; indexN10077++) {
       qualifiedName = qualifiedNames[indexN10077];
       newDocType = domImpl.createDocumentType(qualifiedName,publicId,systemId);
-      assertNotNull("domimplementationcreatedocumenttype02_newDocType",newDocType);
+      test.notEqual(newDocType, null, 'newDocType should be null');
       ownerDocument = newDocType.ownerDocument;
 
-      assertNull("domimplementationcreatedocumenttype02_ownerDocument",ownerDocument);
+      test.equal(ownerDocument, null, 'ownerDocument should not be null');
 
     }
-
+    test.done();
   },
   /**
    *
@@ -3185,7 +3186,7 @@ exports['domimplementationcreatedocument'] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocType
    */
-  domimplementationcreatedocumenttype04 : function () {
+  domimplementationcreatedocumenttype04: function(test) {
     var success;
     var domImpl;
     var newDocType;
@@ -3223,15 +3224,15 @@ exports['domimplementationcreatedocument'] = testcase({
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 5);
 	}
-	assertTrue("domimplementationcreatedocumenttype04",success);
+	test.ok(success, 'domimplementationcreatedocumenttype04');
       }
 
     }
-
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['domimplementationfeaturecore'] = testcase({
   /**
    *
 
@@ -3260,7 +3261,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
    */
-  domimplementationfeaturecore : function () {
+  domimplementationfeaturecore: function(test) {
     var success;
     var domImpl;
     var state;
@@ -3269,12 +3270,12 @@ exports[''] = testcase({
     var doc = require('./core/files/staff.xml').staff();
     domImpl = doc.implementation;
     state = domImpl.hasFeature("core","2.0");
-    assertTrue("domimplementationFeaturecoreAssert",state);
-
+    test.ok(state, 'domimplementationFeaturecore');
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['domimplementationfeaturexmlversion2'] = testcase({
   /**
    *
 
@@ -3303,7 +3304,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
    */
-  domimplementationfeaturexmlversion2 : function () {
+  domimplementationfeaturexmlversion2: function(test) {
     var success;
     var domImpl;
     var state;
@@ -3312,12 +3313,12 @@ exports[''] = testcase({
     var doc = require('./core/files/staff.xml').staff();
     domImpl = doc.implementation;
     state = domImpl.hasFeature("xml","2.0");
-    assertTrue("domimplementationFeaturexmlVersion2Assert",state);
-
+    test.ok(state, 'domimplementationFeaturexmlVersion2');
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['domimplementationhasfeature'] = testcase({
   /**
    *
    The method "hasFeature(feature,version)" tests if the DOMImplementation implements
@@ -3332,7 +3333,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
    */
-  domimplementationhasfeature01 : function () {
+  domimplementationhasfeature01: function(test) {
     var success;
     var domImpl;
     var version = "";
@@ -3356,21 +3357,21 @@ exports[''] = testcase({
     for(var indexN10063 = 0;indexN10063 < featuresXML.length; indexN10063++) {
       featureXML = featuresXML[indexN10063];
       success = domImpl.hasFeature(featureXML,version);
-      assertTrue("domimplementationhasfeature01_XML_1",success);
+      test.ok(success, 'domimplementationhasfeature01_XML_1');
       success = domImpl.hasFeature(featureXML,version1);
-      assertTrue("domimplementationhasfeature01_XML_2",success);
+      test.ok(success, 'domimplementationhasfeature01_XML_2');
 
     }
     for(var indexN1007C = 0;indexN1007C < featuresCore.length; indexN1007C++) {
       featureCore = featuresCore[indexN1007C];
       success = domImpl.hasFeature(featureCore,version);
-      assertTrue("domimplementationhasfeature01_Core_1",success);
+      test.ok(success, 'domimplementationhasfeature01_Core_1');
       success = domImpl.hasFeature(featureCore,version1);
       success = domImpl.hasFeature(featureCore,version2);
-      assertTrue("domimplementationhasfeature01_Core_3",success);
+      test.ok(success, 'domimplementationhasfeature01_Core_3');
 
     }
-
+    test.done();
   },
   /**
    *
@@ -3384,7 +3385,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
    */
-  domimplementationhasfeature02 : function () {
+  domimplementationhasfeature02: function(test) {
     var success;
     var domImpl;
     var success;
@@ -3393,12 +3394,12 @@ exports[''] = testcase({
     var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
     success = domImpl.hasFeature("Blah Blah","");
-    assertFalse("domimplementationhasfeature02",success);
-
+    test.equal(success, false, 'success should be *false*');
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['elementgetattributenodens'] = testcase({
   /**
    *
    The method getAttributeNodeNS retrieves an Attr node by local name and namespace URI.
@@ -3411,7 +3412,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAtNodeNS
    */
-  elementgetattributenodens01 : function () {
+  elementgetattributenodens01: function(test) {
     var success;
     var element;
     var attribute1;
@@ -3443,12 +3444,12 @@ exports[''] = testcase({
 
     attrNS = attribute.namespaceURI;
 
-    assertEquals("elementgetattributenodens01_attrValue","",attrValue);
-    assertEquals("elementgetattributenodens01_attrName","l2:att",attrName);
-    assertEquals("elementgetattributenodens01_attrNodeName","l2:att",attNodeName);
-    assertEquals("elementgetattributenodens01_attrLocalName","att",attrLocalName);
-    assertEquals("elementgetattributenodens01_attrNs","http://www.w3.org/DOM/Level2",attrNS);
-
+    test.equal(attrValue, "", "elementgetattributenodens01_attrValue");
+    test.equal(attrName, "l2:att", "elementgetattributenodens01_attrName");
+    test.equal(attNodeName, "l2:att", "elementgetattributenodens01_attrNodeName");
+    test.equal(attrLocalName, "att", "elementgetattributenodens01_attrLocalName");
+    test.equal(attrNS, "http://www.w3.org/DOM/Level2", "elementgetattributenodens01_attrNs");
+    test.done();
   },
   /**
    *
@@ -3460,7 +3461,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAtNodeNS
    */
-  elementgetattributenodens02 : function () {
+  elementgetattributenodens02: function(test) {
     var success;
     var element;
     var attribute;
@@ -3475,8 +3476,8 @@ exports[''] = testcase({
     attribute = element.getAttributeNodeNS("http://www.w3.org/DOM/Level2","att");
     attrValue = attribute.nodeValue;
 
-    assertEquals("elementgetattributenodens02","",attrValue);
-
+    test.equal(attrValue, "", "elementgetattributenodens02");
+    test.done();
   },
   /**
    *
@@ -3489,7 +3490,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAtNodeNS
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    */
-  elementgetattributenodens03 : function () {
+  elementgetattributenodens03: function(test) {
     var success;
     var element;
     var attribute;
@@ -3505,12 +3506,12 @@ exports[''] = testcase({
     attribute = element.getAttributeNodeNS(nullNS,"defaultAttr");
     attrValue = attribute.nodeValue;
 
-    assertEquals("elementgetattributenodens03","defaultVal",attrValue);
-
+    test.equal(attrValue, "defaultVal", "elementgetattributenodens03");
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['elementgetattributens'] = testcase({
   /**
    *
    The method getAttributeNS retrieves an attribute value by local name and namespace URI.
@@ -3522,7 +3523,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAttrNS
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    */
-  elementgetattributens02 : function () {
+  elementgetattributens02: function(test) {
     var success;
     var element;
     var attrValue;
@@ -3535,12 +3536,12 @@ exports[''] = testcase({
     childList = doc.getElementsByTagNameNS("http://www.nist.gov","employee");
     element = childList.item(1);
     attrValue = element.getAttributeNS(nullNS,"defaultAttr");
-    assertEquals("elementgetattributens02","defaultVal",attrValue);
-
+    test.equal(attrValue, "defaultVal", "elementgetattributens02");
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['elementgetelementsbytagnamens'] = testcase({
   /**
    *
 
@@ -3559,7 +3560,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
    */
-  elementgetelementsbytagnamens02 : function () {
+  elementgetelementsbytagnamens02: function(test) {
     var success;
     var element;
     var elementList;
@@ -3569,8 +3570,8 @@ exports[''] = testcase({
     element = doc.documentElement;
 
     elementList = element.getElementsByTagNameNS("**","*");
-    assertSize("elementgetelementsbytagnamens02",0,elementList);
-
+    test.equal(elementList.length, 0, "elementgetelementsbytagnamens02");
+    test.done();
   },
   /**
    *
@@ -3587,7 +3588,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    */
-  elementgetelementsbytagnamens04 : function () {
+  elementgetelementsbytagnamens04: function(test) {
     var success;
     var element;
     var child1;
@@ -3608,10 +3609,10 @@ exports[''] = testcase({
     appendedChild = element.appendChild(child2);
     appendedChild = element.appendChild(child3);
     elementList = element.getElementsByTagNameNS(nullNS,"child");
-    assertSize("elementgetelementsbytagnamens04_1",1,elementList);
+    test.equal(elementList.length, 1, "elementgetelementsbytagnamens04_1");
     elementList = element.getElementsByTagNameNS("*","child");
-    assertSize("elementgetelementsbytagnamens04_2",3,elementList);
-
+    test.equal(elementList.length, 3, "elementgetelementsbytagnamens04_2");
+    test.done();
   },
   /**
    *
@@ -3633,7 +3634,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
    */
-  elementgetelementsbytagnamens05 : function () {
+  elementgetelementsbytagnamens05: function(test) {
     var success;
     var element;
     var elementList;
@@ -3643,12 +3644,12 @@ exports[''] = testcase({
     element = doc.documentElement;
 
     elementList = element.getElementsByTagNameNS("http://www.altavista.com","*");
-    assertSize("elementgetelementsbytagnamens05",1,elementList);
-
+    test.equal(elementList.length, 1, "elementgetelementsbytagnamens05");
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['elementhasattribute'] = testcase({
   /**
    *
 
@@ -3663,7 +3664,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
    */
-  elementhasattribute01 : function () {
+  elementhasattribute01: function(test) {
     var success;
     var element;
     var state;
@@ -3673,8 +3674,8 @@ exports[''] = testcase({
     element = doc.documentElement;
 
     state = element.hasAttribute("");
-    assertFalse("elementhasattribute01",state);
-
+    test.equal(state, false, 'state should be *false*');
+    test.done();
   },
   /**
    *
@@ -3687,7 +3688,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
    */
-  elementhasattribute02 : function () {
+  elementhasattribute02: function(test) {
     var success;
     var element;
     var state;
@@ -3697,10 +3698,10 @@ exports[''] = testcase({
     var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:employee");
     element = elementList.item(0);
-    assertNotNull("empEmployeeNotNull",element);
+    test.notEqual(element, null, 'element should be null');
     state = element.hasAttribute("defaultAttr");
-    assertTrue("elementhasattribute02",state);
-
+    test.ok(state, 'elementhasattribute02');
+    test.done();
   },
   /**
    *
@@ -3715,7 +3716,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
    */
-  elementhasattribute03 : function () {
+  elementhasattribute03: function(test) {
     var success;
     var element;
     var state;
@@ -3727,11 +3728,11 @@ exports[''] = testcase({
     element = doc.createElement("address");
     attribute = doc.createAttribute("domestic");
     state = element.hasAttribute("domestic");
-    assertFalse("elementhasattribute03_False",state);
+    test.equal(state, false, 'state should be *false*');
     newAttribute = element.setAttributeNode(attribute);
     state = element.hasAttribute("domestic");
-    assertTrue("elementhasattribute03_True",state);
-
+    test.ok(state, 'elementhasattribute03_True');
+    test.done();
   },
   /**
    *
@@ -3745,7 +3746,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
    */
-  elementhasattribute04 : function () {
+  elementhasattribute04: function(test) {
     var success;
     var element;
     var state;
@@ -3758,12 +3759,12 @@ exports[''] = testcase({
     attribute = doc.createAttribute("domestic");
     newAttribute = element.setAttributeNode(attribute);
     state = element.hasAttribute("domestic");
-    assertTrue("elementhasattribute04",state);
-
+    test.ok(state, 'elementhasattribute04');
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['elementhasattributens'] = testcase({
   /**
    *
    The method hasAttributeNS returns true when an attribute with a given local name
@@ -3777,7 +3778,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttrNS
    */
-  elementhasattributens01 : function () {
+  elementhasattributens01: function(test) {
     var success;
     var element;
     var state;
@@ -3788,8 +3789,8 @@ exports[''] = testcase({
     elementList = doc.getElementsByTagNameNS("*","employee");
     element = elementList.item(0);
     state = element.hasAttributeNS("http://www.w3.org/2000/xmlns/","xmlns");
-    assertTrue("elementhasattributens01",state);
-
+    test.ok(state, 'elementhasattributens01');
+    test.done();
   },
   /**
    *
@@ -3806,7 +3807,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttrNS
    */
-  elementhasattributens02 : function () {
+  elementhasattributens02: function(test) {
     var success;
     var element;
     var state;
@@ -3819,8 +3820,8 @@ exports[''] = testcase({
     attribute = doc.createAttributeNS("http://www.w3.org/DOM","domestic");
     newAttribute = element.setAttributeNode(attribute);
     state = element.hasAttributeNS("http://www.w3.org/DOM","domestic");
-    assertTrue("hasDomesticAttr",state);
-
+    test.ok(state, 'hasDomesticAttr');
+    test.done();
   },
   /**
    *
@@ -3838,7 +3839,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttrNS
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    */
-  elementhasattributens03 : function () {
+  elementhasattributens03: function(test) {
     var success;
     var element;
     var state;
@@ -3850,16 +3851,16 @@ exports[''] = testcase({
 
     var doc = require('./core/files/staff.xml').staff();
     element = doc.createElementNS("http://www.w3.org/DOM","address");
-    assertNotNull("createElementNotNull",element);
+    test.notEqual(element, null, 'element should be null');
     attribute = doc.createAttributeNS(nullNS,"domestic");
     newAttribute = element.setAttributeNode(attribute);
     state = element.hasAttributeNS(nullNS,"domestic");
-    assertTrue("elementhasattributens03",state);
-
+    test.ok(state, 'elementhasattributens03');
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['elementremoveattributens'] = testcase({
   /**
    *
    The method removeAttributeNS removes an attribute by local name and namespace URI.
@@ -3872,7 +3873,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElRemAtNS
    */
-  elementremoveattributens01 : function () {
+  elementremoveattributens01: function(test) {
     var success;
     var element;
     var state;
@@ -3886,12 +3887,12 @@ exports[''] = testcase({
     newAttribute = element.setAttributeNodeNS(attribute);
     element.removeAttributeNS("http://www.w3.org/DOM/Test/createAttributeNS","attr");
     state = element.hasAttributeNS("http://www.w3.org/DOM/Test/createAttributeNS","attr");
-    assertFalse("elementremoveattributens01",state);
-
+    test.equal(state, false, 'state should be *false*');
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['elementsetattributenodens'] = testcase({
   /**
    *
    Testing Element.setAttributeNodeNS: If an attribute with that local name
@@ -3908,7 +3909,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
    */
-  elementsetattributenodens01 : function () {
+  elementsetattributenodens01: function(test) {
     var success;
     var element;
     var attribute1;
@@ -3935,14 +3936,14 @@ exports[''] = testcase({
 
     attrNS = attrNode.namespaceURI;
 
-    assertEquals("elementsetattributenodens01_attrName","p2:att",attrName);
-    assertEquals("elementsetattributenodens01_attrNS","http://www.w3.org/DOM/Test/att1",attrNS);
+    test.equal(attrName, "p2:att", "elementsetattributenodens01_attrName");
+    test.equal(attrNS, "http://www.w3.org/DOM/Test/att1", "elementsetattributenodens01_attrNS");
     attributes = element.attributes;
 
     length = attributes.length;
 
-    assertEquals("length",1,length);
-
+    test.equal(length, 1, "length");
+    test.done();
   },
   /**
    *
@@ -3956,7 +3957,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    */
-  elementsetattributenodens02 : function () {
+  elementsetattributenodens02: function(test) {
     var success;
     var element;
     var element2;
@@ -3981,9 +3982,9 @@ exports[''] = testcase({
 
     attrValue = newAttr.nodeValue;
 
-    assertEquals("elementsetattributenodens02_attrName","street",attrName);
-    assertEquals("elementsetattributenodens02_attrValue","Yes",attrValue);
-
+    test.equal(attrName, "street", "elementsetattributenodens02_attrName");
+    test.equal(attrValue, "Yes", "elementsetattributenodens02_attrValue");
+    test.done();
   },
   /**
    *
@@ -3998,7 +3999,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
    */
-  elementsetattributenodens03 : function () {
+  elementsetattributenodens03: function(test) {
     var success;
     var element1;
     var element2;
@@ -4023,9 +4024,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 10);
       }
-      assertTrue("elementsetattributenodens03",success);
+      test.ok(success, 'elementsetattributenodens03');
     }
-
+    test.done();
   },
   /**
    *
@@ -4040,7 +4041,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
    */
-  elementsetattributenodens04 : function () {
+  elementsetattributenodens04: function(test) {
     var success;
     var element1;
     var element2;
@@ -4062,9 +4063,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 10);
       }
-      assertTrue("elementsetattributenodens04",success);
+      test.ok(success, 'elementsetattributenodens04');
     }
-
+    test.done();
   },
   /**
    *
@@ -4079,7 +4080,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
    */
-  elementsetattributenodens05 : function () {
+  elementsetattributenodens05: function(test) {
     var success;
     var element;
     var attribute;
@@ -4099,9 +4100,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -4116,7 +4117,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
    */
-  elementsetattributenodens06 : function () {
+  elementsetattributenodens06: function(test) {
     var success;
     var element;
     var attribute;
@@ -4146,13 +4147,13 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("elementsetattributenodens06",success);
+      test.ok(success, 'elementsetattributenodens06');
     }
-
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['elementsetattributens'] = testcase({
   /**
    *
    The method setAttributeNS adds a new attribute.
@@ -4164,7 +4165,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
    */
-  elementsetattributens01 : function () {
+  elementsetattributens01: function(test) {
     var success;
     var element;
     var attribute;
@@ -4180,9 +4181,9 @@ exports[''] = testcase({
 
     attrValue = attribute.nodeValue;
 
-    assertEquals("elementsetattributens01_attrName","attr",attrName);
-    assertEquals("elementsetattributens01_attrValue","value",attrValue);
-
+    test.equal(attrName, "attr", "elementsetattributens01_attrName");
+    test.equal(attrValue, "value", "elementsetattributens01_attrValue");
+    test.done();
   },
   /**
    *
@@ -4196,7 +4197,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
    */
-  elementsetattributens02 : function () {
+  elementsetattributens02: function(test) {
     var success;
     var element;
     var attribute;
@@ -4214,9 +4215,9 @@ exports[''] = testcase({
 
     attrValue = attribute.nodeValue;
 
-    assertEquals("elementsetattributens02_attrName","this:street",attrName);
-    assertEquals("elementsetattributens02_attrValue","Silver Street",attrValue);
-
+    test.equal(attrName, "this:street", "elementsetattributens02_attrName");
+    test.equal(attrValue, "Silver Street", "elementsetattributens02_attrValue");
+    test.done();
   },
   /**
    *
@@ -4231,7 +4232,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
    */
-  elementsetattributens03 : function () {
+  elementsetattributens03: function(test) {
     var success;
     var element;
     var attribute;
@@ -4243,7 +4244,7 @@ exports[''] = testcase({
     var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:employee");
     element = elementList.item(0);
-    assertNotNull("empEmployeeNotNull",element);
+    test.notEqual(element, null, 'element should be null');
     element.setAttributeNS("http://www.w3.org/DOM/Test/1","defaultAttr","default1");
     element.setAttributeNS("http://www.w3.org/DOM/Test/2","defaultAttr","default2");
     attribute = element.getAttributeNodeNS("http://www.w3.org/DOM/Test/1","defaultAttr");
@@ -4251,9 +4252,9 @@ exports[''] = testcase({
 
     attrValue = attribute.nodeValue;
 
-    assertEquals("elementsetattributens03_attrName","defaultAttr",attrName);
-    assertEquals("elementsetattributens03_attrValue","default1",attrValue);
-
+    test.equal(attrName, "defaultAttr", "elementsetattributens03_attrName");
+    test.equal(attrValue, "default1", "elementsetattributens03_attrValue");
+    test.done();
   },
   /**
    *
@@ -4267,7 +4268,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
    */
-  elementsetattributens04 : function () {
+  elementsetattributens04: function(test) {
     var success;
     var element;
     var qualifiedName;
@@ -4297,11 +4298,11 @@ exports[''] = testcase({
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 5);
 	}
-	assertTrue("elementsetattributens04",success);
+	test.ok(success, 'elementsetattributens04');
       }
 
     }
-
+    test.done();
   },
   /**
    *
@@ -4315,7 +4316,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    */
-  elementsetattributens05 : function () {
+  elementsetattributens05: function(test) {
     var success;
     var element;
     var nullNS = null;
@@ -4333,9 +4334,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("elementsetattributens05",success);
+      test.ok(success, 'elementsetattributens05');
     }
-
+    test.done();
   },
   /**
    *
@@ -4352,7 +4353,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
    */
-  elementsetattributens08 : function () {
+  elementsetattributens08: function(test) {
     var success;
     var element;
 
@@ -4368,7 +4369,7 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("elementsetattributens08_Err1",success);
+      test.ok(success, 'elementsetattributens08_Err1');
     }
 
     {
@@ -4379,37 +4380,26 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("elementsetattributens08_Err2",success);
+      test.ok(success, 'elementsetattributens08_Err2');
     }
-
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['elementsetattributensurinull'] = testcase({
   /**
    *
-
-   The "setAttributeNS(namespaceURI,qualifiedName,value)" method raises a
-
-   NAMESPACE_ERR DOMException if the specified
-
-   qualifiedName has a prefix and the namespaceURI is null.
-
-
+   The "setAttributeNS(namespaceURI,qualifiedName,value)" method raises a NAMESPACE_ERR DOMException if the specified qualifiedName has a prefix and the namespaceURI is null.
 
    Attempt to add a new attribute on the first employee node.
-
-   An exception should be raised since the "qualifiedName" has a
-
-   prefix and the namespaceURI is null.
-
+   An exception should be raised since the "qualifiedName" has a prefix and the namespaceURI is null.
 
    * @author NIST
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  elementsetattributensurinull : function () {
+  elementsetattributensurinull: function(test) {
     var success;
     var namespaceURI = null;
 
@@ -4430,13 +4420,13 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['getAttributeNS'] = testcase({
   /**
    *
    The "getAttributeNS(namespaceURI,localName)" method retrieves an
@@ -4451,7 +4441,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAttrNS
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=238
    */
-  getAttributeNS01 : function () {
+  getAttributeNS01: function(test) {
     var success;
     var namespaceURI = "http://www.nist.gov";
     var localName = "district";
@@ -4465,8 +4455,8 @@ exports[''] = testcase({
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
     attrValue = testAddr.getAttributeNS(namespaceURI,localName);
-    assertEquals("attrValue","DISTRICT",attrValue);
-
+    test.equal(attrValue, "DISTRICT", "attrValue");
+    test.done();
   },
   /**
    *
@@ -4483,7 +4473,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAttrNS
    */
-  getAttributeNS02 : function () {
+  getAttributeNS02: function(test) {
     var success;
     var namespaceURI = "http://www.nist.gov";
     var localName = "district";
@@ -4499,13 +4489,13 @@ exports[''] = testcase({
     newAttribute = doc.createAttributeNS(namespaceURI,qualifiedName);
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
-    assertNotNull("empAddrNotNull",testAddr);
+    test.notEqual(testAddr, null, 'testAddr should be null');
     districtAttr = testAddr.setAttributeNodeNS(newAttribute);
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
     attrValue = testAddr.getAttributeNS(namespaceURI,localName);
-    assertEquals("throw_Equals","",attrValue);
-
+    test.equal(attrValue, "", "throw_Equals");
+    test.done();
   },
   /**
    *
@@ -4521,7 +4511,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAttrNS
    */
-  getAttributeNS03 : function () {
+  getAttributeNS03: function(test) {
     var success;
     var namespaceURI = "http://www.nist.gov";
     var localName = "domestic";
@@ -4533,11 +4523,11 @@ exports[''] = testcase({
     var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
-    assertNotNull("empAddrNotNull",testAddr);
+    test.notEqual(testAddr, null, 'testAddr should be null');
     testAddr.removeAttributeNS(namespaceURI,localName);
     attrValue = testAddr.getAttributeNS(namespaceURI,localName);
-    assertEquals("throw_Equals","",attrValue);
-
+    test.equal(attrValue, "", "throw_Equals");
+    test.done();
   },
   /**
    *
@@ -4554,7 +4544,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAttrNS
    */
-  getAttributeNS04 : function () {
+  getAttributeNS04: function(test) {
     var success;
     var namespaceURI = "http://www.nist.gov";
     var localName = "blank";
@@ -4570,11 +4560,11 @@ exports[''] = testcase({
     newAttribute = doc.createAttributeNS(namespaceURI,qualifiedName);
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
-    assertNotNull("empAddrNotNull",testAddr);
+    test.notEqual(testAddr, null, 'testAddr should be null');
     testAddr.setAttributeNS(namespaceURI,qualifiedName,"NewValue");
     attrValue = testAddr.getAttributeNS(namespaceURI,localName);
-    assertEquals("throw_Equals","NewValue",attrValue);
-
+    test.equal(attrValue, "NewValue", "throw_Equals");
+    test.done();
   },
   /**
    *
@@ -4590,7 +4580,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAttrNS
    */
-  getAttributeNS05 : function () {
+  getAttributeNS05: function(test) {
     var success;
     var elementList;
     var testAddr;
@@ -4600,14 +4590,14 @@ exports[''] = testcase({
     var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
-    assertNotNull("empAddrNotNull",testAddr);
+    test.notEqual(testAddr, null, 'testAddr should be null');
     attrValue = testAddr.getAttributeNS("http://www.nist.gov","domestic");
-    assertEquals("attrValue","Yes",attrValue);
-
+    test.equal(attrValue, "Yes", "attrValue");
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['getAttributeNodeNS'] = testcase({
   /**
    *
    The "getAttributeNodeNS(namespaceURI,localName)" method retrieves an
@@ -4623,7 +4613,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAtNodeNS
    */
-  getAttributeNodeNS01 : function () {
+  getAttributeNodeNS01: function(test) {
     var success;
     var namespaceURI = "http://www.nist.gov";
     var localName = "invalidlocalname";
@@ -4635,10 +4625,10 @@ exports[''] = testcase({
     var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
-    assertNotNull("empAddrNotNull",testAddr);
+    test.notEqual(testAddr, null, 'testAddr should be null');
     attribute = testAddr.getAttributeNodeNS(namespaceURI,localName);
-    assertNull("throw_Null",attribute);
-
+    test.equal(attribute, null, 'attribute should not be null');
+    test.done();
   },
   /**
    *
@@ -4654,7 +4644,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-F68D095
    */
-  getAttributeNodeNS02 : function () {
+  getAttributeNodeNS02: function(test) {
     var success;
     var elementList;
     var testAddr;
@@ -4665,16 +4655,16 @@ exports[''] = testcase({
     var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
-    assertNotNull("empAddrNotNull",testAddr);
+    test.notEqual(testAddr, null, 'testAddr should be null');
     attribute = testAddr.getAttributeNodeNS("http://www.nist.gov","domestic");
     attrName = attribute.nodeName;
 
-    assertEquals("attrName","emp:domestic",attrName);
-
+    test.equal(attrName, "emp:domestic", "attrName");
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['getElementById'] = testcase({
   /**
    *
    The "getElementById(elementId)" method for a
@@ -4689,7 +4679,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-104682815
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=383
    */
-  getElementById01 : function () {
+  getElementById01: function(test) {
     var success;
     var element;
     var tagname;
@@ -4699,8 +4689,8 @@ exports[''] = testcase({
     element = doc.getElementById("CANADA");
     tagname = element.tagName;
 
-    assertEquals("throw_Equals","emp:address",tagname);
-
+    test.equal(tagname, "emp:address", "throw_Equals");
+    test.done();
   },
   /**
    *
@@ -4716,19 +4706,19 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBId
    */
-  getElementById02 : function () {
+  getElementById02: function(test) {
     var success;
     var element;
 
 
     var doc = require('./core/files/staffNS.xml').staffNS();
     element = doc.getElementById("Cancun");
-    assertNull("throw_Null",element);
-
+    test.equal(element, null, 'element should not be null');
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['getElementsByTagNameNS'] = testcase({
   /**
    *
    The "getElementsByTagNameNS(namespaceURI,localName)" method for a
@@ -4743,7 +4733,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
    */
-  getElementsByTagNameNS01 : function () {
+  getElementsByTagNameNS01: function(test) {
     var success;
     var namespaceURI = "*";
     var localName = "*";
@@ -4752,8 +4742,8 @@ exports[''] = testcase({
 
     var doc = require('./core/files/staffNS.xml').staffNS();
     newList = doc.getElementsByTagNameNS(namespaceURI,localName);
-    assertSize("throw_Size",37,newList);
-
+    test.equal(newList.length, 37, "throw_Size");
+    test.done();
   },
   /**
    *
@@ -4771,7 +4761,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
    */
-  getElementsByTagNameNS02 : function () {
+  getElementsByTagNameNS02: function(test) {
     var success;
     var newList;
     var newElement;
@@ -4781,15 +4771,15 @@ exports[''] = testcase({
 
     var doc = require('./core/files/staffNS.xml').staffNS();
     newList = doc.getElementsByTagNameNS("*","employee");
-    assertSize("employeeCount",5,newList);
+    test.equal(newList.length, 5, "employeeCount");
     newElement = newList.item(3);
     prefix = newElement.prefix;
 
-    assertEquals("prefix","emp",prefix);
+    test.equal(prefix, "emp", "prefix");
     lname = newElement.localName;
 
-    assertEquals("lname","employee",lname);
-
+    test.equal(lname, "employee", "lname");
+    test.done();
   },
   /**
    *
@@ -4807,7 +4797,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
    */
-  getElementsByTagNameNS03 : function () {
+  getElementsByTagNameNS03: function(test) {
     var success;
     var elementList;
     var child;
@@ -4842,7 +4832,7 @@ exports[''] = testcase({
 
     }
     assertEqualsList("nodeNames",expectedResult,result);
-
+    test.done();
   },
   /**
    *
@@ -4860,7 +4850,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
    */
-  getElementsByTagNameNS04 : function () {
+  getElementsByTagNameNS04: function(test) {
     var success;
     var elementList;
     var child;
@@ -4886,7 +4876,7 @@ exports[''] = testcase({
 
     }
     assertEqualsList("nodeNames",expectedResult,result);
-
+    test.done();
   },
   /**
    *
@@ -4904,7 +4894,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
    */
-  getElementsByTagNameNS05 : function () {
+  getElementsByTagNameNS05: function(test) {
     var success;
     var namespaceURI = "http://www.nist.gov";
     var localName = "nomatch";
@@ -4913,8 +4903,8 @@ exports[''] = testcase({
 
     var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS(namespaceURI,localName);
-    assertSize("throw_Size",0,elementList);
-
+    test.equal(elementList.length, 0, "throw_Size");
+    test.done();
   },
   /**
    *
@@ -4932,15 +4922,15 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
    */
-  getElementsByTagNameNS06 : function () {
+  getElementsByTagNameNS06: function(test) {
     var success;
     var elementList;
 
 
     var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("http://www.nomatch.com","address");
-    assertSize("matchSize",0,elementList);
-
+    test.equal(elementList.length, 0, "matchSize");
+    test.done();
   },
   /**
    *
@@ -4958,15 +4948,15 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getElBTNNS
    */
-  getElementsByTagNameNS07 : function () {
+  getElementsByTagNameNS07: function(test) {
     var success;
     var elementList;
 
 
     var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagNameNS("http://www.nist.gov","address");
-    assertSize("addresses",3,elementList);
-
+    test.equal(elementList.length, 3, "addresses");
+    test.done();
   },
   /**
    *
@@ -4981,7 +4971,7 @@ exports[''] = testcase({
    * @author Curt Arnold
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1938918D
    */
-  getElementsByTagNameNS08 : function () {
+  getElementsByTagNameNS08: function(test) {
     var success;
     var docElem;
     var newList;
@@ -4991,8 +4981,8 @@ exports[''] = testcase({
     docElem = doc.documentElement;
 
     newList = docElem.getElementsByTagNameNS("*","*");
-    assertSize("listSize",36,newList);
-
+    test.equal(newList.length, 36, "listSize");
+    test.done();
   },
   /**
    *
@@ -5013,7 +5003,7 @@ exports[''] = testcase({
    * @author Curt Arnold
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1938918D
    */
-  getElementsByTagNameNS09 : function () {
+  getElementsByTagNameNS09: function(test) {
     var success;
     var newList;
     var newElement;
@@ -5026,15 +5016,15 @@ exports[''] = testcase({
     docElem = doc.documentElement;
 
     newList = docElem.getElementsByTagNameNS("*","employee");
-    assertSize("employeeCount",5,newList);
+    test.equal(newList.length, 5, "employeeCount");
     newElement = newList.item(3);
     prefix = newElement.prefix;
 
-    assertEquals("prefix","emp",prefix);
+    test.equal(prefix, "emp", "prefix");
     lname = newElement.localName;
 
-    assertEquals("lname","employee",lname);
-
+    test.equal(lname, "employee", "lname");
+    test.done();
   },
   /**
    *
@@ -5054,7 +5044,7 @@ exports[''] = testcase({
    * @author Curt Arnold
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1938918D
    */
-  getElementsByTagNameNS10 : function () {
+  getElementsByTagNameNS10: function(test) {
     var success;
     var docElem;
     var elementList;
@@ -5092,7 +5082,7 @@ exports[''] = testcase({
 
     }
     assertEqualsList("nodeNames",expectedResult,result);
-
+    test.done();
   },
   /**
    *
@@ -5111,7 +5101,7 @@ exports[''] = testcase({
    * @author Curt Arnold
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1938918D
    */
-  getElementsByTagNameNS11 : function () {
+  getElementsByTagNameNS11: function(test) {
     var success;
     var docElem;
     var elementList;
@@ -5140,7 +5130,7 @@ exports[''] = testcase({
 
     }
     assertEqualsList("nodeNames",expectedResult,result);
-
+    test.done();
   },
   /**
    *
@@ -5158,7 +5148,7 @@ exports[''] = testcase({
    * @author Curt Arnold
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1938918D
    */
-  getElementsByTagNameNS12 : function () {
+  getElementsByTagNameNS12: function(test) {
     var success;
     var docElem;
     var elementList;
@@ -5168,8 +5158,8 @@ exports[''] = testcase({
     docElem = doc.documentElement;
 
     elementList = docElem.getElementsByTagNameNS("http://www.nist.gov","nomatch");
-    assertSize("size",0,elementList);
-
+    test.equal(elementList.length, 0, "size");
+    test.done();
   },
   /**
    *
@@ -5186,7 +5176,7 @@ exports[''] = testcase({
    * @author Curt Arnold
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1938918D
    */
-  getElementsByTagNameNS13 : function () {
+  getElementsByTagNameNS13: function(test) {
     var success;
     var docElem;
     var elementList;
@@ -5196,8 +5186,8 @@ exports[''] = testcase({
     docElem = doc.documentElement;
 
     elementList = docElem.getElementsByTagNameNS("http://www.nomatch.com","address");
-    assertSize("matchSize",0,elementList);
-
+    test.equal(elementList.length, 0, "matchSize");
+    test.done();
   },
   /**
    *
@@ -5214,7 +5204,7 @@ exports[''] = testcase({
    * @author Curt Arnold
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1938918D
    */
-  getElementsByTagNameNS14 : function () {
+  getElementsByTagNameNS14: function(test) {
     var success;
     var docElem;
     var elementList;
@@ -5224,12 +5214,12 @@ exports[''] = testcase({
     docElem = doc.documentElement;
 
     elementList = docElem.getElementsByTagNameNS("http://www.nist.gov","address");
-    assertSize("addresses",3,elementList);
-
+    test.equal(elementList.length, 3, "addresses");
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['getNamedItemNS'] = testcase({
   /**
    *
    The "getNamedItemNS(namespaceURI,localName)" method for a
@@ -5245,7 +5235,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-F68D095
    */
-  getNamedItemNS01 : function () {
+  getNamedItemNS01: function(test) {
     var success;
     var elementList;
     var testEmployee;
@@ -5262,8 +5252,8 @@ exports[''] = testcase({
     domesticAttr = attributes.getNamedItemNS("http://www.usa.com","domestic");
     attrName = domesticAttr.nodeName;
 
-    assertEquals("attrName","dmstc:domestic",attrName);
-
+    test.equal(attrName, "dmstc:domestic", "attrName");
+    test.done();
   },
   /**
    *
@@ -5282,7 +5272,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getNamedItemNS
    */
-  getNamedItemNS02 : function () {
+  getNamedItemNS02: function(test) {
     var success;
     var namespaceURI = "http://www.usa.com";
     var localName = "domest";
@@ -5298,8 +5288,8 @@ exports[''] = testcase({
     attributes = testEmployee.attributes;
 
     newAttr = attributes.getNamedItemNS(namespaceURI,localName);
-    assertNull("throw_Null",newAttr);
-
+    test.equal(newAttr, null, 'newAttr should not be null');
+    test.done();
   },
   /**
    *
@@ -5311,7 +5301,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getNamedItemNS
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    */
-  getNamedItemNS03 : function () {
+  getNamedItemNS03: function(test) {
     var success;
     var docType;
     var entities;
@@ -5325,10 +5315,10 @@ exports[''] = testcase({
 
     entities = docType.entities;
 
-    assertNotNull("entitiesNotNull",entities);
+    test.notEqual(entities, null, 'entities should be null');
     entity = entities.getNamedItemNS(nullNS,"ent1");
-    assertNull("entityNull",entity);
-
+    test.equal(entity, null, 'entity should not be null');
+    test.done();
   },
   /**
    *
@@ -5340,7 +5330,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getNamedItemNS
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    */
-  getNamedItemNS04 : function () {
+  getNamedItemNS04: function(test) {
     var success;
     var docType;
     var notations;
@@ -5354,14 +5344,14 @@ exports[''] = testcase({
 
     notations = docType.notations;
 
-    assertNotNull("notationsNotNull",notations);
+    test.notEqual(notations, null, 'notations should be null');
     notation = notations.getNamedItemNS(nullNS,"notation1");
-    assertNull("notationNull",notation);
-
+    test.equal(notation, null, 'notation should not be null');
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['hasAttribute'] = testcase({
   /**
    *
    The "hasAttribute()" method for an Element should
@@ -5374,7 +5364,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttr
    */
-  hasAttribute01 : function () {
+  hasAttribute01: function(test) {
     var success;
     var elementList;
     var testNode;
@@ -5385,8 +5375,8 @@ exports[''] = testcase({
     elementList = doc.getElementsByTagName("address");
     testNode = elementList.item(4);
     state = testNode.hasAttribute("domestic");
-    assertFalse("throw_False",state);
-
+    test.equal(state, false, 'state should be *false*');
+    test.done();
   },
   /**
    *
@@ -5401,7 +5391,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttr
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=238
    */
-  hasAttribute02 : function () {
+  hasAttribute02: function(test) {
     var success;
     var elementList;
     var testNode;
@@ -5412,8 +5402,8 @@ exports[''] = testcase({
     elementList = doc.getElementsByTagName("address");
     testNode = elementList.item(0);
     state = testNode.hasAttribute("street");
-    assertTrue("throw_True",state);
-
+    test.ok(state, 'throw_True');
+    test.done();
   },
   /**
    *
@@ -5427,7 +5417,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttr
    */
-  hasAttribute03 : function () {
+  hasAttribute03: function(test) {
     var success;
     var elementList;
     var testNode;
@@ -5438,8 +5428,8 @@ exports[''] = testcase({
     elementList = doc.getElementsByTagName("address");
     testNode = elementList.item(0);
     state = testNode.hasAttribute("nomatch");
-    assertFalse("throw_False",state);
-
+    test.equal(state, false, 'state should be *false*');
+    test.done();
   },
   /**
    *
@@ -5454,7 +5444,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttr
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=238
    */
-  hasAttribute04 : function () {
+  hasAttribute04: function(test) {
     var success;
     var elementList;
     var testNode;
@@ -5465,12 +5455,12 @@ exports[''] = testcase({
     elementList = doc.getElementsByTagName("address");
     testNode = elementList.item(0);
     state = testNode.hasAttribute("dmstc:domestic");
-    assertTrue("hasDomesticAttr",state);
-
+    test.ok(state, 'hasDomesticAttr');
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['hasAttributeNS'] = testcase({
   /**
    *
 
@@ -5486,7 +5476,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttrNS
    */
-  hasAttributeNS01 : function () {
+  hasAttributeNS01: function(test) {
     var success;
     var localName = "nomatch";
     var namespaceURI = "http://www.usa.com";
@@ -5499,8 +5489,8 @@ exports[''] = testcase({
     elementList = doc.getElementsByTagName("address");
     testNode = elementList.item(0);
     state = testNode.hasAttributeNS(namespaceURI,localName);
-    assertFalse("throw_False",state);
-
+    test.equal(state, false, 'state should be *false*');
+    test.done();
   },
   /**
    *
@@ -5516,7 +5506,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttrNS
    */
-  hasAttributeNS02 : function () {
+  hasAttributeNS02: function(test) {
     var success;
     var localName = "domestic";
     var namespaceURI = "http://www.nomatch.com";
@@ -5529,8 +5519,8 @@ exports[''] = testcase({
     elementList = doc.getElementsByTagName("address");
     testNode = elementList.item(0);
     state = testNode.hasAttributeNS(namespaceURI,localName);
-    assertFalse("throw_False",state);
-
+    test.equal(state, false, 'state should be *false*');
+    test.done();
   },
   /**
    *
@@ -5546,7 +5536,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttrNS
    */
-  hasAttributeNS03 : function () {
+  hasAttributeNS03: function(test) {
     var success;
     var localName = "blank";
     var namespaceURI = "http://www.nist.gov";
@@ -5558,10 +5548,10 @@ exports[''] = testcase({
     var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:address");
     testNode = elementList.item(0);
-    assertNotNull("empAddrNotNull",testNode);
+    test.notEqual(testNode, null, 'testNode should be null');
     state = testNode.hasAttributeNS(namespaceURI,localName);
-    assertFalse("throw_False",state);
-
+    test.equal(state, false, 'state should be *false*');
+    test.done();
   },
   /**
    *
@@ -5577,7 +5567,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttrNS
    */
-  hasAttributeNS04 : function () {
+  hasAttributeNS04: function(test) {
     var success;
     var localName = "district";
     var namespaceURI = "http://www.nist.gov";
@@ -5589,10 +5579,10 @@ exports[''] = testcase({
     var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:address");
     testNode = elementList.item(0);
-    assertNotNull("empAddressNotNull",testNode);
+    test.notEqual(testNode, null, 'testNode should be null');
     state = testNode.hasAttributeNS(namespaceURI,localName);
-    assertTrue("hasAttribute",state);
-
+    test.ok(state, 'hasAttribute');
+    test.done();
   },
   /**
    *
@@ -5608,7 +5598,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttrNS
    */
-  hasAttributeNS05 : function () {
+  hasAttributeNS05: function(test) {
     var success;
     var localName = "domestic";
     var namespaceURI = "http://www.usa.com";
@@ -5621,12 +5611,12 @@ exports[''] = testcase({
     elementList = doc.getElementsByTagName("address");
     testNode = elementList.item(0);
     state = testNode.hasAttributeNS(namespaceURI,localName);
-    assertTrue("hasAttribute",state);
-
+    test.ok(state, 'hasAttribute');
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['hasAttributes'] = testcase({
   /**
    *
    The "hasAttributes()" method for a node should
@@ -5639,7 +5629,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
    */
-  hasAttributes01 : function () {
+  hasAttributes01: function(test) {
     var success;
     var addrList;
     var addrNode;
@@ -5650,8 +5640,8 @@ exports[''] = testcase({
     addrList = doc.getElementsByTagName("name");
     addrNode = addrList.item(0);
     state = addrNode.hasAttributes();
-    assertFalse("throw_False",state);
-
+    test.equal(state, false, 'state should be *false*');
+    test.done();
   },
   /**
    *
@@ -5665,7 +5655,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
    */
-  hasAttributes02 : function () {
+  hasAttributes02: function(test) {
     var success;
     var addrList;
     var addrNode;
@@ -5676,12 +5666,12 @@ exports[''] = testcase({
     addrList = doc.getElementsByTagName("address");
     addrNode = addrList.item(0);
     state = addrNode.hasAttributes();
-    assertTrue("throw_True",state);
-
+    test.ok(state, 'throw_True');
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['hc_entities'] = testcase({
   /**
    *
    An attempt to add remove an entity using removeNamedItemNS should result in
@@ -5691,7 +5681,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1788794630
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-removeNamedItemNS
    */
-  hc_entitiesremovenameditemns1 : function () {
+  hc_entitiesremovenameditemns1: function(test) {
     var success;
     var entities;
     var docType;
@@ -5702,9 +5692,9 @@ exports[''] = testcase({
     docType = doc.doctype;
 
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docType should be null');
     entities = docType.entities;
-    assertNotNull("entitiesNotNull",entities);
+    test.notEqual(entities, null, 'entities should be null');
     try {
       retval = entities.removeNamedItemNS("http://www.w3.org/1999/xhtml","alpha");
       fail("throw_NO_MOD_OR_NOT_FOUND_ERR");
@@ -5722,6 +5712,7 @@ exports[''] = testcase({
         throw ex;
       }
     }
+    test.done();
   },
   /**
    *
@@ -5732,7 +5723,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1788794630
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
    */
-  hc_entitiessetnameditemns1 : function () {
+  hc_entitiessetnameditemns1: function(test) {
     var success;
     var entities;
     var docType;
@@ -5744,10 +5735,10 @@ exports[''] = testcase({
     docType = doc.doctype;
 
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docType should be null');
     entities = docType.entities;
 
-    assertNotNull("entitiesNotNull",entities);
+    test.notEqual(entities, null, 'entities should be null');
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
 
     try {
@@ -5768,6 +5759,7 @@ exports[''] = testcase({
         throw ex;
       }
     }
+    test.done();
   },
   /**
    *
@@ -5779,7 +5771,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    * @see http://www.w3.org/2000/11/DOM-Level-2-errata#core-4
    */
-  hc_namednodemapinvalidtype1 : function () {
+  hc_namednodemapinvalidtype1: function(test) {
     var success;
     var attributes;
     var docElem;
@@ -5802,9 +5794,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -5815,7 +5807,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-F68D095
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-B63ED1A3
    */
-  hc_nodedocumentfragmentnormalize1 : function () {
+  hc_nodedocumentfragmentnormalize1: function(test) {
     var success;
     var docFragment;
     var nodeValue;
@@ -5834,11 +5826,11 @@ exports[''] = testcase({
 
     nodeValue = txtNode.nodeValue;
 
-    assertEquals("normalizedNodeValue","foobar",nodeValue);
+    test.equal(nodeValue, "foobar", "normalizedNodeValue");
     retval = txtNode.nextSibling;
 
-    assertNull("singleChild",retval);
-
+    test.equal(retval, null, 'retval should not be null');
+    test.done();
   },
   /**
    *
@@ -5849,7 +5841,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-F68D095
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-B63ED1A3
    */
-  hc_nodedocumentfragmentnormalize2 : function () {
+  hc_nodedocumentfragmentnormalize2: function(test) {
     var success;
     var docFragment;
     var nodeValue;
@@ -5864,8 +5856,8 @@ exports[''] = testcase({
     docFragment.normalize();
     txtNode = docFragment.firstChild;
 
-    assertNull("noChild",txtNode);
-
+    test.equal(txtNode, null, 'txtNode should not be null');
+    test.done();
   },
   /**
    *
@@ -5876,7 +5868,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-D46829EF
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-removeNamedItemNS
    */
-  hc_notationsremovenameditemns1 : function () {
+  hc_notationsremovenameditemns1: function(test) {
     var success;
     var notations;
     var docType;
@@ -5887,10 +5879,10 @@ exports[''] = testcase({
     docType = doc.doctype;
 
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docType should be null');
     notations = docType.notations;
 
-    assertNotNull("notationsNotNull",notations);
+    test.notEqual(notations, null, 'notations should be null');
 
     try {
       retval = notations.removeNamedItemNS("http://www.w3.org/1999/xhtml","alpha");
@@ -5910,6 +5902,7 @@ exports[''] = testcase({
         throw ex;
       }
     }
+    test.done();
   },
   /**
    *
@@ -5920,7 +5913,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-D46829EF
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
    */
-  hc_notationssetnameditemns1 : function () {
+  hc_notationssetnameditemns1: function(test) {
     var success;
     var notations;
     var docType;
@@ -5932,10 +5925,10 @@ exports[''] = testcase({
     docType = doc.doctype;
 
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docType should be null');
     notations = docType.notations;
 
-    assertNotNull("notationsNotNull",notations);
+    test.notEqual(notations, null, 'notations should be null');
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
 
     try {
@@ -5956,10 +5949,11 @@ exports[''] = testcase({
         throw ex;
       }
     }
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['importNode'] = testcase({
   /**
    *
    The "importNode(importedNode,deep)" method for a
@@ -5980,7 +5974,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  importNode01 : function () {
+  importNode01: function(test) {
     var success;
     var newAttr;
     var importedChild;
@@ -6010,26 +6004,26 @@ exports[''] = testcase({
 
     system = docType.systemId;
 
-    assertNotNull("aNode",aNode);
+    test.notEqual(aNode, null, 'aNode should be null');
     assertURIEquals("systemId",null,null,null,"staffNS.dtd",null,null,null,null,system);
     attrOwnerElement = aNode.ownerElement;
 
-    assertNull("ownerElement",attrOwnerElement);
+    test.equal(attrOwnerElement, null, 'attrOwnerElement should not be null');
     specified = aNode.specified;
 
-    assertTrue("specified",specified);
+    test.ok(specified, 'specified');
     childList = aNode.childNodes;
 
-    assertSize("childList",1,childList);
+    test.equal(childList.length, 1, "childList");
     nodeName = aNode.nodeName;
 
-    assertEquals("nodeName","elem:attr1",nodeName);
+    test.equal(nodeName, "elem:attr1", "nodeName");
     child = aNode.firstChild;
 
     childValue = child.nodeValue;
 
-    assertEquals("childValue","importedText",childValue);
-
+    test.equal(childValue, "importedText", "childValue");
+    test.done();
   },
   /**
    *
@@ -6046,7 +6040,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  importNode02 : function () {
+  importNode02: function(test) {
     var success;
     var cDataSec;
     var aNode;
@@ -6062,7 +6056,7 @@ exports[''] = testcase({
     aNode = doc.importNode(cDataSec,false);
     ownerDocument = aNode.ownerDocument;
 
-    assertNotNull("ownerDocumentNotNull",ownerDocument);
+    test.notEqual(ownerDocument, null, 'ownerDocument should be null');
     docType = ownerDocument.doctype;
 
     system = docType.systemId;
@@ -6070,8 +6064,8 @@ exports[''] = testcase({
     assertURIEquals("dtdSystemId",null,null,null,"staffNS.dtd",null,null,null,null,system);
     value = aNode.nodeValue;
 
-    assertEquals("nodeValue","this is CDATASection data",value);
-
+    test.equal(value, "this is CDATASection data", "nodeValue");
+    test.done();
   },
   /**
    *
@@ -6089,7 +6083,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  importNode03 : function () {
+  importNode03: function(test) {
     var success;
     var comment;
     var aNode;
@@ -6105,7 +6099,7 @@ exports[''] = testcase({
     aNode = doc.importNode(comment,false);
     ownerDocument = aNode.ownerDocument;
 
-    assertNotNull("ownerDocumentNotNull",ownerDocument);
+    test.notEqual(ownerDocument, null, 'ownerDocument should be null');
     docType = ownerDocument.doctype;
 
     system = docType.systemId;
@@ -6113,8 +6107,8 @@ exports[''] = testcase({
     assertURIEquals("systemId",null,null,null,"staffNS.dtd",null,null,null,null,system);
     value = aNode.nodeValue;
 
-    assertEquals("nodeValue","this is a comment",value);
-
+    test.equal(value, "this is a comment", "nodeValue");
+    test.done();
   },
   /**
    *
@@ -6133,7 +6127,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  importNode04 : function () {
+  importNode04: function(test) {
     var success;
     var docFrag;
     var comment;
@@ -6149,13 +6143,13 @@ exports[''] = testcase({
     aNode = doc.importNode(docFrag,true);
     children = aNode.childNodes;
 
-    assertSize("throw_Size",1,children);
+    test.equal(children.length, 1, "throw_Size");
     child = aNode.firstChild;
 
     childValue = child.nodeValue;
 
-    assertEquals("descendant1","descendant1",childValue);
-
+    test.equal(childValue, "descendant1", "descendant1");
+    test.done();
   },
   /**
    *
@@ -6174,7 +6168,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  importNode05 : function () {
+  importNode05: function(test) {
     var success;
     var element;
     var aNode;
@@ -6190,10 +6184,10 @@ exports[''] = testcase({
     var aNewDoc = require('./core/files/staffNS.xml').staffNS();
     addresses = aNewDoc.getElementsByTagName("emp:address");
     element = addresses.item(0);
-    assertNotNull("empAddressNotNull",element);
+    test.notEqual(element, null, 'element should be null');
     aNode = doc.importNode(element,false);
     hasChild = aNode.hasChildNodes();
-    assertFalse("hasChild",hasChild);
+    test.equal(hasChild, false, 'hasChild should be *false*');
     ownerDocument = aNode.ownerDocument;
 
     docType = ownerDocument.doctype;
@@ -6203,8 +6197,8 @@ exports[''] = testcase({
     assertURIEquals("dtdSystemId",null,null,null,"staffNS.dtd",null,null,null,null,system);
     name = aNode.nodeName;
 
-    assertEquals("nodeName","emp:address",name);
-
+    test.equal(name, "emp:address", "nodeName");
+    test.done();
   },
   /**
    *
@@ -6222,7 +6216,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  importNode06 : function () {
+  importNode06: function(test) {
     var success;
     var element;
     var aNode;
@@ -6237,19 +6231,19 @@ exports[''] = testcase({
     var aNewDoc = require('./core/files/staffNS.xml').staffNS();
     addresses = aNewDoc.getElementsByTagName("emp:address");
     element = addresses.item(0);
-    assertNotNull("empAddressNotNull",element);
+    test.notEqual(element, null, 'element should be null');
     aNode = doc.importNode(element,true);
     hasChild = aNode.hasChildNodes();
-    assertTrue("throw_True",hasChild);
+    test.ok(hasChild, 'throw_True');
     name = aNode.nodeName;
 
-    assertEquals("nodeName","emp:address",name);
+    test.equal(name, "emp:address", "nodeName");
     child = aNode.firstChild;
 
     value = child.nodeValue;
 
-    assertEquals("nodeValue","27 South Road. Dallas, texas 98556",value);
-
+    test.equal(value, "27 South Road. Dallas, texas 98556", "nodeValue");
+    test.done();
   },
   /**
    *
@@ -6269,7 +6263,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=238
    */
-  importNode07 : function () {
+  importNode07: function(test) {
     var success;
     var element;
     var aNode;
@@ -6287,15 +6281,15 @@ exports[''] = testcase({
     aNode = doc.importNode(element,false);
     attributes = aNode.attributes;
 
-    assertSize("throw_Size",1,attributes);
+    test.equal(attributes.length, 1, "throw_Size");
     name = aNode.nodeName;
 
-    assertEquals("nodeName","emp:employee",name);
+    test.equal(name, "emp:employee", "nodeName");
     attr = attributes.item(0);
     lname = attr.localName;
 
-    assertEquals("lname","defaultAttr",lname);
-
+    test.equal(lname, "defaultAttr", "lname");
+    test.done();
   },
   /**
    *
@@ -6314,7 +6308,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-Core-DocType-systemId
    */
-  importNode08 : function () {
+  importNode08: function(test) {
     var success;
     var docFrag;
     var aNode;
@@ -6329,7 +6323,7 @@ exports[''] = testcase({
     docFrag = aNewDoc.createDocumentFragment();
     aNode = doc.importNode(docFrag,false);
     hasChild = aNode.hasChildNodes();
-    assertFalse("hasChild",hasChild);
+    test.equal(hasChild, false, 'hasChild should be *false*');
     ownerDocument = aNode.ownerDocument;
 
     docType = ownerDocument.doctype;
@@ -6337,7 +6331,7 @@ exports[''] = testcase({
     system = docType.systemId;
 
     assertURIEquals("system",null,null,null,"staffNS.dtd",null,null,null,null,system);
-
+    test.done();
   },
   /**
    *
@@ -6355,7 +6349,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  importNode09 : function () {
+  importNode09: function(test) {
     var success;
     var doc1Type;
     var entityList;
@@ -6375,7 +6369,7 @@ exports[''] = testcase({
 
     entityList = docType.entities;
 
-    assertNotNull("entitiesNotNull",entityList);
+    test.notEqual(entityList, null, 'entityList should be null');
     entity2 = entityList.getNamedItem("ent6");
     entity1 = doc.importNode(entity2,false);
     ownerDocument = entity1.ownerDocument;
@@ -6387,17 +6381,17 @@ exports[''] = testcase({
     assertURIEquals("dtdSystemId",null,null,null,"staffNS.dtd",null,null,null,null,system);
     entityName = entity1.nodeName;
 
-    assertEquals("entityName","ent6",entityName);
+    test.equal(entityName, "ent6", "entityName");
     publicVal = entity1.publicId;
 
-    assertEquals("entityPublicId","uri",publicVal);
+    test.equal(publicVal, "uri", "entityPublicId");
     system = entity1.systemId;
 
     assertURIEquals("entitySystemId",null,null,null,"file",null,null,null,null,system);
     notationName = entity1.notationName;
 
-    assertEquals("notationName","notation2",notationName);
-
+    test.equal(notationName, "notation2", "notationName");
+    test.done();
   },
   /**
    *
@@ -6417,7 +6411,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  importNode10 : function () {
+  importNode10: function(test) {
     var success;
     var entRef;
     var aNode;
@@ -6430,7 +6424,7 @@ exports[''] = testcase({
     var doc = require('./core/files/staffNS.xml').staffNS();
     var aNewDoc = require('./core/files/staffNS.xml').staffNS();
     entRef = aNewDoc.createEntityReference("entRef1");
-    assertNotNull("createdEntRefNotNull",entRef);
+    test.notEqual(entRef, null, 'entRef should be null');
     entRef.nodeValue = "entRef1Value";
 
     aNode = doc.importNode(entRef,false);
@@ -6443,8 +6437,8 @@ exports[''] = testcase({
     assertURIEquals("systemId",null,null,null,"staffNS.dtd",null,null,null,null,system);
     name = aNode.nodeName;
 
-    assertEquals("nodeName","entRef1",name);
-
+    test.equal(name, "entRef1", "nodeName");
+    test.done();
   },
   /**
    *
@@ -6464,7 +6458,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  importNode11 : function () {
+  importNode11: function(test) {
     var success;
     var entRef;
     var aNode;
@@ -6476,18 +6470,18 @@ exports[''] = testcase({
     var doc = require('./core/files/staff.xml').staff();
     var aNewDoc = require('./core/files/staff.xml').staff();
     entRef = aNewDoc.createEntityReference("ent3");
-    assertNotNull("createdEntRefNotNull",entRef);
+    test.notEqual(entRef, null, 'entRef should be null');
     aNode = doc.importNode(entRef,true);
     name = aNode.nodeName;
 
-    assertEquals("entityName","ent3",name);
+    test.equal(name, "ent3", "entityName");
     child = aNode.firstChild;
 
-    assertNotNull("child",child);
+    test.notEqual(child, null, 'child should be null');
     childValue = child.nodeValue;
 
-    assertEquals("childValue","Texas",childValue);
-
+    test.equal(childValue, "Texas", "childValue");
+    test.done();
   },
   /**
    *
@@ -6504,7 +6498,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  importNode12 : function () {
+  importNode12: function(test) {
     var success;
     var doc1Type;
     var entityList;
@@ -6524,7 +6518,7 @@ exports[''] = testcase({
 
     entityList = doc1Type.entities;
 
-    assertNotNull("entitiesNotNull",entityList);
+    test.notEqual(entityList, null, 'entityList should be null');
     entity2 = entityList.getNamedItem("ent4");
     entity1 = doc.importNode(entity2,true);
     ownerDocument = entity1.ownerDocument;
@@ -6536,14 +6530,14 @@ exports[''] = testcase({
     assertURIEquals("systemId",null,null,null,"staffNS.dtd",null,null,null,null,system);
     entityName = entity1.nodeName;
 
-    assertEquals("entityName","ent4",entityName);
+    test.equal(entityName, "ent4", "entityName");
     child = entity1.firstChild;
 
-    assertNotNull("notnull",child);
+    test.notEqual(child, null, 'child should be null');
     childName = child.nodeName;
 
-    assertEquals("childName","entElement1",childName);
-
+    test.equal(childName, "entElement1", "childName");
+    test.done();
   },
   /**
    *
@@ -6561,7 +6555,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  importNode13 : function () {
+  importNode13: function(test) {
     var success;
     var doc1Type;
     var notationList;
@@ -6579,7 +6573,7 @@ exports[''] = testcase({
 
     notationList = doc1Type.notations;
 
-    assertNotNull("notationsNotNull",notationList);
+    test.notEqual(notationList, null, 'notationList should be null');
     notation = notationList.getNamedItem("notation1");
     aNode = doc.importNode(notation,false);
     ownerDocument = aNode.ownerDocument;
@@ -6591,11 +6585,11 @@ exports[''] = testcase({
     assertURIEquals("systemId",null,null,null,"staffNS.dtd",null,null,null,null,system);
     publicVal = aNode.publicId;
 
-    assertEquals("publicId","notation1File",publicVal);
+    test.equal(publicVal, "notation1File", "publicId");
     system = aNode.systemId;
 
-    assertNull("notationSystemId",system);
-
+    test.equal(system, null, 'system should not be null');
+    test.done();
   },
   /**
    *
@@ -6612,7 +6606,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  importNode14 : function () {
+  importNode14: function(test) {
     var success;
     var pi;
     var aNode;
@@ -6631,7 +6625,7 @@ exports[''] = testcase({
     aNode = doc.importNode(pi,false);
     ownerDocument = aNode.ownerDocument;
 
-    assertNotNull("ownerDocumentNotNull",ownerDocument);
+    test.notEqual(ownerDocument, null, 'ownerDocument should be null');
     docType = ownerDocument.doctype;
 
     system = docType.systemId;
@@ -6639,11 +6633,11 @@ exports[''] = testcase({
     assertURIEquals("systemId",null,null,null,"staffNS.dtd",null,null,null,null,system);
     target = aNode.target;
 
-    assertEquals("piTarget","target1",target);
+    test.equal(target, "target1", "piTarget");
     data = aNode.data;
 
-    assertEquals("piData","data1",data);
-
+    test.equal(data, "data1", "piData");
+    test.done();
   },
   /**
    *
@@ -6661,7 +6655,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    */
-  importNode15 : function () {
+  importNode15: function(test) {
     var success;
     var text;
     var aNode;
@@ -6677,7 +6671,7 @@ exports[''] = testcase({
     aNode = doc.importNode(text,false);
     ownerDocument = aNode.ownerDocument;
 
-    assertNotNull("ownerDocumentNotNull",ownerDocument);
+    test.notEqual(ownerDocument, null, 'ownerDocument should be null');
     docType = ownerDocument.doctype;
 
     system = docType.systemId;
@@ -6685,8 +6679,8 @@ exports[''] = testcase({
     assertURIEquals("systemId",null,null,null,"staffNS.dtd",null,null,null,null,system);
     value = aNode.nodeValue;
 
-    assertEquals("nodeValue","this is text data",value);
-
+    test.equal(value, "this is text data", "nodeValue");
+    test.done();
   },
   /**
    *
@@ -6705,7 +6699,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('Core-Document-importNode')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NOT_SUPPORTED_ERR'])
    */
-  importNode16 : function () {
+  importNode16: function(test) {
     var success;
     var docType;
     var node;
@@ -6724,9 +6718,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("throw_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -6745,7 +6739,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('Core-Document-importNode')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NOT_SUPPORTED_ERR'])
    */
-  importNode17 : function () {
+  importNode17: function(test) {
     var success;
     var node;
 
@@ -6761,13 +6755,13 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("throw_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     }
-
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['internalSubset'] = testcase({
   /**
    *
    The "getInternalSubset()" method returns
@@ -6782,7 +6776,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-Core-DocType-internalSubset
    */
-  internalSubset01 : function () {
+  internalSubset01: function(test) {
     var success;
     var docType;
     var internal;
@@ -6793,8 +6787,8 @@ exports[''] = testcase({
 
     internal = docType.internalSubset;
 
-    assertNull("internalSubsetNull",internal);
-
+    test.equal(internal, null, 'internal should not be null');
+    test.done();
   },
   /**
    *
@@ -6814,7 +6808,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
    */
-  isSupported01 : function () {
+  isSupported01: function(test) {
     var success;
     var rootNode;
     var state;
@@ -6824,8 +6818,8 @@ exports[''] = testcase({
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("XXX","1.0");
-    assertFalse("throw_False",state);
-
+    test.equal(state, false, 'state should be *false*');
+    test.done();
   },
   /**
    *
@@ -6845,7 +6839,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
    */
-  isSupported02 : function () {
+  isSupported02: function(test) {
     var success;
     var rootNode;
     var state;
@@ -6855,8 +6849,8 @@ exports[''] = testcase({
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("XML","9.0");
-    assertFalse("throw_False",state);
-
+    test.equal(state, false, 'state should be *false*');
+    test.done();
   },
   /**
    *
@@ -6878,7 +6872,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
    */
-  isSupported04 : function () {
+  isSupported04: function(test) {
     var success;
     var rootNode;
     var state;
@@ -6888,8 +6882,8 @@ exports[''] = testcase({
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("xml","1.0");
-    assertTrue("throw_True",state);
-
+    test.ok(state, 'throw_True');
+    test.done();
   },
   /**
    *
@@ -6911,7 +6905,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
    */
-  isSupported05 : function () {
+  isSupported05: function(test) {
     var success;
     var rootNode;
     var state;
@@ -6921,8 +6915,8 @@ exports[''] = testcase({
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("core","2.0");
-    assertTrue("throw_True",state);
-
+    test.ok(state, 'throw_True');
+    test.done();
   },
   /**
    *
@@ -6944,7 +6938,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
    */
-  isSupported06 : function () {
+  isSupported06: function(test) {
     var success;
     var rootNode;
     var state;
@@ -6954,8 +6948,8 @@ exports[''] = testcase({
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("xml","2.0");
-    assertTrue("throw_True",state);
-
+    test.ok(state, 'throw_True');
+    test.done();
   },
   /**
    *
@@ -6977,7 +6971,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
    */
-  isSupported07 : function () {
+  isSupported07: function(test) {
     var success;
     var rootNode;
     var state;
@@ -6987,8 +6981,8 @@ exports[''] = testcase({
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("XML","");
-    assertTrue("throw_True",state);
-
+    test.ok(state, 'throw_True');
+    test.done();
   },
   /**
    *
@@ -7010,7 +7004,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
    */
-  isSupported09 : function () {
+  isSupported09: function(test) {
     var success;
     var rootNode;
     var state;
@@ -7020,8 +7014,8 @@ exports[''] = testcase({
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("XML","1.0");
-    assertTrue("throw_True",state);
-
+    test.ok(state, 'throw_True');
+    test.done();
   },
   /**
    *
@@ -7043,7 +7037,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
    */
-  isSupported10 : function () {
+  isSupported10: function(test) {
     var success;
     var rootNode;
     var state;
@@ -7053,8 +7047,8 @@ exports[''] = testcase({
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("CORE","2.0");
-    assertTrue("throw_True",state);
-
+    test.ok(state, 'throw_True');
+    test.done();
   },
   /**
    *
@@ -7076,7 +7070,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
    */
-  isSupported11 : function () {
+  isSupported11: function(test) {
     var success;
     var rootNode;
     var state;
@@ -7086,8 +7080,8 @@ exports[''] = testcase({
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("XML","2.0");
-    assertTrue("throw_True",state);
-
+    test.ok(state, 'throw_True');
+    test.done();
   },
   /**
    *
@@ -7109,7 +7103,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
    */
-  isSupported12 : function () {
+  isSupported12: function(test) {
     var success;
     features = new Array();
     features[0] = "Core";
@@ -7137,7 +7131,7 @@ exports[''] = testcase({
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("Core","2.0");
-    assertTrue("Core2",state);
+    test.ok(state, 'Core2');
     for(var indexN10078 = 0;indexN10078 < features.length; indexN10078++) {
       featureElement = features[indexN10078];
       state = rootNode.isSupported(featureElement,"1.0");
@@ -7148,7 +7142,7 @@ exports[''] = testcase({
       state = rootNode.isSupported(featureElement,"2.0");
 
     }
-
+    test.done();
   },
   /**
    *
@@ -7158,7 +7152,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
    * @see http://www.w3.org/2000/11/DOM-Level-2-errata#core-14
    */
-  isSupported13 : function () {
+  isSupported13: function(test) {
     var success;
     var rootNode;
     var state;
@@ -7168,8 +7162,8 @@ exports[''] = testcase({
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("Core","");
-    assertTrue("Core",state);
-
+    test.ok(state, 'Core');
+    test.done();
   },
   /**
    *
@@ -7179,7 +7173,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
    * @see http://www.w3.org/2000/11/DOM-Level-2-errata#core-14
    */
-  isSupported14 : function () {
+  isSupported14: function(test) {
     var success;
     var rootNode;
     var state;
@@ -7191,12 +7185,12 @@ exports[''] = testcase({
     rootNode = doc.documentElement;
 
     state = rootNode.isSupported("Core",nullString);
-    assertTrue("Core",state);
-
+    test.ok(state, 'Core');
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['localName'] = testcase({
   /**
    *
    The "getLocalName()" method for a Node
@@ -7212,7 +7206,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSLocalN
    */
-  localName01 : function () {
+  localName01: function(test) {
     var success;
     var elementList;
     var testAddr;
@@ -7223,12 +7217,12 @@ exports[''] = testcase({
     var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
-    assertNotNull("empAddrNotNull",testAddr);
+    test.notEqual(testAddr, null, 'testAddr should be null');
     addrAttr = testAddr.getAttributeNode("emp:domestic");
     localName = addrAttr.localName;
 
-    assertEquals("localName","domestic",localName);
-
+    test.equal(localName, "domestic", "localName");
+    test.done();
   },
   /**
    *
@@ -7245,7 +7239,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSLocalN
    */
-  localName02 : function () {
+  localName02: function(test) {
     var success;
     var createdNode;
     var localName;
@@ -7255,8 +7249,8 @@ exports[''] = testcase({
     createdNode = doc.createElement("test:employee");
     localName = createdNode.localName;
 
-    assertNull("localNameNull",localName);
-
+    test.equal(localName, null, 'localName should not be null');
+    test.done();
   },
   /**
    *
@@ -7273,7 +7267,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSLocalN
    */
-  localName03 : function () {
+  localName03: function(test) {
     var success;
     var elementList;
     var testEmployee;
@@ -7288,8 +7282,8 @@ exports[''] = testcase({
 
     localName = textNode.localName;
 
-    assertNull("textNodeLocalName",localName);
-
+    test.equal(localName, null, 'localName should not be null');
+    test.done();
   },
   /**
    *
@@ -7305,7 +7299,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSLocalN
    */
-  localName04 : function () {
+  localName04: function(test) {
     var success;
     var elementList;
     var testEmployee;
@@ -7317,12 +7311,12 @@ exports[''] = testcase({
     testEmployee = elementList.item(0);
     employeeLocalName = testEmployee.localName;
 
-    assertEquals("lname","employee",employeeLocalName);
-
+    test.equal(employeeLocalName, "employee", "lname");
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['namednodemapgetnameditemns'] = testcase({
   /**
    *
    Using the method getNamedItemNS, retreive the entity "ent1" and notation "notation1"
@@ -7336,7 +7330,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=407
    * @see http://lists.w3.org/Archives/Member/w3c-dom-ig/2003Nov/0016.html
    */
-  namednodemapgetnameditemns01 : function () {
+  namednodemapgetnameditemns01: function(test) {
     var success;
     var docType;
     var entities;
@@ -7354,15 +7348,15 @@ exports[''] = testcase({
 
     entities = docType.entities;
 
-    assertNotNull("entitiesNotNull",entities);
+    test.notEqual(entities, null, 'entities should be null');
     notations = docType.notations;
 
-    assertNotNull("notationsNotNull",notations);
+    test.notEqual(notations, null, 'notations should be null');
     entity = entities.getNamedItemNS(nullNS,"ent1");
-    assertNull("entityNull",entity);
+    test.equal(entity, null, 'entity should not be null');
     notation = notations.getNamedItemNS(nullNS,"notation1");
-    assertNull("notationNull",notation);
-
+    test.equal(notation, null, 'notation should not be null');
+    test.done();
   },
   /**
    *
@@ -7377,7 +7371,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getNamedItemNS
    */
-  namednodemapgetnameditemns02 : function () {
+  namednodemapgetnameditemns02: function(test) {
     var success;
     var attributes;
     var element;
@@ -7394,8 +7388,8 @@ exports[''] = testcase({
     attribute = attributes.getNamedItemNS("http://www.nist.gov","domestic");
     attrName = attribute.nodeName;
 
-    assertEquals("namednodemapgetnameditemns02","emp:domestic",attrName);
-
+    test.equal(attrName, "emp:domestic", "namednodemapgetnameditemns02");
+    test.done();
   },
   /**
    *
@@ -7409,7 +7403,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getNamedItemNS
    */
-  namednodemapgetnameditemns03 : function () {
+  namednodemapgetnameditemns03: function(test) {
     var success;
     var attributes;
     var element;
@@ -7431,8 +7425,8 @@ exports[''] = testcase({
     attribute = attributes.getNamedItemNS("http://www.w3.org/DOM/L2","att");
     attrName = attribute.nodeName;
 
-    assertEquals("namednodemapgetnameditemns03","L2:att",attrName);
-
+    test.equal(attrName, "L2:att", "namednodemapgetnameditemns03");
+    test.done();
   },
   /**
    *
@@ -7448,7 +7442,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getNamedItemNS
    */
-  namednodemapgetnameditemns04 : function () {
+  namednodemapgetnameditemns04: function(test) {
     var success;
     var attributes;
     var element;
@@ -7469,8 +7463,8 @@ exports[''] = testcase({
     attribute = attributes.getNamedItemNS("http://www.w3.org/DOM/L1","street");
     attrName = attribute.nodeName;
 
-    assertEquals("namednodemapgetnameditemns04","street",attrName);
-
+    test.equal(attrName, "street", "namednodemapgetnameditemns04");
+    test.done();
   },
   /**
    *
@@ -7485,7 +7479,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getNamedItemNS
    */
-  namednodemapgetnameditemns05 : function () {
+  namednodemapgetnameditemns05: function(test) {
     var success;
     var attributes;
     var element;
@@ -7499,8 +7493,8 @@ exports[''] = testcase({
     attributes = element.attributes;
 
     attribute = attributes.getNamedItemNS("*","street");
-    assertNull("namednodemapgetnameditemns05",attribute);
-
+    test.equal(attribute, null, 'attribute should not be null');
+    test.done();
   },
   /**
    *
@@ -7514,7 +7508,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getNamedItemNS
    */
-  namednodemapgetnameditemns06 : function () {
+  namednodemapgetnameditemns06: function(test) {
     var success;
     var attributesMap1;
     var attributesMap2;
@@ -7538,16 +7532,16 @@ exports[''] = testcase({
     attribute = attributesMap1.getNamedItemNS("http://www.w3.org/DOM/L1","street");
     attrName = attribute.nodeName;
 
-    assertEquals("namednodemapgetnameditemnsMap106","street",attrName);
+    test.equal(attrName, "street", "namednodemapgetnameditemnsMap106");
     attribute = attributesMap2.getNamedItemNS("http://www.w3.org/DOM/L1","street");
     attrName = attribute.nodeName;
 
-    assertEquals("namednodemapgetnameditemnsMap206","street",attrName);
-
+    test.equal(attrName, "street", "namednodemapgetnameditemnsMap206");
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['namednodemapremovenameditemns'] = testcase({
   /**
    *
    The method removeNamedItemNS removes a node specified by local name and namespace
@@ -7559,7 +7553,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-D58B193
    */
-  namednodemapremovenameditemns01 : function () {
+  namednodemapremovenameditemns01: function(test) {
     var success;
     var attributes;
     var element;
@@ -7574,8 +7568,8 @@ exports[''] = testcase({
 
     attribute = attributes.removeNamedItemNS("http://www.nist.gov","domestic");
     attribute = attributes.getNamedItemNS("http://www.nist.gov","domestic");
-    assertNull("namednodemapremovenameditemns01",attribute);
-
+    test.equal(attribute, null, 'attribute should not be null');
+    test.done();
   },
   /**
    *
@@ -7593,7 +7587,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-D58B193
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    */
-  namednodemapremovenameditemns02 : function () {
+  namednodemapremovenameditemns02: function(test) {
     var success;
     var attributes;
     var element;
@@ -7613,9 +7607,9 @@ exports[''] = testcase({
     attribute = attributes.getNamedItemNS(nullNS,"defaultAttr");
     attrValue = attribute.nodeValue;
 
-    assertNotNull("namednodemapremovenameditemns02",attribute);
-    assertEquals("namednodemapremovenameditemns02_attrValue","defaultVal",attrValue);
-
+    test.notEqual(attribute, null, 'attribute should be null');
+    test.equal(attrValue, "defaultVal", "namednodemapremovenameditemns02_attrValue");
+    test.done();
   },
   /**
    *
@@ -7629,7 +7623,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-D58B193
    */
-  namednodemapremovenameditemns03 : function () {
+  namednodemapremovenameditemns03: function(test) {
     var success;
     var attributes;
     var element;
@@ -7652,8 +7646,8 @@ exports[''] = testcase({
     attribute = attributes.getNamedItemNS("http://www.w3.org/DOM/L2","att");
     nodeName = attribute.nodeName;
 
-    assertEquals("namednodemapremovenameditemns02","L2:att",nodeName);
-
+    test.equal(nodeName, "L2:att", "namednodemapremovenameditemns02");
+    test.done();
   },
   /**
    *
@@ -7666,7 +7660,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-D58B193
    */
-  namednodemapremovenameditemns04 : function () {
+  namednodemapremovenameditemns04: function(test) {
     var success;
     var attributes;
     var element;
@@ -7682,11 +7676,11 @@ exports[''] = testcase({
 
     attributeRemoved = attributes.removeNamedItemNS("http://www.w3.org/2000/xmlns/","xmlns");
     attribute = attributes.getNamedItemNS("http://www.w3.org/2000/xmlns/","xmlns");
-    assertNull("namednodemapremovenameditemns04_1",attribute);
+    test.equal(attribute, null, 'attribute should not be null');
     attributeRemoved = attributes.removeNamedItemNS("http://www.w3.org/2000/xmlns/","dmstc");
     attribute = attributes.getNamedItemNS("http://www.w3.org/2000/xmlns/","dmstc");
-    assertNull("namednodemapremovenameditemns04_2",attribute);
-
+    test.equal(attribute, null, 'attribute should not be null');
+    test.done();
   },
   /**
    *
@@ -7701,7 +7695,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=407
    * @see http://lists.w3.org/Archives/Member/w3c-dom-ig/2003Nov/0016.html
    */
-  namednodemapremovenameditemns05 : function () {
+  namednodemapremovenameditemns05: function(test) {
     var success;
     var docType;
     var entities;
@@ -7716,10 +7710,10 @@ exports[''] = testcase({
 
     entities = docType.entities;
 
-    assertNotNull("entitiesNotNull",entities);
+    test.notEqual(entities, null, 'entities should be null');
     notations = docType.notations;
 
-    assertNotNull("notationsNotNull",notations);
+    test.notEqual(notations, null, 'notations should be null');
 
     try {
       removedNode = entities.removeNamedItemNS(nullNS,"ent1");
@@ -7758,7 +7752,7 @@ exports[''] = testcase({
         throw ex;
       }
     }
-
+    test.done();
   },
   /**
    *
@@ -7773,7 +7767,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-D58B193
    */
-  namednodemapremovenameditemns06 : function () {
+  namednodemapremovenameditemns06: function(test) {
     var success;
     var attributes;
     var element;
@@ -7795,9 +7789,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -7812,7 +7806,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-D58B193
    */
-  namednodemapremovenameditemns07 : function () {
+  namednodemapremovenameditemns07: function(test) {
     var success;
     var attributes;
     var element;
@@ -7834,9 +7828,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -7853,7 +7847,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-D58B193
    */
-  namednodemapremovenameditemns08 : function () {
+  namednodemapremovenameditemns08: function(test) {
     var success;
     var attributes;
     var element;
@@ -7876,9 +7870,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -7893,7 +7887,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-D58B193
    */
-  namednodemapremovenameditemns09 : function () {
+  namednodemapremovenameditemns09: function(test) {
     var success;
     var attributes;
     var newAttributes;
@@ -7911,12 +7905,12 @@ exports[''] = testcase({
     newAttributes = element.attributes;
 
     attribute = newAttributes.getNamedItemNS("http://www.nist.gov","domestic");
-    assertNull("namednodemapremovenameditemns09",attribute);
-
+    test.equal(attribute, null, 'attribute should not be null');
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['namednodemapsetnameditemns'] = testcase({
   /**
    *
    The method setNamedItemNS adds a node using its namespaceURI and localName. If a node with
@@ -7931,7 +7925,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getNamedItemNS
    */
-  namednodemapsetnameditemns01 : function () {
+  namednodemapsetnameditemns01: function(test) {
     var success;
     var attributes;
     var element;
@@ -7952,8 +7946,8 @@ exports[''] = testcase({
     attribute = attributes.getNamedItemNS("http://www.w3.org/DOM/L1","streets");
     attrName = attribute.nodeName;
 
-    assertEquals("namednodemapsetnameditemns01","streets",attrName);
-
+    test.equal(attrName, "streets", "namednodemapsetnameditemns01");
+    test.done();
   },
   /**
    *
@@ -7970,7 +7964,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
    */
-  namednodemapsetnameditemns02 : function () {
+  namednodemapsetnameditemns02: function(test) {
     var success;
     var attributes;
     var element;
@@ -7989,8 +7983,8 @@ exports[''] = testcase({
     attribute = attributes.getNamedItemNS("http://www.w3.org/DOM/L1","att");
     attrName = attribute.nodeName;
 
-    assertEquals("namednodemapsetnameditemns02","L1:att",attrName);
-
+    test.equal(attrName, "L1:att", "namednodemapsetnameditemns02");
+    test.done();
   },
   /**
    *
@@ -8009,7 +8003,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=408
    */
-  namednodemapsetnameditemns03 : function () {
+  namednodemapsetnameditemns03: function(test) {
     var success;
     var attributes;
     var attributesAlt;
@@ -8043,9 +8037,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -8063,7 +8057,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    */
-  namednodemapsetnameditemns04 : function () {
+  namednodemapsetnameditemns04: function(test) {
     var success;
     var domImpl;
     var docAlt;
@@ -8095,9 +8089,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -8112,7 +8106,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=407
    * @see http://lists.w3.org/Archives/Member/w3c-dom-ig/2003Nov/0016.html
    */
-  namednodemapsetnameditemns05 : function () {
+  namednodemapsetnameditemns05: function(test) {
     var success;
     var docType;
     var entities;
@@ -8129,10 +8123,10 @@ exports[''] = testcase({
 
     entities = docType.entities;
 
-    assertNotNull("entitiesNotNull",entities);
+    test.notEqual(entities, null, 'entities should be null');
     notations = docType.notations;
 
-    assertNotNull("notationsNotNull",notations);
+    test.notEqual(notations, null, 'notations should be null');
     entity = entities.getNamedItem("ent1");
     notation = notations.getNamedItem("notation1");
 
@@ -8144,7 +8138,7 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR_entities",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR_entities');
     }
 
     {
@@ -8155,9 +8149,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR_notations",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR_notations');
     }
-
+    test.done();
   },
   /**
    *
@@ -8171,7 +8165,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
    */
-  namednodemapsetnameditemns06 : function () {
+  namednodemapsetnameditemns06: function(test) {
     var success;
     var attributes;
     var elementList;
@@ -8198,9 +8192,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 10);
       }
-      assertTrue("namednodemapsetnameditemns06",success);
+      test.ok(success, 'namednodemapsetnameditemns06');
     }
-
+    test.done();
   },
   /**
    *
@@ -8220,7 +8214,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
    */
-  namednodemapsetnameditemns07 : function () {
+  namednodemapsetnameditemns07: function(test) {
     var success;
     var attributes;
     var elementList;
@@ -8247,9 +8241,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 10);
       }
-      assertTrue("namednodemapsetnameditemns07",success);
+      test.ok(success, 'namednodemapsetnameditemns07');
     }
-
+    test.done();
   },
   /**
    *
@@ -8266,7 +8260,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
    */
-  namednodemapsetnameditemns08 : function () {
+  namednodemapsetnameditemns08: function(test) {
     var success;
     var attributes;
     var elementList;
@@ -8293,9 +8287,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 10);
       }
-      assertTrue("namednodemapsetnameditemns08",success);
+      test.ok(success, 'namednodemapsetnameditemns08');
     }
-
+    test.done();
   },
   /**
    *
@@ -8309,7 +8303,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
    */
-  namednodemapsetnameditemns09 : function () {
+  namednodemapsetnameditemns09: function(test) {
     var success;
     var docType;
     var entities;
@@ -8335,7 +8329,7 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR_entities",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR_entities');
     }
 
     {
@@ -8346,9 +8340,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR_notations",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR_notations');
     }
-
+    test.done();
   },
   /**
    *
@@ -8365,7 +8359,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    */
-  namednodemapsetnameditemns10 : function () {
+  namednodemapsetnameditemns10: function(test) {
     var success;
     var docType;
     var entities;
@@ -8382,7 +8376,7 @@ exports[''] = testcase({
 
     entities = docType.entities;
 
-    assertNotNull("entitiesNotNull",entities);
+    test.notEqual(entities, null, 'entities should be null');
     entity = entities.getNamedItem("ent1");
     elementList = doc.getElementsByTagNameNS("http://www.nist.gov","address");
     element = elementList.item(0);
@@ -8397,9 +8391,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -8416,7 +8410,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    */
-  namednodemapsetnameditemns11 : function () {
+  namednodemapsetnameditemns11: function(test) {
     var success;
     var docType;
     var notations;
@@ -8434,7 +8428,7 @@ exports[''] = testcase({
 
     notations = docType.notations;
 
-    assertNotNull("notationsNotNull",notations);
+    test.notEqual(notations, null, 'notations should be null');
     notation = notations.getNamedItem("notation1");
     elementList = doc.getElementsByTagNameNS("http://www.nist.gov","address");
     element = elementList.item(0);
@@ -8449,13 +8443,13 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
-
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['namespaceURI'] = testcase({
   /**
    *
    The "getNamespaceURI()" method for an Attribute
@@ -8471,7 +8465,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSname
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=238
    */
-  namespaceURI01 : function () {
+  namespaceURI01: function(test) {
     var success;
     var elementList;
     var testAddr;
@@ -8485,8 +8479,8 @@ exports[''] = testcase({
     addrAttr = testAddr.getAttributeNodeNS("http://www.nist.gov","district");
     attrNamespaceURI = addrAttr.namespaceURI;
 
-    assertEquals("namespaceURI","http://www.nist.gov",attrNamespaceURI);
-
+    test.equal(attrNamespaceURI, "http://www.nist.gov", "namespaceURI");
+    test.done();
   },
   /**
    *
@@ -8501,7 +8495,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSname
    */
-  namespaceURI02 : function () {
+  namespaceURI02: function(test) {
     var success;
     var elementList;
     var testAddr;
@@ -8512,12 +8506,12 @@ exports[''] = testcase({
     var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
-    assertNotNull("empAddressNotNull",testAddr);
+    test.notEqual(testAddr, null, 'testAddr should be null');
     addrAttr = testAddr.getAttributeNodeNS("http://www.nist.gov","domestic");
     attrNamespaceURI = addrAttr.namespaceURI;
 
-    assertEquals("namespaceURI","http://www.nist.gov",attrNamespaceURI);
-
+    test.equal(attrNamespaceURI, "http://www.nist.gov", "namespaceURI");
+    test.done();
   },
   /**
    *
@@ -8531,7 +8525,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSname
    */
-  namespaceURI03 : function () {
+  namespaceURI03: function(test) {
     var success;
     var elementList;
     var testEmployee;
@@ -8541,11 +8535,11 @@ exports[''] = testcase({
     var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("employee");
     testEmployee = elementList.item(0);
-    assertNotNull("employeeNotNull",testEmployee);
+    test.notEqual(testEmployee, null, 'testEmployee should be null');
     employeeNamespace = testEmployee.namespaceURI;
 
-    assertEquals("namespaceURI","http://www.nist.gov",employeeNamespace);
-
+    test.equal(employeeNamespace, "http://www.nist.gov", "namespaceURI");
+    test.done();
   },
   /**
    *
@@ -8559,7 +8553,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSname
    */
-  namespaceURI04 : function () {
+  namespaceURI04: function(test) {
     var success;
     var elementList;
     var testEmployee;
@@ -8571,12 +8565,12 @@ exports[''] = testcase({
     testEmployee = elementList.item(1);
     employeeNamespace = testEmployee.namespaceURI;
 
-    assertNull("throw_Null",employeeNamespace);
-
+    test.equal(employeeNamespace, null, 'employeeNamespace should not be null');
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['nodegetlocalname'] = testcase({
   /**
    *
    The method getLocalName returns the local part of the qualified name of this node.
@@ -8589,7 +8583,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSLocalN
    */
-  nodegetlocalname03 : function () {
+  nodegetlocalname03: function(test) {
     var success;
     var element;
     var qelement;
@@ -8614,11 +8608,11 @@ exports[''] = testcase({
 
     localQAttrName = qattr.localName;
 
-    assertEquals("nodegetlocalname03_localElemName","elem",localElemName);
-    assertEquals("nodegetlocalname03_localQElemName","qelem",localQElemName);
-    assertEquals("nodegetlocalname03_localAttrName","attr",localAttrName);
-    assertEquals("nodegetlocalname03_localQAttrName","qattr",localQAttrName);
-
+    test.equal(localElemName, "elem", "nodegetlocalname03_localElemName");
+    test.equal(localQElemName, "qelem", "nodegetlocalname03_localQElemName");
+    test.equal(localAttrName, "attr", "nodegetlocalname03_localAttrName");
+    test.equal(localQAttrName, "qattr", "nodegetlocalname03_localQAttrName");
+    test.done();
   },
   /**
    *
@@ -8634,7 +8628,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSname
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    */
-  nodegetnamespaceuri03 : function () {
+  nodegetnamespaceuri03: function(test) {
     var success;
     var element;
     var elementNS;
@@ -8661,11 +8655,11 @@ exports[''] = testcase({
 
     attrNSURINull = attr.namespaceURI;
 
-    assertEquals("nodegetnamespaceuri03_elemNSURI","http://www.w3.org/DOM/Test/elem",elemNSURI);
-    assertNull("nodegetnamespaceuri03_1",elemNSURINull);
-    assertEquals("nodegetnamespaceuri03_attrNSURI","http://www.w3.org/DOM/Test/attr",attrNSURI);
-    assertNull("nodegetnamespaceuri03_2",attrNSURINull);
-
+    test.equal(elemNSURI, "http://www.w3.org/DOM/Test/elem", "nodegetnamespaceuri03_elemNSURI");
+    test.equal(elemNSURINull, null, 'elemNSURINull should not be null');
+    test.equal(attrNSURI, "http://www.w3.org/DOM/Test/attr", "nodegetnamespaceuri03_attrNSURI");
+    test.equal(attrNSURINull, null, 'attrNSURINull should not be null');
+    test.done();
   },
   /**
    *
@@ -8679,7 +8673,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#node-ownerDoc
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    */
-  nodegetownerdocument01 : function () {
+  nodegetownerdocument01: function(test) {
     var success;
     var ownerDoc;
     var domImpl;
@@ -8693,8 +8687,8 @@ exports[''] = testcase({
     docType = domImpl.createDocumentType("mydoc",nullID,nullID);
     ownerDoc = docType.ownerDocument;
 
-    assertNull("nodegetownerdocument01",ownerDoc);
-
+    test.equal(ownerDoc, null, 'ownerDoc should not be null');
+    test.done();
   },
   /**
    *
@@ -8709,7 +8703,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#node-ownerDoc
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    */
-  nodegetownerdocument02 : function () {
+  nodegetownerdocument02: function(test) {
     var success;
     var newDoc;
     var newElem;
@@ -8727,12 +8721,12 @@ exports[''] = testcase({
     newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","mydoc",docType);
     ownerDocDoc = newDoc.ownerDocument;
 
-    assertNull("nodegetownerdocument02_1",ownerDocDoc);
+    test.equal(ownerDocDoc, null, 'ownerDocDoc should not be null');
     newElem = newDoc.createElementNS("http://www.w3.org/DOM/Test","myelem");
     ownerDocElem = newElem.ownerDocument;
 
-    assertNotNull("nodegetownerdocument02_2",ownerDocElem);
-
+    test.notEqual(ownerDocElem, null, 'ownerDocElem should be null');
+    test.done();
   },
   /**
    *
@@ -8746,7 +8740,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
    */
-  nodegetprefix03 : function () {
+  nodegetprefix03: function(test) {
     var success;
     var element;
     var qelement;
@@ -8771,15 +8765,15 @@ exports[''] = testcase({
 
     attrPrefix = qattr.prefix;
 
-    assertNull("nodegetprefix03_1",elemNoPrefix);
-    assertEquals("nodegetprefix03_2","qual",elemPrefix);
-    assertNull("nodegetprefix03_3",attrNoPrefix);
-    assertEquals("nodegetprefix03_4","qual",attrPrefix);
-
+    test.equal(elemNoPrefix, null, 'elemNoPrefix should not be null');
+    test.equal(elemPrefix, "qual", "nodegetprefix03_2");
+    test.equal(attrNoPrefix, null, 'attrNoPrefix should not be null');
+    test.equal(attrPrefix, "qual", "nodegetprefix03_4");
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['nodehasattributes'] = testcase({
   /**
    *
    The method hasAttributes returns whether this node (if it is an element) has any attributes.
@@ -8791,7 +8785,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
    */
-  nodehasattributes01 : function () {
+  nodehasattributes01: function(test) {
     var success;
     var element;
     var elementList;
@@ -8802,12 +8796,12 @@ exports[''] = testcase({
     elementList = doc.getElementsByTagName("employee");
     element = elementList.item(0);
     hasAttributes = element.hasAttributes();
-    assertFalse("nodehasattributes01_1",hasAttributes);
+    test.equal(hasAttributes, false, 'hasAttributes should be *false*');
     elementList = doc.getElementsByTagName("address");
     element = elementList.item(0);
     hasAttributes = element.hasAttributes();
-    assertTrue("nodehasattributes01_2",hasAttributes);
-
+    test.ok(hasAttributes, 'nodehasattributes01_2');
+    test.done();
   },
   /**
    *
@@ -8825,7 +8819,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
    */
-  nodehasattributes02 : function () {
+  nodehasattributes02: function(test) {
     var success;
     var docType;
     var hasAttributes;
@@ -8835,8 +8829,8 @@ exports[''] = testcase({
     docType = doc.doctype;
 
     hasAttributes = docType.hasAttributes();
-    assertFalse("nodehasattributes02",hasAttributes);
-
+    test.equal(hasAttributes, false, 'hasAttributes should be *false*');
+    test.done();
   },
   /**
    *
@@ -8848,7 +8842,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
    */
-  nodehasattributes03 : function () {
+  nodehasattributes03: function(test) {
     var success;
     var element;
     var elementList;
@@ -8858,10 +8852,10 @@ exports[''] = testcase({
     var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:employee");
     element = elementList.item(0);
-    assertNotNull("empEmployeeNotNull",element);
+    test.notEqual(element, null, 'element should be null');
     hasAttributes = element.hasAttributes();
-    assertTrue("hasAttributes",hasAttributes);
-
+    test.ok(hasAttributes, 'hasAttributes');
+    test.done();
   },
   /**
    *
@@ -8875,7 +8869,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
    */
-  nodehasattributes04 : function () {
+  nodehasattributes04: function(test) {
     var success;
     var newDoc;
     var docType = null;
@@ -8903,12 +8897,12 @@ exports[''] = testcase({
     elementList = newDoc.getElementsByTagNameNS("http://www.w3.org/DOM/Test","elem");
     elementTest = elementList.item(0);
     hasAttributes = elementTest.hasAttributes();
-    assertTrue("nodehasattributes04",hasAttributes);
-
+    test.ok(hasAttributes, 'nodehasattributes04');
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['nodeissupported'] = testcase({
   /**
    *
    The method "isSupported(feature,version)" Tests whether the DOM implementation
@@ -8923,7 +8917,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
    */
-  nodeissupported01 : function () {
+  nodeissupported01: function(test) {
     var success;
     var element;
     var version = "";
@@ -8948,21 +8942,21 @@ exports[''] = testcase({
     for(var indexN10063 = 0;indexN10063 < featuresXML.length; indexN10063++) {
       featureXML = featuresXML[indexN10063];
       success = element.isSupported(featureXML,version);
-      assertTrue("nodeissupported01_XML1",success);
+      test.ok(success, 'nodeissupported01_XML1');
       success = element.isSupported(featureXML,version1);
-      assertTrue("nodeissupported01_XML2",success);
+      test.ok(success, 'nodeissupported01_XML2');
 
     }
     for(var indexN1007C = 0;indexN1007C < featuresCore.length; indexN1007C++) {
       featureCore = featuresCore[indexN1007C];
       success = element.isSupported(featureCore,version);
-      assertTrue("nodeissupported01_Core1",success);
+      test.ok(success, 'nodeissupported01_Core1');
       success = element.isSupported(featureCore,version1);
       success = element.isSupported(featureCore,version2);
-      assertTrue("nodeissupported01_Core3",success);
+      test.ok(success, 'nodeissupported01_Core3');
 
     }
-
+    test.done();
   },
   /**
    *
@@ -8978,7 +8972,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
    */
-  nodeissupported02 : function () {
+  nodeissupported02: function(test) {
     var success;
     var attribute;
     var version = "";
@@ -9002,21 +8996,21 @@ exports[''] = testcase({
     for(var indexN10064 = 0;indexN10064 < featuresXML.length; indexN10064++) {
       featureXML = featuresXML[indexN10064];
       success = attribute.isSupported(featureXML,version);
-      assertTrue("nodeissupported02_XML1",success);
+      test.ok(success, 'nodeissupported02_XML1');
       success = attribute.isSupported(featureXML,version1);
-      assertTrue("nodeissupported02_XML2",success);
+      test.ok(success, 'nodeissupported02_XML2');
 
     }
     for(var indexN1007D = 0;indexN1007D < featuresCore.length; indexN1007D++) {
       featureCore = featuresCore[indexN1007D];
       success = attribute.isSupported(featureCore,version);
-      assertTrue("nodeissupported02_Core1",success);
+      test.ok(success, 'nodeissupported02_Core1');
       success = attribute.isSupported(featureCore,version1);
       success = attribute.isSupported(featureCore,version2);
-      assertTrue("nodeissupported02_Core3",success);
+      test.ok(success, 'nodeissupported02_Core3');
 
     }
-
+    test.done();
   },
   /**
    *
@@ -9036,7 +9030,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
    */
-  nodeissupported03 : function () {
+  nodeissupported03: function(test) {
     var success;
     var docType;
     var success;
@@ -9046,8 +9040,8 @@ exports[''] = testcase({
     docType = doc.doctype;
 
     success = docType.isSupported("","");
-    assertFalse("nodeissupported03",success);
-
+    test.equal(success, false, 'success should be *false*');
+    test.done();
   },
   /**
    *
@@ -9061,7 +9055,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
    */
-  nodeissupported04 : function () {
+  nodeissupported04: function(test) {
     var success;
     var entRef;
     var success;
@@ -9069,10 +9063,10 @@ exports[''] = testcase({
 
     var doc = require('./core/files/staffNS.xml').staffNS();
     entRef = doc.createEntityReference("ent1");
-    assertNotNull("createdEntRefNotNull",entRef);
+    test.notEqual(entRef, null, 'entRef should be null');
     success = entRef.isSupported("XML CORE","");
-    assertFalse("nodeissupported04",success);
-
+    test.equal(success, false, 'success should be *false*');
+    test.done();
   },
   /**
    *
@@ -9092,7 +9086,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
    */
-  nodeissupported05 : function () {
+  nodeissupported05: function(test) {
     var success;
     var pi;
     var success;
@@ -9101,12 +9095,12 @@ exports[''] = testcase({
     var doc = require('./core/files/staffNS.xml').staffNS();
     pi = doc.createProcessingInstruction("PITarget","PIData");
     success = pi.isSupported("-","+");
-    assertFalse("nodeissupported05",success);
-
+    test.equal(success, false, 'success should be *false*');
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['nodenormalize'] = testcase({
   /**
    *
    The method "normalize" puts all Text nodes in the full depth of the sub-tree underneath
@@ -9122,7 +9116,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-normalize
    */
-  nodenormalize01 : function () {
+  nodenormalize01: function(test) {
     var success;
     var newDoc;
     var domImpl;
@@ -9165,7 +9159,7 @@ exports[''] = testcase({
     comment = newDoc.createComment("comment");
     pi = newDoc.createProcessingInstruction("PITarget","PIData");
     entRef = newDoc.createEntityReference("EntRef");
-    assertNotNull("createdEntRefNotNull",entRef);
+    test.notEqual(entRef, null, 'entRef should be null');
     documentElement = newDoc.documentElement;
 
     appendedChild = documentElement.appendChild(element1);
@@ -9208,48 +9202,48 @@ exports[''] = testcase({
     appendedChild = element1.appendChild(element7);
     elementList = element1.childNodes;
 
-    assertSize("nodeNormalize01_1Bef",6,elementList);
+    test.equal(elementList.length, 6, "nodeNormalize01_1Bef");
     elementList = element2.childNodes;
 
-    assertSize("nodeNormalize01_2Bef",3,elementList);
+    test.equal(elementList.length, 3, "nodeNormalize01_2Bef");
     elementList = element3.childNodes;
 
-    assertSize("nodeNormalize01_3Bef",3,elementList);
+    test.equal(elementList.length, 3, "nodeNormalize01_3Bef");
     elementList = element4.childNodes;
 
-    assertSize("nodeNormalize01_4Bef",3,elementList);
+    test.equal(elementList.length, 3, "nodeNormalize01_4Bef");
     elementList = element5.childNodes;
 
-    assertSize("nodeNormalize01_5Bef",3,elementList);
+    test.equal(elementList.length, 3, "nodeNormalize01_5Bef");
     elementList = element6.childNodes;
 
-    assertSize("nodeNormalize01_6Bef",3,elementList);
+    test.equal(elementList.length, 3, "nodeNormalize01_6Bef");
     elementList = element7.childNodes;
 
-    assertSize("nodeNormalize01_7Bef",4,elementList);
+    test.equal(elementList.length, 4, "nodeNormalize01_7Bef");
     newDoc.normalize();
     elementList = element1.childNodes;
 
-    assertSize("nodeNormalize01_1Aft",6,elementList);
+    test.equal(elementList.length, 6, "nodeNormalize01_1Aft");
     elementList = element2.childNodes;
 
-    assertSize("nodeNormalize01_2Aft",1,elementList);
+    test.equal(elementList.length, 1, "nodeNormalize01_2Aft");
     elementList = element3.childNodes;
 
-    assertSize("nodeNormalize01_3Aft",2,elementList);
+    test.equal(elementList.length, 2, "nodeNormalize01_3Aft");
     elementList = element4.childNodes;
 
-    assertSize("nodeNormalize01_4Aft",2,elementList);
+    test.equal(elementList.length, 2, "nodeNormalize01_4Aft");
     elementList = element5.childNodes;
 
-    assertSize("nodeNormalize01_5Aft",2,elementList);
+    test.equal(elementList.length, 2, "nodeNormalize01_5Aft");
     elementList = element6.childNodes;
 
-    assertSize("nodeNormalize01_6Aft",2,elementList);
+    test.equal(elementList.length, 2, "nodeNormalize01_6Aft");
     elementList = element7.childNodes;
 
-    assertSize("nodeNormalize01_7Aft",2,elementList);
-
+    test.equal(elementList.length, 2, "nodeNormalize01_7Aft");
+    test.done();
   },
   /**
    *
@@ -9264,7 +9258,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
    */
-  nodesetprefix01 : function () {
+  nodesetprefix01: function(test) {
     var success;
     var docFragment;
     var element;
@@ -9283,9 +9277,9 @@ exports[''] = testcase({
 
     elementNodeName = element.nodeName;
 
-    assertEquals("nodesetprefix01_tagname","dmstc:address",elementTagName);
-    assertEquals("nodesetprefix01_nodeName","dmstc:address",elementNodeName);
-
+    test.equal(elementTagName, "dmstc:address", "nodesetprefix01_tagname");
+    test.equal(elementNodeName, "dmstc:address", "nodesetprefix01_nodeName");
+    test.done();
   },
   /**
    *
@@ -9302,7 +9296,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
    */
-  nodesetprefix02 : function () {
+  nodesetprefix02: function(test) {
     var success;
     var element;
     var attribute;
@@ -9325,9 +9319,9 @@ exports[''] = testcase({
 
     newAttrName = newAttribute.nodeName;
 
-    assertEquals("nodesetprefix02_attrName","dmstc:domestic",attrName);
-    assertEquals("nodesetprefix02_newAttrName","dom:address",newAttrName);
-
+    test.equal(attrName, "dmstc:domestic", "nodesetprefix02_attrName");
+    test.equal(newAttrName, "dom:address", "nodesetprefix02_newAttrName");
+    test.done();
   },
   /**
    *
@@ -9340,7 +9334,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
    */
-  nodesetprefix03 : function () {
+  nodesetprefix03: function(test) {
     var success;
     var element;
 
@@ -9357,9 +9351,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -9373,7 +9367,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
    */
-  nodesetprefix04 : function () {
+  nodesetprefix04: function(test) {
     var success;
     var element;
     var attribute;
@@ -9385,7 +9379,7 @@ exports[''] = testcase({
     var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:employee");
     element = elementList.item(0);
-    assertNotNull("empEmployeeNotNull",element);
+    test.notEqual(element, null, 'element should be null');
     attribute = element.getAttributeNodeNS(nullNS,"defaultAttr");
 
     {
@@ -9397,9 +9391,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("nodesetprefix04",success);
+      test.ok(success, 'nodesetprefix04');
     }
-
+    test.done();
   },
   /**
    *
@@ -9412,7 +9406,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
    */
-  nodesetprefix05 : function () {
+  nodesetprefix05: function(test) {
     var success;
     var element;
     var prefixValue;
@@ -9439,11 +9433,11 @@ exports[''] = testcase({
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 14);
 	}
-	assertTrue("throw_NAMESPACE_ERR",success);
+	test.ok(success, 'throw_NAMESPACE_ERR');
       }
 
     }
-
+    test.done();
   },
   /**
    *
@@ -9458,7 +9452,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
    */
-  nodesetprefix06 : function () {
+  nodesetprefix06: function(test) {
     var success;
     var element;
 
@@ -9475,9 +9469,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -9493,7 +9487,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
    */
-  nodesetprefix07 : function () {
+  nodesetprefix07: function(test) {
     var success;
     var attribute;
 
@@ -9510,9 +9504,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -9526,7 +9520,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
    */
-  nodesetprefix08 : function () {
+  nodesetprefix08: function(test) {
     var success;
     var element;
     var elementList;
@@ -9547,9 +9541,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -9562,7 +9556,7 @@ exports[''] = testcase({
    * @author Neil Delima
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
    */
-  nodesetprefix09 : function () {
+  nodesetprefix09: function(test) {
     var success;
     var value = "#$%&'()@";
     var element;
@@ -9580,9 +9574,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("throw_INVALID_CHARACTER_ERR",success);
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -9602,7 +9596,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-normalize
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-72AB8359
    */
-  normalize01 : function () {
+  normalize01: function(test) {
     var success;
     var root;
     var elementList;
@@ -9623,12 +9617,12 @@ exports[''] = testcase({
     textNode = textList.item(0);
     data = textNode.data;
 
-    assertEquals("data","Roger\n Jones",data);
-
+    test.equal(data, "Roger\n Jones", "data");
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['ownerDocument'] = testcase({
   /**
    *
    The "getOwnerDocument()" method returns null if the target
@@ -9641,7 +9635,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#node-ownerDoc
    */
-  ownerDocument01 : function () {
+  ownerDocument01: function(test) {
     var success;
     var ownerDocument;
 
@@ -9649,8 +9643,8 @@ exports[''] = testcase({
     var doc = require('./core/files/staff.xml').staff();
     ownerDocument = doc.ownerDocument;
 
-    assertNull("throw_Null",ownerDocument);
-
+    test.equal(ownerDocument, null, 'ownerDocument should not be null');
+    test.done();
   },
   /**
    *
@@ -9664,7 +9658,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-F68D095
    */
-  ownerElement01 : function () {
+  ownerElement01: function(test) {
     var success;
     var addressList;
     var testNode;
@@ -9684,8 +9678,8 @@ exports[''] = testcase({
 
     name = elementNode.nodeName;
 
-    assertEquals("throw_Equals","address",name);
-
+    test.equal(name, "address", "throw_Equals");
+    test.done();
   },
   /**
    *
@@ -9700,7 +9694,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Attr-ownerElement
    */
-  ownerElement02 : function () {
+  ownerElement02: function(test) {
     var success;
     var newAttr;
     var elementNode;
@@ -9710,12 +9704,12 @@ exports[''] = testcase({
     newAttr = doc.createAttribute("newAttribute");
     elementNode = newAttr.ownerElement;
 
-    assertNull("throw_Null",elementNode);
-
+    test.equal(elementNode, null, 'elementNode should not be null');
+    test.done();
   }
 })
 
-exports[''] = testcase({
+exports['prefix'] = testcase({
   /**
    *
    The "getPrefix()" method for a Node
@@ -9731,7 +9725,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
    */
-  prefix01 : function () {
+  prefix01: function(test) {
     var success;
     var createdNode;
     var prefix;
@@ -9741,8 +9735,8 @@ exports[''] = testcase({
     createdNode = doc.createElement("test:employee");
     prefix = createdNode.prefix;
 
-    assertNull("throw_Null",prefix);
-
+    test.equal(prefix, null, 'prefix should not be null');
+    test.done();
   },
   /**
    *
@@ -9759,7 +9753,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
    */
-  prefix02 : function () {
+  prefix02: function(test) {
     var success;
     var elementList;
     var testEmployee;
@@ -9770,13 +9764,13 @@ exports[''] = testcase({
     var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:employeeId");
     testEmployee = elementList.item(0);
-    assertNotNull("empEmployeeNotNull",testEmployee);
+    test.notEqual(testEmployee, null, 'testEmployee should be null');
     textNode = testEmployee.firstChild;
 
     prefix = textNode.prefix;
 
-    assertNull("textNodePrefix",prefix);
-
+    test.equal(prefix, null, 'prefix should not be null');
+    test.done();
   },
   /**
    *
@@ -9790,7 +9784,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
    */
-  prefix03 : function () {
+  prefix03: function(test) {
     var success;
     var elementList;
     var testEmployee;
@@ -9800,11 +9794,11 @@ exports[''] = testcase({
     var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:employee");
     testEmployee = elementList.item(0);
-    assertNotNull("empEmployeeNotNull",testEmployee);
+    test.notEqual(testEmployee, null, 'testEmployee should be null');
     prefix = testEmployee.prefix;
 
-    assertEquals("prefix","emp",prefix);
-
+    test.equal(prefix, "emp", "prefix");
+    test.done();
   },
   /**
    *
@@ -9818,7 +9812,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
    */
-  prefix04 : function () {
+  prefix04: function(test) {
     var success;
     var elementList;
     var testEmployee;
@@ -9830,8 +9824,8 @@ exports[''] = testcase({
     testEmployee = elementList.item(0);
     prefix = testEmployee.prefix;
 
-    assertNull("throw_Null",prefix);
-
+    test.equal(prefix, null, 'prefix should not be null');
+    test.done();
   },
   /**
    *
@@ -9851,7 +9845,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-NodeNSPrefix')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  prefix05 : function () {
+  prefix05: function(test) {
     var success;
     var elementList;
     var addrNode;
@@ -9861,7 +9855,7 @@ exports[''] = testcase({
     var doc = require('./core/files/staffNS.xml').staffNS();
     elementList = doc.getElementsByTagName("emp:address");
     addrNode = elementList.item(0);
-    assertNotNull("empAddrNotNull",addrNode);
+    test.notEqual(addrNode, null, 'addrNode should be null');
     addrAttr = addrNode.getAttributeNode("emp:domestic");
 
     {
@@ -9873,9 +9867,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -9893,7 +9887,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-NodeNSPrefix')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    */
-  prefix06 : function () {
+  prefix06: function(test) {
     var success;
     var elementList;
     var employeeNode;
@@ -9912,9 +9906,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("throw_INVALID_CHARACTER_ERR",success);
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -9931,7 +9925,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-NodeNSPrefix')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  prefix07 : function () {
+  prefix07: function(test) {
     var success;
     var elementList;
     var employeeNode;
@@ -9950,9 +9944,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -9971,7 +9965,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-NodeNSPrefix')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    */
-  prefix08 : function () {
+  prefix08: function(test) {
     var success;
     var genderList;
     var genderNode;
@@ -9993,12 +9987,12 @@ exports[''] = testcase({
       (1 == nodeType)
     ) {
       entRef = doc.createEntityReference("ent4");
-      assertNotNull("createdEntRefNotNull",entRef);
+      test.notEqual(entRef, null, 'entRef should be null');
 
     }
     entElement = entRef.firstChild;
 
-    assertNotNull("entElement",entElement);
+    test.notEqual(entElement, null, 'entElement should be null');
     createdNode = doc.createElement("text3");
 
     {
@@ -10010,9 +10004,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -10031,7 +10025,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-NodeNSPrefix')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  prefix09 : function () {
+  prefix09: function(test) {
     var success;
     var elementList;
     var addrNode;
@@ -10051,9 +10045,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -10072,7 +10066,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-NodeNSPrefix')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  prefix10 : function () {
+  prefix10: function(test) {
     var success;
     var elementList;
     var employeeNode;
@@ -10091,9 +10085,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -10111,7 +10105,7 @@ exports[''] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  prefix11 : function () {
+  prefix11: function(test) {
     var success;
     var elementList;
     var employeeNode;
@@ -10133,9 +10127,9 @@ exports[''] = testcase({
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
-
+    test.done();
   },
   /**
    *
@@ -10150,7 +10144,7 @@ exports[''] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-Core-DocType-publicId
    */
-  publicId01 : function () {
+  publicId01: function(test) {
     var success;
     var docType;
     var publicId;
@@ -10161,8 +10155,8 @@ exports[''] = testcase({
 
     publicId = docType.publicId;
 
-    assertEquals("throw_Equals","STAFF",publicId);
-
+    test.equal(publicId, "STAFF", "throw_Equals");
+    test.done();
   }
 })
 
@@ -10185,7 +10179,7 @@ exports['remove attribute or namedItem NS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElRemAtNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElRemAtNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    */
-  removeAttributeNS01 : function (test) {
+  removeAttributeNS01: function(test) {
     var doc = require('./core/files/staffNS.xml').staffNS();
     var gender = doc.getElementsByTagName("gender").item(2).firstChild;
     // if(1 == gender.nodeType) {
@@ -10222,7 +10216,7 @@ exports['remove attribute or namedItem NS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElRemAtNS
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=238
    */
-  removeAttributeNS02 : function (test) {
+  removeAttributeNS02: function(test) {
     var doc = require('./core/files/staffNS.xml').staffNS();
     var elementList;
     var testAddr;
@@ -10263,7 +10257,7 @@ exports['remove attribute or namedItem NS'] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1074577549
    */
-  removeNamedItemNS01 : function (test) {
+  removeNamedItemNS01: function(test) {
     var doc = require('./core/files/staffNS.xml').staffNS();
     var testAddress = doc.getElementsByTagName("address").item(1);
     var attributes = testAddress.attributes;
@@ -10292,7 +10286,7 @@ exports['remove attribute or namedItem NS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-removeNamedItemNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-removeNamedItemNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NOT_FOUND_ERR'])
    */
-  removeNamedItemNS02 : function (test) {
+  removeNamedItemNS02: function(test) {
     var doc = require('./core/files/staffNS.xml').staffNS();
     var success;
     var namespaceURI = "http://www.usa.com";
@@ -10332,7 +10326,7 @@ exports['remove attribute or namedItem NS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-removeNamedItemNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-removeNamedItemNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    */
-  removeNamedItemNS03 : function (test) {
+  removeNamedItemNS03: function(test) {
     var doc = require('./core/files/staffNS.xml').staffNS();
     var success;
     var namespaceURI = "http://www.w3.org/2000/xmlns/";
@@ -10377,7 +10371,7 @@ exports['setAttributeNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    */
-  setAttributeNS01 : function (test) {
+  setAttributeNS01: function(test) {
     var doc = require('./core/files/staffNS.xml').staffNS();
     var success;
     var namespaceURI = "http://www.nist.gov";
@@ -10413,7 +10407,7 @@ exports['setAttributeNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  setAttributeNS02 : function (test) {
+  setAttributeNS02: function(test) {
     var doc = require('./core/files/staffNS.xml').staffNS();
     var success;
     var namespaceURI = "http://www.nist.gov";
@@ -10452,7 +10446,7 @@ exports['setAttributeNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    */
-  setAttributeNS03 : function (test) {
+  setAttributeNS03: function(test) {
     var doc = require('./core/files/staffNS.xml').staffNS();
     var success;
     var namespaceURI = "www.xyz.com";
@@ -10507,7 +10501,7 @@ exports['setAttributeNS'] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#
    */
-  setAttributeNS04 : function (test) {
+  setAttributeNS04: function(test) {
     var doc = require('./core/files/staffNS.xml').staffNS();
     var resultNamespaceURI;
     var resultLocalName;
@@ -10541,7 +10535,7 @@ exports['setAttributeNS'] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAttrNS
    */
-  setAttributeNS05 : function (test) {
+  setAttributeNS05: function(test) {
     var doc = require('./core/files/staffNS.xml').staffNS();
     var localName = "newAttr";
     var namespaceURI = "http://www.newattr.com";
@@ -10570,7 +10564,7 @@ exports['setAttributeNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  setAttributeNS06 : function (test) {
+  setAttributeNS06: function(test) {
     var doc = require('./core/files/staffNS.xml').staffNS();
     var success;
     var namespaceURI = "http://www.nist.gov";
@@ -10609,7 +10603,7 @@ exports['setAttributeNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
    */
-  setAttributeNS07 : function (test) {
+  setAttributeNS07: function(test) {
     var doc = require('./core/files/staffNS.xml').staffNS();
     var success;
     var namespaceURI = "http://www.nist.gov";
@@ -10647,7 +10641,7 @@ exports['setAttributeNS'] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
    */
-  setAttributeNS09 : function (test) {
+  setAttributeNS09: function(test) {
     test.expect(5);
     var doc = require('./core/files/staffNS.xml').staffNS();
     var localName = "newAttr";
@@ -10682,7 +10676,7 @@ exports['setAttributeNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  setAttributeNS10 : function (test) {
+  setAttributeNS10: function(test) {
     var doc = require('./core/files/hc_staff.xml').hc_staff();
     var success;
     var namespaceURI = "http://www.example.gov";
@@ -10726,7 +10720,7 @@ exports['setAttributeNodeNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAtNodeNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    */
-  setAttributeNodeNS01 : function (test) {
+  setAttributeNodeNS01: function(test) {
     var success;
     var namespaceURI = "http://www.newattr.com";
     var qualifiedName = "emp:newAttr";
@@ -10775,7 +10769,7 @@ exports['setAttributeNodeNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAtNodeNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    */
-  setAttributeNodeNS02 : function (test) {
+  setAttributeNodeNS02: function(test) {
     var success;
     var genderList;
     var gender;
@@ -10789,7 +10783,6 @@ exports['setAttributeNodeNS'] = testcase({
     gen = doc.createEntityReference("ent4");
     gList = gen.childNodes;
     genElement = gList.item(0);
-    // assertNotNull("notnull",genElement);
     test.notEqual(genElement, null, 'genElement should not be null');
     newAttr = doc.createAttributeNS("www.xyz.com","emp:local1");
     {
@@ -10821,7 +10814,7 @@ exports['setAttributeNodeNS'] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
    */
-  setAttributeNodeNS03 : function (test) {
+  setAttributeNodeNS03: function(test) {
     var doc = require('./core/files/staffNS.xml').staffNS();
     var testAddr = doc.getElementsByTagName("emp:address").item(0);
     test.notEqual(testAddr, null, 'testAddr should not be null');
@@ -10847,7 +10840,7 @@ exports['setAttributeNodeNS'] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-F68D095
    */
-  setAttributeNodeNS04 : function (test) {
+  setAttributeNodeNS04: function(test) {
     var doc = require('./core/files/staffNS.xml').staffNS();
     var testAddr = doc.getElementsByTagName("emp:address").item(0);
     test.notEqual(testAddr, null, 'testAddr should not be null');
@@ -10877,7 +10870,7 @@ exports['setAttributeNodeNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAtNodeNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='WRONG_DOCUMENT_ERR'])
    */
-  setAttributeNodeNS05 : function (test) {
+  setAttributeNodeNS05: function(test) {
     var doc1 = require('./core/files/staffNS.xml').staffNS();
     var doc2 = require('./core/files/staffNS.xml').staffNS();
     var success;
@@ -10919,7 +10912,7 @@ exports['setNamedItemNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-setNamedItemNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    */
-  setNamedItemNS01 : function (test) {
+  setNamedItemNS01: function(test) {
     var success;
     var elementList;
     var anotherElement;
@@ -10967,7 +10960,7 @@ exports['setNamedItemNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-setNamedItemNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='WRONG_DOCUMENT_ERR'])
    */
-  setNamedItemNS02 : function (test) {
+  setNamedItemNS02: function(test) {
     var success;
     var namespaceURI = "http://www.usa.com";
     var qualifiedName = "dmstc:domestic";
@@ -11009,7 +11002,7 @@ exports['setNamedItemNS'] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-F68D080
    */
-  setNamedItemNS03 : function (test) {
+  setNamedItemNS03: function(test) {
     var namespaceURI = "http://www.nist.gov";
     var doc = require('./core/files/staffNS.xml').staffNS();
     var arg = doc.createAttributeNS(namespaceURI, "prefix:newAttr");
@@ -11017,7 +11010,6 @@ exports['setNamedItemNS'] = testcase({
     var attributes = doc.getElementsByTagName("address").item(0).attributes;
     attributes.setNamedItemNS(arg);
     var retnode = attributes.getNamedItemNS(namespaceURI,"newAttr");
-    // assertEquals("throw_Equals", "newValue", retnode.nodeValue);
     test.equal(retnode.nodeValue, 'newValue');
     test.done();
   },
@@ -11040,7 +11032,7 @@ exports['setNamedItemNS'] = testcase({
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-setNamedItemNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    */
-  setNamedItemNS04 : function (test) {
+  setNamedItemNS04: function(test) {
     var success;
     var namespaceURI = "http://www.w3.org/2000/xmlns/";
     var localName = "local1";
@@ -11100,7 +11092,7 @@ exports['setNamedItemNS'] = testcase({
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
    */
-  setNamedItemNS05 : function (test) {
+  setNamedItemNS05: function(test) {
     var doc = require('./core/files/staffNS.xml').staffNS();
     var arg = doc.createAttributeNS("http://www.usa.com", "dmstc:domestic");
     arg.nodeValue = "newValue";
@@ -11117,7 +11109,7 @@ exports['setNamedItemNS'] = testcase({
 // @author NIST
 // @author Mary Brady
 // @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-Core-DocType-systemId
-exports['systemId01'] = function (test) {
+exports['systemId01'] = function(test) {
   var doc = require('./core/files/staffNS.xml').staffNS();
   test.equal(doc.doctype.systemId, 'staffNS.dtd')
   test.done();
