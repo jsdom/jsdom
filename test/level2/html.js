@@ -1,3 +1,19 @@
+var fs = require('fs');
+var jsdom = require("../../lib/jsdom");
+var fileCache = {};
+var load = function(name) {
+  var file     = "./html/files/" + name + ".html",
+      contents = fileCache[file] || fs.readFileSync(file, 'utf8'),
+      doc      = jsdom.jsdom(contents, null, {url: "file://" + file });
+  fileCache[file] = contents;
+  return doc;
+}
+var level2 = require("../../lib/jsdom/level2/html").dom.level2.html;
+var getImplementation = function() {
+  var doc = new level2.HTMLDocument();
+  return doc.implementation;
+};
+
 exports.tests = {
   /**
    *
@@ -18,7 +34,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -46,7 +62,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -74,7 +90,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -101,7 +117,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -128,7 +144,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -155,7 +171,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -182,7 +198,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -209,7 +225,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -236,7 +252,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -264,7 +280,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -291,7 +307,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor2");
+    doc = load("anchor2");
     nodeList = doc.getElementsByTagName("a");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -318,7 +334,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -342,7 +358,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -365,7 +381,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -392,7 +408,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "applet");
+    doc = load("applet");
     nodeList = doc.getElementsByTagName("applet");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -420,7 +436,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "applet");
+    doc = load("applet");
     nodeList = doc.getElementsByTagName("applet");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -447,7 +463,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "applet");
+    doc = load("applet");
     nodeList = doc.getElementsByTagName("applet");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -474,7 +490,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "applet");
+    doc = load("applet");
     nodeList = doc.getElementsByTagName("applet");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -501,7 +517,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "applet");
+    doc = load("applet");
     nodeList = doc.getElementsByTagName("applet");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -528,7 +544,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "applet");
+    doc = load("applet");
     nodeList = doc.getElementsByTagName("applet");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -556,7 +572,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "applet");
+    doc = load("applet");
     nodeList = doc.getElementsByTagName("applet");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -583,7 +599,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "applet");
+    doc = load("applet");
     nodeList = doc.getElementsByTagName("applet");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -611,7 +627,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "applet");
+    doc = load("applet");
     nodeList = doc.getElementsByTagName("applet");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -638,7 +654,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "applet");
+    doc = load("applet");
     nodeList = doc.getElementsByTagName("applet");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -666,7 +682,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "applet2");
+    doc = load("applet2");
     nodeList = doc.getElementsByTagName("applet");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -694,7 +710,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "area");
+    doc = load("area");
     nodeList = doc.getElementsByTagName("area");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -722,7 +738,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "area");
+    doc = load("area");
     nodeList = doc.getElementsByTagName("area");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -750,7 +766,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "area");
+    doc = load("area");
     nodeList = doc.getElementsByTagName("area");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -777,7 +793,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "area");
+    doc = load("area");
     nodeList = doc.getElementsByTagName("area");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -804,7 +820,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "area");
+    doc = load("area");
     nodeList = doc.getElementsByTagName("area");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -831,7 +847,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "area");
+    doc = load("area");
     nodeList = doc.getElementsByTagName("area");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -859,7 +875,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "area");
+    doc = load("area");
     nodeList = doc.getElementsByTagName("area");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -886,7 +902,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "area2");
+    doc = load("area2");
     nodeList = doc.getElementsByTagName("area");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -913,7 +929,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "br");
+    doc = load("br");
     nodeList = doc.getElementsByTagName("br");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -940,7 +956,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "base");
+    doc = load("base");
     nodeList = doc.getElementsByTagName("base");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -967,7 +983,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "base2");
+    doc = load("base2");
     nodeList = doc.getElementsByTagName("base");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -994,7 +1010,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "basefont");
+    doc = load("basefont");
     nodeList = doc.getElementsByTagName("basefont");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -1021,7 +1037,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "basefont");
+    doc = load("basefont");
     nodeList = doc.getElementsByTagName("basefont");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -1048,7 +1064,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "basefont");
+    doc = load("basefont");
     nodeList = doc.getElementsByTagName("basefont");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -1075,7 +1091,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "body");
+    doc = load("body");
     nodeList = doc.getElementsByTagName("body");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -1103,7 +1119,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "body");
+    doc = load("body");
     nodeList = doc.getElementsByTagName("body");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -1130,7 +1146,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "body");
+    doc = load("body");
     nodeList = doc.getElementsByTagName("body");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -1158,7 +1174,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "body");
+    doc = load("body");
     nodeList = doc.getElementsByTagName("body");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -1185,7 +1201,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "body");
+    doc = load("body");
     nodeList = doc.getElementsByTagName("body");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -1213,7 +1229,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "body");
+    doc = load("body");
     nodeList = doc.getElementsByTagName("body");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -1239,7 +1255,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     body = doc.body;
     state = body.isSupported("hTmL",version);
     assertTrue("isSupportedHTML",state);
@@ -1263,7 +1279,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     body = doc.body;
     state = body.isSupported("hTmL",version);
     assertTrue("isSupportedHTML",state);
@@ -1288,7 +1304,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     body = doc.body;
     hasXML = body.isSupported("XML",version);
     state = body.isSupported("xhTmL",version);
@@ -1314,7 +1330,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     body = doc.body;
     hasXML = body.isSupported("XML",version);
     state = body.isSupported("xhTmL",version);
@@ -1339,7 +1355,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     body = doc.body;
     state = body.isSupported("cOrE",version);
     assertTrue("isSupportedCore",state);
@@ -1363,7 +1379,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     body = doc.body;
     state = body.isSupported("cOrE",version);
     assertTrue("isSupportedCore",state);
@@ -1389,7 +1405,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "button");
+    doc = load("button");
     nodeList = doc.getElementsByTagName("button");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -1418,7 +1434,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "button");
+    doc = load("button");
     nodeList = doc.getElementsByTagName("button");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -1446,7 +1462,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "button");
+    doc = load("button");
     nodeList = doc.getElementsByTagName("button");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -1474,7 +1490,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "button");
+    doc = load("button");
     nodeList = doc.getElementsByTagName("button");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -1502,7 +1518,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "button");
+    doc = load("button");
     nodeList = doc.getElementsByTagName("button");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -1530,7 +1546,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "button");
+    doc = load("button");
     nodeList = doc.getElementsByTagName("button");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -1557,7 +1573,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "button");
+    doc = load("button");
     nodeList = doc.getElementsByTagName("button");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -1584,7 +1600,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "button");
+    doc = load("button");
     nodeList = doc.getElementsByTagName("button");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -1616,7 +1632,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "collection");
+    doc = load("collection");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -1650,7 +1666,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "collection");
+    doc = load("collection");
     nodeList = doc.getElementsByTagName("form");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -1684,7 +1700,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "collection");
+    doc = load("collection");
     nodeList = doc.getElementsByTagName("form");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -1724,7 +1740,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "collection");
+    doc = load("collection");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -1759,7 +1775,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "collection");
+    doc = load("collection");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -1793,7 +1809,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "collection");
+    doc = load("collection");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -1827,7 +1843,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "collection");
+    doc = load("collection");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -1861,7 +1877,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "collection");
+    doc = load("collection");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -1894,7 +1910,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "collection");
+    doc = load("collection");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -1929,7 +1945,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "collection");
+    doc = load("collection");
     nodeList = doc.getElementsByTagName("form");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -1965,7 +1981,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "collection");
+    doc = load("collection");
     nodeList = doc.getElementsByTagName("form");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -2001,7 +2017,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "collection");
+    doc = load("collection");
     nodeList = doc.getElementsByTagName("form");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -2030,7 +2046,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "directory");
+    doc = load("directory");
     nodeList = doc.getElementsByTagName("dir");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -2057,7 +2073,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "div");
+    doc = load("div");
     nodeList = doc.getElementsByTagName("div");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -2085,7 +2101,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "dl");
+    doc = load("dl");
     nodeList = doc.getElementsByTagName("dl");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -2111,7 +2127,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     vtitle = doc.title;
     assertEquals("titleLink","NIST DOM HTML Test - DOCUMENT",vtitle);
     test.done();
@@ -2136,7 +2152,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     vreferrer = doc.referrer;
     assertEquals("referrerLink","",vreferrer);
     test.done();
@@ -2161,7 +2177,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     vdomain = doc.domain;
     assertEquals("domainLink","",vdomain);
     test.done();
@@ -2185,7 +2201,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     vurl = doc.URL;
     assertURIEquals("URLLink",null,null,null,null,"document",null,null,true,vurl);
     test.done();
@@ -2211,7 +2227,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     vbody = doc.body;
     vid = vbody.id;
     assertEquals("idLink","TEST-BODY",vid);
@@ -2237,7 +2253,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     vimages = doc.images;
     vlength = vimages.length;
     assertEquals("lengthLink",1,vlength);
@@ -2264,7 +2280,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     vapplets = doc.applets;
     vlength = vapplets.length;
     assertEquals("length",4,vlength);
@@ -2291,7 +2307,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     vlinks = doc.links;
     vlength = vlinks.length;
     assertEquals("lengthLink",3,vlength);
@@ -2317,7 +2333,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     vforms = doc.forms;
     vlength = vforms.length;
     assertEquals("lengthLink",1,vlength);
@@ -2344,7 +2360,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     vanchors = doc.anchors;
     vlength = vanchors.length;
     assertEquals("lengthLink",1,vlength);
@@ -2368,7 +2384,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     vcookie = doc.cookie;
     assertEquals("cookieLink","",vcookie);
     test.done();
@@ -2392,7 +2408,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     nodeList = doc.getElementsByName("mapid");
     assertSize("Asize",1,nodeList);
     test.done();
@@ -2417,7 +2433,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     nodeList = doc.getElementsByName("noid");
     assertSize("Asize",0,nodeList);
     test.done();
@@ -2444,7 +2460,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     elementNode = doc.getElementById("mapid");
     elementValue = elementNode.nodeName;
     assertEqualsAutoCase("element", "elementId","map",elementValue);
@@ -2473,7 +2489,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     elementNode = doc.getElementById("noid");
     assertNull("elementId",elementNode);
     test.done();
@@ -2495,7 +2511,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     doc.open();
     doc.close();
     bodyElem = doc.body;
@@ -2521,7 +2537,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     doc.close();
     test.done();
   },
@@ -2543,7 +2559,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     doc.open();
     if(
       (builder.contentType == "text/html")
@@ -2582,7 +2598,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     doc.open();
     if(
       (builder.contentType == "text/html")
@@ -2625,7 +2641,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     doc.open();
     if(
       (builder.contentType == "text/html")
@@ -2668,7 +2684,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     state = doc.isSupported("hTmL",version);
     assertTrue("isSupportedHTML",state);
     test.done();
@@ -2690,7 +2706,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     state = doc.isSupported("hTmL",version);
     assertTrue("isSupportedHTML",state);
     test.done();
@@ -2713,7 +2729,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     hasXML = doc.isSupported("XML",version);
     state = doc.isSupported("xhTmL",version);
     assertEquals("isSupportedXHTML",hasXML,state);
@@ -2737,7 +2753,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     hasXML = doc.isSupported("XML",version);
     state = doc.isSupported("xhTmL",version);
     assertEquals("isSupportedXHTML",hasXML,state);
@@ -2760,7 +2776,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     state = doc.isSupported("cOrE",version);
     assertTrue("isSupportedCore",state);
     test.done();
@@ -2782,7 +2798,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "document");
+    doc = load("document");
     state = doc.isSupported("cOrE",version);
     assertTrue("isSupportedCore",state);
     test.done();
@@ -2806,7 +2822,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("head");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -2833,7 +2849,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("sub");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -2860,7 +2876,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("sup");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -2887,7 +2903,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("span");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -2914,7 +2930,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("bdo");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -2941,7 +2957,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("tt");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -2968,7 +2984,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("i");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -2995,7 +3011,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("b");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3022,7 +3038,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("u");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3049,7 +3065,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("s");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3076,7 +3092,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("small");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3103,7 +3119,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("em");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3130,7 +3146,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("strong");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3157,7 +3173,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("dfn");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3184,7 +3200,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("code");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3211,7 +3227,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("samp");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3238,7 +3254,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("kbd");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3265,7 +3281,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("var");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3292,7 +3308,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("cite");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3319,7 +3335,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("acronym");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3346,7 +3362,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("strike");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3373,7 +3389,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("abbr");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3400,7 +3416,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("dd");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(0);
@@ -3427,7 +3443,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("dt");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3454,7 +3470,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("noframes");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3481,7 +3497,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("noscript");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3508,7 +3524,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("address");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3535,7 +3551,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("center");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -3562,7 +3578,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("head");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3589,7 +3605,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("sub");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3616,7 +3632,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("sup");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3643,7 +3659,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("big");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3670,7 +3686,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("span");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3697,7 +3713,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("bdo");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3724,7 +3740,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("tt");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3751,7 +3767,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("i");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3778,7 +3794,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("b");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3805,7 +3821,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("u");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3832,7 +3848,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("s");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3859,7 +3875,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("strike");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3886,7 +3902,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("big");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3913,7 +3929,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("small");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3940,7 +3956,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("small");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3967,7 +3983,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("em");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -3994,7 +4010,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("strong");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4021,7 +4037,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("dfn");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4048,7 +4064,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("code");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4075,7 +4091,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("samp");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4102,7 +4118,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("kbd");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4129,7 +4145,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("var");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4156,7 +4172,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("cite");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4183,7 +4199,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("acronym");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4210,7 +4226,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("abbr");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4237,7 +4253,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("em");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4264,7 +4280,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("dd");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(0);
@@ -4291,7 +4307,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("dt");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4318,7 +4334,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("noframes");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4345,7 +4361,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("noscript");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4372,7 +4388,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("address");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4399,7 +4415,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("center");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -4426,7 +4442,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("strong");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4453,7 +4469,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("dfn");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4480,7 +4496,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("code");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4507,7 +4523,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("samp");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4534,7 +4550,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("kbd");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4561,7 +4577,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("var");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4588,7 +4604,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("cite");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4615,7 +4631,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("acronym");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4642,7 +4658,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("abbr");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4669,7 +4685,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("dd");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(0);
@@ -4696,7 +4712,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("dt");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4723,7 +4739,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("noframes");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4750,7 +4766,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("noscript");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4777,7 +4793,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("address");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4804,7 +4820,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("center");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -4831,7 +4847,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("head");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4858,7 +4874,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("sub");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4885,7 +4901,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("sup");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4912,7 +4928,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("span");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4939,7 +4955,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("bdo");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4966,7 +4982,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("tt");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -4993,7 +5009,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("i");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5020,7 +5036,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("b");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5047,7 +5063,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("u");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5074,7 +5090,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("s");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5101,7 +5117,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("strike");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5128,7 +5144,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("big");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5155,7 +5171,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("small");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5182,7 +5198,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("em");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5209,7 +5225,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("strong");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5236,7 +5252,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("dfn");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5263,7 +5279,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("code");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5290,7 +5306,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("samp");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5317,7 +5333,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("kbd");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5344,7 +5360,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("var");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5371,7 +5387,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("cite");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5398,7 +5414,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("acronym");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5425,7 +5441,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("abbr");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5452,7 +5468,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("dd");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(0);
@@ -5479,7 +5495,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("dt");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5506,7 +5522,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("noframes");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5533,7 +5549,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("noscript");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5560,7 +5576,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("address");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5587,7 +5603,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("center");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -5614,7 +5630,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("head");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5641,7 +5657,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("sub");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5668,7 +5684,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("sup");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5695,7 +5711,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("span");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5722,7 +5738,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("bdo");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5749,7 +5765,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("tt");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5776,7 +5792,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("i");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5803,7 +5819,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("b");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5830,7 +5846,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("u");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5857,7 +5873,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("s");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5884,7 +5900,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("strike");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5911,7 +5927,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("big");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5938,7 +5954,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("small");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5965,7 +5981,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("em");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -5992,7 +6008,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("strong");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6019,7 +6035,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("dfn");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6046,7 +6062,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("code");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6073,7 +6089,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("samp");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6100,7 +6116,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("kbd");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6127,7 +6143,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("var");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6154,7 +6170,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("cite");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6181,7 +6197,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("acronym");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6208,7 +6224,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("abbr");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6235,7 +6251,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("dd");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(0);
@@ -6262,7 +6278,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("dt");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6289,7 +6305,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("noframes");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6316,7 +6332,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("noscript");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6343,7 +6359,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("address");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6370,7 +6386,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("center");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -6397,7 +6413,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("head");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6424,7 +6440,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("sub");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6451,7 +6467,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("sup");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6478,7 +6494,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("span");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6505,7 +6521,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("bdo");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6532,7 +6548,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("tt");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6559,7 +6575,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("i");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6586,7 +6602,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("b");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6613,7 +6629,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("u");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6640,7 +6656,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("s");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6667,7 +6683,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("strike");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6694,7 +6710,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "element");
+    doc = load("element");
     nodeList = doc.getElementsByTagName("big");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6722,7 +6738,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "fieldset");
+    doc = load("fieldset");
     nodeList = doc.getElementsByTagName("fieldset");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -6751,7 +6767,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "fieldset");
+    doc = load("fieldset");
     nodeList = doc.getElementsByTagName("fieldset");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -6778,7 +6794,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "font");
+    doc = load("font");
     nodeList = doc.getElementsByTagName("font");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6806,7 +6822,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "font");
+    doc = load("font");
     nodeList = doc.getElementsByTagName("font");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6833,7 +6849,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "font");
+    doc = load("font");
     nodeList = doc.getElementsByTagName("font");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6862,7 +6878,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "form");
+    doc = load("form");
     nodeList = doc.getElementsByTagName("form");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6892,7 +6908,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "form");
+    doc = load("form");
     nodeList = doc.getElementsByTagName("form");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6919,7 +6935,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "form");
+    doc = load("form");
     nodeList = doc.getElementsByTagName("form");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6947,7 +6963,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "form");
+    doc = load("form");
     nodeList = doc.getElementsByTagName("form");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -6974,7 +6990,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "form");
+    doc = load("form");
     nodeList = doc.getElementsByTagName("form");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7001,7 +7017,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "form");
+    doc = load("form");
     nodeList = doc.getElementsByTagName("form");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7028,7 +7044,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "form");
+    doc = load("form");
     nodeList = doc.getElementsByTagName("form");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7055,7 +7071,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "form2");
+    doc = load("form2");
     nodeList = doc.getElementsByTagName("form");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7079,7 +7095,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "form2");
+    doc = load("form2");
     nodeList = doc.getElementsByTagName("form");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7102,7 +7118,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "form3");
+    doc = load("form3");
     nodeList = doc.getElementsByTagName("form");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7131,7 +7147,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "frame");
+    doc = load("frame");
     nodeList = doc.getElementsByTagName("frame");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -7160,7 +7176,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "frame");
+    doc = load("frame");
     nodeList = doc.getElementsByTagName("frame");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -7188,7 +7204,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "frame");
+    doc = load("frame");
     nodeList = doc.getElementsByTagName("frame");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -7216,7 +7232,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "frame");
+    doc = load("frame");
     nodeList = doc.getElementsByTagName("frame");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -7245,7 +7261,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "frame");
+    doc = load("frame");
     nodeList = doc.getElementsByTagName("frame");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -7274,7 +7290,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "frame");
+    doc = load("frame");
     nodeList = doc.getElementsByTagName("frame");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -7303,7 +7319,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "frame");
+    doc = load("frame");
     nodeList = doc.getElementsByTagName("frame");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -7331,7 +7347,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "frame");
+    doc = load("frame");
     nodeList = doc.getElementsByTagName("frame");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -7360,7 +7376,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "frame2");
+    doc = load("frame2");
     doc.onload = function() {
       testNode = doc.getElementById("Frame1");
       cd = testNode.contentDocument;
@@ -7391,7 +7407,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "frameset");
+    doc = load("frameset");
     nodeList = doc.getElementsByTagName("frameset");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -7420,7 +7436,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "frameset");
+    doc = load("frameset");
     nodeList = doc.getElementsByTagName("frameset");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -7447,7 +7463,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "hr");
+    doc = load("hr");
     nodeList = doc.getElementsByTagName("hr");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7475,7 +7491,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "hr");
+    doc = load("hr");
     nodeList = doc.getElementsByTagName("hr");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7502,7 +7518,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "hr");
+    doc = load("hr");
     nodeList = doc.getElementsByTagName("hr");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7529,7 +7545,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "hr");
+    doc = load("hr");
     nodeList = doc.getElementsByTagName("hr");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7556,7 +7572,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "head");
+    doc = load("head");
     nodeList = doc.getElementsByTagName("head");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7583,7 +7599,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "heading");
+    doc = load("heading");
     nodeList = doc.getElementsByTagName("h1");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7610,7 +7626,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "heading");
+    doc = load("heading");
     nodeList = doc.getElementsByTagName("h2");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7637,7 +7653,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "heading");
+    doc = load("heading");
     nodeList = doc.getElementsByTagName("h3");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7664,7 +7680,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "heading");
+    doc = load("heading");
     nodeList = doc.getElementsByTagName("h4");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7691,7 +7707,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "heading");
+    doc = load("heading");
     nodeList = doc.getElementsByTagName("h5");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7718,7 +7734,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "heading");
+    doc = load("heading");
     nodeList = doc.getElementsByTagName("h6");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7747,7 +7763,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "html");
+    doc = load("html");
     nodeList = doc.getElementsByTagName("html");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7780,7 +7796,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "iframe");
+    doc = load("iframe");
     nodeList = doc.getElementsByTagName("iframe");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7810,7 +7826,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "iframe");
+    doc = load("iframe");
     nodeList = doc.getElementsByTagName("iframe");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7838,7 +7854,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "iframe");
+    doc = load("iframe");
     nodeList = doc.getElementsByTagName("iframe");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7867,7 +7883,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "iframe");
+    doc = load("iframe");
     nodeList = doc.getElementsByTagName("iframe");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7895,7 +7911,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "iframe");
+    doc = load("iframe");
     nodeList = doc.getElementsByTagName("iframe");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7923,7 +7939,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "iframe");
+    doc = load("iframe");
     nodeList = doc.getElementsByTagName("iframe");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7952,7 +7968,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "iframe");
+    doc = load("iframe");
     nodeList = doc.getElementsByTagName("iframe");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -7981,7 +7997,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "iframe");
+    doc = load("iframe");
     nodeList = doc.getElementsByTagName("iframe");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -8009,7 +8025,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "iframe");
+    doc = load("iframe");
     nodeList = doc.getElementsByTagName("iframe");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -8037,7 +8053,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "iframe");
+    doc = load("iframe");
     nodeList = doc.getElementsByTagName("iframe");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -8064,7 +8080,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "iframe2");
+    doc = load("iframe2");
     doc.onload = function() {
       testNode = doc.getElementById("Iframe2");
       cd = testNode.contentDocument;
@@ -8092,7 +8108,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "img");
+    doc = load("img");
     nodeList = doc.getElementsByTagName("img");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -8120,7 +8136,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "img");
+    doc = load("img");
     nodeList = doc.getElementsByTagName("img");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -8148,7 +8164,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "img");
+    doc = load("img");
     nodeList = doc.getElementsByTagName("img");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -8175,7 +8191,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "img");
+    doc = load("img");
     nodeList = doc.getElementsByTagName("img");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -8202,7 +8218,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "img");
+    doc = load("img");
     nodeList = doc.getElementsByTagName("img");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -8230,7 +8246,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "img");
+    doc = load("img");
     nodeList = doc.getElementsByTagName("img");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -8257,7 +8273,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "img");
+    doc = load("img");
     nodeList = doc.getElementsByTagName("img");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -8285,7 +8301,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "img");
+    doc = load("img");
     nodeList = doc.getElementsByTagName("img");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -8312,7 +8328,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "img");
+    doc = load("img");
     nodeList = doc.getElementsByTagName("img");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -8339,7 +8355,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "img");
+    doc = load("img");
     nodeList = doc.getElementsByTagName("img");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -8367,7 +8383,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "img");
+    doc = load("img");
     nodeList = doc.getElementsByTagName("img");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -8394,7 +8410,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "img");
+    doc = load("img");
     nodeList = doc.getElementsByTagName("img");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -8423,7 +8439,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(0);
@@ -8452,7 +8468,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(3);
@@ -8480,7 +8496,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(0);
@@ -8510,7 +8526,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(8);
@@ -8539,7 +8555,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(1);
@@ -8568,7 +8584,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(3);
@@ -8597,7 +8613,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(0);
@@ -8626,7 +8642,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(2);
@@ -8654,7 +8670,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(6);
@@ -8683,7 +8699,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(0);
@@ -8712,7 +8728,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(0);
@@ -8741,7 +8757,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(0);
@@ -8770,7 +8786,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(0);
@@ -8799,7 +8815,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(7);
@@ -8828,7 +8844,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(2);
@@ -8856,7 +8872,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(0);
@@ -8884,7 +8900,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(7);
@@ -8913,7 +8929,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(1);
@@ -8937,7 +8953,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(1);
@@ -8960,7 +8976,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(1);
@@ -8984,7 +9000,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(1);
@@ -9012,7 +9028,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "input");
+    doc = load("input");
     nodeList = doc.getElementsByTagName("input");
     assertSize("Asize",9,nodeList);
     testNode = nodeList.item(0);
@@ -9040,7 +9056,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "isindex");
+    doc = load("isindex");
     nodeList = doc.getElementsByTagName("isindex");
     testNode = nodeList.item(0);
     assertNotNull("notnull",testNode);
@@ -9074,7 +9090,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "isindex");
+    doc = load("isindex");
     nodeList = doc.getElementsByTagName("isindex");
     testNode = nodeList.item(1);
     assertNotNull("notnull",testNode);
@@ -9105,7 +9121,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "isindex");
+    doc = load("isindex");
     nodeList = doc.getElementsByTagName("isindex");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -9132,7 +9148,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "li");
+    doc = load("li");
     nodeList = doc.getElementsByTagName("li");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -9159,7 +9175,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "li");
+    doc = load("li");
     nodeList = doc.getElementsByTagName("li");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -9187,7 +9203,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "label");
+    doc = load("label");
     nodeList = doc.getElementsByTagName("label");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -9216,7 +9232,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "label");
+    doc = load("label");
     nodeList = doc.getElementsByTagName("label");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -9244,7 +9260,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "label");
+    doc = load("label");
     nodeList = doc.getElementsByTagName("label");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -9273,7 +9289,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "label");
+    doc = load("label");
     nodeList = doc.getElementsByTagName("label");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -9302,7 +9318,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "legend");
+    doc = load("legend");
     nodeList = doc.getElementsByTagName("legend");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -9331,7 +9347,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "legend");
+    doc = load("legend");
     nodeList = doc.getElementsByTagName("legend");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -9359,7 +9375,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "legend");
+    doc = load("legend");
     nodeList = doc.getElementsByTagName("legend");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -9386,7 +9402,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "legend");
+    doc = load("legend");
     nodeList = doc.getElementsByTagName("legend");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -9413,7 +9429,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "link");
+    doc = load("link");
     nodeList = doc.getElementsByTagName("link");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -9441,7 +9457,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "link");
+    doc = load("link");
     nodeList = doc.getElementsByTagName("link");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -9468,7 +9484,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "link");
+    doc = load("link");
     nodeList = doc.getElementsByTagName("link");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -9495,7 +9511,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "link");
+    doc = load("link");
     nodeList = doc.getElementsByTagName("link");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -9522,7 +9538,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "link");
+    doc = load("link");
     nodeList = doc.getElementsByTagName("link");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -9549,7 +9565,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "link");
+    doc = load("link");
     nodeList = doc.getElementsByTagName("link");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -9576,7 +9592,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "link");
+    doc = load("link");
     nodeList = doc.getElementsByTagName("link");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -9603,7 +9619,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "link");
+    doc = load("link");
     nodeList = doc.getElementsByTagName("link");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -9630,7 +9646,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "link2");
+    doc = load("link2");
     nodeList = doc.getElementsByTagName("link");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -9658,7 +9674,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "map");
+    doc = load("map");
     nodeList = doc.getElementsByTagName("map");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -9686,7 +9702,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "map");
+    doc = load("map");
     nodeList = doc.getElementsByTagName("map");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -9714,7 +9730,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "menu");
+    doc = load("menu");
     nodeList = doc.getElementsByTagName("menu");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -9741,7 +9757,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "meta");
+    doc = load("meta");
     nodeList = doc.getElementsByTagName("meta");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -9768,7 +9784,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "meta");
+    doc = load("meta");
     nodeList = doc.getElementsByTagName("meta");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -9795,7 +9811,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "meta");
+    doc = load("meta");
     nodeList = doc.getElementsByTagName("meta");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -9822,7 +9838,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "meta");
+    doc = load("meta");
     nodeList = doc.getElementsByTagName("meta");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -9850,7 +9866,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "mod");
+    doc = load("mod");
     nodeList = doc.getElementsByTagName("ins");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -9877,7 +9893,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "mod");
+    doc = load("mod");
     nodeList = doc.getElementsByTagName("ins");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -9905,7 +9921,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "mod");
+    doc = load("mod");
     nodeList = doc.getElementsByTagName("del");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -9932,7 +9948,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "mod");
+    doc = load("mod");
     nodeList = doc.getElementsByTagName("del");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -9960,7 +9976,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "olist");
+    doc = load("olist");
     nodeList = doc.getElementsByTagName("ol");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -9987,7 +10003,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "olist");
+    doc = load("olist");
     nodeList = doc.getElementsByTagName("ol");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -10014,7 +10030,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "olist");
+    doc = load("olist");
     nodeList = doc.getElementsByTagName("ol");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -10042,7 +10058,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object2");
+    doc = load("object2");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -10071,7 +10087,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -10100,7 +10116,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -10128,7 +10144,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -10156,7 +10172,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -10185,7 +10201,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -10214,7 +10230,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -10242,7 +10258,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -10271,7 +10287,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -10300,7 +10316,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -10329,7 +10345,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -10358,7 +10374,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -10387,7 +10403,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -10416,7 +10432,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -10444,7 +10460,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -10473,7 +10489,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -10501,7 +10517,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -10530,7 +10546,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -10558,7 +10574,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object2");
+    doc = load("object2");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -10586,7 +10602,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object2");
+    doc = load("object2");
     nodeList = doc.getElementsByTagName("object");
     testNode = nodeList.item(1);
     cd = testNode.contentDocument;
@@ -10613,7 +10629,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "optgroup");
+    doc = load("optgroup");
     nodeList = doc.getElementsByTagName("optgroup");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -10640,7 +10656,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "optgroup");
+    doc = load("optgroup");
     nodeList = doc.getElementsByTagName("optgroup");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -10669,7 +10685,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "option");
+    doc = load("option");
     nodeList = doc.getElementsByTagName("option");
     assertSize("Asize",10,nodeList);
     testNode = nodeList.item(0);
@@ -10699,7 +10715,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "option");
+    doc = load("option");
     nodeList = doc.getElementsByTagName("option");
     assertSize("Asize",10,nodeList);
     testNode = nodeList.item(6);
@@ -10728,7 +10744,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "option");
+    doc = load("option");
     nodeList = doc.getElementsByTagName("option");
     assertSize("Asize",10,nodeList);
     testNode = nodeList.item(0);
@@ -10756,7 +10772,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "option");
+    doc = load("option");
     nodeList = doc.getElementsByTagName("option");
     assertSize("Asize",10,nodeList);
     testNode = nodeList.item(1);
@@ -10785,7 +10801,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "option");
+    doc = load("option");
     nodeList = doc.getElementsByTagName("option");
     assertSize("Asize",10,nodeList);
     testNode = nodeList.item(6);
@@ -10814,7 +10830,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "option");
+    doc = load("option");
     nodeList = doc.getElementsByTagName("option");
     assertSize("Asize",10,nodeList);
     testNode = nodeList.item(9);
@@ -10843,7 +10859,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "option");
+    doc = load("option");
     nodeList = doc.getElementsByTagName("option");
     assertSize("Asize",10,nodeList);
     testNode = nodeList.item(1);
@@ -10872,7 +10888,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "option");
+    doc = load("option");
     nodeList = doc.getElementsByTagName("option");
     assertSize("Asize",10,nodeList);
     testNode = nodeList.item(0);
@@ -10900,7 +10916,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "option");
+    doc = load("option");
     nodeList = doc.getElementsByTagName("option");
     assertSize("Asize",10,nodeList);
     testNode = nodeList.item(0);
@@ -10931,7 +10947,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "optionscollection");
+    doc = load("optionscollection");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -10969,7 +10985,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "optionscollection");
+    doc = load("optionscollection");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -11010,7 +11026,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "optionscollection");
+    doc = load("optionscollection");
     nodeList = doc.getElementsByTagName("form");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -11050,7 +11066,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "optionscollection");
+    doc = load("optionscollection");
     nodeList = doc.getElementsByTagName("form");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -11092,7 +11108,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "optionscollection");
+    doc = load("optionscollection");
     nodeList = doc.getElementsByTagName("form");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -11130,7 +11146,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "optionscollection");
+    doc = load("optionscollection");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -11168,7 +11184,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "optionscollection");
+    doc = load("optionscollection");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -11198,7 +11214,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "paragraph");
+    doc = load("paragraph");
     nodeList = doc.getElementsByTagName("p");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -11225,7 +11241,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "param");
+    doc = load("param");
     nodeList = doc.getElementsByTagName("param");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -11252,7 +11268,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "param");
+    doc = load("param");
     nodeList = doc.getElementsByTagName("param");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -11280,7 +11296,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "param");
+    doc = load("param");
     nodeList = doc.getElementsByTagName("param");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -11308,7 +11324,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "param");
+    doc = load("param");
     nodeList = doc.getElementsByTagName("param");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -11335,7 +11351,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "pre");
+    doc = load("pre");
     nodeList = doc.getElementsByTagName("pre");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -11363,7 +11379,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "quote");
+    doc = load("quote");
     nodeList = doc.getElementsByTagName("q");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -11392,7 +11408,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "quote");
+    doc = load("quote");
     nodeList = doc.getElementsByTagName("blockquote");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -11419,7 +11435,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "script");
+    doc = load("script");
     nodeList = doc.getElementsByTagName("script");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -11447,7 +11463,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "script");
+    doc = load("script");
     nodeList = doc.getElementsByTagName("script");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -11475,7 +11491,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "script");
+    doc = load("script");
     nodeList = doc.getElementsByTagName("script");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -11502,7 +11518,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "script");
+    doc = load("script");
     nodeList = doc.getElementsByTagName("script");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -11529,7 +11545,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "script");
+    doc = load("script");
     nodeList = doc.getElementsByTagName("script");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -11554,7 +11570,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "script");
+    doc = load("script");
     nodeList = doc.getElementsByTagName("script");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -11578,7 +11594,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "script");
+    doc = load("script");
     nodeList = doc.getElementsByTagName("script");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -11606,7 +11622,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "select");
+    doc = load("select");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -11635,7 +11651,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "select");
+    doc = load("select");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -11667,7 +11683,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "select");
+    doc = load("select");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -11694,7 +11710,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "select");
+    doc = load("select");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -11722,7 +11738,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "select");
+    doc = load("select");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -11751,7 +11767,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "select");
+    doc = load("select");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -11781,7 +11797,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "select");
+    doc = load("select");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -11820,7 +11836,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "select");
+    doc = load("select");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -11854,7 +11870,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "select");
+    doc = load("select");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(2);
@@ -11883,7 +11899,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "select");
+    doc = load("select");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -11912,7 +11928,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "select");
+    doc = load("select");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -11940,7 +11956,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "select");
+    doc = load("select");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -11969,7 +11985,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "select");
+    doc = load("select");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -11993,7 +12009,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "select");
+    doc = load("select");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -12016,7 +12032,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "select");
+    doc = load("select");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -12041,7 +12057,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "select");
+    doc = load("select");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -12070,7 +12086,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "select");
+    doc = load("select");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -12106,7 +12122,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "select");
+    doc = load("select");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -12150,7 +12166,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "select");
+    doc = load("select");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -12196,7 +12212,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "select");
+    doc = load("select");
     nodeList = doc.getElementsByTagName("select");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -12237,7 +12253,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "style");
+    doc = load("style");
     nodeList = doc.getElementsByTagName("style");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -12264,7 +12280,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "style");
+    doc = load("style");
     nodeList = doc.getElementsByTagName("style");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -12291,7 +12307,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "style");
+    doc = load("style");
     nodeList = doc.getElementsByTagName("style");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -12319,7 +12335,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecaption");
+    doc = load("tablecaption");
     nodeList = doc.getElementsByTagName("caption");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -12347,7 +12363,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(0);
@@ -12375,7 +12391,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(0);
@@ -12403,7 +12419,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -12431,7 +12447,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -12460,7 +12476,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -12489,7 +12505,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -12518,7 +12534,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -12547,7 +12563,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -12576,7 +12592,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -12605,7 +12621,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -12634,7 +12650,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -12663,7 +12679,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -12692,7 +12708,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -12721,7 +12737,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -12750,7 +12766,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -12779,7 +12795,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -12808,7 +12824,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -12837,7 +12853,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -12865,7 +12881,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -12893,7 +12909,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -12921,7 +12937,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -12949,7 +12965,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -12978,7 +12994,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -13007,7 +13023,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -13035,7 +13051,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -13063,7 +13079,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -13091,7 +13107,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -13119,7 +13135,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -13147,7 +13163,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("th");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -13175,7 +13191,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -13204,7 +13220,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecol");
+    doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -13233,7 +13249,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecol");
+    doc = load("tablecol");
     nodeList = doc.getElementsByTagName("colgroup");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -13262,7 +13278,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecol");
+    doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -13291,7 +13307,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecol");
+    doc = load("tablecol");
     nodeList = doc.getElementsByTagName("colgroup");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -13319,7 +13335,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecol");
+    doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -13347,7 +13363,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecol");
+    doc = load("tablecol");
     nodeList = doc.getElementsByTagName("colgroup");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -13376,7 +13392,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecol");
+    doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -13405,7 +13421,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecol");
+    doc = load("tablecol");
     nodeList = doc.getElementsByTagName("colgroup");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -13434,7 +13450,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecol");
+    doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -13463,7 +13479,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecol");
+    doc = load("tablecol");
     nodeList = doc.getElementsByTagName("colgroup");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -13491,7 +13507,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecol");
+    doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -13519,7 +13535,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecol");
+    doc = load("tablecol");
     nodeList = doc.getElementsByTagName("colgroup");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -13548,7 +13564,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -13578,7 +13594,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -13607,7 +13623,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -13637,7 +13653,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -13666,7 +13682,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -13696,7 +13712,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -13733,7 +13749,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -13772,7 +13788,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -13814,7 +13830,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(2);
@@ -13848,7 +13864,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -13876,7 +13892,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -13904,7 +13920,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -13933,7 +13949,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -13962,7 +13978,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -13990,7 +14006,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14018,7 +14034,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14047,7 +14063,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14075,7 +14091,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14108,7 +14124,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -14144,7 +14160,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14183,7 +14199,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14225,7 +14241,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -14261,7 +14277,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14300,7 +14316,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14340,7 +14356,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -14376,7 +14392,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14409,7 +14425,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14447,7 +14463,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14491,7 +14507,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14536,7 +14552,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14589,7 +14605,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table1");
+    doc = load("table1");
     nodeList = doc.getElementsByTagName("body");
     assertSize("tableSize1",1,nodeList);
     testNode = nodeList.item(0);
@@ -14629,7 +14645,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14664,7 +14680,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14700,7 +14716,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14739,7 +14755,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14777,7 +14793,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14816,7 +14832,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14854,7 +14870,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14901,7 +14917,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14941,7 +14957,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -14977,7 +14993,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(3);
@@ -15006,7 +15022,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(1);
@@ -15035,7 +15051,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(2);
@@ -15064,7 +15080,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(4);
@@ -15093,7 +15109,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(3);
@@ -15123,7 +15139,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(1);
@@ -15151,7 +15167,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(1);
@@ -15179,7 +15195,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(1);
@@ -15207,7 +15223,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(1);
@@ -15236,7 +15252,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(1);
@@ -15274,7 +15290,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(3);
@@ -15324,7 +15340,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(3);
@@ -15373,7 +15389,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(3);
@@ -15423,7 +15439,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(3);
@@ -15468,7 +15484,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(3);
@@ -15507,7 +15523,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(3);
@@ -15545,7 +15561,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(3);
@@ -15583,7 +15599,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(3);
@@ -15621,7 +15637,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(3);
@@ -15669,7 +15685,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(3);
@@ -15720,7 +15736,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(3);
@@ -15763,7 +15779,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -15792,7 +15808,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tfoot");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -15821,7 +15837,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tbody");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -15850,7 +15866,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -15879,7 +15895,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tfoot");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -15908,7 +15924,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tbody");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -15936,7 +15952,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -15964,7 +15980,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tfoot");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -15992,7 +16008,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tbody");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -16021,7 +16037,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -16050,7 +16066,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tfoot");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -16079,7 +16095,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tbody");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -16108,7 +16124,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -16138,7 +16154,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tfoot");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -16168,7 +16184,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tbody");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -16201,7 +16217,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -16238,7 +16254,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tfoot");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -16275,7 +16291,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tbody");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -16313,7 +16329,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -16351,7 +16367,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tfoot");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -16390,7 +16406,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tbody");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -16426,7 +16442,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -16462,7 +16478,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tfoot");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -16498,7 +16514,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tbody");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -16534,7 +16550,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -16573,7 +16589,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -16612,7 +16628,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -16651,7 +16667,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -16689,7 +16705,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -16733,7 +16749,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("thead");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -16772,7 +16788,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("tbody");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -16806,7 +16822,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "textarea");
+    doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -16835,7 +16851,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "textarea");
+    doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -16865,7 +16881,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "textarea");
+    doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -16894,7 +16910,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "textarea");
+    doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -16922,7 +16938,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "textarea");
+    doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -16951,7 +16967,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "textarea");
+    doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -16980,7 +16996,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "textarea");
+    doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -17008,7 +17024,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "textarea");
+    doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(2);
@@ -17036,7 +17052,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "textarea");
+    doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -17065,7 +17081,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "textarea");
+    doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -17094,7 +17110,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "textarea");
+    doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -17123,7 +17139,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "textarea");
+    doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -17147,7 +17163,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "textarea");
+    doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -17170,7 +17186,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "textarea");
+    doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -17193,7 +17209,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "textarea");
+    doc = load("textarea");
     nodeList = doc.getElementsByTagName("textarea");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(0);
@@ -17219,7 +17235,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "title");
+    doc = load("title");
     nodeList = doc.getElementsByTagName("title");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -17247,7 +17263,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "ulist");
+    doc = load("ulist");
     nodeList = doc.getElementsByTagName("ul");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -17274,7 +17290,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "ulist");
+    doc = load("ulist");
     nodeList = doc.getElementsByTagName("ul");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -17301,7 +17317,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -17328,7 +17344,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -17355,7 +17371,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -17382,7 +17398,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -17409,7 +17425,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -17436,7 +17452,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     nodeList = doc.getElementsByTagName("a");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -17461,7 +17477,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "area");
+    doc = load("area");
     nodeList = doc.getElementsByTagName("area");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -17486,7 +17502,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "area");
+    doc = load("area");
     nodeList = doc.getElementsByTagName("area");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -17511,7 +17527,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "area");
+    doc = load("area");
     nodeList = doc.getElementsByTagName("area");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -17536,7 +17552,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "area");
+    doc = load("area");
     nodeList = doc.getElementsByTagName("area");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -17562,7 +17578,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "basefont");
+    doc = load("basefont");
     nodeList = doc.getElementsByTagName("basefont");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -17589,7 +17605,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "body");
+    doc = load("body");
     nodeList = doc.getElementsByTagName("body");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -17615,7 +17631,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "button");
+    doc = load("button");
     nodeList = doc.getElementsByTagName("button");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -17643,7 +17659,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "button");
+    doc = load("button");
     nodeList = doc.getElementsByTagName("button");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -17672,7 +17688,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "button");
+    doc = load("button");
     nodeList = doc.getElementsByTagName("button");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -17701,7 +17717,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "button");
+    doc = load("button");
     nodeList = doc.getElementsByTagName("button");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -17729,7 +17745,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "button");
+    doc = load("button");
     nodeList = doc.getElementsByTagName("button");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -17756,7 +17772,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "button");
+    doc = load("button");
     nodeList = doc.getElementsByTagName("button");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -17783,7 +17799,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "button");
+    doc = load("button");
     nodeList = doc.getElementsByTagName("button");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -17810,7 +17826,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "button");
+    doc = load("button");
     nodeList = doc.getElementsByTagName("button");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -17837,7 +17853,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "button");
+    doc = load("button");
     nodeList = doc.getElementsByTagName("button");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -17862,7 +17878,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "dl");
+    doc = load("dl");
     nodeList = doc.getElementsByTagName("dl");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -17886,7 +17902,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     vtitle = doc.title;
     assertEquals("titleLink","NIST DOM HTML Test - Anchor",vtitle);
     test.done();
@@ -18022,7 +18038,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -18049,7 +18065,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -18076,7 +18092,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -18103,7 +18119,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -18130,7 +18146,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -18157,7 +18173,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -18183,7 +18199,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -18210,7 +18226,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -18237,7 +18253,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -18264,7 +18280,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -18291,7 +18307,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -18317,7 +18333,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -18344,7 +18360,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -18370,7 +18386,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(0);
@@ -18397,7 +18413,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "object");
+    doc = load("object");
     nodeList = doc.getElementsByTagName("object");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -18424,7 +18440,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table1");
+    doc = load("table1");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -18452,7 +18468,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -18481,7 +18497,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -18510,7 +18526,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -18539,7 +18555,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -18569,7 +18585,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -18599,7 +18615,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -18628,7 +18644,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -18657,7 +18673,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -18686,7 +18702,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -18716,7 +18732,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -18746,7 +18762,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablesection");
+    doc = load("tablesection");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",2,nodeList);
     testNode = nodeList.item(1);
@@ -18774,7 +18790,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -18802,7 +18818,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -18829,7 +18845,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -18856,7 +18872,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -18883,7 +18899,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -18910,7 +18926,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -18937,7 +18953,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -18964,7 +18980,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -18990,7 +19006,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -19017,7 +19033,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -19044,7 +19060,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -19071,7 +19087,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -19098,7 +19114,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -19125,7 +19141,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -19152,7 +19168,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecell");
+    doc = load("tablecell");
     nodeList = doc.getElementsByTagName("td");
     assertSize("Asize",4,nodeList);
     testNode = nodeList.item(1);
@@ -19179,7 +19195,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -19206,7 +19222,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -19233,7 +19249,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -19260,7 +19276,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -19286,7 +19302,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -19313,7 +19329,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -19340,7 +19356,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -19367,7 +19383,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -19394,7 +19410,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("table");
     assertSize("Asize",3,nodeList);
     testNode = nodeList.item(1);
@@ -19421,7 +19437,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",8,nodeList);
     testNode = nodeList.item(1);
@@ -19448,7 +19464,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",8,nodeList);
     testNode = nodeList.item(1);
@@ -19475,7 +19491,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "table");
+    doc = load("table");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",8,nodeList);
     testNode = nodeList.item(1);
@@ -19502,7 +19518,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(1);
@@ -19529,7 +19545,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(1);
@@ -19556,7 +19572,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablerow");
+    doc = load("tablerow");
     nodeList = doc.getElementsByTagName("tr");
     assertSize("Asize",5,nodeList);
     testNode = nodeList.item(4);
@@ -19583,7 +19599,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecol");
+    doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -19610,7 +19626,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecol");
+    doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -19637,7 +19653,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecol");
+    doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -19664,7 +19680,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecol");
+    doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -19691,7 +19707,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecol");
+    doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -19718,7 +19734,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "tablecol");
+    doc = load("tablecol");
     nodeList = doc.getElementsByTagName("col");
     assertSize("Asize",1,nodeList);
     testNode = nodeList.item(0);
@@ -19732,7 +19748,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     doc.innerHTML = "<html><body><p><a id='Anchor'>Anchor Text</a></body></html>";
     anchor = doc.getElementById("Anchor");
     doc.readyState = 'loading';
@@ -19754,7 +19770,7 @@ exports.tests = {
     if (typeof(this.doc) != 'undefined') {
       docRef = this.doc;
     }
-    doc = load(docRef, "doc", "anchor");
+    doc = load("anchor");
     var a = doc.getElementById("Anchor");
     a.addEventListener("foo", function() {}, true);
     evt = doc.createEvent("Events");
