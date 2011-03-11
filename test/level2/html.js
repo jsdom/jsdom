@@ -11817,36 +11817,16 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-30606413
    */
   HTMLSelectElement08: function(test) {
-    var success;
-    var nodeList;
-    var optionsnodeList;
-    var testNode;
-    var vareas;
-    var doc;
-    var optionName;
-    var voption;
-    var result = new Array();
-    expectedOptions = new Array();
-    expectedOptions[0] = "option";
-    expectedOptions[1] = "option";
-    expectedOptions[2] = "option";
-    expectedOptions[3] = "option";
-    expectedOptions[4] = "option";
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("select");
-    nodeList = doc.getElementsByTagName("select");
+    var expectedOptions = ['OPTION', 'OPTION', 'OPTION', 'OPTION', 'OPTION']
+    var doc = load("select");
+    var nodeList = doc.getElementsByTagName("select");
     test.equal(nodeList.length, 3, 'Asize');
-    testNode = nodeList.item(0);
-    optionsnodeList = testNode.options;
-    for(var indexN10070 = 0;indexN10070 < optionsnodeList.length; indexN10070++) {
-      voption = optionsnodeList.item(indexN10070);
-      optionName = voption.nodeName;
-      result[result.length] = optionName;
+    var result = [];
+    var options = nodeList.item(0).options;
+    for(var i=0;i<options.length; i++) {
+      result.push(options.item(i).nodeName);
     }
-    assertEqualsListAutoCase("element", "optionsLink",expectedOptions,result);
+    test.deepEqual(result, expectedOptions, 'optionsLink');
     test.done();
   },
 
@@ -13732,34 +13712,16 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-6156016
    */
   HTMLTableElement07: function(test) {
-    var success;
-    var nodeList;
-    var rowsnodeList;
-    var testNode;
-    var doc;
-    var rowName;
-    var vrow;
-    var result = new Array();
-    expectedOptions = new Array();
-    expectedOptions[0] = "tr";
-    expectedOptions[1] = "tr";
-    expectedOptions[2] = "tr";
-    expectedOptions[3] = "tr";
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("table");
-    nodeList = doc.getElementsByTagName("table");
+    var expectedOptions = ['TR', 'TR' ,'TR' ,'TR'];
+    var doc = load("table");
+    var nodeList = doc.getElementsByTagName("table");
     test.equal(nodeList.length, 3, 'Asize');
-    testNode = nodeList.item(1);
-    rowsnodeList = testNode.rows;
-    for(var indexN10069 = 0;indexN10069 < rowsnodeList.length; indexN10069++) {
-      vrow = rowsnodeList.item(indexN10069);
-      rowName = vrow.nodeName;
-      result[result.length] = rowName;
+    var rows = nodeList.item(1).rows;
+    var result = [];
+    for(var i=0;i<rows.length;i++) {
+      result.push(rows.item(i).nodeName);
     }
-    assertEqualsListAutoCase("element", "rowsLink",expectedOptions,result);
+    test.deepEqual(result, expectedOptions, 'rowsLink');
     test.done();
   },
 
@@ -13774,31 +13736,16 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63206416
    */
   HTMLTableElement08: function(test) {
-    var success;
-    var nodeList;
-    var tbodiesnodeList;
-    var testNode;
-    var doc;
-    var tbodiesName;
-    var vtbodies;
-    var result = new Array();
-    expectedOptions = new Array();
-    expectedOptions[0] = "tbody";
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("table");
-    nodeList = doc.getElementsByTagName("table");
+    var expectedOptions = ["TBODY"];
+    var doc = load("table");
+    var nodeList = doc.getElementsByTagName("table");
     test.equal(nodeList.length, 3, 'Asize');
-    testNode = nodeList.item(1);
-    tbodiesnodeList = testNode.tBodies;
-    for(var indexN10060 = 0;indexN10060 < tbodiesnodeList.length; indexN10060++) {
-      vtbodies = tbodiesnodeList.item(indexN10060);
-      tbodiesName = vtbodies.nodeName;
-      result[result.length] = tbodiesName;
+    tbodies = nodeList.item(1).tBodies;
+    var result = [];
+    for(var i=0;i<tbodies.length;i++) {
+      result.push(tbodies.item(i).nodeName);
     }
-    assertEqualsListAutoCase("element", "tbodiesLink",expectedOptions,result);
+    test.deepEqual(result, expectedOptions, 'tbodiesLink');
     test.done();
   },
 
@@ -13814,33 +13761,16 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63206416
    */
   HTMLTableElement09: function(test) {
-    var success;
-    var nodeList;
-    var tbodiesnodeList;
-    var testNode;
-    var doc;
-    var tbodiesName;
-    var vtbodies;
-    var result = new Array();
-    expectedOptions = new Array();
-    expectedOptions[0] = "tbody";
-    expectedOptions[1] = "tbody";
-    expectedOptions[2] = "tbody";
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("table");
-    nodeList = doc.getElementsByTagName("table");
+    var expectedOptions = ['TBODY', 'TBODY', 'TBODY'];
+    var doc = load("table");
+    var nodeList = doc.getElementsByTagName("table");
     test.equal(nodeList.length, 3, 'Asize');
-    testNode = nodeList.item(2);
-    tbodiesnodeList = testNode.tBodies;
-    for(var indexN10066 = 0;indexN10066 < tbodiesnodeList.length; indexN10066++) {
-      vtbodies = tbodiesnodeList.item(indexN10066);
-      tbodiesName = vtbodies.nodeName;
-      result[result.length] = tbodiesName;
+    var tbodies = nodeList.item(2).tBodies;
+    var result = [];
+    for(var i=0;i<tbodies.length;i++) {
+      result.push(tbodies.item(i).nodeName);
     }
-    assertEqualsListAutoCase("element", "tbodiesLink",expectedOptions,result);
+    test.deepEqual(result, expectedOptions, 'tbodiesLink');
     test.done();
   },
 
