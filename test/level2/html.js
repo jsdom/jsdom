@@ -1673,7 +1673,7 @@ exports.tests = {
     formsnodeList = testNode.elements;
     formNode = formsnodeList.namedItem("select1");
     vname = formNode.nodeName;
-    assertEqualsAutoCase("element", "nameIndexLink","SELECT",vname);
+    test.equal(vname, 'SELECT', 'nameIndexLink');
     test.done();
   },
 
@@ -1707,7 +1707,7 @@ exports.tests = {
     formsnodeList = testNode.elements;
     formNode = formsnodeList.namedItem("selectId");
     vname = formNode.nodeName;
-    assertEqualsAutoCase("element", "nameIndexLink","select",vname);
+    test.equal(vname, 'SELECT', 'nameIndexLink');
     test.done();
   },
 
@@ -1952,7 +1952,7 @@ exports.tests = {
     formsnodeList = testNode.elements;
     formNode = formsnodeList.namedItem("select1");
     vname = formNode.nodeName;
-    assertEqualsAutoCase("element", "nameIndexLink","SELECT",vname);
+    test.equal(vname, 'SELECT', 'nameIndexLink');
     test.done();
   },
 
@@ -1988,7 +1988,7 @@ exports.tests = {
     formsnodeList = testNode.elements;
     formNode = formsnodeList.namedItem("selectId");
     vname = formNode.nodeName;
-    assertEqualsAutoCase("element", "nameIndexLink","select",vname);
+    test.equal(vname, 'SELECT', 'nameIndexLink');
     test.done();
   },
 
@@ -2463,7 +2463,7 @@ exports.tests = {
     doc = load("document");
     elementNode = doc.getElementById("mapid");
     elementValue = elementNode.nodeName;
-    assertEqualsAutoCase("element", "elementId","map",elementValue);
+    test.equal(elementValue, 'MAP', 'elementId');
     test.done();
   },
 
@@ -11033,7 +11033,7 @@ exports.tests = {
     formsnodeList = testNode.elements;
     optionsNode = formsnodeList.namedItem("select1");
     vname = optionsNode.nodeName;
-    assertEqualsAutoCase("element", "nameIndexLink","select",vname);
+    test.equal(vname, 'SELECT', 'nameIndexLink');
     test.done();
   },
 
@@ -11073,7 +11073,7 @@ exports.tests = {
     formsnodeList = testNode.elements;
     optionsNode = formsnodeList.namedItem("selectId");
     vname = optionsNode.nodeName;
-    assertEqualsAutoCase("element", "nameIndexLink","select",vname);
+    test.equal(vname, 'SELECT', 'nameIndexLink');
     test.done();
   },
 
