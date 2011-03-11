@@ -108,21 +108,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-88517319
    */
   HTMLAnchorElement04: function(test) {
-    var success;
-    var nodeList;
-    var testNode;
-    var vhref;
-    var doc;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("anchor");
-    nodeList = doc.getElementsByTagName("a");
+    var doc = load("anchor");
+    var nodeList = doc.getElementsByTagName("a");
     test.equal(nodeList.length, 1, 'Asize');
-    testNode = nodeList.item(0);
-    vhref = testNode.href;
-    assertURIEquals("hrefLink",null,null,null,"submit.gif",null,null,null,null,vhref);
+    test.equal(nodeList.item(0).href, 'html/files/pix/submit.gif', 'hrefLink');
     test.done();
   },
 
@@ -784,21 +773,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-34672936
    */
   HTMLAreaElement04: function(test) {
-    var success;
-    var nodeList;
-    var testNode;
-    var vhref;
-    var doc;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("area");
-    nodeList = doc.getElementsByTagName("area");
+    var doc = load("area");
+    var nodeList = doc.getElementsByTagName("area");
     test.equal(nodeList.length, 1, 'Asize');
-    testNode = nodeList.item(0);
-    vhref = testNode.href;
-    assertURIEquals("hrefLink",null,null,null,"dletter.html",null,null,null,null,vhref);
+    test.equal(nodeList.item(0).href, './files/dletter.html', 'hrefLink');
     test.done();
   },
 
@@ -1439,7 +1417,7 @@ exports.tests = {
     test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vform = testNode.form;
-    test.equal(formNullLink, null, 'formNullLink should be null');
+    test.equal(vform, null, 'vform should be null');
     test.done();
   },
 
@@ -1916,7 +1894,7 @@ exports.tests = {
     testNode = nodeList.item(0);
     rowsnodeList = testNode.rows;
     rowNode = rowsnodeList.item(5);
-    test.equal(rowIndexLink, null, 'rowIndexLink should be null');
+    test.equal(rowNode, null, 'rowNode should be null');
     test.done();
   },
 
@@ -2023,7 +2001,7 @@ exports.tests = {
     testNode = nodeList.item(0);
     formsnodeList = testNode.elements;
     formNode = formsnodeList.namedItem("select9");
-    test.equal(nameIndexLink, null, 'nameIndexLink should be null');
+    test.equal(formNode, null, 'formNode should be null');
     test.done();
   },
 
@@ -2491,7 +2469,7 @@ exports.tests = {
     }
     doc = load("document");
     elementNode = doc.getElementById("noid");
-    test.equal(elementId, null, 'elementId should be null');
+    test.equal(elementNode, null, 'elementNode should be null');
     test.done();
   },
 
@@ -2519,7 +2497,7 @@ exports.tests = {
       (bodyElem != null)
     ) {
       bodyChild = bodyElem.firstChild;
-      test.equal(bodyContainsChildren, null, 'bodyContainsChildren should be null');
+      test.equal(bodyChild, null, 'bodyChild should be null');
     }
     test.done();
   },
@@ -6772,7 +6750,7 @@ exports.tests = {
     test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vform = testNode.form;
-    test.equal(formNullLink, null, 'formNullLink should be null');
+    test.equal(vform, null, 'vform should be null');
     test.done();
   },
 
@@ -6827,7 +6805,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vface = testNode.face;
-    test.equal(vface, "arial,helvitica", "faceLink");
+    test.equal(vface, "arial,helvetica", "faceLink");
     test.done();
   },
 
@@ -6995,7 +6973,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vaction = testNode.action;
-    assertURIEquals("actionLink",null,null,null,"getData.pl",null,null,null,null,vaction);
+    test.equal(vaction, './files/getData.pl', 'actionLink');
     test.done();
   },
 
@@ -7577,7 +7555,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vprofile = testNode.profile;
-    assertURIEquals("profileLink",null,null,null,"profile",null,null,null,null,vprofile);
+    test.equal(vprofile, 'http://www.w3.org/2004/07/profile', 'profileLink');
     test.done();
   },
 
@@ -8306,7 +8284,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vlongdesc = testNode.longDesc;
-    assertURIEquals("longDescLink",null,null,null,"desc.html",null,null,null,null,vlongdesc);
+    test.equal(vlongdesc, './files/desc.html', 'longDescLink');
     test.done();
   },
 
@@ -8333,7 +8311,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vsrc = testNode.src;
-    assertURIEquals("srcLink",null,null,null,"dts.gif",null,null,null,null,vsrc);
+    test.equal(vsrc, './pix/dts.gif', 'srcLink');
     test.done();
   },
 
@@ -8820,7 +8798,7 @@ exports.tests = {
     test.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(7);
     vsrc = testNode.src;
-    assertURIEquals("srcLink",null,null,null,"submit.gif",null,null,null,null,vsrc);
+    test.equal(vsrc, './pix/submit.gif', 'srcLink');
     test.done();
   },
 
@@ -9097,7 +9075,7 @@ exports.tests = {
     prompt = testNode.prompt;
     test.equal(prompt, "Old Employee: ", "IsIndex.Prompt");
     vform = testNode.form;
-    test.equal(formNullLink, null, 'formNullLink should be null');
+    test.equal(vform, null, 'vform should be null');
     test.equal(nodeList.length, 2, 'Asize');
     test.done();
   },
@@ -9237,7 +9215,7 @@ exports.tests = {
     test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vform = testNode.form;
-    test.equal(formNullLink, null, 'formNullLink should be null');
+    test.equal(vform, null, 'vform should be null');
     test.done();
   },
 
@@ -9352,7 +9330,7 @@ exports.tests = {
     test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vform = testNode.form;
-    test.equal(formNullLink, null, 'formNullLink should be null');
+    test.equal(vform, null, 'vform should be null');
     test.done();
   },
 
@@ -9489,7 +9467,7 @@ exports.tests = {
     test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vhref = testNode.href;
-    assertURIEquals("hrefLink",null,null,null,"glossary.html",null,null,null,null,vhref);
+    test.equal(vhref, './files/glossary.html', 'hrefLink');
     test.done();
   },
 
@@ -9871,7 +9849,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcite = testNode.cite;
-    assertURIEquals("citeLink",null,null,null,"ins-reasons.html",null,null,null,null,vcite);
+    test.equal(vcite, './files/ins-reasons.html', 'citeLink');
     test.done();
   },
 
@@ -9926,7 +9904,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcite = testNode.cite;
-    assertURIEquals("citeLink",null,null,null,"del-reasons.html",null,null,null,null,vcite);
+    test.equal(vcite, './files/del-reasons.html', 'citeLink');
     test.done();
   },
 
@@ -10263,7 +10241,7 @@ exports.tests = {
     test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vdata = testNode.data;
-    assertURIEquals("dataLink",null,null,null,"logo.gif",null,null,null,null,vdata);
+    test.equal(vdata, './pix/logo.gif', 'dataLink');
     test.done();
   },
 
@@ -10579,7 +10557,7 @@ exports.tests = {
     test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vform = testNode.form;
-    test.equal(formNullLink, null, 'formNullLink should be null');
+    test.equal(vform, null, 'vform should be null');
     test.done();
   },
 
@@ -10606,7 +10584,7 @@ exports.tests = {
     nodeList = doc.getElementsByTagName("object");
     testNode = nodeList.item(1);
     cd = testNode.contentDocument;
-    test.equal(noContentDocument, null, 'noContentDocument should be null');
+    test.equal(cd, null, 'cd should be null');
     test.done();
   },
 
@@ -10720,7 +10698,7 @@ exports.tests = {
     test.equal(nodeList.length, 10, 'Asize');
     testNode = nodeList.item(6);
     vform = testNode.form;
-    test.equal(formNullLink, null, 'formNullLink should be null');
+    test.equal(vform, null, 'vform should be null');
     test.done();
   },
 
@@ -11114,7 +11092,7 @@ exports.tests = {
     testNode = nodeList.item(0);
     formsnodeList = testNode.elements;
     optionsNode = formsnodeList.namedItem("select9");
-    test.equal(nameIndexLink, null, 'nameIndexLink should be null');
+    test.equal(optionsNode, null, 'optionsNode should be null');
     test.done();
   },
 
@@ -11152,7 +11130,7 @@ exports.tests = {
     testNode = nodeList.item(0);
     optionsList = testNode.options;
     optionsNode = optionsList.item(10);
-    test.equal(optionsIndexLink, null, 'optionsIndexLink should be null');
+    test.equal(optionsNode, null, 'optionsNode should be null');
     test.done();
   },
 
@@ -11273,7 +11251,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vvalue = testNode.value;
-    assertURIEquals("valueLink",null,null,null,"file.gif",null,null,null,null,vvalue);
+    test.equal(vvalue, 'image/file.gif', 'valueLink');
     test.done();
   },
 
@@ -11384,7 +11362,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcite = testNode.cite;
-    assertURIEquals("citeLink",null,null,null,"Q.html",null,null,null,null,vcite);
+    test.equal(vcite, './files/Q.html', 'citeLink');
     test.done();
   },
 
@@ -11413,7 +11391,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcite = testNode.cite;
-    assertURIEquals("citeLink",null,null,null,"BLOCKQUOTE.html",null,null,null,null,vcite);
+    test.equal(vcite, './files/BLOCKQUOTE.html', 'citeLink');
     test.done();
   },
 
@@ -11523,7 +11501,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vsrc = testNode.src;
-    assertURIEquals("srcLink",null,null,null,"script1.js",null,null,null,null,vsrc);
+    test.equal(vsrc, './js/script1.js', 'srcLink');
     test.done();
   },
 
@@ -11802,7 +11780,7 @@ exports.tests = {
     test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vform = testNode.form;
-    test.equal(formNullLink, null, 'formNullLink should be null');
+    test.equal(vform, null, 'vform should be null');
     test.done();
   },
 
@@ -13579,7 +13557,7 @@ exports.tests = {
     test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vcaption = testNode.caption;
-    test.equal(captionLink, null, 'captionLink should be null');
+    test.equal(vcaption, null, 'vcaption should be null');
     test.done();
   },
 
@@ -13638,7 +13616,7 @@ exports.tests = {
     test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vsection = testNode.tHead;
-    test.equal(sectionLink, null, 'sectionLink should be null');
+    test.equal(vsection, null, 'vsection should be null');
     test.done();
   },
 
@@ -13697,7 +13675,7 @@ exports.tests = {
     test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vsection = testNode.tFoot;
-    test.equal(sectionLink, null, 'sectionLink should be null');
+    test.equal(vsection, null, 'vsection should be null');
     test.done();
   },
 
@@ -14059,7 +14037,7 @@ exports.tests = {
     test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vsection1 = testNode.tHead;
-    test.equal(vsection1Id, null, 'vsection1Id should be null');
+    test.equal(vsection1, null, 'vsection1 should be null');
     newHead = testNode.createTHead();
     vsection2 = testNode.tHead;
     test.notEqual(vsection2, null, 'vsection2 should not be null');
@@ -14176,7 +14154,7 @@ exports.tests = {
     test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vsection1 = testNode.tFoot;
-    test.equal(vsection1Id, null, 'vsection1Id should be null');
+    test.equal(vsection1, null, 'vsection1 should be null');
     newFoot = testNode.createTFoot();
     vsection2 = testNode.tFoot;
     test.notEqual(vsection2, null, 'vsection2 should not be null');
@@ -14291,7 +14269,7 @@ exports.tests = {
     test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(0);
     vsection1 = testNode.caption;
-    test.equal(vsection1Id, null, 'vsection1Id should be null');
+    test.equal(vsection1, null, 'vsection1 should be null');
     newCaption = testNode.createCaption();
     vsection2 = testNode.caption;
     test.notEqual(vsection2, null, 'vsection2 should not be null');
@@ -14363,7 +14341,7 @@ exports.tests = {
     test.notEqual(vsection1, null, 'vsection1 should not be null');
     testNode.deleteCaption();
     vsection2 = testNode.caption;
-    test.equal(vsection2Id, null, 'vsection2Id should be null');
+    test.equal(vsection2, null, 'vsection2 should be null');
     test.done();
   },
 
@@ -15238,7 +15216,7 @@ exports.tests = {
     test.equal(vcells, 7, "cellsLink2");
     trNode = cellsnodeList.item(0);
     cellNode = trNode.firstChild;
-    test.equal(value2Link, null, 'value2Link should be null');
+    test.equal(cellNode, null, 'cellNode should be null');
     test.done();
   },
 
@@ -15288,7 +15266,7 @@ exports.tests = {
     test.equal(vcells, 7, "cellsLink2");
     trNode = cellsnodeList.item(6);
     cellNode = trNode.firstChild;
-    test.equal(value2Link, null, 'value2Link should be null');
+    test.equal(cellNode, null, 'cellNode should be null');
     test.done();
   },
 
@@ -15633,7 +15611,7 @@ exports.tests = {
     test.equal(vcells, 7, "cellsLink2");
     trNode = cellsnodeList.item(6);
     cellNode = trNode.firstChild;
-    test.equal(value2Link, null, 'value2Link should be null');
+    test.equal(cellNode, null, 'cellNode should be null');
     test.done();
   },
 
@@ -16816,7 +16794,7 @@ exports.tests = {
     test.equal(nodeList.length, 3, 'Asize');
     testNode = nodeList.item(1);
     vform = testNode.form;
-    test.equal(formNullLink, null, 'formNullLink should be null');
+    test.equal(vform, null, 'vform should be null');
     test.done();
   },
 
@@ -17566,7 +17544,7 @@ exports.tests = {
     test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vform = testNode.form;
-    test.equal(formLink, null, 'formLink should be null');
+    test.equal(vform, null, 'vform should be null');
     test.done();
   },
 
@@ -17973,7 +17951,7 @@ exports.tests = {
     test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vform = testNode.form;
-    test.equal(formLink, null, 'formLink should be null');
+    test.equal(vform, null, 'vform should be null');
     test.done();
   },
 
@@ -18375,7 +18353,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcaption = testNode.caption;
-    test.equal(captionLink, null, 'captionLink should be null');
+    test.equal(vcaption, null, 'vcaption should be null');
     test.done();
   },
 
