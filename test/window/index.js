@@ -10,5 +10,12 @@ exports.tests = {
                window.document.innerHTML.indexOf("<meta>") > -1 &&
                window.document.innerHTML.indexOf("</meta>") === -1
                );
+  },
+  ensure_a_default_window_has_a_window_location_href : function() {
+    var rurl     = /^([\w\+\.\-]+:)\/\/([^\/?#:]*)(?::(\d+))?/,
+        urlParts = rurl.exec(window.location.href);
+console.log(window.location.href, urlParts)
+    assertTrue("url shouldnt be blank", urlParts.length > 1);
+
   }
 };

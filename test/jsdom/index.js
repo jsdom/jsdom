@@ -1,4 +1,6 @@
-var sys = require("sys");
+var sys = require("sys"),
+    path = require("path");
+    
 exports.tests = {
 
   build_window : function() {
@@ -23,7 +25,7 @@ exports.tests = {
 
   jquerify : function() {
     var jQueryFile = __dirname + "/../../example/jquery/jquery.js",
-        jQueryUrl = "http://code.jquery.com/jquery-1.4.2.min.js",
+        jQueryUrl = "http://code.jquery.com/jquery-1.4.4.min.js",
         caught = false,
         res = null;
 
@@ -38,7 +40,11 @@ exports.tests = {
       res = jQuery("#para .emph").text();
       res2 = jQuery("a.link .emph").text();
 
-      // TODO: there seems to be a problem when selecting from window.document.body
+      assertEquals("selecting from body",
+                   jQuery('p#para a.link',window.document.body).attr('class'),
+                   'link');
+
+      assertTrue('jQuery version 1.4.4', jQuery('body').jquery === '1.4.4');
 
       assertEquals("selector should work as expected", "ME", res);
       assertEquals("selector should work as expected", "ME", res2);
@@ -48,6 +54,160 @@ exports.tests = {
     jsdom.jQueryify(tmpWindow(), jQueryFile, testFunction);
     jsdom.jQueryify(tmpWindow(), jQueryUrl, testFunction);
   },
+
+  env_with_absolute_file : function() {
+    jsdom.env({
+      html : path.join(__dirname, 'files', 'env.html'),
+      scripts : [
+        path.join(__dirname, '..', '..', 'example', 'jquery', 'jquery.js')
+      ],
+      done : function(errors, window) {
+        assertNull('there should have been no errors', errors)
+        var $ = window.jQuery, text = 'Let\'s Rock!';
+        $('body').text(text);
+        assertEquals("jsdom.env() should load jquery, a document and add some text to the body.",
+                   $('body').text(), text);
+      }
+    });
+  },
+
+  env_with_html : function() {
+    var html = "<html><body><p>hello world!</p></body></html>";
+    jsdom.env({
+      html : html,
+      done : function(errors, window) {
+        assertNull("error should be null", errors);
+        assertNotNull("window should be valid", window.location);
+      }
+    })
+  },
+
+  env_with_non_existant_script : function() {
+    var html = "<html><body><p>hello world!</p></body></html>";
+    jsdom.env({
+      html    : html,
+      scripts : ['path/to/invalid.js', 'another/invalid.js'],
+      done    : function(errors, window) {
+        assertNotNull("error should not be null", errors);
+        assertEquals("errors is an array", errors.length, 2)
+        assertNotNull("window should be valid", window.location);
+      }
+    });
+  },
+
+  env_with_url : function() {
+    // spawn an http server
+    var
+    routes = {
+      "/js" : "window.attachedHere = 123",
+      "/html" : "<a href='/path/to/hello'>World</a>"
+    },
+    server = require("http").createServer(function(req, res) {
+      res.writeHead(200, {
+        "Content-length" : routes[req.url].length
+      });
+      res.end(routes[req.url]);
+    }),
+    html = "<html><body><p>hello world!</p></body></html>";
+
+    server.listen(64000);
+
+    jsdom.env({
+      html    : "http://127.0.0.1:64000/html",
+      scripts : "http://127.0.0.1:64000/js",
+      done    : function(errors, window) {
+        server.close();
+        assertNull("error should not be null", errors);
+        assertNotNull("window should be valid", window.location);
+        assertEquals("script should execute on our window", window.attachedHere, 123);
+        assertEquals("anchor text", window.document.getElementsByTagName("a").item(0).innerHTML, 'World');
+      }
+    });
+  },
+  
+  env_processArguments_invalid_args : function() {
+    var caught = 0;
+
+    try {
+      jsdom.env.processArguments();
+    } catch (e) {
+      caught++;
+    }
+
+    try {
+      jsdom.env.processArguments({});
+    } catch (e) {
+      caught++;
+    }
+
+    try {
+      jsdom.env.processArguments([{
+        html : 'abc123'
+      }]);
+    } catch (e) {
+      caught++;
+    }
+
+    try {
+      jsdom.env.processArguments([{
+        done : function() {}
+      }]);
+    } catch (e) {
+      caught++;
+    }
+
+    assertEquals("the previous ops should be caught", caught, 4);
+  },
+  
+  env_processArguments_config_object : function() {
+    var config = jsdom.env.processArguments([{
+      html : "",
+      done : function() {}
+    }]);
+
+    assertNotNull("has done", config.done);
+    assertNotNull("has html", config.html);
+  },
+
+  env_processArguments_object_and_callback : function() {
+    var config = jsdom.env.processArguments([{
+      html    : "",
+      scripts : ['path/to/some.js', 'another/path/to.js']
+    },
+    function() {}
+    ]);
+
+    assertNotNull("has done", config.done);
+    assertNotNull("has html", config.html);
+    assertEquals('has code', 2, config.scripts.length);
+  },
+
+  env_processArguments_all_args_no_config : function() {
+    var config = jsdom.env.processArguments([
+      "<html></html>",
+      ['script.js'],
+      function() {}
+    ]);
+
+    assertNotNull("has done", config.done);
+    assertNotNull("has html", config.html);
+    assertEquals('script length should be 1', 1, config.scripts.length);
+  },
+
+  env_processArguments_all_args_with_config : function() {
+    var config = jsdom.env.processArguments([
+      "<html></html>",
+      ['script.js'],
+      { features : [] },
+      function() {},
+    ]);
+
+    assertNotNull("has done", config.done);
+    assertNotNull("has html", config.html);
+    assertEquals('script length should be 1', 1, config.scripts.length);
+    assertNotNull("has config.features", config.config.features);
+  },
+  
   plain_window_document : function() {
     var window = (jsdom.createWindow());
     assertTrue("jsdom.createWindow() should create a documentless window",
@@ -63,7 +223,7 @@ exports.tests = {
     catch (e) {
       caught = e;
     }
-    assertEquals('Should throw HIERARCHY_ERR', 3, caught._code);
+    assertEquals('Should throw HIERARCHY_ERR', 3, caught.code);
   },
 
   apply_jsdom_features_at_build_time : function() {
@@ -74,6 +234,7 @@ exports.tests = {
         l = defaults.length;
 
     jsdom.applyDocumentFeatures(doc);
+
     for (i=0; i<l; i++) {
       assertTrue("Document has all of the default features",
                  doc.implementation.hasFeature(defaults[i]));
@@ -100,6 +261,7 @@ exports.tests = {
 </html>';
 
     var doc = jsdom.jsdom(html), doc2;
+
     doc.onload = function() {
       assertEquals("js should be executed",
                    'hello from javascript',
@@ -114,7 +276,7 @@ exports.tests = {
     });
 
     doc2.onload = function() {
-      assertEquals("js should not be executed",
+      assertEquals("js should not be executed (doc2)",
                    'hello from html',
                    doc2.getElementById("test").innerHTML);
     }
@@ -176,11 +338,26 @@ exports.tests = {
     assertSame("p and second-p", div.children.item(1), elements.item(1));
 
     var elements2 = div.querySelectorAll("p");
-    assertEquals("two results", 2, elements.length);
+    assertEquals("two results", 2, elements2.length);
     assertSame("p and first-p", div.children.item(0), elements2.item(0));
     assertSame("p and second-p", div.children.item(1), elements2.item(1));
+
+    var elements3 = div.querySelectorAll("#main p");
+    assertEquals("two results", 2, elements3.length);
+    assertSame("p and first-p", div.children.item(0), elements3.item(0));
+    assertSame("p and second-p", div.children.item(1), elements3.item(1));
+
+    var topNode = document.createElement('p'),
+        newNode = document.createElement('p');
+    topNode.id = "fuz";
+    newNode.id = "buz";
+
+    topNode.appendChild(newNode);
+    var elements4 = topNode.querySelectorAll("#fuz #buz");
+    assertEquals("one result", 1, elements4.length);
+    assertSame("newNode and first-p", newNode, elements4.item(0));
   },
-  
+
   scripts_share_a_global_context : function() {
     var window = jsdom.jsdom('<html><head><script type="text/javascript">\
 hello = "hello";\
@@ -198,7 +375,7 @@ bye = bye + "bye";\
    assertEquals("window should be the global context",
                 "goodbye", window.bye);
 
-   assertEquals('local vars should not leak out to the window', 
+   assertEquals('local vars should not leak out to the window',
                 123, window.abc);
 
    assertTrue('vars in a closure are safe', typeof window.hidden === 'undefined');
@@ -232,39 +409,39 @@ bye = bye + "bye";\
       function testRemote() {
         var url = 'http://example.com/path/to/docroot/index.html'
         var doc = jsdom.jsdom(html, null, {url: url});
-        assertEquals("Absolute URL should be left alone", 'http://example.com', 
+        assertEquals("Absolute URL should be left alone", 'http://example.com',
                      doc.getElementById("link1").href);
-        assertEquals("Relative URL should be resolved", 'http://example.com/local.html', 
+        assertEquals("Relative URL should be resolved", 'http://example.com/local.html',
                      doc.getElementById("link2").href);
-        assertEquals("Relative URL should be resolved", 'http://example.com/path/to/docroot/local.html', 
+        assertEquals("Relative URL should be resolved", 'http://example.com/path/to/docroot/local.html',
                      doc.getElementById("link3").href);
-        assertEquals("Relative URL should be resolved", 'http://example.com/path/local.html', 
+        assertEquals("Relative URL should be resolved", 'http://example.com/path/local.html',
                      doc.getElementById("link4").href);
-        assertEquals("Relative URL should be resolved", 'http://example.com/path/to/docroot/index.html#here', 
+        assertEquals("Relative URL should be resolved", 'http://example.com/path/to/docroot/index.html#here',
                      doc.getElementById("link5").href);
-        assertEquals("Relative URL should be resolved", 'http://example.com/protocol/avoidance.html', 
+        assertEquals("Relative URL should be resolved", 'http://example.com/protocol/avoidance.html',
                      doc.getElementById("link6").href);
       }
 
       function testBase() {
-        var url  = 'blahblahblah-invalid', 
+        var url  = 'blahblahblah-invalid',
             doc  = jsdom.jsdom(html, null, {url: url}),
             base = doc.createElement("base");
-            
+
         base.href = 'http://example.com/path/to/docroot/index.html';
         doc.getElementsByTagName("head").item(0).appendChild(base);
-        
-        assertEquals("Absolute URL should be left alone", 'http://example.com', 
+
+        assertEquals("Absolute URL should be left alone", 'http://example.com',
                      doc.getElementById("link1").href);
-        assertEquals("Relative URL should be resolved", 'http://example.com/local.html', 
+        assertEquals("Relative URL should be resolved", 'http://example.com/local.html',
                      doc.getElementById("link2").href);
-        assertEquals("Relative URL should be resolved", 'http://example.com/path/to/docroot/local.html', 
+        assertEquals("Relative URL should be resolved", 'http://example.com/path/to/docroot/local.html',
                      doc.getElementById("link3").href);
-        assertEquals("Relative URL should be resolved", 'http://example.com/path/local.html', 
+        assertEquals("Relative URL should be resolved", 'http://example.com/path/local.html',
                      doc.getElementById("link4").href);
-        assertEquals("Relative URL should be resolved", 'http://example.com/path/to/docroot/index.html#here', 
+        assertEquals("Relative URL should be resolved", 'http://example.com/path/to/docroot/index.html#here',
                      doc.getElementById("link5").href);
-        assertEquals("Relative URL should be resolved", 'http://example.com/protocol/avoidance.html', 
+        assertEquals("Relative URL should be resolved", 'http://example.com/protocol/avoidance.html',
                      doc.getElementById("link6").href);
       }
 
@@ -272,5 +449,49 @@ bye = bye + "bye";\
       testRemote();
 
       testBase();
-    },  
+    },
+    numeric_values : function() {
+
+      var html = '\
+            <html>\
+              <body>\
+                <td data-year="2011" data-month="0" data-day="9">\
+                  <a href="#" class=" ">9</a> \
+                </td>\
+              </body>\
+            </html>',
+          document = jsdom.jsdom(html),
+          a        = document.body.children.item(0);
+
+      a.innerHTML = 9;
+      a.setAttribute('id', 123);
+
+      assertTrue("Element stringify", "9" === a.innerHTML);
+      assertTrue("Attribute stringify",
+                 "123" === a.getAttributeNode('id').nodeValue);
+    },
+    auto_tostring : function() {
+      var fs     = require("fs"),
+          buffer = fs.readFileSync(__dirname + "/files/env.html"),
+          caught = false,
+          dom    = null,
+          count  = 0;
+
+      try {
+        dom = jsdom.jsdom(buffer);
+      } catch (e) {
+        caught = true;
+      }
+
+      assertFalse("buffer's should automatically be stringified", caught);
+      count = dom.documentElement.getElementsByTagName("*").length;
+      assertEquals("should parse as per usual", count, 3)
+    },
+
+    document_should_expose_location : function() {
+      var window = jsdom.jsdom("").createWindow();
+      assertTrue('document.location and window.location', 
+                   window.document.location === window.location);
+    }
+    
 };

@@ -1,3 +1,5 @@
 .DS_Store
 .svn
 .*.swp
+gmon.out
+v8.log

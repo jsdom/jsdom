@@ -31,12 +31,13 @@ global.builder = {
   testDirectory: ""
 };
 
+var fileCache = {};
 global.load = global.originalLoad = function(docRef, doc, name) {
   var file = "./" + global.builder.testDirectory +
              "/files/" + name + "." + global.builder.type,
-      fn = require(file);
+      fn = fileCache[file] || require(file);
 
-
+  fileCache[file] = fn;
   if (!fn[name]) {
     throw new Error("Test method " + name + " not found..");
   }
@@ -94,6 +95,13 @@ var suites = {
       global.builder.testDirectory = "level2/core";
     }
   },
+  "level2/extra" : { cases: require("./level2/extra").tests, setUp : function () {
+      mixin(global, require("../lib/jsdom/level2/core").dom.level2.core);
+      global.builder.contentType   = "text/xml";
+      global.builder.type          = "xml";
+      global.builder.testDirectory = "level2/extra";
+    }
+  },
   "level2/events" : { cases: require("./level2/events").tests, setUp : function() {
       mixin(global, require("../lib/jsdom/level2/events").dom.level2.events);
       global.events = require("../lib/jsdom/level2/events").dom.level2.events;
@@ -111,12 +119,12 @@ var suites = {
       global.load = function(docRef, doc, name) {
         var file     = __dirname + "/" + global.builder.testDirectory +
                        "/files/" + name + "." + global.builder.type,
-            contents = fs.readFileSync(file, 'utf8'),
+            contents = fileCache[file] || fs.readFileSync(file, 'utf8'),
 
             doc      = require("../lib/jsdom").jsdom(contents, null, {
               url : "file://" + file // fake out the tests
             });
-
+        fileCache[file] = contents;
         return doc;
       };
 

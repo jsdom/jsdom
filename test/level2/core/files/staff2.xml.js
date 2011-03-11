@@ -1,7 +1,7 @@
 var sys = require("sys"),
-    dom = require("../lib/jsdom/level1/core").dom.level1.core;
+    dom = require(__dirname + "/../../../../lib/jsdom/level2/core").dom.level2.core;
 
-exports.hc_staff = function() {
+exports.staff2 = function() {
 
   var doc = new dom.Document("html");
   var implementation = new dom.DOMImplementation(doc, {
@@ -19,11 +19,11 @@ exports.hc_staff = function() {
   //       http://www.w3schools.com/tags/ref_symbols.asp
   var entities = new dom.EntityNodeMap(
     doc,
-    doc.createEntityNode("alpha", "α"),
-    doc.createEntityNode("beta", "&#946;"),
-    doc.createEntityNode("gamma", "&#947;"),
-    doc.createEntityNode("delta", "&#948;"),
-    doc.createEntityNode("epsilon", "&#949;")
+    doc.createEntityNode("alpha", doc.createTextNode("α")),
+    doc.createEntityNode("beta", doc.createTextNode("&#946;")),
+    doc.createEntityNode("gamma", doc.createTextNode("&#947;")),
+    doc.createEntityNode("delta", doc.createTextNode("&#948;")),
+    doc.createEntityNode("epsilon", doc.createTextNode("&#949;"))
   );
 
   // <!ATTLIST acronym dir CDATA "ltr">
