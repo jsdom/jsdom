@@ -2,7 +2,7 @@ var fs = require('fs');
 var jsdom = require("../../lib/jsdom");
 var fileCache = {};
 var load = function(name) {
-  var file     = "./html/files/" + name + ".html",
+  var file     = __dirname + "/html/files/" + name + ".html",
       contents = fileCache[file] || fs.readFileSync(file, 'utf8'),
       doc      = jsdom.jsdom(contents, null, {url: "file://" + file });
   fileCache[file] = contents;
@@ -111,7 +111,7 @@ exports.tests = {
     var doc = load("anchor");
     var nodeList = doc.getElementsByTagName("a");
     test.equal(nodeList.length, 1, 'Asize');
-    test.equal(nodeList.item(0).href, 'html/files/pix/submit.gif', 'hrefLink');
+    test.equal(nodeList.item(0).href, __dirname+'/html/files/pix/submit.gif', 'hrefLink');
     test.done();
   },
 
@@ -2181,7 +2181,7 @@ exports.tests = {
     }
     doc = load("document");
     vurl = doc.URL;
-    assertURIEquals("URLLink",null,null,null,null,"document",null,null,true,vurl);
+    test.equal(vurl, 'file://'+__dirname+'/html/files/document.html', 'URLLink');
     test.done();
   },
 
@@ -2533,20 +2533,9 @@ exports.tests = {
     var doc;
     var docElem;
     var title;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load("document");
     doc.open();
-    if(
-      (builder.contentType == "text/html")
-    ) {
-      doc.write("&lt;html>");
-    }
-    else {
-      doc.write("&lt;html xmlns='http://www.w3.org/1999/xhtml'>");
-    }
+    doc.write("&lt;html>");
     doc.write("&lt;body>");
     doc.write("&lt;title>Replacement&lt;/title>");
     doc.write("&lt;/body>");
@@ -2572,20 +2561,9 @@ exports.tests = {
     var doc;
     var docElem;
     var title;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load("document");
     doc.open();
-    if(
-      (builder.contentType == "text/html")
-    ) {
-      doc.writeln("&lt;html>");
-    }
-    else {
-      doc.writeln("&lt;html xmlns='http://www.w3.org/1999/xhtml'>");
-    }
+    doc.writeln("&lt;html>");
     doc.writeln("&lt;body>");
     doc.writeln("&lt;title>Replacement&lt;/title>");
     doc.writeln("&lt;/body>");
@@ -2608,27 +2586,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-35318390
    */
   HTMLDocument21: function(test) {
-    var success;
-    var doc;
-    var docElem;
-    var preElems;
-    var preElem;
-    var preText;
-    var preValue;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("document");
+    var doc = load("document");
     doc.open();
-    if(
-      (builder.contentType == "text/html")
-    ) {
-      doc.writeln("&lt;html>");
-    }
-    else {
-      doc.writeln("&lt;html xmlns='http://www.w3.org/1999/xhtml'>");
-    }
+    doc.writeln("&lt;html>");
     doc.writeln("&lt;body>");
     doc.writeln("&lt;title>Replacement&lt;/title>");
     doc.writeln("&lt;/body>");
@@ -7330,7 +7290,7 @@ exports.tests = {
     test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vsrc = testNode.src;
-    assertURIEquals("srcLink",null,null,null,null,"right",null,null,null,vsrc);
+    test.equal(vsrc, './img/right.png', 'srcLink');
     test.done();
   },
 
@@ -7732,25 +7692,16 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-9383775
    */
   HTMLHtmlElement01: function(test) {
-    var success;
     var nodeList;
     var testNode;
     var vversion;
     var doc;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load("html");
     nodeList = doc.getElementsByTagName("html");
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vversion = testNode.version;
-    if(
-      (builder.contentType == "text/html")
-    ) {
-      test.equal(vversion, "-//W3C//DTD HTML 4.01 Transitional//EN", "versionLink");
-    }
+    test.equal(vversion, "-//W3C//DTD HTML 4.01 Transitional//EN", "versionLink");
     test.done();
   },
 
@@ -8008,7 +7959,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vsrc = testNode.src;
-    assertURIEquals("srcLink",null,null,null,null,"right",null,null,null,vsrc);
+    test.equal(vsrc, './img/right.png', 'srcLink');
     test.done();
   },
 
@@ -10184,7 +10135,8 @@ exports.tests = {
     test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vcodebase = testNode.codeBase;
-    assertURIEquals("codebaseLink",null,"//xw2k.sdct.itl.nist.gov/brady/dom/",null,null,null,null,null,null,vcodebase);
+    // assertURIEquals("codebaseLink",null,"//xw2k.sdct.itl.nist.gov/brady/dom/",null,null,null,null,null,null,vcodebase);
+	test.equal(vcodebase, 'http://xw2k.sdct.itl.nist.gov/brady/dom/', 'codebaseLink');
     test.done();
   },
 
@@ -17311,7 +17263,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vhref = testNode.href;
-    assertURIEquals("hrefLink",null,null,null,"submit.gif",null,null,null,true,vhref);
+    test.equal(vhref, __dirname+'/html/files/pix/submit.gif', 'hrefLink');
     test.done();
   },
 
