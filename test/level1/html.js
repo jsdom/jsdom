@@ -3557,37 +3557,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    */
   hc_elementgetelementsbytagnamespecialvalue: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var lastEmployee;
-    var lastempList;
-    var child;
-    var childName;
-    var result = new Array();
-
-    expectedResult = new Array();
-    expectedResult[0] = "em";
-    expectedResult[1] = "strong";
-    expectedResult[2] = "code";
-    expectedResult[3] = "sup";
-    expectedResult[4] = "var";
-    expectedResult[5] = "acronym";
-
-
-    doc = hc_staff.hc_staff();
-    elementList = doc.getElementsByTagName("p");
-    lastEmployee = elementList.item(4);
-    lastempList = lastEmployee.getElementsByTagName("*");
-    for(var indexN10067 = 0;indexN10067 < lastempList.length; indexN10067++) {
-      child = lastempList.item(indexN10067);
-      childName = child.nodeName;
-
-      result[result.length] = childName;
-
+    var doc = hc_staff.hc_staff();
+    var lastempList = doc.getElementsByTagName("p").item(4).getElementsByTagName("*");
+    var actual = [];
+    for(var i=0;i<lastempList.length;i++) {
+      actual.push(lastempList.item(i).nodeName);
     }
-    assertEqualsListAutoCase("element", "tagNames",expectedResult,result);
-
+    test.deepEqual(actual, ["EM", "STRONG", "CODE", "SUP", "VAR", "ACRONYM"], 'element tagNames');
     test.done();
   },
 
@@ -4701,62 +4677,24 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
   hc_nodeappendchildchildexists: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var childList;
-    var childNode;
-    var newChild;
-    var memberNode;
-    var memberName;
-    var refreshedActual = new Array();
-
-    var actual = new Array();
-
-    var nodeType;
-    expected = new Array();
-    expected[0] = "strong";
-    expected[1] = "code";
-    expected[2] = "sup";
-    expected[3] = "var";
-    expected[4] = "acronym";
-    expected[5] = "em";
-
-    var appendedChild;
-
-    doc = hc_staff.hc_staff();
-    elementList = doc.getElementsByTagName("p");
-    childNode = elementList.item(1);
-    childList = childNode.getElementsByTagName("*");
-    newChild = childList.item(0);
-    appendedChild = childNode.appendChild(newChild);
-    for(var indexN10085 = 0;indexN10085 < childList.length; indexN10085++) {
-      memberNode = childList.item(indexN10085);
-      memberName = memberNode.nodeName;
-
-      actual[actual.length] = memberName;
-
+    var expected = ["STRONG", "CODE", "SUP", "VAR", "ACRONYM", "EM"];
+    var doc = hc_staff.hc_staff();
+    var childNode = doc.getElementsByTagName("p").item(1);
+    var childList = childNode.getElementsByTagName("*");
+    childNode.appendChild(childList.item(0));
+    var actual = [];
+    for(var i=0;i<childList.length;i++) {
+      actual.push(childList.item(i).nodeName);
     }
-    assertEqualsListAutoCase("element", "liveByTagName",expected,actual);
+    test.deepEqual(actual, expected, 'element liveByTagName');
     childList = childNode.childNodes;
-
-    for(var indexN1009C = 0;indexN1009C < childList.length; indexN1009C++) {
-      memberNode = childList.item(indexN1009C);
-      nodeType = memberNode.nodeType;
-
-
-      if(
-        (1 == nodeType)
-      ) {
-        memberName = memberNode.nodeName;
-
-        refreshedActual[refreshedActual.length] = memberName;
-
+    var refreshedActual = [];
+    for(var i=0;i<childList.length;i++) {
+      if (1 == childList.item(i).nodeType) {
+        refreshedActual.push(childList.item(i).nodeName);
       }
-
     }
-    assertEqualsListAutoCase("element", "refreshedChildNodes",expected,refreshedActual);
-
+    test.deepEqual(refreshedActual, expected, 'element refreshedChildNodes');
     test.done();
   },
 
@@ -4791,16 +4729,7 @@ exports.tests = {
 
     var appendedChild;
     var nodeType;
-    expected = new Array();
-    expected[0] = "em";
-    expected[1] = "strong";
-    expected[2] = "code";
-    expected[3] = "sup";
-    expected[4] = "var";
-    expected[5] = "acronym";
-    expected[6] = "br";
-    expected[7] = "b";
-
+    expected = ["EM", "STRONG", "CODE", "SUP", "VAR", "ACRONYM", "BR", "B"];
 
     doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
@@ -4828,7 +4757,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "nodeNames",expected,result);
+    test.deepEqual(result, expected, 'element nodeNames');
 
     test.done();
   },
@@ -5103,14 +5032,7 @@ exports.tests = {
     var childName;
     var actual = new Array();
 
-    expected = new Array();
-    expected[0] = "em";
-    expected[1] = "strong";
-    expected[2] = "code";
-    expected[3] = "sup";
-    expected[4] = "var";
-    expected[5] = "acronym";
-
+    expected = ["EM", "STRONG", "CODE", "SUP", "VAR", "ACRONYM"];
 
     doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
@@ -5137,7 +5059,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "elementNames",expected,actual);
+    test.deepEqual(actual, expected, 'element elementNames');
 
     test.done();
   },
@@ -5174,15 +5096,7 @@ exports.tests = {
     var textNode;
     var actual = new Array();
 
-    expected = new Array();
-    expected[0] = "em";
-    expected[1] = "strong";
-    expected[2] = "code";
-    expected[3] = "sup";
-    expected[4] = "var";
-    expected[5] = "acronym";
-    expected[6] = "br";
-
+    expected = ["EM", "STRONG", "CODE", "SUP", "VAR", "ACRONYM", "BR"];
 
     doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
@@ -5211,7 +5125,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "childElements",expected,actual);
+    test.deepEqual(actual, expected, 'element childElements');
 
     test.done();
   },
@@ -5424,7 +5338,7 @@ exports.tests = {
       result[result.length] = clonedChildName;
 
     }
-    assertEqualsList("clone",expected,result);
+    test.deepEqual(result, expected, 'clone');
 
     test.done();
   },
@@ -6315,15 +6229,7 @@ exports.tests = {
     var insertedNode;
     var actual = new Array();
 
-    expected = new Array();
-    expected[0] = "em";
-    expected[1] = "strong";
-    expected[2] = "code";
-    expected[3] = "br";
-    expected[4] = "sup";
-    expected[5] = "var";
-    expected[6] = "acronym";
-
+    expected = ["EM", "STRONG", "CODE", "BR", "SUP", "VAR", "ACRONYM"];
     var nodeType;
 
     doc = hc_staff.hc_staff();
@@ -6350,7 +6256,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "nodeNames",expected,actual);
+    test.deepEqual(actual, expected, 'element nodeNames');
 
     test.done();
   },
@@ -6484,14 +6390,7 @@ exports.tests = {
     var child;
     var childName;
     var insertedNode;
-    expected = new Array();
-    expected[0] = "strong";
-    expected[1] = "code";
-    expected[2] = "sup";
-    expected[3] = "var";
-    expected[4] = "em";
-    expected[5] = "acronym";
-
+    expected = ["STRONG", "CODE", "SUP", "VAR", "EM", "ACRONYM"];
     var result = new Array();
 
     var nodeType;
@@ -6518,7 +6417,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "childNames",expected,result);
+    test.deepEqual(result, expected, 'element childNames');
 
     test.done();
   },
@@ -6826,14 +6725,7 @@ exports.tests = {
     var nodeType;
     var result = new Array();
 
-    expected = new Array();
-    expected[0] = "em";
-    expected[1] = "strong";
-    expected[2] = "code";
-    expected[3] = "sup";
-    expected[4] = "var";
-    expected[5] = "acronym";
-
+    expected = ["EM", "STRONG", "CODE", "SUP", "VAR", "ACRONYM"];
 
     doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
@@ -6861,7 +6753,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "nodeNames",expected,result);
+    test.deepEqual(result, expected, 'element nodeNames');
 
     test.done();
   },
@@ -7223,7 +7115,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "childNames",expected,actual);
+    test.deepEqual(actual, expected, 'element childNames');
 
     test.done();
   },
@@ -7795,12 +7687,12 @@ exports.tests = {
     if(
       (1 == length)
     ) {
-      assertEqualsList("assertEqCoalescing",expectedExpanded,result);
+      test.deepEqual(result, expectedExpanded, 'assertEqCoalescing');
 
     }
 
     else {
-      assertEqualsList("assertEqNormal",expectedNormal,result);
+      test.deepEqual(result, expectedNormal, 'assertEqNormal');
 
     }
 
