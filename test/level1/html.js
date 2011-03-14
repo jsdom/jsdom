@@ -40,7 +40,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 9);
     }
-    assertTrue("throw_NOT_SUPPORTED_ERR",success);
+    test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     test.done();
   },
 
@@ -63,7 +63,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 9);
     }
-    assertTrue("throw_NOT_SUPPORTED_ERR",success);
+    test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     test.done();
   },
 
@@ -90,7 +90,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 9);
     }
-    assertTrue("throw_NOT_SUPPORTED_ERR",success);
+    test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     test.done();
   },
 
@@ -114,7 +114,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 9);
     }
-    assertTrue("throw_NOT_SUPPORTED_ERR",success);
+    test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     test.done();
   },
 
@@ -183,7 +183,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 3);
     }
-    assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+    test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     test.done();
   },
 
@@ -257,7 +257,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 9);
     }
-    assertTrue("throw_NOT_SUPPORTED_ERR",success);
+    test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     test.done();
   },
 
@@ -281,7 +281,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 4);
     }
-    assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+    test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     test.done();
   },
 
@@ -720,7 +720,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 9);
     }
-    assertTrue("throw_NOT_SUPPORTED_ERR",success);
+    test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     test.done();
   },
 
@@ -751,7 +751,7 @@ exports.tests = {
     titleAttr = attributes.getNamedItem("title");
 
     hasChildNodes = titleAttr.hasChildNodes();
-    assertTrue("hasChildrenIsTrue",hasChildNodes);
+    test.ok(hasChildNodes, 'hasChildrenIsTrue');
 
     test.done();
   },
@@ -1007,7 +1007,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 9);
     }
-    assertTrue("throw_NOT_SUPPORTED_ERR",success);
+    test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     test.done();
   },
 
@@ -1031,7 +1031,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 4);
     }
-    assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+    test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     test.done();
   },
 
@@ -1051,7 +1051,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 9);
     }
-    assertTrue("throw_NOT_SUPPORTED_ERR",success);
+    test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     test.done();
   },
 
@@ -1347,7 +1347,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 8);
     }
-    assertTrue("throw_NOT_FOUND_ERR",success);
+    test.ok(success, 'throw_NOT_FOUND_ERR');
     test.done();
   },
 
@@ -1591,7 +1591,7 @@ exports.tests = {
     domesticAttr = attributes.getNamedItem("title");
     state = domesticAttr.specified;
 
-    assertTrue("acronymTitleSpecified",state);
+    test.ok(state, 'acronymTitleSpecified');
 
     test.done();
   },
@@ -1629,7 +1629,7 @@ exports.tests = {
     streetAttr = attributes.getNamedItem("class");
     state = streetAttr.specified;
 
-    assertTrue("acronymClassSpecified",state);
+    test.ok(state, 'acronymClassSpecified');
 
     test.done();
   },
@@ -2009,7 +2009,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
-    assertTrue("throws_INDEX_SIZE_ERR",success);
+    test.ok(success, 'throws_INDEX_SIZE_ERR');
     test.done();
   },
 
@@ -2042,7 +2042,7 @@ exports.tests = {
     catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
-    assertTrue("throw_INDEX_SIZE_ERR",success);
+    test.ok(success, 'throw_INDEX_SIZE_ERR');
     test.done();
   },
 
@@ -2072,7 +2072,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
-    assertTrue("throws_INDEX_SIZE_ERR",success);
+    test.ok(success, 'throws_INDEX_SIZE_ERR');
     test.done();
   },
 
@@ -2103,7 +2103,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
-    assertTrue("throw_INDEX_SIZE_ERR",success);
+    test.ok(success, 'throw_INDEX_SIZE_ERR');
     test.done();
   },
 
@@ -2132,7 +2132,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
-    assertTrue("throws_INDEX_SIZE_ERR",success);
+    test.ok(success, 'throws_INDEX_SIZE_ERR');
     test.done();
   },
 
@@ -2163,7 +2163,7 @@ exports.tests = {
     catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
-    assertTrue("throws_INDEX_SIZE_ERR",success);
+    test.ok(success, 'throws_INDEX_SIZE_ERR');
     test.done();
   },
 
@@ -2195,7 +2195,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
-    assertTrue("throw_INDEX_SIZE_ERR",success);
+    test.ok(success, 'throw_INDEX_SIZE_ERR');
     test.done();
   },
 
@@ -2226,7 +2226,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
-    assertTrue("throws_INDEX_SIZE_ERR",success);
+    test.ok(success, 'throws_INDEX_SIZE_ERR');
     test.done();
   },
 
@@ -2255,7 +2255,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
-    assertTrue("throws_INDEX_SIZE_ERR",success);
+    test.ok(success, 'throws_INDEX_SIZE_ERR');
     test.done();
   },
 
@@ -2284,7 +2284,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
-    assertTrue("throws_INDEX_SIZE_ERR",success);
+    test.ok(success, 'throws_INDEX_SIZE_ERR');
     test.done();
   },
 
@@ -2315,7 +2315,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
-    assertTrue("throw_INDEX_SIZE_ERR",success);
+    test.ok(success, 'throw_INDEX_SIZE_ERR');
     test.done();
   },
 
@@ -2778,11 +2778,7 @@ exports.tests = {
       }
 
     }
-    assertTrue("atMostOneComment",
-
-               (commentCount < 2)
-              );
-
+    test.ok(commentCount < 2, 'atMostOneComment');
     test.done();
   },
 
@@ -3268,12 +3264,12 @@ exports.tests = {
       (builder.contentType == "text/html")
 
     ) {
-      assertTrue("supports_HTML_1.0",htmlstate);
+      test.ok(htmlstate, 'supports_HTML_1.0');
 
     }
 
     else {
-      assertTrue("supports_XML_1.0",xmlstate);
+      test.ok(xmlstate, 'supports_XML_1.0');
 
     }
 
@@ -3345,7 +3341,7 @@ exports.tests = {
     catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 5);
     }
-    assertTrue("throw_INVALID_CHARACTER_ERR",success);
+    test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     test.done();
   },
 
@@ -3368,7 +3364,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 5);
     }
-    assertTrue("throw_INVALID_CHARACTER_ERR",success);
+    test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     test.done();
   },
 
@@ -3398,7 +3394,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 5);
     }
-    assertTrue("throw_INVALID_CHARACTER_ERR",success);
+    test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     test.done();
   },
 
@@ -3421,7 +3417,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 5);
     }
-    assertTrue("throw_INVALID_CHARACTER_ERR",success);
+    test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     test.done();
   },
 
@@ -3461,7 +3457,7 @@ exports.tests = {
       state = domImpl.hasFeature("XML","");
 
     }
-    assertTrue("hasFeatureBlank",state);
+    test.ok(state, 'hasFeatureBlank');
 
     test.done();
   },
@@ -3496,13 +3492,13 @@ exports.tests = {
 
     ) {
       state = domImpl.hasFeature("HTML",null);
-      assertTrue("supports_HTML_null",state);
+      test.ok(state, 'supports_HTML_null');
 
     }
 
     else {
       state = domImpl.hasFeature("XML",null);
-      assertTrue("supports_XML_null",state);
+      test.ok(state, 'supports_XML_null');
 
     }
 
@@ -3536,13 +3532,13 @@ exports.tests = {
 
     ) {
       state = domImpl.hasFeature("html","1.0");
-      assertTrue("supports_html_1.0",state);
+      test.ok(state, 'supports_html_1.0');
 
     }
 
     else {
       state = domImpl.hasFeature("xml","1.0");
-      assertTrue("supports_xml_1.0",state);
+      test.ok(state, 'supports_xml_1.0');
 
     }
 
@@ -3610,7 +3606,7 @@ exports.tests = {
     domesticAttr = attributes.getNamedItem("title");
     specified = domesticAttr.specified;
 
-    assertTrue("acronymTitleSpecified",specified);
+    test.ok(specified, 'acronymTitleSpecified');
 
     test.done();
   },
@@ -4008,7 +4004,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 10);
     }
-    assertTrue("throw_INUSE_ATTRIBUTE_ERR",success);
+    test.ok(success, 'throw_INUSE_ATTRIBUTE_ERR');
     test.done();
   },
 
@@ -4037,7 +4033,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 5);
     }
-    assertTrue("throw_INVALID_CHARACTER_ERR",success);
+    test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     test.done();
   },
 
@@ -4060,7 +4056,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 5);
     }
-    assertTrue("throw_INVALID_CHARACTER_ERR",success);
+    test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     test.done();
   },
 
@@ -4177,7 +4173,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 8);
     }
-    assertTrue("throw_NOT_FOUND_ERR",success);
+    test.ok(success, 'throw_NOT_FOUND_ERR');
     test.done();
   },
 
@@ -4577,7 +4573,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 4);
     }
-    assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+    test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     test.done();
   },
 
@@ -4730,7 +4726,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 10);
     }
-    assertTrue("throw_INUSE_ATTRIBUTE_ERR",success);
+    test.ok(success, 'throw_INUSE_ATTRIBUTE_ERR');
     test.done();
   },
 
@@ -4761,7 +4757,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 8);
     }
-    assertTrue("throw_NOT_FOUND_ERR",success);
+    test.ok(success, 'throw_NOT_FOUND_ERR');
     test.done();
   },
 
@@ -5270,7 +5266,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 4);
     }
-    assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+    test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     test.done();
   },
 
@@ -5527,7 +5523,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 3);
     }
-    assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+    test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     test.done();
   },
 
@@ -5561,7 +5557,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 4);
     }
-    assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+    test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     test.done();
   },
 
@@ -5592,7 +5588,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 3);
     }
-    assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+    test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     test.done();
   },
 
@@ -7094,7 +7090,7 @@ exports.tests = {
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     state = employeeNode.hasChildNodes();
-    assertTrue("nodeHasChildAssert1",state);
+    test.ok(state, 'nodeHasChildAssert1');
 
     test.done();
   },
@@ -7124,10 +7120,8 @@ exports.tests = {
     emList = doc.getElementsByTagName("em");
     emNode = emList.item(0);
     emText = emNode.firstChild;
-
     hasChild = emText.hasChildNodes();
-    assertFalse("hasChild",hasChild);
-
+    test.equal(hasChild, false, 'hasChild');
     test.done();
   },
 
@@ -7288,7 +7282,7 @@ exports.tests = {
     catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 3);
     }
-    assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+    test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     test.done();
   },
 
@@ -7323,7 +7317,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 4);
     }
-    assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+    test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     test.done();
   },
 
@@ -7421,7 +7415,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 3);
     }
-    assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+    test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     test.done();
   },
 
@@ -7497,7 +7491,7 @@ exports.tests = {
     catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 8);
     }
-    assertTrue("throw_NOT_FOUND_ERR",success);
+    test.ok(success, 'throw_NOT_FOUND_ERR');
     test.done();
   },
 
@@ -8127,7 +8121,7 @@ exports.tests = {
     catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 8);
     }
-    assertTrue("throw_NOT_FOUND_ERR",success);
+    test.ok(success, 'throw_NOT_FOUND_ERR');
     test.done();
   },
 
@@ -8205,7 +8199,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 3);
     }
-    assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+    test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     test.done();
   },
 
@@ -8241,7 +8235,7 @@ exports.tests = {
     catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 4);
     }
-    assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+    test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     test.done();
   },
 
@@ -8344,7 +8338,7 @@ exports.tests = {
     catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 3);
     }
-    assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+    test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     test.done();
   },
 
@@ -8419,7 +8413,7 @@ exports.tests = {
     catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 8);
     }
-    assertTrue("throw_NOT_FOUND_ERR",success);
+    test.ok(success, 'throw_NOT_FOUND_ERR');
     test.done();
   },
 
@@ -8631,7 +8625,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 9);
     }
-    assertTrue("throw_NOT_SUPPORTED_ERR",success);
+    test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     test.done();
   },
 
@@ -8645,40 +8639,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A31
    */
   hc_nodevalue04: function(test) {
-    var success;
-    var doc;
-    var newNode;
-    var newValue;
-
-    doc = hc_staff.hc_staff();
-    newNode = doc.doctype;
-
-    assertTrue("docTypeNotNullOrDocIsHTML",
-
-               (
-                 (newNode != null)
-                   ||
-                   (builder.contentType == "text/html")
-               )
-              );
-
-    if(
-
-      (newNode != null)
-
-    ) {
-      test.notEqual(newNode, null, 'docTypeNotNull');
-      newValue = newNode.nodeValue;
-
-      test.equal(newValue, null, 'initiallyNull');
-      newNode.nodeValue = "This should have no effect";
-
-      newValue = newNode.nodeValue;
-
-      test.equal(newValue, null, 'nullAfterAttemptedChange');
-
-    }
-
+    var doc = hc_staff.hc_staff();
+    var newNode = doc.doctype;
+    test.notEqual(newNode, null, 'docTypeNotNullOrDocIsHTML');
+    test.notEqual(newNode, null, 'docTypeNotNull');
+    test.equal(newNode.nodeValue, null, 'initiallyNull');
+    newNode.nodeValue = "This should have no effect";
+    test.equal(newNode.nodeValue, null, 'nullAfterAttemptedChange');
     test.done();
   },
 
@@ -8886,7 +8853,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
-    assertTrue("throws_INDEX_SIZE_ERR",success);
+    test.ok(success, 'throws_INDEX_SIZE_ERR');
     test.done();
   },
 
@@ -8917,7 +8884,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
-    assertTrue("throw_INDEX_SIZE_ERR",success);
+    test.ok(success, 'throw_INDEX_SIZE_ERR');
     test.done();
   },
 
