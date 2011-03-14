@@ -58,9 +58,9 @@ exports.tests = {
         var $ = window.jQuery, text = 'Let\'s Rock!';
         $('body').text(text);
         test.equal($('body').text(), text, 'jsdom.env() should load jquery, a document and add some text to the body');
+	test.done();
       }
     });
-	test.done();
   },
 
   env_with_html: function(test) {
@@ -70,9 +70,9 @@ exports.tests = {
       done: function(errors, window) {
 		test.equal(errors, null, 'errors should be null');
         test.notEqual(window.location, null, 'window.location should not be null');
+    test.done();
       }
     })
-    test.done();
   },
 
   env_with_non_existant_script: function(test) {
@@ -84,9 +84,9 @@ exports.tests = {
         test.notEqual(errors, null, 'errors should not be null');
         test.equal(errors.length, 2, 'errors is an array')
         test.notEqual(window.location, null, 'window.location should not be null');
+    test.done();
       }
     });
-    test.done();
   },
 
   env_with_url: function(test) {
@@ -95,21 +95,21 @@ exports.tests = {
         server = require("http").createServer(function(req, res) {
           res.writeHead(200, {"Content-length": routes[req.url].length});
           res.end(routes[req.url]);
-        }),
-        html = "<html><body><p>hello world!</p></body></html>";
+        });
     server.listen(64000);
+    // server needs a few hundred milliseconds to get started...
     jsdom.env({
       html: "http://127.0.0.1:64000/html",
       scripts: "http://127.0.0.1:64000/js",
       done: function(errors, window) {
         server.close();
-		test.equal(errors, null, 'errors should be null');
+	test.equal(errors, null, 'errors should be null');
         test.notEqual(window.location, null, 'window.location should not be null');
         test.equal(window.attachedHere, 123, 'script should execute on our window');
         test.equal(window.document.getElementsByTagName("a").item(0).innerHTML, 'World', 'anchor text');
+        test.done();
       }
     });
-    test.done();
   },
 
   env_processArguments_invalid_args: function(test) {
@@ -154,7 +154,7 @@ exports.tests = {
 
   plain_window_document: function(test) {
     var window = (jsdom.createWindow());
-    assertTrue("jsdom.createWindow() should create a documentless window", typeof window.document === 'undefined');
+	test.strictEqual(typeof window.document, 'undefined', 'jsdom.createWindow() should create a documentless window');
     test.done();
   },
 
@@ -182,11 +182,11 @@ exports.tests = {
         defaults = jsdom.defaultDocumentFeatures;
     jsdom.applyDocumentFeatures(doc);
     for (var i=0; i<defaults.length; i++) {
-      assertTrue("Document has all of the default features", doc.implementation.hasFeature(defaults[i]));
+      test.ok(doc.implementation.hasFeature(defaults[i]), 'Document has all of the default features');
     }
     jsdom.applyDocumentFeatures(doc2, {'FetchExternalResources': false});
-    assertTrue("Document has 'ProcessExternalResources'", doc2.implementation.hasFeature('ProcessExternalResources'));
-    assertFalse("Document does not have 'FetchExternalResources'", doc2.implementation.hasFeature('FetchExternalResources'));
+    test.ok(doc2.implementation.hasFeature('ProcessExternalResources'), 'Document has ProcessExternalResources');
+	test.equal(doc2.implementation.hasFeature('FetchExternalResources'), false, 'Document does not have \'FetchExternalResources\'');
     test.done();
   },
 
@@ -236,9 +236,9 @@ exports.tests = {
         document = jsdom.jsdom(html, null, {features: {'QuerySelector': true}}),
         div = document.body.children.item(0);
     var element = document.querySelector("#main p");
-    assertSame("p and first-p", div.children.item(0), element);
+    test.equal(element, div.children.item(0), 'p and first-p');
     var element2 = div.querySelector("p");
-    assertSame("p and first-p", div.children.item(0), element2);
+    test.equal(element2, div.children.item(0), 'p and first-p');
     test.done();
   },
 
@@ -249,16 +249,16 @@ exports.tests = {
         div = document.body.children.item(0),
         elements = document.querySelectorAll("#main p");
     test.equal(elements.length, 2, 'two results');
-    assertSame("p and first-p", div.children.item(0), elements.item(0));
-    assertSame("p and second-p", div.children.item(1), elements.item(1));
+    test.equal(elements.item(0), div.children.item(0), 'p and first-p');
+    test.equal(elements.item(1), div.children.item(1), 'p and second-p');
     var elements2 = div.querySelectorAll("p");
     test.equal(elements2.length, 2, 'two results');
-    assertSame("p and first-p", div.children.item(0), elements2.item(0));
-    assertSame("p and second-p", div.children.item(1), elements2.item(1));
+    test.equal(elements2.item(0), div.children.item(0), 'p and first-p');
+    test.equal(elements2.item(1), div.children.item(1), 'p and second-p');
     var elements3 = div.querySelectorAll("#main p");
     test.equal(elements3.length, 2, 'two results');
-    assertSame("p and first-p", div.children.item(0), elements3.item(0));
-    assertSame("p and second-p", div.children.item(1), elements3.item(1));
+    test.equal(elements3.item(0), div.children.item(0), 'p and first-p');
+    test.equal(elements3.item(1), div.children.item(1), 'p and second-p');
     var topNode = document.createElement('p'),
         newNode = document.createElement('p');
     topNode.id = "fuz";
@@ -266,7 +266,7 @@ exports.tests = {
     topNode.appendChild(newNode);
     var elements4 = topNode.querySelectorAll("#fuz #buz");
     test.equal(elements4.length, 1, 'one result');
-    assertSame("newNode and first-p", newNode, elements4.item(0));
+    test.equal(elements4.item(0), newNode, 'newNode and first-p');
     test.done();
   },
 
@@ -282,11 +282,11 @@ bye = bye + "bye";\
 (function() { var hidden = "hidden"; window.exposed = hidden; })();\
 </script></head><body></body></html>').createWindow();
 
-   test.equal(window.hello, "hello world", 'window should be the global context');
-   test.equal(window.bye, "goodbye", 'window should be the global context');
-   test.equal(window.abc, 123, 'local vars should not leak out to the window');
-   assertTrue('vars in a closure are safe', typeof window.hidden === 'undefined');
-   test.equal(window.exposed, 'hidden', 'vars exposed to the window are global');
+    test.equal(window.hello, "hello world", 'window should be the global context');
+    test.equal(window.bye, "goodbye", 'window should be the global context');
+    test.equal(window.abc, 123, 'local vars should not leak out to the window');
+    test.strictEqual(window.hidden, undefined, 'vars in a closure are safe');
+    test.equal(window.exposed, 'hidden', 'vars exposed to the window are global');
     test.done();
   },
 
@@ -359,8 +359,8 @@ bye = bye + "bye";\
         a = document.body.children.item(0);
     a.innerHTML = 9;
     a.setAttribute('id', 123);
-    assertTrue("Element stringify", "9" === a.innerHTML);
-    assertTrue("Attribute stringify", "123" === a.getAttributeNode('id').nodeValue);
+    test.strictEqual(a.innerHTML, '9', 'Element stringify');
+    test.strictEqual(a.getAttributeNode('id').nodeValue, '123', 'Attribute stringify');
     test.done();
   },
 
@@ -374,7 +374,7 @@ bye = bye + "bye";\
 
   document_should_expose_location: function(test) {
     var window = jsdom.jsdom("").createWindow();
-    assertTrue('document.location and window.location', window.document.location === window.location);
+    test.strictEqual(window.document.location, window.location, 'document.location and window.location');
     test.done();
   }
 };
