@@ -68,9 +68,9 @@ exports.tests = {
     jsdom.env({
       html: html,
       done: function(errors, window) {
-		test.equal(errors, null, 'errors should be null');
+	test.equal(errors, null, 'errors should be null');
         test.notEqual(window.location, null, 'window.location should not be null');
-    test.done();
+        test.done();
       }
     })
   },
@@ -84,7 +84,7 @@ exports.tests = {
         test.notEqual(errors, null, 'errors should not be null');
         test.equal(errors.length, 2, 'errors is an array')
         test.notEqual(window.location, null, 'window.location should not be null');
-    test.done();
+        test.done();
       }
     });
   },
@@ -164,8 +164,7 @@ exports.tests = {
       try {
         var doc = jsdom.jsdom();
         doc.appendChild(doc.createElement('html'));
-      }
-      catch (e) {
+      } catch (e) {
         test.equal(e.code, 3, 'Should throw HIERARCHY_ERR')
         code = e.code;
         throw(e);
@@ -186,7 +185,7 @@ exports.tests = {
     }
     jsdom.applyDocumentFeatures(doc2, {'FetchExternalResources': false});
     test.ok(doc2.implementation.hasFeature('ProcessExternalResources'), 'Document has ProcessExternalResources');
-	test.equal(doc2.implementation.hasFeature('FetchExternalResources'), false, 'Document does not have \'FetchExternalResources\'');
+    test.equal(doc2.implementation.hasFeature('FetchExternalResources'), false, 'Document does not have \'FetchExternalResources\'');
     test.done();
   },
 
@@ -194,7 +193,7 @@ exports.tests = {
     var html = '\
 <html>\
   <head>\
-    <script type="text/javascript" src="./jsdom/files/hello.js"></script>\
+    <script type="text/javascript" src="./files/hello.js"></script>\
   </head>\
   <body>\
     <span id="test">hello from html</span>\
