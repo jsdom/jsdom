@@ -1,3 +1,5 @@
+var hc_staff = require('./html/files/hc_staff.html');
+
 exports.tests = {
   /**
    *
@@ -10,21 +12,10 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A31
    */
-  documentgetdoctypenodtd : function () {
-    var success;
-    if(checkInitialization(builder, "documentgetdoctypenodtd") != null) return;
-    var doc;
-    var docType;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_nodtdstaff");
-    docType = doc.doctype;
-
-    assertNull("documentGetDocTypeNoDTDAssert",docType);
-
+  documentgetdoctypenodtd: function(test) {
+    var doc = require('./html/files/hc_nodtdstaff.html').hc_nodtdstaff();
+    test.equal(doc.doctype, null, 'documentGetDocTypeNoDTDAssert');
+    test.done();
   },
 
   /**
@@ -40,9 +31,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-392B75AE')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  documentinvalidcharacterexceptioncreateentref : function () {
+  documentinvalidcharacterexceptioncreateentref: function(test) {
     var badEntityRef;
-    var doc = load('', "doc", "hc_staff");
+    var doc = hc_staff.hc_staff();
     var success = false;
     try {
       badEntityRef = doc.createEntityReference("foo");
@@ -50,6 +41,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 9);
     }
     assertTrue("throw_NOT_SUPPORTED_ERR",success);
+    test.done();
   },
 
   /**
@@ -62,9 +54,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-392B75AE')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  documentinvalidcharacterexceptioncreateentref1 : function () {
+  documentinvalidcharacterexceptioncreateentref1: function(test) {
     var badEntityRef;
-    var doc = load('', "doc", "hc_staff");
+    var doc = hc_staff.hc_staff();
     var success = false;
     try {
       badEntityRef = doc.createEntityReference("foo");
@@ -72,6 +64,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 9);
     }
     assertTrue("throw_NOT_SUPPORTED_ERR",success);
+    test.done();
   },
 
   /**
@@ -87,10 +80,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-135944439')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  documentinvalidcharacterexceptioncreatepi : function () {
+  documentinvalidcharacterexceptioncreatepi: function(test) {
     var success;
     var badPI;
-    var doc = load('', "doc", "hc_staff");
+    var doc = hc_staff.hc_staff();
     success = false;
     try {
       badPI = doc.createProcessingInstruction("foo","data");
@@ -98,6 +91,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 9);
     }
     assertTrue("throw_NOT_SUPPORTED_ERR",success);
+    test.done();
   },
 
   /**
@@ -110,10 +104,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-135944439')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  documentinvalidcharacterexceptioncreatepi1 : function () {
+  documentinvalidcharacterexceptioncreatepi1: function(test) {
     var success;
     var badPI;
-    var doc = load('', "doc", "hc_staff");
+    var doc = hc_staff.hc_staff();
     success = false;
     try {
       badPI = doc.createProcessingInstruction("foo","data");
@@ -121,6 +115,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 9);
     }
     assertTrue("throw_NOT_SUPPORTED_ERR",success);
+    test.done();
   },
 
   /**
@@ -132,9 +127,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  hc_attrappendchild1 : function () {
+  hc_attrappendchild1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrappendchild1") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -145,11 +139,7 @@ exports.tests = {
     var retval;
     var lastChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -172,6 +162,7 @@ exports.tests = {
 
     assertEquals("lastChildValue","terday",value);
 
+    test.done();
   },
 
   /**
@@ -182,8 +173,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  hc_attrappendchild2 : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_attrappendchild2: function(test) {
+    var doc = hc_staff.hc_staff();
     var titleAttr = doc.getElementsByTagName("acronym").item(3).attributes.getNamedItem("title");
     var newChild = doc.createElement("terday");
     var success = false;
@@ -193,6 +184,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 3);
     }
     assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+    test.done();
   },
 
   /**
@@ -204,9 +196,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  hc_attrappendchild3 : function () {
+  hc_attrappendchild3: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrappendchild3") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -219,11 +210,7 @@ exports.tests = {
     var lastChild;
     var docFrag;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -250,6 +237,7 @@ exports.tests = {
 
     assertEquals("lastChildValue","day",value);
 
+    test.done();
   },
 
   /**
@@ -261,8 +249,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  hc_attrappendchild4 : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_attrappendchild4: function(test) {
+    var doc = hc_staff.hc_staff();
     var success = false;
     try {
       doc.createCDATASection("terday");
@@ -270,6 +258,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 9);
     }
     assertTrue("throw_NOT_SUPPORTED_ERR",success);
+    test.done();
   },
 
   /**
@@ -281,9 +270,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  hc_attrappendchild5 : function () {
-    var doc = load('', "doc", "hc_staff");
-    var otherDoc = load('', "otherDoc", "hc_staff");
+  hc_attrappendchild5: function(test) {
+    var doc = hc_staff.hc_staff();
+    var otherDoc = hc_staff.hc_staff();
     var titleAttr = doc.getElementsByTagName("acronym").item(3).attributes.getNamedItem("title");
     var textNode = otherDoc.createTextNode("terday");
     var success = false;
@@ -293,6 +282,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 4);
     }
     assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+    test.done();
   },
 
   /**
@@ -303,9 +293,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  hc_attrappendchild6 : function () {
+  hc_attrappendchild6: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrappendchild6") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -316,11 +305,7 @@ exports.tests = {
     var retval;
     var lastChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     titleAttr = doc.createAttribute("title");
     textNode = doc.createTextNode("Yesterday");
     retval = titleAttr.appendChild(textNode);
@@ -339,6 +324,7 @@ exports.tests = {
 
     assertEquals("lastChildValue","Yesterday",value);
 
+    test.done();
   },
 
   /**
@@ -350,9 +336,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
    */
-  hc_attrchildnodes1 : function () {
+  hc_attrchildnodes1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrchildnodes1") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -362,11 +347,7 @@ exports.tests = {
     var textNode;
     var childNodes;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -382,6 +363,7 @@ exports.tests = {
     textNode = childNodes.item(1);
     assertNull("secondItemIsNull",textNode);
 
+    test.done();
   },
 
   /**
@@ -392,9 +374,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
    */
-  hc_attrchildnodes2 : function () {
+  hc_attrchildnodes2: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrchildnodes2") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -405,11 +386,7 @@ exports.tests = {
     var childNodes;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -431,6 +408,7 @@ exports.tests = {
     textNode = childNodes.item(2);
     assertNull("thirdItemIsNull",textNode);
 
+    test.done();
   },
 
   /**
@@ -441,9 +419,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  hc_attrclonenode1 : function () {
+  hc_attrclonenode1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrclonenode1") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -455,11 +432,7 @@ exports.tests = {
     var lastChild;
     var clonedTitle;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -485,6 +458,7 @@ exports.tests = {
 
     assertEquals("lastChildValue","terday",value);
 
+    test.done();
   },
 
   /**
@@ -501,9 +475,8 @@ exports.tests = {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
-  hc_attrcreatedocumentfragment : function () {
+  hc_attrcreatedocumentfragment: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrcreatedocumentfragment") != null) return;
     var doc;
     var docFragment;
     var newOne;
@@ -514,11 +487,7 @@ exports.tests = {
     var appendedChild;
     var langAttrCount = 0;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFragment = doc.createDocumentFragment();
     newOne = doc.createElement("html");
     newOne.setAttribute("lang","EN");
@@ -542,6 +511,7 @@ exports.tests = {
     }
     assertEquals("hasLangAttr",1,langAttrCount);
 
+    test.done();
   },
 
   /**
@@ -559,9 +529,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Apr/0057.html
    */
-  hc_attrcreatetextnode : function () {
+  hc_attrcreatetextnode: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrcreatetextnode") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -569,11 +538,7 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(3);
     attributes = testNode.attributes;
@@ -588,6 +553,7 @@ exports.tests = {
 
     assertEquals("nodeValue","Y&ent1;",value);
 
+    test.done();
   },
 
   /**
@@ -605,9 +571,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Apr/0057.html
    */
-  hc_attrcreatetextnode2 : function () {
+  hc_attrcreatetextnode2: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrcreatetextnode2") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -615,11 +580,7 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(3);
     attributes = testNode.attributes;
@@ -634,6 +595,7 @@ exports.tests = {
 
     assertEquals("nodeValue","Y&ent1;",value);
 
+    test.done();
   },
 
   /**
@@ -647,9 +609,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1074577549
    */
-  hc_attreffectivevalue : function () {
+  hc_attreffectivevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attreffectivevalue") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -657,11 +618,7 @@ exports.tests = {
     var domesticAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -671,6 +628,7 @@ exports.tests = {
 
     assertEquals("attrEffectiveValueAssert","Yes",value);
 
+    test.done();
   },
 
   /**
@@ -682,9 +640,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-169727388
    */
-  hc_attrfirstchild : function () {
+  hc_attrfirstchild: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrfirstchild") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -694,11 +651,7 @@ exports.tests = {
     var textNode;
     var otherChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -717,6 +670,7 @@ exports.tests = {
 
     assertNull("previousSiblingIsNull",otherChild);
 
+    test.done();
   },
 
   /**
@@ -726,9 +680,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
    */
-  hc_attrgetvalue1 : function () {
+  hc_attrgetvalue1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrgetvalue1") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -739,11 +692,7 @@ exports.tests = {
     var retval;
     var lastChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -753,6 +702,7 @@ exports.tests = {
 
     assertEquals("attrValue1","Yα",value);
 
+    test.done();
   },
 
   /**
@@ -762,8 +712,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
    */
-  hc_attrgetvalue2 : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_attrgetvalue2: function(test) {
+    var doc = hc_staff.hc_staff();
     var success = false;
     try {
       doc.createEntityReference("alpha");
@@ -771,6 +721,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 9);
     }
     assertTrue("throw_NOT_SUPPORTED_ERR",success);
+    test.done();
   },
 
   /**
@@ -781,9 +732,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-810594187
    */
-  hc_attrhaschildnodes : function () {
+  hc_attrhaschildnodes: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrhaschildnodes") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -791,13 +741,9 @@ exports.tests = {
     var titleAttr;
     var hasChildNodes;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -807,6 +753,7 @@ exports.tests = {
     hasChildNodes = titleAttr.hasChildNodes();
     assertTrue("hasChildrenIsTrue",hasChildNodes);
 
+    test.done();
   },
 
   /**
@@ -818,9 +765,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  hc_attrinsertbefore1 : function () {
+  hc_attrinsertbefore1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrinsertbefore1") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -834,11 +780,7 @@ exports.tests = {
     var refChild = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -866,6 +808,7 @@ exports.tests = {
 
     assertEquals("lastChildValue","terday",value);
 
+    test.done();
   },
 
   /**
@@ -877,9 +820,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  hc_attrinsertbefore2 : function () {
+  hc_attrinsertbefore2: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrinsertbefore2") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -892,11 +834,7 @@ exports.tests = {
     var firstChild;
     var refChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -926,6 +864,7 @@ exports.tests = {
 
     assertEquals("lastChildValue","Yes",value);
 
+    test.done();
   },
 
   /**
@@ -937,9 +876,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  hc_attrinsertbefore3 : function () {
+  hc_attrinsertbefore3: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrinsertbefore3") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -955,11 +893,7 @@ exports.tests = {
     var refChild = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -991,6 +925,7 @@ exports.tests = {
 
     assertEquals("lastChildValue","day",value);
 
+    test.done();
   },
 
   /**
@@ -1002,9 +937,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  hc_attrinsertbefore4 : function () {
+  hc_attrinsertbefore4: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrinsertbefore4") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -1019,11 +953,7 @@ exports.tests = {
     var lastChild;
     var refChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -1057,6 +987,7 @@ exports.tests = {
 
     assertEquals("lastChildValue","Yes",value);
 
+    test.done();
   },
 
   /**
@@ -1068,8 +999,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  hc_attrinsertbefore5 : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_attrinsertbefore5: function(test) {
+    var doc = hc_staff.hc_staff();
     var success = false;
     try {
       doc.createCDATASection("terday");
@@ -1077,6 +1008,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 9);
     }
     assertTrue("throw_NOT_SUPPORTED_ERR",success);
+    test.done();
   },
 
   /**
@@ -1088,9 +1020,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  hc_attrinsertbefore6 : function () {
-    var doc = load('', "doc", "hc_staff");
-    var otherDoc = load('', "otherDoc", "hc_staff");
+  hc_attrinsertbefore6: function(test) {
+    var doc = hc_staff.hc_staff();
+    var otherDoc = hc_staff.hc_staff();
     var titleAttr = doc.getElementsByTagName("acronym").item(3).attributes.getNamedItem("title");
     var textNode = otherDoc.createTextNode("terday");
     var success = false;
@@ -1100,6 +1032,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 4);
     }
     assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+    test.done();
   },
 
   /**
@@ -1110,8 +1043,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  hc_attrinsertbefore7 : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_attrinsertbefore7: function(test) {
+    var doc = hc_staff.hc_staff();
     var success = false;
     try {
       doc.createCDATASection("day");
@@ -1119,6 +1052,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 9);
     }
     assertTrue("throw_NOT_SUPPORTED_ERR",success);
+    test.done();
   },
 
   /**
@@ -1130,9 +1064,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-61AD09FB
    */
-  hc_attrlastchild : function () {
+  hc_attrlastchild: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrlastchild") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -1142,11 +1075,7 @@ exports.tests = {
     var textNode;
     var otherChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -1165,6 +1094,7 @@ exports.tests = {
 
     assertNull("previousSiblingIsNull",otherChild);
 
+    test.done();
   },
 
   /**
@@ -1179,9 +1109,8 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    */
-  hc_attrname : function () {
+  hc_attrname: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrname") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -1190,11 +1119,7 @@ exports.tests = {
     var strong1;
     var strong2;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(1);
     attributes = testNode.attributes;
@@ -1207,6 +1132,7 @@ exports.tests = {
     assertEqualsAutoCase("attribute", "nodeName","class",strong1);
     assertEqualsAutoCase("attribute", "name","class",strong2);
 
+    test.done();
   },
 
   /**
@@ -1220,9 +1146,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6AC54C2F
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    */
-  hc_attrnextsiblingnull : function () {
+  hc_attrnextsiblingnull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrnextsiblingnull") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -1230,11 +1155,7 @@ exports.tests = {
     var domesticAttr;
     var s;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -1244,6 +1165,7 @@ exports.tests = {
 
     assertNull("attrNextSiblingNullAssert",s);
 
+    test.done();
   },
 
   /**
@@ -1255,9 +1177,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-162CF083
    */
-  hc_attrnormalize : function () {
+  hc_attrnormalize: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrnormalize") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -1269,11 +1190,7 @@ exports.tests = {
     var firstChild;
     var secondChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -1296,6 +1213,7 @@ exports.tests = {
 
     assertNull("secondChildIsNull",secondChild);
 
+    test.done();
   },
 
   /**
@@ -1309,9 +1227,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1060184317
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    */
-  hc_attrparentnodenull : function () {
+  hc_attrparentnodenull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrparentnodenull") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -1319,11 +1236,7 @@ exports.tests = {
     var domesticAttr;
     var s;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -1333,6 +1246,7 @@ exports.tests = {
 
     assertNull("attrParentNodeNullAssert",s);
 
+    test.done();
   },
 
   /**
@@ -1346,9 +1260,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-640FB3C8
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    */
-  hc_attrprevioussiblingnull : function () {
+  hc_attrprevioussiblingnull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrprevioussiblingnull") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -1356,11 +1269,7 @@ exports.tests = {
     var domesticAttr;
     var s;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -1370,6 +1279,7 @@ exports.tests = {
 
     assertNull("attrPreviousSiblingNullAssert",s);
 
+    test.done();
   },
 
   /**
@@ -1380,9 +1290,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    */
-  hc_attrremovechild1 : function () {
+  hc_attrremovechild1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrremovechild1") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -1393,11 +1302,7 @@ exports.tests = {
     var retval;
     var firstChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -1421,6 +1326,7 @@ exports.tests = {
 
     assertNull("firstChildNull",firstChild);
 
+    test.done();
   },
 
   /**
@@ -1431,8 +1337,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    */
-  hc_attrremovechild2 : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_attrremovechild2: function(test) {
+    var doc = hc_staff.hc_staff();
     var titleAttr = doc.getElementsByTagName("acronym").item(3).attributes.getNamedItem("title");
     var textNode = doc.createTextNode("Yesterday");
     var success = false;
@@ -1442,6 +1348,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 8);
     }
     assertTrue("throw_NOT_FOUND_ERR",success);
+    test.done();
   },
 
   /**
@@ -1453,9 +1360,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    */
-  hc_attrreplacechild1 : function () {
+  hc_attrreplacechild1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrreplacechild1") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -1466,11 +1372,7 @@ exports.tests = {
     var retval;
     var firstChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -1496,6 +1398,7 @@ exports.tests = {
 
     assertEquals("firstChildValue","terday",value);
 
+    test.done();
   },
 
   /**
@@ -1507,9 +1410,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    */
-  hc_attrreplacechild2 : function () {
+  hc_attrreplacechild2: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrreplacechild2") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -1522,11 +1424,7 @@ exports.tests = {
     var retval;
     var firstChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -1556,6 +1454,7 @@ exports.tests = {
 
     assertEquals("firstChildValue","ter",value);
 
+    test.done();
   },
 
   /**
@@ -1565,9 +1464,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
    */
-  hc_attrsetvalue1 : function () {
+  hc_attrsetvalue1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrsetvalue1") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -1578,11 +1476,7 @@ exports.tests = {
     var firstChild;
     var otherChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -1610,6 +1504,7 @@ exports.tests = {
 
     assertNull("nextSiblingIsNull",otherChild);
 
+    test.done();
   },
 
   /**
@@ -1619,9 +1514,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
    */
-  hc_attrsetvalue2 : function () {
+  hc_attrsetvalue2: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrsetvalue2") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -1633,11 +1527,7 @@ exports.tests = {
     var firstChild;
     var otherChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -1667,6 +1557,7 @@ exports.tests = {
 
     assertNull("nextSiblingIsNull",otherChild);
 
+    test.done();
   },
 
   /**
@@ -1683,9 +1574,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-862529273
    */
-  hc_attrspecifiedvalue : function () {
+  hc_attrspecifiedvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrspecifiedvalue") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -1693,11 +1583,7 @@ exports.tests = {
     var domesticAttr;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -1707,6 +1593,7 @@ exports.tests = {
 
     assertTrue("acronymTitleSpecified",state);
 
+    test.done();
   },
 
   /**
@@ -1724,9 +1611,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-862529273
    */
-  hc_attrspecifiedvaluechanged : function () {
+  hc_attrspecifiedvaluechanged: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrspecifiedvaluechanged") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -1734,11 +1620,7 @@ exports.tests = {
     var streetAttr;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(2);
     testNode.setAttribute("class","Yα");
@@ -1749,6 +1631,7 @@ exports.tests = {
 
     assertTrue("acronymClassSpecified",state);
 
+    test.done();
   },
 
   /**
@@ -1767,9 +1650,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-32791A2F
    */
-  hc_characterdataappenddata : function () {
+  hc_characterdataappenddata: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdataappenddata") != null) return;
     var doc;
     var elementList;
     var nameNode;
@@ -1777,11 +1659,7 @@ exports.tests = {
     var childValue;
     var childLength;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1792,6 +1670,7 @@ exports.tests = {
     childLength = childValue.length;
     assertEquals("characterdataAppendDataAssert",24,childLength);
 
+    test.done();
   },
 
   /**
@@ -1811,20 +1690,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-32791A2F
    */
-  hc_characterdataappenddatagetdata : function () {
+  hc_characterdataappenddatagetdata: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdataappenddatagetdata") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1834,6 +1708,7 @@ exports.tests = {
 
     assertEquals("characterdataAppendDataGetDataAssert","Margaret Martin, Esquire",childData);
 
+    test.done();
   },
 
   /**
@@ -1852,20 +1727,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  hc_characterdatadeletedatabegining : function () {
+  hc_characterdatadeletedatabegining: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatadeletedatabegining") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1875,6 +1745,7 @@ exports.tests = {
 
     assertEquals("data","Dallas, Texas 98551",childData);
 
+    test.done();
   },
 
   /**
@@ -1894,20 +1765,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  hc_characterdatadeletedataend : function () {
+  hc_characterdatadeletedataend: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatadeletedataend") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1917,6 +1783,7 @@ exports.tests = {
 
     assertEquals("characterdataDeleteDataEndAssert","1230 North Ave. Dallas, Texas ",childData);
 
+    test.done();
   },
 
   /**
@@ -1938,20 +1805,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  hc_characterdatadeletedataexceedslength : function () {
+  hc_characterdatadeletedataexceedslength: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatadeletedataexceedslength") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1961,6 +1823,7 @@ exports.tests = {
 
     assertEquals("characterdataDeleteDataExceedsLengthAssert","1230",childData);
 
+    test.done();
   },
 
   /**
@@ -1983,9 +1846,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7D61178C
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  hc_characterdatadeletedatagetlengthanddata : function () {
+  hc_characterdatadeletedatagetlengthanddata: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatadeletedatagetlengthanddata") != null) return;
     var doc;
     var elementList;
     var nameNode;
@@ -1995,11 +1857,7 @@ exports.tests = {
     var result = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2012,6 +1870,7 @@ exports.tests = {
 
     assertEquals("length",30,childLength);
 
+    test.done();
   },
 
   /**
@@ -2031,20 +1890,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  hc_characterdatadeletedatamiddle : function () {
+  hc_characterdatadeletedatamiddle: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatadeletedatamiddle") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2054,6 +1908,7 @@ exports.tests = {
 
     assertEquals("characterdataDeleteDataMiddleAssert","1230 North Ave. Texas 98551",childData);
 
+    test.done();
   },
 
   /**
@@ -2075,20 +1930,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    */
-  hc_characterdatagetdata : function () {
+  hc_characterdatagetdata: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatagetdata") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2097,6 +1947,7 @@ exports.tests = {
 
     assertEquals("characterdataGetDataAssert","Margaret Martin",childData);
 
+    test.done();
   },
 
   /**
@@ -2111,9 +1962,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7D61178C
    */
-  hc_characterdatagetlength : function () {
+  hc_characterdatagetlength: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatagetlength") != null) return;
     var doc;
     var elementList;
     var nameNode;
@@ -2121,11 +1971,7 @@ exports.tests = {
     var childValue;
     var childLength;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2135,6 +1981,7 @@ exports.tests = {
     childLength = childValue.length;
     assertEquals("characterdataGetLengthAssert",15,childLength);
 
+    test.done();
   },
 
   /**
@@ -2153,8 +2000,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  hc_characterdataindexsizeerrdeletedatacountnegative : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_characterdataindexsizeerrdeletedatacountnegative: function(test) {
+    var doc = hc_staff.hc_staff();
     var child = doc.getElementsByTagName("acronym").item(0).firstChild;
     var success = false;
     try {
@@ -2163,6 +2010,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
     assertTrue("throws_INDEX_SIZE_ERR",success);
+    test.done();
   },
 
   /**
@@ -2184,8 +2032,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_characterdataindexsizeerrdeletedataoffsetgreater : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_characterdataindexsizeerrdeletedataoffsetgreater: function(test) {
+    var doc = hc_staff.hc_staff();
     var child = doc.getElementsByTagName("acronym").item(0).firstChild;
     var success = false;
     try {
@@ -2195,6 +2043,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
     assertTrue("throw_INDEX_SIZE_ERR",success);
+    test.done();
   },
 
   /**
@@ -2214,8 +2063,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-7C603781')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  hc_characterdataindexsizeerrdeletedataoffsetnegative : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_characterdataindexsizeerrdeletedataoffsetnegative: function(test) {
+    var doc = hc_staff.hc_staff();
     var child = doc.getElementsByTagName("acronym").item(0).firstChild;
     var success = false;
     try {
@@ -2224,6 +2073,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
     assertTrue("throws_INDEX_SIZE_ERR",success);
+    test.done();
   },
 
   /**
@@ -2244,8 +2094,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-7C603781')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_characterdataindexsizeerrinsertdataoffsetgreater : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_characterdataindexsizeerrinsertdataoffsetgreater: function(test) {
+    var doc = hc_staff.hc_staff();
     var child = doc.getElementsByTagName("acronym").item(0).firstChild;
     var success = false;
     try {
@@ -2254,6 +2104,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
     assertTrue("throw_INDEX_SIZE_ERR",success);
+    test.done();
   },
 
   /**
@@ -2272,8 +2123,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-E5CBA7FB')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  hc_characterdataindexsizeerrinsertdataoffsetnegative : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_characterdataindexsizeerrinsertdataoffsetnegative: function(test) {
+    var doc = hc_staff.hc_staff();
     var child = doc.getElementsByTagName("acronym").item(0).firstChild;
     var success = false;
     try {
@@ -2282,6 +2133,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
     assertTrue("throws_INDEX_SIZE_ERR",success);
+    test.done();
   },
 
   /**
@@ -2301,8 +2153,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  hc_characterdataindexsizeerrreplacedatacountnegative : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_characterdataindexsizeerrreplacedatacountnegative: function(test) {
+    var doc = hc_staff.hc_staff();
     var child = doc.getElementsByTagName("acronym").item(0).firstChild;
     var success = false;
     try {
@@ -2312,6 +2164,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
     assertTrue("throws_INDEX_SIZE_ERR",success);
+    test.done();
   },
 
   /**
@@ -2333,8 +2186,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-7C603781')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=242
    */
-  hc_characterdataindexsizeerrreplacedataoffsetgreater : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_characterdataindexsizeerrreplacedataoffsetgreater: function(test) {
+    var doc = hc_staff.hc_staff();
     var child = doc.getElementsByTagName("acronym").item(0).firstChild;
     success = false;
     try {
@@ -2343,6 +2196,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
     assertTrue("throw_INDEX_SIZE_ERR",success);
+    test.done();
   },
 
   /**
@@ -2363,8 +2217,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-E5CBA7FB')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  hc_characterdataindexsizeerrreplacedataoffsetnegative : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_characterdataindexsizeerrreplacedataoffsetnegative: function(test) {
+    var doc = hc_staff.hc_staff();
     var child = doc.getElementsByTagName("acronym").item(0).firstChild;
     success = false;
     try {
@@ -2373,6 +2227,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
     assertTrue("throws_INDEX_SIZE_ERR",success);
+    test.done();
   },
 
   /**
@@ -2391,8 +2246,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  hc_characterdataindexsizeerrsubstringcountnegative : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_characterdataindexsizeerrsubstringcountnegative: function(test) {
+    var doc = hc_staff.hc_staff();
     var child = doc.getElementsByTagName("acronym").item(0).firstChild;
     var success = false;
     try {
@@ -2401,6 +2256,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
     assertTrue("throws_INDEX_SIZE_ERR",success);
+    test.done();
   },
 
   /**
@@ -2419,8 +2275,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  hc_characterdataindexsizeerrsubstringnegativeoffset : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_characterdataindexsizeerrsubstringnegativeoffset: function(test) {
+    var doc = hc_staff.hc_staff();
     var child = doc.getElementsByTagName("acronym").item(0).firstChild;
     success = false;
     try {
@@ -2429,6 +2285,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
     assertTrue("throws_INDEX_SIZE_ERR",success);
+    test.done();
   },
 
   /**
@@ -2449,8 +2306,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_characterdataindexsizeerrsubstringoffsetgreater : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_characterdataindexsizeerrsubstringoffsetgreater: function(test) {
+    var doc = hc_staff.hc_staff();
     var child = doc.getElementsByTagName("acronym").item(0).firstChild;
     success = false;
     try {
@@ -2459,6 +2316,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
     assertTrue("throw_INDEX_SIZE_ERR",success);
+    test.done();
   },
 
   /**
@@ -2477,20 +2335,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
    */
-  hc_characterdatainsertdatabeginning : function () {
+  hc_characterdatainsertdatabeginning: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatainsertdatabeginning") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2500,6 +2353,7 @@ exports.tests = {
 
     assertEquals("characterdataInsertDataBeginningAssert","Mss. Margaret Martin",childData);
 
+    test.done();
   },
 
   /**
@@ -2519,20 +2373,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
    */
-  hc_characterdatainsertdataend : function () {
+  hc_characterdatainsertdataend: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatainsertdataend") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2542,6 +2391,7 @@ exports.tests = {
 
     assertEquals("characterdataInsertDataEndAssert","Margaret Martin, Esquire",childData);
 
+    test.done();
   },
 
   /**
@@ -2561,20 +2411,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
    */
-  hc_characterdatainsertdatamiddle : function () {
+  hc_characterdatainsertdatamiddle: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatainsertdatamiddle") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2584,6 +2429,7 @@ exports.tests = {
 
     assertEquals("characterdataInsertDataMiddleAssert","Margaret Ann Martin",childData);
 
+    test.done();
   },
 
   /**
@@ -2602,20 +2448,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  hc_characterdatareplacedatabegining : function () {
+  hc_characterdatareplacedatabegining: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatareplacedatabegining") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2625,6 +2466,7 @@ exports.tests = {
 
     assertEquals("characterdataReplaceDataBeginingAssert","2500 North Ave. Dallas, Texas 98551",childData);
 
+    test.done();
   },
 
   /**
@@ -2644,20 +2486,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  hc_characterdatareplacedataend : function () {
+  hc_characterdatareplacedataend: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatareplacedataend") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2667,6 +2504,7 @@ exports.tests = {
 
     assertEquals("characterdataReplaceDataEndAssert","1230 North Ave. Dallas, Texas 98665",childData);
 
+    test.done();
   },
 
   /**
@@ -2687,20 +2525,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  hc_characterdatareplacedataexceedslengthofarg : function () {
+  hc_characterdatareplacedataexceedslengthofarg: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatareplacedataexceedslengthofarg") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2710,6 +2543,7 @@ exports.tests = {
 
     assertEquals("characterdataReplaceDataExceedsLengthOfArgAssert","260030 North Ave. Dallas, Texas 98551",childData);
 
+    test.done();
   },
 
   /**
@@ -2728,20 +2562,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  hc_characterdatareplacedataexceedslengthofdata : function () {
+  hc_characterdatareplacedataexceedslengthofdata: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatareplacedataexceedslengthofdata") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2751,6 +2580,7 @@ exports.tests = {
 
     assertEquals("characterdataReplaceDataExceedsLengthOfDataAssert","2600",childData);
 
+    test.done();
   },
 
   /**
@@ -2770,20 +2600,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  hc_characterdatareplacedatamiddle : function () {
+  hc_characterdatareplacedatamiddle: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatareplacedatamiddle") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2793,6 +2618,7 @@ exports.tests = {
 
     assertEquals("characterdataReplaceDataMiddleAssert","1230 South Ave. Dallas, Texas 98551",childData);
 
+    test.done();
   },
 
   /**
@@ -2806,9 +2632,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    */
-  hc_characterdatasetnodevalue : function () {
+  hc_characterdatasetnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatasetnodevalue") != null) return;
     var doc;
     var elementList;
     var nameNode;
@@ -2816,11 +2641,7 @@ exports.tests = {
     var childData;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2834,6 +2655,7 @@ exports.tests = {
 
     assertEquals("value","Marilyn Martin",childValue);
 
+    test.done();
   },
 
   /**
@@ -2852,20 +2674,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    */
-  hc_characterdatasubstringexceedsvalue : function () {
+  hc_characterdatasubstringexceedsvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatasubstringexceedsvalue") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var substring;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2873,6 +2690,7 @@ exports.tests = {
     substring = child.substringData(9,10);
     assertEquals("characterdataSubStringExceedsValueAssert","Martin",substring);
 
+    test.done();
   },
 
   /**
@@ -2890,20 +2708,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    */
-  hc_characterdatasubstringvalue : function () {
+  hc_characterdatasubstringvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatasubstringvalue") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var substring;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2911,6 +2724,7 @@ exports.tests = {
     substring = child.substringData(0,8);
     assertEquals("characterdataSubStringValueAssert","Margaret",substring);
 
+    test.done();
   },
 
   /**
@@ -2928,9 +2742,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=509
    */
-  hc_commentgetcomment : function () {
+  hc_commentgetcomment: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_commentgetcomment") != null) return;
     var doc;
     var elementList;
     var child;
@@ -2940,11 +2753,7 @@ exports.tests = {
     var childType;
     var attributes;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.childNodes;
 
     for(var indexN1005E = 0;indexN1005E < elementList.length; indexN1005E++) {
@@ -2974,6 +2783,7 @@ exports.tests = {
                (commentCount < 2)
               );
 
+    test.done();
   },
 
   /**
@@ -2990,20 +2800,15 @@ exports.tests = {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  hc_documentcreateattribute : function () {
+  hc_documentcreateattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentcreateattribute") != null) return;
     var doc;
     var newAttrNode;
     var attrValue;
     var attrName;
     var attrType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newAttrNode = doc.createAttribute("title");
     attrValue = newAttrNode.nodeValue;
 
@@ -3015,6 +2820,7 @@ exports.tests = {
 
     assertEquals("type",2,attrType);
 
+    test.done();
   },
 
   /**
@@ -3029,20 +2835,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1334481328
    */
-  hc_documentcreatecomment : function () {
+  hc_documentcreatecomment: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentcreatecomment") != null) return;
     var doc;
     var newCommentNode;
     var newCommentValue;
     var newCommentName;
     var newCommentType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newCommentNode = doc.createComment("This is a new Comment node");
     newCommentValue = newCommentNode.nodeValue;
 
@@ -3054,6 +2855,7 @@ exports.tests = {
 
     assertEquals("type",8,newCommentType);
 
+    test.done();
   },
 
   /**
@@ -3067,38 +2869,14 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-35CB04B5
    */
-  hc_documentcreatedocumentfragment : function () {
-    var success;
-    if(checkInitialization(builder, "hc_documentcreatedocumentfragment") != null) return;
-    var doc;
-    var newDocFragment;
-    var children;
-    var length;
-    var newDocFragmentName;
-    var newDocFragmentType;
-    var newDocFragmentValue;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
-    newDocFragment = doc.createDocumentFragment();
-    children = newDocFragment.childNodes;
-
-    length = children.length;
-
-    assertEquals("length",0,length);
-    newDocFragmentName = newDocFragment.nodeName;
-
-    assertEquals("strong","#document-fragment",newDocFragmentName);
-    newDocFragmentType = newDocFragment.nodeType;
-
-    assertEquals("type",11,newDocFragmentType);
-    newDocFragmentValue = newDocFragment.nodeValue;
-
-    assertNull("value",newDocFragmentValue);
-
+  hc_documentcreatedocumentfragment: function(test) {
+    var doc = hc_staff.hc_staff();
+    var newDocFragment = doc.createDocumentFragment();
+    assertEquals("length",0,newDocFragment.childNodes.length);
+    assertEquals("strong","#DOCUMENT-FRAGMENT",newDocFragment.nodeName);
+    assertEquals("type",11,newDocFragment.nodeType);
+    assertNull("value",newDocFragment.nodeValue);
+    test.done();
   },
 
   /**
@@ -3114,20 +2892,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    */
-  hc_documentcreateelement : function () {
+  hc_documentcreateelement: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentcreateelement") != null) return;
     var doc;
     var newElement;
     var newElementName;
     var newElementType;
     var newElementValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newElement = doc.createElement("acronym");
     newElementName = newElement.nodeName;
 
@@ -3139,6 +2912,7 @@ exports.tests = {
 
     assertNull("valueInitiallyNull",newElementValue);
 
+    test.done();
   },
 
   /**
@@ -3159,9 +2933,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  hc_documentcreateelementcasesensitive : function () {
+  hc_documentcreateelementcasesensitive: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentcreateelementcasesensitive") != null) return;
     var doc;
     var newElement1;
     var newElement2;
@@ -3170,11 +2943,7 @@ exports.tests = {
     var nodeName1;
     var nodeName2;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newElement1 = doc.createElement("ACRONYM");
     newElement2 = doc.createElement("acronym");
     newElement1.setAttribute("lang","EN");
@@ -3190,6 +2959,7 @@ exports.tests = {
     assertEqualsAutoCase("element", "nodeName1","ACRONYM",nodeName1);
     assertEqualsAutoCase("element", "nodeName2","acronym",nodeName2);
 
+    test.done();
   },
 
   /**
@@ -3204,20 +2974,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1975348127
    */
-  hc_documentcreatetextnode : function () {
+  hc_documentcreatetextnode: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentcreatetextnode") != null) return;
     var doc;
     var newTextNode;
     var newTextName;
     var newTextValue;
     var newTextType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newTextNode = doc.createTextNode("This is a new Text node");
     newTextValue = newTextNode.nodeValue;
 
@@ -3229,6 +2994,7 @@ exports.tests = {
 
     assertEquals("type",3,newTextType);
 
+    test.done();
   },
 
   /**
@@ -3239,20 +3005,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A31
    */
-  hc_documentgetdoctype : function () {
+  hc_documentgetdoctype: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentgetdoctype") != null) return;
     var doc;
     var docType;
     var docTypeName;
     var nodeValue;
     var attributes;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
 
@@ -3279,6 +3040,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -3294,20 +3056,16 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-A6C9094
    */
-  hc_documentgetelementsbytagnamelength : function () {
+  hc_documentgetelementsbytagnamelength: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentgetelementsbytagnamelength") != null) return;
     var doc;
     var nameList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     nameList = doc.getElementsByTagName("strong");
     assertSize("documentGetElementsByTagNameLengthAssert",5,nameList);
 
+    test.done();
   },
 
   /**
@@ -3321,9 +3079,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-A6C9094
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  hc_documentgetelementsbytagnametotallength : function () {
+  hc_documentgetelementsbytagnametotallength: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentgetelementsbytagnametotallength") != null) return;
     var doc;
     var nameList;
     expectedNames = new Array();
@@ -3420,11 +3177,7 @@ exports.tests = {
     var thisElement;
     var thisTag;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     nameList = doc.getElementsByTagName("*");
     for(var indexN10148 = 0;indexN10148 < nameList.length; indexN10148++) {
       thisElement = nameList.item(indexN10148);
@@ -3448,6 +3201,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -3465,20 +3219,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-A6C9094
    */
-  hc_documentgetelementsbytagnamevalue : function () {
+  hc_documentgetelementsbytagnamevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentgetelementsbytagnamevalue") != null) return;
     var doc;
     var nameList;
     var nameNode;
     var firstChild;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     nameList = doc.getElementsByTagName("strong");
     nameNode = nameList.item(3);
     firstChild = nameNode.firstChild;
@@ -3487,6 +3236,7 @@ exports.tests = {
 
     assertEquals("documentGetElementsByTagNameValueAssert","Jeny Oconnor",childValue);
 
+    test.done();
   },
 
   /**
@@ -3501,19 +3251,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1B793EBA
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=245
    */
-  hc_documentgetimplementation : function () {
+  hc_documentgetimplementation: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentgetimplementation") != null) return;
     var doc;
     var docImpl;
     var xmlstate;
     var htmlstate;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docImpl = doc.implementation;
     xmlstate = docImpl.hasFeature("XML","1.0");
     htmlstate = docImpl.hasFeature("HTML","1.0");
@@ -3532,6 +3277,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -3543,18 +3289,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-87CD092
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  hc_documentgetrootnode : function () {
+  hc_documentgetrootnode: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentgetrootnode") != null) return;
     var doc;
     var root;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     root = doc.documentElement;
 
     rootName = root.nodeName;
@@ -3574,6 +3315,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -3594,8 +3336,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1084891198
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_documentinvalidcharacterexceptioncreateattribute : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_documentinvalidcharacterexceptioncreateattribute: function(test) {
+    var doc = hc_staff.hc_staff();
     var success = false;
     try {
       doc.createAttribute("invalid^Name");
@@ -3604,6 +3346,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 5);
     }
     assertTrue("throw_INVALID_CHARACTER_ERR",success);
+    test.done();
   },
 
   /**
@@ -3617,8 +3360,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1084891198
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  hc_documentinvalidcharacterexceptioncreateattribute1 : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_documentinvalidcharacterexceptioncreateattribute1: function(test) {
+    var doc = hc_staff.hc_staff();
     var success = false;
     try {
       doc.createAttribute("");
@@ -3626,6 +3369,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 5);
     }
     assertTrue("throw_INVALID_CHARACTER_ERR",success);
+    test.done();
   },
 
   /**
@@ -3646,8 +3390,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_documentinvalidcharacterexceptioncreateelement : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_documentinvalidcharacterexceptioncreateelement: function(test) {
+    var doc = hc_staff.hc_staff();
     var success = false;
     try {
       doc.createElement("invalid^Name");
@@ -3655,6 +3399,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 5);
     }
     assertTrue("throw_INVALID_CHARACTER_ERR",success);
+    test.done();
   },
 
   /**
@@ -3668,8 +3413,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  hc_documentinvalidcharacterexceptioncreateelement1 : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_documentinvalidcharacterexceptioncreateelement1: function(test) {
+    var doc = hc_staff.hc_staff();
     var success = false;
     try {
       doc.createElement("");
@@ -3677,6 +3422,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 5);
     }
     assertTrue("throw_INVALID_CHARACTER_ERR",success);
+    test.done();
   },
 
   /**
@@ -3693,18 +3439,13 @@ exports.tests = {
    * @see http://www.w3.org/2000/11/DOM-Level-2-errata#core-14
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=245
    */
-  hc_domimplementationfeaturenoversion : function () {
+  hc_domimplementationfeaturenoversion: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_domimplementationfeaturenoversion") != null) return;
     var doc;
     var domImpl;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
 
     if(
@@ -3722,6 +3463,7 @@ exports.tests = {
     }
     assertTrue("hasFeatureBlank",state);
 
+    test.done();
   },
 
   /**
@@ -3739,18 +3481,13 @@ exports.tests = {
    * @see http://www.w3.org/2000/11/DOM-Level-2-errata#core-14
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=245
    */
-  hc_domimplementationfeaturenull : function () {
+  hc_domimplementationfeaturenull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_domimplementationfeaturenull") != null) return;
     var doc;
     var domImpl;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
 
     if(
@@ -3769,6 +3506,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -3783,18 +3521,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-5CED94D7
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=245
    */
-  hc_domimplementationfeaturexml : function () {
+  hc_domimplementationfeaturexml: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_domimplementationfeaturexml") != null) return;
     var doc;
     var domImpl;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
 
     if(
@@ -3813,6 +3546,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -3830,25 +3564,21 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68F082
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  hc_elementaddnewattribute : function () {
+  hc_elementaddnewattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementaddnewattribute") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(4);
     testEmployee.setAttribute("lang","EN-us");
     attrValue = testEmployee.getAttribute("lang");
     assertEquals("attrValue","EN-us",attrValue);
 
+    test.done();
   },
 
   /**
@@ -3863,9 +3593,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    */
-  hc_elementassociatedattribute : function () {
+  hc_elementassociatedattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementassociatedattribute") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -3873,11 +3602,7 @@ exports.tests = {
     var domesticAttr;
     var specified;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(0);
     attributes = testEmployee.attributes;
@@ -3887,6 +3612,7 @@ exports.tests = {
 
     assertTrue("acronymTitleSpecified",specified);
 
+    test.done();
   },
 
   /**
@@ -3906,25 +3632,21 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68F082
    */
-  hc_elementchangeattributevalue : function () {
+  hc_elementchangeattributevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementchangeattributevalue") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(3);
     testEmployee.setAttribute("class","Neither");
     attrValue = testEmployee.getAttribute("class");
     assertEquals("elementChangeAttributeValueAssert","Neither",attrValue);
 
+    test.done();
   },
 
   /**
@@ -3942,9 +3664,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  hc_elementcreatenewattribute : function () {
+  hc_elementcreatenewattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementcreatenewattribute") != null) return;
     var doc;
     var elementList;
     var testAddress;
@@ -3953,11 +3674,7 @@ exports.tests = {
     var districtAttr;
     var attrVal;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(0);
     newAttribute = doc.createAttribute("lang");
@@ -3968,6 +3685,7 @@ exports.tests = {
     attrVal = testAddress.getAttribute("lang");
     assertEquals("attr_value","",attrVal);
 
+    test.done();
   },
 
   /**
@@ -3980,20 +3698,15 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    */
-  hc_elementgetattributenode : function () {
+  hc_elementgetattributenode: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementgetattributenode") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var domesticAttr;
     var nodeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(0);
     domesticAttr = testEmployee.getAttributeNode("title");
@@ -4001,6 +3714,7 @@ exports.tests = {
 
     assertEqualsAutoCase("attribute", "nodeName","title",nodeName);
 
+    test.done();
   },
 
   /**
@@ -4017,24 +3731,20 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-217A91B8
    */
-  hc_elementgetattributenodenull : function () {
+  hc_elementgetattributenodenull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementgetattributenodenull") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var domesticAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(0);
     domesticAttr = testEmployee.getAttributeNode("invalidAttribute");
     assertNull("elementGetAttributeNodeNullAssert",domesticAttr);
 
+    test.done();
   },
 
   /**
@@ -4055,9 +3765,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-666EE0F9
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  hc_elementgetelementempty : function () {
+  hc_elementgetelementempty: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementgetelementempty") != null) return;
     var doc;
     var newAttribute;
     var elementList;
@@ -4065,11 +3774,7 @@ exports.tests = {
     var domesticAttr;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newAttribute = doc.createAttribute("lang");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(3);
@@ -4077,6 +3782,7 @@ exports.tests = {
     attrValue = testEmployee.getAttribute("lang");
     assertEquals("elementGetElementEmptyAssert","",attrValue);
 
+    test.done();
   },
 
   /**
@@ -4094,20 +3800,16 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    */
-  hc_elementgetelementsbytagname : function () {
+  hc_elementgetelementsbytagname: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementgetelementsbytagname") != null) return;
     var doc;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     assertSize("elementGetElementsByTagNameAssert",5,elementList);
 
+    test.done();
   },
 
   /**
@@ -4129,9 +3831,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_elementgetelementsbytagnameaccessnodelist : function () {
+  hc_elementgetelementsbytagnameaccessnodelist: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementgetelementsbytagnameaccessnodelist") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -4141,11 +3842,7 @@ exports.tests = {
     var employeeIDNode;
     var employeeID;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     testEmployee = elementList.item(3);
     firstC = testEmployee.firstChild;
@@ -4171,6 +3868,7 @@ exports.tests = {
 
     assertEquals("employeeID","EMP0004",employeeID);
 
+    test.done();
   },
 
   /**
@@ -4186,20 +3884,16 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    */
-  hc_elementgetelementsbytagnamenomatch : function () {
+  hc_elementgetelementsbytagnamenomatch: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementgetelementsbytagnamenomatch") != null) return;
     var doc;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("noMatch");
     assertSize("elementGetElementsByTagNameNoMatchNoMatchAssert",0,elementList);
 
+    test.done();
   },
 
   /**
@@ -4216,9 +3910,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    */
-  hc_elementgetelementsbytagnamespecialvalue : function () {
+  hc_elementgetelementsbytagnamespecialvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementgetelementsbytagnamespecialvalue") != null) return;
     var doc;
     var elementList;
     var lastEmployee;
@@ -4236,11 +3929,7 @@ exports.tests = {
     expectedResult[5] = "acronym";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     lastEmployee = elementList.item(4);
     lastempList = lastEmployee.getElementsByTagName("*");
@@ -4253,6 +3942,7 @@ exports.tests = {
     }
     assertEqualsListAutoCase("element", "tagNames",expectedResult,result);
 
+    test.done();
   },
 
   /**
@@ -4264,18 +3954,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-104682815
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  hc_elementgettagname : function () {
+  hc_elementgettagname: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementgettagname") != null) return;
     var doc;
     var root;
     var tagname;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     root = doc.documentElement;
 
     tagname = root.tagName;
@@ -4295,6 +3980,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -4309,8 +3995,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-887236154')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=244
    */
-  hc_elementinuseattributeerr : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_elementinuseattributeerr: function(test) {
+    var doc = hc_staff.hc_staff();
     var testAddress = doc.getElementsByTagName("body").item(0);
     var newElement = doc.createElement("p");
     testAddress.appendChild(newElement);
@@ -4323,6 +4009,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 10);
     }
     assertTrue("throw_INUSE_ATTRIBUTE_ERR",success);
+    test.done();
   },
 
   /**
@@ -4341,8 +4028,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-F68F082')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_elementinvalidcharacterexception : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_elementinvalidcharacterexception: function(test) {
+    var doc = hc_staff.hc_staff();
     var testAddress = doc.getElementsByTagName("acronym").item(0);
     var success = false;
     try {
@@ -4351,6 +4038,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 5);
     }
     assertTrue("throw_INVALID_CHARACTER_ERR",success);
+    test.done();
   },
 
   /**
@@ -4363,8 +4051,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-F68F082')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  hc_elementinvalidcharacterexception1 : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_elementinvalidcharacterexception1: function(test) {
+    var doc = hc_staff.hc_staff();
     var testAddress = doc.getElementsByTagName("acronym").item(0);
     var success = false;
     try {
@@ -4373,6 +4061,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 5);
     }
     assertTrue("throw_INVALID_CHARACTER_ERR",success);
+    test.done();
   },
 
   /**
@@ -4384,9 +4073,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-162CF083
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=546
    */
-  hc_elementnormalize : function () {
+  hc_elementnormalize: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementnormalize") != null) return;
     var doc;
     var root;
     var elementList;
@@ -4396,11 +4084,7 @@ exports.tests = {
     var textNode;
     var retNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("sup");
     testName = elementList.item(0);
     textNode = doc.createTextNode("");
@@ -4418,6 +4102,7 @@ exports.tests = {
 
     assertEquals("elementNormalizeAssert","56,000,000",childValue);
 
+    test.done();
   },
 
   /**
@@ -4429,9 +4114,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-162CF083
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=482
    */
-  hc_elementnormalize2 : function () {
+  hc_elementnormalize2: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementnormalize2") != null) return;
     var doc;
     var root;
     var elementList;
@@ -4443,11 +4127,7 @@ exports.tests = {
     var attrNode;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     root = doc.documentElement;
 
     emptyText = doc.createTextNode("");
@@ -4466,6 +4146,7 @@ exports.tests = {
 
     assertNull("secondChildNull",secondChild);
 
+    test.done();
   },
 
   /**
@@ -4486,8 +4167,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-D589198')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_elementnotfounderr : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_elementnotfounderr: function(test) {
+    var doc = hc_staff.hc_staff();
     var testAddress = doc.getElementsByTagName("acronym").item(4);
     var oldAttribute = doc.createAttribute("title");
     var success = false;
@@ -4497,6 +4178,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 8);
     }
     assertTrue("throw_NOT_FOUND_ERR",success);
+    test.done();
   },
 
   /**
@@ -4510,25 +4192,21 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D6AC0F9
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
    */
-  hc_elementremoveattribute : function () {
+  hc_elementremoveattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementremoveattribute") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(3);
     testEmployee.removeAttribute("class");
     attrValue = testEmployee.getAttribute("class");
     assertEquals("attrValue","",attrValue);
 
+    test.done();
   },
 
   /**
@@ -4547,9 +4225,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D589198
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  hc_elementremoveattributeaftercreate : function () {
+  hc_elementremoveattributeaftercreate: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementremoveattributeaftercreate") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -4557,11 +4234,7 @@ exports.tests = {
     var attributes;
     var districtAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("lang");
@@ -4572,6 +4245,7 @@ exports.tests = {
     districtAttr = attributes.getNamedItem("lang");
     assertNull("removed_item_null",districtAttr);
 
+    test.done();
   },
 
   /**
@@ -4586,9 +4260,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D589198
    */
-  hc_elementremoveattributenode : function () {
+  hc_elementremoveattributenode: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementremoveattributenode") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -4596,11 +4269,7 @@ exports.tests = {
     var removedAttr;
     var removedValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     streetAttr = testEmployee.getAttributeNode("class");
@@ -4610,6 +4279,7 @@ exports.tests = {
 
     assertEquals("elementRemoveAttributeNodeAssert","No",removedValue);
 
+    test.done();
   },
 
   /**
@@ -4625,9 +4295,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    */
-  hc_elementreplaceattributewithself : function () {
+  hc_elementreplaceattributewithself: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementreplaceattributewithself") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -4635,17 +4304,14 @@ exports.tests = {
     var replacedAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     streetAttr = testEmployee.getAttributeNode("class");
     replacedAttr = testEmployee.setAttributeNode(streetAttr);
     assertSame("replacedAttr",streetAttr,replacedAttr);
 
+    test.done();
   },
 
   /**
@@ -4665,9 +4331,8 @@ exports.tests = {
 
    * @author Curt Arnold
    */
-  hc_elementreplaceexistingattribute : function () {
+  hc_elementreplaceexistingattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementreplaceexistingattribute") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -4675,11 +4340,7 @@ exports.tests = {
     var strong;
     var setAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("class");
@@ -4687,6 +4348,7 @@ exports.tests = {
     strong = testEmployee.getAttribute("class");
     assertEquals("replacedValue","",strong);
 
+    test.done();
   },
 
   /**
@@ -4705,9 +4367,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    */
-  hc_elementreplaceexistingattributegevalue : function () {
+  hc_elementreplaceexistingattributegevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementreplaceexistingattributegevalue") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -4715,11 +4376,7 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("class");
@@ -4729,6 +4386,7 @@ exports.tests = {
 
     assertEquals("previousAttrValue","No",value);
 
+    test.done();
   },
 
   /**
@@ -4742,9 +4400,8 @@ exports.tests = {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
-  hc_elementretrieveallattributes : function () {
+  hc_elementretrieveallattributes: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementretrieveallattributes") != null) return;
     var doc;
     var addressList;
     var testAddress;
@@ -4761,11 +4418,7 @@ exports.tests = {
     expected[1] = "dir";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testAddress = addressList.item(0);
     attributes = testAddress.attributes;
@@ -4792,6 +4445,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -4806,24 +4460,20 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-666EE0F9
    */
-  hc_elementretrieveattrvalue : function () {
+  hc_elementretrieveattrvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementretrieveattrvalue") != null) return;
     var doc;
     var elementList;
     var testAddress;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(2);
     attrValue = testAddress.getAttribute("class");
     assertEquals("attrValue","No",attrValue);
 
+    test.done();
   },
 
   /**
@@ -4839,19 +4489,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-104682815
    */
-  hc_elementretrievetagname : function () {
+  hc_elementretrievetagname: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementretrievetagname") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var strong;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("code");
     testEmployee = elementList.item(1);
     strong = testEmployee.nodeName;
@@ -4861,6 +4506,7 @@ exports.tests = {
 
     assertEqualsAutoCase("element", "tagname","code",strong);
 
+    test.done();
   },
 
   /**
@@ -4880,26 +4526,22 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  hc_elementsetattributenodenull : function () {
+  hc_elementsetattributenodenull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementsetattributenodenull") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var newAttribute;
     var districtAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("lang");
     districtAttr = testEmployee.setAttributeNode(newAttribute);
     assertNull("elementSetAttributeNodeNullAssert",districtAttr);
 
+    test.done();
   },
 
   /**
@@ -4924,9 +4566,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-887236154')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='WRONG_DOCUMENT_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_elementwrongdocumenterr : function () {
-    var doc1 = load('', "doc1", "hc_staff");
-    var doc2 = load('', "doc2", "hc_staff");
+  hc_elementwrongdocumenterr: function(test) {
+    var doc1 = hc_staff.hc_staff();
+    var doc2 = hc_staff.hc_staff();
     var newAttribute = doc2.createAttribute("newAttribute");
     var testAddress = doc1.getElementsByTagName("acronym").item(4);
     var success = false;
@@ -4936,6 +4578,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 4);
     }
     assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+    test.done();
   },
 
   /**
@@ -4946,8 +4589,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1788794630
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D58B193
    */
-  hc_entitiesremovenameditem1 : function () {
+  hc_entitiesremovenameditem1: function(test) {
     // NOTE: no tests get run here...
+    test.done();
   },
 
   /**
@@ -4959,8 +4603,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1788794630
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    */
-  hc_entitiessetnameditem1 : function () {
+  hc_entitiessetnameditem1: function(test) {
     // NOTE: no tests get run here
+    test.done();
   },
 
   /**
@@ -4976,9 +4621,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D0FB19E
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=250
    */
-  hc_namednodemapchildnoderange : function () {
+  hc_namednodemapchildnoderange: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapchildnoderange") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -4987,11 +4631,7 @@ exports.tests = {
     var strong;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     attributes = testEmployee.attributes;
@@ -5021,6 +4661,7 @@ exports.tests = {
     child = attributes.item(3);
     assertNull("attr3",child);
 
+    test.done();
   },
 
   /**
@@ -5037,9 +4678,8 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    */
-  hc_namednodemapgetnameditem : function () {
+  hc_namednodemapgetnameditem: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapgetnameditem") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -5047,11 +4687,7 @@ exports.tests = {
     var domesticAttr;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -5061,6 +4697,7 @@ exports.tests = {
 
     assertEqualsAutoCase("attribute", "nodeName","title",attrName);
 
+    test.done();
   },
 
   /**
@@ -5080,8 +4717,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-1025163788')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_namednodemapinuseattributeerr : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_namednodemapinuseattributeerr: function(test) {
+    var doc = hc_staff.hc_staff();
     var firstNode = doc.getElementsByTagName("acronym").item(0);
     var domesticAttr = doc.createAttribute("title");
     domesticAttr.value = "Yα";
@@ -5094,6 +4731,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 10);
     }
     assertTrue("throw_INUSE_ATTRIBUTE_ERR",success);
+    test.done();
   },
 
   /**
@@ -5114,8 +4752,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-D58B193')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  hc_namednodemapnotfounderr : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_namednodemapnotfounderr: function(test) {
+    var doc = hc_staff.hc_staff();
     var attributes = doc.getElementsByTagName("acronym").item(2).attributes;
     var success = false;
     try {
@@ -5124,6 +4762,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 8);
     }
     assertTrue("throw_NOT_FOUND_ERR",success);
+    test.done();
   },
 
   /**
@@ -5135,20 +4774,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D0FB19E
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=250
    */
-  hc_namednodemapnumberofnodes : function () {
+  hc_namednodemapnumberofnodes: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapnumberofnodes") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var attributes;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     attributes = testEmployee.attributes;
@@ -5170,6 +4804,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -5188,9 +4823,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
    */
-  hc_namednodemapremovenameditem : function () {
+  hc_namednodemapremovenameditem: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapremovenameditem") != null) return;
     var doc;
     var elementList;
     var newAttribute;
@@ -5200,11 +4834,7 @@ exports.tests = {
     var specified;
     var removedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
 
     testAddress = elementList.item(2);
@@ -5214,6 +4844,7 @@ exports.tests = {
     streetAttr = attributes.getNamedItem("class");
     assertNull("isnull",streetAttr);
 
+    test.done();
   },
 
   /**
@@ -5231,9 +4862,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1112119403
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    */
-  hc_namednodemapreturnattrnode : function () {
+  hc_namednodemapreturnattrnode: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapreturnattrnode") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -5241,11 +4871,7 @@ exports.tests = {
     var streetAttr;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -5259,6 +4885,7 @@ exports.tests = {
 
     assertEqualsAutoCase("attribute", "name","class",attrName);
 
+    test.done();
   },
 
   /**
@@ -5276,9 +4903,8 @@ exports.tests = {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
-  hc_namednodemapreturnfirstitem : function () {
+  hc_namednodemapreturnfirstitem: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapreturnfirstitem") != null) return;
     var doc;
     var elementList;
     var testAddress;
@@ -5297,11 +4923,7 @@ exports.tests = {
     var actual = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(1);
     attributes = testAddress.attributes;
@@ -5328,6 +4950,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -5347,9 +4970,8 @@ exports.tests = {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
-  hc_namednodemapreturnlastitem : function () {
+  hc_namednodemapreturnlastitem: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapreturnlastitem") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -5368,11 +4990,7 @@ exports.tests = {
     var actual = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -5399,6 +5017,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -5418,20 +5037,15 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_namednodemapreturnnull : function () {
+  hc_namednodemapreturnnull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapreturnnull") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var attributes;
     var districtNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -5439,6 +5053,7 @@ exports.tests = {
     districtNode = attributes.getNamedItem("lang");
     assertNull("langAttrNull",districtNode);
 
+    test.done();
   },
 
   /**
@@ -5461,9 +5076,8 @@ exports.tests = {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  hc_namednodemapsetnameditem : function () {
+  hc_namednodemapsetnameditem: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapsetnameditem") != null) return;
     var doc;
     var elementList;
     var newAttribute;
@@ -5473,11 +5087,7 @@ exports.tests = {
     var attrName;
     var setNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(1);
     newAttribute = doc.createAttribute("lang");
@@ -5489,6 +5099,7 @@ exports.tests = {
 
     assertEqualsAutoCase("attribute", "nodeName","lang",attrName);
 
+    test.done();
   },
 
   /**
@@ -5513,9 +5124,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  hc_namednodemapsetnameditemreturnvalue : function () {
+  hc_namednodemapsetnameditemreturnvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapsetnameditemreturnvalue") != null) return;
     var doc;
     var elementList;
     var newAttribute;
@@ -5524,11 +5134,7 @@ exports.tests = {
     var newNode;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(2);
     newAttribute = doc.createAttribute("class");
@@ -5540,6 +5146,7 @@ exports.tests = {
 
     assertEquals("previousAttrValue","No",attrValue);
 
+    test.done();
   },
 
   /**
@@ -5565,9 +5172,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  hc_namednodemapsetnameditemthatexists : function () {
+  hc_namednodemapsetnameditemthatexists: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapsetnameditemthatexists") != null) return;
     var doc;
     var elementList;
     var newAttribute;
@@ -5577,11 +5183,7 @@ exports.tests = {
     var attrValue;
     var setNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(1);
     newAttribute = doc.createAttribute("class");
@@ -5593,6 +5195,7 @@ exports.tests = {
 
     assertEquals("namednodemapSetNamedItemThatExistsAssert","",attrValue);
 
+    test.done();
   },
 
   /**
@@ -5615,9 +5218,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  hc_namednodemapsetnameditemwithnewvalue : function () {
+  hc_namednodemapsetnameditemwithnewvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapsetnameditemwithnewvalue") != null) return;
     var doc;
     var elementList;
     var newAttribute;
@@ -5625,11 +5227,7 @@ exports.tests = {
     var attributes;
     var newNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(2);
     newAttribute = doc.createAttribute("lang");
@@ -5638,6 +5236,7 @@ exports.tests = {
     newNode = attributes.setNamedItem(newAttribute);
     assertNull("prevValueNull",newNode);
 
+    test.done();
   },
 
   /**
@@ -5660,9 +5259,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-1025163788')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='WRONG_DOCUMENT_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_namednodemapwrongdocumenterr : function () {
-    var doc1 = load('', "doc1", "hc_staff");
-    var doc2 = load('', "doc2", "hc_staff");
+  hc_namednodemapwrongdocumenterr: function(test) {
+    var doc1 = hc_staff.hc_staff();
+    var doc2 = hc_staff.hc_staff();
     var attributes = doc1.getElementsByTagName("acronym").item(2).attributes;
     var newAttribute = doc2.createAttribute("newAttribute");
     var success = false;
@@ -5672,6 +5271,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 4);
     }
     assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+    test.done();
   },
 
   /**
@@ -5685,9 +5285,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodeappendchild : function () {
+  hc_nodeappendchild: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeappendchild") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -5697,11 +5296,7 @@ exports.tests = {
     var childName;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -5714,6 +5309,7 @@ exports.tests = {
 
     assertEqualsAutoCase("element", "nodeName","br",childName);
 
+    test.done();
   },
 
   /**
@@ -5731,9 +5327,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodeappendchildchildexists : function () {
+  hc_nodeappendchildchildexists: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeappendchildchildexists") != null) return;
     var doc;
     var elementList;
     var childList;
@@ -5756,11 +5351,7 @@ exports.tests = {
 
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     childNode = elementList.item(1);
     childList = childNode.getElementsByTagName("*");
@@ -5793,6 +5384,7 @@ exports.tests = {
     }
     assertEqualsListAutoCase("element", "refreshedChildNodes",expected,refreshedActual);
 
+    test.done();
   },
 
   /**
@@ -5811,9 +5403,8 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodeappendchilddocfragment : function () {
+  hc_nodeappendchilddocfragment: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeappendchilddocfragment") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -5838,11 +5429,7 @@ exports.tests = {
     expected[7] = "b";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -5870,6 +5457,7 @@ exports.tests = {
     }
     assertEqualsListAutoCase("element", "nodeNames",expected,result);
 
+    test.done();
   },
 
   /**
@@ -5886,9 +5474,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodeappendchildgetnodename : function () {
+  hc_nodeappendchildgetnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeappendchildgetnodename") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -5897,11 +5484,7 @@ exports.tests = {
     var appendNode;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -5912,6 +5495,7 @@ exports.tests = {
 
     assertEqualsAutoCase("element", "nodeName","br",childName);
 
+    test.done();
   },
 
   /**
@@ -5933,8 +5517,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_nodeappendchildinvalidnodetype : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_nodeappendchildinvalidnodetype: function(test) {
+    var doc = hc_staff.hc_staff();
     var rootNode = doc.documentElement;
     var newChild = doc.createAttribute("newAttribute");
     var success = false;
@@ -5944,6 +5528,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 3);
     }
     assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+    test.done();
   },
 
   /**
@@ -5965,9 +5550,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodeappendchildnewchilddiffdocument : function () {
-    doc1 = load('', "doc1", "hc_staff");
-    doc2 = load('', "doc2", "hc_staff");
+  hc_nodeappendchildnewchilddiffdocument: function(test) {
+    doc1 = hc_staff.hc_staff();
+    doc2 = hc_staff.hc_staff();
     var newChild = doc1.createElement("br");
     var elementNode = doc2.getElementsByTagName("p").item(1);
     var success = false;
@@ -5977,6 +5562,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 4);
     }
     assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+    test.done();
   },
 
   /**
@@ -5996,8 +5582,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-184E7107')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='HIERARCHY_REQUEST_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  hc_nodeappendchildnodeancestor : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_nodeappendchildnodeancestor: function(test) {
+    var doc = hc_staff.hc_staff();
     var newChild = doc.documentElement;
     var employeeNode = doc.getElementsByTagName("p").item(1);
     var success = false;
@@ -6007,6 +5593,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 3);
     }
     assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+    test.done();
   },
 
   /**
@@ -6022,9 +5609,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    */
-  hc_nodeattributenodeattribute : function () {
+  hc_nodeattributenodeattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeattributenodeattribute") != null) return;
     var doc;
     var elementList;
     var testAddr;
@@ -6032,11 +5618,7 @@ exports.tests = {
     var attrNode;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     addrAttr = testAddr.attributes;
@@ -6046,6 +5628,7 @@ exports.tests = {
 
     assertNull("nodeAttributeNodeAttributeAssert1",attrList);
 
+    test.done();
   },
 
   /**
@@ -6059,20 +5642,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    */
-  hc_nodeattributenodename : function () {
+  hc_nodeattributenodename: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeattributenodename") != null) return;
     var doc;
     var elementList;
     var testAddr;
     var addrAttr;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     addrAttr = testAddr.getAttributeNode("title");
@@ -6080,6 +5658,7 @@ exports.tests = {
 
     assertEqualsAutoCase("attribute", "nodeName","title",attrName);
 
+    test.done();
   },
 
   /**
@@ -6101,20 +5680,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  hc_nodeattributenodetype : function () {
+  hc_nodeattributenodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeattributenodetype") != null) return;
     var doc;
     var elementList;
     var testAddr;
     var addrAttr;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     addrAttr = testAddr.getAttributeNode("title");
@@ -6122,6 +5696,7 @@ exports.tests = {
 
     assertEquals("nodeAttrNodeTypeAssert1",2,nodeType);
 
+    test.done();
   },
 
   /**
@@ -6138,20 +5713,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  hc_nodeattributenodevalue : function () {
+  hc_nodeattributenodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeattributenodevalue") != null) return;
     var doc;
     var elementList;
     var testAddr;
     var addrAttr;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     addrAttr = testAddr.getAttributeNode("title");
@@ -6159,6 +5729,7 @@ exports.tests = {
 
     assertEquals("nodeValue","Yes",attrValue);
 
+    test.done();
   },
 
   /**
@@ -6175,9 +5746,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodechildnodes : function () {
+  hc_nodechildnodes: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodechildnodes") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -6196,11 +5766,7 @@ exports.tests = {
     expected[5] = "acronym";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childNodes = employeeNode.childNodes;
@@ -6227,6 +5793,7 @@ exports.tests = {
     }
     assertEqualsListAutoCase("element", "elementNames",expected,actual);
 
+    test.done();
   },
 
   /**
@@ -6248,9 +5815,8 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodechildnodesappendchild : function () {
+  hc_nodechildnodesappendchild: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodechildnodesappendchild") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -6272,11 +5838,7 @@ exports.tests = {
     expected[6] = "br";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -6305,6 +5867,7 @@ exports.tests = {
     }
     assertEqualsListAutoCase("element", "childElements",expected,actual);
 
+    test.done();
   },
 
   /**
@@ -6322,9 +5885,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodechildnodesempty : function () {
+  hc_nodechildnodesempty: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodechildnodesempty") != null) return;
     var doc;
     var elementList;
     var childList;
@@ -6332,11 +5894,7 @@ exports.tests = {
     var textNode;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("em");
     employeeNode = elementList.item(1);
     textNode = employeeNode.firstChild;
@@ -6347,6 +5905,7 @@ exports.tests = {
 
     assertEquals("length_zero",0,length);
 
+    test.done();
   },
 
   /**
@@ -6361,9 +5920,8 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
-  hc_nodecloneattributescopied : function () {
+  hc_nodecloneattributescopied: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodecloneattributescopied") != null) return;
     var doc;
     var elementList;
     var addressNode;
@@ -6383,11 +5941,7 @@ exports.tests = {
     expected[2] = "dir";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     addressNode = elementList.item(1);
     clonedNode = addressNode.cloneNode(false);
@@ -6415,6 +5969,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -6430,9 +5985,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  hc_nodeclonefalsenocopytext : function () {
+  hc_nodeclonefalsenocopytext: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeclonefalsenocopytext") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -6441,11 +5995,7 @@ exports.tests = {
     var clonedNode;
     var lastChildNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -6456,6 +6006,7 @@ exports.tests = {
 
     assertNull("nodeCloneFalseNoCopyTextAssert1",lastChildNode);
 
+    test.done();
   },
 
   /**
@@ -6471,20 +6022,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  hc_nodeclonegetparentnull : function () {
+  hc_nodeclonegetparentnull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeclonegetparentnull") != null) return;
     var doc;
     var elementList;
     var employeeNode;
     var clonedNode;
     var parentNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     clonedNode = employeeNode.cloneNode(false);
@@ -6492,6 +6038,7 @@ exports.tests = {
 
     assertNull("nodeCloneGetParentNullAssert1",parentNode);
 
+    test.done();
   },
 
   /**
@@ -6509,9 +6056,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  hc_nodeclonenodefalse : function () {
+  hc_nodeclonenodefalse: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeclonenodefalse") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -6520,11 +6066,7 @@ exports.tests = {
     var cloneChildren;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     clonedNode = employeeNode.cloneNode(false);
@@ -6537,6 +6079,7 @@ exports.tests = {
 
     assertEquals("length",0,length);
 
+    test.done();
   },
 
   /**
@@ -6555,9 +6098,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodeclonenodetrue : function () {
+  hc_nodeclonenodetrue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeclonenodetrue") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -6573,11 +6115,7 @@ exports.tests = {
     var expected = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     origList = employeeNode.childNodes;
@@ -6601,6 +6139,7 @@ exports.tests = {
     }
     assertEqualsList("clone",expected,result);
 
+    test.done();
   },
 
   /**
@@ -6617,9 +6156,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodeclonetruecopytext : function () {
+  hc_nodeclonetruecopytext: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeclonetruecopytext") != null) return;
     var doc;
     var elementList;
     var childNode;
@@ -6627,11 +6165,7 @@ exports.tests = {
     var lastChildNode;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("sup");
     childNode = elementList.item(1);
     clonedNode = childNode.cloneNode(true);
@@ -6641,6 +6175,7 @@ exports.tests = {
 
     assertEquals("cloneContainsText","35,000",childValue);
 
+    test.done();
   },
 
   /**
@@ -6659,20 +6194,15 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=248
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=263
    */
-  hc_nodecommentnodeattributes : function () {
+  hc_nodecommentnodeattributes: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodecommentnodeattributes") != null) return;
     var doc;
     var commentNode;
     var nodeList;
     var attrList;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     nodeList = doc.childNodes;
 
     for(var indexN10043 = 0;indexN10043 < nodeList.length; indexN10043++) {
@@ -6695,6 +6225,7 @@ exports.tests = {
 
     assertNull("createdCommentAttributesNull",attrList);
 
+    test.done();
   },
 
   /**
@@ -6711,9 +6242,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=248
    */
-  hc_nodecommentnodename : function () {
+  hc_nodecommentnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodecommentnodename") != null) return;
     var doc;
     var elementList;
     var commentNode;
@@ -6721,11 +6251,7 @@ exports.tests = {
     var commentName;
     var commentNodeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.childNodes;
 
     for(var indexN10044 = 0;indexN10044 < elementList.length; indexN10044++) {
@@ -6748,6 +6274,7 @@ exports.tests = {
 
     assertEquals("createdNodeName","#comment",commentNodeName);
 
+    test.done();
   },
 
   /**
@@ -6764,20 +6291,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=248
    */
-  hc_nodecommentnodetype : function () {
+  hc_nodecommentnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodecommentnodetype") != null) return;
     var doc;
     var testList;
     var commentNode;
     var commentNodeName;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     testList = doc.childNodes;
 
     for(var indexN10040 = 0;indexN10040 < testList.length; indexN10040++) {
@@ -6800,6 +6322,7 @@ exports.tests = {
 
     assertEquals("createdCommentNodeType",8,nodeType);
 
+    test.done();
   },
 
   /**
@@ -6816,20 +6339,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=248
    */
-  hc_nodecommentnodevalue : function () {
+  hc_nodecommentnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodecommentnodevalue") != null) return;
     var doc;
     var elementList;
     var commentNode;
     var commentName;
     var commentValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.childNodes;
 
     for(var indexN10040 = 0;indexN10040 < elementList.length; indexN10040++) {
@@ -6852,6 +6370,7 @@ exports.tests = {
 
     assertEquals("createdCommentNodeValue"," This is a comment",commentValue);
 
+    test.done();
   },
 
   /**
@@ -6868,23 +6387,11 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A3
    */
-  hc_nodedocumentfragmentnodename : function () {
-    var success;
-    if(checkInitialization(builder, "hc_nodedocumentfragmentnodename") != null) return;
-    var doc;
-    var docFragment;
-    var documentFragmentName;
-
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
-    docFragment = doc.createDocumentFragment();
-    documentFragmentName = docFragment.nodeName;
-
-    assertEquals("nodeDocumentFragmentNodeNameAssert1","#document-fragment",documentFragmentName);
-
+  hc_nodedocumentfragmentnodename: function(test) {
+    var doc = hc_staff.hc_staff();
+    var docFragment = doc.createDocumentFragment();
+    assertEquals("nodeDocumentFragmentNodeNameAssert1","#DOCUMENT-FRAGMENT",docFragment.nodeName);
+    test.done();
   },
 
   /**
@@ -6901,23 +6408,19 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A3
    */
-  hc_nodedocumentfragmentnodetype : function () {
+  hc_nodedocumentfragmentnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodedocumentfragmentnodetype") != null) return;
     var doc;
     var documentFragmentNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     documentFragmentNode = doc.createDocumentFragment();
     nodeType = documentFragmentNode.nodeType;
 
     assertEquals("nodeDocumentFragmentNodeTypeAssert1",11,nodeType);
 
+    test.done();
   },
 
   /**
@@ -6936,19 +6439,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    */
-  hc_nodedocumentfragmentnodevalue : function () {
+  hc_nodedocumentfragmentnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodedocumentfragmentnodevalue") != null) return;
     var doc;
     var docFragment;
     var attrList;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFragment = doc.createDocumentFragment();
     attrList = docFragment.attributes;
 
@@ -6957,6 +6455,7 @@ exports.tests = {
 
     assertNull("initiallyNull",value);
 
+    test.done();
   },
 
   /**
@@ -6972,21 +6471,17 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    */
-  hc_nodedocumentnodeattribute : function () {
+  hc_nodedocumentnodeattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodedocumentnodeattribute") != null) return;
     var doc;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     attrList = doc.attributes;
 
     assertNull("doc_attributes_is_null",attrList);
 
+    test.done();
   },
 
   /**
@@ -7002,21 +6497,17 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  hc_nodedocumentnodename : function () {
+  hc_nodedocumentnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodedocumentnodename") != null) return;
     var doc;
     var documentName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     documentName = doc.nodeName;
 
     assertEquals("documentNodeName","#document",documentName);
 
+    test.done();
   },
 
   /**
@@ -7031,21 +6522,17 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  hc_nodedocumentnodetype : function () {
+  hc_nodedocumentnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodedocumentnodetype") != null) return;
     var doc;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     nodeType = doc.nodeType;
 
     assertEquals("nodeDocumentNodeTypeAssert1",9,nodeType);
 
+    test.done();
   },
 
   /**
@@ -7062,21 +6549,17 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  hc_nodedocumentnodevalue : function () {
+  hc_nodedocumentnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodedocumentnodevalue") != null) return;
     var doc;
     var documentValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     documentValue = doc.nodeValue;
 
     assertNull("documentNodeValue",documentValue);
 
+    test.done();
   },
 
   /**
@@ -7089,9 +6572,8 @@ exports.tests = {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
-  hc_nodeelementnodeattributes : function () {
+  hc_nodeelementnodeattributes: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeelementnodeattributes") != null) return;
     var doc;
     var elementList;
     var testAddr;
@@ -7110,11 +6592,7 @@ exports.tests = {
     expected[2] = "dir";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(2);
     addrAttr = testAddr.attributes;
@@ -7141,6 +6619,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -7154,18 +6633,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  hc_nodeelementnodename : function () {
+  hc_nodeelementnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeelementnodename") != null) return;
     var doc;
     var elementNode;
     var elementName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementNode = doc.documentElement;
 
     elementName = elementNode.nodeName;
@@ -7185,6 +6659,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -7198,24 +6673,20 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  hc_nodeelementnodetype : function () {
+  hc_nodeelementnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeelementnodetype") != null) return;
     var doc;
     var rootNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     rootNode = doc.documentElement;
 
     nodeType = rootNode.nodeType;
 
     assertEquals("nodeElementNodeTypeAssert1",1,nodeType);
 
+    test.done();
   },
 
   /**
@@ -7226,24 +6697,20 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  hc_nodeelementnodevalue : function () {
+  hc_nodeelementnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeelementnodevalue") != null) return;
     var doc;
     var elementNode;
     var elementValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementNode = doc.documentElement;
 
     elementValue = elementNode.nodeValue;
 
     assertNull("elementNodeValue",elementValue);
 
+    test.done();
   },
 
   /**
@@ -7259,9 +6726,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-169727388
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodegetfirstchild : function () {
+  hc_nodegetfirstchild: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodegetfirstchild") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -7269,11 +6735,7 @@ exports.tests = {
     var childName;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     fchildNode = employeeNode.firstChild;
@@ -7293,6 +6755,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -7307,20 +6770,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-169727388
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodegetfirstchildnull : function () {
+  hc_nodegetfirstchildnull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodegetfirstchildnull") != null) return;
     var doc;
     var emList;
     var emNode;
     var emText;
     var nullChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     emList = doc.getElementsByTagName("em");
     emNode = emList.item(0);
     emText = emNode.firstChild;
@@ -7329,6 +6787,7 @@ exports.tests = {
 
     assertNull("nullChild",nullChild);
 
+    test.done();
   },
 
   /**
@@ -7343,20 +6802,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-61AD09FB
    */
-  hc_nodegetlastchild : function () {
+  hc_nodegetlastchild: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodegetlastchild") != null) return;
     var doc;
     var elementList;
     var employeeNode;
     var lchildNode;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     lchildNode = employeeNode.lastChild;
@@ -7365,6 +6819,7 @@ exports.tests = {
 
     assertEquals("whitespace","#text",childName);
 
+    test.done();
   },
 
   /**
@@ -7380,20 +6835,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-61AD09FB
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodegetlastchildnull : function () {
+  hc_nodegetlastchildnull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodegetlastchildnull") != null) return;
     var doc;
     var emList;
     var emNode;
     var emText;
     var nullChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     emList = doc.getElementsByTagName("em");
     emNode = emList.item(0);
     emText = emNode.firstChild;
@@ -7402,6 +6852,7 @@ exports.tests = {
 
     assertNull("nullChild",nullChild);
 
+    test.done();
   },
 
   /**
@@ -7416,20 +6867,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6AC54C2F
    */
-  hc_nodegetnextsibling : function () {
+  hc_nodegetnextsibling: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodegetnextsibling") != null) return;
     var doc;
     var elementList;
     var emNode;
     var nsNode;
     var nsName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("em");
     emNode = elementList.item(1);
     nsNode = emNode.nextSibling;
@@ -7438,6 +6884,7 @@ exports.tests = {
 
     assertEquals("whitespace","#text",nsName);
 
+    test.done();
   },
 
   /**
@@ -7459,20 +6906,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6AC54C2F
    */
-  hc_nodegetnextsiblingnull : function () {
+  hc_nodegetnextsiblingnull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodegetnextsiblingnull") != null) return;
     var doc;
     var elementList;
     var employeeNode;
     var lcNode;
     var nsNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     lcNode = employeeNode.lastChild;
@@ -7481,6 +6923,7 @@ exports.tests = {
 
     assertNull("nodeGetNextSiblingNullAssert1",nsNode);
 
+    test.done();
   },
 
   /**
@@ -7491,9 +6934,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#node-ownerDoc
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  hc_nodegetownerdocument : function () {
+  hc_nodegetownerdocument: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodegetownerdocument") != null) return;
     var doc;
     var elementList;
     var docNode;
@@ -7501,11 +6943,7 @@ exports.tests = {
     var docElement;
     var elementName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     docNode = elementList.item(1);
     ownerDocument = docNode.ownerDocument;
@@ -7529,6 +6967,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -7548,21 +6987,17 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#node-ownerDoc
    */
-  hc_nodegetownerdocumentnull : function () {
+  hc_nodegetownerdocumentnull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodegetownerdocumentnull") != null) return;
     var doc;
     var ownerDocument;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     ownerDocument = doc.ownerDocument;
 
     assertNull("nodeGetOwnerDocumentNullAssert1",ownerDocument);
 
+    test.done();
   },
 
   /**
@@ -7577,20 +7012,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-640FB3C8
    */
-  hc_nodegetprevioussibling : function () {
+  hc_nodegetprevioussibling: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodegetprevioussibling") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var psNode;
     var psName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(1);
     psNode = nameNode.previousSibling;
@@ -7599,6 +7029,7 @@ exports.tests = {
 
     assertEquals("whitespace","#text",psName);
 
+    test.done();
   },
 
   /**
@@ -7620,20 +7051,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-640FB3C8
    */
-  hc_nodegetprevioussiblingnull : function () {
+  hc_nodegetprevioussiblingnull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodegetprevioussiblingnull") != null) return;
     var doc;
     var elementList;
     var employeeNode;
     var fcNode;
     var psNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
     fcNode = employeeNode.firstChild;
@@ -7642,6 +7068,7 @@ exports.tests = {
 
     assertNull("nodeGetPreviousSiblingNullAssert1",psNode);
 
+    test.done();
   },
 
   /**
@@ -7656,24 +7083,20 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-810594187
    */
-  hc_nodehaschildnodes : function () {
+  hc_nodehaschildnodes: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodehaschildnodes") != null) return;
     var doc;
     var elementList;
     var employeeNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     state = employeeNode.hasChildNodes();
     assertTrue("nodeHasChildAssert1",state);
 
+    test.done();
   },
 
   /**
@@ -7689,20 +7112,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-810594187
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodehaschildnodesfalse : function () {
+  hc_nodehaschildnodesfalse: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodehaschildnodesfalse") != null) return;
     var doc;
     var emList;
     var emNode;
     var emText;
     var hasChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     emList = doc.getElementsByTagName("em");
     emNode = emList.item(0);
     emText = emNode.firstChild;
@@ -7710,6 +7128,7 @@ exports.tests = {
     hasChild = emText.hasChildNodes();
     assertFalse("hasChild",hasChild);
 
+    test.done();
   },
 
   /**
@@ -7727,9 +7146,8 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=261
    */
-  hc_nodeinsertbefore : function () {
+  hc_nodeinsertbefore: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeinsertbefore") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -7752,11 +7170,7 @@ exports.tests = {
 
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("sup");
     refChild = elementList.item(2);
     employeeNode = refChild.parentNode;
@@ -7782,6 +7196,7 @@ exports.tests = {
     }
     assertEqualsListAutoCase("element", "nodeNames",expected,actual);
 
+    test.done();
   },
 
   /**
@@ -7801,9 +7216,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodeinsertbeforedocfragment : function () {
+  hc_nodeinsertbeforedocfragment: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeinsertbeforedocfragment") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -7817,11 +7231,7 @@ exports.tests = {
     var appendedChild;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -7842,6 +7252,7 @@ exports.tests = {
 
     assertEqualsAutoCase("element", "childName4","b",childName);
 
+    test.done();
   },
 
   /**
@@ -7865,8 +7276,8 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=406
    */
-  hc_nodeinsertbeforeinvalidnodetype : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_nodeinsertbeforeinvalidnodetype: function(test) {
+    var doc = hc_staff.hc_staff();
     var newChild = doc.createAttribute("title");
     var refChild = doc.getElementsByTagName("p").item(1);
     var rootNode = refChild.parentNode;
@@ -7878,6 +7289,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 3);
     }
     assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+    test.done();
   },
 
   /**
@@ -7899,9 +7311,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodeinsertbeforenewchilddiffdocument : function () {
-    var doc1 = load('', "doc1", "hc_staff");
-    var doc2 = load('', "doc2", "hc_staff");
+  hc_nodeinsertbeforenewchilddiffdocument: function(test) {
+    var doc1 = hc_staff.hc_staff();
+    var doc2 = hc_staff.hc_staff();
     var newChild = doc1.createElement("br");
     var elementNode = doc2.getElementsByTagName("p").item(1);
     var refChild = elementNode.firstChild;
@@ -7912,6 +7324,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 4);
     }
     assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+    test.done();
   },
 
   /**
@@ -7930,9 +7343,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodeinsertbeforenewchildexists : function () {
+  hc_nodeinsertbeforenewchildexists: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeinsertbeforenewchildexists") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -7954,11 +7366,7 @@ exports.tests = {
 
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.getElementsByTagName("*");
@@ -7982,6 +7390,7 @@ exports.tests = {
     }
     assertEqualsListAutoCase("element", "childNames",expected,result);
 
+    test.done();
   },
 
   /**
@@ -8001,8 +7410,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-952280727')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='HIERARCHY_REQUEST_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  hc_nodeinsertbeforenodeancestor : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_nodeinsertbeforenodeancestor: function(test) {
+    var doc = hc_staff.hc_staff();
     var newChild = doc.documentElement;
     var employeeNode = doc.getElementsByTagName("p").item(1);
     var refChild = employeeNode.childNodes.item(0);
@@ -8013,6 +7422,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 3);
     }
     assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+    test.done();
   },
 
   /**
@@ -8030,9 +7440,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodeinsertbeforenodename : function () {
+  hc_nodeinsertbeforenodename: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeinsertbeforenodename") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -8042,11 +7451,7 @@ exports.tests = {
     var insertedNode;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -8058,6 +7463,7 @@ exports.tests = {
 
     assertEqualsAutoCase("element", "nodeName","br",childName);
 
+    test.done();
   },
 
   /**
@@ -8079,8 +7485,8 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_nodeinsertbeforerefchildnonexistent : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_nodeinsertbeforerefchildnonexistent: function(test) {
+    var doc = hc_staff.hc_staff();
     var newChild = doc.createElement("br");
     var refChild = doc.createElement("b");
     var elementNode = doc.getElementsByTagName("p").item(1);
@@ -8092,6 +7498,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 8);
     }
     assertTrue("throw_NOT_FOUND_ERR",success);
+    test.done();
   },
 
   /**
@@ -8111,9 +7518,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodeinsertbeforerefchildnull : function () {
+  hc_nodeinsertbeforerefchildnull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeinsertbeforerefchildnull") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -8125,11 +7531,7 @@ exports.tests = {
     var childName;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -8142,6 +7544,7 @@ exports.tests = {
 
     assertEqualsAutoCase("element", "nodeName","br",childName);
 
+    test.done();
   },
 
   /**
@@ -8158,9 +7561,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodelistindexequalzero : function () {
+  hc_nodelistindexequalzero: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodelistindexequalzero") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -8169,11 +7571,7 @@ exports.tests = {
     var childName;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -8196,6 +7594,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -8211,20 +7610,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-203510337
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodelistindexgetlength : function () {
+  hc_nodelistindexgetlength: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodelistindexgetlength") != null) return;
     var doc;
     var elementList;
     var employeeNode;
     var employeeList;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -8244,6 +7638,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -8260,9 +7655,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-203510337
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodelistindexgetlengthofemptylist : function () {
+  hc_nodelistindexgetlengthofemptylist: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodelistindexgetlengthofemptylist") != null) return;
     var doc;
     var emList;
     var emNode;
@@ -8270,11 +7664,7 @@ exports.tests = {
     var textList;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     emList = doc.getElementsByTagName("em");
     emNode = emList.item(2);
     textNode = emNode.firstChild;
@@ -8285,6 +7675,7 @@ exports.tests = {
 
     assertEquals("length",0,length);
 
+    test.done();
   },
 
   /**
@@ -8302,9 +7693,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodelistindexnotzero : function () {
+  hc_nodelistindexnotzero: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodelistindexnotzero") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -8312,11 +7702,7 @@ exports.tests = {
     var child;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -8337,6 +7723,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -8350,9 +7737,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodelistreturnfirstitem : function () {
+  hc_nodelistreturnfirstitem: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodelistreturnfirstitem") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -8360,11 +7746,7 @@ exports.tests = {
     var child;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -8385,6 +7767,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -8397,9 +7780,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodelistreturnlastitem : function () {
+  hc_nodelistreturnlastitem: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodelistreturnlastitem") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -8408,11 +7790,7 @@ exports.tests = {
     var childName;
     var index;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -8437,6 +7815,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -8452,9 +7831,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodelisttraverselist : function () {
+  hc_nodelisttraverselist: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodelisttraverselist") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -8473,11 +7851,7 @@ exports.tests = {
     expected[5] = "acronym";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -8505,6 +7879,7 @@ exports.tests = {
     }
     assertEqualsListAutoCase("element", "nodeNames",expected,result);
 
+    test.done();
   },
 
   /**
@@ -8519,20 +7894,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1060184317
    */
-  hc_nodeparentnode : function () {
+  hc_nodeparentnode: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeparentnode") != null) return;
     var doc;
     var elementList;
     var employeeNode;
     var parentNode;
     var parentName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     parentNode = employeeNode.parentNode;
@@ -8541,6 +7911,7 @@ exports.tests = {
 
     assertEqualsAutoCase("element", "parentNodeName","body",parentName);
 
+    test.done();
   },
 
   /**
@@ -8557,23 +7928,19 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1060184317
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodeparentnodenull : function () {
+  hc_nodeparentnodenull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeparentnodenull") != null) return;
     var doc;
     var createdNode;
     var parentNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     createdNode = doc.createElement("br");
     parentNode = createdNode.parentNode;
 
     assertNull("parentNode",parentNode);
 
+    test.done();
   },
 
   /**
@@ -8591,9 +7958,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_noderemovechild : function () {
+  hc_noderemovechild: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_noderemovechild") != null) return;
     var doc;
     var rootNode;
     var childList;
@@ -8601,11 +7967,7 @@ exports.tests = {
     var removedChild;
     var parentNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     rootNode = doc.documentElement;
 
     childList = rootNode.childNodes;
@@ -8616,6 +7978,7 @@ exports.tests = {
 
     assertNull("parentNodeNull",parentNode);
 
+    test.done();
   },
 
   /**
@@ -8633,9 +7996,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_noderemovechildgetnodename : function () {
+  hc_noderemovechildgetnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_noderemovechildgetnodename") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -8645,11 +8007,7 @@ exports.tests = {
     var childName;
     var oldName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -8663,6 +8021,7 @@ exports.tests = {
 
     assertEquals("nodeName",oldName,childName);
 
+    test.done();
   },
 
   /**
@@ -8679,9 +8038,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_noderemovechildnode : function () {
+  hc_noderemovechildnode: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_noderemovechildnode") != null) return;
     var doc;
     var elementList;
     var emList;
@@ -8704,11 +8062,7 @@ exports.tests = {
     var actual = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -8742,6 +8096,7 @@ exports.tests = {
     }
     assertEqualsListAutoCase("element", "childNames",expected,actual);
 
+    test.done();
   },
 
   /**
@@ -8761,8 +8116,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_noderemovechildoldchildnonexistent : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_noderemovechildoldchildnonexistent: function(test) {
+    var doc = hc_staff.hc_staff();
     var oldChild = doc.createElement("br");
     var elementNode = doc.getElementsByTagName("p").item(1);
     var success = false;
@@ -8773,6 +8128,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 8);
     }
     assertTrue("throw_NOT_FOUND_ERR",success);
+    test.done();
   },
 
   /**
@@ -8789,9 +8145,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodereplacechild : function () {
+  hc_nodereplacechild: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodereplacechild") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -8802,11 +8157,7 @@ exports.tests = {
     var childName;
     var replacedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -8819,6 +8170,7 @@ exports.tests = {
 
     assertEqualsAutoCase("element", "nodeName","br",childName);
 
+    test.done();
   },
 
   /**
@@ -8842,8 +8194,8 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=406
    */
-  hc_nodereplacechildinvalidnodetype : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_nodereplacechildinvalidnodetype: function(test) {
+    var doc = hc_staff.hc_staff();
     var newChild = doc.createAttribute("lang");
     var oldChild = doc.getElementsByTagName("p").item(1);
     var rootNode = oldChild.parentNode;
@@ -8854,6 +8206,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 3);
     }
     assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+    test.done();
   },
 
   /**
@@ -8875,9 +8228,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodereplacechildnewchilddiffdocument : function () {
-    var doc1 = load('', "doc1", "hc_staff");
-    var doc2 = load('', "doc2", "hc_staff");
+  hc_nodereplacechildnewchilddiffdocument: function(test) {
+    var doc1 = hc_staff.hc_staff();
+    var doc2 = hc_staff.hc_staff();
     var newChild = doc1.createElement("br");
     var elementNode = doc2.getElementsByTagName("p").item(1);
     var oldChild = elementNode.firstChild;
@@ -8889,6 +8242,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 4);
     }
     assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+    test.done();
   },
 
   /**
@@ -8902,9 +8256,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodereplacechildnewchildexists : function () {
+  hc_nodereplacechildnewchildexists: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodereplacechildnewchildexists") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -8928,11 +8281,7 @@ exports.tests = {
     var replacedChild;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.getElementsByTagName("*");
@@ -8963,6 +8312,7 @@ exports.tests = {
     }
     assertEqualsListAutoCase("element", "childNames",expected,actual);
 
+    test.done();
   },
 
   /**
@@ -8982,8 +8332,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-785887307')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='HIERARCHY_REQUEST_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    */
-  hc_nodereplacechildnodeancestor : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_nodereplacechildnodeancestor: function(test) {
+    var doc = hc_staff.hc_staff();
     var newChild = doc.documentElement;
     var employeeNode = doc.getElementsByTagName("p").item(1);
     var oldChild = employeeNode.childNodes.item(0);
@@ -8995,6 +8345,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 3);
     }
     assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+    test.done();
   },
 
   /**
@@ -9013,9 +8364,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodereplacechildnodename : function () {
+  hc_nodereplacechildnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodereplacechildnodename") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -9025,11 +8375,7 @@ exports.tests = {
     var replacedNode;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
 
     employeeNode = elementList.item(1);
@@ -9041,6 +8387,7 @@ exports.tests = {
 
     assertEqualsAutoCase("element", "replacedNodeName","em",childName);
 
+    test.done();
   },
 
   /**
@@ -9060,8 +8407,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodereplacechildoldchildnonexistent : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_nodereplacechildoldchildnonexistent: function(test) {
+    var doc = hc_staff.hc_staff();
     var newChild = doc.createElement("br");
     var oldChild = doc.createElement("b");
     var elementNode = doc.getElementsByTagName("p").item(1);
@@ -9073,6 +8420,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 8);
     }
     assertTrue("throw_NOT_FOUND_ERR",success);
+    test.done();
   },
 
   /**
@@ -9088,20 +8436,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1312295772
    */
-  hc_nodetextnodeattribute : function () {
+  hc_nodetextnodeattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodetextnodeattribute") != null) return;
     var doc;
     var elementList;
     var testAddr;
     var textNode;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     textNode = testAddr.firstChild;
@@ -9110,6 +8453,7 @@ exports.tests = {
 
     assertNull("text_attributes_is_null",attrList);
 
+    test.done();
   },
 
   /**
@@ -9120,20 +8464,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  hc_nodetextnodename : function () {
+  hc_nodetextnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodetextnodename") != null) return;
     var doc;
     var elementList;
     var testAddr;
     var textNode;
     var textName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     textNode = testAddr.firstChild;
@@ -9142,6 +8481,7 @@ exports.tests = {
 
     assertEquals("textNodeName","#text",textName);
 
+    test.done();
   },
 
   /**
@@ -9163,20 +8503,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  hc_nodetextnodetype : function () {
+  hc_nodetextnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodetextnodetype") != null) return;
     var doc;
     var elementList;
     var testAddr;
     var textNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     textNode = testAddr.firstChild;
@@ -9185,6 +8520,7 @@ exports.tests = {
 
     assertEquals("nodeTextNodeTypeAssert1",3,nodeType);
 
+    test.done();
   },
 
   /**
@@ -9200,20 +8536,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  hc_nodetextnodevalue : function () {
+  hc_nodetextnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodetextnodevalue") != null) return;
     var doc;
     var elementList;
     var testAddr;
     var textNode;
     var textValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     textNode = testAddr.firstChild;
@@ -9222,6 +8553,7 @@ exports.tests = {
 
     assertEquals("textNodeValue","1230 North Ave. Dallas, Texas 98551",textValue);
 
+    test.done();
   },
 
   /**
@@ -9233,18 +8565,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    */
-  hc_nodevalue01 : function () {
+  hc_nodevalue01: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodevalue01") != null) return;
     var doc;
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newNode = doc.createElement("acronym");
     newValue = newNode.nodeValue;
 
@@ -9255,6 +8582,7 @@ exports.tests = {
 
     assertNull("nullAfterAttemptedChange",newValue);
 
+    test.done();
   },
 
   /**
@@ -9266,18 +8594,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    */
-  hc_nodevalue02 : function () {
+  hc_nodevalue02: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodevalue02") != null) return;
     var doc;
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newNode = doc.createComment("This is a new Comment node");
     newValue = newNode.nodeValue;
 
@@ -9288,6 +8611,7 @@ exports.tests = {
 
     assertEquals("afterChange","This should have an effect",newValue);
 
+    test.done();
   },
 
   /**
@@ -9299,8 +8623,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-11C98490
    */
-  hc_nodevalue03 : function () {
-    doc = load('', "doc", "hc_staff");
+  hc_nodevalue03: function(test) {
+    doc = hc_staff.hc_staff();
     success = false;
     try {
       doc.createEntityReference("ent1");
@@ -9308,6 +8632,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 9);
     }
     assertTrue("throw_NOT_SUPPORTED_ERR",success);
+    test.done();
   },
 
   /**
@@ -9319,18 +8644,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A31
    */
-  hc_nodevalue04 : function () {
+  hc_nodevalue04: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodevalue04") != null) return;
     var doc;
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newNode = doc.doctype;
 
     assertTrue("docTypeNotNullOrDocIsHTML",
@@ -9359,6 +8679,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -9370,18 +8691,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A3
    */
-  hc_nodevalue05 : function () {
+  hc_nodevalue05: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodevalue05") != null) return;
     var doc;
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newNode = doc.createDocumentFragment();
     newValue = newNode.nodeValue;
 
@@ -9392,6 +8708,7 @@ exports.tests = {
 
     assertNull("nullAfterAttemptedChange",newValue);
 
+    test.done();
   },
 
   /**
@@ -9403,17 +8720,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    */
-  hc_nodevalue06 : function () {
+  hc_nodevalue06: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodevalue06") != null) return;
     var newNode;
     var newValue;
 
-    var newNodeRef = null;
-    if (typeof(this.newNode) != 'undefined') {
-      newNodeRef = this.newNode;
-    }
-    newNode = load(newNodeRef, "newNode", "hc_staff");
+    newNode = hc_staff.hc_staff();
     newValue = newNode.nodeValue;
 
     assertNull("initiallyNull",newValue);
@@ -9423,6 +8735,7 @@ exports.tests = {
 
     assertNull("nullAfterAttemptedChange",newValue);
 
+    test.done();
   },
 
   /**
@@ -9434,20 +8747,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-527DCFF2
    */
-  hc_nodevalue07 : function () {
+  hc_nodevalue07: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodevalue07") != null) return;
     var doc;
     var newNode;
     var newValue;
     var nodeMap;
     var docType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
 
@@ -9475,6 +8783,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -9486,20 +8795,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-5431D1B9
    */
-  hc_nodevalue08 : function () {
+  hc_nodevalue08: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodevalue08") != null) return;
     var doc;
     var docType;
     var newNode;
     var newValue;
     var nodeMap;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
 
@@ -9527,6 +8831,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -9537,8 +8842,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D46829EF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D58B193
    */
-  hc_notationsremovenameditem1 : function () {
+  hc_notationsremovenameditem1: function(test) {
     // NOTE: no tests run here
+    test.done();
   },
 
   /**
@@ -9550,8 +8856,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D46829EF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    */
-  hc_notationssetnameditem1 : function () {
+  hc_notationssetnameditem1: function(test) {
     // NOTE: no tests run here
+    test.done();
   },
 
   /**
@@ -9570,8 +8877,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-38853C1D')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  hc_textindexsizeerrnegativeoffset : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_textindexsizeerrnegativeoffset: function(test) {
+    var doc = hc_staff.hc_staff();
     var textNode = doc.getElementsByTagName("strong").item(2).firstChild;
     var success = false;
     try {
@@ -9580,6 +8887,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
     assertTrue("throws_INDEX_SIZE_ERR",success);
+    test.done();
   },
 
   /**
@@ -9600,8 +8908,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-38853C1D')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_textindexsizeerroffsetoutofbounds : function () {
-    var doc = load('', "doc", "hc_staff");
+  hc_textindexsizeerroffsetoutofbounds: function(test) {
+    var doc = hc_staff.hc_staff();
     var textNode = doc.getElementsByTagName("strong").item(2).firstChild;
     var success = false;
     try {
@@ -9610,6 +8918,7 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
     assertTrue("throw_INDEX_SIZE_ERR",success);
+    test.done();
   },
 
   /**
@@ -9626,9 +8935,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-11C98490
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-745549614
    */
-  hc_textparseintolistofelements : function () {
+  hc_textparseintolistofelements: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_textparseintolistofelements") != null) return;
     var doc;
     var elementList;
     var addressNode;
@@ -9649,11 +8957,7 @@ exports.tests = {
     expectedExpanded[0] = "β Dallas, γ\n 98554";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     addressNode = elementList.item(1);
     childList = addressNode.childNodes;
@@ -9698,6 +9002,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
 
   /**
@@ -9715,9 +9020,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  hc_textsplittextfour : function () {
+  hc_textsplittextfour: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_textsplittextfour") != null) return;
     var doc;
     var elementList;
     var addressNode;
@@ -9725,11 +9029,7 @@ exports.tests = {
     var splitNode;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     addressNode = elementList.item(0);
     textNode = addressNode.firstChild;
@@ -9739,6 +9039,7 @@ exports.tests = {
 
     assertEquals("textSplitTextFourAssert","98551",value);
 
+    test.done();
   },
 
   /**
@@ -9757,9 +9058,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  hc_textsplittextone : function () {
+  hc_textsplittextone: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_textsplittextone") != null) return;
     var doc;
     var elementList;
     var nameNode;
@@ -9768,11 +9068,7 @@ exports.tests = {
     var secondPart;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -9784,6 +9080,7 @@ exports.tests = {
 
     assertEquals("textSplitTextOneAssert","Jones",value);
 
+    test.done();
   },
 
   /**
@@ -9803,9 +9100,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  hc_textsplittextthree : function () {
+  hc_textsplittextthree: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_textsplittextthree") != null) return;
     var doc;
     var elementList;
     var nameNode;
@@ -9813,11 +9109,7 @@ exports.tests = {
     var splitNode;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -9827,6 +9119,7 @@ exports.tests = {
 
     assertEquals("textSplitTextThreeAssert"," Jones",value);
 
+    test.done();
   },
 
   /**
@@ -9845,9 +9138,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  hc_textsplittexttwo : function () {
+  hc_textsplittexttwo: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_textsplittexttwo") != null) return;
     var doc;
     var elementList;
     var nameNode;
@@ -9855,11 +9147,7 @@ exports.tests = {
     var splitNode;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -9869,6 +9157,7 @@ exports.tests = {
 
     assertEquals("textSplitTextTwoAssert","Roger",value);
 
+    test.done();
   },
 
   /**
@@ -9888,20 +9177,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1312295772
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  hc_textwithnomarkup : function () {
+  hc_textwithnomarkup: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_textwithnomarkup") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var nodeV;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
     nodeV = nameNode.firstChild;
@@ -9910,5 +9194,6 @@ exports.tests = {
 
     assertEquals("textWithNoMarkupAssert","Roger\n Jones",value);
 
+    test.done();
   },
 };
