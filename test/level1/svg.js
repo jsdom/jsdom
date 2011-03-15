@@ -3178,20 +3178,11 @@ exports.tests = {
 
     doc = staff.staff();
     docType = doc.doctype;
-
     assertNotNull("docTypeNotNull",docType);
     docTypeName = docType.name;
-
-
-    if (true) {
-      assertEquals("doctypeNameSVG","svg",docTypeName);
-    } else {
-      assertEquals("doctypeName","staff",docTypeName);
-    }
+    assertEquals("doctypeNameSVG","svg",docTypeName);
     nodeValue = docType.nodeValue;
-
     assertNull("initiallyNull",nodeValue);
-
     test.done();
   },
 
@@ -3261,13 +3252,7 @@ exports.tests = {
 
     doc = staff.staff();
     nameList = doc.getElementsByTagName("*");
-
-    if (true) {
-      assertSize("elementCountSVG",39,nameList);
-    } else {
-      assertSize("documentGetElementsByTagNameTotalLengthAssert",37,nameList);
-    }
-
+    assertSize("elementCountSVG",39,nameList);
     test.done();
   },
 
@@ -3355,16 +3340,8 @@ exports.tests = {
 
     doc = staff.staff();
     root = doc.documentElement;
-
     rootName = root.nodeName;
-
-
-    if (true) {
-      assertEquals("svgRootNode","svg",rootName);
-    } else {
-      assertEquals("documentGetRootNodeAssert","staff",rootName);
-    }
-
+    assertEquals("svgRootNode","svg",rootName);
     test.done();
   },
 
@@ -3467,37 +3444,13 @@ exports.tests = {
     var badEntityRef;
 
     doc = hc_staff.hc_staff();
-
-    if (false) {
-
-      {
-        success = false;
-        try {
-          badEntityRef = doc.createEntityReference("foo");
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-        }
-        assertTrue("throw_NOT_SUPPORTED_ERR",success);
-      }
-
+    success = false;
+    try {
+      badEntityRef = doc.createEntityReference("invalid^Name");
+    } catch(ex) {
+      success = (typeof(ex.code) != 'undefined' && ex.code == 5);
     }
-
-    else {
-
-      {
-        success = false;
-        try {
-          badEntityRef = doc.createEntityReference("invalid^Name");
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 5);
-        }
-        assertTrue("throw_INVALID_CHARACTER_ERR",success);
-      }
-
-    }
-
+    assertTrue("throw_INVALID_CHARACTER_ERR",success);
     test.done();
   },
 
@@ -3518,36 +3471,14 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
 
-    if (false) {
-
-      {
-        success = false;
-        try {
-          badEntityRef = doc.createEntityReference("foo");
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-        }
-        assertTrue("throw_NOT_SUPPORTED_ERR",success);
-      }
-
+    success = false;
+    try {
+      badEntityRef = doc.createEntityReference("");
     }
-
-    else {
-
-      {
-        success = false;
-        try {
-          badEntityRef = doc.createEntityReference("");
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 5);
-        }
-        assertTrue("throw_INVALID_CHARACTER_ERR",success);
-      }
-
+    catch(ex) {
+      success = (typeof(ex.code) != 'undefined' && ex.code == 5);
     }
-
+    assertTrue("throw_INVALID_CHARACTER_ERR",success);
     test.done();
   },
 
@@ -3571,36 +3502,14 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
 
-    if (false) {
-
-      {
-        success = false;
-        try {
-          badPI = doc.createProcessingInstruction("foo","data");
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-        }
-        assertTrue("throw_NOT_SUPPORTED_ERR",success);
-      }
-
+    success = false;
+    try {
+      badPI = doc.createProcessingInstruction("invalid^Name","data");
     }
-
-    else {
-
-      {
-        success = false;
-        try {
-          badPI = doc.createProcessingInstruction("invalid^Name","data");
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 5);
-        }
-        assertTrue("throw_INVALID_CHARACTER_ERR",success);
-      }
-
+    catch(ex) {
+      success = (typeof(ex.code) != 'undefined' && ex.code == 5);
     }
-
+    assertTrue("throw_INVALID_CHARACTER_ERR",success);
     test.done();
   },
 
@@ -3621,36 +3530,14 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
 
-    if (false) {
-
-      {
-        success = false;
-        try {
-          badPI = doc.createProcessingInstruction("foo","data");
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-        }
-        assertTrue("throw_NOT_SUPPORTED_ERR",success);
-      }
-
+    success = false;
+    try {
+      badPI = doc.createProcessingInstruction("","data");
     }
-
-    else {
-
-      {
-        success = false;
-        try {
-          badPI = doc.createProcessingInstruction("","data");
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 5);
-        }
-        assertTrue("throw_INVALID_CHARACTER_ERR",success);
-      }
-
+    catch(ex) {
+      success = (typeof(ex.code) != 'undefined' && ex.code == 5);
     }
-
+    assertTrue("throw_INVALID_CHARACTER_ERR",success);
     test.done();
   },
 
@@ -3675,17 +3562,9 @@ exports.tests = {
 
     doc = staff.staff();
     docType = doc.doctype;
-
     assertNotNull("docTypeNotNull",docType);
     name = docType.name;
-
-
-    if (true) {
-      assertEquals("doctypeName","svg",name);
-    } else {
-      assertEquals("documenttypeGetDocTypeAssert","staff",name);
-    }
-
+    assertEquals("doctypeName","svg",name);
     test.done();
   },
 
@@ -3743,13 +3622,7 @@ exports.tests = {
       nameList[nameList.length] = name;
 
     }
-
-    if (true) {
-      assertEqualsCollection("entityNamesSVG",expectedResultSVG,nameList);
-    } else {
-      assertEqualsCollection("entityNames",expectedResult,nameList);
-    }
-
+    assertEqualsCollection("entityNamesSVG",expectedResultSVG,nameList);
     test.done();
   },
 
@@ -3773,18 +3646,10 @@ exports.tests = {
 
     doc = staff.staff();
     docType = doc.doctype;
-
     assertNotNull("docTypeNotNull",docType);
     entityList = docType.entities;
-
     assertNotNull("entitiesNotNull",entityList);
-
-    if (true) {
-      assertSize("entitySizeSVG",7,entityList);
-    } else {
-      assertSize("entitySize",5,entityList);
-    }
-
+    assertSize("entitySizeSVG",7,entityList);
     test.done();
   },
 
@@ -4406,16 +4271,8 @@ exports.tests = {
 
     doc = staff.staff();
     root = doc.documentElement;
-
     tagname = root.tagName;
-
-
-    if (true) {
-      assertEquals("svgTagName","svg",tagname);
-    } else {
-      assertEquals("elementGetTagNameAssert","staff",tagname);
-    }
-
+    assertEquals("svgTagName","svg",tagname);
     test.done();
   },
 
@@ -5817,37 +5674,15 @@ exports.tests = {
 
     titleAttr = attributes.getNamedItem("title");
 
-    if (false) {
-
-      {
-        success = false;
-        try {
-          textNode = doc.createCDATASection("terday");
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-        }
-        assertTrue("throw_NOT_SUPPORTED_ERR",success);
-      }
-
+    textNode = doc.createCDATASection("terday");
+    success = false;
+    try {
+      retval = titleAttr.appendChild(textNode);
     }
-
-    else {
-      textNode = doc.createCDATASection("terday");
-
-      {
-        success = false;
-        try {
-          retval = titleAttr.appendChild(textNode);
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 3);
-        }
-        assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
-      }
-
+    catch(ex) {
+      success = (typeof(ex.code) != 'undefined' && ex.code == 3);
     }
-
+    assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     test.done();
   },
 
@@ -6348,32 +6183,13 @@ exports.tests = {
 
     titleAttr = attributes.getNamedItem("class");
 
-    if (false) {
+    alphaRef = doc.createEntityReference("alpha");
+    firstChild = titleAttr.firstChild;
 
-      {
-        success = false;
-        try {
-          alphaRef = doc.createEntityReference("alpha");
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-        }
-        assertTrue("throw_NOT_SUPPORTED_ERR",success);
-      }
+    retval = titleAttr.insertBefore(alphaRef,firstChild);
+    value = titleAttr.value;
 
-    }
-
-    else {
-      alphaRef = doc.createEntityReference("alpha");
-      firstChild = titleAttr.firstChild;
-
-      retval = titleAttr.insertBefore(alphaRef,firstChild);
-      value = titleAttr.value;
-
-      assertEquals("attrValue1","αYα",value);
-
-    }
-
+    assertEquals("attrValue1","αYα",value);
     test.done();
   },
 
@@ -6672,37 +6488,15 @@ exports.tests = {
 
     titleAttr = attributes.getNamedItem("title");
 
-    if (false) {
-
-      {
-        success = false;
-        try {
-          textNode = doc.createCDATASection("terday");
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-        }
-        assertTrue("throw_NOT_SUPPORTED_ERR",success);
-      }
-
+    textNode = doc.createCDATASection("terday");
+    success = false;
+    try {
+      retval = titleAttr.insertBefore(textNode,refChild);
     }
-
-    else {
-      textNode = doc.createCDATASection("terday");
-
-      {
-        success = false;
-        try {
-          retval = titleAttr.insertBefore(textNode,refChild);
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 3);
-        }
-        assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
-      }
-
+    catch(ex) {
+      success = (typeof(ex.code) != 'undefined' && ex.code == 3);
     }
-
+    assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     test.done();
   },
 
@@ -6789,41 +6583,18 @@ exports.tests = {
 
     titleAttr = attributes.getNamedItem("title");
     terNode = doc.createTextNode("ter");
-
-    if (false) {
-
-      {
-        success = false;
-        try {
-          dayNode = doc.createCDATASection("day");
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-        }
-        assertTrue("throw_NOT_SUPPORTED_ERR",success);
-      }
-
+    dayNode = doc.createCDATASection("day");
+    docFrag = doc.createDocumentFragment();
+    retval = docFrag.appendChild(terNode);
+    retval = docFrag.appendChild(dayNode);
+    success = false;
+    try {
+      retval = titleAttr.insertBefore(docFrag,refChild);
     }
-
-    else {
-      dayNode = doc.createCDATASection("day");
-      docFrag = doc.createDocumentFragment();
-      retval = docFrag.appendChild(terNode);
-      retval = docFrag.appendChild(dayNode);
-
-      {
-        success = false;
-        try {
-          retval = titleAttr.insertBefore(docFrag,refChild);
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 3);
-        }
-        assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
-      }
-
+    catch(ex) {
+      success = (typeof(ex.code) != 'undefined' && ex.code == 3);
     }
-
+    assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     test.done();
   },
 
@@ -8985,27 +8756,15 @@ exports.tests = {
     docType = doc.doctype;
 
 
-    if(!((false))) {
-      assertNotNull("docTypeNotNull",docType);
-    }
+    assertNotNull("docTypeNotNull",docType);
 
     if((docType != null)) {
       docTypeName = docType.name;
-      if((true)) {
-        assertEquals("nodeNameSVG","svg",docTypeName);
-      } else if (false) {
-
-        // this was not an xml test originally.
-      } else {
-        assertEquals("nodeName","html",docTypeName);
-      }
+      assertEquals("nodeNameSVG","svg",docTypeName);
       nodeValue = docType.nodeValue;
-
       assertNull("nodeValue",nodeValue);
       attributes = docType.attributes;
-
       assertNull("attributes",attributes);
-
     }
 
     test.done();
@@ -9154,13 +8913,7 @@ exports.tests = {
       actualNames[actualNames.length] = thisTag;
 
     }
-
-    if (true) {
-      assertEqualsListAutoCase("element", "svgTagNames",svgExpectedNames,actualNames);
-    } else {
-      assertEqualsListAutoCase("element", "tagNames",expectedNames,actualNames);
-    }
-
+    assertEqualsListAutoCase("element", "svgTagNames",svgExpectedNames,actualNames);
     test.done();
   },
 
@@ -9223,12 +8976,7 @@ exports.tests = {
     xmlstate = docImpl.hasFeature("XML","1.0");
     htmlstate = docImpl.hasFeature("HTML","1.0");
 
-    if (false) {
-      assertTrue("supports_HTML_1.0",htmlstate);
-    } else {
-      assertTrue("supports_XML_1.0",xmlstate);
-    }
-
+    assertTrue("supports_XML_1.0",xmlstate);
     test.done();
   },
 
@@ -9249,16 +8997,8 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     root = doc.documentElement;
-
     rootName = root.nodeName;
-
-
-    if (true) {
-      assertEquals("svgTagName","svg",rootName);
-    } else {
-      assertEqualsAutoCase("element", "docElemName","html",rootName);
-    }
-
+    assertEquals("svgTagName","svg",rootName);
     test.done();
   },
 
@@ -9426,14 +9166,8 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
-
-    if (false) {
-      state = domImpl.hasFeature("HTML","");
-    } else {
-      state = domImpl.hasFeature("XML","");
-    }
+    state = domImpl.hasFeature("XML","");
     assertTrue("hasFeatureBlank",state);
-
     test.done();
   },
 
@@ -9460,19 +9194,8 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
-
-    if (false) {
-      state = domImpl.hasFeature("HTML",null);
-      assertTrue("supports_HTML_null",state);
-
-    }
-
-    else {
-      state = domImpl.hasFeature("XML",null);
-      assertTrue("supports_XML_null",state);
-
-    }
-
+    state = domImpl.hasFeature("XML",null);
+    assertTrue("supports_XML_null",state);
     test.done();
   },
 
@@ -9496,19 +9219,8 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
-
-    if (false) {
-      state = domImpl.hasFeature("html","1.0");
-      assertTrue("supports_html_1.0",state);
-
-    }
-
-    else {
-      state = domImpl.hasFeature("xml","1.0");
-      assertTrue("supports_xml_1.0",state);
-
-    }
-
+    state = domImpl.hasFeature("xml","1.0");
+    assertTrue("supports_xml_1.0",state);
     test.done();
   },
 
@@ -9925,16 +9637,8 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     root = doc.documentElement;
-
     tagname = root.tagName;
-
-
-    if (true) {
-      assertEquals("svgTagname","svg",tagname);
-    } else {
-      assertEqualsAutoCase("element", "tagname","html",tagname);
-    }
-
+    assertEquals("svgTagname","svg",tagname);
     test.done();
   },
 
@@ -10433,17 +10137,9 @@ exports.tests = {
     for(var indexN1006B = 0;indexN1006B < attributes.length; indexN1006B++) {
       attribute = attributes.item(indexN1006B);
       attributeName = attribute.nodeName;
-
       actual[actual.length] = attributeName;
-
     }
-
-    if (false) {
-      assertEqualsCollection("htmlAttributeNames",toLowerArray(htmlExpected),toLowerArray(actual));
-    } else {
-      assertEqualsCollection("attributeNames",toLowerArray(expected),toLowerArray(actual));
-    }
-
+    assertEqualsCollection("attributeNames",toLowerArray(expected),toLowerArray(actual));
     test.done();
   },
 
@@ -10620,33 +10316,17 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     docType = doc.doctype;
-
-
-    if(
-
-      !(
-        (false)
-      )
-
-    ) {
-      assertNotNull("docTypeNotNull",docType);
-      entities = docType.entities;
-
-      assertNotNull("entitiesNotNull",entities);
-
-      {
-        success = false;
-        try {
-          retval = entities.removeNamedItem("alpha");
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-        }
-        assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
-      }
-
+    assertNotNull("docTypeNotNull",docType);
+    entities = docType.entities;
+    assertNotNull("entitiesNotNull",entities);
+    success = false;
+    try {
+      retval = entities.removeNamedItem("alpha");
     }
-
+    catch(ex) {
+      success = (typeof(ex.code) != 'undefined' && ex.code == 7);
+    }
+    assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     test.done();
   },
 
@@ -10669,42 +10349,27 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     docType = doc.doctype;
-
-
-    if(
-
-      !(
-        (false)
-      )
-
-    ) {
-      assertNotNull("docTypeNotNull",docType);
-      entities = docType.entities;
-
-      assertNotNull("entitiesNotNull",entities);
-      elem = doc.createElement("br");
-
-      try {
-        retval = entities.setNamedItem(elem);
-        fail("throw_HIER_OR_NO_MOD_ERR");
-
-      } catch (ex) {
-        if (typeof(ex.code) != 'undefined') {
-          switch(ex.code) {
-          case /* HIERARCHY_REQUEST_ERR */ 3 :
-            break;
-          case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
-            break;
-          default:
-            throw ex;
-          }
-        } else {
+    assertNotNull("docTypeNotNull",docType);
+    entities = docType.entities;
+    assertNotNull("entitiesNotNull",entities);
+    elem = doc.createElement("br");
+    try {
+      retval = entities.setNamedItem(elem);
+      fail("throw_HIER_OR_NO_MOD_ERR");
+    } catch (ex) {
+      if (typeof(ex.code) != 'undefined') {
+        switch(ex.code) {
+        case /* HIERARCHY_REQUEST_ERR */ 3 :
+          break;
+        case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
+          break;
+        default:
           throw ex;
         }
+      } else {
+        throw ex;
       }
-
     }
-
     test.done();
   },
 
@@ -10735,28 +10400,16 @@ exports.tests = {
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     attributes = testEmployee.attributes;
-
     length = attributes.length;
-
-
-    if (false) {
-      assertEquals("htmlLength",2,length);
-
-    }
-
-    else {
-      assertEquals("length",3,length);
-      child = attributes.item(2);
-      assertNotNull("attr2",child);
-
-    }
+    assertEquals("length",3,length);
+    child = attributes.item(2);
+    assertNotNull("attr2",child);
     child = attributes.item(0);
     assertNotNull("attr0",child);
     child = attributes.item(1);
     assertNotNull("attr1",child);
     child = attributes.item(3);
     assertNull("attr3",child);
-
     test.done();
   },
 
@@ -10917,16 +10570,8 @@ exports.tests = {
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     attributes = testEmployee.attributes;
-
     length = attributes.length;
-
-
-    if (false) {
-      assertEquals("htmlLength",2,length);
-    } else {
-      assertEquals("length",3,length);
-    }
-
+    assertEquals("length",3,length);
     test.done();
   },
 
@@ -11053,17 +10698,9 @@ exports.tests = {
     for(var indexN10070 = 0;indexN10070 < attributes.length; indexN10070++) {
       child = attributes.item(indexN10070);
       nodeName = child.nodeName;
-
       actual[actual.length] = nodeName;
-
     }
-
-    if (false) {
-      assertEqualsCollection("attrName_html",toLowerArray(htmlExpected),toLowerArray(actual));
-    } else {
-      assertEqualsCollection("attrName",expected,actual);
-    }
-
+    assertEqualsCollection("attrName",expected,actual);
     test.done();
   },
 
@@ -11116,13 +10753,7 @@ exports.tests = {
       actual[actual.length] = nodeName;
 
     }
-
-    if (false) {
-      assertEqualsCollection("attrName_html",toLowerArray(htmlExpected),toLowerArray(actual));
-    } else {
-      assertEqualsCollection("attrName",expected,actual);
-    }
-
+    assertEqualsCollection("attrName",expected,actual);
     test.done();
   },
 
@@ -12138,13 +11769,7 @@ exports.tests = {
       result[result.length] = attributeName;
 
     }
-
-    if (false) {
-      assertEqualsCollection("nodeNames_html",toLowerArray(htmlExpected),toLowerArray(result));
-    } else {
-      assertEqualsCollection("nodeNames",expected,result);
-    }
-
+    assertEqualsCollection("nodeNames",expected,result);
     test.done();
   },
 
@@ -12788,13 +12413,7 @@ exports.tests = {
       attrList[attrList.length] = attrName;
 
     }
-
-    if (false) {
-      assertEqualsCollection("attrNames_html",toLowerArray(htmlExpected),toLowerArray(attrList));
-    } else {
-      assertEqualsCollection("attrNames",expected,attrList);
-    }
-
+    assertEqualsCollection("attrNames",expected,attrList);
     test.done();
   },
 
@@ -12817,16 +12436,8 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     elementNode = doc.documentElement;
-
     elementName = elementNode.nodeName;
-
-
-    if (true) {
-      assertEquals("svgNodeName","svg",elementName);
-    } else {
-      assertEqualsAutoCase("element", "nodeName","html",elementName);
-    }
-
+    assertEquals("svgNodeName","svg",elementName);
     test.done();
   },
 
@@ -13115,18 +12726,9 @@ exports.tests = {
     elementList = doc.getElementsByTagName("p");
     docNode = elementList.item(1);
     ownerDocument = docNode.ownerDocument;
-
     docElement = ownerDocument.documentElement;
-
     elementName = docElement.nodeName;
-
-
-    if (true) {
-      assertEquals("svgNodeName","svg",elementName);
-    } else {
-      assertEqualsAutoCase("element", "ownerDocElemTagName","html",elementName);
-    }
-
+    assertEquals("svgNodeName","svg",elementName);
     test.done();
   },
 
@@ -14979,20 +14581,9 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     newNode = doc.doctype;
 
-    assertTrue("docTypeNotNullOrDocIsHTML",
+    assertTrue("docTypeNotNullOrDocIsHTML", ((newNode != null) || (false)));
 
-               (
-                 (newNode != null)
-                   ||
-                   (false)
-               )
-              );
-
-    if(
-
-      (newNode != null)
-
-    ) {
+    if (newNode != null) {
       assertNotNull("docTypeNotNull",newNode);
       newValue = newNode.nodeValue;
 
@@ -15087,32 +14678,20 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     docType = doc.doctype;
+    assertNotNull("docTypeNotNull",docType);
+    nodeMap = docType.entities;
 
+    assertNotNull("entitiesNotNull",nodeMap);
+    newNode = nodeMap.getNamedItem("alpha");
+    assertNotNull("entityNotNull",newNode);
+    newValue = newNode.nodeValue;
 
-    if(
+    assertNull("initiallyNull",newValue);
+    newNode.nodeValue = "This should have no effect";
 
-      !(
-        (false)
-      )
+    newValue = newNode.nodeValue;
 
-    ) {
-      assertNotNull("docTypeNotNull",docType);
-      nodeMap = docType.entities;
-
-      assertNotNull("entitiesNotNull",nodeMap);
-      newNode = nodeMap.getNamedItem("alpha");
-      assertNotNull("entityNotNull",newNode);
-      newValue = newNode.nodeValue;
-
-      assertNull("initiallyNull",newValue);
-      newNode.nodeValue = "This should have no effect";
-
-      newValue = newNode.nodeValue;
-
-      assertNull("nullAfterAttemptedChange",newValue);
-
-    }
-
+    assertNull("nullAfterAttemptedChange",newValue);
     test.done();
   },
 
@@ -15135,32 +14714,20 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     docType = doc.doctype;
+    assertNotNull("docTypeNotNull",docType);
+    nodeMap = docType.notations;
 
+    assertNotNull("notationsNotNull",nodeMap);
+    newNode = nodeMap.getNamedItem("notation1");
+    assertNotNull("notationNotNull",newNode);
+    newValue = newNode.nodeValue;
 
-    if(
+    assertNull("initiallyNull",newValue);
+    newNode.nodeValue = "This should have no effect";
 
-      !(
-        (false)
-      )
+    newValue = newNode.nodeValue;
 
-    ) {
-      assertNotNull("docTypeNotNull",docType);
-      nodeMap = docType.notations;
-
-      assertNotNull("notationsNotNull",nodeMap);
-      newNode = nodeMap.getNamedItem("notation1");
-      assertNotNull("notationNotNull",newNode);
-      newValue = newNode.nodeValue;
-
-      assertNull("initiallyNull",newValue);
-      newNode.nodeValue = "This should have no effect";
-
-      newValue = newNode.nodeValue;
-
-      assertNull("nullAfterAttemptedChange",newValue);
-
-    }
-
+    assertNull("nullAfterAttemptedChange",newValue);
     test.done();
   },
 
@@ -15181,33 +14748,18 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     docType = doc.doctype;
+    assertNotNull("docTypeNotNull",docType);
+    notations = docType.notations;
 
-
-    if(
-
-      !(
-        (false)
-      )
-
-    ) {
-      assertNotNull("docTypeNotNull",docType);
-      notations = docType.notations;
-
-      assertNotNull("notationsNotNull",notations);
-
-      {
-        success = false;
-        try {
-          retval = notations.removeNamedItem("notation1");
-        }
-        catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-        }
-        assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
-      }
-
+    assertNotNull("notationsNotNull",notations);
+    success = false;
+    try {
+      retval = notations.removeNamedItem("notation1");
     }
-
+    catch(ex) {
+      success = (typeof(ex.code) != 'undefined' && ex.code == 7);
+    }
+    assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     test.done();
   },
 
@@ -15230,42 +14782,30 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     docType = doc.doctype;
+    assertNotNull("docTypeNotNull",docType);
+    notations = docType.notations;
 
+    assertNotNull("notationsNotNull",notations);
+    elem = doc.createElement("br");
 
-    if(
+    try {
+      retval = notations.setNamedItem(elem);
+      fail("throw_HIER_OR_NO_MOD_ERR");
 
-      !(
-        (false)
-      )
-
-    ) {
-      assertNotNull("docTypeNotNull",docType);
-      notations = docType.notations;
-
-      assertNotNull("notationsNotNull",notations);
-      elem = doc.createElement("br");
-
-      try {
-        retval = notations.setNamedItem(elem);
-        fail("throw_HIER_OR_NO_MOD_ERR");
-
-      } catch (ex) {
-        if (typeof(ex.code) != 'undefined') {
-          switch(ex.code) {
-          case /* HIERARCHY_REQUEST_ERR */ 3 :
-            break;
-          case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
-            break;
-          default:
-            throw ex;
-          }
-        } else {
+    } catch (ex) {
+      if (typeof(ex.code) != 'undefined') {
+        switch(ex.code) {
+        case /* HIERARCHY_REQUEST_ERR */ 3 :
+          break;
+        case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
+          break;
+        default:
           throw ex;
         }
+      } else {
+        throw ex;
       }
-
     }
-
     test.done();
   },
 
@@ -18003,17 +17543,9 @@ exports.tests = {
 
     doc = staff.staff();
     docType = doc.doctype;
-
     assertNotNull("docTypeNotNull",docType);
     documentTypeName = docType.nodeName;
-
-
-    if (true) {
-      assertEquals("doctypeNameSVG","svg",documentTypeName);
-    } else {
-      assertEquals("documentName","staff",documentTypeName);
-    }
-
+    assertEquals("doctypeNameSVG","svg",documentTypeName);
     test.done();
   },
 
@@ -18146,16 +17678,8 @@ exports.tests = {
 
     doc = staff.staff();
     elementNode = doc.documentElement;
-
     elementName = elementNode.nodeName;
-
-
-    if (true) {
-      assertEquals("svgNodeName","svg",elementName);
-    } else {
-      assertEquals("nodeElementNodeNameAssert1","staff",elementName);
-    }
-
+    assertEquals("svgNodeName","svg",elementName);
     test.done();
   },
 
@@ -18826,18 +18350,9 @@ exports.tests = {
     elementList = doc.getElementsByTagName("employee");
     docNode = elementList.item(1);
     ownerDocument = docNode.ownerDocument;
-
     docElement = ownerDocument.documentElement;
-
     elementName = docElement.nodeName;
-
-
-    if (true) {
-      assertEquals("svgTagName","svg",elementName);
-    } else {
-      assertEquals("nodeGetOwnerDocumentAssert1","staff",elementName);
-    }
-
+    assertEquals("svgTagName","svg",elementName);
     test.done();
   },
 
@@ -20160,16 +19675,8 @@ exports.tests = {
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     parentNode = employeeNode.parentNode;
-
     parentName = parentNode.nodeName;
-
-
-    if (true) {
-      assertEquals("svgTagName","svg",parentName);
-    } else {
-      assertEquals("nodeParentNodeAssert1","staff",parentName);
-    }
-
+    assertEquals("svgTagName","svg",parentName);
     test.done();
   },
 
