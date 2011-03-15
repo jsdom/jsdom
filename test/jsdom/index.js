@@ -95,21 +95,22 @@ exports.tests = {
         server = require("http").createServer(function(req, res) {
           res.writeHead(200, {"Content-length": routes[req.url].length});
           res.end(routes[req.url]);
-        });
-    server.listen(64000);
-    // server needs a few hundred milliseconds to get started...
-    jsdom.env({
-      html: "http://127.0.0.1:64000/html",
-      scripts: "http://127.0.0.1:64000/js",
-      done: function(errors, window) {
-        server.close();
-	test.equal(errors, null, 'errors should be null');
-        test.notEqual(window.location, null, 'window.location should not be null');
-        test.equal(window.attachedHere, 123, 'script should execute on our window');
-        test.equal(window.document.getElementsByTagName("a").item(0).innerHTML, 'World', 'anchor text');
-        test.done();
-      }
-    });
+        }),
+        cb = function() {
+          jsdom.env({
+            html: "http://127.0.0.1:64000/html",
+            scripts: "http://127.0.0.1:64000/js",
+            done: function(errors, window) {
+              server.close();
+	      test.equal(errors, null, 'errors should be null');
+              test.notEqual(window.location, null, 'window.location should not be null');
+              test.equal(window.attachedHere, 123, 'script should execute on our window');
+              test.equal(window.document.getElementsByTagName("a").item(0).innerHTML, 'World', 'anchor text');
+              test.done();
+            }
+          });
+        };
+    server.listen(64000, '127.0.0.1', cb);
   },
 
   env_processArguments_invalid_args: function(test) {
