@@ -476,41 +476,21 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
   hc_attrcreatedocumentfragment: function(test) {
-    var success;
-    var doc;
-    var docFragment;
-    var newOne;
-    var domesticNode;
-    var attributes;
-    var attribute;
-    var attrName;
-    var appendedChild;
     var langAttrCount = 0;
-
-    doc = hc_staff.hc_staff();
-    docFragment = doc.createDocumentFragment();
-    newOne = doc.createElement("html");
+    var doc = hc_staff.hc_staff();
+    var docFragment = doc.createDocumentFragment();
+    var newOne = doc.createElement("html");
     newOne.setAttribute("lang","EN");
-    appendedChild = docFragment.appendChild(newOne);
-    domesticNode = docFragment.firstChild;
-
-    attributes = domesticNode.attributes;
-
-    for(var indexN10078 = 0;indexN10078 < attributes.length; indexN10078++) {
-      attribute = attributes.item(indexN10078);
+    docFragment.appendChild(newOne);
+    var attributes = docFragment.firstChild.attributes;
+    for(var i=0;i<attributes.length;i++) {
+      attribute = attributes.item(i);
       attrName = attribute.nodeName;
-
-
-      if(
-        equalsAutoCase("attribute", "lang", attrName)
-      ) {
+      if(attrName == "lang") {
         langAttrCount += 1;
-
       }
-
     }
     test.equal(langAttrCount, 1, 'hasLangAttr');
-
     test.done();
   },
 
@@ -2837,7 +2817,7 @@ exports.tests = {
     var doc = hc_staff.hc_staff();
     var newDocFragment = doc.createDocumentFragment();
     test.equal(newDocFragment.childNodes.length, 0, 'length');
-    test.equal(newDocFragment.nodeName, "#DOCUMENT-FRAGMENT", 'strong');
+    test.equal(newDocFragment.nodeName, "#document-fragment", 'strong');
     test.equal(newDocFragment.nodeType, 11, 'type');
     test.equal(newDocFragment.nodeValue, null, 'value');
     test.done();
@@ -3895,21 +3875,11 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    */
   hc_elementreplaceattributewithself: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var testEmployee;
-    var streetAttr;
-    var replacedAttr;
-    var value;
-
-    doc = hc_staff.hc_staff();
-    elementList = doc.getElementsByTagName("acronym");
-    testEmployee = elementList.item(2);
-    streetAttr = testEmployee.getAttributeNode("class");
-    replacedAttr = testEmployee.setAttributeNode(streetAttr);
-    assertSame("replacedAttr",streetAttr,replacedAttr);
-
+    var doc = hc_staff.hc_staff();
+    var testEmployee = doc.getElementsByTagName("acronym").item(2);
+    var streetAttr = testEmployee.getAttributeNode("class");
+    var replacedAttr = testEmployee.setAttributeNode(streetAttr);
+    test.equal(replacedAttr, streetAttr, 'replacedAttr')
     test.done();
   },
 
@@ -4341,7 +4311,7 @@ exports.tests = {
   hc_namednodemapreturnattrnode: function(test) {
     var doc = hc_staff.hc_staff();
     var streetAttr = doc.getElementsByTagName("acronym").item(1).attributes.getNamedItem("class");
-    assertInstanceOf("typeAssert","Attr",streetAttr);
+    test.equal(streetAttr.nodeType, 2, 'typeAssert')
     test.equal(streetAttr.nodeName, 'class', 'attribute nodeName');
     test.equal(streetAttr.name, 'class', 'attribute name');
     test.done();
@@ -5591,7 +5561,7 @@ exports.tests = {
   hc_nodedocumentfragmentnodename: function(test) {
     var doc = hc_staff.hc_staff();
     var docFragment = doc.createDocumentFragment();
-    test.equal(docFragment.nodeName, "#DOCUMENT-FRAGMENT", 'nodeDocumentFragmentNodeNameAssert1');
+    test.equal(docFragment.nodeName, "#document-fragment", 'nodeDocumentFragmentNodeNameAssert1');
     test.done();
   },
 
@@ -7062,61 +7032,24 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
   hc_nodereplacechildnewchildexists: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var employeeNode;
-    var childList;
-    var oldChild = null;
-
-    var newChild = null;
-
-    var child;
-    var childName;
-    var childNode;
-    var actual = new Array();
-
-    expected = new Array();
-    expected[0] = "strong";
-    expected[1] = "code";
-    expected[2] = "sup";
-    expected[3] = "var";
-    expected[4] = "em";
-
-    var replacedChild;
-    var nodeType;
-
-    doc = hc_staff.hc_staff();
-    elementList = doc.getElementsByTagName("p");
-    employeeNode = elementList.item(1);
-    childList = employeeNode.getElementsByTagName("*");
-    newChild = childList.item(0);
-    oldChild = childList.item(5);
-    replacedChild = employeeNode.replaceChild(newChild,oldChild);
-    assertSame("return_value_same",oldChild,replacedChild);
-    for(var indexN10094 = 0;indexN10094 < childList.length; indexN10094++) {
-      childNode = childList.item(indexN10094);
-      childName = childNode.nodeName;
-
-      nodeType = childNode.nodeType;
-
-
-      if(
-        (1 == nodeType)
-      ) {
-        actual[actual.length] = childName;
-
+    var actual = [];
+    var expected = ["STRONG", "CODE", "SUP", "VAR", "EM"];
+    var doc = hc_staff.hc_staff();
+    var employeeNode = doc.getElementsByTagName("p").item(1);
+    var childList = employeeNode.getElementsByTagName("*");
+    var newChild = childList.item(0);
+    var oldChild = childList.item(5);
+    var replacedChild = employeeNode.replaceChild(newChild,oldChild);
+    test.equal(replacedChild, oldChild, 'return_value_same');
+    for(var i=0;i<childList.length;i++) {
+      if (1 == childList.item(i).nodeType) {
+        actual.push(childList.item(i).nodeName)
+      } else {
+        test.equal(childList.item(i).nodeType, 3, 'textNodeType');
+        test.equal(childList.item(i).nodeName, "#text", 'textNodeName');
       }
-
-      else {
-        test.equal(nodeType, 3, 'textNodeType');
-        test.equal(childName, "#text", 'textNodeName');
-
-      }
-
     }
     test.deepEqual(actual, expected, 'element childNames');
-
     test.done();
   },
 
@@ -7630,72 +7563,24 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-745549614
    */
   hc_textparseintolistofelements: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var addressNode;
-    var childList;
-    var child;
-    var value;
-    var grandChild;
-    var length;
-    var result = new Array();
-
-    expectedNormal = new Array();
-    expectedNormal[0] = "β";
-    expectedNormal[1] = " Dallas, ";
-    expectedNormal[2] = "γ";
-    expectedNormal[3] = "\n 98554";
-
-    expectedExpanded = new Array();
-    expectedExpanded[0] = "β Dallas, γ\n 98554";
-
-
-    doc = hc_staff.hc_staff();
-    elementList = doc.getElementsByTagName("acronym");
-    addressNode = elementList.item(1);
-    childList = addressNode.childNodes;
-
-    length = childList.length;
-
-    for(var indexN1007C = 0;indexN1007C < childList.length; indexN1007C++) {
-      child = childList.item(indexN1007C);
-      value = child.nodeValue;
-
-
-      if(
-
-        (value == null)
-
-      ) {
-        grandChild = child.firstChild;
-
-        test.notEqual(grandChild, null, 'grandChildNotNull');
-        value = grandChild.nodeValue;
-
-        result[result.length] = value;
-
+    var expectedNormal = ["β", " Dallas, ", "γ", "\n 98554"];
+    var expectedExpanded = ["β Dallas, γ\n 98554"];
+    var doc = hc_staff.hc_staff();
+    var childList = doc.getElementsByTagName("acronym").item(1).childNodes;
+    var actual = [];
+    for(var i=0;i<childList.length;i++) {
+      if (childList.item(i).nodeValue == null) {
+        test.notEqual(childList.item(i).firstChild, null, 'grandChildNotNull');
+        actual.push(childList.item(i).firstChild.nodeValue);
+      } else {
+        actual.push(childList.item(i).nodeValue);
       }
-
-      else {
-        result[result.length] = value;
-
-      }
-
     }
-
-    if(
-      (1 == length)
-    ) {
-      test.deepEqual(result, expectedExpanded, 'assertEqCoalescing');
-
+    if (1 == childList.length) {
+      test.deepEqual(actual, expectedExpanded, 'assertEqCoalescing');
+    } else {
+      test.deepEqual(actual, expectedNormal, 'assertEqNormal');
     }
-
-    else {
-      test.deepEqual(result, expectedNormal, 'assertEqNormal');
-
-    }
-
     test.done();
   },
 
