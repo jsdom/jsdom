@@ -1,3 +1,7 @@
+var hc_staff = require('./svg/files/hc_staff.svg');
+var staff = require('./svg/files/staff.svg');
+var hc_nodtdstaff = require('./svg/files/hc_nodtdstaff.svg');
+
 exports.tests = {
   /**
    *
@@ -12,9 +16,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68F082
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A3
    */
-  attrcreatedocumentfragment : function () {
+  attrcreatedocumentfragment: function(test) {
     var success;
-    if(checkInitialization(builder, "attrcreatedocumentfragment") != null) return;
     var doc;
     var docFragment;
     var newOne;
@@ -24,11 +27,7 @@ exports.tests = {
     var attrName;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docFragment = doc.createDocumentFragment();
     newOne = doc.createElement("newElement");
     newOne.setAttribute("newdomestic","Yes");
@@ -42,7 +41,9 @@ exports.tests = {
 
     assertEquals("attrCreateDocumentFragmentAssert","newdomestic",attrName);
 
+    test.done();
   },
+
   /**
    *
    The "setValue()" method for an attribute creates a
@@ -59,9 +60,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Apr/0057.html
    */
-  attrcreatetextnode : function () {
+  attrcreatetextnode: function(test) {
     var success;
-    if(checkInitialization(builder, "attrcreatetextnode") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -69,11 +69,7 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(3);
     attributes = testNode.attributes;
@@ -88,7 +84,9 @@ exports.tests = {
 
     assertEquals("nodeValue","Y&ent1;",value);
 
+    test.done();
   },
+
   /**
    *
    The "setNodeValue()" method for an attribute creates a
@@ -104,9 +102,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Apr/0057.html
    */
-  attrcreatetextnode2 : function () {
+  attrcreatetextnode2: function(test) {
     var success;
-    if(checkInitialization(builder, "attrcreatetextnode2") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -114,11 +111,7 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(3);
     attributes = testNode.attributes;
@@ -133,7 +126,9 @@ exports.tests = {
 
     assertEquals("nodeValue","Y&ent1;",value);
 
+    test.done();
   },
+
   /**
    *
    If there is not an explicit value assigned to an attribute
@@ -153,9 +148,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1074577549
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
    */
-  attrdefaultvalue : function () {
+  attrdefaultvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "attrdefaultvalue") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -163,11 +157,7 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -177,7 +167,9 @@ exports.tests = {
 
     assertEquals("attrDefaultValueAssert","Yes",value);
 
+    test.done();
   },
+
   /**
    *
    If an Attr is explicitly assigned any value, then that value is the attributes effective value.
@@ -190,9 +182,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1074577549
    */
-  attreffectivevalue : function () {
+  attreffectivevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "attreffectivevalue") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -200,11 +191,7 @@ exports.tests = {
     var domesticAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -214,7 +201,9 @@ exports.tests = {
 
     assertEquals("attrEffectiveValueAssert","Yes",value);
 
+    test.done();
   },
+
   /**
    *
    The "getValue()" method will return the value of the
@@ -232,9 +221,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
    */
-  attrentityreplacement : function () {
+  attrentityreplacement: function(test) {
     var success;
-    if(checkInitialization(builder, "attrentityreplacement") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -242,11 +230,7 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(3);
     attributes = testNode.attributes;
@@ -256,7 +240,9 @@ exports.tests = {
 
     assertEquals("streetYes","Yes",value);
 
+    test.done();
   },
+
   /**
    *
    The getNodeName() method of an Attribute node.
@@ -270,9 +256,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1112119403
    */
-  attrname : function () {
+  attrname: function(test) {
     var success;
-    if(checkInitialization(builder, "attrname") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -280,11 +265,7 @@ exports.tests = {
     var streetAttr;
     var name;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(1);
     attributes = testNode.attributes;
@@ -297,7 +278,9 @@ exports.tests = {
 
     assertEquals("name","street",name);
 
+    test.done();
   },
+
   /**
    *
    The "getNextSibling()" method for an Attr node should return null.
@@ -310,9 +293,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6AC54C2F
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    */
-  attrnextsiblingnull : function () {
+  attrnextsiblingnull: function(test) {
     var success;
-    if(checkInitialization(builder, "attrnextsiblingnull") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -320,11 +302,7 @@ exports.tests = {
     var domesticAttr;
     var s;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -334,7 +312,9 @@ exports.tests = {
 
     assertNull("attrNextSiblingNullAssert",s);
 
+    test.done();
   },
+
   /**
    *
    The "getSpecified()" method for an Attr node should
@@ -351,9 +331,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-862529273
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
    */
-  attrnotspecifiedvalue : function () {
+  attrnotspecifiedvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "attrnotspecifiedvalue") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -361,11 +340,7 @@ exports.tests = {
     var streetAttr;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -375,7 +350,9 @@ exports.tests = {
 
     assertFalse("streetNotSpecified",state);
 
+    test.done();
   },
+
   /**
    *
    The "getParentNode()" method for an Attr node should return null.  Retrieve
@@ -388,9 +365,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1060184317
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    */
-  attrparentnodenull : function () {
+  attrparentnodenull: function(test) {
     var success;
-    if(checkInitialization(builder, "attrparentnodenull") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -398,11 +374,7 @@ exports.tests = {
     var domesticAttr;
     var s;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -412,7 +384,9 @@ exports.tests = {
 
     assertNull("attrParentNodeNullAssert",s);
 
+    test.done();
   },
+
   /**
    *
    The "getPreviousSibling()" method for an Attr node should return null.
@@ -425,9 +399,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-640FB3C8
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    */
-  attrprevioussiblingnull : function () {
+  attrprevioussiblingnull: function(test) {
     var success;
-    if(checkInitialization(builder, "attrprevioussiblingnull") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -435,11 +408,7 @@ exports.tests = {
     var domesticAttr;
     var s;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -449,7 +418,9 @@ exports.tests = {
 
     assertNull("attrPreviousSiblingNullAssert",s);
 
+    test.done();
   },
+
   /**
    *
    Removing a child node from an attribute in an entity reference
@@ -459,9 +430,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-1734834066')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    */
-  attrremovechild1 : function () {
+  attrremovechild1: function(test) {
     var success;
-    if(checkInitialization(builder, "attrremovechild1") != null) return;
     var doc;
     var entRef;
     var entElement;
@@ -469,11 +439,7 @@ exports.tests = {
     var textNode;
     var removedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     entRef = doc.createEntityReference("ent4");
     assertNotNull("createdEntRefNotNull",entRef);
     entElement = entRef.firstChild;
@@ -495,7 +461,9 @@ exports.tests = {
       assertTrue("setValue_throws_NO_MODIFICATION_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Replacing a child node from an attribute in an entity reference
@@ -505,9 +473,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-785887307')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    */
-  attrreplacechild1 : function () {
+  attrreplacechild1: function(test) {
     var success;
-    if(checkInitialization(builder, "attrreplacechild1") != null) return;
     var doc;
     var entRef;
     var entElement;
@@ -516,11 +483,7 @@ exports.tests = {
     var removedNode;
     var newChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     entRef = doc.createEntityReference("ent4");
     assertNotNull("createdEntRefNotNull",entRef);
     entElement = entRef.firstChild;
@@ -543,7 +506,9 @@ exports.tests = {
       assertTrue("setValue_throws_NO_MODIFICATION_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "setValue()" method for an attribute causes the
@@ -562,9 +527,8 @@ exports.tests = {
    * @see http://www.w3.org/DOM/updates/REC-DOM-Level-1-19981001-errata.html
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
    */
-  attrsetvaluenomodificationallowederr : function () {
+  attrsetvaluenomodificationallowederr: function(test) {
     var success;
-    if(checkInitialization(builder, "attrsetvaluenomodificationallowederr") != null) return;
     var doc;
     var genderList;
     var gender;
@@ -575,11 +539,7 @@ exports.tests = {
     var attrList;
     var attrNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     assertNotNull("genderNotNull",gender);
@@ -621,7 +581,9 @@ exports.tests = {
       assertTrue("setNodeValue_throws_NO_MODIFICATION",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "setValue()" method for an attribute causes the
@@ -641,9 +603,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
    * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/attrsetvaluenomodificationallowederr.xml
    */
-  attrsetvaluenomodificationallowederrEE : function () {
+  attrsetvaluenomodificationallowederrEE: function(test) {
     var success;
-    if(checkInitialization(builder, "attrsetvaluenomodificationallowederrEE") != null) return;
     var doc;
     var entRef;
     var entElement;
@@ -653,11 +614,7 @@ exports.tests = {
     var genderList;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     assertNotNull("genderNotNull",gender);
@@ -695,7 +652,9 @@ exports.tests = {
       assertTrue("setNodeValue_throws_NO_MODIFICATION",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "getSpecified()" method for an Attr node should
@@ -711,9 +670,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-862529273
    */
-  attrspecifiedvalue : function () {
+  attrspecifiedvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "attrspecifiedvalue") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -721,11 +679,7 @@ exports.tests = {
     var domesticAttr;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -735,7 +689,9 @@ exports.tests = {
 
     assertTrue("domesticSpecified",state);
 
+    test.done();
   },
+
   /**
    *
    The "getSpecified()" method for an Attr node should return true if the
@@ -752,9 +708,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-862529273
    */
-  attrspecifiedvaluechanged : function () {
+  attrspecifiedvaluechanged: function(test) {
     var success;
-    if(checkInitialization(builder, "attrspecifiedvaluechanged") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -762,11 +717,7 @@ exports.tests = {
     var streetAttr;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(2);
     testNode.setAttribute("street","Yes");
@@ -777,7 +728,9 @@ exports.tests = {
 
     assertTrue("streetSpecified",state);
 
+    test.done();
   },
+
   /**
    *
    To respecify the attribute to its default value from
@@ -798,9 +751,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D6AC0F9
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
    */
-  attrspecifiedvalueremove : function () {
+  attrspecifiedvalueremove: function(test) {
     var success;
-    if(checkInitialization(builder, "attrspecifiedvalueremove") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -808,11 +760,7 @@ exports.tests = {
     var streetAttr;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(2);
     testNode.removeAttribute("street");
@@ -824,7 +772,9 @@ exports.tests = {
 
     assertFalse("attrSpecifiedValueRemoveAssert",state);
 
+    test.done();
   },
+
   /**
    *
    Retrieve the last CDATASection node located inside the
@@ -838,9 +788,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    */
-  cdatasectiongetdata : function () {
+  cdatasectiongetdata: function(test) {
     var success;
-    if(checkInitialization(builder, "cdatasectiongetdata") != null) return;
     var doc;
     var nameList;
     var child;
@@ -848,11 +797,7 @@ exports.tests = {
     var data;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     nameList = doc.getElementsByTagName("name");
     child = nameList.item(1);
     lastChild = child.lastChild;
@@ -864,7 +809,9 @@ exports.tests = {
 
     assertEquals("data","This is an adjacent CDATASection with a reference to a tab &tab;",data);
 
+    test.done();
   },
+
   /**
    *
    Adjacent CDATASection nodes cannot be merged together by
@@ -878,9 +825,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-162CF083
    */
-  cdatasectionnormalize : function () {
+  cdatasectionnormalize: function(test) {
     var success;
-    if(checkInitialization(builder, "cdatasectionnormalize") != null) return;
     var doc;
     var nameList;
     var lChild;
@@ -888,11 +834,7 @@ exports.tests = {
     var cdataN;
     var data;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     nameList = doc.getElementsByTagName("name");
     lChild = nameList.item(1);
     lChild.normalize();
@@ -909,7 +851,9 @@ exports.tests = {
 
     assertEquals("data3","This is an adjacent CDATASection with a reference to a tab &tab;",data);
 
+    test.done();
   },
+
   /**
    *
    The "appendData(arg)" method appends a string to the end
@@ -927,9 +871,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-32791A2F
    */
-  characterdataappenddata : function () {
+  characterdataappenddata: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdataappenddata") != null) return;
     var doc;
     var elementList;
     var nameNode;
@@ -937,11 +880,7 @@ exports.tests = {
     var childValue;
     var childLength;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -952,7 +891,9 @@ exports.tests = {
     childLength = childValue.length;
     assertEquals("characterdataAppendDataAssert",24,childLength);
 
+    test.done();
   },
+
   /**
    *
    On successful invocation of the "appendData(arg)"
@@ -971,20 +912,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-32791A2F
    */
-  characterdataappenddatagetdata : function () {
+  characterdataappenddatagetdata: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdataappenddatagetdata") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -994,7 +930,9 @@ exports.tests = {
 
     assertEquals("characterdataAppendDataGetDataAssert","Margaret Martin, Esquire",childData);
 
+    test.done();
   },
+
   /**
    *
    The "appendData(arg)" method raises a NO_MODIFICATION_ALLOWED_ERR
@@ -1011,9 +949,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-32791A2F')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-32791A2F
    */
-  characterdataappenddatanomodificationallowederr : function () {
+  characterdataappenddatanomodificationallowederr: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdataappenddatanomodificationallowederr") != null) return;
     var doc;
     var genderList;
     var genderNode;
@@ -1022,11 +959,7 @@ exports.tests = {
     var entReference;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = genderNode.firstChild;
@@ -1060,7 +993,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Create an ent3 entity reference and call appendData on a text child, should thrown a NO_MODIFICATION_ALLOWED_ERR.
@@ -1072,9 +1007,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-32791A2F
    * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/characterdataappenddatanomodificationallowederr.xml
    */
-  characterdataappenddatanomodificationallowederrEE : function () {
+  characterdataappenddatanomodificationallowederrEE: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdataappenddatanomodificationallowederrEE") != null) return;
     var doc;
     var genderList;
     var genderNode;
@@ -1082,11 +1016,7 @@ exports.tests = {
     var entReference;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = doc.createEntityReference("ent3");
@@ -1107,7 +1037,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "deleteData(offset,count)" method removes a range of
@@ -1125,20 +1057,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  characterdatadeletedatabegining : function () {
+  characterdatadeletedatabegining: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatadeletedatabegining") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1148,7 +1075,9 @@ exports.tests = {
 
     assertEquals("characterdataDeleteDataBeginingAssert","Dallas, Texas 98551",childData);
 
+    test.done();
   },
+
   /**
    *
    The "deleteData(offset,count)" method removes a range of
@@ -1167,20 +1096,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  characterdatadeletedataend : function () {
+  characterdatadeletedataend: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatadeletedataend") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1190,7 +1114,9 @@ exports.tests = {
 
     assertEquals("characterdataDeleteDataEndAssert","1230 North Ave. Dallas, Texas ",childData);
 
+    test.done();
   },
+
   /**
    *
    If the sum of the offset and count used in the
@@ -1211,20 +1137,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  characterdatadeletedataexceedslength : function () {
+  characterdatadeletedataexceedslength: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatadeletedataexceedslength") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1234,7 +1155,9 @@ exports.tests = {
 
     assertEquals("characterdataDeleteDataExceedsLengthAssert","1230",childData);
 
+    test.done();
   },
+
   /**
    *
    On successful invocation of the "deleteData(offset,count)"
@@ -1256,9 +1179,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7D61178C
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  characterdatadeletedatagetlengthanddata : function () {
+  characterdatadeletedatagetlengthanddata: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatadeletedatagetlengthanddata") != null) return;
     var doc;
     var elementList;
     var nameNode;
@@ -1268,11 +1190,7 @@ exports.tests = {
     var result = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1285,7 +1203,9 @@ exports.tests = {
 
     assertEquals("length",30,childLength);
 
+    test.done();
   },
+
   /**
    *
    The "deleteData(offset,count)" method removes a range of
@@ -1304,20 +1224,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  characterdatadeletedatamiddle : function () {
+  characterdatadeletedatamiddle: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatadeletedatamiddle") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1327,7 +1242,9 @@ exports.tests = {
 
     assertEquals("characterdataDeleteDataMiddleAssert","1230 North Ave. Texas 98551",childData);
 
+    test.done();
   },
+
   /**
    *
    The "deleteData(offset,count)" method raises a NO_MODIFICATION_ALLOWED_ERR
@@ -1344,9 +1261,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-7C603781')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  characterdatadeletedatanomodificationallowederr : function () {
+  characterdatadeletedatanomodificationallowederr: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatadeletedatanomodificationallowederr") != null) return;
     var doc;
     var genderList;
     var genderNode;
@@ -1355,11 +1271,7 @@ exports.tests = {
     var nodeType;
     var entReference;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = genderNode.firstChild;
@@ -1393,7 +1305,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Create an ent3 entity reference and call deleteData on a text child, should thrown a NO_MODIFICATION_ALLOWED_ERR.
@@ -1405,9 +1319,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/characterdatadeletedatanomodificationallowederr.xml
    */
-  characterdatadeletedatanomodificationallowederrEE : function () {
+  characterdatadeletedatanomodificationallowederrEE: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatadeletedatanomodificationallowederrEE") != null) return;
     var doc;
     var genderList;
     var genderNode;
@@ -1415,11 +1328,7 @@ exports.tests = {
     var entReference;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = doc.createEntityReference("ent3");
@@ -1440,7 +1349,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
 
@@ -1461,20 +1372,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    */
-  characterdatagetdata : function () {
+  characterdatagetdata: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatagetdata") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1483,7 +1389,9 @@ exports.tests = {
 
     assertEquals("characterdataGetDataAssert","Margaret Martin",childData);
 
+    test.done();
   },
+
   /**
    *
    The "getLength()" method returns the number of characters
@@ -1497,9 +1405,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7D61178C
    */
-  characterdatagetlength : function () {
+  characterdatagetlength: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatagetlength") != null) return;
     var doc;
     var elementList;
     var nameNode;
@@ -1507,11 +1414,7 @@ exports.tests = {
     var childValue;
     var childLength;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1521,7 +1424,9 @@ exports.tests = {
     childLength = childValue.length;
     assertEquals("characterdataGetLengthAssert",15,childLength);
 
+    test.done();
   },
+
   /**
    *
    The "deleteData(offset,count)" method raises an
@@ -1539,19 +1444,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  characterdataindexsizeerrdeletedatacountnegative : function () {
+  characterdataindexsizeerrdeletedatacountnegative: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdataindexsizeerrdeletedatacountnegative") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1568,7 +1468,9 @@ exports.tests = {
       assertTrue("throws_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "deleteData(offset,count)" method raises an
@@ -1589,19 +1491,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  characterdataindexsizeerrdeletedataoffsetgreater : function () {
+  characterdataindexsizeerrdeletedataoffsetgreater: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdataindexsizeerrdeletedataoffsetgreater") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1618,7 +1515,9 @@ exports.tests = {
       assertTrue("throw_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "deleteData(offset,count)" method raises an
@@ -1637,19 +1536,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-7C603781')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  characterdataindexsizeerrdeletedataoffsetnegative : function () {
+  characterdataindexsizeerrdeletedataoffsetnegative: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdataindexsizeerrdeletedataoffsetnegative") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1666,7 +1560,9 @@ exports.tests = {
       assertTrue("throws_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "insertData(offset,arg)" method raises an
@@ -1686,19 +1582,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-7C603781')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  characterdataindexsizeerrinsertdataoffsetgreater : function () {
+  characterdataindexsizeerrinsertdataoffsetgreater: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdataindexsizeerrinsertdataoffsetgreater") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1715,7 +1606,9 @@ exports.tests = {
       assertTrue("throw_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "insertData(offset,arg)" method raises an
@@ -1733,19 +1626,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-E5CBA7FB')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  characterdataindexsizeerrinsertdataoffsetnegative : function () {
+  characterdataindexsizeerrinsertdataoffsetnegative: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdataindexsizeerrinsertdataoffsetnegative") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1762,7 +1650,9 @@ exports.tests = {
       assertTrue("throws_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "replaceData(offset,count,arg)" method raises an
@@ -1781,19 +1671,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  characterdataindexsizeerrreplacedatacountnegative : function () {
+  characterdataindexsizeerrreplacedatacountnegative: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdataindexsizeerrreplacedatacountnegative") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1810,7 +1695,9 @@ exports.tests = {
       assertTrue("throws_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "replaceData(offset,count,arg)" method raises an
@@ -1831,19 +1718,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-7C603781')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  characterdataindexsizeerrreplacedataoffsetgreater : function () {
+  characterdataindexsizeerrreplacedataoffsetgreater: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdataindexsizeerrreplacedataoffsetgreater") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1860,7 +1742,9 @@ exports.tests = {
       assertTrue("throw_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "replaceData(offset,count,arg)" method raises an
@@ -1880,19 +1764,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-E5CBA7FB')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  characterdataindexsizeerrreplacedataoffsetnegative : function () {
+  characterdataindexsizeerrreplacedataoffsetnegative: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdataindexsizeerrreplacedataoffsetnegative") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1909,7 +1788,9 @@ exports.tests = {
       assertTrue("throws_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "substringData(offset,count)" method raises an
@@ -1927,20 +1808,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  characterdataindexsizeerrsubstringcountnegative : function () {
+  characterdataindexsizeerrsubstringcountnegative: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdataindexsizeerrsubstringcountnegative") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var badSubstring;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1957,7 +1833,9 @@ exports.tests = {
       assertTrue("throws_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "substringData(offset,count)" method raises an
@@ -1975,20 +1853,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  characterdataindexsizeerrsubstringnegativeoffset : function () {
+  characterdataindexsizeerrsubstringnegativeoffset: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdataindexsizeerrsubstringnegativeoffset") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var badString;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2005,7 +1878,9 @@ exports.tests = {
       assertTrue("throws_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "substringData(offset,count)" method raises an
@@ -2025,20 +1900,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  characterdataindexsizeerrsubstringoffsetgreater : function () {
+  characterdataindexsizeerrsubstringoffsetgreater: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdataindexsizeerrsubstringoffsetgreater") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var badString;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2055,7 +1925,9 @@ exports.tests = {
       assertTrue("throw_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "insertData(offset,arg)" method will insert a string
@@ -2073,20 +1945,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
    */
-  characterdatainsertdatabeginning : function () {
+  characterdatainsertdatabeginning: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatainsertdatabeginning") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2096,7 +1963,9 @@ exports.tests = {
 
     assertEquals("characterdataInsertDataBeginningAssert","Mss. Margaret Martin",childData);
 
+    test.done();
   },
+
   /**
    *
    The "insertData(offset,arg)" method will insert a string
@@ -2115,20 +1984,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
    */
-  characterdatainsertdataend : function () {
+  characterdatainsertdataend: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatainsertdataend") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2138,7 +2002,9 @@ exports.tests = {
 
     assertEquals("characterdataInsertDataEndAssert","Margaret Martin, Esquire",childData);
 
+    test.done();
   },
+
   /**
    *
    The "insertData(offset,arg)" method will insert a string
@@ -2157,20 +2023,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
    */
-  characterdatainsertdatamiddle : function () {
+  characterdatainsertdatamiddle: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatainsertdatamiddle") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2180,7 +2041,9 @@ exports.tests = {
 
     assertEquals("characterdataInsertDataMiddleAssert","Margaret Ann Martin",childData);
 
+    test.done();
   },
+
   /**
    *
    The "insertData(offset,arg)" method raises a NO_MODIFICATION_ALLOWED_ERR
@@ -2197,9 +2060,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-3EDB695F')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
    */
-  characterdatainsertdatanomodificationallowederr : function () {
+  characterdatainsertdatanomodificationallowederr: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatainsertdatanomodificationallowederr") != null) return;
     var doc;
     var genderList;
     var genderNode;
@@ -2208,11 +2070,7 @@ exports.tests = {
     var entElementContent;
     var entReference;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = genderNode.firstChild;
@@ -2246,7 +2104,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Create an ent3 entity reference and call insertData on a text child, should thrown a NO_MODIFICATION_ALLOWED_ERR.
@@ -2258,20 +2118,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
    * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/characterdatainsertdatanomodificationallowederr.xml
    */
-  characterdatainsertdatanomodificationallowederrEE : function () {
+  characterdatainsertdatanomodificationallowederrEE: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatainsertdatanomodificationallowederrEE") != null) return;
     var doc;
     var genderList;
     var genderNode;
     var entText;
     var entReference;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = doc.createEntityReference("ent3");
@@ -2291,7 +2146,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "replaceData(offset,count,arg)" method replaces the
@@ -2309,20 +2166,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  characterdatareplacedatabegining : function () {
+  characterdatareplacedatabegining: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatareplacedatabegining") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2332,7 +2184,9 @@ exports.tests = {
 
     assertEquals("characterdataReplaceDataBeginingAssert","2500 North Ave. Dallas, Texas 98551",childData);
 
+    test.done();
   },
+
   /**
    *
    The "replaceData(offset,count,arg)" method replaces the
@@ -2351,20 +2205,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  characterdatareplacedataend : function () {
+  characterdatareplacedataend: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatareplacedataend") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2374,7 +2223,9 @@ exports.tests = {
 
     assertEquals("characterdataReplaceDataEndAssert","1230 North Ave. Dallas, Texas 98665",childData);
 
+    test.done();
   },
+
   /**
    *
    The "replaceData(offset,count,arg)" method replaces the
@@ -2394,20 +2245,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  characterdatareplacedataexceedslengthofarg : function () {
+  characterdatareplacedataexceedslengthofarg: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatareplacedataexceedslengthofarg") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2417,7 +2263,9 @@ exports.tests = {
 
     assertEquals("characterdataReplaceDataExceedsLengthOfArgAssert","260030 North Ave. Dallas, Texas 98551",childData);
 
+    test.done();
   },
+
   /**
    *
    If the sum of the offset and count exceeds the length then
@@ -2435,20 +2283,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  characterdatareplacedataexceedslengthofdata : function () {
+  characterdatareplacedataexceedslengthofdata: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatareplacedataexceedslengthofdata") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2458,7 +2301,9 @@ exports.tests = {
 
     assertEquals("characterdataReplaceDataExceedsLengthOfDataAssert","2600",childData);
 
+    test.done();
   },
+
   /**
    *
    The "replaceData(offset,count,arg)" method replaces the
@@ -2477,20 +2322,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  characterdatareplacedatamiddle : function () {
+  characterdatareplacedatamiddle: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatareplacedatamiddle") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2500,7 +2340,9 @@ exports.tests = {
 
     assertEquals("characterdataReplaceDataMiddleAssert","1230 South Ave. Dallas, Texas 98551",childData);
 
+    test.done();
   },
+
   /**
    *
    The "replaceData(offset,count,arg)" method raises a NO_MODIFICATION_ALLOWED_ERR
@@ -2518,9 +2360,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-E5CBA7FB')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  characterdatareplacedatanomodificationallowederr : function () {
+  characterdatareplacedatanomodificationallowederr: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatareplacedatanomodificationallowederr") != null) return;
     var doc;
     var genderList;
     var genderNode;
@@ -2529,11 +2370,7 @@ exports.tests = {
     var entReference;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = genderNode.firstChild;
@@ -2567,7 +2404,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Create an ent3 entity reference and call replaceData on a text child, should thrown a NO_MODIFICATION_ALLOWED_ERR.
@@ -2579,9 +2418,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/characterdatareplacedatanomodificationallowederr.xml
    */
-  characterdatareplacedatanomodificationallowederrEE : function () {
+  characterdatareplacedatanomodificationallowederrEE: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatareplacedatanomodificationallowederrEE") != null) return;
     var doc;
     var genderList;
     var genderNode;
@@ -2589,11 +2427,7 @@ exports.tests = {
     var entReference;
     var appendedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = doc.createEntityReference("ent3");
@@ -2614,7 +2448,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "setData(data)" method raises a NO_MODIFICATION_ALLOWED_ERR
@@ -2631,9 +2467,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-72AB8359')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    */
-  characterdatasetdatanomodificationallowederr : function () {
+  characterdatasetdatanomodificationallowederr: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatasetdatanomodificationallowederr") != null) return;
     var doc;
     var genderList;
     var genderNode;
@@ -2642,11 +2477,7 @@ exports.tests = {
     var entReference;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = genderNode.firstChild;
@@ -2681,7 +2512,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Create an ent3 entity reference and call setData on a text child, should thrown a NO_MODIFICATION_ALLOWED_ERR.
@@ -2693,20 +2526,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/characterdatasetdatanomodificationallowederr.xml
    */
-  characterdatasetdatanomodificationallowederrEE : function () {
+  characterdatasetdatanomodificationallowederrEE: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatasetdatanomodificationallowederrEE") != null) return;
     var doc;
     var genderList;
     var genderNode;
     var entText;
     var entReference;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(4);
     entReference = doc.createEntityReference("ent3");
@@ -2727,7 +2555,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "setNodeValue()" method changes the character data
@@ -2739,9 +2569,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    */
-  characterdatasetnodevalue : function () {
+  characterdatasetnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatasetnodevalue") != null) return;
     var doc;
     var elementList;
     var nameNode;
@@ -2749,11 +2578,7 @@ exports.tests = {
     var childData;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2767,7 +2592,9 @@ exports.tests = {
 
     assertEquals("value","Marilyn Martin",childValue);
 
+    test.done();
   },
+
   /**
    *
    If the sum of the "offset" and "count" exceeds the
@@ -2785,20 +2612,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    */
-  characterdatasubstringexceedsvalue : function () {
+  characterdatasubstringexceedsvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatasubstringexceedsvalue") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var substring;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2806,7 +2628,9 @@ exports.tests = {
     substring = child.substringData(9,10);
     assertEquals("characterdataSubStringExceedsValueAssert","Martin",substring);
 
+    test.done();
   },
+
   /**
    *
    The "substringData(offset,count)" method returns the
@@ -2823,20 +2647,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    */
-  characterdatasubstringvalue : function () {
+  characterdatasubstringvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "characterdatasubstringvalue") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var substring;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2844,7 +2663,9 @@ exports.tests = {
     substring = child.substringData(0,8);
     assertEquals("characterdataSubStringValueAssert","Margaret",substring);
 
+    test.done();
   },
+
   /**
    *
    A comment is all the characters between the starting
@@ -2859,9 +2680,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  commentgetcomment : function () {
+  commentgetcomment: function(test) {
     var success;
-    if(checkInitialization(builder, "commentgetcomment") != null) return;
     var doc;
     var elementList;
     var child;
@@ -2870,11 +2690,7 @@ exports.tests = {
     var commentCount = 0;
     var childType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.childNodes;
 
     for(var indexN10057 = 0;indexN10057 < elementList.length; indexN10057++) {
@@ -2898,7 +2714,9 @@ exports.tests = {
     }
     assertEquals("commentCount",1,commentCount);
 
+    test.done();
   },
+
   /**
    *
    The "createAttribute(name)" method creates an Attribute
@@ -2914,20 +2732,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1084891198
    */
-  documentcreateattribute : function () {
+  documentcreateattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "documentcreateattribute") != null) return;
     var doc;
     var newAttrNode;
     var attrValue;
     var attrName;
     var attrType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newAttrNode = doc.createAttribute("district");
     attrValue = newAttrNode.nodeValue;
 
@@ -2939,7 +2752,9 @@ exports.tests = {
 
     assertEquals("type",2,attrType);
 
+    test.done();
   },
+
   /**
    *
    The "createCDATASection(data)" method creates a new
@@ -2954,20 +2769,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D26C0AF8
    */
-  documentcreatecdatasection : function () {
+  documentcreatecdatasection: function(test) {
     var success;
-    if(checkInitialization(builder, "documentcreatecdatasection") != null) return;
     var doc;
     var newCDATASectionNode;
     var newCDATASectionValue;
     var newCDATASectionName;
     var newCDATASectionType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newCDATASectionNode = doc.createCDATASection("This is a new CDATASection node");
     newCDATASectionValue = newCDATASectionNode.nodeValue;
 
@@ -2979,7 +2789,9 @@ exports.tests = {
 
     assertEquals("nodeType",4,newCDATASectionType);
 
+    test.done();
   },
+
   /**
    *
    The "createComment(data)" method creates a new Comment
@@ -2993,20 +2805,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1334481328
    */
-  documentcreatecomment : function () {
+  documentcreatecomment: function(test) {
     var success;
-    if(checkInitialization(builder, "documentcreatecomment") != null) return;
     var doc;
     var newCommentNode;
     var newCommentValue;
     var newCommentName;
     var newCommentType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newCommentNode = doc.createComment("This is a new Comment node");
     newCommentValue = newCommentNode.nodeValue;
 
@@ -3018,7 +2825,9 @@ exports.tests = {
 
     assertEquals("type",8,newCommentType);
 
+    test.done();
   },
+
   /**
    *
    The "createDocumentFragment()" method creates an empty
@@ -3031,9 +2840,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-35CB04B5
    */
-  documentcreatedocumentfragment : function () {
+  documentcreatedocumentfragment: function(test) {
     var success;
-    if(checkInitialization(builder, "documentcreatedocumentfragment") != null) return;
     var doc;
     var newDocFragment;
     var children;
@@ -3042,11 +2850,7 @@ exports.tests = {
     var newDocFragmentType;
     var newDocFragmentValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newDocFragment = doc.createDocumentFragment();
     children = newDocFragment.childNodes;
 
@@ -3063,7 +2867,9 @@ exports.tests = {
 
     assertNull("value",newDocFragmentValue);
 
+    test.done();
   },
+
   /**
    *
    The "createElement(tagName)" method creates an Element
@@ -3078,20 +2884,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    */
-  documentcreateelement : function () {
+  documentcreateelement: function(test) {
     var success;
-    if(checkInitialization(builder, "documentcreateelement") != null) return;
     var doc;
     var newElement;
     var newElementName;
     var newElementType;
     var newElementValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newElement = doc.createElement("address");
     newElementName = newElement.nodeName;
 
@@ -3103,7 +2904,9 @@ exports.tests = {
 
     assertNull("valueInitiallyNull",newElementValue);
 
+    test.done();
   },
+
   /**
    *
    The tagName parameter in the "createElement(tagName)"
@@ -3119,20 +2922,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    */
-  documentcreateelementcasesensitive : function () {
+  documentcreateelementcasesensitive: function(test) {
     var success;
-    if(checkInitialization(builder, "documentcreateelementcasesensitive") != null) return;
     var doc;
     var newElement1;
     var newElement2;
     var attribute1;
     var attribute2;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newElement1 = doc.createElement("ADDRESS");
     newElement2 = doc.createElement("address");
     newElement1.setAttribute("district","Fort Worth");
@@ -3143,7 +2941,9 @@ exports.tests = {
     assertEquals("attrib1","Fort Worth",attribute1);
     assertEquals("attrib2","Dallas",attribute2);
 
+    test.done();
   },
+
   /**
    *
    The "createElement(tagName)" method creates an Element
@@ -3162,9 +2962,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
    */
-  documentcreateelementdefaultattr : function () {
+  documentcreateelementdefaultattr: function(test) {
     var success;
-    if(checkInitialization(builder, "documentcreateelementdefaultattr") != null) return;
     var doc;
     var newElement;
     var defaultAttr;
@@ -3172,11 +2971,7 @@ exports.tests = {
     var name;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newElement = doc.createElement("address");
     defaultAttr = newElement.attributes;
 
@@ -3190,7 +2985,9 @@ exports.tests = {
     assertEquals("attrValue","Yes",value);
     assertSize("attrCount",1,defaultAttr);
 
+    test.done();
   },
+
   /**
    *
    The "createEntityReference(name)" method creates an
@@ -3208,20 +3005,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-392B75AE
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  documentcreateentityreference : function () {
+  documentcreateentityreference: function(test) {
     var success;
-    if(checkInitialization(builder, "documentcreateentityreference") != null) return;
     var doc;
     var newEntRefNode;
     var entRefValue;
     var entRefName;
     var entRefType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newEntRefNode = doc.createEntityReference("ent1");
     assertNotNull("createdEntRefNotNull",newEntRefNode);
     entRefValue = newEntRefNode.nodeValue;
@@ -3234,7 +3026,9 @@ exports.tests = {
 
     assertEquals("type",5,entRefType);
 
+    test.done();
   },
+
   /**
    *
    The "createEntityReference(name)" method creates an
@@ -3253,9 +3047,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-392B75AE
    */
-  documentcreateentityreferenceknown : function () {
+  documentcreateentityreferenceknown: function(test) {
     var success;
-    if(checkInitialization(builder, "documentcreateentityreferenceknown") != null) return;
     var doc;
     var newEntRefNode;
     var newEntRefList;
@@ -3263,11 +3056,7 @@ exports.tests = {
     var name;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newEntRefNode = doc.createEntityReference("ent3");
     assertNotNull("createdEntRefNotNull",newEntRefNode);
     newEntRefList = newEntRefNode.childNodes;
@@ -3282,7 +3071,9 @@ exports.tests = {
 
     assertEquals("value","Texas",value);
 
+    test.done();
   },
+
   /**
    *
    The "createProcessingInstruction(target,data)" method
@@ -3303,20 +3094,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-135944439
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  documentcreateprocessinginstruction : function () {
+  documentcreateprocessinginstruction: function(test) {
     var success;
-    if(checkInitialization(builder, "documentcreateprocessinginstruction") != null) return;
     var doc;
     var newPINode;
     var piValue;
     var piName;
     var piType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newPINode = doc.createProcessingInstruction("TESTPI","This is a new PI node");
     assertNotNull("createdPINotNull",newPINode);
     piName = newPINode.nodeName;
@@ -3329,7 +3115,9 @@ exports.tests = {
 
     assertEquals("type",7,piType);
 
+    test.done();
   },
+
   /**
    *
    The "createTextNode(data)" method creates a Text node
@@ -3343,20 +3131,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1975348127
    */
-  documentcreatetextnode : function () {
+  documentcreatetextnode: function(test) {
     var success;
-    if(checkInitialization(builder, "documentcreatetextnode") != null) return;
     var doc;
     var newTextNode;
     var newTextName;
     var newTextValue;
     var newTextType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newTextNode = doc.createTextNode("This is a new Text node");
     newTextValue = newTextNode.nodeValue;
 
@@ -3368,7 +3151,9 @@ exports.tests = {
 
     assertEquals("type",3,newTextType);
 
+    test.done();
   },
+
   /**
    *
    The "getDoctype()" method returns the Document
@@ -3384,43 +3169,32 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  documentgetdoctype : function () {
+  documentgetdoctype: function(test) {
     var success;
-    if(checkInitialization(builder, "documentgetdoctype") != null) return;
     var doc;
     var docType;
     var docTypeName;
     var nodeValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
     docTypeName = docType.name;
 
 
-    if(
-
-      (builder.contentType == "image/svg+xml")
-
-    ) {
+    if (true) {
       assertEquals("doctypeNameSVG","svg",docTypeName);
-
-    }
-
-    else {
+    } else {
       assertEquals("doctypeName","staff",docTypeName);
-
     }
     nodeValue = docType.nodeValue;
 
     assertNull("initiallyNull",nodeValue);
 
+    test.done();
   },
+
   /**
    *
    The "getDoctype()" method returns null for XML documents
@@ -3432,22 +3206,19 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A31
    */
-  documentgetdoctypenodtd : function () {
+  documentgetdoctypenodtd: function(test) {
     var success;
-    if(checkInitialization(builder, "documentgetdoctypenodtd") != null) return;
     var doc;
     var docType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_nodtdstaff");
+    doc = hc_nodtdstaff.hc_nodtdstaff();
     docType = doc.doctype;
 
     assertNull("documentGetDocTypeNoDTDAssert",docType);
 
+    test.done();
   },
+
   /**
    *
    The "getElementsByTagName(tagName)" method returns a
@@ -3462,21 +3233,18 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-A6C9094
    */
-  documentgetelementsbytagnamelength : function () {
+  documentgetelementsbytagnamelength: function(test) {
     var success;
-    if(checkInitialization(builder, "documentgetelementsbytagnamelength") != null) return;
     var doc;
     var nameList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     nameList = doc.getElementsByTagName("name");
     assertSize("documentGetElementsByTagNameLengthAssert",5,nameList);
 
+    test.done();
   },
+
   /**
    *
    Retrieve the entire DOM document, invoke
@@ -3486,34 +3254,23 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-A6C9094
    */
-  documentgetelementsbytagnametotallength : function () {
+  documentgetelementsbytagnametotallength: function(test) {
     var success;
-    if(checkInitialization(builder, "documentgetelementsbytagnametotallength") != null) return;
     var doc;
     var nameList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     nameList = doc.getElementsByTagName("*");
 
-    if(
-
-      (builder.contentType == "image/svg+xml")
-
-    ) {
+    if (true) {
       assertSize("elementCountSVG",39,nameList);
-
-    }
-
-    else {
+    } else {
       assertSize("documentGetElementsByTagNameTotalLengthAssert",37,nameList);
-
     }
 
+    test.done();
   },
+
   /**
    *
    The "getElementsByTagName(tagName)" method returns a
@@ -3530,20 +3287,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-A6C9094
    */
-  documentgetelementsbytagnamevalue : function () {
+  documentgetelementsbytagnamevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "documentgetelementsbytagnamevalue") != null) return;
     var doc;
     var nameList;
     var nameNode;
     var firstChild;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     nameList = doc.getElementsByTagName("name");
     nameNode = nameList.item(3);
     firstChild = nameNode.firstChild;
@@ -3552,7 +3304,9 @@ exports.tests = {
 
     assertEquals("documentGetElementsByTagNameValueAssert","Jeny Oconnor",childValue);
 
+    test.done();
   },
+
   /**
    *
    The "getImplementation()" method returns the
@@ -3566,23 +3320,20 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1B793EBA
    */
-  documentgetimplementation : function () {
+  documentgetimplementation: function(test) {
     var success;
-    if(checkInitialization(builder, "documentgetimplementation") != null) return;
     var doc;
     var docImpl;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docImpl = doc.implementation;
     state = docImpl.hasFeature("XML","1.0");
     assertTrue("documentGetImplementationAssert",state);
 
+    test.done();
   },
+
   /**
    *
    The "getDocumentElement()" method provides direct access
@@ -3596,38 +3347,27 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-87CD092
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  documentgetrootnode : function () {
+  documentgetrootnode: function(test) {
     var success;
-    if(checkInitialization(builder, "documentgetrootnode") != null) return;
     var doc;
     var root;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     root = doc.documentElement;
 
     rootName = root.nodeName;
 
 
-    if(
-
-      (builder.contentType == "image/svg+xml")
-
-    ) {
+    if (true) {
       assertEquals("svgRootNode","svg",rootName);
-
-    }
-
-    else {
+    } else {
       assertEquals("documentGetRootNodeAssert","staff",rootName);
-
     }
 
+    test.done();
   },
+
   /**
    *
    The "createAttribute(tagName)" method raises an
@@ -3647,17 +3387,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1084891198
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  documentinvalidcharacterexceptioncreateattribute : function () {
+  documentinvalidcharacterexceptioncreateattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "documentinvalidcharacterexceptioncreateattribute") != null) return;
     var doc;
     var createdAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
 
     {
       success = false;
@@ -3670,7 +3405,9 @@ exports.tests = {
       assertTrue("throw_INVALID_CHARACTER_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "createElement(tagName)" method raises an
@@ -3690,17 +3427,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  documentinvalidcharacterexceptioncreateelement : function () {
+  documentinvalidcharacterexceptioncreateelement: function(test) {
     var success;
-    if(checkInitialization(builder, "documentinvalidcharacterexceptioncreateelement") != null) return;
     var doc;
     var badElement;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
 
     {
       success = false;
@@ -3713,7 +3445,9 @@ exports.tests = {
       assertTrue("throw_INVALID_CHARACTER_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "createEntityReference(tagName)" method raises an
@@ -3727,23 +3461,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-392B75AE')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  documentinvalidcharacterexceptioncreateentref : function () {
+  documentinvalidcharacterexceptioncreateentref: function(test) {
     var success;
-    if(checkInitialization(builder, "documentinvalidcharacterexceptioncreateentref") != null) return;
     var doc;
     var badEntityRef;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
-    if(
-
-      (builder.contentType == "text/html")
-
-    ) {
+    if (false) {
 
       {
         success = false;
@@ -3773,7 +3498,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    Creating an entity reference with an empty name should cause an INVALID_CHARACTER_ERR.
@@ -3784,23 +3511,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-392B75AE')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  documentinvalidcharacterexceptioncreateentref1 : function () {
+  documentinvalidcharacterexceptioncreateentref1: function(test) {
     var success;
-    if(checkInitialization(builder, "documentinvalidcharacterexceptioncreateentref1") != null) return;
     var doc;
     var badEntityRef;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
-    if(
-
-      (builder.contentType == "text/html")
-
-    ) {
+    if (false) {
 
       {
         success = false;
@@ -3830,7 +3548,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    The "createProcessingInstruction(target,data) method
@@ -3844,23 +3564,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-135944439')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  documentinvalidcharacterexceptioncreatepi : function () {
+  documentinvalidcharacterexceptioncreatepi: function(test) {
     var success;
-    if(checkInitialization(builder, "documentinvalidcharacterexceptioncreatepi") != null) return;
     var doc;
     var badPI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
-    if(
-
-      (builder.contentType == "text/html")
-
-    ) {
+    if (false) {
 
       {
         success = false;
@@ -3890,7 +3601,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    Creating a processing instruction with an empty target should cause an INVALID_CHARACTER_ERR.
@@ -3901,23 +3614,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-135944439')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  documentinvalidcharacterexceptioncreatepi1 : function () {
+  documentinvalidcharacterexceptioncreatepi1: function(test) {
     var success;
-    if(checkInitialization(builder, "documentinvalidcharacterexceptioncreatepi1") != null) return;
     var doc;
     var badPI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
-    if(
-
-      (builder.contentType == "text/html")
-
-    ) {
+    if (false) {
 
       {
         success = false;
@@ -3947,7 +3651,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    The "getName()" method contains the name of the DTD.
@@ -3961,39 +3667,28 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A31
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1844763134
    */
-  documenttypegetdoctype : function () {
+  documenttypegetdoctype: function(test) {
     var success;
-    if(checkInitialization(builder, "documenttypegetdoctype") != null) return;
     var doc;
     var docType;
     var name;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
     name = docType.name;
 
 
-    if(
-
-      (builder.contentType == "image/svg+xml")
-
-    ) {
+    if (true) {
       assertEquals("doctypeName","svg",name);
-
-    }
-
-    else {
+    } else {
       assertEquals("documenttypeGetDocTypeAssert","staff",name);
-
     }
 
+    test.done();
   },
+
   /**
    *
    The "getEntities()" method is a NamedNodeMap that contains
@@ -4008,9 +3703,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1788794630
    */
-  documenttypegetentities : function () {
+  documenttypegetentities: function(test) {
     var success;
-    if(checkInitialization(builder, "documenttypegetentities") != null) return;
     var doc;
     var docType;
     var entityList;
@@ -4035,11 +3729,7 @@ exports.tests = {
 
     var entity;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -4054,21 +3744,15 @@ exports.tests = {
 
     }
 
-    if(
-
-      (builder.contentType == "image/svg+xml")
-
-    ) {
+    if (true) {
       assertEqualsCollection("entityNamesSVG",expectedResultSVG,nameList);
-
-    }
-
-    else {
+    } else {
       assertEqualsCollection("entityNames",expectedResult,nameList);
-
     }
 
+    test.done();
   },
+
   /**
    *
    Duplicate entities are to be discarded.
@@ -4081,18 +3765,13 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1788794630
    */
-  documenttypegetentitieslength : function () {
+  documenttypegetentitieslength: function(test) {
     var success;
-    if(checkInitialization(builder, "documenttypegetentitieslength") != null) return;
     var doc;
     var docType;
     var entityList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -4100,21 +3779,15 @@ exports.tests = {
 
     assertNotNull("entitiesNotNull",entityList);
 
-    if(
-
-      (builder.contentType == "image/svg+xml")
-
-    ) {
+    if (true) {
       assertSize("entitySizeSVG",7,entityList);
-
-    }
-
-    else {
+    } else {
       assertSize("entitySize",5,entityList);
-
     }
 
+    test.done();
   },
+
   /**
    *
    Every node in the map returned by the "getEntities()"
@@ -4129,20 +3802,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1788794630
    */
-  documenttypegetentitiestype : function () {
+  documenttypegetentitiestype: function(test) {
     var success;
-    if(checkInitialization(builder, "documenttypegetentitiestype") != null) return;
     var doc;
     var docType;
     var entityList;
     var entity;
     var entityType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -4157,7 +3825,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    The "getNotations()" method creates a NamedNodeMap that
@@ -4172,9 +3842,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D46829EF
    */
-  documenttypegetnotations : function () {
+  documenttypegetnotations: function(test) {
     var success;
-    if(checkInitialization(builder, "documenttypegetnotations") != null) return;
     var doc;
     var docType;
     var notationList;
@@ -4187,11 +3856,7 @@ exports.tests = {
     expected[1] = "notation2";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -4207,7 +3872,9 @@ exports.tests = {
     }
     assertEqualsCollection("names",expected,actual);
 
+    test.done();
   },
+
   /**
    *
    Every node in the map returned by the "getNotations()"
@@ -4221,20 +3888,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D46829EF
    */
-  documenttypegetnotationstype : function () {
+  documenttypegetnotationstype: function(test) {
     var success;
-    if(checkInitialization(builder, "documenttypegetnotationstype") != null) return;
     var doc;
     var docType;
     var notationList;
     var notation;
     var notationType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -4249,7 +3911,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    hasFeature("XML", "") should return true for implementations that can read staff files.
@@ -4259,23 +3923,20 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-5CED94D7
    * @see http://www.w3.org/2000/11/DOM-Level-2-errata#core-14
    */
-  domimplementationfeaturenoversion : function () {
+  domimplementationfeaturenoversion: function(test) {
     var success;
-    if(checkInitialization(builder, "domimplementationfeaturenoversion") != null) return;
     var doc;
     var domImpl;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     domImpl = doc.implementation;
     state = domImpl.hasFeature("XML","");
     assertTrue("hasXMLEmpty",state);
 
+    test.done();
   },
+
   /**
    *
    hasFeature("XML", null) should return true for implementations that can read staff documents.
@@ -4285,25 +3946,22 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-5CED94D7
    * @see http://www.w3.org/2000/11/DOM-Level-2-errata#core-14
    */
-  domimplementationfeaturenull : function () {
+  domimplementationfeaturenull: function(test) {
     var success;
-    if(checkInitialization(builder, "domimplementationfeaturenull") != null) return;
     var doc;
     var domImpl;
     var state;
     var nullVersion = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     domImpl = doc.implementation;
     state = domImpl.hasFeature("XML",nullVersion);
     assertTrue("hasXMLnull",state);
 
+    test.done();
   },
+
   /**
    *
    hasFeature("xml", "1.0") should return true for implementations that can read staff documents.
@@ -4312,23 +3970,20 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-5CED94D7
    */
-  domimplementationfeaturexml : function () {
+  domimplementationfeaturexml: function(test) {
     var success;
-    if(checkInitialization(builder, "domimplementationfeaturexml") != null) return;
     var doc;
     var domImpl;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     domImpl = doc.implementation;
     state = domImpl.hasFeature("xml","1.0");
     assertTrue("hasXML1",state);
 
+    test.done();
   },
+
   /**
    *
    The "setAttribute(name,value)" method adds a new attribute
@@ -4344,26 +3999,23 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68F082
    */
-  elementaddnewattribute : function () {
+  elementaddnewattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "elementaddnewattribute") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(4);
     testEmployee.setAttribute("district","dallas");
     attrValue = testEmployee.getAttribute("district");
     assertEquals("elementAddNewAttributeAssert","dallas",attrValue);
 
+    test.done();
   },
+
   /**
    *
    Elements may have attributes associated with them.
@@ -4379,9 +4031,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    */
-  elementassociatedattribute : function () {
+  elementassociatedattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "elementassociatedattribute") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -4389,11 +4040,7 @@ exports.tests = {
     var domesticAttr;
     var specified;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(0);
     attributes = testEmployee.attributes;
@@ -4403,7 +4050,9 @@ exports.tests = {
 
     assertTrue("domesticSpecified",specified);
 
+    test.done();
   },
+
   /**
    *
    The "setAttribute(name,value)" method adds a new attribute
@@ -4422,26 +4071,23 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68F082
    */
-  elementchangeattributevalue : function () {
+  elementchangeattributevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "elementchangeattributevalue") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(3);
     testEmployee.setAttribute("street","Neither");
     attrValue = testEmployee.getAttribute("street");
     assertEquals("elementChangeAttributeValueAssert","Neither",attrValue);
 
+    test.done();
   },
+
   /**
    *
    The "setAttributeNode(newAttr)" method adds a new
@@ -4457,9 +4103,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    */
-  elementcreatenewattribute : function () {
+  elementcreatenewattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "elementcreatenewattribute") != null) return;
     var doc;
     var elementList;
     var testAddress;
@@ -4468,11 +4113,7 @@ exports.tests = {
     var districtAttr;
     var attrVal;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(0);
     newAttribute = doc.createAttribute("district");
@@ -4483,7 +4124,9 @@ exports.tests = {
     attrVal = testAddress.getAttribute("district");
     assertEquals("attr_value","",attrVal);
 
+    test.done();
   },
+
   /**
    *
    The "getAttributeNode(name)" method retrieves an
@@ -4498,20 +4141,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-217A91B8
    */
-  elementgetattributenode : function () {
+  elementgetattributenode: function(test) {
     var success;
-    if(checkInitialization(builder, "elementgetattributenode") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var domesticAttr;
     var name;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(0);
     domesticAttr = testEmployee.getAttributeNode("domestic");
@@ -4519,7 +4157,9 @@ exports.tests = {
 
     assertEquals("elementGetAttributeNodeAssert","domestic",name);
 
+    test.done();
   },
+
   /**
    *
    The "getAttributeNode(name)" method retrieves an
@@ -4535,25 +4175,22 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-217A91B8
    */
-  elementgetattributenodenull : function () {
+  elementgetattributenodenull: function(test) {
     var success;
-    if(checkInitialization(builder, "elementgetattributenodenull") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var domesticAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(0);
     domesticAttr = testEmployee.getAttributeNode("invalidAttribute");
     assertNull("elementGetAttributeNodeNullAssert",domesticAttr);
 
+    test.done();
   },
+
   /**
    *
    The "getAttribute(name)" method returns an empty
@@ -4572,9 +4209,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-666EE0F9
    */
-  elementgetelementempty : function () {
+  elementgetelementempty: function(test) {
     var success;
-    if(checkInitialization(builder, "elementgetelementempty") != null) return;
     var doc;
     var newAttribute;
     var elementList;
@@ -4582,11 +4218,7 @@ exports.tests = {
     var domesticAttr;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newAttribute = doc.createAttribute("district");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(3);
@@ -4594,7 +4226,9 @@ exports.tests = {
     attrValue = testEmployee.getAttribute("district");
     assertEquals("elementGetElementEmptyAssert","",attrValue);
 
+    test.done();
   },
+
   /**
    *
    The "getElementsByTagName(name)" method returns a list
@@ -4611,21 +4245,18 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    */
-  elementgetelementsbytagname : function () {
+  elementgetelementsbytagname: function(test) {
     var success;
-    if(checkInitialization(builder, "elementgetelementsbytagname") != null) return;
     var doc;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     assertSize("elementGetElementsByTagNameAssert",5,elementList);
 
+    test.done();
   },
+
   /**
    *
    Element.getElementsByTagName("employee") should return a NodeList whose length is
@@ -4635,9 +4266,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    */
-  elementgetelementsbytagnameaccessnodelist : function () {
+  elementgetelementsbytagnameaccessnodelist: function(test) {
     var success;
-    if(checkInitialization(builder, "elementgetelementsbytagnameaccessnodelist") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -4646,11 +4276,7 @@ exports.tests = {
     var childValue;
     var childType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     testEmployee = elementList.item(3);
     child = testEmployee.firstChild;
@@ -4674,7 +4300,9 @@ exports.tests = {
 
     assertEquals("emp0004","EMP0004",childValue);
 
+    test.done();
   },
+
   /**
    *
    The "getElementsByTagName(name)" method returns a list
@@ -4689,21 +4317,18 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    */
-  elementgetelementsbytagnamenomatch : function () {
+  elementgetelementsbytagnamenomatch: function(test) {
     var success;
-    if(checkInitialization(builder, "elementgetelementsbytagnamenomatch") != null) return;
     var doc;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("noMatch");
     assertSize("elementGetElementsByTagNameNoMatchNoMatchAssert",0,elementList);
 
+    test.done();
   },
+
   /**
    *
    The "getElementsByTagName(name)" method may use the
@@ -4719,9 +4344,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    */
-  elementgetelementsbytagnamespecialvalue : function () {
+  elementgetelementsbytagnamespecialvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "elementgetelementsbytagnamespecialvalue") != null) return;
     var doc;
     var elementList;
     var lastEmployee;
@@ -4739,11 +4363,7 @@ exports.tests = {
     expectedResult[5] = "address";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     lastEmployee = elementList.item(4);
     lastempList = lastEmployee.getElementsByTagName("*");
@@ -4756,7 +4376,9 @@ exports.tests = {
     }
     assertEqualsList("tagNames",expectedResult,result);
 
+    test.done();
   },
+
   /**
    *
 
@@ -4776,38 +4398,27 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-104682815
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  elementgettagname : function () {
+  elementgettagname: function(test) {
     var success;
-    if(checkInitialization(builder, "elementgettagname") != null) return;
     var doc;
     var root;
     var tagname;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     root = doc.documentElement;
 
     tagname = root.tagName;
 
 
-    if(
-
-      (builder.contentType == "image/svg+xml")
-
-    ) {
+    if (true) {
       assertEquals("svgTagName","svg",tagname);
-
-    }
-
-    else {
+    } else {
       assertEquals("elementGetTagNameAssert","staff",tagname);
-
     }
 
+    test.done();
   },
+
   /**
    *
    The "setAttributeNode(newAttr)" method raises an
@@ -4829,9 +4440,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-887236154')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    */
-  elementinuseattributeerr : function () {
+  elementinuseattributeerr: function(test) {
     var success;
-    if(checkInitialization(builder, "elementinuseattributeerr") != null) return;
     var doc;
     var newAttribute;
     var addressElementList;
@@ -4841,11 +4451,7 @@ exports.tests = {
     var setAttr1;
     var setAttr2;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressElementList = doc.getElementsByTagName("address");
     testAddress = addressElementList.item(1);
     newElement = doc.createElement("newElement");
@@ -4864,7 +4470,9 @@ exports.tests = {
       assertTrue("throw_INUSE_ATTRIBUTE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
 
@@ -4890,18 +4498,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-F68F082')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  elementinvalidcharacterexception : function () {
+  elementinvalidcharacterexception: function(test) {
     var success;
-    if(checkInitialization(builder, "elementinvalidcharacterexception") != null) return;
     var doc;
     var elementList;
     var testAddress;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(0);
 
@@ -4916,7 +4519,9 @@ exports.tests = {
       assertTrue("throw_INVALID_CHARACTER_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "normalize()" method puts all the nodes in the full
@@ -4932,9 +4537,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-162CF083
    */
-  elementnormalize : function () {
+  elementnormalize: function(test) {
     var success;
-    if(checkInitialization(builder, "elementnormalize") != null) return;
     var doc;
     var root;
     var elementList;
@@ -4942,11 +4546,7 @@ exports.tests = {
     var firstChild;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     root = doc.documentElement;
 
     root.normalize();
@@ -4958,7 +4558,9 @@ exports.tests = {
 
     assertEquals("elementNormalizeAssert","Roger\n Jones",childValue);
 
+    test.done();
   },
+
   /**
    *
    The "removeAttributeNode(oldAttr)" method raises a
@@ -4978,20 +4580,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-D589198')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  elementnotfounderr : function () {
+  elementnotfounderr: function(test) {
     var success;
-    if(checkInitialization(builder, "elementnotfounderr") != null) return;
     var doc;
     var oldAttribute;
     var addressElementList;
     var testAddress;
     var attrAddress;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressElementList = doc.getElementsByTagName("address");
     testAddress = addressElementList.item(4);
     oldAttribute = doc.createAttribute("oldAttribute");
@@ -5007,7 +4604,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "removeAttribute(name)" removes an attribute by name.
@@ -5026,26 +4625,23 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D6AC0F9
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
    */
-  elementremoveattribute : function () {
+  elementremoveattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "elementremoveattribute") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(3);
     testEmployee.removeAttribute("street");
     attrValue = testEmployee.getAttribute("street");
     assertEquals("streetYes","Yes",attrValue);
 
+    test.done();
   },
+
   /**
    *
    The "removeAttributeNode(oldAttr)" method removes the
@@ -5062,9 +4658,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D589198
    */
-  elementremoveattributeaftercreate : function () {
+  elementremoveattributeaftercreate: function(test) {
     var success;
-    if(checkInitialization(builder, "elementremoveattributeaftercreate") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -5072,11 +4667,7 @@ exports.tests = {
     var attributes;
     var districtAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("district");
@@ -5087,7 +4678,9 @@ exports.tests = {
     districtAttr = attributes.getNamedItem("district");
     assertNull("elementRemoveAttributeAfterCreateAssert",districtAttr);
 
+    test.done();
   },
+
   /**
    *
    The "removeAttributeNode(oldAttr)" method returns the
@@ -5101,9 +4694,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D589198
    */
-  elementremoveattributenode : function () {
+  elementremoveattributenode: function(test) {
     var success;
-    if(checkInitialization(builder, "elementremoveattributenode") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -5111,11 +4703,7 @@ exports.tests = {
     var removedAttr;
     var removedValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     streetAttr = testEmployee.getAttributeNode("street");
@@ -5124,7 +4712,9 @@ exports.tests = {
 
     assertEquals("elementRemoveAttributeNodeAssert","No",removedValue);
 
+    test.done();
   },
+
   /**
    *
    The "removeAttributeNode(oldAttr)" method for an attribute causes the
@@ -5143,9 +4733,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-D589198')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D589198
    */
-  elementremoveattributenodenomodificationallowederr : function () {
+  elementremoveattributenodenomodificationallowederr: function(test) {
     var success;
-    if(checkInitialization(builder, "elementremoveattributenodenomodificationallowederr") != null) return;
     var doc;
     var genderList;
     var gender;
@@ -5158,11 +4747,7 @@ exports.tests = {
     var attrNode;
     var removedAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     genList = gender.childNodes;
@@ -5198,7 +4783,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "removeAttributeNode(oldAttr)" method for an attribute causes the
@@ -5217,9 +4804,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D589198
    * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/elementremoveattributenodenomodificationallowederr.xml
    */
-  elementremoveattributenodenomodificationallowederrEE : function () {
+  elementremoveattributenodenomodificationallowederrEE: function(test) {
     var success;
-    if(checkInitialization(builder, "elementremoveattributenodenomodificationallowederrEE") != null) return;
     var doc;
     var genderList;
     var gender;
@@ -5231,11 +4817,7 @@ exports.tests = {
     var removedAttr;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     entRef = doc.createEntityReference("ent4");
@@ -5260,7 +4842,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "removeAttribute(name)" method for an attribute causes the
@@ -5279,9 +4863,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6D6AC0F9')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D6AC0F9
    */
-  elementremoveattributenomodificationallowederr : function () {
+  elementremoveattributenomodificationallowederr: function(test) {
     var success;
-    if(checkInitialization(builder, "elementremoveattributenomodificationallowederr") != null) return;
     var doc;
     var genderList;
     var gender;
@@ -5291,11 +4874,7 @@ exports.tests = {
     var nodeType;
     var genElement;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     genList = gender.childNodes;
@@ -5328,7 +4907,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "removeAttribute(name)" method for an attribute causes the
@@ -5346,9 +4927,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D6AC0F9
    * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/elementremoveattributenomodificationallowederr.xml
    */
-  elementremoveattributenomodificationallowederrEE : function () {
+  elementremoveattributenomodificationallowederrEE: function(test) {
     var success;
-    if(checkInitialization(builder, "elementremoveattributenomodificationallowederrEE") != null) return;
     var doc;
     var genderList;
     var gender;
@@ -5356,11 +4936,7 @@ exports.tests = {
     var entElement;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     entRef = doc.createEntityReference("ent4");
@@ -5381,7 +4957,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "removeAttributeNode(oldAttr)" method removes the
@@ -5397,9 +4975,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D589198
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
    */
-  elementremoveattributerestoredefaultvalue : function () {
+  elementremoveattributerestoredefaultvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "elementremoveattributerestoredefaultvalue") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -5407,11 +4984,7 @@ exports.tests = {
     var attribute;
     var removedAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     streetAttr = testEmployee.getAttributeNode("street");
@@ -5419,7 +4992,9 @@ exports.tests = {
     attribute = testEmployee.getAttribute("street");
     assertEquals("streetYes","Yes",attribute);
 
+    test.done();
   },
+
   /**
    *
    This test calls setAttributeNode to replace an attribute with itself.
@@ -5433,27 +5008,24 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    */
-  elementreplaceattributewithself : function () {
+  elementreplaceattributewithself: function(test) {
     var success;
-    if(checkInitialization(builder, "elementreplaceattributewithself") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var streetAttr;
     var replacedAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     streetAttr = testEmployee.getAttributeNode("street");
     replacedAttr = testEmployee.setAttributeNode(streetAttr);
     assertSame("replacedAttr",streetAttr,replacedAttr);
 
+    test.done();
   },
+
   /**
    *
    The "setAttributeNode(newAttr)" method adds a new
@@ -5472,9 +5044,8 @@ exports.tests = {
    * @author NIST
    * @author Mary Brady
    */
-  elementreplaceexistingattribute : function () {
+  elementreplaceexistingattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "elementreplaceexistingattribute") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -5482,11 +5053,7 @@ exports.tests = {
     var name;
     var setAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("street");
@@ -5494,7 +5061,9 @@ exports.tests = {
     name = testEmployee.getAttribute("street");
     assertEquals("elementReplaceExistingAttributeAssert","",name);
 
+    test.done();
   },
+
   /**
    *
    If the "setAttributeNode(newAttr)" method replaces an
@@ -5512,9 +5081,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    */
-  elementreplaceexistingattributegevalue : function () {
+  elementreplaceexistingattributegevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "elementreplaceexistingattributegevalue") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -5522,11 +5090,7 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("street");
@@ -5535,7 +5099,9 @@ exports.tests = {
 
     assertEquals("streetNo","No",value);
 
+    test.done();
   },
+
   /**
    *
    The "getAttributes()" method(Node Interface) may
@@ -5553,26 +5119,23 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
    */
-  elementretrieveallattributes : function () {
+  elementretrieveallattributes: function(test) {
     var success;
-    if(checkInitialization(builder, "elementretrieveallattributes") != null) return;
     var doc;
     var addressList;
     var testAddress;
     var attributes;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testAddress = addressList.item(0);
     attributes = testAddress.attributes;
 
     assertSize("elementRetrieveAllAttributesAssert",2,attributes);
 
+    test.done();
   },
+
   /**
    *
    The "getAttribute(name)" method returns an attribute
@@ -5586,25 +5149,22 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-666EE0F9
    */
-  elementretrieveattrvalue : function () {
+  elementretrieveattrvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "elementretrieveattrvalue") != null) return;
     var doc;
     var elementList;
     var testAddress;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(2);
     attrValue = testAddress.getAttribute("street");
     assertEquals("attrValue","No",attrValue);
 
+    test.done();
   },
+
   /**
    *
    The "getElementsByTagName()" method returns a NodeList
@@ -5619,19 +5179,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-104682815
    */
-  elementretrievetagname : function () {
+  elementretrievetagname: function(test) {
     var success;
-    if(checkInitialization(builder, "elementretrievetagname") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var name;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("position");
     testEmployee = elementList.item(1);
     name = testEmployee.nodeName;
@@ -5641,7 +5196,9 @@ exports.tests = {
 
     assertEquals("tagname","position",name);
 
+    test.done();
   },
+
   /**
    *
    The "setAttributeNode(newAttr)" method for an attribute causes the
@@ -5660,9 +5217,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-887236154')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    */
-  elementsetattributenodenomodificationallowederr : function () {
+  elementsetattributenodenomodificationallowederr: function(test) {
     var success;
-    if(checkInitialization(builder, "elementsetattributenodenomodificationallowederr") != null) return;
     var doc;
     var genderList;
     var gender;
@@ -5672,11 +5228,7 @@ exports.tests = {
     var nodeType;
     var badAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     entRef = gender.firstChild;
@@ -5708,7 +5260,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "setAttributeNode(newAttr)" method for an attribute causes the
@@ -5727,9 +5281,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/elementsetattributenodenomodificationallowederr.xml
    */
-  elementsetattributenodenomodificationallowederrEE : function () {
+  elementsetattributenodenomodificationallowederrEE: function(test) {
     var success;
-    if(checkInitialization(builder, "elementsetattributenodenomodificationallowederrEE") != null) return;
     var doc;
     var genderList;
     var gender;
@@ -5739,11 +5292,7 @@ exports.tests = {
     var badAttr;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     entRef = doc.createEntityReference("ent4");
@@ -5765,7 +5314,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "setAttributeNode(newAttr)" method returns the
@@ -5783,27 +5334,24 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    */
-  elementsetattributenodenull : function () {
+  elementsetattributenodenull: function(test) {
     var success;
-    if(checkInitialization(builder, "elementsetattributenodenull") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var newAttribute;
     var districtAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("district");
     districtAttr = testEmployee.setAttributeNode(newAttribute);
     assertNull("elementSetAttributeNodeNullAssert",districtAttr);
 
+    test.done();
   },
+
   /**
    *
    The "setAttribute(name,value)" method for an attribute causes the
@@ -5822,20 +5370,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-F68F082')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68F082
    */
-  elementsetattributenomodificationallowederr : function () {
+  elementsetattributenomodificationallowederr: function(test) {
     var success;
-    if(checkInitialization(builder, "elementsetattributenomodificationallowederr") != null) return;
     var doc;
     var genderList;
     var gender;
     var entRef;
     var entElement;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     entRef = gender.firstChild;
@@ -5856,7 +5399,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "setAttribute(name,value)" method for an attribute causes the
@@ -5875,9 +5420,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68F082
    * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/elementsetattributenomodificationallowederr.xml
    */
-  elementsetattributenomodificationallowederrEE : function () {
+  elementsetattributenomodificationallowederrEE: function(test) {
     var success;
-    if(checkInitialization(builder, "elementsetattributenomodificationallowederrEE") != null) return;
     var doc;
     var genderList;
     var gender;
@@ -5885,11 +5429,7 @@ exports.tests = {
     var entElement;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     entRef = doc.createEntityReference("ent4");
@@ -5909,7 +5449,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
 
@@ -5945,9 +5487,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-887236154')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='WRONG_DOCUMENT_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  elementwrongdocumenterr : function () {
+  elementwrongdocumenterr: function(test) {
     var success;
-    if(checkInitialization(builder, "elementwrongdocumenterr") != null) return;
     var doc1;
     var doc2;
     var newAttribute;
@@ -5959,13 +5500,13 @@ exports.tests = {
     if (typeof(this.doc1) != 'undefined') {
       doc1Ref = this.doc1;
     }
-    doc1 = load(doc1Ref, "doc1", "staff");
+    doc1 = staff.staff();
 
     var doc2Ref = null;
     if (typeof(this.doc2) != 'undefined') {
       doc2Ref = this.doc2;
     }
-    doc2 = load(doc2Ref, "doc2", "staff");
+    doc2 = staff.staff();
     newAttribute = doc2.createAttribute("newAttribute");
     addressElementList = doc1.getElementsByTagName("address");
     testAddress = addressElementList.item(4);
@@ -5981,7 +5522,9 @@ exports.tests = {
       assertTrue("throw_WRONG_DOCUMENT_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The nodeName attribute that is inherited from Node
@@ -5996,20 +5539,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-527DCFF2
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  entitygetentityname : function () {
+  entitygetentityname: function(test) {
     var success;
-    if(checkInitialization(builder, "entitygetentityname") != null) return;
     var doc;
     var docType;
     var entityList;
     var entityNode;
     var entityName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -6021,7 +5559,9 @@ exports.tests = {
 
     assertEquals("entityGetEntityNameAssert","ent1",entityName);
 
+    test.done();
   },
+
   /**
    *
    The "getPublicId()" method of an Entity node contains
@@ -6038,9 +5578,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6ABAEB38
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D7C29F3E
    */
-  entitygetpublicid : function () {
+  entitygetpublicid: function(test) {
     var success;
-    if(checkInitialization(builder, "entitygetpublicid") != null) return;
     var doc;
     var docType;
     var entityList;
@@ -6049,11 +5588,7 @@ exports.tests = {
     var systemId;
     var notation;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -6071,7 +5606,9 @@ exports.tests = {
 
     assertEquals("notation","notation1",notation);
 
+    test.done();
   },
+
   /**
    *
    The "getPublicId()" method of an Entity node contains
@@ -6087,20 +5624,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D7303025
    */
-  entitygetpublicidnull : function () {
+  entitygetpublicidnull: function(test) {
     var success;
-    if(checkInitialization(builder, "entitygetpublicidnull") != null) return;
     var doc;
     var docType;
     var entityList;
     var entityNode;
     var publicId;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -6112,7 +5644,9 @@ exports.tests = {
 
     assertNull("entityGetPublicIdNullAssert",publicId);
 
+    test.done();
   },
+
   /**
    *
    Appends a text node to an attribute and checks if the value of
@@ -6122,9 +5656,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  hc_attrappendchild1 : function () {
+  hc_attrappendchild1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrappendchild1") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -6135,11 +5668,7 @@ exports.tests = {
     var retval;
     var lastChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6162,7 +5691,9 @@ exports.tests = {
 
     assertEquals("lastChildValue","terday",value);
 
+    test.done();
   },
+
   /**
    *
    Attempts to append an element to the child nodes of an attribute.
@@ -6171,9 +5702,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  hc_attrappendchild2 : function () {
+  hc_attrappendchild2: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrappendchild2") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -6184,11 +5714,7 @@ exports.tests = {
     var retval;
     var lastChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6207,7 +5733,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Appends a document fragment to an attribute and checks if the value of
@@ -6217,9 +5745,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  hc_attrappendchild3 : function () {
+  hc_attrappendchild3: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrappendchild3") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -6232,11 +5759,7 @@ exports.tests = {
     var lastChild;
     var docFrag;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6263,7 +5786,9 @@ exports.tests = {
 
     assertEquals("lastChildValue","day",value);
 
+    test.done();
   },
+
   /**
    *
    Attempt to append a CDATASection to an attribute which should result
@@ -6273,9 +5798,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  hc_attrappendchild4 : function () {
+  hc_attrappendchild4: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrappendchild4") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -6286,22 +5810,14 @@ exports.tests = {
     var retval;
     var lastChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
 
     titleAttr = attributes.getNamedItem("title");
 
-    if(
-
-      (builder.contentType == "text/html")
-
-    ) {
+    if (false) {
 
       {
         success = false;
@@ -6332,7 +5848,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    Attempt to append a node from another document to an attribute which should result
@@ -6342,9 +5860,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  hc_attrappendchild5 : function () {
+  hc_attrappendchild5: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrappendchild5") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -6356,17 +5873,13 @@ exports.tests = {
     var lastChild;
     var otherDoc;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     var otherDocRef = null;
     if (typeof(this.otherDoc) != 'undefined') {
       otherDocRef = this.otherDoc;
     }
-    otherDoc = load(otherDocRef, "otherDoc", "hc_staff");
+    otherDoc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6385,7 +5898,9 @@ exports.tests = {
       assertTrue("throw_WRONG_DOCUMENT_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Creates an new attribute node and appends a text node.
@@ -6394,9 +5909,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  hc_attrappendchild6 : function () {
+  hc_attrappendchild6: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrappendchild6") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -6407,11 +5921,7 @@ exports.tests = {
     var retval;
     var lastChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     titleAttr = doc.createAttribute("title");
     textNode = doc.createTextNode("Yesterday");
     retval = titleAttr.appendChild(textNode);
@@ -6430,7 +5940,9 @@ exports.tests = {
 
     assertEquals("lastChildValue","Yesterday",value);
 
+    test.done();
   },
+
   /**
    *
    Checks that Node.childNodes for an attribute node contains
@@ -6440,9 +5952,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
    */
-  hc_attrchildnodes1 : function () {
+  hc_attrchildnodes1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrchildnodes1") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -6452,11 +5963,7 @@ exports.tests = {
     var textNode;
     var childNodes;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6472,7 +5979,9 @@ exports.tests = {
     textNode = childNodes.item(1);
     assertNull("secondItemIsNull",textNode);
 
+    test.done();
   },
+
   /**
    *
    Checks Node.childNodes for an attribute with multiple child nodes.
@@ -6481,9 +5990,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
    */
-  hc_attrchildnodes2 : function () {
+  hc_attrchildnodes2: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrchildnodes2") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -6494,11 +6002,7 @@ exports.tests = {
     var childNodes;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6520,7 +6024,9 @@ exports.tests = {
     textNode = childNodes.item(2);
     assertNull("thirdItemIsNull",textNode);
 
+    test.done();
   },
+
   /**
    *
    Appends a text node to an attribute and clones the node.
@@ -6529,9 +6035,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  hc_attrclonenode1 : function () {
+  hc_attrclonenode1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrclonenode1") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -6543,11 +6048,7 @@ exports.tests = {
     var lastChild;
     var clonedTitle;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6573,7 +6074,9 @@ exports.tests = {
 
     assertEquals("lastChildValue","terday",value);
 
+    test.done();
   },
+
   /**
    *
    Create a new DocumentFragment and add a newly created Element node(with one attribute).
@@ -6588,9 +6091,8 @@ exports.tests = {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
-  hc_attrcreatedocumentfragment : function () {
+  hc_attrcreatedocumentfragment: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrcreatedocumentfragment") != null) return;
     var doc;
     var docFragment;
     var newOne;
@@ -6601,11 +6103,7 @@ exports.tests = {
     var appendedChild;
     var langAttrCount = 0;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFragment = doc.createDocumentFragment();
     newOne = doc.createElement("html");
     newOne.setAttribute("lang","EN");
@@ -6629,7 +6127,9 @@ exports.tests = {
     }
     assertEquals("hasLangAttr",1,langAttrCount);
 
+    test.done();
   },
+
   /**
    *
    The "setValue()" method for an attribute creates a
@@ -6645,9 +6145,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Apr/0057.html
    */
-  hc_attrcreatetextnode : function () {
+  hc_attrcreatetextnode: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrcreatetextnode") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -6655,11 +6154,7 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(3);
     attributes = testNode.attributes;
@@ -6674,7 +6169,9 @@ exports.tests = {
 
     assertEquals("nodeValue","Y&ent1;",value);
 
+    test.done();
   },
+
   /**
    *
    The "setNodeValue()" method for an attribute creates a
@@ -6690,9 +6187,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Apr/0057.html
    */
-  hc_attrcreatetextnode2 : function () {
+  hc_attrcreatetextnode2: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrcreatetextnode2") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -6700,11 +6196,7 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(3);
     attributes = testNode.attributes;
@@ -6719,7 +6211,9 @@ exports.tests = {
 
     assertEquals("nodeValue","Y&ent1;",value);
 
+    test.done();
   },
+
   /**
    *
    If an Attr is explicitly assigned any value, then that value is the attributes effective value.
@@ -6731,9 +6225,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1074577549
    */
-  hc_attreffectivevalue : function () {
+  hc_attreffectivevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attreffectivevalue") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -6741,11 +6234,7 @@ exports.tests = {
     var domesticAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -6755,7 +6244,9 @@ exports.tests = {
 
     assertEquals("attrEffectiveValueAssert","Yes",value);
 
+    test.done();
   },
+
   /**
    *
    Checks that Node.firstChild for an attribute node contains
@@ -6765,9 +6256,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-169727388
    */
-  hc_attrfirstchild : function () {
+  hc_attrfirstchild: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrfirstchild") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -6777,11 +6267,7 @@ exports.tests = {
     var textNode;
     var otherChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6800,7 +6286,9 @@ exports.tests = {
 
     assertNull("previousSiblingIsNull",otherChild);
 
+    test.done();
   },
+
   /**
    *
    Checks the value of an attribute that contains entity references.
@@ -6808,9 +6296,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
    */
-  hc_attrgetvalue1 : function () {
+  hc_attrgetvalue1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrgetvalue1") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -6821,11 +6308,7 @@ exports.tests = {
     var retval;
     var lastChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6835,7 +6318,9 @@ exports.tests = {
 
     assertEquals("attrValue1","Yα",value);
 
+    test.done();
   },
+
   /**
    *
    Checks the value of an attribute that contains entity references.
@@ -6843,9 +6328,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
    */
-  hc_attrgetvalue2 : function () {
+  hc_attrgetvalue2: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrgetvalue2") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -6857,22 +6341,14 @@ exports.tests = {
     var firstChild;
     var alphaRef;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
 
     titleAttr = attributes.getNamedItem("class");
 
-    if(
-
-      (builder.contentType == "text/html")
-
-    ) {
+    if (false) {
 
       {
         success = false;
@@ -6898,7 +6374,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    Checks that Node.hasChildNodes() is true for an attribute with content.
@@ -6907,9 +6385,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-810594187
    */
-  hc_attrhaschildnodes : function () {
+  hc_attrhaschildnodes: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrhaschildnodes") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -6917,13 +6394,9 @@ exports.tests = {
     var titleAttr;
     var hasChildNodes;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6933,7 +6406,9 @@ exports.tests = {
     hasChildNodes = titleAttr.hasChildNodes();
     assertTrue("hasChildrenIsTrue",hasChildNodes);
 
+    test.done();
   },
+
   /**
    *
    Appends a text node to an attribute and checks if the value of
@@ -6943,9 +6418,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  hc_attrinsertbefore1 : function () {
+  hc_attrinsertbefore1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrinsertbefore1") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -6959,11 +6433,7 @@ exports.tests = {
     var refChild = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6991,7 +6461,9 @@ exports.tests = {
 
     assertEquals("lastChildValue","terday",value);
 
+    test.done();
   },
+
   /**
    *
    Prepends a text node to an attribute and checks if the value of
@@ -7001,9 +6473,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  hc_attrinsertbefore2 : function () {
+  hc_attrinsertbefore2: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrinsertbefore2") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -7016,11 +6487,7 @@ exports.tests = {
     var firstChild;
     var refChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -7050,7 +6517,9 @@ exports.tests = {
 
     assertEquals("lastChildValue","Yes",value);
 
+    test.done();
   },
+
   /**
    *
    Appends a document fragment to an attribute and checks if the value of
@@ -7060,9 +6529,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  hc_attrinsertbefore3 : function () {
+  hc_attrinsertbefore3: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrinsertbefore3") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -7078,11 +6546,7 @@ exports.tests = {
     var refChild = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -7114,7 +6578,9 @@ exports.tests = {
 
     assertEquals("lastChildValue","day",value);
 
+    test.done();
   },
+
   /**
    *
    Prepends a document fragment to an attribute and checks if the value of
@@ -7124,9 +6590,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  hc_attrinsertbefore4 : function () {
+  hc_attrinsertbefore4: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrinsertbefore4") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -7141,11 +6606,7 @@ exports.tests = {
     var lastChild;
     var refChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -7179,7 +6640,9 @@ exports.tests = {
 
     assertEquals("lastChildValue","Yes",value);
 
+    test.done();
   },
+
   /**
    *
    Attempt to append a CDATASection to an attribute which should result
@@ -7189,9 +6652,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  hc_attrinsertbefore5 : function () {
+  hc_attrinsertbefore5: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrinsertbefore5") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -7203,22 +6665,14 @@ exports.tests = {
     var refChild = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
 
     titleAttr = attributes.getNamedItem("title");
 
-    if(
-
-      (builder.contentType == "text/html")
-
-    ) {
+    if (false) {
 
       {
         success = false;
@@ -7249,7 +6703,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    Attempt to append a text node from another document to an attribute which should result
@@ -7259,9 +6715,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  hc_attrinsertbefore6 : function () {
+  hc_attrinsertbefore6: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrinsertbefore6") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -7274,17 +6729,13 @@ exports.tests = {
 
     var otherDoc;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     var otherDocRef = null;
     if (typeof(this.otherDoc) != 'undefined') {
       otherDocRef = this.otherDoc;
     }
-    otherDoc = load(otherDocRef, "otherDoc", "hc_staff");
+    otherDoc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -7303,7 +6754,9 @@ exports.tests = {
       assertTrue("throw_WRONG_DOCUMENT_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Appends a document fragment containing a CDATASection to an attribute.
@@ -7312,9 +6765,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  hc_attrinsertbefore7 : function () {
+  hc_attrinsertbefore7: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrinsertbefore7") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -7330,11 +6782,7 @@ exports.tests = {
     var refChild = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -7342,11 +6790,7 @@ exports.tests = {
     titleAttr = attributes.getNamedItem("title");
     terNode = doc.createTextNode("ter");
 
-    if(
-
-      (builder.contentType == "text/html")
-
-    ) {
+    if (false) {
 
       {
         success = false;
@@ -7380,7 +6824,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    Checks that Node.lastChild for an attribute node contains
@@ -7390,9 +6836,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-61AD09FB
    */
-  hc_attrlastchild : function () {
+  hc_attrlastchild: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrlastchild") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -7402,11 +6847,7 @@ exports.tests = {
     var textNode;
     var otherChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -7425,7 +6866,9 @@ exports.tests = {
 
     assertNull("previousSiblingIsNull",otherChild);
 
+    test.done();
   },
+
   /**
    *
    Retrieve the attribute named class from the last
@@ -7438,9 +6881,8 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    */
-  hc_attrname : function () {
+  hc_attrname: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrname") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -7449,11 +6891,7 @@ exports.tests = {
     var strong1;
     var strong2;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(1);
     attributes = testNode.attributes;
@@ -7466,7 +6904,9 @@ exports.tests = {
     assertEqualsAutoCase("attribute", "nodeName","class",strong1);
     assertEqualsAutoCase("attribute", "name","class",strong2);
 
+    test.done();
   },
+
   /**
    *
    The "getNextSibling()" method for an Attr node should return null.
@@ -7478,9 +6918,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6AC54C2F
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    */
-  hc_attrnextsiblingnull : function () {
+  hc_attrnextsiblingnull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrnextsiblingnull") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -7488,11 +6927,7 @@ exports.tests = {
     var domesticAttr;
     var s;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -7502,7 +6937,9 @@ exports.tests = {
 
     assertNull("attrNextSiblingNullAssert",s);
 
+    test.done();
   },
+
   /**
    *
    Appends a text node to an attribute, normalizes the attribute
@@ -7512,9 +6949,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-162CF083
    */
-  hc_attrnormalize : function () {
+  hc_attrnormalize: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrnormalize") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -7526,11 +6962,7 @@ exports.tests = {
     var firstChild;
     var secondChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -7553,7 +6985,9 @@ exports.tests = {
 
     assertNull("secondChildIsNull",secondChild);
 
+    test.done();
   },
+
   /**
    *
    The "getParentNode()" method for an Attr node should return null.  Retrieve
@@ -7565,9 +6999,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1060184317
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    */
-  hc_attrparentnodenull : function () {
+  hc_attrparentnodenull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrparentnodenull") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -7575,11 +7008,7 @@ exports.tests = {
     var domesticAttr;
     var s;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -7589,7 +7018,9 @@ exports.tests = {
 
     assertNull("attrParentNodeNullAssert",s);
 
+    test.done();
   },
+
   /**
    *
    The "getPreviousSibling()" method for an Attr node should return null.
@@ -7601,9 +7032,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-640FB3C8
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    */
-  hc_attrprevioussiblingnull : function () {
+  hc_attrprevioussiblingnull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrprevioussiblingnull") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -7611,11 +7041,7 @@ exports.tests = {
     var domesticAttr;
     var s;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -7625,7 +7051,9 @@ exports.tests = {
 
     assertNull("attrPreviousSiblingNullAssert",s);
 
+    test.done();
   },
+
   /**
    *
    Removes the child node of an attribute and checks that the value is empty.
@@ -7634,9 +7062,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    */
-  hc_attrremovechild1 : function () {
+  hc_attrremovechild1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrremovechild1") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -7647,11 +7074,7 @@ exports.tests = {
     var retval;
     var firstChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -7675,7 +7098,9 @@ exports.tests = {
 
     assertNull("firstChildNull",firstChild);
 
+    test.done();
   },
+
   /**
    *
    Attempts to remove a freshly created text node which should result in a NOT_FOUND_ERR exception.
@@ -7684,9 +7109,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    */
-  hc_attrremovechild2 : function () {
+  hc_attrremovechild2: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrremovechild2") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -7696,11 +7120,7 @@ exports.tests = {
     var textNode;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -7719,7 +7139,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Replaces a text node of an attribute and checks if the value of
@@ -7729,9 +7151,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    */
-  hc_attrreplacechild1 : function () {
+  hc_attrreplacechild1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrreplacechild1") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -7742,11 +7163,7 @@ exports.tests = {
     var retval;
     var firstChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -7772,7 +7189,9 @@ exports.tests = {
 
     assertEquals("firstChildValue","terday",value);
 
+    test.done();
   },
+
   /**
    *
    Replaces a text node of an attribute with a document fragment and checks if the value of
@@ -7782,9 +7201,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    */
-  hc_attrreplacechild2 : function () {
+  hc_attrreplacechild2: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrreplacechild2") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -7797,11 +7215,7 @@ exports.tests = {
     var retval;
     var firstChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -7831,7 +7245,9 @@ exports.tests = {
 
     assertEquals("firstChildValue","ter",value);
 
+    test.done();
   },
+
   /**
    *
    Sets Attr.value on an attribute that only has a simple value.
@@ -7839,9 +7255,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
    */
-  hc_attrsetvalue1 : function () {
+  hc_attrsetvalue1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrsetvalue1") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -7852,11 +7267,7 @@ exports.tests = {
     var firstChild;
     var otherChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -7884,7 +7295,9 @@ exports.tests = {
 
     assertNull("nextSiblingIsNull",otherChild);
 
+    test.done();
   },
+
   /**
    *
    Sets Attr.value on an attribute that should contain multiple child nodes.
@@ -7892,9 +7305,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
    */
-  hc_attrsetvalue2 : function () {
+  hc_attrsetvalue2: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrsetvalue2") != null) return;
     var doc;
     var acronymList;
     var testNode;
@@ -7906,11 +7318,7 @@ exports.tests = {
     var firstChild;
     var otherChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -7940,7 +7348,9 @@ exports.tests = {
 
     assertNull("nextSiblingIsNull",otherChild);
 
+    test.done();
   },
+
   /**
    *
    The "getSpecified()" method for an Attr node should
@@ -7955,9 +7365,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-862529273
    */
-  hc_attrspecifiedvalue : function () {
+  hc_attrspecifiedvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrspecifiedvalue") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -7965,11 +7374,7 @@ exports.tests = {
     var domesticAttr;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -7979,7 +7384,9 @@ exports.tests = {
 
     assertTrue("acronymTitleSpecified",state);
 
+    test.done();
   },
+
   /**
    *
    The "getSpecified()" method for an Attr node should return true if the
@@ -7995,9 +7402,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-862529273
    */
-  hc_attrspecifiedvaluechanged : function () {
+  hc_attrspecifiedvaluechanged: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_attrspecifiedvaluechanged") != null) return;
     var doc;
     var addressList;
     var testNode;
@@ -8005,11 +7411,7 @@ exports.tests = {
     var streetAttr;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(2);
     testNode.setAttribute("class","Yα");
@@ -8020,7 +7422,9 @@ exports.tests = {
 
     assertTrue("acronymClassSpecified",state);
 
+    test.done();
   },
+
   /**
    *
    The "appendData(arg)" method appends a string to the end
@@ -8037,9 +7441,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-32791A2F
    */
-  hc_characterdataappenddata : function () {
+  hc_characterdataappenddata: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdataappenddata") != null) return;
     var doc;
     var elementList;
     var nameNode;
@@ -8047,11 +7450,7 @@ exports.tests = {
     var childValue;
     var childLength;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8062,7 +7461,9 @@ exports.tests = {
     childLength = childValue.length;
     assertEquals("characterdataAppendDataAssert",24,childLength);
 
+    test.done();
   },
+
   /**
    *
    On successful invocation of the "appendData(arg)"
@@ -8080,20 +7481,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-32791A2F
    */
-  hc_characterdataappenddatagetdata : function () {
+  hc_characterdataappenddatagetdata: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdataappenddatagetdata") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8103,7 +7499,9 @@ exports.tests = {
 
     assertEquals("characterdataAppendDataGetDataAssert","Margaret Martin, Esquire",childData);
 
+    test.done();
   },
+
   /**
    *
    The "deleteData(offset,count)" method removes a range of
@@ -8120,20 +7518,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  hc_characterdatadeletedatabegining : function () {
+  hc_characterdatadeletedatabegining: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatadeletedatabegining") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8143,7 +7536,9 @@ exports.tests = {
 
     assertEquals("data","Dallas, Texas 98551",childData);
 
+    test.done();
   },
+
   /**
    *
    The "deleteData(offset,count)" method removes a range of
@@ -8161,20 +7556,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  hc_characterdatadeletedataend : function () {
+  hc_characterdatadeletedataend: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatadeletedataend") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8184,7 +7574,9 @@ exports.tests = {
 
     assertEquals("characterdataDeleteDataEndAssert","1230 North Ave. Dallas, Texas ",childData);
 
+    test.done();
   },
+
   /**
    *
    If the sum of the offset and count used in the
@@ -8204,20 +7596,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  hc_characterdatadeletedataexceedslength : function () {
+  hc_characterdatadeletedataexceedslength: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatadeletedataexceedslength") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8227,7 +7614,9 @@ exports.tests = {
 
     assertEquals("characterdataDeleteDataExceedsLengthAssert","1230",childData);
 
+    test.done();
   },
+
   /**
    *
    On successful invocation of the "deleteData(offset,count)"
@@ -8248,9 +7637,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7D61178C
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  hc_characterdatadeletedatagetlengthanddata : function () {
+  hc_characterdatadeletedatagetlengthanddata: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatadeletedatagetlengthanddata") != null) return;
     var doc;
     var elementList;
     var nameNode;
@@ -8260,11 +7648,7 @@ exports.tests = {
     var result = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8277,7 +7661,9 @@ exports.tests = {
 
     assertEquals("length",30,childLength);
 
+    test.done();
   },
+
   /**
    *
    The "deleteData(offset,count)" method removes a range of
@@ -8295,20 +7681,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  hc_characterdatadeletedatamiddle : function () {
+  hc_characterdatadeletedatamiddle: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatadeletedatamiddle") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8318,7 +7699,9 @@ exports.tests = {
 
     assertEquals("characterdataDeleteDataMiddleAssert","1230 North Ave. Texas 98551",childData);
 
+    test.done();
   },
+
   /**
    *
 
@@ -8338,20 +7721,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    */
-  hc_characterdatagetdata : function () {
+  hc_characterdatagetdata: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatagetdata") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8360,7 +7738,9 @@ exports.tests = {
 
     assertEquals("characterdataGetDataAssert","Margaret Martin",childData);
 
+    test.done();
   },
+
   /**
    *
    The "getLength()" method returns the number of characters
@@ -8373,9 +7753,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7D61178C
    */
-  hc_characterdatagetlength : function () {
+  hc_characterdatagetlength: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatagetlength") != null) return;
     var doc;
     var elementList;
     var nameNode;
@@ -8383,11 +7762,7 @@ exports.tests = {
     var childValue;
     var childLength;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8397,7 +7772,9 @@ exports.tests = {
     childLength = childValue.length;
     assertEquals("characterdataGetLengthAssert",15,childLength);
 
+    test.done();
   },
+
   /**
    *
    The "deleteData(offset,count)" method raises an
@@ -8414,20 +7791,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  hc_characterdataindexsizeerrdeletedatacountnegative : function () {
+  hc_characterdataindexsizeerrdeletedatacountnegative: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdataindexsizeerrdeletedatacountnegative") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childSubstring;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8444,7 +7816,9 @@ exports.tests = {
       assertTrue("throws_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "deleteData(offset,count)" method raises an
@@ -8464,19 +7838,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_characterdataindexsizeerrdeletedataoffsetgreater : function () {
+  hc_characterdataindexsizeerrdeletedataoffsetgreater: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdataindexsizeerrdeletedataoffsetgreater") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8493,7 +7862,9 @@ exports.tests = {
       assertTrue("throw_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "deleteData(offset,count)" method raises an
@@ -8511,19 +7882,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-7C603781')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
    */
-  hc_characterdataindexsizeerrdeletedataoffsetnegative : function () {
+  hc_characterdataindexsizeerrdeletedataoffsetnegative: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdataindexsizeerrdeletedataoffsetnegative") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8540,7 +7906,9 @@ exports.tests = {
       assertTrue("throws_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "insertData(offset,arg)" method raises an
@@ -8559,19 +7927,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-7C603781')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_characterdataindexsizeerrinsertdataoffsetgreater : function () {
+  hc_characterdataindexsizeerrinsertdataoffsetgreater: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdataindexsizeerrinsertdataoffsetgreater") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8588,7 +7951,9 @@ exports.tests = {
       assertTrue("throw_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "insertData(offset,arg)" method raises an
@@ -8605,19 +7970,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-E5CBA7FB')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  hc_characterdataindexsizeerrinsertdataoffsetnegative : function () {
+  hc_characterdataindexsizeerrinsertdataoffsetnegative: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdataindexsizeerrinsertdataoffsetnegative") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8634,7 +7994,9 @@ exports.tests = {
       assertTrue("throws_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "replaceData(offset,count,arg)" method raises an
@@ -8652,20 +8014,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  hc_characterdataindexsizeerrreplacedatacountnegative : function () {
+  hc_characterdataindexsizeerrreplacedatacountnegative: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdataindexsizeerrreplacedatacountnegative") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var badString;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8682,7 +8039,9 @@ exports.tests = {
       assertTrue("throws_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "replaceData(offset,count,arg)" method raises an
@@ -8702,19 +8061,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-7C603781')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=242
    */
-  hc_characterdataindexsizeerrreplacedataoffsetgreater : function () {
+  hc_characterdataindexsizeerrreplacedataoffsetgreater: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdataindexsizeerrreplacedataoffsetgreater") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8731,7 +8085,9 @@ exports.tests = {
       assertTrue("throw_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "replaceData(offset,count,arg)" method raises an
@@ -8750,19 +8106,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-E5CBA7FB')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  hc_characterdataindexsizeerrreplacedataoffsetnegative : function () {
+  hc_characterdataindexsizeerrreplacedataoffsetnegative: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdataindexsizeerrreplacedataoffsetnegative") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8779,7 +8130,9 @@ exports.tests = {
       assertTrue("throws_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "substringData(offset,count)" method raises an
@@ -8796,20 +8149,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  hc_characterdataindexsizeerrsubstringcountnegative : function () {
+  hc_characterdataindexsizeerrsubstringcountnegative: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdataindexsizeerrsubstringcountnegative") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var badSubstring;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8826,7 +8174,9 @@ exports.tests = {
       assertTrue("throws_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "substringData(offset,count)" method raises an
@@ -8843,20 +8193,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  hc_characterdataindexsizeerrsubstringnegativeoffset : function () {
+  hc_characterdataindexsizeerrsubstringnegativeoffset: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdataindexsizeerrsubstringnegativeoffset") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var badString;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8873,7 +8218,9 @@ exports.tests = {
       assertTrue("throws_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "substringData(offset,count)" method raises an
@@ -8892,20 +8239,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_characterdataindexsizeerrsubstringoffsetgreater : function () {
+  hc_characterdataindexsizeerrsubstringoffsetgreater: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdataindexsizeerrsubstringoffsetgreater") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var badString;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8922,7 +8264,9 @@ exports.tests = {
       assertTrue("throw_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "insertData(offset,arg)" method will insert a string
@@ -8939,20 +8283,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
    */
-  hc_characterdatainsertdatabeginning : function () {
+  hc_characterdatainsertdatabeginning: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatainsertdatabeginning") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8962,7 +8301,9 @@ exports.tests = {
 
     assertEquals("characterdataInsertDataBeginningAssert","Mss. Margaret Martin",childData);
 
+    test.done();
   },
+
   /**
    *
    The "insertData(offset,arg)" method will insert a string
@@ -8980,20 +8321,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
    */
-  hc_characterdatainsertdataend : function () {
+  hc_characterdatainsertdataend: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatainsertdataend") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -9003,7 +8339,9 @@ exports.tests = {
 
     assertEquals("characterdataInsertDataEndAssert","Margaret Martin, Esquire",childData);
 
+    test.done();
   },
+
   /**
    *
    The "insertData(offset,arg)" method will insert a string
@@ -9021,20 +8359,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
    */
-  hc_characterdatainsertdatamiddle : function () {
+  hc_characterdatainsertdatamiddle: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatainsertdatamiddle") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -9044,7 +8377,9 @@ exports.tests = {
 
     assertEquals("characterdataInsertDataMiddleAssert","Margaret Ann Martin",childData);
 
+    test.done();
   },
+
   /**
    *
    The "replaceData(offset,count,arg)" method replaces the
@@ -9061,20 +8396,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  hc_characterdatareplacedatabegining : function () {
+  hc_characterdatareplacedatabegining: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatareplacedatabegining") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -9084,7 +8414,9 @@ exports.tests = {
 
     assertEquals("characterdataReplaceDataBeginingAssert","2500 North Ave. Dallas, Texas 98551",childData);
 
+    test.done();
   },
+
   /**
    *
    The "replaceData(offset,count,arg)" method replaces the
@@ -9102,20 +8434,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  hc_characterdatareplacedataend : function () {
+  hc_characterdatareplacedataend: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatareplacedataend") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -9125,7 +8452,9 @@ exports.tests = {
 
     assertEquals("characterdataReplaceDataEndAssert","1230 North Ave. Dallas, Texas 98665",childData);
 
+    test.done();
   },
+
   /**
    *
    The "replaceData(offset,count,arg)" method replaces the
@@ -9144,20 +8473,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  hc_characterdatareplacedataexceedslengthofarg : function () {
+  hc_characterdatareplacedataexceedslengthofarg: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatareplacedataexceedslengthofarg") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -9167,7 +8491,9 @@ exports.tests = {
 
     assertEquals("characterdataReplaceDataExceedsLengthOfArgAssert","260030 North Ave. Dallas, Texas 98551",childData);
 
+    test.done();
   },
+
   /**
    *
    If the sum of the offset and count exceeds the length then
@@ -9184,20 +8510,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  hc_characterdatareplacedataexceedslengthofdata : function () {
+  hc_characterdatareplacedataexceedslengthofdata: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatareplacedataexceedslengthofdata") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -9207,7 +8528,9 @@ exports.tests = {
 
     assertEquals("characterdataReplaceDataExceedsLengthOfDataAssert","2600",childData);
 
+    test.done();
   },
+
   /**
    *
    The "replaceData(offset,count,arg)" method replaces the
@@ -9225,20 +8548,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
    */
-  hc_characterdatareplacedatamiddle : function () {
+  hc_characterdatareplacedatamiddle: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatareplacedatamiddle") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -9248,7 +8566,9 @@ exports.tests = {
 
     assertEquals("characterdataReplaceDataMiddleAssert","1230 South Ave. Dallas, Texas 98551",childData);
 
+    test.done();
   },
+
   /**
    *
    The "setNodeValue()" method changes the character data
@@ -9260,9 +8580,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
    */
-  hc_characterdatasetnodevalue : function () {
+  hc_characterdatasetnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatasetnodevalue") != null) return;
     var doc;
     var elementList;
     var nameNode;
@@ -9270,11 +8589,7 @@ exports.tests = {
     var childData;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -9288,7 +8603,9 @@ exports.tests = {
 
     assertEquals("value","Marilyn Martin",childValue);
 
+    test.done();
   },
+
   /**
    *
    If the sum of the "offset" and "count" exceeds the
@@ -9305,20 +8622,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    */
-  hc_characterdatasubstringexceedsvalue : function () {
+  hc_characterdatasubstringexceedsvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatasubstringexceedsvalue") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var substring;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -9326,7 +8638,9 @@ exports.tests = {
     substring = child.substringData(9,10);
     assertEquals("characterdataSubStringExceedsValueAssert","Martin",substring);
 
+    test.done();
   },
+
   /**
    *
    The "substringData(offset,count)" method returns the
@@ -9342,20 +8656,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
    */
-  hc_characterdatasubstringvalue : function () {
+  hc_characterdatasubstringvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_characterdatasubstringvalue") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var child;
     var substring;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -9363,7 +8672,9 @@ exports.tests = {
     substring = child.substringData(0,8);
     assertEquals("characterdataSubStringValueAssert","Margaret",substring);
 
+    test.done();
   },
+
   /**
    *
    A comment is all the characters between the starting
@@ -9379,9 +8690,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=509
    */
-  hc_commentgetcomment : function () {
+  hc_commentgetcomment: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_commentgetcomment") != null) return;
     var doc;
     var elementList;
     var child;
@@ -9391,11 +8701,7 @@ exports.tests = {
     var childType;
     var attributes;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.childNodes;
 
     for(var indexN1005E = 0;indexN1005E < elementList.length; indexN1005E++) {
@@ -9425,7 +8731,9 @@ exports.tests = {
                (commentCount < 2)
               );
 
+    test.done();
   },
+
   /**
    *
    Retrieve the entire DOM document and invoke its
@@ -9440,20 +8748,15 @@ exports.tests = {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  hc_documentcreateattribute : function () {
+  hc_documentcreateattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentcreateattribute") != null) return;
     var doc;
     var newAttrNode;
     var attrValue;
     var attrName;
     var attrType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newAttrNode = doc.createAttribute("title");
     attrValue = newAttrNode.nodeValue;
 
@@ -9465,7 +8768,9 @@ exports.tests = {
 
     assertEquals("type",2,attrType);
 
+    test.done();
   },
+
   /**
    *
    The "createComment(data)" method creates a new Comment
@@ -9478,20 +8783,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1334481328
    */
-  hc_documentcreatecomment : function () {
+  hc_documentcreatecomment: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentcreatecomment") != null) return;
     var doc;
     var newCommentNode;
     var newCommentValue;
     var newCommentName;
     var newCommentType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newCommentNode = doc.createComment("This is a new Comment node");
     newCommentValue = newCommentNode.nodeValue;
 
@@ -9503,7 +8803,9 @@ exports.tests = {
 
     assertEquals("type",8,newCommentType);
 
+    test.done();
   },
+
   /**
    *
    The "createDocumentFragment()" method creates an empty
@@ -9515,9 +8817,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-35CB04B5
    */
-  hc_documentcreatedocumentfragment : function () {
+  hc_documentcreatedocumentfragment: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentcreatedocumentfragment") != null) return;
     var doc;
     var newDocFragment;
     var children;
@@ -9526,11 +8827,7 @@ exports.tests = {
     var newDocFragmentType;
     var newDocFragmentValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newDocFragment = doc.createDocumentFragment();
     children = newDocFragment.childNodes;
 
@@ -9547,7 +8844,9 @@ exports.tests = {
 
     assertNull("value",newDocFragmentValue);
 
+    test.done();
   },
+
   /**
    *
    The "createElement(tagName)" method creates an Element
@@ -9561,20 +8860,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    */
-  hc_documentcreateelement : function () {
+  hc_documentcreateelement: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentcreateelement") != null) return;
     var doc;
     var newElement;
     var newElementName;
     var newElementType;
     var newElementValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newElement = doc.createElement("acronym");
     newElementName = newElement.nodeName;
 
@@ -9586,7 +8880,9 @@ exports.tests = {
 
     assertNull("valueInitiallyNull",newElementValue);
 
+    test.done();
   },
+
   /**
    *
    The tagName parameter in the "createElement(tagName)"
@@ -9605,9 +8901,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  hc_documentcreateelementcasesensitive : function () {
+  hc_documentcreateelementcasesensitive: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentcreateelementcasesensitive") != null) return;
     var doc;
     var newElement1;
     var newElement2;
@@ -9616,11 +8911,7 @@ exports.tests = {
     var nodeName1;
     var nodeName2;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newElement1 = doc.createElement("ACRONYM");
     newElement2 = doc.createElement("acronym");
     newElement1.setAttribute("lang","EN");
@@ -9636,7 +8927,9 @@ exports.tests = {
     assertEqualsAutoCase("element", "nodeName1","ACRONYM",nodeName1);
     assertEqualsAutoCase("element", "nodeName2","acronym",nodeName2);
 
+    test.done();
   },
+
   /**
    *
    The "createTextNode(data)" method creates a Text node
@@ -9649,20 +8942,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1975348127
    */
-  hc_documentcreatetextnode : function () {
+  hc_documentcreatetextnode: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentcreatetextnode") != null) return;
     var doc;
     var newTextNode;
     var newTextName;
     var newTextValue;
     var newTextType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newTextNode = doc.createTextNode("This is a new Text node");
     newTextValue = newTextNode.nodeValue;
 
@@ -9674,7 +8962,9 @@ exports.tests = {
 
     assertEquals("type",3,newTextType);
 
+    test.done();
   },
+
   /**
    *
    Access Document.doctype for hc_staff, if not text/html should return DocumentType node.
@@ -9683,32 +8973,27 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A31
    */
-  hc_documentgetdoctype : function () {
+  hc_documentgetdoctype: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentgetdoctype") != null) return;
     var doc;
     var docType;
     var docTypeName;
     var nodeValue;
     var attributes;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
 
-    if(!((builder.contentType == "text/html"))) {
+    if(!((false))) {
       assertNotNull("docTypeNotNull",docType);
     }
 
     if((docType != null)) {
       docTypeName = docType.name;
-      if((builder.contentType == "image/svg+xml")) {
+      if((true)) {
         assertEquals("nodeNameSVG","svg",docTypeName);
-      } else if (builder.contentType === "text/xml") {
+      } else if (false) {
 
         // this was not an xml test originally.
       } else {
@@ -9723,7 +9008,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    The "getElementsByTagName(tagName)" method returns a
@@ -9737,21 +9024,18 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-A6C9094
    */
-  hc_documentgetelementsbytagnamelength : function () {
+  hc_documentgetelementsbytagnamelength: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentgetelementsbytagnamelength") != null) return;
     var doc;
     var nameList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     nameList = doc.getElementsByTagName("strong");
     assertSize("documentGetElementsByTagNameLengthAssert",5,nameList);
 
+    test.done();
   },
+
   /**
    *
    Retrieve the entire DOM document and invoke its
@@ -9763,9 +9047,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-A6C9094
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  hc_documentgetelementsbytagnametotallength : function () {
+  hc_documentgetelementsbytagnametotallength: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentgetelementsbytagnametotallength") != null) return;
     var doc;
     var nameList;
     expectedNames = new Array();
@@ -9862,11 +9145,7 @@ exports.tests = {
     var thisElement;
     var thisTag;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     nameList = doc.getElementsByTagName("*");
     for(var indexN10148 = 0;indexN10148 < nameList.length; indexN10148++) {
       thisElement = nameList.item(indexN10148);
@@ -9876,22 +9155,15 @@ exports.tests = {
 
     }
 
-    if(
-
-      (builder.contentType == "image/svg+xml")
-
-    ) {
-
+    if (true) {
       assertEqualsListAutoCase("element", "svgTagNames",svgExpectedNames,actualNames);
-
-    }
-
-    else {
+    } else {
       assertEqualsListAutoCase("element", "tagNames",expectedNames,actualNames);
-
     }
 
+    test.done();
   },
+
   /**
    *
    The "getElementsByTagName(tagName)" method returns a
@@ -9907,20 +9179,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-A6C9094
    */
-  hc_documentgetelementsbytagnamevalue : function () {
+  hc_documentgetelementsbytagnamevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentgetelementsbytagnamevalue") != null) return;
     var doc;
     var nameList;
     var nameNode;
     var firstChild;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     nameList = doc.getElementsByTagName("strong");
     nameNode = nameList.item(3);
     firstChild = nameNode.firstChild;
@@ -9929,7 +9196,9 @@ exports.tests = {
 
     assertEquals("documentGetElementsByTagNameValueAssert","Jeny Oconnor",childValue);
 
+    test.done();
   },
+
   /**
    *
    Retrieve the entire DOM document and invoke its
@@ -9942,38 +9211,27 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1B793EBA
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=245
    */
-  hc_documentgetimplementation : function () {
+  hc_documentgetimplementation: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentgetimplementation") != null) return;
     var doc;
     var docImpl;
     var xmlstate;
     var htmlstate;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docImpl = doc.implementation;
     xmlstate = docImpl.hasFeature("XML","1.0");
     htmlstate = docImpl.hasFeature("HTML","1.0");
 
-    if(
-
-      (builder.contentType == "text/html")
-
-    ) {
+    if (false) {
       assertTrue("supports_HTML_1.0",htmlstate);
-
-    }
-
-    else {
+    } else {
       assertTrue("supports_XML_1.0",xmlstate);
-
     }
 
+    test.done();
   },
+
   /**
    *
    Load a document and invoke its
@@ -9983,38 +9241,27 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-87CD092
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  hc_documentgetrootnode : function () {
+  hc_documentgetrootnode: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentgetrootnode") != null) return;
     var doc;
     var root;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     root = doc.documentElement;
 
     rootName = root.nodeName;
 
 
-    if(
-
-      (builder.contentType == "image/svg+xml")
-
-    ) {
+    if (true) {
       assertEquals("svgTagName","svg",rootName);
-
-    }
-
-    else {
+    } else {
       assertEqualsAutoCase("element", "docElemName","html",rootName);
-
     }
 
+    test.done();
   },
+
   /**
    *
    The "createAttribute(tagName)" method raises an
@@ -10033,17 +9280,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1084891198
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_documentinvalidcharacterexceptioncreateattribute : function () {
+  hc_documentinvalidcharacterexceptioncreateattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentinvalidcharacterexceptioncreateattribute") != null) return;
     var doc;
     var createdAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     {
       success = false;
@@ -10056,7 +9298,9 @@ exports.tests = {
       assertTrue("throw_INVALID_CHARACTER_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Creating an attribute with an empty name should cause an INVALID_CHARACTER_ERR.
@@ -10068,17 +9312,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1084891198
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  hc_documentinvalidcharacterexceptioncreateattribute1 : function () {
+  hc_documentinvalidcharacterexceptioncreateattribute1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentinvalidcharacterexceptioncreateattribute1") != null) return;
     var doc;
     var createdAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     {
       success = false;
@@ -10091,7 +9330,9 @@ exports.tests = {
       assertTrue("throw_INVALID_CHARACTER_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "createElement(tagName)" method raises an
@@ -10110,17 +9351,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_documentinvalidcharacterexceptioncreateelement : function () {
+  hc_documentinvalidcharacterexceptioncreateelement: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentinvalidcharacterexceptioncreateelement") != null) return;
     var doc;
     var badElement;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     {
       success = false;
@@ -10133,7 +9369,9 @@ exports.tests = {
       assertTrue("throw_INVALID_CHARACTER_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Creating an element with an empty name should cause an INVALID_CHARACTER_ERR.
@@ -10145,17 +9383,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  hc_documentinvalidcharacterexceptioncreateelement1 : function () {
+  hc_documentinvalidcharacterexceptioncreateelement1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_documentinvalidcharacterexceptioncreateelement1") != null) return;
     var doc;
     var badElement;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     {
       success = false;
@@ -10168,7 +9401,9 @@ exports.tests = {
       assertTrue("throw_INVALID_CHARACTER_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Load a document and invoke its
@@ -10183,36 +9418,25 @@ exports.tests = {
    * @see http://www.w3.org/2000/11/DOM-Level-2-errata#core-14
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=245
    */
-  hc_domimplementationfeaturenoversion : function () {
+  hc_domimplementationfeaturenoversion: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_domimplementationfeaturenoversion") != null) return;
     var doc;
     var domImpl;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
 
-    if(
-
-      (builder.contentType == "text/html")
-
-    ) {
+    if (false) {
       state = domImpl.hasFeature("HTML","");
-
-    }
-
-    else {
+    } else {
       state = domImpl.hasFeature("XML","");
-
     }
     assertTrue("hasFeatureBlank",state);
 
+    test.done();
   },
+
   /**
    *
    Load a document and invoke its
@@ -10228,25 +9452,16 @@ exports.tests = {
    * @see http://www.w3.org/2000/11/DOM-Level-2-errata#core-14
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=245
    */
-  hc_domimplementationfeaturenull : function () {
+  hc_domimplementationfeaturenull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_domimplementationfeaturenull") != null) return;
     var doc;
     var domImpl;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
 
-    if(
-
-      (builder.contentType == "text/html")
-
-    ) {
+    if (false) {
       state = domImpl.hasFeature("HTML",null);
       assertTrue("supports_HTML_null",state);
 
@@ -10258,7 +9473,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    Retrieve the entire DOM document and invoke its
@@ -10271,25 +9488,16 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-5CED94D7
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=245
    */
-  hc_domimplementationfeaturexml : function () {
+  hc_domimplementationfeaturexml: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_domimplementationfeaturexml") != null) return;
     var doc;
     var domImpl;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
 
-    if(
-
-      (builder.contentType == "text/html")
-
-    ) {
+    if (false) {
       state = domImpl.hasFeature("html","1.0");
       assertTrue("supports_html_1.0",state);
 
@@ -10301,7 +9509,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    The "setAttribute(name,value)" method adds a new attribute
@@ -10317,26 +9527,23 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68F082
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  hc_elementaddnewattribute : function () {
+  hc_elementaddnewattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementaddnewattribute") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(4);
     testEmployee.setAttribute("lang","EN-us");
     attrValue = testEmployee.getAttribute("lang");
     assertEquals("attrValue","EN-us",attrValue);
 
+    test.done();
   },
+
   /**
    *
    Retrieve the first attribute from the last child of
@@ -10349,9 +9556,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    */
-  hc_elementassociatedattribute : function () {
+  hc_elementassociatedattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementassociatedattribute") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -10359,11 +9565,7 @@ exports.tests = {
     var domesticAttr;
     var specified;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(0);
     attributes = testEmployee.attributes;
@@ -10373,7 +9575,9 @@ exports.tests = {
 
     assertTrue("acronymTitleSpecified",specified);
 
+    test.done();
   },
+
   /**
    *
    The "setAttribute(name,value)" method adds a new attribute
@@ -10391,26 +9595,23 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68F082
    */
-  hc_elementchangeattributevalue : function () {
+  hc_elementchangeattributevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementchangeattributevalue") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(3);
     testEmployee.setAttribute("class","Neither");
     attrValue = testEmployee.getAttribute("class");
     assertEquals("elementChangeAttributeValueAssert","Neither",attrValue);
 
+    test.done();
   },
+
   /**
    *
    The "setAttributeNode(newAttr)" method adds a new
@@ -10426,9 +9627,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  hc_elementcreatenewattribute : function () {
+  hc_elementcreatenewattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementcreatenewattribute") != null) return;
     var doc;
     var elementList;
     var testAddress;
@@ -10437,11 +9637,7 @@ exports.tests = {
     var districtAttr;
     var attrVal;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(0);
     newAttribute = doc.createAttribute("lang");
@@ -10452,7 +9648,9 @@ exports.tests = {
     attrVal = testAddress.getAttribute("lang");
     assertEquals("attr_value","",attrVal);
 
+    test.done();
   },
+
   /**
    *
    Retrieve the attribute "title" from the last child
@@ -10463,20 +9661,15 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    */
-  hc_elementgetattributenode : function () {
+  hc_elementgetattributenode: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementgetattributenode") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var domesticAttr;
     var nodeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(0);
     domesticAttr = testEmployee.getAttributeNode("title");
@@ -10484,7 +9677,9 @@ exports.tests = {
 
     assertEqualsAutoCase("attribute", "nodeName","title",nodeName);
 
+    test.done();
   },
+
   /**
    *
    The "getAttributeNode(name)" method retrieves an
@@ -10499,25 +9694,22 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-217A91B8
    */
-  hc_elementgetattributenodenull : function () {
+  hc_elementgetattributenodenull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementgetattributenodenull") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var domesticAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(0);
     domesticAttr = testEmployee.getAttributeNode("invalidAttribute");
     assertNull("elementGetAttributeNodeNullAssert",domesticAttr);
 
+    test.done();
   },
+
   /**
    *
    The "getAttribute(name)" method returns an empty
@@ -10536,9 +9728,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-666EE0F9
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  hc_elementgetelementempty : function () {
+  hc_elementgetelementempty: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementgetelementempty") != null) return;
     var doc;
     var newAttribute;
     var elementList;
@@ -10546,11 +9737,7 @@ exports.tests = {
     var domesticAttr;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newAttribute = doc.createAttribute("lang");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(3);
@@ -10558,7 +9745,9 @@ exports.tests = {
     attrValue = testEmployee.getAttribute("lang");
     assertEquals("elementGetElementEmptyAssert","",attrValue);
 
+    test.done();
   },
+
   /**
    *
    The "getElementsByTagName(name)" method returns a list
@@ -10574,21 +9763,18 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    */
-  hc_elementgetelementsbytagname : function () {
+  hc_elementgetelementsbytagname: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementgetelementsbytagname") != null) return;
     var doc;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     assertSize("elementGetElementsByTagNameAssert",5,elementList);
 
+    test.done();
   },
+
   /**
    *
    The "getElementsByTagName(name)" method returns a list
@@ -10608,9 +9794,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_elementgetelementsbytagnameaccessnodelist : function () {
+  hc_elementgetelementsbytagnameaccessnodelist: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementgetelementsbytagnameaccessnodelist") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -10620,11 +9805,7 @@ exports.tests = {
     var employeeIDNode;
     var employeeID;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     testEmployee = elementList.item(3);
     firstC = testEmployee.firstChild;
@@ -10650,7 +9831,9 @@ exports.tests = {
 
     assertEquals("employeeID","EMP0004",employeeID);
 
+    test.done();
   },
+
   /**
    *
    The "getElementsByTagName(name)" method returns a list
@@ -10664,21 +9847,18 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    */
-  hc_elementgetelementsbytagnamenomatch : function () {
+  hc_elementgetelementsbytagnamenomatch: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementgetelementsbytagnamenomatch") != null) return;
     var doc;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("noMatch");
     assertSize("elementGetElementsByTagNameNoMatchNoMatchAssert",0,elementList);
 
+    test.done();
   },
+
   /**
    *
    The "getElementsByTagName(name)" method may use the
@@ -10693,9 +9873,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1938918D
    */
-  hc_elementgetelementsbytagnamespecialvalue : function () {
+  hc_elementgetelementsbytagnamespecialvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementgetelementsbytagnamespecialvalue") != null) return;
     var doc;
     var elementList;
     var lastEmployee;
@@ -10713,11 +9892,7 @@ exports.tests = {
     expectedResult[5] = "acronym";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     lastEmployee = elementList.item(4);
     lastempList = lastEmployee.getElementsByTagName("*");
@@ -10730,7 +9905,9 @@ exports.tests = {
     }
     assertEqualsListAutoCase("element", "tagNames",expectedResult,result);
 
+    test.done();
   },
+
   /**
    *
    Invoke the "getTagName()" method one the
@@ -10740,38 +9917,27 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-104682815
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  hc_elementgettagname : function () {
+  hc_elementgettagname: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementgettagname") != null) return;
     var doc;
     var root;
     var tagname;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     root = doc.documentElement;
 
     tagname = root.tagName;
 
 
-    if(
-
-      (builder.contentType == "image/svg+xml")
-
-    ) {
+    if (true) {
       assertEquals("svgTagname","svg",tagname);
-
-    }
-
-    else {
+    } else {
       assertEqualsAutoCase("element", "tagname","html",tagname);
-
     }
 
+    test.done();
   },
+
   /**
    *
    The "setAttributeNode(newAttr)" method raises an
@@ -10784,9 +9950,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-887236154')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=244
    */
-  hc_elementinuseattributeerr : function () {
+  hc_elementinuseattributeerr: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementinuseattributeerr") != null) return;
     var doc;
     var newAttribute;
     var addressElementList;
@@ -10797,11 +9962,7 @@ exports.tests = {
     var setAttr1;
     var setAttr2;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressElementList = doc.getElementsByTagName("body");
     testAddress = addressElementList.item(0);
     newElement = doc.createElement("p");
@@ -10820,7 +9981,9 @@ exports.tests = {
       assertTrue("throw_INUSE_ATTRIBUTE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "setAttribute(name,value)" method raises an
@@ -10837,18 +10000,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-F68F082')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_elementinvalidcharacterexception : function () {
+  hc_elementinvalidcharacterexception: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementinvalidcharacterexception") != null) return;
     var doc;
     var elementList;
     var testAddress;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(0);
 
@@ -10863,7 +10021,9 @@ exports.tests = {
       assertTrue("throw_INVALID_CHARACTER_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Calling Element.setAttribute with an empty name will cause an INVALID_CHARACTER_ERR.
@@ -10874,18 +10034,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-F68F082')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
-  hc_elementinvalidcharacterexception1 : function () {
+  hc_elementinvalidcharacterexception1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementinvalidcharacterexception1") != null) return;
     var doc;
     var elementList;
     var testAddress;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(0);
 
@@ -10900,7 +10055,9 @@ exports.tests = {
       assertTrue("throw_INVALID_CHARACTER_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Append a couple of text nodes to the first sup element, normalize the
@@ -10910,9 +10067,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-162CF083
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=546
    */
-  hc_elementnormalize : function () {
+  hc_elementnormalize: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementnormalize") != null) return;
     var doc;
     var root;
     var elementList;
@@ -10922,11 +10078,7 @@ exports.tests = {
     var textNode;
     var retNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("sup");
     testName = elementList.item(0);
     textNode = doc.createTextNode("");
@@ -10944,7 +10096,9 @@ exports.tests = {
 
     assertEquals("elementNormalizeAssert","56,000,000",childValue);
 
+    test.done();
   },
+
   /**
    *
    Add an empty text node to an existing attribute node, normalize the containing element
@@ -10954,9 +10108,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-162CF083
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=482
    */
-  hc_elementnormalize2 : function () {
+  hc_elementnormalize2: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementnormalize2") != null) return;
     var doc;
     var root;
     var elementList;
@@ -10968,11 +10121,7 @@ exports.tests = {
     var attrNode;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     root = doc.documentElement;
 
     emptyText = doc.createTextNode("");
@@ -10991,7 +10140,9 @@ exports.tests = {
 
     assertNull("secondChildNull",secondChild);
 
+    test.done();
   },
+
   /**
    *
    The "removeAttributeNode(oldAttr)" method raises a
@@ -11010,20 +10161,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-D589198')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_elementnotfounderr : function () {
+  hc_elementnotfounderr: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementnotfounderr") != null) return;
     var doc;
     var oldAttribute;
     var addressElementList;
     var testAddress;
     var attrAddress;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressElementList = doc.getElementsByTagName("acronym");
     testAddress = addressElementList.item(4);
     oldAttribute = doc.createAttribute("title");
@@ -11039,7 +10185,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "removeAttribute(name)" removes an attribute by name.
@@ -11051,26 +10199,23 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D6AC0F9
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
    */
-  hc_elementremoveattribute : function () {
+  hc_elementremoveattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementremoveattribute") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(3);
     testEmployee.removeAttribute("class");
     attrValue = testEmployee.getAttribute("class");
     assertEquals("attrValue","",attrValue);
 
+    test.done();
   },
+
   /**
    *
    The "removeAttributeNode(oldAttr)" method removes the
@@ -11087,9 +10232,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D589198
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  hc_elementremoveattributeaftercreate : function () {
+  hc_elementremoveattributeaftercreate: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementremoveattributeaftercreate") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -11097,11 +10241,7 @@ exports.tests = {
     var attributes;
     var districtAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("lang");
@@ -11112,7 +10252,9 @@ exports.tests = {
     districtAttr = attributes.getNamedItem("lang");
     assertNull("removed_item_null",districtAttr);
 
+    test.done();
   },
+
   /**
    *
    The "removeAttributeNode(oldAttr)" method returns the
@@ -11125,9 +10267,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D589198
    */
-  hc_elementremoveattributenode : function () {
+  hc_elementremoveattributenode: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementremoveattributenode") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -11135,11 +10276,7 @@ exports.tests = {
     var removedAttr;
     var removedValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     streetAttr = testEmployee.getAttributeNode("class");
@@ -11149,7 +10286,9 @@ exports.tests = {
 
     assertEquals("elementRemoveAttributeNodeAssert","No",removedValue);
 
+    test.done();
   },
+
   /**
    *
    This test calls setAttributeNode to replace an attribute with itself.
@@ -11163,9 +10302,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    */
-  hc_elementreplaceattributewithself : function () {
+  hc_elementreplaceattributewithself: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementreplaceattributewithself") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -11173,18 +10311,16 @@ exports.tests = {
     var replacedAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     streetAttr = testEmployee.getAttributeNode("class");
     replacedAttr = testEmployee.setAttributeNode(streetAttr);
     assertSame("replacedAttr",streetAttr,replacedAttr);
 
+    test.done();
   },
+
   /**
    *
    The "setAttributeNode(newAttr)" method adds a new
@@ -11202,9 +10338,8 @@ exports.tests = {
 
    * @author Curt Arnold
    */
-  hc_elementreplaceexistingattribute : function () {
+  hc_elementreplaceexistingattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementreplaceexistingattribute") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -11212,11 +10347,7 @@ exports.tests = {
     var strong;
     var setAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("class");
@@ -11224,7 +10355,9 @@ exports.tests = {
     strong = testEmployee.getAttribute("class");
     assertEquals("replacedValue","",strong);
 
+    test.done();
   },
+
   /**
    *
    If the "setAttributeNode(newAttr)" method replaces an
@@ -11241,9 +10374,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    */
-  hc_elementreplaceexistingattributegevalue : function () {
+  hc_elementreplaceexistingattributegevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementreplaceexistingattributegevalue") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -11251,11 +10383,7 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("class");
@@ -11265,7 +10393,9 @@ exports.tests = {
 
     assertEquals("previousAttrValue","No",value);
 
+    test.done();
   },
+
   /**
    *
    Create a list of all the attributes of the last child
@@ -11277,9 +10407,8 @@ exports.tests = {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
-  hc_elementretrieveallattributes : function () {
+  hc_elementretrieveallattributes: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementretrieveallattributes") != null) return;
     var doc;
     var addressList;
     var testAddress;
@@ -11296,11 +10425,7 @@ exports.tests = {
     expected[1] = "dir";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testAddress = addressList.item(0);
     attributes = testAddress.attributes;
@@ -11313,21 +10438,15 @@ exports.tests = {
 
     }
 
-    if(
-
-      (builder.contentType == "text/html")
-
-    ) {
+    if (false) {
       assertEqualsCollection("htmlAttributeNames",toLowerArray(htmlExpected),toLowerArray(actual));
-
-    }
-
-    else {
+    } else {
       assertEqualsCollection("attributeNames",toLowerArray(expected),toLowerArray(actual));
-
     }
 
+    test.done();
   },
+
   /**
    *
    The "getAttribute(name)" method returns an attribute
@@ -11340,25 +10459,22 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-666EE0F9
    */
-  hc_elementretrieveattrvalue : function () {
+  hc_elementretrieveattrvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementretrieveattrvalue") != null) return;
     var doc;
     var elementList;
     var testAddress;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(2);
     attrValue = testAddress.getAttribute("class");
     assertEquals("attrValue","No",attrValue);
 
+    test.done();
   },
+
   /**
    *
    The "getElementsByTagName()" method returns a NodeList
@@ -11372,19 +10488,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-104682815
    */
-  hc_elementretrievetagname : function () {
+  hc_elementretrievetagname: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementretrievetagname") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var strong;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("code");
     testEmployee = elementList.item(1);
     strong = testEmployee.nodeName;
@@ -11394,7 +10505,9 @@ exports.tests = {
 
     assertEqualsAutoCase("element", "tagname","code",strong);
 
+    test.done();
   },
+
   /**
    *
    The "setAttributeNode(newAttr)" method returns the
@@ -11412,27 +10525,24 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  hc_elementsetattributenodenull : function () {
+  hc_elementsetattributenodenull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementsetattributenodenull") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var newAttribute;
     var districtAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("lang");
     districtAttr = testEmployee.setAttributeNode(newAttribute);
     assertNull("elementSetAttributeNodeNullAssert",districtAttr);
 
+    test.done();
   },
+
   /**
    *
    The "setAttributeNode(newAttr)" method raises an
@@ -11455,9 +10565,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-887236154')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='WRONG_DOCUMENT_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_elementwrongdocumenterr : function () {
+  hc_elementwrongdocumenterr: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_elementwrongdocumenterr") != null) return;
     var doc1;
     var doc2;
     var newAttribute;
@@ -11469,13 +10578,13 @@ exports.tests = {
     if (typeof(this.doc1) != 'undefined') {
       doc1Ref = this.doc1;
     }
-    doc1 = load(doc1Ref, "doc1", "hc_staff");
+    doc1 = hc_staff.hc_staff();
 
     var doc2Ref = null;
     if (typeof(this.doc2) != 'undefined') {
       doc2Ref = this.doc2;
     }
-    doc2 = load(doc2Ref, "doc2", "hc_staff");
+    doc2 = hc_staff.hc_staff();
     newAttribute = doc2.createAttribute("newAttribute");
     addressElementList = doc1.getElementsByTagName("acronym");
     testAddress = addressElementList.item(4);
@@ -11491,7 +10600,9 @@ exports.tests = {
       assertTrue("throw_WRONG_DOCUMENT_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    An attempt to add remove an entity should result in a NO_MODIFICATION_ERR.
@@ -11500,26 +10611,21 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1788794630
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D58B193
    */
-  hc_entitiesremovenameditem1 : function () {
+  hc_entitiesremovenameditem1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_entitiesremovenameditem1") != null) return;
     var doc;
     var entities;
     var docType;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
 
     if(
 
       !(
-        (builder.contentType == "text/html")
+        (false)
       )
 
     ) {
@@ -11541,7 +10647,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    An attempt to add an element to the named node map returned by entities should
@@ -11551,27 +10659,22 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1788794630
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    */
-  hc_entitiessetnameditem1 : function () {
+  hc_entitiessetnameditem1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_entitiessetnameditem1") != null) return;
     var doc;
     var entities;
     var docType;
     var retval;
     var elem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
 
     if(
 
       !(
-        (builder.contentType == "text/html")
+        (false)
       )
 
     ) {
@@ -11602,7 +10705,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    Create a NamedNodeMap object from the attributes of the
@@ -11616,9 +10721,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D0FB19E
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=250
    */
-  hc_namednodemapchildnoderange : function () {
+  hc_namednodemapchildnoderange: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapchildnoderange") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -11627,11 +10731,7 @@ exports.tests = {
     var strong;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     attributes = testEmployee.attributes;
@@ -11639,11 +10739,7 @@ exports.tests = {
     length = attributes.length;
 
 
-    if(
-
-      (builder.contentType == "text/html")
-
-    ) {
+    if (false) {
       assertEquals("htmlLength",2,length);
 
     }
@@ -11661,7 +10757,9 @@ exports.tests = {
     child = attributes.item(3);
     assertNull("attr3",child);
 
+    test.done();
   },
+
   /**
    *
    Retrieve the second "p" element and create a NamedNodeMap
@@ -11676,9 +10774,8 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    */
-  hc_namednodemapgetnameditem : function () {
+  hc_namednodemapgetnameditem: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapgetnameditem") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -11686,11 +10783,7 @@ exports.tests = {
     var domesticAttr;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -11700,7 +10793,9 @@ exports.tests = {
 
     assertEqualsAutoCase("attribute", "nodeName","title",attrName);
 
+    test.done();
   },
+
   /**
    *
    The "setNamedItem(arg)" method raises a
@@ -11718,9 +10813,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-1025163788')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_namednodemapinuseattributeerr : function () {
+  hc_namednodemapinuseattributeerr: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapinuseattributeerr") != null) return;
     var doc;
     var elementList;
     var firstNode;
@@ -11730,11 +10824,7 @@ exports.tests = {
     var setAttr;
     var setNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     firstNode = elementList.item(0);
     domesticAttr = doc.createAttribute("title");
@@ -11757,7 +10847,9 @@ exports.tests = {
       assertTrue("throw_INUSE_ATTRIBUTE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "removeNamedItem(name)" method raises a
@@ -11776,20 +10868,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-D58B193')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  hc_namednodemapnotfounderr : function () {
+  hc_namednodemapnotfounderr: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapnotfounderr") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var attributes;
     var removedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     attributes = testEmployee.attributes;
@@ -11806,7 +10893,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Retrieve the second "p" element and evaluate Node.attributes.length.
@@ -11816,20 +10905,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D0FB19E
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=250
    */
-  hc_namednodemapnumberofnodes : function () {
+  hc_namednodemapnumberofnodes: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapnumberofnodes") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var attributes;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     attributes = testEmployee.attributes;
@@ -11837,21 +10921,15 @@ exports.tests = {
     length = attributes.length;
 
 
-    if(
-
-      (builder.contentType == "text/html")
-
-    ) {
+    if (false) {
       assertEquals("htmlLength",2,length);
-
-    }
-
-    else {
+    } else {
       assertEquals("length",3,length);
-
     }
 
+    test.done();
   },
+
   /**
    *
    The "removeNamedItem(name)" method removes a node
@@ -11868,9 +10946,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
    */
-  hc_namednodemapremovenameditem : function () {
+  hc_namednodemapremovenameditem: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapremovenameditem") != null) return;
     var doc;
     var elementList;
     var newAttribute;
@@ -11880,11 +10957,7 @@ exports.tests = {
     var specified;
     var removedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(2);
     attributes = testAddress.attributes;
@@ -11893,7 +10966,9 @@ exports.tests = {
     streetAttr = attributes.getNamedItem("class");
     assertNull("isnull",streetAttr);
 
+    test.done();
   },
+
   /**
    *
    Retrieve the second p element and create a NamedNodeMap
@@ -11909,9 +10984,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1112119403
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    */
-  hc_namednodemapreturnattrnode : function () {
+  hc_namednodemapreturnattrnode: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapreturnattrnode") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -11919,11 +10993,7 @@ exports.tests = {
     var streetAttr;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -11937,7 +11007,9 @@ exports.tests = {
 
     assertEqualsAutoCase("attribute", "name","class",attrName);
 
+    test.done();
   },
+
   /**
    *
    The "item(index)" method returns the indexth item in
@@ -11953,9 +11025,8 @@ exports.tests = {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
-  hc_namednodemapreturnfirstitem : function () {
+  hc_namednodemapreturnfirstitem: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapreturnfirstitem") != null) return;
     var doc;
     var elementList;
     var testAddress;
@@ -11974,11 +11045,7 @@ exports.tests = {
     var actual = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(1);
     attributes = testAddress.attributes;
@@ -11991,21 +11058,15 @@ exports.tests = {
 
     }
 
-    if(
-
-      (builder.contentType == "text/html")
-
-    ) {
+    if (false) {
       assertEqualsCollection("attrName_html",toLowerArray(htmlExpected),toLowerArray(actual));
-
-    }
-
-    else {
+    } else {
       assertEqualsCollection("attrName",expected,actual);
-
     }
 
+    test.done();
   },
+
   /**
    *
    The "item(index)" method returns the indexth item in
@@ -12023,9 +11084,8 @@ exports.tests = {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
-  hc_namednodemapreturnlastitem : function () {
+  hc_namednodemapreturnlastitem: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapreturnlastitem") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -12044,11 +11104,7 @@ exports.tests = {
     var actual = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -12061,21 +11117,15 @@ exports.tests = {
 
     }
 
-    if(
-
-      (builder.contentType == "text/html")
-
-    ) {
+    if (false) {
       assertEqualsCollection("attrName_html",toLowerArray(htmlExpected),toLowerArray(actual));
-
-    }
-
-    else {
+    } else {
       assertEqualsCollection("attrName",expected,actual);
-
     }
 
+    test.done();
   },
+
   /**
    *
    The "getNamedItem(name)" method returns null of the
@@ -12093,20 +11143,15 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_namednodemapreturnnull : function () {
+  hc_namednodemapreturnnull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapreturnnull") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var attributes;
     var districtNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -12114,7 +11159,9 @@ exports.tests = {
     districtNode = attributes.getNamedItem("lang");
     assertNull("langAttrNull",districtNode);
 
+    test.done();
   },
+
   /**
    *
    Retrieve the second "p" element and create a NamedNodeMap
@@ -12135,9 +11182,8 @@ exports.tests = {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  hc_namednodemapsetnameditem : function () {
+  hc_namednodemapsetnameditem: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapsetnameditem") != null) return;
     var doc;
     var elementList;
     var newAttribute;
@@ -12147,11 +11193,7 @@ exports.tests = {
     var attrName;
     var setNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(1);
     newAttribute = doc.createAttribute("lang");
@@ -12163,7 +11205,9 @@ exports.tests = {
 
     assertEqualsAutoCase("attribute", "nodeName","lang",attrName);
 
+    test.done();
   },
+
   /**
    *
    If the "setNamedItem(arg)" method replaces an already
@@ -12186,9 +11230,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  hc_namednodemapsetnameditemreturnvalue : function () {
+  hc_namednodemapsetnameditemreturnvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapsetnameditemreturnvalue") != null) return;
     var doc;
     var elementList;
     var newAttribute;
@@ -12197,11 +11240,7 @@ exports.tests = {
     var newNode;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(2);
     newAttribute = doc.createAttribute("class");
@@ -12213,7 +11252,9 @@ exports.tests = {
 
     assertEquals("previousAttrValue","No",attrValue);
 
+    test.done();
   },
+
   /**
    *
    If the node to be added by the "setNamedItem(arg)" method
@@ -12237,9 +11278,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  hc_namednodemapsetnameditemthatexists : function () {
+  hc_namednodemapsetnameditemthatexists: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapsetnameditemthatexists") != null) return;
     var doc;
     var elementList;
     var newAttribute;
@@ -12249,11 +11289,7 @@ exports.tests = {
     var attrValue;
     var setNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(1);
     newAttribute = doc.createAttribute("class");
@@ -12265,7 +11301,9 @@ exports.tests = {
 
     assertEquals("namednodemapSetNamedItemThatExistsAssert","",attrValue);
 
+    test.done();
   },
+
   /**
    *
    If the "setNamedItem(arg)" method does not replace an
@@ -12286,9 +11324,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=243
    */
-  hc_namednodemapsetnameditemwithnewvalue : function () {
+  hc_namednodemapsetnameditemwithnewvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapsetnameditemwithnewvalue") != null) return;
     var doc;
     var elementList;
     var newAttribute;
@@ -12296,11 +11333,7 @@ exports.tests = {
     var attributes;
     var newNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(2);
     newAttribute = doc.createAttribute("lang");
@@ -12309,7 +11342,9 @@ exports.tests = {
     newNode = attributes.setNamedItem(newAttribute);
     assertNull("prevValueNull",newNode);
 
+    test.done();
   },
+
   /**
    *
    The "setNamedItem(arg)" method raises a
@@ -12330,9 +11365,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-1025163788')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='WRONG_DOCUMENT_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_namednodemapwrongdocumenterr : function () {
+  hc_namednodemapwrongdocumenterr: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_namednodemapwrongdocumenterr") != null) return;
     var doc1;
     var doc2;
     var elementList;
@@ -12346,13 +11380,13 @@ exports.tests = {
     if (typeof(this.doc1) != 'undefined') {
       doc1Ref = this.doc1;
     }
-    doc1 = load(doc1Ref, "doc1", "hc_staff");
+    doc1 = hc_staff.hc_staff();
 
     var doc2Ref = null;
     if (typeof(this.doc2) != 'undefined') {
       doc2Ref = this.doc2;
     }
-    doc2 = load(doc2Ref, "doc2", "hc_staff");
+    doc2 = hc_staff.hc_staff();
     elementList = doc1.getElementsByTagName("acronym");
     testAddress = elementList.item(2);
     newAttribute = doc2.createAttribute("newAttribute");
@@ -12370,7 +11404,9 @@ exports.tests = {
       assertTrue("throw_WRONG_DOCUMENT_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Retrieve the second "p" and append a "br" Element
@@ -12382,9 +11418,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodeappendchild : function () {
+  hc_nodeappendchild: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeappendchild") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -12394,11 +11429,7 @@ exports.tests = {
     var childName;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -12411,7 +11442,9 @@ exports.tests = {
 
     assertEqualsAutoCase("element", "nodeName","br",childName);
 
+    test.done();
   },
+
   /**
    *
    If the "newChild" is already in the tree, it is first
@@ -12427,9 +11460,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodeappendchildchildexists : function () {
+  hc_nodeappendchildchildexists: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeappendchildchildexists") != null) return;
     var doc;
     var elementList;
     var childList;
@@ -12452,11 +11484,7 @@ exports.tests = {
 
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     childNode = elementList.item(1);
     childList = childNode.getElementsByTagName("*");
@@ -12489,7 +11517,9 @@ exports.tests = {
     }
     assertEqualsListAutoCase("element", "refreshedChildNodes",expected,refreshedActual);
 
+    test.done();
   },
+
   /**
    *
    If the "newChild" is a DocumentFragment object then
@@ -12506,9 +11536,8 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodeappendchilddocfragment : function () {
+  hc_nodeappendchilddocfragment: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeappendchilddocfragment") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -12533,11 +11562,7 @@ exports.tests = {
     expected[7] = "b";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -12565,7 +11590,9 @@ exports.tests = {
     }
     assertEqualsListAutoCase("element", "nodeNames",expected,result);
 
+    test.done();
   },
+
   /**
    *
    The "appendChild(newChild)" method returns the node
@@ -12580,9 +11607,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodeappendchildgetnodename : function () {
+  hc_nodeappendchildgetnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeappendchildgetnodename") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -12591,11 +11617,7 @@ exports.tests = {
     var appendNode;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -12606,7 +11628,9 @@ exports.tests = {
 
     assertEqualsAutoCase("element", "nodeName","br",childName);
 
+    test.done();
   },
+
   /**
    *
    The "appendChild(newChild)" method raises a
@@ -12626,19 +11650,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_nodeappendchildinvalidnodetype : function () {
+  hc_nodeappendchildinvalidnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeappendchildinvalidnodetype") != null) return;
     var doc;
     var rootNode;
     var newChild;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     rootNode = doc.documentElement;
 
     newChild = doc.createAttribute("newAttribute");
@@ -12654,7 +11673,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "appendChild(newChild)" method raises a
@@ -12674,9 +11695,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodeappendchildnewchilddiffdocument : function () {
+  hc_nodeappendchildnewchilddiffdocument: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeappendchildnewchilddiffdocument") != null) return;
     var doc1;
     var doc2;
     var newChild;
@@ -12688,13 +11708,13 @@ exports.tests = {
     if (typeof(this.doc1) != 'undefined') {
       doc1Ref = this.doc1;
     }
-    doc1 = load(doc1Ref, "doc1", "hc_staff");
+    doc1 = hc_staff.hc_staff();
 
     var doc2Ref = null;
     if (typeof(this.doc2) != 'undefined') {
       doc2Ref = this.doc2;
     }
-    doc2 = load(doc2Ref, "doc2", "hc_staff");
+    doc2 = hc_staff.hc_staff();
     newChild = doc1.createElement("br");
     elementList = doc2.getElementsByTagName("p");
     elementNode = elementList.item(1);
@@ -12710,7 +11730,9 @@ exports.tests = {
       assertTrue("throw_WRONG_DOCUMENT_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "appendChild(newChild)" method raises a
@@ -12728,9 +11750,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-184E7107')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='HIERARCHY_REQUEST_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  hc_nodeappendchildnodeancestor : function () {
+  hc_nodeappendchildnodeancestor: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeappendchildnodeancestor") != null) return;
     var doc;
     var newChild;
     var elementList;
@@ -12739,11 +11760,7 @@ exports.tests = {
     var oldChild;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newChild = doc.documentElement;
 
     elementList = doc.getElementsByTagName("p");
@@ -12760,7 +11777,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "getAttributes()" method invoked on an Attribute
@@ -12774,9 +11793,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    */
-  hc_nodeattributenodeattribute : function () {
+  hc_nodeattributenodeattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeattributenodeattribute") != null) return;
     var doc;
     var elementList;
     var testAddr;
@@ -12784,11 +11802,7 @@ exports.tests = {
     var attrNode;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     addrAttr = testAddr.attributes;
@@ -12798,7 +11812,9 @@ exports.tests = {
 
     assertNull("nodeAttributeNodeAttributeAssert1",attrList);
 
+    test.done();
   },
+
   /**
    *
    Retrieve the Attribute named "title" from the last
@@ -12810,20 +11826,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    */
-  hc_nodeattributenodename : function () {
+  hc_nodeattributenodename: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeattributenodename") != null) return;
     var doc;
     var elementList;
     var testAddr;
     var addrAttr;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     addrAttr = testAddr.getAttributeNode("title");
@@ -12831,7 +11842,9 @@ exports.tests = {
 
     assertEqualsAutoCase("attribute", "nodeName","title",attrName);
 
+    test.done();
   },
+
   /**
    *
 
@@ -12851,20 +11864,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  hc_nodeattributenodetype : function () {
+  hc_nodeattributenodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeattributenodetype") != null) return;
     var doc;
     var elementList;
     var testAddr;
     var addrAttr;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     addrAttr = testAddr.getAttributeNode("title");
@@ -12872,7 +11880,9 @@ exports.tests = {
 
     assertEquals("nodeAttrNodeTypeAssert1",2,nodeType);
 
+    test.done();
   },
+
   /**
    *
 
@@ -12887,20 +11897,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  hc_nodeattributenodevalue : function () {
+  hc_nodeattributenodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeattributenodevalue") != null) return;
     var doc;
     var elementList;
     var testAddr;
     var addrAttr;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     addrAttr = testAddr.getAttributeNode("title");
@@ -12908,7 +11913,9 @@ exports.tests = {
 
     assertEquals("nodeValue","Yes",attrValue);
 
+    test.done();
   },
+
   /**
    *
 
@@ -12923,9 +11930,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodechildnodes : function () {
+  hc_nodechildnodes: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodechildnodes") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -12944,11 +11950,7 @@ exports.tests = {
     expected[5] = "acronym";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childNodes = employeeNode.childNodes;
@@ -12975,7 +11977,9 @@ exports.tests = {
     }
     assertEqualsListAutoCase("element", "elementNames",expected,actual);
 
+    test.done();
   },
+
   /**
    *
    The NodeList returned by the "getChildNodes()" method
@@ -12995,9 +11999,8 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodechildnodesappendchild : function () {
+  hc_nodechildnodesappendchild: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodechildnodesappendchild") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -13019,11 +12022,7 @@ exports.tests = {
     expected[6] = "br";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -13052,7 +12051,9 @@ exports.tests = {
     }
     assertEqualsListAutoCase("element", "childElements",expected,actual);
 
+    test.done();
   },
+
   /**
    *
    The "getChildNodes()" method returns a NodeList
@@ -13068,9 +12069,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodechildnodesempty : function () {
+  hc_nodechildnodesempty: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodechildnodesempty") != null) return;
     var doc;
     var elementList;
     var childList;
@@ -13078,11 +12078,7 @@ exports.tests = {
     var textNode;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("em");
     employeeNode = elementList.item(1);
     textNode = employeeNode.firstChild;
@@ -13093,7 +12089,9 @@ exports.tests = {
 
     assertEquals("length_zero",0,length);
 
+    test.done();
   },
+
   /**
    *
    Retrieve the second acronym element and invoke
@@ -13106,9 +12104,8 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
-  hc_nodecloneattributescopied : function () {
+  hc_nodecloneattributescopied: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodecloneattributescopied") != null) return;
     var doc;
     var elementList;
     var addressNode;
@@ -13128,11 +12125,7 @@ exports.tests = {
     expected[2] = "dir";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     addressNode = elementList.item(1);
     clonedNode = addressNode.cloneNode(false);
@@ -13146,21 +12139,15 @@ exports.tests = {
 
     }
 
-    if(
-
-      (builder.contentType == "text/html")
-
-    ) {
+    if (false) {
       assertEqualsCollection("nodeNames_html",toLowerArray(htmlExpected),toLowerArray(result));
-
-    }
-
-    else {
+    } else {
       assertEqualsCollection("nodeNames",expected,result);
-
     }
 
+    test.done();
   },
+
   /**
    *
    The "cloneNode(deep)" method does not copy text unless it
@@ -13174,9 +12161,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  hc_nodeclonefalsenocopytext : function () {
+  hc_nodeclonefalsenocopytext: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeclonefalsenocopytext") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -13185,11 +12171,7 @@ exports.tests = {
     var clonedNode;
     var lastChildNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -13200,7 +12182,9 @@ exports.tests = {
 
     assertNull("nodeCloneFalseNoCopyTextAssert1",lastChildNode);
 
+    test.done();
   },
+
   /**
    *
    The duplicate node returned by the "cloneNode(deep)"
@@ -13214,20 +12198,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  hc_nodeclonegetparentnull : function () {
+  hc_nodeclonegetparentnull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeclonegetparentnull") != null) return;
     var doc;
     var elementList;
     var employeeNode;
     var clonedNode;
     var parentNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     clonedNode = employeeNode.cloneNode(false);
@@ -13235,7 +12214,9 @@ exports.tests = {
 
     assertNull("nodeCloneGetParentNullAssert1",parentNode);
 
+    test.done();
   },
+
   /**
    *
    The "cloneNode(deep)" method returns a copy of the node
@@ -13251,9 +12232,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  hc_nodeclonenodefalse : function () {
+  hc_nodeclonenodefalse: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeclonenodefalse") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -13262,11 +12242,7 @@ exports.tests = {
     var cloneChildren;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     clonedNode = employeeNode.cloneNode(false);
@@ -13279,7 +12255,9 @@ exports.tests = {
 
     assertEquals("length",0,length);
 
+    test.done();
   },
+
   /**
    *
    The "cloneNode(deep)" method returns a copy of the node
@@ -13296,9 +12274,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodeclonenodetrue : function () {
+  hc_nodeclonenodetrue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeclonenodetrue") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -13314,11 +12291,7 @@ exports.tests = {
     var expected = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     origList = employeeNode.childNodes;
@@ -13342,7 +12315,9 @@ exports.tests = {
     }
     assertEqualsList("clone",expected,result);
 
+    test.done();
   },
+
   /**
    *
    The "cloneNode(deep)" method does not copy text unless it
@@ -13357,9 +12332,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodeclonetruecopytext : function () {
+  hc_nodeclonetruecopytext: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeclonetruecopytext") != null) return;
     var doc;
     var elementList;
     var childNode;
@@ -13367,11 +12341,7 @@ exports.tests = {
     var lastChildNode;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("sup");
     childNode = elementList.item(1);
     clonedNode = childNode.cloneNode(true);
@@ -13381,7 +12351,9 @@ exports.tests = {
 
     assertEquals("cloneContainsText","35,000",childValue);
 
+    test.done();
   },
+
   /**
    *
    The "getAttributes()" method invoked on a Comment
@@ -13398,20 +12370,15 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=248
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=263
    */
-  hc_nodecommentnodeattributes : function () {
+  hc_nodecommentnodeattributes: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodecommentnodeattributes") != null) return;
     var doc;
     var commentNode;
     var nodeList;
     var attrList;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     nodeList = doc.childNodes;
 
     for(var indexN10043 = 0;indexN10043 < nodeList.length; indexN10043++) {
@@ -13434,7 +12401,9 @@ exports.tests = {
 
     assertNull("createdCommentAttributesNull",attrList);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeName()" method for a
@@ -13449,9 +12418,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=248
    */
-  hc_nodecommentnodename : function () {
+  hc_nodecommentnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodecommentnodename") != null) return;
     var doc;
     var elementList;
     var commentNode;
@@ -13459,11 +12427,7 @@ exports.tests = {
     var commentName;
     var commentNodeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.childNodes;
 
     for(var indexN10044 = 0;indexN10044 < elementList.length; indexN10044++) {
@@ -13486,7 +12450,9 @@ exports.tests = {
 
     assertEquals("createdNodeName","#comment",commentNodeName);
 
+    test.done();
   },
+
   /**
    *
    The "getNodeType()" method for a Comment Node
@@ -13501,20 +12467,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=248
    */
-  hc_nodecommentnodetype : function () {
+  hc_nodecommentnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodecommentnodetype") != null) return;
     var doc;
     var testList;
     var commentNode;
     var commentNodeName;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     testList = doc.childNodes;
 
     for(var indexN10040 = 0;indexN10040 < testList.length; indexN10040++) {
@@ -13537,7 +12498,9 @@ exports.tests = {
 
     assertEquals("createdCommentNodeType",8,nodeType);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeValue()" method for a
@@ -13552,20 +12515,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=248
    */
-  hc_nodecommentnodevalue : function () {
+  hc_nodecommentnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodecommentnodevalue") != null) return;
     var doc;
     var elementList;
     var commentNode;
     var commentName;
     var commentValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.childNodes;
 
     for(var indexN10040 = 0;indexN10040 < elementList.length; indexN10040++) {
@@ -13588,7 +12546,9 @@ exports.tests = {
 
     assertEquals("createdCommentNodeValue"," This is a comment",commentValue);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeName()" method for a
@@ -13603,24 +12563,21 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A3
    */
-  hc_nodedocumentfragmentnodename : function () {
+  hc_nodedocumentfragmentnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodedocumentfragmentnodename") != null) return;
     var doc;
     var docFragment;
     var documentFragmentName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFragment = doc.createDocumentFragment();
     documentFragmentName = docFragment.nodeName;
 
     assertEquals("nodeDocumentFragmentNodeNameAssert1","#document-fragment",documentFragmentName);
 
+    test.done();
   },
+
   /**
    *
    The "getNodeType()" method for a DocumentFragment Node
@@ -13635,24 +12592,21 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A3
    */
-  hc_nodedocumentfragmentnodetype : function () {
+  hc_nodedocumentfragmentnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodedocumentfragmentnodetype") != null) return;
     var doc;
     var documentFragmentNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     documentFragmentNode = doc.createDocumentFragment();
     nodeType = documentFragmentNode.nodeType;
 
     assertEquals("nodeDocumentFragmentNodeTypeAssert1",11,nodeType);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeValue()" method for a
@@ -13669,19 +12623,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    */
-  hc_nodedocumentfragmentnodevalue : function () {
+  hc_nodedocumentfragmentnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodedocumentfragmentnodevalue") != null) return;
     var doc;
     var docFragment;
     var attrList;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFragment = doc.createDocumentFragment();
     attrList = docFragment.attributes;
 
@@ -13690,7 +12639,9 @@ exports.tests = {
 
     assertNull("initiallyNull",value);
 
+    test.done();
   },
+
   /**
    *
    The "getAttributes()" method invoked on a Document
@@ -13704,22 +12655,19 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    */
-  hc_nodedocumentnodeattribute : function () {
+  hc_nodedocumentnodeattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodedocumentnodeattribute") != null) return;
     var doc;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     attrList = doc.attributes;
 
     assertNull("doc_attributes_is_null",attrList);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeName()" method for a
@@ -13733,22 +12681,19 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  hc_nodedocumentnodename : function () {
+  hc_nodedocumentnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodedocumentnodename") != null) return;
     var doc;
     var documentName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     documentName = doc.nodeName;
 
     assertEquals("documentNodeName","#document",documentName);
 
+    test.done();
   },
+
   /**
    *
    The "getNodeType()" method for a Document Node
@@ -13761,22 +12706,19 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  hc_nodedocumentnodetype : function () {
+  hc_nodedocumentnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodedocumentnodetype") != null) return;
     var doc;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     nodeType = doc.nodeType;
 
     assertEquals("nodeDocumentNodeTypeAssert1",9,nodeType);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeValue()" method for a
@@ -13791,22 +12733,19 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  hc_nodedocumentnodevalue : function () {
+  hc_nodedocumentnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodedocumentnodevalue") != null) return;
     var doc;
     var documentValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     documentValue = doc.nodeValue;
 
     assertNull("documentNodeValue",documentValue);
 
+    test.done();
   },
+
   /**
    *
    Retrieve the third "acronym" element and evaluate Node.attributes.
@@ -13817,9 +12756,8 @@ exports.tests = {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
-  hc_nodeelementnodeattributes : function () {
+  hc_nodeelementnodeattributes: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeelementnodeattributes") != null) return;
     var doc;
     var elementList;
     var testAddr;
@@ -13838,11 +12776,7 @@ exports.tests = {
     expected[2] = "dir";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(2);
     addrAttr = testAddr.attributes;
@@ -13855,21 +12789,15 @@ exports.tests = {
 
     }
 
-    if(
-
-      (builder.contentType == "text/html")
-
-    ) {
+    if (false) {
       assertEqualsCollection("attrNames_html",toLowerArray(htmlExpected),toLowerArray(attrList));
-
-    }
-
-    else {
+    } else {
       assertEqualsCollection("attrNames",expected,attrList);
-
     }
 
+    test.done();
   },
+
   /**
    *
    Retrieve the first Element Node(Root Node) of the
@@ -13881,38 +12809,27 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  hc_nodeelementnodename : function () {
+  hc_nodeelementnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeelementnodename") != null) return;
     var doc;
     var elementNode;
     var elementName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementNode = doc.documentElement;
 
     elementName = elementNode.nodeName;
 
 
-    if(
-
-      (builder.contentType == "image/svg+xml")
-
-    ) {
+    if (true) {
       assertEquals("svgNodeName","svg",elementName);
-
-    }
-
-    else {
+    } else {
       assertEqualsAutoCase("element", "nodeName","html",elementName);
-
     }
 
+    test.done();
   },
+
   /**
    *
    The "getNodeType()" method for an Element Node
@@ -13924,25 +12841,22 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  hc_nodeelementnodetype : function () {
+  hc_nodeelementnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeelementnodetype") != null) return;
     var doc;
     var rootNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     rootNode = doc.documentElement;
 
     nodeType = rootNode.nodeType;
 
     assertEquals("nodeElementNodeTypeAssert1",1,nodeType);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeValue()" method for an
@@ -13951,25 +12865,22 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  hc_nodeelementnodevalue : function () {
+  hc_nodeelementnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeelementnodevalue") != null) return;
     var doc;
     var elementNode;
     var elementValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementNode = doc.documentElement;
 
     elementValue = elementNode.nodeValue;
 
     assertNull("elementNodeValue",elementValue);
 
+    test.done();
   },
+
   /**
    *
    The "getFirstChild()" method returns the first child
@@ -13983,9 +12894,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-169727388
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodegetfirstchild : function () {
+  hc_nodegetfirstchild: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodegetfirstchild") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -13993,11 +12903,7 @@ exports.tests = {
     var childName;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     fchildNode = employeeNode.firstChild;
@@ -14017,7 +12923,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    If there is not a first child then the "getFirstChild()"
@@ -14030,20 +12938,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-169727388
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodegetfirstchildnull : function () {
+  hc_nodegetfirstchildnull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodegetfirstchildnull") != null) return;
     var doc;
     var emList;
     var emNode;
     var emText;
     var nullChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     emList = doc.getElementsByTagName("em");
     emNode = emList.item(0);
     emText = emNode.firstChild;
@@ -14052,7 +12955,9 @@ exports.tests = {
 
     assertNull("nullChild",nullChild);
 
+    test.done();
   },
+
   /**
    *
    The "getLastChild()" method returns the last child
@@ -14065,20 +12970,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-61AD09FB
    */
-  hc_nodegetlastchild : function () {
+  hc_nodegetlastchild: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodegetlastchild") != null) return;
     var doc;
     var elementList;
     var employeeNode;
     var lchildNode;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     lchildNode = employeeNode.lastChild;
@@ -14087,7 +12987,9 @@ exports.tests = {
 
     assertEquals("whitespace","#text",childName);
 
+    test.done();
   },
+
   /**
    *
 
@@ -14101,20 +13003,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-61AD09FB
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodegetlastchildnull : function () {
+  hc_nodegetlastchildnull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodegetlastchildnull") != null) return;
     var doc;
     var emList;
     var emNode;
     var emText;
     var nullChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     emList = doc.getElementsByTagName("em");
     emNode = emList.item(0);
     emText = emNode.firstChild;
@@ -14123,7 +13020,9 @@ exports.tests = {
 
     assertNull("nullChild",nullChild);
 
+    test.done();
   },
+
   /**
    *
    The "getNextSibling()" method returns the node immediately
@@ -14136,20 +13035,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6AC54C2F
    */
-  hc_nodegetnextsibling : function () {
+  hc_nodegetnextsibling: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodegetnextsibling") != null) return;
     var doc;
     var elementList;
     var emNode;
     var nsNode;
     var nsName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("em");
     emNode = elementList.item(1);
     nsNode = emNode.nextSibling;
@@ -14158,7 +13052,9 @@ exports.tests = {
 
     assertEquals("whitespace","#text",nsName);
 
+    test.done();
   },
+
   /**
    *
 
@@ -14178,20 +13074,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6AC54C2F
    */
-  hc_nodegetnextsiblingnull : function () {
+  hc_nodegetnextsiblingnull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodegetnextsiblingnull") != null) return;
     var doc;
     var elementList;
     var employeeNode;
     var lcNode;
     var nsNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     lcNode = employeeNode.lastChild;
@@ -14200,7 +13091,9 @@ exports.tests = {
     //debug(nsNode === lcNode);
     assertNull("nodeGetNextSiblingNullAssert1",nsNode);
 
+    test.done();
   },
+
   /**
    *
    Evaluate Node.ownerDocument on the second "p" element.
@@ -14209,9 +13102,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#node-ownerDoc
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  hc_nodegetownerdocument : function () {
+  hc_nodegetownerdocument: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodegetownerdocument") != null) return;
     var doc;
     var elementList;
     var docNode;
@@ -14219,11 +13111,7 @@ exports.tests = {
     var docElement;
     var elementName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     docNode = elementList.item(1);
     ownerDocument = docNode.ownerDocument;
@@ -14233,21 +13121,15 @@ exports.tests = {
     elementName = docElement.nodeName;
 
 
-    if(
-
-      (builder.contentType == "image/svg+xml")
-
-    ) {
+    if (true) {
       assertEquals("svgNodeName","svg",elementName);
-
-    }
-
-    else {
+    } else {
       assertEqualsAutoCase("element", "ownerDocElemTagName","html",elementName);
-
     }
 
+    test.done();
   },
+
   /**
    *
 
@@ -14265,22 +13147,19 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#node-ownerDoc
    */
-  hc_nodegetownerdocumentnull : function () {
+  hc_nodegetownerdocumentnull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodegetownerdocumentnull") != null) return;
     var doc;
     var ownerDocument;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     ownerDocument = doc.ownerDocument;
 
     assertNull("nodeGetOwnerDocumentNullAssert1",ownerDocument);
 
+    test.done();
   },
+
   /**
    *
    The "getPreviousSibling()" method returns the node
@@ -14293,20 +13172,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-640FB3C8
    */
-  hc_nodegetprevioussibling : function () {
+  hc_nodegetprevioussibling: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodegetprevioussibling") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var psNode;
     var psName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(1);
     psNode = nameNode.previousSibling;
@@ -14315,7 +13189,9 @@ exports.tests = {
 
     assertEquals("whitespace","#text",psName);
 
+    test.done();
   },
+
   /**
    *
 
@@ -14335,20 +13211,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-640FB3C8
    */
-  hc_nodegetprevioussiblingnull : function () {
+  hc_nodegetprevioussiblingnull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodegetprevioussiblingnull") != null) return;
     var doc;
     var elementList;
     var employeeNode;
     var fcNode;
     var psNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
     fcNode = employeeNode.firstChild;
@@ -14357,7 +13228,9 @@ exports.tests = {
 
     assertNull("nodeGetPreviousSiblingNullAssert1",psNode);
 
+    test.done();
   },
+
   /**
    *
    The "hasChildNodes()" method returns true if the node
@@ -14370,25 +13243,22 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-810594187
    */
-  hc_nodehaschildnodes : function () {
+  hc_nodehaschildnodes: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodehaschildnodes") != null) return;
     var doc;
     var elementList;
     var employeeNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     state = employeeNode.hasChildNodes();
     assertTrue("nodeHasChildAssert1",state);
 
+    test.done();
   },
+
   /**
    *
    The "hasChildNodes()" method returns false if the node
@@ -14402,20 +13272,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-810594187
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodehaschildnodesfalse : function () {
+  hc_nodehaschildnodesfalse: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodehaschildnodesfalse") != null) return;
     var doc;
     var emList;
     var emNode;
     var emText;
     var hasChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     emList = doc.getElementsByTagName("em");
     emNode = emList.item(0);
     emText = emNode.firstChild;
@@ -14423,7 +13288,9 @@ exports.tests = {
     hasChild = emText.hasChildNodes();
     assertFalse("hasChild",hasChild);
 
+    test.done();
   },
+
   /**
    *
    The "insertBefore(newChild,refChild)" method inserts the
@@ -14439,9 +13306,8 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=261
    */
-  hc_nodeinsertbefore : function () {
+  hc_nodeinsertbefore: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeinsertbefore") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -14464,11 +13330,7 @@ exports.tests = {
 
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("sup");
     refChild = elementList.item(2);
     employeeNode = refChild.parentNode;
@@ -14494,7 +13356,9 @@ exports.tests = {
     }
     assertEqualsListAutoCase("element", "nodeNames",expected,actual);
 
+    test.done();
   },
+
   /**
    *
    If the "newChild" is a DocumentFragment object then all
@@ -14512,9 +13376,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodeinsertbeforedocfragment : function () {
+  hc_nodeinsertbeforedocfragment: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeinsertbeforedocfragment") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -14528,11 +13391,7 @@ exports.tests = {
     var appendedChild;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -14553,7 +13412,9 @@ exports.tests = {
 
     assertEqualsAutoCase("element", "childName4","b",childName);
 
+    test.done();
   },
+
   /**
    *
    The "insertBefore(newChild,refChild)" method raises a
@@ -14575,9 +13436,8 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=406
    */
-  hc_nodeinsertbeforeinvalidnodetype : function () {
+  hc_nodeinsertbeforeinvalidnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeinsertbeforeinvalidnodetype") != null) return;
     var doc;
     var rootNode;
     var newChild;
@@ -14585,11 +13445,7 @@ exports.tests = {
     var refChild;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newChild = doc.createAttribute("title");
     elementList = doc.getElementsByTagName("p");
     refChild = elementList.item(1);
@@ -14607,7 +13463,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "insertBefore(newChild,refChild)" method raises a
@@ -14627,9 +13485,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodeinsertbeforenewchilddiffdocument : function () {
+  hc_nodeinsertbeforenewchilddiffdocument: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeinsertbeforenewchilddiffdocument") != null) return;
     var doc1;
     var doc2;
     var refChild;
@@ -14642,13 +13499,13 @@ exports.tests = {
     if (typeof(this.doc1) != 'undefined') {
       doc1Ref = this.doc1;
     }
-    doc1 = load(doc1Ref, "doc1", "hc_staff");
+    doc1 = hc_staff.hc_staff();
 
     var doc2Ref = null;
     if (typeof(this.doc2) != 'undefined') {
       doc2Ref = this.doc2;
     }
-    doc2 = load(doc2Ref, "doc2", "hc_staff");
+    doc2 = hc_staff.hc_staff();
     newChild = doc1.createElement("br");
     elementList = doc2.getElementsByTagName("p");
     elementNode = elementList.item(1);
@@ -14666,7 +13523,9 @@ exports.tests = {
       assertTrue("throw_WRONG_DOCUMENT_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    If the "newChild" is already in the tree, the
@@ -14683,9 +13542,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodeinsertbeforenewchildexists : function () {
+  hc_nodeinsertbeforenewchildexists: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeinsertbeforenewchildexists") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -14707,11 +13565,7 @@ exports.tests = {
 
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.getElementsByTagName("*");
@@ -14735,7 +13589,9 @@ exports.tests = {
     }
     assertEqualsListAutoCase("element", "childNames",expected,result);
 
+    test.done();
   },
+
   /**
    *
    The "insertBefore(newChild,refChild)" method raises a
@@ -14753,9 +13609,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-952280727')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='HIERARCHY_REQUEST_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  hc_nodeinsertbeforenodeancestor : function () {
+  hc_nodeinsertbeforenodeancestor: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeinsertbeforenodeancestor") != null) return;
     var doc;
     var newChild;
     var elementList;
@@ -14764,11 +13619,7 @@ exports.tests = {
     var refChild;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newChild = doc.documentElement;
 
     elementList = doc.getElementsByTagName("p");
@@ -14788,7 +13639,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "insertBefore(newChild,refchild)" method returns
@@ -14804,9 +13657,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodeinsertbeforenodename : function () {
+  hc_nodeinsertbeforenodename: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeinsertbeforenodename") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -14816,11 +13668,7 @@ exports.tests = {
     var insertedNode;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -14832,7 +13680,9 @@ exports.tests = {
 
     assertEqualsAutoCase("element", "nodeName","br",childName);
 
+    test.done();
   },
+
   /**
    *
    The "insertBefore(newChild,refChild)" method raises a
@@ -14852,9 +13702,8 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_nodeinsertbeforerefchildnonexistent : function () {
+  hc_nodeinsertbeforerefchildnonexistent: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeinsertbeforerefchildnonexistent") != null) return;
     var doc;
     var refChild;
     var newChild;
@@ -14862,11 +13711,7 @@ exports.tests = {
     var elementNode;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newChild = doc.createElement("br");
     refChild = doc.createElement("b");
     elementList = doc.getElementsByTagName("p");
@@ -14883,7 +13728,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    If the "refChild" is null then the
@@ -14901,9 +13748,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodeinsertbeforerefchildnull : function () {
+  hc_nodeinsertbeforerefchildnull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeinsertbeforerefchildnull") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -14915,11 +13761,7 @@ exports.tests = {
     var childName;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -14932,7 +13774,9 @@ exports.tests = {
 
     assertEqualsAutoCase("element", "nodeName","br",childName);
 
+    test.done();
   },
+
   /**
    *
    Create a list of all the children elements of the third
@@ -14947,9 +13791,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodelistindexequalzero : function () {
+  hc_nodelistindexequalzero: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodelistindexequalzero") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -14958,11 +13801,7 @@ exports.tests = {
     var childName;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -14985,7 +13824,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    The "getLength()" method returns the number of nodes
@@ -14999,20 +13840,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-203510337
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodelistindexgetlength : function () {
+  hc_nodelistindexgetlength: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodelistindexgetlength") != null) return;
     var doc;
     var elementList;
     var employeeNode;
     var employeeList;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -15032,7 +13868,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    The "getLength()" method returns the number of nodes
@@ -15047,9 +13885,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-203510337
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodelistindexgetlengthofemptylist : function () {
+  hc_nodelistindexgetlengthofemptylist: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodelistindexgetlengthofemptylist") != null) return;
     var doc;
     var emList;
     var emNode;
@@ -15057,11 +13894,7 @@ exports.tests = {
     var textList;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     emList = doc.getElementsByTagName("em");
     emNode = emList.item(2);
     textNode = emNode.firstChild;
@@ -15072,7 +13905,9 @@ exports.tests = {
 
     assertEquals("length",0,length);
 
+    test.done();
   },
+
   /**
    *
    The items in the list are accessible via an integral
@@ -15088,9 +13923,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodelistindexnotzero : function () {
+  hc_nodelistindexnotzero: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodelistindexnotzero") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -15098,11 +13932,7 @@ exports.tests = {
     var child;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -15123,7 +13953,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    Create a list of all the children elements of the third
@@ -15135,9 +13967,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodelistreturnfirstitem : function () {
+  hc_nodelistreturnfirstitem: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodelistreturnfirstitem") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -15145,11 +13976,7 @@ exports.tests = {
     var child;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -15170,7 +13997,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    Create a list of all the children elements of the third
@@ -15181,9 +14010,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodelistreturnlastitem : function () {
+  hc_nodelistreturnlastitem: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodelistreturnlastitem") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -15192,11 +14020,7 @@ exports.tests = {
     var childName;
     var index;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -15221,7 +14045,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    The range of valid child node indices is 0 thru length -1
@@ -15235,9 +14061,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodelisttraverselist : function () {
+  hc_nodelisttraverselist: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodelisttraverselist") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -15256,11 +14081,7 @@ exports.tests = {
     expected[5] = "acronym";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -15288,7 +14109,9 @@ exports.tests = {
     }
     assertEqualsListAutoCase("element", "nodeNames",expected,result);
 
+    test.done();
   },
+
   /**
    *
    The "getParentNode()" method returns the parent
@@ -15301,20 +14124,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1060184317
    */
-  hc_nodeparentnode : function () {
+  hc_nodeparentnode: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeparentnode") != null) return;
     var doc;
     var elementList;
     var employeeNode;
     var parentNode;
     var parentName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     parentNode = employeeNode.parentNode;
@@ -15323,7 +14141,9 @@ exports.tests = {
 
     assertEqualsAutoCase("element", "parentNodeName","body",parentName);
 
+    test.done();
   },
+
   /**
    *
    The "getParentNode()" method invoked on a node that has
@@ -15338,24 +14158,21 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1060184317
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodeparentnodenull : function () {
+  hc_nodeparentnodenull: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodeparentnodenull") != null) return;
     var doc;
     var createdNode;
     var parentNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     createdNode = doc.createElement("br");
     parentNode = createdNode.parentNode;
 
     assertNull("parentNode",parentNode);
 
+    test.done();
   },
+
   /**
    *
    The "removeChild(oldChild)" method removes the child node
@@ -15371,9 +14188,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_noderemovechild : function () {
+  hc_noderemovechild: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_noderemovechild") != null) return;
     var doc;
     var rootNode;
     var childList;
@@ -15381,11 +14197,7 @@ exports.tests = {
     var removedChild;
     var parentNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     rootNode = doc.documentElement;
 
     childList = rootNode.childNodes;
@@ -15396,7 +14208,9 @@ exports.tests = {
 
     assertNull("parentNodeNull",parentNode);
 
+    test.done();
   },
+
   /**
    *
    The "removeChild(oldChild)" method returns
@@ -15412,9 +14226,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_noderemovechildgetnodename : function () {
+  hc_noderemovechildgetnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_noderemovechildgetnodename") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -15424,11 +14237,7 @@ exports.tests = {
     var childName;
     var oldName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -15442,7 +14251,9 @@ exports.tests = {
 
     assertEquals("nodeName",oldName,childName);
 
+    test.done();
   },
+
   /**
    *
    The "removeChild(oldChild)" method removes the node
@@ -15457,9 +14268,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_noderemovechildnode : function () {
+  hc_noderemovechildnode: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_noderemovechildnode") != null) return;
     var doc;
     var elementList;
     var emList;
@@ -15482,11 +14292,7 @@ exports.tests = {
     var actual = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -15520,7 +14326,9 @@ exports.tests = {
     }
     assertEqualsListAutoCase("element", "childNames",expected,actual);
 
+    test.done();
   },
+
   /**
    *
    The "removeChild(oldChild)" method raises a
@@ -15538,20 +14346,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_noderemovechildoldchildnonexistent : function () {
+  hc_noderemovechildoldchildnonexistent: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_noderemovechildoldchildnonexistent") != null) return;
     var doc;
     var oldChild;
     var elementList;
     var elementNode;
     var removedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     oldChild = doc.createElement("br");
     elementList = doc.getElementsByTagName("p");
     elementNode = elementList.item(1);
@@ -15567,7 +14370,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "replaceChild(newChild,oldChild)" method replaces
@@ -15582,9 +14387,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodereplacechild : function () {
+  hc_nodereplacechild: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodereplacechild") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -15595,11 +14399,7 @@ exports.tests = {
     var childName;
     var replacedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -15612,7 +14412,9 @@ exports.tests = {
 
     assertEqualsAutoCase("element", "nodeName","br",childName);
 
+    test.done();
   },
+
   /**
    *
    The "replaceChild(newChild,oldChild)" method raises a
@@ -15634,9 +14436,8 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=406
    */
-  hc_nodereplacechildinvalidnodetype : function () {
+  hc_nodereplacechildinvalidnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodereplacechildinvalidnodetype") != null) return;
     var doc;
     var rootNode;
     var newChild;
@@ -15644,11 +14445,7 @@ exports.tests = {
     var oldChild;
     var replacedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newChild = doc.createAttribute("lang");
     elementList = doc.getElementsByTagName("p");
     oldChild = elementList.item(1);
@@ -15666,7 +14463,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "replaceChild(newChild,oldChild)" method raises a
@@ -15686,9 +14485,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodereplacechildnewchilddiffdocument : function () {
+  hc_nodereplacechildnewchilddiffdocument: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodereplacechildnewchilddiffdocument") != null) return;
     var doc1;
     var doc2;
     var oldChild;
@@ -15701,13 +14499,13 @@ exports.tests = {
     if (typeof(this.doc1) != 'undefined') {
       doc1Ref = this.doc1;
     }
-    doc1 = load(doc1Ref, "doc1", "hc_staff");
+    doc1 = hc_staff.hc_staff();
 
     var doc2Ref = null;
     if (typeof(this.doc2) != 'undefined') {
       doc2Ref = this.doc2;
     }
-    doc2 = load(doc2Ref, "doc2", "hc_staff");
+    doc2 = hc_staff.hc_staff();
     newChild = doc1.createElement("br");
     elementList = doc2.getElementsByTagName("p");
     elementNode = elementList.item(1);
@@ -15725,7 +14523,9 @@ exports.tests = {
       assertTrue("throw_WRONG_DOCUMENT_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    If the "newChild" is already in the tree, it is first
@@ -15737,9 +14537,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=246
    */
-  hc_nodereplacechildnewchildexists : function () {
+  hc_nodereplacechildnewchildexists: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodereplacechildnewchildexists") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -15763,11 +14562,7 @@ exports.tests = {
     var replacedChild;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.getElementsByTagName("*");
@@ -15798,7 +14593,9 @@ exports.tests = {
     }
     assertEqualsListAutoCase("element", "childNames",expected,actual);
 
+    test.done();
   },
+
   /**
    *
    The "replaceChild(newChild,oldChild)" method raises a
@@ -15816,9 +14613,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-785887307')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='HIERARCHY_REQUEST_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    */
-  hc_nodereplacechildnodeancestor : function () {
+  hc_nodereplacechildnodeancestor: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodereplacechildnodeancestor") != null) return;
     var doc;
     var newChild;
     var elementList;
@@ -15827,11 +14623,7 @@ exports.tests = {
     var oldChild;
     var replacedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newChild = doc.documentElement;
 
     elementList = doc.getElementsByTagName("p");
@@ -15851,7 +14643,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "replaceChild(newChild,oldChild)" method returns
@@ -15868,9 +14662,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodereplacechildnodename : function () {
+  hc_nodereplacechildnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodereplacechildnodename") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -15880,11 +14673,7 @@ exports.tests = {
     var replacedNode;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
 
     employeeNode = elementList.item(1);
@@ -15896,7 +14685,9 @@ exports.tests = {
 
     assertEqualsAutoCase("element", "replacedNodeName","em",childName);
 
+    test.done();
   },
+
   /**
    *
    The "replaceChild(newChild,oldChild)" method raises a
@@ -15914,9 +14705,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
    */
-  hc_nodereplacechildoldchildnonexistent : function () {
+  hc_nodereplacechildoldchildnonexistent: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodereplacechildoldchildnonexistent") != null) return;
     var doc;
     var oldChild;
     var newChild;
@@ -15924,11 +14714,7 @@ exports.tests = {
     var elementNode;
     var replacedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newChild = doc.createElement("br");
     oldChild = doc.createElement("b");
     elementList = doc.getElementsByTagName("p");
@@ -15945,7 +14731,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "getAttributes()" method invoked on a Text
@@ -15959,20 +14747,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1312295772
    */
-  hc_nodetextnodeattribute : function () {
+  hc_nodetextnodeattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodetextnodeattribute") != null) return;
     var doc;
     var elementList;
     var testAddr;
     var textNode;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     textNode = testAddr.firstChild;
@@ -15981,7 +14764,9 @@ exports.tests = {
 
     assertNull("text_attributes_is_null",attrList);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeName()" method for a
@@ -15990,20 +14775,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  hc_nodetextnodename : function () {
+  hc_nodetextnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodetextnodename") != null) return;
     var doc;
     var elementList;
     var testAddr;
     var textNode;
     var textName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     textNode = testAddr.firstChild;
@@ -16012,7 +14792,9 @@ exports.tests = {
 
     assertEquals("textNodeName","#text",textName);
 
+    test.done();
   },
+
   /**
    *
 
@@ -16032,20 +14814,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  hc_nodetextnodetype : function () {
+  hc_nodetextnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodetextnodetype") != null) return;
     var doc;
     var elementList;
     var testAddr;
     var textNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     textNode = testAddr.firstChild;
@@ -16054,7 +14831,9 @@ exports.tests = {
 
     assertEquals("nodeTextNodeTypeAssert1",3,nodeType);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeValue()" method for a
@@ -16068,20 +14847,15 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  hc_nodetextnodevalue : function () {
+  hc_nodetextnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodetextnodevalue") != null) return;
     var doc;
     var elementList;
     var testAddr;
     var textNode;
     var textValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     textNode = testAddr.firstChild;
@@ -16090,7 +14864,9 @@ exports.tests = {
 
     assertEquals("textNodeValue","1230 North Ave. Dallas, Texas 98551",textValue);
 
+    test.done();
   },
+
   /**
    *
    An element is created, setNodeValue is called with a non-null argument, but getNodeValue
@@ -16100,18 +14876,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    */
-  hc_nodevalue01 : function () {
+  hc_nodevalue01: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodevalue01") != null) return;
     var doc;
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newNode = doc.createElement("acronym");
     newValue = newNode.nodeValue;
 
@@ -16122,7 +14893,9 @@ exports.tests = {
 
     assertNull("nullAfterAttemptedChange",newValue);
 
+    test.done();
   },
+
   /**
    *
    An comment is created, setNodeValue is called with a non-null argument, but getNodeValue
@@ -16132,18 +14905,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    */
-  hc_nodevalue02 : function () {
+  hc_nodevalue02: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodevalue02") != null) return;
     var doc;
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newNode = doc.createComment("This is a new Comment node");
     newValue = newNode.nodeValue;
 
@@ -16154,7 +14922,9 @@ exports.tests = {
 
     assertEquals("afterChange","This should have an effect",newValue);
 
+    test.done();
   },
+
   /**
    *
    An entity reference is created, setNodeValue is called with a non-null argument, but getNodeValue
@@ -16164,18 +14934,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-11C98490
    */
-  hc_nodevalue03 : function () {
+  hc_nodevalue03: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodevalue03") != null) return;
     var doc;
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
 
     // this code path is invalid... hc_staff is always html and doesn't
@@ -16193,7 +14958,9 @@ exports.tests = {
 
     assertNull("nullAfterAttemptedChange",newValue);
 
+    test.done();
   },
+
   /**
    *
    An document type accessed, setNodeValue is called with a non-null argument, but getNodeValue
@@ -16203,18 +14970,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A31
    */
-  hc_nodevalue04 : function () {
+  hc_nodevalue04: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodevalue04") != null) return;
     var doc;
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newNode = doc.doctype;
 
     assertTrue("docTypeNotNullOrDocIsHTML",
@@ -16222,7 +14984,7 @@ exports.tests = {
                (
                  (newNode != null)
                    ||
-                   (builder.contentType == "text/html")
+                   (false)
                )
               );
 
@@ -16243,7 +15005,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    A document fragment is created, setNodeValue is called with a non-null argument, but getNodeValue
@@ -16253,18 +15017,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A3
    */
-  hc_nodevalue05 : function () {
+  hc_nodevalue05: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodevalue05") != null) return;
     var doc;
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newNode = doc.createDocumentFragment();
     newValue = newNode.nodeValue;
 
@@ -16275,7 +15034,9 @@ exports.tests = {
 
     assertNull("nullAfterAttemptedChange",newValue);
 
+    test.done();
   },
+
   /**
    *
    An document is accessed, setNodeValue is called with a non-null argument, but getNodeValue
@@ -16285,9 +15046,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    */
-  hc_nodevalue06 : function () {
+  hc_nodevalue06: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodevalue06") != null) return;
     var newNode;
     var newValue;
 
@@ -16295,7 +15055,7 @@ exports.tests = {
     if (typeof(this.newNode) != 'undefined') {
       newNodeRef = this.newNode;
     }
-    newNode = load(newNodeRef, "newNode", "hc_staff");
+    newNode = hc_staff.hc_staff();
     newValue = newNode.nodeValue;
 
     assertNull("initiallyNull",newValue);
@@ -16305,7 +15065,9 @@ exports.tests = {
 
     assertNull("nullAfterAttemptedChange",newValue);
 
+    test.done();
   },
+
   /**
    *
    An Entity is accessed, setNodeValue is called with a non-null argument, but getNodeValue
@@ -16315,27 +15077,22 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-527DCFF2
    */
-  hc_nodevalue07 : function () {
+  hc_nodevalue07: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodevalue07") != null) return;
     var doc;
     var newNode;
     var newValue;
     var nodeMap;
     var docType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
 
     if(
 
       !(
-        (builder.contentType == "text/html")
+        (false)
       )
 
     ) {
@@ -16356,7 +15113,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    An notation is accessed, setNodeValue is called with a non-null argument, but getNodeValue
@@ -16366,27 +15125,22 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-5431D1B9
    */
-  hc_nodevalue08 : function () {
+  hc_nodevalue08: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_nodevalue08") != null) return;
     var doc;
     var docType;
     var newNode;
     var newValue;
     var nodeMap;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
 
     if(
 
       !(
-        (builder.contentType == "text/html")
+        (false)
       )
 
     ) {
@@ -16407,7 +15161,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    An attempt to add remove an notation should result in a NO_MODIFICATION_ERR.
@@ -16416,26 +15172,21 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D46829EF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D58B193
    */
-  hc_notationsremovenameditem1 : function () {
+  hc_notationsremovenameditem1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_notationsremovenameditem1") != null) return;
     var doc;
     var notations;
     var docType;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
 
     if(
 
       !(
-        (builder.contentType == "text/html")
+        (false)
       )
 
     ) {
@@ -16457,7 +15208,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    An attempt to add an element to the named node map returned by notations should
@@ -16467,27 +15220,22 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D46829EF
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    */
-  hc_notationssetnameditem1 : function () {
+  hc_notationssetnameditem1: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_notationssetnameditem1") != null) return;
     var doc;
     var notations;
     var docType;
     var retval;
     var elem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
 
     if(
 
       !(
-        (builder.contentType == "text/html")
+        (false)
       )
 
     ) {
@@ -16518,7 +15266,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    The "splitText(offset)" method raises an
@@ -16535,20 +15285,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-38853C1D')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  hc_textindexsizeerrnegativeoffset : function () {
+  hc_textindexsizeerrnegativeoffset: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_textindexsizeerrnegativeoffset") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var textNode;
     var splitNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -16565,7 +15310,9 @@ exports.tests = {
       assertTrue("throws_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "splitText(offset)" method raises an
@@ -16584,20 +15331,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-38853C1D')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  hc_textindexsizeerroffsetoutofbounds : function () {
+  hc_textindexsizeerroffsetoutofbounds: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_textindexsizeerroffsetoutofbounds") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var textNode;
     var splitNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -16614,7 +15356,9 @@ exports.tests = {
       assertTrue("throw_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Retrieve the textual data from the last child of the
@@ -16629,9 +15373,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-11C98490
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-745549614
    */
-  hc_textparseintolistofelements : function () {
+  hc_textparseintolistofelements: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_textparseintolistofelements") != null) return;
     var doc;
     var elementList;
     var addressNode;
@@ -16652,11 +15395,7 @@ exports.tests = {
     expectedExpanded[0] = "β Dallas, γ\n 98554";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     addressNode = elementList.item(1);
     childList = addressNode.childNodes;
@@ -16701,7 +15440,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    The "splitText(offset)" method returns the new Text node.
@@ -16717,9 +15458,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  hc_textsplittextfour : function () {
+  hc_textsplittextfour: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_textsplittextfour") != null) return;
     var doc;
     var elementList;
     var addressNode;
@@ -16727,11 +15467,7 @@ exports.tests = {
     var splitNode;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     addressNode = elementList.item(0);
     textNode = addressNode.firstChild;
@@ -16741,7 +15477,9 @@ exports.tests = {
 
     assertEquals("textSplitTextFourAssert","98551",value);
 
+    test.done();
   },
+
   /**
    *
    The "splitText(offset)" method breaks the Text node into
@@ -16758,9 +15496,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  hc_textsplittextone : function () {
+  hc_textsplittextone: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_textsplittextone") != null) return;
     var doc;
     var elementList;
     var nameNode;
@@ -16769,11 +15506,7 @@ exports.tests = {
     var secondPart;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -16785,7 +15518,9 @@ exports.tests = {
 
     assertEquals("textSplitTextOneAssert","Jones",value);
 
+    test.done();
   },
+
   /**
    *
    After the "splitText(offset)" method breaks the Text node
@@ -16803,9 +15538,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  hc_textsplittextthree : function () {
+  hc_textsplittextthree: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_textsplittextthree") != null) return;
     var doc;
     var elementList;
     var nameNode;
@@ -16813,11 +15547,7 @@ exports.tests = {
     var splitNode;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -16827,7 +15557,9 @@ exports.tests = {
 
     assertEquals("textSplitTextThreeAssert"," Jones",value);
 
+    test.done();
   },
+
   /**
    *
    After the "splitText(offset)" method breaks the Text node
@@ -16844,9 +15576,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  hc_textsplittexttwo : function () {
+  hc_textsplittexttwo: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_textsplittexttwo") != null) return;
     var doc;
     var elementList;
     var nameNode;
@@ -16854,11 +15585,7 @@ exports.tests = {
     var splitNode;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -16868,7 +15595,9 @@ exports.tests = {
 
     assertEquals("textSplitTextTwoAssert","Roger",value);
 
+    test.done();
   },
+
   /**
    *
    If there is not any markup inside an Element or Attr node
@@ -16886,20 +15615,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1312295772
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  hc_textwithnomarkup : function () {
+  hc_textwithnomarkup: function(test) {
     var success;
-    if(checkInitialization(builder, "hc_textwithnomarkup") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var nodeV;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
     nodeV = nameNode.firstChild;
@@ -16908,7 +15632,9 @@ exports.tests = {
 
     assertEquals("textWithNoMarkupAssert","Roger\n Jones",value);
 
+    test.done();
   },
+
   /**
    *
    The range of valid child node indices is 0 to Length -1.
@@ -16924,9 +15650,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D0FB19E
    */
-  namednodemapchildnoderange : function () {
+  namednodemapchildnoderange: function(test) {
     var success;
-    if(checkInitialization(builder, "namednodemapchildnoderange") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -16934,11 +15659,7 @@ exports.tests = {
     var child;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     attributes = testEmployee.attributes;
@@ -16949,7 +15670,9 @@ exports.tests = {
     child = attributes.item(0);
     child = attributes.item(1);
 
+    test.done();
   },
+
   /**
    *
    The "getNamedItem(name)" method retrieves a node
@@ -16966,9 +15689,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1074577549
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  namednodemapgetnameditem : function () {
+  namednodemapgetnameditem: function(test) {
     var success;
-    if(checkInitialization(builder, "namednodemapgetnameditem") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -16976,11 +15698,7 @@ exports.tests = {
     var domesticAttr;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -16990,7 +15708,9 @@ exports.tests = {
 
     assertEquals("namednodemapGetNamedItemAssert","domestic",attrName);
 
+    test.done();
   },
+
   /**
    *
    The "setNamedItem(arg)" method raises a
@@ -17009,9 +15729,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-1025163788')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  namednodemapinuseattributeerr : function () {
+  namednodemapinuseattributeerr: function(test) {
     var success;
-    if(checkInitialization(builder, "namednodemapinuseattributeerr") != null) return;
     var doc;
     var elementList;
     var firstNode;
@@ -17021,11 +15740,7 @@ exports.tests = {
     var setAttr;
     var setNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     firstNode = elementList.item(0);
     domesticAttr = doc.createAttribute("domestic");
@@ -17048,7 +15763,9 @@ exports.tests = {
       assertTrue("throw_INUSE_ATTRIBUTE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "removeNamedItem(name)" method raises a
@@ -17067,20 +15784,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D58B193
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-D58B193')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INUSE_ATTRIBUTE_ERR'])
    */
-  namednodemapnotfounderr : function () {
+  namednodemapnotfounderr: function(test) {
     var success;
-    if(checkInitialization(builder, "namednodemapnotfounderr") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var attributes;
     var removedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     attributes = testEmployee.attributes;
@@ -17097,7 +15809,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "getLength()" method returns the number of nodes
@@ -17113,20 +15827,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D0FB19E
    */
-  namednodemapnumberofnodes : function () {
+  namednodemapnumberofnodes: function(test) {
     var success;
-    if(checkInitialization(builder, "namednodemapnumberofnodes") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var attributes;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     attributes = testEmployee.attributes;
@@ -17135,7 +15844,9 @@ exports.tests = {
 
     assertEquals("length",2,length);
 
+    test.done();
   },
+
   /**
    *
    The "removeNamedItem(name)" method removes a node
@@ -17154,9 +15865,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
    */
-  namednodemapremovenameditem : function () {
+  namednodemapremovenameditem: function(test) {
     var success;
-    if(checkInitialization(builder, "namednodemapremovenameditem") != null) return;
     var doc;
     var elementList;
     var testAddress;
@@ -17165,11 +15875,7 @@ exports.tests = {
     var specified;
     var removedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(2);
     attributes = testAddress.attributes;
@@ -17182,7 +15888,9 @@ exports.tests = {
 
     assertFalse("attrNotSpecified",specified);
 
+    test.done();
   },
+
   /**
    *
    If the node removed by the "removeNamedItem(name)" method
@@ -17203,9 +15911,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
    */
-  namednodemapremovenameditemgetvalue : function () {
+  namednodemapremovenameditemgetvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "namednodemapremovenameditemgetvalue") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -17214,11 +15921,7 @@ exports.tests = {
     var value;
     var removedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     attributes = testEmployee.attributes;
@@ -17232,7 +15935,9 @@ exports.tests = {
 
     assertEquals("namednodemapRemoveNamedItemGetValueAssert","Yes",value);
 
+    test.done();
   },
+
   /**
    *
    The "removeNamedItem(name)" method returns the node
@@ -17250,9 +15955,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D58B193
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  namednodemapremovenameditemreturnnodevalue : function () {
+  namednodemapremovenameditemreturnnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "namednodemapremovenameditemreturnnodevalue") != null) return;
     var doc;
     var elementList;
     var testAddress;
@@ -17260,11 +15964,7 @@ exports.tests = {
     var removedNode;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(2);
     attributes = testAddress.attributes;
@@ -17274,7 +15974,9 @@ exports.tests = {
 
     assertEquals("namednodemapRemoveNamedItemReturnNodeValueAssert","No",value);
 
+    test.done();
   },
+
   /**
    *
    The "getNamedItem(name)" method returns a node of any
@@ -17293,9 +15995,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1112119403
    */
-  namednodemapreturnattrnode : function () {
+  namednodemapreturnattrnode: function(test) {
     var success;
-    if(checkInitialization(builder, "namednodemapreturnattrnode") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -17303,11 +16004,7 @@ exports.tests = {
     var streetAttr;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -17321,7 +16018,9 @@ exports.tests = {
 
     assertEquals("attrName","street",attrName);
 
+    test.done();
   },
+
   /**
    *
    The "item(index)" method returns the indexth item in
@@ -17338,9 +16037,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  namednodemapreturnfirstitem : function () {
+  namednodemapreturnfirstitem: function(test) {
     var success;
-    if(checkInitialization(builder, "namednodemapreturnfirstitem") != null) return;
     var doc;
     var elementList;
     var testAddress;
@@ -17348,11 +16046,7 @@ exports.tests = {
     var child;
     var name;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(1);
     attributes = testAddress.attributes;
@@ -17365,7 +16059,9 @@ exports.tests = {
                (("domestic" == name) || ("street" == name))
               );
 
+    test.done();
   },
+
   /**
    *
    The "item(index)" method returns the indexth item in
@@ -17382,9 +16078,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  namednodemapreturnlastitem : function () {
+  namednodemapreturnlastitem: function(test) {
     var success;
-    if(checkInitialization(builder, "namednodemapreturnlastitem") != null) return;
     var doc;
     var elementList;
     var testEmployee;
@@ -17392,11 +16087,7 @@ exports.tests = {
     var child;
     var name;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -17409,7 +16100,9 @@ exports.tests = {
                (("domestic" == name) || ("street" == name))
               );
 
+    test.done();
   },
+
   /**
    *
    The "getNamedItem(name)" method returns null of the
@@ -17426,20 +16119,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1074577549
    */
-  namednodemapreturnnull : function () {
+  namednodemapreturnnull: function(test) {
     var success;
-    if(checkInitialization(builder, "namednodemapreturnnull") != null) return;
     var doc;
     var elementList;
     var testEmployee;
     var attributes;
     var districtNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -17447,7 +16135,9 @@ exports.tests = {
     districtNode = attributes.getNamedItem("district");
     assertNull("namednodemapReturnNullAssert",districtNode);
 
+    test.done();
   },
+
   /**
    *
    The "setNamedItem(arg)" method adds a node using its
@@ -17470,9 +16160,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  namednodemapsetnameditem : function () {
+  namednodemapsetnameditem: function(test) {
     var success;
-    if(checkInitialization(builder, "namednodemapsetnameditem") != null) return;
     var doc;
     var elementList;
     var newAttribute;
@@ -17482,11 +16171,7 @@ exports.tests = {
     var attrName;
     var setNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(1);
     newAttribute = doc.createAttribute("district");
@@ -17498,7 +16183,9 @@ exports.tests = {
 
     assertEquals("namednodemapSetNamedItemAssert","district",attrName);
 
+    test.done();
   },
+
   /**
    *
    If the "setNamedItem(arg)" method replaces an already
@@ -17522,9 +16209,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  namednodemapsetnameditemreturnvalue : function () {
+  namednodemapsetnameditemreturnvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "namednodemapsetnameditemreturnvalue") != null) return;
     var doc;
     var elementList;
     var newAttribute;
@@ -17533,11 +16219,7 @@ exports.tests = {
     var newNode;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(2);
     newAttribute = doc.createAttribute("street");
@@ -17548,7 +16230,9 @@ exports.tests = {
 
     assertEquals("returnedNodeValue","No",attrValue);
 
+    test.done();
   },
+
   /**
    *
    If the node to be added by the "setNamedItem(arg)" method
@@ -17573,9 +16257,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  namednodemapsetnameditemthatexists : function () {
+  namednodemapsetnameditemthatexists: function(test) {
     var success;
-    if(checkInitialization(builder, "namednodemapsetnameditemthatexists") != null) return;
     var doc;
     var elementList;
     var newAttribute;
@@ -17585,11 +16268,7 @@ exports.tests = {
     var attrValue;
     var setNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(1);
     newAttribute = doc.createAttribute("street");
@@ -17601,7 +16280,9 @@ exports.tests = {
 
     assertEquals("streetValue","",attrValue);
 
+    test.done();
   },
+
   /**
    *
    If the "setNamedItem(arg)" method does not replace an
@@ -17622,9 +16303,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
-  namednodemapsetnameditemwithnewvalue : function () {
+  namednodemapsetnameditemwithnewvalue: function(test) {
     var success;
-    if(checkInitialization(builder, "namednodemapsetnameditemwithnewvalue") != null) return;
     var doc;
     var elementList;
     var newAttribute;
@@ -17632,11 +16312,7 @@ exports.tests = {
     var attributes;
     var newNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(2);
     newAttribute = doc.createAttribute("district");
@@ -17645,7 +16321,9 @@ exports.tests = {
     newNode = attributes.setNamedItem(newAttribute);
     assertNull("returnedNodeNull",newNode);
 
+    test.done();
   },
+
   /**
    *
    The "setNamedItem(arg)" method raises a
@@ -17667,9 +16345,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-1025163788')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='WRONG_DOCUMENT_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  namednodemapwrongdocumenterr : function () {
+  namednodemapwrongdocumenterr: function(test) {
     var success;
-    if(checkInitialization(builder, "namednodemapwrongdocumenterr") != null) return;
     var doc1;
     var doc2;
     var elementList;
@@ -17682,13 +16359,13 @@ exports.tests = {
     if (typeof(this.doc1) != 'undefined') {
       doc1Ref = this.doc1;
     }
-    doc1 = load(doc1Ref, "doc1", "staff");
+    doc1 = staff.staff();
 
     var doc2Ref = null;
     if (typeof(this.doc2) != 'undefined') {
       doc2Ref = this.doc2;
     }
-    doc2 = load(doc2Ref, "doc2", "staff");
+    doc2 = staff.staff();
     elementList = doc1.getElementsByTagName("address");
     testAddress = elementList.item(2);
     newAttribute = doc2.createAttribute("newAttribute");
@@ -17706,7 +16383,9 @@ exports.tests = {
       assertTrue("throw_WRONG_DOCUMENT_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "appendChild(newChild)" method adds the node
@@ -17722,9 +16401,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  nodeappendchild : function () {
+  nodeappendchild: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeappendchild") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -17734,11 +16412,7 @@ exports.tests = {
     var childName;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -17751,7 +16425,9 @@ exports.tests = {
 
     assertEquals("nodeAppendChildAssert1","newChild",childName);
 
+    test.done();
   },
+
   /**
    *
    If the "newChild" is already in the tree, it is first
@@ -17767,9 +16443,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  nodeappendchildchildexists : function () {
+  nodeappendchildchildexists: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeappendchildchildexists") != null) return;
     var doc;
     var elementList;
     var childNode;
@@ -17781,11 +16456,7 @@ exports.tests = {
     var appendedChild;
     var initialName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     childNode = elementList.item(1);
     newChild = childNode.firstChild;
@@ -17816,7 +16487,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    Create and populate a new DocumentFragment object and
@@ -17829,9 +16502,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  nodeappendchilddocfragment : function () {
+  nodeappendchilddocfragment: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeappendchilddocfragment") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -17856,11 +16528,7 @@ exports.tests = {
     expected[7] = "newChild2";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -17888,7 +16556,9 @@ exports.tests = {
     }
     assertEqualsList("elementNames",expected,result);
 
+    test.done();
   },
+
   /**
    *
    The "appendChild(newChild)" method returns the node
@@ -17903,9 +16573,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  nodeappendchildgetnodename : function () {
+  nodeappendchildgetnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeappendchildgetnodename") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -17914,11 +16583,7 @@ exports.tests = {
     var appendNode;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -17929,7 +16594,9 @@ exports.tests = {
 
     assertEquals("nodeAppendChildGetNodeNameAssert1","newChild",childName);
 
+    test.done();
   },
+
   /**
    *
    The "appendChild(newChild)" method raises a
@@ -17950,19 +16617,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  nodeappendchildinvalidnodetype : function () {
+  nodeappendchildinvalidnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeappendchildinvalidnodetype") != null) return;
     var doc;
     var rootNode;
     var newChild;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     rootNode = doc.documentElement;
 
     newChild = doc.createAttribute("newAttribute");
@@ -17978,7 +16640,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "appendChild(newChild)" method raises a
@@ -17999,9 +16663,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  nodeappendchildnewchilddiffdocument : function () {
+  nodeappendchildnewchilddiffdocument: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeappendchildnewchilddiffdocument") != null) return;
     var doc1;
     var doc2;
     var newChild;
@@ -18013,13 +16676,13 @@ exports.tests = {
     if (typeof(this.doc1) != 'undefined') {
       doc1Ref = this.doc1;
     }
-    doc1 = load(doc1Ref, "doc1", "staff");
+    doc1 = staff.staff();
 
     var doc2Ref = null;
     if (typeof(this.doc2) != 'undefined') {
       doc2Ref = this.doc2;
     }
-    doc2 = load(doc2Ref, "doc2", "staff");
+    doc2 = staff.staff();
     newChild = doc1.createElement("newChild");
     elementList = doc2.getElementsByTagName("employee");
     elementNode = elementList.item(1);
@@ -18035,7 +16698,9 @@ exports.tests = {
       assertTrue("throw_WRONG_DOCUMENT_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "appendChild(newChild)" method raises a
@@ -18055,20 +16720,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  nodeappendchildnodeancestor : function () {
+  nodeappendchildnodeancestor: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeappendchildnodeancestor") != null) return;
     var doc;
     var newChild;
     var elementList;
     var employeeNode;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newChild = doc.documentElement;
 
     elementList = doc.getElementsByTagName("employee");
@@ -18085,7 +16745,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "appendChild(newChild)" method causes the
@@ -18104,9 +16766,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-184E7107')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  nodeappendchildnomodificationallowederr : function () {
+  nodeappendchildnomodificationallowederr: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeappendchildnomodificationallowederr") != null) return;
     var doc;
     var genderList;
     var genderNode;
@@ -18116,11 +16777,7 @@ exports.tests = {
     var appendedNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entRef = genderNode.firstChild;
@@ -18152,7 +16809,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "appendChild(newChild)" method causes the
@@ -18169,19 +16828,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/nodeappendchildnomodificationallowederr.xml
    */
-  nodeappendchildnomodificationallowederrEE : function () {
+  nodeappendchildnomodificationallowederrEE: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeappendchildnomodificationallowederrEE") != null) return;
     var doc;
     var entRef;
     var createdNode;
     var appendedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     entRef = doc.createEntityReference("ent4");
     assertNotNull("createdEntRefNotNull",entRef);
     createdNode = doc.createElement("text3");
@@ -18197,7 +16851,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "getAttributes()" method invoked on an Attribute
@@ -18212,9 +16868,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
    */
-  nodeattributenodeattribute : function () {
+  nodeattributenodeattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeattributenodeattribute") != null) return;
     var doc;
     var elementList;
     var testAddr;
@@ -18222,11 +16877,7 @@ exports.tests = {
     var attrNode;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
     addrAttr = testAddr.attributes;
@@ -18236,7 +16887,9 @@ exports.tests = {
 
     assertNull("nodeAttributeNodeAttributeAssert1",attrList);
 
+    test.done();
   },
+
   /**
    *
 
@@ -18259,20 +16912,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  nodeattributenodename : function () {
+  nodeattributenodename: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeattributenodename") != null) return;
     var doc;
     var elementList;
     var testAddr;
     var addrAttr;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
     addrAttr = testAddr.getAttributeNode("domestic");
@@ -18280,7 +16928,9 @@ exports.tests = {
 
     assertEquals("nodeAttributeNodeNameAssert1","domestic",attrName);
 
+    test.done();
   },
+
   /**
    *
 
@@ -18301,20 +16951,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  nodeattributenodetype : function () {
+  nodeattributenodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeattributenodetype") != null) return;
     var doc;
     var elementList;
     var testAddr;
     var addrAttr;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
     addrAttr = testAddr.getAttributeNode("domestic");
@@ -18322,7 +16967,9 @@ exports.tests = {
 
     assertEquals("nodeAttrNodeTypeAssert1",2,nodeType);
 
+    test.done();
   },
+
   /**
    *
 
@@ -18345,20 +16992,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  nodeattributenodevalue : function () {
+  nodeattributenodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeattributenodevalue") != null) return;
     var doc;
     var elementList;
     var testAddr;
     var addrAttr;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
     addrAttr = testAddr.getAttributeNode("domestic");
@@ -18366,7 +17008,9 @@ exports.tests = {
 
     assertEquals("nodeAttributeNodeValueAssert1","Yes",attrValue);
 
+    test.done();
   },
+
   /**
    *
    The "getAttributes()" method invoked on a CDATASection
@@ -18382,9 +17026,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-667469212
    */
-  nodecdatasectionnodeattribute : function () {
+  nodecdatasectionnodeattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "nodecdatasectionnodeattribute") != null) return;
     var doc;
     var elementList;
     var cdataName;
@@ -18392,11 +17035,7 @@ exports.tests = {
     var attrList;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     cdataName = elementList.item(1);
     cdataNode = cdataName.lastChild;
@@ -18414,7 +17053,9 @@ exports.tests = {
 
     assertNull("cdataSection",attrList);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeName()" method for a
@@ -18430,9 +17071,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-667469212
    */
-  nodecdatasectionnodename : function () {
+  nodecdatasectionnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "nodecdatasectionnodename") != null) return;
     var doc;
     var elementList;
     var cdataName;
@@ -18440,11 +17080,7 @@ exports.tests = {
     var nodeType;
     var cdataNodeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     cdataName = elementList.item(1);
     cdataNode = cdataName.lastChild;
@@ -18462,7 +17098,9 @@ exports.tests = {
 
     assertEquals("cdataNodeName","#cdata-section",cdataNodeName);
 
+    test.done();
   },
+
   /**
    *
    The "getNodeType()" method for a CDATASection Node
@@ -18477,20 +17115,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-667469212
    */
-  nodecdatasectionnodetype : function () {
+  nodecdatasectionnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "nodecdatasectionnodetype") != null) return;
     var doc;
     var elementList;
     var testName;
     var cdataNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     testName = elementList.item(1);
     cdataNode = testName.lastChild;
@@ -18508,7 +17141,9 @@ exports.tests = {
     }
     assertEquals("nodeTypeCDATA",4,nodeType);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeValue()" method for a
@@ -18525,9 +17160,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-667469212
    */
-  nodecdatasectionnodevalue : function () {
+  nodecdatasectionnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "nodecdatasectionnodevalue") != null) return;
     var doc;
     var elementList;
     var cdataName;
@@ -18535,11 +17169,7 @@ exports.tests = {
     var child;
     var cdataNodeValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     cdataName = elementList.item(1);
     childList = cdataName.childNodes;
@@ -18558,7 +17188,9 @@ exports.tests = {
 
     assertEquals("value","This is a CDATASection with EntityReference number 2 &ent2;",cdataNodeValue);
 
+    test.done();
   },
+
   /**
    *
    Collect the element names from Node.childNodes and check against expectations.
@@ -18567,9 +17199,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
    */
-  nodechildnodes : function () {
+  nodechildnodes: function(test) {
     var success;
-    if(checkInitialization(builder, "nodechildnodes") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -18588,11 +17219,7 @@ exports.tests = {
     expectedElementNames[5] = "address";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childNodes = employeeNode.childNodes;
@@ -18614,7 +17241,9 @@ exports.tests = {
     }
     assertEqualsList("elementNames",expectedElementNames,elementNames);
 
+    test.done();
   },
+
   /**
    *
    Add an element and check that the previously retrieved childNodes NodeList
@@ -18625,9 +17254,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
    */
-  nodechildnodesappendchild : function () {
+  nodechildnodesappendchild: function(test) {
     var success;
-    if(checkInitialization(builder, "nodechildnodesappendchild") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -18636,11 +17264,7 @@ exports.tests = {
     var expectedLength;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -18654,7 +17278,9 @@ exports.tests = {
 
     assertEquals("childNodeLength",expectedLength,length);
 
+    test.done();
   },
+
   /**
    *
    The "getChildNodes()" method returns a NodeList
@@ -18670,9 +17296,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
    */
-  nodechildnodesempty : function () {
+  nodechildnodesempty: function(test) {
     var success;
-    if(checkInitialization(builder, "nodechildnodesempty") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -18681,11 +17306,7 @@ exports.tests = {
     var textNode;
     var childNodesList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -18697,7 +17318,9 @@ exports.tests = {
 
     assertSize("nodeChildNodesEmptyAssert1",0,childNodesList);
 
+    test.done();
   },
+
   /**
    *
    If the cloneNode method is used to clone an
@@ -18713,9 +17336,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    */
-  nodecloneattributescopied : function () {
+  nodecloneattributescopied: function(test) {
     var success;
-    if(checkInitialization(builder, "nodecloneattributescopied") != null) return;
     var doc;
     var elementList;
     var addressNode;
@@ -18730,11 +17352,7 @@ exports.tests = {
     expectedResult[1] = "street";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     addressNode = elementList.item(1);
     clonedNode = addressNode.cloneNode(false);
@@ -18749,7 +17367,9 @@ exports.tests = {
     }
     assertEqualsCollection("nodeCloneAttributesCopiedAssert1",expectedResult,result);
 
+    test.done();
   },
+
   /**
    *
    The "cloneNode(deep)" method does not copy text unless it
@@ -18764,9 +17384,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  nodeclonefalsenocopytext : function () {
+  nodeclonefalsenocopytext: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeclonefalsenocopytext") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -18775,11 +17394,7 @@ exports.tests = {
     var clonedNode;
     var lastChildNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -18790,7 +17405,9 @@ exports.tests = {
 
     assertNull("noTextNodes",lastChildNode);
 
+    test.done();
   },
+
   /**
    *
    The duplicate node returned by the "cloneNode(deep)"
@@ -18805,20 +17422,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  nodeclonegetparentnull : function () {
+  nodeclonegetparentnull: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeclonegetparentnull") != null) return;
     var doc;
     var elementList;
     var employeeNode;
     var clonedNode;
     var parentNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     clonedNode = employeeNode.cloneNode(false);
@@ -18826,7 +17438,9 @@ exports.tests = {
 
     assertNull("nodeCloneGetParentNullAssert1",parentNode);
 
+    test.done();
   },
+
   /**
    *
    The "cloneNode(deep)" method returns a copy of the node
@@ -18843,9 +17457,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  nodeclonenodefalse : function () {
+  nodeclonenodefalse: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeclonenodefalse") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -18854,11 +17467,7 @@ exports.tests = {
     var cloneChildren;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     clonedNode = employeeNode.cloneNode(false);
@@ -18871,7 +17480,9 @@ exports.tests = {
 
     assertEquals("length",0,length);
 
+    test.done();
   },
+
   /**
    *
    The "cloneNode(deep)" method returns a copy of the node
@@ -18888,9 +17499,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  nodeclonenodetrue : function () {
+  nodeclonenodetrue: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeclonenodetrue") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -18926,11 +17536,7 @@ exports.tests = {
     expectedNoWhitespace[5] = "address";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -18960,7 +17566,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    Retrieve the second salary and
@@ -18972,9 +17580,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
    */
-  nodeclonetruecopytext : function () {
+  nodeclonetruecopytext: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeclonetruecopytext") != null) return;
     var doc;
     var elementList;
     var childList;
@@ -18983,11 +17590,7 @@ exports.tests = {
     var lastChildNode;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("salary");
     childNode = elementList.item(1);
     clonedNode = childNode.cloneNode(true);
@@ -18997,7 +17600,9 @@ exports.tests = {
 
     assertEquals("nodeCloneTrueCopyTextAssert1","35,000",childValue);
 
+    test.done();
   },
+
   /**
    *
    The "getAttributes()" method invoked on a Comment
@@ -19014,20 +17619,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=248
    */
-  nodecommentnodeattributes : function () {
+  nodecommentnodeattributes: function(test) {
     var success;
-    if(checkInitialization(builder, "nodecommentnodeattributes") != null) return;
     var doc;
     var childList;
     var childNode;
     var attrList;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     childList = doc.childNodes;
 
     for(var indexN10043 = 0;indexN10043 < childList.length; indexN10043++) {
@@ -19050,7 +17650,9 @@ exports.tests = {
 
     assertNull("createdAttributesNull",attrList);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeName()" method for a
@@ -19065,20 +17667,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    */
-  nodecommentnodename : function () {
+  nodecommentnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "nodecommentnodename") != null) return;
     var doc;
     var elementList;
     var commentNode;
     var nodeType;
     var commentNodeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.childNodes;
 
     for(var indexN10040 = 0;indexN10040 < elementList.length; indexN10040++) {
@@ -19097,7 +17694,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    The "getNodeType()" method for a Comment Node
@@ -19112,20 +17711,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    */
-  nodecommentnodetype : function () {
+  nodecommentnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "nodecommentnodetype") != null) return;
     var doc;
     var testList;
     var commentNode;
     var commentNodeName;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     testList = doc.childNodes;
 
     for(var indexN10040 = 0;indexN10040 < testList.length; indexN10040++) {
@@ -19144,7 +17738,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeValue()" method for a
@@ -19159,20 +17755,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    */
-  nodecommentnodevalue : function () {
+  nodecommentnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "nodecommentnodevalue") != null) return;
     var doc;
     var elementList;
     var commentNode;
     var commentName;
     var commentValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.childNodes;
 
     for(var indexN10040 = 0;indexN10040 < elementList.length; indexN10040++) {
@@ -19191,7 +17782,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeName()" method for a
@@ -19207,24 +17800,21 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A3
    */
-  nodedocumentfragmentnodename : function () {
+  nodedocumentfragmentnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "nodedocumentfragmentnodename") != null) return;
     var doc;
     var docFragment;
     var documentFragmentName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docFragment = doc.createDocumentFragment();
     documentFragmentName = docFragment.nodeName;
 
     assertEquals("nodeDocumentFragmentNodeNameAssert1","#document-fragment",documentFragmentName);
 
+    test.done();
   },
+
   /**
    *
    The "getNodeType()" method for a DocumentFragment Node
@@ -19240,24 +17830,21 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A3
    */
-  nodedocumentfragmentnodetype : function () {
+  nodedocumentfragmentnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "nodedocumentfragmentnodetype") != null) return;
     var doc;
     var documentFragmentNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     documentFragmentNode = doc.createDocumentFragment();
     nodeType = documentFragmentNode.nodeType;
 
     assertEquals("nodeDocumentFragmentNodeTypeAssert1",11,nodeType);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeValue()" method for a
@@ -19275,19 +17862,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    */
-  nodedocumentfragmentnodevalue : function () {
+  nodedocumentfragmentnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "nodedocumentfragmentnodevalue") != null) return;
     var doc;
     var docFragment;
     var attrList;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docFragment = doc.createDocumentFragment();
     attrList = docFragment.attributes;
 
@@ -19296,7 +17878,9 @@ exports.tests = {
 
     assertNull("initiallyNull",value);
 
+    test.done();
   },
+
   /**
    *
    The "getAttributes()" method invoked on a Document
@@ -19307,22 +17891,19 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    */
-  nodedocumentnodeattribute : function () {
+  nodedocumentnodeattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "nodedocumentnodeattribute") != null) return;
     var doc;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     attrList = doc.attributes;
 
     assertNull("documentAttributesNull",attrList);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeName()" method for a
@@ -19337,22 +17918,19 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  nodedocumentnodename : function () {
+  nodedocumentnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "nodedocumentnodename") != null) return;
     var doc;
     var documentName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     documentName = doc.nodeName;
 
     assertEquals("documentNodeName","#document",documentName);
 
+    test.done();
   },
+
   /**
    *
    The "getNodeType()" method for a Document Node
@@ -19366,22 +17944,19 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  nodedocumentnodetype : function () {
+  nodedocumentnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "nodedocumentnodetype") != null) return;
     var doc;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     nodeType = doc.nodeType;
 
     assertEquals("nodeDocumentNodeTypeAssert1",9,nodeType);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeValue()" method for a
@@ -19397,22 +17972,19 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  nodedocumentnodevalue : function () {
+  nodedocumentnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "nodedocumentnodevalue") != null) return;
     var doc;
     var documentValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     documentValue = doc.nodeValue;
 
     assertNull("documentNodeValueNull",documentValue);
 
+    test.done();
   },
+
   /**
    *
    Retrieve the DOCTYPE declaration from the XML file and
@@ -19423,39 +17995,28 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  nodedocumenttypenodename : function () {
+  nodedocumenttypenodename: function(test) {
     var success;
-    if(checkInitialization(builder, "nodedocumenttypenodename") != null) return;
     var doc;
     var docType;
     var documentTypeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
     documentTypeName = docType.nodeName;
 
 
-    if(
-
-      (builder.contentType == "image/svg+xml")
-
-    ) {
+    if (true) {
       assertEquals("doctypeNameSVG","svg",documentTypeName);
-
-    }
-
-    else {
+    } else {
       assertEquals("documentName","staff",documentTypeName);
-
     }
 
+    test.done();
   },
+
   /**
    *
    The "getNodeType()" method for a DocumentType Node
@@ -19465,18 +18026,13 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  nodedocumenttypenodetype : function () {
+  nodedocumenttypenodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "nodedocumenttypenodetype") != null) return;
     var doc;
     var documentTypeNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     documentTypeNode = doc.doctype;
 
     assertNotNull("doctypeNotNull",documentTypeNode);
@@ -19484,7 +18040,9 @@ exports.tests = {
 
     assertEquals("nodeType",10,nodeType);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeValue()" method for a
@@ -19493,18 +18051,13 @@ exports.tests = {
    * @author NIST
    * @author Mary Brady
    */
-  nodedocumenttypenodevalue : function () {
+  nodedocumenttypenodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "nodedocumenttypenodevalue") != null) return;
     var doc;
     var docType;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -19512,7 +18065,9 @@ exports.tests = {
 
     assertNull("doctypeAttributesNull",attrList);
 
+    test.done();
   },
+
   /**
    *
    The "getAttributes()" method invoked on an Element
@@ -19528,9 +18083,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    */
-  nodeelementnodeattributes : function () {
+  nodeelementnodeattributes: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeelementnodeattributes") != null) return;
     var doc;
     var elementList;
     var testAddr;
@@ -19544,11 +18098,7 @@ exports.tests = {
     expected[1] = "street";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(2);
     addrAttr = testAddr.attributes;
@@ -19562,7 +18112,9 @@ exports.tests = {
     }
     assertEqualsCollection("nodeElementNodeValueAssert1",expected,attrList);
 
+    test.done();
   },
+
   /**
    *
 
@@ -19586,38 +18138,27 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  nodeelementnodename : function () {
+  nodeelementnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeelementnodename") != null) return;
     var doc;
     var elementNode;
     var elementName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementNode = doc.documentElement;
 
     elementName = elementNode.nodeName;
 
 
-    if(
-
-      (builder.contentType == "image/svg+xml")
-
-    ) {
+    if (true) {
       assertEquals("svgNodeName","svg",elementName);
-
-    }
-
-    else {
+    } else {
       assertEquals("nodeElementNodeNameAssert1","staff",elementName);
-
     }
 
+    test.done();
   },
+
   /**
    *
    The "getNodeType()" method for an Element Node
@@ -19630,25 +18171,22 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  nodeelementnodetype : function () {
+  nodeelementnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeelementnodetype") != null) return;
     var doc;
     var rootNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     rootNode = doc.documentElement;
 
     nodeType = rootNode.nodeType;
 
     assertEquals("nodeElementNodeTypeAssert1",1,nodeType);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeValue()" method for an
@@ -19658,25 +18196,22 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  nodeelementnodevalue : function () {
+  nodeelementnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeelementnodevalue") != null) return;
     var doc;
     var elementNode;
     var elementValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementNode = doc.documentElement;
 
     elementValue = elementNode.nodeValue;
 
     assertNull("elementNodeValueNull",elementValue);
 
+    test.done();
   },
+
   /**
    *
    The "getAttributes()" method invoked on an Entity
@@ -19686,20 +18221,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    */
-  nodeentitynodeattributes : function () {
+  nodeentitynodeattributes: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeentitynodeattributes") != null) return;
     var doc;
     var docType;
     var entities;
     var entityNode;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -19712,7 +18242,9 @@ exports.tests = {
 
     assertNull("entityAttributesNull",attrList);
 
+    test.done();
   },
+
   /**
    *
    Check the nodeName of the entity returned by DocumentType.entities.getNamedItem("ent1").
@@ -19721,20 +18253,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  nodeentitynodename : function () {
+  nodeentitynodename: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeentitynodename") != null) return;
     var doc;
     var docType;
     var entities;
     var entityNode;
     var entityName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -19747,7 +18274,9 @@ exports.tests = {
 
     assertEquals("entityNodeName","ent1",entityName);
 
+    test.done();
   },
+
   /**
    *
    The "getNodeType()" method for an Entity Node
@@ -19757,20 +18286,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  nodeentitynodetype : function () {
+  nodeentitynodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeentitynodetype") != null) return;
     var doc;
     var docType;
     var entities;
     var entityNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -19783,7 +18307,9 @@ exports.tests = {
 
     assertEquals("entityNodeType",6,nodeType);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeValue()" method for an
@@ -19793,20 +18319,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  nodeentitynodevalue : function () {
+  nodeentitynodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeentitynodevalue") != null) return;
     var doc;
     var docType;
     var entities;
     var entityNode;
     var entityValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -19819,7 +18340,9 @@ exports.tests = {
 
     assertNull("entityNodeValue",entityValue);
 
+    test.done();
   },
+
   /**
    *
    The "getAttributes()" method invoked on an EntityReference
@@ -19829,9 +18352,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    */
-  nodeentityreferencenodeattributes : function () {
+  nodeentityreferencenodeattributes: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeentityreferencenodeattributes") != null) return;
     var doc;
     var elementList;
     var entRefAddr;
@@ -19839,11 +18361,7 @@ exports.tests = {
     var attrList;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     entRefAddr = elementList.item(1);
     entRefNode = entRefAddr.firstChild;
@@ -19862,7 +18380,9 @@ exports.tests = {
 
     assertNull("attrList",attrList);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeName()" method for an
@@ -19877,9 +18397,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  nodeentityreferencenodename : function () {
+  nodeentityreferencenodename: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeentityreferencenodename") != null) return;
     var doc;
     var elementList;
     var entRefAddr;
@@ -19887,11 +18406,7 @@ exports.tests = {
     var entRefName;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     entRefAddr = elementList.item(1);
     entRefNode = entRefAddr.firstChild;
@@ -19910,7 +18425,9 @@ exports.tests = {
 
     assertEquals("nodeEntityReferenceNodeNameAssert1","ent2",entRefName);
 
+    test.done();
   },
+
   /**
    *
    The "getNodeType()" method for an EntityReference Node
@@ -19924,20 +18441,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  nodeentityreferencenodetype : function () {
+  nodeentityreferencenodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeentityreferencenodetype") != null) return;
     var doc;
     var elementList;
     var entRefAddr;
     var entRefNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     entRefAddr = elementList.item(1);
     entRefNode = entRefAddr.firstChild;
@@ -19956,7 +18468,9 @@ exports.tests = {
     }
     assertEquals("entityNodeType",5,nodeType);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeValue()" method for an
@@ -19971,9 +18485,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  nodeentityreferencenodevalue : function () {
+  nodeentityreferencenodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeentityreferencenodevalue") != null) return;
     var doc;
     var elementList;
     var entRefAddr;
@@ -19981,11 +18494,7 @@ exports.tests = {
     var entRefValue;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     entRefAddr = elementList.item(1);
     entRefNode = entRefAddr.firstChild;
@@ -20004,7 +18513,9 @@ exports.tests = {
 
     assertNull("entRefNodeValue",entRefValue);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeValue()" method for an
@@ -20014,20 +18525,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-527DCFF2
    */
-  nodeentitysetnodevalue : function () {
+  nodeentitysetnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeentitysetnodevalue") != null) return;
     var doc;
     var docType;
     var entities;
     var entityNode;
     var entityValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -20042,7 +18548,9 @@ exports.tests = {
 
     assertNull("nodeValueNull",entityValue);
 
+    test.done();
   },
+
   /**
    *
    The "getFirstChild()" method returns the first child
@@ -20052,20 +18560,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-169727388
    */
-  nodegetfirstchild : function () {
+  nodegetfirstchild: function(test) {
     var success;
-    if(checkInitialization(builder, "nodegetfirstchild") != null) return;
     var doc;
     var elementList;
     var employeeNode;
     var fchildNode;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     fchildNode = employeeNode.firstChild;
@@ -20084,7 +18587,9 @@ exports.tests = {
     }
     assertEquals("nodeName","employeeId",childName);
 
+    test.done();
   },
+
   /**
    *
 
@@ -20105,9 +18610,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-169727388
    */
-  nodegetfirstchildnull : function () {
+  nodegetfirstchildnull: function(test) {
     var success;
-    if(checkInitialization(builder, "nodegetfirstchildnull") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -20116,11 +18620,7 @@ exports.tests = {
     var textNode;
     var noChildNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(0);
     employeeList = employeeNode.childNodes;
@@ -20132,7 +18632,9 @@ exports.tests = {
 
     assertNull("nodeGetFirstChildNullAssert1",noChildNode);
 
+    test.done();
   },
+
   /**
    *
    The "getLastChild()" method returns the last child
@@ -20142,20 +18644,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-61AD09FB
    */
-  nodegetlastchild : function () {
+  nodegetlastchild: function(test) {
     var success;
-    if(checkInitialization(builder, "nodegetlastchild") != null) return;
     var doc;
     var elementList;
     var employeeNode;
     var lchildNode;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     lchildNode = employeeNode.lastChild;
@@ -20174,7 +18671,9 @@ exports.tests = {
     }
     assertEquals("nodeName","address",childName);
 
+    test.done();
   },
+
   /**
    *
 
@@ -20195,9 +18694,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-61AD09FB
    */
-  nodegetlastchildnull : function () {
+  nodegetlastchildnull: function(test) {
     var success;
-    if(checkInitialization(builder, "nodegetlastchildnull") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -20206,11 +18704,7 @@ exports.tests = {
     var textNode;
     var noChildNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(0);
     employeeList = employeeNode.childNodes;
@@ -20222,7 +18716,9 @@ exports.tests = {
 
     assertNull("nodeGetLastChildNullAssert1",noChildNode);
 
+    test.done();
   },
+
   /**
    *
    The "getNextSibling()" method returns the node immediately
@@ -20232,20 +18728,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6AC54C2F
    */
-  nodegetnextsibling : function () {
+  nodegetnextsibling: function(test) {
     var success;
-    if(checkInitialization(builder, "nodegetnextsibling") != null) return;
     var doc;
     var elementList;
     var employeeIdNode;
     var nsNode;
     var nsName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employeeId");
     employeeIdNode = elementList.item(1);
     nsNode = employeeIdNode.nextSibling;
@@ -20264,7 +18755,9 @@ exports.tests = {
     }
     assertEquals("nodeName","name",nsName);
 
+    test.done();
   },
+
   /**
    *
 
@@ -20285,20 +18778,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6AC54C2F
    */
-  nodegetnextsiblingnull : function () {
+  nodegetnextsiblingnull: function(test) {
     var success;
-    if(checkInitialization(builder, "nodegetnextsiblingnull") != null) return;
     var doc;
     var elementList;
     var employeeNode;
     var lcNode;
     var nsNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     lcNode = employeeNode.lastChild;
@@ -20307,7 +18795,9 @@ exports.tests = {
 
     assertNull("nodeGetNextSiblingNullAssert1",nsNode);
 
+    test.done();
   },
+
   /**
    *
    The "getOwnerDocument()" method returns the Document
@@ -20323,9 +18813,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#node-ownerDoc
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  nodegetownerdocument : function () {
+  nodegetownerdocument: function(test) {
     var success;
-    if(checkInitialization(builder, "nodegetownerdocument") != null) return;
     var doc;
     var elementList;
     var docNode;
@@ -20333,11 +18822,7 @@ exports.tests = {
     var docElement;
     var elementName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     docNode = elementList.item(1);
     ownerDocument = docNode.ownerDocument;
@@ -20347,21 +18832,15 @@ exports.tests = {
     elementName = docElement.nodeName;
 
 
-    if(
-
-      (builder.contentType == "image/svg+xml")
-
-    ) {
+    if (true) {
       assertEquals("svgTagName","svg",elementName);
-
-    }
-
-    else {
+    } else {
       assertEquals("nodeGetOwnerDocumentAssert1","staff",elementName);
-
     }
 
+    test.done();
   },
+
   /**
    *
    The "getOwnerDocument()" method returns null if the target
@@ -20371,22 +18850,19 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#node-ownerDoc
    */
-  nodegetownerdocumentnull : function () {
+  nodegetownerdocumentnull: function(test) {
     var success;
-    if(checkInitialization(builder, "nodegetownerdocumentnull") != null) return;
     var doc;
     var ownerDocument;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     ownerDocument = doc.ownerDocument;
 
     assertNull("documentOwnerDocumentNull",ownerDocument);
 
+    test.done();
   },
+
   /**
    *
    The "getPreviousSibling()" method returns the node
@@ -20396,20 +18872,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-640FB3C8
    */
-  nodegetprevioussibling : function () {
+  nodegetprevioussibling: function(test) {
     var success;
-    if(checkInitialization(builder, "nodegetprevioussibling") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var psNode;
     var psName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(1);
     psNode = nameNode.previousSibling;
@@ -20428,7 +18899,9 @@ exports.tests = {
     }
     assertEquals("nodeName","employeeId",psName);
 
+    test.done();
   },
+
   /**
    *
 
@@ -20449,20 +18922,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-640FB3C8
    */
-  nodegetprevioussiblingnull : function () {
+  nodegetprevioussiblingnull: function(test) {
     var success;
-    if(checkInitialization(builder, "nodegetprevioussiblingnull") != null) return;
     var doc;
     var elementList;
     var employeeNode;
     var fcNode;
     var psNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
     fcNode = employeeNode.firstChild;
@@ -20471,7 +18939,9 @@ exports.tests = {
 
     assertNull("nodeGetPreviousSiblingNullAssert1",psNode);
 
+    test.done();
   },
+
   /**
    *
    The "hasChildNodes()" method returns true if the node
@@ -20485,25 +18955,22 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-810594187
    */
-  nodehaschildnodes : function () {
+  nodehaschildnodes: function(test) {
     var success;
-    if(checkInitialization(builder, "nodehaschildnodes") != null) return;
     var doc;
     var elementList;
     var employeeNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     state = employeeNode.hasChildNodes();
     assertTrue("nodeHasChildAssert1",state);
 
+    test.done();
   },
+
   /**
    *
    The "hasChildNodes()" method returns false if the node
@@ -20518,9 +18985,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-810594187
    */
-  nodehaschildnodesfalse : function () {
+  nodehaschildnodesfalse: function(test) {
     var success;
-    if(checkInitialization(builder, "nodehaschildnodesfalse") != null) return;
     var doc;
     var elementList;
     var child;
@@ -20529,11 +18995,7 @@ exports.tests = {
     var textNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     child = elementList.item(1);
     employeeIdList = child.childNodes;
@@ -20544,7 +19006,9 @@ exports.tests = {
     state = textNode.hasChildNodes();
     assertFalse("nodeHasChildFalseAssert1",state);
 
+    test.done();
   },
+
   /**
    *
    The "insertBefore(newChild,refChild)" method inserts the
@@ -20558,9 +19022,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  nodeinsertbefore : function () {
+  nodeinsertbefore: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeinsertbefore") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -20601,11 +19064,7 @@ exports.tests = {
     var expected = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -20637,7 +19096,9 @@ exports.tests = {
     }
     assertEqualsList("nodeNames",expected,actual);
 
+    test.done();
   },
+
   /**
    *
    If the "newChild" is a DocumentFragment object then all
@@ -20655,9 +19116,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  nodeinsertbeforedocfragment : function () {
+  nodeinsertbeforedocfragment: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeinsertbeforedocfragment") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -20671,11 +19131,7 @@ exports.tests = {
     var appendedChild;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -20696,7 +19152,9 @@ exports.tests = {
 
     assertEquals("childName4","newChild2",childName);
 
+    test.done();
   },
+
   /**
    *
    The "insertBefore(newChild,refChild)" method raises a
@@ -20717,9 +19175,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  nodeinsertbeforeinvalidnodetype : function () {
+  nodeinsertbeforeinvalidnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeinsertbeforeinvalidnodetype") != null) return;
     var doc;
     var rootNode;
     var newChild;
@@ -20727,11 +19184,7 @@ exports.tests = {
     var refChild;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     rootNode = doc.documentElement;
 
     newChild = doc.createAttribute("newAttribute");
@@ -20749,7 +19202,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "insertBefore(newChild,refChild)" method raises a
@@ -20769,9 +19224,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-952280727')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='WRONG_DOCUMENT_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  nodeinsertbeforenewchilddiffdocument : function () {
+  nodeinsertbeforenewchilddiffdocument: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeinsertbeforenewchilddiffdocument") != null) return;
     var doc1;
     var doc2;
     var refChild;
@@ -20784,13 +19238,13 @@ exports.tests = {
     if (typeof(this.doc1) != 'undefined') {
       doc1Ref = this.doc1;
     }
-    doc1 = load(doc1Ref, "doc1", "staff");
+    doc1 = staff.staff();
 
     var doc2Ref = null;
     if (typeof(this.doc2) != 'undefined') {
       doc2Ref = this.doc2;
     }
-    doc2 = load(doc2Ref, "doc2", "staff");
+    doc2 = staff.staff();
     newChild = doc1.createElement("newChild");
     elementList = doc2.getElementsByTagName("employee");
     elementNode = elementList.item(1);
@@ -20808,7 +19262,9 @@ exports.tests = {
       assertTrue("throw_WRONG_DOCUMENT_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    If the "newChild" is already in the tree, the
@@ -20825,9 +19281,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  nodeinsertbeforenewchildexists : function () {
+  nodeinsertbeforenewchildexists: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeinsertbeforenewchildexists") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -20866,11 +19321,7 @@ exports.tests = {
     var result = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -20903,7 +19354,9 @@ exports.tests = {
     }
     assertEqualsList("childNames",expected,result);
 
+    test.done();
   },
+
   /**
    *
    The "insertBefore(newChild,refChild)" method raises a
@@ -20923,9 +19376,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  nodeinsertbeforenodeancestor : function () {
+  nodeinsertbeforenodeancestor: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeinsertbeforenodeancestor") != null) return;
     var doc;
     var newChild;
     var elementList;
@@ -20934,11 +19386,7 @@ exports.tests = {
     var refChild;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newChild = doc.documentElement;
 
     elementList = doc.getElementsByTagName("employee");
@@ -20958,7 +19406,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "insertBefore(newChild,refchild)" method returns
@@ -20974,9 +19424,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  nodeinsertbeforenodename : function () {
+  nodeinsertbeforenodename: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeinsertbeforenodename") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -20986,11 +19435,7 @@ exports.tests = {
     var insertedNode;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -21002,7 +19447,9 @@ exports.tests = {
 
     assertEquals("nodeInsertBeforeNodeNameAssert1","newChild",childName);
 
+    test.done();
   },
+
   /**
    *
    The "insertBefore(newChild,refChild)" method causes the
@@ -21021,9 +19468,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-952280727')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  nodeinsertbeforenomodificationallowederr : function () {
+  nodeinsertbeforenomodificationallowederr: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeinsertbeforenomodificationallowederr") != null) return;
     var doc;
     var genderList;
     var genderNode;
@@ -21035,11 +19481,7 @@ exports.tests = {
 
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entRef = genderNode.firstChild;
@@ -21071,7 +19513,9 @@ exports.tests = {
       assertTrue("throw_NOT_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "insertBefore(newChild,refChild)" method causes the
@@ -21088,9 +19532,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/nodeinsertbeforenomodificationallowederr.xml
    */
-  nodeinsertbeforenomodificationallowederrEE : function () {
+  nodeinsertbeforenomodificationallowederrEE: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeinsertbeforenomodificationallowederrEE") != null) return;
     var doc;
     var entRef;
     var createdNode;
@@ -21098,11 +19541,7 @@ exports.tests = {
     var refChild = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     entRef = doc.createEntityReference("ent4");
     assertNotNull("createdEntRefNotNull",entRef);
     createdNode = doc.createElement("text3");
@@ -21118,7 +19557,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "insertBefore(newChild,refChild)" method raises a
@@ -21138,9 +19579,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  nodeinsertbeforerefchildnonexistent : function () {
+  nodeinsertbeforerefchildnonexistent: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeinsertbeforerefchildnonexistent") != null) return;
     var doc;
     var refChild;
     var newChild;
@@ -21148,11 +19588,7 @@ exports.tests = {
     var elementNode;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newChild = doc.createElement("newChild");
     refChild = doc.createElement("refChild");
     elementList = doc.getElementsByTagName("employee");
@@ -21169,7 +19605,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    If the "refChild" is null then the
@@ -21187,9 +19625,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
    */
-  nodeinsertbeforerefchildnull : function () {
+  nodeinsertbeforerefchildnull: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeinsertbeforerefchildnull") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -21201,11 +19638,7 @@ exports.tests = {
     var childName;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -21218,7 +19651,9 @@ exports.tests = {
 
     assertEquals("nodeInsertBeforeRefChildNullAssert1","newChild",childName);
 
+    test.done();
   },
+
   /**
    *
    Create a list of all the children elements of the third
@@ -21229,9 +19664,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    */
-  nodelistindexequalzero : function () {
+  nodelistindexequalzero: function(test) {
     var success;
-    if(checkInitialization(builder, "nodelistindexequalzero") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -21239,11 +19673,7 @@ exports.tests = {
     var child;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -21259,7 +19689,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    The "getLength()" method returns the number of nodes
@@ -21269,9 +19701,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-203510337
    */
-  nodelistindexgetlength : function () {
+  nodelistindexgetlength: function(test) {
     var success;
-    if(checkInitialization(builder, "nodelistindexgetlength") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -21279,11 +19710,7 @@ exports.tests = {
     var length;
     var expectedCount = 0;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -21295,7 +19722,9 @@ exports.tests = {
                ((6 == length) || (13 == length))
               );
 
+    test.done();
   },
+
   /**
    *
    The "getLength()" method returns the number of nodes
@@ -21310,9 +19739,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-203510337
    */
-  nodelistindexgetlengthofemptylist : function () {
+  nodelistindexgetlengthofemptylist: function(test) {
     var success;
-    if(checkInitialization(builder, "nodelistindexgetlengthofemptylist") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -21321,11 +19749,7 @@ exports.tests = {
     var textNode;
     var textList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -21337,7 +19761,9 @@ exports.tests = {
 
     assertSize("nodelistIndexGetLengthOfEmptyListAssert",0,textList);
 
+    test.done();
   },
+
   /**
    *
    Create a list of all the children elements of the third
@@ -21351,9 +19777,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    */
-  nodelistindexnotzero : function () {
+  nodelistindexnotzero: function(test) {
     var success;
-    if(checkInitialization(builder, "nodelistindexnotzero") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -21362,11 +19787,7 @@ exports.tests = {
     var length;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -21389,7 +19810,9 @@ exports.tests = {
 
     assertEquals("nodeName","name",childName);
 
+    test.done();
   },
+
   /**
    *
    Get the first child of the third employee using NodeList.item(0)
@@ -21399,9 +19822,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    */
-  nodelistreturnfirstitem : function () {
+  nodelistreturnfirstitem: function(test) {
     var success;
-    if(checkInitialization(builder, "nodelistreturnfirstitem") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -21410,11 +19832,7 @@ exports.tests = {
     var childName;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -21437,7 +19855,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    Get this last child of the third employee using NodeList.item(NodeList.length - 1)
@@ -21447,9 +19867,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    */
-  nodelistreturnlastitem : function () {
+  nodelistreturnlastitem: function(test) {
     var success;
-    if(checkInitialization(builder, "nodelistreturnlastitem") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -21458,11 +19877,7 @@ exports.tests = {
     var childName;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -21488,7 +19903,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    The range of valid child node indices is 0 thru length -1
@@ -21502,9 +19919,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-203510337
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-844377136
    */
-  nodelisttraverselist : function () {
+  nodelisttraverselist: function(test) {
     var success;
-    if(checkInitialization(builder, "nodelisttraverselist") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -21538,11 +19954,7 @@ exports.tests = {
     expectedNoWhitespace[5] = "address";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -21569,7 +19981,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    The "getAttributes()" method invoked on a Notation
@@ -21583,20 +19997,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    */
-  nodenotationnodeattributes : function () {
+  nodenotationnodeattributes: function(test) {
     var success;
-    if(checkInitialization(builder, "nodenotationnodeattributes") != null) return;
     var doc;
     var docType;
     var notations;
     var notationNode;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -21609,7 +20018,9 @@ exports.tests = {
 
     assertNull("nodeNotationNodeAttributesAssert1",attrList);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeName()" method for a
@@ -21624,20 +20035,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  nodenotationnodename : function () {
+  nodenotationnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "nodenotationnodename") != null) return;
     var doc;
     var docType;
     var notations;
     var notationNode;
     var notationName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -21650,7 +20056,9 @@ exports.tests = {
 
     assertEquals("nodeName","notation1",notationName);
 
+    test.done();
   },
+
   /**
    *
    The "getNodeType()" method for an Notation Node
@@ -21664,20 +20072,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  nodenotationnodetype : function () {
+  nodenotationnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "nodenotationnodetype") != null) return;
     var doc;
     var docType;
     var notations;
     var notationNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -21690,7 +20093,9 @@ exports.tests = {
 
     assertEquals("nodeNotationNodeTypeAssert1",12,nodeType);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeValue()" method for a
@@ -21705,20 +20110,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  nodenotationnodevalue : function () {
+  nodenotationnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "nodenotationnodevalue") != null) return;
     var doc;
     var docType;
     var notations;
     var notationNode;
     var notationValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -21731,7 +20131,9 @@ exports.tests = {
 
     assertNull("nodeValue",notationValue);
 
+    test.done();
   },
+
   /**
    *
    The "getParentNode()" method returns the parent
@@ -21746,20 +20148,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1060184317
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
-  nodeparentnode : function () {
+  nodeparentnode: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeparentnode") != null) return;
     var doc;
     var elementList;
     var employeeNode;
     var parentNode;
     var parentName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     parentNode = employeeNode.parentNode;
@@ -21767,21 +20164,15 @@ exports.tests = {
     parentName = parentNode.nodeName;
 
 
-    if(
-
-      (builder.contentType == "image/svg+xml")
-
-    ) {
+    if (true) {
       assertEquals("svgTagName","svg",parentName);
-
-    }
-
-    else {
+    } else {
       assertEquals("nodeParentNodeAssert1","staff",parentName);
-
     }
 
+    test.done();
   },
+
   /**
    *
    The "getParentNode()" method invoked on a node that has
@@ -21796,24 +20187,21 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1060184317
    */
-  nodeparentnodenull : function () {
+  nodeparentnodenull: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeparentnodenull") != null) return;
     var doc;
     var createdNode;
     var parentNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     createdNode = doc.createElement("employee");
     parentNode = createdNode.parentNode;
 
     assertNull("parentNode",parentNode);
 
+    test.done();
   },
+
   /**
    *
 
@@ -21832,19 +20220,14 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    */
-  nodeprocessinginstructionnodeattributes : function () {
+  nodeprocessinginstructionnodeattributes: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeprocessinginstructionnodeattributes") != null) return;
     var doc;
     var testList;
     var piNode;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     testList = doc.childNodes;
 
     piNode = testList.item(0);
@@ -21852,7 +20235,9 @@ exports.tests = {
 
     assertNull("nodeProcessingInstructionNodeAttrAssert1",attrList);
 
+    test.done();
   },
+
   /**
    *
 
@@ -21873,19 +20258,14 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  nodeprocessinginstructionnodename : function () {
+  nodeprocessinginstructionnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeprocessinginstructionnodename") != null) return;
     var doc;
     var testList;
     var piNode;
     var piName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     testList = doc.childNodes;
 
     piNode = testList.item(0);
@@ -21893,7 +20273,9 @@ exports.tests = {
 
     assertEquals("nodeProcessingInstructionNodeNameAssert1","TEST-STYLE",piName);
 
+    test.done();
   },
+
   /**
    *
 
@@ -21914,19 +20296,14 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  nodeprocessinginstructionnodetype : function () {
+  nodeprocessinginstructionnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeprocessinginstructionnodetype") != null) return;
     var doc;
     var testList;
     var piNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     testList = doc.childNodes;
 
     piNode = testList.item(0);
@@ -21934,7 +20311,9 @@ exports.tests = {
 
     assertEquals("nodeProcessingInstructionNodeTypeAssert1",7,nodeType);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeValue()" method for a
@@ -21949,19 +20328,14 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  nodeprocessinginstructionnodevalue : function () {
+  nodeprocessinginstructionnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeprocessinginstructionnodevalue") != null) return;
     var doc;
     var testList;
     var piNode;
     var piValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     testList = doc.childNodes;
 
     piNode = testList.item(0);
@@ -21969,7 +20343,9 @@ exports.tests = {
 
     assertEquals("value","PIDATA",piValue);
 
+    test.done();
   },
+
   /**
    *
    Setting the nodeValue should change the value returned by
@@ -21981,19 +20357,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-837822393
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=181
    */
-  nodeprocessinginstructionsetnodevalue : function () {
+  nodeprocessinginstructionsetnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "nodeprocessinginstructionsetnodevalue") != null) return;
     var doc;
     var testList;
     var piNode;
     var piValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     testList = doc.childNodes;
 
     piNode = testList.item(0);
@@ -22006,7 +20377,9 @@ exports.tests = {
 
     assertEquals("data","Something different",piValue);
 
+    test.done();
   },
+
   /**
    *
    The "removeChild(oldChild)" method removes the child node
@@ -22022,9 +20395,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    */
-  noderemovechild : function () {
+  noderemovechild: function(test) {
     var success;
-    if(checkInitialization(builder, "noderemovechild") != null) return;
     var doc;
     var rootNode;
     var childList;
@@ -22032,11 +20404,7 @@ exports.tests = {
     var removedChild;
     var parentNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     rootNode = doc.documentElement;
 
     childList = rootNode.childNodes;
@@ -22047,7 +20415,9 @@ exports.tests = {
 
     assertNull("nodeRemoveChildAssert1",parentNode);
 
+    test.done();
   },
+
   /**
    *
    Remove the first child of the second employee
@@ -22060,9 +20430,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    */
-  noderemovechildgetnodename : function () {
+  noderemovechildgetnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "noderemovechildgetnodename") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -22072,11 +20441,7 @@ exports.tests = {
     var childName;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -22100,7 +20465,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    Retrieve the second employee and remove its first child.
@@ -22112,9 +20479,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    */
-  noderemovechildnode : function () {
+  noderemovechildnode: function(test) {
     var success;
-    if(checkInitialization(builder, "noderemovechildnode") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -22126,11 +20492,7 @@ exports.tests = {
     var removedChild;
     var removedName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -22160,7 +20522,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    The "removeChild(oldChild)" method causes the
@@ -22179,9 +20543,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-1734834066')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    */
-  noderemovechildnomodificationallowederr : function () {
+  noderemovechildnomodificationallowederr: function(test) {
     var success;
-    if(checkInitialization(builder, "noderemovechildnomodificationallowederr") != null) return;
     var doc;
     var genderList;
     var genderNode;
@@ -22190,11 +20553,7 @@ exports.tests = {
     var removedNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entRef = genderNode.firstChild;
@@ -22225,7 +20584,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "removeChild(oldChild)" method causes the
@@ -22242,19 +20603,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/noderemovechildnomodificationallowederr.xml
    */
-  noderemovechildnomodificationallowederrEE : function () {
+  noderemovechildnomodificationallowederrEE: function(test) {
     var success;
-    if(checkInitialization(builder, "noderemovechildnomodificationallowederrEE") != null) return;
     var doc;
     var entRef;
     var entText;
     var removedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     entRef = doc.createEntityReference("ent4");
     assertNotNull("createdEntRefNotNull",entRef);
     entText = entRef.firstChild;
@@ -22272,7 +20628,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "removeChild(oldChild)" method raises a
@@ -22291,20 +20649,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  noderemovechildoldchildnonexistent : function () {
+  noderemovechildoldchildnonexistent: function(test) {
     var success;
-    if(checkInitialization(builder, "noderemovechildoldchildnonexistent") != null) return;
     var doc;
     var oldChild;
     var elementList;
     var elementNode;
     var removedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     oldChild = doc.createElement("oldChild");
     elementList = doc.getElementsByTagName("employee");
     elementNode = elementList.item(1);
@@ -22320,7 +20673,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "replaceChild(newChild,oldChild)" method replaces
@@ -22335,9 +20690,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    */
-  nodereplacechild : function () {
+  nodereplacechild: function(test) {
     var success;
-    if(checkInitialization(builder, "nodereplacechild") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -22348,11 +20702,7 @@ exports.tests = {
     var childName;
     var replacedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -22365,7 +20715,9 @@ exports.tests = {
 
     assertEquals("nodeReplaceChildAssert1","newChild",childName);
 
+    test.done();
   },
+
   /**
    *
    The "replaceChild(newChild,oldChild)" method raises a
@@ -22386,9 +20738,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  nodereplacechildinvalidnodetype : function () {
+  nodereplacechildinvalidnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "nodereplacechildinvalidnodetype") != null) return;
     var doc;
     var rootNode;
     var newChild;
@@ -22396,11 +20747,7 @@ exports.tests = {
     var oldChild;
     var replacedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     rootNode = doc.documentElement;
 
     newChild = doc.createAttribute("newAttribute");
@@ -22418,7 +20765,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "replaceChild(newChild,oldChild)" method raises a
@@ -22438,9 +20787,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-785887307')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NOT_FOUND_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    */
-  nodereplacechildnewchilddiffdocument : function () {
+  nodereplacechildnewchilddiffdocument: function(test) {
     var success;
-    if(checkInitialization(builder, "nodereplacechildnewchilddiffdocument") != null) return;
     var doc1;
     var doc2;
     var oldChild;
@@ -22453,13 +20801,13 @@ exports.tests = {
     if (typeof(this.doc1) != 'undefined') {
       doc1Ref = this.doc1;
     }
-    doc1 = load(doc1Ref, "doc1", "staff");
+    doc1 = staff.staff();
 
     var doc2Ref = null;
     if (typeof(this.doc2) != 'undefined') {
       doc2Ref = this.doc2;
     }
-    doc2 = load(doc2Ref, "doc2", "staff");
+    doc2 = staff.staff();
     newChild = doc1.createElement("newChild");
     elementList = doc2.getElementsByTagName("employee");
     elementNode = elementList.item(1);
@@ -22477,7 +20825,9 @@ exports.tests = {
       assertTrue("throw_WRONG_DOCUMENT_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Retrieve the second employee and replace its TWELFTH
@@ -22490,9 +20840,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    */
-  nodereplacechildnewchildexists : function () {
+  nodereplacechildnewchildexists: function(test) {
     var success;
-    if(checkInitialization(builder, "nodereplacechildnewchildexists") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -22531,11 +20880,7 @@ exports.tests = {
 
     var replacedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -22572,7 +20917,9 @@ exports.tests = {
     }
     assertEqualsList("childNames",expected,actual);
 
+    test.done();
   },
+
   /**
    *
    The "replaceChild(newChild,oldChild)" method raises a
@@ -22592,9 +20939,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  nodereplacechildnodeancestor : function () {
+  nodereplacechildnodeancestor: function(test) {
     var success;
-    if(checkInitialization(builder, "nodereplacechildnodeancestor") != null) return;
     var doc;
     var newChild;
     var elementList;
@@ -22603,11 +20949,7 @@ exports.tests = {
     var oldChild;
     var replacedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newChild = doc.documentElement;
 
     elementList = doc.getElementsByTagName("employee");
@@ -22627,7 +20969,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Replace the second Element of the second employee with
@@ -22641,9 +20985,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    */
-  nodereplacechildnodename : function () {
+  nodereplacechildnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "nodereplacechildnodename") != null) return;
     var doc;
     var elementList;
     var employeeNode;
@@ -22654,11 +20997,7 @@ exports.tests = {
     var length;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -22683,7 +21022,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    The "replaceChild(newChild,oldChild)" method causes the
@@ -22703,9 +21044,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-785887307')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    */
-  nodereplacechildnomodificationallowederr : function () {
+  nodereplacechildnomodificationallowederr: function(test) {
     var success;
-    if(checkInitialization(builder, "nodereplacechildnomodificationallowederr") != null) return;
     var doc;
     var genderList;
     var genderNode;
@@ -22715,11 +21055,7 @@ exports.tests = {
     var replacedChild;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entRef = genderNode.firstChild;
@@ -22749,7 +21085,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "replaceChild(newChild,oldChild)" method causes the
@@ -22766,20 +21104,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/nodereplacechildnomodificationallowederr.xml
    */
-  nodereplacechildnomodificationallowederrEE : function () {
+  nodereplacechildnomodificationallowederrEE: function(test) {
     var success;
-    if(checkInitialization(builder, "nodereplacechildnomodificationallowederrEE") != null) return;
     var doc;
     var entRef;
     var entText;
     var createdNode;
     var replacedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     entRef = doc.createEntityReference("ent4");
     assertNotNull("createdEntRefNotNull",entRef);
     entText = entRef.firstChild;
@@ -22797,7 +21130,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "replaceChild(newChild,oldChild)" method raises a
@@ -22816,9 +21151,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  nodereplacechildoldchildnonexistent : function () {
+  nodereplacechildoldchildnonexistent: function(test) {
     var success;
-    if(checkInitialization(builder, "nodereplacechildoldchildnonexistent") != null) return;
     var doc;
     var oldChild;
     var newChild;
@@ -22826,11 +21160,7 @@ exports.tests = {
     var elementNode;
     var replacedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newChild = doc.createElement("newChild");
     oldChild = doc.createElement("oldChild");
     elementList = doc.getElementsByTagName("employee");
@@ -22847,7 +21177,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "setNodeValue(nodeValue)" method causes the
@@ -22867,9 +21199,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-F68D080')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  nodesetnodevaluenomodificationallowederr : function () {
+  nodesetnodevaluenomodificationallowederr: function(test) {
     var success;
-    if(checkInitialization(builder, "nodesetnodevaluenomodificationallowederr") != null) return;
     var doc;
     var genderList;
     var genderNode;
@@ -22878,11 +21209,7 @@ exports.tests = {
     var entElementText;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entRef = genderNode.firstChild;
@@ -22917,7 +21244,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Create an entity reference and execute the "setNodeValue(nodeValue)" method.
@@ -22930,18 +21259,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/nodesetnodevaluenomodificationallowederr.xml
    */
-  nodesetnodevaluenomodificationallowederrEE : function () {
+  nodesetnodevaluenomodificationallowederrEE: function(test) {
     var success;
-    if(checkInitialization(builder, "nodesetnodevaluenomodificationallowederrEE") != null) return;
     var doc;
     var entRef;
     var entText;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     entRef = doc.createEntityReference("ent3");
     assertNotNull("createdEntRefNotNull",entRef);
     entText = entRef.firstChild;
@@ -22960,7 +21284,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "getAttributes()" method invoked on a Text
@@ -22975,20 +21301,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1312295772
    */
-  nodetextnodeattribute : function () {
+  nodetextnodeattribute: function(test) {
     var success;
-    if(checkInitialization(builder, "nodetextnodeattribute") != null) return;
     var doc;
     var elementList;
     var testAddr;
     var textNode;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
     textNode = testAddr.firstChild;
@@ -22997,7 +21318,9 @@ exports.tests = {
 
     assertNull("nodeTextNodeAttributesAssert1",attrList);
 
+    test.done();
   },
+
   /**
    *
 
@@ -23020,20 +21343,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    */
-  nodetextnodename : function () {
+  nodetextnodename: function(test) {
     var success;
-    if(checkInitialization(builder, "nodetextnodename") != null) return;
     var doc;
     var elementList;
     var testAddr;
     var textNode;
     var textName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
     textNode = testAddr.firstChild;
@@ -23042,7 +21360,9 @@ exports.tests = {
 
     assertEquals("nodeTextNodeNameAssert1","#text",textName);
 
+    test.done();
   },
+
   /**
    *
 
@@ -23063,20 +21383,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
    */
-  nodetextnodetype : function () {
+  nodetextnodetype: function(test) {
     var success;
-    if(checkInitialization(builder, "nodetextnodetype") != null) return;
     var doc;
     var elementList;
     var testAddr;
     var textNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
     textNode = testAddr.firstChild;
@@ -23085,7 +21400,9 @@ exports.tests = {
 
     assertEquals("nodeTextNodeTypeAssert1",3,nodeType);
 
+    test.done();
   },
+
   /**
    *
    The string returned by the "getNodeValue()" method for a
@@ -23100,20 +21417,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  nodetextnodevalue : function () {
+  nodetextnodevalue: function(test) {
     var success;
-    if(checkInitialization(builder, "nodetextnodevalue") != null) return;
     var doc;
     var elementList;
     var testAddr;
     var textNode;
     var textValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
     textNode = testAddr.firstChild;
@@ -23122,7 +21434,9 @@ exports.tests = {
 
     assertEquals("nodeTextNodeValueAssert1","1230 North Ave. Dallas, Texas 98551",textValue);
 
+    test.done();
   },
+
   /**
    *
    An element is created, setNodeValue is called with a non-null argument, but getNodeValue
@@ -23132,18 +21446,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    */
-  nodevalue01 : function () {
+  nodevalue01: function(test) {
     var success;
-    if(checkInitialization(builder, "nodevalue01") != null) return;
     var doc;
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newNode = doc.createElement("address");
     newValue = newNode.nodeValue;
 
@@ -23154,7 +21463,9 @@ exports.tests = {
 
     assertNull("nullAfterAttemptedChange",newValue);
 
+    test.done();
   },
+
   /**
    *
    An comment is created, setNodeValue is called with a non-null argument, but getNodeValue
@@ -23164,18 +21475,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1728279322
    */
-  nodevalue02 : function () {
+  nodevalue02: function(test) {
     var success;
-    if(checkInitialization(builder, "nodevalue02") != null) return;
     var doc;
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newNode = doc.createComment("This is a new Comment node");
     newValue = newNode.nodeValue;
 
@@ -23186,7 +21492,9 @@ exports.tests = {
 
     assertEquals("afterChange","This should have an effect",newValue);
 
+    test.done();
   },
+
   /**
    *
    An entity reference is created, setNodeValue is called with a non-null argument, but getNodeValue
@@ -23196,18 +21504,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-11C98490
    */
-  nodevalue03 : function () {
+  nodevalue03: function(test) {
     var success;
-    if(checkInitialization(builder, "nodevalue03") != null) return;
     var doc;
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newNode = doc.createEntityReference("ent1");
     assertNotNull("createdEntRefNotNull",newNode);
     newValue = newNode.nodeValue;
@@ -23219,7 +21522,9 @@ exports.tests = {
 
     assertNull("nullAfterAttemptedChange",newValue);
 
+    test.done();
   },
+
   /**
    *
    An document type accessed, setNodeValue is called with a non-null argument, but getNodeValue
@@ -23229,18 +21534,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A31
    */
-  nodevalue04 : function () {
+  nodevalue04: function(test) {
     var success;
-    if(checkInitialization(builder, "nodevalue04") != null) return;
     var doc;
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newNode = doc.doctype;
 
     assertNotNull("docTypeNotNull",newNode);
@@ -23253,7 +21553,9 @@ exports.tests = {
 
     assertNull("nullAfterAttemptedChange",newValue);
 
+    test.done();
   },
+
   /**
    *
    A document fragment is created, setNodeValue is called with a non-null argument, but getNodeValue
@@ -23263,18 +21565,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-B63ED1A3
    */
-  nodevalue05 : function () {
+  nodevalue05: function(test) {
     var success;
-    if(checkInitialization(builder, "nodevalue05") != null) return;
     var doc;
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newNode = doc.createDocumentFragment();
     newValue = newNode.nodeValue;
 
@@ -23285,7 +21582,9 @@ exports.tests = {
 
     assertNull("nullAfterAttemptedChange",newValue);
 
+    test.done();
   },
+
   /**
    *
    An document is accessed, setNodeValue is called with a non-null argument, but getNodeValue
@@ -23295,9 +21594,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#i-Document
    */
-  nodevalue06 : function () {
+  nodevalue06: function(test) {
     var success;
-    if(checkInitialization(builder, "nodevalue06") != null) return;
     var newNode;
     var newValue;
 
@@ -23305,7 +21603,7 @@ exports.tests = {
     if (typeof(this.newNode) != 'undefined') {
       newNodeRef = this.newNode;
     }
-    newNode = load(newNodeRef, "newNode", "staff");
+    newNode = staff.staff();
     newValue = newNode.nodeValue;
 
     assertNull("initiallyNull",newValue);
@@ -23315,7 +21613,9 @@ exports.tests = {
 
     assertNull("nullAfterAttemptedChange",newValue);
 
+    test.done();
   },
+
   /**
    *
    An Entity is accessed, setNodeValue is called with a non-null argument, but getNodeValue
@@ -23325,20 +21625,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-527DCFF2
    */
-  nodevalue07 : function () {
+  nodevalue07: function(test) {
     var success;
-    if(checkInitialization(builder, "nodevalue07") != null) return;
     var doc;
     var newNode;
     var newValue;
     var nodeMap;
     var docType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -23356,7 +21651,9 @@ exports.tests = {
 
     assertNull("nullAfterAttemptedChange",newValue);
 
+    test.done();
   },
+
   /**
    *
    An notation is accessed, setNodeValue is called with a non-null argument, but getNodeValue
@@ -23366,20 +21663,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-5431D1B9
    */
-  nodevalue08 : function () {
+  nodevalue08: function(test) {
     var success;
-    if(checkInitialization(builder, "nodevalue08") != null) return;
     var doc;
     var docType;
     var newNode;
     var newValue;
     var nodeMap;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -23397,7 +21689,9 @@ exports.tests = {
 
     assertNull("nullAfterAttemptedChange",newValue);
 
+    test.done();
   },
+
   /**
    *
    An processing instruction is created, setNodeValue is called with a non-null argument, but getNodeValue
@@ -23407,18 +21701,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1004215813
    */
-  nodevalue09 : function () {
+  nodevalue09: function(test) {
     var success;
-    if(checkInitialization(builder, "nodevalue09") != null) return;
     var doc;
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newNode = doc.createProcessingInstruction("TARGET","DATA");
     newValue = newNode.nodeValue;
 
@@ -23429,7 +21718,9 @@ exports.tests = {
 
     assertEquals("after","This should have an effect",newValue);
 
+    test.done();
   },
+
   /**
    *
    Retrieve the notation named "notation1" and access its
@@ -23441,20 +21732,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-5431D1B9
    */
-  notationgetnotationname : function () {
+  notationgetnotationname: function(test) {
     var success;
-    if(checkInitialization(builder, "notationgetnotationname") != null) return;
     var doc;
     var docType;
     var notations;
     var notationNode;
     var notationName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -23466,7 +21752,9 @@ exports.tests = {
 
     assertEquals("notationGetNotationNameAssert","notation1",notationName);
 
+    test.done();
   },
+
   /**
    *
    Retrieve the notation named "notation1" and access its
@@ -23477,20 +21765,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-54F2B4D0
    */
-  notationgetpublicid : function () {
+  notationgetpublicid: function(test) {
     var success;
-    if(checkInitialization(builder, "notationgetpublicid") != null) return;
     var doc;
     var docType;
     var notations;
     var notationNode;
     var publicId;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -23502,7 +21785,9 @@ exports.tests = {
 
     assertEquals("publicId","notation1File",publicId);
 
+    test.done();
   },
+
   /**
    *
    The "getPublicId()" method of a Notation node contains
@@ -23518,20 +21803,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-54F2B4D0
    */
-  notationgetpublicidnull : function () {
+  notationgetpublicidnull: function(test) {
     var success;
-    if(checkInitialization(builder, "notationgetpublicidnull") != null) return;
     var doc;
     var docType;
     var notations;
     var notationNode;
     var publicId;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -23543,7 +21823,9 @@ exports.tests = {
 
     assertNull("publicId",publicId);
 
+    test.done();
   },
+
   /**
    *
    The "getSystemId()" method of a Notation node contains
@@ -23558,9 +21840,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E8AAB1D0
    */
-  notationgetsystemid : function () {
+  notationgetsystemid: function(test) {
     var success;
-    if(checkInitialization(builder, "notationgetsystemid") != null) return;
     var doc;
     var docType;
     var notations;
@@ -23568,11 +21849,7 @@ exports.tests = {
     var systemId;
     var index;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -23584,7 +21861,9 @@ exports.tests = {
 
     assertURIEquals("uriEquals",null,null,null,"notation2File",null,null,null,null,systemId);
 
+    test.done();
   },
+
   /**
    *
    Retrieve the notation named "notation1" and access its
@@ -23596,20 +21875,15 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E8AAB1D0
    */
-  notationgetsystemidnull : function () {
+  notationgetsystemidnull: function(test) {
     var success;
-    if(checkInitialization(builder, "notationgetsystemidnull") != null) return;
     var doc;
     var docType;
     var notations;
     var notationNode;
     var systemId;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -23621,7 +21895,9 @@ exports.tests = {
 
     assertNull("systemId",systemId);
 
+    test.done();
   },
+
   /**
    *
    The "getData()" method returns the content of the
@@ -23639,19 +21915,14 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-837822393
    */
-  processinginstructiongetdata : function () {
+  processinginstructiongetdata: function(test) {
     var success;
-    if(checkInitialization(builder, "processinginstructiongetdata") != null) return;
     var doc;
     var childNodes;
     var piNode;
     var data;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     childNodes = doc.childNodes;
 
     piNode = childNodes.item(0);
@@ -23659,7 +21930,9 @@ exports.tests = {
 
     assertEquals("processinginstructionGetTargetAssert","PIDATA",data);
 
+    test.done();
   },
+
   /**
    *
    The "getTarget()" method returns the target of the
@@ -23676,19 +21949,14 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1478689192
    */
-  processinginstructiongettarget : function () {
+  processinginstructiongettarget: function(test) {
     var success;
-    if(checkInitialization(builder, "processinginstructiongettarget") != null) return;
     var doc;
     var childNodes;
     var piNode;
     var target;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     childNodes = doc.childNodes;
 
     piNode = childNodes.item(0);
@@ -23696,7 +21964,9 @@ exports.tests = {
 
     assertEquals("processinginstructionGetTargetAssert","TEST-STYLE",target);
 
+    test.done();
   },
+
   /**
    *
    The "setData(data)" method for a processing instruction causes the
@@ -23715,20 +21985,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-837822393')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-837822393
    */
-  processinginstructionsetdatanomodificationallowederr : function () {
+  processinginstructionsetdatanomodificationallowederr: function(test) {
     var success;
-    if(checkInitialization(builder, "processinginstructionsetdatanomodificationallowederr") != null) return;
     var doc;
     var genderList;
     var gender;
     var entRef;
     var piNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     entRef = gender.firstChild;
@@ -23750,7 +22015,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "setData(data)" method for a processing instruction causes the
@@ -23770,9 +22037,8 @@ exports.tests = {
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Apr/0053.html
    * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/processinginstructionsetdatanomodificationallowederr.xml
    */
-  processinginstructionsetdatanomodificationallowederrEE : function () {
+  processinginstructionsetdatanomodificationallowederrEE: function(test) {
     var success;
-    if(checkInitialization(builder, "processinginstructionsetdatanomodificationallowederrEE") != null) return;
     var doc;
     var genderList;
     var gender;
@@ -23780,11 +22046,7 @@ exports.tests = {
     var piNode;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     entRef = doc.createEntityReference("ent4");
@@ -23808,7 +22070,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "splitText(offset)" method raises an
@@ -23826,20 +22090,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-38853C1D')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    */
-  textindexsizeerrnegativeoffset : function () {
+  textindexsizeerrnegativeoffset: function(test) {
     var success;
-    if(checkInitialization(builder, "textindexsizeerrnegativeoffset") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var textNode;
     var splitNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -23856,7 +22115,9 @@ exports.tests = {
       assertTrue("throws_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "splitText(offset)" method raises an
@@ -23876,20 +22137,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-38853C1D')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
    */
-  textindexsizeerroffsetoutofbounds : function () {
+  textindexsizeerroffsetoutofbounds: function(test) {
     var success;
-    if(checkInitialization(builder, "textindexsizeerroffsetoutofbounds") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var textNode;
     var splitNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -23906,7 +22162,9 @@ exports.tests = {
       assertTrue("throw_INDEX_SIZE_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Retrieve the textual data from the last child of the
@@ -23922,9 +22180,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-11C98490
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-745549614
    */
-  textparseintolistofelements : function () {
+  textparseintolistofelements: function(test) {
     var success;
-    if(checkInitialization(builder, "textparseintolistofelements") != null) return;
     var doc;
     var elementList;
     var addressNode;
@@ -23945,11 +22202,7 @@ exports.tests = {
     expectedExpanded[0] = "1900 Dallas Road Dallas, Texas\n 98554";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     addressNode = elementList.item(1);
     childList = addressNode.childNodes;
@@ -23994,7 +22247,9 @@ exports.tests = {
 
     }
 
+    test.done();
   },
+
   /**
    *
    The "splitText(offset)" method returns the new Text node.
@@ -24011,9 +22266,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  textsplittextfour : function () {
+  textsplittextfour: function(test) {
     var success;
-    if(checkInitialization(builder, "textsplittextfour") != null) return;
     var doc;
     var elementList;
     var addressNode;
@@ -24021,11 +22275,7 @@ exports.tests = {
     var splitNode;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     addressNode = elementList.item(0);
     textNode = addressNode.firstChild;
@@ -24035,7 +22285,9 @@ exports.tests = {
 
     assertEquals("textSplitTextFourAssert","98551",value);
 
+    test.done();
   },
+
   /**
    *
    The "splitText(offset)" method raises a
@@ -24054,9 +22306,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-38853C1D')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  textsplittextnomodificationallowederr : function () {
+  textsplittextnomodificationallowederr: function(test) {
     var success;
-    if(checkInitialization(builder, "textsplittextnomodificationallowederr") != null) return;
     var doc;
     var genderList;
     var gender;
@@ -24066,11 +22317,7 @@ exports.tests = {
     var splitNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     entRef = gender.firstChild;
@@ -24104,7 +22351,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    Create an ent3 reference and execute the "splitText(offset)" method.
@@ -24117,19 +22366,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/textsplittextnomodificationallowederr.xml
    */
-  textsplittextnomodificationallowederrEE : function () {
+  textsplittextnomodificationallowederrEE: function(test) {
     var success;
-    if(checkInitialization(builder, "textsplittextnomodificationallowederrEE") != null) return;
     var doc;
     var entRef;
     var entText;
     var splitNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     entRef = doc.createEntityReference("ent3");
     assertNotNull("createdEntRefNotNull",entRef);
     entText = entRef.firstChild;
@@ -24147,7 +22391,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done();
   },
+
   /**
    *
    The "splitText(offset)" method breaks the Text node into
@@ -24165,9 +22411,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  textsplittextone : function () {
+  textsplittextone: function(test) {
     var success;
-    if(checkInitialization(builder, "textsplittextone") != null) return;
     var doc;
     var elementList;
     var nameNode;
@@ -24176,11 +22421,7 @@ exports.tests = {
     var secondPart;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -24192,7 +22433,9 @@ exports.tests = {
 
     assertEquals("textSplitTextOneAssert","Jones",value);
 
+    test.done();
   },
+
   /**
    *
    After the "splitText(offset)" method breaks the Text node
@@ -24211,9 +22454,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  textsplittextthree : function () {
+  textsplittextthree: function(test) {
     var success;
-    if(checkInitialization(builder, "textsplittextthree") != null) return;
     var doc;
     var elementList;
     var nameNode;
@@ -24221,11 +22463,7 @@ exports.tests = {
     var splitNode;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -24235,7 +22473,9 @@ exports.tests = {
 
     assertEquals("textSplitTextThreeAssert"," Jones",value);
 
+    test.done();
   },
+
   /**
    *
    After the "splitText(offset)" method breaks the Text node
@@ -24253,9 +22493,8 @@ exports.tests = {
    * @author Mary Brady
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
    */
-  textsplittexttwo : function () {
+  textsplittexttwo: function(test) {
     var success;
-    if(checkInitialization(builder, "textsplittexttwo") != null) return;
     var doc;
     var elementList;
     var nameNode;
@@ -24263,11 +22502,7 @@ exports.tests = {
     var splitNode;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -24277,7 +22512,9 @@ exports.tests = {
 
     assertEquals("textSplitTextTwoAssert","Roger",value);
 
+    test.done();
   },
+
   /**
    *
    If there is not any markup inside an Element or Attr node
@@ -24296,20 +22533,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1312295772
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
    */
-  textwithnomarkup : function () {
+  textwithnomarkup: function(test) {
     var success;
-    if(checkInitialization(builder, "textwithnomarkup") != null) return;
     var doc;
     var elementList;
     var nameNode;
     var nodeV;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(2);
     nodeV = nameNode.firstChild;
@@ -24317,6 +22549,6 @@ exports.tests = {
     value = nodeV.nodeValue;
 
     assertEquals("textNodeValue","Roger\n Jones",value);
-
+    test.done();
   }
 };
