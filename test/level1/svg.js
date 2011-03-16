@@ -39,7 +39,7 @@ exports.tests = {
     attrs = domesticAttr.item(0);
     attrName = attrs.name;
 
-    assertEquals("attrCreateDocumentFragmentAssert","newdomestic",attrName);
+    test.equal(attrName, 'newdomestic', 'attrCreateDocumentFragmentAssert');
 
     test.done();
   },
@@ -79,10 +79,10 @@ exports.tests = {
 
     value = streetAttr.value;
 
-    assertEquals("value","Y&ent1;",value);
+    test.equal(value, 'Y&ent1;', 'value');
     value = streetAttr.nodeValue;
 
-    assertEquals("nodeValue","Y&ent1;",value);
+    test.equal(value, 'Y&ent1;', 'nodeValue');
 
     test.done();
   },
@@ -121,10 +121,10 @@ exports.tests = {
 
     value = streetAttr.value;
 
-    assertEquals("value","Y&ent1;",value);
+    test.equal(value, 'Y&ent1;', 'value');
     value = streetAttr.nodeValue;
 
-    assertEquals("nodeValue","Y&ent1;",value);
+    test.equal(value, 'Y&ent1;', 'nodeValue');
 
     test.done();
   },
@@ -165,7 +165,7 @@ exports.tests = {
     streetAttr = attributes.getNamedItem("street");
     value = streetAttr.nodeValue;
 
-    assertEquals("attrDefaultValueAssert","Yes",value);
+    test.equal(value, 'Yes', 'attrDefaultValueAssert');
 
     test.done();
   },
@@ -199,7 +199,7 @@ exports.tests = {
     domesticAttr = attributes.getNamedItem("domestic");
     value = domesticAttr.nodeValue;
 
-    assertEquals("attrEffectiveValueAssert","Yes",value);
+    test.equal(value, 'Yes', 'attrEffectiveValueAssert');
 
     test.done();
   },
@@ -238,7 +238,7 @@ exports.tests = {
     streetAttr = attributes.getNamedItem("street");
     value = streetAttr.value;
 
-    assertEquals("streetYes","Yes",value);
+    test.equal(value, 'Yes', 'streetYes');
 
     test.done();
   },
@@ -273,10 +273,10 @@ exports.tests = {
     streetAttr = attributes.getNamedItem("street");
     name = streetAttr.nodeName;
 
-    assertEquals("nodeName","street",name);
+    test.equal(name, 'street', 'nodeName');
     name = streetAttr.name;
 
-    assertEquals("name","street",name);
+    test.equal(name, 'street', 'name');
 
     test.done();
   },
@@ -804,10 +804,10 @@ exports.tests = {
 
     nodeType = lastChild.nodeType;
 
-    assertEquals("isCDATA",4,nodeType);
+    test.equal(nodeType, 4, 'isCDATA');
     data = lastChild.data;
 
-    assertEquals("data","This is an adjacent CDATASection with a reference to a tab &tab;",data);
+    test.equal(data, 'This is an adjacent CDATASection with a reference to a tab &tab;', 'data');
 
     test.done();
   },
@@ -844,12 +844,12 @@ exports.tests = {
     test.notEqual(cdataN, null, 'firstCDATASection');
     data = cdataN.data;
 
-    assertEquals("data1","This is a CDATASection with EntityReference number 2 &ent2;",data);
+    test.equal(data, 'This is a CDATASection with EntityReference number 2 &ent2;', 'data1');
     cdataN = childNodes.item(3);
     test.notEqual(cdataN, null, 'secondCDATASection');
     data = cdataN.data;
 
-    assertEquals("data3","This is an adjacent CDATASection with a reference to a tab &tab;",data);
+    test.equal(data, 'This is an adjacent CDATASection with a reference to a tab &tab;', 'data3');
 
     test.done();
   },
@@ -889,7 +889,7 @@ exports.tests = {
     childValue = child.data;
 
     childLength = childValue.length;
-    assertEquals("characterdataAppendDataAssert",24,childLength);
+    test.equal(childLength, 24, 'characterdataAppendDataAssert');
 
     test.done();
   },
@@ -928,7 +928,7 @@ exports.tests = {
     child.appendData(", Esquire");
     childData = child.data;
 
-    assertEquals("characterdataAppendDataGetDataAssert","Margaret Martin, Esquire",childData);
+    test.equal(childData, 'Margaret Martin, Esquire', 'characterdataAppendDataGetDataAssert');
 
     test.done();
   },
@@ -1073,7 +1073,7 @@ exports.tests = {
     child.deleteData(0,16);
     childData = child.data;
 
-    assertEquals("characterdataDeleteDataBeginingAssert","Dallas, Texas 98551",childData);
+    test.equal(childData, 'Dallas, Texas 98551', 'characterdataDeleteDataBeginingAssert');
 
     test.done();
   },
@@ -1112,7 +1112,7 @@ exports.tests = {
     child.deleteData(30,5);
     childData = child.data;
 
-    assertEquals("characterdataDeleteDataEndAssert","1230 North Ave. Dallas, Texas ",childData);
+    test.equal(childData, '1230 North Ave. Dallas, Texas ', 'characterdataDeleteDataEndAssert');
 
     test.done();
   },
@@ -1153,7 +1153,7 @@ exports.tests = {
     child.deleteData(4,50);
     childData = child.data;
 
-    assertEquals("characterdataDeleteDataExceedsLengthAssert","1230",childData);
+    test.equal(childData, '1230', 'characterdataDeleteDataExceedsLengthAssert');
 
     test.done();
   },
@@ -1198,10 +1198,10 @@ exports.tests = {
     child.deleteData(30,5);
     childData = child.data;
 
-    assertEquals("data","1230 North Ave. Dallas, Texas ",childData);
+    test.equal(childData, '1230 North Ave. Dallas, Texas ', 'data');
     childLength = child.length;
 
-    assertEquals("length",30,childLength);
+    test.equal(childLength, 30, 'length');
 
     test.done();
   },
@@ -1240,7 +1240,7 @@ exports.tests = {
     child.deleteData(16,8);
     childData = child.data;
 
-    assertEquals("characterdataDeleteDataMiddleAssert","1230 North Ave. Texas 98551",childData);
+    test.equal(childData, '1230 North Ave. Texas 98551', 'characterdataDeleteDataMiddleAssert');
 
     test.done();
   },
@@ -1387,7 +1387,7 @@ exports.tests = {
 
     childData = child.data;
 
-    assertEquals("characterdataGetDataAssert","Margaret Martin",childData);
+    test.equal(childData, 'Margaret Martin', 'characterdataGetDataAssert');
 
     test.done();
   },
@@ -1422,7 +1422,7 @@ exports.tests = {
     childValue = child.data;
 
     childLength = childValue.length;
-    assertEquals("characterdataGetLengthAssert",15,childLength);
+    test.equal(childLength, 15, 'characterdataGetLengthAssert');
 
     test.done();
   },
@@ -1961,7 +1961,7 @@ exports.tests = {
     child.insertData(0,"Mss. ");
     childData = child.data;
 
-    assertEquals("characterdataInsertDataBeginningAssert","Mss. Margaret Martin",childData);
+    test.equal(childData, 'Mss. Margaret Martin', 'characterdataInsertDataBeginningAssert');
 
     test.done();
   },
@@ -2000,7 +2000,7 @@ exports.tests = {
     child.insertData(15,", Esquire");
     childData = child.data;
 
-    assertEquals("characterdataInsertDataEndAssert","Margaret Martin, Esquire",childData);
+    test.equal(childData, 'Margaret Martin, Esquire', 'characterdataInsertDataEndAssert');
 
     test.done();
   },
@@ -2039,7 +2039,7 @@ exports.tests = {
     child.insertData(9,"Ann ");
     childData = child.data;
 
-    assertEquals("characterdataInsertDataMiddleAssert","Margaret Ann Martin",childData);
+    test.equal(childData, 'Margaret Ann Martin', 'characterdataInsertDataMiddleAssert');
 
     test.done();
   },
@@ -2182,7 +2182,7 @@ exports.tests = {
     child.replaceData(0,4,"2500");
     childData = child.data;
 
-    assertEquals("characterdataReplaceDataBeginingAssert","2500 North Ave. Dallas, Texas 98551",childData);
+    test.equal(childData, '2500 North Ave. Dallas, Texas 98551', 'characterdataReplaceDataBeginingAssert');
 
     test.done();
   },
@@ -2221,7 +2221,7 @@ exports.tests = {
     child.replaceData(30,5,"98665");
     childData = child.data;
 
-    assertEquals("characterdataReplaceDataEndAssert","1230 North Ave. Dallas, Texas 98665",childData);
+    test.equal(childData, '1230 North Ave. Dallas, Texas 98665', 'characterdataReplaceDataEndAssert');
 
     test.done();
   },
@@ -2261,7 +2261,7 @@ exports.tests = {
     child.replaceData(0,4,"260030");
     childData = child.data;
 
-    assertEquals("characterdataReplaceDataExceedsLengthOfArgAssert","260030 North Ave. Dallas, Texas 98551",childData);
+    test.equal(childData, '260030 North Ave. Dallas, Texas 98551', 'characterdataReplaceDataExceedsLengthOfArgAssert');
 
     test.done();
   },
@@ -2299,7 +2299,7 @@ exports.tests = {
     child.replaceData(0,50,"2600");
     childData = child.data;
 
-    assertEquals("characterdataReplaceDataExceedsLengthOfDataAssert","2600",childData);
+    test.equal(childData, '2600', 'characterdataReplaceDataExceedsLengthOfDataAssert');
 
     test.done();
   },
@@ -2338,7 +2338,7 @@ exports.tests = {
     child.replaceData(5,5,"South");
     childData = child.data;
 
-    assertEquals("characterdataReplaceDataMiddleAssert","1230 South Ave. Dallas, Texas 98551",childData);
+    test.equal(childData, '1230 South Ave. Dallas, Texas 98551', 'characterdataReplaceDataMiddleAssert');
 
     test.done();
   },
@@ -2587,10 +2587,10 @@ exports.tests = {
 
     childData = child.data;
 
-    assertEquals("data","Marilyn Martin",childData);
+    test.equal(childData, 'Marilyn Martin', 'data');
     childValue = child.nodeValue;
 
-    assertEquals("value","Marilyn Martin",childValue);
+    test.equal(childValue, 'Marilyn Martin', 'value');
 
     test.done();
   },
@@ -2626,7 +2626,7 @@ exports.tests = {
     child = nameNode.firstChild;
 
     substring = child.substringData(9,10);
-    assertEquals("characterdataSubStringExceedsValueAssert","Martin",substring);
+    test.equal(substring, 'Martin', 'characterdataSubStringExceedsValueAssert');
 
     test.done();
   },
@@ -2661,7 +2661,7 @@ exports.tests = {
     child = nameNode.firstChild;
 
     substring = child.substringData(0,8);
-    assertEquals("characterdataSubStringValueAssert","Margaret",substring);
+    test.equal(substring, 'Margaret', 'characterdataSubStringValueAssert');
 
     test.done();
   },
@@ -2703,16 +2703,16 @@ exports.tests = {
       ) {
         childName = child.nodeName;
 
-        assertEquals("nodeName","#comment",childName);
+        test.equal(childName, '#comment', 'nodeName');
         childValue = child.nodeValue;
 
-        assertEquals("nodeValue"," This is comment number 1.",childValue);
+        test.equal(childValue, ' This is comment number 1.', 'nodeValue');
         commentCount = commentCount + 1;
 
       }
 
     }
-    assertEquals("commentCount",1,commentCount);
+    test.equal(commentCount, 1, 'commentCount');
 
     test.done();
   },
@@ -2744,13 +2744,13 @@ exports.tests = {
     newAttrNode = doc.createAttribute("district");
     attrValue = newAttrNode.nodeValue;
 
-    assertEquals("value","",attrValue);
+    test.equal(attrValue, '', 'value');
     attrName = newAttrNode.nodeName;
 
-    assertEquals("name","district",attrName);
+    test.equal(attrName, 'district', 'name');
     attrType = newAttrNode.nodeType;
 
-    assertEquals("type",2,attrType);
+    test.equal(attrType, 2, 'type');
 
     test.done();
   },
@@ -2781,13 +2781,13 @@ exports.tests = {
     newCDATASectionNode = doc.createCDATASection("This is a new CDATASection node");
     newCDATASectionValue = newCDATASectionNode.nodeValue;
 
-    assertEquals("nodeValue","This is a new CDATASection node",newCDATASectionValue);
+    test.equal(newCDATASectionValue, 'This is a new CDATASection node', 'nodeValue');
     newCDATASectionName = newCDATASectionNode.nodeName;
 
-    assertEquals("nodeName","#cdata-section",newCDATASectionName);
+    test.equal(newCDATASectionName, '#cdata-section', 'nodeName');
     newCDATASectionType = newCDATASectionNode.nodeType;
 
-    assertEquals("nodeType",4,newCDATASectionType);
+    test.equal(newCDATASectionType, 4, 'nodeType');
 
     test.done();
   },
@@ -2817,13 +2817,13 @@ exports.tests = {
     newCommentNode = doc.createComment("This is a new Comment node");
     newCommentValue = newCommentNode.nodeValue;
 
-    assertEquals("value","This is a new Comment node",newCommentValue);
+    test.equal(newCommentValue, 'This is a new Comment node', 'value');
     newCommentName = newCommentNode.nodeName;
 
-    assertEquals("name","#comment",newCommentName);
+    test.equal(newCommentName, '#comment', 'name');
     newCommentType = newCommentNode.nodeType;
 
-    assertEquals("type",8,newCommentType);
+    test.equal(newCommentType, 8, 'type');
 
     test.done();
   },
@@ -2856,13 +2856,13 @@ exports.tests = {
 
     length = children.length;
 
-    assertEquals("length",0,length);
+    test.equal(length, 0, 'length');
     newDocFragmentName = newDocFragment.nodeName;
 
-    assertEquals("name","#document-fragment",newDocFragmentName);
+    test.equal(newDocFragmentName, '#document-fragment', 'name');
     newDocFragmentType = newDocFragment.nodeType;
 
-    assertEquals("type",11,newDocFragmentType);
+    test.equal(newDocFragmentType, 11, 'type');
     newDocFragmentValue = newDocFragment.nodeValue;
 
     test.equal(newDocFragmentValue, null, 'value');
@@ -2896,10 +2896,10 @@ exports.tests = {
     newElement = doc.createElement("address");
     newElementName = newElement.nodeName;
 
-    assertEquals("name","address",newElementName);
+    test.equal(newElementName, 'address', 'name');
     newElementType = newElement.nodeType;
 
-    assertEquals("type",1,newElementType);
+    test.equal(newElementType, 1, 'type');
     newElementValue = newElement.nodeValue;
 
     test.equal(newElementValue, null, 'valueInitiallyNull');
@@ -2938,8 +2938,8 @@ exports.tests = {
     attribute1 = newElement1.getAttribute("district");
 
     attribute2 = newElement2.getAttribute("county");
-    assertEquals("attrib1","Fort Worth",attribute1);
-    assertEquals("attrib2","Dallas",attribute2);
+    test.equal(attribute1, 'Fort Worth', 'attrib1');
+    test.equal(attribute2, 'Dallas', 'attrib2');
 
     test.done();
   },
@@ -2979,10 +2979,10 @@ exports.tests = {
     test.notEqual(child, null, 'defaultAttrNotNull');
     name = child.nodeName;
 
-    assertEquals("attrName","street",name);
+    test.equal(name, 'street', 'attrName');
     value = child.nodeValue;
 
-    assertEquals("attrValue","Yes",value);
+    test.equal(value, 'Yes', 'attrValue');
     assertSize("attrCount",1,defaultAttr);
 
     test.done();
@@ -3021,10 +3021,10 @@ exports.tests = {
     test.equal(entRefValue, null, 'value');
     entRefName = newEntRefNode.nodeName;
 
-    assertEquals("name","ent1",entRefName);
+    test.equal(entRefName, 'ent1', 'name');
     entRefType = newEntRefNode.nodeType;
 
-    assertEquals("type",5,entRefType);
+    test.equal(entRefType, 5, 'type');
 
     test.done();
   },
@@ -3066,10 +3066,10 @@ exports.tests = {
 
     name = child.nodeName;
 
-    assertEquals("name","#text",name);
+    test.equal(name, '#text', 'name');
     value = child.nodeValue;
 
-    assertEquals("value","Texas",value);
+    test.equal(value, 'Texas', 'value');
 
     test.done();
   },
@@ -3107,13 +3107,13 @@ exports.tests = {
     test.notEqual(newPINode, null, 'createdPINotNull');
     piName = newPINode.nodeName;
 
-    assertEquals("name","TESTPI",piName);
+    test.equal(piName, 'TESTPI', 'name');
     piValue = newPINode.nodeValue;
 
-    assertEquals("value","This is a new PI node",piValue);
+    test.equal(piValue, 'This is a new PI node', 'value');
     piType = newPINode.nodeType;
 
-    assertEquals("type",7,piType);
+    test.equal(piType, 7, 'type');
 
     test.done();
   },
@@ -3143,13 +3143,13 @@ exports.tests = {
     newTextNode = doc.createTextNode("This is a new Text node");
     newTextValue = newTextNode.nodeValue;
 
-    assertEquals("value","This is a new Text node",newTextValue);
+    test.equal(newTextValue, 'This is a new Text node', 'value');
     newTextName = newTextNode.nodeName;
 
-    assertEquals("name","#text",newTextName);
+    test.equal(newTextName, '#text', 'name');
     newTextType = newTextNode.nodeType;
 
-    assertEquals("type",3,newTextType);
+    test.equal(newTextType, 3, 'type');
 
     test.done();
   },
@@ -3180,7 +3180,7 @@ exports.tests = {
     docType = doc.doctype;
     test.notEqual(docType, null, 'docTypeNotNull');
     docTypeName = docType.name;
-    assertEquals("doctypeNameSVG","svg",docTypeName);
+    test.equal(docTypeName, 'svg', 'doctypeNameSVG');
     nodeValue = docType.nodeValue;
     test.equal(nodeValue, null, 'initiallyNull');
     test.done();
@@ -3287,7 +3287,7 @@ exports.tests = {
 
     childValue = firstChild.nodeValue;
 
-    assertEquals("documentGetElementsByTagNameValueAssert","Jeny Oconnor",childValue);
+    test.equal(childValue, 'Jeny Oconnor', 'documentGetElementsByTagNameValueAssert');
 
     test.done();
   },
@@ -3341,7 +3341,7 @@ exports.tests = {
     doc = staff.staff();
     root = doc.documentElement;
     rootName = root.nodeName;
-    assertEquals("svgRootNode","svg",rootName);
+    test.equal(rootName, 'svg', 'svgRootNode');
     test.done();
   },
 
@@ -3564,7 +3564,7 @@ exports.tests = {
     docType = doc.doctype;
     test.notEqual(docType, null, 'docTypeNotNull');
     name = docType.name;
-    assertEquals("doctypeName","svg",name);
+    test.equal(name, 'svg', 'doctypeName');
     test.done();
   },
 
@@ -3686,7 +3686,7 @@ exports.tests = {
       entity = entityList.item(indexN10049);
       entityType = entity.nodeType;
 
-      assertEquals("documenttypeGetEntitiesTypeAssert",6,entityType);
+      test.equal(entityType, 6, 'documenttypeGetEntitiesTypeAssert');
 
     }
 
@@ -3772,7 +3772,7 @@ exports.tests = {
       notation = notationList.item(indexN10049);
       notationType = notation.nodeType;
 
-      assertEquals("documenttypeGetNotationsTypeAssert",12,notationType);
+      test.equal(notationType, 12, 'documenttypeGetNotationsTypeAssert');
 
     }
 
@@ -3876,7 +3876,7 @@ exports.tests = {
     testEmployee = elementList.item(4);
     testEmployee.setAttribute("district","dallas");
     attrValue = testEmployee.getAttribute("district");
-    assertEquals("elementAddNewAttributeAssert","dallas",attrValue);
+    test.equal(attrValue, 'dallas', 'elementAddNewAttributeAssert');
 
     test.done();
   },
@@ -3948,7 +3948,7 @@ exports.tests = {
     testEmployee = elementList.item(3);
     testEmployee.setAttribute("street","Neither");
     attrValue = testEmployee.getAttribute("street");
-    assertEquals("elementChangeAttributeValueAssert","Neither",attrValue);
+    test.equal(attrValue, 'Neither', 'elementChangeAttributeValueAssert');
 
     test.done();
   },
@@ -3987,7 +3987,7 @@ exports.tests = {
     districtAttr = testAddress.getAttributeNode("district");
     test.notEqual(districtAttr, null, 'new_district_accessible');
     attrVal = testAddress.getAttribute("district");
-    assertEquals("attr_value","",attrVal);
+    test.equal(attrVal, '', 'attr_value');
 
     test.done();
   },
@@ -4020,7 +4020,7 @@ exports.tests = {
     domesticAttr = testEmployee.getAttributeNode("domestic");
     name = domesticAttr.nodeName;
 
-    assertEquals("elementGetAttributeNodeAssert","domestic",name);
+    test.equal(name, 'domestic', 'elementGetAttributeNodeAssert');
 
     test.done();
   },
@@ -4089,7 +4089,7 @@ exports.tests = {
     testEmployee = elementList.item(3);
     domesticAttr = testEmployee.setAttributeNode(newAttribute);
     attrValue = testEmployee.getAttribute("district");
-    assertEquals("elementGetElementEmptyAssert","",attrValue);
+    test.equal(attrValue, '', 'elementGetElementEmptyAssert');
 
     test.done();
   },
@@ -4158,12 +4158,12 @@ exports.tests = {
     }
     childName = child.nodeName;
 
-    assertEquals("nodename","employeeId",childName);
+    test.equal(childName, 'employeeId', 'nodename');
     child = child.firstChild;
 
     childValue = child.nodeValue;
 
-    assertEquals("emp0004","EMP0004",childValue);
+    test.equal(childValue, 'EMP0004', 'emp0004');
 
     test.done();
   },
@@ -4272,7 +4272,7 @@ exports.tests = {
     doc = staff.staff();
     root = doc.documentElement;
     tagname = root.tagName;
-    assertEquals("svgTagName","svg",tagname);
+    test.equal(tagname, 'svg', 'svgTagName');
     test.done();
   },
 
@@ -4413,7 +4413,7 @@ exports.tests = {
 
     childValue = firstChild.nodeValue;
 
-    assertEquals("elementNormalizeAssert","Roger\n Jones",childValue);
+    test.equal(childValue, 'Roger\n Jones', 'elementNormalizeAssert');
 
     test.done();
   },
@@ -4494,7 +4494,7 @@ exports.tests = {
     testEmployee = elementList.item(3);
     testEmployee.removeAttribute("street");
     attrValue = testEmployee.getAttribute("street");
-    assertEquals("streetYes","Yes",attrValue);
+    test.equal(attrValue, 'Yes', 'streetYes');
 
     test.done();
   },
@@ -4567,7 +4567,7 @@ exports.tests = {
     removedAttr = testEmployee.removeAttributeNode(streetAttr);
     removedValue = removedAttr.value;
 
-    assertEquals("elementRemoveAttributeNodeAssert","No",removedValue);
+    test.equal(removedValue, 'No', 'elementRemoveAttributeNodeAssert');
 
     test.done();
   },
@@ -4847,7 +4847,7 @@ exports.tests = {
     streetAttr = testEmployee.getAttributeNode("street");
     removedAttr = testEmployee.removeAttributeNode(streetAttr);
     attribute = testEmployee.getAttribute("street");
-    assertEquals("streetYes","Yes",attribute);
+    test.equal(attribute, 'Yes', 'streetYes');
 
     test.done();
   },
@@ -4916,7 +4916,7 @@ exports.tests = {
     newAttribute = doc.createAttribute("street");
     setAttr = testEmployee.setAttributeNode(newAttribute);
     name = testEmployee.getAttribute("street");
-    assertEquals("elementReplaceExistingAttributeAssert","",name);
+    test.equal(name, '', 'elementReplaceExistingAttributeAssert');
 
     test.done();
   },
@@ -4954,7 +4954,7 @@ exports.tests = {
     streetAttr = testEmployee.setAttributeNode(newAttribute);
     value = streetAttr.value;
 
-    assertEquals("streetNo","No",value);
+    test.equal(value, 'No', 'streetNo');
 
     test.done();
   },
@@ -5017,7 +5017,7 @@ exports.tests = {
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(2);
     attrValue = testAddress.getAttribute("street");
-    assertEquals("attrValue","No",attrValue);
+    test.equal(attrValue, 'No', 'attrValue');
 
     test.done();
   },
@@ -5048,10 +5048,10 @@ exports.tests = {
     testEmployee = elementList.item(1);
     name = testEmployee.nodeName;
 
-    assertEquals("nodename","position",name);
+    test.equal(name, 'position', 'nodename');
     name = testEmployee.tagName;
 
-    assertEquals("tagname","position",name);
+    test.equal(name, 'position', 'tagname');
 
     test.done();
   },
@@ -5414,7 +5414,7 @@ exports.tests = {
     entityNode = entityList.getNamedItem("ent1");
     entityName = entityNode.nodeName;
 
-    assertEquals("entityGetEntityNameAssert","ent1",entityName);
+    test.equal(entityName, 'ent1', 'entityGetEntityNameAssert');
 
     test.done();
   },
@@ -5455,13 +5455,13 @@ exports.tests = {
     entityNode = entityList.getNamedItem("ent5");
     publicId = entityNode.publicId;
 
-    assertEquals("publicId","entityURI",publicId);
+    test.equal(publicId, 'entityURI', 'publicId');
     systemId = entityNode.systemId;
 
     assertURIEquals("systemId",null,null,null,"entityFile",null,null,null,null,systemId);
     notation = entityNode.notationName;
 
-    assertEquals("notation","notation1",notation);
+    test.equal(notation, 'notation1', 'notation');
 
     test.done();
   },
@@ -5535,18 +5535,18 @@ exports.tests = {
     retval = titleAttr.appendChild(textNode);
     value = titleAttr.value;
 
-    assertEquals("attrValue","Yesterday",value);
+    test.equal(value, 'Yesterday', 'attrValue');
     value = titleAttr.nodeValue;
 
-    assertEquals("attrNodeValue","Yesterday",value);
+    test.equal(value, 'Yesterday', 'attrNodeValue');
     value = retval.nodeValue;
 
-    assertEquals("retvalValue","terday",value);
+    test.equal(value, 'terday', 'retvalValue');
     lastChild = titleAttr.lastChild;
 
     value = lastChild.nodeValue;
 
-    assertEquals("lastChildValue","terday",value);
+    test.equal(value, 'terday', 'lastChildValue');
 
     test.done();
   },
@@ -5630,10 +5630,10 @@ exports.tests = {
     retval = titleAttr.appendChild(docFrag);
     value = titleAttr.value;
 
-    assertEquals("attrValue","Yesterday",value);
+    test.equal(value, 'Yesterday', 'attrValue');
     value = titleAttr.nodeValue;
 
-    assertEquals("attrNodeValue","Yesterday",value);
+    test.equal(value, 'Yesterday', 'attrNodeValue');
     value = retval.nodeValue;
 
     test.equal(value, null, 'retvalValue');
@@ -5641,7 +5641,7 @@ exports.tests = {
 
     value = lastChild.nodeValue;
 
-    assertEquals("lastChildValue","day",value);
+    test.equal(value, 'day', 'lastChildValue');
 
     test.done();
   },
@@ -5762,18 +5762,18 @@ exports.tests = {
     retval = titleAttr.appendChild(textNode);
     value = titleAttr.value;
 
-    assertEquals("attrValue","Yesterday",value);
+    test.equal(value, 'Yesterday', 'attrValue');
     value = titleAttr.nodeValue;
 
-    assertEquals("attrNodeValue","Yesterday",value);
+    test.equal(value, 'Yesterday', 'attrNodeValue');
     value = retval.nodeValue;
 
-    assertEquals("retvalValue","Yesterday",value);
+    test.equal(value, 'Yesterday', 'retvalValue');
     lastChild = titleAttr.lastChild;
 
     value = lastChild.nodeValue;
 
-    assertEquals("lastChildValue","Yesterday",value);
+    test.equal(value, 'Yesterday', 'lastChildValue');
 
     test.done();
   },
@@ -5810,7 +5810,7 @@ exports.tests = {
     textNode = childNodes.item(0);
     value = textNode.nodeValue;
 
-    assertEquals("child1IsYes","Yes",value);
+    test.equal(value, 'Yes', 'child1IsYes');
     textNode = childNodes.item(1);
     test.equal(textNode, null, 'secondItemIsNull');
 
@@ -5851,11 +5851,11 @@ exports.tests = {
     textNode = childNodes.item(0);
     value = textNode.nodeValue;
 
-    assertEquals("child1IsYes","Yes",value);
+    test.equal(value, 'Yes', 'child1IsYes');
     textNode = childNodes.item(1);
     value = textNode.nodeValue;
 
-    assertEquals("child2IsTerday","terday",value);
+    test.equal(value, 'terday', 'child2IsTerday');
     textNode = childNodes.item(2);
     test.equal(textNode, null, 'thirdItemIsNull');
 
@@ -5899,15 +5899,15 @@ exports.tests = {
 
     value = clonedTitle.value;
 
-    assertEquals("attrValue","Yesterday",value);
+    test.equal(value, 'Yesterday', 'attrValue');
     value = clonedTitle.nodeValue;
 
-    assertEquals("attrNodeValue","Yesterday",value);
+    test.equal(value, 'Yesterday', 'attrNodeValue');
     lastChild = clonedTitle.lastChild;
 
     value = lastChild.nodeValue;
 
-    assertEquals("lastChildValue","terday",value);
+    test.equal(value, 'terday', 'lastChildValue');
 
     test.done();
   },
@@ -5960,7 +5960,7 @@ exports.tests = {
       }
 
     }
-    assertEquals("hasLangAttr",1,langAttrCount);
+    test.equal(langAttrCount, 1, 'hasLangAttr');
 
     test.done();
   },
@@ -5999,10 +5999,10 @@ exports.tests = {
 
     value = streetAttr.value;
 
-    assertEquals("value","Y&ent1;",value);
+    test.equal(value, 'Y&ent1;', 'value');
     value = streetAttr.nodeValue;
 
-    assertEquals("nodeValue","Y&ent1;",value);
+    test.equal(value, 'Y&ent1;', 'nodeValue');
 
     test.done();
   },
@@ -6041,10 +6041,10 @@ exports.tests = {
 
     value = streetAttr.value;
 
-    assertEquals("value","Y&ent1;",value);
+    test.equal(value, 'Y&ent1;', 'value');
     value = streetAttr.nodeValue;
 
-    assertEquals("nodeValue","Y&ent1;",value);
+    test.equal(value, 'Y&ent1;', 'nodeValue');
 
     test.done();
   },
@@ -6077,7 +6077,7 @@ exports.tests = {
     domesticAttr = attributes.getNamedItem("title");
     value = domesticAttr.nodeValue;
 
-    assertEquals("attrEffectiveValueAssert","Yes",value);
+    test.equal(value, 'Yes', 'attrEffectiveValueAssert');
 
     test.done();
   },
@@ -6113,7 +6113,7 @@ exports.tests = {
     test.notEqual(textNode, null, 'textNodeNotNull');
     value = textNode.nodeValue;
 
-    assertEquals("child1IsYes","Yes",value);
+    test.equal(value, 'Yes', 'child1IsYes');
     otherChild = textNode.nextSibling;
 
     test.equal(otherChild, null, 'nextSiblingIsNull');
@@ -6151,7 +6151,7 @@ exports.tests = {
     titleAttr = attributes.getNamedItem("class");
     value = titleAttr.value;
 
-    assertEquals("attrValue1","Yα",value);
+    test.equal(value, 'Yα', 'attrValue1');
 
     test.done();
   },
@@ -6189,7 +6189,7 @@ exports.tests = {
     retval = titleAttr.insertBefore(alphaRef,firstChild);
     value = titleAttr.value;
 
-    assertEquals("attrValue1","αYα",value);
+    test.equal(value, 'αYα', 'attrValue1');
     test.done();
   },
 
@@ -6259,23 +6259,23 @@ exports.tests = {
     retval = titleAttr.insertBefore(textNode,refChild);
     value = titleAttr.value;
 
-    assertEquals("attrValue","Yesterday",value);
+    test.equal(value, 'Yesterday', 'attrValue');
     value = titleAttr.nodeValue;
 
-    assertEquals("attrNodeValue","Yesterday",value);
+    test.equal(value, 'Yesterday', 'attrNodeValue');
     value = retval.nodeValue;
 
-    assertEquals("retvalValue","terday",value);
+    test.equal(value, 'terday', 'retvalValue');
     firstChild = titleAttr.firstChild;
 
     value = firstChild.nodeValue;
 
-    assertEquals("firstChildValue","Yes",value);
+    test.equal(value, 'Yes', 'firstChildValue');
     lastChild = titleAttr.lastChild;
 
     value = lastChild.nodeValue;
 
-    assertEquals("lastChildValue","terday",value);
+    test.equal(value, 'terday', 'lastChildValue');
 
     test.done();
   },
@@ -6315,23 +6315,23 @@ exports.tests = {
     retval = titleAttr.insertBefore(textNode,refChild);
     value = titleAttr.value;
 
-    assertEquals("attrValue","terdayYes",value);
+    test.equal(value, 'terdayYes', 'attrValue');
     value = titleAttr.nodeValue;
 
-    assertEquals("attrNodeValue","terdayYes",value);
+    test.equal(value, 'terdayYes', 'attrNodeValue');
     value = retval.nodeValue;
 
-    assertEquals("retvalValue","terday",value);
+    test.equal(value, 'terday', 'retvalValue');
     firstChild = titleAttr.firstChild;
 
     value = firstChild.nodeValue;
 
-    assertEquals("firstChildValue","terday",value);
+    test.equal(value, 'terday', 'firstChildValue');
     lastChild = titleAttr.lastChild;
 
     value = lastChild.nodeValue;
 
-    assertEquals("lastChildValue","Yes",value);
+    test.equal(value, 'Yes', 'lastChildValue');
 
     test.done();
   },
@@ -6376,10 +6376,10 @@ exports.tests = {
     retval = titleAttr.insertBefore(docFrag,refChild);
     value = titleAttr.value;
 
-    assertEquals("attrValue","Yesterday",value);
+    test.equal(value, 'Yesterday', 'attrValue');
     value = titleAttr.nodeValue;
 
-    assertEquals("attrNodeValue","Yesterday",value);
+    test.equal(value, 'Yesterday', 'attrNodeValue');
     value = retval.nodeValue;
 
     test.equal(value, null, 'retvalValue');
@@ -6387,12 +6387,12 @@ exports.tests = {
 
     value = firstChild.nodeValue;
 
-    assertEquals("firstChildValue","Yes",value);
+    test.equal(value, 'Yes', 'firstChildValue');
     lastChild = titleAttr.lastChild;
 
     value = lastChild.nodeValue;
 
-    assertEquals("lastChildValue","day",value);
+    test.equal(value, 'day', 'lastChildValue');
 
     test.done();
   },
@@ -6438,10 +6438,10 @@ exports.tests = {
     retval = titleAttr.insertBefore(docFrag,refChild);
     value = titleAttr.value;
 
-    assertEquals("attrValue","terdayYes",value);
+    test.equal(value, 'terdayYes', 'attrValue');
     value = titleAttr.nodeValue;
 
-    assertEquals("attrNodeValue","terdayYes",value);
+    test.equal(value, 'terdayYes', 'attrNodeValue');
     value = retval.nodeValue;
 
     test.equal(value, null, 'retvalValue');
@@ -6449,12 +6449,12 @@ exports.tests = {
 
     value = firstChild.nodeValue;
 
-    assertEquals("firstChildValue","ter",value);
+    test.equal(value, 'ter', 'firstChildValue');
     lastChild = titleAttr.lastChild;
 
     value = lastChild.nodeValue;
 
-    assertEquals("lastChildValue","Yes",value);
+    test.equal(value, 'Yes', 'lastChildValue');
 
     test.done();
   },
@@ -6629,7 +6629,7 @@ exports.tests = {
     test.notEqual(textNode, null, 'textNodeNotNull');
     value = textNode.nodeValue;
 
-    assertEquals("child1IsYes","Yes",value);
+    test.equal(value, 'Yes', 'child1IsYes');
     otherChild = textNode.nextSibling;
 
     test.equal(otherChild, null, 'nextSiblingIsNull');
@@ -6746,12 +6746,12 @@ exports.tests = {
     testNode.normalize();
     value = titleAttr.nodeValue;
 
-    assertEquals("attrNodeValue","Yesterday",value);
+    test.equal(value, 'Yesterday', 'attrNodeValue');
     firstChild = titleAttr.firstChild;
 
     value = firstChild.nodeValue;
 
-    assertEquals("firstChildValue","Yesterday",value);
+    test.equal(value, 'Yesterday', 'firstChildValue');
     secondChild = firstChild.nextSibling;
 
     test.equal(secondChild, null, 'secondChildIsNull');
@@ -6858,13 +6858,13 @@ exports.tests = {
 
     value = titleAttr.value;
 
-    assertEquals("attrValue","",value);
+    test.equal(value, '', 'attrValue');
     value = titleAttr.nodeValue;
 
-    assertEquals("attrNodeValue","",value);
+    test.equal(value, '', 'attrNodeValue');
     value = retval.nodeValue;
 
-    assertEquals("retvalValue","Yes",value);
+    test.equal(value, 'Yes', 'retvalValue');
     firstChild = titleAttr.firstChild;
 
     test.equal(firstChild, null, 'firstChildNull');
@@ -6947,18 +6947,18 @@ exports.tests = {
     retval = titleAttr.replaceChild(textNode,firstChild);
     value = titleAttr.value;
 
-    assertEquals("attrValue","terday",value);
+    test.equal(value, 'terday', 'attrValue');
     value = titleAttr.nodeValue;
 
-    assertEquals("attrNodeValue","terday",value);
+    test.equal(value, 'terday', 'attrNodeValue');
     value = retval.nodeValue;
 
-    assertEquals("retvalValue","Yes",value);
+    test.equal(value, 'Yes', 'retvalValue');
     firstChild = titleAttr.firstChild;
 
     value = firstChild.nodeValue;
 
-    assertEquals("firstChildValue","terday",value);
+    test.equal(value, 'terday', 'firstChildValue');
 
     test.done();
   },
@@ -7003,18 +7003,18 @@ exports.tests = {
     retval = titleAttr.replaceChild(docFrag,firstChild);
     value = titleAttr.value;
 
-    assertEquals("attrValue","terday",value);
+    test.equal(value, 'terday', 'attrValue');
     value = titleAttr.nodeValue;
 
-    assertEquals("attrNodeValue","terday",value);
+    test.equal(value, 'terday', 'attrNodeValue');
     value = retval.nodeValue;
 
-    assertEquals("retvalValue","Yes",value);
+    test.equal(value, 'Yes', 'retvalValue');
     firstChild = titleAttr.firstChild;
 
     value = firstChild.nodeValue;
 
-    assertEquals("firstChildValue","ter",value);
+    test.equal(value, 'ter', 'firstChildValue');
 
     test.done();
   },
@@ -7053,15 +7053,15 @@ exports.tests = {
 
     value = titleAttr.value;
 
-    assertEquals("attrValue","Tomorrow",value);
+    test.equal(value, 'Tomorrow', 'attrValue');
     value = titleAttr.nodeValue;
 
-    assertEquals("attrNodeValue","Tomorrow",value);
+    test.equal(value, 'Tomorrow', 'attrNodeValue');
     firstChild = titleAttr.lastChild;
 
     value = firstChild.nodeValue;
 
-    assertEquals("firstChildValue","Tomorrow",value);
+    test.equal(value, 'Tomorrow', 'firstChildValue');
     otherChild = firstChild.nextSibling;
 
     test.equal(otherChild, null, 'nextSiblingIsNull');
@@ -7106,15 +7106,15 @@ exports.tests = {
 
     value = titleAttr.value;
 
-    assertEquals("attrValue","Tomorrow",value);
+    test.equal(value, 'Tomorrow', 'attrValue');
     value = titleAttr.nodeValue;
 
-    assertEquals("attrNodeValue","Tomorrow",value);
+    test.equal(value, 'Tomorrow', 'attrNodeValue');
     firstChild = titleAttr.lastChild;
 
     value = firstChild.nodeValue;
 
-    assertEquals("firstChildValue","Tomorrow",value);
+    test.equal(value, 'Tomorrow', 'firstChildValue');
     otherChild = firstChild.nextSibling;
 
     test.equal(otherChild, null, 'nextSiblingIsNull');
@@ -7230,7 +7230,7 @@ exports.tests = {
     childValue = child.data;
 
     childLength = childValue.length;
-    assertEquals("characterdataAppendDataAssert",24,childLength);
+    test.equal(childLength, 24, 'characterdataAppendDataAssert');
 
     test.done();
   },
@@ -7268,7 +7268,7 @@ exports.tests = {
     child.appendData(", Esquire");
     childData = child.data;
 
-    assertEquals("characterdataAppendDataGetDataAssert","Margaret Martin, Esquire",childData);
+    test.equal(childData, 'Margaret Martin, Esquire', 'characterdataAppendDataGetDataAssert');
 
     test.done();
   },
@@ -7305,7 +7305,7 @@ exports.tests = {
     child.deleteData(0,16);
     childData = child.data;
 
-    assertEquals("data","Dallas, Texas 98551",childData);
+    test.equal(childData, 'Dallas, Texas 98551', 'data');
 
     test.done();
   },
@@ -7343,7 +7343,7 @@ exports.tests = {
     child.deleteData(30,5);
     childData = child.data;
 
-    assertEquals("characterdataDeleteDataEndAssert","1230 North Ave. Dallas, Texas ",childData);
+    test.equal(childData, '1230 North Ave. Dallas, Texas ', 'characterdataDeleteDataEndAssert');
 
     test.done();
   },
@@ -7383,7 +7383,7 @@ exports.tests = {
     child.deleteData(4,50);
     childData = child.data;
 
-    assertEquals("characterdataDeleteDataExceedsLengthAssert","1230",childData);
+    test.equal(childData, '1230', 'characterdataDeleteDataExceedsLengthAssert');
 
     test.done();
   },
@@ -7427,10 +7427,10 @@ exports.tests = {
     child.deleteData(30,5);
     childData = child.data;
 
-    assertEquals("data","1230 North Ave. Dallas, Texas ",childData);
+    test.equal(childData, '1230 North Ave. Dallas, Texas ', 'data');
     childLength = child.length;
 
-    assertEquals("length",30,childLength);
+    test.equal(childLength, 30, 'length');
 
     test.done();
   },
@@ -7468,7 +7468,7 @@ exports.tests = {
     child.deleteData(16,8);
     childData = child.data;
 
-    assertEquals("characterdataDeleteDataMiddleAssert","1230 North Ave. Texas 98551",childData);
+    test.equal(childData, '1230 North Ave. Texas 98551', 'characterdataDeleteDataMiddleAssert');
 
     test.done();
   },
@@ -7507,7 +7507,7 @@ exports.tests = {
 
     childData = child.data;
 
-    assertEquals("characterdataGetDataAssert","Margaret Martin",childData);
+    test.equal(childData, 'Margaret Martin', 'characterdataGetDataAssert');
 
     test.done();
   },
@@ -7541,7 +7541,7 @@ exports.tests = {
     childValue = child.data;
 
     childLength = childValue.length;
-    assertEquals("characterdataGetLengthAssert",15,childLength);
+    test.equal(childLength, 15, 'characterdataGetLengthAssert');
 
     test.done();
   },
@@ -8070,7 +8070,7 @@ exports.tests = {
     child.insertData(0,"Mss. ");
     childData = child.data;
 
-    assertEquals("characterdataInsertDataBeginningAssert","Mss. Margaret Martin",childData);
+    test.equal(childData, 'Mss. Margaret Martin', 'characterdataInsertDataBeginningAssert');
 
     test.done();
   },
@@ -8108,7 +8108,7 @@ exports.tests = {
     child.insertData(15,", Esquire");
     childData = child.data;
 
-    assertEquals("characterdataInsertDataEndAssert","Margaret Martin, Esquire",childData);
+    test.equal(childData, 'Margaret Martin, Esquire', 'characterdataInsertDataEndAssert');
 
     test.done();
   },
@@ -8146,7 +8146,7 @@ exports.tests = {
     child.insertData(9,"Ann ");
     childData = child.data;
 
-    assertEquals("characterdataInsertDataMiddleAssert","Margaret Ann Martin",childData);
+    test.equal(childData, 'Margaret Ann Martin', 'characterdataInsertDataMiddleAssert');
 
     test.done();
   },
@@ -8183,7 +8183,7 @@ exports.tests = {
     child.replaceData(0,4,"2500");
     childData = child.data;
 
-    assertEquals("characterdataReplaceDataBeginingAssert","2500 North Ave. Dallas, Texas 98551",childData);
+    test.equal(childData, '2500 North Ave. Dallas, Texas 98551', 'characterdataReplaceDataBeginingAssert');
 
     test.done();
   },
@@ -8221,7 +8221,7 @@ exports.tests = {
     child.replaceData(30,5,"98665");
     childData = child.data;
 
-    assertEquals("characterdataReplaceDataEndAssert","1230 North Ave. Dallas, Texas 98665",childData);
+    test.equal(childData, '1230 North Ave. Dallas, Texas 98665', 'characterdataReplaceDataEndAssert');
 
     test.done();
   },
@@ -8260,7 +8260,7 @@ exports.tests = {
     child.replaceData(0,4,"260030");
     childData = child.data;
 
-    assertEquals("characterdataReplaceDataExceedsLengthOfArgAssert","260030 North Ave. Dallas, Texas 98551",childData);
+    test.equal(childData, '260030 North Ave. Dallas, Texas 98551', 'characterdataReplaceDataExceedsLengthOfArgAssert');
 
     test.done();
   },
@@ -8297,7 +8297,7 @@ exports.tests = {
     child.replaceData(0,50,"2600");
     childData = child.data;
 
-    assertEquals("characterdataReplaceDataExceedsLengthOfDataAssert","2600",childData);
+    test.equal(childData, '2600', 'characterdataReplaceDataExceedsLengthOfDataAssert');
 
     test.done();
   },
@@ -8335,7 +8335,7 @@ exports.tests = {
     child.replaceData(5,5,"South");
     childData = child.data;
 
-    assertEquals("characterdataReplaceDataMiddleAssert","1230 South Ave. Dallas, Texas 98551",childData);
+    test.equal(childData, '1230 South Ave. Dallas, Texas 98551', 'characterdataReplaceDataMiddleAssert');
 
     test.done();
   },
@@ -8369,10 +8369,10 @@ exports.tests = {
 
     childData = child.data;
 
-    assertEquals("data","Marilyn Martin",childData);
+    test.equal(childData, 'Marilyn Martin', 'data');
     childValue = child.nodeValue;
 
-    assertEquals("value","Marilyn Martin",childValue);
+    test.equal(childValue, 'Marilyn Martin', 'value');
 
     test.done();
   },
@@ -8407,7 +8407,7 @@ exports.tests = {
     child = nameNode.firstChild;
 
     substring = child.substringData(9,10);
-    assertEquals("characterdataSubStringExceedsValueAssert","Martin",substring);
+    test.equal(substring, 'Martin', 'characterdataSubStringExceedsValueAssert');
 
     test.done();
   },
@@ -8441,7 +8441,7 @@ exports.tests = {
     child = nameNode.firstChild;
 
     substring = child.substringData(0,8);
-    assertEquals("characterdataSubStringValueAssert","Margaret",substring);
+    test.equal(substring, 'Margaret', 'characterdataSubStringValueAssert');
 
     test.done();
   },
@@ -8485,10 +8485,10 @@ exports.tests = {
       ) {
         childName = child.nodeName;
 
-        assertEquals("nodeName","#comment",childName);
+        test.equal(childName, '#comment', 'nodeName');
         childValue = child.nodeValue;
 
-        assertEquals("nodeValue"," This is comment number 1.",childValue);
+        test.equal(childValue, ' This is comment number 1.', 'nodeValue');
         attributes = child.attributes;
 
         test.equal(attributes, null, 'attributes');
@@ -8531,13 +8531,13 @@ exports.tests = {
     newAttrNode = doc.createAttribute("title");
     attrValue = newAttrNode.nodeValue;
 
-    assertEquals("value","",attrValue);
+    test.equal(attrValue, '', 'value');
     attrName = newAttrNode.nodeName;
 
     assertEqualsAutoCase("attribute", "name","title",attrName);
     attrType = newAttrNode.nodeType;
 
-    assertEquals("type",2,attrType);
+    test.equal(attrType, 2, 'type');
 
     test.done();
   },
@@ -8566,13 +8566,13 @@ exports.tests = {
     newCommentNode = doc.createComment("This is a new Comment node");
     newCommentValue = newCommentNode.nodeValue;
 
-    assertEquals("value","This is a new Comment node",newCommentValue);
+    test.equal(newCommentValue, 'This is a new Comment node', 'value');
     newCommentName = newCommentNode.nodeName;
 
-    assertEquals("strong","#comment",newCommentName);
+    test.equal(newCommentName, '#comment', 'strong');
     newCommentType = newCommentNode.nodeType;
 
-    assertEquals("type",8,newCommentType);
+    test.equal(newCommentType, 8, 'type');
 
     test.done();
   },
@@ -8604,13 +8604,13 @@ exports.tests = {
 
     length = children.length;
 
-    assertEquals("length",0,length);
+    test.equal(length, 0, 'length');
     newDocFragmentName = newDocFragment.nodeName;
 
-    assertEquals("strong","#document-fragment",newDocFragmentName);
+    test.equal(newDocFragmentName, '#document-fragment', 'strong');
     newDocFragmentType = newDocFragment.nodeType;
 
-    assertEquals("type",11,newDocFragmentType);
+    test.equal(newDocFragmentType, 11, 'type');
     newDocFragmentValue = newDocFragment.nodeValue;
 
     test.equal(newDocFragmentValue, null, 'value');
@@ -8646,7 +8646,7 @@ exports.tests = {
     assertEqualsAutoCase("element", "strong","acronym",newElementName);
     newElementType = newElement.nodeType;
 
-    assertEquals("type",1,newElementType);
+    test.equal(newElementType, 1, 'type');
     newElementValue = newElement.nodeValue;
 
     test.equal(newElementValue, null, 'valueInitiallyNull');
@@ -8689,8 +8689,8 @@ exports.tests = {
     newElement2.setAttribute("title","Dallas");
     attribute1 = newElement1.getAttribute("lang");
     attribute2 = newElement2.getAttribute("title");
-    assertEquals("attrib1","EN",attribute1);
-    assertEquals("attrib2","Dallas",attribute2);
+    test.equal(attribute1, 'EN', 'attrib1');
+    test.equal(attribute2, 'Dallas', 'attrib2');
     nodeName1 = newElement1.nodeName;
 
     nodeName2 = newElement2.nodeName;
@@ -8725,13 +8725,13 @@ exports.tests = {
     newTextNode = doc.createTextNode("This is a new Text node");
     newTextValue = newTextNode.nodeValue;
 
-    assertEquals("value","This is a new Text node",newTextValue);
+    test.equal(newTextValue, 'This is a new Text node', 'value');
     newTextName = newTextNode.nodeName;
 
-    assertEquals("strong","#text",newTextName);
+    test.equal(newTextName, '#text', 'strong');
     newTextType = newTextNode.nodeType;
 
-    assertEquals("type",3,newTextType);
+    test.equal(newTextType, 3, 'type');
 
     test.done();
   },
@@ -8760,7 +8760,7 @@ exports.tests = {
 
     if((docType != null)) {
       docTypeName = docType.name;
-      assertEquals("nodeNameSVG","svg",docTypeName);
+      test.equal(docTypeName, 'svg', 'nodeNameSVG');
       nodeValue = docType.nodeValue;
       test.equal(nodeValue, null, 'nodeValue');
       attributes = docType.attributes;
@@ -8947,7 +8947,7 @@ exports.tests = {
 
     childValue = firstChild.nodeValue;
 
-    assertEquals("documentGetElementsByTagNameValueAssert","Jeny Oconnor",childValue);
+    test.equal(childValue, 'Jeny Oconnor', 'documentGetElementsByTagNameValueAssert');
 
     test.done();
   },
@@ -8998,7 +8998,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     root = doc.documentElement;
     rootName = root.nodeName;
-    assertEquals("svgTagName","svg",rootName);
+    test.equal(rootName, 'svg', 'svgTagName');
     test.done();
   },
 
@@ -9251,7 +9251,7 @@ exports.tests = {
     testEmployee = elementList.item(4);
     testEmployee.setAttribute("lang","EN-us");
     attrValue = testEmployee.getAttribute("lang");
-    assertEquals("attrValue","EN-us",attrValue);
+    test.equal(attrValue, 'EN-us', 'attrValue');
 
     test.done();
   },
@@ -9319,7 +9319,7 @@ exports.tests = {
     testEmployee = elementList.item(3);
     testEmployee.setAttribute("class","Neither");
     attrValue = testEmployee.getAttribute("class");
-    assertEquals("elementChangeAttributeValueAssert","Neither",attrValue);
+    test.equal(attrValue, 'Neither', 'elementChangeAttributeValueAssert');
 
     test.done();
   },
@@ -9358,7 +9358,7 @@ exports.tests = {
     districtAttr = testAddress.getAttributeNode("lang");
     test.notEqual(districtAttr, null, 'new_district_accessible');
     attrVal = testAddress.getAttribute("lang");
-    assertEquals("attr_value","",attrVal);
+    test.equal(attrVal, '', 'attr_value');
 
     test.done();
   },
@@ -9455,7 +9455,7 @@ exports.tests = {
     testEmployee = elementList.item(3);
     domesticAttr = testEmployee.setAttributeNode(newAttribute);
     attrValue = testEmployee.getAttribute("lang");
-    assertEquals("elementGetElementEmptyAssert","",attrValue);
+    test.equal(attrValue, '', 'elementGetElementEmptyAssert');
 
     test.done();
   },
@@ -9541,7 +9541,7 @@ exports.tests = {
 
     employeeID = employeeIDNode.nodeValue;
 
-    assertEquals("employeeID","EMP0004",employeeID);
+    test.equal(employeeID, 'EMP0004', 'employeeID');
 
     test.done();
   },
@@ -9638,7 +9638,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     root = doc.documentElement;
     tagname = root.tagName;
-    assertEquals("svgTagname","svg",tagname);
+    test.equal(tagname, 'svg', 'svgTagname');
     test.done();
   },
 
@@ -9798,7 +9798,7 @@ exports.tests = {
 
     childValue = firstChild.nodeValue;
 
-    assertEquals("elementNormalizeAssert","56,000,000",childValue);
+    test.equal(childValue, '56,000,000', 'elementNormalizeAssert');
 
     test.done();
   },
@@ -9839,7 +9839,7 @@ exports.tests = {
 
     childValue = firstChild.nodeValue;
 
-    assertEquals("firstChild","Yes",childValue);
+    test.equal(childValue, 'Yes', 'firstChild');
     secondChild = firstChild.nextSibling;
 
     test.equal(secondChild, null, 'secondChildNull');
@@ -9915,7 +9915,7 @@ exports.tests = {
     testEmployee = elementList.item(3);
     testEmployee.removeAttribute("class");
     attrValue = testEmployee.getAttribute("class");
-    assertEquals("attrValue","",attrValue);
+    test.equal(attrValue, '', 'attrValue');
 
     test.done();
   },
@@ -9988,7 +9988,7 @@ exports.tests = {
     test.notEqual(removedAttr, null, 'removedAttrNotNull');
     removedValue = removedAttr.value;
 
-    assertEquals("elementRemoveAttributeNodeAssert","No",removedValue);
+    test.equal(removedValue, 'No', 'elementRemoveAttributeNodeAssert');
 
     test.done();
   },
@@ -10057,7 +10057,7 @@ exports.tests = {
     newAttribute = doc.createAttribute("class");
     setAttr = testEmployee.setAttributeNode(newAttribute);
     strong = testEmployee.getAttribute("class");
-    assertEquals("replacedValue","",strong);
+    test.equal(strong, '', 'replacedValue');
 
     test.done();
   },
@@ -10095,7 +10095,7 @@ exports.tests = {
     test.notEqual(streetAttr, null, 'previousAttrNotNull');
     value = streetAttr.value;
 
-    assertEquals("previousAttrValue","No",value);
+    test.equal(value, 'No', 'previousAttrValue');
 
     test.done();
   },
@@ -10166,7 +10166,7 @@ exports.tests = {
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(2);
     attrValue = testAddress.getAttribute("class");
-    assertEquals("attrValue","No",attrValue);
+    test.equal(attrValue, 'No', 'attrValue');
 
     test.done();
   },
@@ -10401,7 +10401,7 @@ exports.tests = {
     testEmployee = elementList.item(2);
     attributes = testEmployee.attributes;
     length = attributes.length;
-    assertEquals("length",3,length);
+    test.equal(length, 3, 'length');
     child = attributes.item(2);
     test.notEqual(child, null, 'attr2');
     child = attributes.item(0);
@@ -10571,7 +10571,7 @@ exports.tests = {
     testEmployee = elementList.item(2);
     attributes = testEmployee.attributes;
     length = attributes.length;
-    assertEquals("length",3,length);
+    test.equal(length, 3, 'length');
     test.done();
   },
 
@@ -10881,7 +10881,7 @@ exports.tests = {
     test.notEqual(newNode, null, 'previousAttrNotNull');
     attrValue = newNode.nodeValue;
 
-    assertEquals("previousAttrValue","No",attrValue);
+    test.equal(attrValue, 'No', 'previousAttrValue');
 
     test.done();
   },
@@ -10930,7 +10930,7 @@ exports.tests = {
     districtNode = attributes.getNamedItem("class");
     attrValue = districtNode.nodeValue;
 
-    assertEquals("namednodemapSetNamedItemThatExistsAssert","",attrValue);
+    test.equal(attrValue, '', 'namednodemapSetNamedItemThatExistsAssert');
 
     test.done();
   },
@@ -11509,7 +11509,7 @@ exports.tests = {
     addrAttr = testAddr.getAttributeNode("title");
     nodeType = addrAttr.nodeType;
 
-    assertEquals("nodeAttrNodeType",2,nodeType);
+    test.equal(nodeType, 2, 'nodeAttrNodeType');
 
     test.done();
   },
@@ -11542,7 +11542,7 @@ exports.tests = {
     addrAttr = testAddr.getAttributeNode("title");
     attrValue = addrAttr.nodeValue;
 
-    assertEquals("nodeValue","Yes",attrValue);
+    test.equal(attrValue, 'Yes', 'nodeValue');
 
     test.done();
   },
@@ -11601,7 +11601,7 @@ exports.tests = {
       }
 
       else {
-        assertEquals("textNodeType",3,nodeType);
+        test.equal(nodeType, 3, 'textNodeType');
 
       }
 
@@ -11675,7 +11675,7 @@ exports.tests = {
       }
 
       else {
-        assertEquals("textNodeType",3,childType);
+        test.equal(childType, 3, 'textNodeType');
 
       }
 
@@ -11718,7 +11718,7 @@ exports.tests = {
 
     length = childList.length;
 
-    assertEquals("length_zero",0,length);
+    test.equal(length, 0, 'length_zero');
 
     test.done();
   },
@@ -11878,7 +11878,7 @@ exports.tests = {
 
     length = cloneChildren.length;
 
-    assertEquals("length",0,length);
+    test.equal(length, 0, 'length');
 
     test.done();
   },
@@ -11974,7 +11974,7 @@ exports.tests = {
 
     childValue = lastChildNode.nodeValue;
 
-    assertEquals("cloneContainsText","35,000",childValue);
+    test.equal(childValue, '35,000', 'cloneContainsText');
 
     test.done();
   },
@@ -12065,7 +12065,7 @@ exports.tests = {
       ) {
         commentNodeName = commentNode.nodeName;
 
-        assertEquals("existingNodeName","#comment",commentNodeName);
+        test.equal(commentNodeName, '#comment', 'existingNodeName');
 
       }
 
@@ -12073,7 +12073,7 @@ exports.tests = {
     commentNode = doc.createComment("This is a comment");
     commentNodeName = commentNode.nodeName;
 
-    assertEquals("createdNodeName","#comment",commentNodeName);
+    test.equal(commentNodeName, '#comment', 'createdNodeName');
 
     test.done();
   },
@@ -12113,7 +12113,7 @@ exports.tests = {
       ) {
         nodeType = commentNode.nodeType;
 
-        assertEquals("existingCommentNodeType",8,nodeType);
+        test.equal(nodeType, 8, 'existingCommentNodeType');
 
       }
 
@@ -12121,7 +12121,7 @@ exports.tests = {
     commentNode = doc.createComment("This is a comment");
     nodeType = commentNode.nodeType;
 
-    assertEquals("createdCommentNodeType",8,nodeType);
+    test.equal(nodeType, 8, 'createdCommentNodeType');
 
     test.done();
   },
@@ -12161,7 +12161,7 @@ exports.tests = {
       ) {
         commentValue = commentNode.nodeValue;
 
-        assertEquals("value"," This is comment number 1.",commentValue);
+        test.equal(commentValue, ' This is comment number 1.', 'value');
 
       }
 
@@ -12169,7 +12169,7 @@ exports.tests = {
     commentNode = doc.createComment(" This is a comment");
     commentValue = commentNode.nodeValue;
 
-    assertEquals("createdCommentNodeValue"," This is a comment",commentValue);
+    test.equal(commentValue, ' This is a comment', 'createdCommentNodeValue');
 
     test.done();
   },
@@ -12198,7 +12198,7 @@ exports.tests = {
     docFragment = doc.createDocumentFragment();
     documentFragmentName = docFragment.nodeName;
 
-    assertEquals("nodeDocumentFragmentNodeName","#document-fragment",documentFragmentName);
+    test.equal(documentFragmentName, '#document-fragment', 'nodeDocumentFragmentNodeName');
 
     test.done();
   },
@@ -12227,7 +12227,7 @@ exports.tests = {
     documentFragmentNode = doc.createDocumentFragment();
     nodeType = documentFragmentNode.nodeType;
 
-    assertEquals("nodeDocumentFragmentNodeType",11,nodeType);
+    test.equal(nodeType, 11, 'nodeDocumentFragmentNodeType');
 
     test.done();
   },
@@ -12314,7 +12314,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     documentName = doc.nodeName;
 
-    assertEquals("documentNodeName","#document",documentName);
+    test.equal(documentName, '#document', 'documentNodeName');
 
     test.done();
   },
@@ -12339,7 +12339,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     nodeType = doc.nodeType;
 
-    assertEquals("nodeDocumentNodeType",9,nodeType);
+    test.equal(nodeType, 9, 'nodeDocumentNodeType');
 
     test.done();
   },
@@ -12437,7 +12437,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     elementNode = doc.documentElement;
     elementName = elementNode.nodeName;
-    assertEquals("svgNodeName","svg",elementName);
+    test.equal(elementName, 'svg', 'svgNodeName');
     test.done();
   },
 
@@ -12463,7 +12463,7 @@ exports.tests = {
 
     nodeType = rootNode.nodeType;
 
-    assertEquals("nodeElementNodeType",1,nodeType);
+    test.equal(nodeType, 1, 'nodeElementNodeType');
 
     test.done();
   },
@@ -12525,7 +12525,7 @@ exports.tests = {
     if(
       ("#text" == childName)
     ) {
-      assertEquals("firstChild_w_whitespace","#text",childName);
+      test.equal(childName, '#text', 'firstChild_w_whitespace');
 
     }
 
@@ -12596,7 +12596,7 @@ exports.tests = {
 
     childName = lchildNode.nodeName;
 
-    assertEquals("whitespace","#text",childName);
+    test.equal(childName, '#text', 'whitespace');
 
     test.done();
   },
@@ -12661,7 +12661,7 @@ exports.tests = {
 
     nsName = nsNode.nodeName;
 
-    assertEquals("whitespace","#text",nsName);
+    test.equal(nsName, '#text', 'whitespace');
 
     test.done();
   },
@@ -12728,7 +12728,7 @@ exports.tests = {
     ownerDocument = docNode.ownerDocument;
     docElement = ownerDocument.documentElement;
     elementName = docElement.nodeName;
-    assertEquals("svgNodeName","svg",elementName);
+    test.equal(elementName, 'svg', 'svgNodeName');
     test.done();
   },
 
@@ -12789,7 +12789,7 @@ exports.tests = {
 
     psName = psNode.nodeName;
 
-    assertEquals("whitespace","#text",psName);
+    test.equal(psName, '#text', 'whitespace');
 
     test.done();
   },
@@ -13417,7 +13417,7 @@ exports.tests = {
     if(
       (13 == length)
     ) {
-      assertEquals("childName_w_whitespace","#text",childName);
+      test.equal(childName, '#text', 'childName_w_whitespace');
 
     }
 
@@ -13461,12 +13461,12 @@ exports.tests = {
     if(
       (6 == length)
     ) {
-      assertEquals("length_wo_space",6,length);
+      test.equal(length, 6, 'length_wo_space');
 
     }
 
     else {
-      assertEquals("length_w_space",13,length);
+      test.equal(length, 13, 'length_w_space');
 
     }
 
@@ -13505,7 +13505,7 @@ exports.tests = {
 
     length = textList.length;
 
-    assertEquals("length",0,length);
+    test.equal(length, 0, 'length');
 
     test.done();
   },
@@ -13546,7 +13546,7 @@ exports.tests = {
     if(
       ("#text" == childName)
     ) {
-      assertEquals("childName_space","#text",childName);
+      test.equal(childName, '#text', 'childName_space');
 
     }
 
@@ -13590,7 +13590,7 @@ exports.tests = {
     if(
       ("#text" == childName)
     ) {
-      assertEquals("nodeName_w_space","#text",childName);
+      test.equal(childName, '#text', 'nodeName_w_space');
 
     }
 
@@ -13637,13 +13637,13 @@ exports.tests = {
     if(
       (12 == index)
     ) {
-      assertEquals("lastNodeName_w_whitespace","#text",childName);
+      test.equal(childName, '#text', 'lastNodeName_w_whitespace');
 
     }
 
     else {
       assertEqualsAutoCase("element", "lastNodeName","acronym",childName);
-      assertEquals("index",5,index);
+      test.equal(index, 5, 'index');
 
     }
 
@@ -13703,8 +13703,8 @@ exports.tests = {
       }
 
       else {
-        assertEquals("textNodeType",3,nodeType);
-        assertEquals("textNodeName","#text",childName);
+        test.equal(nodeType, 3, 'textNodeType');
+        test.equal(childName, '#text', 'textNodeName');
 
       }
 
@@ -13851,7 +13851,7 @@ exports.tests = {
     test.notEqual(removedChild, null, 'notnull');
     childName = removedChild.nodeName;
 
-    assertEquals("nodeName",oldName,childName);
+    test.equal(childName, oldName, 'nodeName');
 
     test.done();
   },
@@ -13920,8 +13920,8 @@ exports.tests = {
       }
 
       else {
-        assertEquals("textNodeType",3,nodeType);
-        assertEquals("textNodeName","#text",childName);
+        test.equal(nodeType, 3, 'textNodeType');
+        test.equal(childName, '#text', 'textNodeName');
 
       }
 
@@ -14187,8 +14187,8 @@ exports.tests = {
       }
 
       else {
-        assertEquals("textNodeType",3,nodeType);
-        assertEquals("textNodeName","#text",childName);
+        test.equal(nodeType, 3, 'textNodeType');
+        test.equal(childName, '#text', 'textNodeName');
 
       }
 
@@ -14392,7 +14392,7 @@ exports.tests = {
 
     textName = textNode.nodeName;
 
-    assertEquals("textNodeName","#text",textName);
+    test.equal(textName, '#text', 'textNodeName');
 
     test.done();
   },
@@ -14431,7 +14431,7 @@ exports.tests = {
 
     nodeType = textNode.nodeType;
 
-    assertEquals("nodeTextNodeType",3,nodeType);
+    test.equal(nodeType, 3, 'nodeTextNodeType');
 
     test.done();
   },
@@ -14464,7 +14464,7 @@ exports.tests = {
 
     textValue = textNode.nodeValue;
 
-    assertEquals("textNodeValue","1230 North Ave. Dallas, Texas 98551",textValue);
+    test.equal(textValue, '1230 North Ave. Dallas, Texas 98551', 'textNodeValue');
 
     test.done();
   },
@@ -14517,12 +14517,12 @@ exports.tests = {
     newNode = doc.createComment("This is a new Comment node");
     newValue = newNode.nodeValue;
 
-    assertEquals("initial","This is a new Comment node",newValue);
+    test.equal(newValue, 'This is a new Comment node', 'initial');
     newNode.nodeValue = "This should have an effect";
 
     newValue = newNode.nodeValue;
 
-    assertEquals("afterChange","This should have an effect",newValue);
+    test.equal(newValue, 'This should have an effect', 'afterChange');
 
     test.done();
   },
@@ -15005,7 +15005,7 @@ exports.tests = {
     splitNode = textNode.splitText(30);
     value = splitNode.nodeValue;
 
-    assertEquals("textSplitTextFourAssert","98551",value);
+    test.equal(value, '98551', 'textSplitTextFourAssert');
 
     test.done();
   },
@@ -15046,7 +15046,7 @@ exports.tests = {
 
     value = secondPart.nodeValue;
 
-    assertEquals("textSplitTextOneAssert","Jones",value);
+    test.equal(value, 'Jones', 'textSplitTextOneAssert');
 
     test.done();
   },
@@ -15085,7 +15085,7 @@ exports.tests = {
     splitNode = textNode.splitText(6);
     value = splitNode.nodeValue;
 
-    assertEquals("textSplitTextThreeAssert"," Jones",value);
+    test.equal(value, ' Jones', 'textSplitTextThreeAssert');
 
     test.done();
   },
@@ -15123,7 +15123,7 @@ exports.tests = {
     splitNode = textNode.splitText(5);
     value = textNode.nodeValue;
 
-    assertEquals("textSplitTextTwoAssert","Roger",value);
+    test.equal(value, 'Roger', 'textSplitTextTwoAssert');
 
     test.done();
   },
@@ -15160,7 +15160,7 @@ exports.tests = {
 
     value = nodeV.nodeValue;
 
-    assertEquals("textWithNoMarkupAssert","Roger\n Jones",value);
+    test.equal(value, 'Roger\n Jones', 'textWithNoMarkupAssert');
 
     test.done();
   },
@@ -15196,7 +15196,7 @@ exports.tests = {
 
     length = attributes.length;
 
-    assertEquals("length",2,length);
+    test.equal(length, 2, 'length');
     child = attributes.item(0);
     child = attributes.item(1);
 
@@ -15236,7 +15236,7 @@ exports.tests = {
     domesticAttr = attributes.getNamedItem("domestic");
     attrName = domesticAttr.nodeName;
 
-    assertEquals("namednodemapGetNamedItemAssert","domestic",attrName);
+    test.equal(attrName, 'domestic', 'namednodemapGetNamedItemAssert');
 
     test.done();
   },
@@ -15372,7 +15372,7 @@ exports.tests = {
 
     length = attributes.length;
 
-    assertEquals("length",2,length);
+    test.equal(length, 2, 'length');
 
     test.done();
   },
@@ -15463,7 +15463,7 @@ exports.tests = {
     test.notEqual(streetAttr, null, 'streetAttrNotNull');
     value = streetAttr.value;
 
-    assertEquals("namednodemapRemoveNamedItemGetValueAssert","Yes",value);
+    test.equal(value, 'Yes', 'namednodemapRemoveNamedItemGetValueAssert');
 
     test.done();
   },
@@ -15502,7 +15502,7 @@ exports.tests = {
     removedNode = attributes.removeNamedItem("street");
     value = removedNode.nodeValue;
 
-    assertEquals("namednodemapRemoveNamedItemReturnNodeValueAssert","No",value);
+    test.equal(value, 'No', 'namednodemapRemoveNamedItemReturnNodeValueAssert');
 
     test.done();
   },
@@ -15543,10 +15543,10 @@ exports.tests = {
     assertInstanceOf("typeAssert","Attr",streetAttr);
     attrName = streetAttr.nodeName;
 
-    assertEquals("nodeName","street",attrName);
+    test.equal(attrName, 'street', 'nodeName');
     attrName = streetAttr.name;
 
-    assertEquals("attrName","street",attrName);
+    test.equal(attrName, 'street', 'attrName');
 
     test.done();
   },
@@ -15711,7 +15711,7 @@ exports.tests = {
     districtNode = attributes.getNamedItem("district");
     attrName = districtNode.nodeName;
 
-    assertEquals("namednodemapSetNamedItemAssert","district",attrName);
+    test.equal(attrName, 'district', 'namednodemapSetNamedItemAssert');
 
     test.done();
   },
@@ -15758,7 +15758,7 @@ exports.tests = {
     newNode = attributes.setNamedItem(newAttribute);
     attrValue = newNode.nodeValue;
 
-    assertEquals("returnedNodeValue","No",attrValue);
+    test.equal(attrValue, 'No', 'returnedNodeValue');
 
     test.done();
   },
@@ -15808,7 +15808,7 @@ exports.tests = {
     districtNode = attributes.getNamedItem("street");
     attrValue = districtNode.nodeValue;
 
-    assertEquals("streetValue","",attrValue);
+    test.equal(attrValue, '', 'streetValue');
 
     test.done();
   },
@@ -15953,7 +15953,7 @@ exports.tests = {
 
     childName = lchild.nodeName;
 
-    assertEquals("nodeAppendChild","newChild",childName);
+    test.equal(childName, 'newChild', 'nodeAppendChild');
 
     test.done();
   },
@@ -15997,8 +15997,8 @@ exports.tests = {
     lchild = childNode.lastChild;
     lchildName = lchild.nodeName;
     if("employeeId" == initialName) {
-      assertEquals("nowhitespace","name",fchildName);
-      assertEquals("nowhitespace","employeeId",lchildName);
+      test.equal(fchildName, 'name', 'nowhitespace');
+      test.equal(lchildName, 'employeeId', 'nowhitespace');
     } else {
       test.equal(fchildName, 'employeeId');
       test.equal(lchildName, '#text');
@@ -16108,7 +16108,7 @@ exports.tests = {
     appendNode = employeeNode.appendChild(newChild);
     childName = appendNode.nodeName;
 
-    assertEquals("nodeAppendChildGetNodeName","newChild",childName);
+    test.equal(childName, 'newChild', 'nodeAppendChildGetNodeName');
 
     test.done();
   },
@@ -16442,7 +16442,7 @@ exports.tests = {
     addrAttr = testAddr.getAttributeNode("domestic");
     attrName = addrAttr.nodeName;
 
-    assertEquals("nodeAttributeNodeName","domestic",attrName);
+    test.equal(attrName, 'domestic', 'nodeAttributeNodeName');
 
     test.done();
   },
@@ -16481,7 +16481,7 @@ exports.tests = {
     addrAttr = testAddr.getAttributeNode("domestic");
     nodeType = addrAttr.nodeType;
 
-    assertEquals("nodeAttrNodeType",2,nodeType);
+    test.equal(nodeType, 2, 'nodeAttrNodeType');
 
     test.done();
   },
@@ -16522,7 +16522,7 @@ exports.tests = {
     addrAttr = testAddr.getAttributeNode("domestic");
     attrValue = addrAttr.nodeValue;
 
-    assertEquals("nodeAttributeNodeValue","Yes",attrValue);
+    test.equal(attrValue, 'Yes', 'nodeAttributeNodeValue');
 
     test.done();
   },
@@ -16612,7 +16612,7 @@ exports.tests = {
     }
     cdataNodeName = cdataNode.nodeName;
 
-    assertEquals("cdataNodeName","#cdata-section",cdataNodeName);
+    test.equal(cdataNodeName, '#cdata-section', 'cdataNodeName');
 
     test.done();
   },
@@ -16655,7 +16655,7 @@ exports.tests = {
 
 
     }
-    assertEquals("nodeTypeCDATA",4,nodeType);
+    test.equal(nodeType, 4, 'nodeTypeCDATA');
 
     test.done();
   },
@@ -16702,7 +16702,7 @@ exports.tests = {
     }
     cdataNodeValue = child.nodeValue;
 
-    assertEquals("value","This is a CDATASection with EntityReference number 2 &ent2;",cdataNodeValue);
+    test.equal(cdataNodeValue, 'This is a CDATASection with EntityReference number 2 &ent2;', 'value');
 
     test.done();
   },
@@ -16792,7 +16792,7 @@ exports.tests = {
     employeeNode = employeeNode.appendChild(createdNode);
     length = childList.length;
 
-    assertEquals("childNodeLength",expectedLength,length);
+    test.equal(length, expectedLength, 'childNodeLength');
 
     test.done();
   },
@@ -16989,12 +16989,12 @@ exports.tests = {
     clonedNode = employeeNode.cloneNode(false);
     cloneName = clonedNode.nodeName;
 
-    assertEquals("name","employee",cloneName);
+    test.equal(cloneName, 'employee', 'name');
     cloneChildren = clonedNode.childNodes;
 
     length = cloneChildren.length;
 
-    assertEquals("length",0,length);
+    test.equal(length, 0, 'length');
 
     test.done();
   },
@@ -17114,7 +17114,7 @@ exports.tests = {
 
     childValue = lastChildNode.nodeValue;
 
-    assertEquals("nodeCloneTrueCopyText","35,000",childValue);
+    test.equal(childValue, '35,000', 'nodeCloneTrueCopyText');
 
     test.done();
   },
@@ -17204,7 +17204,7 @@ exports.tests = {
       ) {
         commentNodeName = commentNode.nodeName;
 
-        assertEquals("commentNodeName","#comment",commentNodeName);
+        test.equal(commentNodeName, '#comment', 'commentNodeName');
 
       }
 
@@ -17248,7 +17248,7 @@ exports.tests = {
       ) {
         nodeType = commentNode.nodeType;
 
-        assertEquals("nodeCommentNodeType",8,nodeType);
+        test.equal(nodeType, 8, 'nodeCommentNodeType');
 
       }
 
@@ -17292,7 +17292,7 @@ exports.tests = {
       ) {
         commentValue = commentNode.nodeValue;
 
-        assertEquals("value"," This is comment number 1.",commentValue);
+        test.equal(commentValue, ' This is comment number 1.', 'value');
 
       }
 
@@ -17326,7 +17326,7 @@ exports.tests = {
     docFragment = doc.createDocumentFragment();
     documentFragmentName = docFragment.nodeName;
 
-    assertEquals("nodeDocumentFragmentNodeName","#document-fragment",documentFragmentName);
+    test.equal(documentFragmentName, '#document-fragment', 'nodeDocumentFragmentNodeName');
 
     test.done();
   },
@@ -17356,7 +17356,7 @@ exports.tests = {
     documentFragmentNode = doc.createDocumentFragment();
     nodeType = documentFragmentNode.nodeType;
 
-    assertEquals("nodeDocumentFragmentNodeType",11,nodeType);
+    test.equal(nodeType, 11, 'nodeDocumentFragmentNodeType');
 
     test.done();
   },
@@ -17442,7 +17442,7 @@ exports.tests = {
     doc = staff.staff();
     documentName = doc.nodeName;
 
-    assertEquals("documentNodeName","#document",documentName);
+    test.equal(documentName, '#document', 'documentNodeName');
 
     test.done();
   },
@@ -17468,7 +17468,7 @@ exports.tests = {
     doc = staff.staff();
     nodeType = doc.nodeType;
 
-    assertEquals("nodeDocumentNodeType",9,nodeType);
+    test.equal(nodeType, 9, 'nodeDocumentNodeType');
 
     test.done();
   },
@@ -17521,7 +17521,7 @@ exports.tests = {
     docType = doc.doctype;
     test.notEqual(docType, null, 'docTypeNotNull');
     documentTypeName = docType.nodeName;
-    assertEquals("doctypeNameSVG","svg",documentTypeName);
+    test.equal(documentTypeName, 'svg', 'doctypeNameSVG');
     test.done();
   },
 
@@ -17546,7 +17546,7 @@ exports.tests = {
     test.notEqual(documentTypeNode, null, 'doctypeNotNull');
     nodeType = documentTypeNode.nodeType;
 
-    assertEquals("nodeType",10,nodeType);
+    test.equal(nodeType, 10, 'nodeType');
 
     test.done();
   },
@@ -17655,7 +17655,7 @@ exports.tests = {
     doc = staff.staff();
     elementNode = doc.documentElement;
     elementName = elementNode.nodeName;
-    assertEquals("svgNodeName","svg",elementName);
+    test.equal(elementName, 'svg', 'svgNodeName');
     test.done();
   },
 
@@ -17682,7 +17682,7 @@ exports.tests = {
 
     nodeType = rootNode.nodeType;
 
-    assertEquals("nodeElementNodeType",1,nodeType);
+    test.equal(nodeType, 1, 'nodeElementNodeType');
 
     test.done();
   },
@@ -17772,7 +17772,7 @@ exports.tests = {
     test.notEqual(entityNode, null, 'entityNodeNotNull');
     entityName = entityNode.nodeName;
 
-    assertEquals("entityNodeName","ent1",entityName);
+    test.equal(entityName, 'ent1', 'entityNodeName');
 
     test.done();
   },
@@ -17805,7 +17805,7 @@ exports.tests = {
     test.notEqual(entityNode, null, 'ent1NotNull');
     nodeType = entityNode.nodeType;
 
-    assertEquals("entityNodeType",6,nodeType);
+    test.equal(nodeType, 6, 'entityNodeType');
 
     test.done();
   },
@@ -17923,7 +17923,7 @@ exports.tests = {
     }
     entRefName = entRefNode.nodeName;
 
-    assertEquals("nodeEntityReferenceNodeName","ent2",entRefName);
+    test.equal(entRefName, 'ent2', 'nodeEntityReferenceNodeName');
 
     test.done();
   },
@@ -17966,7 +17966,7 @@ exports.tests = {
 
 
     }
-    assertEquals("entityNodeType",5,nodeType);
+    test.equal(nodeType, 5, 'entityNodeType');
 
     test.done();
   },
@@ -18085,7 +18085,7 @@ exports.tests = {
 
 
     }
-    assertEquals("nodeName","employeeId",childName);
+    test.equal(childName, 'employeeId', 'nodeName');
 
     test.done();
   },
@@ -18169,7 +18169,7 @@ exports.tests = {
 
 
     }
-    assertEquals("nodeName","address",childName);
+    test.equal(childName, 'address', 'nodeName');
 
     test.done();
   },
@@ -18253,7 +18253,7 @@ exports.tests = {
 
 
     }
-    assertEquals("nodeName","name",nsName);
+    test.equal(nsName, 'name', 'nodeName');
 
     test.done();
   },
@@ -18328,7 +18328,7 @@ exports.tests = {
     ownerDocument = docNode.ownerDocument;
     docElement = ownerDocument.documentElement;
     elementName = docElement.nodeName;
-    assertEquals("svgTagName","svg",elementName);
+    test.equal(elementName, 'svg', 'svgTagName');
     test.done();
   },
 
@@ -18388,7 +18388,7 @@ exports.tests = {
 
 
     }
-    assertEquals("nodeName","employeeId",psName);
+    test.equal(psName, 'employeeId', 'nodeName');
 
     test.done();
   },
@@ -18636,11 +18636,11 @@ exports.tests = {
     child = childList.item(3);
     childName = child.nodeName;
 
-    assertEquals("childName3","newChild1",childName);
+    test.equal(childName, 'newChild1', 'childName3');
     child = childList.item(4);
     childName = child.nodeName;
 
-    assertEquals("childName4","newChild2",childName);
+    test.equal(childName, 'newChild2', 'childName4');
 
     test.done();
   },
@@ -18935,7 +18935,7 @@ exports.tests = {
     insertedNode = employeeNode.insertBefore(newChild,refChild);
     childName = insertedNode.nodeName;
 
-    assertEquals("nodeInsertBeforeNodeName","newChild",childName);
+    test.equal(childName, 'newChild', 'nodeInsertBeforeNodeName');
 
     test.done();
   },
@@ -19139,7 +19139,7 @@ exports.tests = {
 
     childName = child.nodeName;
 
-    assertEquals("nodeInsertBeforeRefChildNull","newChild",childName);
+    test.equal(childName, 'newChild', 'nodeInsertBeforeRefChildNull');
 
     test.done();
   },
@@ -19175,7 +19175,7 @@ exports.tests = {
     if(
       !("#text" == childName)
     ) {
-      assertEquals("childName","employeeId",childName);
+      test.equal(childName, 'employeeId', 'childName');
 
     }
 
@@ -19298,7 +19298,7 @@ exports.tests = {
     }
     childName = child.nodeName;
 
-    assertEquals("nodeName","name",childName);
+    test.equal(childName, 'name', 'nodeName');
 
     test.done();
   },
@@ -19326,25 +19326,10 @@ exports.tests = {
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
-
     child = employeeList.item(0);
     childName = child.nodeName;
-
     length = employeeList.length;
-
-
-    if(
-      (6 == length)
-    ) {
-      assertEquals("firstChildNoWhitespace","employeeId".toLowerCase(),childName.toLowerCase());
-
-    }
-
-    else {
-      assertEquals("firstChildWithWhitespace","#text".toLowerCase(),childName.toLowerCase());
-
-    }
-
+    test.equal(childName, "employeeId", 'firstChildNoWhitespace');
     test.done();
   },
 
@@ -19381,7 +19366,7 @@ exports.tests = {
       child = employeeList.item(5);
       childName = child.nodeName;
 
-      assertEquals("nodeName1","address",childName);
+      test.equal(childName, 'address', 'nodeName1');
 
     }
 
@@ -19389,7 +19374,7 @@ exports.tests = {
       child = employeeList.item(12);
       childName = child.nodeName;
 
-      assertEquals("nodeName2","#text",childName);
+      test.equal(childName, '#text', 'nodeName2');
 
     }
 
@@ -19544,7 +19529,7 @@ exports.tests = {
     test.notEqual(notationNode, null, 'notationNotNull');
     notationName = notationNode.nodeName;
 
-    assertEquals("nodeName","notation1",notationName);
+    test.equal(notationName, 'notation1', 'nodeName');
 
     test.done();
   },
@@ -19581,7 +19566,7 @@ exports.tests = {
     test.notEqual(notationNode, null, 'notationNotNull');
     nodeType = notationNode.nodeType;
 
-    assertEquals("nodeNotationNodeType",12,nodeType);
+    test.equal(nodeType, 12, 'nodeNotationNodeType');
 
     test.done();
   },
@@ -19651,7 +19636,7 @@ exports.tests = {
     employeeNode = elementList.item(1);
     parentNode = employeeNode.parentNode;
     parentName = parentNode.nodeName;
-    assertEquals("svgTagName","svg",parentName);
+    test.equal(parentName, 'svg', 'svgTagName');
     test.done();
   },
 
@@ -19753,7 +19738,7 @@ exports.tests = {
     piNode = testList.item(0);
     piName = piNode.nodeName;
 
-    assertEquals("nodeProcessingInstructionNodeName","TEST-STYLE",piName);
+    test.equal(piName, 'TEST-STYLE', 'nodeProcessingInstructionNodeName');
 
     test.done();
   },
@@ -19791,7 +19776,7 @@ exports.tests = {
     piNode = testList.item(0);
     nodeType = piNode.nodeType;
 
-    assertEquals("nodeProcessingInstructionNodeType",7,nodeType);
+    test.equal(nodeType, 7, 'nodeProcessingInstructionNodeType');
 
     test.done();
   },
@@ -19823,7 +19808,7 @@ exports.tests = {
     piNode = testList.item(0);
     piValue = piNode.nodeValue;
 
-    assertEquals("value","PIDATA",piValue);
+    test.equal(piValue, 'PIDATA', 'value');
 
     test.done();
   },
@@ -19854,10 +19839,10 @@ exports.tests = {
 
     piValue = piNode.nodeValue;
 
-    assertEquals("nodeValue","Something different",piValue);
+    test.equal(piValue, 'Something different', 'nodeValue');
     piValue = piNode.data;
 
-    assertEquals("data","Something different",piValue);
+    test.equal(piValue, 'Something different', 'data');
 
     test.done();
   },
@@ -19938,12 +19923,12 @@ exports.tests = {
     if(
       (6 == length)
     ) {
-      assertEquals("nowhitespace","employeeId",childName);
+      test.equal(childName, 'employeeId', 'nowhitespace');
 
     }
 
     else {
-      assertEquals("whitespace","#text",childName);
+      test.equal(childName, '#text', 'whitespace');
 
     }
 
@@ -19992,15 +19977,15 @@ exports.tests = {
     if(
       (5 == length)
     ) {
-      assertEquals("removedNameNoWhitespace","employeeId",removedName);
-      assertEquals("childNameNoWhitespace","name",childName);
+      test.equal(removedName, 'employeeId', 'removedNameNoWhitespace');
+      test.equal(childName, 'name', 'childNameNoWhitespace');
 
     }
 
     else {
-      assertEquals("removedName","#text",removedName);
-      assertEquals("childName","employeeId",childName);
-      assertEquals("length",12,length);
+      test.equal(removedName, '#text', 'removedName');
+      test.equal(childName, 'employeeId', 'childName');
+      test.equal(length, 12, 'length');
 
     }
 
@@ -20195,7 +20180,7 @@ exports.tests = {
     child = childList.item(0);
     childName = child.nodeName;
 
-    assertEquals("nodeReplaceChild","newChild",childName);
+    test.equal(childName, 'newChild', 'nodeReplaceChild');
 
     test.done();
   },
@@ -20495,12 +20480,12 @@ exports.tests = {
     if(
       (6 == length)
     ) {
-      assertEquals("nowhitespace","name",childName);
+      test.equal(childName, 'name', 'nowhitespace');
 
     }
 
     else {
-      assertEquals("whitespace","employeeId",childName);
+      test.equal(childName, 'employeeId', 'whitespace');
 
     }
 
@@ -20840,7 +20825,7 @@ exports.tests = {
 
     textName = textNode.nodeName;
 
-    assertEquals("nodeTextNodeName","#text",textName);
+    test.equal(textName, '#text', 'nodeTextNodeName');
 
     test.done();
   },
@@ -20880,7 +20865,7 @@ exports.tests = {
 
     nodeType = textNode.nodeType;
 
-    assertEquals("nodeTextNodeType",3,nodeType);
+    test.equal(nodeType, 3, 'nodeTextNodeType');
 
     test.done();
   },
@@ -20914,7 +20899,7 @@ exports.tests = {
 
     textValue = textNode.nodeValue;
 
-    assertEquals("nodeTextNodeValue","1230 North Ave. Dallas, Texas 98551",textValue);
+    test.equal(textValue, '1230 North Ave. Dallas, Texas 98551', 'nodeTextNodeValue');
 
     test.done();
   },
@@ -20967,12 +20952,12 @@ exports.tests = {
     newNode = doc.createComment("This is a new Comment node");
     newValue = newNode.nodeValue;
 
-    assertEquals("initial","This is a new Comment node",newValue);
+    test.equal(newValue, 'This is a new Comment node', 'initial');
     newNode.nodeValue = "This should have an effect";
 
     newValue = newNode.nodeValue;
 
-    assertEquals("afterChange","This should have an effect",newValue);
+    test.equal(newValue, 'This should have an effect', 'afterChange');
 
     test.done();
   },
@@ -21193,12 +21178,12 @@ exports.tests = {
     newNode = doc.createProcessingInstruction("TARGET","DATA");
     newValue = newNode.nodeValue;
 
-    assertEquals("initial","DATA",newValue);
+    test.equal(newValue, 'DATA', 'initial');
     newNode.nodeValue = "This should have an effect";
 
     newValue = newNode.nodeValue;
 
-    assertEquals("after","This should have an effect",newValue);
+    test.equal(newValue, 'This should have an effect', 'after');
 
     test.done();
   },
@@ -21232,7 +21217,7 @@ exports.tests = {
     notationNode = notations.getNamedItem("notation1");
     notationName = notationNode.nodeName;
 
-    assertEquals("notationGetNotationNameAssert","notation1",notationName);
+    test.equal(notationName, 'notation1', 'notationGetNotationNameAssert');
 
     test.done();
   },
@@ -21265,7 +21250,7 @@ exports.tests = {
     notationNode = notations.getNamedItem("notation1");
     publicId = notationNode.publicId;
 
-    assertEquals("publicId","notation1File",publicId);
+    test.equal(publicId, 'notation1File', 'publicId');
 
     test.done();
   },
@@ -21410,7 +21395,7 @@ exports.tests = {
     piNode = childNodes.item(0);
     data = piNode.data;
 
-    assertEquals("processinginstructionGetTargetAssert","PIDATA",data);
+    test.equal(data, 'PIDATA', 'processinginstructionGetTargetAssert');
 
     test.done();
   },
@@ -21444,7 +21429,7 @@ exports.tests = {
     piNode = childNodes.item(0);
     target = piNode.target;
 
-    assertEquals("processinginstructionGetTargetAssert","TEST-STYLE",target);
+    test.equal(target, 'TEST-STYLE', 'processinginstructionGetTargetAssert');
 
     test.done();
   },
@@ -21765,7 +21750,7 @@ exports.tests = {
     splitNode = textNode.splitText(30);
     value = splitNode.nodeValue;
 
-    assertEquals("textSplitTextFourAssert","98551",value);
+    test.equal(value, '98551', 'textSplitTextFourAssert');
 
     test.done();
   },
@@ -21909,7 +21894,7 @@ exports.tests = {
 
     value = secondPart.nodeValue;
 
-    assertEquals("textSplitTextOneAssert","Jones",value);
+    test.equal(value, 'Jones', 'textSplitTextOneAssert');
 
     test.done();
   },
@@ -21949,7 +21934,7 @@ exports.tests = {
     splitNode = textNode.splitText(6);
     value = splitNode.nodeValue;
 
-    assertEquals("textSplitTextThreeAssert"," Jones",value);
+    test.equal(value, ' Jones', 'textSplitTextThreeAssert');
 
     test.done();
   },
@@ -21988,7 +21973,7 @@ exports.tests = {
     splitNode = textNode.splitText(5);
     value = textNode.nodeValue;
 
-    assertEquals("textSplitTextTwoAssert","Roger",value);
+    test.equal(value, 'Roger', 'textSplitTextTwoAssert');
 
     test.done();
   },
@@ -22026,7 +22011,7 @@ exports.tests = {
 
     value = nodeV.nodeValue;
 
-    assertEquals("textNodeValue","Roger\n Jones",value);
+    test.equal(value, 'Roger\n Jones', 'textNodeValue');
     test.done();
   }
 };
