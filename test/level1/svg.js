@@ -348,7 +348,7 @@ exports.tests = {
     streetAttr = attributes.getNamedItem("street");
     state = streetAttr.specified;
 
-    assertFalse("streetNotSpecified",state);
+    test.equal(state, false, 'streetNotSpecified');
 
     test.done();
   },
@@ -458,7 +458,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("setValue_throws_NO_MODIFICATION_ERR",success);
+      test.ok(success, 'setValue_throws_NO_MODIFICATION_ERR');
     }
 
     test.done();
@@ -503,7 +503,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("setValue_throws_NO_MODIFICATION_ERR",success);
+      test.ok(success, 'setValue_throws_NO_MODIFICATION_ERR');
     }
 
     test.done();
@@ -566,7 +566,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("setValue_throws_NO_MODIFICATION",success);
+      test.ok(success, 'setValue_throws_NO_MODIFICATION');
     }
 
     {
@@ -578,7 +578,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("setNodeValue_throws_NO_MODIFICATION",success);
+      test.ok(success, 'setNodeValue_throws_NO_MODIFICATION');
     }
 
     test.done();
@@ -637,7 +637,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("setValue_throws_NO_MODIFICATION",success);
+      test.ok(success, 'setValue_throws_NO_MODIFICATION');
     }
 
     {
@@ -649,7 +649,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("setNodeValue_throws_NO_MODIFICATION",success);
+      test.ok(success, 'setNodeValue_throws_NO_MODIFICATION');
     }
 
     test.done();
@@ -687,7 +687,7 @@ exports.tests = {
     domesticAttr = attributes.getNamedItem("domestic");
     state = domesticAttr.specified;
 
-    assertTrue("domesticSpecified",state);
+    test.ok(state, 'domesticSpecified');
 
     test.done();
   },
@@ -726,7 +726,7 @@ exports.tests = {
     streetAttr = attributes.getNamedItem("street");
     state = streetAttr.specified;
 
-    assertTrue("streetSpecified",state);
+    test.ok(state, 'streetSpecified');
 
     test.done();
   },
@@ -770,7 +770,7 @@ exports.tests = {
     test.notEqual(streetAttr, null, 'streetAttrNotNull');
     state = streetAttr.specified;
 
-    assertFalse("attrSpecifiedValueRemoveAssert",state);
+    test.equal(state, false, 'attrSpecifiedValueRemoveAssert');
 
     test.done();
   },
@@ -990,7 +990,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -1034,7 +1034,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -1302,7 +1302,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -1346,7 +1346,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -1465,7 +1465,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throws_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throws_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -1512,7 +1512,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throw_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throw_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -1557,7 +1557,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throws_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throws_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -1603,7 +1603,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throw_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throw_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -1647,7 +1647,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throws_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throws_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -1692,7 +1692,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throws_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throws_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -1739,7 +1739,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throw_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throw_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -1785,7 +1785,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throws_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throws_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -1830,7 +1830,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throws_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throws_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -1875,7 +1875,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throws_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throws_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -1922,7 +1922,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throw_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throw_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -2101,7 +2101,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -2143,7 +2143,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -2401,7 +2401,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -2445,7 +2445,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -2509,7 +2509,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -2552,7 +2552,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -3314,7 +3314,7 @@ exports.tests = {
     doc = staff.staff();
     docImpl = doc.implementation;
     state = docImpl.hasFeature("XML","1.0");
-    assertTrue("documentGetImplementationAssert",state);
+    test.ok(state, 'documentGetImplementationAssert');
 
     test.done();
   },
@@ -3379,7 +3379,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("throw_INVALID_CHARACTER_ERR",success);
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
 
     test.done();
@@ -3419,7 +3419,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("throw_INVALID_CHARACTER_ERR",success);
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
 
     test.done();
@@ -3450,7 +3450,7 @@ exports.tests = {
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 5);
     }
-    assertTrue("throw_INVALID_CHARACTER_ERR",success);
+    test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     test.done();
   },
 
@@ -3478,7 +3478,7 @@ exports.tests = {
     catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 5);
     }
-    assertTrue("throw_INVALID_CHARACTER_ERR",success);
+    test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     test.done();
   },
 
@@ -3509,7 +3509,7 @@ exports.tests = {
     catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 5);
     }
-    assertTrue("throw_INVALID_CHARACTER_ERR",success);
+    test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     test.done();
   },
 
@@ -3537,7 +3537,7 @@ exports.tests = {
     catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 5);
     }
-    assertTrue("throw_INVALID_CHARACTER_ERR",success);
+    test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     test.done();
   },
 
@@ -3797,7 +3797,7 @@ exports.tests = {
     doc = staff.staff();
     domImpl = doc.implementation;
     state = domImpl.hasFeature("XML","");
-    assertTrue("hasXMLEmpty",state);
+    test.ok(state, 'hasXMLEmpty');
 
     test.done();
   },
@@ -3822,7 +3822,7 @@ exports.tests = {
     doc = staff.staff();
     domImpl = doc.implementation;
     state = domImpl.hasFeature("XML",nullVersion);
-    assertTrue("hasXMLnull",state);
+    test.ok(state, 'hasXMLnull');
 
     test.done();
   },
@@ -3844,7 +3844,7 @@ exports.tests = {
     doc = staff.staff();
     domImpl = doc.implementation;
     state = domImpl.hasFeature("xml","1.0");
-    assertTrue("hasXML1",state);
+    test.ok(state, 'hasXML1');
 
     test.done();
   },
@@ -3913,7 +3913,7 @@ exports.tests = {
     domesticAttr = attributes.getNamedItem("domestic");
     specified = domesticAttr.specified;
 
-    assertTrue("domesticSpecified",specified);
+    test.ok(specified, 'domesticSpecified');
 
     test.done();
   },
@@ -4324,7 +4324,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 10);
       }
-      assertTrue("throw_INUSE_ATTRIBUTE_ERR",success);
+      test.ok(success, 'throw_INUSE_ATTRIBUTE_ERR');
     }
 
     test.done();
@@ -4373,7 +4373,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("throw_INVALID_CHARACTER_ERR",success);
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
 
     test.done();
@@ -4458,7 +4458,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done();
@@ -4637,7 +4637,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -4696,7 +4696,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -4761,7 +4761,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -4811,7 +4811,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -5114,7 +5114,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -5168,7 +5168,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -5253,7 +5253,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -5303,7 +5303,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -5376,7 +5376,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
 
     test.done();
@@ -5587,7 +5587,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
 
     test.done();
@@ -5682,7 +5682,7 @@ exports.tests = {
     catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 3);
     }
-    assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+    test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     test.done();
   },
 
@@ -5730,7 +5730,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
 
     test.done();
@@ -6220,7 +6220,7 @@ exports.tests = {
     titleAttr = attributes.getNamedItem("title");
 
     hasChildNodes = titleAttr.hasChildNodes();
-    assertTrue("hasChildrenIsTrue",hasChildNodes);
+    test.ok(hasChildNodes, 'hasChildrenIsTrue');
 
     test.done();
   },
@@ -6496,7 +6496,7 @@ exports.tests = {
     catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 3);
     }
-    assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+    test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     test.done();
   },
 
@@ -6545,7 +6545,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
 
     test.done();
@@ -6594,7 +6594,7 @@ exports.tests = {
     catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 3);
     }
-    assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+    test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     test.done();
   },
 
@@ -6907,7 +6907,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done();
@@ -7153,7 +7153,7 @@ exports.tests = {
     domesticAttr = attributes.getNamedItem("title");
     state = domesticAttr.specified;
 
-    assertTrue("acronymTitleSpecified",state);
+    test.ok(state, 'acronymTitleSpecified');
 
     test.done();
   },
@@ -7191,7 +7191,7 @@ exports.tests = {
     streetAttr = attributes.getNamedItem("class");
     state = streetAttr.specified;
 
-    assertTrue("acronymClassSpecified",state);
+    test.ok(state, 'acronymClassSpecified');
 
     test.done();
   },
@@ -7584,7 +7584,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throws_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throws_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -7630,7 +7630,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throw_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throw_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -7674,7 +7674,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throws_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throws_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -7719,7 +7719,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throw_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throw_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -7762,7 +7762,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throws_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throws_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -7807,7 +7807,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throws_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throws_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -7853,7 +7853,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throw_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throw_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -7898,7 +7898,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throws_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throws_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -7942,7 +7942,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throws_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throws_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -7986,7 +7986,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throws_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throws_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -8032,7 +8032,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throw_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throw_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -8976,7 +8976,7 @@ exports.tests = {
     xmlstate = docImpl.hasFeature("XML","1.0");
     htmlstate = docImpl.hasFeature("HTML","1.0");
 
-    assertTrue("supports_XML_1.0",xmlstate);
+    test.ok(xmlstate, 'supports_XML_1.0');
     test.done();
   },
 
@@ -9035,7 +9035,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("throw_INVALID_CHARACTER_ERR",success);
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
 
     test.done();
@@ -9067,7 +9067,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("throw_INVALID_CHARACTER_ERR",success);
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
 
     test.done();
@@ -9106,7 +9106,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("throw_INVALID_CHARACTER_ERR",success);
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
 
     test.done();
@@ -9138,7 +9138,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("throw_INVALID_CHARACTER_ERR",success);
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
 
     test.done();
@@ -9167,7 +9167,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
     state = domImpl.hasFeature("XML","");
-    assertTrue("hasFeatureBlank",state);
+    test.ok(state, 'hasFeatureBlank');
     test.done();
   },
 
@@ -9195,7 +9195,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
     state = domImpl.hasFeature("XML",null);
-    assertTrue("supports_XML_null",state);
+    test.ok(state, 'supports_XML_null');
     test.done();
   },
 
@@ -9220,7 +9220,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
     state = domImpl.hasFeature("xml","1.0");
-    assertTrue("supports_xml_1.0",state);
+    test.ok(state, 'supports_xml_1.0');
     test.done();
   },
 
@@ -9285,7 +9285,7 @@ exports.tests = {
     domesticAttr = attributes.getNamedItem("title");
     specified = domesticAttr.specified;
 
-    assertTrue("acronymTitleSpecified",specified);
+    test.ok(specified, 'acronymTitleSpecified');
 
     test.done();
   },
@@ -9682,7 +9682,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 10);
       }
-      assertTrue("throw_INUSE_ATTRIBUTE_ERR",success);
+      test.ok(success, 'throw_INUSE_ATTRIBUTE_ERR');
     }
 
     test.done();
@@ -9722,7 +9722,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("throw_INVALID_CHARACTER_ERR",success);
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
 
     test.done();
@@ -9756,7 +9756,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("throw_INVALID_CHARACTER_ERR",success);
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
 
     test.done();
@@ -9886,7 +9886,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done();
@@ -10293,7 +10293,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
 
     test.done();
@@ -10326,7 +10326,7 @@ exports.tests = {
     catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 7);
     }
-    assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+    test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     test.done();
   },
 
@@ -10497,7 +10497,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 10);
       }
-      assertTrue("throw_INUSE_ATTRIBUTE_ERR",success);
+      test.ok(success, 'throw_INUSE_ATTRIBUTE_ERR');
     }
 
     test.done();
@@ -10543,7 +10543,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done();
@@ -11032,7 +11032,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
 
     test.done();
@@ -11301,7 +11301,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
 
     test.done();
@@ -11358,7 +11358,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
 
     test.done();
@@ -11405,7 +11405,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
 
     test.done();
@@ -12856,7 +12856,7 @@ exports.tests = {
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     state = employeeNode.hasChildNodes();
-    assertTrue("nodeHasChild",state);
+    test.ok(state, 'nodeHasChild');
 
     test.done();
   },
@@ -12888,7 +12888,7 @@ exports.tests = {
     emText = emNode.firstChild;
 
     hasChild = emText.hasChildNodes();
-    assertFalse("hasChild",hasChild);
+    test.equal(hasChild, false, 'hasChild');
 
     test.done();
   },
@@ -13062,7 +13062,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
 
     test.done();
@@ -13122,7 +13122,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
 
     test.done();
@@ -13238,7 +13238,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
 
     test.done();
@@ -13327,7 +13327,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done();
@@ -13969,7 +13969,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done();
@@ -14062,7 +14062,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
 
     test.done();
@@ -14122,7 +14122,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
 
     test.done();
@@ -14242,7 +14242,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
 
     test.done();
@@ -14330,7 +14330,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done();
@@ -14580,22 +14580,12 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     newNode = doc.doctype;
-
-    assertTrue("docTypeNotNullOrDocIsHTML", ((newNode != null) || (false)));
-
-    if (newNode != null) {
-      test.notEqual(newNode, null, 'docTypeNotNull');
-      newValue = newNode.nodeValue;
-
-      test.equal(newValue, null, 'initiallyNull');
-      newNode.nodeValue = "This should have no effect";
-
-      newValue = newNode.nodeValue;
-
-      test.equal(newValue, null, 'nullAfterAttemptedChange');
-
-    }
-
+    test.notEqual(newNode, null, 'docTypeNotNull');
+    newValue = newNode.nodeValue;
+    test.equal(newValue, null, 'initiallyNull');
+    newNode.nodeValue = "This should have no effect";
+    newValue = newNode.nodeValue;
+    test.equal(newValue, null, 'nullAfterAttemptedChange');
     test.done();
   },
 
@@ -14759,7 +14749,7 @@ exports.tests = {
     catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 7);
     }
-    assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+    test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     test.done();
   },
 
@@ -14847,7 +14837,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throws_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throws_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -14893,7 +14883,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throw_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throw_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -15300,7 +15290,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 10);
       }
-      assertTrue("throw_INUSE_ATTRIBUTE_ERR",success);
+      test.ok(success, 'throw_INUSE_ATTRIBUTE_ERR');
     }
 
     test.done();
@@ -15346,7 +15336,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done();
@@ -15426,7 +15416,7 @@ exports.tests = {
     test.notEqual(streetAttr, null, 'streetAttrNotNull');
     specified = streetAttr.specified;
 
-    assertFalse("attrNotSpecified",specified);
+    test.equal(specified, false, 'attrNotSpecified');
 
     test.done();
   },
@@ -15920,7 +15910,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
 
     test.done();
@@ -16163,7 +16153,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
 
     test.done();
@@ -16221,7 +16211,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
 
     test.done();
@@ -16268,7 +16258,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
 
     test.done();
@@ -16332,7 +16322,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -16374,7 +16364,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -18467,7 +18457,7 @@ exports.tests = {
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     state = employeeNode.hasChildNodes();
-    assertTrue("nodeHasChild",state);
+    test.ok(state, 'nodeHasChild');
 
     test.done();
   },
@@ -18505,8 +18495,7 @@ exports.tests = {
     textNode = employeeNode.firstChild;
 
     state = textNode.hasChildNodes();
-    assertFalse("nodeHasChildFalse",state);
-
+    test.equal(state, false, 'nodeHasChildFalse');
     test.done();
   },
 
@@ -18700,7 +18689,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
 
     test.done();
@@ -18760,7 +18749,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
 
     test.done();
@@ -18904,7 +18893,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
 
     test.done();
@@ -19011,7 +19000,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NOT_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NOT_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -19055,7 +19044,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -19103,7 +19092,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done();
@@ -20074,7 +20063,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -20118,7 +20107,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -20163,7 +20152,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done();
@@ -20255,7 +20244,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
 
     test.done();
@@ -20315,7 +20304,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
 
     test.done();
@@ -20459,7 +20448,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
 
     test.done();
@@ -20575,7 +20564,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -20620,7 +20609,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -20667,7 +20656,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done();
@@ -20734,7 +20723,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -20774,7 +20763,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -21505,7 +21494,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -21560,7 +21549,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -21605,7 +21594,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throws_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throws_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -21652,7 +21641,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
-      assertTrue("throw_INDEX_SIZE_ERR",success);
+      test.ok(success, 'throw_INDEX_SIZE_ERR');
     }
 
     test.done();
@@ -21841,7 +21830,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -21879,7 +21868,7 @@ exports.tests = {
     catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 7);
     }
-    assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+    test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     test.done();
   },
 
