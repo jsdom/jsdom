@@ -310,7 +310,7 @@ exports.tests = {
     domesticAttr = attributes.getNamedItem("domestic");
     s = domesticAttr.nextSibling;
 
-    assertNull("attrNextSiblingNullAssert",s);
+    test.equal(s, null, 'attrNextSiblingNullAssert');
 
     test.done();
   },
@@ -382,7 +382,7 @@ exports.tests = {
     domesticAttr = attributes.getNamedItem("domestic");
     s = domesticAttr.parentNode;
 
-    assertNull("attrParentNodeNullAssert",s);
+    test.equal(s, null, 'attrParentNodeNullAssert');
 
     test.done();
   },
@@ -416,7 +416,7 @@ exports.tests = {
     domesticAttr = attributes.getNamedItem("domestic");
     s = domesticAttr.previousSibling;
 
-    assertNull("attrPreviousSiblingNullAssert",s);
+    test.equal(s, null, 'attrPreviousSiblingNullAssert');
 
     test.done();
   },
@@ -441,14 +441,14 @@ exports.tests = {
 
     doc = staff.staff();
     entRef = doc.createEntityReference("ent4");
-    assertNotNull("createdEntRefNotNull",entRef);
+    test.notEqual(entRef, null, 'createdEntRefNotNull');
     entElement = entRef.firstChild;
 
-    assertNotNull("entElementNotNull",entElement);
+    test.notEqual(entElement, null, 'entElementNotNull');
     attrNode = entElement.getAttributeNode("domestic");
     textNode = attrNode.firstChild;
 
-    assertNotNull("attrChildNotNull",textNode);
+    test.notEqual(textNode, null, 'attrChildNotNull');
 
     {
       success = false;
@@ -485,14 +485,14 @@ exports.tests = {
 
     doc = staff.staff();
     entRef = doc.createEntityReference("ent4");
-    assertNotNull("createdEntRefNotNull",entRef);
+    test.notEqual(entRef, null, 'createdEntRefNotNull');
     entElement = entRef.firstChild;
 
-    assertNotNull("entElementNotNull",entElement);
+    test.notEqual(entElement, null, 'entElementNotNull');
     attrNode = entElement.getAttributeNode("domestic");
     textNode = attrNode.firstChild;
 
-    assertNotNull("attrChildNotNull",textNode);
+    test.notEqual(textNode, null, 'attrChildNotNull');
     newChild = doc.createTextNode("Yesterday");
 
     {
@@ -542,20 +542,20 @@ exports.tests = {
     doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
-    assertNotNull("genderNotNull",gender);
+    test.notEqual(gender, null, 'genderNotNull');
     genList = gender.childNodes;
 
     gen = genList.item(0);
-    assertNotNull("genderFirstChildNotNull",gen);
+    test.notEqual(gen, null, 'genderFirstChildNotNull');
     gList = gen.childNodes;
 
     g = gList.item(0);
-    assertNotNull("genderFirstGrandchildNotNull",g);
+    test.notEqual(g, null, 'genderFirstGrandchildNotNull');
     attrList = g.attributes;
 
-    assertNotNull("attributesNotNull",attrList);
+    test.notEqual(attrList, null, 'attributesNotNull');
     attrNode = attrList.getNamedItem("domestic");
-    assertNotNull("attrNotNull",attrNode);
+    test.notEqual(attrNode, null, 'attrNotNull');
 
     {
       success = false;
@@ -617,13 +617,13 @@ exports.tests = {
     doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
-    assertNotNull("genderNotNull",gender);
+    test.notEqual(gender, null, 'genderNotNull');
     entRef = doc.createEntityReference("ent4");
-    assertNotNull("entRefNotNull",entRef);
+    test.notEqual(entRef, null, 'entRefNotNull');
     appendedChild = gender.appendChild(entRef);
     entElement = entRef.firstChild;
 
-    assertNotNull("entElementNotNull",entElement);
+    test.notEqual(entElement, null, 'entElementNotNull');
     attrList = entElement.attributes;
 
     attrNode = attrList.getNamedItem("domestic");
@@ -767,7 +767,7 @@ exports.tests = {
     attributes = testNode.attributes;
 
     streetAttr = attributes.getNamedItem("street");
-    assertNotNull("streetAttrNotNull",streetAttr);
+    test.notEqual(streetAttr, null, 'streetAttrNotNull');
     state = streetAttr.specified;
 
     assertFalse("attrSpecifiedValueRemoveAssert",state);
@@ -841,12 +841,12 @@ exports.tests = {
     childNodes = lChild.childNodes;
 
     cdataN = childNodes.item(1);
-    assertNotNull("firstCDATASection",cdataN);
+    test.notEqual(cdataN, null, 'firstCDATASection');
     data = cdataN.data;
 
     assertEquals("data1","This is a CDATASection with EntityReference number 2 &ent2;",data);
     cdataN = childNodes.item(3);
-    assertNotNull("secondCDATASection",cdataN);
+    test.notEqual(cdataN, null, 'secondCDATASection');
     data = cdataN.data;
 
     assertEquals("data3","This is an adjacent CDATASection with a reference to a tab &tab;",data);
@@ -964,7 +964,7 @@ exports.tests = {
     genderNode = genderList.item(2);
     entReference = genderNode.firstChild;
 
-    assertNotNull("entReferenceNotNull",entReference);
+    test.notEqual(entReference, null, 'entReferenceNotNull');
     nodeType = entReference.nodeType;
 
 
@@ -972,15 +972,15 @@ exports.tests = {
       (1 == nodeType)
     ) {
       entReference = doc.createEntityReference("ent4");
-      assertNotNull("createdEntRefNotNull",entReference);
+      test.notEqual(entReference, null, 'createdEntRefNotNull');
 
     }
     entElement = entReference.firstChild;
 
-    assertNotNull("entElementNotNull",entElement);
+    test.notEqual(entElement, null, 'entElementNotNull');
     entElementContent = entElement.firstChild;
 
-    assertNotNull("entElementContentNotNull",entElementContent);
+    test.notEqual(entElementContent, null, 'entElementContentNotNull');
 
     {
       success = false;
@@ -1020,11 +1020,11 @@ exports.tests = {
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = doc.createEntityReference("ent3");
-    assertNotNull("createdEntRefNotNull",entReference);
+    test.notEqual(entReference, null, 'createdEntRefNotNull');
     appendedChild = genderNode.appendChild(entReference);
     entText = entReference.firstChild;
 
-    assertNotNull("entTextNotNull",entText);
+    test.notEqual(entText, null, 'entTextNotNull');
 
     {
       success = false;
@@ -1276,7 +1276,7 @@ exports.tests = {
     genderNode = genderList.item(2);
     entReference = genderNode.firstChild;
 
-    assertNotNull("entReferenceNotNull",entReference);
+    test.notEqual(entReference, null, 'entReferenceNotNull');
     nodeType = entReference.nodeType;
 
 
@@ -1284,15 +1284,15 @@ exports.tests = {
       (3 == nodeType)
     ) {
       entReference = doc.createEntityReference("ent4");
-      assertNotNull("createdEntRefNotNull",entReference);
+      test.notEqual(entReference, null, 'createdEntRefNotNull');
 
     }
     entElement = entReference.firstChild;
 
-    assertNotNull("entElementNotNull",entElement);
+    test.notEqual(entElement, null, 'entElementNotNull');
     entElementContent = entElement.firstChild;
 
-    assertNotNull("entElementContentNotNull",entElementContent);
+    test.notEqual(entElementContent, null, 'entElementContentNotNull');
 
     {
       success = false;
@@ -1332,11 +1332,11 @@ exports.tests = {
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = doc.createEntityReference("ent3");
-    assertNotNull("createdEntRefNotNull",entReference);
+    test.notEqual(entReference, null, 'createdEntRefNotNull');
     appendedChild = genderNode.appendChild(entReference);
     entText = entReference.firstChild;
 
-    assertNotNull("entTextNotNull",entText);
+    test.notEqual(entText, null, 'entTextNotNull');
 
     {
       success = false;
@@ -2075,7 +2075,7 @@ exports.tests = {
     genderNode = genderList.item(2);
     entReference = genderNode.firstChild;
 
-    assertNotNull("entReferenceNotNull",entReference);
+    test.notEqual(entReference, null, 'entReferenceNotNull');
     nodeType = entReference.nodeType;
 
 
@@ -2083,15 +2083,15 @@ exports.tests = {
       (1 == nodeType)
     ) {
       entReference = doc.createEntityReference("ent4");
-      assertNotNull("createdEntRefNotNull",entReference);
+      test.notEqual(entReference, null, 'createdEntRefNotNull');
 
     }
     entElement = entReference.firstChild;
 
-    assertNotNull("entElementNotNull",entElement);
+    test.notEqual(entElement, null, 'entElementNotNull');
     entElementContent = entElement.firstChild;
 
-    assertNotNull("entElementContentNotNull",entElementContent);
+    test.notEqual(entElementContent, null, 'entElementContentNotNull');
 
     {
       success = false;
@@ -2130,10 +2130,10 @@ exports.tests = {
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = doc.createEntityReference("ent3");
-    assertNotNull("createdEntRefNotNull",entReference);
+    test.notEqual(entReference, null, 'createdEntRefNotNull');
     entText = entReference.firstChild;
 
-    assertNotNull("entTextNotNull",entText);
+    test.notEqual(entText, null, 'entTextNotNull');
 
     {
       success = false;
@@ -2375,7 +2375,7 @@ exports.tests = {
     genderNode = genderList.item(2);
     entReference = genderNode.firstChild;
 
-    assertNotNull("entReferenceNotNull",entReference);
+    test.notEqual(entReference, null, 'entReferenceNotNull');
     nodeType = entReference.nodeType;
 
 
@@ -2383,15 +2383,15 @@ exports.tests = {
       (1 == nodeType)
     ) {
       entReference = doc.createEntityReference("ent4");
-      assertNotNull("createdEntRefNotNull",entReference);
+      test.notEqual(entReference, null, 'createdEntRefNotNull');
 
     }
     entElement = entReference.firstChild;
 
-    assertNotNull("entElementNotNull",entElement);
+    test.notEqual(entElement, null, 'entElementNotNull');
     entElementContent = entElement.firstChild;
 
-    assertNotNull("entElementContentNotNull",entElementContent);
+    test.notEqual(entElementContent, null, 'entElementContentNotNull');
 
     {
       success = false;
@@ -2431,11 +2431,11 @@ exports.tests = {
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = doc.createEntityReference("ent3");
-    assertNotNull("createdEntRefNotNull",entReference);
+    test.notEqual(entReference, null, 'createdEntRefNotNull');
     appendedNode = genderNode.appendChild(entReference);
     entText = entReference.firstChild;
 
-    assertNotNull("entTextNotNull",entText);
+    test.notEqual(entText, null, 'entTextNotNull');
 
     {
       success = false;
@@ -2482,7 +2482,7 @@ exports.tests = {
     genderNode = genderList.item(2);
     entReference = genderNode.firstChild;
 
-    assertNotNull("entReferenceNotNull",entReference);
+    test.notEqual(entReference, null, 'entReferenceNotNull');
     nodeType = entReference.nodeType;
 
 
@@ -2490,15 +2490,15 @@ exports.tests = {
       (1 == nodeType)
     ) {
       entReference = doc.createEntityReference("ent4");
-      assertNotNull("createdEntRefNotNull",entReference);
+      test.notEqual(entReference, null, 'createdEntRefNotNull');
 
     }
     entElement = entReference.firstChild;
 
-    assertNotNull("entElementNotNull",entElement);
+    test.notEqual(entElement, null, 'entElementNotNull');
     entElementContent = entElement.firstChild;
 
-    assertNotNull("entElementContentNotNull",entElementContent);
+    test.notEqual(entElementContent, null, 'entElementContentNotNull');
 
     {
       success = false;
@@ -2538,10 +2538,10 @@ exports.tests = {
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(4);
     entReference = doc.createEntityReference("ent3");
-    assertNotNull("createdEntRefNotNull",entReference);
+    test.notEqual(entReference, null, 'createdEntRefNotNull');
     entText = entReference.firstChild;
 
-    assertNotNull("entTextNotNull",entText);
+    test.notEqual(entText, null, 'entTextNotNull');
 
     {
       success = false;
@@ -2865,7 +2865,7 @@ exports.tests = {
     assertEquals("type",11,newDocFragmentType);
     newDocFragmentValue = newDocFragment.nodeValue;
 
-    assertNull("value",newDocFragmentValue);
+    test.equal(newDocFragmentValue, null, 'value');
 
     test.done();
   },
@@ -2902,7 +2902,7 @@ exports.tests = {
     assertEquals("type",1,newElementType);
     newElementValue = newElement.nodeValue;
 
-    assertNull("valueInitiallyNull",newElementValue);
+    test.equal(newElementValue, null, 'valueInitiallyNull');
 
     test.done();
   },
@@ -2976,7 +2976,7 @@ exports.tests = {
     defaultAttr = newElement.attributes;
 
     child = defaultAttr.item(0);
-    assertNotNull("defaultAttrNotNull",child);
+    test.notEqual(child, null, 'defaultAttrNotNull');
     name = child.nodeName;
 
     assertEquals("attrName","street",name);
@@ -3015,10 +3015,10 @@ exports.tests = {
 
     doc = staff.staff();
     newEntRefNode = doc.createEntityReference("ent1");
-    assertNotNull("createdEntRefNotNull",newEntRefNode);
+    test.notEqual(newEntRefNode, null, 'createdEntRefNotNull');
     entRefValue = newEntRefNode.nodeValue;
 
-    assertNull("value",entRefValue);
+    test.equal(entRefValue, null, 'value');
     entRefName = newEntRefNode.nodeName;
 
     assertEquals("name","ent1",entRefName);
@@ -3058,7 +3058,7 @@ exports.tests = {
 
     doc = staff.staff();
     newEntRefNode = doc.createEntityReference("ent3");
-    assertNotNull("createdEntRefNotNull",newEntRefNode);
+    test.notEqual(newEntRefNode, null, 'createdEntRefNotNull');
     newEntRefList = newEntRefNode.childNodes;
 
     assertSize("size",1,newEntRefList);
@@ -3104,7 +3104,7 @@ exports.tests = {
 
     doc = staff.staff();
     newPINode = doc.createProcessingInstruction("TESTPI","This is a new PI node");
-    assertNotNull("createdPINotNull",newPINode);
+    test.notEqual(newPINode, null, 'createdPINotNull');
     piName = newPINode.nodeName;
 
     assertEquals("name","TESTPI",piName);
@@ -3178,11 +3178,11 @@ exports.tests = {
 
     doc = staff.staff();
     docType = doc.doctype;
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     docTypeName = docType.name;
     assertEquals("doctypeNameSVG","svg",docTypeName);
     nodeValue = docType.nodeValue;
-    assertNull("initiallyNull",nodeValue);
+    test.equal(nodeValue, null, 'initiallyNull');
     test.done();
   },
 
@@ -3205,7 +3205,7 @@ exports.tests = {
     doc = hc_nodtdstaff.hc_nodtdstaff();
     docType = doc.doctype;
 
-    assertNull("documentGetDocTypeNoDTDAssert",docType);
+    test.equal(docType, null, 'documentGetDocTypeNoDTDAssert');
 
     test.done();
   },
@@ -3562,7 +3562,7 @@ exports.tests = {
 
     doc = staff.staff();
     docType = doc.doctype;
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     name = docType.name;
     assertEquals("doctypeName","svg",name);
     test.done();
@@ -3611,10 +3611,10 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     entityList = docType.entities;
 
-    assertNotNull("entitiesNotNull",entityList);
+    test.notEqual(entityList, null, 'entitiesNotNull');
     for(var indexN1007B = 0;indexN1007B < entityList.length; indexN1007B++) {
       entity = entityList.item(indexN1007B);
       name = entity.nodeName;
@@ -3646,9 +3646,9 @@ exports.tests = {
 
     doc = staff.staff();
     docType = doc.doctype;
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     entityList = docType.entities;
-    assertNotNull("entitiesNotNull",entityList);
+    test.notEqual(entityList, null, 'entitiesNotNull');
     assertSize("entitySizeSVG",7,entityList);
     test.done();
   },
@@ -3678,10 +3678,10 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     entityList = docType.entities;
 
-    assertNotNull("entitiesNotNull",entityList);
+    test.notEqual(entityList, null, 'entitiesNotNull');
     for(var indexN10049 = 0;indexN10049 < entityList.length; indexN10049++) {
       entity = entityList.item(indexN10049);
       entityType = entity.nodeType;
@@ -3724,10 +3724,10 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     notationList = docType.notations;
 
-    assertNotNull("notationsNotNull",notationList);
+    test.notEqual(notationList, null, 'notationsNotNull');
     for(var indexN1005B = 0;indexN1005B < notationList.length; indexN1005B++) {
       notation = notationList.item(indexN1005B);
       notationName = notation.nodeName;
@@ -3764,10 +3764,10 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     notationList = docType.notations;
 
-    assertNotNull("notationsNotNull",notationList);
+    test.notEqual(notationList, null, 'notationsNotNull');
     for(var indexN10049 = 0;indexN10049 < notationList.length; indexN10049++) {
       notation = notationList.item(indexN10049);
       notationType = notation.nodeType;
@@ -3983,9 +3983,9 @@ exports.tests = {
     testAddress = elementList.item(0);
     newAttribute = doc.createAttribute("district");
     oldAttr = testAddress.setAttributeNode(newAttribute);
-    assertNull("old_attr_doesnt_exist",oldAttr);
+    test.equal(oldAttr, null, 'old_attr_doesnt_exist');
     districtAttr = testAddress.getAttributeNode("district");
-    assertNotNull("new_district_accessible",districtAttr);
+    test.notEqual(districtAttr, null, 'new_district_accessible');
     attrVal = testAddress.getAttribute("district");
     assertEquals("attr_value","",attrVal);
 
@@ -4051,7 +4051,7 @@ exports.tests = {
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(0);
     domesticAttr = testEmployee.getAttributeNode("invalidAttribute");
-    assertNull("elementGetAttributeNodeNullAssert",domesticAttr);
+    test.equal(domesticAttr, null, 'elementGetAttributeNodeNullAssert');
 
     test.done();
   },
@@ -4533,7 +4533,7 @@ exports.tests = {
     attributes = testEmployee.attributes;
 
     districtAttr = attributes.getNamedItem("district");
-    assertNull("elementRemoveAttributeAfterCreateAssert",districtAttr);
+    test.equal(districtAttr, null, 'elementRemoveAttributeAfterCreateAssert');
 
     test.done();
   },
@@ -4610,7 +4610,7 @@ exports.tests = {
     genList = gender.childNodes;
 
     gen = genList.item(0);
-    assertNotNull("genNotNull",gen);
+    test.notEqual(gen, null, 'genNotNull');
     nodeType = gen.nodeType;
 
 
@@ -4618,13 +4618,13 @@ exports.tests = {
       (1 == nodeType)
     ) {
       gen = doc.createEntityReference("ent4");
-      assertNotNull("createdEntRefNotNull",gen);
+      test.notEqual(gen, null, 'createdEntRefNotNull');
 
     }
     gList = gen.childNodes;
 
     genElement = gList.item(0);
-    assertNotNull("genElementNotNull",genElement);
+    test.notEqual(genElement, null, 'genElementNotNull');
     attrList = genElement.attributes;
 
     attrNode = attrList.getNamedItem("domestic");
@@ -4678,15 +4678,15 @@ exports.tests = {
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     entRef = doc.createEntityReference("ent4");
-    assertNotNull("createdEntRefNotNull",entRef);
+    test.notEqual(entRef, null, 'createdEntRefNotNull');
     appendedChild = gender.appendChild(entRef);
     entElement = entRef.firstChild;
 
-    assertNotNull("entElementNotNull",entElement);
+    test.notEqual(entElement, null, 'entElementNotNull');
     attrList = entElement.attributes;
 
     attrNode = attrList.getNamedItem("domestic");
-    assertNotNull("attrNodeNotNull",attrNode);
+    test.notEqual(attrNode, null, 'attrNodeNotNull');
 
     {
       success = false;
@@ -4737,7 +4737,7 @@ exports.tests = {
     genList = gender.childNodes;
 
     gen = genList.item(0);
-    assertNotNull("genNotNull",gen);
+    test.notEqual(gen, null, 'genNotNull');
     nodeType = gen.nodeType;
 
 
@@ -4745,13 +4745,13 @@ exports.tests = {
       (1 == nodeType)
     ) {
       gen = doc.createEntityReference("ent4");
-      assertNotNull("createdEntRefNotNull",gen);
+      test.notEqual(gen, null, 'createdEntRefNotNull');
 
     }
     gList = gen.childNodes;
 
     genElement = gList.item(0);
-    assertNotNull("genElementNotNull",genElement);
+    test.notEqual(genElement, null, 'genElementNotNull');
 
     {
       success = false;
@@ -4797,11 +4797,11 @@ exports.tests = {
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     entRef = doc.createEntityReference("ent4");
-    assertNotNull("createdEntRefNotNull",entRef);
+    test.notEqual(entRef, null, 'createdEntRefNotNull');
     appendedChild = gender.appendChild(entRef);
     entElement = entRef.firstChild;
 
-    assertNotNull("entElementNotNull",entElement);
+    test.notEqual(entElement, null, 'entElementNotNull');
 
     {
       success = false;
@@ -5090,7 +5090,7 @@ exports.tests = {
     gender = genderList.item(2);
     entRef = gender.firstChild;
 
-    assertNotNull("entRefNotNull",entRef);
+    test.notEqual(entRef, null, 'entRefNotNull');
     nodeType = entRef.nodeType;
 
 
@@ -5098,12 +5098,12 @@ exports.tests = {
       (1 == nodeType)
     ) {
       entRef = doc.createEntityReference("ent4");
-      assertNotNull("createdEntRefNotNull",entRef);
+      test.notEqual(entRef, null, 'createdEntRefNotNull');
 
     }
     entElement = entRef.firstChild;
 
-    assertNotNull("entElementNotNull",entElement);
+    test.notEqual(entElement, null, 'entElementNotNull');
     newAttr = doc.createAttribute("newAttr");
 
     {
@@ -5153,11 +5153,11 @@ exports.tests = {
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     entRef = doc.createEntityReference("ent4");
-    assertNotNull("createdEntRefNotNull",entRef);
+    test.notEqual(entRef, null, 'createdEntRefNotNull');
     appendedChild = gender.appendChild(entRef);
     entElement = entRef.firstChild;
 
-    assertNotNull("entElementNotNull",entElement);
+    test.notEqual(entElement, null, 'entElementNotNull');
     newAttr = doc.createAttribute("newAttr");
 
     {
@@ -5204,7 +5204,7 @@ exports.tests = {
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("district");
     districtAttr = testEmployee.setAttributeNode(newAttribute);
-    assertNull("elementSetAttributeNodeNullAssert",districtAttr);
+    test.equal(districtAttr, null, 'elementSetAttributeNodeNullAssert');
 
     test.done();
   },
@@ -5240,10 +5240,10 @@ exports.tests = {
     gender = genderList.item(2);
     entRef = gender.firstChild;
 
-    assertNotNull("entRefNotNull",entRef);
+    test.notEqual(entRef, null, 'entRefNotNull');
     entElement = entRef.firstChild;
 
-    assertNotNull("entElementNotNull",entElement);
+    test.notEqual(entElement, null, 'entElementNotNull');
 
     {
       success = false;
@@ -5293,7 +5293,7 @@ exports.tests = {
     appendedChild = gender.appendChild(entRef);
     entElement = entRef.firstChild;
 
-    assertNotNull("entElementNotNull",entElement);
+    test.notEqual(entElement, null, 'entElementNotNull');
 
     {
       success = false;
@@ -5407,10 +5407,10 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     entityList = docType.entities;
 
-    assertNotNull("entitiesNotNull",entityList);
+    test.notEqual(entityList, null, 'entitiesNotNull');
     entityNode = entityList.getNamedItem("ent1");
     entityName = entityNode.nodeName;
 
@@ -5448,10 +5448,10 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     entityList = docType.entities;
 
-    assertNotNull("entitiesNotNull",entityList);
+    test.notEqual(entityList, null, 'entitiesNotNull');
     entityNode = entityList.getNamedItem("ent5");
     publicId = entityNode.publicId;
 
@@ -5492,14 +5492,14 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     entityList = docType.entities;
 
-    assertNotNull("entitiesNotNull",entityList);
+    test.notEqual(entityList, null, 'entitiesNotNull');
     entityNode = entityList.getNamedItem("ent1");
     publicId = entityNode.publicId;
 
-    assertNull("entityGetPublicIdNullAssert",publicId);
+    test.equal(publicId, null, 'entityGetPublicIdNullAssert');
 
     test.done();
   },
@@ -5636,7 +5636,7 @@ exports.tests = {
     assertEquals("attrNodeValue","Yesterday",value);
     value = retval.nodeValue;
 
-    assertNull("retvalValue",value);
+    test.equal(value, null, 'retvalValue');
     lastChild = titleAttr.lastChild;
 
     value = lastChild.nodeValue;
@@ -5812,7 +5812,7 @@ exports.tests = {
 
     assertEquals("child1IsYes","Yes",value);
     textNode = childNodes.item(1);
-    assertNull("secondItemIsNull",textNode);
+    test.equal(textNode, null, 'secondItemIsNull');
 
     test.done();
   },
@@ -5857,7 +5857,7 @@ exports.tests = {
 
     assertEquals("child2IsTerday","terday",value);
     textNode = childNodes.item(2);
-    assertNull("thirdItemIsNull",textNode);
+    test.equal(textNode, null, 'thirdItemIsNull');
 
     test.done();
   },
@@ -6110,16 +6110,16 @@ exports.tests = {
     titleAttr = attributes.getNamedItem("title");
     textNode = titleAttr.firstChild;
 
-    assertNotNull("textNodeNotNull",textNode);
+    test.notEqual(textNode, null, 'textNodeNotNull');
     value = textNode.nodeValue;
 
     assertEquals("child1IsYes","Yes",value);
     otherChild = textNode.nextSibling;
 
-    assertNull("nextSiblingIsNull",otherChild);
+    test.equal(otherChild, null, 'nextSiblingIsNull');
     otherChild = textNode.previousSibling;
 
-    assertNull("previousSiblingIsNull",otherChild);
+    test.equal(otherChild, null, 'previousSiblingIsNull');
 
     test.done();
   },
@@ -6382,7 +6382,7 @@ exports.tests = {
     assertEquals("attrNodeValue","Yesterday",value);
     value = retval.nodeValue;
 
-    assertNull("retvalValue",value);
+    test.equal(value, null, 'retvalValue');
     firstChild = titleAttr.firstChild;
 
     value = firstChild.nodeValue;
@@ -6444,7 +6444,7 @@ exports.tests = {
     assertEquals("attrNodeValue","terdayYes",value);
     value = retval.nodeValue;
 
-    assertNull("retvalValue",value);
+    test.equal(value, null, 'retvalValue');
     firstChild = titleAttr.firstChild;
 
     value = firstChild.nodeValue;
@@ -6626,16 +6626,16 @@ exports.tests = {
     titleAttr = attributes.getNamedItem("title");
     textNode = titleAttr.firstChild;
 
-    assertNotNull("textNodeNotNull",textNode);
+    test.notEqual(textNode, null, 'textNodeNotNull');
     value = textNode.nodeValue;
 
     assertEquals("child1IsYes","Yes",value);
     otherChild = textNode.nextSibling;
 
-    assertNull("nextSiblingIsNull",otherChild);
+    test.equal(otherChild, null, 'nextSiblingIsNull');
     otherChild = textNode.previousSibling;
 
-    assertNull("previousSiblingIsNull",otherChild);
+    test.equal(otherChild, null, 'previousSiblingIsNull');
 
     test.done();
   },
@@ -6706,7 +6706,7 @@ exports.tests = {
     domesticAttr = attributes.getNamedItem("title");
     s = domesticAttr.nextSibling;
 
-    assertNull("attrNextSiblingNullAssert",s);
+    test.equal(s, null, 'attrNextSiblingNullAssert');
 
     test.done();
   },
@@ -6754,7 +6754,7 @@ exports.tests = {
     assertEquals("firstChildValue","Yesterday",value);
     secondChild = firstChild.nextSibling;
 
-    assertNull("secondChildIsNull",secondChild);
+    test.equal(secondChild, null, 'secondChildIsNull');
 
     test.done();
   },
@@ -6787,7 +6787,7 @@ exports.tests = {
     domesticAttr = attributes.getNamedItem("title");
     s = domesticAttr.parentNode;
 
-    assertNull("attrParentNodeNullAssert",s);
+    test.equal(s, null, 'attrParentNodeNullAssert');
 
     test.done();
   },
@@ -6820,7 +6820,7 @@ exports.tests = {
     domesticAttr = attributes.getNamedItem("title");
     s = domesticAttr.previousSibling;
 
-    assertNull("attrPreviousSiblingNullAssert",s);
+    test.equal(s, null, 'attrPreviousSiblingNullAssert');
 
     test.done();
   },
@@ -6853,7 +6853,7 @@ exports.tests = {
     titleAttr = attributes.getNamedItem("title");
     textNode = titleAttr.firstChild;
 
-    assertNotNull("attrChildNotNull",textNode);
+    test.notEqual(textNode, null, 'attrChildNotNull');
     retval = titleAttr.removeChild(textNode);
 
     value = titleAttr.value;
@@ -6867,7 +6867,7 @@ exports.tests = {
     assertEquals("retvalValue","Yes",value);
     firstChild = titleAttr.firstChild;
 
-    assertNull("firstChildNull",firstChild);
+    test.equal(firstChild, null, 'firstChildNull');
 
     test.done();
   },
@@ -6943,7 +6943,7 @@ exports.tests = {
     textNode = doc.createTextNode("terday");
     firstChild = titleAttr.firstChild;
 
-    assertNotNull("attrChildNotNull",firstChild);
+    test.notEqual(firstChild, null, 'attrChildNotNull');
     retval = titleAttr.replaceChild(textNode,firstChild);
     value = titleAttr.value;
 
@@ -6999,7 +6999,7 @@ exports.tests = {
     retval = docFrag.appendChild(dayNode);
     firstChild = titleAttr.firstChild;
 
-    assertNotNull("attrChildNotNull",firstChild);
+    test.notEqual(firstChild, null, 'attrChildNotNull');
     retval = titleAttr.replaceChild(docFrag,firstChild);
     value = titleAttr.value;
 
@@ -7046,7 +7046,7 @@ exports.tests = {
     titleAttr = attributes.getNamedItem("title");
     firstChild = titleAttr.firstChild;
 
-    assertNotNull("attrChildNotNull",firstChild);
+    test.notEqual(firstChild, null, 'attrChildNotNull');
     titleAttr.value = "Tomorrow";
 
     firstChild.nodeValue = "impl reused node";
@@ -7064,7 +7064,7 @@ exports.tests = {
     assertEquals("firstChildValue","Tomorrow",value);
     otherChild = firstChild.nextSibling;
 
-    assertNull("nextSiblingIsNull",otherChild);
+    test.equal(otherChild, null, 'nextSiblingIsNull');
 
     test.done();
   },
@@ -7099,7 +7099,7 @@ exports.tests = {
     retval = titleAttr.appendChild(textNode);
     firstChild = titleAttr.firstChild;
 
-    assertNotNull("attrChildNotNull",firstChild);
+    test.notEqual(firstChild, null, 'attrChildNotNull');
     titleAttr.value = "Tomorrow";
 
     firstChild.nodeValue = "impl reused node";
@@ -7117,7 +7117,7 @@ exports.tests = {
     assertEquals("firstChildValue","Tomorrow",value);
     otherChild = firstChild.nextSibling;
 
-    assertNull("nextSiblingIsNull",otherChild);
+    test.equal(otherChild, null, 'nextSiblingIsNull');
 
     test.done();
   },
@@ -8491,7 +8491,7 @@ exports.tests = {
         assertEquals("nodeValue"," This is comment number 1.",childValue);
         attributes = child.attributes;
 
-        assertNull("attributes",attributes);
+        test.equal(attributes, null, 'attributes');
         commentCount += 1;
 
       }
@@ -8613,7 +8613,7 @@ exports.tests = {
     assertEquals("type",11,newDocFragmentType);
     newDocFragmentValue = newDocFragment.nodeValue;
 
-    assertNull("value",newDocFragmentValue);
+    test.equal(newDocFragmentValue, null, 'value');
 
     test.done();
   },
@@ -8649,7 +8649,7 @@ exports.tests = {
     assertEquals("type",1,newElementType);
     newElementValue = newElement.nodeValue;
 
-    assertNull("valueInitiallyNull",newElementValue);
+    test.equal(newElementValue, null, 'valueInitiallyNull');
 
     test.done();
   },
@@ -8756,15 +8756,15 @@ exports.tests = {
     docType = doc.doctype;
 
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
 
     if((docType != null)) {
       docTypeName = docType.name;
       assertEquals("nodeNameSVG","svg",docTypeName);
       nodeValue = docType.nodeValue;
-      assertNull("nodeValue",nodeValue);
+      test.equal(nodeValue, null, 'nodeValue');
       attributes = docType.attributes;
-      assertNull("attributes",attributes);
+      test.equal(attributes, null, 'attributes');
     }
 
     test.done();
@@ -9354,9 +9354,9 @@ exports.tests = {
     testAddress = elementList.item(0);
     newAttribute = doc.createAttribute("lang");
     oldAttr = testAddress.setAttributeNode(newAttribute);
-    assertNull("old_attr_doesnt_exist",oldAttr);
+    test.equal(oldAttr, null, 'old_attr_doesnt_exist');
     districtAttr = testAddress.getAttributeNode("lang");
-    assertNotNull("new_district_accessible",districtAttr);
+    test.notEqual(districtAttr, null, 'new_district_accessible');
     attrVal = testAddress.getAttribute("lang");
     assertEquals("attr_value","",attrVal);
 
@@ -9417,7 +9417,7 @@ exports.tests = {
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(0);
     domesticAttr = testEmployee.getAttributeNode("invalidAttribute");
-    assertNull("elementGetAttributeNodeNullAssert",domesticAttr);
+    test.equal(domesticAttr, null, 'elementGetAttributeNodeNullAssert');
 
     test.done();
   },
@@ -9842,7 +9842,7 @@ exports.tests = {
     assertEquals("firstChild","Yes",childValue);
     secondChild = firstChild.nextSibling;
 
-    assertNull("secondChildNull",secondChild);
+    test.equal(secondChild, null, 'secondChildNull');
 
     test.done();
   },
@@ -9954,7 +9954,7 @@ exports.tests = {
     attributes = testEmployee.attributes;
 
     districtAttr = attributes.getNamedItem("lang");
-    assertNull("removed_item_null",districtAttr);
+    test.equal(districtAttr, null, 'removed_item_null');
 
     test.done();
   },
@@ -9985,7 +9985,7 @@ exports.tests = {
     testEmployee = elementList.item(2);
     streetAttr = testEmployee.getAttributeNode("class");
     removedAttr = testEmployee.removeAttributeNode(streetAttr);
-    assertNotNull("removedAttrNotNull",removedAttr);
+    test.notEqual(removedAttr, null, 'removedAttrNotNull');
     removedValue = removedAttr.value;
 
     assertEquals("elementRemoveAttributeNodeAssert","No",removedValue);
@@ -10092,7 +10092,7 @@ exports.tests = {
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("class");
     streetAttr = testEmployee.setAttributeNode(newAttribute);
-    assertNotNull("previousAttrNotNull",streetAttr);
+    test.notEqual(streetAttr, null, 'previousAttrNotNull');
     value = streetAttr.value;
 
     assertEquals("previousAttrValue","No",value);
@@ -10234,7 +10234,7 @@ exports.tests = {
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("lang");
     districtAttr = testEmployee.setAttributeNode(newAttribute);
-    assertNull("elementSetAttributeNodeNullAssert",districtAttr);
+    test.equal(districtAttr, null, 'elementSetAttributeNodeNullAssert');
 
     test.done();
   },
@@ -10316,9 +10316,9 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     docType = doc.doctype;
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     entities = docType.entities;
-    assertNotNull("entitiesNotNull",entities);
+    test.notEqual(entities, null, 'entitiesNotNull');
     success = false;
     try {
       retval = entities.removeNamedItem("alpha");
@@ -10349,9 +10349,9 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     docType = doc.doctype;
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     entities = docType.entities;
-    assertNotNull("entitiesNotNull",entities);
+    test.notEqual(entities, null, 'entitiesNotNull');
     elem = doc.createElement("br");
     try {
       retval = entities.setNamedItem(elem);
@@ -10403,13 +10403,13 @@ exports.tests = {
     length = attributes.length;
     assertEquals("length",3,length);
     child = attributes.item(2);
-    assertNotNull("attr2",child);
+    test.notEqual(child, null, 'attr2');
     child = attributes.item(0);
-    assertNotNull("attr0",child);
+    test.notEqual(child, null, 'attr0');
     child = attributes.item(1);
-    assertNotNull("attr1",child);
+    test.notEqual(child, null, 'attr1');
     child = attributes.item(3);
-    assertNull("attr3",child);
+    test.equal(child, null, 'attr3');
     test.done();
   },
 
@@ -10609,7 +10609,7 @@ exports.tests = {
 
     removedNode = attributes.removeNamedItem("class");
     streetAttr = attributes.getNamedItem("class");
-    assertNull("isnull",streetAttr);
+    test.equal(streetAttr, null, 'isnull');
 
     test.done();
   },
@@ -10788,7 +10788,7 @@ exports.tests = {
     attributes = testEmployee.attributes;
 
     districtNode = attributes.getNamedItem("lang");
-    assertNull("langAttrNull",districtNode);
+    test.equal(districtNode, null, 'langAttrNull');
 
     test.done();
   },
@@ -10878,7 +10878,7 @@ exports.tests = {
     attributes = testAddress.attributes;
 
     newNode = attributes.setNamedItem(newAttribute);
-    assertNotNull("previousAttrNotNull",newNode);
+    test.notEqual(newNode, null, 'previousAttrNotNull');
     attrValue = newNode.nodeValue;
 
     assertEquals("previousAttrValue","No",attrValue);
@@ -10971,7 +10971,7 @@ exports.tests = {
     attributes = testAddress.attributes;
 
     newNode = attributes.setNamedItem(newAttribute);
-    assertNull("prevValueNull",newNode);
+    test.equal(newNode, null, 'prevValueNull');
 
     test.done();
   },
@@ -11441,7 +11441,7 @@ exports.tests = {
     attrNode = addrAttr.item(0);
     attrList = attrNode.attributes;
 
-    assertNull("nodeAttributeNodeAttributeAssert1",attrList);
+    test.equal(attrList, null, 'nodeAttributeNodeAttribute');
 
     test.done();
   },
@@ -11509,7 +11509,7 @@ exports.tests = {
     addrAttr = testAddr.getAttributeNode("title");
     nodeType = addrAttr.nodeType;
 
-    assertEquals("nodeAttrNodeTypeAssert1",2,nodeType);
+    assertEquals("nodeAttrNodeType",2,nodeType);
 
     test.done();
   },
@@ -11805,7 +11805,7 @@ exports.tests = {
     clonedNode = childNode.cloneNode(false);
     lastChildNode = clonedNode.lastChild;
 
-    assertNull("nodeCloneFalseNoCopyTextAssert1",lastChildNode);
+    test.equal(lastChildNode, null, 'nodeCloneFalseNoCopyText');
 
     test.done();
   },
@@ -11837,7 +11837,7 @@ exports.tests = {
     clonedNode = employeeNode.cloneNode(false);
     parentNode = clonedNode.parentNode;
 
-    assertNull("nodeCloneGetParentNullAssert1",parentNode);
+    test.equal(parentNode, null, 'nodeCloneGetParentNull');
 
     test.done();
   },
@@ -12016,7 +12016,7 @@ exports.tests = {
       ) {
         attrList = commentNode.attributes;
 
-        assertNull("existingCommentAttributesNull",attrList);
+        test.equal(attrList, null, 'existingCommentAttributesNull');
 
       }
 
@@ -12024,7 +12024,7 @@ exports.tests = {
     commentNode = doc.createComment("This is a comment");
     attrList = commentNode.attributes;
 
-    assertNull("createdCommentAttributesNull",attrList);
+    test.equal(attrList, null, 'createdCommentAttributesNull');
 
     test.done();
   },
@@ -12198,7 +12198,7 @@ exports.tests = {
     docFragment = doc.createDocumentFragment();
     documentFragmentName = docFragment.nodeName;
 
-    assertEquals("nodeDocumentFragmentNodeNameAssert1","#document-fragment",documentFragmentName);
+    assertEquals("nodeDocumentFragmentNodeName","#document-fragment",documentFragmentName);
 
     test.done();
   },
@@ -12227,7 +12227,7 @@ exports.tests = {
     documentFragmentNode = doc.createDocumentFragment();
     nodeType = documentFragmentNode.nodeType;
 
-    assertEquals("nodeDocumentFragmentNodeTypeAssert1",11,nodeType);
+    assertEquals("nodeDocumentFragmentNodeType",11,nodeType);
 
     test.done();
   },
@@ -12259,10 +12259,10 @@ exports.tests = {
     docFragment = doc.createDocumentFragment();
     attrList = docFragment.attributes;
 
-    assertNull("attributesNull",attrList);
+    test.equal(attrList, null, 'attributesNull');
     value = docFragment.nodeValue;
 
-    assertNull("initiallyNull",value);
+    test.equal(value, null, 'initiallyNull');
 
     test.done();
   },
@@ -12288,7 +12288,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     attrList = doc.attributes;
 
-    assertNull("doc_attributes_is_null",attrList);
+    test.equal(attrList, null, 'doc_attributes_is_null');
 
     test.done();
   },
@@ -12339,7 +12339,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     nodeType = doc.nodeType;
 
-    assertEquals("nodeDocumentNodeTypeAssert1",9,nodeType);
+    assertEquals("nodeDocumentNodeType",9,nodeType);
 
     test.done();
   },
@@ -12366,7 +12366,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     documentValue = doc.nodeValue;
 
-    assertNull("documentNodeValue",documentValue);
+    test.equal(documentValue, null, 'documentNodeValue');
 
     test.done();
   },
@@ -12463,7 +12463,7 @@ exports.tests = {
 
     nodeType = rootNode.nodeType;
 
-    assertEquals("nodeElementNodeTypeAssert1",1,nodeType);
+    assertEquals("nodeElementNodeType",1,nodeType);
 
     test.done();
   },
@@ -12487,7 +12487,7 @@ exports.tests = {
 
     elementValue = elementNode.nodeValue;
 
-    assertNull("elementNodeValue",elementValue);
+    test.equal(elementValue, null, 'elementNodeValue');
 
     test.done();
   },
@@ -12564,7 +12564,7 @@ exports.tests = {
 
     nullChild = emText.firstChild;
 
-    assertNull("nullChild",nullChild);
+    test.equal(nullChild, null, 'nullChild');
 
     test.done();
   },
@@ -12629,7 +12629,7 @@ exports.tests = {
 
     nullChild = emText.lastChild;
 
-    assertNull("nullChild",nullChild);
+    test.equal(nullChild, null, 'nullChild');
 
     test.done();
   },
@@ -12700,7 +12700,7 @@ exports.tests = {
     //debug(lcNode === employeeNode.children.item(employeeNode.children.length));
     nsNode = lcNode.nextSibling;
     //debug(nsNode === lcNode);
-    assertNull("nodeGetNextSiblingNullAssert1",nsNode);
+    test.equal(nsNode, null, 'nodeGetNextSiblingNull');
 
     test.done();
   },
@@ -12757,7 +12757,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     ownerDocument = doc.ownerDocument;
 
-    assertNull("nodeGetOwnerDocumentNullAssert1",ownerDocument);
+    test.equal(ownerDocument, null, 'nodeGetOwnerDocumentNull');
 
     test.done();
   },
@@ -12828,7 +12828,7 @@ exports.tests = {
 
     psNode = fcNode.previousSibling;
 
-    assertNull("nodeGetPreviousSiblingNullAssert1",psNode);
+    test.equal(psNode, null, 'nodeGetPreviousSiblingNull');
 
     test.done();
   },
@@ -12856,7 +12856,7 @@ exports.tests = {
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     state = employeeNode.hasChildNodes();
-    assertTrue("nodeHasChildAssert1",state);
+    assertTrue("nodeHasChild",state);
 
     test.done();
   },
@@ -13770,7 +13770,7 @@ exports.tests = {
     createdNode = doc.createElement("br");
     parentNode = createdNode.parentNode;
 
-    assertNull("parentNode",parentNode);
+    test.equal(parentNode, null, 'parentNode');
 
     test.done();
   },
@@ -13808,7 +13808,7 @@ exports.tests = {
     removedChild = rootNode.removeChild(childToRemove);
     parentNode = removedChild.parentNode;
 
-    assertNull("parentNodeNull",parentNode);
+    test.equal(parentNode, null, 'parentNodeNull');
 
     test.done();
   },
@@ -13848,7 +13848,7 @@ exports.tests = {
     oldName = oldChild.nodeName;
 
     removedChild = employeeNode.removeChild(oldChild);
-    assertNotNull("notnull",removedChild);
+    test.notEqual(removedChild, null, 'notnull');
     childName = removedChild.nodeName;
 
     assertEquals("nodeName",oldName,childName);
@@ -14364,7 +14364,7 @@ exports.tests = {
 
     attrList = textNode.attributes;
 
-    assertNull("text_attributes_is_null",attrList);
+    test.equal(attrList, null, 'text_attributes_is_null');
 
     test.done();
   },
@@ -14431,7 +14431,7 @@ exports.tests = {
 
     nodeType = textNode.nodeType;
 
-    assertEquals("nodeTextNodeTypeAssert1",3,nodeType);
+    assertEquals("nodeTextNodeType",3,nodeType);
 
     test.done();
   },
@@ -14488,12 +14488,12 @@ exports.tests = {
     newNode = doc.createElement("acronym");
     newValue = newNode.nodeValue;
 
-    assertNull("initiallyNull",newValue);
+    test.equal(newValue, null, 'initiallyNull');
     newNode.nodeValue = "This should have no effect";
 
     newValue = newNode.nodeValue;
 
-    assertNull("nullAfterAttemptedChange",newValue);
+    test.equal(newValue, null, 'nullAfterAttemptedChange');
 
     test.done();
   },
@@ -14549,16 +14549,16 @@ exports.tests = {
     // include an entity=ent1
     newNode = doc.createEntityReference("ent1");
 
-    assertNotNull("createdEntRefNotNull",newNode);
+    test.notEqual(newNode, null, 'createdEntRefNotNull');
 
     newValue = newNode.nodeValue;
 
-    assertNull("initiallyNull",newValue);
+    test.equal(newValue, null, 'initiallyNull');
     newNode.nodeValue = "This should have no effect";
 
     newValue = newNode.nodeValue;
 
-    assertNull("nullAfterAttemptedChange",newValue);
+    test.equal(newValue, null, 'nullAfterAttemptedChange');
 
     test.done();
   },
@@ -14584,15 +14584,15 @@ exports.tests = {
     assertTrue("docTypeNotNullOrDocIsHTML", ((newNode != null) || (false)));
 
     if (newNode != null) {
-      assertNotNull("docTypeNotNull",newNode);
+      test.notEqual(newNode, null, 'docTypeNotNull');
       newValue = newNode.nodeValue;
 
-      assertNull("initiallyNull",newValue);
+      test.equal(newValue, null, 'initiallyNull');
       newNode.nodeValue = "This should have no effect";
 
       newValue = newNode.nodeValue;
 
-      assertNull("nullAfterAttemptedChange",newValue);
+      test.equal(newValue, null, 'nullAfterAttemptedChange');
 
     }
 
@@ -14618,12 +14618,12 @@ exports.tests = {
     newNode = doc.createDocumentFragment();
     newValue = newNode.nodeValue;
 
-    assertNull("initiallyNull",newValue);
+    test.equal(newValue, null, 'initiallyNull');
     newNode.nodeValue = "This should have no effect";
 
     newValue = newNode.nodeValue;
 
-    assertNull("nullAfterAttemptedChange",newValue);
+    test.equal(newValue, null, 'nullAfterAttemptedChange');
 
     test.done();
   },
@@ -14649,12 +14649,12 @@ exports.tests = {
     newNode = hc_staff.hc_staff();
     newValue = newNode.nodeValue;
 
-    assertNull("initiallyNull",newValue);
+    test.equal(newValue, null, 'initiallyNull');
     newNode.nodeValue = "This should have no effect";
 
     newValue = newNode.nodeValue;
 
-    assertNull("nullAfterAttemptedChange",newValue);
+    test.equal(newValue, null, 'nullAfterAttemptedChange');
 
     test.done();
   },
@@ -14678,20 +14678,20 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     docType = doc.doctype;
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     nodeMap = docType.entities;
 
-    assertNotNull("entitiesNotNull",nodeMap);
+    test.notEqual(nodeMap, null, 'entitiesNotNull');
     newNode = nodeMap.getNamedItem("alpha");
-    assertNotNull("entityNotNull",newNode);
+    test.notEqual(newNode, null, 'entityNotNull');
     newValue = newNode.nodeValue;
 
-    assertNull("initiallyNull",newValue);
+    test.equal(newValue, null, 'initiallyNull');
     newNode.nodeValue = "This should have no effect";
 
     newValue = newNode.nodeValue;
 
-    assertNull("nullAfterAttemptedChange",newValue);
+    test.equal(newValue, null, 'nullAfterAttemptedChange');
     test.done();
   },
 
@@ -14714,20 +14714,20 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     docType = doc.doctype;
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     nodeMap = docType.notations;
 
-    assertNotNull("notationsNotNull",nodeMap);
+    test.notEqual(nodeMap, null, 'notationsNotNull');
     newNode = nodeMap.getNamedItem("notation1");
-    assertNotNull("notationNotNull",newNode);
+    test.notEqual(newNode, null, 'notationNotNull');
     newValue = newNode.nodeValue;
 
-    assertNull("initiallyNull",newValue);
+    test.equal(newValue, null, 'initiallyNull');
     newNode.nodeValue = "This should have no effect";
 
     newValue = newNode.nodeValue;
 
-    assertNull("nullAfterAttemptedChange",newValue);
+    test.equal(newValue, null, 'nullAfterAttemptedChange');
     test.done();
   },
 
@@ -14748,10 +14748,10 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     docType = doc.doctype;
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     notations = docType.notations;
 
-    assertNotNull("notationsNotNull",notations);
+    test.notEqual(notations, null, 'notationsNotNull');
     success = false;
     try {
       retval = notations.removeNamedItem("notation1");
@@ -14782,10 +14782,10 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     docType = doc.doctype;
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     notations = docType.notations;
 
-    assertNotNull("notationsNotNull",notations);
+    test.notEqual(notations, null, 'notationsNotNull');
     elem = doc.createElement("br");
 
     try {
@@ -14954,7 +14954,7 @@ exports.tests = {
       ) {
         grandChild = child.firstChild;
 
-        assertNotNull("grandChildNotNull",grandChild);
+        test.notEqual(grandChild, null, 'grandChildNotNull');
         value = grandChild.nodeValue;
 
         result[result.length] = value;
@@ -15420,10 +15420,10 @@ exports.tests = {
     testAddress = elementList.item(2);
     attributes = testAddress.attributes;
 
-    assertNotNull("attributesNotNull",attributes);
+    test.notEqual(attributes, null, 'attributesNotNull');
     removedNode = attributes.removeNamedItem("street");
     streetAttr = attributes.getNamedItem("street");
-    assertNotNull("streetAttrNotNull",streetAttr);
+    test.notEqual(streetAttr, null, 'streetAttrNotNull');
     specified = streetAttr.specified;
 
     assertFalse("attrNotSpecified",specified);
@@ -15466,11 +15466,11 @@ exports.tests = {
     testEmployee = elementList.item(2);
     attributes = testEmployee.attributes;
 
-    assertNotNull("attributesNotNull",attributes);
+    test.notEqual(attributes, null, 'attributesNotNull');
     removedNode = attributes.removeNamedItem("street");
     streetAttr = attributes.getNamedItem("street");
 
-    assertNotNull("streetAttrNotNull",streetAttr);
+    test.notEqual(streetAttr, null, 'streetAttrNotNull');
     value = streetAttr.value;
 
     assertEquals("namednodemapRemoveNamedItemGetValueAssert","Yes",value);
@@ -15673,7 +15673,7 @@ exports.tests = {
     attributes = testEmployee.attributes;
 
     districtNode = attributes.getNamedItem("district");
-    assertNull("namednodemapReturnNullAssert",districtNode);
+    test.equal(districtNode, null, 'namednodemapReturnNullAssert');
 
     test.done();
   },
@@ -15859,7 +15859,7 @@ exports.tests = {
     attributes = testAddress.attributes;
 
     newNode = attributes.setNamedItem(newAttribute);
-    assertNull("returnedNodeNull",newNode);
+    test.equal(newNode, null, 'returnedNodeNull');
 
     test.done();
   },
@@ -15963,7 +15963,7 @@ exports.tests = {
 
     childName = lchild.nodeName;
 
-    assertEquals("nodeAppendChildAssert1","newChild",childName);
+    assertEquals("nodeAppendChild","newChild",childName);
 
     test.done();
   },
@@ -16000,33 +16000,19 @@ exports.tests = {
     elementList = doc.getElementsByTagName("employee");
     childNode = elementList.item(1);
     newChild = childNode.firstChild;
-
     initialName = newChild.nodeName;
-
     appendedChild = childNode.appendChild(newChild);
     fchild = childNode.firstChild;
-
     fchildName = fchild.nodeName;
-
     lchild = childNode.lastChild;
-
     lchildName = lchild.nodeName;
-
-
-    if(
-      ("employeeId" == initialName)
-    ) {
-      assertEquals("assert1_nowhitespace","name",fchildName);
-      assertEquals("assert2_nowhitespace","employeeId",lchildName);
-
+    if("employeeId" == initialName) {
+      assertEquals("nowhitespace","name",fchildName);
+      assertEquals("nowhitespace","employeeId",lchildName);
+    } else {
+      test.equal(fchildName, 'employeeId');
+      test.equal(lchildName, '#text');
     }
-
-    else {
-      assertEquals("assert1","employeeId",fchildName);
-      assertEquals("assert2","#text",lchildName);
-
-    }
-
     test.done();
   },
 
@@ -16132,7 +16118,7 @@ exports.tests = {
     appendNode = employeeNode.appendChild(newChild);
     childName = appendNode.nodeName;
 
-    assertEquals("nodeAppendChildGetNodeNameAssert1","newChild",childName);
+    assertEquals("nodeAppendChildGetNodeName","newChild",childName);
 
     test.done();
   },
@@ -16322,7 +16308,7 @@ exports.tests = {
     genderNode = genderList.item(2);
     entRef = genderNode.firstChild;
 
-    assertNotNull("entRefNotNull",entRef);
+    test.notEqual(entRef, null, 'entRefNotNull');
     nodeType = entRef.nodeType;
 
 
@@ -16330,12 +16316,12 @@ exports.tests = {
       (1 == nodeType)
     ) {
       entRef = doc.createEntityReference("ent4");
-      assertNotNull("createdEntRefNotNull",entRef);
+      test.notEqual(entRef, null, 'createdEntRefNotNull');
 
     }
     entElement = entRef.firstChild;
 
-    assertNotNull("entElementNotNull",entElement);
+    test.notEqual(entElement, null, 'entElementNotNull');
     createdNode = doc.createElement("text3");
 
     {
@@ -16377,7 +16363,7 @@ exports.tests = {
 
     doc = staff.staff();
     entRef = doc.createEntityReference("ent4");
-    assertNotNull("createdEntRefNotNull",entRef);
+    test.notEqual(entRef, null, 'createdEntRefNotNull');
     createdNode = doc.createElement("text3");
 
     {
@@ -16425,7 +16411,7 @@ exports.tests = {
     attrNode = addrAttr.item(0);
     attrList = attrNode.attributes;
 
-    assertNull("nodeAttributeNodeAttributeAssert1",attrList);
+    test.equal(attrList, null, 'nodeAttributeNodeAttribute');
 
     test.done();
   },
@@ -16466,7 +16452,7 @@ exports.tests = {
     addrAttr = testAddr.getAttributeNode("domestic");
     attrName = addrAttr.nodeName;
 
-    assertEquals("nodeAttributeNodeNameAssert1","domestic",attrName);
+    assertEquals("nodeAttributeNodeName","domestic",attrName);
 
     test.done();
   },
@@ -16505,7 +16491,7 @@ exports.tests = {
     addrAttr = testAddr.getAttributeNode("domestic");
     nodeType = addrAttr.nodeType;
 
-    assertEquals("nodeAttrNodeTypeAssert1",2,nodeType);
+    assertEquals("nodeAttrNodeType",2,nodeType);
 
     test.done();
   },
@@ -16546,7 +16532,7 @@ exports.tests = {
     addrAttr = testAddr.getAttributeNode("domestic");
     attrValue = addrAttr.nodeValue;
 
-    assertEquals("nodeAttributeNodeValueAssert1","Yes",attrValue);
+    assertEquals("nodeAttributeNodeValue","Yes",attrValue);
 
     test.done();
   },
@@ -16591,7 +16577,7 @@ exports.tests = {
     }
     attrList = cdataNode.attributes;
 
-    assertNull("cdataSection",attrList);
+    test.equal(attrList, null, 'cdataSection');
 
     test.done();
   },
@@ -16856,7 +16842,7 @@ exports.tests = {
 
     childNodesList = textNode.childNodes;
 
-    assertSize("nodeChildNodesEmptyAssert1",0,childNodesList);
+    assertSize("nodeChildNodesEmpty",0,childNodesList);
 
     test.done();
   },
@@ -16905,7 +16891,7 @@ exports.tests = {
       result[result.length] = attributeName;
 
     }
-    assertEqualsCollection("nodeCloneAttributesCopiedAssert1",expectedResult,result);
+    assertEqualsCollection("nodeCloneAttributesCopied",expectedResult,result);
 
     test.done();
   },
@@ -16943,7 +16929,7 @@ exports.tests = {
     clonedNode = childNode.cloneNode(false);
     lastChildNode = clonedNode.lastChild;
 
-    assertNull("noTextNodes",lastChildNode);
+    test.equal(lastChildNode, null, 'noTextNodes');
 
     test.done();
   },
@@ -16976,7 +16962,7 @@ exports.tests = {
     clonedNode = employeeNode.cloneNode(false);
     parentNode = clonedNode.parentNode;
 
-    assertNull("nodeCloneGetParentNullAssert1",parentNode);
+    test.equal(parentNode, null, 'nodeCloneGetParentNull');
 
     test.done();
   },
@@ -17138,7 +17124,7 @@ exports.tests = {
 
     childValue = lastChildNode.nodeValue;
 
-    assertEquals("nodeCloneTrueCopyTextAssert1","35,000",childValue);
+    assertEquals("nodeCloneTrueCopyText","35,000",childValue);
 
     test.done();
   },
@@ -17180,7 +17166,7 @@ exports.tests = {
       ) {
         attrList = childNode.attributes;
 
-        assertNull("attributesNull",attrList);
+        test.equal(attrList, null, 'attributesNull');
 
       }
 
@@ -17188,7 +17174,7 @@ exports.tests = {
     childNode = doc.createComment("This is a comment");
     attrList = childNode.attributes;
 
-    assertNull("createdAttributesNull",attrList);
+    test.equal(attrList, null, 'createdAttributesNull');
 
     test.done();
   },
@@ -17272,7 +17258,7 @@ exports.tests = {
       ) {
         nodeType = commentNode.nodeType;
 
-        assertEquals("nodeCommentNodeTypeAssert1",8,nodeType);
+        assertEquals("nodeCommentNodeType",8,nodeType);
 
       }
 
@@ -17350,7 +17336,7 @@ exports.tests = {
     docFragment = doc.createDocumentFragment();
     documentFragmentName = docFragment.nodeName;
 
-    assertEquals("nodeDocumentFragmentNodeNameAssert1","#document-fragment",documentFragmentName);
+    assertEquals("nodeDocumentFragmentNodeName","#document-fragment",documentFragmentName);
 
     test.done();
   },
@@ -17380,7 +17366,7 @@ exports.tests = {
     documentFragmentNode = doc.createDocumentFragment();
     nodeType = documentFragmentNode.nodeType;
 
-    assertEquals("nodeDocumentFragmentNodeTypeAssert1",11,nodeType);
+    assertEquals("nodeDocumentFragmentNodeType",11,nodeType);
 
     test.done();
   },
@@ -17413,10 +17399,10 @@ exports.tests = {
     docFragment = doc.createDocumentFragment();
     attrList = docFragment.attributes;
 
-    assertNull("attributesNull",attrList);
+    test.equal(attrList, null, 'attributesNull');
     value = docFragment.nodeValue;
 
-    assertNull("initiallyNull",value);
+    test.equal(value, null, 'initiallyNull');
 
     test.done();
   },
@@ -17439,7 +17425,7 @@ exports.tests = {
     doc = staff.staff();
     attrList = doc.attributes;
 
-    assertNull("documentAttributesNull",attrList);
+    test.equal(attrList, null, 'documentAttributesNull');
 
     test.done();
   },
@@ -17492,7 +17478,7 @@ exports.tests = {
     doc = staff.staff();
     nodeType = doc.nodeType;
 
-    assertEquals("nodeDocumentNodeTypeAssert1",9,nodeType);
+    assertEquals("nodeDocumentNodeType",9,nodeType);
 
     test.done();
   },
@@ -17520,7 +17506,7 @@ exports.tests = {
     doc = staff.staff();
     documentValue = doc.nodeValue;
 
-    assertNull("documentNodeValueNull",documentValue);
+    test.equal(documentValue, null, 'documentNodeValueNull');
 
     test.done();
   },
@@ -17543,7 +17529,7 @@ exports.tests = {
 
     doc = staff.staff();
     docType = doc.doctype;
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     documentTypeName = docType.nodeName;
     assertEquals("doctypeNameSVG","svg",documentTypeName);
     test.done();
@@ -17567,7 +17553,7 @@ exports.tests = {
     doc = staff.staff();
     documentTypeNode = doc.doctype;
 
-    assertNotNull("doctypeNotNull",documentTypeNode);
+    test.notEqual(documentTypeNode, null, 'doctypeNotNull');
     nodeType = documentTypeNode.nodeType;
 
     assertEquals("nodeType",10,nodeType);
@@ -17592,10 +17578,10 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     attrList = docType.attributes;
 
-    assertNull("doctypeAttributesNull",attrList);
+    test.equal(attrList, null, 'doctypeAttributesNull');
 
     test.done();
   },
@@ -17642,7 +17628,7 @@ exports.tests = {
       attrList[attrList.length] = attrName;
 
     }
-    assertEqualsCollection("nodeElementNodeValueAssert1",expected,attrList);
+    assertEqualsCollection("nodeElementNodeValue",expected,attrList);
 
     test.done();
   },
@@ -17706,7 +17692,7 @@ exports.tests = {
 
     nodeType = rootNode.nodeType;
 
-    assertEquals("nodeElementNodeTypeAssert1",1,nodeType);
+    assertEquals("nodeElementNodeType",1,nodeType);
 
     test.done();
   },
@@ -17731,7 +17717,7 @@ exports.tests = {
 
     elementValue = elementNode.nodeValue;
 
-    assertNull("elementNodeValueNull",elementValue);
+    test.equal(elementValue, null, 'elementNodeValueNull');
 
     test.done();
   },
@@ -17756,15 +17742,15 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     entities = docType.entities;
 
-    assertNotNull("entitiesNotNull",entities);
+    test.notEqual(entities, null, 'entitiesNotNull');
     entityNode = entities.getNamedItem("ent1");
-    assertNotNull("ent1NotNull",entityNode);
+    test.notEqual(entityNode, null, 'ent1NotNull');
     attrList = entityNode.attributes;
 
-    assertNull("entityAttributesNull",attrList);
+    test.equal(attrList, null, 'entityAttributesNull');
 
     test.done();
   },
@@ -17788,12 +17774,12 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     entities = docType.entities;
 
-    assertNotNull("entitiesNotNull",entities);
+    test.notEqual(entities, null, 'entitiesNotNull');
     entityNode = entities.getNamedItem("ent1");
-    assertNotNull("entityNodeNotNull",entityNode);
+    test.notEqual(entityNode, null, 'entityNodeNotNull');
     entityName = entityNode.nodeName;
 
     assertEquals("entityNodeName","ent1",entityName);
@@ -17821,12 +17807,12 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     entities = docType.entities;
 
-    assertNotNull("entitiesNotNull",entities);
+    test.notEqual(entities, null, 'entitiesNotNull');
     entityNode = entities.getNamedItem("ent1");
-    assertNotNull("ent1NotNull",entityNode);
+    test.notEqual(entityNode, null, 'ent1NotNull');
     nodeType = entityNode.nodeType;
 
     assertEquals("entityNodeType",6,nodeType);
@@ -17854,15 +17840,15 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     entities = docType.entities;
 
-    assertNotNull("entitiesNotNull",entities);
+    test.notEqual(entities, null, 'entitiesNotNull');
     entityNode = entities.getNamedItem("ent1");
-    assertNotNull("ent1NotNull",entityNode);
+    test.notEqual(entityNode, null, 'ent1NotNull');
     entityValue = entityNode.nodeValue;
 
-    assertNull("entityNodeValue",entityValue);
+    test.equal(entityValue, null, 'entityNodeValue');
 
     test.done();
   },
@@ -17897,12 +17883,12 @@ exports.tests = {
       !(5 == nodeType)
     ) {
       entRefNode = doc.createEntityReference("ent2");
-      assertNotNull("createdEntRefNotNull",entRefNode);
+      test.notEqual(entRefNode, null, 'createdEntRefNotNull');
 
     }
     attrList = entRefNode.attributes;
 
-    assertNull("attrList",attrList);
+    test.equal(attrList, null, 'attrList');
 
     test.done();
   },
@@ -17942,12 +17928,12 @@ exports.tests = {
       !(5 == nodeType)
     ) {
       entRefNode = doc.createEntityReference("ent2");
-      assertNotNull("createdEntRefNotNull",entRefNode);
+      test.notEqual(entRefNode, null, 'createdEntRefNotNull');
 
     }
     entRefName = entRefNode.nodeName;
 
-    assertEquals("nodeEntityReferenceNodeNameAssert1","ent2",entRefName);
+    assertEquals("nodeEntityReferenceNodeName","ent2",entRefName);
 
     test.done();
   },
@@ -17985,7 +17971,7 @@ exports.tests = {
       (3 == nodeType)
     ) {
       entRefNode = doc.createEntityReference("ent2");
-      assertNotNull("createdEntRefNotNull",entRefNode);
+      test.notEqual(entRefNode, null, 'createdEntRefNotNull');
       nodeType = entRefNode.nodeType;
 
 
@@ -18030,12 +18016,12 @@ exports.tests = {
       (3 == nodeType)
     ) {
       entRefNode = doc.createEntityReference("ent2");
-      assertNotNull("createdEntRefNotNull",entRefNode);
+      test.notEqual(entRefNode, null, 'createdEntRefNotNull');
 
     }
     entRefValue = entRefNode.nodeValue;
 
-    assertNull("entRefNodeValue",entRefValue);
+    test.equal(entRefValue, null, 'entRefNodeValue');
 
     test.done();
   },
@@ -18060,17 +18046,17 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     entities = docType.entities;
 
-    assertNotNull("entitiesNotNull",entities);
+    test.notEqual(entities, null, 'entitiesNotNull');
     entityNode = entities.getNamedItem("ent1");
-    assertNotNull("ent1NotNull",entityNode);
+    test.notEqual(entityNode, null, 'ent1NotNull');
     entityNode.nodeValue = "This should have no effect";
 
     entityValue = entityNode.nodeValue;
 
-    assertNull("nodeValueNull",entityValue);
+    test.equal(entityValue, null, 'nodeValueNull');
 
     test.done();
   },
@@ -18154,7 +18140,7 @@ exports.tests = {
 
     noChildNode = textNode.firstChild;
 
-    assertNull("nodeGetFirstChildNullAssert1",noChildNode);
+    test.equal(noChildNode, null, 'nodeGetFirstChildNull');
 
     test.done();
   },
@@ -18238,7 +18224,7 @@ exports.tests = {
 
     noChildNode = textNode.lastChild;
 
-    assertNull("nodeGetLastChildNullAssert1",noChildNode);
+    test.equal(noChildNode, null, 'nodeGetLastChildNull');
 
     test.done();
   },
@@ -18317,7 +18303,7 @@ exports.tests = {
 
     nsNode = lcNode.nextSibling;
 
-    assertNull("nodeGetNextSiblingNullAssert1",nsNode);
+    test.equal(nsNode, null, 'nodeGetNextSiblingNull');
 
     test.done();
   },
@@ -18373,7 +18359,7 @@ exports.tests = {
     doc = staff.staff();
     ownerDocument = doc.ownerDocument;
 
-    assertNull("documentOwnerDocumentNull",ownerDocument);
+    test.equal(ownerDocument, null, 'documentOwnerDocumentNull');
 
     test.done();
   },
@@ -18452,7 +18438,7 @@ exports.tests = {
 
     psNode = fcNode.previousSibling;
 
-    assertNull("nodeGetPreviousSiblingNullAssert1",psNode);
+    test.equal(psNode, null, 'nodeGetPreviousSiblingNull');
 
     test.done();
   },
@@ -18481,7 +18467,7 @@ exports.tests = {
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     state = employeeNode.hasChildNodes();
-    assertTrue("nodeHasChildAssert1",state);
+    assertTrue("nodeHasChild",state);
 
     test.done();
   },
@@ -18519,7 +18505,7 @@ exports.tests = {
     textNode = employeeNode.firstChild;
 
     state = textNode.hasChildNodes();
-    assertFalse("nodeHasChildFalseAssert1",state);
+    assertFalse("nodeHasChildFalse",state);
 
     test.done();
   },
@@ -18960,7 +18946,7 @@ exports.tests = {
     insertedNode = employeeNode.insertBefore(newChild,refChild);
     childName = insertedNode.nodeName;
 
-    assertEquals("nodeInsertBeforeNodeNameAssert1","newChild",childName);
+    assertEquals("nodeInsertBeforeNodeName","newChild",childName);
 
     test.done();
   },
@@ -19001,7 +18987,7 @@ exports.tests = {
     genderNode = genderList.item(2);
     entRef = genderNode.firstChild;
 
-    assertNotNull("entRefNotNull",entRef);
+    test.notEqual(entRef, null, 'entRefNotNull');
     nodeType = entRef.nodeType;
 
 
@@ -19009,12 +18995,12 @@ exports.tests = {
       (1 == nodeType)
     ) {
       entRef = doc.createEntityReference("ent4");
-      assertNotNull("createdEntRefNotNull",entRef);
+      test.notEqual(entRef, null, 'createdEntRefNotNull');
 
     }
     entElement = entRef.firstChild;
 
-    assertNotNull("entElementNotNull",entElement);
+    test.notEqual(entElement, null, 'entElementNotNull');
     createdNode = doc.createElement("text3");
 
     {
@@ -19058,7 +19044,7 @@ exports.tests = {
 
     doc = staff.staff();
     entRef = doc.createEntityReference("ent4");
-    assertNotNull("createdEntRefNotNull",entRef);
+    test.notEqual(entRef, null, 'createdEntRefNotNull');
     createdNode = doc.createElement("text3");
 
     {
@@ -19164,7 +19150,7 @@ exports.tests = {
 
     childName = child.nodeName;
 
-    assertEquals("nodeInsertBeforeRefChildNullAssert1","newChild",childName);
+    assertEquals("nodeInsertBeforeRefChildNull","newChild",childName);
 
     test.done();
   },
@@ -19523,15 +19509,15 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     notations = docType.notations;
 
-    assertNotNull("notationsNotNull",notations);
+    test.notEqual(notations, null, 'notationsNotNull');
     notationNode = notations.getNamedItem("notation1");
-    assertNotNull("notationNotNull",notationNode);
+    test.notEqual(notationNode, null, 'notationNotNull');
     attrList = notationNode.attributes;
 
-    assertNull("nodeNotationNodeAttributesAssert1",attrList);
+    test.equal(attrList, null, 'nodeNotationNodeAttributes');
 
     test.done();
   },
@@ -19561,12 +19547,12 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     notations = docType.notations;
 
-    assertNotNull("notationsNotNull",notations);
+    test.notEqual(notations, null, 'notationsNotNull');
     notationNode = notations.getNamedItem("notation1");
-    assertNotNull("notationNotNull",notationNode);
+    test.notEqual(notationNode, null, 'notationNotNull');
     notationName = notationNode.nodeName;
 
     assertEquals("nodeName","notation1",notationName);
@@ -19598,15 +19584,15 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     notations = docType.notations;
 
-    assertNotNull("notationsNotNull",notations);
+    test.notEqual(notations, null, 'notationsNotNull');
     notationNode = notations.getNamedItem("notation1");
-    assertNotNull("notationNotNull",notationNode);
+    test.notEqual(notationNode, null, 'notationNotNull');
     nodeType = notationNode.nodeType;
 
-    assertEquals("nodeNotationNodeTypeAssert1",12,nodeType);
+    assertEquals("nodeNotationNodeType",12,nodeType);
 
     test.done();
   },
@@ -19636,15 +19622,15 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     notations = docType.notations;
 
-    assertNotNull("notationsNotNull",notations);
+    test.notEqual(notations, null, 'notationsNotNull');
     notationNode = notations.getNamedItem("notation1");
-    assertNotNull("notationNotNull",notationNode);
+    test.notEqual(notationNode, null, 'notationNotNull');
     notationValue = notationNode.nodeValue;
 
-    assertNull("nodeValue",notationValue);
+    test.equal(notationValue, null, 'nodeValue');
 
     test.done();
   },
@@ -19704,7 +19690,7 @@ exports.tests = {
     createdNode = doc.createElement("employee");
     parentNode = createdNode.parentNode;
 
-    assertNull("parentNode",parentNode);
+    test.equal(parentNode, null, 'parentNode');
 
     test.done();
   },
@@ -19740,7 +19726,7 @@ exports.tests = {
     piNode = testList.item(0);
     attrList = piNode.attributes;
 
-    assertNull("nodeProcessingInstructionNodeAttrAssert1",attrList);
+    test.equal(attrList, null, 'nodeProcessingInstructionNodeAttr');
 
     test.done();
   },
@@ -19778,7 +19764,7 @@ exports.tests = {
     piNode = testList.item(0);
     piName = piNode.nodeName;
 
-    assertEquals("nodeProcessingInstructionNodeNameAssert1","TEST-STYLE",piName);
+    assertEquals("nodeProcessingInstructionNodeName","TEST-STYLE",piName);
 
     test.done();
   },
@@ -19816,7 +19802,7 @@ exports.tests = {
     piNode = testList.item(0);
     nodeType = piNode.nodeType;
 
-    assertEquals("nodeProcessingInstructionNodeTypeAssert1",7,nodeType);
+    assertEquals("nodeProcessingInstructionNodeType",7,nodeType);
 
     test.done();
   },
@@ -19920,7 +19906,7 @@ exports.tests = {
     removedChild = rootNode.removeChild(childToRemove);
     parentNode = removedChild.parentNode;
 
-    assertNull("nodeRemoveChildAssert1",parentNode);
+    test.equal(parentNode, null, 'nodeRemoveChild');
 
     test.done();
   },
@@ -20065,7 +20051,7 @@ exports.tests = {
     genderNode = genderList.item(2);
     entRef = genderNode.firstChild;
 
-    assertNotNull("entRefNotNull",entRef);
+    test.notEqual(entRef, null, 'entRefNotNull');
     nodeType = entRef.nodeType;
 
 
@@ -20073,12 +20059,12 @@ exports.tests = {
       (1 == nodeType)
     ) {
       entRef = doc.createEntityReference("ent4");
-      assertNotNull("createdEntRefNotNull",entRef);
+      test.notEqual(entRef, null, 'createdEntRefNotNull');
 
     }
     entElement = entRef.firstChild;
 
-    assertNotNull("entElementNotNull",entElement);
+    test.notEqual(entElement, null, 'entElementNotNull');
 
     {
       success = false;
@@ -20119,10 +20105,10 @@ exports.tests = {
 
     doc = staff.staff();
     entRef = doc.createEntityReference("ent4");
-    assertNotNull("createdEntRefNotNull",entRef);
+    test.notEqual(entRef, null, 'createdEntRefNotNull');
     entText = entRef.firstChild;
 
-    assertNotNull("entTextNotNull",entText);
+    test.notEqual(entText, null, 'entTextNotNull');
 
     {
       success = false;
@@ -20220,7 +20206,7 @@ exports.tests = {
     child = childList.item(0);
     childName = child.nodeName;
 
-    assertEquals("nodeReplaceChildAssert1","newChild",childName);
+    assertEquals("nodeReplaceChild","newChild",childName);
 
     test.done();
   },
@@ -20574,7 +20560,7 @@ exports.tests = {
       (1 == nodeType)
     ) {
       entRef = doc.createEntityReference("ent4");
-      assertNotNull("createdEntRefNotNull",entRef);
+      test.notEqual(entRef, null, 'createdEntRefNotNull');
 
     }
     entElement = entRef.firstChild;
@@ -20621,7 +20607,7 @@ exports.tests = {
 
     doc = staff.staff();
     entRef = doc.createEntityReference("ent4");
-    assertNotNull("createdEntRefNotNull",entRef);
+    test.notEqual(entRef, null, 'createdEntRefNotNull');
     entText = entRef.firstChild;
 
     createdNode = doc.createElement("newChild");
@@ -20721,7 +20707,7 @@ exports.tests = {
     genderNode = genderList.item(2);
     entRef = genderNode.firstChild;
 
-    assertNotNull("entRefNotNull",entRef);
+    test.notEqual(entRef, null, 'entRefNotNull');
     nodeType = entRef.nodeType;
 
 
@@ -20729,15 +20715,15 @@ exports.tests = {
       (1 == nodeType)
     ) {
       entRef = doc.createEntityReference("ent4");
-      assertNotNull("createdEntRefNotNull",entRef);
+      test.notEqual(entRef, null, 'createdEntRefNotNull');
 
     }
     entElement = entRef.firstChild;
 
-    assertNotNull("entElementNotNull",entElement);
+    test.notEqual(entElement, null, 'entElementNotNull');
     entElementText = entElement.firstChild;
 
-    assertNotNull("entElementTextNotNull",entElementText);
+    test.notEqual(entElementText, null, 'entElementTextNotNull');
 
     {
       success = false;
@@ -20774,10 +20760,10 @@ exports.tests = {
 
     doc = staff.staff();
     entRef = doc.createEntityReference("ent3");
-    assertNotNull("createdEntRefNotNull",entRef);
+    test.notEqual(entRef, null, 'createdEntRefNotNull');
     entText = entRef.firstChild;
 
-    assertNotNull("entTextNotNull",entText);
+    test.notEqual(entText, null, 'entTextNotNull');
 
     {
       success = false;
@@ -20823,7 +20809,7 @@ exports.tests = {
 
     attrList = textNode.attributes;
 
-    assertNull("nodeTextNodeAttributesAssert1",attrList);
+    test.equal(attrList, null, 'nodeTextNodeAttributes');
 
     test.done();
   },
@@ -20865,7 +20851,7 @@ exports.tests = {
 
     textName = textNode.nodeName;
 
-    assertEquals("nodeTextNodeNameAssert1","#text",textName);
+    assertEquals("nodeTextNodeName","#text",textName);
 
     test.done();
   },
@@ -20905,7 +20891,7 @@ exports.tests = {
 
     nodeType = textNode.nodeType;
 
-    assertEquals("nodeTextNodeTypeAssert1",3,nodeType);
+    assertEquals("nodeTextNodeType",3,nodeType);
 
     test.done();
   },
@@ -20939,7 +20925,7 @@ exports.tests = {
 
     textValue = textNode.nodeValue;
 
-    assertEquals("nodeTextNodeValueAssert1","1230 North Ave. Dallas, Texas 98551",textValue);
+    assertEquals("nodeTextNodeValue","1230 North Ave. Dallas, Texas 98551",textValue);
 
     test.done();
   },
@@ -20963,12 +20949,12 @@ exports.tests = {
     newNode = doc.createElement("address");
     newValue = newNode.nodeValue;
 
-    assertNull("initiallyNull",newValue);
+    test.equal(newValue, null, 'initiallyNull');
     newNode.nodeValue = "This should have no effect";
 
     newValue = newNode.nodeValue;
 
-    assertNull("nullAfterAttemptedChange",newValue);
+    test.equal(newValue, null, 'nullAfterAttemptedChange');
 
     test.done();
   },
@@ -21019,15 +21005,15 @@ exports.tests = {
 
     doc = staff.staff();
     newNode = doc.createEntityReference("ent1");
-    assertNotNull("createdEntRefNotNull",newNode);
+    test.notEqual(newNode, null, 'createdEntRefNotNull');
     newValue = newNode.nodeValue;
 
-    assertNull("initiallyNull",newValue);
+    test.equal(newValue, null, 'initiallyNull');
     newNode.nodeValue = "This should have no effect";
 
     newValue = newNode.nodeValue;
 
-    assertNull("nullAfterAttemptedChange",newValue);
+    test.equal(newValue, null, 'nullAfterAttemptedChange');
 
     test.done();
   },
@@ -21050,15 +21036,15 @@ exports.tests = {
     doc = staff.staff();
     newNode = doc.doctype;
 
-    assertNotNull("docTypeNotNull",newNode);
+    test.notEqual(newNode, null, 'docTypeNotNull');
     newValue = newNode.nodeValue;
 
-    assertNull("initiallyNull",newValue);
+    test.equal(newValue, null, 'initiallyNull');
     newNode.nodeValue = "This should have no effect";
 
     newValue = newNode.nodeValue;
 
-    assertNull("nullAfterAttemptedChange",newValue);
+    test.equal(newValue, null, 'nullAfterAttemptedChange');
 
     test.done();
   },
@@ -21082,12 +21068,12 @@ exports.tests = {
     newNode = doc.createDocumentFragment();
     newValue = newNode.nodeValue;
 
-    assertNull("initiallyNull",newValue);
+    test.equal(newValue, null, 'initiallyNull');
     newNode.nodeValue = "This should have no effect";
 
     newValue = newNode.nodeValue;
 
-    assertNull("nullAfterAttemptedChange",newValue);
+    test.equal(newValue, null, 'nullAfterAttemptedChange');
 
     test.done();
   },
@@ -21113,12 +21099,12 @@ exports.tests = {
     newNode = staff.staff();
     newValue = newNode.nodeValue;
 
-    assertNull("initiallyNull",newValue);
+    test.equal(newValue, null, 'initiallyNull');
     newNode.nodeValue = "This should have no effect";
 
     newValue = newNode.nodeValue;
 
-    assertNull("nullAfterAttemptedChange",newValue);
+    test.equal(newValue, null, 'nullAfterAttemptedChange');
 
     test.done();
   },
@@ -21143,20 +21129,20 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     nodeMap = docType.entities;
 
-    assertNotNull("entitiesNotNull",nodeMap);
+    test.notEqual(nodeMap, null, 'entitiesNotNull');
     newNode = nodeMap.getNamedItem("ent1");
-    assertNotNull("entityNotNull",newNode);
+    test.notEqual(newNode, null, 'entityNotNull');
     newValue = newNode.nodeValue;
 
-    assertNull("initiallyNull",newValue);
+    test.equal(newValue, null, 'initiallyNull');
     newNode.nodeValue = "This should have no effect";
 
     newValue = newNode.nodeValue;
 
-    assertNull("nullAfterAttemptedChange",newValue);
+    test.equal(newValue, null, 'nullAfterAttemptedChange');
 
     test.done();
   },
@@ -21181,20 +21167,20 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     nodeMap = docType.notations;
 
-    assertNotNull("notationsNotNull",nodeMap);
+    test.notEqual(nodeMap, null, 'notationsNotNull');
     newNode = nodeMap.getNamedItem("notation1");
-    assertNotNull("notationNotNull",newNode);
+    test.notEqual(newNode, null, 'notationNotNull');
     newValue = newNode.nodeValue;
 
-    assertNull("initiallyNull",newValue);
+    test.equal(newValue, null, 'initiallyNull');
     newNode.nodeValue = "This should have no effect";
 
     newValue = newNode.nodeValue;
 
-    assertNull("nullAfterAttemptedChange",newValue);
+    test.equal(newValue, null, 'nullAfterAttemptedChange');
 
     test.done();
   },
@@ -21250,10 +21236,10 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     notations = docType.notations;
 
-    assertNotNull("notationsNotNull",notations);
+    test.notEqual(notations, null, 'notationsNotNull');
     notationNode = notations.getNamedItem("notation1");
     notationName = notationNode.nodeName;
 
@@ -21283,10 +21269,10 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     notations = docType.notations;
 
-    assertNotNull("notationsNotNull",notations);
+    test.notEqual(notations, null, 'notationsNotNull');
     notationNode = notations.getNamedItem("notation1");
     publicId = notationNode.publicId;
 
@@ -21321,14 +21307,14 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     notations = docType.notations;
 
-    assertNotNull("notationsNotNull",notations);
+    test.notEqual(notations, null, 'notationsNotNull');
     notationNode = notations.getNamedItem("notation2");
     publicId = notationNode.publicId;
 
-    assertNull("publicId",publicId);
+    test.equal(publicId, null, 'publicId');
 
     test.done();
   },
@@ -21359,10 +21345,10 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     notations = docType.notations;
 
-    assertNotNull("notationsNotNull",notations);
+    test.notEqual(notations, null, 'notationsNotNull');
     notationNode = notations.getNamedItem("notation2");
     systemId = notationNode.systemId;
 
@@ -21393,14 +21379,14 @@ exports.tests = {
     doc = staff.staff();
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.notEqual(docType, null, 'docTypeNotNull');
     notations = docType.notations;
 
-    assertNotNull("notationsNotNull",notations);
+    test.notEqual(notations, null, 'notationsNotNull');
     notationNode = notations.getNamedItem("notation1");
     systemId = notationNode.systemId;
 
-    assertNull("systemId",systemId);
+    test.equal(systemId, null, 'systemId');
 
     test.done();
   },
@@ -21505,10 +21491,10 @@ exports.tests = {
     gender = genderList.item(2);
     entRef = gender.firstChild;
 
-    assertNotNull("entRefNotNull",entRef);
+    test.notEqual(entRef, null, 'entRefNotNull');
     piNode = entRef.lastChild;
 
-    assertNotNull("piNodeNotNull",piNode);
+    test.notEqual(piNode, null, 'piNodeNotNull');
 
     {
       success = false;
@@ -21560,10 +21546,10 @@ exports.tests = {
     appendedChild = gender.appendChild(entRef);
     entRef = gender.lastChild;
 
-    assertNotNull("entRefNotNull",entRef);
+    test.notEqual(entRef, null, 'entRefNotNull');
     piNode = entRef.lastChild;
 
-    assertNotNull("piNodeNotNull",piNode);
+    test.notEqual(piNode, null, 'piNodeNotNull');
 
     {
       success = false;
@@ -21728,7 +21714,7 @@ exports.tests = {
       ) {
         grandChild = child.firstChild;
 
-        assertNotNull("grandChildNotNull",grandChild);
+        test.notEqual(grandChild, null, 'grandChildNotNull');
         value = grandChild.nodeValue;
 
         result[result.length] = value;
@@ -21829,7 +21815,7 @@ exports.tests = {
     gender = genderList.item(2);
     entRef = gender.firstChild;
 
-    assertNotNull("entRefNotNull",entRef);
+    test.notEqual(entRef, null, 'entRefNotNull');
     nodeType = entRef.nodeType;
 
 
@@ -21837,15 +21823,15 @@ exports.tests = {
       (1 == nodeType)
     ) {
       entRef = doc.createEntityReference("ent4");
-      assertNotNull("createdEntRefNotNull",entRef);
+      test.notEqual(entRef, null, 'createdEntRefNotNull');
 
     }
     entElement = entRef.firstChild;
 
-    assertNotNull("entElementNotNull",entElement);
+    test.notEqual(entElement, null, 'entElementNotNull');
     entElementText = entElement.firstChild;
 
-    assertNotNull("entElementTextNotNull",entElementText);
+    test.notEqual(entElementText, null, 'entElementTextNotNull');
 
     {
       success = false;
@@ -21882,22 +21868,18 @@ exports.tests = {
 
     doc = staff.staff();
     entRef = doc.createEntityReference("ent3");
-    assertNotNull("createdEntRefNotNull",entRef);
+    test.notEqual(entRef, null, 'createdEntRefNotNull');
     entText = entRef.firstChild;
 
-    assertNotNull("entTextNotNull",entText);
-
-    {
-      success = false;
-      try {
-        splitNode = entText.splitText(2);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+    test.notEqual(entText, null, 'entTextNotNull');
+    success = false;
+    try {
+      splitNode = entText.splitText(2);
     }
-
+    catch(ex) {
+      success = (typeof(ex.code) != 'undefined' && ex.code == 7);
+    }
+    assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     test.done();
   },
 
