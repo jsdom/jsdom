@@ -2984,7 +2984,7 @@ exports.tests = {
     value = child.nodeValue;
 
     assertEquals("attrValue","Yes",value);
-    assertSize("attrCount",1,defaultAttr);
+    test.equal(defaultAttr.length, 1, 'attrCount');
 
     test.done();
   },
@@ -3062,7 +3062,7 @@ exports.tests = {
     test.notEqual(newEntRefNode, null, 'createdEntRefNotNull');
     newEntRefList = newEntRefNode.childNodes;
 
-    assertSize("size",1,newEntRefList);
+    test.equal(newEntRefList.length, 1, 'size');
     child = newEntRefNode.firstChild;
 
     name = child.nodeName;
@@ -3237,7 +3237,7 @@ exports.tests = {
 
     doc = staff.staff();
     nameList = doc.getElementsByTagName("name");
-    assertSize("documentGetElementsByTagNameLengthAssert",5,nameList);
+    test.equal(nameList.length, 5, 'documentGetElementsByTagNameLengthAssert');
 
     test.done();
   },
@@ -3259,7 +3259,7 @@ exports.tests = {
     doc = staff.staff();
     nameList = doc.getElementsByTagName("*");
 
-    assertSize("documentGetElementsByTagNameTotalLengthAssert",37,nameList);
+    test.equal(nameList.length, 37, 'documentGetElementsByTagNameTotalLengthAssert');
 
     test.done();
   },
@@ -3668,7 +3668,7 @@ exports.tests = {
 
     test.notEqual(entityList, null, 'entitiesNotNull');
 
-    assertSize("entitySize",5,entityList);
+    test.equal(entityList.length, 5, 'entitySize');
 
     test.done();
   },
@@ -4137,7 +4137,7 @@ exports.tests = {
 
     doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
-    assertSize("elementGetElementsByTagNameAssert",5,elementList);
+    test.equal(elementList.length, 5, 'elementGetElementsByTagNameAssert');
 
     test.done();
   },
@@ -4209,7 +4209,7 @@ exports.tests = {
 
     doc = staff.staff();
     elementList = doc.getElementsByTagName("noMatch");
-    assertSize("elementGetElementsByTagNameNoMatchNoMatchAssert",0,elementList);
+    test.equal(elementList.length, 0, 'elementGetElementsByTagNameNoMatchNoMatchAssert');
 
     test.done();
   },
@@ -4890,20 +4890,11 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    */
   elementreplaceattributewithself: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var testEmployee;
-    var streetAttr;
-    var replacedAttr;
-
-    doc = staff.staff();
-    elementList = doc.getElementsByTagName("address");
-    testEmployee = elementList.item(2);
-    streetAttr = testEmployee.getAttributeNode("street");
-    replacedAttr = testEmployee.setAttributeNode(streetAttr);
-    assertSame("replacedAttr",streetAttr,replacedAttr);
-
+    var doc = staff.staff();
+    var testEmployee = doc.getElementsByTagName("address").item(2);
+    var streetAttr = testEmployee.getAttributeNode("street");
+    var replacedAttr = testEmployee.setAttributeNode(streetAttr);
+    test.equal(replacedAttr, streetAttr, 'replacedAttr')
     test.done();
   },
 
@@ -5012,7 +5003,7 @@ exports.tests = {
     testAddress = addressList.item(0);
     attributes = testAddress.attributes;
 
-    assertSize("elementRetrieveAllAttributesAssert",2,attributes);
+    test.equal(attributes.length, 2, 'elementRetrieveAllAttributesAssert');
 
     test.done();
   },
@@ -5472,7 +5463,7 @@ exports.tests = {
     assertEquals("publicId","entityURI",publicId);
     systemId = entityNode.systemId;
 
-    assertURIEquals("systemId",null,null,null,"entityFile",null,null,null,null,systemId);
+    test.equal(systemId, 'entityFile');
     notation = entityNode.notationName;
 
     assertEquals("notation","notation1",notation);
@@ -5814,7 +5805,7 @@ exports.tests = {
     titleAttr = attributes.getNamedItem("title");
     childNodes = titleAttr.childNodes;
 
-    assertSize("childNodesSize",1,childNodes);
+    test.equal(childNodes.length, 1, 'childNodesSize');
     textNode = childNodes.item(0);
     value = textNode.nodeValue;
 
@@ -5855,7 +5846,7 @@ exports.tests = {
 
     textNode = doc.createTextNode("terday");
     retval = titleAttr.appendChild(textNode);
-    assertSize("childNodesSize",2,childNodes);
+    test.equal(childNodes.length, 2, 'childNodesSize');
     textNode = childNodes.item(0);
     value = textNode.nodeValue;
 
@@ -6668,8 +6659,8 @@ exports.tests = {
 
     strong2 = streetAttr.name;
 
-    assertEqualsAutoCase("attribute", "nodeName","class",strong1);
-    assertEqualsAutoCase("attribute", "name","class",strong2);
+    assertEquals("attribute nodeName","class",strong1);
+    assertEquals("attribute name","class",strong2);
 
     test.done();
   },
@@ -8502,7 +8493,7 @@ exports.tests = {
     assertEquals("value","",attrValue);
     attrName = newAttrNode.nodeName;
 
-    assertEqualsAutoCase("attribute", "name","title",attrName);
+    assertEquals("attribute name","title",attrName);
     attrType = newAttrNode.nodeType;
 
     assertEquals("type",2,attrType);
@@ -8611,7 +8602,7 @@ exports.tests = {
     newElement = doc.createElement("acronym");
     newElementName = newElement.nodeName;
 
-    assertEqualsAutoCase("element", "strong","acronym",newElementName);
+    assertEquals("element strong","acronym",newElementName);
     newElementType = newElement.nodeType;
 
     assertEquals("type",1,newElementType);
@@ -8663,8 +8654,8 @@ exports.tests = {
 
     nodeName2 = newElement2.nodeName;
 
-    assertEqualsAutoCase("element", "nodeName1","ACRONYM",nodeName1);
-    assertEqualsAutoCase("element", "nodeName2","acronym",nodeName2);
+    assertEquals("element nodeName1","ACRONYM",nodeName1);
+    assertEquals("element nodeName2","acronym",nodeName2);
 
     test.done();
   },
@@ -8753,7 +8744,7 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     nameList = doc.getElementsByTagName("strong");
-    assertSize("documentGetElementsByTagNameLengthAssert",5,nameList);
+    test.equal(nameList.length, 5, 'documentGetElementsByTagNameLengthAssert');
 
     test.done();
   },
@@ -8877,7 +8868,7 @@ exports.tests = {
 
     }
 
-    assertEqualsListAutoCase("element", "tagNames",expectedNames,actualNames);
+    assertEqualsList("element tagNames",expectedNames,actualNames);
 
     test.done();
   },
@@ -8967,7 +8958,7 @@ exports.tests = {
     rootName = root.nodeName;
 
 
-    assertEqualsAutoCase("element", "docElemName","html",rootName);
+    assertEquals("element docElemName","html",rootName);
 
     test.done();
   },
@@ -9357,7 +9348,7 @@ exports.tests = {
     domesticAttr = testEmployee.getAttributeNode("title");
     nodeName = domesticAttr.nodeName;
 
-    assertEqualsAutoCase("attribute", "nodeName","title",nodeName);
+    assertEquals("attribute nodeName","title",nodeName);
 
     test.done();
   },
@@ -9452,7 +9443,7 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
-    assertSize("elementGetElementsByTagNameAssert",5,elementList);
+    test.equal(elementList.length, 5, 'elementGetElementsByTagNameAssert');
 
     test.done();
   },
@@ -9506,7 +9497,7 @@ exports.tests = {
     }
     childName = firstC.nodeName;
 
-    assertEqualsAutoCase("element", "childName","em",childName);
+    assertEquals("element childName","em",childName);
     employeeIDNode = firstC.firstChild;
 
     employeeID = employeeIDNode.nodeValue;
@@ -9536,7 +9527,7 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("noMatch");
-    assertSize("elementGetElementsByTagNameNoMatchNoMatchAssert",0,elementList);
+    test.equal(elementList.length, 0, 'elementGetElementsByTagNameNoMatchNoMatchAssert');
 
     test.done();
   },
@@ -9585,7 +9576,7 @@ exports.tests = {
       result[result.length] = childName;
 
     }
-    assertEqualsListAutoCase("element", "tagNames",expectedResult,result);
+    assertEqualsList("element tagNames",expectedResult,result);
 
     test.done();
   },
@@ -9611,7 +9602,7 @@ exports.tests = {
     tagname = root.tagName;
 
 
-    assertEqualsAutoCase("element", "tagname","html",tagname);
+    assertEquals("element tagname","html",tagname);
 
     test.done();
   },
@@ -9981,21 +9972,11 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
    */
   hc_elementreplaceattributewithself: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var testEmployee;
-    var streetAttr;
-    var replacedAttr;
-    var value;
-
-    doc = hc_staff.hc_staff();
-    elementList = doc.getElementsByTagName("acronym");
-    testEmployee = elementList.item(2);
-    streetAttr = testEmployee.getAttributeNode("class");
-    replacedAttr = testEmployee.setAttributeNode(streetAttr);
-    assertSame("replacedAttr",streetAttr,replacedAttr);
-
+    var doc = hc_staff.hc_staff();
+    var testEmployee = doc.getElementsByTagName("acronym").item(2);
+    var streetAttr = testEmployee.getAttributeNode("class");
+    var replacedAttr = testEmployee.setAttributeNode(streetAttr);
+    test.equal(replacedAttr, streetAttr, 'replacedAttr')
     test.done();
   },
 
@@ -10174,10 +10155,10 @@ exports.tests = {
     testEmployee = elementList.item(1);
     strong = testEmployee.nodeName;
 
-    assertEqualsAutoCase("element", "nodename","code",strong);
+    assertEquals("element nodename","code",strong);
     strong = testEmployee.tagName;
 
-    assertEqualsAutoCase("element", "tagname","code",strong);
+    assertEquals("element tagname","code",strong);
 
     test.done();
   },
@@ -10412,7 +10393,7 @@ exports.tests = {
     domesticAttr = attributes.getNamedItem("title");
     attrName = domesticAttr.nodeName;
 
-    assertEqualsAutoCase("attribute", "nodeName","title",attrName);
+    assertEquals("attribute nodeName","title",attrName);
 
     test.done();
   },
@@ -10616,13 +10597,13 @@ exports.tests = {
     attributes = testEmployee.attributes;
 
     streetAttr = attributes.getNamedItem("class");
-    assertInstanceOf("typeAssert","Attr",streetAttr);
+    test.equal(streetAttr.nodeType, 2, 'typeAssert');
     attrName = streetAttr.nodeName;
 
-    assertEqualsAutoCase("attribute", "nodeName","class",attrName);
+    assertEquals("attribute nodeName","class",attrName);
     attrName = streetAttr.name;
 
-    assertEqualsAutoCase("attribute", "name","class",attrName);
+    assertEquals("attribute name","class",attrName);
 
     test.done();
   },
@@ -10812,7 +10793,7 @@ exports.tests = {
     districtNode = attributes.getNamedItem("lang");
     attrName = districtNode.nodeName;
 
-    assertEqualsAutoCase("attribute", "nodeName","lang",attrName);
+    assertEquals("attribute nodeName","lang",attrName);
 
     test.done();
   },
@@ -11039,7 +11020,7 @@ exports.tests = {
 
     childName = lchild.nodeName;
 
-    assertEqualsAutoCase("element", "nodeName","br",childName);
+    assertEquals("element nodeName","br",childName);
 
     test.done();
   },
@@ -11096,7 +11077,7 @@ exports.tests = {
       actual[actual.length] = memberName;
 
     }
-    assertEqualsListAutoCase("element", "liveByTagName",expected,actual);
+    assertEqualsList("element liveByTagName",expected,actual);
     childList = childNode.childNodes;
 
     for(var indexN1009C = 0;indexN1009C < childList.length; indexN1009C++) {
@@ -11114,7 +11095,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "refreshedChildNodes",expected,refreshedActual);
+    assertEqualsList("element refreshedChildNodes",expected,refreshedActual);
 
     test.done();
   },
@@ -11188,7 +11169,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "nodeNames",expected,result);
+    assertEqualsList("element nodeNames",expected,result);
 
     test.done();
   },
@@ -11226,7 +11207,7 @@ exports.tests = {
     appendNode = employeeNode.appendChild(newChild);
     childName = appendNode.nodeName;
 
-    assertEqualsAutoCase("element", "nodeName","br",childName);
+    assertEquals("element nodeName","br",childName);
 
     test.done();
   },
@@ -11430,7 +11411,7 @@ exports.tests = {
     addrAttr = testAddr.getAttributeNode("title");
     attrName = addrAttr.nodeName;
 
-    assertEqualsAutoCase("attribute", "nodeName","title",attrName);
+    assertEquals("attribute nodeName","title",attrName);
 
     test.done();
   },
@@ -11565,7 +11546,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "elementNames",expected,actual);
+    assertEqualsList("element elementNames",expected,actual);
 
     test.done();
   },
@@ -11639,7 +11620,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "childElements",expected,actual);
+    assertEqualsList("element childElements",expected,actual);
 
     test.done();
   },
@@ -11834,7 +11815,7 @@ exports.tests = {
     clonedNode = employeeNode.cloneNode(false);
     cloneName = clonedNode.nodeName;
 
-    assertEqualsAutoCase("element", "strong","p",cloneName);
+    assertEquals("element strong","p",cloneName);
     cloneChildren = clonedNode.childNodes;
 
     length = cloneChildren.length;
@@ -12403,7 +12384,7 @@ exports.tests = {
     elementName = elementNode.nodeName;
 
 
-    assertEqualsAutoCase("element", "nodeName","html",elementName);
+    assertEquals("element nodeName","html",elementName);
 
     test.done();
   },
@@ -12497,7 +12478,7 @@ exports.tests = {
     }
 
     else {
-      assertEqualsAutoCase("element", "firstChild_wo_whitespace","em",childName);
+      assertEquals("element firstChild_wo_whitespace","em",childName);
 
     }
 
@@ -12699,7 +12680,7 @@ exports.tests = {
     elementName = docElement.nodeName;
 
 
-    assertEqualsAutoCase("element", "ownerDocElemTagName","html",elementName);
+    assertEquals("element ownerDocElemTagName","html",elementName);
 
     test.done();
   },
@@ -12928,7 +12909,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "nodeNames",expected,actual);
+    assertEqualsList("element nodeNames",expected,actual);
 
     test.done();
   },
@@ -12980,11 +12961,11 @@ exports.tests = {
     child = childList.item(3);
     childName = child.nodeName;
 
-    assertEqualsAutoCase("element", "childName3","br",childName);
+    assertEquals("element childName3","br",childName);
     child = childList.item(4);
     childName = child.nodeName;
 
-    assertEqualsAutoCase("element", "childName4","b",childName);
+    assertEquals("element childName4","b",childName);
 
     test.done();
   },
@@ -13151,7 +13132,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "childNames",expected,result);
+    assertEqualsList("element childNames",expected,result);
 
     test.done();
   },
@@ -13242,7 +13223,7 @@ exports.tests = {
     insertedNode = employeeNode.insertBefore(newChild,refChild);
     childName = insertedNode.nodeName;
 
-    assertEqualsAutoCase("element", "nodeName","br",childName);
+    assertEquals("element nodeName","br",childName);
 
     test.done();
   },
@@ -13336,7 +13317,7 @@ exports.tests = {
 
     childName = child.nodeName;
 
-    assertEqualsAutoCase("element", "nodeName","br",childName);
+    assertEquals("element nodeName","br",childName);
 
     test.done();
   },
@@ -13384,7 +13365,7 @@ exports.tests = {
     }
 
     else {
-      assertEqualsAutoCase("element", "childName_wo_whitespace","em",childName);
+      assertEquals("element childName_wo_whitespace","em",childName);
 
     }
 
@@ -13513,7 +13494,7 @@ exports.tests = {
     }
 
     else {
-      assertEqualsAutoCase("element", "childName_strong","strong",childName);
+      assertEquals("element childName_strong","strong",childName);
 
     }
 
@@ -13557,7 +13538,7 @@ exports.tests = {
     }
 
     else {
-      assertEqualsAutoCase("element", "nodeName_wo_space","em",childName);
+      assertEquals("element nodeName_wo_space","em",childName);
 
     }
 
@@ -13604,7 +13585,7 @@ exports.tests = {
     }
 
     else {
-      assertEqualsAutoCase("element", "lastNodeName","acronym",childName);
+      assertEquals("element lastNodeName","acronym",childName);
       assertEquals("index",5,index);
 
     }
@@ -13671,7 +13652,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "nodeNames",expected,result);
+    assertEqualsList("element nodeNames",expected,result);
 
     test.done();
   },
@@ -13703,7 +13684,7 @@ exports.tests = {
 
     parentName = parentNode.nodeName;
 
-    assertEqualsAutoCase("element", "parentNodeName","body",parentName);
+    assertEquals("element parentNodeName","body",parentName);
 
     test.done();
   },
@@ -13866,7 +13847,7 @@ exports.tests = {
     removedChild = employeeNode.removeChild(oldChild);
     removedName = removedChild.nodeName;
 
-    assertEqualsAutoCase("element", "removedName","em",removedName);
+    assertEquals("element removedName","em",removedName);
     for(var indexN10098 = 0;indexN10098 < childList.length; indexN10098++) {
       child = childList.item(indexN10098);
       nodeType = child.nodeType;
@@ -13888,7 +13869,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "childNames",expected,actual);
+    assertEqualsList("element childNames",expected,actual);
 
     test.done();
   },
@@ -13974,7 +13955,7 @@ exports.tests = {
     child = childList.item(0);
     childName = child.nodeName;
 
-    assertEqualsAutoCase("element", "nodeName","br",childName);
+    assertEquals("element nodeName","br",childName);
 
     test.done();
   },
@@ -14123,7 +14104,7 @@ exports.tests = {
     newChild = childList.item(0);
     oldChild = childList.item(5);
     replacedChild = employeeNode.replaceChild(newChild,oldChild);
-    assertSame("return_value_same",oldChild,replacedChild);
+    test.equal(replacedChild, oldChild, 'return_value_same')
     for(var indexN10094 = 0;indexN10094 < childList.length; indexN10094++) {
       childNode = childList.item(indexN10094);
       childName = childNode.nodeName;
@@ -14145,7 +14126,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "childNames",expected,actual);
+    assertEqualsList("element childNames",expected,actual);
 
     test.done();
   },
@@ -14237,7 +14218,7 @@ exports.tests = {
     replacedNode = employeeNode.replaceChild(newChild,oldChild);
     childName = replacedNode.nodeName;
 
-    assertEqualsAutoCase("element", "replacedNodeName","em",childName);
+    assertEquals("element replacedNodeName","em",childName);
 
     test.done();
   },
@@ -15476,7 +15457,7 @@ exports.tests = {
     attributes = testEmployee.attributes;
 
     streetAttr = attributes.getNamedItem("street");
-    assertInstanceOf("typeAssert","Attr",streetAttr);
+    test.equal(streetAttr.nodeType, 2, 'typeAssert');
     attrName = streetAttr.nodeName;
 
     assertEquals("nodeName","street",attrName);
@@ -16735,7 +16716,7 @@ exports.tests = {
 
     childNodesList = textNode.childNodes;
 
-    assertSize("nodeChildNodesEmptyAssert1",0,childNodesList);
+    test.equal(childNodesList.length, 0, 'nodeChildNodesEmptyAssert1');
 
     test.done();
   },
@@ -19138,7 +19119,7 @@ exports.tests = {
 
     textList = textNode.childNodes;
 
-    assertSize("nodelistIndexGetLengthOfEmptyListAssert",0,textList);
+    test.equal(textList.length, 0, 'nodelistIndexGetLengthOfEmptyListAssert');
 
     test.done();
   },
@@ -20270,7 +20251,7 @@ exports.tests = {
     }
 
     replacedChild = employeeNode.replaceChild(newChild,oldChild);
-    assertSame("return_value_same",oldChild,replacedChild);
+    test.equal(replacedChild, oldChild, 'return_value_same')
 
     for(var indexN100DE = 0;indexN100DE < childList.length; indexN100DE++) {
 
@@ -21218,9 +21199,7 @@ exports.tests = {
     test.notEqual(notations, null, 'notationsNotNull');
     notationNode = notations.getNamedItem("notation2");
     systemId = notationNode.systemId;
-
-    assertURIEquals("uriEquals",null,null,null,"notation2File",null,null,null,null,systemId);
-
+    test.equal(systemId, 'notation2File');
     test.done();
   },
 
