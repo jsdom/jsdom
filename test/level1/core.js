@@ -23,10 +23,6 @@ exports.tests = {
     var attrName;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docFragment = doc.createDocumentFragment();
     newOne = doc.createElement("newElement");
@@ -69,10 +65,6 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(3);
@@ -115,10 +107,6 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(3);
@@ -165,10 +153,6 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
@@ -203,10 +187,6 @@ exports.tests = {
     var domesticAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
@@ -246,10 +226,6 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(3);
@@ -285,10 +261,6 @@ exports.tests = {
     var streetAttr;
     var name;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(1);
@@ -326,10 +298,6 @@ exports.tests = {
     var domesticAttr;
     var s;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
@@ -368,10 +336,6 @@ exports.tests = {
     var streetAttr;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
@@ -406,10 +370,6 @@ exports.tests = {
     var domesticAttr;
     var s;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
@@ -444,10 +404,6 @@ exports.tests = {
     var domesticAttr;
     var s;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
@@ -479,10 +435,6 @@ exports.tests = {
     var textNode;
     var removedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     entRef = doc.createEntityReference("ent4");
     assertNotNull("createdEntRefNotNull",entRef);
@@ -527,10 +479,6 @@ exports.tests = {
     var removedNode;
     var newChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     entRef = doc.createEntityReference("ent4");
     assertNotNull("createdEntRefNotNull",entRef);
@@ -587,10 +535,6 @@ exports.tests = {
     var attrList;
     var attrNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
@@ -666,10 +610,6 @@ exports.tests = {
     var genderList;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
@@ -735,10 +675,6 @@ exports.tests = {
     var domesticAttr;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
@@ -777,10 +713,6 @@ exports.tests = {
     var streetAttr;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(2);
@@ -824,10 +756,6 @@ exports.tests = {
     var streetAttr;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(2);
@@ -865,10 +793,6 @@ exports.tests = {
     var data;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     nameList = doc.getElementsByTagName("name");
     child = nameList.item(1);
@@ -906,10 +830,6 @@ exports.tests = {
     var cdataN;
     var data;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     nameList = doc.getElementsByTagName("name");
     lChild = nameList.item(1);
@@ -956,10 +876,6 @@ exports.tests = {
     var childValue;
     var childLength;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
@@ -1000,10 +916,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
@@ -1043,10 +955,6 @@ exports.tests = {
     var entReference;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
@@ -1104,10 +1012,6 @@ exports.tests = {
     var entReference;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
@@ -1157,10 +1061,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
@@ -1200,10 +1100,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
@@ -1245,10 +1141,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
@@ -1294,10 +1186,6 @@ exports.tests = {
     var result = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
@@ -1340,10 +1228,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
@@ -1383,10 +1267,6 @@ exports.tests = {
     var nodeType;
     var entReference;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
@@ -1444,10 +1324,6 @@ exports.tests = {
     var entReference;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
@@ -1500,10 +1376,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
@@ -1538,10 +1410,6 @@ exports.tests = {
     var childValue;
     var childLength;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
@@ -1579,10 +1447,6 @@ exports.tests = {
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
@@ -1630,10 +1494,6 @@ exports.tests = {
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
@@ -1679,10 +1539,6 @@ exports.tests = {
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
@@ -1729,10 +1585,6 @@ exports.tests = {
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
@@ -1777,10 +1629,6 @@ exports.tests = {
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
@@ -1826,10 +1674,6 @@ exports.tests = {
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
@@ -1877,10 +1721,6 @@ exports.tests = {
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
@@ -1927,10 +1767,6 @@ exports.tests = {
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
@@ -1976,10 +1812,6 @@ exports.tests = {
     var child;
     var badSubstring;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
@@ -2025,10 +1857,6 @@ exports.tests = {
     var child;
     var badString;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
@@ -2076,10 +1904,6 @@ exports.tests = {
     var child;
     var badString;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
@@ -2125,10 +1949,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
@@ -2168,10 +1988,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
@@ -2211,10 +2027,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
@@ -2254,10 +2066,6 @@ exports.tests = {
     var entElementContent;
     var entReference;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
@@ -2314,10 +2122,6 @@ exports.tests = {
     var entText;
     var entReference;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
@@ -2366,10 +2170,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
@@ -2409,10 +2209,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
@@ -2453,10 +2249,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
@@ -2495,10 +2287,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
@@ -2538,10 +2326,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
@@ -2582,10 +2366,6 @@ exports.tests = {
     var entReference;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
@@ -2643,10 +2423,6 @@ exports.tests = {
     var entReference;
     var appendedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
@@ -2697,10 +2473,6 @@ exports.tests = {
     var entReference;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
@@ -2758,10 +2530,6 @@ exports.tests = {
     var entText;
     var entReference;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(4);
@@ -2806,10 +2574,6 @@ exports.tests = {
     var childData;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
@@ -2852,10 +2616,6 @@ exports.tests = {
     var child;
     var substring;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
@@ -2891,10 +2651,6 @@ exports.tests = {
     var child;
     var substring;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
@@ -2930,10 +2686,6 @@ exports.tests = {
     var commentCount = 0;
     var childType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.childNodes;
 
@@ -2984,10 +2736,6 @@ exports.tests = {
     var attrName;
     var attrType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newAttrNode = doc.createAttribute("district");
     attrValue = newAttrNode.nodeValue;
@@ -3025,10 +2773,6 @@ exports.tests = {
     var newCDATASectionName;
     var newCDATASectionType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newCDATASectionNode = doc.createCDATASection("This is a new CDATASection node");
     newCDATASectionValue = newCDATASectionNode.nodeValue;
@@ -3065,10 +2809,6 @@ exports.tests = {
     var newCommentName;
     var newCommentType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newCommentNode = doc.createComment("This is a new Comment node");
     newCommentValue = newCommentNode.nodeValue;
@@ -3106,10 +2846,6 @@ exports.tests = {
     var newDocFragmentType;
     var newDocFragmentValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newDocFragment = doc.createDocumentFragment();
     children = newDocFragment.childNodes;
@@ -3152,10 +2888,6 @@ exports.tests = {
     var newElementType;
     var newElementValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newElement = doc.createElement("address");
     newElementName = newElement.nodeName;
@@ -3194,10 +2926,6 @@ exports.tests = {
     var attribute1;
     var attribute2;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newElement1 = doc.createElement("ADDRESS");
     newElement2 = doc.createElement("address");
@@ -3239,10 +2967,6 @@ exports.tests = {
     var name;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newElement = doc.createElement("address");
     defaultAttr = newElement.attributes;
@@ -3285,10 +3009,6 @@ exports.tests = {
     var entRefName;
     var entRefType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newEntRefNode = doc.createEntityReference("ent1");
     assertNotNull("createdEntRefNotNull",newEntRefNode);
@@ -3332,10 +3052,6 @@ exports.tests = {
     var name;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newEntRefNode = doc.createEntityReference("ent3");
     assertNotNull("createdEntRefNotNull",newEntRefNode);
@@ -3382,10 +3098,6 @@ exports.tests = {
     var piName;
     var piType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newPINode = doc.createProcessingInstruction("TESTPI","This is a new PI node");
     assertNotNull("createdPINotNull",newPINode);
@@ -3423,10 +3135,6 @@ exports.tests = {
     var newTextValue;
     var newTextType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newTextNode = doc.createTextNode("This is a new Text node");
     newTextValue = newTextNode.nodeValue;
@@ -3464,10 +3172,6 @@ exports.tests = {
     var docTypeName;
     var nodeValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -3511,10 +3215,6 @@ exports.tests = {
     var doc;
     var docType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_nodtdstaff");
     docType = doc.doctype;
 
@@ -3542,10 +3242,6 @@ exports.tests = {
     var doc;
     var nameList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     nameList = doc.getElementsByTagName("name");
     assertSize("documentGetElementsByTagNameLengthAssert",5,nameList);
@@ -3567,10 +3263,6 @@ exports.tests = {
     var doc;
     var nameList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     nameList = doc.getElementsByTagName("*");
 
@@ -3615,10 +3307,6 @@ exports.tests = {
     var firstChild;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     nameList = doc.getElementsByTagName("name");
     nameNode = nameList.item(3);
@@ -3650,10 +3338,6 @@ exports.tests = {
     var docImpl;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docImpl = doc.implementation;
     state = docImpl.hasFeature("XML","1.0");
@@ -3681,10 +3365,6 @@ exports.tests = {
     var root;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     root = doc.documentElement;
 
@@ -3732,10 +3412,6 @@ exports.tests = {
     var doc;
     var createdAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
 
     {
@@ -3776,10 +3452,6 @@ exports.tests = {
     var doc;
     var badElement;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
 
     {
@@ -3814,10 +3486,6 @@ exports.tests = {
     var doc;
     var badEntityRef;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     if(
@@ -3872,10 +3540,6 @@ exports.tests = {
     var doc;
     var badEntityRef;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     if(
@@ -3933,10 +3597,6 @@ exports.tests = {
     var doc;
     var badPI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     if(
@@ -3991,10 +3651,6 @@ exports.tests = {
     var doc;
     var badPI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     if(
@@ -4053,10 +3709,6 @@ exports.tests = {
     var docType;
     var name;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -4121,10 +3773,6 @@ exports.tests = {
 
     var entity;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -4175,10 +3823,6 @@ exports.tests = {
     var docType;
     var entityList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -4226,10 +3870,6 @@ exports.tests = {
     var entity;
     var entityType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -4276,10 +3916,6 @@ exports.tests = {
     expected[1] = "notation2";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -4320,10 +3956,6 @@ exports.tests = {
     var notation;
     var notationType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -4357,10 +3989,6 @@ exports.tests = {
     var domImpl;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     domImpl = doc.implementation;
     state = domImpl.hasFeature("XML","");
@@ -4386,10 +4014,6 @@ exports.tests = {
     var nullVersion = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     domImpl = doc.implementation;
     state = domImpl.hasFeature("XML",nullVersion);
@@ -4412,10 +4036,6 @@ exports.tests = {
     var domImpl;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     domImpl = doc.implementation;
     state = domImpl.hasFeature("xml","1.0");
@@ -4446,10 +4066,6 @@ exports.tests = {
     var testEmployee;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(4);
@@ -4484,10 +4100,6 @@ exports.tests = {
     var domesticAttr;
     var specified;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(0);
@@ -4526,10 +4138,6 @@ exports.tests = {
     var testEmployee;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(3);
@@ -4565,10 +4173,6 @@ exports.tests = {
     var districtAttr;
     var attrVal;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(0);
@@ -4605,10 +4209,6 @@ exports.tests = {
     var domesticAttr;
     var name;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(0);
@@ -4642,10 +4242,6 @@ exports.tests = {
     var testEmployee;
     var domesticAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(0);
@@ -4682,10 +4278,6 @@ exports.tests = {
     var domesticAttr;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newAttribute = doc.createAttribute("district");
     elementList = doc.getElementsByTagName("address");
@@ -4718,10 +4310,6 @@ exports.tests = {
     var doc;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     assertSize("elementGetElementsByTagNameAssert",5,elementList);
@@ -4748,10 +4336,6 @@ exports.tests = {
     var childValue;
     var childType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     testEmployee = elementList.item(3);
@@ -4798,10 +4382,6 @@ exports.tests = {
     var doc;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("noMatch");
     assertSize("elementGetElementsByTagNameNoMatchNoMatchAssert",0,elementList);
@@ -4843,10 +4423,6 @@ exports.tests = {
     expectedResult[5] = "address";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     lastEmployee = elementList.item(4);
@@ -4888,10 +4464,6 @@ exports.tests = {
     var root;
     var tagname;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     root = doc.documentElement;
 
@@ -4947,10 +4519,6 @@ exports.tests = {
     var setAttr1;
     var setAttr2;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     addressElementList = doc.getElementsByTagName("address");
     testAddress = addressElementList.item(1);
@@ -5004,10 +4572,6 @@ exports.tests = {
     var elementList;
     var testAddress;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(0);
@@ -5050,10 +4614,6 @@ exports.tests = {
     var firstChild;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     root = doc.documentElement;
 
@@ -5096,10 +4656,6 @@ exports.tests = {
     var testAddress;
     var attrAddress;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     addressElementList = doc.getElementsByTagName("address");
     testAddress = addressElementList.item(4);
@@ -5144,10 +4700,6 @@ exports.tests = {
     var testEmployee;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(3);
@@ -5183,10 +4735,6 @@ exports.tests = {
     var attributes;
     var districtAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
@@ -5223,10 +4771,6 @@ exports.tests = {
     var removedAttr;
     var removedValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
@@ -5271,10 +4815,6 @@ exports.tests = {
     var attrNode;
     var removedAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
@@ -5345,10 +4885,6 @@ exports.tests = {
     var removedAttr;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
@@ -5406,10 +4942,6 @@ exports.tests = {
     var nodeType;
     var genElement;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
@@ -5472,10 +5004,6 @@ exports.tests = {
     var entElement;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
@@ -5524,10 +5052,6 @@ exports.tests = {
     var attribute;
     var removedAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
@@ -5560,10 +5084,6 @@ exports.tests = {
     var streetAttr;
     var replacedAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
@@ -5601,10 +5121,6 @@ exports.tests = {
     var name;
     var setAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
@@ -5642,10 +5158,6 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
@@ -5682,10 +5194,6 @@ exports.tests = {
     var testAddress;
     var attributes;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     addressList = doc.getElementsByTagName("address");
     testAddress = addressList.item(0);
@@ -5716,10 +5224,6 @@ exports.tests = {
     var testAddress;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(2);
@@ -5750,10 +5254,6 @@ exports.tests = {
     var testEmployee;
     var name;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("position");
     testEmployee = elementList.item(1);
@@ -5796,10 +5296,6 @@ exports.tests = {
     var nodeType;
     var badAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
@@ -5864,10 +5360,6 @@ exports.tests = {
     var badAttr;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
@@ -5918,10 +5410,6 @@ exports.tests = {
     var newAttribute;
     var districtAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
@@ -5958,10 +5446,6 @@ exports.tests = {
     var entRef;
     var entElement;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
@@ -6013,10 +5497,6 @@ exports.tests = {
     var entElement;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
@@ -6135,10 +5615,6 @@ exports.tests = {
     var entityNode;
     var entityName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -6180,10 +5656,6 @@ exports.tests = {
     var systemId;
     var notation;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -6228,10 +5700,6 @@ exports.tests = {
     var entityNode;
     var publicId;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -6268,10 +5736,6 @@ exports.tests = {
     var retval;
     var lastChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -6318,10 +5782,6 @@ exports.tests = {
     var retval;
     var lastChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -6367,10 +5827,6 @@ exports.tests = {
     var lastChild;
     var docFrag;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -6422,10 +5878,6 @@ exports.tests = {
     var retval;
     var lastChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -6493,10 +5945,6 @@ exports.tests = {
     var lastChild;
     var otherDoc;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     var otherDocRef = null;
@@ -6545,10 +5993,6 @@ exports.tests = {
     var retval;
     var lastChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     titleAttr = doc.createAttribute("title");
     textNode = doc.createTextNode("Yesterday");
@@ -6591,10 +6035,6 @@ exports.tests = {
     var textNode;
     var childNodes;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -6634,10 +6074,6 @@ exports.tests = {
     var childNodes;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -6684,10 +6120,6 @@ exports.tests = {
     var lastChild;
     var clonedTitle;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -6743,10 +6175,6 @@ exports.tests = {
     var appendedChild;
     var langAttrCount = 0;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docFragment = doc.createDocumentFragment();
     newOne = doc.createElement("html");
@@ -6800,10 +6228,6 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(3);
@@ -6846,10 +6270,6 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(3);
@@ -6888,10 +6308,6 @@ exports.tests = {
     var domesticAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(0);
@@ -6925,10 +6341,6 @@ exports.tests = {
     var textNode;
     var otherChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -6970,10 +6382,6 @@ exports.tests = {
     var retval;
     var lastChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -7007,10 +6415,6 @@ exports.tests = {
     var firstChild;
     var alphaRef;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -7068,10 +6472,6 @@ exports.tests = {
     var titleAttr;
     var hasChildNodes;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
 
 
     doc = load(docRef, "doc", "hc_staff");
@@ -7111,10 +6511,6 @@ exports.tests = {
     var refChild = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -7169,10 +6565,6 @@ exports.tests = {
     var firstChild;
     var refChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -7232,10 +6624,6 @@ exports.tests = {
     var refChild = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -7296,10 +6684,6 @@ exports.tests = {
     var lastChild;
     var refChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -7359,10 +6743,6 @@ exports.tests = {
     var refChild = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -7431,10 +6811,6 @@ exports.tests = {
 
     var otherDoc;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     var otherDocRef = null;
@@ -7488,10 +6864,6 @@ exports.tests = {
     var refChild = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -7561,10 +6933,6 @@ exports.tests = {
     var textNode;
     var otherChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -7609,10 +6977,6 @@ exports.tests = {
     var strong1;
     var strong2;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(1);
@@ -7649,10 +7013,6 @@ exports.tests = {
     var domesticAttr;
     var s;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(0);
@@ -7688,10 +7048,6 @@ exports.tests = {
     var firstChild;
     var secondChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -7738,10 +7094,6 @@ exports.tests = {
     var domesticAttr;
     var s;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(0);
@@ -7775,10 +7127,6 @@ exports.tests = {
     var domesticAttr;
     var s;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(0);
@@ -7812,10 +7160,6 @@ exports.tests = {
     var retval;
     var firstChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -7862,10 +7206,6 @@ exports.tests = {
     var textNode;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -7909,10 +7249,6 @@ exports.tests = {
     var retval;
     var firstChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -7965,10 +7301,6 @@ exports.tests = {
     var retval;
     var firstChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -8021,10 +7353,6 @@ exports.tests = {
     var firstChild;
     var otherChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -8076,10 +7404,6 @@ exports.tests = {
     var firstChild;
     var otherChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
@@ -8136,10 +7460,6 @@ exports.tests = {
     var domesticAttr;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(0);
@@ -8177,10 +7497,6 @@ exports.tests = {
     var streetAttr;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(2);
@@ -8220,10 +7536,6 @@ exports.tests = {
     var childValue;
     var childLength;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
@@ -8263,10 +7575,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
@@ -8304,10 +7612,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
@@ -8346,10 +7650,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
@@ -8390,10 +7690,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
@@ -8438,10 +7734,6 @@ exports.tests = {
     var result = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
@@ -8483,10 +7775,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
@@ -8527,10 +7815,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
@@ -8564,10 +7848,6 @@ exports.tests = {
     var childValue;
     var childLength;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
@@ -8605,10 +7885,6 @@ exports.tests = {
     var child;
     var childSubstring;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
@@ -8655,10 +7931,6 @@ exports.tests = {
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
@@ -8703,10 +7975,6 @@ exports.tests = {
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
@@ -8752,10 +8020,6 @@ exports.tests = {
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
@@ -8799,10 +8063,6 @@ exports.tests = {
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
@@ -8848,10 +8108,6 @@ exports.tests = {
     var child;
     var badString;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
@@ -8898,10 +8154,6 @@ exports.tests = {
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
@@ -8947,10 +8199,6 @@ exports.tests = {
     var nameNode;
     var child;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
@@ -8995,10 +8243,6 @@ exports.tests = {
     var child;
     var badSubstring;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
@@ -9043,10 +8287,6 @@ exports.tests = {
     var child;
     var badString;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
@@ -9093,10 +8333,6 @@ exports.tests = {
     var child;
     var badString;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
@@ -9141,10 +8377,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
@@ -9183,10 +8415,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
@@ -9225,10 +8453,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
@@ -9266,10 +8490,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
@@ -9308,10 +8528,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
@@ -9351,10 +8567,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
@@ -9392,10 +8604,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
@@ -9434,10 +8642,6 @@ exports.tests = {
     var child;
     var childData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
@@ -9471,10 +8675,6 @@ exports.tests = {
     var childData;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
@@ -9516,10 +8716,6 @@ exports.tests = {
     var child;
     var substring;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
@@ -9554,10 +8750,6 @@ exports.tests = {
     var child;
     var substring;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
@@ -9595,10 +8787,6 @@ exports.tests = {
     var childType;
     var attributes;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.childNodes;
 
@@ -9651,10 +8839,6 @@ exports.tests = {
     var attrName;
     var attrType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newAttrNode = doc.createAttribute("title");
     attrValue = newAttrNode.nodeValue;
@@ -9690,10 +8874,6 @@ exports.tests = {
     var newCommentName;
     var newCommentType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newCommentNode = doc.createComment("This is a new Comment node");
     newCommentValue = newCommentNode.nodeValue;
@@ -9730,10 +8910,6 @@ exports.tests = {
     var newDocFragmentType;
     var newDocFragmentValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newDocFragment = doc.createDocumentFragment();
     children = newDocFragment.childNodes;
@@ -9775,10 +8951,6 @@ exports.tests = {
     var newElementType;
     var newElementValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newElement = doc.createElement("acronym");
     newElementName = newElement.nodeName;
@@ -9822,10 +8994,6 @@ exports.tests = {
     var nodeName1;
     var nodeName2;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newElement1 = doc.createElement("ACRONYM");
     newElement2 = doc.createElement("acronym");
@@ -9865,10 +9033,6 @@ exports.tests = {
     var newTextValue;
     var newTextType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newTextNode = doc.createTextNode("This is a new Text node");
     newTextValue = newTextNode.nodeValue;
@@ -9900,10 +9064,6 @@ exports.tests = {
     var nodeValue;
     var attributes;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -9952,10 +9112,6 @@ exports.tests = {
     var doc;
     var nameList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     nameList = doc.getElementsByTagName("strong");
     assertSize("documentGetElementsByTagNameLengthAssert",5,nameList);
@@ -10072,10 +9228,6 @@ exports.tests = {
     var thisElement;
     var thisTag;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     nameList = doc.getElementsByTagName("*");
     for(var indexN10148 = 0;indexN10148 < nameList.length; indexN10148++) {
@@ -10126,10 +9278,6 @@ exports.tests = {
     var firstChild;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     nameList = doc.getElementsByTagName("strong");
     nameNode = nameList.item(3);
@@ -10161,10 +9309,6 @@ exports.tests = {
     var xmlstate;
     var htmlstate;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docImpl = doc.implementation;
     xmlstate = docImpl.hasFeature("XML","1.0");
@@ -10202,10 +9346,6 @@ exports.tests = {
     var root;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     root = doc.documentElement;
 
@@ -10252,10 +9392,6 @@ exports.tests = {
     var doc;
     var createdAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     {
@@ -10288,10 +9424,6 @@ exports.tests = {
     var doc;
     var createdAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     {
@@ -10331,10 +9463,6 @@ exports.tests = {
     var doc;
     var badElement;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     {
@@ -10367,10 +9495,6 @@ exports.tests = {
     var doc;
     var badElement;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     {
@@ -10407,10 +9531,6 @@ exports.tests = {
     var domImpl;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domImpl = doc.implementation;
 
@@ -10453,10 +9573,6 @@ exports.tests = {
     var domImpl;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domImpl = doc.implementation;
 
@@ -10497,10 +9613,6 @@ exports.tests = {
     var domImpl;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domImpl = doc.implementation;
 
@@ -10545,10 +9657,6 @@ exports.tests = {
     var testEmployee;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(4);
@@ -10580,10 +9688,6 @@ exports.tests = {
     var domesticAttr;
     var specified;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(0);
@@ -10621,10 +9725,6 @@ exports.tests = {
     var testEmployee;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(3);
@@ -10660,10 +9760,6 @@ exports.tests = {
     var districtAttr;
     var attrVal;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(0);
@@ -10696,10 +9792,6 @@ exports.tests = {
     var domesticAttr;
     var nodeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(0);
@@ -10732,10 +9824,6 @@ exports.tests = {
     var testEmployee;
     var domesticAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(0);
@@ -10772,10 +9860,6 @@ exports.tests = {
     var domesticAttr;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newAttribute = doc.createAttribute("lang");
     elementList = doc.getElementsByTagName("acronym");
@@ -10807,10 +9891,6 @@ exports.tests = {
     var doc;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     assertSize("elementGetElementsByTagNameAssert",5,elementList);
@@ -10848,10 +9928,6 @@ exports.tests = {
     var employeeIDNode;
     var employeeID;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     testEmployee = elementList.item(3);
@@ -10899,10 +9975,6 @@ exports.tests = {
     var doc;
     var elementList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("noMatch");
     assertSize("elementGetElementsByTagNameNoMatchNoMatchAssert",0,elementList);
@@ -10943,10 +10015,6 @@ exports.tests = {
     expectedResult[5] = "acronym";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     lastEmployee = elementList.item(4);
@@ -10978,10 +10046,6 @@ exports.tests = {
     var root;
     var tagname;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     root = doc.documentElement;
 
@@ -11029,10 +10093,6 @@ exports.tests = {
     var setAttr1;
     var setAttr2;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     addressElementList = doc.getElementsByTagName("body");
     testAddress = addressElementList.item(0);
@@ -11077,10 +10137,6 @@ exports.tests = {
     var elementList;
     var testAddress;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(0);
@@ -11115,10 +10171,6 @@ exports.tests = {
     var elementList;
     var testAddress;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(0);
@@ -11157,10 +10209,6 @@ exports.tests = {
     var textNode;
     var retNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("sup");
     testName = elementList.item(0);
@@ -11204,10 +10252,6 @@ exports.tests = {
     var attrNode;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     root = doc.documentElement;
 
@@ -11256,10 +10300,6 @@ exports.tests = {
     var testAddress;
     var attrAddress;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     addressElementList = doc.getElementsByTagName("acronym");
     testAddress = addressElementList.item(4);
@@ -11297,10 +10337,6 @@ exports.tests = {
     var testEmployee;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(3);
@@ -11336,10 +10372,6 @@ exports.tests = {
     var attributes;
     var districtAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
@@ -11375,10 +10407,6 @@ exports.tests = {
     var removedAttr;
     var removedValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
@@ -11414,10 +10442,6 @@ exports.tests = {
     var replacedAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
@@ -11454,10 +10478,6 @@ exports.tests = {
     var strong;
     var setAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
@@ -11494,10 +10514,6 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
@@ -11540,10 +10556,6 @@ exports.tests = {
     expected[1] = "dir";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     addressList = doc.getElementsByTagName("acronym");
     testAddress = addressList.item(0);
@@ -11593,10 +10605,6 @@ exports.tests = {
     var testAddress;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(2);
@@ -11626,10 +10634,6 @@ exports.tests = {
     var testEmployee;
     var strong;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("code");
     testEmployee = elementList.item(1);
@@ -11668,10 +10672,6 @@ exports.tests = {
     var newAttribute;
     var districtAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
@@ -11757,10 +10757,6 @@ exports.tests = {
     var docType;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -11810,10 +10806,6 @@ exports.tests = {
     var retval;
     var elem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -11878,10 +10870,6 @@ exports.tests = {
     var strong;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
@@ -11938,10 +10926,6 @@ exports.tests = {
     var domesticAttr;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(1);
@@ -11983,10 +10967,6 @@ exports.tests = {
     var setAttr;
     var setNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     firstNode = elementList.item(0);
@@ -12039,10 +11019,6 @@ exports.tests = {
     var attributes;
     var removedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
@@ -12080,10 +11056,6 @@ exports.tests = {
     var attributes;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
@@ -12136,10 +11108,6 @@ exports.tests = {
     var specified;
     var removedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(2);
@@ -12176,10 +11144,6 @@ exports.tests = {
     var streetAttr;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(1);
@@ -12232,10 +11196,6 @@ exports.tests = {
     var actual = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(1);
@@ -12303,10 +11263,6 @@ exports.tests = {
     var actual = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(1);
@@ -12362,10 +11318,6 @@ exports.tests = {
     var attributes;
     var districtNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(1);
@@ -12408,10 +11360,6 @@ exports.tests = {
     var attrName;
     var setNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(1);
@@ -12459,10 +11407,6 @@ exports.tests = {
     var newNode;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(2);
@@ -12512,10 +11456,6 @@ exports.tests = {
     var attrValue;
     var setNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(1);
@@ -12560,10 +11500,6 @@ exports.tests = {
     var attributes;
     var newNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(2);
@@ -12660,10 +11596,6 @@ exports.tests = {
     var childName;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -12719,10 +11651,6 @@ exports.tests = {
 
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     childNode = elementList.item(1);
@@ -12801,10 +11729,6 @@ exports.tests = {
     expected[7] = "b";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -12861,10 +11785,6 @@ exports.tests = {
     var appendNode;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -12905,10 +11825,6 @@ exports.tests = {
     var newChild;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     rootNode = doc.documentElement;
 
@@ -13012,10 +11928,6 @@ exports.tests = {
     var oldChild;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newChild = doc.documentElement;
 
@@ -13058,10 +11970,6 @@ exports.tests = {
     var attrNode;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
@@ -13094,10 +12002,6 @@ exports.tests = {
     var addrAttr;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
@@ -13136,10 +12040,6 @@ exports.tests = {
     var addrAttr;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
@@ -13173,10 +12073,6 @@ exports.tests = {
     var addrAttr;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
@@ -13222,10 +12118,6 @@ exports.tests = {
     expected[5] = "acronym";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -13298,10 +12190,6 @@ exports.tests = {
     expected[6] = "br";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -13358,10 +12246,6 @@ exports.tests = {
     var textNode;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("em");
     employeeNode = elementList.item(1);
@@ -13409,10 +12293,6 @@ exports.tests = {
     expected[2] = "dir";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     addressNode = elementList.item(1);
@@ -13467,10 +12347,6 @@ exports.tests = {
     var clonedNode;
     var lastChildNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -13506,10 +12382,6 @@ exports.tests = {
     var clonedNode;
     var parentNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -13546,10 +12418,6 @@ exports.tests = {
     var cloneChildren;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -13599,10 +12467,6 @@ exports.tests = {
     var expected = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -13653,10 +12517,6 @@ exports.tests = {
     var lastChildNode;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("sup");
     childNode = elementList.item(1);
@@ -13694,10 +12554,6 @@ exports.tests = {
     var attrList;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     nodeList = doc.childNodes;
 
@@ -13747,10 +12603,6 @@ exports.tests = {
     var commentName;
     var commentNodeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.childNodes;
 
@@ -13799,10 +12651,6 @@ exports.tests = {
     var commentNodeName;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     testList = doc.childNodes;
 
@@ -13851,10 +12699,6 @@ exports.tests = {
     var commentName;
     var commentValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.childNodes;
 
@@ -13901,10 +12745,6 @@ exports.tests = {
     var docFragment;
     var documentFragmentName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docFragment = doc.createDocumentFragment();
     documentFragmentName = docFragment.nodeName;
@@ -13934,10 +12774,6 @@ exports.tests = {
     var documentFragmentNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     documentFragmentNode = doc.createDocumentFragment();
     nodeType = documentFragmentNode.nodeType;
@@ -13970,10 +12806,6 @@ exports.tests = {
     var attrList;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docFragment = doc.createDocumentFragment();
     attrList = docFragment.attributes;
@@ -14004,10 +12836,6 @@ exports.tests = {
     var doc;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     attrList = doc.attributes;
 
@@ -14034,10 +12862,6 @@ exports.tests = {
     var doc;
     var documentName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     documentName = doc.nodeName;
 
@@ -14063,10 +12887,6 @@ exports.tests = {
     var doc;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     nodeType = doc.nodeType;
 
@@ -14094,10 +12914,6 @@ exports.tests = {
     var doc;
     var documentValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     documentValue = doc.nodeValue;
 
@@ -14136,10 +12952,6 @@ exports.tests = {
     expected[2] = "dir";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(2);
@@ -14187,10 +12999,6 @@ exports.tests = {
     var elementNode;
     var elementName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementNode = doc.documentElement;
 
@@ -14231,10 +13039,6 @@ exports.tests = {
     var rootNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     rootNode = doc.documentElement;
 
@@ -14259,10 +13063,6 @@ exports.tests = {
     var elementNode;
     var elementValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementNode = doc.documentElement;
 
@@ -14295,10 +13095,6 @@ exports.tests = {
     var childName;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -14342,10 +13138,6 @@ exports.tests = {
     var emText;
     var nullChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     emList = doc.getElementsByTagName("em");
     emNode = emList.item(0);
@@ -14378,10 +13170,6 @@ exports.tests = {
     var lchildNode;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -14415,10 +13203,6 @@ exports.tests = {
     var emText;
     var nullChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     emList = doc.getElementsByTagName("em");
     emNode = emList.item(0);
@@ -14451,10 +13235,6 @@ exports.tests = {
     var nsNode;
     var nsName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("em");
     emNode = elementList.item(1);
@@ -14494,10 +13274,6 @@ exports.tests = {
     var lcNode;
     var nsNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -14527,10 +13303,6 @@ exports.tests = {
     var docElement;
     var elementName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     docNode = elementList.item(1);
@@ -14580,10 +13352,6 @@ exports.tests = {
     var doc;
     var ownerDocument;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     ownerDocument = doc.ownerDocument;
 
@@ -14612,10 +13380,6 @@ exports.tests = {
     var psNode;
     var psName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(1);
@@ -14655,10 +13419,6 @@ exports.tests = {
     var fcNode;
     var psNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
@@ -14690,10 +13450,6 @@ exports.tests = {
     var employeeNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -14724,10 +13480,6 @@ exports.tests = {
     var emText;
     var hasChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     emList = doc.getElementsByTagName("em");
     emNode = emList.item(0);
@@ -14778,10 +13530,6 @@ exports.tests = {
 
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("sup");
     refChild = elementList.item(2);
@@ -14843,10 +13591,6 @@ exports.tests = {
     var appendedChild;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -14901,10 +13645,6 @@ exports.tests = {
     var refChild;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newChild = doc.createAttribute("title");
     elementList = doc.getElementsByTagName("p");
@@ -15025,10 +13765,6 @@ exports.tests = {
 
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -15083,10 +13819,6 @@ exports.tests = {
     var refChild;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newChild = doc.documentElement;
 
@@ -15136,10 +13868,6 @@ exports.tests = {
     var insertedNode;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -15183,10 +13911,6 @@ exports.tests = {
     var elementNode;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newChild = doc.createElement("br");
     refChild = doc.createElement("b");
@@ -15237,10 +13961,6 @@ exports.tests = {
     var childName;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -15281,10 +14001,6 @@ exports.tests = {
     var childName;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
@@ -15332,10 +14048,6 @@ exports.tests = {
     var employeeList;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
@@ -15382,10 +14094,6 @@ exports.tests = {
     var textList;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     emList = doc.getElementsByTagName("em");
     emNode = emList.item(2);
@@ -15424,10 +14132,6 @@ exports.tests = {
     var child;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
@@ -15472,10 +14176,6 @@ exports.tests = {
     var child;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
@@ -15520,10 +14220,6 @@ exports.tests = {
     var childName;
     var index;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
@@ -15585,10 +14281,6 @@ exports.tests = {
     expected[5] = "acronym";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
@@ -15640,10 +14332,6 @@ exports.tests = {
     var parentNode;
     var parentName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -15676,10 +14364,6 @@ exports.tests = {
     var createdNode;
     var parentNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     createdNode = doc.createElement("br");
     parentNode = createdNode.parentNode;
@@ -15713,10 +14397,6 @@ exports.tests = {
     var removedChild;
     var parentNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     rootNode = doc.documentElement;
 
@@ -15757,10 +14437,6 @@ exports.tests = {
     var childName;
     var oldName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -15816,10 +14492,6 @@ exports.tests = {
     var actual = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -15882,10 +14554,6 @@ exports.tests = {
     var elementNode;
     var removedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     oldChild = doc.createElement("br");
     elementList = doc.getElementsByTagName("p");
@@ -15931,10 +14599,6 @@ exports.tests = {
     var childName;
     var replacedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -15981,10 +14645,6 @@ exports.tests = {
     var oldChild;
     var replacedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newChild = doc.createAttribute("lang");
     elementList = doc.getElementsByTagName("p");
@@ -16102,10 +14762,6 @@ exports.tests = {
     var replacedChild;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
@@ -16167,10 +14823,6 @@ exports.tests = {
     var oldChild;
     var replacedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newChild = doc.documentElement;
 
@@ -16221,10 +14873,6 @@ exports.tests = {
     var replacedNode;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
 
@@ -16266,10 +14914,6 @@ exports.tests = {
     var elementNode;
     var replacedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newChild = doc.createElement("br");
     oldChild = doc.createElement("b");
@@ -16311,10 +14955,6 @@ exports.tests = {
     var textNode;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
@@ -16343,10 +14983,6 @@ exports.tests = {
     var textNode;
     var textName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
@@ -16386,10 +15022,6 @@ exports.tests = {
     var textNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
@@ -16423,10 +15055,6 @@ exports.tests = {
     var textNode;
     var textValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
@@ -16454,10 +15082,6 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newNode = doc.createElement("acronym");
     newValue = newNode.nodeValue;
@@ -16487,10 +15111,6 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newNode = doc.createComment("This is a new Comment node");
     newValue = newNode.nodeValue;
@@ -16520,10 +15140,6 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
 
@@ -16560,10 +15176,6 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newNode = doc.doctype;
 
@@ -16611,10 +15223,6 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newNode = doc.createDocumentFragment();
     newValue = newNode.nodeValue;
@@ -16677,10 +15285,6 @@ exports.tests = {
     var nodeMap;
     var docType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -16729,10 +15333,6 @@ exports.tests = {
     var newValue;
     var nodeMap;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -16779,10 +15379,6 @@ exports.tests = {
     var docType;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -16832,10 +15428,6 @@ exports.tests = {
     var retval;
     var elem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -16901,10 +15493,6 @@ exports.tests = {
     var textNode;
     var splitNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
@@ -16951,10 +15539,6 @@ exports.tests = {
     var textNode;
     var splitNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
@@ -17011,10 +15595,6 @@ exports.tests = {
     expectedExpanded[0] = "β Dallas, γ\n 98554";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     addressNode = elementList.item(1);
@@ -17087,10 +15667,6 @@ exports.tests = {
     var splitNode;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     addressNode = elementList.item(0);
@@ -17130,10 +15706,6 @@ exports.tests = {
     var secondPart;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
@@ -17175,10 +15747,6 @@ exports.tests = {
     var splitNode;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
@@ -17217,10 +15785,6 @@ exports.tests = {
     var splitNode;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
@@ -17259,10 +15823,6 @@ exports.tests = {
     var nodeV;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
@@ -17299,10 +15859,6 @@ exports.tests = {
     var child;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
@@ -17342,10 +15898,6 @@ exports.tests = {
     var domesticAttr;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(1);
@@ -17388,10 +15940,6 @@ exports.tests = {
     var setAttr;
     var setNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     firstNode = elementList.item(0);
@@ -17444,10 +15992,6 @@ exports.tests = {
     var attributes;
     var removedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
@@ -17491,10 +16035,6 @@ exports.tests = {
     var attributes;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
@@ -17535,10 +16075,6 @@ exports.tests = {
     var specified;
     var removedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(2);
@@ -17585,10 +16121,6 @@ exports.tests = {
     var value;
     var removedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
@@ -17632,10 +16164,6 @@ exports.tests = {
     var removedNode;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(2);
@@ -17676,10 +16204,6 @@ exports.tests = {
     var streetAttr;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(1);
@@ -17722,10 +16246,6 @@ exports.tests = {
     var child;
     var name;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(1);
@@ -17764,10 +16284,6 @@ exports.tests = {
     var child;
     var name;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(1);
@@ -17805,10 +16321,6 @@ exports.tests = {
     var attributes;
     var districtNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(1);
@@ -17853,10 +16365,6 @@ exports.tests = {
     var attrName;
     var setNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(1);
@@ -17905,10 +16413,6 @@ exports.tests = {
     var newNode;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(2);
@@ -17958,10 +16462,6 @@ exports.tests = {
     var attrValue;
     var setNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(1);
@@ -18006,10 +16506,6 @@ exports.tests = {
     var attributes;
     var newNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(2);
@@ -18110,10 +16606,6 @@ exports.tests = {
     var childName;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -18158,10 +16650,6 @@ exports.tests = {
     var appendedChild;
     var initialName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     childNode = elementList.item(1);
@@ -18238,10 +16726,6 @@ exports.tests = {
     expected[8] = "newChild3";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -18302,10 +16786,6 @@ exports.tests = {
     var appendNode;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -18347,10 +16827,6 @@ exports.tests = {
     var newChild;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     rootNode = doc.documentElement;
 
@@ -18455,10 +16931,6 @@ exports.tests = {
     var employeeNode;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newChild = doc.documentElement;
 
@@ -18508,10 +16980,6 @@ exports.tests = {
     var appendedNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
@@ -18570,10 +17038,6 @@ exports.tests = {
     var createdNode;
     var appendedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     entRef = doc.createEntityReference("ent4");
     assertNotNull("createdEntRefNotNull",entRef);
@@ -18616,10 +17080,6 @@ exports.tests = {
     var attrNode;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
@@ -18663,10 +17123,6 @@ exports.tests = {
     var addrAttr;
     var attrName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
@@ -18706,10 +17162,6 @@ exports.tests = {
     var addrAttr;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
@@ -18751,10 +17203,6 @@ exports.tests = {
     var addrAttr;
     var attrValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
@@ -18790,10 +17238,6 @@ exports.tests = {
     var attrList;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("name");
     cdataName = elementList.item(1);
@@ -18839,10 +17283,6 @@ exports.tests = {
     var nodeType;
     var cdataNodeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("name");
     cdataName = elementList.item(1);
@@ -18886,10 +17326,6 @@ exports.tests = {
     var cdataNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("name");
     testName = elementList.item(1);
@@ -18936,10 +17372,6 @@ exports.tests = {
     var child;
     var cdataNodeValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("name");
     cdataName = elementList.item(1);
@@ -18990,10 +17422,6 @@ exports.tests = {
     expectedElementNames[5] = "address";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -19039,10 +17467,6 @@ exports.tests = {
     var expectedLength;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -19085,10 +17509,6 @@ exports.tests = {
     var textNode;
     var childNodesList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -19135,10 +17555,6 @@ exports.tests = {
     expectedResult[1] = "street";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     addressNode = elementList.item(1);
@@ -19181,10 +17597,6 @@ exports.tests = {
     var clonedNode;
     var lastChildNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -19221,10 +17633,6 @@ exports.tests = {
     var clonedNode;
     var parentNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -19262,10 +17670,6 @@ exports.tests = {
     var cloneChildren;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -19335,10 +17739,6 @@ exports.tests = {
     expectedNoWhitespace[5] = "address";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -19392,10 +17792,6 @@ exports.tests = {
     var lastChildNode;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("salary");
     childNode = elementList.item(1);
@@ -19433,10 +17829,6 @@ exports.tests = {
     var attrList;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     childList = doc.childNodes;
 
@@ -19485,10 +17877,6 @@ exports.tests = {
     var nodeType;
     var commentNodeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.childNodes;
 
@@ -19533,10 +17921,6 @@ exports.tests = {
     var commentNodeName;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     testList = doc.childNodes;
 
@@ -19581,10 +17965,6 @@ exports.tests = {
     var commentName;
     var commentValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.childNodes;
 
@@ -19628,10 +18008,6 @@ exports.tests = {
     var docFragment;
     var documentFragmentName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docFragment = doc.createDocumentFragment();
     documentFragmentName = docFragment.nodeName;
@@ -19662,10 +18038,6 @@ exports.tests = {
     var documentFragmentNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     documentFragmentNode = doc.createDocumentFragment();
     nodeType = documentFragmentNode.nodeType;
@@ -19699,10 +18071,6 @@ exports.tests = {
     var attrList;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docFragment = doc.createDocumentFragment();
     attrList = docFragment.attributes;
@@ -19730,10 +18098,6 @@ exports.tests = {
     var doc;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     attrList = doc.attributes;
 
@@ -19761,10 +18125,6 @@ exports.tests = {
     var doc;
     var documentName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     documentName = doc.nodeName;
 
@@ -19791,10 +18151,6 @@ exports.tests = {
     var doc;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     nodeType = doc.nodeType;
 
@@ -19823,10 +18179,6 @@ exports.tests = {
     var doc;
     var documentValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     documentValue = doc.nodeValue;
 
@@ -19851,10 +18203,6 @@ exports.tests = {
     var docType;
     var documentTypeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -19894,10 +18242,6 @@ exports.tests = {
     var documentTypeNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     documentTypeNode = doc.doctype;
 
@@ -19923,10 +18267,6 @@ exports.tests = {
     var docType;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -19968,10 +18308,6 @@ exports.tests = {
     expected[1] = "street";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(2);
@@ -20018,10 +18354,6 @@ exports.tests = {
     var elementNode;
     var elementName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementNode = doc.documentElement;
 
@@ -20063,10 +18395,6 @@ exports.tests = {
     var rootNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     rootNode = doc.documentElement;
 
@@ -20092,10 +18420,6 @@ exports.tests = {
     var elementNode;
     var elementValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementNode = doc.documentElement;
 
@@ -20123,10 +18447,6 @@ exports.tests = {
     var entityNode;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -20159,10 +18479,6 @@ exports.tests = {
     var entityNode;
     var entityName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -20196,10 +18512,6 @@ exports.tests = {
     var entityNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -20233,10 +18545,6 @@ exports.tests = {
     var entityNode;
     var entityValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -20271,10 +18579,6 @@ exports.tests = {
     var attrList;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     entRefAddr = elementList.item(1);
@@ -20320,10 +18624,6 @@ exports.tests = {
     var entRefName;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     entRefAddr = elementList.item(1);
@@ -20367,10 +18667,6 @@ exports.tests = {
     var entRefNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     entRefAddr = elementList.item(1);
@@ -20416,10 +18712,6 @@ exports.tests = {
     var entRefValue;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     entRefAddr = elementList.item(1);
@@ -20459,10 +18751,6 @@ exports.tests = {
     var entityNode;
     var entityValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -20498,10 +18786,6 @@ exports.tests = {
     var fchildNode;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -20554,10 +18838,6 @@ exports.tests = {
     var textNode;
     var noChildNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(0);
@@ -20590,10 +18870,6 @@ exports.tests = {
     var lchildNode;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -20646,10 +18922,6 @@ exports.tests = {
     var textNode;
     var noChildNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(0);
@@ -20682,10 +18954,6 @@ exports.tests = {
     var nsNode;
     var nsName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employeeId");
     employeeIdNode = elementList.item(1);
@@ -20736,10 +19004,6 @@ exports.tests = {
     var lcNode;
     var nsNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -20776,10 +19040,6 @@ exports.tests = {
     var docElement;
     var elementName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     docNode = elementList.item(1);
@@ -20821,10 +19081,6 @@ exports.tests = {
     var doc;
     var ownerDocument;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     ownerDocument = doc.ownerDocument;
 
@@ -20850,10 +19106,6 @@ exports.tests = {
     var psNode;
     var psName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(1);
@@ -20904,10 +19156,6 @@ exports.tests = {
     var fcNode;
     var psNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
@@ -20940,10 +19188,6 @@ exports.tests = {
     var employeeNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -20977,10 +19221,6 @@ exports.tests = {
     var textNode;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     child = elementList.item(1);
@@ -21050,10 +19290,6 @@ exports.tests = {
     var expected = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -21121,10 +19357,6 @@ exports.tests = {
     var appendedChild;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -21178,10 +19410,6 @@ exports.tests = {
     var refChild;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     rootNode = doc.documentElement;
 
@@ -21319,10 +19547,6 @@ exports.tests = {
     var result = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -21388,10 +19612,6 @@ exports.tests = {
     var refChild;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newChild = doc.documentElement;
 
@@ -21441,10 +19661,6 @@ exports.tests = {
     var insertedNode;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -21491,10 +19707,6 @@ exports.tests = {
 
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
@@ -21555,10 +19767,6 @@ exports.tests = {
     var refChild = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     entRef = doc.createEntityReference("ent4");
     assertNotNull("createdEntRefNotNull",entRef);
@@ -21606,10 +19814,6 @@ exports.tests = {
     var elementNode;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newChild = doc.createElement("newChild");
     refChild = doc.createElement("refChild");
@@ -21660,10 +19864,6 @@ exports.tests = {
     var childName;
     var insertedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -21699,10 +19899,6 @@ exports.tests = {
     var child;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
@@ -21740,10 +19936,6 @@ exports.tests = {
     var length;
     var expectedCount = 0;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
@@ -21780,10 +19972,6 @@ exports.tests = {
     var textNode;
     var textList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
@@ -21822,10 +20010,6 @@ exports.tests = {
     var length;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
@@ -21871,10 +20055,6 @@ exports.tests = {
     var childName;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
@@ -21920,10 +20100,6 @@ exports.tests = {
     var childName;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
@@ -22001,10 +20177,6 @@ exports.tests = {
     expectedNoWhitespace[5] = "address";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
@@ -22056,10 +20228,6 @@ exports.tests = {
     var notationNode;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -22098,10 +20266,6 @@ exports.tests = {
     var notationNode;
     var notationName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -22139,10 +20303,6 @@ exports.tests = {
     var notationNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -22181,10 +20341,6 @@ exports.tests = {
     var notationNode;
     var notationValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -22223,10 +20379,6 @@ exports.tests = {
     var parentNode;
     var parentName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -22272,10 +20424,6 @@ exports.tests = {
     var createdNode;
     var parentNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     createdNode = doc.createElement("employee");
     parentNode = createdNode.parentNode;
@@ -22310,10 +20458,6 @@ exports.tests = {
     var piNode;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     testList = doc.childNodes;
 
@@ -22352,10 +20496,6 @@ exports.tests = {
     var piNode;
     var piName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     testList = doc.childNodes;
 
@@ -22394,10 +20534,6 @@ exports.tests = {
     var piNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     testList = doc.childNodes;
 
@@ -22430,10 +20566,6 @@ exports.tests = {
     var piNode;
     var piValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     testList = doc.childNodes;
 
@@ -22463,10 +20595,6 @@ exports.tests = {
     var piNode;
     var piValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     testList = doc.childNodes;
 
@@ -22507,10 +20635,6 @@ exports.tests = {
     var removedChild;
     var parentNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     rootNode = doc.documentElement;
 
@@ -22548,10 +20672,6 @@ exports.tests = {
     var childName;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -22603,10 +20723,6 @@ exports.tests = {
     var removedChild;
     var removedName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -22668,10 +20784,6 @@ exports.tests = {
     var removedNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
@@ -22729,10 +20841,6 @@ exports.tests = {
     var entText;
     var removedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     entRef = doc.createEntityReference("ent4");
     assertNotNull("createdEntRefNotNull",entRef);
@@ -22780,10 +20888,6 @@ exports.tests = {
     var elementNode;
     var removedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     oldChild = doc.createElement("oldChild");
     elementList = doc.getElementsByTagName("employee");
@@ -22829,10 +20933,6 @@ exports.tests = {
     var childName;
     var replacedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -22878,10 +20978,6 @@ exports.tests = {
     var oldChild;
     var replacedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     rootNode = doc.documentElement;
 
@@ -23015,10 +21111,6 @@ exports.tests = {
 
     var replacedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -23088,10 +21180,6 @@ exports.tests = {
     var oldChild;
     var replacedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newChild = doc.documentElement;
 
@@ -23140,10 +21228,6 @@ exports.tests = {
     var length;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
@@ -23202,10 +21286,6 @@ exports.tests = {
     var replacedChild;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
@@ -23263,10 +21343,6 @@ exports.tests = {
     var createdNode;
     var replacedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     entRef = doc.createEntityReference("ent4");
     assertNotNull("createdEntRefNotNull",entRef);
@@ -23315,10 +21391,6 @@ exports.tests = {
     var elementNode;
     var replacedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newChild = doc.createElement("newChild");
     oldChild = doc.createElement("oldChild");
@@ -23368,10 +21440,6 @@ exports.tests = {
     var entElementText;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
@@ -23428,10 +21496,6 @@ exports.tests = {
     var entRef;
     var entText;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     entRef = doc.createEntityReference("ent3");
     assertNotNull("createdEntRefNotNull",entRef);
@@ -23476,10 +21540,6 @@ exports.tests = {
     var textNode;
     var attrList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
@@ -23522,10 +21582,6 @@ exports.tests = {
     var textNode;
     var textName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
@@ -23566,10 +21622,6 @@ exports.tests = {
     var textNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
@@ -23604,10 +21656,6 @@ exports.tests = {
     var textNode;
     var textValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
@@ -23635,10 +21683,6 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newNode = doc.createElement("address");
     newValue = newNode.nodeValue;
@@ -23668,10 +21712,6 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newNode = doc.createComment("This is a new Comment node");
     newValue = newNode.nodeValue;
@@ -23701,10 +21741,6 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newNode = doc.createEntityReference("ent1");
     assertNotNull("createdEntRefNotNull",newNode);
@@ -23735,10 +21771,6 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newNode = doc.doctype;
 
@@ -23770,10 +21802,6 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newNode = doc.createDocumentFragment();
     newValue = newNode.nodeValue;
@@ -23836,10 +21864,6 @@ exports.tests = {
     var nodeMap;
     var docType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -23878,10 +21902,6 @@ exports.tests = {
     var newValue;
     var nodeMap;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -23918,10 +21938,6 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     newNode = doc.createProcessingInstruction("TARGET","DATA");
     newValue = newNode.nodeValue;
@@ -23955,10 +21971,6 @@ exports.tests = {
     var notationNode;
     var notationName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -23992,10 +22004,6 @@ exports.tests = {
     var notationNode;
     var publicId;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -24034,10 +22042,6 @@ exports.tests = {
     var notationNode;
     var publicId;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -24076,10 +22080,6 @@ exports.tests = {
     var systemId;
     var index;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -24114,10 +22114,6 @@ exports.tests = {
     var notationNode;
     var systemId;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     docType = doc.doctype;
 
@@ -24157,10 +22153,6 @@ exports.tests = {
     var piNode;
     var data;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     childNodes = doc.childNodes;
 
@@ -24195,10 +22187,6 @@ exports.tests = {
     var piNode;
     var target;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     childNodes = doc.childNodes;
 
@@ -24236,10 +22224,6 @@ exports.tests = {
     var entRef;
     var piNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
@@ -24293,10 +22277,6 @@ exports.tests = {
     var piNode;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
@@ -24349,10 +22329,6 @@ exports.tests = {
     var textNode;
     var splitNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(2);
@@ -24400,10 +22376,6 @@ exports.tests = {
     var textNode;
     var splitNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(2);
@@ -24461,10 +22433,6 @@ exports.tests = {
     expectedExpanded[0] = "1900 Dallas Road Dallas, Texas\n 98554";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     addressNode = elementList.item(1);
@@ -24538,10 +22506,6 @@ exports.tests = {
     var splitNode;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("address");
     addressNode = elementList.item(0);
@@ -24584,10 +22548,6 @@ exports.tests = {
     var splitNode;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
@@ -24644,10 +22604,6 @@ exports.tests = {
     var entText;
     var splitNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     entRef = doc.createEntityReference("ent3");
     assertNotNull("createdEntRefNotNull",entRef);
@@ -24696,10 +22652,6 @@ exports.tests = {
     var secondPart;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(2);
@@ -24742,10 +22694,6 @@ exports.tests = {
     var splitNode;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(2);
@@ -24785,10 +22733,6 @@ exports.tests = {
     var splitNode;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(2);
@@ -24828,10 +22772,6 @@ exports.tests = {
     var nodeV;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(2);
@@ -24853,10 +22793,6 @@ exports.tests = {
     var nodeV;
     var value;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "staff");
     doc.implementation.addFeature("TestingFeature", 1);
     doc.implementation.addFeature("TestingFeature", 2);
