@@ -5436,33 +5436,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D7C29F3E
    */
   entitygetpublicid: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var entityList;
-    var entityNode;
-    var publicId;
-    var systemId;
-    var notation;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    entityList = docType.entities;
-
-    test.notEqual(entityList, null, 'entitiesNotNull');
-    entityNode = entityList.getNamedItem("ent5");
-    publicId = entityNode.publicId;
-
-    test.equal(publicId, 'entityURI', 'publicId');
-    systemId = entityNode.systemId;
-
-    assertURIEquals("systemId",null,null,null,"entityFile",null,null,null,null,systemId);
-    notation = entityNode.notationName;
-
-    test.equal(notation, 'notation1', 'notation');
-
+    var doc = staff.staff();
+    test.notEqual(doc.doctype, null, 'docTypeNotNull');
+    test.notEqual(doc.doctype.entities, null, 'entitiesNotNull');
+    var entityNode = doc.doctype.entities.getNamedItem("ent5");
+    test.equal(entityNode.publicId, 'entityURI', 'publicId');
+    test.equal(entityNode.systemId, 'entityFile');
+    test.equal(entityNode.notationName, 'notation1', 'notation');
     test.done();
   },
 
@@ -21044,26 +21024,11 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E8AAB1D0
    */
   notationgetsystemid: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var notations;
-    var notationNode;
-    var systemId;
-    var index;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    notations = docType.notations;
-
-    test.notEqual(notations, null, 'notationsNotNull');
-    notationNode = notations.getNamedItem("notation2");
-    systemId = notationNode.systemId;
-
-    assertURIEquals("uriEquals",null,null,null,"notation2File",null,null,null,null,systemId);
-
+    var doc = staff.staff();
+    test.notEqual(doc.doctype, null, 'docTypeNotNull');
+    test.notEqual(doc.doctype.notations, null, 'notationsNotNull');
+    var notationNode = doc.doctype.notations.getNamedItem("notation2");
+    test.equal(notationNode.systemId, 'notation2File')
     test.done();
   },
 
