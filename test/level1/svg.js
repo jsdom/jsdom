@@ -3622,7 +3622,7 @@ exports.tests = {
       nameList[nameList.length] = name;
 
     }
-    assertEqualsCollection("entityNamesSVG",expectedResultSVG,nameList);
+    test.deepEqual(nameList, expectedResultSVG, 'entityNamesSVG');
     test.done();
   },
 
@@ -3735,7 +3735,7 @@ exports.tests = {
       actual[actual.length] = notationName;
 
     }
-    assertEqualsCollection("names",expected,actual);
+    test.deepEqual(actual, expected, 'names');
 
     test.done();
   },
@@ -6672,8 +6672,8 @@ exports.tests = {
 
     strong2 = streetAttr.name;
 
-    assertEqualsAutoCase("attribute", "nodeName","class",strong1);
-    assertEqualsAutoCase("attribute", "name","class",strong2);
+    test.equal(strong1, 'class', 'attribute nodeName');
+    test.equal(strong2, 'class', 'attribute name');
 
     test.done();
   },
@@ -8504,7 +8504,7 @@ exports.tests = {
     test.equal(attrValue, '', 'value');
     attrName = newAttrNode.nodeName;
 
-    assertEqualsAutoCase("attribute", "name","title",attrName);
+    test.equal(attrName, 'title', 'attribute name');
     attrType = newAttrNode.nodeType;
 
     test.equal(attrType, 2, 'type');
@@ -8613,7 +8613,7 @@ exports.tests = {
     newElement = doc.createElement("acronym");
     newElementName = newElement.nodeName;
 
-    assertEqualsAutoCase("element", "strong","acronym",newElementName);
+    test.equal(newElementName, 'acronym', 'element strong');
     newElementType = newElement.nodeType;
 
     test.equal(newElementType, 1, 'type');
@@ -8665,8 +8665,8 @@ exports.tests = {
 
     nodeName2 = newElement2.nodeName;
 
-    assertEqualsAutoCase("element", "nodeName1","ACRONYM",nodeName1);
-    assertEqualsAutoCase("element", "nodeName2","acronym",nodeName2);
+    test.equal(nodeName1, 'ACRONYM', 'element nodeName1');
+    test.equal(nodeName2, 'acronym', 'element nodeName2');
 
     test.done();
   },
@@ -9357,7 +9357,7 @@ exports.tests = {
     domesticAttr = testEmployee.getAttributeNode("title");
     nodeName = domesticAttr.nodeName;
 
-    assertEqualsAutoCase("attribute", "nodeName","title",nodeName);
+    test.equal(nodeName, 'title', 'attribute nodeName');
 
     test.done();
   },
@@ -9506,7 +9506,7 @@ exports.tests = {
     }
     childName = firstC.nodeName;
 
-    assertEqualsAutoCase("element", "childName","em",childName);
+    test.equal(childName, 'em', 'element childName');
     employeeIDNode = firstC.firstChild;
 
     employeeID = employeeIDNode.nodeValue;
@@ -10082,34 +10082,13 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
   hc_elementretrieveallattributes: function(test) {
-    var success;
-    var doc;
-    var addressList;
-    var testAddress;
-    var attributes;
-    var attribute;
-    var attributeName;
-    var actual = new Array();
-
-    htmlExpected = new Array();
-    htmlExpected[0] = "title";
-
-    expected = new Array();
-    expected[0] = "title";
-    expected[1] = "dir";
-
-
-    doc = hc_staff.hc_staff();
-    addressList = doc.getElementsByTagName("acronym");
-    testAddress = addressList.item(0);
-    attributes = testAddress.attributes;
-
-    for(var indexN1006B = 0;indexN1006B < attributes.length; indexN1006B++) {
-      attribute = attributes.item(indexN1006B);
-      attributeName = attribute.nodeName;
-      actual[actual.length] = attributeName;
+    var doc = hc_staff.hc_staff();
+    var attributes = doc.getElementsByTagName("acronym").item(0).attributes;
+    var actual = [];
+    for(var i=0;i<attributes.length;i++) {
+      actual.push(attributes.item(i).nodeName);
     }
-    assertEqualsCollection("attributeNames",toLowerArray(expected),toLowerArray(actual));
+    test.deepEqual(actual, ['dir', 'title'], 'attributeNames');
     test.done();
   },
 
@@ -10166,10 +10145,10 @@ exports.tests = {
     testEmployee = elementList.item(1);
     strong = testEmployee.nodeName;
 
-    assertEqualsAutoCase("element", "nodename","code",strong);
+    test.equal(strong, 'code', 'element nodename');
     strong = testEmployee.tagName;
 
-    assertEqualsAutoCase("element", "tagname","code",strong);
+    test.equal(strong, 'code', 'element tagname');
 
     test.done();
   },
@@ -10414,7 +10393,7 @@ exports.tests = {
     domesticAttr = attributes.getNamedItem("title");
     attrName = domesticAttr.nodeName;
 
-    assertEqualsAutoCase("attribute", "nodeName","title",attrName);
+    test.equal(attrName, 'title', 'attribute nodeName');
 
     test.done();
   },
@@ -10617,10 +10596,10 @@ exports.tests = {
     assertInstanceOf("typeAssert","Attr",streetAttr);
     attrName = streetAttr.nodeName;
 
-    assertEqualsAutoCase("attribute", "nodeName","class",attrName);
+    test.equal(attrName, 'class', 'attribute nodeName');
     attrName = streetAttr.name;
 
-    assertEqualsAutoCase("attribute", "name","class",attrName);
+    test.equal(attrName, 'class', 'attribute name');
 
     test.done();
   },
@@ -10641,36 +10620,13 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
   hc_namednodemapreturnfirstitem: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var testAddress;
-    var attributes;
-    var child;
-    var nodeName;
-    htmlExpected = new Array();
-    htmlExpected[0] = "title";
-    htmlExpected[1] = "class";
-
-    expected = new Array();
-    expected[0] = "title";
-    expected[1] = "class";
-    expected[2] = "dir";
-
-    var actual = new Array();
-
-
-    doc = hc_staff.hc_staff();
-    elementList = doc.getElementsByTagName("acronym");
-    testAddress = elementList.item(1);
-    attributes = testAddress.attributes;
-
-    for(var indexN10070 = 0;indexN10070 < attributes.length; indexN10070++) {
-      child = attributes.item(indexN10070);
-      nodeName = child.nodeName;
-      actual[actual.length] = nodeName;
+    var doc = hc_staff.hc_staff();
+    var attributes = doc.getElementsByTagName("acronym").item(1).attributes;
+    var actual = [];
+    for(var i=0;i<attributes.length;i++) {
+      actual.push(attributes.item(i).nodeName);
     }
-    assertEqualsCollection("attrName",expected,actual);
+    test.deepEqual(actual, ["dir", "title", "class"], 'attrName');
     test.done();
   },
 
@@ -10692,38 +10648,13 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
   hc_namednodemapreturnlastitem: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var testEmployee;
-    var attributes;
-    var child;
-    var nodeName;
-    htmlExpected = new Array();
-    htmlExpected[0] = "title";
-    htmlExpected[1] = "class";
-
-    expected = new Array();
-    expected[0] = "title";
-    expected[1] = "class";
-    expected[2] = "dir";
-
-    var actual = new Array();
-
-
-    doc = hc_staff.hc_staff();
-    elementList = doc.getElementsByTagName("acronym");
-    testEmployee = elementList.item(1);
-    attributes = testEmployee.attributes;
-
-    for(var indexN10070 = 0;indexN10070 < attributes.length; indexN10070++) {
-      child = attributes.item(indexN10070);
-      nodeName = child.nodeName;
-
-      actual[actual.length] = nodeName;
-
+    var doc = hc_staff.hc_staff();
+    var attributes = doc.getElementsByTagName("acronym").item(1).attributes;
+    var actual = [];
+    for(var i=0;i<attributes.length;i++) {
+      actual.push(attributes.item(i).nodeName);
     }
-    assertEqualsCollection("attrName",expected,actual);
+    test.deepEqual(actual, ["dir", "title", "class"], 'attrName');
     test.done();
   },
 
@@ -10804,7 +10735,7 @@ exports.tests = {
     districtNode = attributes.getNamedItem("lang");
     attrName = districtNode.nodeName;
 
-    assertEqualsAutoCase("attribute", "nodeName","lang",attrName);
+    test.equal(attrName, 'lang', 'attribute nodeName');
 
     test.done();
   },
@@ -11041,7 +10972,7 @@ exports.tests = {
 
     childName = lchild.nodeName;
 
-    assertEqualsAutoCase("element", "nodeName","br",childName);
+    test.equal(childName, 'br', 'element nodeName');
 
     test.done();
   },
@@ -11227,7 +11158,7 @@ exports.tests = {
     appendNode = employeeNode.appendChild(newChild);
     childName = appendNode.nodeName;
 
-    assertEqualsAutoCase("element", "nodeName","br",childName);
+    test.equal(childName, 'br', 'element nodeName');
 
     test.done();
   },
@@ -11441,7 +11372,7 @@ exports.tests = {
     addrAttr = testAddr.getAttributeNode("title");
     attrName = addrAttr.nodeName;
 
-    assertEqualsAutoCase("attribute", "nodeName","title",attrName);
+    test.equal(attrName, 'title', 'attribute nodeName');
 
     test.done();
   },
@@ -11706,40 +11637,13 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
   hc_nodecloneattributescopied: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var addressNode;
-    var clonedNode;
-    var attributes;
-    var attributeNode;
-    var attributeName;
-    var result = new Array();
-
-    htmlExpected = new Array();
-    htmlExpected[0] = "class";
-    htmlExpected[1] = "title";
-
-    expected = new Array();
-    expected[0] = "class";
-    expected[1] = "title";
-    expected[2] = "dir";
-
-
-    doc = hc_staff.hc_staff();
-    elementList = doc.getElementsByTagName("acronym");
-    addressNode = elementList.item(1);
-    clonedNode = addressNode.cloneNode(false);
-    attributes = clonedNode.attributes;
-
-    for(var indexN10076 = 0;indexN10076 < attributes.length; indexN10076++) {
-      attributeNode = attributes.item(indexN10076);
-      attributeName = attributeNode.nodeName;
-
-      result[result.length] = attributeName;
-
+    var doc = hc_staff.hc_staff();
+    var attributes = doc.getElementsByTagName("acronym").item(1).cloneNode(false).attributes;
+    var actual = [];
+    for(var i=0;i<attributes.length;i++) {
+      actual.push(attributes.item(i).nodeName);
     }
-    assertEqualsCollection("nodeNames",expected,result);
+    test.deepEqual(actual, ["dir", "title", "class"], 'nodeNames');
     test.done();
   },
 
@@ -11843,7 +11747,7 @@ exports.tests = {
     clonedNode = employeeNode.cloneNode(false);
     cloneName = clonedNode.nodeName;
 
-    assertEqualsAutoCase("element", "strong","p",cloneName);
+    test.equal(cloneName, 'p', 'element strong');
     cloneChildren = clonedNode.childNodes;
 
     length = cloneChildren.length;
@@ -12352,38 +12256,13 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
   hc_nodeelementnodeattributes: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var testAddr;
-    var addrAttr;
-    var attrNode;
-    var attrName;
-    var attrList = new Array();
-
-    htmlExpected = new Array();
-    htmlExpected[0] = "title";
-    htmlExpected[1] = "class";
-
-    expected = new Array();
-    expected[0] = "title";
-    expected[1] = "class";
-    expected[2] = "dir";
-
-
-    doc = hc_staff.hc_staff();
-    elementList = doc.getElementsByTagName("acronym");
-    testAddr = elementList.item(2);
-    addrAttr = testAddr.attributes;
-
-    for(var indexN10070 = 0;indexN10070 < addrAttr.length; indexN10070++) {
-      attrNode = addrAttr.item(indexN10070);
-      attrName = attrNode.nodeName;
-
-      attrList[attrList.length] = attrName;
-
+    var doc = hc_staff.hc_staff();
+    var attributes = doc.getElementsByTagName("acronym").item(2).attributes;
+    var actual = [];
+    for(var i=0;i<attributes.length;i++) {
+      actual.push(attributes.item(i).nodeName);
     }
-    assertEqualsCollection("attrNames",expected,attrList);
+    test.deepEqual(actual, ["dir", "title", "class"], 'attrNames');
     test.done();
   },
 
@@ -12500,7 +12379,7 @@ exports.tests = {
     }
 
     else {
-      assertEqualsAutoCase("element", "firstChild_wo_whitespace","em",childName);
+      test.equal(childName, 'em', 'element firstChild_wo_whitespace');
 
     }
 
@@ -12978,11 +12857,11 @@ exports.tests = {
     child = childList.item(3);
     childName = child.nodeName;
 
-    assertEqualsAutoCase("element", "childName3","br",childName);
+    test.equal(childName, 'br', 'element childName3');
     child = childList.item(4);
     childName = child.nodeName;
 
-    assertEqualsAutoCase("element", "childName4","b",childName);
+    test.equal(childName, 'b', 'element childName4');
 
     test.done();
   },
@@ -13250,7 +13129,7 @@ exports.tests = {
     insertedNode = employeeNode.insertBefore(newChild,refChild);
     childName = insertedNode.nodeName;
 
-    assertEqualsAutoCase("element", "nodeName","br",childName);
+    test.equal(childName, 'br', 'element nodeName');
 
     test.done();
   },
@@ -13344,7 +13223,7 @@ exports.tests = {
 
     childName = child.nodeName;
 
-    assertEqualsAutoCase("element", "nodeName","br",childName);
+    test.equal(childName, 'br', 'element nodeName');
 
     test.done();
   },
@@ -13392,7 +13271,7 @@ exports.tests = {
     }
 
     else {
-      assertEqualsAutoCase("element", "childName_wo_whitespace","em",childName);
+      test.equal(childName, 'em', 'element childName_wo_whitespace');
 
     }
 
@@ -13521,7 +13400,7 @@ exports.tests = {
     }
 
     else {
-      assertEqualsAutoCase("element", "childName_strong","strong",childName);
+      test.equal(childName, 'strong', 'element childName_strong');
 
     }
 
@@ -13565,7 +13444,7 @@ exports.tests = {
     }
 
     else {
-      assertEqualsAutoCase("element", "nodeName_wo_space","em",childName);
+      test.equal(childName, 'em', 'element nodeName_wo_space');
 
     }
 
@@ -13612,7 +13491,7 @@ exports.tests = {
     }
 
     else {
-      assertEqualsAutoCase("element", "lastNodeName","acronym",childName);
+      test.equal(childName, 'acronym', 'element lastNodeName');
       test.equal(index, 5, 'index');
 
     }
@@ -13711,7 +13590,7 @@ exports.tests = {
 
     parentName = parentNode.nodeName;
 
-    assertEqualsAutoCase("element", "parentNodeName","body",parentName);
+    test.equal(parentName, 'body', 'element parentNodeName');
 
     test.done();
   },
@@ -13874,7 +13753,7 @@ exports.tests = {
     removedChild = employeeNode.removeChild(oldChild);
     removedName = removedChild.nodeName;
 
-    assertEqualsAutoCase("element", "removedName","em",removedName);
+    test.equal(removedName, 'em', 'element removedName');
     for(var indexN10098 = 0;indexN10098 < childList.length; indexN10098++) {
       child = childList.item(indexN10098);
       nodeType = child.nodeType;
@@ -13982,7 +13861,7 @@ exports.tests = {
     child = childList.item(0);
     childName = child.nodeName;
 
-    assertEqualsAutoCase("element", "nodeName","br",childName);
+    test.equal(childName, 'br', 'element nodeName');
 
     test.done();
   },
@@ -14255,7 +14134,7 @@ exports.tests = {
     replacedNode = employeeNode.replaceChild(newChild,oldChild);
     childName = replacedNode.nodeName;
 
-    assertEqualsAutoCase("element", "replacedNodeName","em",childName);
+    test.equal(childName, 'em', 'element replacedNodeName');
 
     test.done();
   },
@@ -16815,7 +16694,7 @@ exports.tests = {
       result[result.length] = attributeName;
 
     }
-    assertEqualsCollection("nodeCloneAttributesCopied",expectedResult,result);
+    test.deepEqual(result, expectedResult, 'nodeCloneAttributesCopied');
 
     test.done();
   },
@@ -17552,7 +17431,7 @@ exports.tests = {
       attrList[attrList.length] = attrName;
 
     }
-    assertEqualsCollection("nodeElementNodeValue",expected,attrList);
+    test.deepEqual(attrList, expected, 'nodeElementNodeValue');
 
     test.done();
   },
