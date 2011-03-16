@@ -1,3 +1,19 @@
+var barfoo = require("./core/files/barfoo.xml");
+// var barfoo_base = require("./core/files/barfoo_base.xml");
+var barfoo_nodefaultns = require("./core/files/barfoo_nodefaultns.xml");
+var barfoo_standalone_no = require("./core/files/barfoo_standalone_no.xml");
+var barfoo_standalone_yes = require("./core/files/barfoo_standalone_yes.xml");
+var barfoo_utf16 = require("./core/files/barfoo_utf16.xml");
+var barfoo_utf8 = require("./core/files/barfoo_utf8.xml");
+// var canonicalform01 = require("./core/files/canonicalform01.xml");
+// var canonicalform03 = require("./core/files/canonicalform03.xml");
+var datatype_normalization = require("./core/files/datatype_normalization.xml");
+var datatype_normalization2 = require("./core/files/datatype_normalization2.xml");
+var external_barfoo = require("./core/files/external_barfoo.xml");
+var hc_nodtdstaff = require("./core/files/hc_nodtdstaff.xml");
+var hc_staff = require("./core/files/hc_staff.xml");
+var typeinfo = require("./core/files/typeinfo.xml");
+
 exports.tests = {
   /**
    *
@@ -8,7 +24,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeName
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeNamespace
    */
-  attrgetschematypeinfo01 : function () {
+  attrgetschematypeinfo01: function (test) {
     var success;
     var doc;
     var elemList;
@@ -20,7 +36,7 @@ exports.tests = {
     var typeNS;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
     attr = acronymElem.getAttributeNode("title");
@@ -34,7 +50,9 @@ exports.tests = {
 
     assertEquals("nsIsXML","http://www.w3.org/TR/REC-xml",typeNS);
 
+    test.done()
   },
+
   /**
    *
    Call getSchemaTypeInfo on id attribute for the third acronym element.
@@ -44,7 +62,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeName
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeNamespace
    */
-  attrgetschematypeinfo02 : function () {
+  attrgetschematypeinfo02: function (test) {
     var success;
     var doc;
     var elemList;
@@ -56,7 +74,7 @@ exports.tests = {
     var typeNS;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     attr = acronymElem.getAttributeNode("id");
@@ -70,7 +88,9 @@ exports.tests = {
 
     assertEquals("nsIsXML","http://www.w3.org/TR/REC-xml",typeNS);
 
+    test.done()
   },
+
   /**
    *
    Call getSchemaTypeInfo on title attribute for the first acronym element.
@@ -80,7 +100,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeName
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeNamespace
    */
-  attrgetschematypeinfo03 : function () {
+  attrgetschematypeinfo03: function (test) {
     var success;
     var doc;
     var elemList;
@@ -92,7 +112,7 @@ exports.tests = {
     var typeNS;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
     attr = acronymElem.getAttributeNode("title");
@@ -106,7 +126,9 @@ exports.tests = {
 
     assertEquals("nsIsXML","http://www.w3.org/2001/XMLSchema",typeNS);
 
+    test.done()
   },
+
   /**
    *
    Call getSchemaTypeInfo on id attribute for the third acronym element.
@@ -116,7 +138,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeName
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeNamespace
    */
-  attrgetschematypeinfo04 : function () {
+  attrgetschematypeinfo04: function (test) {
     var success;
     var doc;
     var elemList;
@@ -128,7 +150,7 @@ exports.tests = {
     var typeNS;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     attr = acronymElem.getAttributeNode("id");
@@ -142,7 +164,9 @@ exports.tests = {
 
     assertEquals("nsIsXmlSchema","http://www.w3.org/2001/XMLSchema",typeNS);
 
+    test.done()
   },
+
   /**
    *
    Call getSchemaTypeInfo on class attribute for the third acronym element.
@@ -152,7 +176,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeName
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeNamespace
    */
-  attrgetschematypeinfo05 : function () {
+  attrgetschematypeinfo05: function (test) {
     var success;
     var doc;
     var elemList;
@@ -164,7 +188,7 @@ exports.tests = {
     var typeNS;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     attr = acronymElem.getAttributeNode("class");
@@ -178,7 +202,9 @@ exports.tests = {
 
     assertEquals("nsIsXHTML","http://www.w3.org/1999/xhtml",typeNS);
 
+    test.done()
   },
+
   /**
    *
    Attr.schemaTypeInfo should return null if not validating or schema validating.
@@ -188,7 +214,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeName
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeNamespace
    */
-  attrgetschematypeinfo06 : function () {
+  attrgetschematypeinfo06: function (test) {
     var success;
     var doc;
     var elemList;
@@ -199,7 +225,7 @@ exports.tests = {
     var typeName;
     var typeNS;
 
-    doc = load(docRef, "doc", "hc_nodtdstaff");
+    doc = hc_nodtdstaff.hc_nodtdstaff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
     attr = acronymElem.getAttributeNode("title");
@@ -213,7 +239,9 @@ exports.tests = {
 
     assertNull("typeNS",typeNS);
 
+    test.done()
   },
+
   /**
    *
    The getSchemaTypeInfo method retrieves the type information associated with this attribute.
@@ -228,7 +256,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Attr-schemaTypeInfo
    */
-  attrgetschematypeinfo07 : function () {
+  attrgetschematypeinfo07: function (test) {
     var success;
     var doc;
     var elemList;
@@ -238,7 +266,7 @@ exports.tests = {
     var typeName;
     var typeNamespace;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acElem = elemList.item(3);
     attr = acElem.getAttributeNode("id");
@@ -252,7 +280,9 @@ exports.tests = {
     assertEquals("attrgetschematypeinfo07_typeName","ID",typeName);
     assertEquals("attrgetschematypeinfo07_typeNamespace","http://www.w3.org/2001/XMLSchema",typeNamespace);
 
+    test.done()
   },
+
   /**
    *
    The getSchemaTypeInfo method retrieves the type information associated with this attribute.
@@ -266,7 +296,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Attr-schemaTypeInfo
    */
-  attrgetschematypeinfo08 : function () {
+  attrgetschematypeinfo08: function (test) {
     var success;
     var doc;
     var elemList;
@@ -276,7 +306,7 @@ exports.tests = {
     var typeName;
     var typeNamespace;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acElem = elemList.item(0);
     attr = acElem.getAttributeNode("title");
@@ -289,7 +319,9 @@ exports.tests = {
     assertEquals("attrgetschematypeinfo08_typeName","string",typeName);
     assertEquals("attrgetschematypeinfo08_typeNamespace","http://www.w3.org/2001/XMLSchema",typeNamespace);
 
+    test.done()
   },
+
   /**
    *
    Retrieve the third acronyms element's class attribute, whose type is not ID.
@@ -299,7 +331,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Attr-isId
    */
-  attrisid01 : function () {
+  attrisid01: function (test) {
     var success;
     var doc;
     var elemList;
@@ -309,7 +341,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     attr = acronymElem.getAttributeNode("class");
@@ -317,7 +349,9 @@ exports.tests = {
 
     assertFalse("AttrIsIDFalse01",id);
 
+    test.done()
   },
+
   /**
    *
    Invoke setIdAttribute on the third acronym element's new attribute and set
@@ -328,7 +362,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Attr-isId
    */
-  attrisid02 : function () {
+  attrisid02: function (test) {
     var success;
     var doc;
     var elemList;
@@ -340,7 +374,7 @@ exports.tests = {
     var elemName;
     var xmlNS = "http://www.w3.org/XML/1998/namespace";
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     acronymElem.setAttributeNS(xmlNS,"xml:lang","FR-fr");
@@ -350,7 +384,9 @@ exports.tests = {
 
     assertTrue("AttrIsIDTrue02",id);
 
+    test.done()
   },
+
   /**
    *
    Invoke setIdAttribute(false) on a newly created attribute and then check Attr.isID.
@@ -359,7 +395,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Attr-isId
    */
-  attrisid03 : function () {
+  attrisid03: function (test) {
     var success;
     var doc;
     var elemList;
@@ -371,7 +407,7 @@ exports.tests = {
     var elemName;
     var xmlNS = "http://www.w3.org/XML/1998/namespace";
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     acronymElem.setAttributeNS(xmlNS,"xml:lang","FR-fr");
@@ -381,7 +417,9 @@ exports.tests = {
 
     assertFalse("AttrIsIDFalse03",id);
 
+    test.done()
   },
+
   /**
    *
    Attr.isID should return true for the id attribute on the fourth acronym node
@@ -391,7 +429,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Attr-isId
    */
-  attrisid04 : function () {
+  attrisid04: function (test) {
     var success;
     var doc;
     var elemList;
@@ -403,7 +441,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(3);
     attr = acronymElem.getAttributeNode("id");
@@ -411,7 +449,9 @@ exports.tests = {
 
     assertTrue("AttrIsIDTrue04",id);
 
+    test.done()
   },
+
   /**
    *
    Retrieve the fourth acronym element's id attribute, whose type is ID.
@@ -423,7 +463,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Attr-isId
    */
-  attrisid05 : function () {
+  attrisid05: function (test) {
     var success;
     var doc;
     var elemList;
@@ -437,7 +477,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(3);
     acronymParentElem = acronymElem.parentNode;
@@ -449,7 +489,9 @@ exports.tests = {
 
     assertTrue("AttrIsIDTrue05",id);
 
+    test.done()
   },
+
   /**
    *
    Invoke isId on a new Attr node.  Check if the value returned is false.
@@ -458,19 +500,21 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Attr-isId
    */
-  attrisid06 : function () {
+  attrisid06: function (test) {
     var success;
     var doc;
     var attr;
     var id = false;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     id = attr.isId;
 
     assertFalse("AttrIsIDFalse06",id);
 
+    test.done()
   },
+
   /**
    *
    The method isId returns whether this attribute is known to be of type ID or not.
@@ -486,7 +530,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Attr-isId
    */
-  attrisid07 : function () {
+  attrisid07: function (test) {
     var success;
     var doc;
     var elemList;
@@ -498,7 +542,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagNameNS("*","acronym");
     acronymElem = elemList.item(2);
     acronymElem.setAttributeNS("http://www.w3.org/DOM","dom3:newAttr","null");
@@ -512,7 +556,9 @@ exports.tests = {
 
     assertFalse("AttrIsID07_isFalseforImportedNode",id);
 
+    test.done()
   },
+
   /**
    *
    Normalize document with 'canonical-form' set to true, check that
@@ -522,7 +568,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-canonical-form
    */
-  canonicalform01 : function () {
+  canonicalform01: function (test) {
     var success;
     var doc;
     var pList;
@@ -540,7 +586,7 @@ exports.tests = {
     var ent2;
     var doctype;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("canonical-form",true);
@@ -570,7 +616,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize document with normalize-characters set to false, check that
@@ -581,7 +629,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-canonical-form
    * @see http://www.w3.org/TR/2003/WD-charmod-20030822/
    */
-  canonicalform02 : function () {
+  canonicalform02: function (test) {
     var success;
     var doc;
     var docElem;
@@ -595,7 +643,7 @@ exports.tests = {
     var retval;
     var canSet;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("canonical-form",true);
@@ -621,7 +669,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize a document with the 'canonical-form' parameter set to true and
@@ -631,7 +681,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-canonical-form
    */
-  canonicalform03 : function () {
+  canonicalform03: function (test) {
     var success;
     var doc;
     var elemList;
@@ -644,7 +694,7 @@ exports.tests = {
 
     var canSet;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     elemName = elemList.item(1);
     cdata = elemName.lastChild;
@@ -673,7 +723,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize document with canonical-form set to true, check that
@@ -683,7 +735,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-canonical-form
    */
-  canonicalform04 : function () {
+  canonicalform04: function (test) {
     var success;
     var doc;
     var docElem;
@@ -693,7 +745,7 @@ exports.tests = {
     var xmlnsAttr;
     var canSet;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("canonical-form",true);
@@ -712,7 +764,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Add a L1 element to a L2 namespace aware document and perform namespace normalization.  Should result
@@ -723,7 +777,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/namespaces-algorithms#normalizeDocumentAlgo
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-canonical-form
    */
-  canonicalform05 : function () {
+  canonicalform05: function (test) {
     var success;
     var doc;
     var elem;
@@ -752,7 +806,7 @@ exports.tests = {
     var length;
     var canSet;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     pList = doc.getElementsByTagName("p");
     elem = pList.item(0);
     newChild = doc.createElement("br");
@@ -823,7 +877,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Create a document with an XML 1.1 valid but XML 1.0 invalid element and
@@ -833,7 +889,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-canonical-form
    */
-  canonicalform06 : function () {
+  canonicalform06: function (test) {
     var success;
     var domImpl;
     var nullString = null;
@@ -918,7 +974,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize document with canonical-form set to true and validation set to true, check that
@@ -928,7 +986,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-canonical-form
    */
-  canonicalform07 : function () {
+  canonicalform07: function (test) {
     var success;
     var doc;
     var bodyList;
@@ -942,7 +1000,7 @@ exports.tests = {
     var childName;
     var text;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("canonical-form",true);
@@ -983,7 +1041,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize document based on section 3.1 with canonical-form set to true and check normalized document.
@@ -992,7 +1052,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-canonical-form
    */
-  canonicalform08 : function () {
+  canonicalform08: function (test) {
     var success;
     var doc;
     var bodyList;
@@ -1009,7 +1069,7 @@ exports.tests = {
     var length;
     var text;
 
-    doc = load(docRef, "doc", "canonicalform01");
+    doc = canonicalform01.canonicalform01();
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("canonical-form",true);
@@ -1095,7 +1155,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize document based on section 3.1 with canonical-form set to true
@@ -1105,7 +1167,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-canonical-form
    */
-  canonicalform09 : function () {
+  canonicalform09: function (test) {
     var success;
     var doc;
     var bodyList;
@@ -1122,7 +1184,7 @@ exports.tests = {
     var length;
     var text;
 
-    doc = load(docRef, "doc", "canonicalform01");
+    doc = canonicalform01.canonicalform01();
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("canonical-form",true);
@@ -1181,7 +1243,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Check elimination of unnecessary namespace prefixes when
@@ -1191,7 +1255,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-canonical-form
    */
-  canonicalform10 : function () {
+  canonicalform10: function (test) {
     var success;
     var doc;
     var divList;
@@ -1202,7 +1266,7 @@ exports.tests = {
 
     var node;
 
-    doc = load(docRef, "doc", "canonicalform03");
+    doc = canonicalform03.canonicalform03();
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("canonical-form",true);
@@ -1223,7 +1287,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Check that default attributes are made explicitly specified.
@@ -1232,7 +1298,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-canonical-form
    */
-  canonicalform11 : function () {
+  canonicalform11: function (test) {
     var success;
     var doc;
     var elemList;
@@ -1245,7 +1311,7 @@ exports.tests = {
     var attrValue;
     var attrSpecified;
 
-    doc = load(docRef, "doc", "canonicalform03");
+    doc = canonicalform03.canonicalform03();
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("canonical-form",true);
@@ -1270,7 +1336,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize document with 'canonical-form' set to true, check that
@@ -1280,7 +1348,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-canonical-form
    */
-  canonicalform12 : function () {
+  canonicalform12: function (test) {
     var success;
     var doc;
     var domConfig;
@@ -1289,7 +1357,7 @@ exports.tests = {
 
     var doctype;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("canonical-form",true);
@@ -1307,7 +1375,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize a document using Node.normalize and check that
@@ -1317,7 +1387,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-normalize
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-cdata-sections
    */
-  cdatasections01 : function () {
+  cdatasections01: function (test) {
     var success;
     var doc;
     var elem;
@@ -1332,7 +1402,7 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     pList = doc.getElementsByTagName("p");
     elem = pList.item(0);
     newCdata = doc.createCDATASection("CDATA");
@@ -1351,7 +1421,9 @@ exports.tests = {
 
     assertEquals("documentnormalizedocument03_true","#cdata-section",nodeName);
 
+    test.done()
   },
+
   /**
    *
    Normalize document with check-character-normalization set to false, check that
@@ -1362,7 +1434,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-check-character-normalization
    * @see http://www.w3.org/TR/2003/WD-charmod-20030822/
    */
-  checkcharacternormalization01 : function () {
+  checkcharacternormalization01: function (test) {
     var success;
     var doc;
     var docElem;
@@ -1375,7 +1447,7 @@ exports.tests = {
     var textValue;
     var retval;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     domConfig.setParameter("error-handler", errorMonitor.handleError);
@@ -1394,7 +1466,9 @@ exports.tests = {
 
     assertEquals("noCharNormalization","barsuçon",textValue);
 
+    test.done()
   },
+
   /**
    *
    Normalize document with check-character-normalization set to true, check that
@@ -1405,7 +1479,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-check-character-normalization
    * @see http://www.w3.org/TR/2003/WD-charmod-20030822/
    */
-  checkcharacternormalization02 : function () {
+  checkcharacternormalization02: function (test) {
     var success;
     var doc;
     var docElem;
@@ -1427,7 +1501,7 @@ exports.tests = {
     var errorCount = 0;
     var errorType;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("check-character-normalization",true);
@@ -1468,7 +1542,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize document using Node.normalize checking that "check-character-normalization"
@@ -1479,7 +1555,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-check-character-normalization
    * @see http://www.w3.org/TR/2003/WD-charmod-20030822/
    */
-  checkcharacternormalization03 : function () {
+  checkcharacternormalization03: function (test) {
     var success;
     var doc;
     var docElem;
@@ -1493,7 +1569,7 @@ exports.tests = {
     var retval;
     var canSet;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("check-character-normalization",true);
@@ -1519,7 +1595,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Check that Node.normalize ignores the setting of configuration parameter 'comments'.
@@ -1528,7 +1606,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-normalize
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-comments
    */
-  comments01 : function () {
+  comments01: function (test) {
     var success;
     var doc;
     var elem;
@@ -1542,7 +1620,7 @@ exports.tests = {
 
     var pList;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     pList = doc.getElementsByTagName("p");
     elem = pList.item(0);
     newComment = doc.createComment("COMMENT_NODE");
@@ -1561,7 +1639,9 @@ exports.tests = {
 
     assertEquals("documentnormalizedocument04_true","#comment",nodeName);
 
+    test.done()
   },
+
   /**
    *
    Normalize document with datatype-normalization set to true.
@@ -1571,7 +1651,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-datatype-normalization
    */
-  datatypenormalization01 : function () {
+  datatypenormalization01: function (test) {
     var success;
     var doc;
     var elemList;
@@ -1585,7 +1665,7 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    doc = load(docRef, "doc", "datatype_normalization");
+    doc = datatype_normalization.datatype_normalization();
     domConfig = doc.domConfig;
 
     canSetNormalization = domConfig.canSetParameter("datatype-normalization",true);
@@ -1631,7 +1711,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize document with datatype-normalization set to true.
@@ -1641,7 +1723,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-datatype-normalization
    */
-  datatypenormalization02 : function () {
+  datatypenormalization02: function (test) {
     var success;
     var doc;
     var elemList;
@@ -1655,7 +1737,7 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    doc = load(docRef, "doc", "datatype_normalization");
+    doc = datatype_normalization.datatype_normalization();
     domConfig = doc.domConfig;
 
     canSetNormalization = domConfig.canSetParameter("datatype-normalization",true);
@@ -1693,7 +1775,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize document with datatype-normalization set to true.
@@ -1703,7 +1787,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-datatype-normalization
    */
-  datatypenormalization03 : function () {
+  datatypenormalization03: function (test) {
     var success;
     var doc;
     var elemList;
@@ -1717,7 +1801,7 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    doc = load(docRef, "doc", "datatype_normalization");
+    doc = datatype_normalization.datatype_normalization();
     domConfig = doc.domConfig;
 
     canSetNormalization = domConfig.canSetParameter("datatype-normalization",true);
@@ -1755,7 +1839,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize document with datatype-normalization set to true.
@@ -1765,7 +1851,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-datatype-normalization
    */
-  datatypenormalization04 : function () {
+  datatypenormalization04: function (test) {
     var success;
     var doc;
     var elemList;
@@ -1779,7 +1865,7 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    doc = load(docRef, "doc", "datatype_normalization");
+    doc = datatype_normalization.datatype_normalization();
     domConfig = doc.domConfig;
 
     canSetNormalization = domConfig.canSetParameter("datatype-normalization",true);
@@ -1825,7 +1911,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize document with datatype-normalization set to true.
@@ -1835,7 +1923,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-datatype-normalization
    */
-  datatypenormalization05 : function () {
+  datatypenormalization05: function (test) {
     var success;
     var doc;
     var elemList;
@@ -1849,7 +1937,7 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    doc = load(docRef, "doc", "datatype_normalization");
+    doc = datatype_normalization.datatype_normalization();
     domConfig = doc.domConfig;
 
     canSetNormalization = domConfig.canSetParameter("datatype-normalization",true);
@@ -1895,7 +1983,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize document with datatype-normalization set to true.
@@ -1905,7 +1995,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-datatype-normalization
    */
-  datatypenormalization06 : function () {
+  datatypenormalization06: function (test) {
     var success;
     var doc;
     var elemList;
@@ -1919,7 +2009,7 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    doc = load(docRef, "doc", "datatype_normalization");
+    doc = datatype_normalization.datatype_normalization();
     domConfig = doc.domConfig;
 
     canSetNormalization = domConfig.canSetParameter("datatype-normalization",true);
@@ -1965,7 +2055,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    The default value for the double element must be provided in canonical lexical form.
@@ -1974,7 +2066,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-datatype-normalization
    */
-  datatypenormalization07 : function () {
+  datatypenormalization07: function (test) {
     var success;
     var doc;
     var elemList;
@@ -1988,7 +2080,7 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    doc = load(docRef, "doc", "datatype_normalization");
+    doc = datatype_normalization.datatype_normalization();
     domConfig = doc.domConfig;
 
     canSetNormalization = domConfig.canSetParameter("datatype-normalization",true);
@@ -2013,7 +2105,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    The default value for the decimal element must be provided in canonical lexical form.
@@ -2022,7 +2116,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-datatype-normalization
    */
-  datatypenormalization08 : function () {
+  datatypenormalization08: function (test) {
     var success;
     var doc;
     var elemList;
@@ -2036,7 +2130,7 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    doc = load(docRef, "doc", "datatype_normalization");
+    doc = datatype_normalization.datatype_normalization();
     domConfig = doc.domConfig;
 
     canSetNormalization = domConfig.canSetParameter("datatype-normalization",true);
@@ -2061,7 +2155,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    The default value for the boolean element must be provided in canonical lexical form.
@@ -2070,7 +2166,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-datatype-normalization
    */
-  datatypenormalization09 : function () {
+  datatypenormalization09: function (test) {
     var success;
     var doc;
     var elemList;
@@ -2084,7 +2180,7 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    doc = load(docRef, "doc", "datatype_normalization");
+    doc = datatype_normalization.datatype_normalization();
     domConfig = doc.domConfig;
 
     canSetNormalization = domConfig.canSetParameter("datatype-normalization",true);
@@ -2109,7 +2205,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    The default value for the float element must be provided in canonical lexical form.
@@ -2118,7 +2216,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-datatype-normalization
    */
-  datatypenormalization10 : function () {
+  datatypenormalization10: function (test) {
     var success;
     var doc;
     var elemList;
@@ -2132,7 +2230,7 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    doc = load(docRef, "doc", "datatype_normalization");
+    doc = datatype_normalization.datatype_normalization();
     domConfig = doc.domConfig;
 
     canSetNormalization = domConfig.canSetParameter("datatype-normalization",true);
@@ -2157,7 +2255,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    The default value for the dateTime element must be provided in canonical lexical form.
@@ -2166,7 +2266,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-datatype-normalization
    */
-  datatypenormalization11 : function () {
+  datatypenormalization11: function (test) {
     var success;
     var doc;
     var elemList;
@@ -2180,7 +2280,7 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    doc = load(docRef, "doc", "datatype_normalization");
+    doc = datatype_normalization.datatype_normalization();
     domConfig = doc.domConfig;
 
     canSetNormalization = domConfig.canSetParameter("datatype-normalization",true);
@@ -2205,7 +2305,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Default values must be provided in canonical lexical form.
@@ -2214,7 +2316,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-datatype-normalization
    */
-  datatypenormalization12 : function () {
+  datatypenormalization12: function (test) {
     var success;
     var doc;
     var elemList;
@@ -2228,7 +2330,7 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    doc = load(docRef, "doc", "datatype_normalization");
+    doc = datatype_normalization.datatype_normalization();
     domConfig = doc.domConfig;
 
     canSetNormalization = domConfig.canSetParameter("datatype-normalization",true);
@@ -2253,7 +2355,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize document with datatype-normalization set to true.
@@ -2264,7 +2368,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-datatype-normalization
    */
-  datatypenormalization13 : function () {
+  datatypenormalization13: function (test) {
     var success;
     var doc;
     var elemList;
@@ -2280,7 +2384,7 @@ exports.tests = {
     var childNode;
     var childValue;
 
-    doc = load(docRef, "doc", "datatype_normalization2");
+    doc = datatype_normalization2.datatype_normalization2();
     domConfig = doc.domConfig;
 
     canSetNormalization = domConfig.canSetParameter("datatype-normalization",true);
@@ -2309,7 +2413,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize document with datatype-normalization set to true.
@@ -2319,7 +2425,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-datatype-normalization
    */
-  datatypenormalization14 : function () {
+  datatypenormalization14: function (test) {
     var success;
     var doc;
     var elemList;
@@ -2335,7 +2441,7 @@ exports.tests = {
     var childNode;
     var childValue;
 
-    doc = load(docRef, "doc", "datatype_normalization2");
+    doc = datatype_normalization2.datatype_normalization2();
     domConfig = doc.domConfig;
 
     canSetNormalization = domConfig.canSetParameter("datatype-normalization",true);
@@ -2364,7 +2470,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize document with datatype-normalization set to true.
@@ -2374,7 +2482,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-datatype-normalization
    */
-  datatypenormalization15 : function () {
+  datatypenormalization15: function (test) {
     var success;
     var doc;
     var elemList;
@@ -2390,7 +2498,7 @@ exports.tests = {
     var childNode;
     var childValue;
 
-    doc = load(docRef, "doc", "datatype_normalization2");
+    doc = datatype_normalization2.datatype_normalization2();
     domConfig = doc.domConfig;
 
     canSetNormalization = domConfig.canSetParameter("datatype-normalization",true);
@@ -2430,7 +2538,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize document with datatype-normalization set to true.
@@ -2440,7 +2550,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-datatype-normalization
    */
-  datatypenormalization16 : function () {
+  datatypenormalization16: function (test) {
     var success;
     var doc;
     var elemList;
@@ -2456,7 +2566,7 @@ exports.tests = {
     var childNode;
     var childValue;
 
-    doc = load(docRef, "doc", "datatype_normalization2");
+    doc = datatype_normalization2.datatype_normalization2();
     domConfig = doc.domConfig;
 
     canSetNormalization = domConfig.canSetParameter("datatype-normalization",true);
@@ -2502,7 +2612,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize document with datatype-normalization set to false, string values
@@ -2512,7 +2624,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-datatype-normalization
    */
-  datatypenormalization17 : function () {
+  datatypenormalization17: function (test) {
     var success;
     var doc;
     var elemList;
@@ -2527,7 +2639,7 @@ exports.tests = {
     var childNode;
     var childValue;
 
-    doc = load(docRef, "doc", "datatype_normalization2");
+    doc = datatype_normalization2.datatype_normalization2();
     domConfig = doc.domConfig;
 
     canSetValidate = domConfig.canSetParameter("validate",true);
@@ -2566,7 +2678,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize document using Node.normalize which is not affected by DOMConfiguration unlike
@@ -2576,7 +2690,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-normalize
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-datatype-normalization
    */
-  datatypenormalization18 : function () {
+  datatypenormalization18: function (test) {
     var success;
     var doc;
     var elemList;
@@ -2592,7 +2706,7 @@ exports.tests = {
     var childNode;
     var childValue;
 
-    doc = load(docRef, "doc", "datatype_normalization2");
+    doc = datatype_normalization2.datatype_normalization2();
     domConfig = doc.domConfig;
 
     canSetValidate = domConfig.canSetParameter("validate",true);
@@ -2632,7 +2746,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Adopt the class attribute node of the fourth acronym element.  Check if this attribute has been adopted successfully by verifying the
@@ -2642,7 +2758,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode01 : function () {
+  documentadoptnode01: function (test) {
     var success;
     var doc;
     var attrOwnerElem;
@@ -2660,7 +2776,7 @@ exports.tests = {
     var secondChildType;
     var secondChildName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagName("acronym");
     element = childList.item(3);
     attr = element.getAttributeNode("class");
@@ -2710,7 +2826,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Adopt the class attribute node of the fourth acronym element.  Check if this attribute has been adopted
@@ -2721,7 +2839,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode02 : function () {
+  documentadoptnode02: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -2747,7 +2865,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootName = docElem.tagName;
@@ -2808,7 +2926,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke adoptNode on this document to adopt the a new namespace aware attribute node.  Check
@@ -2819,7 +2939,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode03 : function () {
+  documentadoptnode03: function (test) {
     var success;
     var doc;
     var newAttr;
@@ -2831,7 +2951,7 @@ exports.tests = {
     var isSpecified;
     var xmlNS = "http://www.w3.org/XML/1998/namespace";
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newAttr = doc.createAttributeNS(xmlNS,"xml:lang");
     adoptedAttr = doc.adoptNode(newAttr);
 
@@ -2858,7 +2978,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke adoptNode on a new document to adopt a new namespace aware attribute node created by
@@ -2869,7 +2991,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode04 : function () {
+  documentadoptnode04: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -2888,7 +3010,7 @@ exports.tests = {
     var rootName;
     var xmlNS = "http://www.w3.org/XML/1998/namespace";
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootName = docElem.tagName;
@@ -2923,7 +3045,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke adoptNode on a new document to adopt the default attribute "dir".  Check if
@@ -2934,7 +3058,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode05 : function () {
+  documentadoptnode05: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -2954,7 +3078,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootName = docElem.tagName;
@@ -2991,7 +3115,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke adoptNode on a new document to adopt the a new Attribute node having a Text and an EntityReference
@@ -3003,7 +3129,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode06 : function () {
+  documentadoptnode06: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -3030,7 +3156,7 @@ exports.tests = {
     var rootName;
     var xmlNS = "http://www.w3.org/XML/1998/namespace";
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootName = docElem.tagName;
@@ -3079,7 +3205,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on this document with the value of the source parameter as itself.
@@ -3089,12 +3217,12 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode07 : function () {
+  documentadoptnode07: function (test) {
     var success;
     var doc;
     var adoptedDoc;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     {
       success = false;
@@ -3107,7 +3235,9 @@ exports.tests = {
       assertTrue("throw_NOT_SUPPORTED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on this document with a new document as the value of the
@@ -3117,7 +3247,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode08 : function () {
+  documentadoptnode08: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -3129,7 +3259,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootName = docElem.tagName;
@@ -3150,7 +3280,9 @@ exports.tests = {
       assertTrue("throw_NOT_SUPPORTED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on a new document with this document as the value of the
@@ -3160,7 +3292,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode09 : function () {
+  documentadoptnode09: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -3172,7 +3304,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootName = docElem.tagName;
@@ -3193,7 +3325,9 @@ exports.tests = {
       assertTrue("throw_NOT_SUPPORTED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on this document with the value of the source parameter as this
@@ -3203,13 +3337,13 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode10 : function () {
+  documentadoptnode10: function (test) {
     var success;
     var doc;
     var docType;
     var adoptedDocType;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
 
@@ -3224,7 +3358,9 @@ exports.tests = {
       assertTrue("throw_NOT_SUPPORTED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on this document with the value of the source parameter equal to a new
@@ -3234,7 +3370,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode11 : function () {
+  documentadoptnode11: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -3247,7 +3383,7 @@ exports.tests = {
     var docElem;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootName = docElem.tagName;
@@ -3266,7 +3402,9 @@ exports.tests = {
       assertTrue("throw_NOT_SUPPORTED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on a new document with the value of the source parameter equal to a new
@@ -3276,7 +3414,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode12 : function () {
+  documentadoptnode12: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -3291,7 +3429,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootName = docElem.tagName;
@@ -3313,7 +3451,9 @@ exports.tests = {
       assertTrue("throw_NOT_SUPPORTED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using the method adoptNode, adopt a newly created DocumentFragment node populated with
@@ -3324,7 +3464,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode13 : function () {
+  documentadoptnode13: function (test) {
     var success;
     var doc;
     var docFragment;
@@ -3334,7 +3474,7 @@ exports.tests = {
     var appendedChild;
     var adoptedDocFrag;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFragment = doc.createDocumentFragment();
     childList = doc.getElementsByTagName("acronym");
     acronymNode = childList.item(0);
@@ -3351,7 +3491,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Using the method adoptNode in a new Document, adopt a newly created DocumentFragment node populated with
@@ -3362,7 +3504,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode14 : function () {
+  documentadoptnode14: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -3380,7 +3522,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootName = docElem.tagName;
@@ -3409,7 +3551,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Using the method adoptNode, adopt a newly created DocumentFragment node without any children.
@@ -3419,14 +3563,14 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode15 : function () {
+  documentadoptnode15: function (test) {
     var success;
     var doc;
     var docFragment;
     var success;
     var adoptedDocFrag;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFragment = doc.createDocumentFragment();
     adoptedDocFrag = doc.adoptNode(docFragment);
 
@@ -3440,7 +3584,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Create a document fragment with an entity reference, adopt the node and check
@@ -3450,7 +3596,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode16 : function () {
+  documentadoptnode16: function (test) {
     var success;
     var doc;
     var docFragment;
@@ -3473,7 +3619,7 @@ exports.tests = {
     var firstChildName;
     var firstChildValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFragment = doc.createDocumentFragment();
     parent = doc.createElement("parent");
     child = doc.createElement("child");
@@ -3523,7 +3669,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on this document with the entity ent1 as the source.  Since this is
@@ -3533,7 +3681,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode17 : function () {
+  documentadoptnode17: function (test) {
     var success;
     var doc;
     var docType;
@@ -3541,7 +3689,7 @@ exports.tests = {
     var ent;
     var adoptedEnt;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entityMap = docType.entities;
@@ -3559,7 +3707,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on a new document with the entity ent4 as the source.  Since this is
@@ -3569,7 +3719,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode18 : function () {
+  documentadoptnode18: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -3584,7 +3734,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootName = docElem.tagName;
@@ -3610,7 +3760,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on this document with the notation notation1 as the source.  Since this is
@@ -3620,7 +3772,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode19 : function () {
+  documentadoptnode19: function (test) {
     var success;
     var doc;
     var docType;
@@ -3628,7 +3780,7 @@ exports.tests = {
     var notation;
     var adoptedNotaion;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     notationMap = docType.notations;
@@ -3646,7 +3798,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on a new document with the notation notation2 as the source.  Since this is
@@ -3656,7 +3810,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode20 : function () {
+  documentadoptnode20: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -3671,7 +3825,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootName = docElem.tagName;
@@ -3697,7 +3851,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    The adoptNode method changes the ownerDocument of a node, its children, as well as the
@@ -3713,7 +3869,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode21 : function () {
+  documentadoptnode21: function (test) {
     var success;
     var doc;
     var attrOwnerElem;
@@ -3726,7 +3882,7 @@ exports.tests = {
     var nodeType;
     var nodeValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagName("acronym");
     element = childList.item(0);
     attr = element.getAttributeNode("title");
@@ -3744,7 +3900,9 @@ exports.tests = {
     assertEquals("documentadoptnode21_nodeValue","Yes",nodeValue);
     assertNull("documentadoptnode21_ownerDoc",attrOwnerElem);
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on this document with the documentElement as the source.
@@ -3754,7 +3912,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode22 : function () {
+  documentadoptnode22: function (test) {
     var success;
     var doc;
     var docElement;
@@ -3763,7 +3921,7 @@ exports.tests = {
     var nodeNameOrig;
     var nodeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElement = doc.documentElement;
 
     adoptedNode = doc.adoptNode(docElement);
@@ -3783,7 +3941,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on this document with the first acronym element node of this
@@ -3794,7 +3954,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode23 : function () {
+  documentadoptnode23: function (test) {
     var success;
     var doc;
     var childList;
@@ -3805,7 +3965,7 @@ exports.tests = {
     var acronymElemChild;
     var adoptedNodeChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagName("acronym");
     acronymElem = childList.item(0);
     adoptedNode = doc.adoptNode(acronymElem);
@@ -3827,7 +3987,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    The adoptNode method changes the ownerDocument of a node, its children, as well as the
@@ -3844,7 +4006,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode24 : function () {
+  documentadoptnode24: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -3859,7 +4021,7 @@ exports.tests = {
     var nullDocType = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","dom:test",nullDocType);
     childList = doc.getElementsByTagNameNS("*","code");
@@ -3875,7 +4037,9 @@ exports.tests = {
 
     assertEquals("documentadoptnode24",adoptedLen,codeElemLen);
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on a new document with a new Element of this
@@ -3886,7 +4050,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode25 : function () {
+  documentadoptnode25: function (test) {
     var success;
     var doc;
     var newElem;
@@ -3901,7 +4065,7 @@ exports.tests = {
     var nullDocType = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -3927,7 +4091,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on this document using a new Element and a new attribute created in
@@ -3938,7 +4104,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode26 : function () {
+  documentadoptnode26: function (test) {
     var success;
     var doc;
     var docElem;
@@ -3954,7 +4120,7 @@ exports.tests = {
     var rootNS;
     var rootTagname;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -3984,7 +4150,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on this document using a new imported Element and a new attribute created in
@@ -3995,7 +4163,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode27 : function () {
+  documentadoptnode27: function (test) {
     var success;
     var doc;
     var docElem;
@@ -4012,7 +4180,7 @@ exports.tests = {
     var rootNS;
     var rootTagname;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -4043,7 +4211,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on this document using the "p" element with the default
@@ -4055,7 +4225,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode28 : function () {
+  documentadoptnode28: function (test) {
     var success;
     var doc;
     var childList;
@@ -4066,7 +4236,7 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagName("p");
     employeeElem = childList.item(3);
     adoptedNode = doc.adoptNode(employeeElem);
@@ -4083,7 +4253,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on this document using a new Text node as the source.  Verify
@@ -4093,14 +4265,14 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode30 : function () {
+  documentadoptnode30: function (test) {
     var success;
     var doc;
     var newText;
     var adoptedText;
     var nodeValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newText = doc.createTextNode("Document.adoptNode test for a TEXT_NODE");
     adoptedText = doc.adoptNode(newText);
 
@@ -4115,7 +4287,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on this document using a new Text node from a new Document as the
@@ -4126,7 +4300,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode31 : function () {
+  documentadoptnode31: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -4140,7 +4314,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootName = docElem.tagName;
@@ -4163,7 +4337,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on another document using a new CDataSection node created in this
@@ -4174,7 +4350,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode32 : function () {
+  documentadoptnode32: function (test) {
     var success;
     var doc;
     var docAdopter;
@@ -4182,13 +4358,9 @@ exports.tests = {
     var adoptedCDATA;
     var nodeValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
-    var docAdopterRef = null;
-    if (typeof(this.docAdopter) != 'undefined') {
-      docAdopterRef = this.docAdopter;
-    }
-    docAdopter = load(docAdopterRef, "docAdopter", "hc_staff");
+    docAdopter = hc_staff.hc_staff();
     newCDATA = doc.createCDATASection("Document.adoptNode test for a CDATASECTION_NODE");
     adoptedCDATA = docAdopter.adoptNode(newCDATA);
 
@@ -4203,7 +4375,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on this document using a new CDataSection node created in a new
@@ -4214,7 +4388,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode33 : function () {
+  documentadoptnode33: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -4228,7 +4402,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -4251,7 +4425,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on a new document using a new Comment node created in it
@@ -4262,7 +4438,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode34 : function () {
+  documentadoptnode34: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -4276,7 +4452,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -4299,7 +4475,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on this document using a new PI node created in a new doc
@@ -4310,7 +4488,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode35 : function () {
+  documentadoptnode35: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -4325,7 +4503,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -4351,7 +4529,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the adoptNode method on this document using a new PI node created in a new doc
@@ -4362,7 +4542,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-adoptNode
    */
-  documentadoptnode36 : function () {
+  documentadoptnode36: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -4379,7 +4559,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -4421,7 +4601,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Retreive the doctype node, create a new Doctype node, call replaceChild and try replacing the
@@ -4433,7 +4615,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-B63ED1A31
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  documentgetdoctype01 : function () {
+  documentgetdoctype01: function (test) {
     var success;
     var doc;
     var docType;
@@ -4448,7 +4630,7 @@ exports.tests = {
     var replaced;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     rootName = docType.name;
@@ -4477,7 +4659,9 @@ exports.tests = {
 
     assertNull("newSysIdNull",newSysID);
 
+    test.done()
   },
+
   /**
    *
    Retreive the documentURI of this document, and verify if it is not null.
@@ -4486,17 +4670,19 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-documentURI
    */
-  documentgetdocumenturi01 : function () {
+  documentgetdocumenturi01: function (test) {
     var success;
     var doc;
     var docURI;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docURI = doc.documentURI;
 
     assertNotNull("documentgetdocumenturi01",docURI);
 
+    test.done()
   },
+
   /**
    *
    Create a new Document, retreive its documentURI, and verify if it is null.
@@ -4505,7 +4691,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-documentURI
    */
-  documentgetdocumenturi02 : function () {
+  documentgetdocumenturi02: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -4517,7 +4703,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -4530,7 +4716,9 @@ exports.tests = {
 
     assertNull("documentgetdocumenturi02",docURI);
 
+    test.done()
   },
+
   /**
    *
    Import the documentElement node of this document into a new document.  Since this node is
@@ -4540,7 +4728,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-documentURI
    */
-  documentgetdocumenturi03 : function () {
+  documentgetdocumenturi03: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -4554,7 +4742,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
     docElem = doc.documentElement;
 
@@ -4570,7 +4758,9 @@ exports.tests = {
 
     assertNull("documentgetdocumenturi03",docURI);
 
+    test.done()
   },
+
   /**
    *
    Call the getInputEncoding method on a UTF-8 encoded document and check if the
@@ -4580,17 +4770,19 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-inputEncoding
    */
-  documentgetinputencoding01 : function () {
+  documentgetinputencoding01: function (test) {
     var success;
     var doc;
     var encodingName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     encodingName = doc.inputEncoding;
 
     assertEquals("documentgetinputencoding01","UTF-8".toLowerCase(),encodingName.toLowerCase());
 
+    test.done()
   },
+
   /**
    *
    Call the getInputEncoding method on a new document and check if the value returned
@@ -4600,7 +4792,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-inputEncoding
    */
-  documentgetinputencoding02 : function () {
+  documentgetinputencoding02: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -4612,7 +4804,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domImpl = doc.implementation;
     docElem = doc.documentElement;
 
@@ -4625,7 +4817,9 @@ exports.tests = {
 
     assertNull("documentgetinputencoding02",encodingName);
 
+    test.done()
   },
+
   /**
    *
    Call the getInputEncoding method on a on a UTF-16 (BE) encoded document and check if the value returned
@@ -4635,17 +4829,19 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-inputEncoding
    */
-  documentgetinputencoding03 : function () {
+  documentgetinputencoding03: function (test) {
     var success;
     var doc;
     var encodingName;
 
-    doc = load(docRef, "doc", "barfoo_utf16");
+    doc = barfoo_utf16.barfoo_utf16();
     encodingName = doc.inputEncoding;
 
     assertEquals("documentgetinputencoding03","UTF-16BE".toLowerCase(),encodingName.toLowerCase());
 
+    test.done()
   },
+
   /**
    *
    Call the getInputEncoding method on a cloned UTF-8 encoded document
@@ -4655,13 +4851,13 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-inputEncoding
    */
-  documentgetinputencoding04 : function () {
+  documentgetinputencoding04: function (test) {
     var success;
     var doc;
     var cloned;
     var encodingName;
 
-    doc = load(docRef, "doc", "barfoo_utf8");
+    doc = barfoo_utf8.barfoo_utf8();
     cloned = doc.cloneNode(true);
     encodingName = cloned.inputEncoding;
 
@@ -4672,7 +4868,9 @@ exports.tests = {
                )
               );
 
+    test.done()
   },
+
   /**
    *
    Verify if the (default) value of the strictErrorChecking attribute of this document object is true.
@@ -4681,17 +4879,19 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-strictErrorChecking
    */
-  documentgetstricterrorchecking01 : function () {
+  documentgetstricterrorchecking01: function (test) {
     var success;
     var doc;
     var strictErrorCheckingValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     strictErrorCheckingValue = doc.strictErrorChecking;
 
     assertTrue("documentgetstricterrorchecking01",strictErrorCheckingValue);
 
+    test.done()
   },
+
   /**
    *
    Verify if the (default)value of the strictErrorChecking attribute of a new Document object is true.
@@ -4700,7 +4900,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-strictErrorChecking
    */
-  documentgetstricterrorchecking02 : function () {
+  documentgetstricterrorchecking02: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -4712,7 +4912,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -4725,7 +4925,9 @@ exports.tests = {
 
     assertTrue("documentgetstricterrorchecking02",strictErrorCheckingValue);
 
+    test.done()
   },
+
   /**
    *
    Call the getXmlEncoding method on a UTF-8 encoded XML document in which the encoding pseudo
@@ -4735,17 +4937,19 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-encoding
    */
-  documentgetxmlencoding01 : function () {
+  documentgetxmlencoding01: function (test) {
     var success;
     var doc;
     var encodingName;
 
-    doc = load(docRef, "doc", "barfoo_utf8");
+    doc = barfoo_utf8.barfoo_utf8();
     encodingName = doc.xmlEncoding;
 
     assertEquals("documentgetxmlencoding01","uTf-8",encodingName);
 
+    test.done()
   },
+
   /**
    *
    Call the getXmlEncoding method on a new document and check if the value returned
@@ -4755,7 +4959,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-encoding
    */
-  documentgetxmlencoding02 : function () {
+  documentgetxmlencoding02: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -4767,7 +4971,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -4780,7 +4984,9 @@ exports.tests = {
 
     assertNull("documentgetxmlencoding02",encodingName);
 
+    test.done()
   },
+
   /**
    *
    Call the getXmlEncoding method on a UTF-16 encoded document and check if the value returned
@@ -4790,17 +4996,19 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-encoding
    */
-  documentgetxmlencoding03 : function () {
+  documentgetxmlencoding03: function (test) {
     var success;
     var doc;
     var encodingName;
 
-    doc = load(docRef, "doc", "barfoo_utf16");
+    doc = barfoo_utf16.barfoo_utf16();
     encodingName = doc.xmlEncoding;
 
     assertEquals("documentgetxmlencoding03","uTf-16",encodingName);
 
+    test.done()
   },
+
   /**
    *
    Call the getXmlEncoding method on a UTF-8 encoded XML document that does not contain
@@ -4810,17 +5018,19 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-encoding
    */
-  documentgetxmlencoding04 : function () {
+  documentgetxmlencoding04: function (test) {
     var success;
     var doc;
     var encodingName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     encodingName = doc.xmlEncoding;
 
     assertNull("documentgetxmlencoding04",encodingName);
 
+    test.done()
   },
+
   /**
    *
    Call the getXmlEncoding method on a cloned UTF-8 encoded document
@@ -4830,13 +5040,13 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-encoding
    */
-  documentgetxmlencoding05 : function () {
+  documentgetxmlencoding05: function (test) {
     var success;
     var doc;
     var cloned;
     var encodingName;
 
-    doc = load(docRef, "doc", "barfoo_utf8");
+    doc = barfoo_utf8.barfoo_utf8();
     cloned = doc.cloneNode(true);
     encodingName = cloned.xmlEncoding;
 
@@ -4847,7 +5057,9 @@ exports.tests = {
                )
               );
 
+    test.done()
   },
+
   /**
    *
    Retreive the xmlStandalone attribute of a document for which standalone was not specified, this
@@ -4858,17 +5070,19 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-standalone
    */
-  documentgetxmlstandalone01 : function () {
+  documentgetxmlstandalone01: function (test) {
     var success;
     var doc;
     var standalone;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     standalone = doc.xmlStandalone;
 
     assertFalse("documentgetxmlstandalone01",standalone);
 
+    test.done()
   },
+
   /**
    *
    The value of the standalone pesudo-attribute for a new Document should be false.
@@ -4877,7 +5091,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-standalone
    */
-  documentgetxmlstandalone02 : function () {
+  documentgetxmlstandalone02: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -4889,7 +5103,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -4902,7 +5116,9 @@ exports.tests = {
 
     assertFalse("documentgetxmlstandalone02",standalone);
 
+    test.done()
   },
+
   /**
    *
    The value of the standalone attribute for an XML document with the standalone="no"
@@ -4912,17 +5128,19 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-standalone
    */
-  documentgetxmlstandalone03 : function () {
+  documentgetxmlstandalone03: function (test) {
     var success;
     var doc;
     var standalone;
 
-    doc = load(docRef, "doc", "barfoo_standalone_no");
+    doc = barfoo_standalone_no.barfoo_standalone_no();
     standalone = doc.xmlStandalone;
 
     assertFalse("documentgetxmlstandalone03",standalone);
 
+    test.done()
   },
+
   /**
    *
    Retreive the documentURI of a document for which standalone was specified as "yes", this
@@ -4932,17 +5150,19 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-standalone
    */
-  documentgetxmlstandalone04 : function () {
+  documentgetxmlstandalone04: function (test) {
     var success;
     var doc;
     var standalone;
 
-    doc = load(docRef, "doc", "barfoo_standalone_yes");
+    doc = barfoo_standalone_yes.barfoo_standalone_yes();
     standalone = doc.xmlStandalone;
 
     assertTrue("documentgetxmlstandalone04",standalone);
 
+    test.done()
   },
+
   /**
    *
    Cretae a new DocumentType node whose systemId is StaffNS.DTD.  Create a new Document
@@ -4952,7 +5172,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-standalone
    */
-  documentgetxmlstandalone05 : function () {
+  documentgetxmlstandalone05: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -4967,7 +5187,7 @@ exports.tests = {
     var docType;
     var sysId;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -4985,7 +5205,9 @@ exports.tests = {
 
     assertFalse("documentgetxmlstandalone05",standalone);
 
+    test.done()
   },
+
   /**
    *
    Check if the value of the version attribute in the XML declaration of this document
@@ -4995,17 +5217,19 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-version
    */
-  documentgetxmlversion01 : function () {
+  documentgetxmlversion01: function (test) {
     var success;
     var doc;
     var versionValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     versionValue = doc.xmlVersion;
 
     assertEquals("documentgetxmlversion01","1.0",versionValue);
 
+    test.done()
   },
+
   /**
    *
    Check if the value of the version attribute in the XML declaration of a new document
@@ -5015,7 +5239,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-version
    */
-  documentgetxmlversion02 : function () {
+  documentgetxmlversion02: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -5027,7 +5251,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -5040,7 +5264,9 @@ exports.tests = {
 
     assertEquals("documentgetxmlversion02","1.0".toLowerCase(),versionValue.toLowerCase());
 
+    test.done()
   },
+
   /**
    *
    Check if the value of the version attribute in a XML document without a XMLDecl is
@@ -5050,17 +5276,19 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-version
    */
-  documentgetxmlversion03 : function () {
+  documentgetxmlversion03: function (test) {
     var success;
     var doc;
     var versionValue;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     versionValue = doc.xmlVersion;
 
     assertEquals("documentgetxmlversion03","1.0".toLowerCase(),versionValue.toLowerCase());
 
+    test.done()
   },
+
   /**
    *
    Invoke the normalizeDocument method on this document.  Retreive the documentElement node
@@ -5070,7 +5298,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    */
-  documentnormalizedocument01 : function () {
+  documentnormalizedocument01: function (test) {
     var success;
     var doc;
     var docElem;
@@ -5080,7 +5308,7 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     origDocElemNodeName = docElem.nodeName;
@@ -5096,7 +5324,9 @@ exports.tests = {
 
     assertEquals("documentnormalizedocument01",origDocElemNodeName,docElemNodeName);
 
+    test.done()
   },
+
   /**
    *
    Normalize a document with the 'cdata-sections' parameter set to false and
@@ -5107,7 +5337,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-cdata-sections
    */
-  documentnormalizedocument02 : function () {
+  documentnormalizedocument02: function (test) {
     var success;
     var doc;
     var elemList;
@@ -5119,7 +5349,7 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     elemName = elemList.item(1);
     cdata = elemName.lastChild;
@@ -5151,7 +5381,9 @@ exports.tests = {
 
     assertEquals("documentnormalizedocument02_false","#text",nodeName);
 
+    test.done()
   },
+
   /**
    *
    Normalize a document with a created CDATA section with the
@@ -5164,7 +5396,7 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=416
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-cdata-sections
    */
-  documentnormalizedocument03 : function () {
+  documentnormalizedocument03: function (test) {
     var success;
     var doc;
     var elem;
@@ -5179,7 +5411,7 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     pList = doc.getElementsByTagName("p");
     elem = pList.item(0);
     newCdata = doc.createCDATASection("CDATA");
@@ -5211,7 +5443,9 @@ exports.tests = {
 
     assertEquals("normalizedValue","barCDATA",nodeValue);
 
+    test.done()
   },
+
   /**
    *
    Append a Comment node and normalize with "comments" set to false.
@@ -5222,7 +5456,7 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=416
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-comments
    */
-  documentnormalizedocument04 : function () {
+  documentnormalizedocument04: function (test) {
     var success;
     var doc;
     var elem;
@@ -5236,7 +5470,7 @@ exports.tests = {
 
     var pList;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     pList = doc.getElementsByTagName("p");
     elem = pList.item(0);
     newComment = doc.createComment("COMMENT_NODE");
@@ -5265,7 +5499,9 @@ exports.tests = {
 
     assertEquals("hasChildText","#text",nodeName);
 
+    test.done()
   },
+
   /**
    *
    Add a L1 element to a L2 namespace aware document and perform namespace normalization.  Should result
@@ -5276,7 +5512,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/namespaces-algorithms#normalizeDocumentAlgo
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-namespaces
    */
-  documentnormalizedocument05 : function () {
+  documentnormalizedocument05: function (test) {
     var success;
     var doc;
     var elem;
@@ -5304,7 +5540,7 @@ exports.tests = {
     var relatedData;
     var length;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     pList = doc.getElementsByTagName("p");
     elem = pList.item(0);
     newChild = doc.createElement("br");
@@ -5368,7 +5604,9 @@ exports.tests = {
     }
     assertEquals("oneError",1,errorCount);
 
+    test.done()
   },
+
   /**
    *
    Add a CDATASection containing "]]>" perform normalization with split-cdata-sections=true.  Should result
@@ -5391,7 +5629,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMLocator-uri
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=542
    */
-  documentnormalizedocument06 : function () {
+  documentnormalizedocument06: function (test) {
     var success;
     var doc;
     var elem;
@@ -5422,7 +5660,7 @@ exports.tests = {
     var nodeType;
     var nodeValue;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     newChild = doc.createCDATASection("this is not ]]> good");
@@ -5496,7 +5734,10 @@ exports.tests = {
       }
       assertEquals("oneSplittedWarning",1,splittedCount);
 
-    }},
+    }
+    test.done()
+  },
+
   /**
    *
    Add a CDATASection containing "]]>" and perform normalization with split-cdata-sections=false.  Should result
@@ -5519,7 +5760,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMLocator-uri
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=542
    */
-  documentnormalizedocument07 : function () {
+  documentnormalizedocument07: function (test) {
     var success;
     var doc;
     var elem;
@@ -5548,7 +5789,7 @@ exports.tests = {
     var relatedData;
     var length;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     oldChild = elem.firstChild;
@@ -5609,7 +5850,9 @@ exports.tests = {
     }
     assertEquals("oneError",1,errorCount);
 
+    test.done()
   },
+
   /**
    *
    Add two CDATASections containing "]]>" perform normalization with split-cdata-sections=true.
@@ -5619,7 +5862,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-split-cdata-sections
    */
-  documentnormalizedocument08 : function () {
+  documentnormalizedocument08: function (test) {
     var success;
     var doc;
     var elem;
@@ -5639,7 +5882,7 @@ exports.tests = {
     var splittedCount = 0;
     var severity;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     newChild = doc.createCDATASection("this is not ]]> good");
@@ -5686,7 +5929,9 @@ exports.tests = {
 	       (length > 3)
               );
 
+    test.done()
   },
+
 
   /**
    *
@@ -5704,7 +5949,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-validate-if-schema
    */
-  documentnormalizedocument09 : function () {
+  documentnormalizedocument09: function (test) {
     var success;
     var doc;
     var docElem;
@@ -5715,7 +5960,7 @@ exports.tests = {
 
     var domConfig;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domConfig = doc.domConfig;
 
     domConfig.setParameter("error-handler", errHandler.handleError);
@@ -5741,7 +5986,9 @@ exports.tests = {
 
     assertEquals("documentnormalizedocument09_False","html",docElemNodeName);
 
+    test.done()
   },
+
   /**
    *
    The normalizeDocument method method acts as if the document was going through a save
@@ -5757,7 +6004,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-element-content-whitespace
    */
-  documentnormalizedocument10 : function () {
+  documentnormalizedocument10: function (test) {
     var success;
     var doc;
     var elem;
@@ -5768,7 +6015,7 @@ exports.tests = {
     var appendedChild;
     var domConfig;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elem = doc.createElement("newElem");
     newText = doc.createTextNode("Text          Node");
     appendedChild = elem.appendChild(newText);
@@ -5804,7 +6051,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    The normalizeDocument method method acts as if the document was going through a save
@@ -5820,7 +6069,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-namespace-declarations
    */
-  documentnormalizedocument11 : function () {
+  documentnormalizedocument11: function (test) {
     var success;
     var doc;
     var elemList;
@@ -5829,7 +6078,7 @@ exports.tests = {
     var canSet;
     var domConfig;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domConfig = doc.domConfig;
 
     domConfig.setParameter("namespace-declarations", true);
@@ -5852,7 +6101,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    The normalizeDocument method method acts as if the document was going through a save
@@ -5869,7 +6120,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-validate
    */
-  documentnormalizedocument12 : function () {
+  documentnormalizedocument12: function (test) {
     var success;
     var doc;
     var docElem;
@@ -5880,7 +6131,7 @@ exports.tests = {
     errHandler = new DOMErrorHandlerN10048();
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domConfig = doc.domConfig;
 
     domConfig.setParameter("error-handler", errHandler.handleError);
@@ -5906,7 +6157,9 @@ exports.tests = {
 
     assertEquals("documentnormalizedocument08_False","html",docElemNodeName);
 
+    test.done()
   },
+
   /**
    *
    Add a L1 attribute to a L2 namespace aware document and perform namespace normalization.  Should result
@@ -5917,7 +6170,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/namespaces-algorithms#normalizeDocumentAlgo
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-namespaces
    */
-  documentnormalizedocument13 : function () {
+  documentnormalizedocument13: function (test) {
     var success;
     var doc;
     var elem;
@@ -5945,7 +6198,7 @@ exports.tests = {
     var relatedData;
     var length;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     pList = doc.getElementsByTagName("p");
     elem = pList.item(0);
     elem.setAttribute("title","DOM L1 Attribute");
@@ -6009,7 +6262,9 @@ exports.tests = {
     }
     assertEquals("oneError",1,errorCount);
 
+    test.done()
   },
+
   /**
    *
    Invoke the renameNode method to rename the class attribute node of the
@@ -6022,7 +6277,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode01 : function () {
+  documentrenamenode01: function (test) {
     var success;
     var doc;
     var element;
@@ -6033,7 +6288,7 @@ exports.tests = {
     var nodeType;
     var namespaceURI;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagName("acronym");
     element = childList.item(1);
     attr = element.getAttributeNode("class");
@@ -6048,7 +6303,9 @@ exports.tests = {
     assertEquals("documentrenameNode01_nodeType",2,nodeType);
     assertEquals("documentrenamenode01_nodeValue","http://www.w3.org/DOM/Test",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Invoke the renameNode method to rename the class attribute node of the
@@ -6061,7 +6318,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode02 : function () {
+  documentrenamenode02: function (test) {
     var success;
     var doc;
     var element;
@@ -6072,7 +6329,7 @@ exports.tests = {
     var nodeType;
     var namespaceURI;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagName("acronym");
     element = childList.item(1);
     attr = element.getAttributeNode("class");
@@ -6086,7 +6343,9 @@ exports.tests = {
     assertEquals("documentrenamenode02_nodeName","prefi0x:renamedNode",nodeName);
     assertEquals("documentrenamenode02_namespaceURI","http://www.w3.org/DOM/Test",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Invoke the renameNode method to rename a new attribute node to one whose
@@ -6098,7 +6357,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode03 : function () {
+  documentrenamenode03: function (test) {
     var success;
     var doc;
     var attr;
@@ -6108,7 +6367,7 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     attr = doc.createAttributeNS(nullNSURI,"test");
     renamedNode = doc.renameNode(attr,"http://www.w3.org/DOM/Test","pre0:fix1");
     nodeName = renamedNode.nodeName;
@@ -6118,7 +6377,9 @@ exports.tests = {
     assertEquals("documentrenamenode03_nodeName","pre0:fix1",nodeName);
     assertEquals("documentrenamenode02_namespaceURI","http://www.w3.org/DOM/Test",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Invoke the renameNode method to rename a new attribute node to one whose
@@ -6130,7 +6391,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode04 : function () {
+  documentrenamenode04: function (test) {
     var success;
     var doc;
     var attr;
@@ -6138,7 +6399,7 @@ exports.tests = {
     var nodeName;
     var namespaceURI;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     renamedNode = doc.renameNode(attr,"","title");
     nodeName = renamedNode.nodeName;
@@ -6148,7 +6409,9 @@ exports.tests = {
     assertEquals("documentrenamenode04_nodeName","title",nodeName);
     assertNull("documentrenamenode04_namespaceURI",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Invoke the renameNode method to rename a new attribute node to one whose
@@ -6160,7 +6423,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode05 : function () {
+  documentrenamenode05: function (test) {
     var success;
     var doc;
     var attr;
@@ -6170,7 +6433,7 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     renamedNode = doc.renameNode(attr,nullNSURI,"title");
     nodeName = renamedNode.nodeName;
@@ -6180,7 +6443,9 @@ exports.tests = {
     assertNull("documentrenamenode05_namespaceURI",namespaceURI);
     assertEquals("documentrenamenode05_nodeName","title",nodeName);
 
+    test.done()
   },
+
   /**
    *
    Invoke the renameNode method to rename the default attribute "dir" to xsi:schemaLocation.
@@ -6191,7 +6456,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode06 : function () {
+  documentrenamenode06: function (test) {
     var success;
     var doc;
     var element;
@@ -6202,7 +6467,7 @@ exports.tests = {
     var nodeType;
     var namespaceURI;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagName("p");
     element = childList.item(3);
     attr = element.getAttributeNode("dir");
@@ -6217,7 +6482,9 @@ exports.tests = {
     assertEquals("documentrenameNode01_nodeType",2,nodeType);
     assertEquals("documentrenamenode01_nodeValue","http://www.w3.org/2001/XMLSchema-instance",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Invoke the renameNode method on a new document node to rename a new attribute node
@@ -6229,7 +6496,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode07 : function () {
+  documentrenamenode07: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -6244,7 +6511,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -6262,7 +6529,9 @@ exports.tests = {
     assertEquals("documentrenamenode07_nodeName","xml:dom",nodeName);
     assertEquals("documentrenamenode07_namespaceURI","http://www.w3.org/XML/1998/namespace",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Invoke the renameNode method on a new document node and try to rename the default
@@ -6273,7 +6542,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode08 : function () {
+  documentrenamenode08: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -6288,7 +6557,7 @@ exports.tests = {
     var docElemNS;
     var docElemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagName("p");
     element = childList.item(3);
     attr = element.getAttributeNode("dir");
@@ -6312,7 +6581,9 @@ exports.tests = {
       assertTrue("documentrenamenode08_WRONG_DOCUMENT_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    The method renameNode renames an existing node. When the specified node was created
@@ -6328,7 +6599,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode09 : function () {
+  documentrenamenode09: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -6340,7 +6611,7 @@ exports.tests = {
 
     var attrNodeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","dom:newD",nullDocType);
     attr = doc.createAttributeNS("http://www.w3.org/DOM/Test","test");
@@ -6350,7 +6621,9 @@ exports.tests = {
 
     assertEquals("documentrenamenode09_1","xmlns:xmlns",attrNodeName);
 
+    test.done()
   },
+
   /**
    *
    The method renameNode renames an existing node and raises a  NAMESPACE_ERR
@@ -6366,7 +6639,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode10 : function () {
+  documentrenamenode10: function (test) {
     var success;
     var doc;
     var textEntry = "hello";
@@ -6384,7 +6657,7 @@ exports.tests = {
     qualifiedNames[5] = "a:::::c";
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     textNode = doc.createTextNode(textEntry);
     for(var indexN10060 = 0;indexN10060 < qualifiedNames.length; indexN10060++) {
       qualifiedName = qualifiedNames[indexN10060];
@@ -6402,7 +6675,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    The method renameNode renames an existing node and raises a  NAMESPACE_ERR
@@ -6418,7 +6693,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode11 : function () {
+  documentrenamenode11: function (test) {
     var success;
     var doc;
     var textEntry = "hello";
@@ -6429,7 +6704,7 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     textNode = doc.createTextNode(textEntry);
 
     {
@@ -6443,7 +6718,9 @@ exports.tests = {
       assertTrue("documentrenamenode11_NOT_SUPPORTED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    The method renameNode renames an existing node and raises a  NAMESPACE_ERR
@@ -6460,14 +6737,14 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode12 : function () {
+  documentrenamenode12: function (test) {
     var success;
     var doc;
     var renamedNode;
     var textEntry = "hello";
     var textNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     textNode = doc.createTextNode(textEntry);
 
     {
@@ -6481,7 +6758,9 @@ exports.tests = {
       assertTrue("documentrenamenode12_NOT_SUPPORTED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    The method renameNode renames an existing node and raises a NAMESPACE_ERR
@@ -6498,14 +6777,14 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode13 : function () {
+  documentrenamenode13: function (test) {
     var success;
     var doc;
     var textEntry = "hello";
     var textNode;
     var renamedNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     textNode = doc.createTextNode(textEntry);
 
     {
@@ -6519,7 +6798,9 @@ exports.tests = {
       assertTrue("documentrenamenode13_NOT_SUPPORTED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    The method renameNode renames an existing node and raises a NAMESPACE_ERR
@@ -6536,7 +6817,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode14 : function () {
+  documentrenamenode14: function (test) {
     var success;
     var doc;
     var renamedNode;
@@ -6545,7 +6826,7 @@ exports.tests = {
     var textEntry = "hello";
     var textNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     textNode = doc.createTextNode(textEntry);
 
     {
@@ -6559,7 +6840,9 @@ exports.tests = {
       assertTrue("documentrenamenode14_NOT_SUPPORTED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Rename the fourth acronym element to svg:rect and verify the
@@ -6569,7 +6852,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode15 : function () {
+  documentrenamenode15: function (test) {
     var success;
     var doc;
     var element;
@@ -6579,7 +6862,7 @@ exports.tests = {
     var nodeType;
     var namespaceURI;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagName("acronym");
     element = childList.item(3);
     renamedclass = doc.renameNode(element,"http://www.w3.org/DOM/Test","qnam:renamedNode");
@@ -6593,7 +6876,9 @@ exports.tests = {
     assertEquals("documentrenamenode15_nodeType",1,nodeType);
     assertEquals("documentrenamenode15_nodeValue","http://www.w3.org/DOM/Test",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Invoke the renameNode method to rename the fourth
@@ -6606,7 +6891,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode16 : function () {
+  documentrenamenode16: function (test) {
     var success;
     var doc;
     var element;
@@ -6618,7 +6903,7 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagName("acronym");
     element = childList.item(3);
     renamedclass = doc.renameNode(element,nullNSURI,"renamedNode");
@@ -6632,7 +6917,9 @@ exports.tests = {
     assertEquals("documentrenamenode16_nodeType",1,nodeType);
     assertNull("documentrenamenode16_nodeValue",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Invoke the renameNode method to rename a new element node of a new document so that
@@ -6644,7 +6931,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode17 : function () {
+  documentrenamenode17: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -6660,7 +6947,7 @@ exports.tests = {
     var nullDocType = null;
 
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -6681,7 +6968,9 @@ exports.tests = {
     assertEquals("documentrenamenode16_nodeType",1,nodeType);
     assertEquals("documentrenamenode16_nodeValue","http://www.w3.org/1999/xhtml",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Invoke the renameNode method on this document and try to rename a new element
@@ -6692,7 +6981,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode18 : function () {
+  documentrenamenode18: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -6705,7 +6994,7 @@ exports.tests = {
     var nullDocType = null;
 
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -6727,7 +7016,9 @@ exports.tests = {
       assertTrue("documentrenamenode18_WRONG_DOCUMENT_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    The method renameNode renames an existing node and raises a NAMESPACE_ERR
@@ -6741,7 +7032,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode19 : function () {
+  documentrenamenode19: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -6759,7 +7050,7 @@ exports.tests = {
     qualifiedNames[4] = "a:-:c";
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","newD",nullDocType);
     element = doc.createElementNS("http://www.w3.org/DOM/Test","test");
@@ -6779,7 +7070,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the renameNode method on this document node to rename a node such that its
@@ -6791,7 +7084,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode20 : function () {
+  documentrenamenode20: function (test) {
     var success;
     var doc;
     var element;
@@ -6800,7 +7093,7 @@ exports.tests = {
     var rootNS;
     var rootTagname;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -6826,7 +7119,9 @@ exports.tests = {
       assertTrue("throw_NAMESPACE_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the renameNode method on this document node to rename a node such that its
@@ -6837,7 +7132,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode21 : function () {
+  documentrenamenode21: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -6850,7 +7145,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -6872,7 +7167,9 @@ exports.tests = {
       assertTrue("throw_NAMESPACE_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the renameNode method on this document node to rename a node such that its
@@ -6883,13 +7180,13 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode22 : function () {
+  documentrenamenode22: function (test) {
     var success;
     var doc;
     var attr;
     var renamedNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
 
     {
@@ -6903,7 +7200,9 @@ exports.tests = {
       assertTrue("throw_NAMESPACE_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    The method renameNode renames an existing node and raises a  NOT_SUPPORTED_ERR
@@ -6916,13 +7215,13 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode23 : function () {
+  documentrenamenode23: function (test) {
     var success;
     var doc;
     var renamedNode;
     var docowner;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     {
       success = false;
@@ -6935,7 +7234,9 @@ exports.tests = {
       assertTrue("documentrenamenode23_NOT_SUPPORTED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    The method renameNode renames an existing node and raises a  NOT_SUPPORTED_ERR
@@ -6949,7 +7250,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode24 : function () {
+  documentrenamenode24: function (test) {
     var success;
     var doc;
     var renamedNode;
@@ -6957,7 +7258,7 @@ exports.tests = {
 
     var docowner;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     {
       success = false;
@@ -6970,7 +7271,9 @@ exports.tests = {
       assertTrue("documentrenamenode24_NOT_SUPPORTED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the renameNode method to attempt to rename a DOcumentType node of this Document.
@@ -6980,13 +7283,13 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode25 : function () {
+  documentrenamenode25: function (test) {
     var success;
     var doc;
     var docType;
     var renamedNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
 
@@ -7001,7 +7304,9 @@ exports.tests = {
       assertTrue("documentrenamenode25_NOT_SUPPORTED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the renameNode method oto attempt to rename a new DocumentFragment node
@@ -7012,13 +7317,13 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode26 : function () {
+  documentrenamenode26: function (test) {
     var success;
     var doc;
     var docFrag;
     var renamedNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFrag = doc.createDocumentFragment();
 
     {
@@ -7032,7 +7337,9 @@ exports.tests = {
       assertTrue("documentrenamenode26_NOT_SUPPORTED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the renameNode method to attempt to rename new Text, Comment, CDataSection,
@@ -7043,7 +7350,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode27 : function () {
+  documentrenamenode27: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -7064,7 +7371,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -7134,7 +7441,9 @@ exports.tests = {
       assertTrue("throw_NOT_SUPPORTED_ERR_5",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the renameNode method to attempt to rename a Entity and Notation nodes of this Document.
@@ -7144,7 +7453,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode28 : function () {
+  documentrenamenode28: function (test) {
     var success;
     var doc;
     var docType;
@@ -7155,7 +7464,7 @@ exports.tests = {
     var renamedEntityNode;
     var renamedNotationNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entityNodeMap = docType.entities;
@@ -7187,7 +7496,9 @@ exports.tests = {
       assertTrue("documentrenamenode28_NOTATION_NOT_SUPPORTED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke the renameNode method to attempt to rename an Element node of a XML1.0 document
@@ -7198,13 +7509,13 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-renameNode
    */
-  documentrenamenode29 : function () {
+  documentrenamenode29: function (test) {
     var success;
     var doc;
     var docElem;
     var renamed;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
 
@@ -7219,7 +7530,9 @@ exports.tests = {
       assertTrue("documentrenamenode29_ENTITY_NOT_SUPPORTED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    The setDocmentURI method set the location of the document.
@@ -7231,19 +7544,21 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-documentURI
    */
-  documentsetdocumenturi01 : function () {
+  documentsetdocumenturi01: function (test) {
     var success;
     var doc;
     var docURI;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     doc.documentURI = "file:///test";
 
     docURI = doc.documentURI;
 
     assertEquals("documentsetdocumenturi01","file:///test",docURI);
 
+    test.done()
   },
+
   /**
    *
    The setDocmentURI method set the location of the document.
@@ -7255,21 +7570,23 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-documentURI
    */
-  documentsetdocumenturi02 : function () {
+  documentsetdocumenturi02: function (test) {
     var success;
     var doc;
     var docURI;
     var nullValue = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     doc.documentURI = nullValue;
 
     docURI = doc.documentURI;
 
     assertNull("documentsetdocumenturi02",docURI);
 
+    test.done()
   },
+
   /**
    *
    The setDocmentURI method set the location of the document.
@@ -7281,7 +7598,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-documentURI
    */
-  documentsetdocumenturi03 : function () {
+  documentsetdocumenturi03: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -7293,7 +7610,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -7308,7 +7625,9 @@ exports.tests = {
 
     assertEquals("documentsetdocumenturi03","somestring",docURI);
 
+    test.done()
   },
+
   /**
    *
    Set the strictErrorChecking attribute value on this documentNode to false and then to true.
@@ -7319,12 +7638,12 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-strictErrorChecking
    */
-  documentsetstricterrorchecking01 : function () {
+  documentsetstricterrorchecking01: function (test) {
     var success;
     var doc;
     var newAttr;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     doc.strictErrorChecking = false;
 
     doc.strictErrorChecking = true;
@@ -7341,7 +7660,9 @@ exports.tests = {
       assertTrue("INVALID_CHARACTER_ERR_documentsetstricterrorchecking01",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Set the strictErrorChecking attribute value on a new Document to true.
@@ -7352,14 +7673,14 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-strictErrorChecking
    */
-  documentsetstricterrorchecking02 : function () {
+  documentsetstricterrorchecking02: function (test) {
     var success;
     var doc;
     var newAttr;
     var nullValue = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     doc.strictErrorChecking = true;
 
 
@@ -7374,7 +7695,9 @@ exports.tests = {
       assertTrue("NAMESPACE_ERR_documentsetstricterrorchecking02",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Set the strictErrorChecking attribute value on a new Document to false and check if it was
@@ -7384,19 +7707,21 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-strictErrorChecking
    */
-  documentsetstricterrorchecking03 : function () {
+  documentsetstricterrorchecking03: function (test) {
     var success;
     var doc;
     var strictErrorCheckingValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     doc.strictErrorChecking = false;
 
     strictErrorCheckingValue = doc.strictErrorChecking;
 
     assertFalse("documentsetstricterrorchecking03",strictErrorCheckingValue);
 
+    test.done()
   },
+
   /**
    *
    Set the standalone attribute of this document to true and verify if the attribute was correctly
@@ -7406,19 +7731,21 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-standalone
    */
-  documentsetxmlstandalone01 : function () {
+  documentsetxmlstandalone01: function (test) {
     var success;
     var doc;
     var standalone;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     doc.xmlStandalone = true;
 
     standalone = doc.xmlStandalone;
 
     assertTrue("documentsetxmlstandalone01",standalone);
 
+    test.done()
   },
+
   /**
    *
    Create a new document object and set standalone to false and check if it was correctly set.
@@ -7428,7 +7755,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-standalone
    */
-  documentsetxmlstandalone02 : function () {
+  documentsetxmlstandalone02: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -7440,7 +7767,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -7460,7 +7787,9 @@ exports.tests = {
 
     assertTrue("documentsetxmlstandalone02_true",standalone);
 
+    test.done()
   },
+
   /**
    *
    Set the value of the version attribute of the XML declaration of this document to
@@ -7470,7 +7799,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-version
    */
-  documentsetxmlversion01 : function () {
+  documentsetxmlversion01: function (test) {
     var success;
     var doc;
     var versionValue;
@@ -7505,7 +7834,7 @@ exports.tests = {
     illegalVersion[27] = "---";
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     for(var indexN10087 = 0;indexN10087 < illegalVersion.length; indexN10087++) {
       versionValue = illegalVersion[indexN10087];
 
@@ -7523,7 +7852,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Set the value of the version attribute of the XML declaration of a new document to "1.0"
@@ -7533,7 +7864,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-version
    */
-  documentsetxmlversion02 : function () {
+  documentsetxmlversion02: function (test) {
     var success;
     var doc;
     var versionValue;
@@ -7545,7 +7876,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -7560,7 +7891,9 @@ exports.tests = {
 
     assertEquals("documentsetxmlversion02","1.0",versionValue);
 
+    test.done()
   },
+
   /**
    *
    Set the value of the version attribute of the XML declaration of a new document to "1.0"
@@ -7570,7 +7903,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-version
    */
-  documentsetxmlversion03 : function () {
+  documentsetxmlversion03: function (test) {
     var success;
     var doc;
     var versionValue;
@@ -7582,7 +7915,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -7597,7 +7930,9 @@ exports.tests = {
 
     assertEquals("documentsetxmlversion03","1.1",versionValue);
 
+    test.done()
   },
+
   /**
    *
    Set the value of the version attribute of the XML declaration of a new document to "-"
@@ -7607,7 +7942,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-version
    */
-  documentsetxmlversion05 : function () {
+  documentsetxmlversion05: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -7618,7 +7953,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -7640,7 +7975,9 @@ exports.tests = {
       assertTrue("throw_NOT_SUPPORTED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    * Checks behavior of "canonical-form" configuration parameter.
    * @author Curt Arnold
@@ -7648,7 +7985,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-getParameter
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-property
    */
-  domconfigcanonicalform1 : function () {
+  domconfigcanonicalform1: function (test) {
     var success;
     var domImpl;
     var doc;
@@ -7695,7 +8032,9 @@ exports.tests = {
     }
     domConfig.setParameter(parameter, false);
 
+    test.done()
   },
+
   /**
    * Checks behavior of "cdata-sections" configuration parameter.
    * @author Curt Arnold
@@ -7703,7 +8042,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-getParameter
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-setParameter
    */
-  domconfigcdatasections1 : function () {
+  domconfigcdatasections1: function (test) {
     var success;
     var domImpl;
     var doc;
@@ -7730,7 +8069,9 @@ exports.tests = {
     state = domConfig.getParameter(parameter);
     assertTrue("setTrueEffective",state);
 
+    test.done()
   },
+
   /**
    * Checks behavior of "check-character-normalization" configuration parameter.
    * @author Curt Arnold
@@ -7738,7 +8079,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-getParameter
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-setParameter
    */
-  domconfigcheckcharacternormalization1 : function () {
+  domconfigcheckcharacternormalization1: function (test) {
     var success;
     var domImpl;
     var doc;
@@ -7785,14 +8126,16 @@ exports.tests = {
     }
     domConfig.setParameter(parameter, false);
 
+    test.done()
   },
+
   /**
    * Checks behavior of "comments" configuration parameter.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-comments
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration
    */
-  domconfigcomments1 : function () {
+  domconfigcomments1: function (test) {
     var success;
     var domImpl;
     var doc;
@@ -7819,14 +8162,16 @@ exports.tests = {
     state = domConfig.getParameter(parameter);
     assertTrue("setTrueEffective",state);
 
+    test.done()
   },
+
   /**
    * Checks behavior of "datatype-normalization" configuration parameter.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-datatype-normalization
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration
    */
-  domconfigdatatypenormalization1 : function () {
+  domconfigdatatypenormalization1: function (test) {
     var success;
     var domImpl;
     var doc;
@@ -7873,14 +8218,16 @@ exports.tests = {
     }
     domConfig.setParameter(parameter, false);
 
+    test.done()
   },
+
   /**
    * Setting "datatype-normalization" to true also forces "validate" to true.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-datatype-normalization
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration
    */
-  domconfigdatatypenormalization2 : function () {
+  domconfigdatatypenormalization2: function (test) {
     var success;
     var domImpl;
     var doc;
@@ -7906,7 +8253,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    * Checks behavior of "element-content-whitespace" configuration parameter.
    * @author Curt Arnold
@@ -7914,7 +8263,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-getParameter
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-setParameter
    */
-  domconfigelementcontentwhitespace1 : function () {
+  domconfigelementcontentwhitespace1: function (test) {
     var success;
     var domImpl;
     var doc;
@@ -7961,7 +8310,9 @@ exports.tests = {
     }
     domConfig.setParameter(parameter, true);
 
+    test.done()
   },
+
   /**
    * Checks behavior of "entities" configuration parameter.
    * @author Curt Arnold
@@ -7969,7 +8320,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-getParameter
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-setParameter
    */
-  domconfigentities1 : function () {
+  domconfigentities1: function (test) {
     var success;
     var domImpl;
     var doc;
@@ -7996,7 +8347,9 @@ exports.tests = {
     state = domConfig.getParameter(parameter);
     assertTrue("setTrueEffective",state);
 
+    test.done()
   },
+
 
   /**
    * Checks behavior of "error-handler" configuration parameter.
@@ -8006,7 +8359,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-setParameter
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=544
    */
-  domconfigerrorhandler1 : function () {
+  domconfigerrorhandler1: function (test) {
     var success;
     var domImpl;
     var doc;
@@ -8043,7 +8396,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    * Calls DOMConfiguration.setParameter("error-handler", null).  Spec
    does not explicitly address the case.
@@ -8052,7 +8407,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-getParameter
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-setParameter
    */
-  domconfigerrorhandler2 : function () {
+  domconfigerrorhandler2: function (test) {
     var success;
     var domImpl;
     var doc;
@@ -8074,7 +8429,9 @@ exports.tests = {
     state = domConfig.getParameter(parameter);
     assertNull("errorHandlerIsNull",state);
 
+    test.done()
   },
+
   /**
    * Checks behavior of "infoset" configuration parameter.
    * @author Curt Arnold
@@ -8084,7 +8441,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-cdata-sections
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-entities
    */
-  domconfiginfoset1 : function () {
+  domconfiginfoset1: function (test) {
     var success;
     var domImpl;
     var doc;
@@ -8118,7 +8475,9 @@ exports.tests = {
     state = domConfig.getParameter(parameter);
     assertFalse("setEntitiesTrueInvalidatesInfoset",state);
 
+    test.done()
   },
+
   /**
    * Checks behavior of "namespace-declarations" configuration parameter.
    * @author Curt Arnold
@@ -8126,7 +8485,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-getParameter
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-setParameter
    */
-  domconfignamespacedeclarations1 : function () {
+  domconfignamespacedeclarations1: function (test) {
     var success;
     var domImpl;
     var doc;
@@ -8153,14 +8512,16 @@ exports.tests = {
     state = domConfig.getParameter(parameter);
     assertTrue("setTrueEffective",state);
 
+    test.done()
   },
+
   /**
    * Checks behavior of "namespaces" configuration parameter.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-namespaces
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration
    */
-  domconfignamespaces1 : function () {
+  domconfignamespaces1: function (test) {
     var success;
     var domImpl;
     var doc;
@@ -8207,7 +8568,9 @@ exports.tests = {
     }
     domConfig.setParameter(parameter, true);
 
+    test.done()
   },
+
   /**
    * Document.getParameter("namespaces") should be true regardles if the
    parse that created the document was namespace aware.
@@ -8215,19 +8578,21 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-namespaces
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration
    */
-  domconfignamespaces2 : function () {
+  domconfignamespaces2: function (test) {
     var success;
     var doc;
     var domConfig;
     var state;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     state = domConfig.getParameter("namespaces");
     assertTrue("namespacesTrue",state);
 
+    test.done()
   },
+
   /**
    * Checks behavior of "normalize-characters" configuration parameter.
    * @author Curt Arnold
@@ -8235,7 +8600,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-getParameter
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-setParameter
    */
-  domconfignormalizecharacters1 : function () {
+  domconfignormalizecharacters1: function (test) {
     var success;
     var domImpl;
     var doc;
@@ -8282,7 +8647,9 @@ exports.tests = {
     }
     domConfig.setParameter(parameter, false);
 
+    test.done()
   },
+
   /**
    * Checks getParameterNames and canSetParameter for Document.domConfig.
    * @author Curt Arnold
@@ -8305,7 +8672,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-well-formed
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-element-content-whitespace
    */
-  domconfigparameternames01 : function () {
+  domconfigparameternames01: function (test) {
     var success;
     var domImpl;
     var doc;
@@ -8317,7 +8684,7 @@ exports.tests = {
     var paramValue;
     var canSet;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     config = doc.domConfig;
 
     assertNotNull("configNotNull",config);
@@ -8343,7 +8710,9 @@ exports.tests = {
     }
     assertEquals("definedParameterCount",16,matchCount);
 
+    test.done()
   },
+
   /**
    * Checks behavior of "schema-location" configuration parameter.
    * @author Curt Arnold
@@ -8351,7 +8720,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-getParameter
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-setParameter
    */
-  domconfigschemalocation1 : function () {
+  domconfigschemalocation1: function (test) {
     var success;
     var domImpl;
     var doc;
@@ -8398,7 +8767,9 @@ exports.tests = {
     state = domConfig.getParameter(parameter);
     assertNull("setNullEffective",state);
 
+    test.done()
   },
+
   /**
    * Checks behavior of "schema-type" configuration parameter.
    * @author Curt Arnold
@@ -8406,7 +8777,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-getParameter
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-setParameter
    */
-  domconfigschematype1 : function () {
+  domconfigschematype1: function (test) {
     var success;
     var domImpl;
     var doc;
@@ -8491,7 +8862,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    * Checks behavior of "split-cdata-sections" configuration parameter.
    * @author Curt Arnold
@@ -8499,7 +8872,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-getParameter
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-setParameter
    */
-  domconfigsplitcdatasections1 : function () {
+  domconfigsplitcdatasections1: function (test) {
     var success;
     var domImpl;
     var doc;
@@ -8526,7 +8899,9 @@ exports.tests = {
     state = domConfig.getParameter(parameter);
     assertTrue("setTrueEffective",state);
 
+    test.done()
   },
+
   /**
    *
    The parameter commments is turned on by default.  Check to see if this feature can be set
@@ -8537,7 +8912,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-canSetParameter
    */
-  domconfigurationcansetparameter01 : function () {
+  domconfigurationcansetparameter01: function (test) {
     var success;
     var doc;
     var domConfig;
@@ -8548,7 +8923,7 @@ exports.tests = {
     var lastChild;
     var commentValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newCommentNode = doc.createComment("This is a new Comment node");
     docElem = doc.documentElement;
 
@@ -8564,7 +8939,9 @@ exports.tests = {
 
     assertEquals("domconfigurationsetparameter02_2","This is a new Comment node",commentValue);
 
+    test.done()
   },
+
   /**
    *
    The canSetParameter method checks if setting a parameter to a specific value is supported.
@@ -8577,7 +8954,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration
    */
-  domconfigurationcansetparameter02 : function () {
+  domconfigurationcansetparameter02: function (test) {
     var success;
     var doc;
     var domConfig;
@@ -8589,7 +8966,7 @@ exports.tests = {
     var nodeType;
     var canSet;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("cdata-sections",false);
@@ -8608,7 +8985,9 @@ exports.tests = {
 
     assertEquals("domconfigurationcansetparameter02_3",4,nodeType);
 
+    test.done()
   },
+
   /**
    *
    The canSetParameter method checks if setting a parameter to a specific value is supported.
@@ -8621,7 +9000,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration
    */
-  domconfigurationcansetparameter03 : function () {
+  domconfigurationcansetparameter03: function (test) {
     var success;
     var doc;
     var domConfig;
@@ -8633,7 +9012,7 @@ exports.tests = {
     var entityName;
     var canSet;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("entities",false);
@@ -8648,7 +9027,9 @@ exports.tests = {
 
     assertEquals("domconfigurationcansetparameter03_2","epsilon",entityName);
 
+    test.done()
   },
+
   /**
    *
    The canSetParameter method checks if setting a parameter to a specific value is supported.
@@ -8661,7 +9042,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration
    */
-  domconfigurationcansetparameter04 : function () {
+  domconfigurationcansetparameter04: function (test) {
     var success;
     var doc;
     var domConfig;
@@ -8671,7 +9052,7 @@ exports.tests = {
     var first;
     var canSet;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("entities",false);
@@ -8685,7 +9066,9 @@ exports.tests = {
 
     assertEquals("domconfigurationcansetparameter04_2",5,nodeType);
 
+    test.done()
   },
+
   /**
    *
    The canSetParameter method checks if setting a parameter to a specific value is supported.
@@ -8699,7 +9082,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration
    */
-  domconfigurationcansetparameter06 : function () {
+  domconfigurationcansetparameter06: function (test) {
     var success;
     var doc;
     var domConfig;
@@ -8709,7 +9092,7 @@ exports.tests = {
     var canSet;
     var hasWhitespace;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("element-content-whitespace",true);
@@ -8732,7 +9115,9 @@ exports.tests = {
 
     assertTrue("domconfigurationsetparameter06_3",hasWhitespace);
 
+    test.done()
   },
+
   /**
    *
    The method getParameter returns the value of a parameter if known.
@@ -8744,13 +9129,13 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-getParameter
    */
-  domconfigurationgetparameter01 : function () {
+  domconfigurationgetparameter01: function (test) {
     var success;
     var doc;
     var domConfig;
     var param;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domConfig = doc.domConfig;
 
     param = domConfig.getParameter("comments");
@@ -8764,7 +9149,9 @@ exports.tests = {
     param = domConfig.getParameter("infoset");
     assertFalse("domconfigurationgetparameter01_5",param);
 
+    test.done()
   },
+
   /**
    *
    The method getParameter returns the value of a parameter if known.
@@ -8776,13 +9163,13 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-getParameter
    */
-  domconfigurationgetparameter02 : function () {
+  domconfigurationgetparameter02: function (test) {
     var success;
     var doc;
     var domConfig;
     var param;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domConfig = doc.domConfig;
 
 
@@ -8797,7 +9184,9 @@ exports.tests = {
       assertTrue("domconfigurationgetparameter02_NOT_FOUND_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    * Checks behavior of "validate" configuration parameter.
    * @author Curt Arnold
@@ -8805,7 +9194,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-getParameter
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-setParameter
    */
-  domconfigvalidate1 : function () {
+  domconfigvalidate1: function (test) {
     var success;
     var domImpl;
     var doc;
@@ -8852,7 +9241,9 @@ exports.tests = {
     }
     domConfig.setParameter(parameter, false);
 
+    test.done()
   },
+
   /**
    * Checks behavior of "validate-if-schema" configuration parameter.
    * @author Curt Arnold
@@ -8860,7 +9251,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-getParameter
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-setParameter
    */
-  domconfigvalidateifschema1 : function () {
+  domconfigvalidateifschema1: function (test) {
     var success;
     var domImpl;
     var doc;
@@ -8907,7 +9298,9 @@ exports.tests = {
     }
     domConfig.setParameter(parameter, false);
 
+    test.done()
   },
+
   /**
    * Checks behavior of "well-formed" configuration parameter.
    * @author Curt Arnold
@@ -8915,7 +9308,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-getParameter
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-setParameter
    */
-  domconfigwellformed1 : function () {
+  domconfigwellformed1: function (test) {
     var success;
     var domImpl;
     var doc;
@@ -8962,7 +9355,9 @@ exports.tests = {
     }
     domConfig.setParameter(parameter, true);
 
+    test.done()
   },
+
   /**
    *
    Invoke getFeature method on this DOMImplementation with the value of the feature parameter
@@ -8972,18 +9367,20 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMImplementation3-getFeature
    */
-  domimplementationgetfeature01 : function () {
+  domimplementationgetfeature01: function (test) {
     var success;
     var doc;
     var domImpl;
     var domImplReturned;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
     domImplReturned = domImpl.getFeature("Core","2.0");
     assertNotNull("domimplementationgetfeature01",domImplReturned);
 
+    test.done()
   },
+
   /**
    *
    Invoke getFeature method on this DOMImplementation with the value of the feature parameter
@@ -8994,18 +9391,20 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMImplementation3-getFeature
    */
-  domimplementationgetfeature02 : function () {
+  domimplementationgetfeature02: function (test) {
     var success;
     var doc;
     var domImpl;
     var domImplReturned;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
     domImplReturned = domImpl.getFeature("Core","");
     assertNotNull("domimplementationgetfeature02",domImplReturned);
 
+    test.done()
   },
+
   /**
    *
    Invoke getFeature method on this DOMImplementation with the value of the feature parameter
@@ -9015,7 +9414,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMImplementation3-getFeature
    */
-  domimplementationgetfeature03 : function () {
+  domimplementationgetfeature03: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -9024,12 +9423,14 @@ exports.tests = {
     var nullVersion = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
     domImplReturned = domImpl.getFeature("Core",nullVersion);
     assertNotNull("domimplementationgetfeature03",domImplReturned);
 
+    test.done()
   },
+
   /**
    *
    Invoke getFeature method on this DOMImplementation with the value of the feature parameter
@@ -9039,7 +9440,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMImplementation3-getFeature
    */
-  domimplementationgetfeature05 : function () {
+  domimplementationgetfeature05: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -9047,12 +9448,14 @@ exports.tests = {
     var nullVersion = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
     domImplReturned = domImpl.getFeature("",nullVersion);
     assertNull("domimplementationgetFeature05",domImplReturned);
 
+    test.done()
   },
+
   /**
    *
    Invoke getFeature method on this DOMImplementation with the value of the feature parameter
@@ -9062,18 +9465,20 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMImplementation3-getFeature
    */
-  domimplementationgetfeature06 : function () {
+  domimplementationgetfeature06: function (test) {
     var success;
     var doc;
     var domImpl;
     var domImplReturned;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
     domImplReturned = domImpl.getFeature("1-1","*");
     assertNull("domimplementationgetfeature06",domImplReturned);
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.newInstance() (Java) or DOMImplementationRegistry global variable
@@ -9083,13 +9488,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    */
-  domimplementationregistry01 : function () {
+  domimplementationregistry01: function (test) {
     var success;
     var domImplRegistry;
     domImplRegistry = DOMImplementationRegistry;
     assertNotNull("domImplRegistryNotNull",domImplRegistry);
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementation("cOrE") should return a DOMImplementation
@@ -9100,7 +9507,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
    */
-  domimplementationregistry02 : function () {
+  domimplementationregistry02: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9114,7 +9521,9 @@ exports.tests = {
     hasFeature = domImpl.hasFeature("Core",nullVersion);
     assertTrue("hasCore",hasFeature);
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementation("cOrE 3.0") should return a DOMImplementation
@@ -9125,7 +9534,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
    */
-  domimplementationregistry03 : function () {
+  domimplementationregistry03: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9137,7 +9546,9 @@ exports.tests = {
     hasFeature = domImpl.hasFeature("Core","3.0");
     assertTrue("hasCore",hasFeature);
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementation("+cOrE") should return a DOMImplementation
@@ -9148,7 +9559,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
    */
-  domimplementationregistry04 : function () {
+  domimplementationregistry04: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9162,7 +9573,9 @@ exports.tests = {
     hasFeature = domImpl.hasFeature("+Core",nullVersion);
     assertTrue("hasCore",hasFeature);
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementation("+cOrE 3.0") should return a DOMImplementation
@@ -9173,7 +9586,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
    */
-  domimplementationregistry05 : function () {
+  domimplementationregistry05: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9185,7 +9598,9 @@ exports.tests = {
     hasFeature = domImpl.hasFeature("+Core","3.0");
     assertTrue("hasCore",hasFeature);
 
+    test.done()
   },
+
   /**
    *
    If the implementation supports "XML", DOMImplementationRegistry.getDOMImplementation("xMl 3.0 cOrE") should
@@ -9196,7 +9611,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
    */
-  domimplementationregistry06 : function () {
+  domimplementationregistry06: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9212,7 +9627,9 @@ exports.tests = {
     hasFeature = domImpl.hasFeature("Core",nullVersion);
     assertTrue("hasCore",hasFeature);
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementation("http://www.example.com/bogus-feature 99.0") should return
@@ -9223,7 +9640,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
    */
-  domimplementationregistry07 : function () {
+  domimplementationregistry07: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9235,7 +9652,9 @@ exports.tests = {
     domImpl = domImplRegistry.getDOMImplementation("http://www.example.com/bogus-feature 99.0");
     assertNull("domImplNull",domImpl);
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementation("SVG") should return null or a DOMImplementation
@@ -9246,7 +9665,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
    */
-  domimplementationregistry08 : function () {
+  domimplementationregistry08: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9275,7 +9694,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementation("HTML") should return null or a DOMImplementation
@@ -9286,7 +9707,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
    */
-  domimplementationregistry09 : function () {
+  domimplementationregistry09: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9315,7 +9736,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementation("LS") should return null or a DOMImplementation
@@ -9326,7 +9749,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
    */
-  domimplementationregistry10 : function () {
+  domimplementationregistry10: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9355,7 +9778,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementation("XPath") should return null or a DOMImplementation
@@ -9366,7 +9791,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
    */
-  domimplementationregistry11 : function () {
+  domimplementationregistry11: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9395,7 +9820,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementation("cOrE 3.0 xMl 3.0 eVeNts 2.0 lS") should return null
@@ -9406,7 +9833,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
    */
-  domimplementationregistry12 : function () {
+  domimplementationregistry12: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9451,7 +9878,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementationList("cOrE") should return a
@@ -9465,7 +9894,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMImplementationList-item
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMImplementationList-length
    */
-  domimplementationregistry13 : function () {
+  domimplementationregistry13: function (test) {
     var success;
     var domImplRegistry;
     var hasFeature;
@@ -9492,7 +9921,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementationList("cOrE 3.0") should return
@@ -9504,7 +9935,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
    */
-  domimplementationregistry14 : function () {
+  domimplementationregistry14: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9527,7 +9958,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementationList("+cOrE") should return
@@ -9539,7 +9972,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
    */
-  domimplementationregistry15 : function () {
+  domimplementationregistry15: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9564,7 +9997,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementationList("+cOrE 3.0") should return
@@ -9576,7 +10011,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
    */
-  domimplementationregistry16 : function () {
+  domimplementationregistry16: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9599,7 +10034,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    If the implementation supports "XML", DOMImplementationRegistry.getDOMImplementationList("xMl 3.0 cOrE") should
@@ -9610,7 +10047,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
    */
-  domimplementationregistry17 : function () {
+  domimplementationregistry17: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9637,7 +10074,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementationList("http://www.example.com/bogus-feature 99.0")
@@ -9648,7 +10087,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
    */
-  domimplementationregistry18 : function () {
+  domimplementationregistry18: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9661,7 +10100,9 @@ exports.tests = {
 
     assertEquals("emptyList",0,length);
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementationList("SVG") should return
@@ -9673,7 +10114,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
    */
-  domimplementationregistry19 : function () {
+  domimplementationregistry19: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9708,7 +10149,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementationList("HTML") should return
@@ -9720,7 +10163,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
    */
-  domimplementationregistry20 : function () {
+  domimplementationregistry20: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9755,7 +10198,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementationList("LS") should return
@@ -9767,7 +10212,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
    */
-  domimplementationregistry21 : function () {
+  domimplementationregistry21: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9802,7 +10247,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementationList("XPath") should return
@@ -9814,7 +10261,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
    */
-  domimplementationregistry22 : function () {
+  domimplementationregistry22: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9849,7 +10296,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementationList("cOrE 3.0 xMl 3.0 eVeNts 2.0 lS")
@@ -9860,7 +10309,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
    */
-  domimplementationregistry23 : function () {
+  domimplementationregistry23: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9911,7 +10360,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementation("") should return an implementation.
@@ -9922,7 +10373,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
    * @see http://lists.w3.org/Archives/Public/www-dom/2004JanMar/0111.html
    */
-  domimplementationregistry24 : function () {
+  domimplementationregistry24: function (test) {
     var success;
     var domImplRegistry;
     var domImpl;
@@ -9931,7 +10382,9 @@ exports.tests = {
     domImpl = domImplRegistry.getDOMImplementation("");
     assertNotNull("domImplNotNull",domImpl);
 
+    test.done()
   },
+
   /**
    *
    DOMImplementationRegistry.getDOMImplementationList("cOrE 3.0 xMl 3.0 eVeNts 2.0 lS")
@@ -9943,7 +10396,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
    * @see http://lists.w3.org/Archives/Public/www-dom/2004JanMar/0111.html
    */
-  domimplementationregistry25 : function () {
+  domimplementationregistry25: function (test) {
     var success;
     var domImplRegistry;
     var domImplList;
@@ -9958,7 +10411,9 @@ exports.tests = {
 	       (length > 0)
               );
 
+    test.done()
   },
+
   /**
    *
    Check implementation of DOMStringList.contains by searching DOMConfig parameter
@@ -9968,14 +10423,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMStringList-contains
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-parameterNames
    */
-  domstringlistcontains01 : function () {
+  domstringlistcontains01: function (test) {
     var success;
     var doc;
     var paramList;
     var domConfig;
     var contains;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domConfig = doc.domConfig;
 
     paramList = domConfig.parameterNames;
@@ -9985,7 +10440,9 @@ exports.tests = {
     contains = paramList.contains("");
     assertFalse("paramsDoesntContainEmpty",contains);
 
+    test.done()
   },
+
   /**
    *
    The contains method of the DOMStringList tests if a string is part of this DOMStringList.
@@ -9999,14 +10456,14 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMStringList-contains
    */
-  domstringlistcontains02 : function () {
+  domstringlistcontains02: function (test) {
     var success;
     var doc;
     var paramList;
     var domConfig;
     var contain;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domConfig = doc.domConfig;
 
     paramList = domConfig.parameterNames;
@@ -10028,7 +10485,9 @@ exports.tests = {
     contain = paramList.contains("test");
     assertFalse("domstringlistcontains02_8",contain);
 
+    test.done()
   },
+
   /**
    *
    The length attribute of the DOMStringList returns the number of DOMStrings in the list.
@@ -10042,14 +10501,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMStringList-length
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-parameterNames
    */
-  domstringlistgetlength01 : function () {
+  domstringlistgetlength01: function (test) {
     var success;
     var doc;
     var paramList;
     var domConfig;
     var listSize;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domConfig = doc.domConfig;
 
     paramList = domConfig.parameterNames;
@@ -10059,7 +10518,9 @@ exports.tests = {
 
     assert("domstringlistgetlength01_notZero",0 != listSize);
 
+    test.done()
   },
+
   /**
    *
    Check implementation of DOMStringList.item by accessing items 0 and length-1 and expecting
@@ -10069,7 +10530,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMStringList-item
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-parameterNames
    */
-  domstringlistitem01 : function () {
+  domstringlistitem01: function (test) {
     var success;
     var doc;
     var paramList;
@@ -10079,7 +10540,7 @@ exports.tests = {
     var index;
     var parameter;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domConfig = doc.domConfig;
 
     paramList = domConfig.parameterNames;
@@ -10094,7 +10555,9 @@ exports.tests = {
     parameter = paramList.item(length);
     assertNotNull("itemLengthMinus1NotNull",parameter);
 
+    test.done()
   },
+
   /**
    *
    The item method of the DOMStringList Returns the indexth item in the collection.
@@ -10107,7 +10570,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMStringList-item
    */
-  domstringlistitem02 : function () {
+  domstringlistitem02: function (test) {
     var success;
     var doc;
     var paramList;
@@ -10115,7 +10578,7 @@ exports.tests = {
     var listSize;
     var retStr;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domConfig = doc.domConfig;
 
     paramList = domConfig.parameterNames;
@@ -10125,7 +10588,9 @@ exports.tests = {
     retStr = paramList.item(100);
     assertNull("domstringlistitem02_null",retStr);
 
+    test.done()
   },
+
   /**
    *
    Normalize document with element-content-whitespace set to true and validation set to true, check that
@@ -10135,7 +10600,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-element-content-whitespace
    */
-  elementcontentwhitespace01 : function () {
+  elementcontentwhitespace01: function (test) {
     var success;
     var doc;
     var bodyList;
@@ -10149,7 +10614,7 @@ exports.tests = {
     var childName;
     var text;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     domConfig.setParameter("element-content-whitespace", true);
@@ -10183,7 +10648,9 @@ exports.tests = {
 
     assertEquals("secondChild","p",childName);
 
+    test.done()
   },
+
   /**
    *
    Normalize document with element-content-whitespace set to false and validation set to true, check that
@@ -10193,7 +10660,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-element-content-whitespace
    */
-  elementcontentwhitespace02 : function () {
+  elementcontentwhitespace02: function (test) {
     var success;
     var doc;
     var bodyList;
@@ -10206,7 +10673,7 @@ exports.tests = {
     var child;
     var childName;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("element-content-whitespace",false);
@@ -10236,7 +10703,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize document using Node.normalize with element-content-whitespace set to false and validation set to true, check that
@@ -10246,7 +10715,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-normalize
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-element-content-whitespace
    */
-  elementcontentwhitespace03 : function () {
+  elementcontentwhitespace03: function (test) {
     var success;
     var doc;
     var bodyList;
@@ -10260,7 +10729,7 @@ exports.tests = {
     var childName;
     var text;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
 
@@ -10301,7 +10770,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Call getSchemaTypeInfo on title attribute for the first "em" element from DTD validated document.
@@ -10311,7 +10782,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeName
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeNamespace
    */
-  elementgetschematypeinfo01 : function () {
+  elementgetschematypeinfo01: function (test) {
     var success;
     var doc;
     var elemList;
@@ -10320,7 +10791,7 @@ exports.tests = {
     var typeNS;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -10333,7 +10804,9 @@ exports.tests = {
 
     assertNull("nsIsNull",typeNS);
 
+    test.done()
   },
+
   /**
    *
    Call getSchemaTypeInfo on title attribute for the first "em" element from schema-validated document.
@@ -10343,7 +10816,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeName
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeNamespace
    */
-  elementgetschematypeinfo02 : function () {
+  elementgetschematypeinfo02: function (test) {
     var success;
     var doc;
     var elemList;
@@ -10352,7 +10825,7 @@ exports.tests = {
     var typeNS;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -10365,7 +10838,9 @@ exports.tests = {
 
     assertEquals("nsIsXML","http://www.w3.org/1999/xhtml",typeNS);
 
+    test.done()
   },
+
   /**
    *
    Element.schemaTypeInfo should return null if not validating or schema validating.
@@ -10375,7 +10850,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeName
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeNamespace
    */
-  elementgetschematypeinfo03 : function () {
+  elementgetschematypeinfo03: function (test) {
     var success;
     var doc;
     var elemList;
@@ -10384,7 +10859,7 @@ exports.tests = {
     var typeName;
     var typeNS;
 
-    doc = load(docRef, "doc", "hc_nodtdstaff");
+    doc = hc_nodtdstaff.hc_nodtdstaff();
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -10397,7 +10872,9 @@ exports.tests = {
 
     assertNull("typeNS",typeNS);
 
+    test.done()
   },
+
   /**
    *
    The getSchemaTypeInfo method retrieves the type information associated with this element.
@@ -10411,7 +10888,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Element-schemaTypeInfo
    */
-  elementgetschematypeinfo04 : function () {
+  elementgetschematypeinfo04: function (test) {
     var success;
     var doc;
     var codeElem;
@@ -10421,7 +10898,7 @@ exports.tests = {
     var elemList;
     var docElemNodeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("code");
     codeElem = elemList.item(1);
     elemTypeInfo = codeElem.schemaTypeInfo;
@@ -10433,7 +10910,9 @@ exports.tests = {
     assertEquals("elementgetschematypeinfo04_typeName","code",typeName);
     assertEquals("elementgetschematypeinfo04_typeNamespace","http://www.w3.org/1999/xhtml",typeNamespace);
 
+    test.done()
   },
+
   /**
    *
    The getSchemaTypeInfo method retrieves the type information associated with this element.
@@ -10447,7 +10926,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Element-schemaTypeInfo
    */
-  elementgetschematypeinfo05 : function () {
+  elementgetschematypeinfo05: function (test) {
     var success;
     var doc;
     var acElem;
@@ -10457,7 +10936,7 @@ exports.tests = {
     var elemList;
     var docElemNodeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("span");
     acElem = elemList.item(0);
     elemTypeInfo = acElem.schemaTypeInfo;
@@ -10469,7 +10948,9 @@ exports.tests = {
     assertEquals("typeNameString","string",typeName);
     assertEquals("typeNsXSD","http://www.w3.org/2001/XMLSchema",typeNamespace);
 
+    test.done()
   },
+
   /**
    *
    The getSchemaTypeInfo method retrieves the type information associated with this element.
@@ -10483,7 +10964,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Element-schemaTypeInfo
    */
-  elementgetschematypeinfo06 : function () {
+  elementgetschematypeinfo06: function (test) {
     var success;
     var doc;
     var strongElem;
@@ -10493,7 +10974,7 @@ exports.tests = {
     var elemList;
     var docElemNodeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     strongElem = elemList.item(1);
     elemTypeInfo = strongElem.schemaTypeInfo;
@@ -10505,7 +10986,9 @@ exports.tests = {
     assertEquals("elementgetschematypeinfo06_typeName","strongType",typeName);
     assertEquals("elementgetschematypeinfo06_typeNamespace","http://www.w3.org/1999/xhtml",typeNamespace);
 
+    test.done()
   },
+
   /**
    *
    The getSchemaTypeInfo method retrieves the type information associated with this element.
@@ -10519,7 +11002,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Element-schemaTypeInfo
    */
-  elementgetschematypeinfo07 : function () {
+  elementgetschematypeinfo07: function (test) {
     var success;
     var doc;
     var supElem;
@@ -10529,7 +11012,7 @@ exports.tests = {
     var docElemNodeName;
     var elemList;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("sup");
     supElem = elemList.item(0);
     elemTypeInfo = supElem.schemaTypeInfo;
@@ -10541,7 +11024,9 @@ exports.tests = {
     assertEquals("elementgetschematypeinfo07_typeName","sup",typeName);
     assertEquals("elementgetschematypeinfo07_typeNamespace","http://www.w3.org/1999/xhtml",typeNamespace);
 
+    test.done()
   },
+
   /**
    *
    Invoke setIdAttribute on the third acronym element's class attribute.  Verify by calling isID
@@ -10552,7 +11037,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttr
    */
-  elementsetidattribute01 : function () {
+  elementsetidattribute01: function (test) {
     var success;
     var doc;
     var elemList;
@@ -10563,7 +11048,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     acronymElem.setIdAttribute("class",true);
@@ -10582,7 +11067,9 @@ exports.tests = {
 
     assertFalse("elementsetidattributeIsIdFalse01",id);
 
+    test.done()
   },
+
   /**
    *
    First use setAttribute to change the class attribute of the third acronym element.  Invoke setIdAttribute
@@ -10593,7 +11080,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttr
    */
-  elementsetidattribute03 : function () {
+  elementsetidattribute03: function (test) {
     var success;
     var doc;
     var elemList;
@@ -10604,7 +11091,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     acronymElem.setAttribute("class","Maybe");
@@ -10624,7 +11111,9 @@ exports.tests = {
 
     assertFalse("elementsetidattributeIsIdFalse03",id);
 
+    test.done()
   },
+
   /**
    *
    First use setAttribute to create a new attribute on the third strong element.  Invoke setIdAttribute
@@ -10635,7 +11124,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttr
    */
-  elementsetidattribute04 : function () {
+  elementsetidattribute04: function (test) {
     var success;
     var doc;
     var elemList;
@@ -10646,7 +11135,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     nameElem = elemList.item(2);
     nameElem.setAttribute("hasMiddleName","Antoine");
@@ -10666,7 +11155,9 @@ exports.tests = {
 
     assertFalse("elementsetidattributeIsIdFalse03",id);
 
+    test.done()
   },
+
   /**
    *
    Invoke setIdAttribute on the third strong element with a non-existing attribute name.  Verify that
@@ -10676,13 +11167,13 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttr
    */
-  elementsetidattribute05 : function () {
+  elementsetidattribute05: function (test) {
     var success;
     var doc;
     var elemList;
     var nameElem;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     nameElem = elemList.item(2);
 
@@ -10697,7 +11188,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke setIdAttribute on the third strong element with an attribute name of the acronym element.
@@ -10707,13 +11200,13 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttr
    */
-  elementsetidattribute06 : function () {
+  elementsetidattribute06: function (test) {
     var success;
     var doc;
     var elemList;
     var nameElem;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     nameElem = elemList.item(2);
 
@@ -10728,7 +11221,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    First use setAttribute to create two new attribute of the second and third strong element with different values.
@@ -10739,7 +11234,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttr
    */
-  elementsetidattribute07 : function () {
+  elementsetidattribute07: function (test) {
     var success;
     var doc;
     var elemList;
@@ -10751,7 +11246,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     nameElem1 = elemList.item(2);
     nameElem2 = elemList.item(3);
@@ -10780,7 +11275,9 @@ exports.tests = {
 
     assertEquals("elementsetidattribute2GetElementById07","strong",elemName);
 
+    test.done()
   },
+
   /**
    *
    Invoke setIdAttribute class attribute on the second, third, and the fifth acronym element.
@@ -10790,7 +11287,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttr
    */
-  elementsetidattribute08 : function () {
+  elementsetidattribute08: function (test) {
     var success;
     var doc;
     var elemList;
@@ -10803,7 +11300,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem1 = elemList.item(1);
     acronymElem2 = elemList.item(2);
@@ -10834,7 +11331,9 @@ exports.tests = {
 
     assertEquals("elementsetidattributeGetElementById08","acronym",elemName);
 
+    test.done()
   },
+
   /**
    *
    First use setAttribute to create two new attributes on the second strong element and sup element.
@@ -10845,7 +11344,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttr
    */
-  elementsetidattribute09 : function () {
+  elementsetidattribute09: function (test) {
     var success;
     var doc;
     var elemList1;
@@ -10858,7 +11357,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList1 = doc.getElementsByTagName("strong");
     elemList2 = doc.getElementsByTagName("sup");
     nameElem = elemList1.item(2);
@@ -10888,7 +11387,9 @@ exports.tests = {
 
     assertEquals("elementsetidattribute2GetElementById09","sup",elemName);
 
+    test.done()
   },
+
   /**
    *
    Invoke setIdAttribute on the third acronym element's class attribute consecutively with different
@@ -10898,7 +11399,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttr
    */
-  elementsetidattribute10 : function () {
+  elementsetidattribute10: function (test) {
     var success;
     var doc;
     var elemList;
@@ -10909,7 +11410,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     acronymElem.setIdAttribute("class",true);
@@ -10930,7 +11431,9 @@ exports.tests = {
     elem = doc.getElementById("No");
     assertNull("elementsetidattributeGetElementByIdNull10",elem);
 
+    test.done()
   },
+
   /**
    *
    Invoke setIdAttribute on the 4th acronym element's class attribute which contains
@@ -10941,7 +11444,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttr
    */
-  elementsetidattribute11 : function () {
+  elementsetidattribute11: function (test) {
     var success;
     var doc;
     var elemList;
@@ -10952,7 +11455,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(3);
     acronymElem.setIdAttribute("class",true);
@@ -10972,7 +11475,9 @@ exports.tests = {
 
     assertFalse("elementsetidattributeIsIdFalse11",id);
 
+    test.done()
   },
+
   /**
    *
    Invoke setIdAttributeNode on the 3rd p element using the title attribute as a parameter .  Verify by calling
@@ -10983,7 +11488,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNode
    */
-  elementsetidattributenode01 : function () {
+  elementsetidattributenode01: function (test) {
     var success;
     var doc;
     var elemList;
@@ -10994,7 +11499,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     employeeElem = elemList.item(2);
     attributesMap = employeeElem.attributes;
@@ -11013,7 +11518,9 @@ exports.tests = {
 
     assertFalse("elementsetidattributenodeIsIdFalse01",id);
 
+    test.done()
   },
+
   /**
    *
    Invoke setIdAttributeNode on the 3rd acronym element using the class attribute as a parameter .  Verify by calling
@@ -11024,7 +11531,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNode
    */
-  elementsetidattributenode02 : function () {
+  elementsetidattributenode02: function (test) {
     var success;
     var doc;
     var elemList;
@@ -11035,7 +11542,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     attributesMap = acronymElem.attributes;
@@ -11054,7 +11561,9 @@ exports.tests = {
 
     assertFalse("elementsetidattributenodeIsIdFalse02",id);
 
+    test.done()
   },
+
   /**
    *
    Create a new attribute node on the second strong element.  Invoke setIdAttributeNode on a newly created
@@ -11065,7 +11574,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNode
    */
-  elementsetidattributenode03 : function () {
+  elementsetidattributenode03: function (test) {
     var success;
     var doc;
     var elemList;
@@ -11077,7 +11586,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     nameElem = elemList.item(1);
     nameElem.setAttribute("title","Karen");
@@ -11097,7 +11606,9 @@ exports.tests = {
 
     assertFalse("elementsetidattributenodeIsIdFalse03",id);
 
+    test.done()
   },
+
   /**
    *
    Create a new namespace attribute on the second strong element.  Invoke setIdAttributeNode on a newly created
@@ -11108,7 +11619,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNode
    */
-  elementsetidattributenode04 : function () {
+  elementsetidattributenode04: function (test) {
     var success;
     var doc;
     var elemList;
@@ -11120,7 +11631,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     nameElem = elemList.item(1);
     nameElem.setAttributeNS("http://www.w3.org/2000/xmlns/","xmlns:middle","http://www.example.com/middle");
@@ -11140,7 +11651,9 @@ exports.tests = {
 
     assertFalse("elementsetidattributenodeIsIdFalse04",id);
 
+    test.done()
   },
+
   /**
    *
    Invoke setIdAttributeNode on the third strong element but with the class attribute of the acronym
@@ -11150,7 +11663,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNode
    */
-  elementsetidattributenode05 : function () {
+  elementsetidattributenode05: function (test) {
     var success;
     var doc;
     var elemList1;
@@ -11160,7 +11673,7 @@ exports.tests = {
     var attributesMap;
     var attr;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList1 = doc.getElementsByTagName("strong");
     elemList2 = doc.getElementsByTagName("acronym");
     nameElem = elemList1.item(1);
@@ -11180,7 +11693,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke setIdAttributeNode on the third strong element but with the title attribute of the acronym
@@ -11190,7 +11705,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNode
    */
-  elementsetidattributenode06 : function () {
+  elementsetidattributenode06: function (test) {
     var success;
     var doc;
     var elemList1;
@@ -11201,7 +11716,7 @@ exports.tests = {
     var attr;
     var nameElement;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList1 = doc.getElementsByTagName("strong");
     elemList2 = doc.getElementsByTagName("acronym");
     nameElem = elemList1.item(1);
@@ -11221,7 +11736,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke setIdAttributeNode on the 2nd and 3rd acronym element using the class attribute as a parameter .  Verify by calling
@@ -11231,7 +11748,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNode
    */
-  elementsetidattributenode07 : function () {
+  elementsetidattributenode07: function (test) {
     var success;
     var doc;
     var elemList1;
@@ -11244,7 +11761,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList1 = doc.getElementsByTagName("acronym");
     elemList2 = doc.getElementsByTagName("acronym");
     acronymElem1 = elemList1.item(1);
@@ -11272,7 +11789,9 @@ exports.tests = {
 
     assertEquals("elementsetidattributenode2GetElementById07","acronym",elemName);
 
+    test.done()
   },
+
   /**
    *
    This method declares the attribute specified by node to be of type ID. If the value of the specified attribute
@@ -11286,7 +11805,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNode
    */
-  elementsetidattributenode08 : function () {
+  elementsetidattributenode08: function (test) {
     var success;
     var doc;
     var elemList1;
@@ -11299,7 +11818,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList1 = doc.getElementsByTagNameNS("*","acronym");
     elemList2 = doc.getElementsByTagNameNS("*","p");
     acronymElem = elemList1.item(1);
@@ -11327,7 +11846,9 @@ exports.tests = {
 
     assertEquals("elementsetidattributenode2GetElementById08","p",elemName);
 
+    test.done()
   },
+
   /**
    *
    This method declares the attribute specified by node to be of type ID. If the value of the specified attribute
@@ -11340,7 +11861,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNode
    */
-  elementsetidattributenode09 : function () {
+  elementsetidattributenode09: function (test) {
     var success;
     var doc;
     var elemList;
@@ -11351,7 +11872,7 @@ exports.tests = {
     var attr;
     var domConfig;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domConfig = doc.domConfig;
 
     domConfig.setParameter("entities", true);
@@ -11377,7 +11898,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    This method declares the attribute specified by node to be of type ID. If the value of the specified attribute
@@ -11392,7 +11915,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNode
    */
-  elementsetidattributenode10 : function () {
+  elementsetidattributenode10: function (test) {
     var success;
     var doc;
     var elemList;
@@ -11403,7 +11926,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagNameNS("*","acronym");
     acronymElem = elemList.item(3);
     attributesMap = acronymElem.attributes;
@@ -11422,7 +11945,9 @@ exports.tests = {
 
     assertFalse("elementsetidattributenodeIsIdFalse10",id);
 
+    test.done()
   },
+
   /**
    *
    Invoke setIdAttributeNS on an existing namespace attribute with a namespace URI and a qualified name.  Verify by calling
@@ -11433,7 +11958,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNS
    */
-  elementsetidattributens01 : function () {
+  elementsetidattributens01: function (test) {
     var success;
     var doc;
     var elemList;
@@ -11444,7 +11969,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     employeeElem = elemList.item(2);
     employeeElem.setIdAttributeNS("http://www.w3.org/2000/xmlns/","dmstc",true);
@@ -11463,7 +11988,9 @@ exports.tests = {
 
     assertFalse("elementsetidattributensIsIdFalse01",id);
 
+    test.done()
   },
+
   /**
    *
    Invoke setIdAttributeNS on an existing attribute with a namespace URI and a qualified name.  Verify by calling
@@ -11474,7 +12001,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNS
    */
-  elementsetidattributens02 : function () {
+  elementsetidattributens02: function (test) {
     var success;
     var doc;
     var elemList;
@@ -11486,7 +12013,7 @@ exports.tests = {
     var elemName;
     var xsiNS = "http://www.w3.org/2001/XMLSchema-instance";
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagNameNS("*","acronym");
     addressElem = elemList.item(2);
     addressElem.setIdAttributeNS(xsiNS,"noNamespaceSchemaLocation",true);
@@ -11506,7 +12033,9 @@ exports.tests = {
 
     assertFalse("elementsetidattributensIsIdFalse02",id);
 
+    test.done()
   },
+
   /**
    *
    Invoke setIdAttributeNS on a newly added namespace attribute on the first em element.  Verify by calling
@@ -11517,7 +12046,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNS
    */
-  elementsetidattributens03 : function () {
+  elementsetidattributens03: function (test) {
     var success;
     var doc;
     var elemList;
@@ -11528,7 +12057,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("em");
     employeeIdElem = elemList.item(0);
     employeeIdElem.setAttributeNS("http://www.w3.org/2000/xmlns/","xmlns:newAttr","newValue");
@@ -11548,7 +12077,9 @@ exports.tests = {
 
     assertFalse("elementsetidattributensIsIdFalse03",id);
 
+    test.done()
   },
+
   /**
    *
    The method setIdAttributeNS declares the attribute specified by local name and namespace URI to be of type ID.
@@ -11563,7 +12094,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNS
    */
-  elementsetidattributens04 : function () {
+  elementsetidattributens04: function (test) {
     var success;
     var doc;
     var elemList;
@@ -11574,7 +12105,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagNameNS("*","strong");
     strongElem = elemList.item(2);
     strongElem.setAttributeNS("http://www.netzero.com","dmstc:newAttr","newValue");
@@ -11594,7 +12125,9 @@ exports.tests = {
 
     assertFalse("elementsetidattributensIsIdFalse04",id);
 
+    test.done()
   },
+
   /**
    *
    The method setIdAttributeNS declares the attribute specified by local name and namespace URI to be of type ID.
@@ -11609,7 +12142,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNS
    */
-  elementsetidattributens05 : function () {
+  elementsetidattributens05: function (test) {
     var success;
     var doc;
     var elemList;
@@ -11620,7 +12153,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagNameNS("*","acronym");
     acronymElem = elemList.item(2);
     acronymElem.setAttributeNS("*","title","newValue");
@@ -11640,7 +12173,9 @@ exports.tests = {
 
     assertFalse("elementsetidattributensIsIdFalse05",id);
 
+    test.done()
   },
+
   /**
    *
    Invoke setIdAttributeNS on the third strong element with a non-existing attribute name.  Verify that
@@ -11650,13 +12185,13 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNS
    */
-  elementsetidattributens06 : function () {
+  elementsetidattributens06: function (test) {
     var success;
     var doc;
     var elemList;
     var nameElem;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     nameElem = elemList.item(2);
 
@@ -11671,7 +12206,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke setIdAttributeNS on the second p element with a non-existing attribute.  Verify that
@@ -11681,13 +12218,13 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNS
    */
-  elementsetidattributens07 : function () {
+  elementsetidattributens07: function (test) {
     var success;
     var doc;
     var elemList;
     var employeeElem;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     employeeElem = elemList.item(1);
 
@@ -11702,7 +12239,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke setIdAttributeNS on the second p element with a non-existing attribute.  Verify that
@@ -11712,13 +12251,13 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNode
    */
-  elementsetidattributens08 : function () {
+  elementsetidattributens08: function (test) {
     var success;
     var doc;
     var elemList;
     var employeeElem;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     employeeElem = elemList.item(1);
 
@@ -11733,7 +12272,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    The method setIdAttributeNS declares the attribute specified by local name and namespace URI to be of type ID.
@@ -11746,7 +12287,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNS
    */
-  elementsetidattributens09 : function () {
+  elementsetidattributens09: function (test) {
     var success;
     var doc;
     var elemList;
@@ -11754,7 +12295,7 @@ exports.tests = {
     var entRef;
     var entElement;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagNameNS("*","var");
     varElem = elemList.item(2);
     entRef = varElem.firstChild;
@@ -11773,7 +12314,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Declares the attribute specified by local name and namespace URI to be of type ID. If the value of the
@@ -11787,7 +12330,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNS
    */
-  elementsetidattributens10 : function () {
+  elementsetidattributens10: function (test) {
     var success;
     var doc;
     var elemList;
@@ -11799,7 +12342,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagNameNS("*","p");
     pElem1 = elemList.item(2);
     pElem2 = elemList.item(3);
@@ -11826,7 +12369,9 @@ exports.tests = {
 
     assertEquals("elementsetidattributens2GetElementById10","p",elemName);
 
+    test.done()
   },
+
   /**
    *
    Declares the attribute specified by local name and namespace URI to be of type ID. If the value of the
@@ -11840,7 +12385,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNS
    */
-  elementsetidattributens11 : function () {
+  elementsetidattributens11: function (test) {
     var success;
     var doc;
     var elemList;
@@ -11852,7 +12397,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagNameNS("*","p");
     pElem1 = elemList.item(1);
     pElem2 = elemList.item(2);
@@ -11879,7 +12424,9 @@ exports.tests = {
 
     assertEquals("elementsetidattributens2GetElementById11","p",elemName);
 
+    test.done()
   },
+
   /**
    *
    Declares the attribute specified by local name and namespace URI to be of type ID. If the value of the
@@ -11894,7 +12441,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNS
    */
-  elementsetidattributens12 : function () {
+  elementsetidattributens12: function (test) {
     var success;
     var doc;
     var elemList;
@@ -11907,7 +12454,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagNameNS("*","acronym");
     acronymElem1 = elemList.item(0);
     acronymElem2 = elemList.item(1);
@@ -11939,7 +12486,9 @@ exports.tests = {
 
     assertEquals("elementsetidattributensGetElementById10","acronym",elemName);
 
+    test.done()
   },
+
   /**
    *
    Invoke setIdAttributeNS on newly added attribute on the third strong element.  Verify by calling
@@ -11951,7 +12500,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNS
    */
-  elementsetidattributens13 : function () {
+  elementsetidattributens13: function (test) {
     var success;
     var doc;
     var elemList;
@@ -11962,7 +12511,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     nameElem = elemList.item(2);
     nameElem.setAttributeNS("http://www.w3.org/2000/xmlns/","xmlns:newAttr","newValue");
@@ -11989,7 +12538,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Declares the attribute specified by local name and namespace URI to be of type ID. If the value of the
@@ -12003,7 +12554,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ElSetIdAttrNS
    */
-  elementsetidattributens14 : function () {
+  elementsetidattributens14: function (test) {
     var success;
     var doc;
     var elemList;
@@ -12015,7 +12566,7 @@ exports.tests = {
     var elem;
     var elemName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagNameNS("*","p");
     pElem = elemList.item(1);
     elemList = doc.getElementsByTagNameNS("*","acronym");
@@ -12043,7 +12594,9 @@ exports.tests = {
 
     assertEquals("elementsetidattributens2GetElementById14","p",elemName);
 
+    test.done()
   },
+
   /**
    *
    Normalize document with entities set to true, check that
@@ -12053,7 +12606,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-entities
    */
-  entities01 : function () {
+  entities01: function (test) {
     var success;
     var doc;
     var pList;
@@ -12070,7 +12623,7 @@ exports.tests = {
     var ent2;
     var doctype;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     domConfig.setParameter("entities", true);
@@ -12096,7 +12649,9 @@ exports.tests = {
     ent2 = entities.getNamedItem("ent2");
     assertNotNull("ent2NotNull",ent2);
 
+    test.done()
   },
+
   /**
    *
    Normalize document with entities set to false, check that
@@ -12106,7 +12661,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-entities
    */
-  entities02 : function () {
+  entities02: function (test) {
     var success;
     var doc;
     var pList;
@@ -12124,7 +12679,7 @@ exports.tests = {
     var ent2;
     var doctype;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     domConfig.setParameter("entities", false);
@@ -12153,7 +12708,9 @@ exports.tests = {
     ent2 = entities.getNamedItem("ent2");
     assertNotNull("ent2NotNull",ent2);
 
+    test.done()
   },
+
   /**
    *
    Normalize document with entities set to false, check that
@@ -12163,7 +12720,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-entities
    */
-  entities03 : function () {
+  entities03: function (test) {
     var success;
     var doc;
     var pList;
@@ -12178,7 +12735,7 @@ exports.tests = {
     var entRef;
     var childType;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     domConfig.setParameter("entities", false);
@@ -12201,7 +12758,9 @@ exports.tests = {
 
     assertEquals("lastChildName","ent3",childName);
 
+    test.done()
   },
+
   /**
    *
    Normalize document using Node.normalize checking that "entities" parameter is ignored.
@@ -12210,7 +12769,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-normalize
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-entities
    */
-  entities04 : function () {
+  entities04: function (test) {
     var success;
     var doc;
     var pList;
@@ -12227,7 +12786,7 @@ exports.tests = {
     var ent2;
     var doctype;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     domConfig.setParameter("entities", false);
@@ -12253,7 +12812,9 @@ exports.tests = {
     ent2 = entities.getNamedItem("ent2");
     assertNotNull("ent2NotNull",ent2);
 
+    test.done()
   },
+
   /**
    *
    Call the getInputEncoding method on a UTF-8 encoded document and check if the
@@ -12263,7 +12824,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Entity3-inputEncoding
    */
-  entitygetinputencoding01 : function () {
+  entitygetinputencoding01: function (test) {
     var success;
     var doc;
     var docType;
@@ -12271,7 +12832,7 @@ exports.tests = {
     var entity;
     var encodingName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -12281,7 +12842,9 @@ exports.tests = {
 
     assertNull("entitygetinputencoding01",encodingName);
 
+    test.done()
   },
+
   /**
    *
    Call the getInputEncoding method on a UTF-16 encoded document that contains an external
@@ -12291,7 +12854,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Entity3-inputEncoding
    */
-  entitygetinputencoding02 : function () {
+  entitygetinputencoding02: function (test) {
     var success;
     var doc;
     var docType;
@@ -12299,7 +12862,7 @@ exports.tests = {
     var entity;
     var encodingName;
 
-    doc = load(docRef, "doc", "barfoo_utf16");
+    doc = barfoo_utf16.barfoo_utf16();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -12309,7 +12872,9 @@ exports.tests = {
 
     assertNull("entitygetinputencoding02",encodingName);
 
+    test.done()
   },
+
   /**
    *
    Check the value of Entity.inputEncoding on an UTF-16 external entity
@@ -12321,7 +12886,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Entity3-inputEncoding
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Dec/0045.html
    */
-  entitygetinputencoding03 : function () {
+  entitygetinputencoding03: function (test) {
     var success;
     var doc;
     var docType;
@@ -12329,7 +12894,7 @@ exports.tests = {
     var entity;
     var encodingName;
 
-    doc = load(docRef, "doc", "external_barfoo");
+    doc = external_barfoo.external_barfoo();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -12348,7 +12913,9 @@ exports.tests = {
 
     assertEquals("documentIsUTF8","UTF-8".toLowerCase(),encodingName.toLowerCase());
 
+    test.done()
   },
+
   /**
    *
    Check the value of Entity.inputEncoding on an UTF-8 external entity
@@ -12360,7 +12927,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Entity3-inputEncoding
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Dec/0045.html
    */
-  entitygetinputencoding04 : function () {
+  entitygetinputencoding04: function (test) {
     var success;
     var doc;
     var docType;
@@ -12368,7 +12935,7 @@ exports.tests = {
     var entity;
     var encodingName;
 
-    doc = load(docRef, "doc", "external_barfoo");
+    doc = external_barfoo.external_barfoo();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -12381,7 +12948,9 @@ exports.tests = {
 
     assertEquals("documentIsUTF8","UTF-8".toLowerCase(),encodingName.toLowerCase());
 
+    test.done()
   },
+
   /**
    *
    Call the getXmlEncoding method on a UTF-8 encoded entity of a document that is not an
@@ -12391,7 +12960,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Entity3-encoding
    */
-  entitygetxmlencoding01 : function () {
+  entitygetxmlencoding01: function (test) {
     var success;
     var doc;
     var docType;
@@ -12399,7 +12968,7 @@ exports.tests = {
     var entity;
     var encodingName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -12409,7 +12978,9 @@ exports.tests = {
 
     assertNull("entitygetxmlencoding01",encodingName);
 
+    test.done()
   },
+
   /**
    *
    Call the getencoding method on a document that contains an external
@@ -12419,7 +12990,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Entity3-encoding
    */
-  entitygetxmlencoding02 : function () {
+  entitygetxmlencoding02: function (test) {
     var success;
     var doc;
     var docType;
@@ -12427,7 +12998,7 @@ exports.tests = {
     var entity;
     var encodingName;
 
-    doc = load(docRef, "doc", "external_barfoo");
+    doc = external_barfoo.external_barfoo();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -12437,7 +13008,9 @@ exports.tests = {
 
     assertNull("entitygetxmlencoding02",encodingName);
 
+    test.done()
   },
+
   /**
    *
    Check the value of Entity.xmlEncoding on an external entity with an encoding
@@ -12449,7 +13022,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Entity3-encoding
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Dec/0045.html
    */
-  entitygetxmlencoding03 : function () {
+  entitygetxmlencoding03: function (test) {
     var success;
     var doc;
     var docType;
@@ -12457,7 +13030,7 @@ exports.tests = {
     var entity;
     var encodingName;
 
-    doc = load(docRef, "doc", "external_barfoo");
+    doc = external_barfoo.external_barfoo();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -12467,7 +13040,9 @@ exports.tests = {
 
     assertEquals("xmlEncoding","uTf-16",encodingName);
 
+    test.done()
   },
+
   /**
    *
    Check the value of Entity.xmlEncoding on an external entity without an encoding
@@ -12479,7 +13054,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Entity3-encoding
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Dec/0045.html
    */
-  entitygetxmlencoding04 : function () {
+  entitygetxmlencoding04: function (test) {
     var success;
     var doc;
     var docType;
@@ -12487,7 +13062,7 @@ exports.tests = {
     var entity;
     var encodingName;
 
-    doc = load(docRef, "doc", "external_barfoo");
+    doc = external_barfoo.external_barfoo();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -12497,7 +13072,9 @@ exports.tests = {
 
     assertNull("xmlEncoding",encodingName);
 
+    test.done()
   },
+
   /**
    *
    Call the getXmlVersion method on entity that is not an external entity and check if
@@ -12507,7 +13084,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Entity3-version
    */
-  entitygetxmlversion01 : function () {
+  entitygetxmlversion01: function (test) {
     var success;
     var doc;
     var docType;
@@ -12515,7 +13092,7 @@ exports.tests = {
     var entity;
     var entityVersion;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -12525,7 +13102,9 @@ exports.tests = {
 
     assertNull("entitygetxmlversion01",entityVersion);
 
+    test.done()
   },
+
   /**
    *
    Call the getXmlVersion method on a UTF-16 encoded document that contains an external
@@ -12535,7 +13114,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Entity3-version
    */
-  entitygetxmlversion02 : function () {
+  entitygetxmlversion02: function (test) {
     var success;
     var doc;
     var docType;
@@ -12543,7 +13122,7 @@ exports.tests = {
     var entity;
     var entityVersion;
 
-    doc = load(docRef, "doc", "barfoo_utf16");
+    doc = barfoo_utf16.barfoo_utf16();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -12553,7 +13132,9 @@ exports.tests = {
 
     assertNull("entitygetxmlversion02",entityVersion);
 
+    test.done()
   },
+
   /**
    *
    Check that the value of Entity.xmlVersion on an external entity without
@@ -12565,7 +13146,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Entity3-version
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Dec/0045.html
    */
-  entitygetxmlversion03 : function () {
+  entitygetxmlversion03: function (test) {
     var success;
     var doc;
     var docType;
@@ -12573,7 +13154,7 @@ exports.tests = {
     var entity;
     var entityVersion;
 
-    doc = load(docRef, "doc", "external_barfoo");
+    doc = external_barfoo.external_barfoo();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -12583,7 +13164,9 @@ exports.tests = {
 
     assertNull("xmlVersionNull",entityVersion);
 
+    test.done()
   },
+
   /**
    *
    Check that the value of Entity.xmlVersion on an external entity with
@@ -12595,7 +13178,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Entity3-version
    * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Dec/0045.html
    */
-  entitygetxmlversion04 : function () {
+  entitygetxmlversion04: function (test) {
     var success;
     var doc;
     var docType;
@@ -12603,7 +13186,7 @@ exports.tests = {
     var entity;
     var entityVersion;
 
-    doc = load(docRef, "doc", "external_barfoo");
+    doc = external_barfoo.external_barfoo();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -12613,7 +13196,9 @@ exports.tests = {
 
     assertEquals("xmlVersion10","1.0",entityVersion);
 
+    test.done()
   },
+
   /**
    *
    Add two CDATASection containing "]]>" and call Node.normalize
@@ -12625,7 +13210,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-split-cdata-sections
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ERRORS-DOMErrorHandler-handleError
    */
-  handleerror01 : function () {
+  handleerror01: function (test) {
     var success;
     var doc;
     var elem;
@@ -12642,7 +13227,7 @@ exports.tests = {
     errorHandler = new DOMErrorHandlerN10054();
 
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     oldChild = elem.firstChild;
@@ -12686,7 +13271,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize document with two DOM L1 nodes.
@@ -12699,7 +13286,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/WD-charmod-20030822/
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-ERRORS-DOMErrorHandler-handleError
    */
-  handleerror02 : function () {
+  handleerror02: function (test) {
     var success;
     var doc;
     var docElem;
@@ -12715,7 +13302,7 @@ exports.tests = {
     errorHandler = new DOMErrorHandlerN10053(errors);
 
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     domConfig.setParameter("error-handler", errorHandler.handleError);
@@ -12728,7 +13315,9 @@ exports.tests = {
     doc.normalizeDocument();
     assertSize("twoErrors",2,errors);
 
+    test.done()
   },
+
   /**
    *
    DOMImplementation.hasFeature("XML", "3.0") should return true.
@@ -12736,7 +13325,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-5CED94D7
    */
-  hasFeature01 : function () {
+  hasFeature01: function (test) {
     var success;
     var impl;
     var state;
@@ -12744,7 +13333,9 @@ exports.tests = {
     state = impl.hasFeature("xMl","3.0");
     assertTrue("hasXML30",state);
 
+    test.done()
   },
+
   /**
    *
    DOMImplementation.hasFeature("XML", "3.0") should return true.
@@ -12752,7 +13343,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-5CED94D7
    */
-  hasFeature02 : function () {
+  hasFeature02: function (test) {
     var success;
     var impl;
     var state;
@@ -12760,7 +13351,9 @@ exports.tests = {
     state = impl.hasFeature("cOrE","3.0");
     assertTrue("hasCore30",state);
 
+    test.done()
   },
+
   /**
    *
    DOMImplementation.hasFeature("XML", "3.0") should return true.
@@ -12768,7 +13361,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-5CED94D7
    */
-  hasFeature03 : function () {
+  hasFeature03: function (test) {
     var success;
     var impl;
     var state;
@@ -12776,7 +13369,9 @@ exports.tests = {
     state = impl.hasFeature("+cOrE","3.0");
     assertTrue("hasPlusCore30",state);
 
+    test.done()
   },
+
   /**
    *
    DOMImplementation.hasFeature("XML", "3.0") should return true.
@@ -12784,7 +13379,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-5CED94D7
    */
-  hasFeature04 : function () {
+  hasFeature04: function (test) {
     var success;
     var impl;
     var state;
@@ -12792,7 +13387,9 @@ exports.tests = {
     state = impl.hasFeature("+xMl","3.0");
     assertTrue("hasXML30",state);
 
+    test.done()
   },
+
   /**
    *
    Normalize document with infoset set to true, check that
@@ -12802,7 +13399,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-infoset
    */
-  infoset01 : function () {
+  infoset01: function (test) {
     var success;
     var doc;
     var pList;
@@ -12820,7 +13417,7 @@ exports.tests = {
     var ent2;
     var doctype;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     domConfig.setParameter("infoset", true);
@@ -12849,7 +13446,9 @@ exports.tests = {
     ent2 = entities.getNamedItem("ent2");
     assertNotNull("ent2NotNull",ent2);
 
+    test.done()
   },
+
   /**
    *
    Normalize document with infoset set to true, check that
@@ -12859,7 +13458,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-infoset
    */
-  infoset02 : function () {
+  infoset02: function (test) {
     var success;
     var doc;
     var pList;
@@ -12874,7 +13473,7 @@ exports.tests = {
     var entRef;
     var childType;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     domConfig.setParameter("infoset", true);
@@ -12897,7 +13496,9 @@ exports.tests = {
 
     assertEquals("lastChildName","ent3",childName);
 
+    test.done()
   },
+
   /**
    *
    Normalize document with infoset set to true,
@@ -12907,7 +13508,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-infoset
    */
-  infoset03 : function () {
+  infoset03: function (test) {
     var success;
     var doc;
     var elemList;
@@ -12923,7 +13524,7 @@ exports.tests = {
     var childValue;
     var childLength;
 
-    doc = load(docRef, "doc", "datatype_normalization2");
+    doc = datatype_normalization2.datatype_normalization2();
     domConfig = doc.domConfig;
 
     canSetValidate = domConfig.canSetParameter("validate",true);
@@ -12963,7 +13564,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize a document with a created CDATA section with the
@@ -12975,7 +13578,7 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=416
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-infoset
    */
-  infoset04 : function () {
+  infoset04: function (test) {
     var success;
     var doc;
     var elem;
@@ -12990,7 +13593,7 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     pList = doc.getElementsByTagName("p");
     elem = pList.item(0);
     newCdata = doc.createCDATASection("CDATA");
@@ -13012,7 +13615,9 @@ exports.tests = {
 
     assertEquals("normalizedValue","barCDATA",nodeValue);
 
+    test.done()
   },
+
   /**
    *
    Normalize document with infoset set to true, check that
@@ -13022,7 +13627,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-infoset
    */
-  infoset05 : function () {
+  infoset05: function (test) {
     var success;
     var doc;
     var docElem;
@@ -13031,7 +13636,7 @@ exports.tests = {
 
     var xmlnsAttr;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     domConfig.setParameter("infoset", true);
@@ -13043,7 +13648,9 @@ exports.tests = {
     xmlnsAttr = docElem.getAttributeNode("xmlns");
     assertNotNull("xmlnsAttrNotNull",xmlnsAttr);
 
+    test.done()
   },
+
   /**
    *
    Create a document with an XML 1.1 valid but XML 1.0 invalid element and
@@ -13053,7 +13660,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-infoset
    */
-  infoset06 : function () {
+  infoset06: function (test) {
     var success;
     var domImpl;
     var nullString = null;
@@ -13130,7 +13737,9 @@ exports.tests = {
     }
     assertSize("oneError",1,errors);
 
+    test.done()
   },
+
   /**
    *
    Create a document with an XML 1.1 valid but XML 1.0 invalid attribute and
@@ -13140,7 +13749,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-infoset
    */
-  infoset07 : function () {
+  infoset07: function (test) {
     var success;
     var domImpl;
     var nullDoctype = null;
@@ -13218,7 +13827,9 @@ exports.tests = {
     }
     assertSize("oneError",1,errors);
 
+    test.done()
   },
+
   /**
    *
    Normalize document with infoset and validation set to true, check that
@@ -13228,7 +13839,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-infoset
    */
-  infoset08 : function () {
+  infoset08: function (test) {
     var success;
     var doc;
     var bodyList;
@@ -13242,7 +13853,7 @@ exports.tests = {
     var childName;
     var text;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     domConfig.setParameter("infoset", true);
@@ -13276,7 +13887,9 @@ exports.tests = {
 
     assertEquals("secondChild","p",childName);
 
+    test.done()
   },
+
   /**
    *
    Append a Comment node and normalize with "infoset" set to true.
@@ -13286,7 +13899,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-infoset
    */
-  infoset09 : function () {
+  infoset09: function (test) {
     var success;
     var doc;
     var elem;
@@ -13300,7 +13913,7 @@ exports.tests = {
 
     var pList;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     pList = doc.getElementsByTagName("p");
     elem = pList.item(0);
     newComment = doc.createComment("COMMENT_NODE");
@@ -13320,7 +13933,9 @@ exports.tests = {
 
     assertEquals("commentPreserved","#comment",nodeName);
 
+    test.done()
   },
+
   /**
    *
    Normalize document with namespace-declarations set to true, check that
@@ -13330,7 +13945,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-namespace-declarations
    */
-  namespacedeclarations01 : function () {
+  namespacedeclarations01: function (test) {
     var success;
     var doc;
     var docElem;
@@ -13339,7 +13954,7 @@ exports.tests = {
 
     var xmlnsAttr;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     domConfig.setParameter("namespace-declarations", true);
@@ -13351,7 +13966,9 @@ exports.tests = {
     xmlnsAttr = docElem.getAttributeNode("xmlns");
     assertNotNull("xmlnsAttrNotNull",xmlnsAttr);
 
+    test.done()
   },
+
   /**
    *
    Normalize document with namespace-declarations set to true, check that
@@ -13361,7 +13978,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-namespace-declarations
    */
-  namespacedeclarations02 : function () {
+  namespacedeclarations02: function (test) {
     var success;
     var doc;
     var docElem;
@@ -13370,7 +13987,7 @@ exports.tests = {
 
     var xmlnsAttr;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     domConfig.setParameter("namespace-declarations", false);
@@ -13382,7 +13999,9 @@ exports.tests = {
     xmlnsAttr = docElem.getAttributeNode("xmlns");
     assertNull("xmlnsAttrNull",xmlnsAttr);
 
+    test.done()
   },
+
   /**
    *
    An attempt to add a second doctype node should result in a HIERARCHY_REQUEST_ERR
@@ -13391,7 +14010,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-184E7107
    */
-  nodeappendchild01 : function () {
+  nodeappendchild01: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -13404,7 +14023,7 @@ exports.tests = {
     var tagName;
     var docElem;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     docElem = doc.documentElement;
 
     tagName = docElem.tagName;
@@ -13431,7 +14050,9 @@ exports.tests = {
       }
     }
 
+    test.done()
   },
+
   /**
    *
    An attempt to add a second document element should result in a HIERARCHY_REQUEST_ERR
@@ -13440,7 +14061,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-184E7107
    */
-  nodeappendchild02 : function () {
+  nodeappendchild02: function (test) {
     var success;
     var doc;
     var newElem;
@@ -13449,7 +14070,7 @@ exports.tests = {
     var rootNS;
     var docElem;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     docElem = doc.documentElement;
 
     tagName = docElem.tagName;
@@ -13477,7 +14098,9 @@ exports.tests = {
       }
     }
 
+    test.done()
   },
+
   /**
    *
 
@@ -13490,14 +14113,14 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition01 : function () {
+  nodecomparedocumentposition01: function (test) {
     var success;
     var doc;
     var docType;
     var documentPositionDoc;
     var documentPositionDocType;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     documentPositionDoc = doc.compareDocumentPosition(docType);
@@ -13505,7 +14128,9 @@ exports.tests = {
     documentPositionDocType = docType.compareDocumentPosition(doc);
     assertEquals("nodecomparetreepositionContainsPRECEDING01",10,documentPositionDocType);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition to check if a Document node contains and precedes its new DocumentType and
@@ -13515,7 +14140,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition02 : function () {
+  nodecomparedocumentposition02: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -13530,7 +14155,7 @@ exports.tests = {
     var replaced;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     rootName = docType.name;
@@ -13543,7 +14168,9 @@ exports.tests = {
     documentPositionDocType = newDocType.compareDocumentPosition(doc);
     assertEquals("nodecomparedocumentpositionContainsPRECEDING02",10,documentPositionDocType);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition check if the document position of two Document nodes obtained from the
@@ -13554,7 +14181,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition03 : function () {
+  nodecomparedocumentposition03: function (test) {
     var success;
     var doc;
     var docComp;
@@ -13562,13 +14189,9 @@ exports.tests = {
     var documentPosition2;
     var documentPosition3;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
-    var docCompRef = null;
-    if (typeof(this.docComp) != 'undefined') {
-      docCompRef = this.docComp;
-    }
-    docComp = load(docCompRef, "docComp", "hc_staff");
+    docComp = hc_staff.hc_staff();
     documentPosition1 = doc.compareDocumentPosition(docComp);
     assertEquals("isImplSpecificDisconnected1",33,documentPosition1);
     documentPosition2 = docComp.compareDocumentPosition(doc);
@@ -13578,7 +14201,9 @@ exports.tests = {
     documentPosition3 = doc.compareDocumentPosition(docComp);
     assertEquals("isConsistent",documentPosition1,documentPosition3);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition to check that no flags are set in return when the document position of a
@@ -13588,16 +14213,18 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition04 : function () {
+  nodecomparedocumentposition04: function (test) {
     var success;
     var doc;
     var documentPosition;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     documentPosition = doc.compareDocumentPosition(doc);
     assertEquals("nodecomparedocumentpositionNoFlags04",0,documentPosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition check if the document position of a Document and a new Document node
@@ -13607,7 +14234,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition05 : function () {
+  nodecomparedocumentposition05: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -13621,7 +14248,7 @@ exports.tests = {
     var rootNS;
     var docElem;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     docElem = doc.documentElement;
 
     rootName = docElem.tagName;
@@ -13639,7 +14266,9 @@ exports.tests = {
     documentPosition3 = doc.compareDocumentPosition(newDoc);
     assertEquals("isConsistent",documentPosition1,documentPosition3);
 
+    test.done()
   },
+
   /**
    *
 
@@ -13652,14 +14281,14 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition06 : function () {
+  nodecomparedocumentposition06: function (test) {
     var success;
     var doc;
     var docElem;
     var documentPositionDoc;
     var documentPositionDocElem;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     documentPositionDoc = doc.compareDocumentPosition(docElem);
@@ -13667,7 +14296,9 @@ exports.tests = {
     documentPositionDocElem = docElem.compareDocumentPosition(doc);
     assertEquals("nodecomparedocumentpotionContainsPRECEDING06",10,documentPositionDocElem);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition check if the document compared contains and precedes the new
@@ -13677,7 +14308,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition07 : function () {
+  nodecomparedocumentposition07: function (test) {
     var success;
     var doc;
     var docElem;
@@ -13686,7 +14317,7 @@ exports.tests = {
     var documentElementPosition;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     newElem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
@@ -13696,7 +14327,9 @@ exports.tests = {
     documentElementPosition = newElem.compareDocumentPosition(doc);
     assertEquals("nodecomparedocumentpositionContainedPRECEDING07",10,documentElementPosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition check if the Document node contains and precedes an Element,
@@ -13706,7 +14339,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition08 : function () {
+  nodecomparedocumentposition08: function (test) {
     var success;
     var doc;
     var elem;
@@ -13714,7 +14347,7 @@ exports.tests = {
     var documentPosition;
     var elementPosition;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
     documentPosition = doc.compareDocumentPosition(elem);
@@ -13722,7 +14355,9 @@ exports.tests = {
     elementPosition = elem.compareDocumentPosition(doc);
     assertEquals("nodecomparedocumentpositionContainsPRECEDING08",10,elementPosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition check if the Element node is contained and follows the appended Document node, and
@@ -13732,7 +14367,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition09 : function () {
+  nodecomparedocumentposition09: function (test) {
     var success;
     var doc;
     var elem;
@@ -13742,7 +14377,7 @@ exports.tests = {
     var documentElementPosition;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
     newElem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
@@ -13752,7 +14387,9 @@ exports.tests = {
     documentElementPosition = newElem.compareDocumentPosition(doc);
     assertEquals("nodecomparedocumentpositionContainsPRECEDING09",10,documentElementPosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition check if the document node precedes and contains its default Attr node.
@@ -13761,7 +14398,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition10 : function () {
+  nodecomparedocumentposition10: function (test) {
     var success;
     var doc;
     var elem;
@@ -13769,7 +14406,7 @@ exports.tests = {
     var elemList;
     var attrPosition;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
     elemList = elem.getElementsByTagName("acronym")
@@ -13778,7 +14415,9 @@ exports.tests = {
     attrPosition = dir.compareDocumentPosition(doc);
     assertEquals("nodecomparedocumentpositionPRECEDINGContains10",10,attrPosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition check if the Document node precedes and contains the Attr node.
@@ -13787,7 +14426,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition11 : function () {
+  nodecomparedocumentposition11: function (test) {
     var success;
     var doc;
     var elem;
@@ -13797,7 +14436,7 @@ exports.tests = {
     var attrPosition;
     var replacedAttr;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
     newAttr = doc.createAttribute("title");
@@ -13805,7 +14444,9 @@ exports.tests = {
     attrPosition = newAttr.compareDocumentPosition(doc);
     assertEquals("nodecomparedocumentpositionPRECEDINGContains11",10,attrPosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition to check if a new ProcessingInstruction node is contained and follows the
@@ -13815,7 +14456,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition12 : function () {
+  nodecomparedocumentposition12: function (test) {
     var success;
     var doc;
     var pi;
@@ -13823,7 +14464,7 @@ exports.tests = {
     var piPosition;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     pi = doc.createProcessingInstruction("PITarget","PIDATA");
     appendedChild = doc.appendChild(pi);
     documentPosition = doc.compareDocumentPosition(pi);
@@ -13831,7 +14472,9 @@ exports.tests = {
     piPosition = pi.compareDocumentPosition(doc);
     assertEquals("nodecomparedocumentpositionContainsPRECEDING12",10,piPosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition check if the Document node contains and precedes the new Comment node,
@@ -13841,7 +14484,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition13 : function () {
+  nodecomparedocumentposition13: function (test) {
     var success;
     var doc;
     var comment;
@@ -13851,7 +14494,7 @@ exports.tests = {
     var commentPosition;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     comment = doc.createComment("Another Comment");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
@@ -13861,7 +14504,9 @@ exports.tests = {
     commentPosition = comment.compareDocumentPosition(doc);
     assertEquals("nodecomparedocumentpositionContainsPRECEDING13",10,commentPosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition check if the DocumentFragment node contains and precedes 	an Element
@@ -13871,7 +14516,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition14 : function () {
+  nodecomparedocumentposition14: function (test) {
     var success;
     var doc;
     var docFrag;
@@ -13881,7 +14526,7 @@ exports.tests = {
     var docFragChildPosition;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     docFrag = doc.createDocumentFragment();
@@ -13893,7 +14538,9 @@ exports.tests = {
     docFragChildPosition = docFragChild.compareDocumentPosition(docFrag);
     assertEquals("nodecomparedocumentpositionIsContainedFollowing14",10,docFragChildPosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition check if the Element node precedes and contains its Attr child, and that the Attr child
@@ -13903,7 +14550,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition15 : function () {
+  nodecomparedocumentposition15: function (test) {
     var success;
     var doc;
     var docFrag;
@@ -13915,7 +14562,7 @@ exports.tests = {
     var appendedChild;
     var attrNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     docFrag = doc.createDocumentFragment();
@@ -13929,7 +14576,9 @@ exports.tests = {
     attrPosition = attr.compareDocumentPosition(docFragChild);
     assertEquals("nodecomparedocumentpositionPRECEEDINGContains15",10,attrPosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition check if the document position of a DocumentFragment node compared with
@@ -13940,7 +14589,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition16 : function () {
+  nodecomparedocumentposition16: function (test) {
     var success;
     var doc;
     var docFrag;
@@ -13951,7 +14600,7 @@ exports.tests = {
     var position2;
     var position3;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFrag = doc.createDocumentFragment();
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     attrCloned = attr.cloneNode(true);
@@ -13964,7 +14613,9 @@ exports.tests = {
     position3 = docFrag.compareDocumentPosition(attrCloned);
     assertEquals("isConsistent",position1,position3);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition check if the document position of the first ProcessingInstruction node compared to
@@ -13974,7 +14625,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition17 : function () {
+  nodecomparedocumentposition17: function (test) {
     var success;
     var doc;
     var pi1;
@@ -13983,7 +14634,7 @@ exports.tests = {
     var pi2Position;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     pi1 = doc.createProcessingInstruction("PI1","");
     pi2 = doc.createProcessingInstruction("PI2","");
     appendedChild = doc.appendChild(pi1);
@@ -13993,7 +14644,9 @@ exports.tests = {
     pi2Position = pi2.compareDocumentPosition(pi1);
     assertEquals("nodecomparedocumentpositionPRECEDING17",2,pi2Position);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition check if the document position of the first new Text node compared to the
@@ -14003,7 +14656,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition18 : function () {
+  nodecomparedocumentposition18: function (test) {
     var success;
     var doc;
     var docElem;
@@ -14013,7 +14666,7 @@ exports.tests = {
     var txt2Position;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     txt1 = doc.createTextNode("T1");
@@ -14025,7 +14678,9 @@ exports.tests = {
     txt2Position = txt2.compareDocumentPosition(txt1);
     assertEquals("nodecomparedocumentpositionPRECEDING18",2,txt2Position);
 
+    test.done()
   },
+
   /**
    *
    The method compareDocumentPosition compares a node with this node with regard to their position in the
@@ -14039,7 +14694,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition19 : function () {
+  nodecomparedocumentposition19: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14050,7 +14705,7 @@ exports.tests = {
     var cdata1Position;
     var cdata2Position;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagNameNS("*","strong");
     elemStrong = elemList.item(1);
     cdata2 = elemStrong.lastChild;
@@ -14064,7 +14719,9 @@ exports.tests = {
     cdata2Position = cdata2.compareDocumentPosition(cdata1);
     assertEquals("nodecomparedocumentposition_cdata1Precedes",2,cdata2Position);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition check if the document position of the first Text node
@@ -14075,7 +14732,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition20 : function () {
+  nodecomparedocumentposition20: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14085,7 +14742,7 @@ exports.tests = {
     var txtPosition;
     var cdataPosition;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     elemName = elemList.item(1);
     txt = elemName.firstChild;
@@ -14097,7 +14754,9 @@ exports.tests = {
     cdataPosition = cdata.compareDocumentPosition(txt);
     assertEquals("nodecomparedocumentpositionPRECEDING20",2,cdataPosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition check the document position of the text node of the fist and second elements
@@ -14109,7 +14768,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition21 : function () {
+  nodecomparedocumentposition21: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14120,7 +14779,7 @@ exports.tests = {
     var txt1Position;
     var txt2Position;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     elemName1 = elemList.item(0);
     elemName2 = elemList.item(1);
@@ -14133,7 +14792,9 @@ exports.tests = {
     txt2Position = txt2.compareDocumentPosition(txt1);
     assertEquals("nodecomparedocumentpositionPRECEDING21",2,txt2Position);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition check if the Entity node precedes the Notation node and the Notation
@@ -14143,7 +14804,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition22 : function () {
+  nodecomparedocumentposition22: function (test) {
     var success;
     var doc;
     var docType;
@@ -14154,7 +14815,7 @@ exports.tests = {
     var entityPosition;
     var notationPosition;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -14168,7 +14829,9 @@ exports.tests = {
     notationPosition = notation.compareDocumentPosition(entity);
     assertEquals("nodecomparedocumentpositionPRECEDING22",2,notationPosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition check if the document position of an Entity node compared to another
@@ -14178,7 +14841,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition23 : function () {
+  nodecomparedocumentposition23: function (test) {
     var success;
     var doc;
     var docType;
@@ -14189,7 +14852,7 @@ exports.tests = {
     var position2;
     var position3;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -14205,7 +14868,9 @@ exports.tests = {
     position3 = entity.compareDocumentPosition(entity2);
     assertEquals("isConsistent",position1,position3);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition check if the return value of document position of a Notation node compared to another
@@ -14215,7 +14880,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition24 : function () {
+  nodecomparedocumentposition24: function (test) {
     var success;
     var doc;
     var docType;
@@ -14224,7 +14889,7 @@ exports.tests = {
     var notation2;
     var notationPosition;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     notaionsMap = docType.notations;
@@ -14234,7 +14899,9 @@ exports.tests = {
     notationPosition = notation.compareDocumentPosition(notation2);
     assertEquals("nodecomparedocumentposition24",0,notationPosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition check if the EntityReference or Text node is contained and follows its
@@ -14245,7 +14912,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition25 : function () {
+  nodecomparedocumentposition25: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14254,7 +14921,7 @@ exports.tests = {
     var elementPosition;
     var entRefPosition;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("var");
     elemName = elemList.item(2);
     entRef = elemName.firstChild;
@@ -14264,7 +14931,9 @@ exports.tests = {
     entRefPosition = entRef.compareDocumentPosition(elemName);
     assertEquals("nodecomparedocumentpositionContainsPRECEDING25",10,entRefPosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition check if the EntityReference node contains and precedes it's first
@@ -14274,7 +14943,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition26 : function () {
+  nodecomparedocumentposition26: function (test) {
     var success;
     var doc;
     var varList;
@@ -14284,7 +14953,7 @@ exports.tests = {
     var entRefPosition;
     var entRefChild1Position;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     if(
       (getImplementationAttribute("expandEntityReferences") == false)
@@ -14310,7 +14979,9 @@ exports.tests = {
     entRefChild1Position = entRefChild1.compareDocumentPosition(entRef);
     assertEquals("nodecomparedocumentpositionContainsPRECEDING26",10,entRefChild1Position);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition to check if the EntityReference node contains and precedes it's last
@@ -14320,7 +14991,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition27 : function () {
+  nodecomparedocumentposition27: function (test) {
     var success;
     var doc;
     var varList;
@@ -14330,7 +15001,7 @@ exports.tests = {
     var entRefPosition;
     var entRefChild1Position;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     if(
       (getImplementationAttribute("expandEntityReferences") == false)
@@ -14356,7 +15027,9 @@ exports.tests = {
     entRefChild1Position = entRefChild1.compareDocumentPosition(entRef);
     assertEquals("nodecomparedocumentpositionContainsPRECEDING",10,entRefChild1Position);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition check the document position of the EntityReference node ent4's
@@ -14367,7 +15040,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition28 : function () {
+  nodecomparedocumentposition28: function (test) {
     var success;
     var doc;
     var varList;
@@ -14378,7 +15051,7 @@ exports.tests = {
     var entRefChild1Position;
     var entRefChild2Position;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     if(
       (getImplementationAttribute("expandEntityReferences") == false)
@@ -14407,7 +15080,9 @@ exports.tests = {
     entRefChild2Position = entRefChild2.compareDocumentPosition(entRefChild1);
     assertEquals("nodecomparedocumentpositionPRECEDING28",2,entRefChild2Position);
 
+    test.done()
   },
+
   /**
    *
    Create two entity reference nodes. Using compareDocumentPosition to check if the child of the first Entity
@@ -14418,7 +15093,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition29 : function () {
+  nodecomparedocumentposition29: function (test) {
     var success;
     var doc;
     var docElem;
@@ -14430,7 +15105,7 @@ exports.tests = {
     var entRefChild2Position;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     entRef1 = doc.createEntityReference("ent4");
     entRef2 = doc.createEntityReference("ent4");
     docElem = doc.documentElement;
@@ -14448,7 +15123,9 @@ exports.tests = {
     entRefChild2Position = entRefChild2.compareDocumentPosition(entRefChild1);
     assertEquals("nodecomparedocumentpositionPRECEDING29",2,entRefChild2Position);
 
+    test.done()
   },
+
   /**
    *
    Using compareTreePosition check if comparedocumentposition invoked on the first name with
@@ -14458,7 +15135,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition30 : function () {
+  nodecomparedocumentposition30: function (test) {
     var success;
     var doc;
     var nameList;
@@ -14467,7 +15144,7 @@ exports.tests = {
     var code;
     var namePosition;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     nameList = doc.getElementsByTagName("strong");
     strong = nameList.item(0);
     positionList = doc.getElementsByTagName("code");
@@ -14475,7 +15152,9 @@ exports.tests = {
     namePosition = code.compareDocumentPosition(strong);
     assertEquals("nodecomparedocumentpositionFollowing30",2,namePosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition to check if invoking the method on the first name node with
@@ -14485,7 +15164,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition31 : function () {
+  nodecomparedocumentposition31: function (test) {
     var success;
     var doc;
     var nameList;
@@ -14497,7 +15176,7 @@ exports.tests = {
     var elemPosition;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     nameList = doc.getElementsByTagName("strong");
     strong = nameList.item(0);
     positionList = doc.getElementsByTagName("code");
@@ -14509,7 +15188,9 @@ exports.tests = {
     elemPosition = newElem.compareDocumentPosition(strong);
     assertEquals("nodecomparedocumentpositionPRECEDING31",2,elemPosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition to check if the document position returned by comparing the first name with
@@ -14519,7 +15200,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition32 : function () {
+  nodecomparedocumentposition32: function (test) {
     var success;
     var doc;
     var doc2;
@@ -14529,7 +15210,7 @@ exports.tests = {
     var code;
     var documentPosition;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     doc2 =  doc;
     nameList = doc.getElementsByTagName("strong");
     strong = nameList.item(0);
@@ -14538,7 +15219,9 @@ exports.tests = {
     documentPosition = strong.compareDocumentPosition(code);
     assertEquals("nodecomparedocumentpositionFollowing32",4,documentPosition);
 
+    test.done()
   },
+
   /**
    *
    Create a new Element node, add a new atttribute node to it.  Compare the position
@@ -14551,7 +15234,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition33 : function () {
+  nodecomparedocumentposition33: function (test) {
     var success;
     var doc;
     var elem;
@@ -14563,7 +15246,7 @@ exports.tests = {
     var position5;
     var replacedAttr;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     replacedAttr = elem.setAttributeNodeNS(attr);
@@ -14580,7 +15263,9 @@ exports.tests = {
     position3 = doc.compareDocumentPosition(elem);
     assertEquals("isConsistent",position1,position3);
 
+    test.done()
   },
+
   /**
    *
    Create a new Element node, add new Text, Element and Processing Instruction nodes to it.
@@ -14591,7 +15276,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition34 : function () {
+  nodecomparedocumentposition34: function (test) {
     var success;
     var doc;
     var elemMain;
@@ -14602,7 +15287,7 @@ exports.tests = {
     var txtToPiPosition;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemMain = doc.createElementNS("http://www.w3.org/1999/xhtml","p");
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
     txt = doc.createTextNode("TEXT");
@@ -14615,7 +15300,9 @@ exports.tests = {
     txtToPiPosition = pi.compareDocumentPosition(txt);
     assertEquals("nodecomparedocumentpositionPRECEDING34",2,txtToPiPosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition to check if the Element contains and precedes its default attribute
@@ -14625,7 +15312,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition35 : function () {
+  nodecomparedocumentposition35: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14634,7 +15321,7 @@ exports.tests = {
     var elementPosition;
     var attrPosition;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
     attr = elem.getAttributeNode("dir");
@@ -14643,7 +15330,9 @@ exports.tests = {
     attrPosition = attr.compareDocumentPosition(elem);
     assertEquals("nodecomparedocumentpositionPRECEDINGContains35",10,attrPosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition to check if the document position of an Attribute compared with
@@ -14654,7 +15343,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition36 : function () {
+  nodecomparedocumentposition36: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14665,7 +15354,7 @@ exports.tests = {
     var attrPosition;
     var elemFollowsPosition;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
     attr = doc.createAttribute("title");
@@ -14677,7 +15366,9 @@ exports.tests = {
     elemFollowsPosition = elemFollows.compareDocumentPosition(attr);
     assertEquals("nodecomparedocumentpositionPRECEEDING36",2,elemFollowsPosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition to check if the document position of the first class attribute
@@ -14688,7 +15379,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition37 : function () {
+  nodecomparedocumentposition37: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14698,7 +15389,7 @@ exports.tests = {
     var attrPosition;
     var txtPosition;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(3);
     attr = elem.getAttributeNode("class");
@@ -14709,7 +15400,9 @@ exports.tests = {
     txtPosition = txt.compareDocumentPosition(attr);
     assertEquals("nodecomparetreepositionPRECEDING37",2,txtPosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition to check if the class's attribute contains and precedes it's content,
@@ -14719,7 +15412,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition38 : function () {
+  nodecomparedocumentposition38: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14729,7 +15422,7 @@ exports.tests = {
     var attrPosition;
     var attrChildPosition;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(3);
     attr = elem.getAttributeNode("class");
@@ -14739,7 +15432,9 @@ exports.tests = {
     attrChildPosition = txt.compareDocumentPosition(attr);
     assertEquals("nodecomparedocumentpositionContainsPRECEDING38",10,attrChildPosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition to check if the document position of the class's attribute
@@ -14749,7 +15444,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition39 : function () {
+  nodecomparedocumentposition39: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14759,7 +15454,7 @@ exports.tests = {
     var attrPosition;
     var swappedPosition;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(3);
     attr1 = elem.getAttributeNode("class");
@@ -14772,7 +15467,9 @@ exports.tests = {
     assert("onlyOnePreceding",swappedPosition != attrPosition);
     assert("onlyOneFollowing",swappedPosition != attrPosition);
 
+    test.done()
   },
+
   /**
    *
    Using compareDocumentPosition to check if the document position of the class's attribute
@@ -14782,7 +15479,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition40 : function () {
+  nodecomparedocumentposition40: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14792,7 +15489,7 @@ exports.tests = {
     var attrPosition;
     var swappedPosition;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(3);
     attr1 = elem.getAttributeNode("class");
@@ -14806,7 +15503,9 @@ exports.tests = {
     assert("onlyOnePreceding",swappedPosition != attrPosition);
     assert("onlyOneFollowing",swappedPosition != attrPosition);
 
+    test.done()
   },
+
   /**
    *
    Call Node.getBaseURI() on a test document.  Should be not-null and same as Document.getDocumentURI().
@@ -14817,13 +15516,13 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=419
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/infoset-mapping#Infoset2Document
    */
-  nodegetbaseuri01 : function () {
+  nodegetbaseuri01: function (test) {
     var success;
     var doc;
     var baseURI;
     var documentURI;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     baseURI = doc.baseURI;
 
     assertURIEquals("notNull",null,null,null,null,"barfoo",null,null,true,baseURI);
@@ -14831,7 +15530,9 @@ exports.tests = {
 
     assertEquals("sameAsDocumentURI",documentURI,baseURI);
 
+    test.done()
   },
+
   /**
    *
    Using getBaseURI check if the baseURI attribute of a new Document node is null
@@ -14843,7 +15544,7 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=419
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/infoset-mapping#Infoset2Document
    */
-  nodegetbaseuri02 : function () {
+  nodegetbaseuri02: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -14855,7 +15556,7 @@ exports.tests = {
     var nullDocType = null;
 
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -14873,7 +15574,9 @@ exports.tests = {
 
     assertEquals("baseURISameAsDocURI","http://www.example.com/sample.xml".toLowerCase(),baseURI.toLowerCase());
 
+    test.done()
   },
+
   /**
    *
    Check that Node.baseURI is null for a DocumentType as defined in the Infoset Mapping (Appendix C).
@@ -14884,20 +15587,22 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=419
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/infoset-mapping#Infoset2DocumentType
    */
-  nodegetbaseuri03 : function () {
+  nodegetbaseuri03: function (test) {
     var success;
     var doc;
     var docType;
     var baseURI;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     docType = doc.doctype;
 
     baseURI = docType.baseURI;
 
     assertNull("nodegetbaseuri03",baseURI);
 
+    test.done()
   },
+
   /**
    *
    Node.baseURI for a document element without an xml:base attribute should be same as Document.documentURI.
@@ -14908,14 +15613,14 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=419
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/infoset-mapping#Infoset2Document
    */
-  nodegetbaseuri04 : function () {
+  nodegetbaseuri04: function (test) {
     var success;
     var doc;
     var docElem;
     var baseURI;
     var documentURI;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     docElem = doc.documentElement;
 
     baseURI = docElem.baseURI;
@@ -14925,7 +15630,9 @@ exports.tests = {
 
     assertEquals("baseURIEqualsDocURI",documentURI,baseURI);
 
+    test.done()
   },
+
   /**
    *
    Using getBaseURI check if the baseURI attribute of this DocumentElement is http://www.w3.org/DOM/L3Test.
@@ -14936,20 +15643,22 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=419
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/infoset-mapping#Infoset2Element
    */
-  nodegetbaseuri05 : function () {
+  nodegetbaseuri05: function (test) {
     var success;
     var doc;
     var docElem;
     var baseURI;
 
-    doc = load(docRef, "doc", "barfoo_base");
+    doc = barfoo_base.barfoo_base();
     docElem = doc.documentElement;
 
     baseURI = docElem.baseURI;
 
     assertEquals("nodegetbaseuri05","http://www.w3.org/DOM/L3Test",baseURI);
 
+    test.done()
   },
+
   /**
    *
    TODO Clarification: Create a new Element in this document.  Since its baseURI should be the baseURI of
@@ -14962,19 +15671,21 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=419
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/infoset-mapping#Infoset2Element
    */
-  nodegetbaseuri06 : function () {
+  nodegetbaseuri06: function (test) {
     var success;
     var doc;
     var newElement;
     var baseURI;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     newElement = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
     baseURI = doc.baseURI;
 
     assertNotNull("nodegetbaseuri06",baseURI);
 
+    test.done()
   },
+
   /**
    *
    Append a created element to a document and check that its baseURI
@@ -14986,7 +15697,7 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=419
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/infoset-mapping#Infoset2Element
    */
-  nodegetbaseuri07 : function () {
+  nodegetbaseuri07: function (test) {
     var success;
     var doc;
     var newElement;
@@ -14996,7 +15707,7 @@ exports.tests = {
     var bodyElem;
     var htmlNS = "http://www.w3.org/1999/xhtml";
 
-    doc = load(docRef, "doc", "barfoo_base");
+    doc = barfoo_base.barfoo_base();
     bodyList = doc.getElementsByTagName("body");
     bodyElem = bodyList.item(0);
     newElement = doc.createElementNS(htmlNS,"meta");
@@ -15006,7 +15717,9 @@ exports.tests = {
 
     assertEquals("nodegetbaseuri07","http://www.w3.org/DOM/EmployeeID",baseURI);
 
+    test.done()
   },
+
   /**
    *
    Get the baseURI value on an element with an explicit xml:base attribute.
@@ -15017,21 +15730,23 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=419
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/infoset-mapping#Infoset2Element
    */
-  nodegetbaseuri09 : function () {
+  nodegetbaseuri09: function (test) {
     var success;
     var doc;
     var bodyElem;
     var bodyList;
     var baseURI;
 
-    doc = load(docRef, "doc", "barfoo_base");
+    doc = barfoo_base.barfoo_base();
     bodyList = doc.getElementsByTagName("body");
     bodyElem = bodyList.item(0);
     baseURI = bodyElem.baseURI;
 
     assertEquals("nodegetbaseuri09","http://www.w3.org/DOM/EmployeeID",baseURI);
 
+    test.done()
   },
+
   /**
    *
    Append as a child of this documentElement a new Processing Instruction.  Using getBaseURI
@@ -15043,7 +15758,7 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=419
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/infoset-mapping#Infoset2ProcessingInstruction
    */
-  nodegetbaseuri10 : function () {
+  nodegetbaseuri10: function (test) {
     var success;
     var doc;
     var docElem;
@@ -15051,7 +15766,7 @@ exports.tests = {
     var baseURI;
     var appendedChild;
 
-    doc = load(docRef, "doc", "barfoo_base");
+    doc = barfoo_base.barfoo_base();
     docElem = doc.documentElement;
 
     newPI = doc.createProcessingInstruction("TARGET","DATA");
@@ -15060,7 +15775,9 @@ exports.tests = {
 
     assertEquals("nodegetbaseuri10","http://www.w3.org/DOM/L3Test",baseURI);
 
+    test.done()
   },
+
   /**
    *
    Import a new Processing Instruction of a new Document after the document element.  Using getBaseURI
@@ -15072,7 +15789,7 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=419
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/infoset-mapping#Infoset2ProcessingInstruction
    */
-  nodegetbaseuri11 : function () {
+  nodegetbaseuri11: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -15085,7 +15802,7 @@ exports.tests = {
     var nullDocType = null;
 
 
-    doc = load(docRef, "doc", "barfoo_base");
+    doc = barfoo_base.barfoo_base();
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument("http://www.w3.org/1999/xhtml","html",nullDocType);
     newPI = newDoc.createProcessingInstruction("TARGET","DATA");
@@ -15098,7 +15815,9 @@ exports.tests = {
 
     assertEquals("equalsDocURI",docURI,baseURI);
 
+    test.done()
   },
+
   /**
    *
    Using getBaseURI verify if the entity epsilon is absolute
@@ -15110,7 +15829,7 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=419
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/infoset-mapping#Infoset2Entity
    */
-  nodegetbaseuri12 : function () {
+  nodegetbaseuri12: function (test) {
     var success;
     var doc;
     var docType;
@@ -15118,7 +15837,7 @@ exports.tests = {
     var entity;
     var baseURI;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -15128,7 +15847,9 @@ exports.tests = {
 
     assertURIEquals("entityBase",null,null,null,null,"hc_staff",null,null,true,baseURI);
 
+    test.done()
   },
+
   /**
    *
    Using getBaseURI verify if the notation defined in an internal subset
@@ -15140,7 +15861,7 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=419
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/infoset-mapping#Infoset2Notation
    */
-  nodegetbaseuri13 : function () {
+  nodegetbaseuri13: function (test) {
     var success;
     var doc;
     var docType;
@@ -15149,7 +15870,7 @@ exports.tests = {
     var baseURI;
     var docURI;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     notationsMap = docType.notations;
@@ -15162,7 +15883,9 @@ exports.tests = {
     assertEquals("sameAsDocURI",docURI,baseURI);
     assertURIEquals("entityBase",null,null,null,null,"hc_staff",null,null,true,baseURI);
 
+    test.done()
   },
+
   /**
    *
    Using getBaseURI verify if the imported notation notation2 is null.
@@ -15173,7 +15896,7 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=419
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/infoset-mapping#Infoset2Notation
    */
-  nodegetbaseuri14 : function () {
+  nodegetbaseuri14: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -15189,7 +15912,7 @@ exports.tests = {
     var nullDocType = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     docElemNS = docElem.namespaceURI;
@@ -15208,7 +15931,9 @@ exports.tests = {
 
     assertNull("nodegetbaseuri14",baseURI);
 
+    test.done()
   },
+
   /**
    *
    Node.getBaseURI for an Attr is null.
@@ -15219,7 +15944,7 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=419
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/infoset-mapping#Infoset2Attr
    */
-  nodegetbaseuri15 : function () {
+  nodegetbaseuri15: function (test) {
     var success;
     var doc;
     var baseURI;
@@ -15227,7 +15952,7 @@ exports.tests = {
     var bodyList;
     var bodyElem;
 
-    doc = load(docRef, "doc", "barfoo_base");
+    doc = barfoo_base.barfoo_base();
     bodyList = doc.getElementsByTagName("body");
     bodyElem = bodyList.item(0);
     attrNode = bodyElem.getAttributeNode("id");
@@ -15235,7 +15960,9 @@ exports.tests = {
 
     assertNull("baseURI",baseURI);
 
+    test.done()
   },
+
   /**
    *
    Node.getBaseURI for an EntityReference to should be the baseURI where the entity declaration occurs.
@@ -15246,7 +15973,7 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=419
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/infoset-mapping#Infoset2EntityReference
    */
-  nodegetbaseuri16 : function () {
+  nodegetbaseuri16: function (test) {
     var success;
     var doc;
     var baseURI;
@@ -15254,7 +15981,7 @@ exports.tests = {
     var pList;
     var pElem;
 
-    doc = load(docRef, "doc", "external_barfoo");
+    doc = external_barfoo.external_barfoo();
     pList = doc.getElementsByTagName("p");
     pElem = pList.item(0);
     entRef = pElem.lastChild;
@@ -15263,7 +15990,9 @@ exports.tests = {
 
     assertURIEquals("baseURI",null,null,null,null,"external_barfoo",null,null,true,baseURI);
 
+    test.done()
   },
+
   /**
    *
    Node.getBaseURI for an text node is null.
@@ -15274,7 +16003,7 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=419
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/infoset-mapping#Infoset2Text
    */
-  nodegetbaseuri17 : function () {
+  nodegetbaseuri17: function (test) {
     var success;
     var doc;
     var baseURI;
@@ -15282,7 +16011,7 @@ exports.tests = {
     var pList;
     var pElem;
 
-    doc = load(docRef, "doc", "barfoo_base");
+    doc = barfoo_base.barfoo_base();
     pList = doc.getElementsByTagName("p");
     pElem = pList.item(0);
     textNode = pElem.firstChild;
@@ -15291,7 +16020,9 @@ exports.tests = {
 
     assertNull("baseURI",baseURI);
 
+    test.done()
   },
+
   /**
    *
    Node.getBaseURI for an comment node is null.
@@ -15302,7 +16033,7 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=419
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/infoset-mapping#Infoset2Comment
    */
-  nodegetbaseuri18 : function () {
+  nodegetbaseuri18: function (test) {
     var success;
     var doc;
     var baseURI;
@@ -15310,7 +16041,7 @@ exports.tests = {
     var pList;
     var pElem;
 
-    doc = load(docRef, "doc", "barfoo_base");
+    doc = barfoo_base.barfoo_base();
     pList = doc.getElementsByTagName("p");
     pElem = pList.item(0);
     comment = pElem.nextSibling;
@@ -15319,7 +16050,9 @@ exports.tests = {
 
     assertNull("baseURI",baseURI);
 
+    test.done()
   },
+
   /**
    *
    Checks baseURI for a text node is null.
@@ -15331,7 +16064,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/infoset-mapping#Infoset2DocumentType
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/infoset-mapping#Infoset2EntityReference
    */
-  nodegetbaseuri19 : function () {
+  nodegetbaseuri19: function (test) {
     var success;
     var doc;
     var baseURI;
@@ -15341,7 +16074,7 @@ exports.tests = {
     var pElem;
     var textNode;
 
-    doc = load(docRef, "doc", "external_barfoo");
+    doc = external_barfoo.external_barfoo();
     pList = doc.getElementsByTagName("p");
     pElem = pList.item(0);
     assertNotNull("pElemNotNull",pElem);
@@ -15368,7 +16101,9 @@ exports.tests = {
 
     assertNull("baseURI",baseURI);
 
+    test.done()
   },
+
   /**
    *
    baseURI for an element from an entity reference should be the URI of the
@@ -15380,14 +16115,14 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=419
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/infoset-mapping#Infoset2EntityReference
    */
-  nodegetbaseuri20 : function () {
+  nodegetbaseuri20: function (test) {
     var success;
     var doc;
     var baseURI;
     var pList;
     var pElem;
 
-    doc = load(docRef, "doc", "external_barfoo");
+    doc = external_barfoo.external_barfoo();
     pList = doc.getElementsByTagName("p");
     pElem = pList.item(2);
     assertNotNull("pElemNotNull",pElem);
@@ -15395,7 +16130,9 @@ exports.tests = {
 
     assertURIEquals("equalsExternalBarFoo",null,null,null,null,"external_widget",null,null,true,baseURI);
 
+    test.done()
   },
+
   /**
    *
    Check implementation of Node.getFeature on Document.
@@ -15403,7 +16140,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getFeature
    */
-  nodegetfeature01 : function () {
+  nodegetfeature01: function (test) {
     var success;
     var doc;
     var node;
@@ -15413,7 +16150,7 @@ exports.tests = {
     var isSupported;
     var domImpl;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domImpl = doc.implementation;
     node =  doc;
     featureImpl = node.getFeature("Core",nullVersion);
@@ -15510,7 +16247,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Check implementation of Node.getFeature on DocumentFragment.
@@ -15518,7 +16257,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getFeature
    */
-  nodegetfeature02 : function () {
+  nodegetfeature02: function (test) {
     var success;
     var doc;
     var node;
@@ -15528,7 +16267,7 @@ exports.tests = {
     var isSupported;
     var domImpl;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domImpl = doc.implementation;
     node = doc.createDocumentFragment();
     featureImpl = node.getFeature("Core",nullVersion);
@@ -15625,7 +16364,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Check implementation of Node.getFeature on DocumentType.
@@ -15633,7 +16374,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getFeature
    */
-  nodegetfeature03 : function () {
+  nodegetfeature03: function (test) {
     var success;
     var doc;
     var node;
@@ -15643,7 +16384,7 @@ exports.tests = {
     var isSupported;
     var domImpl;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domImpl = doc.implementation;
     node = doc.doctype;
 
@@ -15741,7 +16482,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Check implementation of Node.getFeature on EntityReference.
@@ -15749,7 +16492,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getFeature
    */
-  nodegetfeature04 : function () {
+  nodegetfeature04: function (test) {
     var success;
     var doc;
     var node;
@@ -15759,7 +16502,7 @@ exports.tests = {
     var isSupported;
     var domImpl;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domImpl = doc.implementation;
     node = doc.createEntityReference("ent1");
     featureImpl = node.getFeature("Core",nullVersion);
@@ -15856,7 +16599,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Check implementation of Node.getFeature on Element.
@@ -15864,7 +16609,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getFeature
    */
-  nodegetfeature05 : function () {
+  nodegetfeature05: function (test) {
     var success;
     var doc;
     var node;
@@ -15874,7 +16619,7 @@ exports.tests = {
     var isSupported;
     var domImpl;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domImpl = doc.implementation;
     node = doc.documentElement;
 
@@ -15972,7 +16717,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Check implementation of Node.getFeature on non-namespace attribute.
@@ -15980,7 +16727,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getFeature
    */
-  nodegetfeature06 : function () {
+  nodegetfeature06: function (test) {
     var success;
     var doc;
     var node;
@@ -15990,7 +16737,7 @@ exports.tests = {
     var isSupported;
     var domImpl;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domImpl = doc.implementation;
     node = doc.createAttribute("title");
     featureImpl = node.getFeature("Core",nullVersion);
@@ -16087,7 +16834,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Check implementation of Node.getFeature on namespaced attribute.
@@ -16095,7 +16844,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getFeature
    */
-  nodegetfeature07 : function () {
+  nodegetfeature07: function (test) {
     var success;
     var doc;
     var node;
@@ -16105,7 +16854,7 @@ exports.tests = {
     var isSupported;
     var domImpl;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domImpl = doc.implementation;
     node = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     featureImpl = node.getFeature("Core",nullVersion);
@@ -16202,7 +16951,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Check implementation of Node.getFeature on ProcessingInstruction.
@@ -16211,7 +16962,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getFeature
    */
-  nodegetfeature08 : function () {
+  nodegetfeature08: function (test) {
     var success;
     var doc;
     var node;
@@ -16221,7 +16972,7 @@ exports.tests = {
     var isSupported;
     var domImpl;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domImpl = doc.implementation;
     node = doc.createProcessingInstruction("test-pi","foo");
     featureImpl = node.getFeature("Core",nullVersion);
@@ -16318,7 +17069,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Check implementation of Node.getFeature on Comment.
@@ -16327,7 +17080,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getFeature
    */
-  nodegetfeature09 : function () {
+  nodegetfeature09: function (test) {
     var success;
     var doc;
     var node;
@@ -16337,7 +17090,7 @@ exports.tests = {
     var isSupported;
     var domImpl;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domImpl = doc.implementation;
     node = doc.createComment("test comment");
     featureImpl = node.getFeature("Core",nullVersion);
@@ -16434,7 +17187,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Check implementation of Node.getFeature on Text.
@@ -16442,7 +17197,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getFeature
    */
-  nodegetfeature10 : function () {
+  nodegetfeature10: function (test) {
     var success;
     var doc;
     var node;
@@ -16454,7 +17209,7 @@ exports.tests = {
     var nodeList;
     var elem;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domImpl = doc.implementation;
     nodeList = doc.getElementsByTagName("p");
     elem = nodeList.item(0);
@@ -16554,7 +17309,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Check implementation of Node.getFeature on CDATASection.
@@ -16562,7 +17319,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getFeature
    */
-  nodegetfeature11 : function () {
+  nodegetfeature11: function (test) {
     var success;
     var doc;
     var node;
@@ -16572,7 +17329,7 @@ exports.tests = {
     var isSupported;
     var domImpl;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domImpl = doc.implementation;
     node = doc.createCDATASection("some text");
     featureImpl = node.getFeature("Core",nullVersion);
@@ -16669,7 +17426,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Check implementation of Node.getFeature on Entity.
@@ -16677,7 +17436,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getFeature
    */
-  nodegetfeature12 : function () {
+  nodegetfeature12: function (test) {
     var success;
     var doc;
     var node;
@@ -16689,7 +17448,7 @@ exports.tests = {
     var entities;
     var doctype;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domImpl = doc.implementation;
     doctype = doc.doctype;
 
@@ -16790,7 +17549,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Check implementation of Node.getFeature on Notation.
@@ -16798,7 +17559,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getFeature
    */
-  nodegetfeature13 : function () {
+  nodegetfeature13: function (test) {
     var success;
     var doc;
     var node;
@@ -16810,7 +17571,7 @@ exports.tests = {
     var notations;
     var doctype;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
     doctype = doc.doctype;
 
@@ -16911,7 +17672,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
 
@@ -16922,17 +17685,19 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodegettextcontent01 : function () {
+  nodegettextcontent01: function (test) {
     var success;
     var doc;
     var textContent;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     textContent = doc.textContent;
 
     assertNull("nodegettextcontent01",textContent);
 
+    test.done()
   },
+
   /**
    *
 
@@ -16943,7 +17708,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodegettextcontent02 : function () {
+  nodegettextcontent02: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -16955,7 +17720,7 @@ exports.tests = {
     var rootName;
     var rootNS;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -16968,7 +17733,9 @@ exports.tests = {
 
     assertNull("nodegettextcontent02",textContent);
 
+    test.done()
   },
+
   /**
    *
 
@@ -16979,21 +17746,23 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodegettextcontent03 : function () {
+  nodegettextcontent03: function (test) {
     var success;
     var doc;
     var docType;
     var newDoc;
     var textContent;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     textContent = docType.textContent;
 
     assertNull("nodegettextcontent03",textContent);
 
+    test.done()
   },
+
   /**
    *
 
@@ -17004,7 +17773,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodegettextcontent04 : function () {
+  nodegettextcontent04: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -17017,7 +17786,7 @@ exports.tests = {
     var oldDocType;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     oldDocType = doc.doctype;
 
     rootName = oldDocType.name;
@@ -17028,7 +17797,9 @@ exports.tests = {
 
     assertNull("nodegettextcontent04",textContent);
 
+    test.done()
   },
+
   /**
    *
 
@@ -17039,7 +17810,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodegettextcontent05 : function () {
+  nodegettextcontent05: function (test) {
     var success;
     var doc;
     var docType;
@@ -17047,7 +17818,7 @@ exports.tests = {
     var notation1;
     var textContent;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     notationsMap = docType.notations;
@@ -17057,7 +17828,9 @@ exports.tests = {
 
     assertNull("nodegettextcontent05",textContent);
 
+    test.done()
   },
+
   /**
    *
 
@@ -17069,7 +17842,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodegettextcontent06 : function () {
+  nodegettextcontent06: function (test) {
     var success;
     var doc;
     var elemList;
@@ -17077,7 +17850,7 @@ exports.tests = {
     var attr;
     var textContent;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
     attr = elem.getAttributeNode("dir");
@@ -17085,7 +17858,9 @@ exports.tests = {
 
     assertEquals("nodegettextcontent06","rtl",textContent);
 
+    test.done()
   },
+
   /**
    *
    Invoke the method getTextContent on a new Attr node and check if the value returned
@@ -17095,7 +17870,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodegettextcontent07 : function () {
+  nodegettextcontent07: function (test) {
     var success;
     var doc;
     var elemList;
@@ -17103,7 +17878,7 @@ exports.tests = {
     var attr;
     var textContent;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
     elem.setAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang","en-US");
@@ -17112,7 +17887,9 @@ exports.tests = {
 
     assertEquals("nodegettextcontent07","en-US",textContent);
 
+    test.done()
   },
+
   /**
    *
    Invoke the method getTextContent on a new Attr node and check if the value returned
@@ -17122,7 +17899,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodegettextcontent08 : function () {
+  nodegettextcontent08: function (test) {
     var success;
     var doc;
     var elemList;
@@ -17132,7 +17909,7 @@ exports.tests = {
     var replacedAttr;
     var textContent;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","p");
     att = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     replacedAttr = elem.setAttributeNodeNS(att);
@@ -17141,7 +17918,9 @@ exports.tests = {
 
     assertEquals("nodegettextcontent08","",textContent);
 
+    test.done()
   },
+
   /**
    *
    Invoke the method getTextContent on a new Text node and check if the value returned
@@ -17151,7 +17930,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodegettextcontent09 : function () {
+  nodegettextcontent09: function (test) {
     var success;
     var doc;
     var elemList;
@@ -17160,7 +17939,7 @@ exports.tests = {
     var textContent;
     var appendedChild;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","p");
     txt = doc.createTextNode("Replacement Text");
     appendedChild = elem.appendChild(txt);
@@ -17168,7 +17947,9 @@ exports.tests = {
 
     assertEquals("nodegettextcontent09","Replacement Text",textContent);
 
+    test.done()
   },
+
   /**
    *
 
@@ -17180,7 +17961,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodegettextcontent10 : function () {
+  nodegettextcontent10: function (test) {
     var success;
     var doc;
     var elemList;
@@ -17188,7 +17969,7 @@ exports.tests = {
     var txt;
     var textContent;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
     txt = elem.firstChild;
@@ -17197,7 +17978,9 @@ exports.tests = {
 
     assertEquals("nodegettextcontent10","EMP0001",textContent);
 
+    test.done()
   },
+
   /**
    *
 
@@ -17209,7 +17992,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodegettextcontent11 : function () {
+  nodegettextcontent11: function (test) {
     var success;
     var doc;
     var elemList;
@@ -17217,7 +18000,7 @@ exports.tests = {
     var cdata;
     var textContent;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(1);
     cdata = elem.lastChild;
@@ -17226,7 +18009,9 @@ exports.tests = {
 
     assertEquals("nodegettextcontent11","This is an adjacent CDATASection with a reference to a tab &tab;",textContent);
 
+    test.done()
   },
+
   /**
    *
    Invoke the method getTextContent on a new Comment node and check if the value returned
@@ -17236,7 +18021,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodegettextcontent12 : function () {
+  nodegettextcontent12: function (test) {
     var success;
     var doc;
     var elemList;
@@ -17245,7 +18030,7 @@ exports.tests = {
     var textContent;
     var appendedChild;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","body");
     comment = doc.createComment("Comment");
     appendedChild = elem.appendChild(comment);
@@ -17253,7 +18038,9 @@ exports.tests = {
 
     assertEquals("nodegettextcontent12","Comment",textContent);
 
+    test.done()
   },
+
   /**
    *
 
@@ -17265,21 +18052,23 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodegettextcontent13 : function () {
+  nodegettextcontent13: function (test) {
     var success;
     var doc;
     var elemList;
     var elem;
     var textContent;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(1);
     textContent = elem.textContent;
 
     assertEquals("nodegettextcontent13","Martha Raynolds\nThis is a CDATASection with EntityReference number 2 &ent2;\nThis is an adjacent CDATASection with a reference to a tab &tab;",textContent);
 
+    test.done()
   },
+
   /**
    *
    Invoke the method getTextContent on an existing Element node with Child Element, Text
@@ -17290,21 +18079,23 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodegettextcontent14 : function () {
+  nodegettextcontent14: function (test) {
     var success;
     var doc;
     var elemList;
     var elem;
     var textContent;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(2);
     textContent = elem.textContent;
 
     assertEquals("nodegettextcontent13","\n  EMP0003\n  Roger\n Jones\n  Department Manager\n  100,000\n  Element data\n  PO Box 27 Irving, texas 98553\n ",textContent);
 
+    test.done()
   },
+
   /**
    *
    The method getTextContent returns the text content of this node and its descendants.
@@ -17317,7 +18108,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodegettextcontent15 : function () {
+  nodegettextcontent15: function (test) {
     var success;
     var doc;
     var elem;
@@ -17329,7 +18120,7 @@ exports.tests = {
     var textContent;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elem = doc.createElementNS("http://www.w3.org/DOM/Test","dom3:elem");
     txt = doc.createTextNode("Text ");
     comment = doc.createComment("Comment ");
@@ -17346,7 +18137,9 @@ exports.tests = {
     doc.normalizeDocument();
     assertEquals("nodegettextcontent15","Text βCData",textContent);
 
+    test.done()
   },
+
   /**
    *
    The method getTextContent returns the text content of this node and its descendants.
@@ -17359,7 +18152,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodegettextcontent16 : function () {
+  nodegettextcontent16: function (test) {
     var success;
     var doc;
     var docFrag;
@@ -17373,7 +18166,7 @@ exports.tests = {
     var textContent;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFrag = doc.createDocumentFragment();
     elem = doc.createElementNS("http://www.w3.org/DOM/Test","dom3:elem");
     txt = doc.createTextNode("Text ");
@@ -17392,7 +18185,9 @@ exports.tests = {
 
     assertEquals("nodegettextcontent16","Text βCData",textContent);
 
+    test.done()
   },
+
   /**
    *
    Invoke the method getTextContent on a new EntityReference node and check if the
@@ -17402,7 +18197,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodegettextcontent17 : function () {
+  nodegettextcontent17: function (test) {
     var success;
     var doc;
     var elem;
@@ -17410,7 +18205,7 @@ exports.tests = {
     var textContent;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elem = doc.documentElement;
 
     entRef = doc.createEntityReference("beta");
@@ -17419,7 +18214,9 @@ exports.tests = {
 
     assertEquals("nodegettextcontent17","β",textContent);
 
+    test.done()
   },
+
   /**
    *
    Invoke the method getTextContent on an Entity node and check if the value returned
@@ -17429,7 +18226,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodegettextcontent18 : function () {
+  nodegettextcontent18: function (test) {
     var success;
     var doc;
     var docType;
@@ -17437,7 +18234,7 @@ exports.tests = {
     var entitymap;
     var textContent;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitymap = docType.entities;
@@ -17447,7 +18244,9 @@ exports.tests = {
 
     assertEquals("nodegettextcontent18","δ",textContent);
 
+    test.done()
   },
+
   /**
    *
    Checks that element content whitespace is not added to textContent.  Determination
@@ -17457,21 +18256,23 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=538
    */
-  nodegettextcontent19 : function () {
+  nodegettextcontent19: function (test) {
     var success;
     var doc;
     var elemList;
     var elem;
     var textContent;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     elemList = doc.getElementsByTagName("body");
     elem = elemList.item(0);
     textContent = elem.textContent;
 
     assertEquals("textContent","bar",textContent);
 
+    test.done()
   },
+
   /**
    *
 
@@ -17483,16 +18284,18 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getUserData
    */
-  nodegetuserdata01 : function () {
+  nodegetuserdata01: function (test) {
     var success;
     var doc;
     var userData;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     userData = doc.getUserData("key1");
     assertNull("nodegetuserdata01",userData);
 
+    test.done()
   },
+
   /**
    *
 
@@ -17504,16 +18307,18 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getUserData
    */
-  nodegetuserdata02 : function () {
+  nodegetuserdata02: function (test) {
     var success;
     var doc;
     var userData;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     userData = doc.getUserData("key1");
     assertNull("nodegetuserdata02",userData);
 
+    test.done()
   },
+
   /**
    *
 
@@ -17526,7 +18331,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getUserData
    */
-  nodegetuserdata03 : function () {
+  nodegetuserdata03: function (test) {
     var success;
     var doc;
     var userData;
@@ -17537,7 +18342,7 @@ exports.tests = {
     var nullHandler = null;
 
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","body");
     if (null == nullHandler) {
       doc.setUserData("something", elem, null);
@@ -17548,7 +18353,9 @@ exports.tests = {
     success = retUserData.isEqualNode(elem);
     assertTrue("nodegetuserdata03",success);
 
+    test.done()
   },
+
   /**
    *
 
@@ -17561,7 +18368,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getUserData
    */
-  nodegetuserdata04 : function () {
+  nodegetuserdata04: function (test) {
     var success;
     var doc;
     var docType;
@@ -17572,7 +18379,7 @@ exports.tests = {
 
     var prevUserData;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     if (null == nullHandler) {
@@ -17584,7 +18391,9 @@ exports.tests = {
     success = retUserData.isEqualNode(doc);
     assertTrue("nodegetuserdata04",success);
 
+    test.done()
   },
+
   /**
    *
    Invoke setUserData on this Entity node to set this its UserData to a new
@@ -17595,7 +18404,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getUserData
    */
-  nodegetuserdata05 : function () {
+  nodegetuserdata05: function (test) {
     var success;
     var doc;
     var docType;
@@ -17608,7 +18417,7 @@ exports.tests = {
 
     var prevUserData;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entities = docType.entities;
@@ -17623,7 +18432,9 @@ exports.tests = {
     retUserData = entity.getUserData("Key");
     assertNull("nodegetuserdata05",retUserData);
 
+    test.done()
   },
+
   /**
    *
 
@@ -17635,18 +18446,20 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getUserData
    */
-  nodegetuserdata06 : function () {
+  nodegetuserdata06: function (test) {
     var success;
     var doc;
     var txt;
     var retUserData;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     txt = doc.createTextNode("TEXT");
     retUserData = txt.getUserData("");
     assertNull("nodegetuserdata06",retUserData);
 
+    test.done()
   },
+
   /**
    *
 
@@ -17659,7 +18472,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getUserData
    */
-  nodegetuserdata07 : function () {
+  nodegetuserdata07: function (test) {
     var success;
     var doc;
     var pi;
@@ -17670,7 +18483,7 @@ exports.tests = {
 
     var prevUserData;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     pi = doc.createProcessingInstruction("PITARGET","PIDATA");
     if (null == nullHandler) {
       pi.setUserData("key", pi, null);
@@ -17681,7 +18494,9 @@ exports.tests = {
     success = retUserData.isEqualNode(pi);
     assertTrue("nodegetuserdata07",success);
 
+    test.done()
   },
+
   /**
    *
 
@@ -17696,7 +18511,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore01 : function () {
+  nodeinsertbefore01: function (test) {
     var success;
     var doc;
     var docElem;
@@ -17707,7 +18522,7 @@ exports.tests = {
     var insertedPI;
     var target;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     newComment = doc.createComment("Comment");
@@ -17721,7 +18536,9 @@ exports.tests = {
 
     assertEquals("nodeinsertbefore01_2","PITarget",target);
 
+    test.done()
   },
+
   /**
    *
    Using insertBefore on a new Document node attempt to insert a new Comment node before
@@ -17733,7 +18550,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore02 : function () {
+  nodeinsertbefore02: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -17753,7 +18570,7 @@ exports.tests = {
     var rootName;
     var docElem;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -17774,7 +18591,9 @@ exports.tests = {
 
     assertEquals("nodeinsertbefore02_2","PITarget",target);
 
+    test.done()
   },
+
   /**
    *
    Using insertBefore on this Document node attempt to insert a new Attr node before
@@ -17784,14 +18603,14 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore03 : function () {
+  nodeinsertbefore03: function (test) {
     var success;
     var doc;
     var docType;
     var newAttr;
     var inserted;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     newAttr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
@@ -17807,7 +18626,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using insertBefore on this Document node attempt to insert this Document node before
@@ -17817,13 +18638,13 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore04 : function () {
+  nodeinsertbefore04: function (test) {
     var success;
     var doc;
     var docType;
     var inserted;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
 
@@ -17838,7 +18659,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Attempt to insert a second DocumentType node in a document using Node.insertBefore,
@@ -17849,7 +18672,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore05 : function () {
+  nodeinsertbefore05: function (test) {
     var success;
     var doc;
     var docType;
@@ -17862,7 +18685,7 @@ exports.tests = {
 
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     rootName = docType.name;
@@ -17889,7 +18712,9 @@ exports.tests = {
       }
     }
 
+    test.done()
   },
+
   /**
    *
    Using insertBefore on this Document node attempt to insert an Element node before
@@ -17900,7 +18725,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=415
    */
-  nodeinsertbefore06 : function () {
+  nodeinsertbefore06: function (test) {
     var success;
     var doc;
     var docElem;
@@ -17909,7 +18734,7 @@ exports.tests = {
     var rootNS;
     var rootTagname;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -17937,7 +18762,9 @@ exports.tests = {
       }
     }
 
+    test.done()
   },
+
   /**
    *
 
@@ -17951,7 +18778,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore07 : function () {
+  nodeinsertbefore07: function (test) {
     var success;
     var doc;
     var docAlt;
@@ -17959,13 +18786,9 @@ exports.tests = {
     var newComment;
     var inserted;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
-    var docAltRef = null;
-    if (typeof(this.docAlt) != 'undefined') {
-      docAltRef = this.docAlt;
-    }
-    docAlt = load(docAltRef, "docAlt", "hc_staff");
+    docAlt = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     newComment = docAlt.createComment("Comment");
@@ -17981,7 +18804,9 @@ exports.tests = {
       assertTrue("WRONG_DOCUMENT_ERR_nodeinsertbefore07",success);
     }
 
+    test.done()
   },
+
   /**
    *
 
@@ -17995,7 +18820,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore08 : function () {
+  nodeinsertbefore08: function (test) {
     var success;
     var doc;
     var docAlt;
@@ -18003,13 +18828,9 @@ exports.tests = {
     var newComment;
     var inserted;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
-    var docAltRef = null;
-    if (typeof(this.docAlt) != 'undefined') {
-      docAltRef = this.docAlt;
-    }
-    docAlt = load(docAltRef, "docAlt", "hc_staff");
+    docAlt = hc_staff.hc_staff();
     docElem = docAlt.documentElement;
 
     newComment = doc.createComment("Comment");
@@ -18025,7 +18846,9 @@ exports.tests = {
       assertTrue("NOT_FOUND_ERR_nodeinsertbefore08",success);
     }
 
+    test.done()
   },
+
   /**
    *
    The method insertBefore inserts the node newChild before the existing child node refChild.
@@ -18041,7 +18864,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore09 : function () {
+  nodeinsertbefore09: function (test) {
     var success;
     var doc;
     var docFrag;
@@ -18052,7 +18875,7 @@ exports.tests = {
     var data;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newComment = doc.createComment("Comment");
     appendedChild = doc.appendChild(newComment);
     docFrag = doc.createDocumentFragment();
@@ -18065,7 +18888,9 @@ exports.tests = {
 
     assertEquals("nodeinsertbefore09","insertComment",data);
 
+    test.done()
   },
+
   /**
    *
    Using insertBefore on this Document node attempt to insert a new Element node before
@@ -18077,7 +18902,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=415
    */
-  nodeinsertbefore10 : function () {
+  nodeinsertbefore10: function (test) {
     var success;
     var doc;
     var elemList;
@@ -18088,7 +18913,7 @@ exports.tests = {
     var rootNS;
     var rootTagname;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -18120,7 +18945,9 @@ exports.tests = {
       }
     }
 
+    test.done()
   },
+
   /**
    *
 
@@ -18133,7 +18960,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore11 : function () {
+  nodeinsertbefore11: function (test) {
     var success;
     var doc;
     var docFrag;
@@ -18147,7 +18974,7 @@ exports.tests = {
     var insertedVal;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFrag = doc.createDocumentFragment();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","body");
     pi = doc.createProcessingInstruction("PITarget","PIData");
@@ -18178,7 +19005,9 @@ exports.tests = {
 
     assertEquals("nodeinsertbefore11_Ent1","alpha",insertedVal);
 
+    test.done()
   },
+
   /**
    *
    The method insertBefore inserts the node newChild before the existing child node refChild.
@@ -18192,7 +19021,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore12 : function () {
+  nodeinsertbefore12: function (test) {
     var success;
     var doc;
     var docFrag;
@@ -18203,7 +19032,7 @@ exports.tests = {
     var last;
     var name;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFrag = doc.createDocumentFragment();
     docFragNew = doc.createDocumentFragment();
     elem = doc.createElementNS("http://www.w3.org/DOM/Test","dom3:elem");
@@ -18215,7 +19044,9 @@ exports.tests = {
 
     assertEquals("nodeinsertbefore12","dom3:elem",name);
 
+    test.done()
   },
+
   /**
    *
 
@@ -18229,7 +19060,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore13 : function () {
+  nodeinsertbefore13: function (test) {
     var success;
     var doc;
     var docAlt;
@@ -18242,7 +19073,7 @@ exports.tests = {
     var rootNS;
     var rootTagname;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -18250,11 +19081,7 @@ exports.tests = {
     rootTagname = docElem.tagName;
 
 
-    var docAltRef = null;
-    if (typeof(this.docAlt) != 'undefined') {
-      docAltRef = this.docAlt;
-    }
-    docAlt = load(docAltRef, "docAlt", "hc_staff");
+    docAlt = hc_staff.hc_staff();
     docFrag = doc.createDocumentFragment();
     elem = doc.createElementNS(rootNS,rootTagname);
     elemAlt = docAlt.createElementNS(rootNS,rootTagname);
@@ -18271,7 +19098,9 @@ exports.tests = {
       assertTrue("throw_WRONG_DOCUMENT_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    The method insertBefore inserts the node newChild before the existing child node refChild.
@@ -18286,14 +19115,14 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore14 : function () {
+  nodeinsertbefore14: function (test) {
     var success;
     var doc;
     var docType;
     var newAttr;
     var inserted;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     newAttr = doc.createAttributeNS("http://www.w3.org/DOM/Test","dom3:attr");
@@ -18309,7 +19138,9 @@ exports.tests = {
       assertTrue("NO_MODIFICATION_ALLOWED_ERR_nodeinsertbefore14",success);
     }
 
+    test.done()
   },
+
   /**
    *
    A NO_MODIFICATION_ALLOWED_ERR is raised if the node is read-only.
@@ -18322,7 +19153,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore15 : function () {
+  nodeinsertbefore15: function (test) {
     var success;
     var doc;
     var entRef;
@@ -18334,7 +19165,7 @@ exports.tests = {
     var cdata;
     var inserted;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     entRef = doc.createEntityReference("delta");
     elemChild = entRef.firstChild;
 
@@ -18399,7 +19230,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR_5",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using insertBefore on an Element node attempt to insert a new Element, node before its
@@ -18409,7 +19242,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore16 : function () {
+  nodeinsertbefore16: function (test) {
     var success;
     var doc;
     var element;
@@ -18421,7 +19254,7 @@ exports.tests = {
     var nodeName;
     var inserted;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagName("p");
     element = childList.item(0);
     firstChild = element.firstChild;
@@ -18440,7 +19273,9 @@ exports.tests = {
 
     assertEquals("nodeinsertbefore16","xhtml:br",nodeName);
 
+    test.done()
   },
+
   /**
    *
    The method insertBefore inserts the node newChild before the existing child node refChild.
@@ -18453,7 +19288,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore17 : function () {
+  nodeinsertbefore17: function (test) {
     var success;
     var doc;
     var element;
@@ -18465,7 +19300,7 @@ exports.tests = {
     var nodeName;
     var inserted;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagNameNS("*","p");
     element = childList.item(1);
     refNode = element.firstChild;
@@ -18478,7 +19313,9 @@ exports.tests = {
 
     assertEquals("nodeinsertbefore17","#text",nodeName);
 
+    test.done()
   },
+
   /**
    *
    The method insertBefore inserts the node newChild before the existing child node refChild.
@@ -18491,7 +19328,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore18 : function () {
+  nodeinsertbefore18: function (test) {
     var success;
     var doc;
     var element;
@@ -18505,7 +19342,7 @@ exports.tests = {
     var appendedChild;
     var inserted;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     element = doc.createElement("element");
     newElem = doc.createElementNS("http://www.w3.org/DOM","dom3:elem");
     newComment = doc.createComment("Comment");
@@ -18522,7 +19359,9 @@ exports.tests = {
 
     assertEquals("nodeinsertbefore18","Comment",data);
 
+    test.done()
   },
+
   /**
    *
    Using insertBefore on an Element node attempt to insert an EntityReference node, before
@@ -18532,7 +19371,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore19 : function () {
+  nodeinsertbefore19: function (test) {
     var success;
     var doc;
     var refNode;
@@ -18542,7 +19381,7 @@ exports.tests = {
     var nodeName;
     var element;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagName("var");
     element = childList.item(2);
     refNode = element.firstChild;
@@ -18553,7 +19392,9 @@ exports.tests = {
 
     assertEquals("nodeinsertbefore19","alpha",nodeName);
 
+    test.done()
   },
+
   /**
    *
    Using insertBefore on an Element node attempt to insert a new Attr node, before
@@ -18563,7 +19404,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore20 : function () {
+  nodeinsertbefore20: function (test) {
     var success;
     var doc;
     var element;
@@ -18572,7 +19413,7 @@ exports.tests = {
     var childList;
     var inserted;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagName("var");
     element = childList.item(2);
     refNode = element.firstChild;
@@ -18590,7 +19431,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using insertBefore on an Element node attempt to insert the parent Element node, before
@@ -18600,7 +19443,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore21 : function () {
+  nodeinsertbefore21: function (test) {
     var success;
     var doc;
     var element;
@@ -18609,7 +19452,7 @@ exports.tests = {
     var childList;
     var inserted;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagName("var");
     element = childList.item(2);
     refNode = element.firstChild;
@@ -18628,7 +19471,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using insertBefore on an Element node attempt to insert the ancestor of an Element node
@@ -18638,7 +19483,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore22 : function () {
+  nodeinsertbefore22: function (test) {
     var success;
     var doc;
     var element;
@@ -18648,7 +19493,7 @@ exports.tests = {
     var appendedChild;
     var inserted;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     element = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:body");
     refNode = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:a");
     ancestor = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:p");
@@ -18666,7 +19511,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using insertBefore on an Element node attempt to insert a Text node created by a different
@@ -18676,7 +19523,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore23 : function () {
+  nodeinsertbefore23: function (test) {
     var success;
     var doc;
     var doc2;
@@ -18687,13 +19534,9 @@ exports.tests = {
     var appendedChild;
     var inserted;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "hc_staff");
+    doc2 = hc_staff.hc_staff();
     element = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:body");
     refNode = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:p");
     newNode = doc2.createTextNode("TextNode");
@@ -18710,7 +19553,9 @@ exports.tests = {
       assertTrue("throw_WRONG_DOCUMENT_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using insertBefore on an Element node attempt to insert a Comment node before
@@ -18720,7 +19565,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore24 : function () {
+  nodeinsertbefore24: function (test) {
     var success;
     var doc;
     var element;
@@ -18729,7 +19574,7 @@ exports.tests = {
     var childList;
     var inserted;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     element = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:p");
     refNode = doc.createCDATASection("CDATASection");
     newNode = doc.createComment("Comment");
@@ -18745,7 +19590,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using insertBefore on a child Element of an EntityReference node attempt to insert
@@ -18756,7 +19603,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-952280727
    */
-  nodeinsertbefore25 : function () {
+  nodeinsertbefore25: function (test) {
     var success;
     var doc;
     var element;
@@ -18767,7 +19614,7 @@ exports.tests = {
     var childList;
     var inserted;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagName("var");
     element = childList.item(2);
     eRef = element.firstChild;
@@ -18791,7 +19638,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using isDefaultNamespace on this Document node with the
@@ -18801,14 +19650,14 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isDefaultNamespace
    */
-  nodeisdefaultnamespace01 : function () {
+  nodeisdefaultnamespace01: function (test) {
     var success;
     var doc;
     var isDefault;
     var docElem;
     var docElemNS;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     docElemNS = docElem.namespaceURI;
@@ -18816,7 +19665,9 @@ exports.tests = {
     isDefault = doc.isDefaultNamespace(docElemNS);
     assertTrue("nodeisdefaultnamespace01",isDefault);
 
+    test.done()
   },
+
   /**
    *
    Using isDefaultNamespace on on a new Document node with the value of the namespaceURI
@@ -18827,7 +19678,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isDefaultNamespace
    */
-  nodeisdefaultnamespace02 : function () {
+  nodeisdefaultnamespace02: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -18841,7 +19692,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -18855,7 +19706,9 @@ exports.tests = {
     isDefault = newDoc.isDefaultNamespace(nullNSURI);
     assertFalse("nodeisdefaultnamespace02_false",isDefault);
 
+    test.done()
   },
+
   /**
    *
 
@@ -18868,7 +19721,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isDefaultNamespace
    */
-  nodeisdefaultnamespace03 : function () {
+  nodeisdefaultnamespace03: function (test) {
     var success;
     var doc;
     var docType;
@@ -18876,13 +19729,15 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     isDefault = docType.isDefaultNamespace(nullNSURI);
     assertFalse("nodeisdefaultnamespace03",isDefault);
 
+    test.done()
   },
+
   /**
    *
 
@@ -18895,7 +19750,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isDefaultNamespace
    */
-  nodeisdefaultnamespace04 : function () {
+  nodeisdefaultnamespace04: function (test) {
     var success;
     var doc;
     var docType;
@@ -18907,7 +19762,7 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -18921,7 +19776,9 @@ exports.tests = {
     isDefault = notation.isDefaultNamespace(nullNSURI);
     assertFalse("nodeisdefaultnamespace04_2",isDefault);
 
+    test.done()
   },
+
   /**
    *
    Using isDefaultNamespace on a DocumentElement of a new Document node with the value of the
@@ -18932,7 +19789,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isDefaultNamespace
    */
-  nodeisdefaultnamespace05 : function () {
+  nodeisdefaultnamespace05: function (test) {
     var success;
     var doc;
     var elem;
@@ -18947,7 +19804,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -18963,7 +19820,9 @@ exports.tests = {
     isDefault = elem.isDefaultNamespace(nullNSURI);
     assertFalse("nodeisdefaultnamespace05_2",isDefault);
 
+    test.done()
   },
+
   /**
    *
    Using isDefaultNamespace on an Element node with no prefix, which has a namespace
@@ -18974,14 +19833,14 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isDefaultNamespace
    */
-  nodeisdefaultnamespace06 : function () {
+  nodeisdefaultnamespace06: function (test) {
     var success;
     var doc;
     var elem;
     var elemList;
     var isDefault;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     isDefault = elem.isDefaultNamespace("http://www.w3.org/1999/xhtml");
@@ -18989,7 +19848,9 @@ exports.tests = {
     isDefault = elem.isDefaultNamespace("http://www.usa.com");
     assertFalse("nodeisdefaultnamespace06_2",isDefault);
 
+    test.done()
   },
+
   /**
    *
    Using isDefaultNamespace on the child of an Element node with no prefix, which has a
@@ -19000,14 +19861,14 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isDefaultNamespace
    */
-  nodeisdefaultnamespace07 : function () {
+  nodeisdefaultnamespace07: function (test) {
     var success;
     var doc;
     var elem;
     var elemList;
     var isDefault;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(0);
     isDefault = elem.isDefaultNamespace("http://www.w3.org/1999/xhtml");
@@ -19015,7 +19876,9 @@ exports.tests = {
     isDefault = elem.isDefaultNamespace("http://www.usa.com");
     assertFalse("nodeisdefaultnamespace07_2",isDefault);
 
+    test.done()
   },
+
   /**
    *
 
@@ -19029,20 +19892,22 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isDefaultNamespace
    */
-  nodeisdefaultnamespace08 : function () {
+  nodeisdefaultnamespace08: function (test) {
     var success;
     var doc;
     var elem;
     var elemList;
     var isDefault;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(3);
     isDefault = elem.isDefaultNamespace("http://www.altavista.com");
     assertFalse("nodeisdefaultnamespace08",isDefault);
 
+    test.done()
   },
+
   /**
    *
    Using isDefaultNamespace on a new Child of a new Element node with a namespace URI
@@ -19053,7 +19918,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isDefaultNamespace
    */
-  nodeisdefaultnamespace09 : function () {
+  nodeisdefaultnamespace09: function (test) {
     var success;
     var doc;
     var parent;
@@ -19061,7 +19926,7 @@ exports.tests = {
     var isDefault;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     parent = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:body");
     child = doc.createElement("xhtml:p");
     appendedChild = parent.appendChild(child);
@@ -19070,7 +19935,9 @@ exports.tests = {
     isDefault = child.isDefaultNamespace("http://www.w3.org/1999/xhtml");
     assertFalse("nodeisdefaultnamespace09_2",isDefault);
 
+    test.done()
   },
+
   /**
    *
    Using isDefaultNamespace on a new Child of a new Element node with a namespace URI
@@ -19081,7 +19948,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isDefaultNamespace
    */
-  nodeisdefaultnamespace10 : function () {
+  nodeisdefaultnamespace10: function (test) {
     var success;
     var doc;
     var parent;
@@ -19089,7 +19956,7 @@ exports.tests = {
     var isDefault;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     parent = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:body");
     child = doc.createElementNS("http://www.w3.org/1999/xhtml","p");
     appendedChild = parent.appendChild(child);
@@ -19098,7 +19965,9 @@ exports.tests = {
     isDefault = parent.isDefaultNamespace("http://www.w3.org/1999/xhtml");
     assertFalse("nodeisdefaultnamespace10_2",isDefault);
 
+    test.done()
   },
+
   /**
    *
    Using isDefaultNamespace on an imported new Element node with a namespace URI and prefix
@@ -19109,7 +19978,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isDefaultNamespace
    */
-  nodeisdefaultnamespace11 : function () {
+  nodeisdefaultnamespace11: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -19123,7 +19992,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -19137,7 +20006,9 @@ exports.tests = {
     isDefault = importedNode.isDefaultNamespace("http://www.w3.org/1999/xhtml");
     assertTrue("nodeisdefaultnamespace11",isDefault);
 
+    test.done()
   },
+
   /**
    *
    Using isDefaultNamespace on a Element's new Text node, which has a namespace attribute
@@ -19148,7 +20019,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isDefaultNamespace
    */
-  nodeisdefaultnamespace13 : function () {
+  nodeisdefaultnamespace13: function (test) {
     var success;
     var doc;
     var bodyElem;
@@ -19158,7 +20029,7 @@ exports.tests = {
     var appendedChild;
     var bodyList;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     bodyList = doc.getElementsByTagName("body");
     bodyElem = bodyList.item(0);
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","p");
@@ -19168,7 +20039,9 @@ exports.tests = {
     isDefault = txt.isDefaultNamespace("http://www.w3.org/1999/xhtml");
     assertTrue("nodeisdefaultnamespace13",isDefault);
 
+    test.done()
   },
+
   /**
    *
    Using isDefaultNamespace on a Element's new CDATASection node, which has a namespace attribute
@@ -19179,7 +20052,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isDefaultNamespace
    */
-  nodeisdefaultnamespace14 : function () {
+  nodeisdefaultnamespace14: function (test) {
     var success;
     var doc;
     var elem;
@@ -19189,7 +20062,7 @@ exports.tests = {
     var bodyList;
     var bodyElem;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     bodyList = doc.getElementsByTagName("body");
     bodyElem = bodyList.item(0);
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","p");
@@ -19199,7 +20072,9 @@ exports.tests = {
     isDefault = cdata.isDefaultNamespace("http://www.w3.org/1999/xhtml");
     assertTrue("nodeisdefaultnamespace14",isDefault);
 
+    test.done()
   },
+
   /**
    *
    Using isDefaultNamespace on a Element's new cloned Comment node, which has a namespace attribute
@@ -19210,7 +20085,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isDefaultNamespace
    */
-  nodeisdefaultnamespace15 : function () {
+  nodeisdefaultnamespace15: function (test) {
     var success;
     var doc;
     var bodyElem;
@@ -19221,7 +20096,7 @@ exports.tests = {
     var appendedChild;
     var bodyList;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     bodyList = doc.getElementsByTagName("body");
     bodyElem = bodyList.item(0);
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","p");
@@ -19232,7 +20107,9 @@ exports.tests = {
     isDefault = clonedComment.isDefaultNamespace("http://www.w3.org/1999/xhtml");
     assertTrue("nodeisdefaultnamespace15",isDefault);
 
+    test.done()
   },
+
   /**
    *
    Using isDefaultNamespace on a new Attribute node with with a namespace URI
@@ -19243,18 +20120,20 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isDefaultNamespace
    */
-  nodeisdefaultnamespace16 : function () {
+  nodeisdefaultnamespace16: function (test) {
     var success;
     var doc;
     var attr;
     var isDefault;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","lang");
     isDefault = attr.isDefaultNamespace("http://www.w3.org/XML/1998/namespace");
     assertFalse("nodeisdefaultnamespace16",isDefault);
 
+    test.done()
   },
+
   /**
    *
 
@@ -19266,27 +20145,21 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode01 : function () {
+  nodeisequalnode01: function (test) {
     var success;
     var doc1;
     var doc2;
     var isEqual;
 
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "hc_staff");
+    doc1 = hc_staff.hc_staff();
 
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "hc_staff");
+    doc2 = hc_staff.hc_staff();
     isEqual = doc1.isEqualNode(doc2);
     assertTrue("nodeisequalnode01",isEqual);
 
+    test.done()
   },
+
   /**
    *
    Using isEqualNode check if 2 newly created Document nodes having the same namespaceURI
@@ -19296,7 +20169,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode02 : function () {
+  nodeisequalnode02: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -19309,7 +20182,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -19322,7 +20195,9 @@ exports.tests = {
     isEqual = doc1.isEqualNode(doc2);
     assertTrue("nodeisequalnode02",isEqual);
 
+    test.done()
   },
+
   /**
    *
    Using isEqualNode check if 2 Document nodes created by parsing
@@ -19334,7 +20209,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=528
    */
-  nodeisequalnode03 : function () {
+  nodeisequalnode03: function (test) {
     var success;
     var doc1;
     var doc2;
@@ -19342,17 +20217,9 @@ exports.tests = {
     var docElem2;
     var isEqual;
 
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "barfoo_utf8");
+    doc1 = barfoo_utf8.barfoo_utf8();
 
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "barfoo_utf16");
+    doc2 = barfoo_utf16.barfoo_utf16();
     isEqual = doc1.isEqualNode(doc2);
     assertTrue("docAreNotEquals",isEqual);
     docElem1 = doc1.documentElement;
@@ -19362,7 +20229,9 @@ exports.tests = {
     isEqual = docElem1.isEqualNode(docElem2);
     assertTrue("docElemsAreEquals",isEqual);
 
+    test.done()
   },
+
   /**
    *
    Create a new Element node in this Document.  return its ownerDocument and check if the
@@ -19372,21 +20241,23 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode04 : function () {
+  nodeisequalnode04: function (test) {
     var success;
     var doc;
     var ownerDoc;
     var elem;
     var isEqual;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:p");
     ownerDoc = elem.ownerDocument;
 
     isEqual = doc.isEqualNode(ownerDoc);
     assertTrue("nodeisequalnode04",isEqual);
 
+    test.done()
   },
+
   /**
    *
    Using isEqualNode check if 2 Document nodes created by parsing different xml document
@@ -19396,27 +20267,21 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode05 : function () {
+  nodeisequalnode05: function (test) {
     var success;
     var doc1;
     var doc2;
     var isEqual;
 
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "barfoo_standalone_yes");
+    doc1 = barfoo_standalone_yes.barfoo_standalone_yes();
 
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "barfoo");
+    doc2 = barfoo.barfoo();
     isEqual = doc1.isEqualNode(doc2);
     assertFalse("nodeisequalnode05",isEqual);
 
+    test.done()
   },
+
   /**
    *
 
@@ -19428,20 +20293,22 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode06 : function () {
+  nodeisequalnode06: function (test) {
     var success;
     var doc;
     var elem1;
     var elem2;
     var isEqual;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elem1 = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:html");
     elem2 = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:html");
     isEqual = elem1.isEqualNode(elem2);
     assertTrue("nodeisequalnode06",isEqual);
 
+    test.done()
   },
+
   /**
    *
    Using isEqualNode check if 2 Element nodes having the same nodeName and namespaceURI attribute
@@ -19451,7 +20318,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode07 : function () {
+  nodeisequalnode07: function (test) {
     var success;
     var doc1;
     var doc2;
@@ -19459,23 +20326,17 @@ exports.tests = {
     var elem2;
     var isEqual;
 
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "hc_staff");
+    doc1 = hc_staff.hc_staff();
 
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "hc_staff");
+    doc2 = hc_staff.hc_staff();
     elem1 = doc1.createElementNS("http://www.w3.org/1999/xhtml","xhtml:html");
     elem2 = doc2.createElementNS("http://www.w3.org/1999/xhtml","xhtml:html");
     isEqual = elem1.isEqualNode(elem2);
     assertTrue("nodeisequalnode07",isEqual);
 
+    test.done()
   },
+
   /**
    *
 
@@ -19488,7 +20349,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode08 : function () {
+  nodeisequalnode08: function (test) {
     var success;
     var doc;
     var elem1;
@@ -19498,7 +20359,7 @@ exports.tests = {
     var isEqual;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     employeeList = doc.getElementsByTagName("em");
     elem1 = employeeList.item(0);
     elem2 = doc.createElementNS("http://www.w3.org/1999/xhtml","em");
@@ -19507,7 +20368,9 @@ exports.tests = {
     isEqual = elem1.isEqualNode(elem2);
     assertTrue("nodeisequalnode08",isEqual);
 
+    test.done()
   },
+
   /**
    *
    Get the first "em" node, construct an equivalent in a new document and see if isEqualNode
@@ -19517,7 +20380,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode09 : function () {
+  nodeisequalnode09: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -19534,7 +20397,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -19551,7 +20414,9 @@ exports.tests = {
     isEqual = elem1.isEqualNode(elem2);
     assertTrue("nodesAreEqual",isEqual);
 
+    test.done()
   },
+
   /**
    *
    Retreive 2 different "em" nodes of this Document   Use isEqualNode
@@ -19561,7 +20426,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode10 : function () {
+  nodeisequalnode10: function (test) {
     var success;
     var doc;
     var elem1;
@@ -19569,14 +20434,16 @@ exports.tests = {
     var employeeList;
     var isEqual;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     employeeList = doc.getElementsByTagName("em");
     elem1 = employeeList.item(0);
     elem2 = employeeList.item(1);
     isEqual = elem1.isEqualNode(elem2);
     assertFalse("nodeisequalnode10",isEqual);
 
+    test.done()
   },
+
   /**
    *
    Retreive the first element node whose localName is "p".  Import it into a new
@@ -19593,7 +20460,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=529
    */
-  nodeisequalnode11 : function () {
+  nodeisequalnode11: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -19611,7 +20478,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -19635,16 +20502,14 @@ exports.tests = {
 
     }
 
-    var dupDocRef = null;
-    if (typeof(this.dupDoc) != 'undefined') {
-      dupDocRef = this.dupDoc;
-    }
-    dupDoc = load(dupDocRef, "dupDoc", "hc_staff");
+    dupDoc = hc_staff.hc_staff();
     elem4 = dupDoc.importNode(elem1,true);
     isEqual = elem1.isEqualNode(elem4);
     assertTrue("deepImportSameDTD",isEqual);
 
+    test.done()
   },
+
   /**
    *
 
@@ -19656,14 +20521,14 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode12 : function () {
+  nodeisequalnode12: function (test) {
     var success;
     var doc;
     var elem1;
     var elem2;
     var isEqual;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elem1 = doc.documentElement;
 
     elem2 = doc.documentElement;
@@ -19671,7 +20536,9 @@ exports.tests = {
     isEqual = elem1.isEqualNode(elem2);
     assertTrue("nodeisequalnode12",isEqual);
 
+    test.done()
   },
+
   /**
    *
    Retreive the first element node whose localName is "p".  Import it into a new
@@ -19683,7 +20550,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode13 : function () {
+  nodeisequalnode13: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -19699,7 +20566,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -19717,7 +20584,9 @@ exports.tests = {
     isEqual = elem1.isEqualNode(elem3);
     assertTrue("nodeisequalnodeTrue13",isEqual);
 
+    test.done()
   },
+
   /**
    *
 
@@ -19730,7 +20599,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode14 : function () {
+  nodeisequalnode14: function (test) {
     var success;
     var doc;
     var attr1;
@@ -19739,13 +20608,15 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     attr1 = doc.createAttribute("root");
     attr2 = doc.createAttributeNS(nullNSURI,"root");
     isEqual = attr1.isEqualNode(attr2);
     assertFalse("nodeisequalnode14",isEqual);
 
+    test.done()
   },
+
   /**
    *
    Using isEqualNode check if 2 Attr nodes having the same nodeName and a null namespaceURI
@@ -19756,7 +20627,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode15 : function () {
+  nodeisequalnode15: function (test) {
     var success;
     var doc;
     var attr1;
@@ -19767,7 +20638,7 @@ exports.tests = {
     var nullNS = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     addrElement = elementList.item(3);
     attr1 = addrElement.getAttributeNodeNS(nullNS,"title");
@@ -19788,7 +20659,9 @@ exports.tests = {
     isEqual = attr1.isEqualNode(attr2);
     assertTrue("nodeisequalnode15",isEqual);
 
+    test.done()
   },
+
   /**
    *
 
@@ -19800,7 +20673,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode16 : function () {
+  nodeisequalnode16: function (test) {
     var success;
     var doc;
     var attr1;
@@ -19811,7 +20684,7 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     addrElement = elementList.item(3);
     attr1 = addrElement.getAttributeNodeNS(nullNSURI,"dir");
@@ -19819,7 +20692,9 @@ exports.tests = {
     isEqual = attr1.isEqualNode(attr2);
     assertTrue("nodeisequalnode16",isEqual);
 
+    test.done()
   },
+
   /**
    *
    Using isEqualNode check if a new Attr node created in this Document is equal to
@@ -19829,7 +20704,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode17 : function () {
+  nodeisequalnode17: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -19845,7 +20720,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -19859,7 +20734,9 @@ exports.tests = {
     isEqual = attr1.isEqualNode(attr2);
     assertTrue("nodeisequalnode17",isEqual);
 
+    test.done()
   },
+
   /**
    *
    Using isEqualNode check if a new Attr node created in this Document is equal to
@@ -19869,7 +20746,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode18 : function () {
+  nodeisequalnode18: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -19885,7 +20762,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootName = docElem.tagName;
@@ -19907,7 +20784,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
 
@@ -19919,7 +20798,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode19 : function () {
+  nodeisequalnode19: function (test) {
     var success;
     var doc;
     var attr1;
@@ -19928,13 +20807,15 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     attr1 = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","lang");
     attr2 = doc.createAttributeNS(nullNSURI,"lang");
     isEqual = attr1.isEqualNode(attr2);
     assertFalse("nodeisequalnode19",isEqual);
 
+    test.done()
   },
+
   /**
    *
    Using isEqualNode check if an Element and an Attr nodes having the same nodeName
@@ -19944,20 +20825,22 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode20 : function () {
+  nodeisequalnode20: function (test) {
     var success;
     var doc;
     var attr1;
     var elem1;
     var isEqual;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elem1 = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:html");
     attr1 = doc.createAttributeNS("http://www.w3.org/1999/xhtml","xhtml:html");
     isEqual = attr1.isEqualNode(elem1);
     assertFalse("nodeisequalnode20",isEqual);
 
+    test.done()
   },
+
   /**
    *
 
@@ -19969,7 +20852,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode21 : function () {
+  nodeisequalnode21: function (test) {
     var success;
     var doc1;
     var doc2;
@@ -19977,17 +20860,9 @@ exports.tests = {
     var docType2;
     var isEqual;
 
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "hc_staff");
+    doc1 = hc_staff.hc_staff();
 
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "hc_staff");
+    doc2 = hc_staff.hc_staff();
     docType1 = doc1.doctype;
 
     docType2 = doc2.doctype;
@@ -19995,7 +20870,9 @@ exports.tests = {
     isEqual = docType1.isEqualNode(docType2);
     assertTrue("nodeisequalnode21",isEqual);
 
+    test.done()
   },
+
   /**
    *
 
@@ -20007,7 +20884,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode22 : function () {
+  nodeisequalnode22: function (test) {
     var success;
     var doc1;
     var doc2;
@@ -20023,21 +20900,13 @@ exports.tests = {
     var oldDocType;
     var rootName;
 
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "barfoo");
+    doc1 = barfoo.barfoo();
     oldDocType = doc1.doctype;
 
     rootName = oldDocType.name;
 
 
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "barfoo");
+    doc2 = barfoo.barfoo();
     domImpl1 = doc1.implementation;
     domImpl2 = doc2.implementation;
     docType1 = domImpl1.createDocumentType(rootName,nullPubId,nullSysId);
@@ -20045,7 +20914,9 @@ exports.tests = {
     isEqual = docType1.isEqualNode(docType2);
     assertTrue("nodeisequalnode22",isEqual);
 
+    test.done()
   },
+
   /**
    *
 
@@ -20057,7 +20928,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode25 : function () {
+  nodeisequalnode25: function (test) {
     var success;
     var doc1;
     var doc2;
@@ -20069,17 +20940,9 @@ exports.tests = {
     var beta;
     var isEqual;
 
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "hc_staff");
+    doc1 = hc_staff.hc_staff();
 
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "hc_staff");
+    doc2 = hc_staff.hc_staff();
     docType1 = doc1.doctype;
 
     docType2 = doc2.doctype;
@@ -20093,7 +20956,9 @@ exports.tests = {
     isEqual = alpha.isEqualNode(beta);
     assertTrue("nodeisequalnode25",isEqual);
 
+    test.done()
   },
+
   /**
    *
 
@@ -20105,7 +20970,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode26 : function () {
+  nodeisequalnode26: function (test) {
     var success;
     var doc1;
     var doc2;
@@ -20117,17 +20982,9 @@ exports.tests = {
     var notation2;
     var isEqual;
 
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "hc_staff");
+    doc1 = hc_staff.hc_staff();
 
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "hc_staff");
+    doc2 = hc_staff.hc_staff();
     docType1 = doc1.doctype;
 
     docType2 = doc2.doctype;
@@ -20141,7 +20998,9 @@ exports.tests = {
     isEqual = notation1.isEqualNode(notation2);
     assertTrue("nodeisequalnode26",isEqual);
 
+    test.done()
   },
+
   /**
    *
 
@@ -20153,7 +21012,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode27 : function () {
+  nodeisequalnode27: function (test) {
     var success;
     var doc;
     var docType;
@@ -20163,7 +21022,7 @@ exports.tests = {
     var notation1;
     var isEqual;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -20175,7 +21034,9 @@ exports.tests = {
     isEqual = notation1.isEqualNode(alpha);
     assertFalse("nodeisequalnode27",isEqual);
 
+    test.done()
   },
+
   /**
    *
 
@@ -20187,7 +21048,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode28 : function () {
+  nodeisequalnode28: function (test) {
     var success;
     var doc;
     var text1;
@@ -20195,7 +21056,7 @@ exports.tests = {
     var text3;
     var isEqual;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     text1 = doc.createTextNode("");
     text2 = doc.createTextNode("");
     text3 = doc.createTextNode("#Text");
@@ -20204,7 +21065,9 @@ exports.tests = {
     isEqual = text1.isEqualNode(text3);
     assertFalse("nodeisequalnodeFalse28",isEqual);
 
+    test.done()
   },
+
   /**
    *
 
@@ -20216,7 +21079,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode29 : function () {
+  nodeisequalnode29: function (test) {
     var success;
     var doc;
     var comment1;
@@ -20224,7 +21087,7 @@ exports.tests = {
     var comment3;
     var isEqual;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     comment1 = doc.createComment("comment");
     comment2 = doc.createComment("comment");
     comment3 = doc.createComment("#Comment");
@@ -20233,7 +21096,9 @@ exports.tests = {
     isEqual = comment1.isEqualNode(comment3);
     assertFalse("nodeisequalnodeFalse29",isEqual);
 
+    test.done()
   },
+
   /**
    *
 
@@ -20245,7 +21110,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode31 : function () {
+  nodeisequalnode31: function (test) {
     var success;
     var doc;
     var cdata1;
@@ -20253,7 +21118,7 @@ exports.tests = {
     var cdata3;
     var isEqual;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     cdata1 = doc.createCDATASection("cdata");
     cdata2 = doc.createCDATASection("cdata");
     cdata3 = doc.createCDATASection("#CDATASection");
@@ -20262,7 +21127,9 @@ exports.tests = {
     isEqual = cdata1.isEqualNode(cdata3);
     assertFalse("nodeisequalnodeFalse29",isEqual);
 
+    test.done()
   },
+
   /**
    *
 
@@ -20274,7 +21141,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
-  nodeisequalnode32 : function () {
+  nodeisequalnode32: function (test) {
     var success;
     var doc;
     var pi1;
@@ -20282,7 +21149,7 @@ exports.tests = {
     var pi3;
     var isEqual;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     pi1 = doc.createProcessingInstruction("Target1","pi");
     pi2 = doc.createProcessingInstruction("Target1","pi");
     pi3 = doc.createProcessingInstruction("Target1","#ProcessingInstruction");
@@ -20291,7 +21158,9 @@ exports.tests = {
     isEqual = pi1.isEqualNode(pi3);
     assertFalse("nodeisequalnodeFalse29",isEqual);
 
+    test.done()
   },
+
   /**
    *
 
@@ -20303,27 +21172,21 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isSameNode
    */
-  nodeissamenode01 : function () {
+  nodeissamenode01: function (test) {
     var success;
     var doc1;
     var doc2;
     var isSame;
 
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "hc_staff");
+    doc1 = hc_staff.hc_staff();
 
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "hc_staff");
+    doc2 = hc_staff.hc_staff();
     isSame = doc1.isSameNode(doc2);
     assertFalse("nodeissamenode01",isSame);
 
+    test.done()
   },
+
   /**
    *
 
@@ -20335,14 +21198,14 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isSameNode
    */
-  nodeissamenode02 : function () {
+  nodeissamenode02: function (test) {
     var success;
     var doc;
     var docType1;
     var docType2;
     var isSame;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType1 = doc.doctype;
 
     docType2 = doc.doctype;
@@ -20350,7 +21213,9 @@ exports.tests = {
     isSame = docType1.isSameNode(docType2);
     assertTrue("nodeissamenode02",isSame);
 
+    test.done()
   },
+
   /**
    *
    Using isSameNode check if 2 Element nodes that reference the same object are
@@ -20360,7 +21225,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isSameNode
    */
-  nodeissamenode03 : function () {
+  nodeissamenode03: function (test) {
     var success;
     var doc;
     var element1;
@@ -20368,14 +21233,16 @@ exports.tests = {
     var childList;
     var isSame;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagName("p");
     element1 = childList.item(0);
     element2 = childList.item(0);
     isSame = element2.isSameNode(element1);
     assertTrue("nodeissamenode03",isSame);
 
+    test.done()
   },
+
   /**
    *
    Using isSameNode check if 2 Element nodes that are equal but do not reference the
@@ -20385,20 +21252,22 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isSameNode
    */
-  nodeissamenode04 : function () {
+  nodeissamenode04: function (test) {
     var success;
     var doc;
     var element1;
     var element2;
     var isSame;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     element1 = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:br");
     element2 = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:br");
     isSame = element2.isSameNode(element1);
     assertFalse("nodeissamenode04",isSame);
 
+    test.done()
   },
+
   /**
    *
 
@@ -20410,14 +21279,14 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isSameNode
    */
-  nodeissamenode05 : function () {
+  nodeissamenode05: function (test) {
     var success;
     var doc;
     var element1;
     var element2;
     var isSame;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     element1 = doc.documentElement;
 
     element2 = doc.documentElement;
@@ -20425,7 +21294,9 @@ exports.tests = {
     isSame = element2.isSameNode(element1);
     assertTrue("nodeissamenode05",isSame);
 
+    test.done()
   },
+
   /**
    *
    Using isSameNode check if 2 Document Element nodes that reference the same object are
@@ -20435,7 +21306,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isSameNode
    */
-  nodeissamenode06 : function () {
+  nodeissamenode06: function (test) {
     var success;
     var doc;
     var element;
@@ -20445,7 +21316,7 @@ exports.tests = {
     var childList;
     var isSame;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagName("acronym");
     element = childList.item(2);
     element1 = childList.item(2);
@@ -20454,7 +21325,9 @@ exports.tests = {
     isSame = attr1.isSameNode(attr2);
     assertTrue("nodeissamenode06",isSame);
 
+    test.done()
   },
+
   /**
    *
 
@@ -20466,7 +21339,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isSameNode
    */
-  nodeissamenode07 : function () {
+  nodeissamenode07: function (test) {
     var success;
     var doc;
     var docType;
@@ -20475,7 +21348,7 @@ exports.tests = {
     var entity2;
     var isSame;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -20485,7 +21358,9 @@ exports.tests = {
     isSame = entity1.isSameNode(entity2);
     assertTrue("nodeissamenode07",isSame);
 
+    test.done()
   },
+
   /**
    *
 
@@ -20497,7 +21372,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isSameNode
    */
-  nodeissamenode08 : function () {
+  nodeissamenode08: function (test) {
     var success;
     var doc;
     var docType;
@@ -20506,7 +21381,7 @@ exports.tests = {
     var notation2;
     var isSame;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitiesMap = docType.notations;
@@ -20516,7 +21391,9 @@ exports.tests = {
     isSame = notation1.isSameNode(notation2);
     assertTrue("nodeissamenode08",isSame);
 
+    test.done()
   },
+
   /**
    *
 
@@ -20527,7 +21404,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isSameNode
    */
-  nodeissamenode09 : function () {
+  nodeissamenode09: function (test) {
     var success;
     var doc;
     var docType;
@@ -20535,7 +21412,7 @@ exports.tests = {
     var entity;
     var isSame;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -20544,7 +21421,9 @@ exports.tests = {
     isSame = docType.isSameNode(entity);
     assertFalse("nodeissamenode09",isSame);
 
+    test.done()
   },
+
   /**
    *
    Using isSameNode check if an new Document and a new Element node are not the same.
@@ -20553,7 +21432,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isSameNode
    */
-  nodeissamenode10 : function () {
+  nodeissamenode10: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -20566,7 +21445,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -20579,7 +21458,9 @@ exports.tests = {
     isSame = newDoc.isSameNode(element);
     assertFalse("nodeissamenode10",isSame);
 
+    test.done()
   },
+
   /**
    *
    Return value from lookupNamespaceURI(null) on a Document node with no default namespace should be null.
@@ -20588,18 +21469,20 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespaceURI
    */
-  nodelookupnamespaceuri01 : function () {
+  nodelookupnamespaceuri01: function (test) {
     var success;
     var doc;
     var namespaceURI;
     var nullPrefix = null;
 
 
-    doc = load(docRef, "doc", "barfoo_nodefaultns");
+    doc = barfoo_nodefaultns.barfoo_nodefaultns();
     namespaceURI = doc.lookupNamespaceURI(nullPrefix);
     assertNull("nodelookupnamespaceuri01",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Using lookupNamespaceURI on a new Document node with a namespaceURI and prefix
@@ -20609,7 +21492,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespaceURI
    */
-  nodelookupnamespaceuri02 : function () {
+  nodelookupnamespaceuri02: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -20622,7 +21505,7 @@ exports.tests = {
     var rootName;
     var qname;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -20635,7 +21518,9 @@ exports.tests = {
     namespaceURI = newDoc.lookupNamespaceURI("dom3");
     assertEquals("nodelookupnamespaceuri02",rootNS,namespaceURI);
 
+    test.done()
   },
+
   /**
    *
 
@@ -20647,7 +21532,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespaceURI
    */
-  nodelookupnamespaceuri03 : function () {
+  nodelookupnamespaceuri03: function (test) {
     var success;
     var doc;
     var docType;
@@ -20655,13 +21540,15 @@ exports.tests = {
     var nullPrefix = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     namespaceURI = docType.lookupNamespaceURI(nullPrefix);
     assertNull("nodelookupnamespaceuri03",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
 
@@ -20673,7 +21560,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespaceURI
    */
-  nodelookupnamespaceuri04 : function () {
+  nodelookupnamespaceuri04: function (test) {
     var success;
     var doc;
     var docType;
@@ -20683,7 +21570,7 @@ exports.tests = {
     var notationsMap;
     var namespaceURI;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -20695,7 +21582,9 @@ exports.tests = {
     namespaceURI = entity.lookupNamespaceURI("");
     assertNull("nodelookupnamespaceuri04",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Using lookupNamespaceURI on the DocumentElement node of a new document with a
@@ -20705,7 +21594,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespaceURI
    */
-  nodelookupnamespaceuri05 : function () {
+  nodelookupnamespaceuri05: function (test) {
     var success;
     var doc;
     var elem;
@@ -20719,7 +21608,7 @@ exports.tests = {
     var rootName;
     var qname;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -20734,7 +21623,9 @@ exports.tests = {
     namespaceURI = elem.lookupNamespaceURI("dom3");
     assertEquals("nodelookupnamespaceuri05",rootNS,namespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupNamespaceURI on an Element node with no prefix, which has a namespace
@@ -20745,20 +21636,22 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespaceURI
    */
-  nodelookupnamespaceuri06 : function () {
+  nodelookupnamespaceuri06: function (test) {
     var success;
     var doc;
     var elem;
     var elemList;
     var namespaceURI;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(2);
     namespaceURI = elem.lookupNamespaceURI("dmstc");
     assertEquals("nodelookupnamespaceuri06","http://www.netzero.com",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupNamespaceURI on an Element node with no prefix, which has a namespace
@@ -20769,20 +21662,22 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespaceURI
    */
-  nodelookupnamespaceuri07 : function () {
+  nodelookupnamespaceuri07: function (test) {
     var success;
     var doc;
     var elem;
     var elemList;
     var namespaceURI;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(2);
     namespaceURI = elem.lookupNamespaceURI("dmstc");
     assertEquals("nodelookupnamespaceuri07","http://www.netzero.com",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupNamespaceURI on an Element node with no prefix, which has 2 namespace
@@ -20794,7 +21689,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespaceURI
    */
-  nodelookupnamespaceuri08 : function () {
+  nodelookupnamespaceuri08: function (test) {
     var success;
     var doc;
     var elem;
@@ -20802,7 +21697,7 @@ exports.tests = {
     var namespaceURI;
     var namespaceURIEmpty;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     namespaceURI = elem.lookupNamespaceURI("dmstc");
@@ -20810,7 +21705,9 @@ exports.tests = {
     namespaceURIEmpty = elem.lookupNamespaceURI("");
     assertNull("nodelookupnamespaceprefixEmpty08",namespaceURIEmpty);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupNamespaceURI on an Element node with no prefix, whose parent has no prefix and
@@ -20821,7 +21718,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespaceURI
    */
-  nodelookupnamespaceuri09 : function () {
+  nodelookupnamespaceuri09: function (test) {
     var success;
     var doc;
     var elem;
@@ -20829,7 +21726,7 @@ exports.tests = {
     var namespaceURI;
     var namespaceURIEmpty;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
     namespaceURI = elem.lookupNamespaceURI("dmstc");
@@ -20837,7 +21734,9 @@ exports.tests = {
     namespaceURIEmpty = elem.lookupNamespaceURI("");
     assertNull("nodelookupnamespaceprefixEmpty09",namespaceURIEmpty);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupNamespaceURI on a new Child of a new Element node with a namespace URI
@@ -20848,7 +21747,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespaceURI
    */
-  nodelookupnamespaceuri10 : function () {
+  nodelookupnamespaceuri10: function (test) {
     var success;
     var doc;
     var parent;
@@ -20856,14 +21755,16 @@ exports.tests = {
     var namespaceURI;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     parent = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:body");
     child = doc.createElement("p");
     appendedChild = parent.appendChild(child);
     namespaceURI = child.lookupNamespaceURI("xhtml");
     assertEquals("nodelookupnamespaceuri10","http://www.w3.org/1999/xhtml",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupNamespaceURI on an imported new Element node with a namespace URI and prefix
@@ -20874,7 +21775,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespaceURI
    */
-  nodelookupnamespaceuri11 : function () {
+  nodelookupnamespaceuri11: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -20888,7 +21789,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -20902,7 +21803,9 @@ exports.tests = {
     namespaceURI = importedNode.lookupNamespaceURI("dom3");
     assertEquals("nodelookupnamespaceuri11","http://www.w3.org/1999/xhtml",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupNamespaceURI on a Element's new Text node, which has a namespace attribute declaration
@@ -20913,7 +21816,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespaceURI
    */
-  nodelookupnamespaceuri13 : function () {
+  nodelookupnamespaceuri13: function (test) {
     var success;
     var doc;
     var docElem;
@@ -20922,7 +21825,7 @@ exports.tests = {
     var namespaceURI;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
@@ -20932,7 +21835,9 @@ exports.tests = {
     namespaceURI = txt.lookupNamespaceURI("dom3");
     assertEquals("nodelookupnamespaceuri13","http://www.w3.org/1999/xhtml",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupNamespaceURI on a Element's new Text node, which has a namespace attribute declaration
@@ -20943,7 +21848,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespaceURI
    */
-  nodelookupnamespaceuri14 : function () {
+  nodelookupnamespaceuri14: function (test) {
     var success;
     var doc;
     var docElem;
@@ -20952,7 +21857,7 @@ exports.tests = {
     var lookupNamespaceURI;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
@@ -20962,7 +21867,9 @@ exports.tests = {
     lookupNamespaceURI = cdata.lookupNamespaceURI("dom3");
     assertEquals("nodelookupnamespaceuri14","http://www.w3.org/1999/xhtml",lookupNamespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupNamespaceURI on a Element's new Comment node, which has a namespace attribute declaration
@@ -20973,7 +21880,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespaceURI
    */
-  nodelookupnamespaceuri15 : function () {
+  nodelookupnamespaceuri15: function (test) {
     var success;
     var doc;
     var docElem;
@@ -20983,7 +21890,7 @@ exports.tests = {
     var namespaceURI;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
@@ -20994,7 +21901,9 @@ exports.tests = {
     namespaceURI = clonedComment.lookupNamespaceURI("dom3");
     assertEquals("nodelookupnamespaceuri15","http://www.w3.org/1999/xhtml",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupNamespaceURI on a new Attribute node with with a namespace URI
@@ -21004,7 +21913,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespaceURI
    */
-  nodelookupnamespaceuri16 : function () {
+  nodelookupnamespaceuri16: function (test) {
     var success;
     var doc;
     var elem;
@@ -21012,14 +21921,16 @@ exports.tests = {
     var attNode;
     var namespaceURI;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     attNode = elem.setAttributeNodeNS(attr);
     namespaceURI = attr.lookupNamespaceURI("xml");
     assertNull("nodelookupnamespaceuri16",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupNamespaceURI on the title attribute node of the acronym node with
@@ -21030,7 +21941,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespaceURI
    */
-  nodelookupnamespaceuri17 : function () {
+  nodelookupnamespaceuri17: function (test) {
     var success;
     var doc;
     var elem;
@@ -21039,7 +21950,7 @@ exports.tests = {
     var attr;
     var namespaceURI;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(2);
     attributesMap = elem.attributes;
@@ -21048,7 +21959,9 @@ exports.tests = {
     namespaceURI = attr.lookupNamespaceURI("dmstc");
     assertEquals("nodelookupnamespaceuri17","http://www.netzero.com",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupNamespaceURI on the default attribute node of the p node with
@@ -21059,7 +21972,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespaceURI
    */
-  nodelookupnamespaceuri18 : function () {
+  nodelookupnamespaceuri18: function (test) {
     var success;
     var doc;
     var elem;
@@ -21068,7 +21981,7 @@ exports.tests = {
     var attr;
     var namespaceURI;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
     attributesMap = elem.attributes;
@@ -21077,7 +21990,9 @@ exports.tests = {
     namespaceURI = attr.lookupNamespaceURI("nm");
     assertEquals("nodelookupnamespaceuri18","http://www.altavista.com",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupNamespaceURI on the an attribute node without a namespace prefix of
@@ -21088,7 +22003,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespaceURI
    */
-  nodelookupnamespaceuri19 : function () {
+  nodelookupnamespaceuri19: function (test) {
     var success;
     var doc;
     var elem;
@@ -21097,7 +22012,7 @@ exports.tests = {
     var attr;
     var namespaceURI;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(3);
     attributesMap = elem.attributes;
@@ -21106,7 +22021,9 @@ exports.tests = {
     namespaceURI = attr.lookupNamespaceURI("xsi");
     assertEquals("nodelookupnamespaceuri19","http://www.w3.org/2001/XMLSchema-instance",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
 
@@ -21120,7 +22037,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespaceURI
    */
-  nodelookupnamespaceuri20 : function () {
+  nodelookupnamespaceuri20: function (test) {
     var success;
     var doc;
     var elem;
@@ -21129,7 +22046,7 @@ exports.tests = {
     var attr;
     var namespaceURI;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
     attributesMap = elem.attributes;
@@ -21138,7 +22055,9 @@ exports.tests = {
     namespaceURI = attr.lookupNamespaceURI("nm");
     assertEquals("nodelookupnamespaceuri20","http://www.altavista.com",namespaceURI);
 
+    test.done()
   },
+
   /**
    *
 
@@ -21150,18 +22069,20 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespacePrefix
    */
-  nodelookupprefix01 : function () {
+  nodelookupprefix01: function (test) {
     var success;
     var doc;
     var prefix;
     var nullNSURI = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     prefix = doc.lookupPrefix(nullNSURI);
     assertNull("nodelookupprefix01",prefix);
 
+    test.done()
   },
+
   /**
    *
    Using lookupPrefix on a new Document node with a namespaceURI and prefix
@@ -21171,7 +22092,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespacePrefix
    */
-  nodelookupprefix02 : function () {
+  nodelookupprefix02: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -21184,7 +22105,7 @@ exports.tests = {
     var rootName;
     var qname;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -21197,7 +22118,9 @@ exports.tests = {
     prefix = newDoc.lookupPrefix(rootNS);
     assertEquals("nodelookupprefix02","dom3",prefix);
 
+    test.done()
   },
+
   /**
    *
 
@@ -21209,7 +22132,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespacePrefix
    */
-  nodelookupprefix03 : function () {
+  nodelookupprefix03: function (test) {
     var success;
     var doc;
     var docType;
@@ -21217,13 +22140,15 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     prefix = docType.lookupPrefix(nullNSURI);
     assertNull("nodelookupprefix03",prefix);
 
+    test.done()
   },
+
   /**
    *
 
@@ -21235,7 +22160,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespacePrefix
    */
-  nodelookupprefix04 : function () {
+  nodelookupprefix04: function (test) {
     var success;
     var doc;
     var docType;
@@ -21245,7 +22170,7 @@ exports.tests = {
     var notationsMap;
     var prefix;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -21259,7 +22184,9 @@ exports.tests = {
     prefix = notation.lookupPrefix("");
     assertNull("nodelookupprefixNotation04",prefix);
 
+    test.done()
   },
+
   /**
    *
    Using lookupPrefix on the DocumentElement node of a new document with a
@@ -21269,7 +22196,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespacePrefix
    */
-  nodelookupprefix05 : function () {
+  nodelookupprefix05: function (test) {
     var success;
     var doc;
     var elem;
@@ -21283,7 +22210,7 @@ exports.tests = {
     var rootName;
     var qname;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -21298,7 +22225,9 @@ exports.tests = {
     prefix = elem.lookupPrefix(rootNS);
     assertEquals("nodelookupprefix05","dom3",prefix);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupPrefix on an Element node with no prefix, which has a namespace
@@ -21309,20 +22238,22 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespacePrefix
    */
-  nodelookupprefix06 : function () {
+  nodelookupprefix06: function (test) {
     var success;
     var doc;
     var elem;
     var elemList;
     var prefix;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(2);
     prefix = elem.lookupPrefix("http://www.netzero.com");
     assertEquals("nodelookupprefix06","dmstc",prefix);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupPrefix on an Element node with no prefix, which has a namespace
@@ -21333,20 +22264,22 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespacePrefix
    */
-  nodelookupprefix07 : function () {
+  nodelookupprefix07: function (test) {
     var success;
     var doc;
     var elem;
     var elemList;
     var prefix;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(2);
     prefix = elem.lookupPrefix("http://www.netzero.com");
     assertEquals("nodelookupprefix07","dmstc",prefix);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupPrefix on an Element node with no prefix, which has 2 namespace
@@ -21357,7 +22290,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespacePrefix
    */
-  nodelookupprefix08 : function () {
+  nodelookupprefix08: function (test) {
     var success;
     var doc;
     var elem;
@@ -21365,7 +22298,7 @@ exports.tests = {
     var prefix;
     var prefixEmpty;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     prefix = elem.lookupPrefix("http://www.usa.com");
@@ -21373,7 +22306,9 @@ exports.tests = {
     prefixEmpty = elem.lookupPrefix("http://www.w3.org/1999/xhtml");
     assertNull("nodelookupnamespaceprefixEmpty08",prefixEmpty);
 
+    test.done()
   },
+
   /**
    *
 
@@ -21387,7 +22322,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespacePrefix
    */
-  nodelookupprefix09 : function () {
+  nodelookupprefix09: function (test) {
     var success;
     var doc;
     var elem;
@@ -21395,7 +22330,7 @@ exports.tests = {
     var prefix;
     var prefixEmpty;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
     prefix = elem.lookupPrefix("http://www.usa.com");
@@ -21403,7 +22338,9 @@ exports.tests = {
     prefixEmpty = elem.lookupPrefix("http://www.w3.org/1999/xhtml");
     assertNull("nodelookupprefixEmpty09",prefixEmpty);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupPrefix on a new Child of a new Element node with a namespace URI
@@ -21414,7 +22351,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespacePrefix
    */
-  nodelookupprefix10 : function () {
+  nodelookupprefix10: function (test) {
     var success;
     var doc;
     var parent;
@@ -21422,14 +22359,16 @@ exports.tests = {
     var prefix;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     parent = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
     child = doc.createElement("br");
     appendedChild = parent.appendChild(child);
     prefix = child.lookupPrefix("http://www.w3.org/1999/xhtml");
     assertEquals("nodelookupprefix10","dom3",prefix);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupPrefix on an imported new Element node with a namespace URI
@@ -21440,7 +22379,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespacePrefix
    */
-  nodelookupprefix11 : function () {
+  nodelookupprefix11: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -21455,7 +22394,7 @@ exports.tests = {
     var rootName;
     var qname;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -21470,7 +22409,9 @@ exports.tests = {
     prefix = importedNode.lookupPrefix("http://www.w3.org/1999/xhtml");
     assertEquals("nodelookupprefix11","dom3",prefix);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupPrefix on an renamed new Element node with a namespace URI
@@ -21481,7 +22422,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespacePrefix
    */
-  nodelookupprefix12 : function () {
+  nodelookupprefix12: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -21489,14 +22430,16 @@ exports.tests = {
     var renamedNode;
     var prefix;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
     renamedNode = doc.renameNode(elem,"http://www.w3.org/1999/xhtml","ren:br");
     prefix = renamedNode.lookupPrefix("http://www.w3.org/1999/xhtml");
     assertEquals("nodelookupprefix12","ren",prefix);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupPrefix on a Element's new Text node, which has a namespace attribute declaration
@@ -21507,7 +22450,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespacePrefix
    */
-  nodelookupprefix13 : function () {
+  nodelookupprefix13: function (test) {
     var success;
     var doc;
     var bodyElem;
@@ -21517,7 +22460,7 @@ exports.tests = {
     var appendedChild;
     var bodyList;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     bodyList = doc.getElementsByTagName("body");
     bodyElem = bodyList.item(0);
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
@@ -21527,7 +22470,9 @@ exports.tests = {
     prefix = txt.lookupPrefix("http://www.w3.org/1999/xhtml");
     assertEquals("nodelookupprefix13","dom3",prefix);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupPrefix on a Element's new CDATA node, which has a namespace attribute declaration
@@ -21538,7 +22483,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespacePrefix
    */
-  nodelookupprefix14 : function () {
+  nodelookupprefix14: function (test) {
     var success;
     var doc;
     var bodyElem;
@@ -21548,7 +22493,7 @@ exports.tests = {
     var appendedChild;
     var bodyList;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     bodyList = doc.getElementsByTagName("body");
     bodyElem = bodyList.item(0);
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
@@ -21558,7 +22503,9 @@ exports.tests = {
     prefix = cdata.lookupPrefix("http://www.w3.org/1999/xhtml");
     assertEquals("nodelookupprefix14","dom3",prefix);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupPrefix on a Element's new Comment node, which has a namespace attribute declaration
@@ -21569,7 +22516,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespacePrefix
    */
-  nodelookupprefix15 : function () {
+  nodelookupprefix15: function (test) {
     var success;
     var doc;
     var bodyElem;
@@ -21580,7 +22527,7 @@ exports.tests = {
     var appendedChild;
     var bodyList;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     bodyList = doc.getElementsByTagName("body");
     bodyElem = bodyList.item(0);
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
@@ -21591,7 +22538,9 @@ exports.tests = {
     prefix = clonedComment.lookupPrefix("http://www.w3.org/1999/xhtml");
     assertEquals("nodelookupprefix15","dom3",prefix);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupPrefix on a new Attribute node with with a namespace URI
@@ -21601,7 +22550,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespacePrefix
    */
-  nodelookupprefix16 : function () {
+  nodelookupprefix16: function (test) {
     var success;
     var doc;
     var elem;
@@ -21609,14 +22558,16 @@ exports.tests = {
     var prefix;
     var attNode;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     attNode = elem.setAttributeNodeNS(attr);
     prefix = attr.lookupPrefix("http://www.w3.org/XML/1998/namespace");
     assertNull("nodelookupprefix16",prefix);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupPrefix on the title attribute node of the acronym node with
@@ -21627,7 +22578,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespacePrefix
    */
-  nodelookupprefix17 : function () {
+  nodelookupprefix17: function (test) {
     var success;
     var doc;
     var elem;
@@ -21636,7 +22587,7 @@ exports.tests = {
     var attr;
     var prefix;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(2);
     attributesMap = elem.attributes;
@@ -21645,7 +22596,9 @@ exports.tests = {
     prefix = attr.lookupPrefix("http://www.netzero.com");
     assertEquals("nodelookupprefix17","dmstc",prefix);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupPrefix on the default attribute node of the p node with
@@ -21656,7 +22609,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespacePrefix
    */
-  nodelookupprefix18 : function () {
+  nodelookupprefix18: function (test) {
     var success;
     var doc;
     var elem;
@@ -21665,7 +22618,7 @@ exports.tests = {
     var attr;
     var prefix;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
     attributesMap = elem.attributes;
@@ -21676,7 +22629,9 @@ exports.tests = {
     prefix = attr.lookupPrefix("http://www.altavista.com");
     assertEquals("nodelookupprefixB18","nm",prefix);
 
+    test.done()
   },
+
   /**
    *
    Invoke lookupPrefix on the an attribute node without a namespace prefix of
@@ -21687,7 +22642,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespacePrefix
    */
-  nodelookupprefix19 : function () {
+  nodelookupprefix19: function (test) {
     var success;
     var doc;
     var elem;
@@ -21696,7 +22651,7 @@ exports.tests = {
     var attr;
     var prefix;
 
-    doc = load(docRef, "doc", "barfoo_nodefaultns");
+    doc = barfoo_nodefaultns.barfoo_nodefaultns();
     elemList = doc.getElementsByTagName("html:p");
     elem = elemList.item(0);
     attributesMap = elem.attributes;
@@ -21705,7 +22660,9 @@ exports.tests = {
     prefix = attr.lookupPrefix("http://www.w3.org/1999/xhtml");
     assertEquals("nodelookupprefix19","html",prefix);
 
+    test.done()
   },
+
   /**
    *
 
@@ -21719,7 +22676,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-lookupNamespacePrefix
    */
-  nodelookupprefix20 : function () {
+  nodelookupprefix20: function (test) {
     var success;
     var doc;
     var elem;
@@ -21728,7 +22685,7 @@ exports.tests = {
     var attr;
     var prefix;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
     attributesMap = elem.attributes;
@@ -21737,7 +22694,9 @@ exports.tests = {
     prefix = attr.lookupPrefix("http://www.altavista.com");
     assertEquals("nodelookupprefix20","nm",prefix);
 
+    test.done()
   },
+
   /**
    *
 
@@ -21750,12 +22709,12 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild01 : function () {
+  noderemovechild01: function (test) {
     var success;
     var doc;
     var removed;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     {
       success = false;
@@ -21768,7 +22727,9 @@ exports.tests = {
       assertTrue("NOT_FOUND_ERR_noderemovechild01",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using removeChild on this Document node attempt to remove a new Document node and
@@ -21778,7 +22739,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild02 : function () {
+  noderemovechild02: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -21790,7 +22751,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootNS = docElem.namespaceURI;
@@ -21822,7 +22783,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR_2",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using removeChild on this DocumentElement node attempt to remove this Document node and
@@ -21833,14 +22796,14 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild03 : function () {
+  noderemovechild03: function (test) {
     var success;
     var doc;
     var docElem;
     var removedChild;
     var removed;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     removed = doc.removeChild(docElem);
@@ -21859,7 +22822,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
 
@@ -21873,14 +22838,14 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild04 : function () {
+  noderemovechild04: function (test) {
     var success;
     var doc;
     var docType;
     var removedDocType;
     var removed;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     removed = doc.removeChild(docType);
@@ -21899,7 +22864,9 @@ exports.tests = {
       assertTrue("NOT_FOUND_ERR_noderemovechild04",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using removeChild on this Document node attempt to remove a new DocumentType node and
@@ -21911,7 +22878,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=417
    */
-  noderemovechild05 : function () {
+  noderemovechild05: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -21924,7 +22891,7 @@ exports.tests = {
     var appendedChild;
     var removedChild;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     docType = doc.doctype;
 
 
@@ -21959,7 +22926,9 @@ exports.tests = {
       assertTrue("NOT_FOUND_ERR_noderemovechild05",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Attempts to remove a notation from a Document node.  Since notations are children of
@@ -21972,7 +22941,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=418
    */
-  noderemovechild07 : function () {
+  noderemovechild07: function (test) {
     var success;
     var doc;
     var docType;
@@ -21980,7 +22949,7 @@ exports.tests = {
     var notation;
     var removedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     notations = docType.notations;
@@ -22016,7 +22985,9 @@ exports.tests = {
       }
     }
 
+    test.done()
   },
+
   /**
    *
 
@@ -22029,7 +23000,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild08 : function () {
+  noderemovechild08: function (test) {
     var success;
     var doc;
     var comment;
@@ -22037,7 +23008,7 @@ exports.tests = {
     var data;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     comment = doc.createComment("Comment");
     appendedChild = doc.appendChild(comment);
     removedCmt = doc.removeChild(comment);
@@ -22045,7 +23016,9 @@ exports.tests = {
 
     assertEquals("noderemovechild08","Comment",data);
 
+    test.done()
   },
+
   /**
    *
 
@@ -22058,7 +23031,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild09 : function () {
+  noderemovechild09: function (test) {
     var success;
     var doc;
     var pi;
@@ -22066,7 +23039,7 @@ exports.tests = {
     var target;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     pi = doc.createProcessingInstruction("PIT","PID");
     appendedChild = doc.appendChild(pi);
     removedPi = doc.removeChild(pi);
@@ -22074,7 +23047,9 @@ exports.tests = {
 
     assertEquals("noderemovechild09","PIT",target);
 
+    test.done()
   },
+
   /**
    *
    Using removeChild on a new DocumentFragment node attempt to remove a new Element node and
@@ -22084,7 +23059,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild10 : function () {
+  noderemovechild10: function (test) {
     var success;
     var doc;
     var docFrag;
@@ -22094,7 +23069,7 @@ exports.tests = {
     var appendedChild;
     var removedChild;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     docFrag = doc.createDocumentFragment();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:br");
     appendedChild = docFrag.appendChild(elem);
@@ -22103,7 +23078,9 @@ exports.tests = {
 
     assertEquals("noderemovechild10","dom3:br",elemName);
 
+    test.done()
   },
+
   /**
    *
 
@@ -22116,7 +23093,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild11 : function () {
+  noderemovechild11: function (test) {
     var success;
     var doc;
     var docFrag;
@@ -22125,7 +23102,7 @@ exports.tests = {
     var appendedChild;
     var removedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFrag = doc.createDocumentFragment();
     txt = doc.createTextNode("TEXT");
     appendedChild = docFrag.appendChild(txt);
@@ -22134,7 +23111,9 @@ exports.tests = {
 
     assertNull("noderemovechild11",removedTxt);
 
+    test.done()
   },
+
   /**
    *
    The method removeChild removes the child node indicated by oldChild from the list
@@ -22148,7 +23127,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild12 : function () {
+  noderemovechild12: function (test) {
     var success;
     var doc;
     var docFrag;
@@ -22157,7 +23136,7 @@ exports.tests = {
     var appendedChild;
     var removedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFrag = doc.createDocumentFragment();
     eRef = doc.createEntityReference("ent1");
     appendedChild = docFrag.appendChild(eRef);
@@ -22184,7 +23163,9 @@ exports.tests = {
       }
     }
 
+    test.done()
   },
+
   /**
    *
    Using removeChild on a new EntityReference node attempt to remove the first child
@@ -22194,14 +23175,14 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild13 : function () {
+  noderemovechild13: function (test) {
     var success;
     var doc;
     var txt;
     var eRef;
     var removed;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     eRef = doc.createEntityReference("alpha");
     txt = eRef.firstChild;
 
@@ -22218,7 +23199,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using removeChild on a new EntityReference node attempt to remove its last ProcessingInstruction
@@ -22228,7 +23211,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild14 : function () {
+  noderemovechild14: function (test) {
     var success;
     var doc;
     var removed;
@@ -22236,7 +23219,7 @@ exports.tests = {
     var pi;
     var entName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     eRef = doc.createEntityReference("ent4");
     pi = eRef.lastChild;
 
@@ -22253,7 +23236,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using removeChild on a new EntityReference node attempt to remove an Element child
@@ -22263,7 +23248,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild15 : function () {
+  noderemovechild15: function (test) {
     var success;
     var doc;
     var eRef;
@@ -22271,7 +23256,7 @@ exports.tests = {
     var entName;
     var removed;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     eRef = doc.createEntityReference("ent4");
     elem = eRef.firstChild;
 
@@ -22288,7 +23273,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using removeChild on the first 'p' Element node attempt to remove its 'em'
@@ -22299,7 +23286,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild16 : function () {
+  noderemovechild16: function (test) {
     var success;
     var doc;
     var parentList;
@@ -22310,7 +23297,7 @@ exports.tests = {
     var removedName;
     var removedNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     parentList = doc.getElementsByTagName("em");
     child = parentList.item(0);
     parent = child.parentNode;
@@ -22331,7 +23318,9 @@ exports.tests = {
       assertTrue("NOT_FOUND_ERR_noderemovechild16",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using removeChild on the first 'p' Element node attempt to remove a Text
@@ -22342,7 +23331,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild17 : function () {
+  noderemovechild17: function (test) {
     var success;
     var doc;
     var parentList;
@@ -22352,7 +23341,7 @@ exports.tests = {
     var removedValue;
     var removedNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     parentList = doc.getElementsByTagName("em");
     parent = parentList.item(0);
     child = parent.firstChild;
@@ -22373,7 +23362,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
 
@@ -22387,7 +23378,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild18 : function () {
+  noderemovechild18: function (test) {
     var success;
     var doc;
     var parentList;
@@ -22397,7 +23388,7 @@ exports.tests = {
     var removedValue;
     var removedNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     parentList = doc.getElementsByTagName("strong");
     parent = parentList.item(1);
     child = parent.lastChild;
@@ -22418,7 +23409,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using removeChild on the first 'p' Element node attempt to remove a EntityReference
@@ -22431,7 +23424,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild19 : function () {
+  noderemovechild19: function (test) {
     var success;
     var doc;
     var parentList;
@@ -22442,7 +23435,7 @@ exports.tests = {
     var removedNode;
     var entRefChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     parentList = doc.getElementsByTagName("acronym");
     parent = parentList.item(1);
     child = parent.firstChild;
@@ -22492,7 +23485,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Using removeChild on the first 'p' Element node attempt to remove a new
@@ -22503,7 +23498,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild20 : function () {
+  noderemovechild20: function (test) {
     var success;
     var doc;
     var parentList;
@@ -22516,7 +23511,7 @@ exports.tests = {
     var appendedChild;
     var removedNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     parentList = doc.getElementsByTagName("p");
     parent = parentList.item(0);
     child = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:br");
@@ -22538,7 +23533,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using removeChild on a new Element node attempt to remove a new Element child
@@ -22550,7 +23547,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild21 : function () {
+  noderemovechild21: function (test) {
     var success;
     var doc;
     var docElem;
@@ -22561,7 +23558,7 @@ exports.tests = {
     var removedNode;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     parent = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
@@ -22584,7 +23581,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using removeChild on a new Element node attempt to remove a new Comment child
@@ -22595,7 +23594,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild22 : function () {
+  noderemovechild22: function (test) {
     var success;
     var doc;
     var parent;
@@ -22605,7 +23604,7 @@ exports.tests = {
     var removedNode;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     parent = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
     child = doc.createComment("DATA");
     appendedChild = parent.appendChild(child);
@@ -22625,7 +23624,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using removeChild on a new Element node attempt to remove a new ProcessingInstruction child
@@ -22636,7 +23637,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild23 : function () {
+  noderemovechild23: function (test) {
     var success;
     var doc;
     var parent;
@@ -22646,7 +23647,7 @@ exports.tests = {
     var removedNode;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     parent = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
     child = doc.createProcessingInstruction("TARGET","DATA");
     appendedChild = parent.appendChild(child);
@@ -22666,7 +23667,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using removeChild on an Entity node attempt to remove a Text child
@@ -22676,7 +23679,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild24 : function () {
+  noderemovechild24: function (test) {
     var success;
     var doc;
     var docType;
@@ -22685,7 +23688,7 @@ exports.tests = {
     var alphaText;
     var removed;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -22707,7 +23710,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using removeChild on an Entity node attempt to remove an Element child
@@ -22717,7 +23722,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild25 : function () {
+  noderemovechild25: function (test) {
     var success;
     var doc;
     var docType;
@@ -22726,7 +23731,7 @@ exports.tests = {
     var span;
     var removed;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -22748,7 +23753,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using removeChild on an Entity node attempt to remove a ProcessingInstruction child
@@ -22758,7 +23765,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild26 : function () {
+  noderemovechild26: function (test) {
     var success;
     var doc;
     var docType;
@@ -22767,7 +23774,7 @@ exports.tests = {
     var pi;
     var removed;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -22789,7 +23796,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    The method removeChild removes the child node indicated by oldChild from the list
@@ -22802,7 +23811,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild27 : function () {
+  noderemovechild27: function (test) {
     var success;
     var doc;
     var docType;
@@ -22812,7 +23821,7 @@ exports.tests = {
     var parent;
     var removed;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -22840,7 +23849,9 @@ exports.tests = {
       }
     }
 
+    test.done()
   },
+
   /**
    *
    Using removeChild on an Attribute node attempt to remove its Text child node and
@@ -22851,7 +23862,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild28 : function () {
+  noderemovechild28: function (test) {
     var success;
     var doc;
     var parentList;
@@ -22863,7 +23874,7 @@ exports.tests = {
     var removedName;
     var removedNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     parentList = doc.getElementsByTagName("acronym");
     elem = parentList.item(0);
     attrsMap = elem.attributes;
@@ -22887,7 +23898,9 @@ exports.tests = {
       assertTrue("NOT_FOUND_ERR_noderemovechild28",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using removeChild on a namespace Attribute node attempt to remove its Text child node and
@@ -22898,7 +23911,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild29 : function () {
+  noderemovechild29: function (test) {
     var success;
     var doc;
     var parentList;
@@ -22910,7 +23923,7 @@ exports.tests = {
     var removedName;
     var removedNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     parentList = doc.getElementsByTagName("p");
     elem = parentList.item(0);
     attrsMap = elem.attributes;
@@ -22934,7 +23947,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
 
@@ -22948,7 +23963,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild30 : function () {
+  noderemovechild30: function (test) {
     var success;
     var doc;
     var parentList;
@@ -22961,7 +23976,7 @@ exports.tests = {
     var removedName;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     parentList = doc.getElementsByTagName("p");
     elem = parentList.item(3);
     attrsMap = elem.attributes;
@@ -22985,7 +24000,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using removeChild on a default Attribute node attempt to remove its EntityReference child node and
@@ -22997,7 +24014,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-1734834066
    */
-  noderemovechild31 : function () {
+  noderemovechild31: function (test) {
     var success;
     var doc;
     var parentList;
@@ -23012,7 +24029,7 @@ exports.tests = {
     var appendedChild;
     var entRefChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     parentList = doc.getElementsByTagName("acronym");
     elem = parentList.item(3);
     attrsMap = elem.attributes;
@@ -23067,7 +24084,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    The method replaceChild replaces the child node oldChild with newChild in the list of
@@ -23082,12 +24101,12 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild01 : function () {
+  nodereplacechild01: function (test) {
     var success;
     var doc;
     var replaced;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     try {
       replaced = doc.replaceChild(doc,doc);
@@ -23107,7 +24126,9 @@ exports.tests = {
       }
     }
 
+    test.done()
   },
+
   /**
    *
    The method replaceChild replaces the child node oldChild with newChild in the list of
@@ -23120,18 +24141,20 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild02 : function () {
+  nodereplacechild02: function (test) {
     var success;
     var doc;
     var docType;
     var replaced;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     replaced = doc.replaceChild(docType,docType);
 
+    test.done()
   },
+
   /**
    *
    The method replaceChild replaces the child node oldChild with newChild in the list of
@@ -23145,7 +24168,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild03 : function () {
+  nodereplacechild03: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -23154,7 +24177,7 @@ exports.tests = {
 
     var replaced;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument("http://www.w3.org/DOM","dom3:doc",nullDocType);
 
@@ -23178,7 +24201,9 @@ exports.tests = {
       }
     }
 
+    test.done()
   },
+
   /**
    *
    The method replaceChild replaces the child node oldChild with newChild in the list of
@@ -23191,13 +24216,13 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild04 : function () {
+  nodereplacechild04: function (test) {
     var success;
     var doc;
     var docElem;
     var replaced;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
 
@@ -23219,7 +24244,9 @@ exports.tests = {
       }
     }
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on this Document node attempt to replace this DocumentElement node
@@ -23229,7 +24256,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild06 : function () {
+  nodereplacechild06: function (test) {
     var success;
     var doc;
     var docElem;
@@ -23239,7 +24266,7 @@ exports.tests = {
     var nodeName;
     var replacedNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     childList = doc.getElementsByTagName("p");
@@ -23266,7 +24293,9 @@ exports.tests = {
 
     assertEquals("nodereplacechild06","p",nodeName);
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on this Document node attempt to replace this DocumentElement node
@@ -23276,7 +24305,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild07 : function () {
+  nodereplacechild07: function (test) {
     var success;
     var doc;
     var docElem;
@@ -23287,7 +24316,7 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootName = docElem.tagName;
@@ -23317,7 +24346,9 @@ exports.tests = {
 
     assertEquals("nodereplacechild07",rootName,nodeName);
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on this Document node attempt to replace this DocumentElement node
@@ -23328,7 +24359,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild08 : function () {
+  nodereplacechild08: function (test) {
     var success;
     var doc;
     var doc2;
@@ -23342,7 +24373,7 @@ exports.tests = {
     var nullDocType = null;
 
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     docElem = doc.documentElement;
 
     rootName = docElem.tagName;
@@ -23372,7 +24403,9 @@ exports.tests = {
       }
     }
 
+    test.done()
   },
+
   /**
    *
    The method replaceChild replaces the child node oldChild with newChild in the list of
@@ -23386,7 +24419,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild10 : function () {
+  nodereplacechild10: function (test) {
     var success;
     var doc;
     var docType;
@@ -23398,18 +24431,14 @@ exports.tests = {
     var notation;
     var replaced;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
 
     ent = entitiesMap.getNamedItem("alpha");
 
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "hc_staff");
+    doc1 = hc_staff.hc_staff();
     docType1 = doc1.doctype;
 
     notationsMap = docType1.notations;
@@ -23436,7 +24465,9 @@ exports.tests = {
       }
     }
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on this Document node, attempt to replace a new ProcessingInstruction
@@ -23447,7 +24478,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=416
    */
-  nodereplacechild12 : function () {
+  nodereplacechild12: function (test) {
     var success;
     var doc;
     var pi;
@@ -23458,7 +24489,7 @@ exports.tests = {
     var replacedNode;
     var appendedChild;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     comment = doc.createComment("dom3:doc");
     pi = doc.createProcessingInstruction("PITarget","PIData");
     appendedChild = doc.appendChild(comment);
@@ -23475,7 +24506,9 @@ exports.tests = {
 
     assertEquals("lastChildIsComment","#comment",nodeName);
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on this Document node attempt to replace this DocumentType node with
@@ -23485,7 +24518,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild13 : function () {
+  nodereplacechild13: function (test) {
     var success;
     var doc;
     var docType;
@@ -23501,7 +24534,7 @@ exports.tests = {
     var docElemName;
     var docElemNS;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     docElemName = docElem.tagName;
@@ -23532,7 +24565,9 @@ exports.tests = {
 
     assertEquals("nodereplacechild13",docElemName,nodeName);
 
+    test.done()
   },
+
   /**
    *
    The method replaceChild replaces the child node oldChild with newChild in the list of
@@ -23546,7 +24581,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild14 : function () {
+  nodereplacechild14: function (test) {
     var success;
     var doc;
     var newDoc;
@@ -23561,7 +24596,7 @@ exports.tests = {
     var nullDocType = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elem = doc.createElementNS("http://www.w3.org/DOM/Test","dom3:doc1elem");
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument("http://www.w3.org/DOM/test","dom3:doc",nullDocType);
@@ -23576,7 +24611,9 @@ exports.tests = {
 
     assertEquals("nodereplacechild14","dom3:doc2elem",nodeName);
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on a DocumentFragment node attempt to replace an Element node with
@@ -23586,7 +24623,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild15 : function () {
+  nodereplacechild15: function (test) {
     var success;
     var doc;
     var docFrag;
@@ -23600,7 +24637,7 @@ exports.tests = {
     var rootName;
     var rootNS;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootName = docElem.tagName;
@@ -23617,7 +24654,9 @@ exports.tests = {
     title = replaced.getAttribute("title");
     assertEquals("nodereplacechild15","new element",title);
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on a DocumentFragment node attempt to replace an Element node with
@@ -23627,7 +24666,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild16 : function () {
+  nodereplacechild16: function (test) {
     var success;
     var doc;
     var docFrag;
@@ -23637,7 +24676,7 @@ exports.tests = {
     var nodeName;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
     docFrag = doc.createDocumentFragment();
     txt = doc.createTextNode("Comment");
@@ -23648,7 +24687,9 @@ exports.tests = {
 
     assertEquals("nodereplacechild16","dom3:p",nodeName);
 
+    test.done()
   },
+
   /**
    *
 
@@ -23661,7 +24702,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild17 : function () {
+  nodereplacechild17: function (test) {
     var success;
     var doc;
     var docFrag;
@@ -23673,7 +24714,7 @@ exports.tests = {
     var target;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFrag = doc.createDocumentFragment();
     cmt = doc.createComment("Comment");
     pi = doc.createProcessingInstruction("target","Comment");
@@ -23688,7 +24729,9 @@ exports.tests = {
 
     assertEquals("nodereplacechild17_2","target",target);
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on a DocumentFragment node attempt to replace a CDATASection node with
@@ -23698,7 +24741,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild18 : function () {
+  nodereplacechild18: function (test) {
     var success;
     var doc;
     var docFrag;
@@ -23710,7 +24753,7 @@ exports.tests = {
     var erefName;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFrag = doc.createDocumentFragment();
     cdata = doc.createCDATASection("CDATASection");
     entRef = doc.createEntityReference("alpha");
@@ -23725,7 +24768,9 @@ exports.tests = {
 
     assertEquals("nodereplacechild18_2","alpha",erefName);
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on a DocumentFragment node attempt to replace an Element node with
@@ -23735,7 +24780,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild19 : function () {
+  nodereplacechild19: function (test) {
     var success;
     var doc;
     var docFrag;
@@ -23745,7 +24790,7 @@ exports.tests = {
     var nodeName;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFrag = doc.createDocumentFragment();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
     entRef = doc.createEntityReference("alpha");
@@ -23756,7 +24801,9 @@ exports.tests = {
 
     assertEquals("nodereplacechild19","dom3:p",nodeName);
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on a DocumentFragment node attempt to replace an Element node with
@@ -23766,7 +24813,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild20 : function () {
+  nodereplacechild20: function (test) {
     var success;
     var doc;
     var docFrag;
@@ -23776,7 +24823,7 @@ exports.tests = {
     var nodeName;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFrag = doc.createDocumentFragment();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
@@ -23793,7 +24840,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    The method replaceChild replaces the child node oldChild with newChild in the list of
@@ -23808,7 +24857,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild21 : function () {
+  nodereplacechild21: function (test) {
     var success;
     var doc;
     var docType;
@@ -23820,18 +24869,14 @@ exports.tests = {
     var notation;
     var replacedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
 
     ent = entitiesMap.getNamedItem("alpha");
 
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "hc_staff");
+    doc1 = hc_staff.hc_staff();
     docType1 = doc1.doctype;
 
     notationsMap = docType1.notations;
@@ -23860,7 +24905,9 @@ exports.tests = {
       assertTrue("NO_MODIFICATION_ALLOWED_ERR2_nodereplacechild21",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on a new EntityReference node attempt to replace an EntityReference node with
@@ -23870,7 +24917,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild22 : function () {
+  nodereplacechild22: function (test) {
     var success;
     var doc;
     var entRefMain;
@@ -23879,7 +24926,7 @@ exports.tests = {
     var appendedChild;
     var replacedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
     entRefMain = doc.createEntityReference("delta");
     entRef = doc.createEntityReference("beta");
@@ -23918,7 +24965,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR_3",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on a new EntityReference node attempt to replace an Element, Text,
@@ -23929,7 +24978,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild23 : function () {
+  nodereplacechild23: function (test) {
     var success;
     var doc;
     var entRef;
@@ -23941,7 +24990,7 @@ exports.tests = {
     var replaced;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
     entRef = doc.createEntityReference("delta");
     txt = doc.createTextNode("Text");
@@ -24009,7 +25058,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR_5",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on an EntityReference node attempt to replace an Element node with
@@ -24019,7 +25070,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild24 : function () {
+  nodereplacechild24: function (test) {
     var success;
     var doc;
     var childList;
@@ -24028,7 +25079,7 @@ exports.tests = {
     var replaced;
     var nodeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagName("acronym");
     elem = childList.item(1);
     entRef = elem.firstChild;
@@ -24045,7 +25096,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on an Element node attempt to replace an
@@ -24056,7 +25109,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild25 : function () {
+  nodereplacechild25: function (test) {
     var success;
     var doc;
     var docType;
@@ -24068,7 +25121,7 @@ exports.tests = {
     var replaced;
     var nodeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entities = docType.entities;
@@ -24101,7 +25154,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR_2",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on an Element node attempt to replace a Text child node with an Element
@@ -24111,7 +25166,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild26 : function () {
+  nodereplacechild26: function (test) {
     var success;
     var doc;
     var childList;
@@ -24121,7 +25176,7 @@ exports.tests = {
     var nodeName;
     var replaced;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     childList = doc.getElementsByTagName("p");
@@ -24140,7 +25195,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    The method replaceChild replaces the child node oldChild with newChild in the list of
@@ -24153,7 +25210,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild27 : function () {
+  nodereplacechild27: function (test) {
     var success;
     var doc;
     var doc2;
@@ -24165,17 +25222,13 @@ exports.tests = {
     var nodeName;
     var replaced;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagNameNS("*","p");
     elem = childList.item(0);
     firstChild = elem.firstChild;
 
 
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "hc_staff");
+    doc2 = hc_staff.hc_staff();
     childList2 = doc2.getElementsByTagNameNS("*","p");
     elem2 = childList2.item(0);
 
@@ -24190,7 +25243,9 @@ exports.tests = {
       assertTrue("WRONG_DOCUMENT_ERR_nodereplacechild27",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Attempt to replace a text node with a text node from an
@@ -24202,7 +25257,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild28 : function () {
+  nodereplacechild28: function (test) {
     var success;
     var doc;
     var childList;
@@ -24213,7 +25268,7 @@ exports.tests = {
     var appendedChild;
     var replacedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagName("acronym");
     acronym = childList.item(1);
     betaRef = acronym.firstChild;
@@ -24237,7 +25292,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on an Element node attempt to replace a new Element node with
@@ -24247,7 +25304,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild29 : function () {
+  nodereplacechild29: function (test) {
     var success;
     var doc;
     var childList;
@@ -24256,7 +25313,7 @@ exports.tests = {
     var newChild;
     var replaced;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagName("p");
     elem = childList.item(0);
     oldChild = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:br");
@@ -24273,7 +25330,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
 
@@ -24286,7 +25345,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild30 : function () {
+  nodereplacechild30: function (test) {
     var success;
     var doc;
     var parent;
@@ -24301,7 +25360,7 @@ exports.tests = {
     var nodeName;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     parent = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:html");
     oldChild = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:head");
     newElement = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:body");
@@ -24354,7 +25413,9 @@ exports.tests = {
 
     assertEquals("nodereplacechild30_9","delta",nodeName);
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on an Element node that is the replacement Text of an EntityReference
@@ -24365,7 +25426,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild31 : function () {
+  nodereplacechild31: function (test) {
     var success;
     var doc;
     var childList;
@@ -24376,7 +25437,7 @@ exports.tests = {
     var newChild;
     var replaced;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     childList = doc.getElementsByTagName("var");
     elem = childList.item(2);
     ent4Ref = elem.firstChild;
@@ -24400,7 +25461,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    The method replaceChild replaces the child node oldChild with newChild in the list of
@@ -24413,7 +25476,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild32 : function () {
+  nodereplacechild32: function (test) {
     var success;
     var doc;
     var childList;
@@ -24428,7 +25491,7 @@ exports.tests = {
     var enRefChild;
     var reference = "entity1";
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newChild = doc.createTextNode("Text");
     childList = doc.getElementsByTagNameNS("*","acronym");
     elem = childList.item(3);
@@ -24440,7 +25503,9 @@ exports.tests = {
 
     assertEquals("nodereplacechild32","entity1",nodeName);
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on a default Attr node to replace its Text Child with a
@@ -24450,7 +25515,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild33 : function () {
+  nodereplacechild33: function (test) {
     var success;
     var doc;
     var childList;
@@ -24461,7 +25526,7 @@ exports.tests = {
     var replaced;
     var nodeValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newChild = doc.createEntityReference("delta");
     childList = doc.getElementsByTagName("p");
     elem = childList.item(3);
@@ -24473,7 +25538,9 @@ exports.tests = {
 
     assertEquals("nodereplacechild33","rtl",nodeValue);
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on a new Attr node, replace its new EntityReference Child with a
@@ -24483,7 +25550,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild34 : function () {
+  nodereplacechild34: function (test) {
     var success;
     var doc;
     var parent;
@@ -24493,7 +25560,7 @@ exports.tests = {
     var appendedChild;
     var replaced;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     parent = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     oldChild = doc.createEntityReference("delta");
     appendedChild = parent.appendChild(oldChild);
@@ -24503,7 +25570,9 @@ exports.tests = {
 
     assertEquals("nodereplacechild34","Text",nodeValue);
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on a new Attr node, replace its new EntityRefernece Child with a
@@ -24513,7 +25582,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild35 : function () {
+  nodereplacechild35: function (test) {
     var success;
     var doc;
     var parent;
@@ -24523,7 +25592,7 @@ exports.tests = {
     var appendedChild;
     var replaced;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     parent = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     oldChild = doc.createEntityReference("delta");
     appendedChild = parent.appendChild(oldChild);
@@ -24540,7 +25609,9 @@ exports.tests = {
       assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on a new Attr node, replace its new EntityRefernece node with a
@@ -24550,7 +25621,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild36 : function () {
+  nodereplacechild36: function (test) {
     var success;
     var doc;
     var parent;
@@ -24559,7 +25630,7 @@ exports.tests = {
     var nodeValue;
     var replaced;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     parent = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     oldChild = doc.createEntityReference("delta");
     newChild = doc.createTextNode("Text");
@@ -24575,7 +25646,9 @@ exports.tests = {
       assertTrue("throw_NOT_FOUND_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on a new Attr node, replace its new Text node with a
@@ -24586,7 +25659,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild37 : function () {
+  nodereplacechild37: function (test) {
     var success;
     var doc;
     var doc2;
@@ -24597,13 +25670,9 @@ exports.tests = {
     var replaced;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "hc_staff");
+    doc2 = hc_staff.hc_staff();
     parent = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     oldChild = doc.createTextNode("Text");
     newChild = doc2.createEntityReference("delta");
@@ -24620,7 +25689,9 @@ exports.tests = {
       assertTrue("throw_WRONG_DOCUMENT_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Using replaceChild on an Entity node attempt to replace its Text child with new Text,
@@ -24631,7 +25702,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild38 : function () {
+  nodereplacechild38: function (test) {
     var success;
     var doc;
     var docType;
@@ -24646,7 +25717,7 @@ exports.tests = {
     var cdata;
     var replaced;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitiesMap = docType.entities;
@@ -24729,7 +25800,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR6",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Attempt to add a second document element by a replacing a trailing comment.  The attempt should result
@@ -24738,7 +25811,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild39 : function () {
+  nodereplacechild39: function (test) {
     var success;
     var doc;
     var docElem;
@@ -24748,7 +25821,7 @@ exports.tests = {
     var newElement;
     var retNode;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     docElem = doc.documentElement;
 
     rootName = docElem.tagName;
@@ -24778,7 +25851,9 @@ exports.tests = {
       }
     }
 
+    test.done()
   },
+
   /**
    *
    Attempt to add a second document element by a comment.  The attempt should result
@@ -24787,7 +25862,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-785887307
    */
-  nodereplacechild40 : function () {
+  nodereplacechild40: function (test) {
     var success;
     var doc;
     var docElem;
@@ -24801,7 +25876,7 @@ exports.tests = {
     var domImpl;
     var retNode;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     docElem = doc.documentElement;
 
     rootName = docElem.tagName;
@@ -24830,7 +25905,9 @@ exports.tests = {
       }
     }
 
+    test.done()
   },
+
   /**
    *
    Attempt to set textContent for a Document node and check that the document appears
@@ -24840,14 +25917,14 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodesettextcontent01 : function () {
+  nodesettextcontent01: function (test) {
     var success;
     var doc;
     var nodeName;
     var elemList;
     var elem;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     doc.textContent = "textContent";
 
     elemList = doc.getElementsByTagName("acronym");
@@ -24857,7 +25934,9 @@ exports.tests = {
 
     assertEquals("nodesettextcontent01","acronym",nodeName);
 
+    test.done()
   },
+
   /**
    *
    The method setTextContent has no effect when the node is defined to be null.
@@ -24870,7 +25949,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodesettextcontent02 : function () {
+  nodesettextcontent02: function (test) {
     var success;
     var doc;
     var domImpl;
@@ -24884,7 +25963,7 @@ exports.tests = {
     var appendedChild;
     var documentElem;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","dom3:elem",nullDocType);
     newElem = newDoc.createElementNS("http://www.w3.org/DOM/Test","dom3:childElem");
@@ -24899,7 +25978,9 @@ exports.tests = {
 
     assertEquals("nodesettextcontent02","dom3:childElem",nodeName);
 
+    test.done()
   },
+
   /**
    *
 
@@ -24911,13 +25992,13 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodesettextcontent03 : function () {
+  nodesettextcontent03: function (test) {
     var success;
     var doc;
     var docType;
     var textContent;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     docType.textContent = "textContent";
@@ -24926,7 +26007,9 @@ exports.tests = {
 
     assertNull("nodesettextcontent03",textContent);
 
+    test.done()
   },
+
   /**
    *
 
@@ -24938,7 +26021,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodesettextcontent04 : function () {
+  nodesettextcontent04: function (test) {
     var success;
     var doc;
     var docType;
@@ -24946,7 +26029,7 @@ exports.tests = {
     var notation1;
     var textContent;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     notationsMap = docType.notations;
@@ -24958,7 +26041,9 @@ exports.tests = {
 
     assertNull("nodesettextcontent04",textContent);
 
+    test.done()
   },
+
   /**
    *
 
@@ -24970,7 +26055,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodesettextcontent05 : function () {
+  nodesettextcontent05: function (test) {
     var success;
     var doc;
     var elemList;
@@ -24978,7 +26063,7 @@ exports.tests = {
     var attr;
     var textContent;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
     attr = elem.getAttributeNode("dir");
@@ -24988,7 +26073,9 @@ exports.tests = {
 
     assertEquals("nodesettextcontent05","NA",textContent);
 
+    test.done()
   },
+
   /**
    *
 
@@ -25000,7 +26087,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodesettextcontent06 : function () {
+  nodesettextcontent06: function (test) {
     var success;
     var doc;
     var elemList;
@@ -25009,7 +26096,7 @@ exports.tests = {
     var attrNode;
     var textContent;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","p");
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     attrNode = elem.setAttributeNodeNS(attr);
@@ -25019,7 +26106,9 @@ exports.tests = {
 
     assertEquals("nodesettextcontent06","NA",textContent);
 
+    test.done()
   },
+
   /**
    *
 
@@ -25031,7 +26120,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodesettextcontent07 : function () {
+  nodesettextcontent07: function (test) {
     var success;
     var doc;
     var elemList;
@@ -25039,7 +26128,7 @@ exports.tests = {
     var txt;
     var textContent;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
     txt = elem.firstChild;
@@ -25050,7 +26139,9 @@ exports.tests = {
 
     assertEquals("nodegettextcontent10","Text",textContent);
 
+    test.done()
   },
+
   /**
    *
 
@@ -25062,7 +26153,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodesettextcontent08 : function () {
+  nodesettextcontent08: function (test) {
     var success;
     var doc;
     var elemList;
@@ -25071,7 +26162,7 @@ exports.tests = {
     var textContent;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:p");
     pi = doc.createProcessingInstruction("PIT","PID");
     appendedChild = elem.appendChild(pi);
@@ -25081,7 +26172,9 @@ exports.tests = {
 
     assertEquals("nodesettextcontent08","PID",textContent);
 
+    test.done()
   },
+
   /**
    *
    The method setTextContent has no effect when the node is defined to be null.
@@ -25093,7 +26186,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodesettextcontent10 : function () {
+  nodesettextcontent10: function (test) {
     var success;
     var doc;
     var elem;
@@ -25105,7 +26198,7 @@ exports.tests = {
     var textContent;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elem = doc.createElementNS("http://www.w3.org/DOM/Test","dom3:elem");
     txt = doc.createTextNode("Text ");
     comment = doc.createComment("Comment ");
@@ -25123,7 +26216,9 @@ exports.tests = {
 
     assertEquals("nodesettextcontent10","ELEMENT",textContent);
 
+    test.done()
   },
+
   /**
    *
 
@@ -25135,7 +26230,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodesettextcontent11 : function () {
+  nodesettextcontent11: function (test) {
     var success;
     var doc;
     var docFrag;
@@ -25149,7 +26244,7 @@ exports.tests = {
     var textContent;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFrag = doc.createDocumentFragment();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:p");
     txt = doc.createTextNode("Text ");
@@ -25171,7 +26266,9 @@ exports.tests = {
 
     assertEquals("nodegettextcontent11","DOCUMENTFRAGMENT",textContent);
 
+    test.done()
   },
+
   /**
    *
 
@@ -25184,7 +26281,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodesettextcontent12 : function () {
+  nodesettextcontent12: function (test) {
     var success;
     var doc;
     var elem;
@@ -25192,7 +26289,7 @@ exports.tests = {
     var textContent;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elem = doc.documentElement;
 
     entRef = doc.createEntityReference("beta");
@@ -25210,7 +26307,9 @@ exports.tests = {
       assertTrue("nodesettextcontent12",success);
     }
 
+    test.done()
   },
+
   /**
    *
 
@@ -25223,7 +26322,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-textContent
    */
-  nodesettextcontent13 : function () {
+  nodesettextcontent13: function (test) {
     var success;
     var doc;
     var docType;
@@ -25231,7 +26330,7 @@ exports.tests = {
     var entitymap;
     var textContent;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entitymap = docType.entities;
@@ -25250,7 +26349,9 @@ exports.tests = {
       assertTrue("nodesettextcontent13",success);
     }
 
+    test.done()
   },
+
   /**
    *
 
@@ -25262,7 +26363,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-setUserData
    */
-  nodesetuserdata01 : function () {
+  nodesetuserdata01: function (test) {
     var success;
     var doc;
     var userData;
@@ -25272,7 +26373,7 @@ exports.tests = {
     var nullData = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     if (null == nullHandler) {
       doc.setUserData("something", nullData, null);
     } else {
@@ -25280,7 +26381,9 @@ exports.tests = {
     }
     assertNull("nodesetuserdata01",prevUserData);
 
+    test.done()
   },
+
   /**
    *
 
@@ -25292,7 +26395,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-setUserData
    */
-  nodesetuserdata02 : function () {
+  nodesetuserdata02: function (test) {
     var success;
     var doc;
     var userData;
@@ -25303,7 +26406,7 @@ exports.tests = {
     var nullHandler = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     if (null == nullHandler) {
       doc.setUserData("something", test, null);
     } else {
@@ -25311,7 +26414,9 @@ exports.tests = {
     }
     assertNull("nodesetuserdata02",prevUserData);
 
+    test.done()
   },
+
   /**
    *
    Invoke setUserData on this Document to set this Documents UserData to a new
@@ -25322,7 +26427,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-setUserData
    */
-  nodesetuserdata03 : function () {
+  nodesetuserdata03: function (test) {
     var success;
     var doc;
     var userData;
@@ -25334,7 +26439,7 @@ exports.tests = {
     var nullHandler = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:p");
     txt = doc.createTextNode("TEXT");
     if (null == nullHandler) {
@@ -25350,7 +26455,9 @@ exports.tests = {
     success = retUserData.isEqualNode(elem);
     assertTrue("nodesetuserdata03",success);
 
+    test.done()
   },
+
   /**
    *
 
@@ -25363,7 +26470,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-setUserData
    */
-  nodesetuserdata04 : function () {
+  nodesetuserdata04: function (test) {
     var success;
     var doc;
     var userData;
@@ -25376,7 +26483,7 @@ exports.tests = {
     var nullHandler = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","p");
     txt = doc.createTextNode("TEXT");
     if (null == nullHandler) {
@@ -25394,7 +26501,9 @@ exports.tests = {
     success = returned1.isEqualNode(returned2);
     assertTrue("nodesetuserdata04",success);
 
+    test.done()
   },
+
   /**
    *
 
@@ -25407,7 +26516,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-setUserData
    */
-  nodesetuserdata05 : function () {
+  nodesetuserdata05: function (test) {
     var success;
     var doc;
     var doc2;
@@ -25420,13 +26529,9 @@ exports.tests = {
     var nullHandler = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "hc_staff");
+    doc2 = hc_staff.hc_staff();
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","lang");
     if (null == nullHandler) {
       attr.setUserData("Key1", doc, null);
@@ -25443,7 +26548,9 @@ exports.tests = {
     success = returned1.isEqualNode(returned2);
     assertTrue("nodesetuserdata05",success);
 
+    test.done()
   },
+
   /**
    *
 
@@ -25456,7 +26563,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-setUserData
    */
-  nodesetuserdata06 : function () {
+  nodesetuserdata06: function (test) {
     var success;
     var doc;
     var docType;
@@ -25470,7 +26577,7 @@ exports.tests = {
     var nullHandler = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     entities = docType.entities;
@@ -25490,7 +26597,9 @@ exports.tests = {
     success = returned.isEqualNode(entity);
     assertTrue("nodesetuserdata06",success);
 
+    test.done()
   },
+
   /**
    *
 
@@ -25503,7 +26612,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-setUserData
    */
-  nodesetuserdata07 : function () {
+  nodesetuserdata07: function (test) {
     var success;
     var doc;
     var docType;
@@ -25517,7 +26626,7 @@ exports.tests = {
     var nullHandler = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
     notations = docType.notations;
@@ -25537,7 +26646,9 @@ exports.tests = {
     success = returned.isEqualNode(comment);
     assertTrue("nodesetuserdata07",success);
 
+    test.done()
   },
+
   /**
    *
    Invoke setUserData on a CDATASection and EntityReference node to set their
@@ -25548,7 +26659,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-setUserData
    */
-  nodesetuserdata08 : function () {
+  nodesetuserdata08: function (test) {
     var success;
     var doc;
     var docElem;
@@ -25564,7 +26675,7 @@ exports.tests = {
     var nullHandler = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     entRef = doc.createEntityReference("delta");
@@ -25584,7 +26695,9 @@ exports.tests = {
     success = returned1.isEqualNode(returned2);
     assertFalse("nodesetuserdata08",success);
 
+    test.done()
   },
+
   /**
    *
 
@@ -25598,7 +26711,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-setUserData
    */
-  nodesetuserdata09 : function () {
+  nodesetuserdata09: function (test) {
     var success;
     var doc;
     var docElem;
@@ -25607,7 +26720,7 @@ exports.tests = {
 
     var retUserData;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     if (null == nullHandler) {
@@ -25618,7 +26731,9 @@ exports.tests = {
     returned = doc.getUserData("Key1");
     assertNull("nodesetuserdata09",returned);
 
+    test.done()
   },
+
   /**
    *
    Invoke setUserData on a CDATASection and EntityReference node to set their
@@ -25629,7 +26744,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-setUserData
    */
-  nodesetuserdata10 : function () {
+  nodesetuserdata10: function (test) {
     var success;
     var doc;
     var docElem;
@@ -25645,7 +26760,7 @@ exports.tests = {
     var nullHandler = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     varList = doc.getElementsByTagName("var");
@@ -25668,7 +26783,9 @@ exports.tests = {
     success = returned1.isEqualNode(returned2);
     assertFalse("nodesetuserdata08",success);
 
+    test.done()
   },
+
   /**
    *
    Normalize document with normalize-characters set to false, check that
@@ -25679,7 +26796,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-normalize-characters
    * @see http://www.w3.org/TR/2003/WD-charmod-20030822/
    */
-  normalizecharacters01 : function () {
+  normalizecharacters01: function (test) {
     var success;
     var doc;
     var docElem;
@@ -25692,7 +26809,7 @@ exports.tests = {
     var textValue;
     var retval;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     domConfig.setParameter("normalize-characters", false);
@@ -25711,7 +26828,9 @@ exports.tests = {
 
     assertEquals("noCharNormalization","barsuçon",textValue);
 
+    test.done()
   },
+
   /**
    *
    Normalize document with normalize-characters set to true, check that
@@ -25722,7 +26841,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-normalize-characters
    * @see http://www.w3.org/TR/2003/WD-charmod-20030822/
    */
-  normalizecharacters02 : function () {
+  normalizecharacters02: function (test) {
     var success;
     var doc;
     var docElem;
@@ -25736,7 +26855,7 @@ exports.tests = {
     var retval;
     var canSet;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("normalize-characters",true);
@@ -25762,7 +26881,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize an element with normalize-characters set to false, check that
@@ -25773,7 +26894,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-normalize-characters
    * @see http://www.w3.org/TR/2003/WD-charmod-20030822/
    */
-  normalizecharacters03 : function () {
+  normalizecharacters03: function (test) {
     var success;
     var doc;
     var docElem;
@@ -25786,7 +26907,7 @@ exports.tests = {
     var textValue;
     var retval;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     domConfig.setParameter("normalize-characters", false);
@@ -25805,7 +26926,9 @@ exports.tests = {
 
     assertEquals("noCharNormalization","barsuçon",textValue);
 
+    test.done()
   },
+
   /**
    *
    Normalize an element with normalize-characters set to true, check that
@@ -25816,7 +26939,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-normalize-characters
    * @see http://www.w3.org/TR/2003/WD-charmod-20030822/
    */
-  normalizecharacters04 : function () {
+  normalizecharacters04: function (test) {
     var success;
     var doc;
     var docElem;
@@ -25830,7 +26953,7 @@ exports.tests = {
     var retval;
     var canSet;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("normalize-characters",true);
@@ -25856,7 +26979,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize an document (using Node.normalize) with normalize-characters set to false, check that
@@ -25867,7 +26992,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-normalize-characters
    * @see http://www.w3.org/TR/2003/WD-charmod-20030822/
    */
-  normalizecharacters05 : function () {
+  normalizecharacters05: function (test) {
     var success;
     var doc;
     var docElem;
@@ -25880,7 +27005,7 @@ exports.tests = {
     var textValue;
     var retval;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     domConfig.setParameter("normalize-characters", false);
@@ -25899,7 +27024,9 @@ exports.tests = {
 
     assertEquals("noCharNormalization","barsuçon",textValue);
 
+    test.done()
   },
+
   /**
    *
    Normalize a document (using Node.normalize) with normalize-characters set to true, check that
@@ -25910,7 +27037,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-normalize-characters
    * @see http://www.w3.org/TR/2003/WD-charmod-20030822/
    */
-  normalizecharacters06 : function () {
+  normalizecharacters06: function (test) {
     var success;
     var doc;
     var docElem;
@@ -25924,7 +27051,7 @@ exports.tests = {
     var retval;
     var canSet;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("normalize-characters",true);
@@ -25950,7 +27077,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Normalize a text node with normalize-characters set to false, check that
@@ -25961,7 +27090,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-normalize-characters
    * @see http://www.w3.org/TR/2003/WD-charmod-20030822/
    */
-  normalizecharacters07 : function () {
+  normalizecharacters07: function (test) {
     var success;
     var doc;
     var docElem;
@@ -25974,7 +27103,7 @@ exports.tests = {
     var textValue;
     var retval;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     domConfig.setParameter("normalize-characters", false);
@@ -25993,7 +27122,9 @@ exports.tests = {
 
     assertEquals("noCharNormalization","suçon",textValue);
 
+    test.done()
   },
+
   /**
    *
    Normalize a text node with normalize-characters set to true, check that
@@ -26004,7 +27135,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-normalize-characters
    * @see http://www.w3.org/TR/2003/WD-charmod-20030822/
    */
-  normalizecharacters08 : function () {
+  normalizecharacters08: function (test) {
     var success;
     var doc;
     var docElem;
@@ -26018,7 +27149,7 @@ exports.tests = {
     var retval;
     var canSet;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("normalize-characters",true);
@@ -26044,7 +27175,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Add a CDATASection containing "]]>" and call Node.normalize which should not
@@ -26054,7 +27187,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-normalize
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-split-cdata-sections
    */
-  splitcdatasections01 : function () {
+  splitcdatasections01: function (test) {
     var success;
     var doc;
     var elem;
@@ -26068,7 +27201,7 @@ exports.tests = {
     var errors = new Array();
 
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     oldChild = elem.firstChild;
@@ -26082,7 +27215,9 @@ exports.tests = {
     doc.normalize();
     errorMonitor.assertLowerSeverity("noErrors", 2);
 
+    test.done()
   },
+
   /**
    *
    Invoke isElementContentWhitespace on a newly created Text Node that contains only whitespace.
@@ -26092,19 +27227,21 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Text3-isElementContentWhitespace
    */
-  textiselementcontentwhitespace01 : function () {
+  textiselementcontentwhitespace01: function (test) {
     var success;
     var doc;
     var newText;
     var hasWhitespace;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     newText = doc.createTextNode("   ");
     hasWhitespace = newText.isElementContentWhitespace;
 
     assertFalse("isWhitespace",hasWhitespace);
 
+    test.done()
   },
+
   /**
    *
    Get the text node child of the "p" element in barfoo.  isElementContentWhitespace should
@@ -26114,7 +27251,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Text3-isElementContentWhitespace
    */
-  textiselementcontentwhitespace02 : function () {
+  textiselementcontentwhitespace02: function (test) {
     var success;
     var doc;
     var pList;
@@ -26122,7 +27259,7 @@ exports.tests = {
     var textNode;
     var isElemContentWhitespace;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     pList = doc.getElementsByTagName("p");
     pElem = pList.item(0);
     textNode = pElem.firstChild;
@@ -26131,7 +27268,9 @@ exports.tests = {
 
     assertFalse("notElemContentOrWhitespace",isElemContentWhitespace);
 
+    test.done()
   },
+
   /**
    *
    Get the newline between the "body" and "p" element.  Since node is both in element content
@@ -26141,7 +27280,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Text3-isElementContentWhitespace
    */
-  textiselementcontentwhitespace03 : function () {
+  textiselementcontentwhitespace03: function (test) {
     var success;
     var doc;
     var pList;
@@ -26149,7 +27288,7 @@ exports.tests = {
     var textNode;
     var isElemContentWhitespace;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     pList = doc.getElementsByTagName("p");
     pElem = pList.item(0);
     textNode = pElem.previousSibling;
@@ -26158,7 +27297,9 @@ exports.tests = {
 
     assertTrue("isElementContentWhitespace",isElemContentWhitespace);
 
+    test.done()
   },
+
   /**
    *
    Replace the text node child of the "p" element in barfoo with whitespace and normalize with validation.
@@ -26168,7 +27309,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Text3-isElementContentWhitespace
    */
-  textiselementcontentwhitespace04 : function () {
+  textiselementcontentwhitespace04: function (test) {
     var success;
     var doc;
     var pList;
@@ -26181,7 +27322,7 @@ exports.tests = {
     var canSetValidation;
     var replacedNode;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     canSetValidation = domConfig.canSetParameter("validate",true);
@@ -26205,7 +27346,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Replace the whitespace before the "p" element in barfoo with non-whitespace and normalize with validation.
@@ -26215,7 +27358,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Text3-isElementContentWhitespace
    */
-  textiselementcontentwhitespace05 : function () {
+  textiselementcontentwhitespace05: function (test) {
     var success;
     var doc;
     var bodyList;
@@ -26230,7 +27373,7 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     canSetValidation = domConfig.canSetParameter("validate",true);
@@ -26258,7 +27401,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Insert whitespace before the "p" element in barfoo and normalize with validation.
@@ -26268,7 +27413,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Text3-isElementContentWhitespace
    */
-  textiselementcontentwhitespace06 : function () {
+  textiselementcontentwhitespace06: function (test) {
     var success;
     var doc;
     var bodyList;
@@ -26284,7 +27429,7 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domConfig = doc.domConfig;
 
     canSetValidation = domConfig.canSetParameter("validate",true);
@@ -26312,7 +27457,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke replaceWholeText on an existing Text Node to replace its value with a
@@ -26324,7 +27471,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Text3-replaceWholeText
    */
-  textreplacewholetext01 : function () {
+  textreplacewholetext01: function (test) {
     var success;
     var doc;
     var itemList;
@@ -26333,7 +27480,7 @@ exports.tests = {
     var replacedText;
     var wholeText;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     itemList = doc.getElementsByTagName("strong");
     elementName = itemList.item(0);
     textNode = elementName.firstChild;
@@ -26343,7 +27490,9 @@ exports.tests = {
 
     assertEquals("textreplacewholetext01_1","New Content",wholeText);
 
+    test.done()
   },
+
   /**
    *
    Invoke replaceWholeText on an existing Text Node to replace its value with an
@@ -26354,7 +27503,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Text3-replaceWholeText
    */
-  textreplacewholetext02 : function () {
+  textreplacewholetext02: function (test) {
     var success;
     var doc;
     var itemList;
@@ -26362,7 +27511,7 @@ exports.tests = {
     var textNode;
     var replacedText;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     itemList = doc.getElementsByTagName("strong");
     elementName = itemList.item(0);
     textNode = elementName.firstChild;
@@ -26370,7 +27519,9 @@ exports.tests = {
     replacedText = textNode.replaceWholeText("");
     assertNull("textreplacewholetext02",replacedText);
 
+    test.done()
   },
+
   /**
    *
    Invoke replaceWholeText on an new Text Node to replace its value with a
@@ -26381,21 +27532,23 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Text3-replaceWholeText
    */
-  textreplacewholetext03 : function () {
+  textreplacewholetext03: function (test) {
     var success;
     var doc;
     var textNode;
     var replacedText;
     var wholeText;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     textNode = doc.createTextNode("New Text");
     replacedText = textNode.replaceWholeText(" a b c b ");
     wholeText = replacedText.wholeText;
 
     assertEquals("textreplacewholetext03"," a b c b ",wholeText);
 
+    test.done()
   },
+
   /**
    *
    Invoke replaceWholeText on an new Text Node to replace its value with an
@@ -26405,19 +27558,21 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Text3-replaceWholeText
    */
-  textreplacewholetext04 : function () {
+  textreplacewholetext04: function (test) {
     var success;
     var doc;
     var textNode;
     var replacedText;
     var wholeText;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     textNode = doc.createTextNode("New Text");
     replacedText = textNode.replaceWholeText("");
     assertNull("retvalIsNull",replacedText);
 
+    test.done()
   },
+
   /**
    *
    Invoke replaceWholeText on an existing text node with newly created text and CDATASection
@@ -26428,7 +27583,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Text3-replaceWholeText
    */
-  textreplacewholetext05 : function () {
+  textreplacewholetext05: function (test) {
     var success;
     var doc;
     var itemList;
@@ -26439,7 +27594,7 @@ exports.tests = {
     var wholeText;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     itemList = doc.getElementsByTagName("strong");
     elementName = itemList.item(0);
     textNode = doc.createTextNode("New Text");
@@ -26453,7 +27608,9 @@ exports.tests = {
 
     assertEquals("textreplacewholetext05","New Text and Cdata",wholeText);
 
+    test.done()
   },
+
   /**
    *
    The method replaceWholeText substitutes the a specified text for the text of
@@ -26472,7 +27629,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Text3-replaceWholeText
    */
-  textreplacewholetext06 : function () {
+  textreplacewholetext06: function (test) {
     var success;
     var doc;
     var itemList;
@@ -26483,7 +27640,7 @@ exports.tests = {
     var appendedChild;
     var nodeValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     itemList = doc.getElementsByTagName("strong");
     elementStrong = itemList.item(0);
     textNode = doc.createTextNode("New Text");
@@ -26497,7 +27654,9 @@ exports.tests = {
 
     assertEquals("textreplacewholetext06","New Text and Cdata",nodeValue);
 
+    test.done()
   },
+
   /**
    *
    Append an entity reference and a text node after to the content of the
@@ -26512,7 +27671,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Text3-replaceWholeText
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=425
    */
-  textreplacewholetext07 : function () {
+  textreplacewholetext07: function (test) {
     var success;
     var doc;
     var itemList;
@@ -26525,7 +27684,7 @@ exports.tests = {
     var nodeValue;
     var nodeType;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     itemList = doc.getElementsByTagName("strong");
     elementName = itemList.item(0);
     erefNode = doc.createEntityReference("ent4");
@@ -26548,7 +27707,9 @@ exports.tests = {
 
     assertEquals("secondChildIsEntRef",5,nodeType);
 
+    test.done()
   },
+
   /**
    *
    Appends an entity reference containing text and an element to an existing
@@ -26560,7 +27721,7 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=425
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=540
    */
-  textreplacewholetext08 : function () {
+  textreplacewholetext08: function (test) {
     var success;
     var doc;
     var itemList;
@@ -26568,7 +27729,7 @@ exports.tests = {
     var entRef;
     var node;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     itemList = doc.getElementsByTagName("p");
     p = itemList.item(0);
     entRef = doc.createEntityReference("ent2");
@@ -26587,7 +27748,9 @@ exports.tests = {
       assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
     }
 
+    test.done()
   },
+
   /**
    *
    Invoke wholetext on an existing Text Node that contains whitespace and verify if
@@ -26597,7 +27760,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Text3-wholeText
    */
-  textwholetext01 : function () {
+  textwholetext01: function (test) {
     var success;
     var doc;
     var itemList;
@@ -26605,7 +27768,7 @@ exports.tests = {
     var textNode;
     var nameWholeText;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     itemList = doc.getElementsByTagName("strong");
     elementName = itemList.item(0);
     textNode = elementName.firstChild;
@@ -26614,7 +27777,9 @@ exports.tests = {
 
     assertEquals("textwholetext01","Margaret Martin",nameWholeText);
 
+    test.done()
   },
+
   /**
    *
    Invoke wholetext on an existing Text Node that contains whitespace and and verify if
@@ -26624,7 +27789,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Text3-wholeText
    */
-  textwholetext02 : function () {
+  textwholetext02: function (test) {
     var success;
     var doc;
     var itemList;
@@ -26634,7 +27799,7 @@ exports.tests = {
     var wholeText;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     itemList = doc.getElementsByTagName("strong");
     elementName = itemList.item(0);
     newTextNode = doc.createTextNode("New Text");
@@ -26645,7 +27810,9 @@ exports.tests = {
 
     assertEquals("textwholetext02","Margaret MartinNew Text",wholeText);
 
+    test.done()
   },
+
   /**
    *
    Invoke wholetext on two newly created text nodes and verify if the value returned
@@ -26655,7 +27822,7 @@ exports.tests = {
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Text3-wholeText
    */
-  textwholetext03 : function () {
+  textwholetext03: function (test) {
     var success;
     var doc;
     var elem;
@@ -26664,7 +27831,7 @@ exports.tests = {
     var appendedChild;
     var combinedText;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","p");
     text1 = doc.createTextNode("Text I");
     text2 = doc.createTextNode(" Text II");
@@ -26674,7 +27841,9 @@ exports.tests = {
 
     assertEquals("textwholetext03","Text I Text II",combinedText);
 
+    test.done()
   },
+
   /**
    *
    The typeName attribute states the name of a type declared for the associated element or
@@ -26688,7 +27857,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeName
    */
-  typeinfogettypename03 : function () {
+  typeinfogettypename03: function (test) {
     var success;
     var doc;
     var elemList;
@@ -26697,7 +27866,7 @@ exports.tests = {
     var attrTypeInfo;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acElem = elemList.item(2);
     attrid = acElem.getAttributeNode("id");
@@ -26707,7 +27876,9 @@ exports.tests = {
 
     assertEquals("typeinfogettypename03_1","ID",typeName);
 
+    test.done()
   },
+
   /**
    *
    The typeName attribute states the name of a type declared for the associated element or
@@ -26721,7 +27892,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeName
    */
-  typeinfogettypename04 : function () {
+  typeinfogettypename04: function (test) {
     var success;
     var doc;
     var docElem;
@@ -26730,7 +27901,7 @@ exports.tests = {
     var elemTypeInfo;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("em");
     emElem = elemList.item(0);
     elemTypeInfo = emElem.schemaTypeInfo;
@@ -26739,7 +27910,9 @@ exports.tests = {
 
     assertEquals("typeinfogettypename04_1","emType",typeName);
 
+    test.done()
   },
+
   /**
    *
    The typeNamespace attribute states the namespace of a type declared for the associated element or
@@ -26753,7 +27926,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeNamespace
    */
-  typeinfogettypenamespace01 : function () {
+  typeinfogettypenamespace01: function (test) {
     var success;
     var doc;
     var elemList;
@@ -26762,7 +27935,7 @@ exports.tests = {
     var attrTypeInfo;
     var typeNamespace;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acElem = elemList.item(0);
     titleAttr = acElem.getAttributeNode("title");
@@ -26772,7 +27945,9 @@ exports.tests = {
 
     assertEquals("typeinfogettypename01_1","http://www.w3.org/2001/XMLSchema",typeNamespace);
 
+    test.done()
   },
+
   /**
    *
    The typeNamespace attribute states the namespace of a type declared for the associated element or
@@ -26786,7 +27961,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeName
    */
-  typeinfogettypenamespace03 : function () {
+  typeinfogettypenamespace03: function (test) {
     var success;
     var doc;
     var elemList;
@@ -26795,7 +27970,7 @@ exports.tests = {
     var typeNamespace;
     var acElem;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acElem = elemList.item(1);
     classAttr = acElem.getAttributeNode("class");
@@ -26805,7 +27980,9 @@ exports.tests = {
 
     assertEquals("typeinfogettypename03_1","http://www.w3.org/1999/xhtml",typeNamespace);
 
+    test.done()
   },
+
   /**
    *
    The typeName attribute states the name of a type declared for the associated element or
@@ -26819,7 +27996,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-typeName
    */
-  typeinfogettypenamespace04 : function () {
+  typeinfogettypenamespace04: function (test) {
     var success;
     var doc;
     var elemList;
@@ -26827,7 +28004,7 @@ exports.tests = {
     var elemTypeInfo;
     var typeNamespace;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("em");
     emElem = elemList.item(0);
     elemTypeInfo = emElem.schemaTypeInfo;
@@ -26836,7 +28013,9 @@ exports.tests = {
 
     assertEquals("typeinfogettypenamespace04_1","http://www.w3.org/1999/xhtml",typeNamespace);
 
+    test.done()
   },
+
   /**
    *
    DTD types always return false for isDerivedFrom.
@@ -26844,7 +28023,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom01 : function () {
+  typeinfoisderivedfrom01: function (test) {
     var success;
     var doc;
     var elemList;
@@ -26855,7 +28034,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
     attr = acronymElem.getAttributeNode("title");
@@ -26867,7 +28046,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/TR/REC-xml","CDATA",15);
     assertFalse("isDerived15",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check how xsd:string is derived from itself.
@@ -26875,7 +28056,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom02 : function () {
+  typeinfoisderivedfrom02: function (test) {
     var success;
     var doc;
     var elemList;
@@ -26886,7 +28067,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
     attr = acronymElem.getAttributeNode("title");
@@ -26902,7 +28083,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",15);
     assertTrue("derivedFromSelfAll",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check that isDerivedFrom does considers xsd:string to be derived from anySimpleType.
@@ -26910,7 +28093,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom03 : function () {
+  typeinfoisderivedfrom03: function (test) {
     var success;
     var doc;
     var elemList;
@@ -26922,7 +28105,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
     attr = acronymElem.getAttributeNode("title");
@@ -26935,7 +28118,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",15);
     assertTrue("derivedFromAnySimpleType",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if xsd:string is derived from xsd:anyType by any method.
@@ -26943,7 +28128,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom04 : function () {
+  typeinfoisderivedfrom04: function (test) {
     var success;
     var doc;
     var elemList;
@@ -26955,7 +28140,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
     attr = acronymElem.getAttributeNode("title");
@@ -26968,7 +28153,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",15);
     assertTrue("derivedFromAnyType",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if xsd:string is derived from xsd:anyType by restriction.
@@ -26976,7 +28163,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom05 : function () {
+  typeinfoisderivedfrom05: function (test) {
     var success;
     var doc;
     var elemList;
@@ -26988,7 +28175,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
     attr = acronymElem.getAttributeNode("title");
@@ -27001,7 +28188,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",1);
     assertTrue("derivedFromAnyTypeRestrictionOnly",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if xsd:string is derived from xsd:anyType by any method except restriction.
@@ -27009,7 +28198,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom06 : function () {
+  typeinfoisderivedfrom06: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27021,7 +28210,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
     attr = acronymElem.getAttributeNode("title");
@@ -27034,7 +28223,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",14);
     assertFalse("derivedFromAnyTypeExceptRestriction",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if xsd:string is derived from xsd:anyType using 0 as derivation method.
@@ -27042,7 +28233,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom07 : function () {
+  typeinfoisderivedfrom07: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27054,7 +28245,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
     attr = acronymElem.getAttributeNode("title");
@@ -27067,7 +28258,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",0);
     assertTrue("derivedFromAnyType0",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if classType is derived from xsd:string by any method.
@@ -27075,7 +28268,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom08 : function () {
+  typeinfoisderivedfrom08: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27087,7 +28280,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     attr = acronymElem.getAttributeNode("class");
@@ -27100,7 +28293,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",15);
     assertTrue("derivedFromString",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if classType is derived from xsd:anySimpleType by any method.
@@ -27108,7 +28303,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom09 : function () {
+  typeinfoisderivedfrom09: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27120,7 +28315,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     attr = acronymElem.getAttributeNode("class");
@@ -27133,7 +28328,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",15);
     assertTrue("derivedFromAnySimpleType",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if classType is derived from anyType by any method.
@@ -27141,7 +28338,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom10 : function () {
+  typeinfoisderivedfrom10: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27153,7 +28350,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     attr = acronymElem.getAttributeNode("class");
@@ -27166,7 +28363,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",15);
     assertTrue("derivedFromAnyType",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if classType is derived from xsd:anyType by restriction.
@@ -27174,7 +28373,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom11 : function () {
+  typeinfoisderivedfrom11: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27186,7 +28385,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     attr = acronymElem.getAttributeNode("class");
@@ -27199,7 +28398,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",1);
     assertTrue("derivedFromAnyTypeRestrictionOnly",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check classType is derived from anyType specifying derivationMethod as 0.
@@ -27207,7 +28408,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom12 : function () {
+  typeinfoisderivedfrom12: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27219,7 +28420,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     attr = acronymElem.getAttributeNode("class");
@@ -27232,7 +28433,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",0);
     assertTrue("derivedFromAnyType0",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if classType is derived from xsd:anyType by any method other than restriction.
@@ -27240,7 +28443,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom13 : function () {
+  typeinfoisderivedfrom13: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27252,7 +28455,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     attr = acronymElem.getAttributeNode("class");
@@ -27265,7 +28468,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",14);
     assertFalse("derivedFromAnyTypeExceptRestriction",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check how classType is derived from itself.
@@ -27273,7 +28478,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom14 : function () {
+  typeinfoisderivedfrom14: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27285,7 +28490,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     attr = acronymElem.getAttributeNode("class");
@@ -27304,7 +28509,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","classType",0);
     assertTrue("derivedFromSelfAny",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check "emType" is derived from emp0001_3Type by any method.
@@ -27312,7 +28519,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom15 : function () {
+  typeinfoisderivedfrom15: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27321,7 +28528,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27333,7 +28540,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emp0001_3Type",15);
     assertTrue("derivedFromEmp13AnyMethod",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check emType is derived from emp0001_3Type by union.
@@ -27341,7 +28550,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom16 : function () {
+  typeinfoisderivedfrom16: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27350,7 +28559,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27362,7 +28571,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emp0001_3Type",4);
     assertTrue("derivedFromEmp13Union",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if emType is derived from emp0001_3Type by any method other than union.
@@ -27370,7 +28581,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom17 : function () {
+  typeinfoisderivedfrom17: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27379,7 +28590,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27391,7 +28602,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emp0001_3Type",11);
     assertFalse("derivedFromEmp13NotUnion",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if emType is derived from xsd:ID by restriction.
@@ -27399,7 +28612,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom18 : function () {
+  typeinfoisderivedfrom18: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27408,7 +28621,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27420,7 +28633,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","ID",1);
     assertFalse("derivedFromID",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check emType is derived from anySimpleType by restriction.
@@ -27428,7 +28643,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom19 : function () {
+  typeinfoisderivedfrom19: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27437,7 +28652,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27449,7 +28664,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",1);
     assertTrue("derivedFromAnySimpleType",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if emType is derived from anyType by restriction.
@@ -27457,7 +28674,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom20 : function () {
+  typeinfoisderivedfrom20: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27465,7 +28682,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27474,7 +28691,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",1);
     assertTrue("derivedFromAnyType",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if emType is derived from itself.
@@ -27482,7 +28701,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom21 : function () {
+  typeinfoisderivedfrom21: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27491,7 +28710,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27509,7 +28728,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emType",15);
     assertTrue("derivedFromSelfByAll",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check strongType is derived from xsd:string by any method.
@@ -27517,7 +28738,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom22 : function () {
+  typeinfoisderivedfrom22: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27526,7 +28747,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27538,7 +28759,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",15);
     assertTrue("derivedFromStringAnyMethod",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if strongType is derived from xsd:string by list.
@@ -27546,7 +28769,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom23 : function () {
+  typeinfoisderivedfrom23: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27555,7 +28778,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27567,7 +28790,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",8);
     assertTrue("derivedFromStringList",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if strongType is derived from xsd:string by any method other than list.
@@ -27575,7 +28800,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom24 : function () {
+  typeinfoisderivedfrom24: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27584,7 +28809,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27596,7 +28821,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",7);
     assertFalse("derivedFromStringNotList",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if strongType is derived from anySimpleType by restriction.
@@ -27604,7 +28831,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom25 : function () {
+  typeinfoisderivedfrom25: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27613,7 +28840,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27625,7 +28852,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",1);
     assertTrue("derivedFromAnySimpleType",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if strongType is derived from anyType by restriction.
@@ -27633,7 +28862,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom26 : function () {
+  typeinfoisderivedfrom26: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27642,7 +28871,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27654,7 +28883,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",1);
     assertTrue("derivedFromAnyType",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if strongType is derived from anyType by union or extension.
@@ -27662,7 +28893,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom27 : function () {
+  typeinfoisderivedfrom27: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27671,7 +28902,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27683,7 +28914,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",6);
     assertFalse("derivedFromAnyType",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check how strongType is derived from itself.
@@ -27691,7 +28924,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom28 : function () {
+  typeinfoisderivedfrom28: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27700,7 +28933,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27718,7 +28951,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","strongType",0);
     assertTrue("notDerivedFromSelfAny",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if anonymous type for p element is derived from pType.
@@ -27726,7 +28961,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom29 : function () {
+  typeinfoisderivedfrom29: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27734,7 +28969,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27743,7 +28978,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","pType",15);
     assertTrue("derivedFromPTypeAnyMethod",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if anonymous type for p element is derived from pType by restriction.
@@ -27751,7 +28988,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom30 : function () {
+  typeinfoisderivedfrom30: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27759,7 +28996,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27768,7 +29005,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","pType",1);
     assertTrue("derivedFromPTypeRestriction",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check anonymous type for p element is derived from pType by any method other than restriction.
@@ -27776,7 +29015,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom31 : function () {
+  typeinfoisderivedfrom31: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27784,7 +29023,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27793,7 +29032,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","pType",14);
     assertFalse("derivedFromPTypeNotRestriction",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if anonymous type of p element is derived from part1.
@@ -27801,7 +29042,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom32 : function () {
+  typeinfoisderivedfrom32: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27809,7 +29050,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27818,7 +29059,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","part1",15);
     assertTrue("derivedFromPart1AnyMethod",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check is anonymous type of p element is derived by extension from part1.
@@ -27826,7 +29069,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom33 : function () {
+  typeinfoisderivedfrom33: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27834,7 +29077,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27843,7 +29086,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","part1",2);
     assertTrue("derivedFromPart1Extension",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if anonymous type of p element is derived from part1 by any method other than extension.
@@ -27851,7 +29096,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom34 : function () {
+  typeinfoisderivedfrom34: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27859,7 +29104,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27868,7 +29113,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","part1",13);
     assertFalse("derivedFromPart1NotExtension",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if anonymous type of p element is derived from xsd:simpleType.
@@ -27876,7 +29123,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom35 : function () {
+  typeinfoisderivedfrom35: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27884,7 +29131,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27893,7 +29140,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",15);
     assertFalse("derivedFromAnySimpleType",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if anonymous type of p element is derived from xsd:anyType.
@@ -27901,7 +29150,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom36 : function () {
+  typeinfoisderivedfrom36: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27909,7 +29158,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27918,7 +29167,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",15);
     assertTrue("derivedFromAnyTypeAnyMethod",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if anonymous type of p element is derived from xsd:anyType by restriction.
@@ -27926,7 +29177,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom37 : function () {
+  typeinfoisderivedfrom37: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27934,7 +29185,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27943,7 +29194,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",1);
     assertFalse("derivedFromAnyTypeRestriction",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if anonymous type of p element is derived from xsd:anyType by any method other
@@ -27952,7 +29205,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom38 : function () {
+  typeinfoisderivedfrom38: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27960,7 +29213,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -27969,7 +29222,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",13);
     assertFalse("derivedFromAnyTypeNotExtension",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if anonymous type of p element derives from itself.
@@ -27977,7 +29232,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom39 : function () {
+  typeinfoisderivedfrom39: function (test) {
     var success;
     var doc;
     var elemList;
@@ -27987,7 +29242,7 @@ exports.tests = {
     var typeName;
     var typeNS;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -28000,7 +29255,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom(typeNS,typeName,15);
     assertFalse("notDerivedFromSelf",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if emType is derived from xsd:ID by union.
@@ -28008,7 +29265,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom40 : function () {
+  typeinfoisderivedfrom40: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28017,7 +29274,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -28029,7 +29286,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","ID",4);
     assertTrue("derivedFromID",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if emType is derived from xsd:ID by any method other than union or restriction.
@@ -28037,7 +29296,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom41 : function () {
+  typeinfoisderivedfrom41: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28046,7 +29305,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -28058,7 +29317,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","ID",10);
     assertFalse("derivedFromID",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if strongType is derived from anySimpleType by list.
@@ -28066,7 +29327,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom42 : function () {
+  typeinfoisderivedfrom42: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28075,7 +29336,7 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -28087,7 +29348,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",8);
     assertTrue("derivedFromAnySimpleType",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if anonymous type of acronym element derived from anyType by restriction.
@@ -28095,7 +29358,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom43 : function () {
+  typeinfoisderivedfrom43: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28106,7 +29369,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     typeInfo = acronymElem.schemaTypeInfo;
@@ -28115,7 +29378,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",1);
     assertFalse("derivedFromAnyType",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if anonymous type of acronym element derived from anyType by any method other than extension.
@@ -28123,7 +29388,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom44 : function () {
+  typeinfoisderivedfrom44: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28134,7 +29399,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     typeInfo = acronymElem.schemaTypeInfo;
@@ -28143,7 +29408,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",13);
     assertFalse("derivedFromAnyType",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if anonymous type of acronym element derived from anySimpleType by extension.
@@ -28151,7 +29418,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom45 : function () {
+  typeinfoisderivedfrom45: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28162,7 +29429,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     typeInfo = acronymElem.schemaTypeInfo;
@@ -28171,7 +29438,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",2);
     assertTrue("derivedFromAnySimpleType",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if anonymous type of acronym element derived from anySimpleType by any method other than extension.
@@ -28179,7 +29448,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom46 : function () {
+  typeinfoisderivedfrom46: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28190,7 +29459,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     typeInfo = acronymElem.schemaTypeInfo;
@@ -28199,7 +29468,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",13);
     assertFalse("derivedFromAnySimpleType",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if anonymous type of acronym element derived from xsd:string by extension.
@@ -28207,7 +29478,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom47 : function () {
+  typeinfoisderivedfrom47: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28218,7 +29489,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     typeInfo = acronymElem.schemaTypeInfo;
@@ -28227,7 +29498,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",2);
     assertTrue("derivedFromString",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if anonymous type of acronym element derived from xsd:string by any method other than extension.
@@ -28235,7 +29508,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom48 : function () {
+  typeinfoisderivedfrom48: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28246,7 +29519,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
     typeInfo = acronymElem.schemaTypeInfo;
@@ -28255,7 +29528,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",13);
     assertFalse("derivedFromString",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if a type derived by extension from a list of a item type returns true
@@ -28264,7 +29539,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom49 : function () {
+  typeinfoisderivedfrom49: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28272,7 +29547,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "typeinfo");
+    doc = typeinfo.typeinfo();
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -28281,7 +29556,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","double",8);
     assertTrue("derivedFromDoubleList",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if a type derived by extension from a list of a item type returns true
@@ -28290,7 +29567,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom50 : function () {
+  typeinfoisderivedfrom50: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28298,7 +29575,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "typeinfo");
+    doc = typeinfo.typeinfo();
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -28307,7 +29584,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","double",0);
     assertTrue("derivedFromDoubleAny",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if a type derived by extension from a list of a item type returns false
@@ -28316,7 +29595,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom51 : function () {
+  typeinfoisderivedfrom51: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28324,7 +29603,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "typeinfo");
+    doc = typeinfo.typeinfo();
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -28333,7 +29612,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","double",7);
     assertFalse("derivedFromDoubleNonList",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if a type derived by extension from a list of a item type returns false
@@ -28342,7 +29623,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom52 : function () {
+  typeinfoisderivedfrom52: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28350,7 +29631,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "typeinfo");
+    doc = typeinfo.typeinfo();
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -28359,7 +29640,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",1);
     assertFalse("derivedFromAnySimpleRestriction",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if a type derived by extension from a list of a item type returns true
@@ -28368,7 +29651,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom53 : function () {
+  typeinfoisderivedfrom53: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28376,7 +29659,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "typeinfo");
+    doc = typeinfo.typeinfo();
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -28385,7 +29668,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",2);
     assertTrue("derivedFromAnySimpleExtension",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if a type derived by extension from a list of a item type returns true
@@ -28394,7 +29679,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom54 : function () {
+  typeinfoisderivedfrom54: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28402,7 +29687,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "typeinfo");
+    doc = typeinfo.typeinfo();
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -28411,7 +29696,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",8);
     assertTrue("derivedFromAnySimpleList",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if a type derived by extension from a list of a item type returns true
@@ -28420,7 +29707,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom55 : function () {
+  typeinfoisderivedfrom55: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28428,7 +29715,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "typeinfo");
+    doc = typeinfo.typeinfo();
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -28437,7 +29724,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",2);
     assertTrue("derivedFromAnyRestriction",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if a type derived by extension from a list of a item type returns true
@@ -28446,7 +29735,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom56 : function () {
+  typeinfoisderivedfrom56: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28454,7 +29743,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "typeinfo");
+    doc = typeinfo.typeinfo();
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -28463,7 +29752,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",2);
     assertTrue("derivedFromAnyExtension",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if a type derived by extension from a list of a item type returns true
@@ -28472,7 +29763,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom57 : function () {
+  typeinfoisderivedfrom57: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28480,7 +29771,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "typeinfo");
+    doc = typeinfo.typeinfo();
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -28489,7 +29780,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",8);
     assertTrue("derivedFromAnyList",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if a type derived by extension from a union returns true
@@ -28498,7 +29791,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom58 : function () {
+  typeinfoisderivedfrom58: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28507,7 +29800,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "typeinfo");
+    doc = typeinfo.typeinfo();
     elemList = doc.getElementsByTagName("code");
     codeElem = elemList.item(0);
     typeInfo = codeElem.schemaTypeInfo;
@@ -28516,7 +29809,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","unbounded",4);
     assertTrue("isDerived",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if a type derived by extension from a union returns true
@@ -28526,7 +29821,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom59 : function () {
+  typeinfoisderivedfrom59: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28537,7 +29832,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "typeinfo");
+    doc = typeinfo.typeinfo();
     elemList = doc.getElementsByTagName("code");
     codeElem = elemList.item(0);
     typeInfo = codeElem.schemaTypeInfo;
@@ -28546,7 +29841,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","integer",4);
     assertTrue("isDerived",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if xs:IDREFS is derived by list from xs:IDREF.
@@ -28554,7 +29851,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom60 : function () {
+  typeinfoisderivedfrom60: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28563,7 +29860,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "typeinfo");
+    doc = typeinfo.typeinfo();
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -28572,14 +29869,16 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","IDREF",8);
     assertTrue("isDerived",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if xs:byte is derived by restriction from xs:short
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom61 : function () {
+  typeinfoisderivedfrom61: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28587,7 +29886,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "typeinfo");
+    doc = typeinfo.typeinfo();
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -28596,14 +29895,16 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","short",1);
     assertTrue("isDerived",isDerived);
 
+    test.done()
   },
+
   /**
    *
    Check if xs:byte is derived by restriction from xs:decimal
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom62 : function () {
+  typeinfoisderivedfrom62: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28611,7 +29912,7 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    doc = load(docRef, "doc", "typeinfo");
+    doc = typeinfo.typeinfo();
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
@@ -28620,7 +29921,9 @@ exports.tests = {
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","decimal",1);
     assertTrue("isDerived",isDerived);
 
+    test.done()
   },
+
   /**
    *
    The isDerivedFrom method checks if this TypeInfo derives from the specified ancestor type.
@@ -28634,7 +29937,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom63 : function () {
+  typeinfoisderivedfrom63: function (test) {
     var success;
     var doc;
     var elemList;
@@ -28645,7 +29948,7 @@ exports.tests = {
 
     var elemTypeInfo;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
     elemTypeInfo = acronymElem.schemaTypeInfo;
@@ -28653,7 +29956,9 @@ exports.tests = {
     retValue = elemTypeInfo.isDerivedFrom("http://www.w3.org/TR/REC-xml",nullName,0);
     assertFalse("typeinfoisderivedfrom63",retValue);
 
+    test.done()
   },
+
   /**
    *
    Check that the simpleType of an attributes derives by restriction from itself
@@ -28663,7 +29968,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom64 : function () {
+  typeinfoisderivedfrom64: function (test) {
     var success;
     var doc;
     var docElem;
@@ -28674,7 +29979,7 @@ exports.tests = {
     var typeName;
     var retValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("acronym");
     acElem = elemList.item(1);
     classAttr = acElem.getAttributeNode("class");
@@ -28685,7 +29990,9 @@ exports.tests = {
     retValue = attrTypeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",1);
     assertTrue("derivedFromString",retValue);
 
+    test.done()
   },
+
   /**
    *
    The isDerivedFrom method checks if this TypeInfo derives from the specified ancestor type.
@@ -28697,7 +30004,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom65 : function () {
+  typeinfoisderivedfrom65: function (test) {
     var success;
     var doc;
     var docElem;
@@ -28708,7 +30015,7 @@ exports.tests = {
     var typeName;
     var retValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("strong");
     strongElem = elemList.item(0);
     elemTypeInfo = strongElem.schemaTypeInfo;
@@ -28716,7 +30023,9 @@ exports.tests = {
     retValue = elemTypeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",8);
     assertTrue("lisrDerivedFromString",retValue);
 
+    test.done()
   },
+
   /**
    *
    The isDerivedFrom method checks if this TypeInfo derives from the specified ancestor type.
@@ -28730,7 +30039,7 @@ exports.tests = {
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom66 : function () {
+  typeinfoisderivedfrom66: function (test) {
     var success;
     var doc;
     var unionElem;
@@ -28739,7 +30048,7 @@ exports.tests = {
     var elemList;
     var retValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("em");
     unionElem = elemList.item(0);
     elemTypeInfo = unionElem.schemaTypeInfo;
@@ -28747,7 +30056,9 @@ exports.tests = {
     retValue = elemTypeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emp0004_5Type",0);
     assertTrue("typeinfoisderivedfrom66",retValue);
 
+    test.done()
   },
+
   /**
    *
    Checks that isDerivedFrom(...,METHOD_UNION) returns true when there
@@ -28757,7 +30068,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom67 : function () {
+  typeinfoisderivedfrom67: function (test) {
     var success;
     var doc;
     var elem;
@@ -28766,7 +30077,7 @@ exports.tests = {
     var elemList;
     var retValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("sup");
     elem = elemList.item(0);
     elemTypeInfo = elem.schemaTypeInfo;
@@ -28774,7 +30085,9 @@ exports.tests = {
     retValue = elemTypeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emp0004_5Type",4);
     assertTrue("isDerived",retValue);
 
+    test.done()
   },
+
   /**
    *
    Checks that isDerivedFrom(...,0) returns true when there
@@ -28784,7 +30097,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom68 : function () {
+  typeinfoisderivedfrom68: function (test) {
     var success;
     var doc;
     var elem;
@@ -28793,7 +30106,7 @@ exports.tests = {
     var elemList;
     var retValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("sup");
     elem = elemList.item(0);
     elemTypeInfo = elem.schemaTypeInfo;
@@ -28801,7 +30114,9 @@ exports.tests = {
     retValue = elemTypeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emp0004_5Type",0);
     assertTrue("isDerived",retValue);
 
+    test.done()
   },
+
   /**
    *
    Checks that isDerivedFrom(...,DERIVATION_UNION|DERIVATION_LIST) returns false when there
@@ -28811,7 +30126,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom69 : function () {
+  typeinfoisderivedfrom69: function (test) {
     var success;
     var doc;
     var elem;
@@ -28820,7 +30135,7 @@ exports.tests = {
     var elemList;
     var retValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("sup");
     elem = elemList.item(0);
     elemTypeInfo = elem.schemaTypeInfo;
@@ -28828,7 +30143,9 @@ exports.tests = {
     retValue = elemTypeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","integer",12);
     assertFalse("isDerived",retValue);
 
+    test.done()
   },
+
   /**
    *
    Checks that isDerivedFrom(...,0) returns true when there
@@ -28838,7 +30155,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom70 : function () {
+  typeinfoisderivedfrom70: function (test) {
     var success;
     var doc;
     var elem;
@@ -28847,7 +30164,7 @@ exports.tests = {
     var elemList;
     var retValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("sup");
     elem = elemList.item(0);
     elemTypeInfo = elem.schemaTypeInfo;
@@ -28855,7 +30172,9 @@ exports.tests = {
     retValue = elemTypeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",0);
     assertTrue("isDerived",retValue);
 
+    test.done()
   },
+
   /**
    *
    Checks that isDerivedFrom(...,0) returns true when target type is a list
@@ -28864,7 +30183,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom71 : function () {
+  typeinfoisderivedfrom71: function (test) {
     var success;
     var doc;
     var elem;
@@ -28873,7 +30192,7 @@ exports.tests = {
     var elemList;
     var retValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("code");
     elem = elemList.item(0);
     elemTypeInfo = elem.schemaTypeInfo;
@@ -28881,7 +30200,9 @@ exports.tests = {
     retValue = elemTypeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","field",0);
     assertTrue("isDerived",retValue);
 
+    test.done()
   },
+
   /**
    *
    Checks that isDerivedFrom(...,DERIVATION_LIST|DERIVATION_UNION) returns false when target type is a list
@@ -28891,7 +30212,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom72 : function () {
+  typeinfoisderivedfrom72: function (test) {
     var success;
     var doc;
     var elem;
@@ -28900,7 +30221,7 @@ exports.tests = {
     var elemList;
     var retValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("code");
     elem = elemList.item(0);
     elemTypeInfo = elem.schemaTypeInfo;
@@ -28908,7 +30229,9 @@ exports.tests = {
     retValue = elemTypeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","field",12);
     assertFalse("isDerived",retValue);
 
+    test.done()
   },
+
   /**
    *
    Checks that isDerivedFrom(...,0) returns true where the target type is a union
@@ -28917,7 +30240,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#TypeInfo-isDerivedFrom
    */
-  typeinfoisderivedfrom73 : function () {
+  typeinfoisderivedfrom73: function (test) {
     var success;
     var doc;
     var elem;
@@ -28926,7 +30249,7 @@ exports.tests = {
     var elemList;
     var retValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elemList = doc.getElementsByTagName("sup");
     elem = elemList.item(0);
     elemTypeInfo = elem.schemaTypeInfo;
@@ -28934,7 +30257,9 @@ exports.tests = {
     retValue = elemTypeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emType",0);
     assertTrue("isDerived",retValue);
 
+    test.done()
   },
+
   /**
    *
    Call setUserData on a node providing a UserDataHandler and rename the node.
@@ -28942,7 +30267,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-handleUserDataEvent
    */
-  userdatahandler01 : function () {
+  userdatahandler01: function (test) {
     var success;
     var doc;
     var node;
@@ -28965,7 +30290,7 @@ exports.tests = {
     var hello = "Hello";
     var mister = "Mr.";
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     pList = doc.getElementsByTagName("p");
     node = pList.item(0);
     if (null == userDataMonitor) {
@@ -29026,7 +30351,9 @@ exports.tests = {
     assertEquals("greetingCountIs1",1,greetingCount);
     assertEquals("salutationCountIs1",1,salutationCount);
 
+    test.done()
   },
+
   /**
    *
    Call setUserData on a node providing a UserDataHandler and clone the node.
@@ -29034,7 +30361,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-handleUserDataEvent
    */
-  userdatahandler02 : function () {
+  userdatahandler02: function (test) {
     var success;
     var doc;
     var node;
@@ -29057,7 +30384,7 @@ exports.tests = {
     var hello = "Hello";
     var mister = "Mr.";
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     pList = doc.getElementsByTagName("p");
     node = pList.item(0);
     if (null == userDataMonitor) {
@@ -29105,7 +30432,9 @@ exports.tests = {
     assertEquals("greetingCountIs1",1,greetingCount);
     assertEquals("salutationCountIs1",1,salutationCount);
 
+    test.done()
   },
+
   /**
    *
    Call setUserData on a node providing a UserDataHandler and import the node.
@@ -29113,7 +30442,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-handleUserDataEvent
    */
-  userdatahandler03 : function () {
+  userdatahandler03: function (test) {
     var success;
     var doc;
     var node;
@@ -29143,7 +30472,7 @@ exports.tests = {
 
     var docElem;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domImpl = doc.implementation;
     docElem = doc.documentElement;
 
@@ -29199,7 +30528,9 @@ exports.tests = {
     assertEquals("greetingCountIs1",1,greetingCount);
     assertEquals("salutationCountIs1",1,salutationCount);
 
+    test.done()
   },
+
   /**
    *
    Call setUserData on a node providing a UserDataHandler and adopt the node.
@@ -29207,7 +30538,7 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-handleUserDataEvent
    */
-  userdatahandler04 : function () {
+  userdatahandler04: function (test) {
     var success;
     var doc;
     var node;
@@ -29237,7 +30568,7 @@ exports.tests = {
 
     var docElem;
 
-    doc = load(docRef, "doc", "barfoo");
+    doc = barfoo.barfoo();
     domImpl = doc.implementation;
     docElem = doc.documentElement;
 
@@ -29293,7 +30624,9 @@ exports.tests = {
     assertEquals("greetingCountIs1",1,greetingCount);
     assertEquals("salutationCountIs1",1,salutationCount);
 
+    test.done()
   },
+
   /**
    *
    Create a document with an XML 1.1 valid but XML 1.0 invalid element and
@@ -29303,7 +30636,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-well-formed
    */
-  wellformed01 : function () {
+  wellformed01: function (test) {
     var success;
     var domImpl;
     var nullString = null;
@@ -29380,7 +30713,9 @@ exports.tests = {
     }
     assertSize("oneError",1,errors);
 
+    test.done()
   },
+
   /**
    *
    Create a document with an XML 1.1 valid but XML 1.0 invalid element and
@@ -29390,7 +30725,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-well-formed
    */
-  wellformed02 : function () {
+  wellformed02: function (test) {
     var success;
     var domImpl;
     var nullString = null;
@@ -29455,7 +30790,9 @@ exports.tests = {
 
     }
 
+    test.done()
   },
+
   /**
    *
    Create a document with an XML 1.1 valid but XML 1.0 invalid attribute and
@@ -29465,7 +30802,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-well-formed
    */
-  wellformed03 : function () {
+  wellformed03: function (test) {
     var success;
     var domImpl;
     var nullDoctype = null;
@@ -29543,7 +30880,9 @@ exports.tests = {
     }
     assertSize("oneError",1,errors);
 
+    test.done()
   },
+
   /**
    *
    Create a document with an XML 1.1 valid but XML 1.0 invalid attribute and
@@ -29553,7 +30892,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-normalizeDocument
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#parameter-well-formed
    */
-  wellformed04 : function () {
+  wellformed04: function (test) {
     var success;
     var domImpl;
     var nullDoctype = null;
@@ -29624,6 +30963,6 @@ exports.tests = {
       }
 
     }
-
+    test.done()
   }
 }
