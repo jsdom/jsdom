@@ -5664,9 +5664,7 @@ exports.tests = {
 
 
     {
-      assertFalse("wasSplit",
-	          ((4 == nodeType) && (nodeValue.indexOf("]]>") >= 0))
-                 );
+      test.equal(((4 == nodeType) && (nodeValue.indexOf("]]>") >= 0)), false, 'wasSplit');
       errors = errorMonitor.allErrors;
       for(var indexN1010C = 0;indexN1010C < errors.length; indexN1010C++) {
         error = errors[indexN1010C];
@@ -9820,25 +9818,14 @@ exports.tests = {
     test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImpl = domImplRegistry.getDOMImplementation("cOrE 3.0 xMl 3.0 eVeNts 2.0 lS");
 
-    if(
-
-      (domImpl == null)
-
-    ) {
+    if (domImpl == null) {
       baseImpl = getImplementation();
       hasCore = baseImpl.hasFeature("Core","3.0");
       hasXML = baseImpl.hasFeature("XML","3.0");
       hasEvents = baseImpl.hasFeature("Events","2.0");
       hasLS = baseImpl.hasFeature("LS",nullVersion);
-
-      {
-	assertFalse("baseImplFeatures",
-	            (hasCore && hasXML && hasEvents && hasLS)
-                   );
-
-      }
-    }
-    else {
+      test.equal((hasCore && hasXML && hasEvents && hasLS), false, 'baseImplFeatures');
+    } else {
       hasCore = domImpl.hasFeature("Core","3.0");
       test.ok(hasCore, 'hasCore');
       hasXML = domImpl.hasFeature("XML","3.0");
@@ -9847,9 +9834,7 @@ exports.tests = {
       test.ok(hasEvents, 'hasEvents');
       hasLS = domImpl.hasFeature("LS",nullVersion);
       test.ok(hasLS, 'hasLS');
-
     }
-
     test.done()
   },
 
@@ -10284,24 +10269,14 @@ exports.tests = {
     domImplList = domImplRegistry.getDOMImplementationList("cOrE 3.0 xMl 3.0 eVeNts 2.0 lS");
     length = domImplList.length;
 
-
-    if(
-      (0 == length)
-    ) {
+    if (0 == length) {
       baseImpl = getImplementation();
       hasCore = baseImpl.hasFeature("Core","3.0");
       hasXML = baseImpl.hasFeature("XML","3.0");
       hasEvents = baseImpl.hasFeature("Events","2.0");
       hasLS = baseImpl.hasFeature("LS",nullVersion);
-
-      {
-	assertFalse("baseImplFeatures",
-	            (hasCore && hasXML && hasEvents && hasLS)
-                   );
-
-      }
-    }
-    else {
+      test.equal((hasCore && hasXML && hasEvents && hasLS), false, 'baseImplFeatures');
+    } else {
       for(var indexN10096 = 0;indexN10096 < domImplList.length; indexN10096++) {
         domImpl = domImplList.item(indexN10096);
         hasCore = domImpl.hasFeature("Core","3.0");
@@ -10312,11 +10287,8 @@ exports.tests = {
         test.ok(hasEvents, 'hasEvents');
         hasLS = domImpl.hasFeature("LS",nullVersion);
         test.ok(hasLS, 'hasLS');
-
       }
-
     }
-
     test.done()
   },
 
