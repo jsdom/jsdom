@@ -5927,41 +5927,19 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
    */
   hc_attrcreatedocumentfragment: function(test) {
-    var success;
-    var doc;
-    var docFragment;
-    var newOne;
-    var domesticNode;
-    var attributes;
-    var attribute;
-    var attrName;
-    var appendedChild;
-    var langAttrCount = 0;
-
-    doc = hc_staff.hc_staff();
-    docFragment = doc.createDocumentFragment();
-    newOne = doc.createElement("html");
+    var doc = hc_staff.hc_staff();
+    var docFragment = doc.createDocumentFragment();
+    var newOne = doc.createElement("html");
     newOne.setAttribute("lang","EN");
-    appendedChild = docFragment.appendChild(newOne);
-    domesticNode = docFragment.firstChild;
-
-    attributes = domesticNode.attributes;
-
-    for(var indexN10078 = 0;indexN10078 < attributes.length; indexN10078++) {
-      attribute = attributes.item(indexN10078);
-      attrName = attribute.nodeName;
-
-
-      if(
-        equalsAutoCase("attribute", "lang", attrName)
-      ) {
-        langAttrCount += 1;
-
+    docFragment.appendChild(newOne);
+    var attributes = docFragment.firstChild.attributes;
+    var count = 0
+    for(var i=0;i<attributes.length;i++) {
+      if (attributes.item(i).nodeName == "lang") {
+        count += 1;
       }
-
     }
-    test.equal(langAttrCount, 1, 'hasLangAttr');
-
+    test.equal(count, 1, 'hasLangAttr');
     test.done();
   },
 
@@ -10579,28 +10557,11 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
    */
   hc_namednodemapreturnattrnode: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var testEmployee;
-    var attributes;
-    var streetAttr;
-    var attrName;
-
-    doc = hc_staff.hc_staff();
-    elementList = doc.getElementsByTagName("acronym");
-    testEmployee = elementList.item(1);
-    attributes = testEmployee.attributes;
-
-    streetAttr = attributes.getNamedItem("class");
-    assertInstanceOf("typeAssert","Attr",streetAttr);
-    attrName = streetAttr.nodeName;
-
-    test.equal(attrName, 'class', 'attribute nodeName');
-    attrName = streetAttr.name;
-
-    test.equal(attrName, 'class', 'attribute name');
-
+    var doc = hc_staff.hc_staff();
+    var streetAttr = doc.getElementsByTagName("acronym").item(1).attributes.getNamedItem("class");
+    test.equal(streetAttr.nodeType, 2, 'typeAssert');
+    test.equal(streetAttr.nodeName, 'class', 'attribute nodeName');
+    test.equal(streetAttr.name, 'class', 'attribute name');
     test.done();
   },
 
@@ -15375,28 +15336,11 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1112119403
    */
   namednodemapreturnattrnode: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var testEmployee;
-    var attributes;
-    var streetAttr;
-    var attrName;
-
-    doc = staff.staff();
-    elementList = doc.getElementsByTagName("address");
-    testEmployee = elementList.item(1);
-    attributes = testEmployee.attributes;
-
-    streetAttr = attributes.getNamedItem("street");
-    assertInstanceOf("typeAssert","Attr",streetAttr);
-    attrName = streetAttr.nodeName;
-
-    test.equal(attrName, 'street', 'nodeName');
-    attrName = streetAttr.name;
-
-    test.equal(attrName, 'street', 'attrName');
-
+    var doc = staff.staff();
+    var streetAttr = doc.getElementsByTagName("address").item(1).attributes.getNamedItem("street");
+    test.equal(streetAttr.nodeType, 2, 'typeAssert');
+    test.equal(streetAttr.nodeName, 'street', 'nodeName');
+    test.equal(streetAttr.name, 'street', 'attrName');
     test.done();
   },
 
