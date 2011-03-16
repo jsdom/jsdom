@@ -2983,7 +2983,7 @@ exports.tests = {
     value = child.nodeValue;
 
     test.equal(value, 'Yes', 'attrValue');
-    assertSize("attrCount",1,defaultAttr);
+    test.equal(defaultAttr.length, 1, 'attrCount');
 
     test.done();
   },
@@ -3061,7 +3061,7 @@ exports.tests = {
     test.notEqual(newEntRefNode, null, 'createdEntRefNotNull');
     newEntRefList = newEntRefNode.childNodes;
 
-    assertSize("size",1,newEntRefList);
+    test.equal(newEntRefList.length, 1, 'size');
     child = newEntRefNode.firstChild;
 
     name = child.nodeName;
@@ -3231,7 +3231,7 @@ exports.tests = {
 
     doc = staff.staff();
     nameList = doc.getElementsByTagName("name");
-    assertSize("documentGetElementsByTagNameLengthAssert",5,nameList);
+    test.equal(nameList.length, 5, 'documentGetElementsByTagNameLengthAssert');
 
     test.done();
   },
@@ -3252,7 +3252,7 @@ exports.tests = {
 
     doc = staff.staff();
     nameList = doc.getElementsByTagName("*");
-    assertSize("elementCountSVG",39,nameList);
+    test.equal(nameList.length, 39, 'elementCountSVG');
     test.done();
   },
 
@@ -3649,7 +3649,7 @@ exports.tests = {
     test.notEqual(docType, null, 'docTypeNotNull');
     entityList = docType.entities;
     test.notEqual(entityList, null, 'entitiesNotNull');
-    assertSize("entitySizeSVG",7,entityList);
+    test.equal(entityList.length, 7, 'entitySizeSVG');
     test.done();
   },
 
@@ -4117,7 +4117,7 @@ exports.tests = {
 
     doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
-    assertSize("elementGetElementsByTagNameAssert",5,elementList);
+    test.equal(elementList.length, 5, 'elementGetElementsByTagNameAssert');
 
     test.done();
   },
@@ -4189,7 +4189,7 @@ exports.tests = {
 
     doc = staff.staff();
     elementList = doc.getElementsByTagName("noMatch");
-    assertSize("elementGetElementsByTagNameNoMatchNoMatchAssert",0,elementList);
+    test.equal(elementList.length, 0, 'elementGetElementsByTagNameNoMatchNoMatchAssert');
 
     test.done();
   },
@@ -4239,7 +4239,7 @@ exports.tests = {
       result[result.length] = childName;
 
     }
-    assertEqualsList("tagNames",expectedResult,result);
+    test.deepEqual(result, expectedResult, 'tagNames');
 
     test.done();
   },
@@ -4988,7 +4988,7 @@ exports.tests = {
     testAddress = addressList.item(0);
     attributes = testAddress.attributes;
 
-    assertSize("elementRetrieveAllAttributesAssert",2,attributes);
+    test.equal(attributes.length, 2, 'elementRetrieveAllAttributesAssert');
 
     test.done();
   },
@@ -5806,7 +5806,7 @@ exports.tests = {
     titleAttr = attributes.getNamedItem("title");
     childNodes = titleAttr.childNodes;
 
-    assertSize("childNodesSize",1,childNodes);
+    test.equal(childNodes.length, 1, 'childNodesSize');
     textNode = childNodes.item(0);
     value = textNode.nodeValue;
 
@@ -5847,7 +5847,7 @@ exports.tests = {
 
     textNode = doc.createTextNode("terday");
     retval = titleAttr.appendChild(textNode);
-    assertSize("childNodesSize",2,childNodes);
+    test.equal(childNodes.length, 2, 'childNodesSize');
     textNode = childNodes.item(0);
     value = textNode.nodeValue;
 
@@ -8760,7 +8760,7 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     nameList = doc.getElementsByTagName("strong");
-    assertSize("documentGetElementsByTagNameLengthAssert",5,nameList);
+    test.equal(nameList.length, 5, 'documentGetElementsByTagNameLengthAssert');
 
     test.done();
   },
@@ -8883,7 +8883,7 @@ exports.tests = {
       actualNames[actualNames.length] = thisTag;
 
     }
-    assertEqualsListAutoCase("element", "svgTagNames",svgExpectedNames,actualNames);
+    test.deepEqual(actualNames, svgExpectedNames, 'element svgTagNames');
     test.done();
   },
 
@@ -9452,7 +9452,7 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
-    assertSize("elementGetElementsByTagNameAssert",5,elementList);
+    test.equal(elementList.length, 5, 'elementGetElementsByTagNameAssert');
 
     test.done();
   },
@@ -9536,7 +9536,7 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("noMatch");
-    assertSize("elementGetElementsByTagNameNoMatchNoMatchAssert",0,elementList);
+    test.equal(elementList.length, 0, 'elementGetElementsByTagNameNoMatchNoMatchAssert');
 
     test.done();
   },
@@ -9585,7 +9585,7 @@ exports.tests = {
       result[result.length] = childName;
 
     }
-    assertEqualsListAutoCase("element", "tagNames",expectedResult,result);
+    test.deepEqual(result, expectedResult, 'element tagNames');
 
     test.done();
   },
@@ -11098,7 +11098,7 @@ exports.tests = {
       actual[actual.length] = memberName;
 
     }
-    assertEqualsListAutoCase("element", "liveByTagName",expected,actual);
+    test.deepEqual(actual, expected, 'element liveByTagName');
     childList = childNode.childNodes;
 
     for(var indexN1009C = 0;indexN1009C < childList.length; indexN1009C++) {
@@ -11116,7 +11116,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "refreshedChildNodes",expected,refreshedActual);
+    test.deepEqual(refreshedActual, expected, 'element refreshedChildNodes');
 
     test.done();
   },
@@ -11189,7 +11189,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "nodeNames",expected,result);
+    test.deepEqual(result, expected, 'element nodeNames');
 
     test.done();
   },
@@ -11576,7 +11576,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "elementNames",expected,actual);
+    test.deepEqual(actual, expected, 'element elementNames');
 
     test.done();
   },
@@ -11650,7 +11650,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "childElements",expected,actual);
+    test.deepEqual(actual, expected, 'element childElements');
 
     test.done();
   },
@@ -11908,7 +11908,7 @@ exports.tests = {
       result[result.length] = clonedChildName;
 
     }
-    assertEqualsList("clone",expected,result);
+    test.deepEqual(result, expected, 'clone');
 
     test.done();
   },
@@ -12926,7 +12926,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "nodeNames",expected,actual);
+    test.deepEqual(actual, expected, 'element nodeNames');
 
     test.done();
   },
@@ -13159,7 +13159,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "childNames",expected,result);
+    test.deepEqual(result, expected, 'element childNames');
 
     test.done();
   },
@@ -13679,7 +13679,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "nodeNames",expected,result);
+    test.deepEqual(result, expected, 'element nodeNames');
 
     test.done();
   },
@@ -13896,7 +13896,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "childNames",expected,actual);
+    test.deepEqual(actual, expected, 'element childNames');
 
     test.done();
   },
@@ -14163,7 +14163,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsListAutoCase("element", "childNames",expected,actual);
+    test.deepEqual(actual, expected, 'element childNames');
 
     test.done();
   },
@@ -14931,12 +14931,12 @@ exports.tests = {
     if(
       (1 == length)
     ) {
-      assertEqualsList("assertEqCoalescing",expectedExpanded,result);
+      test.deepEqual(result, expectedExpanded, 'assertEqCoalescing');
 
     }
 
     else {
-      assertEqualsList("assertEqNormal",expectedNormal,result);
+      test.deepEqual(result, expectedNormal, 'assertEqNormal');
 
     }
 
@@ -16004,7 +16004,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsList("elementNames",expected,result);
+    test.deepEqual(result, expected, 'elementNames');
 
     test.done();
   },
@@ -16689,7 +16689,7 @@ exports.tests = {
       }
 
     }
-    assertEqualsList("elementNames",expectedElementNames,elementNames);
+    test.deepEqual(elementNames, expectedElementNames, 'elementNames');
 
     test.done();
   },
@@ -16766,7 +16766,7 @@ exports.tests = {
 
     childNodesList = textNode.childNodes;
 
-    assertSize("nodeChildNodesEmpty",0,childNodesList);
+    test.equal(childNodesList.length, 0, 'nodeChildNodesEmpty');
 
     test.done();
   },
@@ -17007,12 +17007,12 @@ exports.tests = {
     if(
       (6 == length)
     ) {
-      assertEqualsList("nowhitespace",expectedNoWhitespace,result);
+      test.deepEqual(result, expectedNoWhitespace, 'nowhitespace');
 
     }
 
     else {
-      assertEqualsList("whitespace",expectedWhitespace,result);
+      test.deepEqual(result, expectedWhitespace, 'whitespace');
 
     }
 
@@ -18518,7 +18518,7 @@ exports.tests = {
       actual[actual.length] = childName;
 
     }
-    assertEqualsList("nodeNames",expected,actual);
+    test.deepEqual(actual, expected, 'nodeNames');
 
     test.done();
   },
@@ -18776,7 +18776,7 @@ exports.tests = {
       result[result.length] = childName;
 
     }
-    assertEqualsList("childNames",expected,result);
+    test.deepEqual(result, expected, 'childNames');
 
     test.done();
   },
@@ -19160,14 +19160,10 @@ exports.tests = {
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
-
     childNode = employeeList.item(1);
     textNode = childNode.firstChild;
-
     textList = textNode.childNodes;
-
-    assertSize("nodelistIndexGetLengthOfEmptyListAssert",0,textList);
-
+    test.equal(textList.length, 0, 'nodelistIndexGetLengthOfEmptyListAssert');
     test.done();
   },
 
@@ -19364,12 +19360,12 @@ exports.tests = {
     if(
       (6 == length)
     ) {
-      assertEqualsList("nowhitespace",expectedNoWhitespace,result);
+      test.deepEqual(result, expectedNoWhitespace, 'nowhitespace');
 
     }
 
     else {
-      assertEqualsList("whitespace",expectedWhitespace,result);
+      test.deepEqual(result, expectedWhitespace, 'whitespace');
 
     }
 
@@ -20299,7 +20295,7 @@ exports.tests = {
       actual[actual.length] = childName;
 
     }
-    assertEqualsList("childNames",expected,actual);
+    test.deepEqual(actual, expected, 'childNames');
 
     test.done();
   },
@@ -21622,12 +21618,12 @@ exports.tests = {
     if(
       (4 == length)
     ) {
-      assertEqualsList("assertEqNormal",expectedNormal,result);
+      test.deepEqual(result, expectedNormal, 'assertEqNormal');
 
     }
 
     else {
-      assertEqualsList("assertEqCoalescing",expectedExpanded,result);
+      test.deepEqual(result, expectedExpanded, 'assertEqCoalescing');
 
     }
 
