@@ -347,7 +347,7 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("class");
     id = attr.isId;
 
-    assertFalse("AttrIsIDFalse01",id);
+    test.equal(id, false, 'AttrIsIDFalse01');
 
     test.done()
   },
@@ -382,7 +382,7 @@ exports.tests = {
     attr = acronymElem.getAttributeNodeNS(xmlNS,"lang");
     id = attr.isId;
 
-    assertTrue("AttrIsIDTrue02",id);
+    test.ok(id, 'AttrIsIDTrue02');
 
     test.done()
   },
@@ -415,7 +415,7 @@ exports.tests = {
     attr = acronymElem.getAttributeNodeNS(xmlNS,"lang");
     id = attr.isId;
 
-    assertFalse("AttrIsIDFalse03",id);
+    test.equal(id, false, 'AttrIsIDFalse03');
 
     test.done()
   },
@@ -447,7 +447,7 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("id");
     id = attr.isId;
 
-    assertTrue("AttrIsIDTrue04",id);
+    test.ok(id, 'AttrIsIDTrue04');
 
     test.done()
   },
@@ -487,7 +487,7 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("id");
     id = attr.isId;
 
-    assertTrue("AttrIsIDTrue05",id);
+    test.ok(id, 'AttrIsIDTrue05');
 
     test.done()
   },
@@ -510,7 +510,7 @@ exports.tests = {
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     id = attr.isId;
 
-    assertFalse("AttrIsIDFalse06",id);
+    test.equal(id, false, 'AttrIsIDFalse06');
 
     test.done()
   },
@@ -550,11 +550,11 @@ exports.tests = {
     attr = acronymElem.getAttributeNodeNS("http://www.w3.org/DOM","newAttr");
     id = attr.isId;
 
-    assertTrue("AttrIsIDTrue07_1",id);
+    test.ok(id, 'AttrIsIDTrue07_1');
     attrImported = doc.importNode(attr,false);
     id = attrImported.isId;
 
-    assertFalse("AttrIsID07_isFalseforImportedNode",id);
+    test.equal(id, false, 'AttrIsID07_isFalseforImportedNode');
 
     test.done()
   },
@@ -853,10 +853,7 @@ exports.tests = {
           message = error.message;
 
           length = message.length;
-      	  assertTrue("messageNotEmpty",
-
-	             (length > 0)
-                    );
+      	  test.ok((length > 0), 'messageNotEmpty');
           type = error.type;
 
           relatedData = error.relatedData;
@@ -921,7 +918,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("xml10InvalidName",success);
+      test.ok(success, 'xml10InvalidName');
     }
 
     try {
@@ -1329,7 +1326,7 @@ exports.tests = {
       test.notEqual(attr, null, 'titlePresent');
       attrSpecified = attr.specified;
 
-      assertTrue("titleSpecified",attrSpecified);
+      test.ok(attrSpecified, 'titleSpecified');
       attrValue = attr.nodeValue;
 
       test.equal(attrValue, "default", 'titleValue');
@@ -2897,7 +2894,7 @@ exports.tests = {
       test.equal(nodeName, "class", 'documentadoptnode02_nodeName');
       test.equal(nodeType, 2, 'documentadoptnode02_nodeType');
       test.equal(attrOwnerElem, null, 'documentadoptnode02_ownerDoc');
-      assertTrue("documentadoptnode02_specified",isSpecified);
+      test.ok(isSpecified, 'documentadoptnode02_specified');
       firstChild = adoptedclass.firstChild;
 
       test.notEqual(firstChild, null, 'firstChildNotNull');
@@ -2974,7 +2971,7 @@ exports.tests = {
       test.equal(nodeNamespaceURI, xmlNS, 'documentadoptNode03_namespaceURI');
       test.equal(nodePrefix, "xml", 'documentadoptnode03_prefix');
       test.equal(attrOwnerElem, null, 'documentadoptnode03_ownerDoc');
-      assertTrue("documentadoptnode03_specified",isSpecified);
+      test.ok(isSpecified, 'documentadoptnode03_specified');
 
     }
 
@@ -3041,7 +3038,7 @@ exports.tests = {
       test.equal(nodeNamespaceURI, xmlNS, 'documentadoptnode04_namespaceURI');
       test.equal(nodePrefix, "xml", 'documentadoptnode04_prefix');
       test.equal(attrOwnerElem, null, 'documentadoptnode04_ownerDoc');
-      assertTrue("documentadoptnode04_specified",isSpecified);
+      test.ok(isSpecified, 'documentadoptnode04_specified');
 
     }
 
@@ -3111,7 +3108,7 @@ exports.tests = {
       test.equal(nodeNamespaceURI, null, 'documentadoptnode05_namespaceURI');
       test.equal(nodePrefix, null, 'documentadoptnode05_prefix');
       test.equal(attrOwnerElem, null, 'documentadoptnode05_ownerDoc');
-      assertTrue("documentadoptnode05_specified",isSpecified);
+      test.ok(isSpecified, 'documentadoptnode05_specified');
 
     }
 
@@ -3191,7 +3188,7 @@ exports.tests = {
       test.equal(nodeNamespaceURI, xmlNS, 'documentadoptnode06_namespaceURI');
       test.equal(nodePrefix, "xml", 'documentadoptnode06_prefix');
       test.equal(attrOwnerElem, null, 'documentadoptnode06_ownerDoc');
-      assertTrue("documentadoptnode06_specified",isSpecified);
+      test.ok(isSpecified, 'documentadoptnode06_specified');
       nodeList = adoptedAttr.childNodes;
 
       adoptText = nodeList.item(0);
@@ -3232,7 +3229,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("throw_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     }
 
     test.done()
@@ -3277,7 +3274,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("throw_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     }
 
     test.done()
@@ -3322,7 +3319,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("throw_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     }
 
     test.done()
@@ -3355,7 +3352,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("throw_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     }
 
     test.done()
@@ -3399,7 +3396,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("throw_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     }
 
     test.done()
@@ -3448,7 +3445,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("throw_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     }
 
     test.done()
@@ -3487,7 +3484,7 @@ exports.tests = {
 
     ) {
       success = adoptedDocFrag.hasChildNodes();
-      assertTrue("documentadoptnode13",success);
+      test.ok(success, 'documentadoptnode13');
 
     }
 
@@ -3547,7 +3544,7 @@ exports.tests = {
 
     ) {
       success = adoptedDocFrag.hasChildNodes();
-      assertTrue("documentadoptnode14",success);
+      test.ok(success, 'documentadoptnode14');
 
     }
 
@@ -3580,7 +3577,7 @@ exports.tests = {
 
     ) {
       success = adoptedDocFrag.hasChildNodes();
-      assertFalse("documentadoptnode15",success);
+      test.equal(success, false, 'documentadoptnode15');
 
     }
 
@@ -3704,7 +3701,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done()
@@ -3757,7 +3754,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done()
@@ -3795,7 +3792,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done()
@@ -3848,7 +3845,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done()
@@ -3932,7 +3929,7 @@ exports.tests = {
 
     ) {
       success = adoptedNode.hasChildNodes();
-      assertTrue("documentadoptnode22_1",success);
+      test.ok(success, 'documentadoptnode22_1');
       nodeName = adoptedNode.nodeName;
 
       nodeNameOrig = docElement.nodeName;
@@ -4861,12 +4858,7 @@ exports.tests = {
     cloned = doc.cloneNode(true);
     encodingName = cloned.inputEncoding;
 
-    assertTrue("documentgetinputencoding04",
-
-	       (("UTF-8".toUpperCase() == encodingName.toUpperCase()) ||
-	        (encodingName == null)
-               )
-              );
+    test.ok((("UTF-8".toUpperCase() == encodingName.toUpperCase()) || (encodingName == null)), 'documentgetinputencoding04');
 
     test.done()
   },
@@ -4887,7 +4879,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     strictErrorCheckingValue = doc.strictErrorChecking;
 
-    assertTrue("documentgetstricterrorchecking01",strictErrorCheckingValue);
+    test.ok(strictErrorCheckingValue, 'documentgetstricterrorchecking01');
 
     test.done()
   },
@@ -4923,7 +4915,7 @@ exports.tests = {
     newDoc = domImpl.createDocument(rootNS,rootName,nullDocType);
     strictErrorCheckingValue = newDoc.strictErrorChecking;
 
-    assertTrue("documentgetstricterrorchecking02",strictErrorCheckingValue);
+    test.ok(strictErrorCheckingValue, 'documentgetstricterrorchecking02');
 
     test.done()
   },
@@ -5050,12 +5042,7 @@ exports.tests = {
     cloned = doc.cloneNode(true);
     encodingName = cloned.xmlEncoding;
 
-    assertTrue("documentgetxmlencoding05",
-
-	       (("uTf-8" == encodingName) ||
-	        (encodingName == null)
-               )
-              );
+    test.ok((("uTf-8" == encodingName) || (encodingName == null)), 'documentgetxmlencoding05');
 
     test.done()
   },
@@ -5078,7 +5065,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     standalone = doc.xmlStandalone;
 
-    assertFalse("documentgetxmlstandalone01",standalone);
+    test.equal(standalone, false, 'documentgetxmlstandalone01');
 
     test.done()
   },
@@ -5114,7 +5101,7 @@ exports.tests = {
     newDoc = domImpl.createDocument(rootNS,rootName,nullDocType);
     standalone = newDoc.xmlStandalone;
 
-    assertFalse("documentgetxmlstandalone02",standalone);
+    test.equal(standalone, false, 'documentgetxmlstandalone02');
 
     test.done()
   },
@@ -5136,7 +5123,7 @@ exports.tests = {
     doc = barfoo_standalone_no.barfoo_standalone_no();
     standalone = doc.xmlStandalone;
 
-    assertFalse("documentgetxmlstandalone03",standalone);
+    test.equal(standalone, false, 'documentgetxmlstandalone03');
 
     test.done()
   },
@@ -5158,7 +5145,7 @@ exports.tests = {
     doc = barfoo_standalone_yes.barfoo_standalone_yes();
     standalone = doc.xmlStandalone;
 
-    assertTrue("documentgetxmlstandalone04",standalone);
+    test.ok(standalone, 'documentgetxmlstandalone04');
 
     test.done()
   },
@@ -5203,7 +5190,7 @@ exports.tests = {
     newDoc = domImpl.createDocument(rootNS,rootName,newDocType);
     standalone = newDoc.xmlStandalone;
 
-    assertFalse("documentgetxmlstandalone05",standalone);
+    test.equal(standalone, false, 'documentgetxmlstandalone05');
 
     test.done()
   },
@@ -5582,10 +5569,7 @@ exports.tests = {
         message = error.message;
 
         length = message.length;
-      	assertTrue("messageNotEmpty",
-
-	           (length > 0)
-                  );
+      	test.ok((length > 0), 'messageNotEmpty');
         type = error.type;
 
         relatedData = error.relatedData;
@@ -5701,10 +5685,7 @@ exports.tests = {
           message = error.message;
 
           length = message.length;
-      	  assertTrue("messageNotEmpty",
-
-	             (length > 0)
-                    );
+      	  test.ok((length > 0), 'messageNotEmpty');
           relatedException = error.relatedException;
 
           location = error.location;
@@ -5828,10 +5809,7 @@ exports.tests = {
         message = error.message;
 
         length = message.length;
-      	assertTrue("messageNotEmpty",
-
-	           (length > 0)
-                  );
+      	test.ok((length > 0), 'messageNotEmpty');
         type = error.type;
 
         relatedData = error.relatedData;
@@ -5924,10 +5902,7 @@ exports.tests = {
 
     length = childNodes.length;
 
-    assertTrue("atLeast4ChildNodes",
-
-	       (length > 3)
-              );
+    test.ok((length > 3), 'atLeast4ChildNodes');
 
     test.done()
   },
@@ -6028,7 +6003,7 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("element-content-whitespace",true);
-    assertTrue("canSetElementContentWhitespaceTrue",canSet);
+    test.ok(canSet, 'canSetElementContentWhitespaceTrue');
     domConfig.setParameter("element-content-whitespace", true);
     doc.normalizeDocument();
     text = elem.firstChild;
@@ -6240,10 +6215,7 @@ exports.tests = {
         message = error.message;
 
         length = message.length;
-      	assertTrue("messageNotEmpty",
-
-	           (length > 0)
-                  );
+      	test.ok((length > 0), 'messageNotEmpty');
         type = error.type;
 
         relatedData = error.relatedData;
@@ -6578,7 +6550,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("documentrenamenode08_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'documentrenamenode08_WRONG_DOCUMENT_ERR');
     }
 
     test.done()
@@ -6670,7 +6642,7 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
 	}
-	assertTrue("documentrenamenode10_NOT_SUPPORTED_ERR",success);
+	test.ok(success, 'documentrenamenode10_NOT_SUPPORTED_ERR');
       }
 
     }
@@ -6715,7 +6687,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("documentrenamenode11_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'documentrenamenode11_NOT_SUPPORTED_ERR');
     }
 
     test.done()
@@ -6755,7 +6727,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("documentrenamenode12_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'documentrenamenode12_NOT_SUPPORTED_ERR');
     }
 
     test.done()
@@ -6795,7 +6767,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("documentrenamenode13_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'documentrenamenode13_NOT_SUPPORTED_ERR');
     }
 
     test.done()
@@ -6837,7 +6809,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("documentrenamenode14_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'documentrenamenode14_NOT_SUPPORTED_ERR');
     }
 
     test.done()
@@ -7013,7 +6985,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("documentrenamenode18_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'documentrenamenode18_WRONG_DOCUMENT_ERR');
     }
 
     test.done()
@@ -7065,7 +7037,7 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 14);
 	}
-	assertTrue("documentrenamenode19_NAMESPACE_ERR",success);
+	test.ok(success, 'documentrenamenode19_NAMESPACE_ERR');
       }
 
     }
@@ -7116,7 +7088,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
 
     test.done()
@@ -7164,7 +7136,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
 
     test.done()
@@ -7197,7 +7169,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("throw_NAMESPACE_ERR",success);
+      test.ok(success, 'throw_NAMESPACE_ERR');
     }
 
     test.done()
@@ -7231,7 +7203,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("documentrenamenode23_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'documentrenamenode23_NOT_SUPPORTED_ERR');
     }
 
     test.done()
@@ -7268,7 +7240,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("documentrenamenode24_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'documentrenamenode24_NOT_SUPPORTED_ERR');
     }
 
     test.done()
@@ -7301,7 +7273,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("documentrenamenode25_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'documentrenamenode25_NOT_SUPPORTED_ERR');
     }
 
     test.done()
@@ -7334,7 +7306,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("documentrenamenode26_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'documentrenamenode26_NOT_SUPPORTED_ERR');
     }
 
     test.done()
@@ -7394,7 +7366,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("throw_NOT_SUPPORTED_ERR_1",success);
+      test.ok(success, 'throw_NOT_SUPPORTED_ERR_1');
     }
 
     {
@@ -7405,7 +7377,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("throw_NOT_SUPPORTED_ERR_2",success);
+      test.ok(success, 'throw_NOT_SUPPORTED_ERR_2');
     }
 
     {
@@ -7416,7 +7388,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("throw_NOT_SUPPORTED_ERR_3",success);
+      test.ok(success, 'throw_NOT_SUPPORTED_ERR_3');
     }
 
     {
@@ -7427,7 +7399,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("throw_NOT_SUPPORTED_ERR_4",success);
+      test.ok(success, 'throw_NOT_SUPPORTED_ERR_4');
     }
 
     {
@@ -7438,7 +7410,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("throw_NOT_SUPPORTED_ERR_5",success);
+      test.ok(success, 'throw_NOT_SUPPORTED_ERR_5');
     }
 
     test.done()
@@ -7482,7 +7454,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("documentrenamenode28_ENTITY_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'documentrenamenode28_ENTITY_NOT_SUPPORTED_ERR');
     }
 
     {
@@ -7493,7 +7465,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("documentrenamenode28_NOTATION_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'documentrenamenode28_NOTATION_NOT_SUPPORTED_ERR');
     }
 
     test.done()
@@ -7527,7 +7499,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("documentrenamenode29_ENTITY_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'documentrenamenode29_ENTITY_NOT_SUPPORTED_ERR');
     }
 
     test.done()
@@ -7657,7 +7629,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("INVALID_CHARACTER_ERR_documentsetstricterrorchecking01",success);
+      test.ok(success, 'INVALID_CHARACTER_ERR_documentsetstricterrorchecking01');
     }
 
     test.done()
@@ -7692,7 +7664,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
-      assertTrue("NAMESPACE_ERR_documentsetstricterrorchecking02",success);
+      test.ok(success, 'NAMESPACE_ERR_documentsetstricterrorchecking02');
     }
 
     test.done()
@@ -7717,7 +7689,7 @@ exports.tests = {
 
     strictErrorCheckingValue = doc.strictErrorChecking;
 
-    assertFalse("documentsetstricterrorchecking03",strictErrorCheckingValue);
+    test.equal(strictErrorCheckingValue, false, 'documentsetstricterrorchecking03');
 
     test.done()
   },
@@ -7741,7 +7713,7 @@ exports.tests = {
 
     standalone = doc.xmlStandalone;
 
-    assertTrue("documentsetxmlstandalone01",standalone);
+    test.ok(standalone, 'documentsetxmlstandalone01');
 
     test.done()
   },
@@ -7780,12 +7752,12 @@ exports.tests = {
 
     standalone = newDoc.xmlStandalone;
 
-    assertFalse("documentsetxmlstandalone02_false",standalone);
+    test.equal(standalone, false, 'documentsetxmlstandalone02_false');
     newDoc.xmlStandalone = true;
 
     standalone = newDoc.xmlStandalone;
 
-    assertTrue("documentsetxmlstandalone02_true",standalone);
+    test.ok(standalone, 'documentsetxmlstandalone02_true');
 
     test.done()
   },
@@ -7847,7 +7819,7 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
 	}
-	assertTrue("NOT_SUPPORTED_ERR_documentsetversion01",success);
+	test.ok(success, 'NOT_SUPPORTED_ERR_documentsetversion01');
       }
 
     }
@@ -7972,7 +7944,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("throw_NOT_SUPPORTED_ERR",success);
+      test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     }
 
     test.done()
@@ -8000,9 +7972,9 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     state = domConfig.getParameter(parameter);
-    assertFalse("defaultFalse",state);
+    test.equal(state, false, 'defaultFalse');
     canSet = domConfig.canSetParameter(parameter,false);
-    assertTrue("canSetFalse",canSet);
+    test.ok(canSet, 'canSetFalse');
     canSet = domConfig.canSetParameter(parameter,true);
 
     if(
@@ -8010,7 +7982,7 @@ exports.tests = {
     ) {
       domConfig.setParameter(parameter, true);
       state = domConfig.getParameter(parameter);
-      assertTrue("setTrueEffective",state);
+      test.ok(state, 'setTrueEffective');
 
     }
 
@@ -8024,10 +7996,10 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
 	}
-	assertTrue("throw_NOT_SUPPORTED_ERR",success);
+	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
-      assertFalse("setTrueNotEffective",state);
+      test.equal(state, false, 'setTrueNotEffective');
 
     }
     domConfig.setParameter(parameter, false);
@@ -8057,17 +8029,17 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     state = domConfig.getParameter(parameter);
-    assertTrue("defaultFalse",state);
+    test.ok(state, 'defaultFalse');
     canSet = domConfig.canSetParameter(parameter,false);
-    assertTrue("canSetFalse",canSet);
+    test.ok(canSet, 'canSetFalse');
     canSet = domConfig.canSetParameter(parameter,true);
-    assertTrue("canSetTrue",canSet);
+    test.ok(canSet, 'canSetTrue');
     domConfig.setParameter(parameter, false);
     state = domConfig.getParameter(parameter);
-    assertFalse("setFalseEffective",state);
+    test.equal(state, false, 'setFalseEffective');
     domConfig.setParameter(parameter, true);
     state = domConfig.getParameter(parameter);
-    assertTrue("setTrueEffective",state);
+    test.ok(state, 'setTrueEffective');
 
     test.done()
   },
@@ -8094,9 +8066,9 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     state = domConfig.getParameter(parameter);
-    assertFalse("defaultFalse",state);
+    test.equal(state, false, 'defaultFalse');
     canSet = domConfig.canSetParameter(parameter,false);
-    assertTrue("canSetFalse",canSet);
+    test.ok(canSet, 'canSetFalse');
     canSet = domConfig.canSetParameter(parameter,true);
 
     if(
@@ -8104,7 +8076,7 @@ exports.tests = {
     ) {
       domConfig.setParameter(parameter, true);
       state = domConfig.getParameter(parameter);
-      assertTrue("setTrueEffective",state);
+      test.ok(state, 'setTrueEffective');
 
     }
 
@@ -8118,10 +8090,10 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
 	}
-	assertTrue("throw_NOT_SUPPORTED_ERR",success);
+	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
-      assertFalse("setTrueNotEffective",state);
+      test.equal(state, false, 'setTrueNotEffective');
 
     }
     domConfig.setParameter(parameter, false);
@@ -8150,17 +8122,17 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     state = domConfig.getParameter(parameter);
-    assertTrue("defaultFalse",state);
+    test.ok(state, 'defaultFalse');
     canSet = domConfig.canSetParameter(parameter,false);
-    assertTrue("canSetFalse",canSet);
+    test.ok(canSet, 'canSetFalse');
     canSet = domConfig.canSetParameter(parameter,true);
-    assertTrue("canSetTrue",canSet);
+    test.ok(canSet, 'canSetTrue');
     domConfig.setParameter(parameter, false);
     state = domConfig.getParameter(parameter);
-    assertFalse("setFalseEffective",state);
+    test.equal(state, false, 'setFalseEffective');
     domConfig.setParameter(parameter, true);
     state = domConfig.getParameter(parameter);
-    assertTrue("setTrueEffective",state);
+    test.ok(state, 'setTrueEffective');
 
     test.done()
   },
@@ -8186,9 +8158,9 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     state = domConfig.getParameter(parameter);
-    assertFalse("defaultFalse",state);
+    test.equal(state, false, 'defaultFalse');
     canSet = domConfig.canSetParameter(parameter,false);
-    assertTrue("canSetFalse",canSet);
+    test.ok(canSet, 'canSetFalse');
     canSet = domConfig.canSetParameter(parameter,true);
 
     if(
@@ -8196,7 +8168,7 @@ exports.tests = {
     ) {
       domConfig.setParameter(parameter, true);
       state = domConfig.getParameter(parameter);
-      assertTrue("setTrueEffective",state);
+      test.ok(state, 'setTrueEffective');
 
     }
 
@@ -8210,10 +8182,10 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
 	}
-	assertTrue("throw_NOT_SUPPORTED_ERR",success);
+	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
-      assertFalse("setTrueNotEffective",state);
+      test.equal(state, false, 'setTrueNotEffective');
 
     }
     domConfig.setParameter(parameter, false);
@@ -8249,7 +8221,7 @@ exports.tests = {
     ) {
       domConfig.setParameter(parameter, true);
       state = domConfig.getParameter("validate");
-      assertTrue("validateSet",state);
+      test.ok(state, 'validateSet');
 
     }
 
@@ -8278,9 +8250,9 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     state = domConfig.getParameter(parameter);
-    assertTrue("defaultFalse",state);
+    test.ok(state, 'defaultFalse');
     canSet = domConfig.canSetParameter(parameter,true);
-    assertTrue("canSetTrue",canSet);
+    test.ok(canSet, 'canSetTrue');
     canSet = domConfig.canSetParameter(parameter,false);
 
     if(
@@ -8288,7 +8260,7 @@ exports.tests = {
     ) {
       domConfig.setParameter(parameter, false);
       state = domConfig.getParameter(parameter);
-      assertFalse("setFalseEffective",state);
+      test.equal(state, false, 'setFalseEffective');
 
     }
 
@@ -8302,10 +8274,10 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
 	}
-	assertTrue("throw_NOT_SUPPORTED_ERR",success);
+	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
-      assertTrue("setFalseNotEffective",state);
+      test.ok(state, 'setFalseNotEffective');
 
     }
     domConfig.setParameter(parameter, true);
@@ -8335,17 +8307,17 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     state = domConfig.getParameter(parameter);
-    assertTrue("defaultFalse",state);
+    test.ok(state, 'defaultFalse');
     canSet = domConfig.canSetParameter(parameter,false);
-    assertTrue("canSetFalse",canSet);
+    test.ok(canSet, 'canSetFalse');
     canSet = domConfig.canSetParameter(parameter,true);
-    assertTrue("canSetTrue",canSet);
+    test.ok(canSet, 'canSetTrue');
     domConfig.setParameter(parameter, false);
     state = domConfig.getParameter(parameter);
-    assertFalse("setFalseEffective",state);
+    test.equal(state, false, 'setFalseEffective');
     domConfig.setParameter(parameter, true);
     state = domConfig.getParameter(parameter);
-    assertTrue("setTrueEffective",state);
+    test.ok(state, 'setTrueEffective');
 
     test.done()
   },
@@ -8378,9 +8350,9 @@ exports.tests = {
 
     origHandler = domConfig.getParameter(parameter);
     canSet = domConfig.canSetParameter(parameter,errorHandler);
-    assertTrue("canSetNewHandler",canSet);
+    test.ok(canSet, 'canSetNewHandler');
     canSet = domConfig.canSetParameter(parameter,origHandler);
-    assertTrue("canSetOrigHandler",canSet);
+    test.ok(canSet, 'canSetOrigHandler');
     domConfig.setParameter(parameter, errorHandler.handleError);
     state = domConfig.getParameter(parameter);
     assertSame("setToNewHandlerEffective",errorHandler,state);
@@ -8424,7 +8396,7 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter(parameter,errorHandler);
-    assertTrue("canSetNull",canSet);
+    test.ok(canSet, 'canSetNull');
     domConfig.setParameter(parameter, errorHandler.handleError);
     state = domConfig.getParameter(parameter);
     test.equal(state, null, 'errorHandlerIsNull');
@@ -8456,24 +8428,24 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     state = domConfig.getParameter(parameter);
-    assertFalse("defaultFalse",state);
+    test.equal(state, false, 'defaultFalse');
     canSet = domConfig.canSetParameter(parameter,false);
-    assertTrue("canSetFalse",canSet);
+    test.ok(canSet, 'canSetFalse');
     canSet = domConfig.canSetParameter(parameter,true);
-    assertTrue("canSetTrue",canSet);
+    test.ok(canSet, 'canSetTrue');
     domConfig.setParameter(parameter, true);
     state = domConfig.getParameter(parameter);
-    assertTrue("setTrueIsEffective",state);
+    test.ok(state, 'setTrueIsEffective');
     state = domConfig.getParameter("entities");
-    assertFalse("entitiesSetFalse",state);
+    test.equal(state, false, 'entitiesSetFalse');
     state = domConfig.getParameter("cdata-sections");
-    assertFalse("cdataSectionsSetFalse",state);
+    test.equal(state, false, 'cdataSectionsSetFalse');
     domConfig.setParameter(parameter, false);
     state = domConfig.getParameter(parameter);
-    assertTrue("setFalseIsNoOp",state);
+    test.ok(state, 'setFalseIsNoOp');
     domConfig.setParameter("entities", true);
     state = domConfig.getParameter(parameter);
-    assertFalse("setEntitiesTrueInvalidatesInfoset",state);
+    test.equal(state, false, 'setEntitiesTrueInvalidatesInfoset');
 
     test.done()
   },
@@ -8500,17 +8472,17 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     state = domConfig.getParameter(parameter);
-    assertTrue("defaultFalse",state);
+    test.ok(state, 'defaultFalse');
     canSet = domConfig.canSetParameter(parameter,false);
-    assertTrue("canSetFalse",canSet);
+    test.ok(canSet, 'canSetFalse');
     canSet = domConfig.canSetParameter(parameter,true);
-    assertTrue("canSetTrue",canSet);
+    test.ok(canSet, 'canSetTrue');
     domConfig.setParameter(parameter, false);
     state = domConfig.getParameter(parameter);
-    assertFalse("setFalseEffective",state);
+    test.equal(state, false, 'setFalseEffective');
     domConfig.setParameter(parameter, true);
     state = domConfig.getParameter(parameter);
-    assertTrue("setTrueEffective",state);
+    test.ok(state, 'setTrueEffective');
 
     test.done()
   },
@@ -8536,9 +8508,9 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     state = domConfig.getParameter(parameter);
-    assertTrue("defaultFalse",state);
+    test.ok(state, 'defaultFalse');
     canSet = domConfig.canSetParameter(parameter,true);
-    assertTrue("canSetTrue",canSet);
+    test.ok(canSet, 'canSetTrue');
     canSet = domConfig.canSetParameter(parameter,false);
 
     if(
@@ -8546,7 +8518,7 @@ exports.tests = {
     ) {
       domConfig.setParameter(parameter, false);
       state = domConfig.getParameter(parameter);
-      assertFalse("setFalseEffective",state);
+      test.equal(state, false, 'setFalseEffective');
 
     }
 
@@ -8560,10 +8532,10 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
 	}
-	assertTrue("throw_NOT_SUPPORTED_ERR",success);
+	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
-      assertTrue("setFalseNotEffective",state);
+      test.ok(state, 'setFalseNotEffective');
 
     }
     domConfig.setParameter(parameter, true);
@@ -8588,7 +8560,7 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     state = domConfig.getParameter("namespaces");
-    assertTrue("namespacesTrue",state);
+    test.ok(state, 'namespacesTrue');
 
     test.done()
   },
@@ -8615,9 +8587,9 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     state = domConfig.getParameter(parameter);
-    assertFalse("defaultFalse",state);
+    test.equal(state, false, 'defaultFalse');
     canSet = domConfig.canSetParameter(parameter,false);
-    assertTrue("canSetFalse",canSet);
+    test.ok(canSet, 'canSetFalse');
     canSet = domConfig.canSetParameter(parameter,true);
 
     if(
@@ -8625,7 +8597,7 @@ exports.tests = {
     ) {
       domConfig.setParameter(parameter, true);
       state = domConfig.getParameter(parameter);
-      assertTrue("setTrueEffective",state);
+      test.ok(state, 'setTrueEffective');
 
     }
 
@@ -8639,10 +8611,10 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
 	}
-	assertTrue("throw_NOT_SUPPORTED_ERR",success);
+	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
-      assertFalse("setTrueNotEffective",state);
+      test.equal(state, false, 'setTrueNotEffective');
 
     }
     domConfig.setParameter(parameter, false);
@@ -8695,7 +8667,7 @@ exports.tests = {
       parameterName = parameterNames.item(indexN1008C);
       paramValue = config.getParameter(parameterName);
       canSet = config.canSetParameter(parameterName,paramValue);
-      assertTrue("canSetToDefaultValue",canSet);
+      test.ok(canSet, 'canSetToDefaultValue');
       config.setParameter(parameterName, paramValue);
 
       if(
@@ -8738,7 +8710,7 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter(parameter,true);
-    assertFalse("canSetTrue",canSet);
+    test.equal(canSet, false, 'canSetTrue');
 
     try {
       state = domConfig.getParameter(parameter);
@@ -8757,9 +8729,9 @@ exports.tests = {
       }
     }
     canSet = domConfig.canSetParameter(parameter,sampleSchemaLocation);
-    assertTrue("canSetURI",canSet);
+    test.ok(canSet, 'canSetURI');
     canSet = domConfig.canSetParameter(parameter,nullSchemaLocation);
-    assertTrue("canSetNull",canSet);
+    test.ok(canSet, 'canSetNull');
     domConfig.setParameter(parameter, sampleSchemaLocation);
     state = domConfig.getParameter(parameter);
     test.equal(state, sampleSchemaLocation, 'setURIEffective');
@@ -8794,7 +8766,7 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter(parameter,true);
-    assertFalse("canSetTrue",canSet);
+    test.equal(canSet, false, 'canSetTrue');
 
     try {
       state = domConfig.getParameter(parameter);
@@ -8832,7 +8804,7 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
 	}
-	assertTrue("throw_NOT_SUPPORTED_ERR_dtd",success);
+	test.ok(success, 'throw_NOT_SUPPORTED_ERR_dtd');
       }
 
     }
@@ -8857,7 +8829,7 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
 	}
-	assertTrue("throw_NOT_SUPPORTED_ERR_schema",success);
+	test.ok(success, 'throw_NOT_SUPPORTED_ERR_schema');
       }
 
     }
@@ -8887,17 +8859,17 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     state = domConfig.getParameter(parameter);
-    assertTrue("defaultFalse",state);
+    test.ok(state, 'defaultFalse');
     canSet = domConfig.canSetParameter(parameter,false);
-    assertTrue("canSetFalse",canSet);
+    test.ok(canSet, 'canSetFalse');
     canSet = domConfig.canSetParameter(parameter,true);
-    assertTrue("canSetTrue",canSet);
+    test.ok(canSet, 'canSetTrue');
     domConfig.setParameter(parameter, false);
     state = domConfig.getParameter(parameter);
-    assertFalse("setFalseEffective",state);
+    test.equal(state, false, 'setFalseEffective');
     domConfig.setParameter(parameter, true);
     state = domConfig.getParameter(parameter);
-    assertTrue("setTrueEffective",state);
+    test.ok(state, 'setTrueEffective');
 
     test.done()
   },
@@ -8931,7 +8903,7 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("comments",false);
-    assertTrue("domconfigurationcansetparameter01",canSet);
+    test.ok(canSet, 'domconfigurationcansetparameter01');
     doc.normalizeDocument();
     lastChild = docElem.lastChild;
 
@@ -8970,7 +8942,7 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("cdata-sections",false);
-    assertTrue("domconfigurationcansetparameter02_1",canSet);
+    test.ok(canSet, 'domconfigurationcansetparameter02_1');
     doc.normalizeDocument();
     strongList = doc.getElementsByTagNameNS("*","strong");
     strongElem = strongList.item(1);
@@ -9016,7 +8988,7 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("entities",false);
-    assertTrue("domconfigurationcansetparameter03_1",canSet);
+    test.ok(canSet, 'domconfigurationcansetparameter03_1');
     doc.normalizeDocument();
     docType = doc.doctype;
 
@@ -9056,7 +9028,7 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("entities",false);
-    assertTrue("domconfigurationcansetparameter04_1",canSet);
+    test.ok(canSet, 'domconfigurationcansetparameter04_1');
     doc.normalizeDocument();
     acronymList = doc.getElementsByTagNameNS("*","acronym");
     acronymElem = acronymList.item(1);
@@ -9096,7 +9068,7 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("element-content-whitespace",true);
-    assertTrue("domconfigurationcansetparameter06_1",canSet);
+    test.ok(canSet, 'domconfigurationcansetparameter06_1');
     itemList = doc.getElementsByTagNameNS("*","strong");
     elementStrong = itemList.item(0);
     textNode = elementStrong.firstChild;
@@ -9105,7 +9077,7 @@ exports.tests = {
 
     hasWhitespace = textNode.isElementContentWhitespace;
 
-    assertTrue("domconfigurationsetparameter06_2",hasWhitespace);
+    test.ok(hasWhitespace, 'domconfigurationsetparameter06_2');
     doc.normalizeDocument();
     itemList = doc.getElementsByTagNameNS("*","strong");
     elementStrong = itemList.item(0);
@@ -9113,7 +9085,7 @@ exports.tests = {
 
     hasWhitespace = textNode.isElementContentWhitespace;
 
-    assertTrue("domconfigurationsetparameter06_3",hasWhitespace);
+    test.ok(hasWhitespace, 'domconfigurationsetparameter06_3');
 
     test.done()
   },
@@ -9139,15 +9111,15 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     param = domConfig.getParameter("comments");
-    assertTrue("domconfigurationgetparameter01_1",param);
+    test.ok(param, 'domconfigurationgetparameter01_1');
     param = domConfig.getParameter("cdata-sections");
-    assertTrue("domconfigurationgetparameter01_2",param);
+    test.ok(param, 'domconfigurationgetparameter01_2');
     param = domConfig.getParameter("entities");
-    assertTrue("domconfigurationgetparameter01_3",param);
+    test.ok(param, 'domconfigurationgetparameter01_3');
     param = domConfig.getParameter("namespace-declarations");
-    assertTrue("domconfigurationgetparameter01_4",param);
+    test.ok(param, 'domconfigurationgetparameter01_4');
     param = domConfig.getParameter("infoset");
-    assertFalse("domconfigurationgetparameter01_5",param);
+    test.equal(param, false, 'domconfigurationgetparameter01_5');
 
     test.done()
   },
@@ -9181,7 +9153,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("domconfigurationgetparameter02_NOT_FOUND_ERR",success);
+      test.ok(success, 'domconfigurationgetparameter02_NOT_FOUND_ERR');
     }
 
     test.done()
@@ -9209,9 +9181,9 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     state = domConfig.getParameter(parameter);
-    assertFalse("defaultFalse",state);
+    test.equal(state, false, 'defaultFalse');
     canSet = domConfig.canSetParameter(parameter,false);
-    assertTrue("canSetFalse",canSet);
+    test.ok(canSet, 'canSetFalse');
     canSet = domConfig.canSetParameter(parameter,true);
 
     if(
@@ -9219,7 +9191,7 @@ exports.tests = {
     ) {
       domConfig.setParameter(parameter, true);
       state = domConfig.getParameter(parameter);
-      assertTrue("setTrueEffective",state);
+      test.ok(state, 'setTrueEffective');
 
     }
 
@@ -9233,10 +9205,10 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
 	}
-	assertTrue("throw_NOT_SUPPORTED_ERR",success);
+	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
-      assertFalse("setTrueNotEffective",state);
+      test.equal(state, false, 'setTrueNotEffective');
 
     }
     domConfig.setParameter(parameter, false);
@@ -9266,9 +9238,9 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     state = domConfig.getParameter(parameter);
-    assertFalse("defaultFalse",state);
+    test.equal(state, false, 'defaultFalse');
     canSet = domConfig.canSetParameter(parameter,false);
-    assertTrue("canSetFalse",canSet);
+    test.ok(canSet, 'canSetFalse');
     canSet = domConfig.canSetParameter(parameter,true);
 
     if(
@@ -9276,7 +9248,7 @@ exports.tests = {
     ) {
       domConfig.setParameter(parameter, true);
       state = domConfig.getParameter(parameter);
-      assertTrue("setTrueEffective",state);
+      test.ok(state, 'setTrueEffective');
 
     }
 
@@ -9290,10 +9262,10 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
 	}
-	assertTrue("throw_NOT_SUPPORTED_ERR",success);
+	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
-      assertFalse("setTrueNotEffective",state);
+      test.equal(state, false, 'setTrueNotEffective');
 
     }
     domConfig.setParameter(parameter, false);
@@ -9323,9 +9295,9 @@ exports.tests = {
     domConfig = doc.domConfig;
 
     state = domConfig.getParameter(parameter);
-    assertTrue("defaultFalse",state);
+    test.ok(state, 'defaultFalse');
     canSet = domConfig.canSetParameter(parameter,true);
-    assertTrue("canSetTrue",canSet);
+    test.ok(canSet, 'canSetTrue');
     canSet = domConfig.canSetParameter(parameter,false);
 
     if(
@@ -9333,7 +9305,7 @@ exports.tests = {
     ) {
       domConfig.setParameter(parameter, false);
       state = domConfig.getParameter(parameter);
-      assertFalse("setFalseEffective",state);
+      test.equal(state, false, 'setFalseEffective');
 
     }
 
@@ -9347,10 +9319,10 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
 	}
-	assertTrue("throw_NOT_SUPPORTED_ERR",success);
+	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
-      assertTrue("setFalseNotEffective",state);
+      test.ok(state, 'setFalseNotEffective');
 
     }
     domConfig.setParameter(parameter, true);
@@ -9519,7 +9491,7 @@ exports.tests = {
     domImpl = domImplRegistry.getDOMImplementation("cOrE");
     test.notEqual(domImpl, null, 'domImplNotNull');
     hasFeature = domImpl.hasFeature("Core",nullVersion);
-    assertTrue("hasCore",hasFeature);
+    test.ok(hasFeature, 'hasCore');
 
     test.done()
   },
@@ -9544,7 +9516,7 @@ exports.tests = {
     domImpl = domImplRegistry.getDOMImplementation("cOrE 3.0");
     test.notEqual(domImpl, null, 'domImplNotNull');
     hasFeature = domImpl.hasFeature("Core","3.0");
-    assertTrue("hasCore",hasFeature);
+    test.ok(hasFeature, 'hasCore');
 
     test.done()
   },
@@ -9571,7 +9543,7 @@ exports.tests = {
     domImpl = domImplRegistry.getDOMImplementation("+cOrE");
     test.notEqual(domImpl, null, 'domImplNotNull');
     hasFeature = domImpl.hasFeature("+Core",nullVersion);
-    assertTrue("hasCore",hasFeature);
+    test.ok(hasFeature, 'hasCore');
 
     test.done()
   },
@@ -9596,7 +9568,7 @@ exports.tests = {
     domImpl = domImplRegistry.getDOMImplementation("+cOrE 3.0");
     test.notEqual(domImpl, null, 'domImplNotNull');
     hasFeature = domImpl.hasFeature("+Core","3.0");
-    assertTrue("hasCore",hasFeature);
+    test.ok(hasFeature, 'hasCore');
 
     test.done()
   },
@@ -9623,9 +9595,9 @@ exports.tests = {
     domImpl = domImplRegistry.getDOMImplementation("xMl 3.0 cOrE");
     test.notEqual(domImpl, null, 'domImplNotNull');
     hasFeature = domImpl.hasFeature("XML","3.0");
-    assertTrue("hasXML3",hasFeature);
+    test.ok(hasFeature, 'hasXML3');
     hasFeature = domImpl.hasFeature("Core",nullVersion);
-    assertTrue("hasCore",hasFeature);
+    test.ok(hasFeature, 'hasCore');
 
     test.done()
   },
@@ -9684,13 +9656,13 @@ exports.tests = {
     ) {
       baseImpl = getImplementation();
       hasFeature = hasFeature("SVG",null);
-      assertFalse("baseImplSupportsSVG",hasFeature);
+      test.equal(hasFeature, false, 'baseImplSupportsSVG');
 
     }
 
     else {
       hasFeature = domImpl.hasFeature("SVG",nullVersion);
-      assertTrue("hasCore",hasFeature);
+      test.ok(hasFeature, 'hasCore');
 
     }
 
@@ -9726,13 +9698,13 @@ exports.tests = {
     ) {
       baseImpl = getImplementation();
       hasFeature = hasFeature("HTML",nullVersion);
-      assertFalse("baseImplSupportsHTML",hasFeature);
+      test.equal(hasFeature, false, 'baseImplSupportsHTML');
 
     }
 
     else {
       hasFeature = domImpl.hasFeature("HTML",nullVersion);
-      assertTrue("hasCore",hasFeature);
+      test.ok(hasFeature, 'hasCore');
 
     }
 
@@ -9768,13 +9740,13 @@ exports.tests = {
     ) {
       baseImpl = getImplementation();
       hasFeature = hasFeature("LS",nullVersion);
-      assertFalse("baseImplSupportsLS",hasFeature);
+      test.equal(hasFeature, false, 'baseImplSupportsLS');
 
     }
 
     else {
       hasFeature = domImpl.hasFeature("LS",nullVersion);
-      assertTrue("hasCore",hasFeature);
+      test.ok(hasFeature, 'hasCore');
 
     }
 
@@ -9810,13 +9782,13 @@ exports.tests = {
     ) {
       baseImpl = getImplementation();
       hasFeature = hasFeature("XPath",nullVersion);
-      assertFalse("baseImplSupportsLS",hasFeature);
+      test.equal(hasFeature, false, 'baseImplSupportsLS');
 
     }
 
     else {
       hasFeature = domImpl.hasFeature("XPath",nullVersion);
-      assertTrue("hasCore",hasFeature);
+      test.ok(hasFeature, 'hasCore');
 
     }
 
@@ -9868,13 +9840,13 @@ exports.tests = {
     }
     else {
       hasCore = domImpl.hasFeature("Core","3.0");
-      assertTrue("hasCore",hasCore);
+      test.ok(hasCore, 'hasCore');
       hasXML = domImpl.hasFeature("XML","3.0");
-      assertTrue("hasXML",hasXML);
+      test.ok(hasXML, 'hasXML');
       hasEvents = domImpl.hasFeature("Events","2.0");
-      assertTrue("hasEvents",hasEvents);
+      test.ok(hasEvents, 'hasEvents');
       hasLS = domImpl.hasFeature("LS",nullVersion);
-      assertTrue("hasLS",hasLS);
+      test.ok(hasLS, 'hasLS');
 
     }
 
@@ -9910,14 +9882,11 @@ exports.tests = {
 
     domImpl = domImplList.item(length);
     test.equal(domImpl, null, 'item_Length_shouldBeNull');
-    assertTrue("atLeastOne",
-
-	       (length > 0)
-              );
+    test.ok((length > 0), 'atLeastOne');
     for(var indexN10067 = 0;indexN10067 < domImplList.length; indexN10067++) {
       domImpl = domImplList.item(indexN10067);
       hasFeature = domImpl.hasFeature("Core",nullVersion);
-      assertTrue("hasCore",hasFeature);
+      test.ok(hasFeature, 'hasCore');
 
     }
 
@@ -9947,14 +9916,11 @@ exports.tests = {
     domImplList = domImplRegistry.getDOMImplementationList("cOrE 3.0");
     length = domImplList.length;
 
-    assertTrue("atLeastOne",
-
-	       (length > 0)
-              );
+    test.ok((length > 0), 'atLeastOne');
     for(var indexN10052 = 0;indexN10052 < domImplList.length; indexN10052++) {
       domImpl = domImplList.item(indexN10052);
       hasFeature = domImpl.hasFeature("Core","3.0");
-      assertTrue("hasCore",hasFeature);
+      test.ok(hasFeature, 'hasCore');
 
     }
 
@@ -9986,14 +9952,11 @@ exports.tests = {
     domImplList = domImplRegistry.getDOMImplementationList("+cOrE");
     length = domImplList.length;
 
-    assertTrue("atLeastOne",
-
-	       (length > 0)
-              );
+    test.ok((length > 0), 'atLeastOne');
     for(var indexN10057 = 0;indexN10057 < domImplList.length; indexN10057++) {
       domImpl = domImplList.item(indexN10057);
       hasFeature = domImpl.hasFeature("+Core",nullVersion);
-      assertTrue("hasCore",hasFeature);
+      test.ok(hasFeature, 'hasCore');
 
     }
 
@@ -10023,14 +9986,11 @@ exports.tests = {
     domImplList = domImplRegistry.getDOMImplementationList("+cOrE 3.0");
     length = domImplList.length;
 
-    assertTrue("atLeastOne",
-
-	       (length > 0)
-              );
+    test.ok((length > 0), 'atLeastOne');
     for(var indexN10052 = 0;indexN10052 < domImplList.length; indexN10052++) {
       domImpl = domImplList.item(indexN10052);
       hasFeature = domImpl.hasFeature("+Core","3.0");
-      assertTrue("hasCore",hasFeature);
+      test.ok(hasFeature, 'hasCore');
 
     }
 
@@ -10061,16 +10021,13 @@ exports.tests = {
     domImplList = domImplRegistry.getDOMImplementationList("xMl 3.0 cOrE");
     length = domImplList.length;
 
-    assertTrue("atLeastOne",
-
-	       (length > 0)
-              );
+    test.ok((length > 0), 'atLeastOne');
     for(var indexN1005A = 0;indexN1005A < domImplList.length; indexN1005A++) {
       domImpl = domImplList.item(indexN1005A);
       hasFeature = domImpl.hasFeature("XML","3.0");
-      assertTrue("hasXML3",hasFeature);
+      test.ok(hasFeature, 'hasXML3');
       hasFeature = domImpl.hasFeature("Core",nullVersion);
-      assertTrue("hasCore",hasFeature);
+      test.ok(hasFeature, 'hasCore');
 
     }
 
@@ -10135,7 +10092,7 @@ exports.tests = {
     ) {
       baseImpl = getImplementation();
       hasFeature = hasFeature("SVG",null);
-      assertFalse("baseImplSupportsSVG",hasFeature);
+      test.equal(hasFeature, false, 'baseImplSupportsSVG');
 
     }
 
@@ -10143,7 +10100,7 @@ exports.tests = {
       for(var indexN10067 = 0;indexN10067 < domImplList.length; indexN10067++) {
         domImpl = domImplList.item(indexN10067);
         hasFeature = domImpl.hasFeature("SVG",nullVersion);
-        assertTrue("hasCore",hasFeature);
+        test.ok(hasFeature, 'hasCore');
 
       }
 
@@ -10184,7 +10141,7 @@ exports.tests = {
     ) {
       baseImpl = getImplementation();
       hasFeature = hasFeature("HTML",nullVersion);
-      assertFalse("baseImplSupportsHTML",hasFeature);
+      test.equal(hasFeature, false, 'baseImplSupportsHTML');
 
     }
 
@@ -10192,7 +10149,7 @@ exports.tests = {
       for(var indexN10068 = 0;indexN10068 < domImplList.length; indexN10068++) {
         domImpl = domImplList.item(indexN10068);
         hasFeature = domImpl.hasFeature("HTML",nullVersion);
-        assertTrue("hasCore",hasFeature);
+        test.ok(hasFeature, 'hasCore');
 
       }
 
@@ -10233,7 +10190,7 @@ exports.tests = {
     ) {
       baseImpl = getImplementation();
       hasFeature = hasFeature("LS",nullVersion);
-      assertFalse("baseImplSupportsLS",hasFeature);
+      test.equal(hasFeature, false, 'baseImplSupportsLS');
 
     }
 
@@ -10241,7 +10198,7 @@ exports.tests = {
       for(var indexN10068 = 0;indexN10068 < domImplList.length; indexN10068++) {
         domImpl = domImplList.item(indexN10068);
         hasFeature = domImpl.hasFeature("LS",nullVersion);
-        assertTrue("hasCore",hasFeature);
+        test.ok(hasFeature, 'hasCore');
 
       }
 
@@ -10282,7 +10239,7 @@ exports.tests = {
     ) {
       baseImpl = getImplementation();
       hasFeature = hasFeature("XPath",nullVersion);
-      assertFalse("baseImplSupportsLS",hasFeature);
+      test.equal(hasFeature, false, 'baseImplSupportsLS');
 
     }
 
@@ -10290,7 +10247,7 @@ exports.tests = {
       for(var indexN10068 = 0;indexN10068 < domImplList.length; indexN10068++) {
         domImpl = domImplList.item(indexN10068);
         hasFeature = domImpl.hasFeature("XPath",nullVersion);
-        assertTrue("hasCore",hasFeature);
+        test.ok(hasFeature, 'hasCore');
 
       }
 
@@ -10348,13 +10305,13 @@ exports.tests = {
       for(var indexN10096 = 0;indexN10096 < domImplList.length; indexN10096++) {
         domImpl = domImplList.item(indexN10096);
         hasCore = domImpl.hasFeature("Core","3.0");
-        assertTrue("hasCore",hasCore);
+        test.ok(hasCore, 'hasCore');
         hasXML = domImpl.hasFeature("XML","3.0");
-        assertTrue("hasXML",hasXML);
+        test.ok(hasXML, 'hasXML');
         hasEvents = domImpl.hasFeature("Events","2.0");
-        assertTrue("hasEvents",hasEvents);
+        test.ok(hasEvents, 'hasEvents');
         hasLS = domImpl.hasFeature("LS",nullVersion);
-        assertTrue("hasLS",hasLS);
+        test.ok(hasLS, 'hasLS');
 
       }
 
@@ -10406,10 +10363,7 @@ exports.tests = {
     domImplList = domImplRegistry.getDOMImplementationList("");
     length = domImplList.length;
 
-    assertTrue("atLeastOne",
-
-	       (length > 0)
-              );
+    test.ok((length > 0), 'atLeastOne');
 
     test.done()
   },
@@ -10436,9 +10390,9 @@ exports.tests = {
     paramList = domConfig.parameterNames;
 
     contains = paramList.contains("comments");
-    assertTrue("paramsContainComments",contains);
+    test.ok(contains, 'paramsContainComments');
     contains = paramList.contains("");
-    assertFalse("paramsDoesntContainEmpty",contains);
+    test.equal(contains, false, 'paramsDoesntContainEmpty');
 
     test.done()
   },
@@ -10469,21 +10423,21 @@ exports.tests = {
     paramList = domConfig.parameterNames;
 
     contain = paramList.contains("comments");
-    assertTrue("domstringlistcontains02_1",contain);
+    test.ok(contain, 'domstringlistcontains02_1');
     contain = paramList.contains("cdata-sections");
-    assertTrue("domstringlistcontains02_2",contain);
+    test.ok(contain, 'domstringlistcontains02_2');
     contain = paramList.contains("entities");
-    assertTrue("domstringlistcontains02_3",contain);
+    test.ok(contain, 'domstringlistcontains02_3');
     contain = paramList.contains("error-handler");
-    assertTrue("domstringlistcontains02_4",contain);
+    test.ok(contain, 'domstringlistcontains02_4');
     contain = paramList.contains("infoset");
-    assertTrue("domstringlistcontains02_5",contain);
+    test.ok(contain, 'domstringlistcontains02_5');
     contain = paramList.contains("namespace-declarations");
-    assertTrue("domstringlistcontains02_6",contain);
+    test.ok(contain, 'domstringlistcontains02_6');
     contain = paramList.contains("element-content-whitespace");
-    assertTrue("domstringlistcontains02_7",contain);
+    test.ok(contain, 'domstringlistcontains02_7');
     contain = paramList.contains("test");
-    assertFalse("domstringlistcontains02_8",contain);
+    test.equal(contain, false, 'domstringlistcontains02_8');
 
     test.done()
   },
@@ -11057,7 +11011,7 @@ exports.tests = {
     attr = attributesMap.getNamedItem("class");
     id = attr.isId;
 
-    assertTrue("elementsetidattributeIsIdTrue01",id);
+    test.ok(id, 'elementsetidattributeIsIdTrue01');
     elem = doc.getElementById("No");
     elemName = elem.tagName;
 
@@ -11065,7 +11019,7 @@ exports.tests = {
     acronymElem.setIdAttribute("class",false);
     id = attr.isId;
 
-    assertFalse("elementsetidattributeIsIdFalse01",id);
+    test.equal(id, false, 'elementsetidattributeIsIdFalse01');
 
     test.done()
   },
@@ -11101,7 +11055,7 @@ exports.tests = {
     attr = attributesMap.getNamedItem("class");
     id = attr.isId;
 
-    assertTrue("elementsetidattributeIsIdTrue03",id);
+    test.ok(id, 'elementsetidattributeIsIdTrue03');
     elem = doc.getElementById("Maybe");
     elemName = elem.tagName;
 
@@ -11109,7 +11063,7 @@ exports.tests = {
     acronymElem.setIdAttribute("class",false);
     id = attr.isId;
 
-    assertFalse("elementsetidattributeIsIdFalse03",id);
+    test.equal(id, false, 'elementsetidattributeIsIdFalse03');
 
     test.done()
   },
@@ -11145,7 +11099,7 @@ exports.tests = {
     attr = attributesMap.getNamedItem("hasMiddleName");
     id = attr.isId;
 
-    assertTrue("elementsetidattributeIsIdTrue03",id);
+    test.ok(id, 'elementsetidattributeIsIdTrue03');
     elem = doc.getElementById("Antoine");
     elemName = elem.tagName;
 
@@ -11153,7 +11107,7 @@ exports.tests = {
     nameElem.setIdAttribute("hasMiddleName",false);
     id = attr.isId;
 
-    assertFalse("elementsetidattributeIsIdFalse03",id);
+    test.equal(id, false, 'elementsetidattributeIsIdFalse03');
 
     test.done()
   },
@@ -11185,7 +11139,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done()
@@ -11218,7 +11172,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done()
@@ -11259,13 +11213,13 @@ exports.tests = {
     attr = attributesMap.getNamedItem("hasMiddleName");
     id = attr.isId;
 
-    assertTrue("elementsetidattributeIsId1True07",id);
+    test.ok(id, 'elementsetidattributeIsId1True07');
     attributesMap = nameElem2.attributes;
 
     attr = attributesMap.getNamedItem("hasMiddleName");
     id = attr.isId;
 
-    assertTrue("elementsetidattributeIsId2True07",id);
+    test.ok(id, 'elementsetidattributeIsId2True07');
     elem = doc.getElementById("Antoine");
     elemName = elem.tagName;
 
@@ -11313,19 +11267,19 @@ exports.tests = {
     attr = attributesMap.getNamedItem("class");
     id = attr.isId;
 
-    assertTrue("elementsetidattributeIsId1True08",id);
+    test.ok(id, 'elementsetidattributeIsId1True08');
     attributesMap = acronymElem2.attributes;
 
     attr = attributesMap.getNamedItem("class");
     id = attr.isId;
 
-    assertTrue("elementsetidattributeIsId2True08",id);
+    test.ok(id, 'elementsetidattributeIsId2True08');
     attributesMap = acronymElem3.attributes;
 
     attr = attributesMap.getNamedItem("class");
     id = attr.isId;
 
-    assertTrue("elementsetidattributeIsId3True08",id);
+    test.ok(id, 'elementsetidattributeIsId3True08');
     elem = doc.getElementById("No");
     elemName = elem.tagName;
 
@@ -11371,13 +11325,13 @@ exports.tests = {
     attr = attributesMap.getNamedItem("hasMiddleName");
     id = attr.isId;
 
-    assertTrue("elementsetidattributeIsId1True09",id);
+    test.ok(id, 'elementsetidattributeIsId1True09');
     attributesMap = salaryElem.attributes;
 
     attr = attributesMap.getNamedItem("annual");
     id = attr.isId;
 
-    assertTrue("elementsetidattributeIsId2True09",id);
+    test.ok(id, 'elementsetidattributeIsId2True09');
     elem = doc.getElementById("Antoine");
     elemName = elem.tagName;
 
@@ -11419,15 +11373,15 @@ exports.tests = {
     attr = attributesMap.getNamedItem("class");
     id = attr.isId;
 
-    assertTrue("elementsetidattributeIsId1True10",id);
+    test.ok(id, 'elementsetidattributeIsId1True10');
     acronymElem.setIdAttribute("class",true);
     id = attr.isId;
 
-    assertTrue("elementsetidattributeIsId2True10",id);
+    test.ok(id, 'elementsetidattributeIsId2True10');
     acronymElem.setIdAttribute("class",false);
     id = attr.isId;
 
-    assertFalse("elementsetidattributeIsIdFalse10",id);
+    test.equal(id, false, 'elementsetidattributeIsIdFalse10');
     elem = doc.getElementById("No");
     test.equal(elem, null, 'elementsetidattributeGetElementByIdNull10');
 
@@ -11464,7 +11418,7 @@ exports.tests = {
     attr = attributesMap.getNamedItem("class");
     id = attr.isId;
 
-    assertTrue("elementsetidattributeIsIdTrue01",id);
+    test.ok(id, 'elementsetidattributeIsIdTrue01');
     elem = doc.getElementById("Yα");
     test.notEqual(elem, null, 'elemByIDNotNull');
     elemName = elem.tagName;
@@ -11473,7 +11427,7 @@ exports.tests = {
     acronymElem.setIdAttribute("class",false);
     id = attr.isId;
 
-    assertFalse("elementsetidattributeIsIdFalse11",id);
+    test.equal(id, false, 'elementsetidattributeIsIdFalse11');
 
     test.done()
   },
@@ -11508,7 +11462,7 @@ exports.tests = {
     employeeElem.setIdAttributeNode(attr,true);
     id = attr.isId;
 
-    assertTrue("elementsetidattributenodeIsIdTrue01",id);
+    test.ok(id, 'elementsetidattributenodeIsIdTrue01');
     elem = doc.getElementById("http://www.netzero.com");
     elemName = elem.tagName;
 
@@ -11516,7 +11470,7 @@ exports.tests = {
     elem.setIdAttributeNode(attr,false);
     id = attr.isId;
 
-    assertFalse("elementsetidattributenodeIsIdFalse01",id);
+    test.equal(id, false, 'elementsetidattributenodeIsIdFalse01');
 
     test.done()
   },
@@ -11551,7 +11505,7 @@ exports.tests = {
     acronymElem.setIdAttributeNode(attr,true);
     id = attr.isId;
 
-    assertTrue("elementsetidattributenodeIsIdTrue02",id);
+    test.ok(id, 'elementsetidattributenodeIsIdTrue02');
     elem = doc.getElementById("No");
     elemName = elem.tagName;
 
@@ -11559,7 +11513,7 @@ exports.tests = {
     elem.setIdAttributeNode(attr,false);
     id = attr.isId;
 
-    assertFalse("elementsetidattributenodeIsIdFalse02",id);
+    test.equal(id, false, 'elementsetidattributenodeIsIdFalse02');
 
     test.done()
   },
@@ -11596,7 +11550,7 @@ exports.tests = {
     nameElem.setIdAttributeNode(attr,true);
     id = attr.isId;
 
-    assertTrue("elementsetidattributenodeIsIdTrue03",id);
+    test.ok(id, 'elementsetidattributenodeIsIdTrue03');
     elem = doc.getElementById("Karen");
     elemName = elem.tagName;
 
@@ -11604,7 +11558,7 @@ exports.tests = {
     elem.setIdAttributeNode(attr,false);
     id = attr.isId;
 
-    assertFalse("elementsetidattributenodeIsIdFalse03",id);
+    test.equal(id, false, 'elementsetidattributenodeIsIdFalse03');
 
     test.done()
   },
@@ -11641,7 +11595,7 @@ exports.tests = {
     nameElem.setIdAttributeNode(attr,true);
     id = attr.isId;
 
-    assertTrue("elementsetidattributenodeIsIdTrue04",id);
+    test.ok(id, 'elementsetidattributenodeIsIdTrue04');
     elem = doc.getElementById("http://www.example.com/middle");
     elemName = elem.tagName;
 
@@ -11649,7 +11603,7 @@ exports.tests = {
     elem.setIdAttributeNode(attr,false);
     id = attr.isId;
 
-    assertFalse("elementsetidattributenodeIsIdFalse04",id);
+    test.equal(id, false, 'elementsetidattributenodeIsIdFalse04');
 
     test.done()
   },
@@ -11690,7 +11644,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done()
@@ -11733,7 +11687,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done()
@@ -11772,14 +11726,14 @@ exports.tests = {
     acronymElem1.setIdAttributeNode(attr,true);
     id = attr.isId;
 
-    assertTrue("elementsetidattributenodeIsId1True07",id);
+    test.ok(id, 'elementsetidattributenodeIsId1True07');
     attributesMap = acronymElem2.attributes;
 
     attr = attributesMap.getNamedItem("class");
     acronymElem2.setIdAttributeNode(attr,true);
     id = attr.isId;
 
-    assertTrue("elementsetidattributenodeIsId2True07",id);
+    test.ok(id, 'elementsetidattributenodeIsId2True07');
     elem = doc.getElementById("No");
     elemName = elem.tagName;
 
@@ -11829,14 +11783,14 @@ exports.tests = {
     acronymElem.setIdAttributeNode(attr,true);
     id = attr.isId;
 
-    assertTrue("elementsetidattributenodeIsId1True08",id);
+    test.ok(id, 'elementsetidattributenodeIsId1True08');
     attributesMap = pElem.attributes;
 
     attr = attributesMap.getNamedItem("xmlns:dmstc");
     pElem.setIdAttributeNode(attr,true);
     id = attr.isId;
 
-    assertTrue("elementsetidattributenodeIsId2True08",id);
+    test.ok(id, 'elementsetidattributenodeIsId2True08');
     elem = doc.getElementById("Yes");
     elemName = elem.tagName;
 
@@ -11895,7 +11849,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done()
@@ -11935,7 +11889,7 @@ exports.tests = {
     acronymElem.setIdAttributeNode(attr,true);
     id = attr.isId;
 
-    assertTrue("elementsetidattributenodeIsIdTrue10",id);
+    test.ok(id, 'elementsetidattributenodeIsIdTrue10');
     elem = doc.getElementById("Yα");
     elemName = elem.tagName;
 
@@ -11943,7 +11897,7 @@ exports.tests = {
     acronymElem.setIdAttributeNode(attr,false);
     id = attr.isId;
 
-    assertFalse("elementsetidattributenodeIsIdFalse10",id);
+    test.equal(id, false, 'elementsetidattributenodeIsIdFalse10');
 
     test.done()
   },
@@ -11978,7 +11932,7 @@ exports.tests = {
     attr = attributesMap.getNamedItem("xmlns:dmstc");
     id = attr.isId;
 
-    assertTrue("elementsetidattributensIsIdTrue01",id);
+    test.ok(id, 'elementsetidattributensIsIdTrue01');
     elem = doc.getElementById("http://www.netzero.com");
     elemName = elem.tagName;
 
@@ -11986,7 +11940,7 @@ exports.tests = {
     employeeElem.setIdAttributeNS("http://www.w3.org/2000/xmlns/","dmstc",false);
     id = attr.isId;
 
-    assertFalse("elementsetidattributensIsIdFalse01",id);
+    test.equal(id, false, 'elementsetidattributensIsIdFalse01');
 
     test.done()
   },
@@ -12022,7 +11976,7 @@ exports.tests = {
     attr = attributesMap.getNamedItem("xsi:noNamespaceSchemaLocation");
     id = attr.isId;
 
-    assertTrue("elementsetidattributensIsIdTrue02",id);
+    test.ok(id, 'elementsetidattributensIsIdTrue02');
     elem = doc.getElementById("Yes");
     test.notEqual(elem, null, 'getElementByIDNotNull');
     elemName = elem.tagName;
@@ -12031,7 +11985,7 @@ exports.tests = {
     addressElem.setIdAttributeNS(xsiNS,"noNamespaceSchemaLocation",false);
     id = attr.isId;
 
-    assertFalse("elementsetidattributensIsIdFalse02",id);
+    test.equal(id, false, 'elementsetidattributensIsIdFalse02');
 
     test.done()
   },
@@ -12067,7 +12021,7 @@ exports.tests = {
     attr = attributesMap.getNamedItem("xmlns:newAttr");
     id = attr.isId;
 
-    assertTrue("elementsetidattributensIsIdTrue03",id);
+    test.ok(id, 'elementsetidattributensIsIdTrue03');
     elem = doc.getElementById("newValue");
     elemName = elem.tagName;
 
@@ -12075,7 +12029,7 @@ exports.tests = {
     employeeIdElem.setIdAttributeNS("http://www.w3.org/2000/xmlns/","newAttr",false);
     id = attr.isId;
 
-    assertFalse("elementsetidattributensIsIdFalse03",id);
+    test.equal(id, false, 'elementsetidattributensIsIdFalse03');
 
     test.done()
   },
@@ -12115,7 +12069,7 @@ exports.tests = {
     attr = attributesMap.getNamedItem("dmstc:newAttr");
     id = attr.isId;
 
-    assertTrue("elementsetidattributensIsIdTrue04",id);
+    test.ok(id, 'elementsetidattributensIsIdTrue04');
     elem = doc.getElementById("newValue");
     elemName = elem.tagName;
 
@@ -12123,7 +12077,7 @@ exports.tests = {
     strongElem.setIdAttributeNS("http://www.netzero.com","newAttr",false);
     id = attr.isId;
 
-    assertFalse("elementsetidattributensIsIdFalse04",id);
+    test.equal(id, false, 'elementsetidattributensIsIdFalse04');
 
     test.done()
   },
@@ -12163,7 +12117,7 @@ exports.tests = {
     attr = attributesMap.getNamedItem("title");
     id = attr.isId;
 
-    assertTrue("elementsetidattributensIsIdTrue05",id);
+    test.ok(id, 'elementsetidattributensIsIdTrue05');
     elem = doc.getElementById("newValue");
     elemName = elem.tagName;
 
@@ -12171,7 +12125,7 @@ exports.tests = {
     acronymElem.setIdAttributeNS("*","title",false);
     id = attr.isId;
 
-    assertFalse("elementsetidattributensIsIdFalse05",id);
+    test.equal(id, false, 'elementsetidattributensIsIdFalse05');
 
     test.done()
   },
@@ -12203,7 +12157,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done()
@@ -12236,7 +12190,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done()
@@ -12269,7 +12223,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done()
@@ -12311,7 +12265,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done()
@@ -12353,13 +12307,13 @@ exports.tests = {
     attr = attributesMap.getNamedItem("xmlns:dmstc");
     id = attr.isId;
 
-    assertTrue("elementsetidattributensIsId1True10",id);
+    test.ok(id, 'elementsetidattributensIsId1True10');
     attributesMap = pElem2.attributes;
 
     attr = attributesMap.getNamedItem("xmlns:nm");
     id = attr.isId;
 
-    assertTrue("elementsetidattributensIsId2True10",id);
+    test.ok(id, 'elementsetidattributensIsId2True10');
     elem = doc.getElementById("http://www.netzero.com");
     elemName = elem.tagName;
 
@@ -12408,13 +12362,13 @@ exports.tests = {
     attr = attributesMap.getNamedItem("xmlns:dmstc");
     id = attr.isId;
 
-    assertTrue("elementsetidattributensIsId1True11",id);
+    test.ok(id, 'elementsetidattributensIsId1True11');
     attributesMap = pElem2.attributes;
 
     attr = attributesMap.getNamedItem("xmlns:dmstc");
     id = attr.isId;
 
-    assertTrue("elementsetidattributensIsId2True11",id);
+    test.ok(id, 'elementsetidattributensIsId2True11');
     elem = doc.getElementById("http://www.netzero.com");
     elemName = elem.tagName;
 
@@ -12468,19 +12422,19 @@ exports.tests = {
     attr = attributesMap.getNamedItem("xsi:noNamespaceSchemaLocation");
     id = attr.isId;
 
-    assertTrue("elementsetidattributensIsId1True12",id);
+    test.ok(id, 'elementsetidattributensIsId1True12');
     attributesMap = acronymElem2.attributes;
 
     attr = attributesMap.getNamedItem("xsi:noNamespaceSchemaLocation");
     id = attr.isId;
 
-    assertTrue("elementsetidattributensIsId2True12",id);
+    test.ok(id, 'elementsetidattributensIsId2True12');
     attributesMap = acronymElem3.attributes;
 
     attr = attributesMap.getNamedItem("xsi:noNamespaceSchemaLocation");
     id = attr.isId;
 
-    assertTrue("elementsetidattributensIsId3True12",id);
+    test.ok(id, 'elementsetidattributensIsId3True12');
     elem = doc.getElementById("No");
     elemName = elem.tagName;
 
@@ -12521,7 +12475,7 @@ exports.tests = {
     attr = attributesMap.getNamedItem("xmlns:newAttr");
     id = attr.isId;
 
-    assertTrue("elementsetidattributensIsIdTrue13",id);
+    test.ok(id, 'elementsetidattributensIsIdTrue13');
     elem = doc.getElementById("newValue");
     elemName = elem.tagName;
 
@@ -12535,7 +12489,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done()
@@ -12578,13 +12532,13 @@ exports.tests = {
     attr = attributesMap.getNamedItem("xmlns:dmstc");
     id = attr.isId;
 
-    assertTrue("elementsetidattributensIsId1True14",id);
+    test.ok(id, 'elementsetidattributensIsId1True14');
     attributesMap = acronymElem.attributes;
 
     attr = attributesMap.getNamedItem("xsi:noNamespaceSchemaLocation");
     id = attr.isId;
 
-    assertTrue("elementsetidattributensIsId2True14",id);
+    test.ok(id, 'elementsetidattributensIsId2True14');
     elem = doc.getElementById("Yes");
     elemName = elem.tagName;
 
@@ -13331,7 +13285,7 @@ exports.tests = {
     var state;
     impl = getImplementation();
     state = impl.hasFeature("xMl","3.0");
-    assertTrue("hasXML30",state);
+    test.ok(state, 'hasXML30');
 
     test.done()
   },
@@ -13349,7 +13303,7 @@ exports.tests = {
     var state;
     impl = getImplementation();
     state = impl.hasFeature("cOrE","3.0");
-    assertTrue("hasCore30",state);
+    test.ok(state, 'hasCore30');
 
     test.done()
   },
@@ -13367,7 +13321,7 @@ exports.tests = {
     var state;
     impl = getImplementation();
     state = impl.hasFeature("+cOrE","3.0");
-    assertTrue("hasPlusCore30",state);
+    test.ok(state, 'hasPlusCore30');
 
     test.done()
   },
@@ -13385,7 +13339,7 @@ exports.tests = {
     var state;
     impl = getImplementation();
     state = impl.hasFeature("+xMl","3.0");
-    assertTrue("hasXML30",state);
+    test.ok(state, 'hasXML30');
 
     test.done()
   },
@@ -13691,7 +13645,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("xml10InvalidName",success);
+      test.ok(success, 'xml10InvalidName');
     }
 
     try {
@@ -13781,7 +13735,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("xml10InvalidName",success);
+      test.ok(success, 'xml10InvalidName');
     }
 
     try {
@@ -18351,7 +18305,7 @@ exports.tests = {
     }
     retUserData = doc.getUserData("something");
     success = retUserData.isEqualNode(elem);
-    assertTrue("nodegetuserdata03",success);
+    test.ok(success, 'nodegetuserdata03');
 
     test.done()
   },
@@ -18389,7 +18343,7 @@ exports.tests = {
     }
     retUserData = docType.getUserData("KeyDoc");
     success = retUserData.isEqualNode(doc);
-    assertTrue("nodegetuserdata04",success);
+    test.ok(success, 'nodegetuserdata04');
 
     test.done()
   },
@@ -18492,7 +18446,7 @@ exports.tests = {
     }
     retUserData = pi.getUserData("key");
     success = retUserData.isEqualNode(pi);
-    assertTrue("nodegetuserdata07",success);
+    test.ok(success, 'nodegetuserdata07');
 
     test.done()
   },
@@ -18623,7 +18577,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
 
     test.done()
@@ -18656,7 +18610,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
 
     test.done()
@@ -18801,7 +18755,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("WRONG_DOCUMENT_ERR_nodeinsertbefore07",success);
+      test.ok(success, 'WRONG_DOCUMENT_ERR_nodeinsertbefore07');
     }
 
     test.done()
@@ -18843,7 +18797,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("NOT_FOUND_ERR_nodeinsertbefore08",success);
+      test.ok(success, 'NOT_FOUND_ERR_nodeinsertbefore08');
     }
 
     test.done()
@@ -19095,7 +19049,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
 
     test.done()
@@ -19135,7 +19089,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("NO_MODIFICATION_ALLOWED_ERR_nodeinsertbefore14",success);
+      test.ok(success, 'NO_MODIFICATION_ALLOWED_ERR_nodeinsertbefore14');
     }
 
     test.done()
@@ -19179,7 +19133,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR_1",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR_1');
     }
     pi = doc.createProcessingInstruction("target","data");
 
@@ -19191,7 +19145,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR_2",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR_2');
     }
     comment = doc.createComment("Comment");
 
@@ -19203,7 +19157,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR_3",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR_3');
     }
     txt = doc.createTextNode("Text");
 
@@ -19215,7 +19169,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR_4",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR_4');
     }
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","body");
 
@@ -19227,7 +19181,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR_5",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR_5');
     }
 
     test.done()
@@ -19428,7 +19382,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
 
     test.done()
@@ -19468,7 +19422,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
 
     test.done()
@@ -19508,7 +19462,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
 
     test.done()
@@ -19550,7 +19504,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
 
     test.done()
@@ -19587,7 +19541,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done()
@@ -19635,7 +19589,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done()
@@ -19663,7 +19617,7 @@ exports.tests = {
     docElemNS = docElem.namespaceURI;
 
     isDefault = doc.isDefaultNamespace(docElemNS);
-    assertTrue("nodeisdefaultnamespace01",isDefault);
+    test.ok(isDefault, 'nodeisdefaultnamespace01');
 
     test.done()
   },
@@ -19702,9 +19656,9 @@ exports.tests = {
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument(rootNS,rootName,nullDocType);
     isDefault = newDoc.isDefaultNamespace(rootNS);
-    assertTrue("nodeisdefaultnamespace02_true",isDefault);
+    test.ok(isDefault, 'nodeisdefaultnamespace02_true');
     isDefault = newDoc.isDefaultNamespace(nullNSURI);
-    assertFalse("nodeisdefaultnamespace02_false",isDefault);
+    test.equal(isDefault, false, 'nodeisdefaultnamespace02_false');
 
     test.done()
   },
@@ -19733,7 +19687,7 @@ exports.tests = {
     docType = doc.doctype;
 
     isDefault = docType.isDefaultNamespace(nullNSURI);
-    assertFalse("nodeisdefaultnamespace03",isDefault);
+    test.equal(isDefault, false, 'nodeisdefaultnamespace03');
 
     test.done()
   },
@@ -19772,9 +19726,9 @@ exports.tests = {
     entity = entitiesMap.getNamedItem("alpha");
     notation = notationsMap.getNamedItem("notation1");
     isDefault = entity.isDefaultNamespace(nullNSURI);
-    assertFalse("nodeisdefaultnamespace04_1",isDefault);
+    test.equal(isDefault, false, 'nodeisdefaultnamespace04_1');
     isDefault = notation.isDefaultNamespace(nullNSURI);
-    assertFalse("nodeisdefaultnamespace04_2",isDefault);
+    test.equal(isDefault, false, 'nodeisdefaultnamespace04_2');
 
     test.done()
   },
@@ -19816,9 +19770,9 @@ exports.tests = {
     elem = newDoc.documentElement;
 
     isDefault = elem.isDefaultNamespace(rootNS);
-    assertTrue("nodeisdefaultnamespace05_1",isDefault);
+    test.ok(isDefault, 'nodeisdefaultnamespace05_1');
     isDefault = elem.isDefaultNamespace(nullNSURI);
-    assertFalse("nodeisdefaultnamespace05_2",isDefault);
+    test.equal(isDefault, false, 'nodeisdefaultnamespace05_2');
 
     test.done()
   },
@@ -19844,9 +19798,9 @@ exports.tests = {
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     isDefault = elem.isDefaultNamespace("http://www.w3.org/1999/xhtml");
-    assertTrue("nodeisdefaultnamespace06_1",isDefault);
+    test.ok(isDefault, 'nodeisdefaultnamespace06_1');
     isDefault = elem.isDefaultNamespace("http://www.usa.com");
-    assertFalse("nodeisdefaultnamespace06_2",isDefault);
+    test.equal(isDefault, false, 'nodeisdefaultnamespace06_2');
 
     test.done()
   },
@@ -19872,9 +19826,9 @@ exports.tests = {
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(0);
     isDefault = elem.isDefaultNamespace("http://www.w3.org/1999/xhtml");
-    assertTrue("nodeisdefaultnamespace07_1",isDefault);
+    test.ok(isDefault, 'nodeisdefaultnamespace07_1');
     isDefault = elem.isDefaultNamespace("http://www.usa.com");
-    assertFalse("nodeisdefaultnamespace07_2",isDefault);
+    test.equal(isDefault, false, 'nodeisdefaultnamespace07_2');
 
     test.done()
   },
@@ -19903,7 +19857,7 @@ exports.tests = {
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(3);
     isDefault = elem.isDefaultNamespace("http://www.altavista.com");
-    assertFalse("nodeisdefaultnamespace08",isDefault);
+    test.equal(isDefault, false, 'nodeisdefaultnamespace08');
 
     test.done()
   },
@@ -19931,9 +19885,9 @@ exports.tests = {
     child = doc.createElement("xhtml:p");
     appendedChild = parent.appendChild(child);
     isDefault = parent.isDefaultNamespace("http://www.w3.org/1999/xhtml");
-    assertFalse("nodeisdefaultnamespace09_1",isDefault);
+    test.equal(isDefault, false, 'nodeisdefaultnamespace09_1');
     isDefault = child.isDefaultNamespace("http://www.w3.org/1999/xhtml");
-    assertFalse("nodeisdefaultnamespace09_2",isDefault);
+    test.equal(isDefault, false, 'nodeisdefaultnamespace09_2');
 
     test.done()
   },
@@ -19961,9 +19915,9 @@ exports.tests = {
     child = doc.createElementNS("http://www.w3.org/1999/xhtml","p");
     appendedChild = parent.appendChild(child);
     isDefault = child.isDefaultNamespace("http://www.w3.org/1999/xhtml");
-    assertTrue("nodeisdefaultnamespace10_1",isDefault);
+    test.ok(isDefault, 'nodeisdefaultnamespace10_1');
     isDefault = parent.isDefaultNamespace("http://www.w3.org/1999/xhtml");
-    assertFalse("nodeisdefaultnamespace10_2",isDefault);
+    test.equal(isDefault, false, 'nodeisdefaultnamespace10_2');
 
     test.done()
   },
@@ -20004,7 +19958,7 @@ exports.tests = {
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","p");
     importedNode = newDoc.importNode(elem,true);
     isDefault = importedNode.isDefaultNamespace("http://www.w3.org/1999/xhtml");
-    assertTrue("nodeisdefaultnamespace11",isDefault);
+    test.ok(isDefault, 'nodeisdefaultnamespace11');
 
     test.done()
   },
@@ -20037,7 +19991,7 @@ exports.tests = {
     appendedChild = elem.appendChild(txt);
     appendedChild = bodyElem.appendChild(elem);
     isDefault = txt.isDefaultNamespace("http://www.w3.org/1999/xhtml");
-    assertTrue("nodeisdefaultnamespace13",isDefault);
+    test.ok(isDefault, 'nodeisdefaultnamespace13');
 
     test.done()
   },
@@ -20070,7 +20024,7 @@ exports.tests = {
     appendedChild = elem.appendChild(cdata);
     appendedChild = bodyElem.appendChild(elem);
     isDefault = cdata.isDefaultNamespace("http://www.w3.org/1999/xhtml");
-    assertTrue("nodeisdefaultnamespace14",isDefault);
+    test.ok(isDefault, 'nodeisdefaultnamespace14');
 
     test.done()
   },
@@ -20105,7 +20059,7 @@ exports.tests = {
     appendedChild = elem.appendChild(clonedComment);
     appendedChild = bodyElem.appendChild(elem);
     isDefault = clonedComment.isDefaultNamespace("http://www.w3.org/1999/xhtml");
-    assertTrue("nodeisdefaultnamespace15",isDefault);
+    test.ok(isDefault, 'nodeisdefaultnamespace15');
 
     test.done()
   },
@@ -20129,7 +20083,7 @@ exports.tests = {
     doc = barfoo.barfoo();
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","lang");
     isDefault = attr.isDefaultNamespace("http://www.w3.org/XML/1998/namespace");
-    assertFalse("nodeisdefaultnamespace16",isDefault);
+    test.equal(isDefault, false, 'nodeisdefaultnamespace16');
 
     test.done()
   },
@@ -20155,7 +20109,7 @@ exports.tests = {
 
     doc2 = hc_staff.hc_staff();
     isEqual = doc1.isEqualNode(doc2);
-    assertTrue("nodeisequalnode01",isEqual);
+    test.ok(isEqual, 'nodeisequalnode01');
 
     test.done()
   },
@@ -20193,7 +20147,7 @@ exports.tests = {
     doc1 = domImpl.createDocument(rootNS,rootName,nullDocType);
     doc2 = domImpl.createDocument(rootNS,rootName,nullDocType);
     isEqual = doc1.isEqualNode(doc2);
-    assertTrue("nodeisequalnode02",isEqual);
+    test.ok(isEqual, 'nodeisequalnode02');
 
     test.done()
   },
@@ -20221,13 +20175,13 @@ exports.tests = {
 
     doc2 = barfoo_utf16.barfoo_utf16();
     isEqual = doc1.isEqualNode(doc2);
-    assertTrue("docAreNotEquals",isEqual);
+    test.ok(isEqual, 'docAreNotEquals');
     docElem1 = doc1.documentElement;
 
     docElem2 = doc2.documentElement;
 
     isEqual = docElem1.isEqualNode(docElem2);
-    assertTrue("docElemsAreEquals",isEqual);
+    test.ok(isEqual, 'docElemsAreEquals');
 
     test.done()
   },
@@ -20253,7 +20207,7 @@ exports.tests = {
     ownerDoc = elem.ownerDocument;
 
     isEqual = doc.isEqualNode(ownerDoc);
-    assertTrue("nodeisequalnode04",isEqual);
+    test.ok(isEqual, 'nodeisequalnode04');
 
     test.done()
   },
@@ -20277,7 +20231,7 @@ exports.tests = {
 
     doc2 = barfoo.barfoo();
     isEqual = doc1.isEqualNode(doc2);
-    assertFalse("nodeisequalnode05",isEqual);
+    test.equal(isEqual, false, 'nodeisequalnode05');
 
     test.done()
   },
@@ -20304,7 +20258,7 @@ exports.tests = {
     elem1 = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:html");
     elem2 = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:html");
     isEqual = elem1.isEqualNode(elem2);
-    assertTrue("nodeisequalnode06",isEqual);
+    test.ok(isEqual, 'nodeisequalnode06');
 
     test.done()
   },
@@ -20332,7 +20286,7 @@ exports.tests = {
     elem1 = doc1.createElementNS("http://www.w3.org/1999/xhtml","xhtml:html");
     elem2 = doc2.createElementNS("http://www.w3.org/1999/xhtml","xhtml:html");
     isEqual = elem1.isEqualNode(elem2);
-    assertTrue("nodeisequalnode07",isEqual);
+    test.ok(isEqual, 'nodeisequalnode07');
 
     test.done()
   },
@@ -20366,7 +20320,7 @@ exports.tests = {
     text = doc.createTextNode("EMP0001");
     appendedChild = elem2.appendChild(text);
     isEqual = elem1.isEqualNode(elem2);
-    assertTrue("nodeisequalnode08",isEqual);
+    test.ok(isEqual, 'nodeisequalnode08');
 
     test.done()
   },
@@ -20412,7 +20366,7 @@ exports.tests = {
     text = newDoc.createTextNode("EMP0001");
     appendedChild = elem2.appendChild(text);
     isEqual = elem1.isEqualNode(elem2);
-    assertTrue("nodesAreEqual",isEqual);
+    test.ok(isEqual, 'nodesAreEqual');
 
     test.done()
   },
@@ -20439,7 +20393,7 @@ exports.tests = {
     elem1 = employeeList.item(0);
     elem2 = employeeList.item(1);
     isEqual = elem1.isEqualNode(elem2);
-    assertFalse("nodeisequalnode10",isEqual);
+    test.equal(isEqual, false, 'nodeisequalnode10');
 
     test.done()
   },
@@ -20491,21 +20445,21 @@ exports.tests = {
     elem1 = employeeList.item(0);
     elem2 = newDoc.importNode(elem1,false);
     isEqual = elem1.isEqualNode(elem2);
-    assertFalse("nodeisequalnodeFalse11",isEqual);
+    test.equal(isEqual, false, 'nodeisequalnodeFalse11');
     elem3 = newDoc.importNode(elem1,true);
     isEqual = elem1.isEqualNode(elem3);
 
     if(
       (getImplementationAttribute("validating") == true)
     ) {
-      assertFalse("deepImportNoDTD",isEqual);
+      test.equal(isEqual, false, 'deepImportNoDTD');
 
     }
 
     dupDoc = hc_staff.hc_staff();
     elem4 = dupDoc.importNode(elem1,true);
     isEqual = elem1.isEqualNode(elem4);
-    assertTrue("deepImportSameDTD",isEqual);
+    test.ok(isEqual, 'deepImportSameDTD');
 
     test.done()
   },
@@ -20534,7 +20488,7 @@ exports.tests = {
     elem2 = doc.documentElement;
 
     isEqual = elem1.isEqualNode(elem2);
-    assertTrue("nodeisequalnode12",isEqual);
+    test.ok(isEqual, 'nodeisequalnode12');
 
     test.done()
   },
@@ -20579,10 +20533,10 @@ exports.tests = {
     elem1 = employeeList.item(0);
     elem2 = elem1.cloneNode(false);
     isEqual = elem1.isEqualNode(elem2);
-    assertFalse("nodeisequalnodeFalse13",isEqual);
+    test.equal(isEqual, false, 'nodeisequalnodeFalse13');
     elem3 = elem1.cloneNode(true);
     isEqual = elem1.isEqualNode(elem3);
-    assertTrue("nodeisequalnodeTrue13",isEqual);
+    test.ok(isEqual, 'nodeisequalnodeTrue13');
 
     test.done()
   },
@@ -20612,7 +20566,7 @@ exports.tests = {
     attr1 = doc.createAttribute("root");
     attr2 = doc.createAttributeNS(nullNSURI,"root");
     isEqual = attr1.isEqualNode(attr2);
-    assertFalse("nodeisequalnode14",isEqual);
+    test.equal(isEqual, false, 'nodeisequalnode14');
 
     test.done()
   },
@@ -20657,7 +20611,7 @@ exports.tests = {
     attr2.value = "Yes";
 
     isEqual = attr1.isEqualNode(attr2);
-    assertTrue("nodeisequalnode15",isEqual);
+    test.ok(isEqual, 'nodeisequalnode15');
 
     test.done()
   },
@@ -20690,7 +20644,7 @@ exports.tests = {
     attr1 = addrElement.getAttributeNodeNS(nullNSURI,"dir");
     attr2 = attr1.cloneNode(true);
     isEqual = attr1.isEqualNode(attr2);
-    assertTrue("nodeisequalnode16",isEqual);
+    test.ok(isEqual, 'nodeisequalnode16');
 
     test.done()
   },
@@ -20732,7 +20686,7 @@ exports.tests = {
     attr1 = doc.createAttributeNS(nullNSURI,"root");
     attr2 = newDoc.importNode(attr1,true);
     isEqual = attr1.isEqualNode(attr2);
-    assertTrue("nodeisequalnode17",isEqual);
+    test.ok(isEqual, 'nodeisequalnode17');
 
     test.done()
   },
@@ -20780,7 +20734,7 @@ exports.tests = {
 
     ) {
       isEqual = attr1.isEqualNode(attr2);
-      assertTrue("nodeisequalnode18",isEqual);
+      test.ok(isEqual, 'nodeisequalnode18');
 
     }
 
@@ -20811,7 +20765,7 @@ exports.tests = {
     attr1 = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","lang");
     attr2 = doc.createAttributeNS(nullNSURI,"lang");
     isEqual = attr1.isEqualNode(attr2);
-    assertFalse("nodeisequalnode19",isEqual);
+    test.equal(isEqual, false, 'nodeisequalnode19');
 
     test.done()
   },
@@ -20836,7 +20790,7 @@ exports.tests = {
     elem1 = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:html");
     attr1 = doc.createAttributeNS("http://www.w3.org/1999/xhtml","xhtml:html");
     isEqual = attr1.isEqualNode(elem1);
-    assertFalse("nodeisequalnode20",isEqual);
+    test.equal(isEqual, false, 'nodeisequalnode20');
 
     test.done()
   },
@@ -20868,7 +20822,7 @@ exports.tests = {
     docType2 = doc2.doctype;
 
     isEqual = docType1.isEqualNode(docType2);
-    assertTrue("nodeisequalnode21",isEqual);
+    test.ok(isEqual, 'nodeisequalnode21');
 
     test.done()
   },
@@ -20912,7 +20866,7 @@ exports.tests = {
     docType1 = domImpl1.createDocumentType(rootName,nullPubId,nullSysId);
     docType2 = domImpl2.createDocumentType(rootName,nullPubId,nullSysId);
     isEqual = docType1.isEqualNode(docType2);
-    assertTrue("nodeisequalnode22",isEqual);
+    test.ok(isEqual, 'nodeisequalnode22');
 
     test.done()
   },
@@ -20954,7 +20908,7 @@ exports.tests = {
     alpha = entitiesMap1.getNamedItem("delta");
     beta = entitiesMap2.getNamedItem("delta");
     isEqual = alpha.isEqualNode(beta);
-    assertTrue("nodeisequalnode25",isEqual);
+    test.ok(isEqual, 'nodeisequalnode25');
 
     test.done()
   },
@@ -20996,7 +20950,7 @@ exports.tests = {
     notation1 = notationsMap1.getNamedItem("notation1");
     notation2 = notationsMap2.getNamedItem("notation1");
     isEqual = notation1.isEqualNode(notation2);
-    assertTrue("nodeisequalnode26",isEqual);
+    test.ok(isEqual, 'nodeisequalnode26');
 
     test.done()
   },
@@ -21032,7 +20986,7 @@ exports.tests = {
     alpha = entitiesMap.getNamedItem("alpha");
     notation1 = notationsMap.getNamedItem("notation1");
     isEqual = notation1.isEqualNode(alpha);
-    assertFalse("nodeisequalnode27",isEqual);
+    test.equal(isEqual, false, 'nodeisequalnode27');
 
     test.done()
   },
@@ -21061,9 +21015,9 @@ exports.tests = {
     text2 = doc.createTextNode("");
     text3 = doc.createTextNode("#Text");
     isEqual = text1.isEqualNode(text2);
-    assertTrue("nodeisequalnodeTrue28",isEqual);
+    test.ok(isEqual, 'nodeisequalnodeTrue28');
     isEqual = text1.isEqualNode(text3);
-    assertFalse("nodeisequalnodeFalse28",isEqual);
+    test.equal(isEqual, false, 'nodeisequalnodeFalse28');
 
     test.done()
   },
@@ -21092,9 +21046,9 @@ exports.tests = {
     comment2 = doc.createComment("comment");
     comment3 = doc.createComment("#Comment");
     isEqual = comment1.isEqualNode(comment2);
-    assertTrue("nodeisequalnodeTrue29",isEqual);
+    test.ok(isEqual, 'nodeisequalnodeTrue29');
     isEqual = comment1.isEqualNode(comment3);
-    assertFalse("nodeisequalnodeFalse29",isEqual);
+    test.equal(isEqual, false, 'nodeisequalnodeFalse29');
 
     test.done()
   },
@@ -21123,9 +21077,9 @@ exports.tests = {
     cdata2 = doc.createCDATASection("cdata");
     cdata3 = doc.createCDATASection("#CDATASection");
     isEqual = cdata1.isEqualNode(cdata2);
-    assertTrue("nodeisequalnodeTrue29",isEqual);
+    test.ok(isEqual, 'nodeisequalnodeTrue29');
     isEqual = cdata1.isEqualNode(cdata3);
-    assertFalse("nodeisequalnodeFalse29",isEqual);
+    test.equal(isEqual, false, 'nodeisequalnodeFalse29');
 
     test.done()
   },
@@ -21154,9 +21108,9 @@ exports.tests = {
     pi2 = doc.createProcessingInstruction("Target1","pi");
     pi3 = doc.createProcessingInstruction("Target1","#ProcessingInstruction");
     isEqual = pi1.isEqualNode(pi2);
-    assertTrue("nodeisequalnodeTrue29",isEqual);
+    test.ok(isEqual, 'nodeisequalnodeTrue29');
     isEqual = pi1.isEqualNode(pi3);
-    assertFalse("nodeisequalnodeFalse29",isEqual);
+    test.equal(isEqual, false, 'nodeisequalnodeFalse29');
 
     test.done()
   },
@@ -21182,7 +21136,7 @@ exports.tests = {
 
     doc2 = hc_staff.hc_staff();
     isSame = doc1.isSameNode(doc2);
-    assertFalse("nodeissamenode01",isSame);
+    test.equal(isSame, false, 'nodeissamenode01');
 
     test.done()
   },
@@ -21211,7 +21165,7 @@ exports.tests = {
     docType2 = doc.doctype;
 
     isSame = docType1.isSameNode(docType2);
-    assertTrue("nodeissamenode02",isSame);
+    test.ok(isSame, 'nodeissamenode02');
 
     test.done()
   },
@@ -21238,7 +21192,7 @@ exports.tests = {
     element1 = childList.item(0);
     element2 = childList.item(0);
     isSame = element2.isSameNode(element1);
-    assertTrue("nodeissamenode03",isSame);
+    test.ok(isSame, 'nodeissamenode03');
 
     test.done()
   },
@@ -21263,7 +21217,7 @@ exports.tests = {
     element1 = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:br");
     element2 = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:br");
     isSame = element2.isSameNode(element1);
-    assertFalse("nodeissamenode04",isSame);
+    test.equal(isSame, false, 'nodeissamenode04');
 
     test.done()
   },
@@ -21292,7 +21246,7 @@ exports.tests = {
     element2 = doc.documentElement;
 
     isSame = element2.isSameNode(element1);
-    assertTrue("nodeissamenode05",isSame);
+    test.ok(isSame, 'nodeissamenode05');
 
     test.done()
   },
@@ -21323,7 +21277,7 @@ exports.tests = {
     attr1 = element.getAttributeNode("class");
     attr2 = element1.getAttributeNode("class");
     isSame = attr1.isSameNode(attr2);
-    assertTrue("nodeissamenode06",isSame);
+    test.ok(isSame, 'nodeissamenode06');
 
     test.done()
   },
@@ -21356,7 +21310,7 @@ exports.tests = {
     entity1 = entitiesMap.getNamedItem("delta");
     entity2 = entitiesMap.getNamedItem("delta");
     isSame = entity1.isSameNode(entity2);
-    assertTrue("nodeissamenode07",isSame);
+    test.ok(isSame, 'nodeissamenode07');
 
     test.done()
   },
@@ -21389,7 +21343,7 @@ exports.tests = {
     notation1 = entitiesMap.getNamedItem("notation1");
     notation2 = entitiesMap.getNamedItem("notation1");
     isSame = notation1.isSameNode(notation2);
-    assertTrue("nodeissamenode08",isSame);
+    test.ok(isSame, 'nodeissamenode08');
 
     test.done()
   },
@@ -21419,7 +21373,7 @@ exports.tests = {
 
     entity = entitiesMap.getNamedItem("alpha");
     isSame = docType.isSameNode(entity);
-    assertFalse("nodeissamenode09",isSame);
+    test.equal(isSame, false, 'nodeissamenode09');
 
     test.done()
   },
@@ -21456,7 +21410,7 @@ exports.tests = {
     newDoc = domImpl.createDocument(rootNS,rootName,nullDocType);
     element = newDoc.createElementNS(rootNS,rootName);
     isSame = newDoc.isSameNode(element);
-    assertFalse("nodeissamenode10",isSame);
+    test.equal(isSame, false, 'nodeissamenode10');
 
     test.done()
   },
@@ -22724,7 +22678,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("NOT_FOUND_ERR_noderemovechild01",success);
+      test.ok(success, 'NOT_FOUND_ERR_noderemovechild01');
     }
 
     test.done()
@@ -22769,7 +22723,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR_1",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR_1');
     }
 
     {
@@ -22780,7 +22734,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR_2",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR_2');
     }
 
     test.done()
@@ -22819,7 +22773,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done()
@@ -22861,7 +22815,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("NOT_FOUND_ERR_noderemovechild04",success);
+      test.ok(success, 'NOT_FOUND_ERR_noderemovechild04');
     }
 
     test.done()
@@ -22923,7 +22877,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("NOT_FOUND_ERR_noderemovechild05",success);
+      test.ok(success, 'NOT_FOUND_ERR_noderemovechild05');
     }
 
     test.done()
@@ -22964,7 +22918,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("NOT_FOUND_ERR_noderemovechild07_1",success);
+      test.ok(success, 'NOT_FOUND_ERR_noderemovechild07_1');
     }
 
     try {
@@ -23196,7 +23150,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done()
@@ -23233,7 +23187,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done()
@@ -23270,7 +23224,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done()
@@ -23315,7 +23269,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("NOT_FOUND_ERR_noderemovechild16",success);
+      test.ok(success, 'NOT_FOUND_ERR_noderemovechild16');
     }
 
     test.done()
@@ -23359,7 +23313,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done()
@@ -23406,7 +23360,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done()
@@ -23480,7 +23434,7 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 7);
 	}
-	assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+	test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
       }
 
     }
@@ -23530,7 +23484,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done()
@@ -23578,7 +23532,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done()
@@ -23621,7 +23575,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done()
@@ -23664,7 +23618,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done()
@@ -23707,7 +23661,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done()
@@ -23750,7 +23704,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done()
@@ -23793,7 +23747,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done()
@@ -23895,7 +23849,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("NOT_FOUND_ERR_noderemovechild28",success);
+      test.ok(success, 'NOT_FOUND_ERR_noderemovechild28');
     }
 
     test.done()
@@ -23944,7 +23898,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done()
@@ -23997,7 +23951,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done()
@@ -24079,7 +24033,7 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 7);
 	}
-	assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+	test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
       }
 
     }
@@ -24837,7 +24791,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
 
     test.done()
@@ -24891,7 +24845,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("NO_MODIFICATION_ALLOWED_ERR1_nodereplacechild21",success);
+      test.ok(success, 'NO_MODIFICATION_ALLOWED_ERR1_nodereplacechild21');
     }
 
     {
@@ -24902,7 +24856,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("NO_MODIFICATION_ALLOWED_ERR2_nodereplacechild21",success);
+      test.ok(success, 'NO_MODIFICATION_ALLOWED_ERR2_nodereplacechild21');
     }
 
     test.done()
@@ -24940,7 +24894,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR_1",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR_1');
     }
 
     {
@@ -24951,7 +24905,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR_2",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR_2');
     }
 
     {
@@ -24962,7 +24916,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR_3",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR_3');
     }
 
     test.done()
@@ -25011,7 +24965,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR_1",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR_1');
     }
 
     {
@@ -25022,7 +24976,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR_2",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR_2');
     }
 
     {
@@ -25033,7 +24987,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR_3",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR_3');
     }
 
     {
@@ -25044,7 +24998,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR_4",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR_4');
     }
 
     {
@@ -25055,7 +25009,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR_5",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR_5');
     }
 
     test.done()
@@ -25093,7 +25047,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done()
@@ -25140,7 +25094,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR_1",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR_1');
     }
 
     {
@@ -25151,7 +25105,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR_2",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR_2');
     }
 
     test.done()
@@ -25192,7 +25146,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
 
     test.done()
@@ -25240,7 +25194,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("WRONG_DOCUMENT_ERR_nodereplacechild27",success);
+      test.ok(success, 'WRONG_DOCUMENT_ERR_nodereplacechild27');
     }
 
     test.done()
@@ -25289,7 +25243,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done()
@@ -25327,7 +25281,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done()
@@ -25458,7 +25412,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done()
@@ -25606,7 +25560,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 3);
       }
-      assertTrue("throw_HIERARCHY_REQUEST_ERR",success);
+      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
 
     test.done()
@@ -25643,7 +25597,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
-      assertTrue("throw_NOT_FOUND_ERR",success);
+      test.ok(success, 'throw_NOT_FOUND_ERR');
     }
 
     test.done()
@@ -25686,7 +25640,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
-      assertTrue("throw_WRONG_DOCUMENT_ERR",success);
+      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
 
     test.done()
@@ -25737,7 +25691,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR1",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR1');
     }
     pi = doc.createProcessingInstruction("target","data");
 
@@ -25749,7 +25703,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR2",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR2');
     }
     comment = doc.createComment("Comment");
 
@@ -25761,7 +25715,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR3",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR3');
     }
     txt = doc.createTextNode("Text");
 
@@ -25773,7 +25727,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR4",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR4');
     }
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:p");
 
@@ -25785,7 +25739,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR5",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR5');
     }
     entRef = doc.createEntityReference("delta");
 
@@ -25797,7 +25751,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR6",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR6');
     }
 
     test.done()
@@ -26304,7 +26258,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("nodesettextcontent12",success);
+      test.ok(success, 'nodesettextcontent12');
     }
 
     test.done()
@@ -26346,7 +26300,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("nodesettextcontent13",success);
+      test.ok(success, 'nodesettextcontent13');
     }
 
     test.done()
@@ -26453,7 +26407,7 @@ exports.tests = {
       doc.setUserData("Key1", txt, nullHandler.handle);
     }
     success = retUserData.isEqualNode(elem);
-    assertTrue("nodesetuserdata03",success);
+    test.ok(success, 'nodesetuserdata03');
 
     test.done()
   },
@@ -26499,7 +26453,7 @@ exports.tests = {
     returned1 = elem.getUserData("Key1");
     returned2 = elem.getUserData("Key2");
     success = returned1.isEqualNode(returned2);
-    assertTrue("nodesetuserdata04",success);
+    test.ok(success, 'nodesetuserdata04');
 
     test.done()
   },
@@ -26546,7 +26500,7 @@ exports.tests = {
     returned1 = attr.getUserData("Key1");
     returned2 = attr.getUserData("Key2");
     success = returned1.isEqualNode(returned2);
-    assertTrue("nodesetuserdata05",success);
+    test.ok(success, 'nodesetuserdata05');
 
     test.done()
   },
@@ -26595,7 +26549,7 @@ exports.tests = {
       comment.setUserData("Key1", entity, nullHandler.handle);
     }
     success = returned.isEqualNode(entity);
-    assertTrue("nodesetuserdata06",success);
+    test.ok(success, 'nodesetuserdata06');
 
     test.done()
   },
@@ -26644,7 +26598,7 @@ exports.tests = {
       notation.setUserData("Key1", comment, nullHandler.handle);
     }
     success = returned.isEqualNode(comment);
-    assertTrue("nodesetuserdata07",success);
+    test.ok(success, 'nodesetuserdata07');
 
     test.done()
   },
@@ -26693,7 +26647,7 @@ exports.tests = {
     returned1 = entRef.getUserData("Key1");
     returned2 = cData.getUserData("Key2");
     success = returned1.isEqualNode(returned2);
-    assertFalse("nodesetuserdata08",success);
+    test.equal(success, false, 'nodesetuserdata08');
 
     test.done()
   },
@@ -26781,7 +26735,7 @@ exports.tests = {
     returned1 = entRef.getUserData("Key1");
     returned2 = cData.getUserData("Key2");
     success = returned1.isEqualNode(returned2);
-    assertFalse("nodesetuserdata08",success);
+    test.equal(success, false, 'nodesetuserdata08');
 
     test.done()
   },
@@ -27237,7 +27191,7 @@ exports.tests = {
     newText = doc.createTextNode("   ");
     hasWhitespace = newText.isElementContentWhitespace;
 
-    assertFalse("isWhitespace",hasWhitespace);
+    test.equal(hasWhitespace, false, 'isWhitespace');
 
     test.done()
   },
@@ -27266,7 +27220,7 @@ exports.tests = {
 
     isElemContentWhitespace = textNode.isElementContentWhitespace;
 
-    assertFalse("notElemContentOrWhitespace",isElemContentWhitespace);
+    test.equal(isElemContentWhitespace, false, 'notElemContentOrWhitespace');
 
     test.done()
   },
@@ -27295,7 +27249,7 @@ exports.tests = {
 
     isElemContentWhitespace = textNode.isElementContentWhitespace;
 
-    assertTrue("isElementContentWhitespace",isElemContentWhitespace);
+    test.ok(isElemContentWhitespace, 'isElementContentWhitespace');
 
     test.done()
   },
@@ -27342,7 +27296,7 @@ exports.tests = {
 
       isElemContentWhitespace = textNode.isElementContentWhitespace;
 
-      assertFalse("notElemContent",isElemContentWhitespace);
+      test.equal(isElemContentWhitespace, false, 'notElemContent');
 
     }
 
@@ -27397,7 +27351,7 @@ exports.tests = {
 
       isElemContentWhitespace = textNode.isElementContentWhitespace;
 
-      assertFalse("notElemContent",isElemContentWhitespace);
+      test.equal(isElemContentWhitespace, false, 'notElemContent');
 
     }
 
@@ -27453,7 +27407,7 @@ exports.tests = {
 
       isElemContentWhitespace = textNode.isElementContentWhitespace;
 
-      assertTrue("isElemContentWhitespace",isElemContentWhitespace);
+      test.ok(isElemContentWhitespace, 'isElemContentWhitespace');
 
     }
 
@@ -27745,7 +27699,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 7);
       }
-      assertTrue("throw_NO_MODIFICATION_ALLOWED_ERR",success);
+      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done()
@@ -28042,9 +27996,9 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/TR/REC-xml","CDATA",0);
-    assertFalse("isDerived0",isDerived);
+    test.equal(isDerived, false, 'isDerived0');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/TR/REC-xml","CDATA",15);
-    assertFalse("isDerived15",isDerived);
+    test.equal(isDerived, false, 'isDerived15');
 
     test.done()
   },
@@ -28075,13 +28029,13 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",1);
-    assertTrue("derivedFromSelfRestriction",isDerived);
+    test.ok(isDerived, 'derivedFromSelfRestriction');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",14);
-    assertFalse("derivedFromSelfOther",isDerived);
+    test.equal(isDerived, false, 'derivedFromSelfOther');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",0);
-    assertTrue("derivedFromSelfAny",isDerived);
+    test.ok(isDerived, 'derivedFromSelfAny');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",15);
-    assertTrue("derivedFromSelfAll",isDerived);
+    test.ok(isDerived, 'derivedFromSelfAll');
 
     test.done()
   },
@@ -28116,7 +28070,7 @@ exports.tests = {
 
     test.equal(typeName, "string", 'nameIsString');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",15);
-    assertTrue("derivedFromAnySimpleType",isDerived);
+    test.ok(isDerived, 'derivedFromAnySimpleType');
 
     test.done()
   },
@@ -28151,7 +28105,7 @@ exports.tests = {
 
     test.equal(typeName, "string", 'nameIsString');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",15);
-    assertTrue("derivedFromAnyType",isDerived);
+    test.ok(isDerived, 'derivedFromAnyType');
 
     test.done()
   },
@@ -28186,7 +28140,7 @@ exports.tests = {
 
     test.equal(typeName, "string", 'nameIsString');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",1);
-    assertTrue("derivedFromAnyTypeRestrictionOnly",isDerived);
+    test.ok(isDerived, 'derivedFromAnyTypeRestrictionOnly');
 
     test.done()
   },
@@ -28221,7 +28175,7 @@ exports.tests = {
 
     test.equal(typeName, "string", 'nameIsString');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",14);
-    assertFalse("derivedFromAnyTypeExceptRestriction",isDerived);
+    test.equal(isDerived, false, 'derivedFromAnyTypeExceptRestriction');
 
     test.done()
   },
@@ -28256,7 +28210,7 @@ exports.tests = {
 
     test.equal(typeName, "string", 'nameIsString');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",0);
-    assertTrue("derivedFromAnyType0",isDerived);
+    test.ok(isDerived, 'derivedFromAnyType0');
 
     test.done()
   },
@@ -28291,7 +28245,7 @@ exports.tests = {
 
     test.equal(typeName, "classType", 'nameIsString');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",15);
-    assertTrue("derivedFromString",isDerived);
+    test.ok(isDerived, 'derivedFromString');
 
     test.done()
   },
@@ -28326,7 +28280,7 @@ exports.tests = {
 
     test.equal(typeName, "classType", 'nameIsString');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",15);
-    assertTrue("derivedFromAnySimpleType",isDerived);
+    test.ok(isDerived, 'derivedFromAnySimpleType');
 
     test.done()
   },
@@ -28361,7 +28315,7 @@ exports.tests = {
 
     test.equal(typeName, "classType", 'nameIsString');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",15);
-    assertTrue("derivedFromAnyType",isDerived);
+    test.ok(isDerived, 'derivedFromAnyType');
 
     test.done()
   },
@@ -28396,7 +28350,7 @@ exports.tests = {
 
     test.equal(typeName, "classType", 'nameIsString');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",1);
-    assertTrue("derivedFromAnyTypeRestrictionOnly",isDerived);
+    test.ok(isDerived, 'derivedFromAnyTypeRestrictionOnly');
 
     test.done()
   },
@@ -28431,7 +28385,7 @@ exports.tests = {
 
     test.equal(typeName, "classType", 'nameIsString');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",0);
-    assertTrue("derivedFromAnyType0",isDerived);
+    test.ok(isDerived, 'derivedFromAnyType0');
 
     test.done()
   },
@@ -28466,7 +28420,7 @@ exports.tests = {
 
     test.equal(typeName, "classType", 'name');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",14);
-    assertFalse("derivedFromAnyTypeExceptRestriction",isDerived);
+    test.equal(isDerived, false, 'derivedFromAnyTypeExceptRestriction');
 
     test.done()
   },
@@ -28501,13 +28455,13 @@ exports.tests = {
 
     test.equal(typeName, "classType", 'name');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","classType",1);
-    assertTrue("derivedFromSelfRestriction",isDerived);
+    test.ok(isDerived, 'derivedFromSelfRestriction');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","classType",14);
-    assertFalse("notDerivedFromSelfOther",isDerived);
+    test.equal(isDerived, false, 'notDerivedFromSelfOther');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","classType",15);
-    assertTrue("derivedFromSelfAll",isDerived);
+    test.ok(isDerived, 'derivedFromSelfAll');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","classType",0);
-    assertTrue("derivedFromSelfAny",isDerived);
+    test.ok(isDerived, 'derivedFromSelfAny');
 
     test.done()
   },
@@ -28538,7 +28492,7 @@ exports.tests = {
 
     test.equal(typeName, "emType", 'name');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emp0001_3Type",15);
-    assertTrue("derivedFromEmp13AnyMethod",isDerived);
+    test.ok(isDerived, 'derivedFromEmp13AnyMethod');
 
     test.done()
   },
@@ -28569,7 +28523,7 @@ exports.tests = {
 
     test.equal(typeName, "emType", 'name');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emp0001_3Type",4);
-    assertTrue("derivedFromEmp13Union",isDerived);
+    test.ok(isDerived, 'derivedFromEmp13Union');
 
     test.done()
   },
@@ -28600,7 +28554,7 @@ exports.tests = {
 
     test.equal(typeName, "emType", 'name');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emp0001_3Type",11);
-    assertFalse("derivedFromEmp13NotUnion",isDerived);
+    test.equal(isDerived, false, 'derivedFromEmp13NotUnion');
 
     test.done()
   },
@@ -28631,7 +28585,7 @@ exports.tests = {
 
     test.equal(typeName, "emType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","ID",1);
-    assertFalse("derivedFromID",isDerived);
+    test.equal(isDerived, false, 'derivedFromID');
 
     test.done()
   },
@@ -28662,7 +28616,7 @@ exports.tests = {
 
     test.equal(typeName, "emType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",1);
-    assertTrue("derivedFromAnySimpleType",isDerived);
+    test.ok(isDerived, 'derivedFromAnySimpleType');
 
     test.done()
   },
@@ -28689,7 +28643,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",1);
-    assertTrue("derivedFromAnyType",isDerived);
+    test.ok(isDerived, 'derivedFromAnyType');
 
     test.done()
   },
@@ -28720,13 +28674,13 @@ exports.tests = {
 
     test.equal(typeName, "emType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emType",1);
-    assertTrue("derivedFromSelfByRestriction",isDerived);
+    test.ok(isDerived, 'derivedFromSelfByRestriction');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emType",14);
-    assertFalse("notDerivedFromSelfOtherMethod",isDerived);
+    test.equal(isDerived, false, 'notDerivedFromSelfOtherMethod');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emType",0);
-    assertTrue("derivedFromSelfByAny",isDerived);
+    test.ok(isDerived, 'derivedFromSelfByAny');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emType",15);
-    assertTrue("derivedFromSelfByAll",isDerived);
+    test.ok(isDerived, 'derivedFromSelfByAll');
 
     test.done()
   },
@@ -28757,7 +28711,7 @@ exports.tests = {
 
     test.equal(typeName, "strongType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",15);
-    assertTrue("derivedFromStringAnyMethod",isDerived);
+    test.ok(isDerived, 'derivedFromStringAnyMethod');
 
     test.done()
   },
@@ -28788,7 +28742,7 @@ exports.tests = {
 
     test.equal(typeName, "strongType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",8);
-    assertTrue("derivedFromStringList",isDerived);
+    test.ok(isDerived, 'derivedFromStringList');
 
     test.done()
   },
@@ -28819,7 +28773,7 @@ exports.tests = {
 
     test.equal(typeName, "strongType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",7);
-    assertFalse("derivedFromStringNotList",isDerived);
+    test.equal(isDerived, false, 'derivedFromStringNotList');
 
     test.done()
   },
@@ -28850,7 +28804,7 @@ exports.tests = {
 
     test.equal(typeName, "strongType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",1);
-    assertTrue("derivedFromAnySimpleType",isDerived);
+    test.ok(isDerived, 'derivedFromAnySimpleType');
 
     test.done()
   },
@@ -28881,7 +28835,7 @@ exports.tests = {
 
     test.equal(typeName, "strongType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",1);
-    assertTrue("derivedFromAnyType",isDerived);
+    test.ok(isDerived, 'derivedFromAnyType');
 
     test.done()
   },
@@ -28912,7 +28866,7 @@ exports.tests = {
 
     test.equal(typeName, "strongType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",6);
-    assertFalse("derivedFromAnyType",isDerived);
+    test.equal(isDerived, false, 'derivedFromAnyType');
 
     test.done()
   },
@@ -28943,13 +28897,13 @@ exports.tests = {
 
     test.equal(typeName, "strongType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","strongType",1);
-    assertTrue("notDerivedFromSelfRestriction",isDerived);
+    test.ok(isDerived, 'notDerivedFromSelfRestriction');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","strongType",14);
-    assertFalse("notDerivedFromSelfOther",isDerived);
+    test.equal(isDerived, false, 'notDerivedFromSelfOther');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","strongType",15);
-    assertTrue("notDerivedFromSelfAll",isDerived);
+    test.ok(isDerived, 'notDerivedFromSelfAll');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","strongType",0);
-    assertTrue("notDerivedFromSelfAny",isDerived);
+    test.ok(isDerived, 'notDerivedFromSelfAny');
 
     test.done()
   },
@@ -28976,7 +28930,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","pType",15);
-    assertTrue("derivedFromPTypeAnyMethod",isDerived);
+    test.ok(isDerived, 'derivedFromPTypeAnyMethod');
 
     test.done()
   },
@@ -29003,7 +28957,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","pType",1);
-    assertTrue("derivedFromPTypeRestriction",isDerived);
+    test.ok(isDerived, 'derivedFromPTypeRestriction');
 
     test.done()
   },
@@ -29030,7 +28984,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","pType",14);
-    assertFalse("derivedFromPTypeNotRestriction",isDerived);
+    test.equal(isDerived, false, 'derivedFromPTypeNotRestriction');
 
     test.done()
   },
@@ -29057,7 +29011,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","part1",15);
-    assertTrue("derivedFromPart1AnyMethod",isDerived);
+    test.ok(isDerived, 'derivedFromPart1AnyMethod');
 
     test.done()
   },
@@ -29084,7 +29038,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","part1",2);
-    assertTrue("derivedFromPart1Extension",isDerived);
+    test.ok(isDerived, 'derivedFromPart1Extension');
 
     test.done()
   },
@@ -29111,7 +29065,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","part1",13);
-    assertFalse("derivedFromPart1NotExtension",isDerived);
+    test.equal(isDerived, false, 'derivedFromPart1NotExtension');
 
     test.done()
   },
@@ -29138,7 +29092,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",15);
-    assertFalse("derivedFromAnySimpleType",isDerived);
+    test.equal(isDerived, false, 'derivedFromAnySimpleType');
 
     test.done()
   },
@@ -29165,7 +29119,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",15);
-    assertTrue("derivedFromAnyTypeAnyMethod",isDerived);
+    test.ok(isDerived, 'derivedFromAnyTypeAnyMethod');
 
     test.done()
   },
@@ -29192,7 +29146,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",1);
-    assertFalse("derivedFromAnyTypeRestriction",isDerived);
+    test.equal(isDerived, false, 'derivedFromAnyTypeRestriction');
 
     test.done()
   },
@@ -29220,7 +29174,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",13);
-    assertFalse("derivedFromAnyTypeNotExtension",isDerived);
+    test.equal(isDerived, false, 'derivedFromAnyTypeNotExtension');
 
     test.done()
   },
@@ -29253,7 +29207,7 @@ exports.tests = {
     typeNS = typeInfo.typeNamespace;
 
     isDerived = typeInfo.isDerivedFrom(typeNS,typeName,15);
-    assertFalse("notDerivedFromSelf",isDerived);
+    test.equal(isDerived, false, 'notDerivedFromSelf');
 
     test.done()
   },
@@ -29284,7 +29238,7 @@ exports.tests = {
 
     test.equal(typeName, "emType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","ID",4);
-    assertTrue("derivedFromID",isDerived);
+    test.ok(isDerived, 'derivedFromID');
 
     test.done()
   },
@@ -29315,7 +29269,7 @@ exports.tests = {
 
     test.equal(typeName, "emType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","ID",10);
-    assertFalse("derivedFromID",isDerived);
+    test.equal(isDerived, false, 'derivedFromID');
 
     test.done()
   },
@@ -29346,7 +29300,7 @@ exports.tests = {
 
     test.equal(typeName, "strongType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",8);
-    assertTrue("derivedFromAnySimpleType",isDerived);
+    test.ok(isDerived, 'derivedFromAnySimpleType');
 
     test.done()
   },
@@ -29376,7 +29330,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",1);
-    assertFalse("derivedFromAnyType",isDerived);
+    test.equal(isDerived, false, 'derivedFromAnyType');
 
     test.done()
   },
@@ -29406,7 +29360,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",13);
-    assertFalse("derivedFromAnyType",isDerived);
+    test.equal(isDerived, false, 'derivedFromAnyType');
 
     test.done()
   },
@@ -29436,7 +29390,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",2);
-    assertTrue("derivedFromAnySimpleType",isDerived);
+    test.ok(isDerived, 'derivedFromAnySimpleType');
 
     test.done()
   },
@@ -29466,7 +29420,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",13);
-    assertFalse("derivedFromAnySimpleType",isDerived);
+    test.equal(isDerived, false, 'derivedFromAnySimpleType');
 
     test.done()
   },
@@ -29496,7 +29450,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",2);
-    assertTrue("derivedFromString",isDerived);
+    test.ok(isDerived, 'derivedFromString');
 
     test.done()
   },
@@ -29526,7 +29480,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",13);
-    assertFalse("derivedFromString",isDerived);
+    test.equal(isDerived, false, 'derivedFromString');
 
     test.done()
   },
@@ -29554,7 +29508,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","double",8);
-    assertTrue("derivedFromDoubleList",isDerived);
+    test.ok(isDerived, 'derivedFromDoubleList');
 
     test.done()
   },
@@ -29582,7 +29536,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","double",0);
-    assertTrue("derivedFromDoubleAny",isDerived);
+    test.ok(isDerived, 'derivedFromDoubleAny');
 
     test.done()
   },
@@ -29610,7 +29564,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","double",7);
-    assertFalse("derivedFromDoubleNonList",isDerived);
+    test.equal(isDerived, false, 'derivedFromDoubleNonList');
 
     test.done()
   },
@@ -29638,7 +29592,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",1);
-    assertFalse("derivedFromAnySimpleRestriction",isDerived);
+    test.equal(isDerived, false, 'derivedFromAnySimpleRestriction');
 
     test.done()
   },
@@ -29666,7 +29620,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",2);
-    assertTrue("derivedFromAnySimpleExtension",isDerived);
+    test.ok(isDerived, 'derivedFromAnySimpleExtension');
 
     test.done()
   },
@@ -29694,7 +29648,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",8);
-    assertTrue("derivedFromAnySimpleList",isDerived);
+    test.ok(isDerived, 'derivedFromAnySimpleList');
 
     test.done()
   },
@@ -29722,7 +29676,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",2);
-    assertTrue("derivedFromAnyRestriction",isDerived);
+    test.ok(isDerived, 'derivedFromAnyRestriction');
 
     test.done()
   },
@@ -29750,7 +29704,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",2);
-    assertTrue("derivedFromAnyExtension",isDerived);
+    test.ok(isDerived, 'derivedFromAnyExtension');
 
     test.done()
   },
@@ -29778,7 +29732,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",8);
-    assertTrue("derivedFromAnyList",isDerived);
+    test.ok(isDerived, 'derivedFromAnyList');
 
     test.done()
   },
@@ -29807,7 +29761,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","unbounded",4);
-    assertTrue("isDerived",isDerived);
+    test.ok(isDerived, 'isDerived');
 
     test.done()
   },
@@ -29839,7 +29793,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","integer",4);
-    assertTrue("isDerived",isDerived);
+    test.ok(isDerived, 'isDerived');
 
     test.done()
   },
@@ -29867,7 +29821,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","IDREF",8);
-    assertTrue("isDerived",isDerived);
+    test.ok(isDerived, 'isDerived');
 
     test.done()
   },
@@ -29893,7 +29847,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","short",1);
-    assertTrue("isDerived",isDerived);
+    test.ok(isDerived, 'isDerived');
 
     test.done()
   },
@@ -29919,7 +29873,7 @@ exports.tests = {
 
     test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","decimal",1);
-    assertTrue("isDerived",isDerived);
+    test.ok(isDerived, 'isDerived');
 
     test.done()
   },
@@ -29954,7 +29908,7 @@ exports.tests = {
     elemTypeInfo = acronymElem.schemaTypeInfo;
 
     retValue = elemTypeInfo.isDerivedFrom("http://www.w3.org/TR/REC-xml",nullName,0);
-    assertFalse("typeinfoisderivedfrom63",retValue);
+    test.equal(retValue, false, 'typeinfoisderivedfrom63');
 
     test.done()
   },
@@ -29986,9 +29940,9 @@ exports.tests = {
     attrTypeInfo = classAttr.schemaTypeInfo;
 
     retValue = attrTypeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","classType",1);
-    assertTrue("derivedFromClassType",retValue);
+    test.ok(retValue, 'derivedFromClassType');
     retValue = attrTypeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",1);
-    assertTrue("derivedFromString",retValue);
+    test.ok(retValue, 'derivedFromString');
 
     test.done()
   },
@@ -30021,7 +29975,7 @@ exports.tests = {
     elemTypeInfo = strongElem.schemaTypeInfo;
 
     retValue = elemTypeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",8);
-    assertTrue("lisrDerivedFromString",retValue);
+    test.ok(retValue, 'lisrDerivedFromString');
 
     test.done()
   },
@@ -30054,7 +30008,7 @@ exports.tests = {
     elemTypeInfo = unionElem.schemaTypeInfo;
 
     retValue = elemTypeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emp0004_5Type",0);
-    assertTrue("typeinfoisderivedfrom66",retValue);
+    test.ok(retValue, 'typeinfoisderivedfrom66');
 
     test.done()
   },
@@ -30083,7 +30037,7 @@ exports.tests = {
     elemTypeInfo = elem.schemaTypeInfo;
 
     retValue = elemTypeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emp0004_5Type",4);
-    assertTrue("isDerived",retValue);
+    test.ok(retValue, 'isDerived');
 
     test.done()
   },
@@ -30112,7 +30066,7 @@ exports.tests = {
     elemTypeInfo = elem.schemaTypeInfo;
 
     retValue = elemTypeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emp0004_5Type",0);
-    assertTrue("isDerived",retValue);
+    test.ok(retValue, 'isDerived');
 
     test.done()
   },
@@ -30141,7 +30095,7 @@ exports.tests = {
     elemTypeInfo = elem.schemaTypeInfo;
 
     retValue = elemTypeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","integer",12);
-    assertFalse("isDerived",retValue);
+    test.equal(retValue, false, 'isDerived');
 
     test.done()
   },
@@ -30170,7 +30124,7 @@ exports.tests = {
     elemTypeInfo = elem.schemaTypeInfo;
 
     retValue = elemTypeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",0);
-    assertTrue("isDerived",retValue);
+    test.ok(retValue, 'isDerived');
 
     test.done()
   },
@@ -30198,7 +30152,7 @@ exports.tests = {
     elemTypeInfo = elem.schemaTypeInfo;
 
     retValue = elemTypeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","field",0);
-    assertTrue("isDerived",retValue);
+    test.ok(retValue, 'isDerived');
 
     test.done()
   },
@@ -30227,7 +30181,7 @@ exports.tests = {
     elemTypeInfo = elem.schemaTypeInfo;
 
     retValue = elemTypeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","field",12);
-    assertFalse("isDerived",retValue);
+    test.equal(retValue, false, 'isDerived');
 
     test.done()
   },
@@ -30255,7 +30209,7 @@ exports.tests = {
     elemTypeInfo = elem.schemaTypeInfo;
 
     retValue = elemTypeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emType",0);
-    assertTrue("isDerived",retValue);
+    test.ok(retValue, 'isDerived');
 
     test.done()
   },
@@ -30667,7 +30621,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("xml10InvalidName",success);
+      test.ok(success, 'xml10InvalidName');
     }
 
     try {
@@ -30752,7 +30706,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("xml10InvalidName",success);
+      test.ok(success, 'xml10InvalidName');
     }
 
     try {
@@ -30834,7 +30788,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("xml10InvalidName",success);
+      test.ok(success, 'xml10InvalidName');
     }
 
     try {
@@ -30923,7 +30877,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      assertTrue("xml10InvalidName",success);
+      test.ok(success, 'xml10InvalidName');
     }
 
     try {
