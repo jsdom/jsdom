@@ -1,3 +1,8 @@
+var staff = require('./core/files/staff.xml');
+var hc_staff = require('./core/files/hc_staff.xml');
+var hc_nodtdstaff = require('./core/files/hc_nodtdstaff.xml');
+var extra = require('./core/files/extra.xml');
+
 exports.tests = {
   /**
    *
@@ -23,7 +28,7 @@ exports.tests = {
     var attrName;
     var appendedChild;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docFragment = doc.createDocumentFragment();
     newOne = doc.createElement("newElement");
     newOne.setAttribute("newdomestic","Yes");
@@ -65,7 +70,7 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(3);
     attributes = testNode.attributes;
@@ -107,7 +112,7 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(3);
     attributes = testNode.attributes;
@@ -153,7 +158,7 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -187,7 +192,7 @@ exports.tests = {
     var domesticAttr;
     var value;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -226,7 +231,7 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(3);
     attributes = testNode.attributes;
@@ -261,7 +266,7 @@ exports.tests = {
     var streetAttr;
     var name;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(1);
     attributes = testNode.attributes;
@@ -298,7 +303,7 @@ exports.tests = {
     var domesticAttr;
     var s;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -336,7 +341,7 @@ exports.tests = {
     var streetAttr;
     var state;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -370,7 +375,7 @@ exports.tests = {
     var domesticAttr;
     var s;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -404,7 +409,7 @@ exports.tests = {
     var domesticAttr;
     var s;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -435,7 +440,7 @@ exports.tests = {
     var textNode;
     var removedNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     entRef = doc.createEntityReference("ent4");
     assertNotNull("createdEntRefNotNull",entRef);
     entElement = entRef.firstChild;
@@ -479,7 +484,7 @@ exports.tests = {
     var removedNode;
     var newChild;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     entRef = doc.createEntityReference("ent4");
     assertNotNull("createdEntRefNotNull",entRef);
     entElement = entRef.firstChild;
@@ -535,7 +540,7 @@ exports.tests = {
     var attrList;
     var attrNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     assertNotNull("genderNotNull",gender);
@@ -610,7 +615,7 @@ exports.tests = {
     var genderList;
     var appendedChild;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     assertNotNull("genderNotNull",gender);
@@ -675,7 +680,7 @@ exports.tests = {
     var domesticAttr;
     var state;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -713,7 +718,7 @@ exports.tests = {
     var streetAttr;
     var state;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(2);
     testNode.setAttribute("street","Yes");
@@ -756,7 +761,7 @@ exports.tests = {
     var streetAttr;
     var state;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(2);
     testNode.removeAttribute("street");
@@ -793,7 +798,7 @@ exports.tests = {
     var data;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     nameList = doc.getElementsByTagName("name");
     child = nameList.item(1);
     lastChild = child.lastChild;
@@ -830,7 +835,7 @@ exports.tests = {
     var cdataN;
     var data;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     nameList = doc.getElementsByTagName("name");
     lChild = nameList.item(1);
     lChild.normalize();
@@ -876,7 +881,7 @@ exports.tests = {
     var childValue;
     var childLength;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -916,7 +921,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -955,7 +960,7 @@ exports.tests = {
     var entReference;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = genderNode.firstChild;
@@ -1012,7 +1017,7 @@ exports.tests = {
     var entReference;
     var appendedChild;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = doc.createEntityReference("ent3");
@@ -1061,7 +1066,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1100,7 +1105,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1141,7 +1146,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1186,7 +1191,7 @@ exports.tests = {
     var result = new Array();
 
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1228,7 +1233,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1267,7 +1272,7 @@ exports.tests = {
     var nodeType;
     var entReference;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = genderNode.firstChild;
@@ -1324,7 +1329,7 @@ exports.tests = {
     var entReference;
     var appendedChild;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = doc.createEntityReference("ent3");
@@ -1376,7 +1381,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1410,7 +1415,7 @@ exports.tests = {
     var childValue;
     var childLength;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1447,7 +1452,7 @@ exports.tests = {
     var nameNode;
     var child;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1494,7 +1499,7 @@ exports.tests = {
     var nameNode;
     var child;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1539,7 +1544,7 @@ exports.tests = {
     var nameNode;
     var child;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1585,7 +1590,7 @@ exports.tests = {
     var nameNode;
     var child;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1629,7 +1634,7 @@ exports.tests = {
     var nameNode;
     var child;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1674,7 +1679,7 @@ exports.tests = {
     var nameNode;
     var child;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1721,7 +1726,7 @@ exports.tests = {
     var nameNode;
     var child;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1767,7 +1772,7 @@ exports.tests = {
     var nameNode;
     var child;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1812,7 +1817,7 @@ exports.tests = {
     var child;
     var badSubstring;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1857,7 +1862,7 @@ exports.tests = {
     var child;
     var badString;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1904,7 +1909,7 @@ exports.tests = {
     var child;
     var badString;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1949,7 +1954,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -1988,7 +1993,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2027,7 +2032,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2066,7 +2071,7 @@ exports.tests = {
     var entElementContent;
     var entReference;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = genderNode.firstChild;
@@ -2122,7 +2127,7 @@ exports.tests = {
     var entText;
     var entReference;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = doc.createEntityReference("ent3");
@@ -2170,7 +2175,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2209,7 +2214,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2249,7 +2254,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2287,7 +2292,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2326,7 +2331,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2366,7 +2371,7 @@ exports.tests = {
     var entReference;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = genderNode.firstChild;
@@ -2423,7 +2428,7 @@ exports.tests = {
     var entReference;
     var appendedNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = doc.createEntityReference("ent3");
@@ -2473,7 +2478,7 @@ exports.tests = {
     var entReference;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entReference = genderNode.firstChild;
@@ -2530,7 +2535,7 @@ exports.tests = {
     var entText;
     var entReference;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(4);
     entReference = doc.createEntityReference("ent3");
@@ -2574,7 +2579,7 @@ exports.tests = {
     var childData;
     var childValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2616,7 +2621,7 @@ exports.tests = {
     var child;
     var substring;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2651,7 +2656,7 @@ exports.tests = {
     var child;
     var substring;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -2686,7 +2691,7 @@ exports.tests = {
     var commentCount = 0;
     var childType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.childNodes;
 
     for(var indexN10057 = 0;indexN10057 < elementList.length; indexN10057++) {
@@ -2736,7 +2741,7 @@ exports.tests = {
     var attrName;
     var attrType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newAttrNode = doc.createAttribute("district");
     attrValue = newAttrNode.nodeValue;
 
@@ -2773,7 +2778,7 @@ exports.tests = {
     var newCDATASectionName;
     var newCDATASectionType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newCDATASectionNode = doc.createCDATASection("This is a new CDATASection node");
     newCDATASectionValue = newCDATASectionNode.nodeValue;
 
@@ -2809,7 +2814,7 @@ exports.tests = {
     var newCommentName;
     var newCommentType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newCommentNode = doc.createComment("This is a new Comment node");
     newCommentValue = newCommentNode.nodeValue;
 
@@ -2846,7 +2851,7 @@ exports.tests = {
     var newDocFragmentType;
     var newDocFragmentValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newDocFragment = doc.createDocumentFragment();
     children = newDocFragment.childNodes;
 
@@ -2888,7 +2893,7 @@ exports.tests = {
     var newElementType;
     var newElementValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newElement = doc.createElement("address");
     newElementName = newElement.nodeName;
 
@@ -2926,7 +2931,7 @@ exports.tests = {
     var attribute1;
     var attribute2;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newElement1 = doc.createElement("ADDRESS");
     newElement2 = doc.createElement("address");
     newElement1.setAttribute("district","Fort Worth");
@@ -2967,7 +2972,7 @@ exports.tests = {
     var name;
     var value;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newElement = doc.createElement("address");
     defaultAttr = newElement.attributes;
 
@@ -3009,7 +3014,7 @@ exports.tests = {
     var entRefName;
     var entRefType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newEntRefNode = doc.createEntityReference("ent1");
     assertNotNull("createdEntRefNotNull",newEntRefNode);
     entRefValue = newEntRefNode.nodeValue;
@@ -3052,7 +3057,7 @@ exports.tests = {
     var name;
     var value;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newEntRefNode = doc.createEntityReference("ent3");
     assertNotNull("createdEntRefNotNull",newEntRefNode);
     newEntRefList = newEntRefNode.childNodes;
@@ -3098,7 +3103,7 @@ exports.tests = {
     var piName;
     var piType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newPINode = doc.createProcessingInstruction("TESTPI","This is a new PI node");
     assertNotNull("createdPINotNull",newPINode);
     piName = newPINode.nodeName;
@@ -3135,7 +3140,7 @@ exports.tests = {
     var newTextValue;
     var newTextType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newTextNode = doc.createTextNode("This is a new Text node");
     newTextValue = newTextNode.nodeValue;
 
@@ -3172,7 +3177,7 @@ exports.tests = {
     var docTypeName;
     var nodeValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -3181,7 +3186,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "image/svg+xml")
+      (false)
 
     ) {
       assertEquals("doctypeNameSVG","svg",docTypeName);
@@ -3215,7 +3220,7 @@ exports.tests = {
     var doc;
     var docType;
 
-    doc = load(docRef, "doc", "hc_nodtdstaff");
+    doc = hc_nodtdstaff.hc_nodtdstaff();
     docType = doc.doctype;
 
     assertNull("documentGetDocTypeNoDTDAssert",docType);
@@ -3242,7 +3247,7 @@ exports.tests = {
     var doc;
     var nameList;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     nameList = doc.getElementsByTagName("name");
     assertSize("documentGetElementsByTagNameLengthAssert",5,nameList);
 
@@ -3263,12 +3268,12 @@ exports.tests = {
     var doc;
     var nameList;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     nameList = doc.getElementsByTagName("*");
 
     if(
 
-      (builder.contentType == "image/svg+xml")
+      (false)
 
     ) {
       assertSize("elementCountSVG",39,nameList);
@@ -3307,7 +3312,7 @@ exports.tests = {
     var firstChild;
     var childValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     nameList = doc.getElementsByTagName("name");
     nameNode = nameList.item(3);
     firstChild = nameNode.firstChild;
@@ -3338,7 +3343,7 @@ exports.tests = {
     var docImpl;
     var state;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docImpl = doc.implementation;
     state = docImpl.hasFeature("XML","1.0");
     assertTrue("documentGetImplementationAssert",state);
@@ -3365,7 +3370,7 @@ exports.tests = {
     var root;
     var rootName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     root = doc.documentElement;
 
     rootName = root.nodeName;
@@ -3373,7 +3378,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "image/svg+xml")
+      (false)
 
     ) {
       assertEquals("svgRootNode","svg",rootName);
@@ -3412,7 +3417,7 @@ exports.tests = {
     var doc;
     var createdAttr;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
 
     {
       success = false;
@@ -3452,7 +3457,7 @@ exports.tests = {
     var doc;
     var badElement;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
 
     {
       success = false;
@@ -3486,11 +3491,11 @@ exports.tests = {
     var doc;
     var badEntityRef;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     if(
 
-      (builder.contentType == "text/html")
+      (false)
 
     ) {
 
@@ -3540,11 +3545,11 @@ exports.tests = {
     var doc;
     var badEntityRef;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     if(
 
-      (builder.contentType == "text/html")
+      (false)
 
     ) {
 
@@ -3597,11 +3602,11 @@ exports.tests = {
     var doc;
     var badPI;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     if(
 
-      (builder.contentType == "text/html")
+      (false)
 
     ) {
 
@@ -3651,11 +3656,11 @@ exports.tests = {
     var doc;
     var badPI;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     if(
 
-      (builder.contentType == "text/html")
+      (false)
 
     ) {
 
@@ -3709,7 +3714,7 @@ exports.tests = {
     var docType;
     var name;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -3718,7 +3723,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "image/svg+xml")
+      (false)
 
     ) {
       assertEquals("doctypeName","svg",name);
@@ -3773,7 +3778,7 @@ exports.tests = {
 
     var entity;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -3790,7 +3795,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "image/svg+xml")
+      (false)
 
     ) {
       assertEqualsCollection("entityNamesSVG",expectedResultSVG,nameList);
@@ -3823,7 +3828,7 @@ exports.tests = {
     var docType;
     var entityList;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -3833,7 +3838,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "image/svg+xml")
+      (false)
 
     ) {
       assertSize("entitySizeSVG",7,entityList);
@@ -3870,7 +3875,7 @@ exports.tests = {
     var entity;
     var entityType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -3916,7 +3921,7 @@ exports.tests = {
     expected[1] = "notation2";
 
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -3956,7 +3961,7 @@ exports.tests = {
     var notation;
     var notationType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -3989,7 +3994,7 @@ exports.tests = {
     var domImpl;
     var state;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     domImpl = doc.implementation;
     state = domImpl.hasFeature("XML","");
     assertTrue("hasXMLEmpty",state);
@@ -4014,7 +4019,7 @@ exports.tests = {
     var nullVersion = null;
 
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     domImpl = doc.implementation;
     state = domImpl.hasFeature("XML",nullVersion);
     assertTrue("hasXMLnull",state);
@@ -4036,7 +4041,7 @@ exports.tests = {
     var domImpl;
     var state;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     domImpl = doc.implementation;
     state = domImpl.hasFeature("xml","1.0");
     assertTrue("hasXML1",state);
@@ -4066,7 +4071,7 @@ exports.tests = {
     var testEmployee;
     var attrValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(4);
     testEmployee.setAttribute("district","dallas");
@@ -4100,7 +4105,7 @@ exports.tests = {
     var domesticAttr;
     var specified;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(0);
     attributes = testEmployee.attributes;
@@ -4138,7 +4143,7 @@ exports.tests = {
     var testEmployee;
     var attrValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(3);
     testEmployee.setAttribute("street","Neither");
@@ -4173,7 +4178,7 @@ exports.tests = {
     var districtAttr;
     var attrVal;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(0);
     newAttribute = doc.createAttribute("district");
@@ -4209,7 +4214,7 @@ exports.tests = {
     var domesticAttr;
     var name;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(0);
     domesticAttr = testEmployee.getAttributeNode("domestic");
@@ -4242,7 +4247,7 @@ exports.tests = {
     var testEmployee;
     var domesticAttr;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(0);
     domesticAttr = testEmployee.getAttributeNode("invalidAttribute");
@@ -4278,7 +4283,7 @@ exports.tests = {
     var domesticAttr;
     var attrValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newAttribute = doc.createAttribute("district");
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(3);
@@ -4310,7 +4315,7 @@ exports.tests = {
     var doc;
     var elementList;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     assertSize("elementGetElementsByTagNameAssert",5,elementList);
 
@@ -4336,7 +4341,7 @@ exports.tests = {
     var childValue;
     var childType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     testEmployee = elementList.item(3);
     child = testEmployee.firstChild;
@@ -4382,7 +4387,7 @@ exports.tests = {
     var doc;
     var elementList;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("noMatch");
     assertSize("elementGetElementsByTagNameNoMatchNoMatchAssert",0,elementList);
 
@@ -4423,7 +4428,7 @@ exports.tests = {
     expectedResult[5] = "address";
 
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     lastEmployee = elementList.item(4);
     lastempList = lastEmployee.getElementsByTagName("*");
@@ -4464,7 +4469,7 @@ exports.tests = {
     var root;
     var tagname;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     root = doc.documentElement;
 
     tagname = root.tagName;
@@ -4472,7 +4477,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "image/svg+xml")
+      (false)
 
     ) {
       assertEquals("svgTagName","svg",tagname);
@@ -4519,7 +4524,7 @@ exports.tests = {
     var setAttr1;
     var setAttr2;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressElementList = doc.getElementsByTagName("address");
     testAddress = addressElementList.item(1);
     newElement = doc.createElement("newElement");
@@ -4572,7 +4577,7 @@ exports.tests = {
     var elementList;
     var testAddress;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(0);
 
@@ -4614,7 +4619,7 @@ exports.tests = {
     var firstChild;
     var childValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     root = doc.documentElement;
 
     root.normalize();
@@ -4656,7 +4661,7 @@ exports.tests = {
     var testAddress;
     var attrAddress;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressElementList = doc.getElementsByTagName("address");
     testAddress = addressElementList.item(4);
     oldAttribute = doc.createAttribute("oldAttribute");
@@ -4700,7 +4705,7 @@ exports.tests = {
     var testEmployee;
     var attrValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(3);
     testEmployee.removeAttribute("street");
@@ -4735,7 +4740,7 @@ exports.tests = {
     var attributes;
     var districtAttr;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("district");
@@ -4771,7 +4776,7 @@ exports.tests = {
     var removedAttr;
     var removedValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     streetAttr = testEmployee.getAttributeNode("street");
@@ -4815,7 +4820,7 @@ exports.tests = {
     var attrNode;
     var removedAttr;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     genList = gender.childNodes;
@@ -4885,7 +4890,7 @@ exports.tests = {
     var removedAttr;
     var appendedChild;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     entRef = doc.createEntityReference("ent4");
@@ -4942,7 +4947,7 @@ exports.tests = {
     var nodeType;
     var genElement;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     genList = gender.childNodes;
@@ -5004,7 +5009,7 @@ exports.tests = {
     var entElement;
     var appendedChild;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     entRef = doc.createEntityReference("ent4");
@@ -5052,7 +5057,7 @@ exports.tests = {
     var attribute;
     var removedAttr;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     streetAttr = testEmployee.getAttributeNode("street");
@@ -5084,7 +5089,7 @@ exports.tests = {
     var streetAttr;
     var replacedAttr;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     streetAttr = testEmployee.getAttributeNode("street");
@@ -5121,7 +5126,7 @@ exports.tests = {
     var name;
     var setAttr;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("street");
@@ -5158,7 +5163,7 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("street");
@@ -5194,7 +5199,7 @@ exports.tests = {
     var testAddress;
     var attributes;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     addressList = doc.getElementsByTagName("address");
     testAddress = addressList.item(0);
     attributes = testAddress.attributes;
@@ -5224,7 +5229,7 @@ exports.tests = {
     var testAddress;
     var attrValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(2);
     attrValue = testAddress.getAttribute("street");
@@ -5254,7 +5259,7 @@ exports.tests = {
     var testEmployee;
     var name;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("position");
     testEmployee = elementList.item(1);
     name = testEmployee.nodeName;
@@ -5296,7 +5301,7 @@ exports.tests = {
     var nodeType;
     var badAttr;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     entRef = gender.firstChild;
@@ -5360,7 +5365,7 @@ exports.tests = {
     var badAttr;
     var appendedChild;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     entRef = doc.createEntityReference("ent4");
@@ -5410,7 +5415,7 @@ exports.tests = {
     var newAttribute;
     var districtAttr;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("district");
@@ -5446,7 +5451,7 @@ exports.tests = {
     var entRef;
     var entElement;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     entRef = gender.firstChild;
@@ -5497,7 +5502,7 @@ exports.tests = {
     var entElement;
     var appendedChild;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     entRef = doc.createEntityReference("ent4");
@@ -5563,18 +5568,8 @@ exports.tests = {
     var addressElementList;
     var testAddress;
     var attrAddress;
-
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "staff");
-
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "staff");
+    doc1 = staff.staff();
+    doc2 = staff.staff();
     newAttribute = doc2.createAttribute("newAttribute");
     addressElementList = doc1.getElementsByTagName("address");
     testAddress = addressElementList.item(4);
@@ -5615,7 +5610,7 @@ exports.tests = {
     var entityNode;
     var entityName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -5656,7 +5651,7 @@ exports.tests = {
     var systemId;
     var notation;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -5700,7 +5695,7 @@ exports.tests = {
     var entityNode;
     var publicId;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -5736,7 +5731,7 @@ exports.tests = {
     var retval;
     var lastChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -5782,7 +5777,7 @@ exports.tests = {
     var retval;
     var lastChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -5827,7 +5822,7 @@ exports.tests = {
     var lastChild;
     var docFrag;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -5878,7 +5873,7 @@ exports.tests = {
     var retval;
     var lastChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -5887,7 +5882,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "text/html")
+      (false)
 
     ) {
 
@@ -5945,13 +5940,8 @@ exports.tests = {
     var lastChild;
     var otherDoc;
 
-    doc = load(docRef, "doc", "hc_staff");
-
-    var otherDocRef = null;
-    if (typeof(this.otherDoc) != 'undefined') {
-      otherDocRef = this.otherDoc;
-    }
-    otherDoc = load(otherDocRef, "otherDoc", "hc_staff");
+    doc = hc_staff.hc_staff();
+    otherDoc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -5993,7 +5983,7 @@ exports.tests = {
     var retval;
     var lastChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     titleAttr = doc.createAttribute("title");
     textNode = doc.createTextNode("Yesterday");
     retval = titleAttr.appendChild(textNode);
@@ -6035,7 +6025,7 @@ exports.tests = {
     var textNode;
     var childNodes;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6074,7 +6064,7 @@ exports.tests = {
     var childNodes;
     var retval;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6120,7 +6110,7 @@ exports.tests = {
     var lastChild;
     var clonedTitle;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6175,7 +6165,7 @@ exports.tests = {
     var appendedChild;
     var langAttrCount = 0;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFragment = doc.createDocumentFragment();
     newOne = doc.createElement("html");
     newOne.setAttribute("lang","EN");
@@ -6228,7 +6218,7 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(3);
     attributes = testNode.attributes;
@@ -6270,7 +6260,7 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(3);
     attributes = testNode.attributes;
@@ -6308,7 +6298,7 @@ exports.tests = {
     var domesticAttr;
     var value;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -6341,7 +6331,7 @@ exports.tests = {
     var textNode;
     var otherChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6382,7 +6372,7 @@ exports.tests = {
     var retval;
     var lastChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6415,7 +6405,7 @@ exports.tests = {
     var firstChild;
     var alphaRef;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6424,7 +6414,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "text/html")
+      (false)
 
     ) {
 
@@ -6474,7 +6464,7 @@ exports.tests = {
 
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6511,7 +6501,7 @@ exports.tests = {
     var refChild = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6565,7 +6555,7 @@ exports.tests = {
     var firstChild;
     var refChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6624,7 +6614,7 @@ exports.tests = {
     var refChild = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6684,7 +6674,7 @@ exports.tests = {
     var lastChild;
     var refChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6743,7 +6733,7 @@ exports.tests = {
     var refChild = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6752,7 +6742,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "text/html")
+      (false)
 
     ) {
 
@@ -6811,13 +6801,8 @@ exports.tests = {
 
     var otherDoc;
 
-    doc = load(docRef, "doc", "hc_staff");
-
-    var otherDocRef = null;
-    if (typeof(this.otherDoc) != 'undefined') {
-      otherDocRef = this.otherDoc;
-    }
-    otherDoc = load(otherDocRef, "otherDoc", "hc_staff");
+    doc = hc_staff.hc_staff();
+    otherDoc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6864,7 +6849,7 @@ exports.tests = {
     var refChild = null;
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6874,7 +6859,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "text/html")
+      (false)
 
     ) {
 
@@ -6933,7 +6918,7 @@ exports.tests = {
     var textNode;
     var otherChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -6977,7 +6962,7 @@ exports.tests = {
     var strong1;
     var strong2;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(1);
     attributes = testNode.attributes;
@@ -7013,7 +6998,7 @@ exports.tests = {
     var domesticAttr;
     var s;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -7048,7 +7033,7 @@ exports.tests = {
     var firstChild;
     var secondChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -7094,7 +7079,7 @@ exports.tests = {
     var domesticAttr;
     var s;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -7127,7 +7112,7 @@ exports.tests = {
     var domesticAttr;
     var s;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -7160,7 +7145,7 @@ exports.tests = {
     var retval;
     var firstChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -7206,7 +7191,7 @@ exports.tests = {
     var textNode;
     var retval;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -7249,7 +7234,7 @@ exports.tests = {
     var retval;
     var firstChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -7301,7 +7286,7 @@ exports.tests = {
     var retval;
     var firstChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -7353,7 +7338,7 @@ exports.tests = {
     var firstChild;
     var otherChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -7404,7 +7389,7 @@ exports.tests = {
     var firstChild;
     var otherChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     acronymList = doc.getElementsByTagName("acronym");
     testNode = acronymList.item(3);
     attributes = testNode.attributes;
@@ -7460,7 +7445,7 @@ exports.tests = {
     var domesticAttr;
     var state;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -7497,7 +7482,7 @@ exports.tests = {
     var streetAttr;
     var state;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testNode = addressList.item(2);
     testNode.setAttribute("class","Yα");
@@ -7536,7 +7521,7 @@ exports.tests = {
     var childValue;
     var childLength;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -7575,7 +7560,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -7612,7 +7597,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -7650,7 +7635,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -7690,7 +7675,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -7734,7 +7719,7 @@ exports.tests = {
     var result = new Array();
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -7775,7 +7760,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -7815,7 +7800,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -7848,7 +7833,7 @@ exports.tests = {
     var childValue;
     var childLength;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -7885,7 +7870,7 @@ exports.tests = {
     var child;
     var childSubstring;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -7931,7 +7916,7 @@ exports.tests = {
     var nameNode;
     var child;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -7975,7 +7960,7 @@ exports.tests = {
     var nameNode;
     var child;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8020,7 +8005,7 @@ exports.tests = {
     var nameNode;
     var child;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8063,7 +8048,7 @@ exports.tests = {
     var nameNode;
     var child;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8108,7 +8093,7 @@ exports.tests = {
     var child;
     var badString;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8154,7 +8139,7 @@ exports.tests = {
     var nameNode;
     var child;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8199,7 +8184,7 @@ exports.tests = {
     var nameNode;
     var child;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8243,7 +8228,7 @@ exports.tests = {
     var child;
     var badSubstring;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8287,7 +8272,7 @@ exports.tests = {
     var child;
     var badString;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8333,7 +8318,7 @@ exports.tests = {
     var child;
     var badString;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8377,7 +8362,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8415,7 +8400,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8453,7 +8438,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8490,7 +8475,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8528,7 +8513,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8567,7 +8552,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8604,7 +8589,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8642,7 +8627,7 @@ exports.tests = {
     var child;
     var childData;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8675,7 +8660,7 @@ exports.tests = {
     var childData;
     var childValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8716,7 +8701,7 @@ exports.tests = {
     var child;
     var substring;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8750,7 +8735,7 @@ exports.tests = {
     var child;
     var substring;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
@@ -8787,7 +8772,7 @@ exports.tests = {
     var childType;
     var attributes;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.childNodes;
 
     for(var indexN1005E = 0;indexN1005E < elementList.length; indexN1005E++) {
@@ -8839,7 +8824,7 @@ exports.tests = {
     var attrName;
     var attrType;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newAttrNode = doc.createAttribute("title");
     attrValue = newAttrNode.nodeValue;
 
@@ -8874,7 +8859,7 @@ exports.tests = {
     var newCommentName;
     var newCommentType;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newCommentNode = doc.createComment("This is a new Comment node");
     newCommentValue = newCommentNode.nodeValue;
 
@@ -8910,7 +8895,7 @@ exports.tests = {
     var newDocFragmentType;
     var newDocFragmentValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newDocFragment = doc.createDocumentFragment();
     children = newDocFragment.childNodes;
 
@@ -8951,7 +8936,7 @@ exports.tests = {
     var newElementType;
     var newElementValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newElement = doc.createElement("acronym");
     newElementName = newElement.nodeName;
 
@@ -8994,7 +8979,7 @@ exports.tests = {
     var nodeName1;
     var nodeName2;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newElement1 = doc.createElement("ACRONYM");
     newElement2 = doc.createElement("acronym");
     newElement1.setAttribute("lang","EN");
@@ -9033,7 +9018,7 @@ exports.tests = {
     var newTextValue;
     var newTextType;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newTextNode = doc.createTextNode("This is a new Text node");
     newTextValue = newTextNode.nodeValue;
 
@@ -9064,19 +9049,19 @@ exports.tests = {
     var nodeValue;
     var attributes;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
 
-    if(!((builder.contentType == "text/html"))) {
+    if(!((false))) {
       assertNotNull("docTypeNotNull",docType);
     }
 
     if((docType != null)) {
       docTypeName = docType.name;
-      if((builder.contentType == "image/svg+xml")) {
+      if((false)) {
         assertEquals("nodeNameSVG","svg",docTypeName);
-      } else if (builder.contentType === "text/xml") {
+      } else if (true) {
 
         // this was not an xml test originally.
       } else {
@@ -9112,7 +9097,7 @@ exports.tests = {
     var doc;
     var nameList;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     nameList = doc.getElementsByTagName("strong");
     assertSize("documentGetElementsByTagNameLengthAssert",5,nameList);
 
@@ -9228,7 +9213,7 @@ exports.tests = {
     var thisElement;
     var thisTag;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     nameList = doc.getElementsByTagName("*");
     for(var indexN10148 = 0;indexN10148 < nameList.length; indexN10148++) {
       thisElement = nameList.item(indexN10148);
@@ -9240,7 +9225,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "image/svg+xml")
+      (false)
 
     ) {
       assertEqualsListAutoCase("element", "svgTagNames",svgExpectedNames,actualNames);
@@ -9278,7 +9263,7 @@ exports.tests = {
     var firstChild;
     var childValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     nameList = doc.getElementsByTagName("strong");
     nameNode = nameList.item(3);
     firstChild = nameNode.firstChild;
@@ -9309,14 +9294,14 @@ exports.tests = {
     var xmlstate;
     var htmlstate;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docImpl = doc.implementation;
     xmlstate = docImpl.hasFeature("XML","1.0");
     htmlstate = docImpl.hasFeature("HTML","1.0");
 
     if(
 
-      (builder.contentType == "text/html")
+      (false)
 
     ) {
       assertTrue("supports_HTML_1.0",htmlstate);
@@ -9346,7 +9331,7 @@ exports.tests = {
     var root;
     var rootName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     root = doc.documentElement;
 
     rootName = root.nodeName;
@@ -9354,7 +9339,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "image/svg+xml")
+      (false)
 
     ) {
       assertEquals("svgTagName","svg",rootName);
@@ -9392,7 +9377,7 @@ exports.tests = {
     var doc;
     var createdAttr;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     {
       success = false;
@@ -9424,7 +9409,7 @@ exports.tests = {
     var doc;
     var createdAttr;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     {
       success = false;
@@ -9463,7 +9448,7 @@ exports.tests = {
     var doc;
     var badElement;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     {
       success = false;
@@ -9495,7 +9480,7 @@ exports.tests = {
     var doc;
     var badElement;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
     {
       success = false;
@@ -9531,12 +9516,12 @@ exports.tests = {
     var domImpl;
     var state;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
 
     if(
 
-      (builder.contentType == "text/html")
+      (false)
 
     ) {
       state = domImpl.hasFeature("HTML","");
@@ -9573,12 +9558,12 @@ exports.tests = {
     var domImpl;
     var state;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
 
     if(
 
-      (builder.contentType == "text/html")
+      (false)
 
     ) {
       state = domImpl.hasFeature("HTML",null);
@@ -9613,12 +9598,12 @@ exports.tests = {
     var domImpl;
     var state;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
 
     if(
 
-      (builder.contentType == "text/html")
+      (false)
 
     ) {
       state = domImpl.hasFeature("html","1.0");
@@ -9657,7 +9642,7 @@ exports.tests = {
     var testEmployee;
     var attrValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(4);
     testEmployee.setAttribute("lang","EN-us");
@@ -9688,7 +9673,7 @@ exports.tests = {
     var domesticAttr;
     var specified;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(0);
     attributes = testEmployee.attributes;
@@ -9725,7 +9710,7 @@ exports.tests = {
     var testEmployee;
     var attrValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(3);
     testEmployee.setAttribute("class","Neither");
@@ -9760,7 +9745,7 @@ exports.tests = {
     var districtAttr;
     var attrVal;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(0);
     newAttribute = doc.createAttribute("lang");
@@ -9792,7 +9777,7 @@ exports.tests = {
     var domesticAttr;
     var nodeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(0);
     domesticAttr = testEmployee.getAttributeNode("title");
@@ -9824,7 +9809,7 @@ exports.tests = {
     var testEmployee;
     var domesticAttr;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(0);
     domesticAttr = testEmployee.getAttributeNode("invalidAttribute");
@@ -9860,7 +9845,7 @@ exports.tests = {
     var domesticAttr;
     var attrValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newAttribute = doc.createAttribute("lang");
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(3);
@@ -9891,7 +9876,7 @@ exports.tests = {
     var doc;
     var elementList;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     assertSize("elementGetElementsByTagNameAssert",5,elementList);
 
@@ -9928,7 +9913,7 @@ exports.tests = {
     var employeeIDNode;
     var employeeID;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     testEmployee = elementList.item(3);
     firstC = testEmployee.firstChild;
@@ -9975,7 +9960,7 @@ exports.tests = {
     var doc;
     var elementList;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("noMatch");
     assertSize("elementGetElementsByTagNameNoMatchNoMatchAssert",0,elementList);
 
@@ -10015,7 +10000,7 @@ exports.tests = {
     expectedResult[5] = "acronym";
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     lastEmployee = elementList.item(4);
     lastempList = lastEmployee.getElementsByTagName("*");
@@ -10046,7 +10031,7 @@ exports.tests = {
     var root;
     var tagname;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     root = doc.documentElement;
 
     tagname = root.tagName;
@@ -10054,7 +10039,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "image/svg+xml")
+      (false)
 
     ) {
       assertEquals("svgTagname","svg",tagname);
@@ -10093,7 +10078,7 @@ exports.tests = {
     var setAttr1;
     var setAttr2;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressElementList = doc.getElementsByTagName("body");
     testAddress = addressElementList.item(0);
     newElement = doc.createElement("p");
@@ -10137,7 +10122,7 @@ exports.tests = {
     var elementList;
     var testAddress;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(0);
 
@@ -10171,7 +10156,7 @@ exports.tests = {
     var elementList;
     var testAddress;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(0);
 
@@ -10209,7 +10194,7 @@ exports.tests = {
     var textNode;
     var retNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("sup");
     testName = elementList.item(0);
     textNode = doc.createTextNode("");
@@ -10252,7 +10237,7 @@ exports.tests = {
     var attrNode;
     var retval;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     root = doc.documentElement;
 
     emptyText = doc.createTextNode("");
@@ -10300,7 +10285,7 @@ exports.tests = {
     var testAddress;
     var attrAddress;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressElementList = doc.getElementsByTagName("acronym");
     testAddress = addressElementList.item(4);
     oldAttribute = doc.createAttribute("title");
@@ -10337,7 +10322,7 @@ exports.tests = {
     var testEmployee;
     var attrValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(3);
     testEmployee.removeAttribute("class");
@@ -10372,7 +10357,7 @@ exports.tests = {
     var attributes;
     var districtAttr;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("lang");
@@ -10407,7 +10392,7 @@ exports.tests = {
     var removedAttr;
     var removedValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     streetAttr = testEmployee.getAttributeNode("class");
@@ -10442,7 +10427,7 @@ exports.tests = {
     var replacedAttr;
     var value;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     streetAttr = testEmployee.getAttributeNode("class");
@@ -10478,7 +10463,7 @@ exports.tests = {
     var strong;
     var setAttr;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("class");
@@ -10514,7 +10499,7 @@ exports.tests = {
     var streetAttr;
     var value;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("class");
@@ -10556,7 +10541,7 @@ exports.tests = {
     expected[1] = "dir";
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     addressList = doc.getElementsByTagName("acronym");
     testAddress = addressList.item(0);
     attributes = testAddress.attributes;
@@ -10571,7 +10556,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "text/html")
+      (false)
 
     ) {
       assertEqualsCollection("htmlAttributeNames",toLowerArray(htmlExpected),toLowerArray(actual));
@@ -10605,7 +10590,7 @@ exports.tests = {
     var testAddress;
     var attrValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(2);
     attrValue = testAddress.getAttribute("class");
@@ -10634,7 +10619,7 @@ exports.tests = {
     var testEmployee;
     var strong;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("code");
     testEmployee = elementList.item(1);
     strong = testEmployee.nodeName;
@@ -10672,7 +10657,7 @@ exports.tests = {
     var newAttribute;
     var districtAttr;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     newAttribute = doc.createAttribute("lang");
@@ -10712,18 +10697,8 @@ exports.tests = {
     var addressElementList;
     var testAddress;
     var attrAddress;
-
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "hc_staff");
-
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "hc_staff");
+    doc1 = hc_staff.hc_staff();
+    doc2 = hc_staff.hc_staff();
     newAttribute = doc2.createAttribute("newAttribute");
     addressElementList = doc1.getElementsByTagName("acronym");
     testAddress = addressElementList.item(4);
@@ -10757,14 +10732,14 @@ exports.tests = {
     var docType;
     var retval;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
 
     if(
 
       !(
-        (builder.contentType == "text/html")
+        (false)
       )
 
     ) {
@@ -10806,14 +10781,14 @@ exports.tests = {
     var retval;
     var elem;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
 
     if(
 
       !(
-        (builder.contentType == "text/html")
+        (false)
       )
 
     ) {
@@ -10870,7 +10845,7 @@ exports.tests = {
     var strong;
     var length;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     attributes = testEmployee.attributes;
@@ -10880,7 +10855,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "text/html")
+      (false)
 
     ) {
       assertEquals("htmlLength",2,length);
@@ -10926,7 +10901,7 @@ exports.tests = {
     var domesticAttr;
     var attrName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -10967,7 +10942,7 @@ exports.tests = {
     var setAttr;
     var setNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     firstNode = elementList.item(0);
     domesticAttr = doc.createAttribute("title");
@@ -11019,7 +10994,7 @@ exports.tests = {
     var attributes;
     var removedNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     attributes = testEmployee.attributes;
@@ -11056,7 +11031,7 @@ exports.tests = {
     var attributes;
     var length;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(2);
     attributes = testEmployee.attributes;
@@ -11066,7 +11041,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "text/html")
+      (false)
 
     ) {
       assertEquals("htmlLength",2,length);
@@ -11108,7 +11083,7 @@ exports.tests = {
     var specified;
     var removedNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(2);
     attributes = testAddress.attributes;
@@ -11144,7 +11119,7 @@ exports.tests = {
     var streetAttr;
     var attrName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -11196,7 +11171,7 @@ exports.tests = {
     var actual = new Array();
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(1);
     attributes = testAddress.attributes;
@@ -11211,7 +11186,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "text/html")
+      (false)
 
     ) {
       assertEqualsCollection("attrName_html",toLowerArray(htmlExpected),toLowerArray(actual));
@@ -11263,7 +11238,7 @@ exports.tests = {
     var actual = new Array();
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -11278,7 +11253,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "text/html")
+      (false)
 
     ) {
       assertEqualsCollection("attrName_html",toLowerArray(htmlExpected),toLowerArray(actual));
@@ -11318,7 +11293,7 @@ exports.tests = {
     var attributes;
     var districtNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -11360,7 +11335,7 @@ exports.tests = {
     var attrName;
     var setNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(1);
     newAttribute = doc.createAttribute("lang");
@@ -11407,7 +11382,7 @@ exports.tests = {
     var newNode;
     var attrValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(2);
     newAttribute = doc.createAttribute("class");
@@ -11456,7 +11431,7 @@ exports.tests = {
     var attrValue;
     var setNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(1);
     newAttribute = doc.createAttribute("class");
@@ -11500,7 +11475,7 @@ exports.tests = {
     var attributes;
     var newNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddress = elementList.item(2);
     newAttribute = doc.createAttribute("lang");
@@ -11542,18 +11517,8 @@ exports.tests = {
     var newAttribute;
     var strong;
     var setNode;
-
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "hc_staff");
-
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "hc_staff");
+    doc1 = hc_staff.hc_staff();
+    doc2 = hc_staff.hc_staff();
     elementList = doc1.getElementsByTagName("acronym");
     testAddress = elementList.item(2);
     newAttribute = doc2.createAttribute("newAttribute");
@@ -11596,7 +11561,7 @@ exports.tests = {
     var childName;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -11651,7 +11616,7 @@ exports.tests = {
 
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     childNode = elementList.item(1);
     childList = childNode.getElementsByTagName("*");
@@ -11729,7 +11694,7 @@ exports.tests = {
     expected[7] = "b";
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -11785,7 +11750,7 @@ exports.tests = {
     var appendNode;
     var childName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -11825,7 +11790,7 @@ exports.tests = {
     var newChild;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     rootNode = doc.documentElement;
 
     newChild = doc.createAttribute("newAttribute");
@@ -11871,18 +11836,8 @@ exports.tests = {
     var elementList;
     var elementNode;
     var appendedChild;
-
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "hc_staff");
-
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "hc_staff");
+    doc1 = hc_staff.hc_staff();
+    doc2 = hc_staff.hc_staff();
     newChild = doc1.createElement("br");
     elementList = doc2.getElementsByTagName("p");
     elementNode = elementList.item(1);
@@ -11928,7 +11883,7 @@ exports.tests = {
     var oldChild;
     var appendedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newChild = doc.documentElement;
 
     elementList = doc.getElementsByTagName("p");
@@ -11970,7 +11925,7 @@ exports.tests = {
     var attrNode;
     var attrList;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     addrAttr = testAddr.attributes;
@@ -12002,7 +11957,7 @@ exports.tests = {
     var addrAttr;
     var attrName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     addrAttr = testAddr.getAttributeNode("title");
@@ -12040,7 +11995,7 @@ exports.tests = {
     var addrAttr;
     var nodeType;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     addrAttr = testAddr.getAttributeNode("title");
@@ -12073,7 +12028,7 @@ exports.tests = {
     var addrAttr;
     var attrValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     addrAttr = testAddr.getAttributeNode("title");
@@ -12118,7 +12073,7 @@ exports.tests = {
     expected[5] = "acronym";
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childNodes = employeeNode.childNodes;
@@ -12190,7 +12145,7 @@ exports.tests = {
     expected[6] = "br";
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -12246,7 +12201,7 @@ exports.tests = {
     var textNode;
     var length;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("em");
     employeeNode = elementList.item(1);
     textNode = employeeNode.firstChild;
@@ -12293,7 +12248,7 @@ exports.tests = {
     expected[2] = "dir";
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     addressNode = elementList.item(1);
     clonedNode = addressNode.cloneNode(false);
@@ -12309,7 +12264,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "text/html")
+      (false)
 
     ) {
       assertEqualsCollection("nodeNames_html",toLowerArray(htmlExpected),toLowerArray(result));
@@ -12347,7 +12302,7 @@ exports.tests = {
     var clonedNode;
     var lastChildNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -12382,7 +12337,7 @@ exports.tests = {
     var clonedNode;
     var parentNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     clonedNode = employeeNode.cloneNode(false);
@@ -12418,7 +12373,7 @@ exports.tests = {
     var cloneChildren;
     var length;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     clonedNode = employeeNode.cloneNode(false);
@@ -12467,7 +12422,7 @@ exports.tests = {
     var expected = new Array();
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     origList = employeeNode.childNodes;
@@ -12517,7 +12472,7 @@ exports.tests = {
     var lastChildNode;
     var childValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("sup");
     childNode = elementList.item(1);
     clonedNode = childNode.cloneNode(true);
@@ -12554,7 +12509,7 @@ exports.tests = {
     var attrList;
     var nodeType;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     nodeList = doc.childNodes;
 
     for(var indexN10043 = 0;indexN10043 < nodeList.length; indexN10043++) {
@@ -12603,7 +12558,7 @@ exports.tests = {
     var commentName;
     var commentNodeName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.childNodes;
 
     for(var indexN10044 = 0;indexN10044 < elementList.length; indexN10044++) {
@@ -12651,7 +12606,7 @@ exports.tests = {
     var commentNodeName;
     var nodeType;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     testList = doc.childNodes;
 
     for(var indexN10040 = 0;indexN10040 < testList.length; indexN10040++) {
@@ -12699,7 +12654,7 @@ exports.tests = {
     var commentName;
     var commentValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.childNodes;
 
     for(var indexN10040 = 0;indexN10040 < elementList.length; indexN10040++) {
@@ -12745,7 +12700,7 @@ exports.tests = {
     var docFragment;
     var documentFragmentName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFragment = doc.createDocumentFragment();
     documentFragmentName = docFragment.nodeName;
 
@@ -12774,7 +12729,7 @@ exports.tests = {
     var documentFragmentNode;
     var nodeType;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     documentFragmentNode = doc.createDocumentFragment();
     nodeType = documentFragmentNode.nodeType;
 
@@ -12806,7 +12761,7 @@ exports.tests = {
     var attrList;
     var value;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docFragment = doc.createDocumentFragment();
     attrList = docFragment.attributes;
 
@@ -12836,7 +12791,7 @@ exports.tests = {
     var doc;
     var attrList;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     attrList = doc.attributes;
 
     assertNull("doc_attributes_is_null",attrList);
@@ -12862,7 +12817,7 @@ exports.tests = {
     var doc;
     var documentName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     documentName = doc.nodeName;
 
     assertEquals("documentNodeName","#document",documentName);
@@ -12887,7 +12842,7 @@ exports.tests = {
     var doc;
     var nodeType;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     nodeType = doc.nodeType;
 
     assertEquals("nodeDocumentNodeTypeAssert1",9,nodeType);
@@ -12914,7 +12869,7 @@ exports.tests = {
     var doc;
     var documentValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     documentValue = doc.nodeValue;
 
     assertNull("documentNodeValue",documentValue);
@@ -12952,7 +12907,7 @@ exports.tests = {
     expected[2] = "dir";
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(2);
     addrAttr = testAddr.attributes;
@@ -12967,7 +12922,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "text/html")
+      (false)
 
     ) {
       assertEqualsCollection("attrNames_html",toLowerArray(htmlExpected),toLowerArray(attrList));
@@ -12999,7 +12954,7 @@ exports.tests = {
     var elementNode;
     var elementName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementNode = doc.documentElement;
 
     elementName = elementNode.nodeName;
@@ -13007,7 +12962,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "image/svg+xml")
+      (false)
 
     ) {
       assertEquals("svgNodeName","svg",elementName);
@@ -13039,7 +12994,7 @@ exports.tests = {
     var rootNode;
     var nodeType;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     rootNode = doc.documentElement;
 
     nodeType = rootNode.nodeType;
@@ -13063,7 +13018,7 @@ exports.tests = {
     var elementNode;
     var elementValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementNode = doc.documentElement;
 
     elementValue = elementNode.nodeValue;
@@ -13095,7 +13050,7 @@ exports.tests = {
     var childName;
     var nodeType;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     fchildNode = employeeNode.firstChild;
@@ -13138,7 +13093,7 @@ exports.tests = {
     var emText;
     var nullChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     emList = doc.getElementsByTagName("em");
     emNode = emList.item(0);
     emText = emNode.firstChild;
@@ -13170,7 +13125,7 @@ exports.tests = {
     var lchildNode;
     var childName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     lchildNode = employeeNode.lastChild;
@@ -13203,7 +13158,7 @@ exports.tests = {
     var emText;
     var nullChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     emList = doc.getElementsByTagName("em");
     emNode = emList.item(0);
     emText = emNode.firstChild;
@@ -13235,7 +13190,7 @@ exports.tests = {
     var nsNode;
     var nsName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("em");
     emNode = elementList.item(1);
     nsNode = emNode.nextSibling;
@@ -13274,7 +13229,7 @@ exports.tests = {
     var lcNode;
     var nsNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     lcNode = employeeNode.lastChild;
@@ -13303,7 +13258,7 @@ exports.tests = {
     var docElement;
     var elementName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     docNode = elementList.item(1);
     ownerDocument = docNode.ownerDocument;
@@ -13315,7 +13270,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "image/svg+xml")
+      (false)
 
     ) {
       assertEquals("svgNodeName","svg",elementName);
@@ -13352,7 +13307,7 @@ exports.tests = {
     var doc;
     var ownerDocument;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     ownerDocument = doc.ownerDocument;
 
     assertNull("nodeGetOwnerDocumentNullAssert1",ownerDocument);
@@ -13380,7 +13335,7 @@ exports.tests = {
     var psNode;
     var psName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(1);
     psNode = nameNode.previousSibling;
@@ -13419,7 +13374,7 @@ exports.tests = {
     var fcNode;
     var psNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
     fcNode = employeeNode.firstChild;
@@ -13450,7 +13405,7 @@ exports.tests = {
     var employeeNode;
     var state;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     state = employeeNode.hasChildNodes();
@@ -13480,7 +13435,7 @@ exports.tests = {
     var emText;
     var hasChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     emList = doc.getElementsByTagName("em");
     emNode = emList.item(0);
     emText = emNode.firstChild;
@@ -13530,7 +13485,7 @@ exports.tests = {
 
     var nodeType;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("sup");
     refChild = elementList.item(2);
     employeeNode = refChild.parentNode;
@@ -13591,7 +13546,7 @@ exports.tests = {
     var appendedChild;
     var insertedNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -13645,7 +13600,7 @@ exports.tests = {
     var refChild;
     var insertedNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newChild = doc.createAttribute("title");
     elementList = doc.getElementsByTagName("p");
     refChild = elementList.item(1);
@@ -13694,18 +13649,8 @@ exports.tests = {
     var elementList;
     var elementNode;
     var insertedNode;
-
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "hc_staff");
-
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "hc_staff");
+    doc1 = hc_staff.hc_staff();
+    doc2 = hc_staff.hc_staff();
     newChild = doc1.createElement("br");
     elementList = doc2.getElementsByTagName("p");
     elementNode = elementList.item(1);
@@ -13765,7 +13710,7 @@ exports.tests = {
 
     var nodeType;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.getElementsByTagName("*");
@@ -13819,7 +13764,7 @@ exports.tests = {
     var refChild;
     var insertedNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newChild = doc.documentElement;
 
     elementList = doc.getElementsByTagName("p");
@@ -13868,7 +13813,7 @@ exports.tests = {
     var insertedNode;
     var childName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -13911,7 +13856,7 @@ exports.tests = {
     var elementNode;
     var insertedNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newChild = doc.createElement("br");
     refChild = doc.createElement("b");
     elementList = doc.getElementsByTagName("p");
@@ -13961,7 +13906,7 @@ exports.tests = {
     var childName;
     var insertedNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -14001,7 +13946,7 @@ exports.tests = {
     var childName;
     var length;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -14048,7 +13993,7 @@ exports.tests = {
     var employeeList;
     var length;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -14094,7 +14039,7 @@ exports.tests = {
     var textList;
     var length;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     emList = doc.getElementsByTagName("em");
     emNode = emList.item(2);
     textNode = emNode.firstChild;
@@ -14132,7 +14077,7 @@ exports.tests = {
     var child;
     var childName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -14176,7 +14121,7 @@ exports.tests = {
     var child;
     var childName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -14220,7 +14165,7 @@ exports.tests = {
     var childName;
     var index;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -14281,7 +14226,7 @@ exports.tests = {
     expected[5] = "acronym";
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -14332,7 +14277,7 @@ exports.tests = {
     var parentNode;
     var parentName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     parentNode = employeeNode.parentNode;
@@ -14364,7 +14309,7 @@ exports.tests = {
     var createdNode;
     var parentNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     createdNode = doc.createElement("br");
     parentNode = createdNode.parentNode;
 
@@ -14397,7 +14342,7 @@ exports.tests = {
     var removedChild;
     var parentNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     rootNode = doc.documentElement;
 
     childList = rootNode.childNodes;
@@ -14437,7 +14382,7 @@ exports.tests = {
     var childName;
     var oldName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -14492,7 +14437,7 @@ exports.tests = {
     var actual = new Array();
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -14554,7 +14499,7 @@ exports.tests = {
     var elementNode;
     var removedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     oldChild = doc.createElement("br");
     elementList = doc.getElementsByTagName("p");
     elementNode = elementList.item(1);
@@ -14599,7 +14544,7 @@ exports.tests = {
     var childName;
     var replacedNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -14645,7 +14590,7 @@ exports.tests = {
     var oldChild;
     var replacedChild;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newChild = doc.createAttribute("lang");
     elementList = doc.getElementsByTagName("p");
     oldChild = elementList.item(1);
@@ -14694,18 +14639,8 @@ exports.tests = {
     var elementList;
     var elementNode;
     var replacedChild;
-
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "hc_staff");
-
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "hc_staff");
+    doc1 = hc_staff.hc_staff();
+    doc2 = hc_staff.hc_staff();
     newChild = doc1.createElement("br");
     elementList = doc2.getElementsByTagName("p");
     elementNode = elementList.item(1);
@@ -14762,7 +14697,7 @@ exports.tests = {
     var replacedChild;
     var nodeType;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
     employeeNode = elementList.item(1);
     childList = employeeNode.getElementsByTagName("*");
@@ -14823,7 +14758,7 @@ exports.tests = {
     var oldChild;
     var replacedNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newChild = doc.documentElement;
 
     elementList = doc.getElementsByTagName("p");
@@ -14873,7 +14808,7 @@ exports.tests = {
     var replacedNode;
     var childName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("p");
 
     employeeNode = elementList.item(1);
@@ -14914,7 +14849,7 @@ exports.tests = {
     var elementNode;
     var replacedNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newChild = doc.createElement("br");
     oldChild = doc.createElement("b");
     elementList = doc.getElementsByTagName("p");
@@ -14955,7 +14890,7 @@ exports.tests = {
     var textNode;
     var attrList;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     textNode = testAddr.firstChild;
@@ -14983,7 +14918,7 @@ exports.tests = {
     var textNode;
     var textName;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     textNode = testAddr.firstChild;
@@ -15022,7 +14957,7 @@ exports.tests = {
     var textNode;
     var nodeType;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     textNode = testAddr.firstChild;
@@ -15055,7 +14990,7 @@ exports.tests = {
     var textNode;
     var textValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     textNode = testAddr.firstChild;
@@ -15082,7 +15017,7 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newNode = doc.createElement("acronym");
     newValue = newNode.nodeValue;
 
@@ -15111,7 +15046,7 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newNode = doc.createComment("This is a new Comment node");
     newValue = newNode.nodeValue;
 
@@ -15140,7 +15075,7 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
 
 
     // this code path is invalid... hc_staff is always html and doesn't
@@ -15176,7 +15111,7 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newNode = doc.doctype;
 
     assertTrue("docTypeNotNullOrDocIsHTML",
@@ -15184,7 +15119,7 @@ exports.tests = {
                (
                  (newNode != null)
                    ||
-                   (builder.contentType == "text/html")
+                   (false)
                )
               );
 
@@ -15223,7 +15158,7 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     newNode = doc.createDocumentFragment();
     newValue = newNode.nodeValue;
 
@@ -15250,12 +15185,7 @@ exports.tests = {
     var success;
     var newNode;
     var newValue;
-
-    var newNodeRef = null;
-    if (typeof(this.newNode) != 'undefined') {
-      newNodeRef = this.newNode;
-    }
-    newNode = load(newNodeRef, "newNode", "hc_staff");
+    newNode = hc_staff.hc_staff();
     newValue = newNode.nodeValue;
 
     assertNull("initiallyNull",newValue);
@@ -15285,14 +15215,14 @@ exports.tests = {
     var nodeMap;
     var docType;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
 
     if(
 
       !(
-        (builder.contentType == "text/html")
+        (false)
       )
 
     ) {
@@ -15333,14 +15263,14 @@ exports.tests = {
     var newValue;
     var nodeMap;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
 
     if(
 
       !(
-        (builder.contentType == "text/html")
+        (false)
       )
 
     ) {
@@ -15379,14 +15309,14 @@ exports.tests = {
     var docType;
     var retval;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
 
     if(
 
       !(
-        (builder.contentType == "text/html")
+        (false)
       )
 
     ) {
@@ -15428,14 +15358,14 @@ exports.tests = {
     var retval;
     var elem;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     docType = doc.doctype;
 
 
     if(
 
       !(
-        (builder.contentType == "text/html")
+        (false)
       )
 
     ) {
@@ -15493,7 +15423,7 @@ exports.tests = {
     var textNode;
     var splitNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -15539,7 +15469,7 @@ exports.tests = {
     var textNode;
     var splitNode;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -15595,7 +15525,7 @@ exports.tests = {
     expectedExpanded[0] = "β Dallas, γ\n 98554";
 
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     addressNode = elementList.item(1);
     childList = addressNode.childNodes;
@@ -15667,7 +15597,7 @@ exports.tests = {
     var splitNode;
     var value;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("acronym");
     addressNode = elementList.item(0);
     textNode = addressNode.firstChild;
@@ -15706,7 +15636,7 @@ exports.tests = {
     var secondPart;
     var value;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -15747,7 +15677,7 @@ exports.tests = {
     var splitNode;
     var value;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -15785,7 +15715,7 @@ exports.tests = {
     var splitNode;
     var value;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -15823,7 +15753,7 @@ exports.tests = {
     var nodeV;
     var value;
 
-    doc = load(docRef, "doc", "hc_staff");
+    doc = hc_staff.hc_staff();
     elementList = doc.getElementsByTagName("strong");
     nameNode = elementList.item(2);
     nodeV = nameNode.firstChild;
@@ -15859,7 +15789,7 @@ exports.tests = {
     var child;
     var length;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     attributes = testEmployee.attributes;
@@ -15898,7 +15828,7 @@ exports.tests = {
     var domesticAttr;
     var attrName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -15940,7 +15870,7 @@ exports.tests = {
     var setAttr;
     var setNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     firstNode = elementList.item(0);
     domesticAttr = doc.createAttribute("domestic");
@@ -15992,7 +15922,7 @@ exports.tests = {
     var attributes;
     var removedNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     attributes = testEmployee.attributes;
@@ -16035,7 +15965,7 @@ exports.tests = {
     var attributes;
     var length;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     attributes = testEmployee.attributes;
@@ -16075,7 +16005,7 @@ exports.tests = {
     var specified;
     var removedNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(2);
     attributes = testAddress.attributes;
@@ -16121,7 +16051,7 @@ exports.tests = {
     var value;
     var removedNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(2);
     attributes = testEmployee.attributes;
@@ -16164,7 +16094,7 @@ exports.tests = {
     var removedNode;
     var value;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(2);
     attributes = testAddress.attributes;
@@ -16204,7 +16134,7 @@ exports.tests = {
     var streetAttr;
     var attrName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -16246,7 +16176,7 @@ exports.tests = {
     var child;
     var name;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(1);
     attributes = testAddress.attributes;
@@ -16284,7 +16214,7 @@ exports.tests = {
     var child;
     var name;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -16321,7 +16251,7 @@ exports.tests = {
     var attributes;
     var districtNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(1);
     attributes = testEmployee.attributes;
@@ -16365,7 +16295,7 @@ exports.tests = {
     var attrName;
     var setNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(1);
     newAttribute = doc.createAttribute("district");
@@ -16413,7 +16343,7 @@ exports.tests = {
     var newNode;
     var attrValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(2);
     newAttribute = doc.createAttribute("street");
@@ -16462,7 +16392,7 @@ exports.tests = {
     var attrValue;
     var setNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(1);
     newAttribute = doc.createAttribute("street");
@@ -16506,7 +16436,7 @@ exports.tests = {
     var attributes;
     var newNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddress = elementList.item(2);
     newAttribute = doc.createAttribute("district");
@@ -16548,18 +16478,8 @@ exports.tests = {
     var attributes;
     var newAttribute;
     var setNode;
-
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "staff");
-
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "staff");
+    doc1 = staff.staff();
+    doc2 = staff.staff();
     elementList = doc1.getElementsByTagName("address");
     testAddress = elementList.item(2);
     newAttribute = doc2.createAttribute("newAttribute");
@@ -16606,7 +16526,7 @@ exports.tests = {
     var childName;
     var appendedChild;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -16650,7 +16570,7 @@ exports.tests = {
     var appendedChild;
     var initialName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     childNode = elementList.item(1);
     newChild = childNode.firstChild;
@@ -16726,7 +16646,7 @@ exports.tests = {
     expected[8] = "newChild3";
 
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -16786,7 +16706,7 @@ exports.tests = {
     var appendNode;
     var childName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -16827,7 +16747,7 @@ exports.tests = {
     var newChild;
     var appendedChild;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     rootNode = doc.documentElement;
 
     newChild = doc.createAttribute("newAttribute");
@@ -16874,18 +16794,8 @@ exports.tests = {
     var elementList;
     var elementNode;
     var appendedChild;
-
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "staff");
-
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "staff");
+    doc1 = staff.staff();
+    doc2 = staff.staff();
     newChild = doc1.createElement("newChild");
     elementList = doc2.getElementsByTagName("employee");
     elementNode = elementList.item(1);
@@ -16931,7 +16841,7 @@ exports.tests = {
     var employeeNode;
     var appendedChild;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newChild = doc.documentElement;
 
     elementList = doc.getElementsByTagName("employee");
@@ -16980,7 +16890,7 @@ exports.tests = {
     var appendedNode;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entRef = genderNode.firstChild;
@@ -17038,7 +16948,7 @@ exports.tests = {
     var createdNode;
     var appendedNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     entRef = doc.createEntityReference("ent4");
     assertNotNull("createdEntRefNotNull",entRef);
     createdNode = doc.createElement("text3");
@@ -17080,7 +16990,7 @@ exports.tests = {
     var attrNode;
     var attrList;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
     addrAttr = testAddr.attributes;
@@ -17123,7 +17033,7 @@ exports.tests = {
     var addrAttr;
     var attrName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
     addrAttr = testAddr.getAttributeNode("domestic");
@@ -17162,7 +17072,7 @@ exports.tests = {
     var addrAttr;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
     addrAttr = testAddr.getAttributeNode("domestic");
@@ -17203,7 +17113,7 @@ exports.tests = {
     var addrAttr;
     var attrValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
     addrAttr = testAddr.getAttributeNode("domestic");
@@ -17238,7 +17148,7 @@ exports.tests = {
     var attrList;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     cdataName = elementList.item(1);
     cdataNode = cdataName.lastChild;
@@ -17283,7 +17193,7 @@ exports.tests = {
     var nodeType;
     var cdataNodeName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     cdataName = elementList.item(1);
     cdataNode = cdataName.lastChild;
@@ -17326,7 +17236,7 @@ exports.tests = {
     var cdataNode;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     testName = elementList.item(1);
     cdataNode = testName.lastChild;
@@ -17372,7 +17282,7 @@ exports.tests = {
     var child;
     var cdataNodeValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     cdataName = elementList.item(1);
     childList = cdataName.childNodes;
@@ -17422,7 +17332,7 @@ exports.tests = {
     expectedElementNames[5] = "address";
 
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childNodes = employeeNode.childNodes;
@@ -17467,7 +17377,7 @@ exports.tests = {
     var expectedLength;
     var length;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -17509,7 +17419,7 @@ exports.tests = {
     var textNode;
     var childNodesList;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -17555,7 +17465,7 @@ exports.tests = {
     expectedResult[1] = "street";
 
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     addressNode = elementList.item(1);
     clonedNode = addressNode.cloneNode(false);
@@ -17597,7 +17507,7 @@ exports.tests = {
     var clonedNode;
     var lastChildNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -17633,7 +17543,7 @@ exports.tests = {
     var clonedNode;
     var parentNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     clonedNode = employeeNode.cloneNode(false);
@@ -17670,7 +17580,7 @@ exports.tests = {
     var cloneChildren;
     var length;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     clonedNode = employeeNode.cloneNode(false);
@@ -17739,7 +17649,7 @@ exports.tests = {
     expectedNoWhitespace[5] = "address";
 
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -17792,7 +17702,7 @@ exports.tests = {
     var lastChildNode;
     var childValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("salary");
     childNode = elementList.item(1);
     clonedNode = childNode.cloneNode(true);
@@ -17829,7 +17739,7 @@ exports.tests = {
     var attrList;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     childList = doc.childNodes;
 
     for(var indexN10043 = 0;indexN10043 < childList.length; indexN10043++) {
@@ -17877,7 +17787,7 @@ exports.tests = {
     var nodeType;
     var commentNodeName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.childNodes;
 
     for(var indexN10040 = 0;indexN10040 < elementList.length; indexN10040++) {
@@ -17921,7 +17831,7 @@ exports.tests = {
     var commentNodeName;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     testList = doc.childNodes;
 
     for(var indexN10040 = 0;indexN10040 < testList.length; indexN10040++) {
@@ -17965,7 +17875,7 @@ exports.tests = {
     var commentName;
     var commentValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.childNodes;
 
     for(var indexN10040 = 0;indexN10040 < elementList.length; indexN10040++) {
@@ -18008,7 +17918,7 @@ exports.tests = {
     var docFragment;
     var documentFragmentName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docFragment = doc.createDocumentFragment();
     documentFragmentName = docFragment.nodeName;
 
@@ -18038,7 +17948,7 @@ exports.tests = {
     var documentFragmentNode;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     documentFragmentNode = doc.createDocumentFragment();
     nodeType = documentFragmentNode.nodeType;
 
@@ -18071,7 +17981,7 @@ exports.tests = {
     var attrList;
     var value;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docFragment = doc.createDocumentFragment();
     attrList = docFragment.attributes;
 
@@ -18098,7 +18008,7 @@ exports.tests = {
     var doc;
     var attrList;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     attrList = doc.attributes;
 
     assertNull("documentAttributesNull",attrList);
@@ -18125,7 +18035,7 @@ exports.tests = {
     var doc;
     var documentName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     documentName = doc.nodeName;
 
     assertEquals("documentNodeName","#document",documentName);
@@ -18151,7 +18061,7 @@ exports.tests = {
     var doc;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     nodeType = doc.nodeType;
 
     assertEquals("nodeDocumentNodeTypeAssert1",9,nodeType);
@@ -18179,7 +18089,7 @@ exports.tests = {
     var doc;
     var documentValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     documentValue = doc.nodeValue;
 
     assertNull("documentNodeValueNull",documentValue);
@@ -18203,7 +18113,7 @@ exports.tests = {
     var docType;
     var documentTypeName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -18212,7 +18122,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "image/svg+xml")
+      (false)
 
     ) {
       assertEquals("doctypeNameSVG","svg",documentTypeName);
@@ -18242,7 +18152,7 @@ exports.tests = {
     var documentTypeNode;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     documentTypeNode = doc.doctype;
 
     assertNotNull("doctypeNotNull",documentTypeNode);
@@ -18267,7 +18177,7 @@ exports.tests = {
     var docType;
     var attrList;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -18308,7 +18218,7 @@ exports.tests = {
     expected[1] = "street";
 
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(2);
     addrAttr = testAddr.attributes;
@@ -18354,7 +18264,7 @@ exports.tests = {
     var elementNode;
     var elementName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementNode = doc.documentElement;
 
     elementName = elementNode.nodeName;
@@ -18362,7 +18272,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "image/svg+xml")
+      (false)
 
     ) {
       assertEquals("svgNodeName","svg",elementName);
@@ -18395,7 +18305,7 @@ exports.tests = {
     var rootNode;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     rootNode = doc.documentElement;
 
     nodeType = rootNode.nodeType;
@@ -18420,7 +18330,7 @@ exports.tests = {
     var elementNode;
     var elementValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementNode = doc.documentElement;
 
     elementValue = elementNode.nodeValue;
@@ -18447,7 +18357,7 @@ exports.tests = {
     var entityNode;
     var attrList;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -18479,7 +18389,7 @@ exports.tests = {
     var entityNode;
     var entityName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -18512,7 +18422,7 @@ exports.tests = {
     var entityNode;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -18545,7 +18455,7 @@ exports.tests = {
     var entityNode;
     var entityValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -18579,7 +18489,7 @@ exports.tests = {
     var attrList;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     entRefAddr = elementList.item(1);
     entRefNode = entRefAddr.firstChild;
@@ -18624,7 +18534,7 @@ exports.tests = {
     var entRefName;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     entRefAddr = elementList.item(1);
     entRefNode = entRefAddr.firstChild;
@@ -18667,7 +18577,7 @@ exports.tests = {
     var entRefNode;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     entRefAddr = elementList.item(1);
     entRefNode = entRefAddr.firstChild;
@@ -18712,7 +18622,7 @@ exports.tests = {
     var entRefValue;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     entRefAddr = elementList.item(1);
     entRefNode = entRefAddr.firstChild;
@@ -18751,7 +18661,7 @@ exports.tests = {
     var entityNode;
     var entityValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -18786,7 +18696,7 @@ exports.tests = {
     var fchildNode;
     var childName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     fchildNode = employeeNode.firstChild;
@@ -18838,7 +18748,7 @@ exports.tests = {
     var textNode;
     var noChildNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(0);
     employeeList = employeeNode.childNodes;
@@ -18870,7 +18780,7 @@ exports.tests = {
     var lchildNode;
     var childName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     lchildNode = employeeNode.lastChild;
@@ -18922,7 +18832,7 @@ exports.tests = {
     var textNode;
     var noChildNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(0);
     employeeList = employeeNode.childNodes;
@@ -18954,7 +18864,7 @@ exports.tests = {
     var nsNode;
     var nsName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employeeId");
     employeeIdNode = elementList.item(1);
     nsNode = employeeIdNode.nextSibling;
@@ -19004,7 +18914,7 @@ exports.tests = {
     var lcNode;
     var nsNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     lcNode = employeeNode.lastChild;
@@ -19040,7 +18950,7 @@ exports.tests = {
     var docElement;
     var elementName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     docNode = elementList.item(1);
     ownerDocument = docNode.ownerDocument;
@@ -19052,7 +18962,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "image/svg+xml")
+      (false)
 
     ) {
       assertEquals("svgTagName","svg",elementName);
@@ -19081,7 +18991,7 @@ exports.tests = {
     var doc;
     var ownerDocument;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     ownerDocument = doc.ownerDocument;
 
     assertNull("documentOwnerDocumentNull",ownerDocument);
@@ -19106,7 +19016,7 @@ exports.tests = {
     var psNode;
     var psName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(1);
     psNode = nameNode.previousSibling;
@@ -19156,7 +19066,7 @@ exports.tests = {
     var fcNode;
     var psNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
     fcNode = employeeNode.firstChild;
@@ -19188,7 +19098,7 @@ exports.tests = {
     var employeeNode;
     var state;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     state = employeeNode.hasChildNodes();
@@ -19221,7 +19131,7 @@ exports.tests = {
     var textNode;
     var state;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     child = elementList.item(1);
     employeeIdList = child.childNodes;
@@ -19290,7 +19200,7 @@ exports.tests = {
     var expected = new Array();
 
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -19357,7 +19267,7 @@ exports.tests = {
     var appendedChild;
     var insertedNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -19410,7 +19320,7 @@ exports.tests = {
     var refChild;
     var insertedNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     rootNode = doc.documentElement;
 
     newChild = doc.createAttribute("newAttribute");
@@ -19459,18 +19369,8 @@ exports.tests = {
     var elementList;
     var elementNode;
     var insertedNode;
-
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "staff");
-
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "staff");
+    doc1 = staff.staff();
+    doc2 = staff.staff();
     newChild = doc1.createElement("newChild");
     elementList = doc2.getElementsByTagName("employee");
     elementNode = elementList.item(1);
@@ -19547,7 +19447,7 @@ exports.tests = {
     var result = new Array();
 
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -19612,7 +19512,7 @@ exports.tests = {
     var refChild;
     var insertedNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newChild = doc.documentElement;
 
     elementList = doc.getElementsByTagName("employee");
@@ -19661,7 +19561,7 @@ exports.tests = {
     var insertedNode;
     var childName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -19707,7 +19607,7 @@ exports.tests = {
 
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entRef = genderNode.firstChild;
@@ -19767,7 +19667,7 @@ exports.tests = {
     var refChild = null;
 
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     entRef = doc.createEntityReference("ent4");
     assertNotNull("createdEntRefNotNull",entRef);
     createdNode = doc.createElement("text3");
@@ -19814,7 +19714,7 @@ exports.tests = {
     var elementNode;
     var insertedNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newChild = doc.createElement("newChild");
     refChild = doc.createElement("refChild");
     elementList = doc.getElementsByTagName("employee");
@@ -19864,7 +19764,7 @@ exports.tests = {
     var childName;
     var insertedNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -19899,7 +19799,7 @@ exports.tests = {
     var child;
     var childName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -19936,7 +19836,7 @@ exports.tests = {
     var length;
     var expectedCount = 0;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -19972,7 +19872,7 @@ exports.tests = {
     var textNode;
     var textList;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -20010,7 +19910,7 @@ exports.tests = {
     var length;
     var childName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -20055,7 +19955,7 @@ exports.tests = {
     var childName;
     var length;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -20100,7 +20000,7 @@ exports.tests = {
     var childName;
     var length;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -20177,7 +20077,7 @@ exports.tests = {
     expectedNoWhitespace[5] = "address";
 
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(2);
     employeeList = employeeNode.childNodes;
@@ -20228,7 +20128,7 @@ exports.tests = {
     var notationNode;
     var attrList;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -20266,7 +20166,7 @@ exports.tests = {
     var notationNode;
     var notationName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -20303,7 +20203,7 @@ exports.tests = {
     var notationNode;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -20341,7 +20241,7 @@ exports.tests = {
     var notationNode;
     var notationValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -20379,7 +20279,7 @@ exports.tests = {
     var parentNode;
     var parentName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     parentNode = employeeNode.parentNode;
@@ -20389,7 +20289,7 @@ exports.tests = {
 
     if(
 
-      (builder.contentType == "image/svg+xml")
+      (false)
 
     ) {
       assertEquals("svgTagName","svg",parentName);
@@ -20424,7 +20324,7 @@ exports.tests = {
     var createdNode;
     var parentNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     createdNode = doc.createElement("employee");
     parentNode = createdNode.parentNode;
 
@@ -20458,7 +20358,7 @@ exports.tests = {
     var piNode;
     var attrList;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     testList = doc.childNodes;
 
     piNode = testList.item(0);
@@ -20496,7 +20396,7 @@ exports.tests = {
     var piNode;
     var piName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     testList = doc.childNodes;
 
     piNode = testList.item(0);
@@ -20534,7 +20434,7 @@ exports.tests = {
     var piNode;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     testList = doc.childNodes;
 
     piNode = testList.item(0);
@@ -20566,7 +20466,7 @@ exports.tests = {
     var piNode;
     var piValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     testList = doc.childNodes;
 
     piNode = testList.item(0);
@@ -20595,7 +20495,7 @@ exports.tests = {
     var piNode;
     var piValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     testList = doc.childNodes;
 
     piNode = testList.item(0);
@@ -20635,7 +20535,7 @@ exports.tests = {
     var removedChild;
     var parentNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     rootNode = doc.documentElement;
 
     childList = rootNode.childNodes;
@@ -20672,7 +20572,7 @@ exports.tests = {
     var childName;
     var length;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -20723,7 +20623,7 @@ exports.tests = {
     var removedChild;
     var removedName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -20784,7 +20684,7 @@ exports.tests = {
     var removedNode;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entRef = genderNode.firstChild;
@@ -20841,7 +20741,7 @@ exports.tests = {
     var entText;
     var removedNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     entRef = doc.createEntityReference("ent4");
     assertNotNull("createdEntRefNotNull",entRef);
     entText = entRef.firstChild;
@@ -20888,7 +20788,7 @@ exports.tests = {
     var elementNode;
     var removedChild;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     oldChild = doc.createElement("oldChild");
     elementList = doc.getElementsByTagName("employee");
     elementNode = elementList.item(1);
@@ -20933,7 +20833,7 @@ exports.tests = {
     var childName;
     var replacedNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -20978,7 +20878,7 @@ exports.tests = {
     var oldChild;
     var replacedChild;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     rootNode = doc.documentElement;
 
     newChild = doc.createAttribute("newAttribute");
@@ -21027,18 +20927,8 @@ exports.tests = {
     var elementList;
     var elementNode;
     var replacedChild;
-
-    var doc1Ref = null;
-    if (typeof(this.doc1) != 'undefined') {
-      doc1Ref = this.doc1;
-    }
-    doc1 = load(doc1Ref, "doc1", "staff");
-
-    var doc2Ref = null;
-    if (typeof(this.doc2) != 'undefined') {
-      doc2Ref = this.doc2;
-    }
-    doc2 = load(doc2Ref, "doc2", "staff");
+    doc1 = staff.staff();
+    doc2 = staff.staff();
     newChild = doc1.createElement("newChild");
     elementList = doc2.getElementsByTagName("employee");
     elementNode = elementList.item(1);
@@ -21111,7 +21001,7 @@ exports.tests = {
 
     var replacedChild;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -21180,7 +21070,7 @@ exports.tests = {
     var oldChild;
     var replacedNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newChild = doc.documentElement;
 
     elementList = doc.getElementsByTagName("employee");
@@ -21228,7 +21118,7 @@ exports.tests = {
     var length;
     var childName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("employee");
     employeeNode = elementList.item(1);
     childList = employeeNode.childNodes;
@@ -21286,7 +21176,7 @@ exports.tests = {
     var replacedChild;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entRef = genderNode.firstChild;
@@ -21343,7 +21233,7 @@ exports.tests = {
     var createdNode;
     var replacedChild;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     entRef = doc.createEntityReference("ent4");
     assertNotNull("createdEntRefNotNull",entRef);
     entText = entRef.firstChild;
@@ -21391,7 +21281,7 @@ exports.tests = {
     var elementNode;
     var replacedNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newChild = doc.createElement("newChild");
     oldChild = doc.createElement("oldChild");
     elementList = doc.getElementsByTagName("employee");
@@ -21440,7 +21330,7 @@ exports.tests = {
     var entElementText;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     genderNode = genderList.item(2);
     entRef = genderNode.firstChild;
@@ -21496,7 +21386,7 @@ exports.tests = {
     var entRef;
     var entText;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     entRef = doc.createEntityReference("ent3");
     assertNotNull("createdEntRefNotNull",entRef);
     entText = entRef.firstChild;
@@ -21540,7 +21430,7 @@ exports.tests = {
     var textNode;
     var attrList;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
     textNode = testAddr.firstChild;
@@ -21582,7 +21472,7 @@ exports.tests = {
     var textNode;
     var textName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
     textNode = testAddr.firstChild;
@@ -21622,7 +21512,7 @@ exports.tests = {
     var textNode;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
     textNode = testAddr.firstChild;
@@ -21656,7 +21546,7 @@ exports.tests = {
     var textNode;
     var textValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
     textNode = testAddr.firstChild;
@@ -21683,7 +21573,7 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newNode = doc.createElement("address");
     newValue = newNode.nodeValue;
 
@@ -21712,7 +21602,7 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newNode = doc.createComment("This is a new Comment node");
     newValue = newNode.nodeValue;
 
@@ -21741,7 +21631,7 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newNode = doc.createEntityReference("ent1");
     assertNotNull("createdEntRefNotNull",newNode);
     newValue = newNode.nodeValue;
@@ -21771,7 +21661,7 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newNode = doc.doctype;
 
     assertNotNull("docTypeNotNull",newNode);
@@ -21802,7 +21692,7 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newNode = doc.createDocumentFragment();
     newValue = newNode.nodeValue;
 
@@ -21829,12 +21719,7 @@ exports.tests = {
     var success;
     var newNode;
     var newValue;
-
-    var newNodeRef = null;
-    if (typeof(this.newNode) != 'undefined') {
-      newNodeRef = this.newNode;
-    }
-    newNode = load(newNodeRef, "newNode", "staff");
+    newNode = staff.staff();
     newValue = newNode.nodeValue;
 
     assertNull("initiallyNull",newValue);
@@ -21864,7 +21749,7 @@ exports.tests = {
     var nodeMap;
     var docType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -21902,7 +21787,7 @@ exports.tests = {
     var newValue;
     var nodeMap;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -21938,7 +21823,7 @@ exports.tests = {
     var newNode;
     var newValue;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     newNode = doc.createProcessingInstruction("TARGET","DATA");
     newValue = newNode.nodeValue;
 
@@ -21971,7 +21856,7 @@ exports.tests = {
     var notationNode;
     var notationName;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -22004,7 +21889,7 @@ exports.tests = {
     var notationNode;
     var publicId;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -22042,7 +21927,7 @@ exports.tests = {
     var notationNode;
     var publicId;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -22080,7 +21965,7 @@ exports.tests = {
     var systemId;
     var index;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -22114,7 +21999,7 @@ exports.tests = {
     var notationNode;
     var systemId;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     docType = doc.doctype;
 
     assertNotNull("docTypeNotNull",docType);
@@ -22153,7 +22038,7 @@ exports.tests = {
     var piNode;
     var data;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     childNodes = doc.childNodes;
 
     piNode = childNodes.item(0);
@@ -22187,7 +22072,7 @@ exports.tests = {
     var piNode;
     var target;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     childNodes = doc.childNodes;
 
     piNode = childNodes.item(0);
@@ -22224,7 +22109,7 @@ exports.tests = {
     var entRef;
     var piNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     entRef = gender.firstChild;
@@ -22277,7 +22162,7 @@ exports.tests = {
     var piNode;
     var appendedChild;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     entRef = doc.createEntityReference("ent4");
@@ -22329,7 +22214,7 @@ exports.tests = {
     var textNode;
     var splitNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -22376,7 +22261,7 @@ exports.tests = {
     var textNode;
     var splitNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -22433,7 +22318,7 @@ exports.tests = {
     expectedExpanded[0] = "1900 Dallas Road Dallas, Texas\n 98554";
 
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     addressNode = elementList.item(1);
     childList = addressNode.childNodes;
@@ -22506,7 +22391,7 @@ exports.tests = {
     var splitNode;
     var value;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("address");
     addressNode = elementList.item(0);
     textNode = addressNode.firstChild;
@@ -22548,7 +22433,7 @@ exports.tests = {
     var splitNode;
     var nodeType;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     genderList = doc.getElementsByTagName("gender");
     gender = genderList.item(2);
     entRef = gender.firstChild;
@@ -22604,7 +22489,7 @@ exports.tests = {
     var entText;
     var splitNode;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     entRef = doc.createEntityReference("ent3");
     assertNotNull("createdEntRefNotNull",entRef);
     entText = entRef.firstChild;
@@ -22652,7 +22537,7 @@ exports.tests = {
     var secondPart;
     var value;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -22694,7 +22579,7 @@ exports.tests = {
     var splitNode;
     var value;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -22733,7 +22618,7 @@ exports.tests = {
     var splitNode;
     var value;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(2);
     textNode = nameNode.firstChild;
@@ -22772,7 +22657,7 @@ exports.tests = {
     var nodeV;
     var value;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     elementList = doc.getElementsByTagName("name");
     nameNode = elementList.item(2);
     nodeV = nameNode.firstChild;
@@ -22793,7 +22678,7 @@ exports.tests = {
     var nodeV;
     var value;
 
-    doc = load(docRef, "doc", "staff");
+    doc = staff.staff();
     doc.implementation.addFeature("TestingFeature", 1);
     doc.implementation.addFeature("TestingFeature", 2);
     doc.implementation.addFeature("TestingFeature", 3);
@@ -22821,9 +22706,9 @@ exports.tests = {
 
   */
   maintainsplittextlocation: function(test) {
-    var success, doc, children, docRef, firstTextNode;
+    var success, doc, children, firstTextNode;
 
-    doc = load(docRef, "doc", "extra");
+    doc = extra.extra();
     children = doc.getElementsByTagName('splitTextTest').item(0).childNodes;
     firstTextNode = children.item(0);
     assertTrue('Original children count should be 2', children.length === 2);
