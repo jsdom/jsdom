@@ -13,6 +13,22 @@ var external_barfoo = require("./core/files/external_barfoo.xml");
 var hc_nodtdstaff = require("./core/files/hc_nodtdstaff.xml");
 var hc_staff = require("./core/files/hc_staff.xml");
 var typeinfo = require("./core/files/typeinfo.xml");
+var DOMErrorMonitor = function() {
+  this.errors = new Array();
+}
+
+DOMErrorMonitor.prototype.handleError = function(e) {
+  this.errors.push(new DOMErrorImpl(e));
+}
+
+DOMErrorMonitor.prototype.assertLowerSeverity = function(id, severity) {
+  this.errors.forEach(function(e){
+    // NOTE: start here...
+    if (e.severity >= severity){
+      test.equal(e.severity, severity-1, id);
+    }
+  });
+}
 
 exports.tests = {
   /**
