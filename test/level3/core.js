@@ -967,7 +967,7 @@ exports.tests = {
         assertSame("relatedNode",elem,relatedNode);
 
       }
-      assertSize("oneError",1,errors);
+      test.equal(errors.length, 1, 'oneError');
 
     }
 
@@ -2671,7 +2671,7 @@ exports.tests = {
 
       childValue = childNode.nodeValue;
 
-      assert("content1","EMP 0001" != childValue);
+      test.notEqual(childValue, "EMP 0001", 'content1');
 
     }
 
@@ -2739,7 +2739,7 @@ exports.tests = {
 
       childValue = childNode.nodeValue;
 
-      assert("content1","EMP 0001" != childValue);
+      test.notEqual(childValue, "EMP 0001", 'content1');
 
     }
 
@@ -10442,7 +10442,7 @@ exports.tests = {
     test.notEqual(paramList, null, 'domstringlistgetlength01_notNull');
     listSize = paramList.length;
 
-    assert("domstringlistgetlength01_notZero",0 != listSize);
+    test.notEqual(listSize, 0, 'domstringlistgetlength01_notZero');
 
     test.done()
   },
@@ -13184,7 +13184,7 @@ exports.tests = {
 
       childValue = child.nodeValue;
 
-      assert("firstChildNotIntact","this is not ]]> good" != childValue);
+      test.notEqual(childValue, "this is not ]]> good", 'firstChildNotIntact');
 
     }
 
@@ -13239,7 +13239,7 @@ exports.tests = {
     brElem = doc.createElement("br");
     retval = pElem.appendChild(brElem);
     doc.normalizeDocument();
-    assertSize("twoErrors",2,errors);
+    test.equal(errors.length, 2, 'twoErrors');
 
     test.done()
   },
@@ -13661,7 +13661,7 @@ exports.tests = {
       assertSame("relatedNode",elem,relatedNode);
 
     }
-    assertSize("oneError",1,errors);
+    test.equal(errors.length, 1, 'oneError');
 
     test.done()
   },
@@ -13751,7 +13751,7 @@ exports.tests = {
       assertSame("relatedNode",attr,relatedNode);
 
     }
-    assertSize("oneError",1,errors);
+    test.equal(errors.length, 1, 'oneError');
 
     test.done()
   },
@@ -14121,8 +14121,8 @@ exports.tests = {
     documentPosition1 = doc.compareDocumentPosition(docComp);
     test.equal(documentPosition1, 33, 'isImplSpecificDisconnected1');
     documentPosition2 = docComp.compareDocumentPosition(doc);
-    assert("notBothPreceding",documentPosition1 != documentPosition2);
-    assert("notBothFollowing",documentPosition1 != documentPosition2);
+    test.notEqual(documentPosition2, documentPosition1, 'notBothPreceding');
+    test.notEqual(documentPosition2, documentPosition1, 'notBothFollowing');
     test.equal(documentPosition2, 33, 'isImplSpecificDisconnected2');
     documentPosition3 = doc.compareDocumentPosition(docComp);
     test.equal(documentPosition3, documentPosition1, 'isConsistent');
@@ -14187,8 +14187,8 @@ exports.tests = {
     test.equal(documentPosition1, 33, 'isImplSpecificDisconnected1');
     documentPosition2 = newDoc.compareDocumentPosition(doc);
     test.equal(documentPosition2, 33, 'isImplSpecificDisconnected2');
-    assert("notBothPreceding",documentPosition1 != documentPosition2);
-    assert("notBothFollowing",documentPosition1 != documentPosition2);
+    test.notEqual(documentPosition2, documentPosition1, 'notBothPreceding');
+    test.notEqual(documentPosition2, documentPosition1, 'notBothFollowing');
     documentPosition3 = doc.compareDocumentPosition(newDoc);
     test.equal(documentPosition3, documentPosition1, 'isConsistent');
 
@@ -14533,8 +14533,8 @@ exports.tests = {
     position1 = docFrag.compareDocumentPosition(attrCloned);
     test.equal(position1, 33, 'isImplSpecificDisconnected1');
     position2 = attrCloned.compareDocumentPosition(docFrag);
-    assert("notBothPreceding",position1 != position2);
-    assert("notBothFollowing",position1 != position2);
+    test.notEqual(position2, position1, 'notBothPreceding');
+    test.notEqual(position2, position1, 'notBothFollowing');
     test.equal(position2, 33, 'isImplSpecificDisconnected2');
     position3 = docFrag.compareDocumentPosition(attrCloned);
     test.equal(position3, position1, 'isConsistent');
@@ -14788,8 +14788,8 @@ exports.tests = {
     position1 = entity.compareDocumentPosition(entity2);
     test.equal(position1, 32, 'isImplSpecificDisconnected1');
     position2 = entity2.compareDocumentPosition(entity);
-    assert("notBothPreceding",position1 != position2);
-    assert("notBothFollowing",position1 != position2);
+    test.notEqual(position2, position1, 'notBothPreceding');
+    test.notEqual(position2, position1, 'notBothFollowing');
     test.equal(position2, 32, 'isImplSpecificDisconnected2');
     position3 = entity.compareDocumentPosition(entity2);
     test.equal(position3, position1, 'isConsistent');
@@ -15183,8 +15183,8 @@ exports.tests = {
     position1 = doc.compareDocumentPosition(elem);
     test.equal(position1, 33, 'isImplSpecificDisconnected1');
     position2 = elem.compareDocumentPosition(doc);
-    assert("notBothPreceding",position1 != position2);
-    assert("notBothFollowing",position1 != position2);
+    test.notEqual(position2, position1, 'notBothPreceding');
+    test.notEqual(position2, position1, 'notBothFollowing');
     test.equal(position2, 33, 'isImplSpecificDisconnected2');
     position3 = doc.compareDocumentPosition(elem);
     test.equal(position3, position1, 'isConsistent');
@@ -15388,10 +15388,10 @@ exports.tests = {
     attrPosition = attr1.compareDocumentPosition(attr2);
     test.equal(attrPosition, 32, 'isImplementationSpecific');
     test.equal(attrPosition, 0, 'otherBitsZero');
-    assert("eitherFollowingOrPreceding",0 != attrPosition);
+    test.notEqual(attrPosition, 0, 'eitherFollowingOrPreceding');
     swappedPosition = attr2.compareDocumentPosition(attr1);
-    assert("onlyOnePreceding",swappedPosition != attrPosition);
-    assert("onlyOneFollowing",swappedPosition != attrPosition);
+    test.notEqual(attrPosition, swappedPosition, 'onlyOnePreceding');
+    test.notEqual(attrPosition, swappedPosition, 'onlyOneFollowing');
 
     test.done()
   },
@@ -15424,10 +15424,10 @@ exports.tests = {
     attrPosition = attr1.compareDocumentPosition(attr2);
     test.equal(attrPosition, 32, 'isImplementationSpecific');
     test.equal(attrPosition, 0, 'otherBitsZero');
-    assert("eitherFollowingOrPreceding",0 != attrPosition);
+    test.notEqual(attrPosition, 0, 'eitherFollowingOrPreceding');
     swappedPosition = attr2.compareDocumentPosition(attr1);
-    assert("onlyOnePreceding",swappedPosition != attrPosition);
-    assert("onlyOneFollowing",swappedPosition != attrPosition);
+    test.notEqual(attrPosition, swappedPosition, 'onlyOnePreceding');
+    test.notEqual(attrPosition, swappedPosition, 'onlyOneFollowing');
 
     test.done()
   },
@@ -15451,7 +15451,7 @@ exports.tests = {
     doc = barfoo.barfoo();
     baseURI = doc.baseURI;
 
-    assertURIEquals("notNull",null,null,null,null,"barfoo",null,null,true,baseURI);
+    test.equals(baseURI, 'barfoo', 'notNull');
     documentURI = doc.documentURI;
 
     test.equal(baseURI, documentURI, 'sameAsDocumentURI');
@@ -15551,7 +15551,7 @@ exports.tests = {
 
     baseURI = docElem.baseURI;
 
-    assertURIEquals("baseURI",null,null,null,null,"barfoo",null,null,true,baseURI);
+    test.equal(baseURI, 'barfoo', 'baseURI');
     documentURI = doc.documentURI;
 
     test.equal(baseURI, documentURI, 'baseURIEqualsDocURI');
@@ -15736,7 +15736,7 @@ exports.tests = {
     appendedChild = doc.appendChild(imported);
     baseURI = imported.baseURI;
 
-    assertURIEquals("equalsBarfooBase",null,null,null,null,"barfoo_base",null,null,true,baseURI);
+    test.equal(baseURI, 'barfoo_base', 'equalsBarfooBase')
     docURI = doc.documentURI;
 
     test.equal(baseURI, docURI, 'equalsDocURI');
@@ -15770,9 +15770,7 @@ exports.tests = {
 
     entity = entitiesMap.getNamedItem("epsilon");
     baseURI = entity.baseURI;
-
-    assertURIEquals("entityBase",null,null,null,null,"hc_staff",null,null,true,baseURI);
-
+    test.equal(baseURI, 'hc_staff', 'entityBase');
     test.done()
   },
 
@@ -15807,7 +15805,7 @@ exports.tests = {
     docURI = doc.documentURI;
 
     test.equal(baseURI, docURI, 'sameAsDocURI');
-    assertURIEquals("entityBase",null,null,null,null,"hc_staff",null,null,true,baseURI);
+    test.equal(baseURI, 'hc_staff', 'entityBase');
 
     test.done()
   },
@@ -15913,9 +15911,7 @@ exports.tests = {
     entRef = pElem.lastChild;
 
     baseURI = entRef.baseURI;
-
-    assertURIEquals("baseURI",null,null,null,null,"external_barfoo",null,null,true,baseURI);
-
+    test.equal(baseURI, 'external_barfoo', 'baseURI')
     test.done()
   },
 
@@ -16053,9 +16049,7 @@ exports.tests = {
     pElem = pList.item(2);
     test.notEqual(pElem, null, 'pElemNotNull');
     baseURI = pElem.baseURI;
-
-    assertURIEquals("equalsExternalBarFoo",null,null,null,null,"external_widget",null,null,true,baseURI);
-
+    test.equal(baseURI, 'external_widget', 'equalsExternalBarFoo')
     test.done()
   },
 
@@ -30233,7 +30227,7 @@ exports.tests = {
 
     newNode = doc.renameNode(node,elementNS,"div");
     notifications = userDataMonitor.allNotifications;
-    assertSize("twoNotifications",2,notifications);
+    test.equal(notifications.length, 2, 'twoNotifications');
     for(var indexN1009E = 0;indexN1009E < notifications.length; indexN1009E++) {
       notification = notifications[indexN1009E];
       operation = notification.operation;
@@ -30327,7 +30321,7 @@ exports.tests = {
 
     newNode = node.cloneNode(true);
     notifications = userDataMonitor.allNotifications;
-    assertSize("twoNotifications",2,notifications);
+    test.equal(notifications.length, 2, 'twoNotifications');
     for(var indexN1009C = 0;indexN1009C < notifications.length; indexN1009C++) {
       notification = notifications[indexN1009C];
       operation = notification.operation;
@@ -30423,7 +30417,7 @@ exports.tests = {
 
     newNode = doc.importNode(node,true);
     notifications = userDataMonitor.allNotifications;
-    assertSize("twoNotifications",2,notifications);
+    test.equal(notifications.length, 2, 'twoNotifications');
     for(var indexN100CE = 0;indexN100CE < notifications.length; indexN100CE++) {
       notification = notifications[indexN100CE];
       operation = notification.operation;
@@ -30519,7 +30513,7 @@ exports.tests = {
 
     newNode = doc.adoptNode(node);
     notifications = userDataMonitor.allNotifications;
-    assertSize("twoNotifications",2,notifications);
+    test.equal(notifications.length, 2, 'twoNotifications');
     for(var indexN100CD = 0;indexN100CD < notifications.length; indexN100CD++) {
       notification = notifications[indexN100CD];
       operation = notification.operation;
@@ -30637,7 +30631,7 @@ exports.tests = {
       assertSame("relatedNode",elem,relatedNode);
 
     }
-    assertSize("oneError",1,errors);
+    test.equal(errors.length, 1, 'oneError');
 
     test.done()
   },
@@ -30712,7 +30706,7 @@ exports.tests = {
       domConfig.setParameter("error-handler", errorMonitor.handleError);
       doc.normalizeDocument();
       errors = errorMonitor.allErrors;
-      assertSize("noError",0,errors);
+      test.equal(errors.length, 0, 'noError');
 
     }
 
@@ -30804,7 +30798,7 @@ exports.tests = {
       assertSame("relatedNode",attr,relatedNode);
 
     }
-    assertSize("oneError",1,errors);
+    test.equal(errors.length, 1, 'oneError');
 
     test.done()
   },
