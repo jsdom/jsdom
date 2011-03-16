@@ -42,13 +42,13 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("title");
     typeInfo = attr.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("nameIsCDATA","CDATA",typeName);
+    test.equal(typeName, "CDATA", 'nameIsCDATA');
     typeNS = typeInfo.typeNamespace;
 
-    assertEquals("nsIsXML","http://www.w3.org/TR/REC-xml",typeNS);
+    test.equal(typeNS, "http://www.w3.org/TR/REC-xml", 'nsIsXML');
 
     test.done()
   },
@@ -80,13 +80,13 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("id");
     typeInfo = attr.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("nameIsID","ID",typeName);
+    test.equal(typeName, "ID", 'nameIsID');
     typeNS = typeInfo.typeNamespace;
 
-    assertEquals("nsIsXML","http://www.w3.org/TR/REC-xml",typeNS);
+    test.equal(typeNS, "http://www.w3.org/TR/REC-xml", 'nsIsXML');
 
     test.done()
   },
@@ -118,13 +118,13 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("title");
     typeInfo = attr.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("nameIsString","string",typeName);
+    test.equal(typeName, "string", 'nameIsString');
     typeNS = typeInfo.typeNamespace;
 
-    assertEquals("nsIsXML","http://www.w3.org/2001/XMLSchema",typeNS);
+    test.equal(typeNS, "http://www.w3.org/2001/XMLSchema", 'nsIsXML');
 
     test.done()
   },
@@ -156,13 +156,13 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("id");
     typeInfo = attr.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("nameIsID","ID",typeName);
+    test.equal(typeName, "ID", 'nameIsID');
     typeNS = typeInfo.typeNamespace;
 
-    assertEquals("nsIsXmlSchema","http://www.w3.org/2001/XMLSchema",typeNS);
+    test.equal(typeNS, "http://www.w3.org/2001/XMLSchema", 'nsIsXmlSchema');
 
     test.done()
   },
@@ -194,13 +194,13 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("class");
     typeInfo = attr.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("nameIsClassType","classType",typeName);
+    test.equal(typeName, "classType", 'nameIsClassType');
     typeNS = typeInfo.typeNamespace;
 
-    assertEquals("nsIsXHTML","http://www.w3.org/1999/xhtml",typeNS);
+    test.equal(typeNS, "http://www.w3.org/1999/xhtml", 'nsIsXHTML');
 
     test.done()
   },
@@ -231,13 +231,13 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("title");
     typeInfo = attr.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertNull("typeName",typeName);
+    test.equal(typeName, null, 'typeName');
     typeNS = typeInfo.typeNamespace;
 
-    assertNull("typeNS",typeNS);
+    test.equal(typeNS, null, 'typeNS');
 
     test.done()
   },
@@ -272,13 +272,13 @@ exports.tests = {
     attr = acElem.getAttributeNode("id");
     attrTypeInfo = attr.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",attrTypeInfo);
+    test.notEqual(attrTypeInfo, null, 'typeInfoNotNull');
     typeName = attrTypeInfo.typeName;
 
     typeNamespace = attrTypeInfo.typeNamespace;
 
-    assertEquals("attrgetschematypeinfo07_typeName","ID",typeName);
-    assertEquals("attrgetschematypeinfo07_typeNamespace","http://www.w3.org/2001/XMLSchema",typeNamespace);
+    test.equal(typeName, "ID", 'attrgetschematypeinfo07_typeName');
+    test.equal(typeNamespace, "http://www.w3.org/2001/XMLSchema", 'attrgetschematypeinfo07_typeNamespace');
 
     test.done()
   },
@@ -316,8 +316,8 @@ exports.tests = {
 
     typeNamespace = attrTypeInfo.typeNamespace;
 
-    assertEquals("attrgetschematypeinfo08_typeName","string",typeName);
-    assertEquals("attrgetschematypeinfo08_typeNamespace","http://www.w3.org/2001/XMLSchema",typeNamespace);
+    test.equal(typeName, "string", 'attrgetschematypeinfo08_typeName');
+    test.equal(typeNamespace, "http://www.w3.org/2001/XMLSchema", 'attrgetschematypeinfo08_typeNamespace');
 
     test.done()
   },
@@ -606,13 +606,13 @@ exports.tests = {
       pElem = pList.item(0);
       child = pElem.lastChild;
 
-      assertNotNull("lastChildNotNull",child);
+      test.notEqual(child, null, 'lastChildNotNull');
       childName = child.nodeName;
 
-      assertEquals("firstChildName","#text",childName);
+      test.equal(childName, "#text", 'firstChildName');
       childValue = child.nodeValue;
 
-      assertEquals("firstChildValue","barfoo",childValue);
+      test.equal(childValue, "barfoo", 'firstChildValue');
 
     }
 
@@ -665,7 +665,7 @@ exports.tests = {
 
       textValue = text.nodeValue;
 
-      assertEquals("noCharNormalization","barsuçon",textValue);
+      test.equal(textValue, "barsucon", 'noCharNormalization');
 
     }
 
@@ -701,7 +701,7 @@ exports.tests = {
 
     nodeName = cdata.nodeName;
 
-    assertEquals("documentnormalizedocument02","#cdata-section",nodeName);
+    test.equal(nodeName, "#cdata-section", 'documentnormalizedocument02');
     domConfig = doc.domConfig;
 
     domConfig.setParameter("error-handler", errorMonitor.handleError);
@@ -719,7 +719,7 @@ exports.tests = {
 
       nodeName = text.nodeName;
 
-      assertEquals("documentnormalizedocument02_false","#text",nodeName);
+      test.equal(nodeName, "#text", 'documentnormalizedocument02_false');
 
     }
 
@@ -760,7 +760,7 @@ exports.tests = {
       docElem = doc.documentElement;
 
       xmlnsAttr = docElem.getAttributeNode("xmlns");
-      assertNotNull("xmlnsAttrNotNull",xmlnsAttr);
+      test.notEqual(xmlnsAttr, null, 'xmlnsAttrNotNull');
 
     }
 
@@ -837,19 +837,19 @@ exports.tests = {
           assertSame("relatedNodeIsL1Node",newChild,problemNode);
           lineNumber = location.lineNumber;
 
-          assertEquals("lineNumber",-1,lineNumber);
+          test.equal(lineNumber, -1, 'lineNumber');
           columnNumber = location.columnNumber;
 
-          assertEquals("columnNumber",-1,columnNumber);
+          test.equal(columnNumber, -1, 'columnNumber');
           byteOffset = location.byteOffset;
 
-          assertEquals("byteOffset",-1,byteOffset);
+          test.equal(byteOffset, -1, 'byteOffset');
           utf16Offset = location.utf16Offset;
 
-          assertEquals("utf16Offset",-1,utf16Offset);
+          test.equal(utf16Offset, -1, 'utf16Offset');
           uri = location.uri;
 
-          assertNull("uri",uri);
+          test.equal(uri, null, 'uri');
           message = error.message;
 
           length = message.length;
@@ -868,12 +868,12 @@ exports.tests = {
 	}
 
 	else {
-	  assertEquals("anyOthersShouldBeWarnings",1,severity);
+	  test.equal(severity, 1, 'anyOthersShouldBeWarnings');
 
 	}
 
       }
-      assertEquals("oneError",1,errorCount);
+      test.equal(errorCount, 1, 'oneError');
 
     }
 
@@ -959,10 +959,10 @@ exports.tests = {
         error = errors[indexN100B7];
         severity = error.severity;
 
-        assertEquals("severity",2,severity);
+        test.equal(severity, 2, 'severity');
         type = error.type;
 
-        assertEquals("type","wf-invalid-character-in-node-name",type);
+        test.equal(type, "wf-invalid-character-in-node-name", 'type');
         locator = error.location;
 
         relatedNode = locator.relatedNode;
@@ -1028,16 +1028,16 @@ exports.tests = {
       body = bodyList.item(0);
       child = body.firstChild;
 
-      assertNotNull("firstChildNotNull",child);
+      test.notEqual(child, null, 'firstChildNotNull');
       childName = child.nodeName;
 
-      assertEquals("firstChild","#text",childName);
+      test.equal(childName, "#text", 'firstChild');
       child = child.nextSibling;
 
-      assertNotNull("secondChildNotNull",child);
+      test.notEqual(child, null, 'secondChildNotNull');
       childName = child.nodeName;
 
-      assertEquals("secondChild","p",childName);
+      test.equal(childName, "p", 'secondChild');
 
     }
 
@@ -1085,73 +1085,73 @@ exports.tests = {
 
       nodeType = node.nodeType;
 
-      assertEquals("PIisFirstChild",7,nodeType);
+      test.equal(nodeType, 7, 'PIisFirstChild');
       nodeValue = node.data;
 
       length = nodeValue.length;
-      assertEquals("piDataLength",36,length);
+      test.equal(length, 36, 'piDataLength');
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("TextisSecondChild",3,nodeType);
+      test.equal(nodeType, 3, 'TextisSecondChild');
       nodeValue = node.nodeValue;
 
       length = nodeValue.length;
-      assertEquals("secondChildLength",1,length);
+      test.equal(length, 1, 'secondChildLength');
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("ElementisThirdChild",1,nodeType);
+      test.equal(nodeType, 1, 'ElementisThirdChild');
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("TextisFourthChild",3,nodeType);
+      test.equal(nodeType, 3, 'TextisFourthChild');
       nodeValue = node.nodeValue;
 
       length = nodeValue.length;
-      assertEquals("fourthChildLength",1,length);
+      test.equal(length, 1, 'fourthChildLength');
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("PIisFifthChild",7,nodeType);
+      test.equal(nodeType, 7, 'PIisFifthChild');
       nodeValue = node.data;
 
-      assertEquals("trailingPIData","",nodeValue);
+      test.equal(nodeValue, "", 'trailingPIData');
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("TextisSixthChild",3,nodeType);
+      test.equal(nodeType, 3, 'TextisSixthChild');
       nodeValue = node.nodeValue;
 
       length = nodeValue.length;
-      assertEquals("sixthChildLength",1,length);
+      test.equal(length, 1, 'sixthChildLength');
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("CommentisSeventhChild",8,nodeType);
+      test.equal(nodeType, 8, 'CommentisSeventhChild');
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("TextisEighthChild",3,nodeType);
+      test.equal(nodeType, 3, 'TextisEighthChild');
       nodeValue = node.nodeValue;
 
       length = nodeValue.length;
-      assertEquals("eighthChildLength",1,length);
+      test.equal(length, 1, 'eighthChildLength');
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("CommentisNinthChild",8,nodeType);
+      test.equal(nodeType, 8, 'CommentisNinthChild');
       node = node.nextSibling;
 
-      assertNull("TenthIsNull",node);
+      test.equal(node, null, 'TenthIsNull');
 
     }
 
@@ -1201,45 +1201,45 @@ exports.tests = {
 
       nodeType = node.nodeType;
 
-      assertEquals("PIisFirstChild",7,nodeType);
+      test.equal(nodeType, 7, 'PIisFirstChild');
       nodeValue = node.data;
 
       length = nodeValue.length;
-      assertEquals("piDataLength",36,length);
+      test.equal(length, 36, 'piDataLength');
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("TextisSecondChild",3,nodeType);
+      test.equal(nodeType, 3, 'TextisSecondChild');
       nodeValue = node.nodeValue;
 
       length = nodeValue.length;
-      assertEquals("secondChildLength",1,length);
+      test.equal(length, 1, 'secondChildLength');
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("ElementisThirdChild",1,nodeType);
+      test.equal(nodeType, 1, 'ElementisThirdChild');
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("TextisFourthChild",3,nodeType);
+      test.equal(nodeType, 3, 'TextisFourthChild');
       nodeValue = node.nodeValue;
 
       length = nodeValue.length;
-      assertEquals("fourthChildLength",1,length);
+      test.equal(length, 1, 'fourthChildLength');
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("PIisFifthChild",7,nodeType);
+      test.equal(nodeType, 7, 'PIisFifthChild');
       nodeValue = node.data;
 
-      assertEquals("trailingPIData","",nodeValue);
+      test.equal(nodeValue, "", 'trailingPIData');
       node = node.nextSibling;
 
-      assertNull("SixthIsNull",node);
+      test.equal(node, null, 'SixthIsNull');
 
     }
 
@@ -1281,9 +1281,9 @@ exports.tests = {
       divList = doc.getElementsByTagName("div");
       div = divList.item(5);
       node = div.getAttributeNode("xmlns");
-      assertNotNull("xmlnsPresent",node);
+      test.notEqual(node, null, 'xmlnsPresent');
       node = div.getAttributeNode("xmlns:a");
-      assertNull("xmlnsANotPresent",node);
+      test.equal(node, null, 'xmlnsANotPresent');
 
     }
 
@@ -1326,13 +1326,13 @@ exports.tests = {
       elemList = doc.getElementsByTagName("acronym");
       elem = elemList.item(0);
       attr = elem.getAttributeNode("title");
-      assertNotNull("titlePresent",attr);
+      test.notEqual(attr, null, 'titlePresent');
       attrSpecified = attr.specified;
 
       assertTrue("titleSpecified",attrSpecified);
       attrValue = attr.nodeValue;
 
-      assertEquals("titleValue","default",attrValue);
+      test.equal(attrValue, "default", 'titleValue');
 
     }
 
@@ -1371,7 +1371,7 @@ exports.tests = {
       errorMonitor.assertLowerSeverity("normalizeError", 2);
       doctype = doc.doctype;
 
-      assertNull("docTypeNull",doctype);
+      test.equal(doctype, null, 'docTypeNull');
 
     }
 
@@ -1419,7 +1419,7 @@ exports.tests = {
 
     nodeName = cdata.nodeName;
 
-    assertEquals("documentnormalizedocument03_true","#cdata-section",nodeName);
+    test.equal(nodeName, "#cdata-section", 'documentnormalizedocument03_true');
 
     test.done()
   },
@@ -1464,7 +1464,7 @@ exports.tests = {
 
     textValue = text.nodeValue;
 
-    assertEquals("noCharNormalization","barsuçon",textValue);
+    test.equal(textValue, "barsucon", 'noCharNormalization');
 
     test.done()
   },
@@ -1528,7 +1528,7 @@ exports.tests = {
 	  errorCount += 1;
           errorType = error.type;
 
-          assertEquals("errorType","check-character-normalization-failure",errorType);
+          test.equal(errorType, "check-character-normalization-failure", 'errorType');
           locator = error.location;
 
           relatedNode = locator.relatedNode;
@@ -1538,7 +1538,7 @@ exports.tests = {
 	}
 
       }
-      assertEquals("oneError",1,errorCount);
+      test.equal(errorCount, 1, 'oneError');
 
     }
 
@@ -1591,7 +1591,7 @@ exports.tests = {
 
       textValue = text.nodeValue;
 
-      assertEquals("noCharNormalization","barsuçon",textValue);
+      test.equal(textValue, "barsucon", 'noCharNormalization');
 
     }
 
@@ -1637,7 +1637,7 @@ exports.tests = {
 
     nodeName = lastChild.nodeName;
 
-    assertEquals("documentnormalizedocument04_true","#comment",nodeName);
+    test.equal(nodeName, "#comment", 'documentnormalizedocument04_true');
 
     test.done()
   },
@@ -1686,28 +1686,28 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","double");
       element = elemList.item(0);
       str = element.getAttribute("value");
-      assertEquals("firstValue","+0003.141592600E+0000",str);
+      test.equal(str, "+0003.141592600E+0000", 'firstValue');
       str = element.getAttribute("union");
-      assertEquals("firstUnion","+0003.141592600E+0000",str);
+      test.equal(str, "+0003.141592600E+0000", 'firstUnion');
       str = element.textContent;
 
-      assertEquals("firstList","-31415926.00E-7 2.718",str);
+      test.equal(str, "-31415926.00E-7 2.718", 'firstList');
       element = elemList.item(1);
       str = element.getAttribute("value");
-      assertEquals("secondValue","NaN",str);
+      test.equal(str, "NaN", 'secondValue');
       str = element.getAttribute("union");
-      assertEquals("secondUnion","NaN",str);
+      test.equal(str, "NaN", 'secondUnion');
       str = element.textContent;
 
-      assertEquals("secondList","INF -INF",str);
+      test.equal(str, "INF -INF", 'secondList');
       element = elemList.item(2);
       str = element.getAttribute("value");
-      assertEquals("thirdValue","1",str);
+      test.equal(str, "1", 'thirdValue');
       str = element.getAttribute("union");
-      assertEquals("thirdUnion","1",str);
+      test.equal(str, "1", 'thirdUnion');
       str = element.textContent;
 
-      assertEquals("thirdList","-0",str);
+      test.equal(str, "-0", 'thirdList');
 
     }
 
@@ -1758,20 +1758,20 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","decimal");
       element = elemList.item(0);
       str = element.getAttribute("value");
-      assertEquals("firstValue","+0003.141592600",str);
+      test.equal(str, "+0003.141592600", 'firstValue');
       str = element.getAttribute("union");
-      assertEquals("firstUnion","+0003.141592600",str);
+      test.equal(str, "+0003.141592600", 'firstUnion');
       str = element.textContent;
 
-      assertEquals("firstList","+10 .1",str);
+      test.equal(str, "+10 .1", 'firstList');
       element = elemList.item(1);
       str = element.getAttribute("value");
-      assertEquals("secondValue","01",str);
+      test.equal(str, "01", 'secondValue');
       str = element.getAttribute("union");
-      assertEquals("secondUnion","01",str);
+      test.equal(str, "01", 'secondUnion');
       str = element.textContent;
 
-      assertEquals("secondList","-.001",str);
+      test.equal(str, "-.001", 'secondList');
 
     }
 
@@ -1822,20 +1822,20 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","boolean");
       element = elemList.item(0);
       str = element.getAttribute("value");
-      assertEquals("firstValue","true",str);
+      test.equal(str, "true", 'firstValue');
       str = element.getAttribute("union");
-      assertEquals("firstUnion","false",str);
+      test.equal(str, "false", 'firstUnion');
       str = element.textContent;
 
-      assertEquals("firstList","false true false",str);
+      test.equal(str, "false true false", 'firstList');
       element = elemList.item(1);
       str = element.getAttribute("value");
-      assertEquals("secondValue","1",str);
+      test.equal(str, "1", 'secondValue');
       str = element.getAttribute("union");
-      assertEquals("secondUnion","0",str);
+      test.equal(str, "0", 'secondUnion');
       str = element.textContent;
 
-      assertEquals("secondList","0 1 0",str);
+      test.equal(str, "0 1 0", 'secondList');
 
     }
 
@@ -1886,28 +1886,28 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","float");
       element = elemList.item(0);
       str = element.getAttribute("value");
-      assertEquals("firstValue","+0003.141592600E+0000",str);
+      test.equal(str, "+0003.141592600E+0000", 'firstValue');
       str = element.getAttribute("union");
-      assertEquals("firstUnion","+0003.141592600E+0000",str);
+      test.equal(str, "+0003.141592600E+0000", 'firstUnion');
       str = element.textContent;
 
-      assertEquals("firstList","-31415926.00E-7 2.718",str);
+      test.equal(str, "-31415926.00E-7 2.718", 'firstList');
       element = elemList.item(1);
       str = element.getAttribute("value");
-      assertEquals("secondValue","NaN",str);
+      test.equal(str, "NaN", 'secondValue');
       str = element.getAttribute("union");
-      assertEquals("secondUnion","NaN",str);
+      test.equal(str, "NaN", 'secondUnion');
       str = element.textContent;
 
-      assertEquals("secondList","INF -INF",str);
+      test.equal(str, "INF -INF", 'secondList');
       element = elemList.item(2);
       str = element.getAttribute("value");
-      assertEquals("thirdValue","1",str);
+      test.equal(str, "1", 'thirdValue');
       str = element.getAttribute("union");
-      assertEquals("thirdUnion","1",str);
+      test.equal(str, "1", 'thirdUnion');
       str = element.textContent;
 
-      assertEquals("thirdList","-0",str);
+      test.equal(str, "-0", 'thirdList');
 
     }
 
@@ -1958,28 +1958,28 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","dateTime");
       element = elemList.item(0);
       str = element.getAttribute("value");
-      assertEquals("firstValue","2004-01-21T15:30:00-05:00",str);
+      test.equal(str, "2004-01-21T15:30:00-05:00", 'firstValue');
       str = element.getAttribute("union");
-      assertEquals("firstUnion","2004-01-21T20:30:00-05:00",str);
+      test.equal(str, "2004-01-21T20:30:00-05:00", 'firstUnion');
       str = element.textContent;
 
-      assertEquals("firstList","2004-01-21T15:30:00 2004-01-21T15:30:00Z",str);
+      test.equal(str, "2004-01-21T15:30:00 2004-01-21T15:30:00Z", 'firstList');
       element = elemList.item(1);
       str = element.getAttribute("value");
-      assertEquals("secondValue","2004-01-21T15:30:00.0000-05:00",str);
+      test.equal(str, "2004-01-21T15:30:00.0000-05:00", 'secondValue');
       str = element.getAttribute("union");
-      assertEquals("secondUnion","2004-01-21T15:30:00.0000-05:00",str);
+      test.equal(str, "2004-01-21T15:30:00.0000-05:00", 'secondUnion');
       str = element.textContent;
 
-      assertEquals("secondList","2004-01-21T15:30:00.0000",str);
+      test.equal(str, "2004-01-21T15:30:00.0000", 'secondList');
       element = elemList.item(2);
       str = element.getAttribute("value");
-      assertEquals("thirdValue","2004-01-21T15:30:00.0001-05:00",str);
+      test.equal(str, "2004-01-21T15:30:00.0001-05:00", 'thirdValue');
       str = element.getAttribute("union");
-      assertEquals("thirdUnion","2004-01-21T15:30:00.0001-05:00",str);
+      test.equal(str, "2004-01-21T15:30:00.0001-05:00", 'thirdUnion');
       str = element.textContent;
 
-      assertEquals("thirdList","2004-01-21T15:30:00.0001",str);
+      test.equal(str, "2004-01-21T15:30:00.0001", 'thirdList');
 
     }
 
@@ -2030,28 +2030,28 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","time");
       element = elemList.item(0);
       str = element.getAttribute("value");
-      assertEquals("firstValue","15:30:00-05:00",str);
+      test.equal(str, "15:30:00-05:00", 'firstValue');
       str = element.getAttribute("union");
-      assertEquals("firstUnion","15:30:00-05:00",str);
+      test.equal(str, "15:30:00-05:00", 'firstUnion');
       str = element.textContent;
 
-      assertEquals("firstList","15:30:00",str);
+      test.equal(str, "15:30:00", 'firstList');
       element = elemList.item(1);
       str = element.getAttribute("value");
-      assertEquals("secondValue","15:30:00.0000-05:00",str);
+      test.equal(str, "15:30:00.0000-05:00", 'secondValue');
       str = element.getAttribute("union");
-      assertEquals("secondUnion","15:30:00.0000-05:00",str);
+      test.equal(str, "15:30:00.0000-05:00", 'secondUnion');
       str = element.textContent;
 
-      assertEquals("secondList","15:30:00.0000",str);
+      test.equal(str, "15:30:00.0000", 'secondList');
       element = elemList.item(2);
       str = element.getAttribute("value");
-      assertEquals("thirdValue","15:30:00.0001-05:00",str);
+      test.equal(str, "15:30:00.0001-05:00", 'thirdValue');
       str = element.getAttribute("union");
-      assertEquals("thirdUnion","15:30:00.0001-05:00",str);
+      test.equal(str, "15:30:00.0001-05:00", 'thirdUnion');
       str = element.textContent;
 
-      assertEquals("thirdList","15:30:00.0001",str);
+      test.equal(str, "15:30:00.0001", 'thirdList');
 
     }
 
@@ -2101,7 +2101,7 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","double");
       element = elemList.item(0);
       str = element.getAttribute("default");
-      assertEquals("firstValue","3.1415926E0",str);
+      test.equal(str, "3.1415926E0", 'firstValue');
 
     }
 
@@ -2151,7 +2151,7 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","decimal");
       element = elemList.item(0);
       str = element.getAttribute("default");
-      assertEquals("firstValue","3.1415926",str);
+      test.equal(str, "3.1415926", 'firstValue');
 
     }
 
@@ -2201,7 +2201,7 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","boolean");
       element = elemList.item(0);
       str = element.getAttribute("default");
-      assertEquals("firstValue","true",str);
+      test.equal(str, "true", 'firstValue');
 
     }
 
@@ -2251,7 +2251,7 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","float");
       element = elemList.item(0);
       str = element.getAttribute("default");
-      assertEquals("firstValue","3.1415926E0",str);
+      test.equal(str, "3.1415926E0", 'firstValue');
 
     }
 
@@ -2301,7 +2301,7 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","dateTime");
       element = elemList.item(0);
       str = element.getAttribute("default");
-      assertEquals("firstValue","2004-01-21T20:30:00Z",str);
+      test.equal(str, "2004-01-21T20:30:00Z", 'firstValue');
 
     }
 
@@ -2351,7 +2351,7 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","time");
       element = elemList.item(0);
       str = element.getAttribute("default");
-      assertEquals("firstValue","20:30:00Z",str);
+      test.equal(str, "20:30:00Z", 'firstValue');
 
     }
 
@@ -2406,10 +2406,10 @@ exports.tests = {
       element = elemList.item(0);
       childNode = element.firstChild;
 
-      assertNotNull("childNodeNotNull",childNode);
+      test.notEqual(childNode, null, 'childNodeNotNull');
       childValue = childNode.nodeValue;
 
-      assertEquals("content","    EMP  0001   ",childValue);
+      test.equal(childValue, "    EMP  0001   ", 'content');
 
     }
 
@@ -2463,10 +2463,10 @@ exports.tests = {
       element = elemList.item(0);
       childNode = element.firstChild;
 
-      assertNotNull("childNodeNotNull",childNode);
+      test.notEqual(childNode, null, 'childNodeNotNull');
       childValue = childNode.nodeValue;
 
-      assertEquals("content","    EMP  0001   ",childValue);
+      test.equal(childValue, "    EMP  0001   ", 'content');
 
     }
 
@@ -2522,19 +2522,19 @@ exports.tests = {
 
       childValue = childNode.nodeValue;
 
-      assertEquals("content1","EMP 0001",childValue);
+      test.equal(childValue, "EMP 0001", 'content1');
       element = elemList.item(1);
       childNode = element.firstChild;
 
       childValue = childNode.nodeValue;
 
-      assertEquals("content2","EMP 0001",childValue);
+      test.equal(childValue, "EMP 0001", 'content2');
       element = elemList.item(2);
       childNode = element.firstChild;
 
       childValue = childNode.nodeValue;
 
-      assertEquals("content3","EMP 0001",childValue);
+      test.equal(childValue, "EMP 0001", 'content3');
 
     }
 
@@ -2590,25 +2590,25 @@ exports.tests = {
 
       childValue = childNode.nodeValue;
 
-      assertEquals("content1","     EMP  0001 ",childValue);
+      test.equal(childValue, "     EMP  0001 ", 'content1');
       element = elemList.item(1);
       childNode = element.firstChild;
 
       childValue = childNode.nodeValue;
 
-      assertEquals("content2","EMP  0001",childValue);
+      test.equal(childValue, "EMP  0001", 'content2');
       element = elemList.item(2);
       childNode = element.firstChild;
 
       childValue = childNode.nodeValue;
 
-      assertEquals("content3","EMP 0001",childValue);
+      test.equal(childValue, "EMP 0001", 'content3');
       element = elemList.item(3);
       childNode = element.firstChild;
 
       childValue = childNode.nodeValue;
 
-      assertEquals("content4","EMP 0001",childValue);
+      test.equal(childValue, "EMP 0001", 'content4');
 
     }
 
@@ -2662,13 +2662,13 @@ exports.tests = {
 
       childValue = childNode.nodeValue;
 
-      assertEquals("content2","EMP  0001",childValue);
+      test.equal(childValue, "EMP  0001", 'content2');
       element = elemList.item(2);
       childNode = element.firstChild;
 
       childValue = childNode.nodeValue;
 
-      assertEquals("content3","EMP 0001",childValue);
+      test.equal(childValue, "EMP 0001", 'content3');
       element = elemList.item(0);
       childNode = element.firstChild;
 
@@ -2730,13 +2730,13 @@ exports.tests = {
 
       childValue = childNode.nodeValue;
 
-      assertEquals("content2","EMP  0001",childValue);
+      test.equal(childValue, "EMP  0001", 'content2');
       element = elemList.item(2);
       childNode = element.firstChild;
 
       childValue = childNode.nodeValue;
 
-      assertEquals("content3","EMP 0001",childValue);
+      test.equal(childValue, "EMP 0001", 'content3');
       element = elemList.item(0);
       childNode = element.firstChild;
 
@@ -2795,12 +2795,12 @@ exports.tests = {
 
       attrOwnerElem = adoptedclass.ownerElement;
 
-      assertEquals("documentadoptode01_nodeName","class",nodeName);
-      assertEquals("documentadoptNode01_nodeType",2,nodeType);
-      assertNull("documentadoptnode01_ownerDoc",attrOwnerElem);
+      test.equal(nodeName, "class", 'documentadoptode01_nodeName');
+      test.equal(nodeType, 2, 'documentadoptNode01_nodeType');
+      test.equal(attrOwnerElem, null, 'documentadoptnode01_ownerDoc');
       firstChild = adoptedclass.firstChild;
 
-      assertNotNull("firstChildNotNull",firstChild);
+      test.notEqual(firstChild, null, 'firstChildNotNull');
       firstChildValue = firstChild.nodeValue;
 
 
@@ -2809,18 +2809,18 @@ exports.tests = {
       ) {
 	secondChild = firstChild.nextSibling;
 
-        assertNotNull("secondChildNotNull",secondChild);
+        test.notEqual(secondChild, null, 'secondChildNotNull');
         secondChildType = secondChild.nodeType;
 
-        assertEquals("secondChildIsEntityReference",5,secondChildType);
+        test.equal(secondChildType, 5, 'secondChildIsEntityReference');
         secondChildName = secondChild.nodeName;
 
-        assertEquals("secondChildIsEnt1Reference","alpha",secondChildName);
+        test.equal(secondChildName, "alpha", 'secondChildIsEnt1Reference');
 
       }
 
       else {
-	assertEquals("documentadoptnode01_nodeValue","Yα",nodeValue);
+	test.equal(nodeValue, "Yα", 'documentadoptnode01_nodeValue');
 
       }
 
@@ -2894,13 +2894,13 @@ exports.tests = {
 
       isSpecified = adoptedclass.specified;
 
-      assertEquals("documentadoptnode02_nodeName","class",nodeName);
-      assertEquals("documentadoptnode02_nodeType",2,nodeType);
-      assertNull("documentadoptnode02_ownerDoc",attrOwnerElem);
+      test.equal(nodeName, "class", 'documentadoptnode02_nodeName');
+      test.equal(nodeType, 2, 'documentadoptnode02_nodeType');
+      test.equal(attrOwnerElem, null, 'documentadoptnode02_ownerDoc');
       assertTrue("documentadoptnode02_specified",isSpecified);
       firstChild = adoptedclass.firstChild;
 
-      assertNotNull("firstChildNotNull",firstChild);
+      test.notEqual(firstChild, null, 'firstChildNotNull');
       firstChildValue = firstChild.nodeValue;
 
 
@@ -2909,18 +2909,18 @@ exports.tests = {
       ) {
 	secondChild = firstChild.nextSibling;
 
-        assertNotNull("secondChildNotNull",secondChild);
+        test.notEqual(secondChild, null, 'secondChildNotNull');
         secondChildType = secondChild.nodeType;
 
-        assertEquals("secondChildIsEntityReference",5,secondChildType);
+        test.equal(secondChildType, 5, 'secondChildIsEntityReference');
         secondChildName = secondChild.nodeName;
 
-        assertEquals("secondChildIsEnt1Reference","alpha",secondChildName);
+        test.equal(secondChildName, "alpha", 'secondChildIsEnt1Reference');
 
       }
 
       else {
-	assertEquals("documentadoptnode02_nodeValue","Yα",nodeValue);
+	test.equal(nodeValue, "Yα", 'documentadoptnode02_nodeValue');
 
       }
 
@@ -2970,10 +2970,10 @@ exports.tests = {
 
       isSpecified = adoptedAttr.specified;
 
-      assertEquals("documentadoptode03_nodeName","xml:lang",nodeName);
-      assertEquals("documentadoptNode03_namespaceURI",xmlNS,nodeNamespaceURI);
-      assertEquals("documentadoptnode03_prefix","xml",nodePrefix);
-      assertNull("documentadoptnode03_ownerDoc",attrOwnerElem);
+      test.equal(nodeName, "xml:lang", 'documentadoptode03_nodeName');
+      test.equal(nodeNamespaceURI, xmlNS, 'documentadoptNode03_namespaceURI');
+      test.equal(nodePrefix, "xml", 'documentadoptnode03_prefix');
+      test.equal(attrOwnerElem, null, 'documentadoptnode03_ownerDoc');
       assertTrue("documentadoptnode03_specified",isSpecified);
 
     }
@@ -3037,10 +3037,10 @@ exports.tests = {
 
       isSpecified = adoptedAttr.specified;
 
-      assertEquals("documentadoptnode04_nodeName","xml:lang",nodeName);
-      assertEquals("documentadoptnode04_namespaceURI",xmlNS,nodeNamespaceURI);
-      assertEquals("documentadoptnode04_prefix","xml",nodePrefix);
-      assertNull("documentadoptnode04_ownerDoc",attrOwnerElem);
+      test.equal(nodeName, "xml:lang", 'documentadoptnode04_nodeName');
+      test.equal(nodeNamespaceURI, xmlNS, 'documentadoptnode04_namespaceURI');
+      test.equal(nodePrefix, "xml", 'documentadoptnode04_prefix');
+      test.equal(attrOwnerElem, null, 'documentadoptnode04_ownerDoc');
       assertTrue("documentadoptnode04_specified",isSpecified);
 
     }
@@ -3107,10 +3107,10 @@ exports.tests = {
 
       isSpecified = adoptedAttr.specified;
 
-      assertEquals("documentadoptnode05_nodeName","dir",nodeName);
-      assertNull("documentadoptnode05_namespaceURI",nodeNamespaceURI);
-      assertNull("documentadoptnode05_prefix",nodePrefix);
-      assertNull("documentadoptnode05_ownerDoc",attrOwnerElem);
+      test.equal(nodeName, "dir", 'documentadoptnode05_nodeName');
+      test.equal(nodeNamespaceURI, null, 'documentadoptnode05_namespaceURI');
+      test.equal(nodePrefix, null, 'documentadoptnode05_prefix');
+      test.equal(attrOwnerElem, null, 'documentadoptnode05_ownerDoc');
       assertTrue("documentadoptnode05_specified",isSpecified);
 
     }
@@ -3187,10 +3187,10 @@ exports.tests = {
 
       isSpecified = adoptedAttr.specified;
 
-      assertEquals("documentadoptnode06_nodeName","xml:lang",nodeName);
-      assertEquals("documentadoptnode06_namespaceURI",xmlNS,nodeNamespaceURI);
-      assertEquals("documentadoptnode06_prefix","xml",nodePrefix);
-      assertNull("documentadoptnode06_ownerDoc",attrOwnerElem);
+      test.equal(nodeName, "xml:lang", 'documentadoptnode06_nodeName');
+      test.equal(nodeNamespaceURI, xmlNS, 'documentadoptnode06_namespaceURI');
+      test.equal(nodePrefix, "xml", 'documentadoptnode06_prefix');
+      test.equal(attrOwnerElem, null, 'documentadoptnode06_ownerDoc');
       assertTrue("documentadoptnode06_specified",isSpecified);
       nodeList = adoptedAttr.childNodes;
 
@@ -3200,8 +3200,8 @@ exports.tests = {
 
       adoptedEntRefNodeValue = adoptEntRef.nodeName;
 
-      assertEquals("documentadoptnode06_TextNodeValue","Text Node",adoptedTextNodeValue);
-      assertEquals("documentadoptnode06_EntRefNodeValue","alpha",adoptedEntRefNodeValue);
+      test.equal(adoptedTextNodeValue, "Text Node", 'documentadoptnode06_TextNodeValue');
+      test.equal(adoptedEntRefNodeValue, "alpha", 'documentadoptnode06_EntRefNodeValue');
 
     }
 
@@ -3647,7 +3647,7 @@ exports.tests = {
       childAttrImp = attributes.getNamedItem("state");
       firstChild = childAttrImp.firstChild;
 
-      assertNotNull("firstChildNotNull",firstChild);
+      test.notEqual(firstChild, null, 'firstChildNotNull');
       firstChildName = firstChild.nodeName;
 
       firstChildValue = firstChild.nodeValue;
@@ -3658,12 +3658,12 @@ exports.tests = {
       if(
 	(5 == firstChildType)
       ) {
-	assertEquals("firstChildEnt3Ref","gamma",firstChildName);
+	test.equal(firstChildName, "gamma", 'firstChildEnt3Ref');
 
       }
 
       else {
-	assertEquals("documentadoptnode16","Texas",firstChildValue);
+	test.equal(firstChildValue, "Texas", 'documentadoptnode16');
 
       }
 
@@ -3895,10 +3895,10 @@ exports.tests = {
 
     attrOwnerElem = adoptedTitle.ownerElement;
 
-    assertEquals("documentadoptnode21_nodeName","title",nodeName);
-    assertEquals("documentadoptnode21_nodeType",2,nodeType);
-    assertEquals("documentadoptnode21_nodeValue","Yes",nodeValue);
-    assertNull("documentadoptnode21_ownerDoc",attrOwnerElem);
+    test.equal(nodeName, "title", 'documentadoptnode21_nodeName');
+    test.equal(nodeType, 2, 'documentadoptnode21_nodeType');
+    test.equal(nodeValue, "Yes", 'documentadoptnode21_nodeValue');
+    test.equal(attrOwnerElem, null, 'documentadoptnode21_ownerDoc');
 
     test.done()
   },
@@ -3937,7 +3937,7 @@ exports.tests = {
 
       nodeNameOrig = docElement.nodeName;
 
-      assertEquals("documentadoptnode22_2",nodeName,nodeNameOrig);
+      test.equal(nodeNameOrig, nodeName, 'documentadoptnode22_2');
 
     }
 
@@ -3983,7 +3983,7 @@ exports.tests = {
 
       adoptedLen = adoptedNodeChild.length;
 
-      assertEquals("documentadoptnode23",adoptedLen,acronymElemLen);
+      test.equal(acronymElemLen, adoptedLen, 'documentadoptnode23');
 
     }
 
@@ -4035,7 +4035,7 @@ exports.tests = {
 
     adoptedLen = adoptedChildren.length;
 
-    assertEquals("documentadoptnode24",adoptedLen,codeElemLen);
+    test.equal(codeElemLen, adoptedLen, 'documentadoptnode24');
 
     test.done()
   },
@@ -4086,8 +4086,8 @@ exports.tests = {
 
       adoptedNS = adoptedNode.namespaceURI;
 
-      assertEquals("documentadoptnode25_1","th",adoptedName);
-      assertEquals("documentadoptnode25_2","http://www.w3.org/1999/xhtml",adoptedNS);
+      test.equal(adoptedName, "th", 'documentadoptnode25_1');
+      test.equal(adoptedNS, "http://www.w3.org/1999/xhtml", 'documentadoptnode25_2');
 
     }
 
@@ -4145,8 +4145,8 @@ exports.tests = {
 
       adoptedNS = adoptedNode.namespaceURI;
 
-      assertEquals("documentadoptnode26_1","head",adoptedName);
-      assertEquals("documentadoptnode26_2","http://www.w3.org/1999/xhtml",adoptedNS);
+      test.equal(adoptedName, "head", 'documentadoptnode26_1');
+      test.equal(adoptedNS, "http://www.w3.org/1999/xhtml", 'documentadoptnode26_2');
 
     }
 
@@ -4206,8 +4206,8 @@ exports.tests = {
 
       adoptedNS = adoptedNode.namespaceURI;
 
-      assertEquals("documentadoptnode27_1","xhtml:head",adoptedName);
-      assertEquals("documentadoptnode27_2","http://www.w3.org/1999/xhtml",adoptedNS);
+      test.equal(adoptedName, "xhtml:head", 'documentadoptnode27_1');
+      test.equal(adoptedNS, "http://www.w3.org/1999/xhtml", 'documentadoptnode27_2');
 
     }
 
@@ -4249,7 +4249,7 @@ exports.tests = {
       attrImp = adoptedNode.getAttributeNode("dir");
       nodeName = attrImp.nodeName;
 
-      assertEquals("documentadoptnode28","dir",nodeName);
+      test.equal(nodeName, "dir", 'documentadoptnode28');
 
     }
 
@@ -4283,7 +4283,7 @@ exports.tests = {
     ) {
       nodeValue = adoptedText.nodeValue;
 
-      assertEquals("documentadoptnode30","Document.adoptNode test for a TEXT_NODE",nodeValue);
+      test.equal(nodeValue, "Document.adoptNode test for a TEXT_NODE", 'documentadoptnode30');
 
     }
 
@@ -4333,7 +4333,7 @@ exports.tests = {
     ) {
       nodeValue = adoptedText.nodeValue;
 
-      assertEquals("documentadoptnode31","new Document.adoptNode test for a TEXT_NODE",nodeValue);
+      test.equal(nodeValue, "new Document.adoptNode test for a TEXT_NODE", 'documentadoptnode31');
 
     }
 
@@ -4371,7 +4371,7 @@ exports.tests = {
     ) {
       nodeValue = adoptedCDATA.nodeValue;
 
-      assertEquals("documentadoptnode32","Document.adoptNode test for a CDATASECTION_NODE",nodeValue);
+      test.equal(nodeValue, "Document.adoptNode test for a CDATASECTION_NODE", 'documentadoptnode32');
 
     }
 
@@ -4421,7 +4421,7 @@ exports.tests = {
     ) {
       nodeValue = adoptedCDATA.nodeValue;
 
-      assertEquals("documentadoptnode33","Document.adoptNode test for a CDATASECTION_NODE",nodeValue);
+      test.equal(nodeValue, "Document.adoptNode test for a CDATASECTION_NODE", 'documentadoptnode33');
 
     }
 
@@ -4471,7 +4471,7 @@ exports.tests = {
     ) {
       nodeValue = adoptedComment.nodeValue;
 
-      assertEquals("documentadoptnode34","Document.adoptNode test for a COMMENT_NODE",nodeValue);
+      test.equal(nodeValue, "Document.adoptNode test for a COMMENT_NODE", 'documentadoptnode34');
 
     }
 
@@ -4524,8 +4524,8 @@ exports.tests = {
 
       piData = adoptedPI.data;
 
-      assertEquals("documentadoptnode35_Target","PITarget",piTarget);
-      assertEquals("documentadoptnode35_Data","PIData",piData);
+      test.equal(piTarget, "PITarget", 'documentadoptnode35_Target');
+      test.equal(piData, "PIData", 'documentadoptnode35_Data');
 
     }
 
@@ -4588,14 +4588,14 @@ exports.tests = {
 
         piData = adoptedPI1.data;
 
-        assertEquals("documentadoptnode36_Target1","PITarget",piTarget);
-        assertEquals("documentadoptnode36_Data1","PIData",piData);
+        test.equal(piTarget, "PITarget", 'documentadoptnode36_Target1');
+        test.equal(piData, "PIData", 'documentadoptnode36_Data1');
         piTarget = adoptedPI2.target;
 
         piData = adoptedPI2.data;
 
-        assertEquals("documentadoptnode36_Target2","PITarget",piTarget);
-        assertEquals("documentadoptnode36_Data2","PIData",piData);
+        test.equal(piTarget, "PITarget", 'documentadoptnode36_Target2');
+        test.equal(piData, "PIData", 'documentadoptnode36_Data2');
 
       }
 
@@ -4657,7 +4657,7 @@ exports.tests = {
 
     newSysID = replacedDocType.systemId;
 
-    assertNull("newSysIdNull",newSysID);
+    test.equal(newSysID, null, 'newSysIdNull');
 
     test.done()
   },
@@ -4678,7 +4678,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     docURI = doc.documentURI;
 
-    assertNotNull("documentgetdocumenturi01",docURI);
+    test.notEqual(docURI, null, 'documentgetdocumenturi01');
 
     test.done()
   },
@@ -4714,7 +4714,7 @@ exports.tests = {
     newDoc = domImpl.createDocument(rootNS,rootName,nullDocType);
     docURI = newDoc.documentURI;
 
-    assertNull("documentgetdocumenturi02",docURI);
+    test.equal(docURI, null, 'documentgetdocumenturi02');
 
     test.done()
   },
@@ -4756,7 +4756,7 @@ exports.tests = {
 
     docURI = importedOwner.documentURI;
 
-    assertNull("documentgetdocumenturi03",docURI);
+    test.equal(docURI, null, 'documentgetdocumenturi03');
 
     test.done()
   },
@@ -4778,7 +4778,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     encodingName = doc.inputEncoding;
 
-    assertEquals("documentgetinputencoding01","UTF-8".toLowerCase(),encodingName.toLowerCase());
+    test.equal(encodingName.toLowerCase(), "UTF-8".toLowerCase(), 'documentgetinputencoding01');
 
     test.done()
   },
@@ -4815,7 +4815,7 @@ exports.tests = {
     newDoc = domImpl.createDocument(rootNS,rootName,nullDocType);
     encodingName = newDoc.inputEncoding;
 
-    assertNull("documentgetinputencoding02",encodingName);
+    test.equal(encodingName, null, 'documentgetinputencoding02');
 
     test.done()
   },
@@ -4837,7 +4837,7 @@ exports.tests = {
     doc = barfoo_utf16.barfoo_utf16();
     encodingName = doc.inputEncoding;
 
-    assertEquals("documentgetinputencoding03","UTF-16BE".toLowerCase(),encodingName.toLowerCase());
+    test.equal(encodingName.toLowerCase(), "UTF-16BE".toLowerCase(), 'documentgetinputencoding03');
 
     test.done()
   },
@@ -4945,7 +4945,7 @@ exports.tests = {
     doc = barfoo_utf8.barfoo_utf8();
     encodingName = doc.xmlEncoding;
 
-    assertEquals("documentgetxmlencoding01","uTf-8",encodingName);
+    test.equal(encodingName, "uTf-8", 'documentgetxmlencoding01');
 
     test.done()
   },
@@ -4982,7 +4982,7 @@ exports.tests = {
     newDoc = domImpl.createDocument(rootNS,rootName,nullDocType);
     encodingName = newDoc.xmlEncoding;
 
-    assertNull("documentgetxmlencoding02",encodingName);
+    test.equal(encodingName, null, 'documentgetxmlencoding02');
 
     test.done()
   },
@@ -5004,7 +5004,7 @@ exports.tests = {
     doc = barfoo_utf16.barfoo_utf16();
     encodingName = doc.xmlEncoding;
 
-    assertEquals("documentgetxmlencoding03","uTf-16",encodingName);
+    test.equal(encodingName, "uTf-16", 'documentgetxmlencoding03');
 
     test.done()
   },
@@ -5026,7 +5026,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     encodingName = doc.xmlEncoding;
 
-    assertNull("documentgetxmlencoding04",encodingName);
+    test.equal(encodingName, null, 'documentgetxmlencoding04');
 
     test.done()
   },
@@ -5225,7 +5225,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     versionValue = doc.xmlVersion;
 
-    assertEquals("documentgetxmlversion01","1.0",versionValue);
+    test.equal(versionValue, "1.0", 'documentgetxmlversion01');
 
     test.done()
   },
@@ -5262,7 +5262,7 @@ exports.tests = {
     newDoc = domImpl.createDocument(rootNS,rootName,nullDocType);
     versionValue = newDoc.xmlVersion;
 
-    assertEquals("documentgetxmlversion02","1.0".toLowerCase(),versionValue.toLowerCase());
+    test.equal(versionValue.toLowerCase(), "1.0".toLowerCase(), 'documentgetxmlversion02');
 
     test.done()
   },
@@ -5284,7 +5284,7 @@ exports.tests = {
     doc = barfoo.barfoo();
     versionValue = doc.xmlVersion;
 
-    assertEquals("documentgetxmlversion03","1.0".toLowerCase(),versionValue.toLowerCase());
+    test.equal(versionValue.toLowerCase(), "1.0".toLowerCase(), 'documentgetxmlversion03');
 
     test.done()
   },
@@ -5322,7 +5322,7 @@ exports.tests = {
 
     docElemNodeName = docElem.nodeName;
 
-    assertEquals("documentnormalizedocument01",origDocElemNodeName,docElemNodeName);
+    test.equal(docElemNodeName, origDocElemNodeName, 'documentnormalizedocument01');
 
     test.done()
   },
@@ -5356,7 +5356,7 @@ exports.tests = {
 
     nodeName = cdata.nodeName;
 
-    assertEquals("documentnormalizedocument02","#cdata-section",nodeName);
+    test.equal(nodeName, "#cdata-section", 'documentnormalizedocument02');
     domConfig = doc.domConfig;
 
     domConfig.setParameter("cdata-sections", true);
@@ -5369,7 +5369,7 @@ exports.tests = {
 
     nodeName = cdata.nodeName;
 
-    assertEquals("documentnormalizedocument02_true","#cdata-section",nodeName);
+    test.equal(nodeName, "#cdata-section", 'documentnormalizedocument02_true');
     domConfig.setParameter("cdata-sections", false);
     doc.normalizeDocument();
     errorMonitor.assertLowerSeverity("normalization2Error", 2);
@@ -5379,7 +5379,7 @@ exports.tests = {
 
     nodeName = text.nodeName;
 
-    assertEquals("documentnormalizedocument02_false","#text",nodeName);
+    test.equal(nodeName, "#text", 'documentnormalizedocument02_false');
 
     test.done()
   },
@@ -5428,7 +5428,7 @@ exports.tests = {
 
     nodeName = cdata.nodeName;
 
-    assertEquals("documentnormalizedocument03_true","#cdata-section",nodeName);
+    test.equal(nodeName, "#cdata-section", 'documentnormalizedocument03_true');
     domConfig.setParameter("cdata-sections", false);
     doc.normalizeDocument();
     errorMonitor.assertLowerSeverity("normalization2Error", 2);
@@ -5438,10 +5438,10 @@ exports.tests = {
 
     nodeName = text.nodeName;
 
-    assertEquals("documentnormalizedocument03_false","#text",nodeName);
+    test.equal(nodeName, "#text", 'documentnormalizedocument03_false');
     nodeValue = text.nodeValue;
 
-    assertEquals("normalizedValue","barCDATA",nodeValue);
+    test.equal(nodeValue, "barCDATA", 'normalizedValue');
 
     test.done()
   },
@@ -5487,7 +5487,7 @@ exports.tests = {
 
     nodeName = lastChild.nodeName;
 
-    assertEquals("documentnormalizedocument04_true","#comment",nodeName);
+    test.equal(nodeName, "#comment", 'documentnormalizedocument04_true');
     domConfig.setParameter("comments", false);
     doc.normalizeDocument();
     errorMonitor.assertLowerSeverity("normalization2Error", 2);
@@ -5497,7 +5497,7 @@ exports.tests = {
 
     nodeName = lastChild.nodeName;
 
-    assertEquals("hasChildText","#text",nodeName);
+    test.equal(nodeName, "#text", 'hasChildText');
 
     test.done()
   },
@@ -5566,19 +5566,19 @@ exports.tests = {
         assertSame("relatedNodeIsL1Node",newChild,problemNode);
         lineNumber = location.lineNumber;
 
-        assertEquals("lineNumber",-1,lineNumber);
+        test.equal(lineNumber, -1, 'lineNumber');
         columnNumber = location.columnNumber;
 
-        assertEquals("columnNumber",-1,columnNumber);
+        test.equal(columnNumber, -1, 'columnNumber');
         byteOffset = location.byteOffset;
 
-        assertEquals("byteOffset",-1,byteOffset);
+        test.equal(byteOffset, -1, 'byteOffset');
         utf16Offset = location.utf16Offset;
 
-        assertEquals("utf16Offset",-1,utf16Offset);
+        test.equal(utf16Offset, -1, 'utf16Offset');
         uri = location.uri;
 
-        assertNull("uri",uri);
+        test.equal(uri, null, 'uri');
         message = error.message;
 
         length = message.length;
@@ -5597,12 +5597,12 @@ exports.tests = {
       }
 
       else {
-	assertEquals("anyOthersShouldBeWarnings",1,severity);
+	test.equal(severity, 1, 'anyOthersShouldBeWarnings');
 
       }
 
     }
-    assertEquals("oneError",1,errorCount);
+    test.equal(errorCount, 1, 'oneError');
 
     test.done()
   },
@@ -5697,7 +5697,7 @@ exports.tests = {
 	  relatedData = error.relatedData;
 
           assertSame("relatedData",newChild,relatedData);
-          assertEquals("severity",1,severity);
+          test.equal(severity, 1, 'severity');
           message = error.message;
 
           length = message.length;
@@ -5727,12 +5727,12 @@ exports.tests = {
 	}
 
 	else {
-	  assertEquals("anyOthersShouldBeWarnings",1,severity);
+	  test.equal(severity, 1, 'anyOthersShouldBeWarnings');
 
 	}
 
       }
-      assertEquals("oneSplittedWarning",1,splittedCount);
+      test.equal(splittedCount, 1, 'oneSplittedWarning');
 
     }
     test.done()
@@ -5843,12 +5843,12 @@ exports.tests = {
       }
 
       else {
-	assertEquals("anyOthersShouldBeWarnings",1,severity);
+	test.equal(severity, 1, 'anyOthersShouldBeWarnings');
 
       }
 
     }
-    assertEquals("oneError",1,errorCount);
+    test.equal(errorCount, 1, 'oneError');
 
     test.done()
   },
@@ -5912,12 +5912,12 @@ exports.tests = {
       }
 
       else {
-	assertEquals("anyOthersShouldBeWarnings",1,severity);
+	test.equal(severity, 1, 'anyOthersShouldBeWarnings');
 
       }
 
     }
-    assertEquals("twoSplittedWarning",2,splittedCount);
+    test.equal(splittedCount, 2, 'twoSplittedWarning');
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     childNodes = elem.childNodes;
@@ -5975,7 +5975,7 @@ exports.tests = {
 
       docElemNodeName = docElem.nodeName;
 
-      assertEquals("documentnormalizedocument09_True","html",docElemNodeName);
+      test.equal(docElemNodeName, "html", 'documentnormalizedocument09_True');
 
     }
     domConfig.setParameter("validate-if-schema", false);
@@ -5984,7 +5984,7 @@ exports.tests = {
 
     docElemNodeName = docElem.nodeName;
 
-    assertEquals("documentnormalizedocument09_False","html",docElemNodeName);
+    test.equal(docElemNodeName, "html", 'documentnormalizedocument09_False');
 
     test.done()
   },
@@ -6024,7 +6024,7 @@ exports.tests = {
 
     nodeValue = text.nodeValue;
 
-    assertEquals("documentnormalizedocument10","Text          Node",nodeValue);
+    test.equal(nodeValue, "Text          Node", 'documentnormalizedocument10');
     domConfig = doc.domConfig;
 
     canSet = domConfig.canSetParameter("element-content-whitespace",true);
@@ -6035,7 +6035,7 @@ exports.tests = {
 
     nodeValue = text.nodeValue;
 
-    assertEquals("documentnormalizedocument10_true1","Text          Node",nodeValue);
+    test.equal(nodeValue, "Text          Node", 'documentnormalizedocument10_true1');
     canSet = domConfig.canSetParameter("element-content-whitespace",false);
 
     if(
@@ -6047,7 +6047,7 @@ exports.tests = {
 
       nodeValue = text.nodeValue;
 
-      assertEquals("documentnormalizedocument10_true2","Text Node",nodeValue);
+      test.equal(nodeValue, "Text Node", 'documentnormalizedocument10_true2');
 
     }
 
@@ -6085,7 +6085,7 @@ exports.tests = {
     doc.normalizeDocument();
     elemList = doc.getElementsByTagNameNS("*","acronym");
     elemName = elemList.item(1);
-    assertNotNull("documentnormalizedocument11_NotNullElem",elemName);
+    test.notEqual(elemName, null, 'documentnormalizedocument11_NotNullElem');
     canSet = domConfig.canSetParameter("namespace-declarations",false);
 
     if(
@@ -6097,7 +6097,7 @@ exports.tests = {
       elemName = elemList.item(1);
       nodeName = elemName.nodeName;
 
-      assertEquals("documentnormalizedocument11_namespaceDeclarations","address",nodeName);
+      test.equal(nodeName, "address", 'documentnormalizedocument11_namespaceDeclarations');
 
     }
 
@@ -6146,7 +6146,7 @@ exports.tests = {
 
       docElemNodeName = docElem.nodeName;
 
-      assertEquals("documentnormalizedocument08_True","html",docElemNodeName);
+      test.equal(docElemNodeName, "html", 'documentnormalizedocument08_True');
 
     }
     domConfig.setParameter("validate", false);
@@ -6155,7 +6155,7 @@ exports.tests = {
 
     docElemNodeName = docElem.nodeName;
 
-    assertEquals("documentnormalizedocument08_False","html",docElemNodeName);
+    test.equal(docElemNodeName, "html", 'documentnormalizedocument08_False');
 
     test.done()
   },
@@ -6224,19 +6224,19 @@ exports.tests = {
         assertSame("relatedNodeIsL1Node",newAttr,problemNode);
         lineNumber = location.lineNumber;
 
-        assertEquals("lineNumber",-1,lineNumber);
+        test.equal(lineNumber, -1, 'lineNumber');
         columnNumber = location.columnNumber;
 
-        assertEquals("columnNumber",-1,columnNumber);
+        test.equal(columnNumber, -1, 'columnNumber');
         byteOffset = location.byteOffset;
 
-        assertEquals("byteOffset",-1,byteOffset);
+        test.equal(byteOffset, -1, 'byteOffset');
         utf16Offset = location.utf16Offset;
 
-        assertEquals("utf16Offset",-1,utf16Offset);
+        test.equal(utf16Offset, -1, 'utf16Offset');
         uri = location.uri;
 
-        assertNull("uri",uri);
+        test.equal(uri, null, 'uri');
         message = error.message;
 
         length = message.length;
@@ -6255,12 +6255,12 @@ exports.tests = {
       }
 
       else {
-	assertEquals("anyOthersShouldBeWarnings",1,severity);
+	test.equal(severity, 1, 'anyOthersShouldBeWarnings');
 
       }
 
     }
-    assertEquals("oneError",1,errorCount);
+    test.equal(errorCount, 1, 'oneError');
 
     test.done()
   },
@@ -6299,9 +6299,9 @@ exports.tests = {
 
     nodeType = renamedclass.nodeType;
 
-    assertEquals("documentrenameode01_nodeName","renamedNode",nodeName);
-    assertEquals("documentrenameNode01_nodeType",2,nodeType);
-    assertEquals("documentrenamenode01_nodeValue","http://www.w3.org/DOM/Test",namespaceURI);
+    test.equal(nodeName, "renamedNode", 'documentrenameode01_nodeName');
+    test.equal(nodeType, 2, 'documentrenameNode01_nodeType');
+    test.equal(namespaceURI, "http://www.w3.org/DOM/Test", 'documentrenamenode01_nodeValue');
 
     test.done()
   },
@@ -6340,8 +6340,8 @@ exports.tests = {
 
     nodeType = renamedclass.nodeType;
 
-    assertEquals("documentrenamenode02_nodeName","prefi0x:renamedNode",nodeName);
-    assertEquals("documentrenamenode02_namespaceURI","http://www.w3.org/DOM/Test",namespaceURI);
+    test.equal(nodeName, "prefi0x:renamedNode", 'documentrenamenode02_nodeName');
+    test.equal(namespaceURI, "http://www.w3.org/DOM/Test", 'documentrenamenode02_namespaceURI');
 
     test.done()
   },
@@ -6374,8 +6374,8 @@ exports.tests = {
 
     namespaceURI = renamedNode.namespaceURI;
 
-    assertEquals("documentrenamenode03_nodeName","pre0:fix1",nodeName);
-    assertEquals("documentrenamenode02_namespaceURI","http://www.w3.org/DOM/Test",namespaceURI);
+    test.equal(nodeName, "pre0:fix1", 'documentrenamenode03_nodeName');
+    test.equal(namespaceURI, "http://www.w3.org/DOM/Test", 'documentrenamenode02_namespaceURI');
 
     test.done()
   },
@@ -6406,8 +6406,8 @@ exports.tests = {
 
     namespaceURI = renamedNode.namespaceURI;
 
-    assertEquals("documentrenamenode04_nodeName","title",nodeName);
-    assertNull("documentrenamenode04_namespaceURI",namespaceURI);
+    test.equal(nodeName, "title", 'documentrenamenode04_nodeName');
+    test.equal(namespaceURI, null, 'documentrenamenode04_namespaceURI');
 
     test.done()
   },
@@ -6440,8 +6440,8 @@ exports.tests = {
 
     namespaceURI = renamedNode.namespaceURI;
 
-    assertNull("documentrenamenode05_namespaceURI",namespaceURI);
-    assertEquals("documentrenamenode05_nodeName","title",nodeName);
+    test.equal(namespaceURI, null, 'documentrenamenode05_namespaceURI');
+    test.equal(nodeName, "title", 'documentrenamenode05_nodeName');
 
     test.done()
   },
@@ -6478,9 +6478,9 @@ exports.tests = {
 
     nodeType = renamedclass.nodeType;
 
-    assertEquals("documentrenameode01_nodeName","xsi:schemaLocation",nodeName);
-    assertEquals("documentrenameNode01_nodeType",2,nodeType);
-    assertEquals("documentrenamenode01_nodeValue","http://www.w3.org/2001/XMLSchema-instance",namespaceURI);
+    test.equal(nodeName, "xsi:schemaLocation", 'documentrenameode01_nodeName');
+    test.equal(nodeType, 2, 'documentrenameNode01_nodeType');
+    test.equal(namespaceURI, "http://www.w3.org/2001/XMLSchema-instance", 'documentrenamenode01_nodeValue');
 
     test.done()
   },
@@ -6526,8 +6526,8 @@ exports.tests = {
 
     namespaceURI = renamedNode.namespaceURI;
 
-    assertEquals("documentrenamenode07_nodeName","xml:dom",nodeName);
-    assertEquals("documentrenamenode07_namespaceURI","http://www.w3.org/XML/1998/namespace",namespaceURI);
+    test.equal(nodeName, "xml:dom", 'documentrenamenode07_nodeName');
+    test.equal(namespaceURI, "http://www.w3.org/XML/1998/namespace", 'documentrenamenode07_namespaceURI');
 
     test.done()
   },
@@ -6619,7 +6619,7 @@ exports.tests = {
     renamedNode = newDoc.renameNode(attr,"http://www.w3.org/2000/xmlns/","xmlns:xmlns");
     attrNodeName = renamedNode.nodeName;
 
-    assertEquals("documentrenamenode09_1","xmlns:xmlns",attrNodeName);
+    test.equal(attrNodeName, "xmlns:xmlns", 'documentrenamenode09_1');
 
     test.done()
   },
@@ -6872,9 +6872,9 @@ exports.tests = {
 
     nodeType = renamedclass.nodeType;
 
-    assertEquals("documentrenamenode15_nodeName","qnam:renamedNode",nodeName);
-    assertEquals("documentrenamenode15_nodeType",1,nodeType);
-    assertEquals("documentrenamenode15_nodeValue","http://www.w3.org/DOM/Test",namespaceURI);
+    test.equal(nodeName, "qnam:renamedNode", 'documentrenamenode15_nodeName');
+    test.equal(nodeType, 1, 'documentrenamenode15_nodeType');
+    test.equal(namespaceURI, "http://www.w3.org/DOM/Test", 'documentrenamenode15_nodeValue');
 
     test.done()
   },
@@ -6913,9 +6913,9 @@ exports.tests = {
 
     nodeType = renamedclass.nodeType;
 
-    assertEquals("documentrenamenode16_nodeName","renamedNode",nodeName);
-    assertEquals("documentrenamenode16_nodeType",1,nodeType);
-    assertNull("documentrenamenode16_nodeValue",namespaceURI);
+    test.equal(nodeName, "renamedNode", 'documentrenamenode16_nodeName');
+    test.equal(nodeType, 1, 'documentrenamenode16_nodeType');
+    test.equal(namespaceURI, null, 'documentrenamenode16_nodeValue');
 
     test.done()
   },
@@ -6964,9 +6964,9 @@ exports.tests = {
 
     nodeType = renamedNode.nodeType;
 
-    assertEquals("documentrenamenode16_nodeName","xhtml:head",nodeName);
-    assertEquals("documentrenamenode16_nodeType",1,nodeType);
-    assertEquals("documentrenamenode16_nodeValue","http://www.w3.org/1999/xhtml",namespaceURI);
+    test.equal(nodeName, "xhtml:head", 'documentrenamenode16_nodeName');
+    test.equal(nodeType, 1, 'documentrenamenode16_nodeType');
+    test.equal(namespaceURI, "http://www.w3.org/1999/xhtml", 'documentrenamenode16_nodeValue');
 
     test.done()
   },
@@ -7554,7 +7554,7 @@ exports.tests = {
 
     docURI = doc.documentURI;
 
-    assertEquals("documentsetdocumenturi01","file:///test",docURI);
+    test.equal(docURI, "file:///test", 'documentsetdocumenturi01');
 
     test.done()
   },
@@ -7582,7 +7582,7 @@ exports.tests = {
 
     docURI = doc.documentURI;
 
-    assertNull("documentsetdocumenturi02",docURI);
+    test.equal(docURI, null, 'documentsetdocumenturi02');
 
     test.done()
   },
@@ -7623,7 +7623,7 @@ exports.tests = {
 
     docURI = newDoc.documentURI;
 
-    assertEquals("documentsetdocumenturi03","somestring",docURI);
+    test.equal(docURI, "somestring", 'documentsetdocumenturi03');
 
     test.done()
   },
@@ -7889,7 +7889,7 @@ exports.tests = {
 
     versionValue = newDoc.xmlVersion;
 
-    assertEquals("documentsetxmlversion02","1.0",versionValue);
+    test.equal(versionValue, "1.0", 'documentsetxmlversion02');
 
     test.done()
   },
@@ -7928,7 +7928,7 @@ exports.tests = {
 
     versionValue = newDoc.xmlVersion;
 
-    assertEquals("documentsetxmlversion03","1.1",versionValue);
+    test.equal(versionValue, "1.1", 'documentsetxmlversion03');
 
     test.done()
   },
@@ -8427,7 +8427,7 @@ exports.tests = {
     assertTrue("canSetNull",canSet);
     domConfig.setParameter(parameter, errorHandler.handleError);
     state = domConfig.getParameter(parameter);
-    assertNull("errorHandlerIsNull",state);
+    test.equal(state, null, 'errorHandlerIsNull');
 
     test.done()
   },
@@ -8687,10 +8687,10 @@ exports.tests = {
     doc = barfoo.barfoo();
     config = doc.domConfig;
 
-    assertNotNull("configNotNull",config);
+    test.notEqual(config, null, 'configNotNull');
     parameterNames = config.parameterNames;
 
-    assertNotNull("parameterNamesNotNull",parameterNames);
+    test.notEqual(parameterNames, null, 'parameterNamesNotNull');
     for(var indexN1008C = 0;indexN1008C < parameterNames.length; indexN1008C++) {
       parameterName = parameterNames.item(indexN1008C);
       paramValue = config.getParameter(parameterName);
@@ -8708,7 +8708,7 @@ exports.tests = {
       }
 
     }
-    assertEquals("definedParameterCount",16,matchCount);
+    test.equal(matchCount, 16, 'definedParameterCount');
 
     test.done()
   },
@@ -8742,7 +8742,7 @@ exports.tests = {
 
     try {
       state = domConfig.getParameter(parameter);
-      assertNull("defaultSchemaLocation",state);
+      test.equal(state, null, 'defaultSchemaLocation');
 
     } catch (ex) {
       if (typeof(ex.code) != 'undefined') {
@@ -8762,10 +8762,10 @@ exports.tests = {
     assertTrue("canSetNull",canSet);
     domConfig.setParameter(parameter, sampleSchemaLocation);
     state = domConfig.getParameter(parameter);
-    assertEquals("setURIEffective",sampleSchemaLocation,state);
+    test.equal(state, sampleSchemaLocation, 'setURIEffective');
     domConfig.setParameter(parameter, nullSchemaLocation);
     state = domConfig.getParameter(parameter);
-    assertNull("setNullEffective",state);
+    test.equal(state, null, 'setNullEffective');
 
     test.done()
   },
@@ -8818,7 +8818,7 @@ exports.tests = {
     ) {
       domConfig.setParameter(parameter, dtdType);
       state = domConfig.getParameter(parameter);
-      assertEquals("setDTDEffective",dtdType,state);
+      test.equal(state, dtdType, 'setDTDEffective');
 
     }
 
@@ -8843,7 +8843,7 @@ exports.tests = {
     ) {
       domConfig.setParameter(parameter, xmlSchemaType);
       state = domConfig.getParameter(parameter);
-      assertEquals("setSchemaEffective",xmlSchemaType,state);
+      test.equal(state, xmlSchemaType, 'setSchemaEffective');
 
     }
 
@@ -8937,7 +8937,7 @@ exports.tests = {
 
     commentValue = lastChild.nodeValue;
 
-    assertEquals("domconfigurationsetparameter02_2","This is a new Comment node",commentValue);
+    test.equal(commentValue, "This is a new Comment node", 'domconfigurationsetparameter02_2');
 
     test.done()
   },
@@ -8979,11 +8979,11 @@ exports.tests = {
     cdata1 = childList.item(1);
     nodeType = cdata1.nodeType;
 
-    assertEquals("domconfigurationcansetparameter02_2",4,nodeType);
+    test.equal(nodeType, 4, 'domconfigurationcansetparameter02_2');
     cdata2 = childList.item(3);
     nodeType = cdata2.nodeType;
 
-    assertEquals("domconfigurationcansetparameter02_3",4,nodeType);
+    test.equal(nodeType, 4, 'domconfigurationcansetparameter02_3');
 
     test.done()
   },
@@ -9025,7 +9025,7 @@ exports.tests = {
     entity = entitiesMap.getNamedItemNS(nullNS,"epsilon");
     entityName = entity.nodeName;
 
-    assertEquals("domconfigurationcansetparameter03_2","epsilon",entityName);
+    test.equal(entityName, "epsilon", 'domconfigurationcansetparameter03_2');
 
     test.done()
   },
@@ -9064,7 +9064,7 @@ exports.tests = {
 
     nodeType = first.nodeType;
 
-    assertEquals("domconfigurationcansetparameter04_2",5,nodeType);
+    test.equal(nodeType, 5, 'domconfigurationcansetparameter04_2');
 
     test.done()
   },
@@ -9376,7 +9376,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
     domImplReturned = domImpl.getFeature("Core","2.0");
-    assertNotNull("domimplementationgetfeature01",domImplReturned);
+    test.notEqual(domImplReturned, null, 'domimplementationgetfeature01');
 
     test.done()
   },
@@ -9400,7 +9400,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
     domImplReturned = domImpl.getFeature("Core","");
-    assertNotNull("domimplementationgetfeature02",domImplReturned);
+    test.notEqual(domImplReturned, null, 'domimplementationgetfeature02');
 
     test.done()
   },
@@ -9426,7 +9426,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
     domImplReturned = domImpl.getFeature("Core",nullVersion);
-    assertNotNull("domimplementationgetfeature03",domImplReturned);
+    test.notEqual(domImplReturned, null, 'domimplementationgetfeature03');
 
     test.done()
   },
@@ -9451,7 +9451,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
     domImplReturned = domImpl.getFeature("",nullVersion);
-    assertNull("domimplementationgetFeature05",domImplReturned);
+    test.equal(domImplReturned, null, 'domimplementationgetFeature05');
 
     test.done()
   },
@@ -9474,7 +9474,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     domImpl = doc.implementation;
     domImplReturned = domImpl.getFeature("1-1","*");
-    assertNull("domimplementationgetfeature06",domImplReturned);
+    test.equal(domImplReturned, null, 'domimplementationgetfeature06');
 
     test.done()
   },
@@ -9492,7 +9492,7 @@ exports.tests = {
     var success;
     var domImplRegistry;
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
 
     test.done()
   },
@@ -9515,9 +9515,9 @@ exports.tests = {
     var nullVersion = null;
 
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImpl = domImplRegistry.getDOMImplementation("cOrE");
-    assertNotNull("domImplNotNull",domImpl);
+    test.notEqual(domImpl, null, 'domImplNotNull');
     hasFeature = domImpl.hasFeature("Core",nullVersion);
     assertTrue("hasCore",hasFeature);
 
@@ -9540,9 +9540,9 @@ exports.tests = {
     var domImpl;
     var hasFeature;
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImpl = domImplRegistry.getDOMImplementation("cOrE 3.0");
-    assertNotNull("domImplNotNull",domImpl);
+    test.notEqual(domImpl, null, 'domImplNotNull');
     hasFeature = domImpl.hasFeature("Core","3.0");
     assertTrue("hasCore",hasFeature);
 
@@ -9567,9 +9567,9 @@ exports.tests = {
     var nullVersion = null;
 
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImpl = domImplRegistry.getDOMImplementation("+cOrE");
-    assertNotNull("domImplNotNull",domImpl);
+    test.notEqual(domImpl, null, 'domImplNotNull');
     hasFeature = domImpl.hasFeature("+Core",nullVersion);
     assertTrue("hasCore",hasFeature);
 
@@ -9592,9 +9592,9 @@ exports.tests = {
     var domImpl;
     var hasFeature;
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImpl = domImplRegistry.getDOMImplementation("+cOrE 3.0");
-    assertNotNull("domImplNotNull",domImpl);
+    test.notEqual(domImpl, null, 'domImplNotNull');
     hasFeature = domImpl.hasFeature("+Core","3.0");
     assertTrue("hasCore",hasFeature);
 
@@ -9619,9 +9619,9 @@ exports.tests = {
     var nullVersion = null;
 
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImpl = domImplRegistry.getDOMImplementation("xMl 3.0 cOrE");
-    assertNotNull("domImplNotNull",domImpl);
+    test.notEqual(domImpl, null, 'domImplNotNull');
     hasFeature = domImpl.hasFeature("XML","3.0");
     assertTrue("hasXML3",hasFeature);
     hasFeature = domImpl.hasFeature("Core",nullVersion);
@@ -9648,9 +9648,9 @@ exports.tests = {
     var nullVersion = null;
 
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImpl = domImplRegistry.getDOMImplementation("http://www.example.com/bogus-feature 99.0");
-    assertNull("domImplNull",domImpl);
+    test.equal(domImpl, null, 'domImplNull');
 
     test.done()
   },
@@ -9674,7 +9674,7 @@ exports.tests = {
     var nullVersion = null;
 
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImpl = domImplRegistry.getDOMImplementation("SVG");
 
     if(
@@ -9716,7 +9716,7 @@ exports.tests = {
     var nullVersion = null;
 
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImpl = domImplRegistry.getDOMImplementation("HTML");
 
     if(
@@ -9758,7 +9758,7 @@ exports.tests = {
     var nullVersion = null;
 
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImpl = domImplRegistry.getDOMImplementation("LS");
 
     if(
@@ -9800,7 +9800,7 @@ exports.tests = {
     var nullVersion = null;
 
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImpl = domImplRegistry.getDOMImplementation("XPath");
 
     if(
@@ -9845,7 +9845,7 @@ exports.tests = {
     var nullVersion = null;
 
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImpl = domImplRegistry.getDOMImplementation("cOrE 3.0 xMl 3.0 eVeNts 2.0 lS");
 
     if(
@@ -9904,12 +9904,12 @@ exports.tests = {
     var nullVersion = null;
 
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImplList = domImplRegistry.getDOMImplementationList("cOrE");
     length = domImplList.length;
 
     domImpl = domImplList.item(length);
-    assertNull("item_Length_shouldBeNull",domImpl);
+    test.equal(domImpl, null, 'item_Length_shouldBeNull');
     assertTrue("atLeastOne",
 
 	       (length > 0)
@@ -9943,7 +9943,7 @@ exports.tests = {
     var domImplList;
     var length;
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImplList = domImplRegistry.getDOMImplementationList("cOrE 3.0");
     length = domImplList.length;
 
@@ -9982,7 +9982,7 @@ exports.tests = {
     var domImplList;
     var length;
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImplList = domImplRegistry.getDOMImplementationList("+cOrE");
     length = domImplList.length;
 
@@ -10019,7 +10019,7 @@ exports.tests = {
     var domImplList;
     var length;
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImplList = domImplRegistry.getDOMImplementationList("+cOrE 3.0");
     length = domImplList.length;
 
@@ -10057,7 +10057,7 @@ exports.tests = {
     var domImplList;
     var length;
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImplList = domImplRegistry.getDOMImplementationList("xMl 3.0 cOrE");
     length = domImplList.length;
 
@@ -10094,11 +10094,11 @@ exports.tests = {
     var domImplList;
     var length;
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImplList = domImplRegistry.getDOMImplementationList("http://www.example.com/bogus-feature 99.0");
     length = domImplList.length;
 
-    assertEquals("emptyList",0,length);
+    test.equal(length, 0, 'emptyList');
 
     test.done()
   },
@@ -10125,7 +10125,7 @@ exports.tests = {
     var domImplList;
     var length;
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImplList = domImplRegistry.getDOMImplementationList("SVG");
     length = domImplList.length;
 
@@ -10174,7 +10174,7 @@ exports.tests = {
     var domImplList;
     var length;
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImplList = domImplRegistry.getDOMImplementationList("HTML");
     length = domImplList.length;
 
@@ -10223,7 +10223,7 @@ exports.tests = {
     var domImplList;
     var length;
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImplList = domImplRegistry.getDOMImplementationList("LS");
     length = domImplList.length;
 
@@ -10272,7 +10272,7 @@ exports.tests = {
     var domImplList;
     var length;
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImplList = domImplRegistry.getDOMImplementationList("XPath");
     length = domImplList.length;
 
@@ -10323,7 +10323,7 @@ exports.tests = {
     var domImplList;
     var length;
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImplList = domImplRegistry.getDOMImplementationList("cOrE 3.0 xMl 3.0 eVeNts 2.0 lS");
     length = domImplList.length;
 
@@ -10378,9 +10378,9 @@ exports.tests = {
     var domImplRegistry;
     var domImpl;
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImpl = domImplRegistry.getDOMImplementation("");
-    assertNotNull("domImplNotNull",domImpl);
+    test.notEqual(domImpl, null, 'domImplNotNull');
 
     test.done()
   },
@@ -10402,7 +10402,7 @@ exports.tests = {
     var domImplList;
     var length;
     domImplRegistry = DOMImplementationRegistry;
-    assertNotNull("domImplRegistryNotNull",domImplRegistry);
+    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     domImplList = domImplRegistry.getDOMImplementationList("");
     length = domImplList.length;
 
@@ -10513,7 +10513,7 @@ exports.tests = {
 
     paramList = domConfig.parameterNames;
 
-    assertNotNull("domstringlistgetlength01_notNull",paramList);
+    test.notEqual(paramList, null, 'domstringlistgetlength01_notNull');
     listSize = paramList.length;
 
     assert("domstringlistgetlength01_notZero",0 != listSize);
@@ -10548,12 +10548,12 @@ exports.tests = {
     length = paramList.length;
 
     parameter = paramList.item(0);
-    assertNotNull("item0NotNull",parameter);
+    test.notEqual(parameter, null, 'item0NotNull');
     parameter = paramList.item(length);
-    assertNull("itemLengthNull",parameter);
+    test.equal(parameter, null, 'itemLengthNull');
     length -= 1;
     parameter = paramList.item(length);
-    assertNotNull("itemLengthMinus1NotNull",parameter);
+    test.notEqual(parameter, null, 'itemLengthMinus1NotNull');
 
     test.done()
   },
@@ -10584,9 +10584,9 @@ exports.tests = {
     paramList = domConfig.parameterNames;
 
     retStr = paramList.item(0);
-    assertNotNull("domstringlistitem02_notNull",retStr);
+    test.notEqual(retStr, null, 'domstringlistitem02_notNull');
     retStr = paramList.item(100);
-    assertNull("domstringlistitem02_null",retStr);
+    test.equal(retStr, null, 'domstringlistitem02_null');
 
     test.done()
   },
@@ -10637,16 +10637,16 @@ exports.tests = {
     body = bodyList.item(0);
     child = body.firstChild;
 
-    assertNotNull("firstChildNotNull",child);
+    test.notEqual(child, null, 'firstChildNotNull');
     childName = child.nodeName;
 
-    assertEquals("firstChild","#text",childName);
+    test.equal(childName, "#text", 'firstChild');
     child = child.nextSibling;
 
-    assertNotNull("secondChildNotNull",child);
+    test.notEqual(child, null, 'secondChildNotNull');
     childName = child.nodeName;
 
-    assertEquals("secondChild","p",childName);
+    test.equal(childName, "p", 'secondChild');
 
     test.done()
   },
@@ -10693,13 +10693,13 @@ exports.tests = {
       body = bodyList.item(0);
       child = body.firstChild;
 
-      assertNotNull("firstChildNotNull",child);
+      test.notEqual(child, null, 'firstChildNotNull');
       childName = child.nodeName;
 
-      assertEquals("firstChild","p",childName);
+      test.equal(childName, "p", 'firstChild');
       child = child.nextSibling;
 
-      assertNull("secondChild",child);
+      test.equal(child, null, 'secondChild');
 
     }
 
@@ -10757,16 +10757,16 @@ exports.tests = {
       body = bodyList.item(0);
       child = body.firstChild;
 
-      assertNotNull("firstChildNotNull",child);
+      test.notEqual(child, null, 'firstChildNotNull');
       childName = child.nodeName;
 
-      assertEquals("firstChild","#text",childName);
+      test.equal(childName, "#text", 'firstChild');
       child = child.nextSibling;
 
-      assertNotNull("secondChildNotNull",child);
+      test.notEqual(child, null, 'secondChildNotNull');
       childName = child.nodeName;
 
-      assertEquals("secondChild","p",childName);
+      test.equal(childName, "p", 'secondChild');
 
     }
 
@@ -10796,13 +10796,13 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertNull("nameIsNull",typeName);
+    test.equal(typeName, null, 'nameIsNull');
     typeNS = typeInfo.typeNamespace;
 
-    assertNull("nsIsNull",typeNS);
+    test.equal(typeNS, null, 'nsIsNull');
 
     test.done()
   },
@@ -10830,13 +10830,13 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("nameIsEmType","emType",typeName);
+    test.equal(typeName, "emType", 'nameIsEmType');
     typeNS = typeInfo.typeNamespace;
 
-    assertEquals("nsIsXML","http://www.w3.org/1999/xhtml",typeNS);
+    test.equal(typeNS, "http://www.w3.org/1999/xhtml", 'nsIsXML');
 
     test.done()
   },
@@ -10864,13 +10864,13 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertNull("typeName",typeName);
+    test.equal(typeName, null, 'typeName');
     typeNS = typeInfo.typeNamespace;
 
-    assertNull("typeNS",typeNS);
+    test.equal(typeNS, null, 'typeNS');
 
     test.done()
   },
@@ -10907,8 +10907,8 @@ exports.tests = {
 
     typeNamespace = elemTypeInfo.typeNamespace;
 
-    assertEquals("elementgetschematypeinfo04_typeName","code",typeName);
-    assertEquals("elementgetschematypeinfo04_typeNamespace","http://www.w3.org/1999/xhtml",typeNamespace);
+    test.equal(typeName, "code", 'elementgetschematypeinfo04_typeName');
+    test.equal(typeNamespace, "http://www.w3.org/1999/xhtml", 'elementgetschematypeinfo04_typeNamespace');
 
     test.done()
   },
@@ -10945,8 +10945,8 @@ exports.tests = {
 
     typeNamespace = elemTypeInfo.typeNamespace;
 
-    assertEquals("typeNameString","string",typeName);
-    assertEquals("typeNsXSD","http://www.w3.org/2001/XMLSchema",typeNamespace);
+    test.equal(typeName, "string", 'typeNameString');
+    test.equal(typeNamespace, "http://www.w3.org/2001/XMLSchema", 'typeNsXSD');
 
     test.done()
   },
@@ -10983,8 +10983,8 @@ exports.tests = {
 
     typeNamespace = elemTypeInfo.typeNamespace;
 
-    assertEquals("elementgetschematypeinfo06_typeName","strongType",typeName);
-    assertEquals("elementgetschematypeinfo06_typeNamespace","http://www.w3.org/1999/xhtml",typeNamespace);
+    test.equal(typeName, "strongType", 'elementgetschematypeinfo06_typeName');
+    test.equal(typeNamespace, "http://www.w3.org/1999/xhtml", 'elementgetschematypeinfo06_typeNamespace');
 
     test.done()
   },
@@ -11021,8 +11021,8 @@ exports.tests = {
 
     typeNamespace = elemTypeInfo.typeNamespace;
 
-    assertEquals("elementgetschematypeinfo07_typeName","sup",typeName);
-    assertEquals("elementgetschematypeinfo07_typeNamespace","http://www.w3.org/1999/xhtml",typeNamespace);
+    test.equal(typeName, "sup", 'elementgetschematypeinfo07_typeName');
+    test.equal(typeNamespace, "http://www.w3.org/1999/xhtml", 'elementgetschematypeinfo07_typeNamespace');
 
     test.done()
   },
@@ -11061,7 +11061,7 @@ exports.tests = {
     elem = doc.getElementById("No");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributeGetElementById01","acronym",elemName);
+    test.equal(elemName, "acronym", 'elementsetidattributeGetElementById01');
     acronymElem.setIdAttribute("class",false);
     id = attr.isId;
 
@@ -11105,7 +11105,7 @@ exports.tests = {
     elem = doc.getElementById("Maybe");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributeGetElementById03","acronym",elemName);
+    test.equal(elemName, "acronym", 'elementsetidattributeGetElementById03');
     acronymElem.setIdAttribute("class",false);
     id = attr.isId;
 
@@ -11149,7 +11149,7 @@ exports.tests = {
     elem = doc.getElementById("Antoine");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributeGetElementById03","strong",elemName);
+    test.equal(elemName, "strong", 'elementsetidattributeGetElementById03');
     nameElem.setIdAttribute("hasMiddleName",false);
     id = attr.isId;
 
@@ -11269,11 +11269,11 @@ exports.tests = {
     elem = doc.getElementById("Antoine");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattribute1GetElementById07","strong",elemName);
+    test.equal(elemName, "strong", 'elementsetidattribute1GetElementById07');
     elem = doc.getElementById("Neeya");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattribute2GetElementById07","strong",elemName);
+    test.equal(elemName, "strong", 'elementsetidattribute2GetElementById07');
 
     test.done()
   },
@@ -11329,7 +11329,7 @@ exports.tests = {
     elem = doc.getElementById("No");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributeGetElementById08","acronym",elemName);
+    test.equal(elemName, "acronym", 'elementsetidattributeGetElementById08');
 
     test.done()
   },
@@ -11381,11 +11381,11 @@ exports.tests = {
     elem = doc.getElementById("Antoine");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattribute1GetElementById09","strong",elemName);
+    test.equal(elemName, "strong", 'elementsetidattribute1GetElementById09');
     elem = doc.getElementById("2002");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattribute2GetElementById09","sup",elemName);
+    test.equal(elemName, "sup", 'elementsetidattribute2GetElementById09');
 
     test.done()
   },
@@ -11429,7 +11429,7 @@ exports.tests = {
 
     assertFalse("elementsetidattributeIsIdFalse10",id);
     elem = doc.getElementById("No");
-    assertNull("elementsetidattributeGetElementByIdNull10",elem);
+    test.equal(elem, null, 'elementsetidattributeGetElementByIdNull10');
 
     test.done()
   },
@@ -11466,10 +11466,10 @@ exports.tests = {
 
     assertTrue("elementsetidattributeIsIdTrue01",id);
     elem = doc.getElementById("Yα");
-    assertNotNull("elemByIDNotNull",elem);
+    test.notEqual(elem, null, 'elemByIDNotNull');
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributeGetElementById11","acronym",elemName);
+    test.equal(elemName, "acronym", 'elementsetidattributeGetElementById11');
     acronymElem.setIdAttribute("class",false);
     id = attr.isId;
 
@@ -11512,7 +11512,7 @@ exports.tests = {
     elem = doc.getElementById("http://www.netzero.com");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributenodeGetElementById01","p",elemName);
+    test.equal(elemName, "p", 'elementsetidattributenodeGetElementById01');
     elem.setIdAttributeNode(attr,false);
     id = attr.isId;
 
@@ -11555,7 +11555,7 @@ exports.tests = {
     elem = doc.getElementById("No");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributenodeGetElementById02","acronym",elemName);
+    test.equal(elemName, "acronym", 'elementsetidattributenodeGetElementById02');
     elem.setIdAttributeNode(attr,false);
     id = attr.isId;
 
@@ -11600,7 +11600,7 @@ exports.tests = {
     elem = doc.getElementById("Karen");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributenodeGetElementById03","strong",elemName);
+    test.equal(elemName, "strong", 'elementsetidattributenodeGetElementById03');
     elem.setIdAttributeNode(attr,false);
     id = attr.isId;
 
@@ -11645,7 +11645,7 @@ exports.tests = {
     elem = doc.getElementById("http://www.example.com/middle");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributenodeGetElementById04","strong",elemName);
+    test.equal(elemName, "strong", 'elementsetidattributenodeGetElementById04');
     elem.setIdAttributeNode(attr,false);
     id = attr.isId;
 
@@ -11783,11 +11783,11 @@ exports.tests = {
     elem = doc.getElementById("No");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributenode1GetElementById07","acronym",elemName);
+    test.equal(elemName, "acronym", 'elementsetidattributenode1GetElementById07');
     elem = doc.getElementById("Yes");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributenode2GetElementById07","acronym",elemName);
+    test.equal(elemName, "acronym", 'elementsetidattributenode2GetElementById07');
 
     test.done()
   },
@@ -11840,11 +11840,11 @@ exports.tests = {
     elem = doc.getElementById("Yes");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributenode1GetElementById08","acronym",elemName);
+    test.equal(elemName, "acronym", 'elementsetidattributenode1GetElementById08');
     elem = doc.getElementById("http://www.netzero.com");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributenode2GetElementById08","p",elemName);
+    test.equal(elemName, "p", 'elementsetidattributenode2GetElementById08');
 
     test.done()
   },
@@ -11939,7 +11939,7 @@ exports.tests = {
     elem = doc.getElementById("Yα");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributenodeGetElementById10","acronym",elemName);
+    test.equal(elemName, "acronym", 'elementsetidattributenodeGetElementById10');
     acronymElem.setIdAttributeNode(attr,false);
     id = attr.isId;
 
@@ -11982,7 +11982,7 @@ exports.tests = {
     elem = doc.getElementById("http://www.netzero.com");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributensGetElementById01","p",elemName);
+    test.equal(elemName, "p", 'elementsetidattributensGetElementById01');
     employeeElem.setIdAttributeNS("http://www.w3.org/2000/xmlns/","dmstc",false);
     id = attr.isId;
 
@@ -12024,10 +12024,10 @@ exports.tests = {
 
     assertTrue("elementsetidattributensIsIdTrue02",id);
     elem = doc.getElementById("Yes");
-    assertNotNull("getElementByIDNotNull",elem);
+    test.notEqual(elem, null, 'getElementByIDNotNull');
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributensGetElementById01","acronym",elemName);
+    test.equal(elemName, "acronym", 'elementsetidattributensGetElementById01');
     addressElem.setIdAttributeNS(xsiNS,"noNamespaceSchemaLocation",false);
     id = attr.isId;
 
@@ -12071,7 +12071,7 @@ exports.tests = {
     elem = doc.getElementById("newValue");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributensGetElementById03","em",elemName);
+    test.equal(elemName, "em", 'elementsetidattributensGetElementById03');
     employeeIdElem.setIdAttributeNS("http://www.w3.org/2000/xmlns/","newAttr",false);
     id = attr.isId;
 
@@ -12119,7 +12119,7 @@ exports.tests = {
     elem = doc.getElementById("newValue");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributensGetElementById04","strong",elemName);
+    test.equal(elemName, "strong", 'elementsetidattributensGetElementById04');
     strongElem.setIdAttributeNS("http://www.netzero.com","newAttr",false);
     id = attr.isId;
 
@@ -12167,7 +12167,7 @@ exports.tests = {
     elem = doc.getElementById("newValue");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributensGetElementById05","acronym",elemName);
+    test.equal(elemName, "acronym", 'elementsetidattributensGetElementById05');
     acronymElem.setIdAttributeNS("*","title",false);
     id = attr.isId;
 
@@ -12363,11 +12363,11 @@ exports.tests = {
     elem = doc.getElementById("http://www.netzero.com");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributens1GetElementById10","p",elemName);
+    test.equal(elemName, "p", 'elementsetidattributens1GetElementById10');
     elem = doc.getElementById("http://www.altavista.com");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributens2GetElementById10","p",elemName);
+    test.equal(elemName, "p", 'elementsetidattributens2GetElementById10');
 
     test.done()
   },
@@ -12418,11 +12418,11 @@ exports.tests = {
     elem = doc.getElementById("http://www.netzero.com");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributens1GetElementById11","p",elemName);
+    test.equal(elemName, "p", 'elementsetidattributens1GetElementById11');
     elem = doc.getElementById("http://www.usa.com");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributens2GetElementById11","p",elemName);
+    test.equal(elemName, "p", 'elementsetidattributens2GetElementById11');
 
     test.done()
   },
@@ -12484,7 +12484,7 @@ exports.tests = {
     elem = doc.getElementById("No");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributensGetElementById10","acronym",elemName);
+    test.equal(elemName, "acronym", 'elementsetidattributensGetElementById10');
 
     test.done()
   },
@@ -12525,7 +12525,7 @@ exports.tests = {
     elem = doc.getElementById("newValue");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributensGetElementById13","strong",elemName);
+    test.equal(elemName, "strong", 'elementsetidattributensGetElementById13');
 
     {
       success = false;
@@ -12588,11 +12588,11 @@ exports.tests = {
     elem = doc.getElementById("Yes");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributens1GetElementById14","acronym",elemName);
+    test.equal(elemName, "acronym", 'elementsetidattributens1GetElementById14');
     elem = doc.getElementById("http://www.usa.com");
     elemName = elem.tagName;
 
-    assertEquals("elementsetidattributens2GetElementById14","p",elemName);
+    test.equal(elemName, "p", 'elementsetidattributens2GetElementById14');
 
     test.done()
   },
@@ -12638,16 +12638,16 @@ exports.tests = {
     pElem = pList.item(0);
     child = pElem.lastChild;
 
-    assertNotNull("lastChildNotNull",child);
+    test.notEqual(child, null, 'lastChildNotNull');
     childName = child.nodeName;
 
-    assertEquals("firstChild","ent1",childName);
+    test.equal(childName, "ent1", 'firstChild');
     doctype = doc.doctype;
 
     entities = doctype.entities;
 
     ent2 = entities.getNamedItem("ent2");
-    assertNotNull("ent2NotNull",ent2);
+    test.notEqual(ent2, null, 'ent2NotNull');
 
     test.done()
   },
@@ -12694,19 +12694,19 @@ exports.tests = {
     pElem = pList.item(0);
     child = pElem.lastChild;
 
-    assertNotNull("lastChildNotNull",child);
+    test.notEqual(child, null, 'lastChildNotNull');
     childName = child.nodeName;
 
-    assertEquals("firstChildName","#text",childName);
+    test.equal(childName, "#text", 'firstChildName');
     childValue = child.nodeValue;
 
-    assertEquals("firstChildValue","barfoo",childValue);
+    test.equal(childValue, "barfoo", 'firstChildValue');
     doctype = doc.doctype;
 
     entities = doctype.entities;
 
     ent2 = entities.getNamedItem("ent2");
-    assertNotNull("ent2NotNull",ent2);
+    test.notEqual(ent2, null, 'ent2NotNull');
 
     test.done()
   },
@@ -12750,13 +12750,13 @@ exports.tests = {
     pElem = pList.item(0);
     child = pElem.lastChild;
 
-    assertNotNull("lastChildNotNull",child);
+    test.notEqual(child, null, 'lastChildNotNull');
     childType = child.nodeType;
 
-    assertEquals("lastChildEntRef",5,childType);
+    test.equal(childType, 5, 'lastChildEntRef');
     childName = child.nodeName;
 
-    assertEquals("lastChildName","ent3",childName);
+    test.equal(childName, "ent3", 'lastChildName');
 
     test.done()
   },
@@ -12801,16 +12801,16 @@ exports.tests = {
     pElem = pList.item(0);
     child = pElem.lastChild;
 
-    assertNotNull("lastChildNotNull",child);
+    test.notEqual(child, null, 'lastChildNotNull');
     childName = child.nodeName;
 
-    assertEquals("firstChild","ent1",childName);
+    test.equal(childName, "ent1", 'firstChild');
     doctype = doc.doctype;
 
     entities = doctype.entities;
 
     ent2 = entities.getNamedItem("ent2");
-    assertNotNull("ent2NotNull",ent2);
+    test.notEqual(ent2, null, 'ent2NotNull');
 
     test.done()
   },
@@ -12840,7 +12840,7 @@ exports.tests = {
     entity = entitiesMap.getNamedItem("alpha");
     encodingName = entity.inputEncoding;
 
-    assertNull("entitygetinputencoding01",encodingName);
+    test.equal(encodingName, null, 'entitygetinputencoding01');
 
     test.done()
   },
@@ -12870,7 +12870,7 @@ exports.tests = {
     entity = entitiesMap.getNamedItem("ent5");
     encodingName = entity.inputEncoding;
 
-    assertNull("entitygetinputencoding02",encodingName);
+    test.equal(encodingName, null, 'entitygetinputencoding02');
 
     test.done()
   },
@@ -12906,12 +12906,12 @@ exports.tests = {
     if(
       !("UTF-16LE".toUpperCase() == encodingName.toUpperCase())
     ) {
-      assertEquals("entityIsUTF16orUTF16LE","UTF-16".toLowerCase(),encodingName.toLowerCase());
+      test.equal(encodingName.toLowerCase(), "UTF-16".toLowerCase(), 'entityIsUTF16orUTF16LE');
 
     }
     encodingName = doc.inputEncoding;
 
-    assertEquals("documentIsUTF8","UTF-8".toLowerCase(),encodingName.toLowerCase());
+    test.equal(encodingName.toLowerCase(), "UTF-8".toLowerCase(), 'documentIsUTF8');
 
     test.done()
   },
@@ -12943,10 +12943,10 @@ exports.tests = {
     entity = entitiesMap.getNamedItem("ent2");
     encodingName = entity.inputEncoding;
 
-    assertEquals("entityIsUTF8","UTF-8".toLowerCase(),encodingName.toLowerCase());
+    test.equal(encodingName.toLowerCase(), "UTF-8".toLowerCase(), 'entityIsUTF8');
     encodingName = doc.inputEncoding;
 
-    assertEquals("documentIsUTF8","UTF-8".toLowerCase(),encodingName.toLowerCase());
+    test.equal(encodingName.toLowerCase(), "UTF-8".toLowerCase(), 'documentIsUTF8');
 
     test.done()
   },
@@ -12976,7 +12976,7 @@ exports.tests = {
     entity = entitiesMap.getNamedItem("alpha");
     encodingName = entity.xmlEncoding;
 
-    assertNull("entitygetxmlencoding01",encodingName);
+    test.equal(encodingName, null, 'entitygetxmlencoding01');
 
     test.done()
   },
@@ -13006,7 +13006,7 @@ exports.tests = {
     entity = entitiesMap.getNamedItem("ent5");
     encodingName = entity.xmlEncoding;
 
-    assertNull("entitygetxmlencoding02",encodingName);
+    test.equal(encodingName, null, 'entitygetxmlencoding02');
 
     test.done()
   },
@@ -13038,7 +13038,7 @@ exports.tests = {
     entity = entitiesMap.getNamedItem("ent1");
     encodingName = entity.xmlEncoding;
 
-    assertEquals("xmlEncoding","uTf-16",encodingName);
+    test.equal(encodingName, "uTf-16", 'xmlEncoding');
 
     test.done()
   },
@@ -13070,7 +13070,7 @@ exports.tests = {
     entity = entitiesMap.getNamedItem("ent2");
     encodingName = entity.xmlEncoding;
 
-    assertNull("xmlEncoding",encodingName);
+    test.equal(encodingName, null, 'xmlEncoding');
 
     test.done()
   },
@@ -13100,7 +13100,7 @@ exports.tests = {
     entity = entitiesMap.getNamedItem("epsilon");
     entityVersion = entity.xmlVersion;
 
-    assertNull("entitygetxmlversion01",entityVersion);
+    test.equal(entityVersion, null, 'entitygetxmlversion01');
 
     test.done()
   },
@@ -13130,7 +13130,7 @@ exports.tests = {
     entity = entitiesMap.getNamedItem("ent5");
     entityVersion = entity.xmlVersion;
 
-    assertNull("entitygetxmlversion02",entityVersion);
+    test.equal(entityVersion, null, 'entitygetxmlversion02');
 
     test.done()
   },
@@ -13162,7 +13162,7 @@ exports.tests = {
     entity = entitiesMap.getNamedItem("ent2");
     entityVersion = entity.xmlVersion;
 
-    assertNull("xmlVersionNull",entityVersion);
+    test.equal(entityVersion, null, 'xmlVersionNull');
 
     test.done()
   },
@@ -13194,7 +13194,7 @@ exports.tests = {
     entity = entitiesMap.getNamedItem("ent1");
     entityVersion = entity.xmlVersion;
 
-    assertEquals("xmlVersion10","1.0",entityVersion);
+    test.equal(entityVersion, "1.0", 'xmlVersion10');
 
     test.done()
   },
@@ -13253,7 +13253,7 @@ exports.tests = {
     ) {
       childType = child.nodeType;
 
-      assertEquals("lastChildCDATA",4,childType);
+      test.equal(childType, 4, 'lastChildCDATA');
       child = elem.firstChild;
 
       childValue = child.nodeValue;
@@ -13267,7 +13267,7 @@ exports.tests = {
 
       childValue = child.nodeValue;
 
-      assertEquals("firstChildIntact","this is not ]]> good",childValue);
+      test.equal(childValue, "this is not ]]> good", 'firstChildIntact');
 
     }
 
@@ -13432,19 +13432,19 @@ exports.tests = {
     pElem = pList.item(0);
     child = pElem.lastChild;
 
-    assertNotNull("lastChildNotNull",child);
+    test.notEqual(child, null, 'lastChildNotNull');
     childName = child.nodeName;
 
-    assertEquals("firstChildName","#text",childName);
+    test.equal(childName, "#text", 'firstChildName');
     childValue = child.nodeValue;
 
-    assertEquals("firstChildValue","barfoo",childValue);
+    test.equal(childValue, "barfoo", 'firstChildValue');
     doctype = doc.doctype;
 
     entities = doctype.entities;
 
     ent2 = entities.getNamedItem("ent2");
-    assertNotNull("ent2NotNull",ent2);
+    test.notEqual(ent2, null, 'ent2NotNull');
 
     test.done()
   },
@@ -13488,13 +13488,13 @@ exports.tests = {
     pElem = pList.item(0);
     child = pElem.lastChild;
 
-    assertNotNull("lastChildNotNull",child);
+    test.notEqual(child, null, 'lastChildNotNull');
     childType = child.nodeType;
 
-    assertEquals("lastChildEntRef",5,childType);
+    test.equal(childType, 5, 'lastChildEntRef');
     childName = child.nodeName;
 
-    assertEquals("lastChildName","ent3",childName);
+    test.equal(childName, "ent3", 'lastChildName');
 
     test.done()
   },
@@ -13548,19 +13548,19 @@ exports.tests = {
       childValue = childNode.nodeValue;
 
       childLength = childValue.length;
-      assertEquals("content1",18,childLength);
+      test.equal(childLength, 18, 'content1');
       element = elemList.item(1);
       childNode = element.firstChild;
 
       childValue = childNode.nodeValue;
 
-      assertEquals("content2","EMP  0001",childValue);
+      test.equal(childValue, "EMP  0001", 'content2');
       element = elemList.item(2);
       childNode = element.firstChild;
 
       childValue = childNode.nodeValue;
 
-      assertEquals("content3","EMP 0001",childValue);
+      test.equal(childValue, "EMP 0001", 'content3');
 
     }
 
@@ -13610,10 +13610,10 @@ exports.tests = {
 
     nodeName = text.nodeName;
 
-    assertEquals("documentnormalizedocument03_false","#text",nodeName);
+    test.equal(nodeName, "#text", 'documentnormalizedocument03_false');
     nodeValue = text.nodeValue;
 
-    assertEquals("normalizedValue","barCDATA",nodeValue);
+    test.equal(nodeValue, "barCDATA", 'normalizedValue');
 
     test.done()
   },
@@ -13646,7 +13646,7 @@ exports.tests = {
     docElem = doc.documentElement;
 
     xmlnsAttr = docElem.getAttributeNode("xmlns");
-    assertNotNull("xmlnsAttrNotNull",xmlnsAttr);
+    test.notEqual(xmlnsAttr, null, 'xmlnsAttrNotNull');
 
     test.done()
   },
@@ -13724,10 +13724,10 @@ exports.tests = {
       error = errors[indexN100A9];
       severity = error.severity;
 
-      assertEquals("severity",2,severity);
+      test.equal(severity, 2, 'severity');
       type = error.type;
 
-      assertEquals("type","wf-invalid-character-in-node-name",type);
+      test.equal(type, "wf-invalid-character-in-node-name", 'type');
       locator = error.location;
 
       relatedNode = locator.relatedNode;
@@ -13814,10 +13814,10 @@ exports.tests = {
       error = errors[indexN100AA];
       severity = error.severity;
 
-      assertEquals("severity",2,severity);
+      test.equal(severity, 2, 'severity');
       type = error.type;
 
-      assertEquals("type","wf-invalid-character-in-node-name",type);
+      test.equal(type, "wf-invalid-character-in-node-name", 'type');
       locator = error.location;
 
       relatedNode = locator.relatedNode;
@@ -13876,16 +13876,16 @@ exports.tests = {
     body = bodyList.item(0);
     child = body.firstChild;
 
-    assertNotNull("firstChildNotNull",child);
+    test.notEqual(child, null, 'firstChildNotNull');
     childName = child.nodeName;
 
-    assertEquals("firstChild","#text",childName);
+    test.equal(childName, "#text", 'firstChild');
     child = child.nextSibling;
 
-    assertNotNull("secondChildNotNull",child);
+    test.notEqual(child, null, 'secondChildNotNull');
     childName = child.nodeName;
 
-    assertEquals("secondChild","p",childName);
+    test.equal(childName, "p", 'secondChild');
 
     test.done()
   },
@@ -13931,7 +13931,7 @@ exports.tests = {
 
     nodeName = lastChild.nodeName;
 
-    assertEquals("commentPreserved","#comment",nodeName);
+    test.equal(nodeName, "#comment", 'commentPreserved');
 
     test.done()
   },
@@ -13964,7 +13964,7 @@ exports.tests = {
     docElem = doc.documentElement;
 
     xmlnsAttr = docElem.getAttributeNode("xmlns");
-    assertNotNull("xmlnsAttrNotNull",xmlnsAttr);
+    test.notEqual(xmlnsAttr, null, 'xmlnsAttrNotNull');
 
     test.done()
   },
@@ -13997,7 +13997,7 @@ exports.tests = {
     docElem = doc.documentElement;
 
     xmlnsAttr = docElem.getAttributeNode("xmlns");
-    assertNull("xmlnsAttrNull",xmlnsAttr);
+    test.equal(xmlnsAttr, null, 'xmlnsAttrNull');
 
     test.done()
   },
@@ -14124,9 +14124,9 @@ exports.tests = {
     docType = doc.doctype;
 
     documentPositionDoc = doc.compareDocumentPosition(docType);
-    assertEquals("nodecomparedocumentpositionIsContainedFollowing01",20,documentPositionDoc);
+    test.equal(documentPositionDoc, 20, 'nodecomparedocumentpositionIsContainedFollowing01');
     documentPositionDocType = docType.compareDocumentPosition(doc);
-    assertEquals("nodecomparetreepositionContainsPRECEDING01",10,documentPositionDocType);
+    test.equal(documentPositionDocType, 10, 'nodecomparetreepositionContainsPRECEDING01');
 
     test.done()
   },
@@ -14164,9 +14164,9 @@ exports.tests = {
     newDocType = domImpl.createDocumentType(rootName,nullPubId,nullSysId);
     replaced = doc.replaceChild(newDocType,docType);
     documentPositionDoc = doc.compareDocumentPosition(newDocType);
-    assertEquals("nodecomparedocumentpositionIsContainedFollowing02",20,documentPositionDoc);
+    test.equal(documentPositionDoc, 20, 'nodecomparedocumentpositionIsContainedFollowing02');
     documentPositionDocType = newDocType.compareDocumentPosition(doc);
-    assertEquals("nodecomparedocumentpositionContainsPRECEDING02",10,documentPositionDocType);
+    test.equal(documentPositionDocType, 10, 'nodecomparedocumentpositionContainsPRECEDING02');
 
     test.done()
   },
@@ -14193,13 +14193,13 @@ exports.tests = {
 
     docComp = hc_staff.hc_staff();
     documentPosition1 = doc.compareDocumentPosition(docComp);
-    assertEquals("isImplSpecificDisconnected1",33,documentPosition1);
+    test.equal(documentPosition1, 33, 'isImplSpecificDisconnected1');
     documentPosition2 = docComp.compareDocumentPosition(doc);
     assert("notBothPreceding",documentPosition1 != documentPosition2);
     assert("notBothFollowing",documentPosition1 != documentPosition2);
-    assertEquals("isImplSpecificDisconnected2",33,documentPosition2);
+    test.equal(documentPosition2, 33, 'isImplSpecificDisconnected2');
     documentPosition3 = doc.compareDocumentPosition(docComp);
-    assertEquals("isConsistent",documentPosition1,documentPosition3);
+    test.equal(documentPosition3, documentPosition1, 'isConsistent');
 
     test.done()
   },
@@ -14220,7 +14220,7 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     documentPosition = doc.compareDocumentPosition(doc);
-    assertEquals("nodecomparedocumentpositionNoFlags04",0,documentPosition);
+    test.equal(documentPosition, 0, 'nodecomparedocumentpositionNoFlags04');
 
     test.done()
   },
@@ -14258,13 +14258,13 @@ exports.tests = {
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument(rootNS,rootName,nullDocType);
     documentPosition1 = doc.compareDocumentPosition(newDoc);
-    assertEquals("isImplSpecificDisconnected1",33,documentPosition1);
+    test.equal(documentPosition1, 33, 'isImplSpecificDisconnected1');
     documentPosition2 = newDoc.compareDocumentPosition(doc);
-    assertEquals("isImplSpecificDisconnected2",33,documentPosition2);
+    test.equal(documentPosition2, 33, 'isImplSpecificDisconnected2');
     assert("notBothPreceding",documentPosition1 != documentPosition2);
     assert("notBothFollowing",documentPosition1 != documentPosition2);
     documentPosition3 = doc.compareDocumentPosition(newDoc);
-    assertEquals("isConsistent",documentPosition1,documentPosition3);
+    test.equal(documentPosition3, documentPosition1, 'isConsistent');
 
     test.done()
   },
@@ -14292,9 +14292,9 @@ exports.tests = {
     docElem = doc.documentElement;
 
     documentPositionDoc = doc.compareDocumentPosition(docElem);
-    assertEquals("nodecomparedocumentpositionIsContainedFollowing06",20,documentPositionDoc);
+    test.equal(documentPositionDoc, 20, 'nodecomparedocumentpositionIsContainedFollowing06');
     documentPositionDocElem = docElem.compareDocumentPosition(doc);
-    assertEquals("nodecomparedocumentpotionContainsPRECEDING06",10,documentPositionDocElem);
+    test.equal(documentPositionDocElem, 10, 'nodecomparedocumentpotionContainsPRECEDING06');
 
     test.done()
   },
@@ -14323,9 +14323,9 @@ exports.tests = {
     newElem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
     appendedChild = docElem.appendChild(newElem);
     documentPosition = doc.compareDocumentPosition(newElem);
-    assertEquals("nodecomparedocumentpositionIsContainedFollowing07",20,documentPosition);
+    test.equal(documentPosition, 20, 'nodecomparedocumentpositionIsContainedFollowing07');
     documentElementPosition = newElem.compareDocumentPosition(doc);
-    assertEquals("nodecomparedocumentpositionContainedPRECEDING07",10,documentElementPosition);
+    test.equal(documentElementPosition, 10, 'nodecomparedocumentpositionContainedPRECEDING07');
 
     test.done()
   },
@@ -14351,9 +14351,9 @@ exports.tests = {
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
     documentPosition = doc.compareDocumentPosition(elem);
-    assertEquals("nodecomparedocumentpositionIsContainedFollowing08",20,documentPosition);
+    test.equal(documentPosition, 20, 'nodecomparedocumentpositionIsContainedFollowing08');
     elementPosition = elem.compareDocumentPosition(doc);
-    assertEquals("nodecomparedocumentpositionContainsPRECEDING08",10,elementPosition);
+    test.equal(elementPosition, 10, 'nodecomparedocumentpositionContainsPRECEDING08');
 
     test.done()
   },
@@ -14383,9 +14383,9 @@ exports.tests = {
     newElem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
     appendedChild = elem.appendChild(newElem);
     documentPosition = doc.compareDocumentPosition(newElem);
-    assertEquals("nodecomparedocumentpositionIsContainedFollowing09",20,documentPosition);
+    test.equal(documentPosition, 20, 'nodecomparedocumentpositionIsContainedFollowing09');
     documentElementPosition = newElem.compareDocumentPosition(doc);
-    assertEquals("nodecomparedocumentpositionContainsPRECEDING09",10,documentElementPosition);
+    test.equal(documentElementPosition, 10, 'nodecomparedocumentpositionContainsPRECEDING09');
 
     test.done()
   },
@@ -14413,7 +14413,7 @@ exports.tests = {
     elem = elemList.item(0);
     dir = elem.getAttributeNode("title");
     attrPosition = dir.compareDocumentPosition(doc);
-    assertEquals("nodecomparedocumentpositionPRECEDINGContains10",10,attrPosition);
+    test.equal(attrPosition, 10, 'nodecomparedocumentpositionPRECEDINGContains10');
 
     test.done()
   },
@@ -14442,7 +14442,7 @@ exports.tests = {
     newAttr = doc.createAttribute("title");
     replacedAttr = elem.setAttributeNode(newAttr);
     attrPosition = newAttr.compareDocumentPosition(doc);
-    assertEquals("nodecomparedocumentpositionPRECEDINGContains11",10,attrPosition);
+    test.equal(attrPosition, 10, 'nodecomparedocumentpositionPRECEDINGContains11');
 
     test.done()
   },
@@ -14468,9 +14468,9 @@ exports.tests = {
     pi = doc.createProcessingInstruction("PITarget","PIDATA");
     appendedChild = doc.appendChild(pi);
     documentPosition = doc.compareDocumentPosition(pi);
-    assertEquals("nodecomparedocumentpositionIsContainedFollowing12",20,documentPosition);
+    test.equal(documentPosition, 20, 'nodecomparedocumentpositionIsContainedFollowing12');
     piPosition = pi.compareDocumentPosition(doc);
-    assertEquals("nodecomparedocumentpositionContainsPRECEDING12",10,piPosition);
+    test.equal(piPosition, 10, 'nodecomparedocumentpositionContainsPRECEDING12');
 
     test.done()
   },
@@ -14500,9 +14500,9 @@ exports.tests = {
     elem = elemList.item(3);
     appendedChild = elem.appendChild(comment);
     documentPosition = doc.compareDocumentPosition(comment);
-    assertEquals("nodecomparedocumentpositionIsContainedFollowing13",20,documentPosition);
+    test.equal(documentPosition, 20, 'nodecomparedocumentpositionIsContainedFollowing13');
     commentPosition = comment.compareDocumentPosition(doc);
-    assertEquals("nodecomparedocumentpositionContainsPRECEDING13",10,commentPosition);
+    test.equal(commentPosition, 10, 'nodecomparedocumentpositionContainsPRECEDING13');
 
     test.done()
   },
@@ -14534,9 +14534,9 @@ exports.tests = {
     docFragChild = docFrag.firstChild;
 
     docFragPosition = docFrag.compareDocumentPosition(docFragChild);
-    assertEquals("nodecomparedocumentpositionContainsPRECEDING14",20,docFragPosition);
+    test.equal(docFragPosition, 20, 'nodecomparedocumentpositionContainsPRECEDING14');
     docFragChildPosition = docFragChild.compareDocumentPosition(docFrag);
-    assertEquals("nodecomparedocumentpositionIsContainedFollowing14",10,docFragChildPosition);
+    test.equal(docFragChildPosition, 10, 'nodecomparedocumentpositionIsContainedFollowing14');
 
     test.done()
   },
@@ -14572,9 +14572,9 @@ exports.tests = {
     docFragChild = docFrag.firstChild;
 
     docFragChildPosition = docFragChild.compareDocumentPosition(attr);
-    assertEquals("nodecomparedocumentpositionIsContainedFollows15",20,docFragChildPosition);
+    test.equal(docFragChildPosition, 20, 'nodecomparedocumentpositionIsContainedFollows15');
     attrPosition = attr.compareDocumentPosition(docFragChild);
-    assertEquals("nodecomparedocumentpositionPRECEEDINGContains15",10,attrPosition);
+    test.equal(attrPosition, 10, 'nodecomparedocumentpositionPRECEEDINGContains15');
 
     test.done()
   },
@@ -14605,13 +14605,13 @@ exports.tests = {
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     attrCloned = attr.cloneNode(true);
     position1 = docFrag.compareDocumentPosition(attrCloned);
-    assertEquals("isImplSpecificDisconnected1",33,position1);
+    test.equal(position1, 33, 'isImplSpecificDisconnected1');
     position2 = attrCloned.compareDocumentPosition(docFrag);
     assert("notBothPreceding",position1 != position2);
     assert("notBothFollowing",position1 != position2);
-    assertEquals("isImplSpecificDisconnected2",33,position2);
+    test.equal(position2, 33, 'isImplSpecificDisconnected2');
     position3 = docFrag.compareDocumentPosition(attrCloned);
-    assertEquals("isConsistent",position1,position3);
+    test.equal(position3, position1, 'isConsistent');
 
     test.done()
   },
@@ -14640,9 +14640,9 @@ exports.tests = {
     appendedChild = doc.appendChild(pi1);
     appendedChild = doc.appendChild(pi2);
     pi1Position = pi1.compareDocumentPosition(pi2);
-    assertEquals("nodecomparedocumentpositionFollowing17",4,pi1Position);
+    test.equal(pi1Position, 4, 'nodecomparedocumentpositionFollowing17');
     pi2Position = pi2.compareDocumentPosition(pi1);
-    assertEquals("nodecomparedocumentpositionPRECEDING17",2,pi2Position);
+    test.equal(pi2Position, 2, 'nodecomparedocumentpositionPRECEDING17');
 
     test.done()
   },
@@ -14674,9 +14674,9 @@ exports.tests = {
     appendedChild = docElem.appendChild(txt1);
     appendedChild = docElem.appendChild(txt2);
     txt1Position = txt1.compareDocumentPosition(txt2);
-    assertEquals("nodecomparedocumentpositionFollowing18",4,txt1Position);
+    test.equal(txt1Position, 4, 'nodecomparedocumentpositionFollowing18');
     txt2Position = txt2.compareDocumentPosition(txt1);
-    assertEquals("nodecomparedocumentpositionPRECEDING18",2,txt2Position);
+    test.equal(txt2Position, 2, 'nodecomparedocumentpositionPRECEDING18');
 
     test.done()
   },
@@ -14715,9 +14715,9 @@ exports.tests = {
     cdata1 = aNode.previousSibling;
 
     cdata1Position = cdata1.compareDocumentPosition(cdata2);
-    assertEquals("nodecomparedocumentposition19_cdata2Follows",4,cdata1Position);
+    test.equal(cdata1Position, 4, 'nodecomparedocumentposition19_cdata2Follows');
     cdata2Position = cdata2.compareDocumentPosition(cdata1);
-    assertEquals("nodecomparedocumentposition_cdata1Precedes",2,cdata2Position);
+    test.equal(cdata2Position, 2, 'nodecomparedocumentposition_cdata1Precedes');
 
     test.done()
   },
@@ -14750,9 +14750,9 @@ exports.tests = {
     cdata = elemName.lastChild;
 
     txtPosition = txt.compareDocumentPosition(cdata);
-    assertEquals("nodecomparedocumentpositionFollowingg20",4,txtPosition);
+    test.equal(txtPosition, 4, 'nodecomparedocumentpositionFollowingg20');
     cdataPosition = cdata.compareDocumentPosition(txt);
-    assertEquals("nodecomparedocumentpositionPRECEDING20",2,cdataPosition);
+    test.equal(cdataPosition, 2, 'nodecomparedocumentpositionPRECEDING20');
 
     test.done()
   },
@@ -14788,9 +14788,9 @@ exports.tests = {
     txt2 = elemName2.firstChild;
 
     txt1Position = txt1.compareDocumentPosition(txt2);
-    assertEquals("nodecomparedocumentpositionFollowing21",4,txt1Position);
+    test.equal(txt1Position, 4, 'nodecomparedocumentpositionFollowing21');
     txt2Position = txt2.compareDocumentPosition(txt1);
-    assertEquals("nodecomparedocumentpositionPRECEDING21",2,txt2Position);
+    test.equal(txt2Position, 2, 'nodecomparedocumentpositionPRECEDING21');
 
     test.done()
   },
@@ -14825,9 +14825,9 @@ exports.tests = {
     entity = entitiesMap.getNamedItem("alpha");
     notation = notationsMap.getNamedItem("notation1");
     entityPosition = entity.compareDocumentPosition(notation);
-    assertEquals("nodecomparedocumentpositionFollowing22",4,entityPosition);
+    test.equal(entityPosition, 4, 'nodecomparedocumentpositionFollowing22');
     notationPosition = notation.compareDocumentPosition(entity);
-    assertEquals("nodecomparedocumentpositionPRECEDING22",2,notationPosition);
+    test.equal(notationPosition, 2, 'nodecomparedocumentpositionPRECEDING22');
 
     test.done()
   },
@@ -14860,13 +14860,13 @@ exports.tests = {
     entity = entitiesMap.getNamedItem("alpha");
     entity2 = entitiesMap.getNamedItem("delta");
     position1 = entity.compareDocumentPosition(entity2);
-    assertEquals("isImplSpecificDisconnected1",32,position1);
+    test.equal(position1, 32, 'isImplSpecificDisconnected1');
     position2 = entity2.compareDocumentPosition(entity);
     assert("notBothPreceding",position1 != position2);
     assert("notBothFollowing",position1 != position2);
-    assertEquals("isImplSpecificDisconnected2",32,position2);
+    test.equal(position2, 32, 'isImplSpecificDisconnected2');
     position3 = entity.compareDocumentPosition(entity2);
-    assertEquals("isConsistent",position1,position3);
+    test.equal(position3, position1, 'isConsistent');
 
     test.done()
   },
@@ -14897,7 +14897,7 @@ exports.tests = {
     notation = notaionsMap.getNamedItem("notation1");
     notation2 = notaionsMap.getNamedItem("notation1");
     notationPosition = notation.compareDocumentPosition(notation2);
-    assertEquals("nodecomparedocumentposition24",0,notationPosition);
+    test.equal(notationPosition, 0, 'nodecomparedocumentposition24');
 
     test.done()
   },
@@ -14927,9 +14927,9 @@ exports.tests = {
     entRef = elemName.firstChild;
 
     elementPosition = elemName.compareDocumentPosition(entRef);
-    assertEquals("nodecomparedocumentpositionIsContainedFollowing25",20,elementPosition);
+    test.equal(elementPosition, 20, 'nodecomparedocumentpositionIsContainedFollowing25');
     entRefPosition = entRef.compareDocumentPosition(elemName);
-    assertEquals("nodecomparedocumentpositionContainsPRECEDING25",10,entRefPosition);
+    test.equal(entRefPosition, 10, 'nodecomparedocumentpositionContainsPRECEDING25');
 
     test.done()
   },
@@ -14960,10 +14960,10 @@ exports.tests = {
     ) {
       varList = doc.getElementsByTagName("var");
       varElem = varList.item(2);
-      assertNotNull("varElemNotNull",varElem);
+      test.notEqual(varElem, null, 'varElemNotNull');
       entRef = varElem.firstChild;
 
-      assertNotNull("entRefNotNull",entRef);
+      test.notEqual(entRef, null, 'entRefNotNull');
 
     }
 
@@ -14973,11 +14973,11 @@ exports.tests = {
     }
     entRefChild1 = entRef.firstChild;
 
-    assertNotNull("entRefChild1NotNull",entRefChild1);
+    test.notEqual(entRefChild1, null, 'entRefChild1NotNull');
     entRefPosition = entRef.compareDocumentPosition(entRefChild1);
-    assertEquals("nodecomparedocumentpositionIsContainedFollowing26",20,entRefPosition);
+    test.equal(entRefPosition, 20, 'nodecomparedocumentpositionIsContainedFollowing26');
     entRefChild1Position = entRefChild1.compareDocumentPosition(entRef);
-    assertEquals("nodecomparedocumentpositionContainsPRECEDING26",10,entRefChild1Position);
+    test.equal(entRefChild1Position, 10, 'nodecomparedocumentpositionContainsPRECEDING26');
 
     test.done()
   },
@@ -15008,10 +15008,10 @@ exports.tests = {
     ) {
       varList = doc.getElementsByTagName("var");
       varElem = varList.item(2);
-      assertNotNull("varElemNotNull",varElem);
+      test.notEqual(varElem, null, 'varElemNotNull');
       entRef = varElem.firstChild;
 
-      assertNotNull("entRefNotNull",entRef);
+      test.notEqual(entRef, null, 'entRefNotNull');
 
     }
 
@@ -15021,11 +15021,11 @@ exports.tests = {
     }
     entRefChild1 = entRef.lastChild;
 
-    assertNotNull("entRefChild1NotNull",entRefChild1);
+    test.notEqual(entRefChild1, null, 'entRefChild1NotNull');
     entRefPosition = entRef.compareDocumentPosition(entRefChild1);
-    assertEquals("nodecomparedocumentpositionIsContainedFollowing27",20,entRefPosition);
+    test.equal(entRefPosition, 20, 'nodecomparedocumentpositionIsContainedFollowing27');
     entRefChild1Position = entRefChild1.compareDocumentPosition(entRef);
-    assertEquals("nodecomparedocumentpositionContainsPRECEDING",10,entRefChild1Position);
+    test.equal(entRefChild1Position, 10, 'nodecomparedocumentpositionContainsPRECEDING');
 
     test.done()
   },
@@ -15058,10 +15058,10 @@ exports.tests = {
     ) {
       varList = doc.getElementsByTagName("var");
       varElem = varList.item(2);
-      assertNotNull("varElemNotNull",varElem);
+      test.notEqual(varElem, null, 'varElemNotNull');
       entRef = varElem.firstChild;
 
-      assertNotNull("entRefNotNull",entRef);
+      test.notEqual(entRef, null, 'entRefNotNull');
 
     }
 
@@ -15071,14 +15071,14 @@ exports.tests = {
     }
     entRefChild1 = entRef.firstChild;
 
-    assertNotNull("entRefChild1NotNull",entRefChild1);
+    test.notEqual(entRefChild1, null, 'entRefChild1NotNull');
     entRefChild2 = entRef.lastChild;
 
-    assertNotNull("entRefChild2NotNull",entRefChild2);
+    test.notEqual(entRefChild2, null, 'entRefChild2NotNull');
     entRefChild1Position = entRefChild1.compareDocumentPosition(entRefChild2);
-    assertEquals("nodecomparedocumentpositionFollowing28",4,entRefChild1Position);
+    test.equal(entRefChild1Position, 4, 'nodecomparedocumentpositionFollowing28');
     entRefChild2Position = entRefChild2.compareDocumentPosition(entRefChild1);
-    assertEquals("nodecomparedocumentpositionPRECEDING28",2,entRefChild2Position);
+    test.equal(entRefChild2Position, 2, 'nodecomparedocumentpositionPRECEDING28');
 
     test.done()
   },
@@ -15114,14 +15114,14 @@ exports.tests = {
     appendedChild = docElem.appendChild(entRef2);
     entRefChild1 = entRef1.firstChild;
 
-    assertNotNull("entRefChild1NotNull",entRefChild1);
+    test.notEqual(entRefChild1, null, 'entRefChild1NotNull');
     entRefChild2 = entRef2.lastChild;
 
-    assertNotNull("entRefChild2NotNull",entRefChild2);
+    test.notEqual(entRefChild2, null, 'entRefChild2NotNull');
     entRefChild1Position = entRefChild1.compareDocumentPosition(entRefChild2);
-    assertEquals("nodecomparedocumentpositionFollowing29",4,entRefChild1Position);
+    test.equal(entRefChild1Position, 4, 'nodecomparedocumentpositionFollowing29');
     entRefChild2Position = entRefChild2.compareDocumentPosition(entRefChild1);
-    assertEquals("nodecomparedocumentpositionPRECEDING29",2,entRefChild2Position);
+    test.equal(entRefChild2Position, 2, 'nodecomparedocumentpositionPRECEDING29');
 
     test.done()
   },
@@ -15150,7 +15150,7 @@ exports.tests = {
     positionList = doc.getElementsByTagName("code");
     code = positionList.item(0);
     namePosition = code.compareDocumentPosition(strong);
-    assertEquals("nodecomparedocumentpositionFollowing30",2,namePosition);
+    test.equal(namePosition, 2, 'nodecomparedocumentpositionFollowing30');
 
     test.done()
   },
@@ -15184,9 +15184,9 @@ exports.tests = {
     newElem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
     appendedChild = code.appendChild(newElem);
     namePosition = strong.compareDocumentPosition(newElem);
-    assertEquals("nodecomparedocumentpositionFollowing31",4,namePosition);
+    test.equal(namePosition, 4, 'nodecomparedocumentpositionFollowing31');
     elemPosition = newElem.compareDocumentPosition(strong);
-    assertEquals("nodecomparedocumentpositionPRECEDING31",2,elemPosition);
+    test.equal(elemPosition, 2, 'nodecomparedocumentpositionPRECEDING31');
 
     test.done()
   },
@@ -15217,7 +15217,7 @@ exports.tests = {
     positionList = doc2.getElementsByTagName("code");
     code = positionList.item(0);
     documentPosition = strong.compareDocumentPosition(code);
-    assertEquals("nodecomparedocumentpositionFollowing32",4,documentPosition);
+    test.equal(documentPosition, 4, 'nodecomparedocumentpositionFollowing32');
 
     test.done()
   },
@@ -15251,17 +15251,17 @@ exports.tests = {
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     replacedAttr = elem.setAttributeNodeNS(attr);
     position4 = elem.compareDocumentPosition(attr);
-    assertEquals("nodecomparedocumentposition3FollowingisContained33",20,position4);
+    test.equal(position4, 20, 'nodecomparedocumentposition3FollowingisContained33');
     position5 = attr.compareDocumentPosition(elem);
-    assertEquals("nodecomparedocumentposition4ContainsPRECEDING33",10,position5);
+    test.equal(position5, 10, 'nodecomparedocumentposition4ContainsPRECEDING33');
     position1 = doc.compareDocumentPosition(elem);
-    assertEquals("isImplSpecificDisconnected1",33,position1);
+    test.equal(position1, 33, 'isImplSpecificDisconnected1');
     position2 = elem.compareDocumentPosition(doc);
     assert("notBothPreceding",position1 != position2);
     assert("notBothFollowing",position1 != position2);
-    assertEquals("isImplSpecificDisconnected2",33,position2);
+    test.equal(position2, 33, 'isImplSpecificDisconnected2');
     position3 = doc.compareDocumentPosition(elem);
-    assertEquals("isConsistent",position1,position3);
+    test.equal(position3, position1, 'isConsistent');
 
     test.done()
   },
@@ -15296,9 +15296,9 @@ exports.tests = {
     appendedChild = elemMain.appendChild(elem);
     appendedChild = elemMain.appendChild(pi);
     elementToTxtPosition = txt.compareDocumentPosition(elem);
-    assertEquals("nodecomparedocumentpositionFollowing34",4,elementToTxtPosition);
+    test.equal(elementToTxtPosition, 4, 'nodecomparedocumentpositionFollowing34');
     txtToPiPosition = pi.compareDocumentPosition(txt);
-    assertEquals("nodecomparedocumentpositionPRECEDING34",2,txtToPiPosition);
+    test.equal(txtToPiPosition, 2, 'nodecomparedocumentpositionPRECEDING34');
 
     test.done()
   },
@@ -15326,9 +15326,9 @@ exports.tests = {
     elem = elemList.item(3);
     attr = elem.getAttributeNode("dir");
     elementPosition = elem.compareDocumentPosition(attr);
-    assertEquals("nodecomparedocumentpositionIsContainedFollowing35",20,elementPosition);
+    test.equal(elementPosition, 20, 'nodecomparedocumentpositionIsContainedFollowing35');
     attrPosition = attr.compareDocumentPosition(elem);
-    assertEquals("nodecomparedocumentpositionPRECEDINGContains35",10,attrPosition);
+    test.equal(attrPosition, 10, 'nodecomparedocumentpositionPRECEDINGContains35');
 
     test.done()
   },
@@ -15362,9 +15362,9 @@ exports.tests = {
     elemListFollows = doc.getElementsByTagName("strong");
     elemFollows = elemListFollows.item(3);
     attrPosition = attr.compareDocumentPosition(elemFollows);
-    assertEquals("nodecomparedocumentpositionFollowing36",4,attrPosition);
+    test.equal(attrPosition, 4, 'nodecomparedocumentpositionFollowing36');
     elemFollowsPosition = elemFollows.compareDocumentPosition(attr);
-    assertEquals("nodecomparedocumentpositionPRECEEDING36",2,elemFollowsPosition);
+    test.equal(elemFollowsPosition, 2, 'nodecomparedocumentpositionPRECEEDING36');
 
     test.done()
   },
@@ -15396,9 +15396,9 @@ exports.tests = {
     txt = elem.firstChild;
 
     attrPosition = attr.compareDocumentPosition(txt);
-    assertEquals("nodecomparetreepositionFollowing37",4,attrPosition);
+    test.equal(attrPosition, 4, 'nodecomparetreepositionFollowing37');
     txtPosition = txt.compareDocumentPosition(attr);
-    assertEquals("nodecomparetreepositionPRECEDING37",2,txtPosition);
+    test.equal(txtPosition, 2, 'nodecomparetreepositionPRECEDING37');
 
     test.done()
   },
@@ -15428,9 +15428,9 @@ exports.tests = {
     attr = elem.getAttributeNode("class");
     txt = attr.firstChild;
     attrPosition = attr.compareDocumentPosition(txt);
-    assertEquals("nodecomparedocumentpositionIsContainsFollowing38",20,attrPosition);
+    test.equal(attrPosition, 20, 'nodecomparedocumentpositionIsContainsFollowing38');
     attrChildPosition = txt.compareDocumentPosition(attr);
-    assertEquals("nodecomparedocumentpositionContainsPRECEDING38",10,attrChildPosition);
+    test.equal(attrChildPosition, 10, 'nodecomparedocumentpositionContainsPRECEDING38');
 
     test.done()
   },
@@ -15460,8 +15460,8 @@ exports.tests = {
     attr1 = elem.getAttributeNode("class");
     attr2 = elem.getAttributeNode("xsi:noNamespaceSchemaLocation");
     attrPosition = attr1.compareDocumentPosition(attr2);
-    assertEquals("isImplementationSpecific",32,attrPosition);
-    assertEquals("otherBitsZero",0,attrPosition);
+    test.equal(attrPosition, 32, 'isImplementationSpecific');
+    test.equal(attrPosition, 0, 'otherBitsZero');
     assert("eitherFollowingOrPreceding",0 != attrPosition);
     swappedPosition = attr2.compareDocumentPosition(attr1);
     assert("onlyOnePreceding",swappedPosition != attrPosition);
@@ -15496,8 +15496,8 @@ exports.tests = {
     elem.setAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang","FR-fr");
     attr2 = elem.getAttributeNode("xml:lang");
     attrPosition = attr1.compareDocumentPosition(attr2);
-    assertEquals("isImplementationSpecific",32,attrPosition);
-    assertEquals("otherBitsZero",0,attrPosition);
+    test.equal(attrPosition, 32, 'isImplementationSpecific');
+    test.equal(attrPosition, 0, 'otherBitsZero');
     assert("eitherFollowingOrPreceding",0 != attrPosition);
     swappedPosition = attr2.compareDocumentPosition(attr1);
     assert("onlyOnePreceding",swappedPosition != attrPosition);
@@ -15528,7 +15528,7 @@ exports.tests = {
     assertURIEquals("notNull",null,null,null,null,"barfoo",null,null,true,baseURI);
     documentURI = doc.documentURI;
 
-    assertEquals("sameAsDocumentURI",documentURI,baseURI);
+    test.equal(baseURI, documentURI, 'sameAsDocumentURI');
 
     test.done()
   },
@@ -15567,12 +15567,12 @@ exports.tests = {
     newDoc = domImpl.createDocument(rootNS,rootName,nullDocType);
     baseURI = newDoc.baseURI;
 
-    assertNull("baseURIIsNull",baseURI);
+    test.equal(baseURI, null, 'baseURIIsNull');
     newDoc.documentURI = "http://www.example.com/sample.xml";
 
     baseURI = newDoc.baseURI;
 
-    assertEquals("baseURISameAsDocURI","http://www.example.com/sample.xml".toLowerCase(),baseURI.toLowerCase());
+    test.equal(baseURI.toLowerCase(), "http://www.example.com/sample.xml".toLowerCase(), 'baseURISameAsDocURI');
 
     test.done()
   },
@@ -15598,7 +15598,7 @@ exports.tests = {
 
     baseURI = docType.baseURI;
 
-    assertNull("nodegetbaseuri03",baseURI);
+    test.equal(baseURI, null, 'nodegetbaseuri03');
 
     test.done()
   },
@@ -15628,7 +15628,7 @@ exports.tests = {
     assertURIEquals("baseURI",null,null,null,null,"barfoo",null,null,true,baseURI);
     documentURI = doc.documentURI;
 
-    assertEquals("baseURIEqualsDocURI",documentURI,baseURI);
+    test.equal(baseURI, documentURI, 'baseURIEqualsDocURI');
 
     test.done()
   },
@@ -15654,7 +15654,7 @@ exports.tests = {
 
     baseURI = docElem.baseURI;
 
-    assertEquals("nodegetbaseuri05","http://www.w3.org/DOM/L3Test",baseURI);
+    test.equal(baseURI, "http://www.w3.org/DOM/L3Test", 'nodegetbaseuri05');
 
     test.done()
   },
@@ -15681,7 +15681,7 @@ exports.tests = {
     newElement = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
     baseURI = doc.baseURI;
 
-    assertNotNull("nodegetbaseuri06",baseURI);
+    test.notEqual(baseURI, null, 'nodegetbaseuri06');
 
     test.done()
   },
@@ -15715,7 +15715,7 @@ exports.tests = {
     appended = bodyElem.appendChild(newElement);
     baseURI = newElement.baseURI;
 
-    assertEquals("nodegetbaseuri07","http://www.w3.org/DOM/EmployeeID",baseURI);
+    test.equal(baseURI, "http://www.w3.org/DOM/EmployeeID", 'nodegetbaseuri07');
 
     test.done()
   },
@@ -15742,7 +15742,7 @@ exports.tests = {
     bodyElem = bodyList.item(0);
     baseURI = bodyElem.baseURI;
 
-    assertEquals("nodegetbaseuri09","http://www.w3.org/DOM/EmployeeID",baseURI);
+    test.equal(baseURI, "http://www.w3.org/DOM/EmployeeID", 'nodegetbaseuri09');
 
     test.done()
   },
@@ -15773,7 +15773,7 @@ exports.tests = {
     appendedChild = docElem.appendChild(newPI);
     baseURI = newPI.baseURI;
 
-    assertEquals("nodegetbaseuri10","http://www.w3.org/DOM/L3Test",baseURI);
+    test.equal(baseURI, "http://www.w3.org/DOM/L3Test", 'nodegetbaseuri10');
 
     test.done()
   },
@@ -15813,7 +15813,7 @@ exports.tests = {
     assertURIEquals("equalsBarfooBase",null,null,null,null,"barfoo_base",null,null,true,baseURI);
     docURI = doc.documentURI;
 
-    assertEquals("equalsDocURI",docURI,baseURI);
+    test.equal(baseURI, docURI, 'equalsDocURI');
 
     test.done()
   },
@@ -15880,7 +15880,7 @@ exports.tests = {
 
     docURI = doc.documentURI;
 
-    assertEquals("sameAsDocURI",docURI,baseURI);
+    test.equal(baseURI, docURI, 'sameAsDocURI');
     assertURIEquals("entityBase",null,null,null,null,"hc_staff",null,null,true,baseURI);
 
     test.done()
@@ -15929,7 +15929,7 @@ exports.tests = {
     notationImported = newDoc.importNode(notation,true);
     baseURI = notationImported.baseURI;
 
-    assertNull("nodegetbaseuri14",baseURI);
+    test.equal(baseURI, null, 'nodegetbaseuri14');
 
     test.done()
   },
@@ -15958,7 +15958,7 @@ exports.tests = {
     attrNode = bodyElem.getAttributeNode("id");
     baseURI = attrNode.baseURI;
 
-    assertNull("baseURI",baseURI);
+    test.equal(baseURI, null, 'baseURI');
 
     test.done()
   },
@@ -16018,7 +16018,7 @@ exports.tests = {
 
     baseURI = textNode.baseURI;
 
-    assertNull("baseURI",baseURI);
+    test.equal(baseURI, null, 'baseURI');
 
     test.done()
   },
@@ -16048,7 +16048,7 @@ exports.tests = {
 
     baseURI = comment.baseURI;
 
-    assertNull("baseURI",baseURI);
+    test.equal(baseURI, null, 'baseURI');
 
     test.done()
   },
@@ -16077,29 +16077,29 @@ exports.tests = {
     doc = external_barfoo.external_barfoo();
     pList = doc.getElementsByTagName("p");
     pElem = pList.item(0);
-    assertNotNull("pElemNotNull",pElem);
+    test.notEqual(pElem, null, 'pElemNotNull');
 
     if(
       (getImplementationAttribute("expandEntityReferences") == true)
     ) {
       textNode = pElem.firstChild;
 
-      assertNotNull("expansionNotNull",textNode);
+      test.notEqual(textNode, null, 'expansionNotNull');
 
     }
 
     else {
       entRef = pElem.lastChild;
 
-      assertNotNull("entRefNotNull",entRef);
+      test.notEqual(entRef, null, 'entRefNotNull');
       textNode = entRef.firstChild;
 
-      assertNotNull("entRefTextNotNull",textNode);
+      test.notEqual(textNode, null, 'entRefTextNotNull');
 
     }
     baseURI = textNode.baseURI;
 
-    assertNull("baseURI",baseURI);
+    test.equal(baseURI, null, 'baseURI');
 
     test.done()
   },
@@ -16125,7 +16125,7 @@ exports.tests = {
     doc = external_barfoo.external_barfoo();
     pList = doc.getElementsByTagName("p");
     pElem = pList.item(2);
-    assertNotNull("pElemNotNull",pElem);
+    test.notEqual(pElem, null, 'pElemNotNull');
     baseURI = pElem.baseURI;
 
     assertURIEquals("equalsExternalBarFoo",null,null,null,null,"external_widget",null,null,true,baseURI);
@@ -16160,7 +16160,7 @@ exports.tests = {
     featureImpl = node.getFeature("+cOrE",nullVersion);
     assertSame("PlusCoreUnspecifiedVersion",node,featureImpl);
     featureImpl = node.getFeature("org.w3c.domts.bogus.feature",nullVersion);
-    assertNull("unrecognizedFeature",featureImpl);
+    test.equal(featureImpl, null, 'unrecognizedFeature');
     featureImpl = node.getFeature("cOrE","2.0");
     assertSame("Core20",node,featureImpl);
     featureImpl = node.getFeature("cOrE","3.0");
@@ -16234,7 +16234,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusHTMLUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusHTMLUnspecified');
 
     }
     isSupported = node.isSupported("+SVG",nullVersion);
@@ -16243,7 +16243,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusSVGUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusSVGUnspecified');
 
     }
 
@@ -16277,7 +16277,7 @@ exports.tests = {
     featureImpl = node.getFeature("+cOrE",nullVersion);
     assertSame("PlusCoreUnspecifiedVersion",node,featureImpl);
     featureImpl = node.getFeature("org.w3c.domts.bogus.feature",nullVersion);
-    assertNull("unrecognizedFeature",featureImpl);
+    test.equal(featureImpl, null, 'unrecognizedFeature');
     featureImpl = node.getFeature("cOrE","2.0");
     assertSame("Core20",node,featureImpl);
     featureImpl = node.getFeature("cOrE","3.0");
@@ -16351,7 +16351,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusHTMLUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusHTMLUnspecified');
 
     }
     isSupported = node.isSupported("+SVG",nullVersion);
@@ -16360,7 +16360,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusSVGUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusSVGUnspecified');
 
     }
 
@@ -16395,7 +16395,7 @@ exports.tests = {
     featureImpl = node.getFeature("+cOrE",nullVersion);
     assertSame("PlusCoreUnspecifiedVersion",node,featureImpl);
     featureImpl = node.getFeature("org.w3c.domts.bogus.feature",nullVersion);
-    assertNull("unrecognizedFeature",featureImpl);
+    test.equal(featureImpl, null, 'unrecognizedFeature');
     featureImpl = node.getFeature("cOrE","2.0");
     assertSame("Core20",node,featureImpl);
     featureImpl = node.getFeature("cOrE","3.0");
@@ -16469,7 +16469,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusHTMLUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusHTMLUnspecified');
 
     }
     isSupported = node.isSupported("+SVG",nullVersion);
@@ -16478,7 +16478,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusSVGUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusSVGUnspecified');
 
     }
 
@@ -16512,7 +16512,7 @@ exports.tests = {
     featureImpl = node.getFeature("+cOrE",nullVersion);
     assertSame("PlusCoreUnspecifiedVersion",node,featureImpl);
     featureImpl = node.getFeature("org.w3c.domts.bogus.feature",nullVersion);
-    assertNull("unrecognizedFeature",featureImpl);
+    test.equal(featureImpl, null, 'unrecognizedFeature');
     featureImpl = node.getFeature("cOrE","2.0");
     assertSame("Core20",node,featureImpl);
     featureImpl = node.getFeature("cOrE","3.0");
@@ -16586,7 +16586,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusHTMLUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusHTMLUnspecified');
 
     }
     isSupported = node.isSupported("+SVG",nullVersion);
@@ -16595,7 +16595,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusSVGUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusSVGUnspecified');
 
     }
 
@@ -16630,7 +16630,7 @@ exports.tests = {
     featureImpl = node.getFeature("+cOrE",nullVersion);
     assertSame("PlusCoreUnspecifiedVersion",node,featureImpl);
     featureImpl = node.getFeature("org.w3c.domts.bogus.feature",nullVersion);
-    assertNull("unrecognizedFeature",featureImpl);
+    test.equal(featureImpl, null, 'unrecognizedFeature');
     featureImpl = node.getFeature("cOrE","2.0");
     assertSame("Core20",node,featureImpl);
     featureImpl = node.getFeature("cOrE","3.0");
@@ -16704,7 +16704,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusHTMLUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusHTMLUnspecified');
 
     }
     isSupported = node.isSupported("+SVG",nullVersion);
@@ -16713,7 +16713,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusSVGUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusSVGUnspecified');
 
     }
 
@@ -16747,7 +16747,7 @@ exports.tests = {
     featureImpl = node.getFeature("+cOrE",nullVersion);
     assertSame("PlusCoreUnspecifiedVersion",node,featureImpl);
     featureImpl = node.getFeature("org.w3c.domts.bogus.feature",nullVersion);
-    assertNull("unrecognizedFeature",featureImpl);
+    test.equal(featureImpl, null, 'unrecognizedFeature');
     featureImpl = node.getFeature("cOrE","2.0");
     assertSame("Core20",node,featureImpl);
     featureImpl = node.getFeature("cOrE","3.0");
@@ -16821,7 +16821,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusHTMLUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusHTMLUnspecified');
 
     }
     isSupported = node.isSupported("+SVG",nullVersion);
@@ -16830,7 +16830,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusSVGUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusSVGUnspecified');
 
     }
 
@@ -16864,7 +16864,7 @@ exports.tests = {
     featureImpl = node.getFeature("+cOrE",nullVersion);
     assertSame("PlusCoreUnspecifiedVersion",node,featureImpl);
     featureImpl = node.getFeature("org.w3c.domts.bogus.feature",nullVersion);
-    assertNull("unrecognizedFeature",featureImpl);
+    test.equal(featureImpl, null, 'unrecognizedFeature');
     featureImpl = node.getFeature("cOrE","2.0");
     assertSame("Core20",node,featureImpl);
     featureImpl = node.getFeature("cOrE","3.0");
@@ -16938,7 +16938,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusHTMLUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusHTMLUnspecified');
 
     }
     isSupported = node.isSupported("+SVG",nullVersion);
@@ -16947,7 +16947,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusSVGUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusSVGUnspecified');
 
     }
 
@@ -16982,7 +16982,7 @@ exports.tests = {
     featureImpl = node.getFeature("+cOrE",nullVersion);
     assertSame("PlusCoreUnspecifiedVersion",node,featureImpl);
     featureImpl = node.getFeature("org.w3c.domts.bogus.feature",nullVersion);
-    assertNull("unrecognizedFeature",featureImpl);
+    test.equal(featureImpl, null, 'unrecognizedFeature');
     featureImpl = node.getFeature("cOrE","2.0");
     assertSame("Core20",node,featureImpl);
     featureImpl = node.getFeature("cOrE","3.0");
@@ -17056,7 +17056,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusHTMLUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusHTMLUnspecified');
 
     }
     isSupported = node.isSupported("+SVG",nullVersion);
@@ -17065,7 +17065,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusSVGUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusSVGUnspecified');
 
     }
 
@@ -17100,7 +17100,7 @@ exports.tests = {
     featureImpl = node.getFeature("+cOrE",nullVersion);
     assertSame("PlusCoreUnspecifiedVersion",node,featureImpl);
     featureImpl = node.getFeature("org.w3c.domts.bogus.feature",nullVersion);
-    assertNull("unrecognizedFeature",featureImpl);
+    test.equal(featureImpl, null, 'unrecognizedFeature');
     featureImpl = node.getFeature("cOrE","2.0");
     assertSame("Core20",node,featureImpl);
     featureImpl = node.getFeature("cOrE","3.0");
@@ -17174,7 +17174,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusHTMLUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusHTMLUnspecified');
 
     }
     isSupported = node.isSupported("+SVG",nullVersion);
@@ -17183,7 +17183,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusSVGUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusSVGUnspecified');
 
     }
 
@@ -17222,7 +17222,7 @@ exports.tests = {
     featureImpl = node.getFeature("+cOrE",nullVersion);
     assertSame("PlusCoreUnspecifiedVersion",node,featureImpl);
     featureImpl = node.getFeature("org.w3c.domts.bogus.feature",nullVersion);
-    assertNull("unrecognizedFeature",featureImpl);
+    test.equal(featureImpl, null, 'unrecognizedFeature');
     featureImpl = node.getFeature("cOrE","2.0");
     assertSame("Core20",node,featureImpl);
     featureImpl = node.getFeature("cOrE","3.0");
@@ -17296,7 +17296,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusHTMLUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusHTMLUnspecified');
 
     }
     isSupported = node.isSupported("+SVG",nullVersion);
@@ -17305,7 +17305,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusSVGUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusSVGUnspecified');
 
     }
 
@@ -17339,7 +17339,7 @@ exports.tests = {
     featureImpl = node.getFeature("+cOrE",nullVersion);
     assertSame("PlusCoreUnspecifiedVersion",node,featureImpl);
     featureImpl = node.getFeature("org.w3c.domts.bogus.feature",nullVersion);
-    assertNull("unrecognizedFeature",featureImpl);
+    test.equal(featureImpl, null, 'unrecognizedFeature');
     featureImpl = node.getFeature("cOrE","2.0");
     assertSame("Core20",node,featureImpl);
     featureImpl = node.getFeature("cOrE","3.0");
@@ -17413,7 +17413,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusHTMLUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusHTMLUnspecified');
 
     }
     isSupported = node.isSupported("+SVG",nullVersion);
@@ -17422,7 +17422,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusSVGUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusSVGUnspecified');
 
     }
 
@@ -17462,7 +17462,7 @@ exports.tests = {
     featureImpl = node.getFeature("+cOrE",nullVersion);
     assertSame("PlusCoreUnspecifiedVersion",node,featureImpl);
     featureImpl = node.getFeature("org.w3c.domts.bogus.feature",nullVersion);
-    assertNull("unrecognizedFeature",featureImpl);
+    test.equal(featureImpl, null, 'unrecognizedFeature');
     featureImpl = node.getFeature("cOrE","2.0");
     assertSame("Core20",node,featureImpl);
     featureImpl = node.getFeature("cOrE","3.0");
@@ -17536,7 +17536,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusHTMLUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusHTMLUnspecified');
 
     }
     isSupported = node.isSupported("+SVG",nullVersion);
@@ -17545,7 +17545,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusSVGUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusSVGUnspecified');
 
     }
 
@@ -17585,7 +17585,7 @@ exports.tests = {
     featureImpl = node.getFeature("+cOrE",nullVersion);
     assertSame("PlusCoreUnspecifiedVersion",node,featureImpl);
     featureImpl = node.getFeature("org.w3c.domts.bogus.feature",nullVersion);
-    assertNull("unrecognizedFeature",featureImpl);
+    test.equal(featureImpl, null, 'unrecognizedFeature');
     featureImpl = node.getFeature("cOrE","2.0");
     assertSame("Core20",node,featureImpl);
     featureImpl = node.getFeature("cOrE","3.0");
@@ -17659,7 +17659,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusHTMLUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusHTMLUnspecified');
 
     }
     isSupported = node.isSupported("+SVG",nullVersion);
@@ -17668,7 +17668,7 @@ exports.tests = {
     if(
       isSupported
     ) {
-      assertNotNull("PlusSVGUnspecified",featureImpl);
+      test.notEqual(featureImpl, null, 'PlusSVGUnspecified');
 
     }
 
@@ -17693,7 +17693,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     textContent = doc.textContent;
 
-    assertNull("nodegettextcontent01",textContent);
+    test.equal(textContent, null, 'nodegettextcontent01');
 
     test.done()
   },
@@ -17731,7 +17731,7 @@ exports.tests = {
     newDoc = domImpl.createDocument(rootNS,rootName,nullDocType);
     textContent = newDoc.textContent;
 
-    assertNull("nodegettextcontent02",textContent);
+    test.equal(textContent, null, 'nodegettextcontent02');
 
     test.done()
   },
@@ -17758,7 +17758,7 @@ exports.tests = {
 
     textContent = docType.textContent;
 
-    assertNull("nodegettextcontent03",textContent);
+    test.equal(textContent, null, 'nodegettextcontent03');
 
     test.done()
   },
@@ -17795,7 +17795,7 @@ exports.tests = {
     docType = domImpl.createDocumentType(rootName,nullPubId,nullSysId);
     textContent = docType.textContent;
 
-    assertNull("nodegettextcontent04",textContent);
+    test.equal(textContent, null, 'nodegettextcontent04');
 
     test.done()
   },
@@ -17826,7 +17826,7 @@ exports.tests = {
     notation1 = notationsMap.getNamedItem("notation1");
     textContent = docType.textContent;
 
-    assertNull("nodegettextcontent05",textContent);
+    test.equal(textContent, null, 'nodegettextcontent05');
 
     test.done()
   },
@@ -17856,7 +17856,7 @@ exports.tests = {
     attr = elem.getAttributeNode("dir");
     textContent = attr.textContent;
 
-    assertEquals("nodegettextcontent06","rtl",textContent);
+    test.equal(textContent, "rtl", 'nodegettextcontent06');
 
     test.done()
   },
@@ -17885,7 +17885,7 @@ exports.tests = {
     attr = elem.getAttributeNodeNS("http://www.w3.org/XML/1998/namespace","lang");
     textContent = attr.textContent;
 
-    assertEquals("nodegettextcontent07","en-US",textContent);
+    test.equal(textContent, "en-US", 'nodegettextcontent07');
 
     test.done()
   },
@@ -17916,7 +17916,7 @@ exports.tests = {
     attr = elem.getAttributeNodeNS("http://www.w3.org/XML/1998/namespace","lang");
     textContent = attr.textContent;
 
-    assertEquals("nodegettextcontent08","",textContent);
+    test.equal(textContent, "", 'nodegettextcontent08');
 
     test.done()
   },
@@ -17945,7 +17945,7 @@ exports.tests = {
     appendedChild = elem.appendChild(txt);
     textContent = txt.textContent;
 
-    assertEquals("nodegettextcontent09","Replacement Text",textContent);
+    test.equal(textContent, "Replacement Text", 'nodegettextcontent09');
 
     test.done()
   },
@@ -17976,7 +17976,7 @@ exports.tests = {
 
     textContent = txt.textContent;
 
-    assertEquals("nodegettextcontent10","EMP0001",textContent);
+    test.equal(textContent, "EMP0001", 'nodegettextcontent10');
 
     test.done()
   },
@@ -18007,7 +18007,7 @@ exports.tests = {
 
     textContent = cdata.textContent;
 
-    assertEquals("nodegettextcontent11","This is an adjacent CDATASection with a reference to a tab &tab;",textContent);
+    test.equal(textContent, "This is an adjacent CDATASection with a reference to a tab &tab;", 'nodegettextcontent11');
 
     test.done()
   },
@@ -18036,7 +18036,7 @@ exports.tests = {
     appendedChild = elem.appendChild(comment);
     textContent = comment.textContent;
 
-    assertEquals("nodegettextcontent12","Comment",textContent);
+    test.equal(textContent, "Comment", 'nodegettextcontent12');
 
     test.done()
   },
@@ -18064,7 +18064,7 @@ exports.tests = {
     elem = elemList.item(1);
     textContent = elem.textContent;
 
-    assertEquals("nodegettextcontent13","Martha Raynolds\nThis is a CDATASection with EntityReference number 2 &ent2;\nThis is an adjacent CDATASection with a reference to a tab &tab;",textContent);
+    test.equal(textContent, "Martha Raynolds\nThis is a CDATASection with EntityReference number 2 &ent2;\nThis is an adjacent CDATASection with a reference to a tab &tab;", 'nodegettextcontent13');
 
     test.done()
   },
@@ -18091,7 +18091,7 @@ exports.tests = {
     elem = elemList.item(2);
     textContent = elem.textContent;
 
-    assertEquals("nodegettextcontent13","\n  EMP0003\n  Roger\n Jones\n  Department Manager\n  100,000\n  Element data\n  PO Box 27 Irving, texas 98553\n ",textContent);
+    test.equal(textContent, "\n  EMP0003\n  Roger\n Jones\n  Department Manager\n  100,000\n  Element data\n  PO Box 27 Irving, texas 98553\n ", 'nodegettextcontent13');
 
     test.done()
   },
@@ -18135,7 +18135,7 @@ exports.tests = {
     textContent = elem.textContent;
 
     doc.normalizeDocument();
-    assertEquals("nodegettextcontent15","Text βCData",textContent);
+    test.equal(textContent, "Text βCData", 'nodegettextcontent15');
 
     test.done()
   },
@@ -18183,7 +18183,7 @@ exports.tests = {
     doc.normalizeDocument();
     textContent = docFrag.textContent;
 
-    assertEquals("nodegettextcontent16","Text βCData",textContent);
+    test.equal(textContent, "Text βCData", 'nodegettextcontent16');
 
     test.done()
   },
@@ -18212,7 +18212,7 @@ exports.tests = {
     appendedChild = elem.appendChild(entRef);
     textContent = entRef.textContent;
 
-    assertEquals("nodegettextcontent17","β",textContent);
+    test.equal(textContent, "β", 'nodegettextcontent17');
 
     test.done()
   },
@@ -18242,7 +18242,7 @@ exports.tests = {
     entity = entitymap.getNamedItem("delta");
     textContent = entity.textContent;
 
-    assertEquals("nodegettextcontent18","δ",textContent);
+    test.equal(textContent, "δ", 'nodegettextcontent18');
 
     test.done()
   },
@@ -18268,7 +18268,7 @@ exports.tests = {
     elem = elemList.item(0);
     textContent = elem.textContent;
 
-    assertEquals("textContent","bar",textContent);
+    test.equal(textContent, "bar", 'textContent');
 
     test.done()
   },
@@ -18291,7 +18291,7 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     userData = doc.getUserData("key1");
-    assertNull("nodegetuserdata01",userData);
+    test.equal(userData, null, 'nodegetuserdata01');
 
     test.done()
   },
@@ -18314,7 +18314,7 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     userData = doc.getUserData("key1");
-    assertNull("nodegetuserdata02",userData);
+    test.equal(userData, null, 'nodegetuserdata02');
 
     test.done()
   },
@@ -18430,7 +18430,7 @@ exports.tests = {
       entity.setUserData("key", attr, nullHandler.handle);
     }
     retUserData = entity.getUserData("Key");
-    assertNull("nodegetuserdata05",retUserData);
+    test.equal(retUserData, null, 'nodegetuserdata05');
 
     test.done()
   },
@@ -18455,7 +18455,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     txt = doc.createTextNode("TEXT");
     retUserData = txt.getUserData("");
-    assertNull("nodegetuserdata06",retUserData);
+    test.equal(retUserData, null, 'nodegetuserdata06');
 
     test.done()
   },
@@ -18530,11 +18530,11 @@ exports.tests = {
     insertedComment = doc.insertBefore(newComment,docElem);
     data = insertedComment.data;
 
-    assertEquals("nodeinsertbefore01_1","Comment",data);
+    test.equal(data, "Comment", 'nodeinsertbefore01_1');
     insertedPI = doc.insertBefore(newPI,newComment);
     target = insertedPI.target;
 
-    assertEquals("nodeinsertbefore01_2","PITarget",target);
+    test.equal(target, "PITarget", 'nodeinsertbefore01_2');
 
     test.done()
   },
@@ -18585,11 +18585,11 @@ exports.tests = {
     insertedComment = newDoc.insertBefore(newComment,newDocType);
     data = insertedComment.data;
 
-    assertEquals("nodeinsertbefore02_1","Comment",data);
+    test.equal(data, "Comment", 'nodeinsertbefore02_1');
     insertedPI = newDoc.insertBefore(newPI,newComment);
     target = insertedPI.target;
 
-    assertEquals("nodeinsertbefore02_2","PITarget",target);
+    test.equal(target, "PITarget", 'nodeinsertbefore02_2');
 
     test.done()
   },
@@ -18886,7 +18886,7 @@ exports.tests = {
 
     data = comment.data;
 
-    assertEquals("nodeinsertbefore09","insertComment",data);
+    test.equal(data, "insertComment", 'nodeinsertbefore09');
 
     test.done()
   },
@@ -18991,19 +18991,19 @@ exports.tests = {
     inserted = docFrag.insertBefore(comment,pi);
     insertedVal = inserted.data;
 
-    assertEquals("nodeinsertbefore11_Comment","Comment",insertedVal);
+    test.equal(insertedVal, "Comment", 'nodeinsertbefore11_Comment');
     inserted = docFrag.insertBefore(txt,comment);
     insertedVal = inserted.data;
 
-    assertEquals("nodeinsertbefore11_Text","Text",insertedVal);
+    test.equal(insertedVal, "Text", 'nodeinsertbefore11_Text');
     inserted = docFrag.insertBefore(cdata,txt);
     insertedVal = inserted.data;
 
-    assertEquals("nodeinsertbefore11_CDATA","CDATA",insertedVal);
+    test.equal(insertedVal, "CDATA", 'nodeinsertbefore11_CDATA');
     inserted = docFrag.insertBefore(eRef,cdata);
     insertedVal = inserted.nodeName;
 
-    assertEquals("nodeinsertbefore11_Ent1","alpha",insertedVal);
+    test.equal(insertedVal, "alpha", 'nodeinsertbefore11_Ent1');
 
     test.done()
   },
@@ -19042,7 +19042,7 @@ exports.tests = {
 
     name = last.nodeName;
 
-    assertEquals("nodeinsertbefore12","dom3:elem",name);
+    test.equal(name, "dom3:elem", 'nodeinsertbefore12');
 
     test.done()
   },
@@ -19271,7 +19271,7 @@ exports.tests = {
 
     nodeName = insertedElem.nodeName;
 
-    assertEquals("nodeinsertbefore16","xhtml:br",nodeName);
+    test.equal(nodeName, "xhtml:br", 'nodeinsertbefore16');
 
     test.done()
   },
@@ -19311,7 +19311,7 @@ exports.tests = {
 
     nodeName = insertedText.nodeName;
 
-    assertEquals("nodeinsertbefore17","#text",nodeName);
+    test.equal(nodeName, "#text", 'nodeinsertbefore17');
 
     test.done()
   },
@@ -19357,7 +19357,7 @@ exports.tests = {
 
     data = insertedNode.data;
 
-    assertEquals("nodeinsertbefore18","Comment",data);
+    test.equal(data, "Comment", 'nodeinsertbefore18');
 
     test.done()
   },
@@ -19390,7 +19390,7 @@ exports.tests = {
     inserted = element.insertBefore(newNode,refNode);
     nodeName = inserted.nodeName;
 
-    assertEquals("nodeinsertbefore19","alpha",nodeName);
+    test.equal(nodeName, "alpha", 'nodeinsertbefore19');
 
     test.done()
   },
@@ -19621,10 +19621,10 @@ exports.tests = {
 
     span = eRef.firstChild;
 
-    assertNotNull("spanNotNull",span);
+    test.notEqual(span, null, 'spanNotNull');
     spanText = span.firstChild;
 
-    assertNotNull("spanTextNotNull",spanText);
+    test.notEqual(spanText, null, 'spanTextNotNull');
     newNode = doc.createElementNS("http://www.w3.org/1999/xhtml","span");
 
     {
@@ -21478,7 +21478,7 @@ exports.tests = {
 
     doc = barfoo_nodefaultns.barfoo_nodefaultns();
     namespaceURI = doc.lookupNamespaceURI(nullPrefix);
-    assertNull("nodelookupnamespaceuri01",namespaceURI);
+    test.equal(namespaceURI, null, 'nodelookupnamespaceuri01');
 
     test.done()
   },
@@ -21516,7 +21516,7 @@ exports.tests = {
     qname = "dom3:" + rootName;
     newDoc = domImpl.createDocument(rootNS,qname,nullDocType);
     namespaceURI = newDoc.lookupNamespaceURI("dom3");
-    assertEquals("nodelookupnamespaceuri02",rootNS,namespaceURI);
+    test.equal(namespaceURI, rootNS, 'nodelookupnamespaceuri02');
 
     test.done()
   },
@@ -21544,7 +21544,7 @@ exports.tests = {
     docType = doc.doctype;
 
     namespaceURI = docType.lookupNamespaceURI(nullPrefix);
-    assertNull("nodelookupnamespaceuri03",namespaceURI);
+    test.equal(namespaceURI, null, 'nodelookupnamespaceuri03');
 
     test.done()
   },
@@ -21580,7 +21580,7 @@ exports.tests = {
     entity = entitiesMap.getNamedItem("alpha");
     notation = notationsMap.getNamedItem("notation1");
     namespaceURI = entity.lookupNamespaceURI("");
-    assertNull("nodelookupnamespaceuri04",namespaceURI);
+    test.equal(namespaceURI, null, 'nodelookupnamespaceuri04');
 
     test.done()
   },
@@ -21621,7 +21621,7 @@ exports.tests = {
     elem = newDoc.documentElement;
 
     namespaceURI = elem.lookupNamespaceURI("dom3");
-    assertEquals("nodelookupnamespaceuri05",rootNS,namespaceURI);
+    test.equal(namespaceURI, rootNS, 'nodelookupnamespaceuri05');
 
     test.done()
   },
@@ -21647,7 +21647,7 @@ exports.tests = {
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(2);
     namespaceURI = elem.lookupNamespaceURI("dmstc");
-    assertEquals("nodelookupnamespaceuri06","http://www.netzero.com",namespaceURI);
+    test.equal(namespaceURI, "http://www.netzero.com", 'nodelookupnamespaceuri06');
 
     test.done()
   },
@@ -21673,7 +21673,7 @@ exports.tests = {
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(2);
     namespaceURI = elem.lookupNamespaceURI("dmstc");
-    assertEquals("nodelookupnamespaceuri07","http://www.netzero.com",namespaceURI);
+    test.equal(namespaceURI, "http://www.netzero.com", 'nodelookupnamespaceuri07');
 
     test.done()
   },
@@ -21701,9 +21701,9 @@ exports.tests = {
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     namespaceURI = elem.lookupNamespaceURI("dmstc");
-    assertEquals("nodelookupnamespaceuri08","http://www.usa.com",namespaceURI);
+    test.equal(namespaceURI, "http://www.usa.com", 'nodelookupnamespaceuri08');
     namespaceURIEmpty = elem.lookupNamespaceURI("");
-    assertNull("nodelookupnamespaceprefixEmpty08",namespaceURIEmpty);
+    test.equal(namespaceURIEmpty, null, 'nodelookupnamespaceprefixEmpty08');
 
     test.done()
   },
@@ -21730,9 +21730,9 @@ exports.tests = {
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
     namespaceURI = elem.lookupNamespaceURI("dmstc");
-    assertEquals("nodelookupnamespaceuri09","http://www.usa.com",namespaceURI);
+    test.equal(namespaceURI, "http://www.usa.com", 'nodelookupnamespaceuri09');
     namespaceURIEmpty = elem.lookupNamespaceURI("");
-    assertNull("nodelookupnamespaceprefixEmpty09",namespaceURIEmpty);
+    test.equal(namespaceURIEmpty, null, 'nodelookupnamespaceprefixEmpty09');
 
     test.done()
   },
@@ -21760,7 +21760,7 @@ exports.tests = {
     child = doc.createElement("p");
     appendedChild = parent.appendChild(child);
     namespaceURI = child.lookupNamespaceURI("xhtml");
-    assertEquals("nodelookupnamespaceuri10","http://www.w3.org/1999/xhtml",namespaceURI);
+    test.equal(namespaceURI, "http://www.w3.org/1999/xhtml", 'nodelookupnamespaceuri10');
 
     test.done()
   },
@@ -21801,7 +21801,7 @@ exports.tests = {
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
     importedNode = newDoc.importNode(elem,true);
     namespaceURI = importedNode.lookupNamespaceURI("dom3");
-    assertEquals("nodelookupnamespaceuri11","http://www.w3.org/1999/xhtml",namespaceURI);
+    test.equal(namespaceURI, "http://www.w3.org/1999/xhtml", 'nodelookupnamespaceuri11');
 
     test.done()
   },
@@ -21833,7 +21833,7 @@ exports.tests = {
     appendedChild = elem.appendChild(txt);
     appendedChild = docElem.appendChild(elem);
     namespaceURI = txt.lookupNamespaceURI("dom3");
-    assertEquals("nodelookupnamespaceuri13","http://www.w3.org/1999/xhtml",namespaceURI);
+    test.equal(namespaceURI, "http://www.w3.org/1999/xhtml", 'nodelookupnamespaceuri13');
 
     test.done()
   },
@@ -21865,7 +21865,7 @@ exports.tests = {
     appendedChild = elem.appendChild(cdata);
     appendedChild = docElem.appendChild(elem);
     lookupNamespaceURI = cdata.lookupNamespaceURI("dom3");
-    assertEquals("nodelookupnamespaceuri14","http://www.w3.org/1999/xhtml",lookupNamespaceURI);
+    test.equal(lookupNamespaceURI, "http://www.w3.org/1999/xhtml", 'nodelookupnamespaceuri14');
 
     test.done()
   },
@@ -21899,7 +21899,7 @@ exports.tests = {
     appendedChild = elem.appendChild(clonedComment);
     appendedChild = docElem.appendChild(elem);
     namespaceURI = clonedComment.lookupNamespaceURI("dom3");
-    assertEquals("nodelookupnamespaceuri15","http://www.w3.org/1999/xhtml",namespaceURI);
+    test.equal(namespaceURI, "http://www.w3.org/1999/xhtml", 'nodelookupnamespaceuri15');
 
     test.done()
   },
@@ -21926,7 +21926,7 @@ exports.tests = {
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     attNode = elem.setAttributeNodeNS(attr);
     namespaceURI = attr.lookupNamespaceURI("xml");
-    assertNull("nodelookupnamespaceuri16",namespaceURI);
+    test.equal(namespaceURI, null, 'nodelookupnamespaceuri16');
 
     test.done()
   },
@@ -21957,7 +21957,7 @@ exports.tests = {
 
     attr = attributesMap.getNamedItem("xsi:noNamespaceSchemaLocation");
     namespaceURI = attr.lookupNamespaceURI("dmstc");
-    assertEquals("nodelookupnamespaceuri17","http://www.netzero.com",namespaceURI);
+    test.equal(namespaceURI, "http://www.netzero.com", 'nodelookupnamespaceuri17');
 
     test.done()
   },
@@ -21988,7 +21988,7 @@ exports.tests = {
 
     attr = attributesMap.getNamedItem("dir");
     namespaceURI = attr.lookupNamespaceURI("nm");
-    assertEquals("nodelookupnamespaceuri18","http://www.altavista.com",namespaceURI);
+    test.equal(namespaceURI, "http://www.altavista.com", 'nodelookupnamespaceuri18');
 
     test.done()
   },
@@ -22019,7 +22019,7 @@ exports.tests = {
 
     attr = attributesMap.getNamedItem("class");
     namespaceURI = attr.lookupNamespaceURI("xsi");
-    assertEquals("nodelookupnamespaceuri19","http://www.w3.org/2001/XMLSchema-instance",namespaceURI);
+    test.equal(namespaceURI, "http://www.w3.org/2001/XMLSchema-instance", 'nodelookupnamespaceuri19');
 
     test.done()
   },
@@ -22053,7 +22053,7 @@ exports.tests = {
 
     attr = attributesMap.getNamedItem("xmlns:nm");
     namespaceURI = attr.lookupNamespaceURI("nm");
-    assertEquals("nodelookupnamespaceuri20","http://www.altavista.com",namespaceURI);
+    test.equal(namespaceURI, "http://www.altavista.com", 'nodelookupnamespaceuri20');
 
     test.done()
   },
@@ -22078,7 +22078,7 @@ exports.tests = {
 
     doc = hc_staff.hc_staff();
     prefix = doc.lookupPrefix(nullNSURI);
-    assertNull("nodelookupprefix01",prefix);
+    test.equal(prefix, null, 'nodelookupprefix01');
 
     test.done()
   },
@@ -22116,7 +22116,7 @@ exports.tests = {
     qname = "dom3:" + rootName;
     newDoc = domImpl.createDocument(rootNS,qname,nullDocType);
     prefix = newDoc.lookupPrefix(rootNS);
-    assertEquals("nodelookupprefix02","dom3",prefix);
+    test.equal(prefix, "dom3", 'nodelookupprefix02');
 
     test.done()
   },
@@ -22144,7 +22144,7 @@ exports.tests = {
     docType = doc.doctype;
 
     prefix = docType.lookupPrefix(nullNSURI);
-    assertNull("nodelookupprefix03",prefix);
+    test.equal(prefix, null, 'nodelookupprefix03');
 
     test.done()
   },
@@ -22180,9 +22180,9 @@ exports.tests = {
     entity = entitiesMap.getNamedItem("alpha");
     notation = notationsMap.getNamedItem("notation1");
     prefix = entity.lookupPrefix("");
-    assertNull("nodelookupprefixEntity04",prefix);
+    test.equal(prefix, null, 'nodelookupprefixEntity04');
     prefix = notation.lookupPrefix("");
-    assertNull("nodelookupprefixNotation04",prefix);
+    test.equal(prefix, null, 'nodelookupprefixNotation04');
 
     test.done()
   },
@@ -22223,7 +22223,7 @@ exports.tests = {
     elem = newDoc.documentElement;
 
     prefix = elem.lookupPrefix(rootNS);
-    assertEquals("nodelookupprefix05","dom3",prefix);
+    test.equal(prefix, "dom3", 'nodelookupprefix05');
 
     test.done()
   },
@@ -22249,7 +22249,7 @@ exports.tests = {
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(2);
     prefix = elem.lookupPrefix("http://www.netzero.com");
-    assertEquals("nodelookupprefix06","dmstc",prefix);
+    test.equal(prefix, "dmstc", 'nodelookupprefix06');
 
     test.done()
   },
@@ -22275,7 +22275,7 @@ exports.tests = {
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(2);
     prefix = elem.lookupPrefix("http://www.netzero.com");
-    assertEquals("nodelookupprefix07","dmstc",prefix);
+    test.equal(prefix, "dmstc", 'nodelookupprefix07');
 
     test.done()
   },
@@ -22302,9 +22302,9 @@ exports.tests = {
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     prefix = elem.lookupPrefix("http://www.usa.com");
-    assertEquals("nodelookupprefix08","dmstc",prefix);
+    test.equal(prefix, "dmstc", 'nodelookupprefix08');
     prefixEmpty = elem.lookupPrefix("http://www.w3.org/1999/xhtml");
-    assertNull("nodelookupnamespaceprefixEmpty08",prefixEmpty);
+    test.equal(prefixEmpty, null, 'nodelookupnamespaceprefixEmpty08');
 
     test.done()
   },
@@ -22334,9 +22334,9 @@ exports.tests = {
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
     prefix = elem.lookupPrefix("http://www.usa.com");
-    assertEquals("nodelookupprefix09","dmstc",prefix);
+    test.equal(prefix, "dmstc", 'nodelookupprefix09');
     prefixEmpty = elem.lookupPrefix("http://www.w3.org/1999/xhtml");
-    assertNull("nodelookupprefixEmpty09",prefixEmpty);
+    test.equal(prefixEmpty, null, 'nodelookupprefixEmpty09');
 
     test.done()
   },
@@ -22364,7 +22364,7 @@ exports.tests = {
     child = doc.createElement("br");
     appendedChild = parent.appendChild(child);
     prefix = child.lookupPrefix("http://www.w3.org/1999/xhtml");
-    assertEquals("nodelookupprefix10","dom3",prefix);
+    test.equal(prefix, "dom3", 'nodelookupprefix10');
 
     test.done()
   },
@@ -22407,7 +22407,7 @@ exports.tests = {
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:br");
     importedNode = newDoc.importNode(elem,true);
     prefix = importedNode.lookupPrefix("http://www.w3.org/1999/xhtml");
-    assertEquals("nodelookupprefix11","dom3",prefix);
+    test.equal(prefix, "dom3", 'nodelookupprefix11');
 
     test.done()
   },
@@ -22435,7 +22435,7 @@ exports.tests = {
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
     renamedNode = doc.renameNode(elem,"http://www.w3.org/1999/xhtml","ren:br");
     prefix = renamedNode.lookupPrefix("http://www.w3.org/1999/xhtml");
-    assertEquals("nodelookupprefix12","ren",prefix);
+    test.equal(prefix, "ren", 'nodelookupprefix12');
 
     test.done()
   },
@@ -22468,7 +22468,7 @@ exports.tests = {
     appendedChild = elem.appendChild(txt);
     appendedChild = bodyElem.appendChild(elem);
     prefix = txt.lookupPrefix("http://www.w3.org/1999/xhtml");
-    assertEquals("nodelookupprefix13","dom3",prefix);
+    test.equal(prefix, "dom3", 'nodelookupprefix13');
 
     test.done()
   },
@@ -22501,7 +22501,7 @@ exports.tests = {
     appendedChild = elem.appendChild(cdata);
     appendedChild = bodyElem.appendChild(elem);
     prefix = cdata.lookupPrefix("http://www.w3.org/1999/xhtml");
-    assertEquals("nodelookupprefix14","dom3",prefix);
+    test.equal(prefix, "dom3", 'nodelookupprefix14');
 
     test.done()
   },
@@ -22536,7 +22536,7 @@ exports.tests = {
     appendedChild = elem.appendChild(clonedComment);
     appendedChild = bodyElem.appendChild(elem);
     prefix = clonedComment.lookupPrefix("http://www.w3.org/1999/xhtml");
-    assertEquals("nodelookupprefix15","dom3",prefix);
+    test.equal(prefix, "dom3", 'nodelookupprefix15');
 
     test.done()
   },
@@ -22563,7 +22563,7 @@ exports.tests = {
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     attNode = elem.setAttributeNodeNS(attr);
     prefix = attr.lookupPrefix("http://www.w3.org/XML/1998/namespace");
-    assertNull("nodelookupprefix16",prefix);
+    test.equal(prefix, null, 'nodelookupprefix16');
 
     test.done()
   },
@@ -22594,7 +22594,7 @@ exports.tests = {
 
     attr = attributesMap.getNamedItem("xsi:noNamespaceSchemaLocation");
     prefix = attr.lookupPrefix("http://www.netzero.com");
-    assertEquals("nodelookupprefix17","dmstc",prefix);
+    test.equal(prefix, "dmstc", 'nodelookupprefix17');
 
     test.done()
   },
@@ -22625,9 +22625,9 @@ exports.tests = {
 
     attr = attributesMap.getNamedItem("dir");
     prefix = attr.lookupPrefix("http://www.w3.org/1999/xhtml");
-    assertNull("xhtmlPrefixIsNull",prefix);
+    test.equal(prefix, null, 'xhtmlPrefixIsNull');
     prefix = attr.lookupPrefix("http://www.altavista.com");
-    assertEquals("nodelookupprefixB18","nm",prefix);
+    test.equal(prefix, "nm", 'nodelookupprefixB18');
 
     test.done()
   },
@@ -22658,7 +22658,7 @@ exports.tests = {
 
     attr = attributesMap.getNamedItem("class");
     prefix = attr.lookupPrefix("http://www.w3.org/1999/xhtml");
-    assertEquals("nodelookupprefix19","html",prefix);
+    test.equal(prefix, "html", 'nodelookupprefix19');
 
     test.done()
   },
@@ -22692,7 +22692,7 @@ exports.tests = {
 
     attr = attributesMap.getNamedItem("xmlns:nm");
     prefix = attr.lookupPrefix("http://www.altavista.com");
-    assertEquals("nodelookupprefix20","nm",prefix);
+    test.equal(prefix, "nm", 'nodelookupprefix20');
 
     test.done()
   },
@@ -22809,7 +22809,7 @@ exports.tests = {
     removed = doc.removeChild(docElem);
     removedChild = doc.documentElement;
 
-    assertNull("noderemovechild03",removedChild);
+    test.equal(removedChild, null, 'noderemovechild03');
 
     {
       success = false;
@@ -22851,7 +22851,7 @@ exports.tests = {
     removed = doc.removeChild(docType);
     removedDocType = doc.doctype;
 
-    assertNull("noderemovechild04",removedDocType);
+    test.equal(removedDocType, null, 'noderemovechild04');
 
     {
       success = false;
@@ -22910,10 +22910,10 @@ exports.tests = {
         throw ex;
       }
     }
-    assertNotNull("removedChildNotNull",removedChild);
+    test.notEqual(removedChild, null, 'removedChildNotNull');
     removedDocType = doc.doctype;
 
-    assertNull("noderemovechild05",removedDocType);
+    test.equal(removedDocType, null, 'noderemovechild05');
 
     {
       success = false;
@@ -23014,7 +23014,7 @@ exports.tests = {
     removedCmt = doc.removeChild(comment);
     data = removedCmt.data;
 
-    assertEquals("noderemovechild08","Comment",data);
+    test.equal(data, "Comment", 'noderemovechild08');
 
     test.done()
   },
@@ -23045,7 +23045,7 @@ exports.tests = {
     removedPi = doc.removeChild(pi);
     target = removedPi.target;
 
-    assertEquals("noderemovechild09","PIT",target);
+    test.equal(target, "PIT", 'noderemovechild09');
 
     test.done()
   },
@@ -23076,7 +23076,7 @@ exports.tests = {
     removedElem = docFrag.removeChild(elem);
     elemName = removedElem.nodeName;
 
-    assertEquals("noderemovechild10","dom3:br",elemName);
+    test.equal(elemName, "dom3:br", 'noderemovechild10');
 
     test.done()
   },
@@ -23109,7 +23109,7 @@ exports.tests = {
     removedChild = docFrag.removeChild(txt);
     removedTxt = docFrag.firstChild;
 
-    assertNull("noderemovechild11",removedTxt);
+    test.equal(removedTxt, null, 'noderemovechild11');
 
     test.done()
   },
@@ -23143,7 +23143,7 @@ exports.tests = {
     removedChild = docFrag.removeChild(eRef);
     removedERef = docFrag.firstChild;
 
-    assertNull("noderemovechild12",removedERef);
+    test.equal(removedERef, null, 'noderemovechild12');
 
     try {
       removedChild = eRef.removeChild(docFrag);
@@ -23186,7 +23186,7 @@ exports.tests = {
     eRef = doc.createEntityReference("alpha");
     txt = eRef.firstChild;
 
-    assertNotNull("txtNotNull",txt);
+    test.notEqual(txt, null, 'txtNotNull');
 
     {
       success = false;
@@ -23223,7 +23223,7 @@ exports.tests = {
     eRef = doc.createEntityReference("ent4");
     pi = eRef.lastChild;
 
-    assertNotNull("piNotNull",pi);
+    test.notEqual(pi, null, 'piNotNull');
 
     {
       success = false;
@@ -23260,7 +23260,7 @@ exports.tests = {
     eRef = doc.createEntityReference("ent4");
     elem = eRef.firstChild;
 
-    assertNotNull("elemNotNull",elem);
+    test.notEqual(elem, null, 'elemNotNull');
 
     {
       success = false;
@@ -23305,7 +23305,7 @@ exports.tests = {
     removed = parent.removeChild(child);
     removedName = removed.nodeName;
 
-    assertEquals("noderemovechild16","em",removedName);
+    test.equal(removedName, "em", 'noderemovechild16');
 
     {
       success = false;
@@ -23349,7 +23349,7 @@ exports.tests = {
     removed = parent.removeChild(child);
     removedValue = removed.nodeValue;
 
-    assertEquals("noderemovechild17","EMP0001",removedValue);
+    test.equal(removedValue, "EMP0001", 'noderemovechild17');
 
     {
       success = false;
@@ -23396,7 +23396,7 @@ exports.tests = {
     removed = parent.removeChild(child);
     removedValue = removed.nodeValue;
 
-    assertEquals("noderemovechild18","This is an adjacent CDATASection with a reference to a tab &tab;",removedValue);
+    test.equal(removedValue, "This is an adjacent CDATASection with a reference to a tab &tab;", 'noderemovechild18');
 
     {
       success = false;
@@ -23443,7 +23443,7 @@ exports.tests = {
     removed = parent.removeChild(child);
     removedName = removed.nodeName;
 
-    assertEquals("noderemovechild19","beta",removedName);
+    test.equal(removedName, "beta", 'noderemovechild19');
 
     try {
       removedNode = child.removeChild(parent);
@@ -23519,7 +23519,7 @@ exports.tests = {
     removed = parent.removeChild(child);
     removedName = removed.nodeName;
 
-    assertEquals("noderemovechild20","dom3:br",removedName);
+    test.equal(removedName, "dom3:br", 'noderemovechild20');
     clonedChild = child.cloneNode(true);
 
     {
@@ -23568,7 +23568,7 @@ exports.tests = {
     removed = parent.removeChild(child);
     removedName = removed.nodeName;
 
-    assertEquals("noderemovechild21","dom3:br",removedName);
+    test.equal(removedName, "dom3:br", 'noderemovechild21');
 
     {
       success = false;
@@ -23611,7 +23611,7 @@ exports.tests = {
     removed = parent.removeChild(child);
     removedName = removed.nodeValue;
 
-    assertEquals("noderemovechild22","DATA",removedName);
+    test.equal(removedName, "DATA", 'noderemovechild22');
 
     {
       success = false;
@@ -23654,7 +23654,7 @@ exports.tests = {
     removed = parent.removeChild(child);
     removedName = removed.target;
 
-    assertEquals("noderemovechild23","TARGET",removedName);
+    test.equal(removedName, "TARGET", 'noderemovechild23');
 
     {
       success = false;
@@ -23694,10 +23694,10 @@ exports.tests = {
     entitiesMap = docType.entities;
 
     alphaEntity = entitiesMap.getNamedItem("alpha");
-    assertNotNull("alphaEntityNotNull",alphaEntity);
+    test.notEqual(alphaEntity, null, 'alphaEntityNotNull');
     alphaText = alphaEntity.firstChild;
 
-    assertNotNull("alphaTextNotNull",alphaText);
+    test.notEqual(alphaText, null, 'alphaTextNotNull');
 
     {
       success = false;
@@ -23737,10 +23737,10 @@ exports.tests = {
     entitiesMap = docType.entities;
 
     ent4 = entitiesMap.getNamedItem("ent4");
-    assertNotNull("ent4NotNull",ent4);
+    test.notEqual(ent4, null, 'ent4NotNull');
     span = ent4.firstChild;
 
-    assertNotNull("spanNotNull",span);
+    test.notEqual(span, null, 'spanNotNull');
 
     {
       success = false;
@@ -23780,10 +23780,10 @@ exports.tests = {
     entitiesMap = docType.entities;
 
     ent4 = entitiesMap.getNamedItem("ent4");
-    assertNotNull("ent4NotNull",ent4);
+    test.notEqual(ent4, null, 'ent4NotNull');
     pi = ent4.lastChild;
 
-    assertNotNull("piNotNull",pi);
+    test.notEqual(pi, null, 'piNotNull');
 
     {
       success = false;
@@ -23885,7 +23885,7 @@ exports.tests = {
     removed = parent.removeChild(child);
     removedName = removed.nodeValue;
 
-    assertEquals("noderemovechild28","Yes",removedName);
+    test.equal(removedName, "Yes", 'noderemovechild28');
 
     {
       success = false;
@@ -23934,7 +23934,7 @@ exports.tests = {
     removed = parent.removeChild(child);
     removedName = removed.nodeValue;
 
-    assertEquals("noderemovechild29","http://www.usa.com",removedName);
+    test.equal(removedName, "http://www.usa.com", 'noderemovechild29');
 
     {
       success = false;
@@ -23987,7 +23987,7 @@ exports.tests = {
     removed = parent.removeChild(child);
     removedName = removed.nodeValue;
 
-    assertEquals("noderemovechild30","rtl",removedName);
+    test.equal(removedName, "rtl", 'noderemovechild30');
 
     {
       success = false;
@@ -24042,7 +24042,7 @@ exports.tests = {
     removed = parent.removeChild(child);
     removedName = removed.nodeName;
 
-    assertEquals("noderemovechild31","delta",removedName);
+    test.equal(removedName, "delta", 'noderemovechild31');
 
     try {
       removedNode = child.removeChild(parent);
@@ -24291,7 +24291,7 @@ exports.tests = {
 
     nodeName = replaced.nodeName;
 
-    assertEquals("nodereplacechild06","p",nodeName);
+    test.equal(nodeName, "p", 'nodereplacechild06');
 
     test.done()
   },
@@ -24344,7 +24344,7 @@ exports.tests = {
 
     nodeName = replaced.nodeName;
 
-    assertEquals("nodereplacechild07",rootName,nodeName);
+    test.equal(nodeName, rootName, 'nodereplacechild07');
 
     test.done()
   },
@@ -24495,16 +24495,16 @@ exports.tests = {
     appendedChild = doc.appendChild(comment);
     appendedChild = doc.appendChild(pi);
     replacedNode = doc.replaceChild(comment,pi);
-    assertNotNull("returnValueNotNull",replacedNode);
+    test.notEqual(replacedNode, null, 'returnValueNotNull');
     nodeName = replacedNode.nodeName;
 
-    assertEquals("returnValueIsPI","PITarget",nodeName);
+    test.equal(nodeName, "PITarget", 'returnValueIsPI');
     lastChild = doc.lastChild;
 
-    assertNotNull("lastChildNotNull",lastChild);
+    test.notEqual(lastChild, null, 'lastChildNotNull');
     nodeName = lastChild.nodeName;
 
-    assertEquals("lastChildIsComment","#comment",nodeName);
+    test.equal(nodeName, "#comment", 'lastChildIsComment');
 
     test.done()
   },
@@ -24563,7 +24563,7 @@ exports.tests = {
     }
     nodeName = replaced.nodeName;
 
-    assertEquals("nodereplacechild13",docElemName,nodeName);
+    test.equal(nodeName, docElemName, 'nodereplacechild13');
 
     test.done()
   },
@@ -24609,7 +24609,7 @@ exports.tests = {
     replaced = docElem.replaceChild(imported,elem2);
     nodeName = replaced.nodeName;
 
-    assertEquals("nodereplacechild14","dom3:doc2elem",nodeName);
+    test.equal(nodeName, "dom3:doc2elem", 'nodereplacechild14');
 
     test.done()
   },
@@ -24652,7 +24652,7 @@ exports.tests = {
     appendedChild = docFrag.appendChild(elem2);
     replaced = docFrag.replaceChild(elem,elem2);
     title = replaced.getAttribute("title");
-    assertEquals("nodereplacechild15","new element",title);
+    test.equal(title, "new element", 'nodereplacechild15');
 
     test.done()
   },
@@ -24685,7 +24685,7 @@ exports.tests = {
     replaced = docFrag.replaceChild(txt,elem);
     nodeName = replaced.nodeName;
 
-    assertEquals("nodereplacechild16","dom3:p",nodeName);
+    test.equal(nodeName, "dom3:p", 'nodereplacechild16');
 
     test.done()
   },
@@ -24723,11 +24723,11 @@ exports.tests = {
     replacedCmt = docFrag.replaceChild(pi,cmt);
     data = replacedCmt.data;
 
-    assertEquals("nodereplacechild17_1","Comment",data);
+    test.equal(data, "Comment", 'nodereplacechild17_1');
     replacedPi = docFrag.replaceChild(cmt,pi);
     target = replacedPi.target;
 
-    assertEquals("nodereplacechild17_2","target",target);
+    test.equal(target, "target", 'nodereplacechild17_2');
 
     test.done()
   },
@@ -24762,11 +24762,11 @@ exports.tests = {
     replacedCData = docFrag.replaceChild(entRef,cdata);
     cdataName = replacedCData.nodeValue;
 
-    assertEquals("nodereplacechild18_1","CDATASection",cdataName);
+    test.equal(cdataName, "CDATASection", 'nodereplacechild18_1');
     replacedEref = docFrag.replaceChild(cdata,entRef);
     erefName = replacedEref.nodeName;
 
-    assertEquals("nodereplacechild18_2","alpha",erefName);
+    test.equal(erefName, "alpha", 'nodereplacechild18_2');
 
     test.done()
   },
@@ -24799,7 +24799,7 @@ exports.tests = {
     replaced = docFrag.replaceChild(entRef,elem);
     nodeName = replaced.nodeName;
 
-    assertEquals("nodereplacechild19","dom3:p",nodeName);
+    test.equal(nodeName, "dom3:p", 'nodereplacechild19');
 
     test.done()
   },
@@ -25273,13 +25273,13 @@ exports.tests = {
     acronym = childList.item(1);
     betaRef = acronym.firstChild;
 
-    assertNotNull("betaRefNotNull",betaRef);
+    test.notEqual(betaRef, null, 'betaRefNotNull');
     betaText = betaRef.firstChild;
 
-    assertNotNull("betaTextNotNull",betaText);
+    test.notEqual(betaText, null, 'betaTextNotNull');
     dallas = betaRef.nextSibling;
 
-    assertNotNull("dallasNotNull",dallas);
+    test.notEqual(dallas, null, 'dallasNotNull');
 
     {
       success = false;
@@ -25379,39 +25379,39 @@ exports.tests = {
     replaced = parent.replaceChild(newElement,oldChild);
     nodeName = replaced.nodeName;
 
-    assertEquals("nodereplacechild30_1","xhtml:head",nodeName);
+    test.equal(nodeName, "xhtml:head", 'nodereplacechild30_1');
     replaced = parent.replaceChild(oldChild,newElement);
     nodeName = replaced.nodeName;
 
-    assertEquals("nodereplacechild30_2","xhtml:body",nodeName);
+    test.equal(nodeName, "xhtml:body", 'nodereplacechild30_2');
     replaced = parent.replaceChild(newText,oldChild);
     nodeName = replaced.nodeName;
 
-    assertEquals("nodereplacechild30_3","xhtml:head",nodeName);
+    test.equal(nodeName, "xhtml:head", 'nodereplacechild30_3');
     replaced = parent.replaceChild(oldChild,newText);
     nodeName = replaced.nodeName;
 
-    assertEquals("nodereplacechild30_4","#text",nodeName);
+    test.equal(nodeName, "#text", 'nodereplacechild30_4');
     replaced = parent.replaceChild(newComment,oldChild);
     nodeName = replaced.nodeName;
 
-    assertEquals("nodereplacechild30_5","xhtml:head",nodeName);
+    test.equal(nodeName, "xhtml:head", 'nodereplacechild30_5');
     replaced = parent.replaceChild(oldChild,newComment);
     nodeName = replaced.nodeName;
 
-    assertEquals("nodereplacechild30_6","#comment",nodeName);
+    test.equal(nodeName, "#comment", 'nodereplacechild30_6');
     replaced = parent.replaceChild(oldChild,newPI);
     nodeName = replaced.nodeName;
 
-    assertEquals("nodereplacechild30_7","target",nodeName);
+    test.equal(nodeName, "target", 'nodereplacechild30_7');
     replaced = parent.replaceChild(oldChild,newCdata);
     nodeName = replaced.nodeName;
 
-    assertEquals("nodereplacechild30_8","#cdata-section",nodeName);
+    test.equal(nodeName, "#cdata-section", 'nodereplacechild30_8');
     replaced = parent.replaceChild(oldChild,newERef);
     nodeName = replaced.nodeName;
 
-    assertEquals("nodereplacechild30_9","delta",nodeName);
+    test.equal(nodeName, "delta", 'nodereplacechild30_9');
 
     test.done()
   },
@@ -25444,10 +25444,10 @@ exports.tests = {
 
     span = ent4Ref.firstChild;
 
-    assertNotNull("spanNotNull",span);
+    test.notEqual(span, null, 'spanNotNull');
     spanText = span.firstChild;
 
-    assertNotNull("spanTextNotNull",spanText);
+    test.notEqual(spanText, null, 'spanTextNotNull');
     newChild = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:p");
 
     {
@@ -25501,7 +25501,7 @@ exports.tests = {
     replaced = parent.replaceChild(newChild,enRefChild);
     nodeName = replaced.nodeName;
 
-    assertEquals("nodereplacechild32","entity1",nodeName);
+    test.equal(nodeName, "entity1", 'nodereplacechild32');
 
     test.done()
   },
@@ -25536,7 +25536,7 @@ exports.tests = {
     replaced = parent.replaceChild(newChild,oldChild);
     nodeValue = replaced.nodeValue;
 
-    assertEquals("nodereplacechild33","rtl",nodeValue);
+    test.equal(nodeValue, "rtl", 'nodereplacechild33');
 
     test.done()
   },
@@ -25568,7 +25568,7 @@ exports.tests = {
     replaced = parent.replaceChild(newChild,oldChild);
     nodeValue = parent.value;
 
-    assertEquals("nodereplacechild34","Text",nodeValue);
+    test.equal(nodeValue, "Text", 'nodereplacechild34');
 
     test.done()
   },
@@ -25723,10 +25723,10 @@ exports.tests = {
     entitiesMap = docType.entities;
 
     ent = entitiesMap.getNamedItem("alpha");
-    assertNotNull("alphaEntity",ent);
+    test.notEqual(ent, null, 'alphaEntity');
     oldChild = ent.firstChild;
 
-    assertNotNull("alphaText",oldChild);
+    test.notEqual(oldChild, null, 'alphaText');
     cdata = doc.createCDATASection("CDATASection");
 
     {
@@ -25929,10 +25929,10 @@ exports.tests = {
 
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(3);
-    assertNotNull("stillHasAcronyms",elem);
+    test.notEqual(elem, null, 'stillHasAcronyms');
     nodeName = elem.nodeName;
 
-    assertEquals("nodesettextcontent01","acronym",nodeName);
+    test.equal(nodeName, "acronym", 'nodesettextcontent01');
 
     test.done()
   },
@@ -25976,7 +25976,7 @@ exports.tests = {
     elemChild = elemList.item(0);
     nodeName = elemChild.nodeName;
 
-    assertEquals("nodesettextcontent02","dom3:childElem",nodeName);
+    test.equal(nodeName, "dom3:childElem", 'nodesettextcontent02');
 
     test.done()
   },
@@ -26005,7 +26005,7 @@ exports.tests = {
 
     textContent = docType.textContent;
 
-    assertNull("nodesettextcontent03",textContent);
+    test.equal(textContent, null, 'nodesettextcontent03');
 
     test.done()
   },
@@ -26039,7 +26039,7 @@ exports.tests = {
 
     textContent = notation1.textContent;
 
-    assertNull("nodesettextcontent04",textContent);
+    test.equal(textContent, null, 'nodesettextcontent04');
 
     test.done()
   },
@@ -26071,7 +26071,7 @@ exports.tests = {
 
     textContent = attr.textContent;
 
-    assertEquals("nodesettextcontent05","NA",textContent);
+    test.equal(textContent, "NA", 'nodesettextcontent05');
 
     test.done()
   },
@@ -26104,7 +26104,7 @@ exports.tests = {
 
     textContent = attr.textContent;
 
-    assertEquals("nodesettextcontent06","NA",textContent);
+    test.equal(textContent, "NA", 'nodesettextcontent06');
 
     test.done()
   },
@@ -26137,7 +26137,7 @@ exports.tests = {
 
     textContent = txt.textContent;
 
-    assertEquals("nodegettextcontent10","Text",textContent);
+    test.equal(textContent, "Text", 'nodegettextcontent10');
 
     test.done()
   },
@@ -26170,7 +26170,7 @@ exports.tests = {
 
     textContent = pi.textContent;
 
-    assertEquals("nodesettextcontent08","PID",textContent);
+    test.equal(textContent, "PID", 'nodesettextcontent08');
 
     test.done()
   },
@@ -26214,7 +26214,7 @@ exports.tests = {
 
     textContent = elem.textContent;
 
-    assertEquals("nodesettextcontent10","ELEMENT",textContent);
+    test.equal(textContent, "ELEMENT", 'nodesettextcontent10');
 
     test.done()
   },
@@ -26264,7 +26264,7 @@ exports.tests = {
 
     textContent = elemChild.textContent;
 
-    assertEquals("nodegettextcontent11","DOCUMENTFRAGMENT",textContent);
+    test.equal(textContent, "DOCUMENTFRAGMENT", 'nodegettextcontent11');
 
     test.done()
   },
@@ -26379,7 +26379,7 @@ exports.tests = {
     } else {
       doc.setUserData("something", nullData, nullHandler.handle);
     }
-    assertNull("nodesetuserdata01",prevUserData);
+    test.equal(prevUserData, null, 'nodesetuserdata01');
 
     test.done()
   },
@@ -26412,7 +26412,7 @@ exports.tests = {
     } else {
       doc.setUserData("something", test, nullHandler.handle);
     }
-    assertNull("nodesetuserdata02",prevUserData);
+    test.equal(prevUserData, null, 'nodesetuserdata02');
 
     test.done()
   },
@@ -26729,7 +26729,7 @@ exports.tests = {
       docElem.setUserData("Key1", doc, nullHandler.handle);
     }
     returned = doc.getUserData("Key1");
-    assertNull("nodesetuserdata09",returned);
+    test.equal(returned, null, 'nodesetuserdata09');
 
     test.done()
   },
@@ -26826,7 +26826,7 @@ exports.tests = {
 
     textValue = text.nodeValue;
 
-    assertEquals("noCharNormalization","barsuçon",textValue);
+    test.equal(textValue, "barsucon", 'noCharNormalization');
 
     test.done()
   },
@@ -26877,7 +26877,7 @@ exports.tests = {
 
       textValue = text.nodeValue;
 
-      assertEquals("charNormalized","barsuçon",textValue);
+      test.equal(textValue, "barsuçon", 'charNormalized');
 
     }
 
@@ -26924,7 +26924,7 @@ exports.tests = {
 
     textValue = text.nodeValue;
 
-    assertEquals("noCharNormalization","barsuçon",textValue);
+    test.equal(textValue, "barsucon", 'noCharNormalization');
 
     test.done()
   },
@@ -26975,7 +26975,7 @@ exports.tests = {
 
       textValue = text.nodeValue;
 
-      assertEquals("noCharNormalization","barsuçon",textValue);
+      test.equal(textValue, "barsuçon", 'noCharNormalization');
 
     }
 
@@ -27022,7 +27022,7 @@ exports.tests = {
 
     textValue = text.nodeValue;
 
-    assertEquals("noCharNormalization","barsuçon",textValue);
+    test.equal(textValue, "barsucon", 'noCharNormalization');
 
     test.done()
   },
@@ -27073,7 +27073,7 @@ exports.tests = {
 
       textValue = text.nodeValue;
 
-      assertEquals("noCharNormalization","barsuçon",textValue);
+      test.equal(textValue, "barsuçon", 'noCharNormalization');
 
     }
 
@@ -27120,7 +27120,7 @@ exports.tests = {
 
     textValue = text.nodeValue;
 
-    assertEquals("noCharNormalization","suçon",textValue);
+    test.equal(textValue, "sucon", 'noCharNormalization');
 
     test.done()
   },
@@ -27171,7 +27171,7 @@ exports.tests = {
 
       textValue = text.nodeValue;
 
-      assertEquals("noCharNormalization","suçon",textValue);
+      test.equal(textValue, "suçon", 'noCharNormalization');
 
     }
 
@@ -27488,7 +27488,7 @@ exports.tests = {
     replacedText = textNode.replaceWholeText("New Content");
     wholeText = replacedText.wholeText;
 
-    assertEquals("textreplacewholetext01_1","New Content",wholeText);
+    test.equal(wholeText, "New Content", 'textreplacewholetext01_1');
 
     test.done()
   },
@@ -27517,7 +27517,7 @@ exports.tests = {
     textNode = elementName.firstChild;
 
     replacedText = textNode.replaceWholeText("");
-    assertNull("textreplacewholetext02",replacedText);
+    test.equal(replacedText, null, 'textreplacewholetext02');
 
     test.done()
   },
@@ -27544,7 +27544,7 @@ exports.tests = {
     replacedText = textNode.replaceWholeText(" a b c b ");
     wholeText = replacedText.wholeText;
 
-    assertEquals("textreplacewholetext03"," a b c b ",wholeText);
+    test.equal(wholeText, " a b c b ", 'textreplacewholetext03');
 
     test.done()
   },
@@ -27568,7 +27568,7 @@ exports.tests = {
     doc = hc_staff.hc_staff();
     textNode = doc.createTextNode("New Text");
     replacedText = textNode.replaceWholeText("");
-    assertNull("retvalIsNull",replacedText);
+    test.equal(replacedText, null, 'retvalIsNull');
 
     test.done()
   },
@@ -27606,7 +27606,7 @@ exports.tests = {
     replacedText = textNode.replaceWholeText("New Text and Cdata");
     wholeText = replacedText.wholeText;
 
-    assertEquals("textreplacewholetext05","New Text and Cdata",wholeText);
+    test.equal(wholeText, "New Text and Cdata", 'textreplacewholetext05');
 
     test.done()
   },
@@ -27652,7 +27652,7 @@ exports.tests = {
     replacedText = textNode.replaceWholeText("New Text and Cdata");
     nodeValue = textNode.nodeValue;
 
-    assertEquals("textreplacewholetext06","New Text and Cdata",nodeValue);
+    test.equal(nodeValue, "New Text and Cdata", 'textreplacewholetext06');
 
     test.done()
   },
@@ -27699,13 +27699,13 @@ exports.tests = {
     assertSame("retval_same",textNode,replacedText);
     nodeValue = textNode.nodeValue;
 
-    assertEquals("nodeValueSame","New Text and Cdata",nodeValue);
+    test.equal(nodeValue, "New Text and Cdata", 'nodeValueSame');
     node = textNode.nextSibling;
 
-    assertNotNull("secondChildNotNull",node);
+    test.notEqual(node, null, 'secondChildNotNull');
     nodeType = node.nodeType;
 
-    assertEquals("secondChildIsEntRef",5,nodeType);
+    test.equal(nodeType, 5, 'secondChildIsEntRef');
 
     test.done()
   },
@@ -27775,7 +27775,7 @@ exports.tests = {
 
     nameWholeText = textNode.wholeText;
 
-    assertEquals("textwholetext01","Margaret Martin",nameWholeText);
+    test.equal(nameWholeText, "Margaret Martin", 'textwholetext01');
 
     test.done()
   },
@@ -27808,7 +27808,7 @@ exports.tests = {
 
     wholeText = textNode.wholeText;
 
-    assertEquals("textwholetext02","Margaret MartinNew Text",wholeText);
+    test.equal(wholeText, "Margaret MartinNew Text", 'textwholetext02');
 
     test.done()
   },
@@ -27839,7 +27839,7 @@ exports.tests = {
     appendedChild = elem.appendChild(text2);
     combinedText = text1.wholeText;
 
-    assertEquals("textwholetext03","Text I Text II",combinedText);
+    test.equal(combinedText, "Text I Text II", 'textwholetext03');
 
     test.done()
   },
@@ -27874,7 +27874,7 @@ exports.tests = {
 
     typeName = attrTypeInfo.typeName;
 
-    assertEquals("typeinfogettypename03_1","ID",typeName);
+    test.equal(typeName, "ID", 'typeinfogettypename03_1');
 
     test.done()
   },
@@ -27908,7 +27908,7 @@ exports.tests = {
 
     typeName = elemTypeInfo.typeName;
 
-    assertEquals("typeinfogettypename04_1","emType",typeName);
+    test.equal(typeName, "emType", 'typeinfogettypename04_1');
 
     test.done()
   },
@@ -27943,7 +27943,7 @@ exports.tests = {
 
     typeNamespace = attrTypeInfo.typeNamespace;
 
-    assertEquals("typeinfogettypename01_1","http://www.w3.org/2001/XMLSchema",typeNamespace);
+    test.equal(typeNamespace, "http://www.w3.org/2001/XMLSchema", 'typeinfogettypename01_1');
 
     test.done()
   },
@@ -27978,7 +27978,7 @@ exports.tests = {
 
     typeNamespace = attrTypeInfo.typeNamespace;
 
-    assertEquals("typeinfogettypename03_1","http://www.w3.org/1999/xhtml",typeNamespace);
+    test.equal(typeNamespace, "http://www.w3.org/1999/xhtml", 'typeinfogettypename03_1');
 
     test.done()
   },
@@ -28011,7 +28011,7 @@ exports.tests = {
 
     typeNamespace = elemTypeInfo.typeNamespace;
 
-    assertEquals("typeinfogettypenamespace04_1","http://www.w3.org/1999/xhtml",typeNamespace);
+    test.equal(typeNamespace, "http://www.w3.org/1999/xhtml", 'typeinfogettypenamespace04_1');
 
     test.done()
   },
@@ -28040,7 +28040,7 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("title");
     typeInfo = attr.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/TR/REC-xml","CDATA",0);
     assertFalse("isDerived0",isDerived);
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/TR/REC-xml","CDATA",15);
@@ -28073,7 +28073,7 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("title");
     typeInfo = attr.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",1);
     assertTrue("derivedFromSelfRestriction",isDerived);
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",14);
@@ -28111,10 +28111,10 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("title");
     typeInfo = attr.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("nameIsString","string",typeName);
+    test.equal(typeName, "string", 'nameIsString');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",15);
     assertTrue("derivedFromAnySimpleType",isDerived);
 
@@ -28146,10 +28146,10 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("title");
     typeInfo = attr.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("nameIsString","string",typeName);
+    test.equal(typeName, "string", 'nameIsString');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",15);
     assertTrue("derivedFromAnyType",isDerived);
 
@@ -28181,10 +28181,10 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("title");
     typeInfo = attr.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("nameIsString","string",typeName);
+    test.equal(typeName, "string", 'nameIsString');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",1);
     assertTrue("derivedFromAnyTypeRestrictionOnly",isDerived);
 
@@ -28216,10 +28216,10 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("title");
     typeInfo = attr.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("nameIsString","string",typeName);
+    test.equal(typeName, "string", 'nameIsString');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",14);
     assertFalse("derivedFromAnyTypeExceptRestriction",isDerived);
 
@@ -28251,10 +28251,10 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("title");
     typeInfo = attr.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("nameIsString","string",typeName);
+    test.equal(typeName, "string", 'nameIsString');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",0);
     assertTrue("derivedFromAnyType0",isDerived);
 
@@ -28286,10 +28286,10 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("class");
     typeInfo = attr.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("nameIsString","classType",typeName);
+    test.equal(typeName, "classType", 'nameIsString');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",15);
     assertTrue("derivedFromString",isDerived);
 
@@ -28321,10 +28321,10 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("class");
     typeInfo = attr.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("nameIsString","classType",typeName);
+    test.equal(typeName, "classType", 'nameIsString');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",15);
     assertTrue("derivedFromAnySimpleType",isDerived);
 
@@ -28356,10 +28356,10 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("class");
     typeInfo = attr.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("nameIsString","classType",typeName);
+    test.equal(typeName, "classType", 'nameIsString');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",15);
     assertTrue("derivedFromAnyType",isDerived);
 
@@ -28391,10 +28391,10 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("class");
     typeInfo = attr.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("nameIsString","classType",typeName);
+    test.equal(typeName, "classType", 'nameIsString');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",1);
     assertTrue("derivedFromAnyTypeRestrictionOnly",isDerived);
 
@@ -28426,10 +28426,10 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("class");
     typeInfo = attr.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("nameIsString","classType",typeName);
+    test.equal(typeName, "classType", 'nameIsString');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",0);
     assertTrue("derivedFromAnyType0",isDerived);
 
@@ -28461,10 +28461,10 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("class");
     typeInfo = attr.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("name","classType",typeName);
+    test.equal(typeName, "classType", 'name');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",14);
     assertFalse("derivedFromAnyTypeExceptRestriction",isDerived);
 
@@ -28496,10 +28496,10 @@ exports.tests = {
     attr = acronymElem.getAttributeNode("class");
     typeInfo = attr.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("name","classType",typeName);
+    test.equal(typeName, "classType", 'name');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","classType",1);
     assertTrue("derivedFromSelfRestriction",isDerived);
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","classType",14);
@@ -28533,10 +28533,10 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("name","emType",typeName);
+    test.equal(typeName, "emType", 'name');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emp0001_3Type",15);
     assertTrue("derivedFromEmp13AnyMethod",isDerived);
 
@@ -28564,10 +28564,10 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("name","emType",typeName);
+    test.equal(typeName, "emType", 'name');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emp0001_3Type",4);
     assertTrue("derivedFromEmp13Union",isDerived);
 
@@ -28595,10 +28595,10 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("name","emType",typeName);
+    test.equal(typeName, "emType", 'name');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emp0001_3Type",11);
     assertFalse("derivedFromEmp13NotUnion",isDerived);
 
@@ -28626,10 +28626,10 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("typeName","emType",typeName);
+    test.equal(typeName, "emType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","ID",1);
     assertFalse("derivedFromID",isDerived);
 
@@ -28657,10 +28657,10 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("typeName","emType",typeName);
+    test.equal(typeName, "emType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",1);
     assertTrue("derivedFromAnySimpleType",isDerived);
 
@@ -28687,7 +28687,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",1);
     assertTrue("derivedFromAnyType",isDerived);
 
@@ -28715,10 +28715,10 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("typeName","emType",typeName);
+    test.equal(typeName, "emType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emType",1);
     assertTrue("derivedFromSelfByRestriction",isDerived);
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","emType",14);
@@ -28752,10 +28752,10 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("typeName","strongType",typeName);
+    test.equal(typeName, "strongType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",15);
     assertTrue("derivedFromStringAnyMethod",isDerived);
 
@@ -28783,10 +28783,10 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("typeName","strongType",typeName);
+    test.equal(typeName, "strongType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",8);
     assertTrue("derivedFromStringList",isDerived);
 
@@ -28814,10 +28814,10 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("typeName","strongType",typeName);
+    test.equal(typeName, "strongType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",7);
     assertFalse("derivedFromStringNotList",isDerived);
 
@@ -28845,10 +28845,10 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("typeName","strongType",typeName);
+    test.equal(typeName, "strongType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",1);
     assertTrue("derivedFromAnySimpleType",isDerived);
 
@@ -28876,10 +28876,10 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("typeName","strongType",typeName);
+    test.equal(typeName, "strongType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",1);
     assertTrue("derivedFromAnyType",isDerived);
 
@@ -28907,10 +28907,10 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("typeName","strongType",typeName);
+    test.equal(typeName, "strongType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",6);
     assertFalse("derivedFromAnyType",isDerived);
 
@@ -28938,10 +28938,10 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("typeName","strongType",typeName);
+    test.equal(typeName, "strongType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","strongType",1);
     assertTrue("notDerivedFromSelfRestriction",isDerived);
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","strongType",14);
@@ -28974,7 +28974,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","pType",15);
     assertTrue("derivedFromPTypeAnyMethod",isDerived);
 
@@ -29001,7 +29001,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","pType",1);
     assertTrue("derivedFromPTypeRestriction",isDerived);
 
@@ -29028,7 +29028,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","pType",14);
     assertFalse("derivedFromPTypeNotRestriction",isDerived);
 
@@ -29055,7 +29055,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","part1",15);
     assertTrue("derivedFromPart1AnyMethod",isDerived);
 
@@ -29082,7 +29082,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","part1",2);
     assertTrue("derivedFromPart1Extension",isDerived);
 
@@ -29109,7 +29109,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","part1",13);
     assertFalse("derivedFromPart1NotExtension",isDerived);
 
@@ -29136,7 +29136,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",15);
     assertFalse("derivedFromAnySimpleType",isDerived);
 
@@ -29163,7 +29163,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",15);
     assertTrue("derivedFromAnyTypeAnyMethod",isDerived);
 
@@ -29190,7 +29190,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",1);
     assertFalse("derivedFromAnyTypeRestriction",isDerived);
 
@@ -29218,7 +29218,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",13);
     assertFalse("derivedFromAnyTypeNotExtension",isDerived);
 
@@ -29247,7 +29247,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
     typeNS = typeInfo.typeNamespace;
@@ -29279,10 +29279,10 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("typeName","emType",typeName);
+    test.equal(typeName, "emType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","ID",4);
     assertTrue("derivedFromID",isDerived);
 
@@ -29310,10 +29310,10 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("typeName","emType",typeName);
+    test.equal(typeName, "emType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","ID",10);
     assertFalse("derivedFromID",isDerived);
 
@@ -29341,10 +29341,10 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     typeName = typeInfo.typeName;
 
-    assertEquals("typeName","strongType",typeName);
+    test.equal(typeName, "strongType", 'typeName');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",8);
     assertTrue("derivedFromAnySimpleType",isDerived);
 
@@ -29374,7 +29374,7 @@ exports.tests = {
     acronymElem = elemList.item(2);
     typeInfo = acronymElem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",1);
     assertFalse("derivedFromAnyType",isDerived);
 
@@ -29404,7 +29404,7 @@ exports.tests = {
     acronymElem = elemList.item(2);
     typeInfo = acronymElem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",13);
     assertFalse("derivedFromAnyType",isDerived);
 
@@ -29434,7 +29434,7 @@ exports.tests = {
     acronymElem = elemList.item(2);
     typeInfo = acronymElem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",2);
     assertTrue("derivedFromAnySimpleType",isDerived);
 
@@ -29464,7 +29464,7 @@ exports.tests = {
     acronymElem = elemList.item(2);
     typeInfo = acronymElem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",13);
     assertFalse("derivedFromAnySimpleType",isDerived);
 
@@ -29494,7 +29494,7 @@ exports.tests = {
     acronymElem = elemList.item(2);
     typeInfo = acronymElem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",2);
     assertTrue("derivedFromString",isDerived);
 
@@ -29524,7 +29524,7 @@ exports.tests = {
     acronymElem = elemList.item(2);
     typeInfo = acronymElem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","string",13);
     assertFalse("derivedFromString",isDerived);
 
@@ -29552,7 +29552,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","double",8);
     assertTrue("derivedFromDoubleList",isDerived);
 
@@ -29580,7 +29580,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","double",0);
     assertTrue("derivedFromDoubleAny",isDerived);
 
@@ -29608,7 +29608,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","double",7);
     assertFalse("derivedFromDoubleNonList",isDerived);
 
@@ -29636,7 +29636,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",1);
     assertFalse("derivedFromAnySimpleRestriction",isDerived);
 
@@ -29664,7 +29664,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",2);
     assertTrue("derivedFromAnySimpleExtension",isDerived);
 
@@ -29692,7 +29692,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anySimpleType",8);
     assertTrue("derivedFromAnySimpleList",isDerived);
 
@@ -29720,7 +29720,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",2);
     assertTrue("derivedFromAnyRestriction",isDerived);
 
@@ -29748,7 +29748,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",2);
     assertTrue("derivedFromAnyExtension",isDerived);
 
@@ -29776,7 +29776,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","anyType",8);
     assertTrue("derivedFromAnyList",isDerived);
 
@@ -29805,7 +29805,7 @@ exports.tests = {
     codeElem = elemList.item(0);
     typeInfo = codeElem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/1999/xhtml","unbounded",4);
     assertTrue("isDerived",isDerived);
 
@@ -29837,7 +29837,7 @@ exports.tests = {
     codeElem = elemList.item(0);
     typeInfo = codeElem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","integer",4);
     assertTrue("isDerived",isDerived);
 
@@ -29865,7 +29865,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","IDREF",8);
     assertTrue("isDerived",isDerived);
 
@@ -29891,7 +29891,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","short",1);
     assertTrue("isDerived",isDerived);
 
@@ -29917,7 +29917,7 @@ exports.tests = {
     elem = elemList.item(0);
     typeInfo = elem.schemaTypeInfo;
 
-    assertNotNull("typeInfoNotNull",typeInfo);
+    test.notEqual(typeInfo, null, 'typeInfoNotNull');
     isDerived = typeInfo.isDerivedFrom("http://www.w3.org/2001/XMLSchema","decimal",1);
     assertTrue("isDerived",isDerived);
 
@@ -30311,21 +30311,21 @@ exports.tests = {
     for(var indexN1009E = 0;indexN1009E < notifications.length; indexN1009E++) {
       notification = notifications[indexN1009E];
       operation = notification.operation;
-      assertEquals("operationIsRename",4,operation);
+      test.equal(operation, 4, 'operationIsRename');
       key = notification.key;
       data = notification.data;
 
       if(
 	("greeting" == key)
       ) {
-	assertEquals("greetingDataHello",hello,data);
+	test.equal(data, hello, 'greetingDataHello');
         greetingCount += 1;
 
       }
 
       else {
-	assertEquals("saluationKey","salutation",key);
-        assertEquals("salutationDataMr",mister,data);
+	test.equal(key, "salutation", 'saluationKey');
+        test.equal(data, mister, 'salutationDataMr');
         salutationCount += 1;
 
       }
@@ -30348,8 +30348,8 @@ exports.tests = {
       }
 
     }
-    assertEquals("greetingCountIs1",1,greetingCount);
-    assertEquals("salutationCountIs1",1,salutationCount);
+    test.equal(greetingCount, 1, 'greetingCountIs1');
+    test.equal(salutationCount, 1, 'salutationCountIs1');
 
     test.done()
   },
@@ -30405,21 +30405,21 @@ exports.tests = {
     for(var indexN1009C = 0;indexN1009C < notifications.length; indexN1009C++) {
       notification = notifications[indexN1009C];
       operation = notification.operation;
-      assertEquals("operationIsClone",1,operation);
+      test.equal(operation, 1, 'operationIsClone');
       key = notification.key;
       data = notification.data;
 
       if(
 	("greeting" == key)
       ) {
-	assertEquals("greetingDataHello",hello,data);
+	test.equal(data, hello, 'greetingDataHello');
         greetingCount += 1;
 
       }
 
       else {
-	assertEquals("saluationKey","salutation",key);
-        assertEquals("salutationDataMr",mister,data);
+	test.equal(key, "salutation", 'saluationKey');
+        test.equal(data, mister, 'salutationDataMr');
         salutationCount += 1;
 
       }
@@ -30429,8 +30429,8 @@ exports.tests = {
       assertSame("dstIsNewNode",newNode,dst);
 
     }
-    assertEquals("greetingCountIs1",1,greetingCount);
-    assertEquals("salutationCountIs1",1,salutationCount);
+    test.equal(greetingCount, 1, 'greetingCountIs1');
+    test.equal(salutationCount, 1, 'salutationCountIs1');
 
     test.done()
   },
@@ -30501,21 +30501,21 @@ exports.tests = {
     for(var indexN100CE = 0;indexN100CE < notifications.length; indexN100CE++) {
       notification = notifications[indexN100CE];
       operation = notification.operation;
-      assertEquals("operationIsImport",2,operation);
+      test.equal(operation, 2, 'operationIsImport');
       key = notification.key;
       data = notification.data;
 
       if(
 	("greeting" == key)
       ) {
-	assertEquals("greetingDataHello",hello,data);
+	test.equal(data, hello, 'greetingDataHello');
         greetingCount += 1;
 
       }
 
       else {
-	assertEquals("saluationKey","salutation",key);
-        assertEquals("salutationDataMr",mister,data);
+	test.equal(key, "salutation", 'saluationKey');
+        test.equal(data, mister, 'salutationDataMr');
         salutationCount += 1;
 
       }
@@ -30525,8 +30525,8 @@ exports.tests = {
       assertSame("dstIsNewNode",newNode,dst);
 
     }
-    assertEquals("greetingCountIs1",1,greetingCount);
-    assertEquals("salutationCountIs1",1,salutationCount);
+    test.equal(greetingCount, 1, 'greetingCountIs1');
+    test.equal(salutationCount, 1, 'salutationCountIs1');
 
     test.done()
   },
@@ -30597,32 +30597,32 @@ exports.tests = {
     for(var indexN100CD = 0;indexN100CD < notifications.length; indexN100CD++) {
       notification = notifications[indexN100CD];
       operation = notification.operation;
-      assertEquals("operationIsImport",5,operation);
+      test.equal(operation, 5, 'operationIsImport');
       key = notification.key;
       data = notification.data;
 
       if(
 	("greeting" == key)
       ) {
-	assertEquals("greetingDataHello",hello,data);
+	test.equal(data, hello, 'greetingDataHello');
         greetingCount += 1;
 
       }
 
       else {
-	assertEquals("saluationKey","salutation",key);
-        assertEquals("salutationDataMr",mister,data);
+	test.equal(key, "salutation", 'saluationKey');
+        test.equal(data, mister, 'salutationDataMr');
         salutationCount += 1;
 
       }
       src = notification.src;
       assertSame("srcIsNode",node,src);
       dst = notification.dst;
-      assertNull("dstIsNull",dst);
+      test.equal(dst, null, 'dstIsNull');
 
     }
-    assertEquals("greetingCountIs1",1,greetingCount);
-    assertEquals("salutationCountIs1",1,salutationCount);
+    test.equal(greetingCount, 1, 'greetingCountIs1');
+    test.equal(salutationCount, 1, 'salutationCountIs1');
 
     test.done()
   },
@@ -30700,10 +30700,10 @@ exports.tests = {
       error = errors[indexN100A9];
       severity = error.severity;
 
-      assertEquals("severity",2,severity);
+      test.equal(severity, 2, 'severity');
       type = error.type;
 
-      assertEquals("type","wf-invalid-character-in-node-name",type);
+      test.equal(type, "wf-invalid-character-in-node-name", 'type');
       locator = error.location;
 
       relatedNode = locator.relatedNode;
@@ -30867,10 +30867,10 @@ exports.tests = {
       error = errors[indexN100AA];
       severity = error.severity;
 
-      assertEquals("severity",2,severity);
+      test.equal(severity, 2, 'severity');
       type = error.type;
 
-      assertEquals("type","wf-invalid-character-in-node-name",type);
+      test.equal(type, "wf-invalid-character-in-node-name", 'type');
       locator = error.location;
 
       relatedNode = locator.relatedNode;
@@ -30958,7 +30958,7 @@ exports.tests = {
       errors = errorMonitor.allErrors;
       for(var indexN100AA = 0;indexN100AA < errors.length; indexN100AA++) {
         error = errors[indexN100AA];
-        assertNull("noErrorsExpected",error);
+        test.equal(error, null, 'noErrorsExpected');
 
       }
 
