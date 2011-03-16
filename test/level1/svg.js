@@ -4878,7 +4878,7 @@ exports.tests = {
     testEmployee = elementList.item(2);
     streetAttr = testEmployee.getAttributeNode("street");
     replacedAttr = testEmployee.setAttributeNode(streetAttr);
-    assertSame("replacedAttr",streetAttr,replacedAttr);
+    test.equal(replacedAttr, streetAttr, 'replacedAttr');
 
     test.done();
   },
@@ -9990,7 +9990,7 @@ exports.tests = {
     testEmployee = elementList.item(2);
     streetAttr = testEmployee.getAttributeNode("class");
     replacedAttr = testEmployee.setAttributeNode(streetAttr);
-    assertSame("replacedAttr",streetAttr,replacedAttr);
+    test.equal(replacedAttr, streetAttr, 'replacedAttr');
 
     test.done();
   },
@@ -14141,7 +14141,7 @@ exports.tests = {
     newChild = childList.item(0);
     oldChild = childList.item(5);
     replacedChild = employeeNode.replaceChild(newChild,oldChild);
-    assertSame("return_value_same",oldChild,replacedChild);
+    test.equal(replacedChild, oldChild, 'return_value_same');
     for(var indexN10094 = 0;indexN10094 < childList.length; indexN10094++) {
       childNode = childList.item(indexN10094);
       childName = childNode.nodeName;
@@ -20285,7 +20285,7 @@ exports.tests = {
     }
 
     replacedChild = employeeNode.replaceChild(newChild,oldChild);
-    assertSame("return_value_same",oldChild,replacedChild);
+    test.equal(replacedChild, oldChild, 'return_value_same');
 
     for(var indexN100DE = 0;indexN100DE < childList.length; indexN100DE++) {
 
