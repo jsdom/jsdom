@@ -8462,46 +8462,16 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=509
    */
   hc_commentgetcomment: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var child;
-    var childName;
-    var childValue;
-    var commentCount = 0;
-    var childType;
-    var attributes;
-
-    doc = hc_staff.hc_staff();
-    elementList = doc.childNodes;
-
-    for(var indexN1005E = 0;indexN1005E < elementList.length; indexN1005E++) {
-      child = elementList.item(indexN1005E);
-      childType = child.nodeType;
-
-
-      if(
-        (8 == childType)
-      ) {
-        childName = child.nodeName;
-
-        test.equal(childName, '#comment', 'nodeName');
-        childValue = child.nodeValue;
-
-        test.equal(childValue, ' This is comment number 1.', 'nodeValue');
-        attributes = child.attributes;
-
-        test.equal(attributes, null, 'attributes');
-        commentCount += 1;
-
+    var doc = hc_staff.hc_staff();
+    var elementList = doc.childNodes;
+    test.expect(3); // the three tests in the for loop should run only once
+    for(var i=0;i<elementList.length;i++) {
+      if (8 == elementList.item(i).nodeType) {
+        test.equal(elementList.item(i).nodeName, '#comment', 'nodeName');
+        test.equal(elementList.item(i).nodeValue, ' This is comment number 1.', 'nodeValue');
+        test.equal(elementList.item(i).attributes, null, 'attributes');
       }
-
     }
-    assertTrue("atMostOneComment",
-
-               (commentCount < 2)
-              );
-
     test.done();
   },
 
@@ -15568,27 +15538,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
   namednodemapreturnfirstitem: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var testAddress;
-    var attributes;
-    var child;
-    var name;
-
-    doc = staff.staff();
-    elementList = doc.getElementsByTagName("address");
-    testAddress = elementList.item(1);
-    attributes = testAddress.attributes;
-
-    child = attributes.item(0);
-    name = child.nodeName;
-
-    assertTrue("namednodemapReturnFirstItemAssert",
-
-               (("domestic" == name) || ("street" == name))
-              );
-
+    var doc = staff.staff();
+    var child = doc.getElementsByTagName("address").item(1).attributes.item(0);
+    test.equal(child.nodeName, 'domestic', 'namednodemapReturnFirstItemAssert')
     test.done();
   },
 
@@ -15609,27 +15561,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
    */
   namednodemapreturnlastitem: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var testEmployee;
-    var attributes;
-    var child;
-    var name;
-
-    doc = staff.staff();
-    elementList = doc.getElementsByTagName("address");
-    testEmployee = elementList.item(1);
-    attributes = testEmployee.attributes;
-
-    child = attributes.item(1);
-    name = child.nodeName;
-
-    assertTrue("namednodemapReturnLastItemAssert",
-
-               (("domestic" == name) || ("street" == name))
-              );
-
+    var doc = staff.staff();
+    var child = doc.getElementsByTagName("address").item(1).attributes.item(1);
+    test.equal(child.nodeName, 'street', 'namednodemapReturnLastItemAssert')
     test.done();
   },
 
@@ -19192,26 +19126,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-203510337
    */
   nodelistindexgetlength: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var employeeNode;
-    var employeeList;
-    var length;
-    var expectedCount = 0;
-
-    doc = staff.staff();
-    elementList = doc.getElementsByTagName("employee");
-    employeeNode = elementList.item(2);
-    employeeList = employeeNode.childNodes;
-
-    length = employeeList.length;
-
-    assertTrue("lengthIs6or13",
-
-               ((6 == length) || (13 == length))
-              );
-
+    var doc = staff.staff();
+    var employeeList = doc.getElementsByTagName("employee").item(2).childNodes;
+    test.equal(employeeList.length, 6)
     test.done();
   },
 
