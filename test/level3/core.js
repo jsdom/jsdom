@@ -20,10 +20,6 @@ exports.tests = {
     var typeNS;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
@@ -60,10 +56,6 @@ exports.tests = {
     var typeNS;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -100,10 +92,6 @@ exports.tests = {
     var typeNS;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
@@ -140,10 +128,6 @@ exports.tests = {
     var typeNS;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -180,10 +164,6 @@ exports.tests = {
     var typeNS;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -219,10 +199,6 @@ exports.tests = {
     var typeName;
     var typeNS;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_nodtdstaff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
@@ -262,10 +238,6 @@ exports.tests = {
     var typeName;
     var typeNamespace;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acElem = elemList.item(3);
@@ -304,10 +276,6 @@ exports.tests = {
     var typeName;
     var typeNamespace;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acElem = elemList.item(0);
@@ -341,10 +309,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -376,10 +340,6 @@ exports.tests = {
     var elemName;
     var xmlNS = "http://www.w3.org/XML/1998/namespace";
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -411,10 +371,6 @@ exports.tests = {
     var elemName;
     var xmlNS = "http://www.w3.org/XML/1998/namespace";
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -447,10 +403,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(3);
@@ -485,10 +437,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(3);
@@ -516,10 +464,6 @@ exports.tests = {
     var attr;
     var id = false;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     id = attr.isId;
@@ -554,10 +498,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagNameNS("*","acronym");
     acronymElem = elemList.item(2);
@@ -600,10 +540,6 @@ exports.tests = {
     var ent2;
     var doctype;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -659,10 +595,6 @@ exports.tests = {
     var retval;
     var canSet;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -712,10 +644,6 @@ exports.tests = {
 
     var canSet;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     elemName = elemList.item(1);
@@ -765,10 +693,6 @@ exports.tests = {
     var xmlnsAttr;
     var canSet;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -828,10 +752,6 @@ exports.tests = {
     var length;
     var canSet;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     pList = doc.getElementsByTagName("p");
     elem = pList.item(0);
@@ -1022,10 +942,6 @@ exports.tests = {
     var childName;
     var text;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -1093,10 +1009,6 @@ exports.tests = {
     var length;
     var text;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "canonicalform01");
     domConfig = doc.domConfig;
 
@@ -1210,10 +1122,6 @@ exports.tests = {
     var length;
     var text;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "canonicalform01");
     domConfig = doc.domConfig;
 
@@ -1294,10 +1202,6 @@ exports.tests = {
 
     var node;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "canonicalform03");
     domConfig = doc.domConfig;
 
@@ -1341,10 +1245,6 @@ exports.tests = {
     var attrValue;
     var attrSpecified;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "canonicalform03");
     domConfig = doc.domConfig;
 
@@ -1389,10 +1289,6 @@ exports.tests = {
 
     var doctype;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -1436,10 +1332,6 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     pList = doc.getElementsByTagName("p");
     elem = pList.item(0);
@@ -1483,10 +1375,6 @@ exports.tests = {
     var textValue;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -1539,10 +1427,6 @@ exports.tests = {
     var errorCount = 0;
     var errorType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -1609,10 +1493,6 @@ exports.tests = {
     var retval;
     var canSet;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -1662,10 +1542,6 @@ exports.tests = {
 
     var pList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     pList = doc.getElementsByTagName("p");
     elem = pList.item(0);
@@ -1709,10 +1585,6 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "datatype_normalization");
     domConfig = doc.domConfig;
 
@@ -1783,10 +1655,6 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "datatype_normalization");
     domConfig = doc.domConfig;
 
@@ -1849,10 +1717,6 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "datatype_normalization");
     domConfig = doc.domConfig;
 
@@ -1915,10 +1779,6 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "datatype_normalization");
     domConfig = doc.domConfig;
 
@@ -1989,10 +1849,6 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "datatype_normalization");
     domConfig = doc.domConfig;
 
@@ -2063,10 +1919,6 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "datatype_normalization");
     domConfig = doc.domConfig;
 
@@ -2136,10 +1988,6 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "datatype_normalization");
     domConfig = doc.domConfig;
 
@@ -2188,10 +2036,6 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "datatype_normalization");
     domConfig = doc.domConfig;
 
@@ -2240,10 +2084,6 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "datatype_normalization");
     domConfig = doc.domConfig;
 
@@ -2292,10 +2132,6 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "datatype_normalization");
     domConfig = doc.domConfig;
 
@@ -2344,10 +2180,6 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "datatype_normalization");
     domConfig = doc.domConfig;
 
@@ -2396,10 +2228,6 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "datatype_normalization");
     domConfig = doc.domConfig;
 
@@ -2452,10 +2280,6 @@ exports.tests = {
     var childNode;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "datatype_normalization2");
     domConfig = doc.domConfig;
 
@@ -2511,10 +2335,6 @@ exports.tests = {
     var childNode;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "datatype_normalization2");
     domConfig = doc.domConfig;
 
@@ -2570,10 +2390,6 @@ exports.tests = {
     var childNode;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "datatype_normalization2");
     domConfig = doc.domConfig;
 
@@ -2640,10 +2456,6 @@ exports.tests = {
     var childNode;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "datatype_normalization2");
     domConfig = doc.domConfig;
 
@@ -2715,10 +2527,6 @@ exports.tests = {
     var childNode;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "datatype_normalization2");
     domConfig = doc.domConfig;
 
@@ -2784,10 +2592,6 @@ exports.tests = {
     var childNode;
     var childValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "datatype_normalization2");
     domConfig = doc.domConfig;
 
@@ -2856,10 +2660,6 @@ exports.tests = {
     var secondChildType;
     var secondChildName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagName("acronym");
     element = childList.item(3);
@@ -2947,10 +2747,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -3035,10 +2831,6 @@ exports.tests = {
     var isSpecified;
     var xmlNS = "http://www.w3.org/XML/1998/namespace";
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newAttr = doc.createAttributeNS(xmlNS,"xml:lang");
     adoptedAttr = doc.adoptNode(newAttr);
@@ -3096,10 +2888,6 @@ exports.tests = {
     var rootName;
     var xmlNS = "http://www.w3.org/XML/1998/namespace";
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -3166,10 +2954,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -3246,10 +3030,6 @@ exports.tests = {
     var rootName;
     var xmlNS = "http://www.w3.org/XML/1998/namespace";
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -3314,10 +3094,6 @@ exports.tests = {
     var doc;
     var adoptedDoc;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     {
@@ -3353,10 +3129,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -3400,10 +3172,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -3441,10 +3209,6 @@ exports.tests = {
     var docType;
     var adoptedDocType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -3483,10 +3247,6 @@ exports.tests = {
     var docElem;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -3531,10 +3291,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -3578,10 +3334,6 @@ exports.tests = {
     var appendedChild;
     var adoptedDocFrag;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docFragment = doc.createDocumentFragment();
     childList = doc.getElementsByTagName("acronym");
@@ -3628,10 +3380,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -3678,10 +3426,6 @@ exports.tests = {
     var success;
     var adoptedDocFrag;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docFragment = doc.createDocumentFragment();
     adoptedDocFrag = doc.adoptNode(docFragment);
@@ -3729,10 +3473,6 @@ exports.tests = {
     var firstChildName;
     var firstChildValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docFragment = doc.createDocumentFragment();
     parent = doc.createElement("parent");
@@ -3801,10 +3541,6 @@ exports.tests = {
     var ent;
     var adoptedEnt;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -3848,10 +3584,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -3896,10 +3628,6 @@ exports.tests = {
     var notation;
     var adoptedNotaion;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -3943,10 +3671,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -4002,10 +3726,6 @@ exports.tests = {
     var nodeType;
     var nodeValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagName("acronym");
     element = childList.item(0);
@@ -4043,10 +3763,6 @@ exports.tests = {
     var nodeNameOrig;
     var nodeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElement = doc.documentElement;
 
@@ -4089,10 +3805,6 @@ exports.tests = {
     var acronymElemChild;
     var adoptedNodeChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagName("acronym");
     acronymElem = childList.item(0);
@@ -4147,10 +3859,6 @@ exports.tests = {
     var nullDocType = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","dom:test",nullDocType);
@@ -4193,10 +3901,6 @@ exports.tests = {
     var nullDocType = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -4250,10 +3954,6 @@ exports.tests = {
     var rootNS;
     var rootTagname;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -4312,10 +4012,6 @@ exports.tests = {
     var rootNS;
     var rootTagname;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -4370,10 +4066,6 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagName("p");
     employeeElem = childList.item(3);
@@ -4408,10 +4100,6 @@ exports.tests = {
     var adoptedText;
     var nodeValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newText = doc.createTextNode("Document.adoptNode test for a TEXT_NODE");
     adoptedText = doc.adoptNode(newText);
@@ -4452,10 +4140,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -4498,10 +4182,6 @@ exports.tests = {
     var adoptedCDATA;
     var nodeValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     var docAdopterRef = null;
@@ -4548,10 +4228,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -4600,10 +4276,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -4653,10 +4325,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -4711,10 +4379,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -4784,10 +4448,6 @@ exports.tests = {
     var replaced;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -4831,10 +4491,6 @@ exports.tests = {
     var doc;
     var docURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docURI = doc.documentURI;
 
@@ -4861,10 +4517,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -4902,10 +4554,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domImpl = doc.implementation;
     docElem = doc.documentElement;
@@ -4937,10 +4585,6 @@ exports.tests = {
     var doc;
     var encodingName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     encodingName = doc.inputEncoding;
 
@@ -4968,10 +4612,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domImpl = doc.implementation;
     docElem = doc.documentElement;
@@ -5000,10 +4640,6 @@ exports.tests = {
     var doc;
     var encodingName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo_utf16");
     encodingName = doc.inputEncoding;
 
@@ -5025,10 +4661,6 @@ exports.tests = {
     var cloned;
     var encodingName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo_utf8");
     cloned = doc.cloneNode(true);
     encodingName = cloned.inputEncoding;
@@ -5054,10 +4686,6 @@ exports.tests = {
     var doc;
     var strictErrorCheckingValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     strictErrorCheckingValue = doc.strictErrorChecking;
 
@@ -5084,10 +4712,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -5116,10 +4740,6 @@ exports.tests = {
     var doc;
     var encodingName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo_utf8");
     encodingName = doc.xmlEncoding;
 
@@ -5147,10 +4767,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -5179,10 +4795,6 @@ exports.tests = {
     var doc;
     var encodingName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo_utf16");
     encodingName = doc.xmlEncoding;
 
@@ -5203,10 +4815,6 @@ exports.tests = {
     var doc;
     var encodingName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     encodingName = doc.xmlEncoding;
 
@@ -5228,10 +4836,6 @@ exports.tests = {
     var cloned;
     var encodingName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo_utf8");
     cloned = doc.cloneNode(true);
     encodingName = cloned.xmlEncoding;
@@ -5259,10 +4863,6 @@ exports.tests = {
     var doc;
     var standalone;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     standalone = doc.xmlStandalone;
 
@@ -5289,10 +4889,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     docElem = doc.documentElement;
 
@@ -5321,10 +4917,6 @@ exports.tests = {
     var doc;
     var standalone;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo_standalone_no");
     standalone = doc.xmlStandalone;
 
@@ -5345,10 +4937,6 @@ exports.tests = {
     var doc;
     var standalone;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo_standalone_yes");
     standalone = doc.xmlStandalone;
 
@@ -5379,10 +4967,6 @@ exports.tests = {
     var docType;
     var sysId;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -5416,10 +5000,6 @@ exports.tests = {
     var doc;
     var versionValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     versionValue = doc.xmlVersion;
 
@@ -5447,10 +5027,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     docElem = doc.documentElement;
 
@@ -5479,10 +5055,6 @@ exports.tests = {
     var doc;
     var versionValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     versionValue = doc.xmlVersion;
 
@@ -5508,10 +5080,6 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -5551,10 +5119,6 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     elemName = elemList.item(1);
@@ -5615,10 +5179,6 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     pList = doc.getElementsByTagName("p");
     elem = pList.item(0);
@@ -5676,10 +5236,6 @@ exports.tests = {
 
     var pList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     pList = doc.getElementsByTagName("p");
     elem = pList.item(0);
@@ -5748,10 +5304,6 @@ exports.tests = {
     var relatedData;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     pList = doc.getElementsByTagName("p");
     elem = pList.item(0);
@@ -5870,10 +5422,6 @@ exports.tests = {
     var nodeType;
     var nodeValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
@@ -6000,10 +5548,6 @@ exports.tests = {
     var relatedData;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
@@ -6095,10 +5639,6 @@ exports.tests = {
     var splittedCount = 0;
     var severity;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
@@ -6175,10 +5715,6 @@ exports.tests = {
 
     var domConfig;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domConfig = doc.domConfig;
 
@@ -6232,10 +5768,6 @@ exports.tests = {
     var appendedChild;
     var domConfig;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elem = doc.createElement("newElem");
     newText = doc.createTextNode("Text          Node");
@@ -6297,10 +5829,6 @@ exports.tests = {
     var canSet;
     var domConfig;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domConfig = doc.domConfig;
 
@@ -6352,10 +5880,6 @@ exports.tests = {
     errHandler = new DOMErrorHandlerN10048();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domConfig = doc.domConfig;
 
@@ -6421,10 +5945,6 @@ exports.tests = {
     var relatedData;
     var length;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     pList = doc.getElementsByTagName("p");
     elem = pList.item(0);
@@ -6513,10 +6033,6 @@ exports.tests = {
     var nodeType;
     var namespaceURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagName("acronym");
     element = childList.item(1);
@@ -6556,10 +6072,6 @@ exports.tests = {
     var nodeType;
     var namespaceURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagName("acronym");
     element = childList.item(1);
@@ -6596,10 +6108,6 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     attr = doc.createAttributeNS(nullNSURI,"test");
     renamedNode = doc.renameNode(attr,"http://www.w3.org/DOM/Test","pre0:fix1");
@@ -6630,10 +6138,6 @@ exports.tests = {
     var nodeName;
     var namespaceURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     renamedNode = doc.renameNode(attr,"","title");
@@ -6666,10 +6170,6 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     renamedNode = doc.renameNode(attr,nullNSURI,"title");
@@ -6702,10 +6202,6 @@ exports.tests = {
     var nodeType;
     var namespaceURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagName("p");
     element = childList.item(3);
@@ -6748,10 +6244,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -6796,10 +6288,6 @@ exports.tests = {
     var docElemNS;
     var docElemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagName("p");
     element = childList.item(3);
@@ -6852,10 +6340,6 @@ exports.tests = {
 
     var attrNodeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","dom:newD",nullDocType);
@@ -6900,10 +6384,6 @@ exports.tests = {
     qualifiedNames[5] = "a:::::c";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     textNode = doc.createTextNode(textEntry);
     for(var indexN10060 = 0;indexN10060 < qualifiedNames.length; indexN10060++) {
@@ -6949,10 +6429,6 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     textNode = doc.createTextNode(textEntry);
 
@@ -6991,10 +6467,6 @@ exports.tests = {
     var textEntry = "hello";
     var textNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     textNode = doc.createTextNode(textEntry);
 
@@ -7033,10 +6505,6 @@ exports.tests = {
     var textNode;
     var renamedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     textNode = doc.createTextNode(textEntry);
 
@@ -7077,10 +6545,6 @@ exports.tests = {
     var textEntry = "hello";
     var textNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     textNode = doc.createTextNode(textEntry);
 
@@ -7115,10 +6579,6 @@ exports.tests = {
     var nodeType;
     var namespaceURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagName("acronym");
     element = childList.item(3);
@@ -7158,10 +6618,6 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagName("acronym");
     element = childList.item(3);
@@ -7204,10 +6660,6 @@ exports.tests = {
     var nullDocType = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     docElem = doc.documentElement;
 
@@ -7253,10 +6705,6 @@ exports.tests = {
     var nullDocType = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     docElem = doc.documentElement;
 
@@ -7311,10 +6759,6 @@ exports.tests = {
     qualifiedNames[4] = "a:-:c";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","newD",nullDocType);
@@ -7356,10 +6800,6 @@ exports.tests = {
     var rootNS;
     var rootTagname;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     docElem = doc.documentElement;
 
@@ -7410,10 +6850,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -7453,10 +6889,6 @@ exports.tests = {
     var attr;
     var renamedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
 
@@ -7490,10 +6922,6 @@ exports.tests = {
     var renamedNode;
     var docowner;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     {
@@ -7529,10 +6957,6 @@ exports.tests = {
 
     var docowner;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     {
@@ -7562,10 +6986,6 @@ exports.tests = {
     var docType;
     var renamedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -7598,10 +7018,6 @@ exports.tests = {
     var docFrag;
     var renamedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docFrag = doc.createDocumentFragment();
 
@@ -7648,10 +7064,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -7743,10 +7155,6 @@ exports.tests = {
     var renamedEntityNode;
     var renamedNotationNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -7796,10 +7204,6 @@ exports.tests = {
     var docElem;
     var renamed;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -7832,10 +7236,6 @@ exports.tests = {
     var doc;
     var docURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     doc.documentURI = "file:///test";
 
@@ -7862,10 +7262,6 @@ exports.tests = {
     var nullValue = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     doc.documentURI = nullValue;
 
@@ -7897,10 +7293,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     docElem = doc.documentElement;
 
@@ -7932,10 +7324,6 @@ exports.tests = {
     var doc;
     var newAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     doc.strictErrorChecking = false;
 
@@ -7971,10 +7359,6 @@ exports.tests = {
     var nullValue = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     doc.strictErrorChecking = true;
 
@@ -8005,10 +7389,6 @@ exports.tests = {
     var doc;
     var strictErrorCheckingValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     doc.strictErrorChecking = false;
 
@@ -8031,10 +7411,6 @@ exports.tests = {
     var doc;
     var standalone;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     doc.xmlStandalone = true;
 
@@ -8064,10 +7440,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     docElem = doc.documentElement;
 
@@ -8133,10 +7505,6 @@ exports.tests = {
     illegalVersion[27] = "---";
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     for(var indexN10087 = 0;indexN10087 < illegalVersion.length; indexN10087++) {
       versionValue = illegalVersion[indexN10087];
@@ -8177,10 +7545,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     docElem = doc.documentElement;
 
@@ -8218,10 +7582,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     docElem = doc.documentElement;
 
@@ -8258,10 +7618,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     docElem = doc.documentElement;
 
@@ -8865,10 +8221,6 @@ exports.tests = {
     var domConfig;
     var state;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -8965,10 +8317,6 @@ exports.tests = {
     var paramValue;
     var canSet;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     config = doc.domConfig;
 
@@ -9200,10 +8548,6 @@ exports.tests = {
     var lastChild;
     var commentValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newCommentNode = doc.createComment("This is a new Comment node");
     docElem = doc.documentElement;
@@ -9245,10 +8589,6 @@ exports.tests = {
     var nodeType;
     var canSet;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domConfig = doc.domConfig;
 
@@ -9293,10 +8633,6 @@ exports.tests = {
     var entityName;
     var canSet;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domConfig = doc.domConfig;
 
@@ -9335,10 +8671,6 @@ exports.tests = {
     var first;
     var canSet;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domConfig = doc.domConfig;
 
@@ -9377,10 +8709,6 @@ exports.tests = {
     var canSet;
     var hasWhitespace;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domConfig = doc.domConfig;
 
@@ -9422,10 +8750,6 @@ exports.tests = {
     var domConfig;
     var param;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domConfig = doc.domConfig;
 
@@ -9458,10 +8782,6 @@ exports.tests = {
     var domConfig;
     var param;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domConfig = doc.domConfig;
 
@@ -9658,10 +8978,6 @@ exports.tests = {
     var domImpl;
     var domImplReturned;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domImpl = doc.implementation;
     domImplReturned = domImpl.getFeature("Core","2.0");
@@ -9684,10 +9000,6 @@ exports.tests = {
     var domImpl;
     var domImplReturned;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domImpl = doc.implementation;
     domImplReturned = domImpl.getFeature("Core","");
@@ -9712,10 +9024,6 @@ exports.tests = {
     var nullVersion = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domImpl = doc.implementation;
     domImplReturned = domImpl.getFeature("Core",nullVersion);
@@ -9739,10 +9047,6 @@ exports.tests = {
     var nullVersion = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domImpl = doc.implementation;
     domImplReturned = domImpl.getFeature("",nullVersion);
@@ -9764,10 +9068,6 @@ exports.tests = {
     var domImpl;
     var domImplReturned;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domImpl = doc.implementation;
     domImplReturned = domImpl.getFeature("1-1","*");
@@ -10675,10 +9975,6 @@ exports.tests = {
     var domConfig;
     var contains;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domConfig = doc.domConfig;
 
@@ -10710,10 +10006,6 @@ exports.tests = {
     var domConfig;
     var contain;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domConfig = doc.domConfig;
 
@@ -10757,10 +10049,6 @@ exports.tests = {
     var domConfig;
     var listSize;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domConfig = doc.domConfig;
 
@@ -10791,10 +10079,6 @@ exports.tests = {
     var index;
     var parameter;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domConfig = doc.domConfig;
 
@@ -10831,10 +10115,6 @@ exports.tests = {
     var listSize;
     var retStr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domConfig = doc.domConfig;
 
@@ -10869,10 +10149,6 @@ exports.tests = {
     var childName;
     var text;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -10930,10 +10206,6 @@ exports.tests = {
     var child;
     var childName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -10988,10 +10260,6 @@ exports.tests = {
     var childName;
     var text;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -11052,10 +10320,6 @@ exports.tests = {
     var typeNS;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
@@ -11088,10 +10352,6 @@ exports.tests = {
     var typeNS;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
@@ -11124,10 +10384,6 @@ exports.tests = {
     var typeName;
     var typeNS;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_nodtdstaff");
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
@@ -11165,10 +10421,6 @@ exports.tests = {
     var elemList;
     var docElemNodeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("code");
     codeElem = elemList.item(1);
@@ -11205,10 +10457,6 @@ exports.tests = {
     var elemList;
     var docElemNodeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("span");
     acElem = elemList.item(0);
@@ -11245,10 +10493,6 @@ exports.tests = {
     var elemList;
     var docElemNodeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     strongElem = elemList.item(1);
@@ -11285,10 +10529,6 @@ exports.tests = {
     var docElemNodeName;
     var elemList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("sup");
     supElem = elemList.item(0);
@@ -11323,10 +10563,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -11368,10 +10604,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -11414,10 +10646,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     nameElem = elemList.item(2);
@@ -11454,10 +10682,6 @@ exports.tests = {
     var elemList;
     var nameElem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     nameElem = elemList.item(2);
@@ -11489,10 +10713,6 @@ exports.tests = {
     var elemList;
     var nameElem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     nameElem = elemList.item(2);
@@ -11531,10 +10751,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     nameElem1 = elemList.item(2);
@@ -11587,10 +10803,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem1 = elemList.item(1);
@@ -11646,10 +10858,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList1 = doc.getElementsByTagName("strong");
     elemList2 = doc.getElementsByTagName("sup");
@@ -11701,10 +10909,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -11748,10 +10952,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(3);
@@ -11794,10 +10994,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     employeeElem = elemList.item(2);
@@ -11839,10 +11035,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -11885,10 +11077,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     nameElem = elemList.item(1);
@@ -11932,10 +11120,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     nameElem = elemList.item(1);
@@ -11976,10 +11160,6 @@ exports.tests = {
     var attributesMap;
     var attr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList1 = doc.getElementsByTagName("strong");
     elemList2 = doc.getElementsByTagName("acronym");
@@ -12021,10 +11201,6 @@ exports.tests = {
     var attr;
     var nameElement;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList1 = doc.getElementsByTagName("strong");
     elemList2 = doc.getElementsByTagName("acronym");
@@ -12068,10 +11244,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList1 = doc.getElementsByTagName("acronym");
     elemList2 = doc.getElementsByTagName("acronym");
@@ -12127,10 +11299,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList1 = doc.getElementsByTagNameNS("*","acronym");
     elemList2 = doc.getElementsByTagNameNS("*","p");
@@ -12183,10 +11351,6 @@ exports.tests = {
     var attr;
     var domConfig;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domConfig = doc.domConfig;
 
@@ -12239,10 +11403,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagNameNS("*","acronym");
     acronymElem = elemList.item(3);
@@ -12284,10 +11444,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     employeeElem = elemList.item(2);
@@ -12330,10 +11486,6 @@ exports.tests = {
     var elemName;
     var xsiNS = "http://www.w3.org/2001/XMLSchema-instance";
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagNameNS("*","acronym");
     addressElem = elemList.item(2);
@@ -12376,10 +11528,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("em");
     employeeIdElem = elemList.item(0);
@@ -12426,10 +11574,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagNameNS("*","strong");
     strongElem = elemList.item(2);
@@ -12476,10 +11620,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagNameNS("*","acronym");
     acronymElem = elemList.item(2);
@@ -12516,10 +11656,6 @@ exports.tests = {
     var elemList;
     var nameElem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     nameElem = elemList.item(2);
@@ -12551,10 +11687,6 @@ exports.tests = {
     var elemList;
     var employeeElem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     employeeElem = elemList.item(1);
@@ -12586,10 +11718,6 @@ exports.tests = {
     var elemList;
     var employeeElem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     employeeElem = elemList.item(1);
@@ -12626,10 +11754,6 @@ exports.tests = {
     var entRef;
     var entElement;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagNameNS("*","var");
     varElem = elemList.item(2);
@@ -12675,10 +11799,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagNameNS("*","p");
     pElem1 = elemList.item(2);
@@ -12732,10 +11852,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagNameNS("*","p");
     pElem1 = elemList.item(1);
@@ -12791,10 +11907,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagNameNS("*","acronym");
     acronymElem1 = elemList.item(0);
@@ -12850,10 +11962,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     nameElem = elemList.item(2);
@@ -12907,10 +12015,6 @@ exports.tests = {
     var elem;
     var elemName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagNameNS("*","p");
     pElem = elemList.item(1);
@@ -12966,10 +12070,6 @@ exports.tests = {
     var ent2;
     var doctype;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -13024,10 +12124,6 @@ exports.tests = {
     var ent2;
     var doctype;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -13082,10 +12178,6 @@ exports.tests = {
     var entRef;
     var childType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -13135,10 +12227,6 @@ exports.tests = {
     var ent2;
     var doctype;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -13183,10 +12271,6 @@ exports.tests = {
     var entity;
     var encodingName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -13215,10 +12299,6 @@ exports.tests = {
     var entity;
     var encodingName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo_utf16");
     docType = doc.doctype;
 
@@ -13249,10 +12329,6 @@ exports.tests = {
     var entity;
     var encodingName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "external_barfoo");
     docType = doc.doctype;
 
@@ -13292,10 +12368,6 @@ exports.tests = {
     var entity;
     var encodingName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "external_barfoo");
     docType = doc.doctype;
 
@@ -13327,10 +12399,6 @@ exports.tests = {
     var entity;
     var encodingName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -13359,10 +12427,6 @@ exports.tests = {
     var entity;
     var encodingName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "external_barfoo");
     docType = doc.doctype;
 
@@ -13393,10 +12457,6 @@ exports.tests = {
     var entity;
     var encodingName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "external_barfoo");
     docType = doc.doctype;
 
@@ -13427,10 +12487,6 @@ exports.tests = {
     var entity;
     var encodingName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "external_barfoo");
     docType = doc.doctype;
 
@@ -13459,10 +12515,6 @@ exports.tests = {
     var entity;
     var entityVersion;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -13491,10 +12543,6 @@ exports.tests = {
     var entity;
     var entityVersion;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo_utf16");
     docType = doc.doctype;
 
@@ -13525,10 +12573,6 @@ exports.tests = {
     var entity;
     var entityVersion;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "external_barfoo");
     docType = doc.doctype;
 
@@ -13559,10 +12603,6 @@ exports.tests = {
     var entity;
     var entityVersion;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "external_barfoo");
     docType = doc.doctype;
 
@@ -13602,10 +12642,6 @@ exports.tests = {
     errorHandler = new DOMErrorHandlerN10054();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
@@ -13679,10 +12715,6 @@ exports.tests = {
     errorHandler = new DOMErrorHandlerN10053(errors);
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -13788,10 +12820,6 @@ exports.tests = {
     var ent2;
     var doctype;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -13846,10 +12874,6 @@ exports.tests = {
     var entRef;
     var childType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -13899,10 +12923,6 @@ exports.tests = {
     var childValue;
     var childLength;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "datatype_normalization2");
     domConfig = doc.domConfig;
 
@@ -13970,10 +12990,6 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     pList = doc.getElementsByTagName("p");
     elem = pList.item(0);
@@ -14015,10 +13031,6 @@ exports.tests = {
 
     var xmlnsAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -14230,10 +13242,6 @@ exports.tests = {
     var childName;
     var text;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -14292,10 +13300,6 @@ exports.tests = {
 
     var pList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     pList = doc.getElementsByTagName("p");
     elem = pList.item(0);
@@ -14335,10 +13339,6 @@ exports.tests = {
 
     var xmlnsAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -14370,10 +13370,6 @@ exports.tests = {
 
     var xmlnsAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -14408,10 +13404,6 @@ exports.tests = {
     var tagName;
     var docElem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     docElem = doc.documentElement;
 
@@ -14457,10 +13449,6 @@ exports.tests = {
     var rootNS;
     var docElem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     docElem = doc.documentElement;
 
@@ -14509,10 +13497,6 @@ exports.tests = {
     var documentPositionDoc;
     var documentPositionDocType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -14546,10 +13530,6 @@ exports.tests = {
     var replaced;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -14582,10 +13562,6 @@ exports.tests = {
     var documentPosition2;
     var documentPosition3;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     var docCompRef = null;
@@ -14617,10 +13593,6 @@ exports.tests = {
     var doc;
     var documentPosition;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     documentPosition = doc.compareDocumentPosition(doc);
     assertEquals("nodecomparedocumentpositionNoFlags04",0,documentPosition);
@@ -14649,10 +13621,6 @@ exports.tests = {
     var rootNS;
     var docElem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     docElem = doc.documentElement;
 
@@ -14691,10 +13659,6 @@ exports.tests = {
     var documentPositionDoc;
     var documentPositionDocElem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -14722,10 +13686,6 @@ exports.tests = {
     var documentElementPosition;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -14754,10 +13714,6 @@ exports.tests = {
     var documentPosition;
     var elementPosition;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
@@ -14786,10 +13742,6 @@ exports.tests = {
     var documentElementPosition;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
@@ -14817,10 +13769,6 @@ exports.tests = {
     var elemList;
     var attrPosition;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
@@ -14849,10 +13797,6 @@ exports.tests = {
     var attrPosition;
     var replacedAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
@@ -14879,10 +13823,6 @@ exports.tests = {
     var piPosition;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     pi = doc.createProcessingInstruction("PITarget","PIDATA");
     appendedChild = doc.appendChild(pi);
@@ -14911,10 +13851,6 @@ exports.tests = {
     var commentPosition;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     comment = doc.createComment("Another Comment");
     elemList = doc.getElementsByTagName("p");
@@ -14945,10 +13881,6 @@ exports.tests = {
     var docFragChildPosition;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -14983,10 +13915,6 @@ exports.tests = {
     var appendedChild;
     var attrNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -15023,10 +13951,6 @@ exports.tests = {
     var position2;
     var position3;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docFrag = doc.createDocumentFragment();
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
@@ -15059,10 +13983,6 @@ exports.tests = {
     var pi2Position;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     pi1 = doc.createProcessingInstruction("PI1","");
     pi2 = doc.createProcessingInstruction("PI2","");
@@ -15093,10 +14013,6 @@ exports.tests = {
     var txt2Position;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -15134,10 +14050,6 @@ exports.tests = {
     var cdata1Position;
     var cdata2Position;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagNameNS("*","strong");
     elemStrong = elemList.item(1);
@@ -15173,10 +14085,6 @@ exports.tests = {
     var txtPosition;
     var cdataPosition;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     elemName = elemList.item(1);
@@ -15212,10 +14120,6 @@ exports.tests = {
     var txt1Position;
     var txt2Position;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     elemName1 = elemList.item(0);
@@ -15250,10 +14154,6 @@ exports.tests = {
     var entityPosition;
     var notationPosition;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -15289,10 +14189,6 @@ exports.tests = {
     var position2;
     var position3;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -15328,10 +14224,6 @@ exports.tests = {
     var notation2;
     var notationPosition;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -15362,10 +14254,6 @@ exports.tests = {
     var elementPosition;
     var entRefPosition;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("var");
     elemName = elemList.item(2);
@@ -15396,10 +14284,6 @@ exports.tests = {
     var entRefPosition;
     var entRefChild1Position;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     if(
@@ -15446,10 +14330,6 @@ exports.tests = {
     var entRefPosition;
     var entRefChild1Position;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     if(
@@ -15498,10 +14378,6 @@ exports.tests = {
     var entRefChild1Position;
     var entRefChild2Position;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     if(
@@ -15554,10 +14430,6 @@ exports.tests = {
     var entRefChild2Position;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     entRef1 = doc.createEntityReference("ent4");
     entRef2 = doc.createEntityReference("ent4");
@@ -15595,10 +14467,6 @@ exports.tests = {
     var code;
     var namePosition;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     nameList = doc.getElementsByTagName("strong");
     strong = nameList.item(0);
@@ -15629,10 +14497,6 @@ exports.tests = {
     var elemPosition;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     nameList = doc.getElementsByTagName("strong");
     strong = nameList.item(0);
@@ -15665,10 +14529,6 @@ exports.tests = {
     var code;
     var documentPosition;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     doc2 =  doc;
     nameList = doc.getElementsByTagName("strong");
@@ -15703,10 +14563,6 @@ exports.tests = {
     var position5;
     var replacedAttr;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
@@ -15746,10 +14602,6 @@ exports.tests = {
     var txtToPiPosition;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemMain = doc.createElementNS("http://www.w3.org/1999/xhtml","p");
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
@@ -15782,10 +14634,6 @@ exports.tests = {
     var elementPosition;
     var attrPosition;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
@@ -15817,10 +14665,6 @@ exports.tests = {
     var attrPosition;
     var elemFollowsPosition;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
@@ -15854,10 +14698,6 @@ exports.tests = {
     var attrPosition;
     var txtPosition;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(3);
@@ -15889,10 +14729,6 @@ exports.tests = {
     var attrPosition;
     var attrChildPosition;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(3);
@@ -15923,10 +14759,6 @@ exports.tests = {
     var attrPosition;
     var swappedPosition;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(3);
@@ -15960,10 +14792,6 @@ exports.tests = {
     var attrPosition;
     var swappedPosition;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(3);
@@ -15995,10 +14823,6 @@ exports.tests = {
     var baseURI;
     var documentURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     baseURI = doc.baseURI;
 
@@ -16031,10 +14855,6 @@ exports.tests = {
     var nullDocType = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     docElem = doc.documentElement;
 
@@ -16070,10 +14890,6 @@ exports.tests = {
     var docType;
     var baseURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     docType = doc.doctype;
 
@@ -16099,10 +14915,6 @@ exports.tests = {
     var baseURI;
     var documentURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     docElem = doc.documentElement;
 
@@ -16130,10 +14942,6 @@ exports.tests = {
     var docElem;
     var baseURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo_base");
     docElem = doc.documentElement;
 
@@ -16160,10 +14968,6 @@ exports.tests = {
     var newElement;
     var baseURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     newElement = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
     baseURI = doc.baseURI;
@@ -16192,10 +14996,6 @@ exports.tests = {
     var bodyElem;
     var htmlNS = "http://www.w3.org/1999/xhtml";
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo_base");
     bodyList = doc.getElementsByTagName("body");
     bodyElem = bodyList.item(0);
@@ -16224,10 +15024,6 @@ exports.tests = {
     var bodyList;
     var baseURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo_base");
     bodyList = doc.getElementsByTagName("body");
     bodyElem = bodyList.item(0);
@@ -16255,10 +15051,6 @@ exports.tests = {
     var baseURI;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo_base");
     docElem = doc.documentElement;
 
@@ -16293,10 +15085,6 @@ exports.tests = {
     var nullDocType = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo_base");
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument("http://www.w3.org/1999/xhtml","html",nullDocType);
@@ -16330,10 +15118,6 @@ exports.tests = {
     var entity;
     var baseURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -16365,10 +15149,6 @@ exports.tests = {
     var baseURI;
     var docURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -16409,10 +15189,6 @@ exports.tests = {
     var nullDocType = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -16451,10 +15227,6 @@ exports.tests = {
     var bodyList;
     var bodyElem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo_base");
     bodyList = doc.getElementsByTagName("body");
     bodyElem = bodyList.item(0);
@@ -16482,10 +15254,6 @@ exports.tests = {
     var pList;
     var pElem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "external_barfoo");
     pList = doc.getElementsByTagName("p");
     pElem = pList.item(0);
@@ -16514,10 +15282,6 @@ exports.tests = {
     var pList;
     var pElem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo_base");
     pList = doc.getElementsByTagName("p");
     pElem = pList.item(0);
@@ -16546,10 +15310,6 @@ exports.tests = {
     var pList;
     var pElem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo_base");
     pList = doc.getElementsByTagName("p");
     pElem = pList.item(0);
@@ -16581,10 +15341,6 @@ exports.tests = {
     var pElem;
     var textNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "external_barfoo");
     pList = doc.getElementsByTagName("p");
     pElem = pList.item(0);
@@ -16631,10 +15387,6 @@ exports.tests = {
     var pList;
     var pElem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "external_barfoo");
     pList = doc.getElementsByTagName("p");
     pElem = pList.item(2);
@@ -16661,10 +15413,6 @@ exports.tests = {
     var isSupported;
     var domImpl;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domImpl = doc.implementation;
     node =  doc;
@@ -16780,10 +15528,6 @@ exports.tests = {
     var isSupported;
     var domImpl;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domImpl = doc.implementation;
     node = doc.createDocumentFragment();
@@ -16899,10 +15643,6 @@ exports.tests = {
     var isSupported;
     var domImpl;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domImpl = doc.implementation;
     node = doc.doctype;
@@ -17019,10 +15759,6 @@ exports.tests = {
     var isSupported;
     var domImpl;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domImpl = doc.implementation;
     node = doc.createEntityReference("ent1");
@@ -17138,10 +15874,6 @@ exports.tests = {
     var isSupported;
     var domImpl;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domImpl = doc.implementation;
     node = doc.documentElement;
@@ -17258,10 +15990,6 @@ exports.tests = {
     var isSupported;
     var domImpl;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domImpl = doc.implementation;
     node = doc.createAttribute("title");
@@ -17377,10 +16105,6 @@ exports.tests = {
     var isSupported;
     var domImpl;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domImpl = doc.implementation;
     node = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
@@ -17497,10 +16221,6 @@ exports.tests = {
     var isSupported;
     var domImpl;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domImpl = doc.implementation;
     node = doc.createProcessingInstruction("test-pi","foo");
@@ -17617,10 +16337,6 @@ exports.tests = {
     var isSupported;
     var domImpl;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domImpl = doc.implementation;
     node = doc.createComment("test comment");
@@ -17738,10 +16454,6 @@ exports.tests = {
     var nodeList;
     var elem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domImpl = doc.implementation;
     nodeList = doc.getElementsByTagName("p");
@@ -17860,10 +16572,6 @@ exports.tests = {
     var isSupported;
     var domImpl;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domImpl = doc.implementation;
     node = doc.createCDATASection("some text");
@@ -17981,10 +16689,6 @@ exports.tests = {
     var entities;
     var doctype;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domImpl = doc.implementation;
     doctype = doc.doctype;
@@ -18106,10 +16810,6 @@ exports.tests = {
     var notations;
     var doctype;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domImpl = doc.implementation;
     doctype = doc.doctype;
@@ -18227,10 +16927,6 @@ exports.tests = {
     var doc;
     var textContent;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     textContent = doc.textContent;
 
@@ -18259,10 +16955,6 @@ exports.tests = {
     var rootName;
     var rootNS;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -18294,10 +16986,6 @@ exports.tests = {
     var newDoc;
     var textContent;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -18329,10 +17017,6 @@ exports.tests = {
     var oldDocType;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     oldDocType = doc.doctype;
 
@@ -18363,10 +17047,6 @@ exports.tests = {
     var notation1;
     var textContent;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -18397,10 +17077,6 @@ exports.tests = {
     var attr;
     var textContent;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
@@ -18427,10 +17103,6 @@ exports.tests = {
     var attr;
     var textContent;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
@@ -18460,10 +17132,6 @@ exports.tests = {
     var replacedAttr;
     var textContent;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","p");
     att = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
@@ -18492,10 +17160,6 @@ exports.tests = {
     var textContent;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","p");
     txt = doc.createTextNode("Replacement Text");
@@ -18524,10 +17188,6 @@ exports.tests = {
     var txt;
     var textContent;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
@@ -18557,10 +17217,6 @@ exports.tests = {
     var cdata;
     var textContent;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(1);
@@ -18589,10 +17245,6 @@ exports.tests = {
     var textContent;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","body");
     comment = doc.createComment("Comment");
@@ -18620,10 +17272,6 @@ exports.tests = {
     var elem;
     var textContent;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(1);
@@ -18649,10 +17297,6 @@ exports.tests = {
     var elem;
     var textContent;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(2);
@@ -18685,10 +17329,6 @@ exports.tests = {
     var textContent;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elem = doc.createElementNS("http://www.w3.org/DOM/Test","dom3:elem");
     txt = doc.createTextNode("Text ");
@@ -18733,10 +17373,6 @@ exports.tests = {
     var textContent;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docFrag = doc.createDocumentFragment();
     elem = doc.createElementNS("http://www.w3.org/DOM/Test","dom3:elem");
@@ -18774,10 +17410,6 @@ exports.tests = {
     var textContent;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elem = doc.documentElement;
 
@@ -18805,10 +17437,6 @@ exports.tests = {
     var entitymap;
     var textContent;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -18836,10 +17464,6 @@ exports.tests = {
     var elem;
     var textContent;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     elemList = doc.getElementsByTagName("body");
     elem = elemList.item(0);
@@ -18864,10 +17488,6 @@ exports.tests = {
     var doc;
     var userData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     userData = doc.getUserData("key1");
     assertNull("nodegetuserdata01",userData);
@@ -18889,10 +17509,6 @@ exports.tests = {
     var doc;
     var userData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     userData = doc.getUserData("key1");
     assertNull("nodegetuserdata02",userData);
@@ -18921,10 +17537,6 @@ exports.tests = {
     var nullHandler = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","body");
     if (null == nullHandler) {
@@ -18960,10 +17572,6 @@ exports.tests = {
 
     var prevUserData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -19000,10 +17608,6 @@ exports.tests = {
 
     var prevUserData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -19037,10 +17641,6 @@ exports.tests = {
     var txt;
     var retUserData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     txt = doc.createTextNode("TEXT");
     retUserData = txt.getUserData("");
@@ -19070,10 +17670,6 @@ exports.tests = {
 
     var prevUserData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     pi = doc.createProcessingInstruction("PITARGET","PIDATA");
     if (null == nullHandler) {
@@ -19111,10 +17707,6 @@ exports.tests = {
     var insertedPI;
     var target;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -19161,10 +17753,6 @@ exports.tests = {
     var rootName;
     var docElem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -19203,10 +17791,6 @@ exports.tests = {
     var newAttr;
     var inserted;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -19239,10 +17823,6 @@ exports.tests = {
     var docType;
     var inserted;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -19282,10 +17862,6 @@ exports.tests = {
 
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -19333,10 +17909,6 @@ exports.tests = {
     var rootNS;
     var rootTagname;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -19387,10 +17959,6 @@ exports.tests = {
     var newComment;
     var inserted;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     var docAltRef = null;
@@ -19435,10 +18003,6 @@ exports.tests = {
     var newComment;
     var inserted;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     var docAltRef = null;
@@ -19488,10 +18052,6 @@ exports.tests = {
     var data;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newComment = doc.createComment("Comment");
     appendedChild = doc.appendChild(newComment);
@@ -19528,10 +18088,6 @@ exports.tests = {
     var rootNS;
     var rootTagname;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -19591,10 +18147,6 @@ exports.tests = {
     var insertedVal;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docFrag = doc.createDocumentFragment();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","body");
@@ -19651,10 +18203,6 @@ exports.tests = {
     var last;
     var name;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docFrag = doc.createDocumentFragment();
     docFragNew = doc.createDocumentFragment();
@@ -19694,10 +18242,6 @@ exports.tests = {
     var rootNS;
     var rootTagname;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -19749,10 +18293,6 @@ exports.tests = {
     var newAttr;
     var inserted;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -19794,10 +18334,6 @@ exports.tests = {
     var cdata;
     var inserted;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     entRef = doc.createEntityReference("delta");
     elemChild = entRef.firstChild;
@@ -19885,10 +18421,6 @@ exports.tests = {
     var nodeName;
     var inserted;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagName("p");
     element = childList.item(0);
@@ -19933,10 +18465,6 @@ exports.tests = {
     var nodeName;
     var inserted;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagNameNS("*","p");
     element = childList.item(1);
@@ -19977,10 +18505,6 @@ exports.tests = {
     var appendedChild;
     var inserted;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     element = doc.createElement("element");
     newElem = doc.createElementNS("http://www.w3.org/DOM","dom3:elem");
@@ -20018,10 +18542,6 @@ exports.tests = {
     var nodeName;
     var element;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagName("var");
     element = childList.item(2);
@@ -20052,10 +18572,6 @@ exports.tests = {
     var childList;
     var inserted;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagName("var");
     element = childList.item(2);
@@ -20093,10 +18609,6 @@ exports.tests = {
     var childList;
     var inserted;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagName("var");
     element = childList.item(2);
@@ -20136,10 +18648,6 @@ exports.tests = {
     var appendedChild;
     var inserted;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     element = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:body");
     refNode = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:a");
@@ -20179,10 +18687,6 @@ exports.tests = {
     var appendedChild;
     var inserted;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     var doc2Ref = null;
@@ -20225,10 +18729,6 @@ exports.tests = {
     var childList;
     var inserted;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     element = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:p");
     refNode = doc.createCDATASection("CDATASection");
@@ -20267,10 +18767,6 @@ exports.tests = {
     var childList;
     var inserted;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagName("var");
     element = childList.item(2);
@@ -20312,10 +18808,6 @@ exports.tests = {
     var docElem;
     var docElemNS;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -20349,10 +18841,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -20388,10 +18876,6 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -20423,10 +18907,6 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -20467,10 +18947,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -20505,10 +18981,6 @@ exports.tests = {
     var elemList;
     var isDefault;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
@@ -20535,10 +19007,6 @@ exports.tests = {
     var elemList;
     var isDefault;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(0);
@@ -20568,10 +19036,6 @@ exports.tests = {
     var elemList;
     var isDefault;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(3);
@@ -20597,10 +19061,6 @@ exports.tests = {
     var isDefault;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     parent = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:body");
     child = doc.createElement("xhtml:p");
@@ -20629,10 +19089,6 @@ exports.tests = {
     var isDefault;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     parent = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:body");
     child = doc.createElementNS("http://www.w3.org/1999/xhtml","p");
@@ -20667,10 +19123,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -20706,10 +19158,6 @@ exports.tests = {
     var appendedChild;
     var bodyList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     bodyList = doc.getElementsByTagName("body");
     bodyElem = bodyList.item(0);
@@ -20741,10 +19189,6 @@ exports.tests = {
     var bodyList;
     var bodyElem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     bodyList = doc.getElementsByTagName("body");
     bodyElem = bodyList.item(0);
@@ -20777,10 +19221,6 @@ exports.tests = {
     var appendedChild;
     var bodyList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     bodyList = doc.getElementsByTagName("body");
     bodyElem = bodyList.item(0);
@@ -20809,10 +19249,6 @@ exports.tests = {
     var attr;
     var isDefault;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","lang");
     isDefault = attr.isDefaultNamespace("http://www.w3.org/XML/1998/namespace");
@@ -20873,10 +19309,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -20947,10 +19379,6 @@ exports.tests = {
     var elem;
     var isEqual;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:p");
     ownerDoc = elem.ownerDocument;
@@ -21007,10 +19435,6 @@ exports.tests = {
     var elem2;
     var isEqual;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elem1 = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:html");
     elem2 = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:html");
@@ -21074,10 +19498,6 @@ exports.tests = {
     var isEqual;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     employeeList = doc.getElementsByTagName("em");
     elem1 = employeeList.item(0);
@@ -21114,10 +19534,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -21153,10 +19569,6 @@ exports.tests = {
     var employeeList;
     var isEqual;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     employeeList = doc.getElementsByTagName("em");
     elem1 = employeeList.item(0);
@@ -21199,10 +19611,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -21255,10 +19663,6 @@ exports.tests = {
     var elem2;
     var isEqual;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elem1 = doc.documentElement;
 
@@ -21295,10 +19699,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -21339,10 +19739,6 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     attr1 = doc.createAttribute("root");
     attr2 = doc.createAttributeNS(nullNSURI,"root");
@@ -21371,10 +19767,6 @@ exports.tests = {
     var nullNS = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("acronym");
     addrElement = elementList.item(3);
@@ -21419,10 +19811,6 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elementList = doc.getElementsByTagName("p");
     addrElement = elementList.item(3);
@@ -21457,10 +19845,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -21501,10 +19885,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -21548,10 +19928,6 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     attr1 = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","lang");
     attr2 = doc.createAttributeNS(nullNSURI,"lang");
@@ -21575,10 +19951,6 @@ exports.tests = {
     var elem1;
     var isEqual;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elem1 = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:html");
     attr1 = doc.createAttributeNS("http://www.w3.org/1999/xhtml","xhtml:html");
@@ -21791,10 +20163,6 @@ exports.tests = {
     var notation1;
     var isEqual;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -21827,10 +20195,6 @@ exports.tests = {
     var text3;
     var isEqual;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     text1 = doc.createTextNode("");
     text2 = doc.createTextNode("");
@@ -21860,10 +20224,6 @@ exports.tests = {
     var comment3;
     var isEqual;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     comment1 = doc.createComment("comment");
     comment2 = doc.createComment("comment");
@@ -21893,10 +20253,6 @@ exports.tests = {
     var cdata3;
     var isEqual;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     cdata1 = doc.createCDATASection("cdata");
     cdata2 = doc.createCDATASection("cdata");
@@ -21926,10 +20282,6 @@ exports.tests = {
     var pi3;
     var isEqual;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     pi1 = doc.createProcessingInstruction("Target1","pi");
     pi2 = doc.createProcessingInstruction("Target1","pi");
@@ -21990,10 +20342,6 @@ exports.tests = {
     var docType2;
     var isSame;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType1 = doc.doctype;
 
@@ -22020,10 +20368,6 @@ exports.tests = {
     var childList;
     var isSame;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagName("p");
     element1 = childList.item(0);
@@ -22048,10 +20392,6 @@ exports.tests = {
     var element2;
     var isSame;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     element1 = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:br");
     element2 = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:br");
@@ -22077,10 +20417,6 @@ exports.tests = {
     var element2;
     var isSame;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     element1 = doc.documentElement;
 
@@ -22109,10 +20445,6 @@ exports.tests = {
     var childList;
     var isSame;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagName("acronym");
     element = childList.item(2);
@@ -22143,10 +20475,6 @@ exports.tests = {
     var entity2;
     var isSame;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -22178,10 +20506,6 @@ exports.tests = {
     var notation2;
     var isSame;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -22211,10 +20535,6 @@ exports.tests = {
     var entity;
     var isSame;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -22246,10 +20566,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -22279,10 +20595,6 @@ exports.tests = {
     var nullPrefix = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo_nodefaultns");
     namespaceURI = doc.lookupNamespaceURI(nullPrefix);
     assertNull("nodelookupnamespaceuri01",namespaceURI);
@@ -22310,10 +20622,6 @@ exports.tests = {
     var rootName;
     var qname;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -22347,10 +20655,6 @@ exports.tests = {
     var nullPrefix = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -22379,10 +20683,6 @@ exports.tests = {
     var notationsMap;
     var namespaceURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -22419,10 +20719,6 @@ exports.tests = {
     var rootName;
     var qname;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -22456,10 +20752,6 @@ exports.tests = {
     var elemList;
     var namespaceURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(2);
@@ -22484,10 +20776,6 @@ exports.tests = {
     var elemList;
     var namespaceURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(2);
@@ -22514,10 +20802,6 @@ exports.tests = {
     var namespaceURI;
     var namespaceURIEmpty;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
@@ -22545,10 +20829,6 @@ exports.tests = {
     var namespaceURI;
     var namespaceURIEmpty;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
@@ -22576,10 +20856,6 @@ exports.tests = {
     var namespaceURI;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     parent = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:body");
     child = doc.createElement("p");
@@ -22612,10 +20888,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -22650,10 +20922,6 @@ exports.tests = {
     var namespaceURI;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -22684,10 +20952,6 @@ exports.tests = {
     var lookupNamespaceURI;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -22719,10 +20983,6 @@ exports.tests = {
     var namespaceURI;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -22752,10 +21012,6 @@ exports.tests = {
     var attNode;
     var namespaceURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
@@ -22783,10 +21039,6 @@ exports.tests = {
     var attr;
     var namespaceURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(2);
@@ -22816,10 +21068,6 @@ exports.tests = {
     var attr;
     var namespaceURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
@@ -22849,10 +21097,6 @@ exports.tests = {
     var attr;
     var namespaceURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(3);
@@ -22885,10 +21129,6 @@ exports.tests = {
     var attr;
     var namespaceURI;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
@@ -22917,10 +21157,6 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     prefix = doc.lookupPrefix(nullNSURI);
     assertNull("nodelookupprefix01",prefix);
@@ -22948,10 +21184,6 @@ exports.tests = {
     var rootName;
     var qname;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -22985,10 +21217,6 @@ exports.tests = {
     var nullNSURI = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -23017,10 +21245,6 @@ exports.tests = {
     var notationsMap;
     var prefix;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -23059,10 +21283,6 @@ exports.tests = {
     var rootName;
     var qname;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -23096,10 +21316,6 @@ exports.tests = {
     var elemList;
     var prefix;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(2);
@@ -23124,10 +21340,6 @@ exports.tests = {
     var elemList;
     var prefix;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(2);
@@ -23153,10 +21365,6 @@ exports.tests = {
     var prefix;
     var prefixEmpty;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
@@ -23187,10 +21395,6 @@ exports.tests = {
     var prefix;
     var prefixEmpty;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
@@ -23218,10 +21422,6 @@ exports.tests = {
     var prefix;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     parent = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
     child = doc.createElement("br");
@@ -23255,10 +21455,6 @@ exports.tests = {
     var rootName;
     var qname;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -23293,10 +21489,6 @@ exports.tests = {
     var renamedNode;
     var prefix;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domImpl = doc.implementation;
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
@@ -23325,10 +21517,6 @@ exports.tests = {
     var appendedChild;
     var bodyList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     bodyList = doc.getElementsByTagName("body");
     bodyElem = bodyList.item(0);
@@ -23360,10 +21548,6 @@ exports.tests = {
     var appendedChild;
     var bodyList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     bodyList = doc.getElementsByTagName("body");
     bodyElem = bodyList.item(0);
@@ -23396,10 +21580,6 @@ exports.tests = {
     var appendedChild;
     var bodyList;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     bodyList = doc.getElementsByTagName("body");
     bodyElem = bodyList.item(0);
@@ -23429,10 +21609,6 @@ exports.tests = {
     var prefix;
     var attNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
@@ -23460,10 +21636,6 @@ exports.tests = {
     var attr;
     var prefix;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(2);
@@ -23493,10 +21665,6 @@ exports.tests = {
     var attr;
     var prefix;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
@@ -23528,10 +21696,6 @@ exports.tests = {
     var attr;
     var prefix;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo_nodefaultns");
     elemList = doc.getElementsByTagName("html:p");
     elem = elemList.item(0);
@@ -23564,10 +21728,6 @@ exports.tests = {
     var attr;
     var prefix;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
@@ -23595,10 +21755,6 @@ exports.tests = {
     var doc;
     var removed;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     {
@@ -23634,10 +21790,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -23688,10 +21840,6 @@ exports.tests = {
     var removedChild;
     var removed;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -23732,10 +21880,6 @@ exports.tests = {
     var removedDocType;
     var removed;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -23780,10 +21924,6 @@ exports.tests = {
     var appendedChild;
     var removedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     docType = doc.doctype;
 
@@ -23840,10 +21980,6 @@ exports.tests = {
     var notation;
     var removedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -23901,10 +22037,6 @@ exports.tests = {
     var data;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     comment = doc.createComment("Comment");
     appendedChild = doc.appendChild(comment);
@@ -23934,10 +22066,6 @@ exports.tests = {
     var target;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     pi = doc.createProcessingInstruction("PIT","PID");
     appendedChild = doc.appendChild(pi);
@@ -23966,10 +22094,6 @@ exports.tests = {
     var appendedChild;
     var removedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     docFrag = doc.createDocumentFragment();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:br");
@@ -24001,10 +22125,6 @@ exports.tests = {
     var appendedChild;
     var removedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docFrag = doc.createDocumentFragment();
     txt = doc.createTextNode("TEXT");
@@ -24037,10 +22157,6 @@ exports.tests = {
     var appendedChild;
     var removedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docFrag = doc.createDocumentFragment();
     eRef = doc.createEntityReference("ent1");
@@ -24085,10 +22201,6 @@ exports.tests = {
     var eRef;
     var removed;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     eRef = doc.createEntityReference("alpha");
     txt = eRef.firstChild;
@@ -24124,10 +22236,6 @@ exports.tests = {
     var pi;
     var entName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     eRef = doc.createEntityReference("ent4");
     pi = eRef.lastChild;
@@ -24163,10 +22271,6 @@ exports.tests = {
     var entName;
     var removed;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     eRef = doc.createEntityReference("ent4");
     elem = eRef.firstChild;
@@ -24206,10 +22310,6 @@ exports.tests = {
     var removedName;
     var removedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     parentList = doc.getElementsByTagName("em");
     child = parentList.item(0);
@@ -24252,10 +22352,6 @@ exports.tests = {
     var removedValue;
     var removedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     parentList = doc.getElementsByTagName("em");
     parent = parentList.item(0);
@@ -24301,10 +22397,6 @@ exports.tests = {
     var removedValue;
     var removedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     parentList = doc.getElementsByTagName("strong");
     parent = parentList.item(1);
@@ -24350,10 +22442,6 @@ exports.tests = {
     var removedNode;
     var entRefChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     parentList = doc.getElementsByTagName("acronym");
     parent = parentList.item(1);
@@ -24428,10 +22516,6 @@ exports.tests = {
     var appendedChild;
     var removedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     parentList = doc.getElementsByTagName("p");
     parent = parentList.item(0);
@@ -24477,10 +22561,6 @@ exports.tests = {
     var removedNode;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -24525,10 +22605,6 @@ exports.tests = {
     var removedNode;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     parent = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
     child = doc.createComment("DATA");
@@ -24570,10 +22646,6 @@ exports.tests = {
     var removedNode;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     parent = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
     child = doc.createProcessingInstruction("TARGET","DATA");
@@ -24613,10 +22685,6 @@ exports.tests = {
     var alphaText;
     var removed;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -24658,10 +22726,6 @@ exports.tests = {
     var span;
     var removed;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -24703,10 +22767,6 @@ exports.tests = {
     var pi;
     var removed;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -24752,10 +22812,6 @@ exports.tests = {
     var parent;
     var removed;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -24807,10 +22863,6 @@ exports.tests = {
     var removedName;
     var removedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     parentList = doc.getElementsByTagName("acronym");
     elem = parentList.item(0);
@@ -24858,10 +22910,6 @@ exports.tests = {
     var removedName;
     var removedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     parentList = doc.getElementsByTagName("p");
     elem = parentList.item(0);
@@ -24913,10 +22961,6 @@ exports.tests = {
     var removedName;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     parentList = doc.getElementsByTagName("p");
     elem = parentList.item(3);
@@ -24968,10 +23012,6 @@ exports.tests = {
     var appendedChild;
     var entRefChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     parentList = doc.getElementsByTagName("acronym");
     elem = parentList.item(3);
@@ -25047,10 +23087,6 @@ exports.tests = {
     var doc;
     var replaced;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     try {
@@ -25090,10 +23126,6 @@ exports.tests = {
     var docType;
     var replaced;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -25122,10 +23154,6 @@ exports.tests = {
 
     var replaced;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument("http://www.w3.org/DOM","dom3:doc",nullDocType);
@@ -25169,10 +23197,6 @@ exports.tests = {
     var docElem;
     var replaced;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -25215,10 +23239,6 @@ exports.tests = {
     var nodeName;
     var replacedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -25267,10 +23287,6 @@ exports.tests = {
     var rootNS;
     var rootName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -25326,10 +23342,6 @@ exports.tests = {
     var nullDocType = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     docElem = doc.documentElement;
 
@@ -25386,10 +23398,6 @@ exports.tests = {
     var notation;
     var replaced;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -25450,10 +23458,6 @@ exports.tests = {
     var replacedNode;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     comment = doc.createComment("dom3:doc");
     pi = doc.createProcessingInstruction("PITarget","PIData");
@@ -25497,10 +23501,6 @@ exports.tests = {
     var docElemName;
     var docElemNS;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -25561,10 +23561,6 @@ exports.tests = {
     var nullDocType = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elem = doc.createElementNS("http://www.w3.org/DOM/Test","dom3:doc1elem");
     domImpl = doc.implementation;
@@ -25604,10 +23600,6 @@ exports.tests = {
     var rootName;
     var rootNS;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -25645,10 +23637,6 @@ exports.tests = {
     var nodeName;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
     docFrag = doc.createDocumentFragment();
@@ -25685,10 +23673,6 @@ exports.tests = {
     var target;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docFrag = doc.createDocumentFragment();
     cmt = doc.createComment("Comment");
@@ -25726,10 +23710,6 @@ exports.tests = {
     var erefName;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docFrag = doc.createDocumentFragment();
     cdata = doc.createCDATASection("CDATASection");
@@ -25765,10 +23745,6 @@ exports.tests = {
     var nodeName;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docFrag = doc.createDocumentFragment();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
@@ -25800,10 +23776,6 @@ exports.tests = {
     var nodeName;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docFrag = doc.createDocumentFragment();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
@@ -25848,10 +23820,6 @@ exports.tests = {
     var notation;
     var replacedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -25911,10 +23879,6 @@ exports.tests = {
     var appendedChild;
     var replacedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
     entRefMain = doc.createEntityReference("delta");
@@ -25977,10 +23941,6 @@ exports.tests = {
     var replaced;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","dom3:p");
     entRef = doc.createEntityReference("delta");
@@ -26068,10 +24028,6 @@ exports.tests = {
     var replaced;
     var nodeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagName("acronym");
     elem = childList.item(1);
@@ -26112,10 +24068,6 @@ exports.tests = {
     var replaced;
     var nodeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -26169,10 +24121,6 @@ exports.tests = {
     var nodeName;
     var replaced;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -26217,10 +24165,6 @@ exports.tests = {
     var nodeName;
     var replaced;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagNameNS("*","p");
     elem = childList.item(0);
@@ -26269,10 +24213,6 @@ exports.tests = {
     var appendedChild;
     var replacedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagName("acronym");
     acronym = childList.item(1);
@@ -26316,10 +24256,6 @@ exports.tests = {
     var newChild;
     var replaced;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagName("p");
     elem = childList.item(0);
@@ -26365,10 +24301,6 @@ exports.tests = {
     var nodeName;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     parent = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:html");
     oldChild = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:head");
@@ -26444,10 +24376,6 @@ exports.tests = {
     var newChild;
     var replaced;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     childList = doc.getElementsByTagName("var");
     elem = childList.item(2);
@@ -26500,10 +24428,6 @@ exports.tests = {
     var enRefChild;
     var reference = "entity1";
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newChild = doc.createTextNode("Text");
     childList = doc.getElementsByTagNameNS("*","acronym");
@@ -26537,10 +24461,6 @@ exports.tests = {
     var replaced;
     var nodeValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     newChild = doc.createEntityReference("delta");
     childList = doc.getElementsByTagName("p");
@@ -26573,10 +24493,6 @@ exports.tests = {
     var appendedChild;
     var replaced;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     parent = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     oldChild = doc.createEntityReference("delta");
@@ -26607,10 +24523,6 @@ exports.tests = {
     var appendedChild;
     var replaced;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     parent = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     oldChild = doc.createEntityReference("delta");
@@ -26647,10 +24559,6 @@ exports.tests = {
     var nodeValue;
     var replaced;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     parent = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     oldChild = doc.createEntityReference("delta");
@@ -26689,10 +24597,6 @@ exports.tests = {
     var replaced;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     var doc2Ref = null;
@@ -26742,10 +24646,6 @@ exports.tests = {
     var cdata;
     var replaced;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -26848,10 +24748,6 @@ exports.tests = {
     var newElement;
     var retNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     docElem = doc.documentElement;
 
@@ -26905,10 +24801,6 @@ exports.tests = {
     var domImpl;
     var retNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     docElem = doc.documentElement;
 
@@ -26955,10 +24847,6 @@ exports.tests = {
     var elemList;
     var elem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     doc.textContent = "textContent";
 
@@ -26996,10 +24884,6 @@ exports.tests = {
     var appendedChild;
     var documentElem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","dom3:elem",nullDocType);
@@ -27033,10 +24917,6 @@ exports.tests = {
     var docType;
     var textContent;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -27066,10 +24946,6 @@ exports.tests = {
     var notation1;
     var textContent;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -27102,10 +24978,6 @@ exports.tests = {
     var attr;
     var textContent;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(3);
@@ -27137,10 +25009,6 @@ exports.tests = {
     var attrNode;
     var textContent;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","p");
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
@@ -27171,10 +25039,6 @@ exports.tests = {
     var txt;
     var textContent;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
@@ -27207,10 +25071,6 @@ exports.tests = {
     var textContent;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:p");
     pi = doc.createProcessingInstruction("PIT","PID");
@@ -27245,10 +25105,6 @@ exports.tests = {
     var textContent;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elem = doc.createElementNS("http://www.w3.org/DOM/Test","dom3:elem");
     txt = doc.createTextNode("Text ");
@@ -27293,10 +25149,6 @@ exports.tests = {
     var textContent;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docFrag = doc.createDocumentFragment();
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:p");
@@ -27340,10 +25192,6 @@ exports.tests = {
     var textContent;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elem = doc.documentElement;
 
@@ -27383,10 +25231,6 @@ exports.tests = {
     var entitymap;
     var textContent;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -27428,10 +25272,6 @@ exports.tests = {
     var nullData = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     if (null == nullHandler) {
       doc.setUserData("something", nullData, null);
@@ -27463,10 +25303,6 @@ exports.tests = {
     var nullHandler = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     if (null == nullHandler) {
       doc.setUserData("something", test, null);
@@ -27498,10 +25334,6 @@ exports.tests = {
     var nullHandler = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:p");
     txt = doc.createTextNode("TEXT");
@@ -27544,10 +25376,6 @@ exports.tests = {
     var nullHandler = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","p");
     txt = doc.createTextNode("TEXT");
@@ -27592,10 +25420,6 @@ exports.tests = {
     var nullHandler = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
 
     var doc2Ref = null;
@@ -27646,10 +25470,6 @@ exports.tests = {
     var nullHandler = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -27697,10 +25517,6 @@ exports.tests = {
     var nullHandler = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docType = doc.doctype;
 
@@ -27748,10 +25564,6 @@ exports.tests = {
     var nullHandler = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -27795,10 +25607,6 @@ exports.tests = {
 
     var retUserData;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -27837,10 +25645,6 @@ exports.tests = {
     var nullHandler = null;
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     docElem = doc.documentElement;
 
@@ -27888,10 +25692,6 @@ exports.tests = {
     var textValue;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -27936,10 +25736,6 @@ exports.tests = {
     var retval;
     var canSet;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -27990,10 +25786,6 @@ exports.tests = {
     var textValue;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -28038,10 +25830,6 @@ exports.tests = {
     var retval;
     var canSet;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -28092,10 +25880,6 @@ exports.tests = {
     var textValue;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -28140,10 +25924,6 @@ exports.tests = {
     var retval;
     var canSet;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -28194,10 +25974,6 @@ exports.tests = {
     var textValue;
     var retval;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -28242,10 +26018,6 @@ exports.tests = {
     var retval;
     var canSet;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -28296,10 +26068,6 @@ exports.tests = {
     var errors = new Array();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
@@ -28330,10 +26098,6 @@ exports.tests = {
     var newText;
     var hasWhitespace;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     newText = doc.createTextNode("   ");
     hasWhitespace = newText.isElementContentWhitespace;
@@ -28358,10 +26122,6 @@ exports.tests = {
     var textNode;
     var isElemContentWhitespace;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     pList = doc.getElementsByTagName("p");
     pElem = pList.item(0);
@@ -28389,10 +26149,6 @@ exports.tests = {
     var textNode;
     var isElemContentWhitespace;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     pList = doc.getElementsByTagName("p");
     pElem = pList.item(0);
@@ -28425,10 +26181,6 @@ exports.tests = {
     var canSetValidation;
     var replacedNode;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -28478,10 +26230,6 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -28536,10 +26284,6 @@ exports.tests = {
     errorMonitor = new DOMErrorMonitor();
 
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domConfig = doc.domConfig;
 
@@ -28589,10 +26333,6 @@ exports.tests = {
     var replacedText;
     var wholeText;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     itemList = doc.getElementsByTagName("strong");
     elementName = itemList.item(0);
@@ -28622,10 +26362,6 @@ exports.tests = {
     var textNode;
     var replacedText;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     itemList = doc.getElementsByTagName("strong");
     elementName = itemList.item(0);
@@ -28652,10 +26388,6 @@ exports.tests = {
     var replacedText;
     var wholeText;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     textNode = doc.createTextNode("New Text");
     replacedText = textNode.replaceWholeText(" a b c b ");
@@ -28680,10 +26412,6 @@ exports.tests = {
     var replacedText;
     var wholeText;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     textNode = doc.createTextNode("New Text");
     replacedText = textNode.replaceWholeText("");
@@ -28711,10 +26439,6 @@ exports.tests = {
     var wholeText;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     itemList = doc.getElementsByTagName("strong");
     elementName = itemList.item(0);
@@ -28759,10 +26483,6 @@ exports.tests = {
     var appendedChild;
     var nodeValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     itemList = doc.getElementsByTagName("strong");
     elementStrong = itemList.item(0);
@@ -28805,10 +26525,6 @@ exports.tests = {
     var nodeValue;
     var nodeType;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     itemList = doc.getElementsByTagName("strong");
     elementName = itemList.item(0);
@@ -28852,10 +26568,6 @@ exports.tests = {
     var entRef;
     var node;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     itemList = doc.getElementsByTagName("p");
     p = itemList.item(0);
@@ -28893,10 +26605,6 @@ exports.tests = {
     var textNode;
     var nameWholeText;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     itemList = doc.getElementsByTagName("strong");
     elementName = itemList.item(0);
@@ -28926,10 +26634,6 @@ exports.tests = {
     var wholeText;
     var appendedChild;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     itemList = doc.getElementsByTagName("strong");
     elementName = itemList.item(0);
@@ -28960,10 +26664,6 @@ exports.tests = {
     var appendedChild;
     var combinedText;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elem = doc.createElementNS("http://www.w3.org/1999/xhtml","p");
     text1 = doc.createTextNode("Text I");
@@ -28997,10 +26697,6 @@ exports.tests = {
     var attrTypeInfo;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acElem = elemList.item(2);
@@ -29034,10 +26730,6 @@ exports.tests = {
     var elemTypeInfo;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("em");
     emElem = elemList.item(0);
@@ -29070,10 +26762,6 @@ exports.tests = {
     var attrTypeInfo;
     var typeNamespace;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acElem = elemList.item(0);
@@ -29107,10 +26795,6 @@ exports.tests = {
     var typeNamespace;
     var acElem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acElem = elemList.item(1);
@@ -29143,10 +26827,6 @@ exports.tests = {
     var elemTypeInfo;
     var typeNamespace;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("em");
     emElem = elemList.item(0);
@@ -29175,10 +26855,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
@@ -29210,10 +26886,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
@@ -29250,10 +26922,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
@@ -29287,10 +26955,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
@@ -29324,10 +26988,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
@@ -29361,10 +27021,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
@@ -29398,10 +27054,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
@@ -29435,10 +27087,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -29472,10 +27120,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -29509,10 +27153,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -29546,10 +27186,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -29583,10 +27219,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -29620,10 +27252,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -29657,10 +27285,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -29697,10 +27321,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
@@ -29730,10 +27350,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
@@ -29763,10 +27379,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
@@ -29796,10 +27408,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
@@ -29829,10 +27437,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
@@ -29861,10 +27465,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
@@ -29891,10 +27491,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
@@ -29930,10 +27526,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(0);
@@ -29963,10 +27555,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(0);
@@ -29996,10 +27584,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(0);
@@ -30029,10 +27613,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(0);
@@ -30062,10 +27642,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(0);
@@ -30095,10 +27671,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(0);
@@ -30128,10 +27700,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(0);
@@ -30166,10 +27734,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
@@ -30195,10 +27759,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
@@ -30224,10 +27784,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
@@ -30253,10 +27809,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
@@ -30282,10 +27834,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
@@ -30311,10 +27859,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
@@ -30340,10 +27884,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
@@ -30369,10 +27909,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
@@ -30398,10 +27934,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
@@ -30428,10 +27960,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
@@ -30459,10 +27987,6 @@ exports.tests = {
     var typeName;
     var typeNS;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
@@ -30493,10 +28017,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
@@ -30526,10 +28046,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
@@ -30559,10 +28075,6 @@ exports.tests = {
     var isDerived;
     var typeName;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(0);
@@ -30594,10 +28106,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -30626,10 +28134,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -30658,10 +28162,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -30690,10 +28190,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -30722,10 +28218,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -30754,10 +28246,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(2);
@@ -30784,10 +28272,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "typeinfo");
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(0);
@@ -30814,10 +28298,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "typeinfo");
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(0);
@@ -30844,10 +28324,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "typeinfo");
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(0);
@@ -30874,10 +28350,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "typeinfo");
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(0);
@@ -30904,10 +28376,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "typeinfo");
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(0);
@@ -30934,10 +28402,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "typeinfo");
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(0);
@@ -30964,10 +28428,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "typeinfo");
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(0);
@@ -30994,10 +28454,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "typeinfo");
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(0);
@@ -31024,10 +28480,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "typeinfo");
     elemList = doc.getElementsByTagName("acronym");
     elem = elemList.item(0);
@@ -31055,10 +28507,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "typeinfo");
     elemList = doc.getElementsByTagName("code");
     codeElem = elemList.item(0);
@@ -31089,10 +28537,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "typeinfo");
     elemList = doc.getElementsByTagName("code");
     codeElem = elemList.item(0);
@@ -31119,10 +28563,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "typeinfo");
     elemList = doc.getElementsByTagName("strong");
     elem = elemList.item(0);
@@ -31147,10 +28587,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "typeinfo");
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
@@ -31175,10 +28611,6 @@ exports.tests = {
     var typeInfo;
     var isDerived;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "typeinfo");
     elemList = doc.getElementsByTagName("em");
     elem = elemList.item(0);
@@ -31213,10 +28645,6 @@ exports.tests = {
 
     var elemTypeInfo;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acronymElem = elemList.item(0);
@@ -31246,10 +28674,6 @@ exports.tests = {
     var typeName;
     var retValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("acronym");
     acElem = elemList.item(1);
@@ -31284,10 +28708,6 @@ exports.tests = {
     var typeName;
     var retValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("strong");
     strongElem = elemList.item(0);
@@ -31319,10 +28739,6 @@ exports.tests = {
     var elemList;
     var retValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("em");
     unionElem = elemList.item(0);
@@ -31350,10 +28766,6 @@ exports.tests = {
     var elemList;
     var retValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("sup");
     elem = elemList.item(0);
@@ -31381,10 +28793,6 @@ exports.tests = {
     var elemList;
     var retValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("sup");
     elem = elemList.item(0);
@@ -31412,10 +28820,6 @@ exports.tests = {
     var elemList;
     var retValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("sup");
     elem = elemList.item(0);
@@ -31443,10 +28847,6 @@ exports.tests = {
     var elemList;
     var retValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("sup");
     elem = elemList.item(0);
@@ -31473,10 +28873,6 @@ exports.tests = {
     var elemList;
     var retValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("code");
     elem = elemList.item(0);
@@ -31504,10 +28900,6 @@ exports.tests = {
     var elemList;
     var retValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("code");
     elem = elemList.item(0);
@@ -31534,10 +28926,6 @@ exports.tests = {
     var elemList;
     var retValue;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "hc_staff");
     elemList = doc.getElementsByTagName("sup");
     elem = elemList.item(0);
@@ -31577,10 +28965,6 @@ exports.tests = {
     var hello = "Hello";
     var mister = "Mr.";
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     pList = doc.getElementsByTagName("p");
     node = pList.item(0);
@@ -31673,10 +29057,6 @@ exports.tests = {
     var hello = "Hello";
     var mister = "Mr.";
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     pList = doc.getElementsByTagName("p");
     node = pList.item(0);
@@ -31763,10 +29143,6 @@ exports.tests = {
 
     var docElem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domImpl = doc.implementation;
     docElem = doc.documentElement;
@@ -31861,10 +29237,6 @@ exports.tests = {
 
     var docElem;
 
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
     doc = load(docRef, "doc", "barfoo");
     domImpl = doc.implementation;
     docElem = doc.documentElement;
