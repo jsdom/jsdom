@@ -5960,18 +5960,11 @@ exports.tests = {
     for(var indexN10078 = 0;indexN10078 < attributes.length; indexN10078++) {
       attribute = attributes.item(indexN10078);
       attrName = attribute.nodeName;
-
-
-      if(
-        equalsAutoCase("attribute", "lang", attrName)
-      ) {
+      if(attrName == 'lang') {
         langAttrCount += 1;
-
       }
-
     }
     assertEquals("hasLangAttr",1,langAttrCount);
-
     test.done();
   },
 
@@ -10148,7 +10141,7 @@ exports.tests = {
 
     }
 
-    assertEqualsCollection("attributeNames",toLowerArray(expected),toLowerArray(actual));
+    assertEqualsCollection("attributeNames",expected,actual);
 
     test.done();
   },
@@ -19301,12 +19294,12 @@ exports.tests = {
     if(
       (6 == length)
     ) {
-      assertEquals("firstChildNoWhitespace","employeeId".toLowerCase(),childName.toLowerCase());
+      assertEquals("firstChildNoWhitespace","employeeId",childName);
 
     }
 
     else {
-      assertEquals("firstChildWithWhitespace","#text".toLowerCase(),childName.toLowerCase());
+      assertEquals("firstChildWithWhitespace","#text",childName);
 
     }
 
