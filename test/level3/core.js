@@ -4684,15 +4684,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-documentURI
    */
   documentgetdocumenturi01: function (test) {
-    var success;
-    var doc;
-    var docURI;
-
-    doc = hc_staff.hc_staff();
-    docURI = doc.documentURI;
-
-    test.notEqual(docURI, null, 'documentgetdocumenturi01');
-
+    var doc = hc_staff.hc_staff();
+    // this test passes with mjsunit due to a technicality:
+    // assertNotNull uses '!==' but test.notEqual uses '!='
+    // (undefined !== null) is true
+    // (undefined != null) is false
+    test.notEqual(doc.documentURI, null, 'documentgetdocumenturi01');
     test.done()
   },
 
@@ -7531,17 +7528,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-documentURI
    */
   documentsetdocumenturi01: function (test) {
-    var success;
-    var doc;
-    var docURI;
-
-    doc = hc_staff.hc_staff();
+    var doc = hc_staff.hc_staff();
     doc.documentURI = "file:///test";
-
-    docURI = doc.documentURI;
-
-    test.equal(docURI, "file:///test", 'documentsetdocumenturi01');
-
+    test.equal(doc.documentURI, "file:///test", 'documentsetdocumenturi01');
     test.done()
   },
 
@@ -7557,19 +7546,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-documentURI
    */
   documentsetdocumenturi02: function (test) {
-    var success;
-    var doc;
-    var docURI;
-    var nullValue = null;
-
-
-    doc = hc_staff.hc_staff();
-    doc.documentURI = nullValue;
-
-    docURI = doc.documentURI;
-
-    test.equal(docURI, null, 'documentsetdocumenturi02');
-
+    var doc = hc_staff.hc_staff();
+    doc.documentURI = null;
+    test.equal(doc.documentURI, null, 'documentsetdocumenturi02');
     test.done()
   },
 
