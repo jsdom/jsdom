@@ -47,9 +47,9 @@ exports.hc_staff = function() {
   var head      = doc.createElementNS("http://www.w3.org/2000/xmlns/","head");
   var head      = html.appendChild(head);
 
-	var meta      = doc.createElementNS("http://www.w3.org/2000/xmlns/","meta");
-	meta.setAttribute("http-equiv", "Content-Type");
-	meta.setAttribute("content", "text/html; charset=UTF-8");
+  var meta      = doc.createElementNS("http://www.w3.org/2000/xmlns/","meta");
+  meta.setAttribute("http-equiv", "Content-Type");
+  meta.setAttribute("content", "text/html; charset=UTF-8");
   head.appendChild(meta);
 
   var title     = doc.createElementNS("http://www.w3.org/2000/xmlns/","title")
@@ -139,6 +139,7 @@ exports.hc_staff = function() {
   salaries[3].appendChild(doc.createTextNode("95,000"));
   addresses[3].setAttribute("title", "Yes");
   addresses[3].setAttribute("class", "Yα");
+  addresses[3].setAttribute("id", "emp4_addr");
   addresses[3].appendChild(doc.createTextNode("27 South Road. Dallas, Texas 98556"));
   names[3].appendChild(doc.createTextNode("Jeny Oconnor"));
   genders[3].appendChild(doc.createTextNode("Female"));
