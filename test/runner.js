@@ -33,13 +33,12 @@ global.builder = {
 
 var fileCache = {};
 global.load = global.originalLoad = function(docRef, doc, name) {
-  var file = "./" + global.builder.testDirectory +
-             "/files/" + name + "." + global.builder.type,
-      fn = fileCache[file] || require(file);
+  var file = "./" + global.builder.testDirectory + "/files/" + name + "." + global.builder.type;
+  var fn = fileCache[file] || require(file);
 
   fileCache[file] = fn;
   if (!fn[name]) {
-    throw new Error("Test method " + name + " not found..");
+    throw new Error("Test method " + name + " not found at \"" + file +"\"");
   }
 
   try {
@@ -200,4 +199,4 @@ var suites = {
   }
 };
 
-require("mjsunit.runner/runner").run(suites);
+require("mjsunit.runner/lib/runner").run(suites);
