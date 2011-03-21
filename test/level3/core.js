@@ -16,18 +16,22 @@ var typeinfo = require("./core/files/typeinfo.xml");
 var DOMErrorMonitor = function() {
   this.errors = new Array();
 }
-
 DOMErrorMonitor.prototype.handleError = function(e) {
   this.errors.push(new DOMErrorImpl(e));
 }
-
 DOMErrorMonitor.prototype.assertLowerSeverity = function(id, severity) {
   this.errors.forEach(function(e){
     if (e.severity >= severity){
+      // can this ever pass? if x >= y, then ALWAYS x > (y-2)
       test.equal(e.severity, severity-1, id);
     }
   });
 }
+var core = require("../../lib/jsdom/level3/core").dom.level3.core;
+var getImplementation = function() {
+  var doc = new core.Document();
+  return doc.implementation;
+};
 
 exports.tests = {
   /**
@@ -5696,7 +5700,7 @@ exports.tests = {
     var docElemNodeName;
     var canSet;
     var errorHandler;
-    errHandler = new DOMErrorHandlerN1003C();
+    errHandler = new DOMErrorMonitor();
 
     var domConfig;
 
@@ -5868,7 +5872,7 @@ exports.tests = {
     var canSet;
     var domConfig;
     var errorHandler;
-    errHandler = new DOMErrorHandlerN10048();
+    errHandler = new DOMErrorMonitor();
 
 
     doc = hc_staff.hc_staff();
@@ -8089,7 +8093,7 @@ exports.tests = {
     var origHandler;
     var state;
     var parameter = "eRrOr-handler";
-    errorHandler = new DOMErrorHandlerN10049();
+    errorHandler = new DOMErrorMonitor();
 
     domImpl = getImplementation();
     doc = domImpl.createDocument("http://www.w3.org/1999/xhtml","html",nullDocType);
@@ -9200,26 +9204,27 @@ exports.tests = {
 
   /**
    *
-   DOMImplementationRegistry.newInstance() (Java) or DOMImplementationRegistry global variable
-   (ECMAScript) should not be null.
+   DOMImplementationRegistry.newInstance() (Java) or DOMImplementationRegistry global variable (ECMAScript) should not be null.
 
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
    */
   domimplementationregistry01: function (test) {
-    var success;
-    var domImplRegistry;
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-
+    test.ok(false, 'test relies on DOMImplementationRegistry which is not yet implemented')
+    // var domImplRegistry = DOMImplementationRegistry;
+    // test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
     test.done()
   },
 
   /**
    *
-   DOMImplementationRegistry.getDOMImplementation("cOrE") should return a DOMImplementation
-   where hasFeature("Core", null) returns true.
+   DOMImplementationRegistry.getDOMImplementation("cOrE") should return a DOMImplementation where hasFeature("Core", null) returns true.
+   DOMImplementationRegistry.getDOMImplementation("cOrE 3.0") should return a DOMImplementation where hasFeature("Core", "3.0") returns true.
+   DOMImplementationRegistry.getDOMImplementation("+cOrE") should return a DOMImplementation where hasFeature("+Core", null) returns true.
+   DOMImplementationRegistry.getDOMImplementation("+cOrE 3.0") should return a DOMImplementation where hasFeature("+Core", "3.0") returns true.
+   If the implementation supports "XML", DOMImplementationRegistry.getDOMImplementation("xMl 3.0 cOrE") should return a DOMImplementation
+   where hasFeature("XML", "3.0"), and hasFeature("Core", null) returns true.
 
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding
@@ -9227,132 +9232,26 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
    */
   domimplementationregistry02: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    var hasFeature;
-    var nullVersion = null;
-
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImpl = domImplRegistry.getDOMImplementation("cOrE");
-    test.notEqual(domImpl, null, 'domImplNotNull');
-    hasFeature = domImpl.hasFeature("Core",nullVersion);
-    test.ok(hasFeature, 'hasCore');
-
+    test.ok(false, 'test relies on DOMImplementationRegistry which is not yet implemented')
+    // var xs = [['cOrE', {'Core': null}],
+    //           ['cOrE 3.0', {'Core': '3.0'}],
+    //           ['+cOrE', {'+Core': null}],
+    //           ['+cOrE 3.0', {'+Core': '3.0'}],
+    //           ['xMl 3.0 cOrE', {'XML': '3.0', 'Core': null}]];
+    // var domImplRegistry = DOMImplementationRegistry;
+    // xs.forEach(function(x){
+    //   var domImpl = domImplRegistry.getDOMImplementation(x[0]);
+    //   test.notEqual(domImpl, null, 'domImplNotNull');
+    //   for (var k in x[1]) {
+    //     test.ok(domImpl.hasFeature(k, x[1][k]), 'has ' + k);
+    //   }
+    // });
     test.done()
   },
 
   /**
    *
-   DOMImplementationRegistry.getDOMImplementation("cOrE 3.0") should return a DOMImplementation
-   where hasFeature("Core", "3.0") returns true.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
-   */
-  domimplementationregistry03: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    var hasFeature;
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImpl = domImplRegistry.getDOMImplementation("cOrE 3.0");
-    test.notEqual(domImpl, null, 'domImplNotNull');
-    hasFeature = domImpl.hasFeature("Core","3.0");
-    test.ok(hasFeature, 'hasCore');
-
-    test.done()
-  },
-
-  /**
-   *
-   DOMImplementationRegistry.getDOMImplementation("+cOrE") should return a DOMImplementation
-   where hasFeature("+Core", null) returns true.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
-   */
-  domimplementationregistry04: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    var hasFeature;
-    var nullVersion = null;
-
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImpl = domImplRegistry.getDOMImplementation("+cOrE");
-    test.notEqual(domImpl, null, 'domImplNotNull');
-    hasFeature = domImpl.hasFeature("+Core",nullVersion);
-    test.ok(hasFeature, 'hasCore');
-
-    test.done()
-  },
-
-  /**
-   *
-   DOMImplementationRegistry.getDOMImplementation("+cOrE 3.0") should return a DOMImplementation
-   where hasFeature("+Core", "3.0") returns true.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
-   */
-  domimplementationregistry05: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    var hasFeature;
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImpl = domImplRegistry.getDOMImplementation("+cOrE 3.0");
-    test.notEqual(domImpl, null, 'domImplNotNull');
-    hasFeature = domImpl.hasFeature("+Core","3.0");
-    test.ok(hasFeature, 'hasCore');
-
-    test.done()
-  },
-
-  /**
-   *
-   If the implementation supports "XML", DOMImplementationRegistry.getDOMImplementation("xMl 3.0 cOrE") should
-   return a DOMImplementation where hasFeature("XML", "3.0"), and hasFeature("Core", null) returns true.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
-   */
-  domimplementationregistry06: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    var hasFeature;
-    var nullVersion = null;
-
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImpl = domImplRegistry.getDOMImplementation("xMl 3.0 cOrE");
-    test.notEqual(domImpl, null, 'domImplNotNull');
-    hasFeature = domImpl.hasFeature("XML","3.0");
-    test.ok(hasFeature, 'hasXML3');
-    hasFeature = domImpl.hasFeature("Core",nullVersion);
-    test.ok(hasFeature, 'hasCore');
-
-    test.done()
-  },
-
-  /**
-   *
-   DOMImplementationRegistry.getDOMImplementation("http://www.example.com/bogus-feature 99.0") should return
-   null.
+   DOMImplementationRegistry.getDOMImplementation("http://www.example.com/bogus-feature 99.0") should return null.
 
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding
@@ -9360,24 +9259,17 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
    */
   domimplementationregistry07: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    var hasFeature;
-    var nullVersion = null;
-
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImpl = domImplRegistry.getDOMImplementation("http://www.example.com/bogus-feature 99.0");
-    test.equal(domImpl, null, 'domImplNull');
-
+    test.ok(false, 'test relies on DOMImplementationRegistry which is not yet implemented')
+    // var domImplRegistry = DOMImplementationRegistry;
+    // var domImpl = domImplRegistry.getDOMImplementation('http://www.example.com/bogus-feature 99.0');
+    // test.equal(domImpl, null, 'domImplNull');
     test.done()
   },
 
   /**
    *
-   DOMImplementationRegistry.getDOMImplementation("SVG") should return null or a DOMImplementation
-   where hasFeature("SVG", null) returns true.
+   DOMImplementationRegistry.getDOMImplementation(feature) should return null or a DOMImplementation
+   where hasFeature(feature, null) returns true.
 
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding
@@ -9385,160 +9277,18 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
    */
   domimplementationregistry08: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    var baseImpl;
-    var hasFeature;
-    var nullVersion = null;
-
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImpl = domImplRegistry.getDOMImplementation("SVG");
-
-    if(
-
-      (domImpl == null)
-
-    ) {
-      baseImpl = getImplementation();
-      hasFeature = hasFeature("SVG",null);
-      test.equal(hasFeature, false, 'baseImplSupportsSVG');
-
-    }
-
-    else {
-      hasFeature = domImpl.hasFeature("SVG",nullVersion);
-      test.ok(hasFeature, 'hasCore');
-
-    }
-
-    test.done()
-  },
-
-  /**
-   *
-   DOMImplementationRegistry.getDOMImplementation("HTML") should return null or a DOMImplementation
-   where hasFeature("HTML", null) returns true.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
-   */
-  domimplementationregistry09: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    var hasFeature;
-    var baseImpl;
-    var nullVersion = null;
-
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImpl = domImplRegistry.getDOMImplementation("HTML");
-
-    if(
-
-      (domImpl == null)
-
-    ) {
-      baseImpl = getImplementation();
-      hasFeature = hasFeature("HTML",nullVersion);
-      test.equal(hasFeature, false, 'baseImplSupportsHTML');
-
-    }
-
-    else {
-      hasFeature = domImpl.hasFeature("HTML",nullVersion);
-      test.ok(hasFeature, 'hasCore');
-
-    }
-
-    test.done()
-  },
-
-  /**
-   *
-   DOMImplementationRegistry.getDOMImplementation("LS") should return null or a DOMImplementation
-   where hasFeature("LS", null) returns true.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
-   */
-  domimplementationregistry10: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    var hasFeature;
-    var baseImpl;
-    var nullVersion = null;
-
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImpl = domImplRegistry.getDOMImplementation("LS");
-
-    if(
-
-      (domImpl == null)
-
-    ) {
-      baseImpl = getImplementation();
-      hasFeature = hasFeature("LS",nullVersion);
-      test.equal(hasFeature, false, 'baseImplSupportsLS');
-
-    }
-
-    else {
-      hasFeature = domImpl.hasFeature("LS",nullVersion);
-      test.ok(hasFeature, 'hasCore');
-
-    }
-
-    test.done()
-  },
-
-  /**
-   *
-   DOMImplementationRegistry.getDOMImplementation("XPath") should return null or a DOMImplementation
-   where hasFeature("XPath", null) returns true.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
-   */
-  domimplementationregistry11: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    var hasFeature;
-    var baseImpl;
-    var nullVersion = null;
-
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImpl = domImplRegistry.getDOMImplementation("XPath");
-
-    if(
-
-      (domImpl == null)
-
-    ) {
-      baseImpl = getImplementation();
-      hasFeature = hasFeature("XPath",nullVersion);
-      test.equal(hasFeature, false, 'baseImplSupportsLS');
-
-    }
-
-    else {
-      hasFeature = domImpl.hasFeature("XPath",nullVersion);
-      test.ok(hasFeature, 'hasCore');
-
-    }
-
+    test.ok(false, 'test relies on DOMImplementationRegistry which is not yet implemented')
+    // var features = ['SVG', 'HTML', 'LS', 'XPath'];
+    // var domImplRegistry = DOMImplementationRegistry;
+    // features.forEach(function(feature){
+    //   var domImpl = domImplRegistry.getDOMImplementation(feature);
+    //   if (domImpl == null) {
+    //     var baseImpl = getImplementation();
+    //     test.equal(baseImpl.hasFeature(feature, null), false, 'baseImplSupports'+feature);
+    //   } else {
+    //     test.ok(domImpl.hasFeature(feature, null), 'hasCore'+feature);
+    //   }
+    // });
     test.done()
   },
 
@@ -9553,45 +9303,32 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpl
    */
   domimplementationregistry12: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    var hasCore;
-    var hasXML;
-    var hasEvents;
-    var hasLS;
-    var baseImpl;
-    var nullVersion = null;
-
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImpl = domImplRegistry.getDOMImplementation("cOrE 3.0 xMl 3.0 eVeNts 2.0 lS");
-
-    if (domImpl == null) {
-      baseImpl = getImplementation();
-      hasCore = baseImpl.hasFeature("Core","3.0");
-      hasXML = baseImpl.hasFeature("XML","3.0");
-      hasEvents = baseImpl.hasFeature("Events","2.0");
-      hasLS = baseImpl.hasFeature("LS",nullVersion);
-      test.equal((hasCore && hasXML && hasEvents && hasLS), false, 'baseImplFeatures');
-    } else {
-      hasCore = domImpl.hasFeature("Core","3.0");
-      test.ok(hasCore, 'hasCore');
-      hasXML = domImpl.hasFeature("XML","3.0");
-      test.ok(hasXML, 'hasXML');
-      hasEvents = domImpl.hasFeature("Events","2.0");
-      test.ok(hasEvents, 'hasEvents');
-      hasLS = domImpl.hasFeature("LS",nullVersion);
-      test.ok(hasLS, 'hasLS');
-    }
+    test.ok(false, 'test relies on DOMImplementationRegistry which is not yet implemented')
+    // var domImplRegistry = DOMImplementationRegistry;
+    // var domImpl = domImplRegistry.getDOMImplementation('cOrE 3.0 xMl 3.0 eVeNts 2.0 lS');
+    // if (domImpl == null) {
+    //   var baseImpl = getImplementation();
+    //   test.equal(baseImpl.hasFeature('Core', '3.0'), false, 'baseImplFeatures');
+    //   test.equal(baseImpl.hasFeature('XML', '3.0'), false, 'baseImplFeatures');
+    //   test.equal(baseImpl.hasFeature('Events', '2.0'), false, 'baseImplFeatures');
+    //   test.equal(baseImpl.hasFeature('LS', null), false, 'baseImplFeatures');
+    // } else {
+    //   test.ok(domImpl.hasFeature('Core', '3.0'), 'hasCore');
+    //   test.ok(domImpl.hasFeature('XML', '3.0'), 'hasXML');
+    //   test.ok(domImpl.hasFeature('Events', '2.0'), 'hasEvents');
+    //   test.ok(domImpl.hasFeature('LS', null), 'hasLS');
+    // }
     test.done()
   },
 
   /**
    *
-   DOMImplementationRegistry.getDOMImplementationList("cOrE") should return a
-   list of at least one DOMImplementation
-   where hasFeature("Core", null) returns true.
+   DOMImplementationRegistry.getDOMImplementationList("cOrE") should return a list of at least one DOMImplementation where hasFeature("Core", null) returns true.
+   DOMImplementationRegistry.getDOMImplementationList("cOrE 3.0") should return a list of DOMImplementation where hasFeature("Core", "3.0") returns true.
+   DOMImplementationRegistry.getDOMImplementationList("+cOrE") should return list of DOMImplementation where hasFeature("+Core", null) returns true.
+   DOMImplementationRegistry.getDOMImplementationList("+cOrE 3.0") should return a list of DOMImplementation where hasFeature("+Core", "3.0") returns true.
+   If the implementation supports "XML", DOMImplementationRegistry.getDOMImplementationList("xMl 3.0 cOrE") should return a list of DOMImplementation where
+   hasFeature("XML", "3.0"), and hasFeature("Core", null) returns true.
 
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding
@@ -9601,170 +9338,23 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMImplementationList-length
    */
   domimplementationregistry13: function (test) {
-    var success;
-    var domImplRegistry;
-    var hasFeature;
-    var domImpl;
-    var domImplList;
-    var length;
-    var nullVersion = null;
-
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImplList = domImplRegistry.getDOMImplementationList("cOrE");
-    length = domImplList.length;
-
-    domImpl = domImplList.item(length);
-    test.equal(domImpl, null, 'item_Length_shouldBeNull');
-    test.ok((length > 0), 'atLeastOne');
-    for(var indexN10067 = 0;indexN10067 < domImplList.length; indexN10067++) {
-      domImpl = domImplList.item(indexN10067);
-      hasFeature = domImpl.hasFeature("Core",nullVersion);
-      test.ok(hasFeature, 'hasCore');
-
-    }
-
-    test.done()
-  },
-
-  /**
-   *
-   DOMImplementationRegistry.getDOMImplementationList("cOrE 3.0") should return
-   a list of DOMImplementation
-   where hasFeature("Core", "3.0") returns true.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
-   */
-  domimplementationregistry14: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    var hasFeature;
-    var domImplList;
-    var length;
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImplList = domImplRegistry.getDOMImplementationList("cOrE 3.0");
-    length = domImplList.length;
-
-    test.ok((length > 0), 'atLeastOne');
-    for(var indexN10052 = 0;indexN10052 < domImplList.length; indexN10052++) {
-      domImpl = domImplList.item(indexN10052);
-      hasFeature = domImpl.hasFeature("Core","3.0");
-      test.ok(hasFeature, 'hasCore');
-
-    }
-
-    test.done()
-  },
-
-  /**
-   *
-   DOMImplementationRegistry.getDOMImplementationList("+cOrE") should return
-   list of DOMImplementation
-   where hasFeature("+Core", null) returns true.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
-   */
-  domimplementationregistry15: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    var hasFeature;
-    var nullVersion = null;
-
-    var domImplList;
-    var length;
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImplList = domImplRegistry.getDOMImplementationList("+cOrE");
-    length = domImplList.length;
-
-    test.ok((length > 0), 'atLeastOne');
-    for(var indexN10057 = 0;indexN10057 < domImplList.length; indexN10057++) {
-      domImpl = domImplList.item(indexN10057);
-      hasFeature = domImpl.hasFeature("+Core",nullVersion);
-      test.ok(hasFeature, 'hasCore');
-
-    }
-
-    test.done()
-  },
-
-  /**
-   *
-   DOMImplementationRegistry.getDOMImplementationList("+cOrE 3.0") should return
-   a list of DOMImplementation
-   where hasFeature("+Core", "3.0") returns true.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
-   */
-  domimplementationregistry16: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    var hasFeature;
-    var domImplList;
-    var length;
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImplList = domImplRegistry.getDOMImplementationList("+cOrE 3.0");
-    length = domImplList.length;
-
-    test.ok((length > 0), 'atLeastOne');
-    for(var indexN10052 = 0;indexN10052 < domImplList.length; indexN10052++) {
-      domImpl = domImplList.item(indexN10052);
-      hasFeature = domImpl.hasFeature("+Core","3.0");
-      test.ok(hasFeature, 'hasCore');
-
-    }
-
-    test.done()
-  },
-
-  /**
-   *
-   If the implementation supports "XML", DOMImplementationRegistry.getDOMImplementationList("xMl 3.0 cOrE") should
-   return a list of DOMImplementation where hasFeature("XML", "3.0"), and hasFeature("Core", null) returns true.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
-   */
-  domimplementationregistry17: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    var hasFeature;
-    var nullVersion = null;
-
-    var domImplList;
-    var length;
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImplList = domImplRegistry.getDOMImplementationList("xMl 3.0 cOrE");
-    length = domImplList.length;
-
-    test.ok((length > 0), 'atLeastOne');
-    for(var indexN1005A = 0;indexN1005A < domImplList.length; indexN1005A++) {
-      domImpl = domImplList.item(indexN1005A);
-      hasFeature = domImpl.hasFeature("XML","3.0");
-      test.ok(hasFeature, 'hasXML3');
-      hasFeature = domImpl.hasFeature("Core",nullVersion);
-      test.ok(hasFeature, 'hasCore');
-
-    }
-
+    test.ok(false, 'test relies on DOMImplementationRegistry which is not yet implemented')
+    // var xs = [['cOrE', {'Core': null}],
+    //           ['cOrE 3.0', {'Core': '3.0'}],
+    //           ['+cOrE', {'+Core': null}],
+    //           ['+cOrE 3.0', {'+Core': '3.0'}],
+    //           ['xMl 3.0 cOrE', {'XML': '3.0', 'Core': null}]];
+    // var domImplRegistry = DOMImplementationRegistry;
+    // xs.forEach(function(x){
+    //   var domImplList = domImplRegistry.getDOMImplementationList(x[0]);
+    //   test.ok((domImplList.length > 0), 'atLeastOne');
+    //   test.equal(domImplList.item(domImplList.length), null, 'item_Length_shouldBeNull');
+    //   for(var i=0;i<domImplList.length;i++) {
+    //     for (var k in x[1]) {
+    //       test.ok(domImplList.item(i).hasFeature(k, x[1][k]), 'has '+k);
+    //     }
+    //   }
+    // });
     test.done()
   },
 
@@ -9779,26 +9369,17 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
    */
   domimplementationregistry18: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    var domImplList;
-    var length;
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImplList = domImplRegistry.getDOMImplementationList("http://www.example.com/bogus-feature 99.0");
-    length = domImplList.length;
-
-    test.equal(length, 0, 'emptyList');
-
+    test.ok(false, 'test relies on DOMImplementationRegistry which is not yet implemented')
+    // var domImplRegistry = DOMImplementationRegistry;
+    // var domImplList = domImplRegistry.getDOMImplementationList("http://www.example.com/bogus-feature 99.0");
+    // test.equal(domImplList.length, 0, 'emptyList');
     test.done()
   },
 
   /**
    *
-   DOMImplementationRegistry.getDOMImplementationList("SVG") should return
-   zero-length list or a list of DOMImplementation
-   where hasFeature("SVG", null) returns true.
+   DOMImplementationRegistry.getDOMImplementationList(feature) should return an empty list
+   or a list of DOMImplementation where hasFeature(feature, null) returns true.
 
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding
@@ -9806,187 +9387,20 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
    */
   domimplementationregistry19: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    var baseImpl;
-    var hasFeature;
-    var nullVersion = null;
-
-    var domImplList;
-    var length;
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImplList = domImplRegistry.getDOMImplementationList("SVG");
-    length = domImplList.length;
-
-
-    if(
-      (0 == length)
-    ) {
-      baseImpl = getImplementation();
-      hasFeature = hasFeature("SVG",null);
-      test.equal(hasFeature, false, 'baseImplSupportsSVG');
-
-    }
-
-    else {
-      for(var indexN10067 = 0;indexN10067 < domImplList.length; indexN10067++) {
-        domImpl = domImplList.item(indexN10067);
-        hasFeature = domImpl.hasFeature("SVG",nullVersion);
-        test.ok(hasFeature, 'hasCore');
-
-      }
-
-    }
-
-    test.done()
-  },
-
-  /**
-   *
-   DOMImplementationRegistry.getDOMImplementationList("HTML") should return
-   an empty list or a list of DOMImplementation
-   where hasFeature("HTML", null) returns true.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
-   */
-  domimplementationregistry20: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    var hasFeature;
-    var baseImpl;
-    var nullVersion = null;
-
-    var domImplList;
-    var length;
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImplList = domImplRegistry.getDOMImplementationList("HTML");
-    length = domImplList.length;
-
-
-    if(
-      (0 == length)
-    ) {
-      baseImpl = getImplementation();
-      hasFeature = hasFeature("HTML",nullVersion);
-      test.equal(hasFeature, false, 'baseImplSupportsHTML');
-
-    }
-
-    else {
-      for(var indexN10068 = 0;indexN10068 < domImplList.length; indexN10068++) {
-        domImpl = domImplList.item(indexN10068);
-        hasFeature = domImpl.hasFeature("HTML",nullVersion);
-        test.ok(hasFeature, 'hasCore');
-
-      }
-
-    }
-
-    test.done()
-  },
-
-  /**
-   *
-   DOMImplementationRegistry.getDOMImplementationList("LS") should return
-   a empty list or a list of DOMImplementation
-   where hasFeature("LS", null) returns true.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
-   */
-  domimplementationregistry21: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    var hasFeature;
-    var baseImpl;
-    var nullVersion = null;
-
-    var domImplList;
-    var length;
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImplList = domImplRegistry.getDOMImplementationList("LS");
-    length = domImplList.length;
-
-
-    if(
-      (0 == length)
-    ) {
-      baseImpl = getImplementation();
-      hasFeature = hasFeature("LS",nullVersion);
-      test.equal(hasFeature, false, 'baseImplSupportsLS');
-
-    }
-
-    else {
-      for(var indexN10068 = 0;indexN10068 < domImplList.length; indexN10068++) {
-        domImpl = domImplList.item(indexN10068);
-        hasFeature = domImpl.hasFeature("LS",nullVersion);
-        test.ok(hasFeature, 'hasCore');
-
-      }
-
-    }
-
-    test.done()
-  },
-
-  /**
-   *
-   DOMImplementationRegistry.getDOMImplementationList("XPath") should return
-   an empty list or a list of DOMImplementation
-   where hasFeature("XPath", null) returns true.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/java-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/ecma-script-binding
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
-   */
-  domimplementationregistry22: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    var hasFeature;
-    var baseImpl;
-    var nullVersion = null;
-
-    var domImplList;
-    var length;
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImplList = domImplRegistry.getDOMImplementationList("XPath");
-    length = domImplList.length;
-
-
-    if(
-      (0 == length)
-    ) {
-      baseImpl = getImplementation();
-      hasFeature = hasFeature("XPath",nullVersion);
-      test.equal(hasFeature, false, 'baseImplSupportsLS');
-
-    }
-
-    else {
-      for(var indexN10068 = 0;indexN10068 < domImplList.length; indexN10068++) {
-        domImpl = domImplList.item(indexN10068);
-        hasFeature = domImpl.hasFeature("XPath",nullVersion);
-        test.ok(hasFeature, 'hasCore');
-
-      }
-
-    }
-
+    test.ok(false, 'test relies on DOMImplementationRegistry which is not yet implemented')
+    // var features = ['SVG', 'HTML', 'LS', 'XPath'];
+    // var domImplRegistry = DOMImplementationRegistry;
+    // features.forEach(function(feature){
+    //   var domImplList = domImplRegistry.getDOMImplementationList(feature);
+    //   if (domImplList.length == 0) {
+    //     var baseImpl = getImplementation();
+    //     test.equal(baseImpl.hasFeature(feature, null), false, 'baseImplSupports'+feature);
+    //   } else {
+    //     for(var i=0;i<domImplList.length;i++) {
+    //       test.ok(domImplList.item(i).hasFeature(feature, null), 'hasCore'+feature);
+    //     }
+    //   }
+    // });
     test.done()
   },
 
@@ -10001,43 +9415,23 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-getDOMImpls
    */
   domimplementationregistry23: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    var hasCore;
-    var hasXML;
-    var hasEvents;
-    var hasLS;
-    var baseImpl;
-    var nullVersion = null;
-
-    var domImplList;
-    var length;
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImplList = domImplRegistry.getDOMImplementationList("cOrE 3.0 xMl 3.0 eVeNts 2.0 lS");
-    length = domImplList.length;
-
-    if (0 == length) {
-      baseImpl = getImplementation();
-      hasCore = baseImpl.hasFeature("Core","3.0");
-      hasXML = baseImpl.hasFeature("XML","3.0");
-      hasEvents = baseImpl.hasFeature("Events","2.0");
-      hasLS = baseImpl.hasFeature("LS",nullVersion);
-      test.equal((hasCore && hasXML && hasEvents && hasLS), false, 'baseImplFeatures');
-    } else {
-      for(var indexN10096 = 0;indexN10096 < domImplList.length; indexN10096++) {
-        domImpl = domImplList.item(indexN10096);
-        hasCore = domImpl.hasFeature("Core","3.0");
-        test.ok(hasCore, 'hasCore');
-        hasXML = domImpl.hasFeature("XML","3.0");
-        test.ok(hasXML, 'hasXML');
-        hasEvents = domImpl.hasFeature("Events","2.0");
-        test.ok(hasEvents, 'hasEvents');
-        hasLS = domImpl.hasFeature("LS",nullVersion);
-        test.ok(hasLS, 'hasLS');
-      }
-    }
+    test.ok(false, 'test relies on DOMImplementationRegistry which is not yet implemented')
+    // var domImplRegistry = DOMImplementationRegistry;
+    // var domImplList = domImplRegistry.getDOMImplementationList('cOrE 3.0 xMl 3.0 eVeNts 2.0 lS');
+    // if (domImplList.length == 0) {
+    //   var baseImpl = getImplementation();
+    //   test.equal(baseImpl.hasFeature('Core','3.0'), false, 'baseImplFeatures');
+    //   test.equal(baseImpl.hasFeature('XML','3.0'), false, 'baseImplFeatures');
+    //   test.equal(baseImpl.hasFeature('Events','2.0'), false, 'baseImplFeatures');
+    //   test.equal(baseImpl.hasFeature('LS', null), false, 'baseImplFeatures');
+    // } else {
+    //   for(var i=0;i<domImplList.length;i++) {
+    //     test.ok(domImplList.item(i).hasFeature('Core','3.0'), 'hasCore');
+    //     test.ok(domImplList.item(i).hasFeature('XML','3.0'), 'hasXML');
+    //     test.ok(domImplList.item(i).hasFeature('Events','2.0'), 'hasEvents');
+    //     test.ok(domImplList.item(i).hasFeature('LS', null), 'hasLS');
+    //   }
+    // }
     test.done()
   },
 
@@ -10052,14 +9446,9 @@ exports.tests = {
    * @see http://lists.w3.org/Archives/Public/www-dom/2004JanMar/0111.html
    */
   domimplementationregistry24: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImpl;
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImpl = domImplRegistry.getDOMImplementation("");
-    test.notEqual(domImpl, null, 'domImplNotNull');
-
+    test.ok(false, 'test relies on DOMImplementationRegistry which is not yet implemented')
+    // var domImplRegistry = DOMImplementationRegistry;
+    // test.notEqual(domImplRegistry.getDOMImplementation(''), null, 'domImplNotNull');
     test.done()
   },
 
@@ -10075,17 +9464,10 @@ exports.tests = {
    * @see http://lists.w3.org/Archives/Public/www-dom/2004JanMar/0111.html
    */
   domimplementationregistry25: function (test) {
-    var success;
-    var domImplRegistry;
-    var domImplList;
-    var length;
-    domImplRegistry = DOMImplementationRegistry;
-    test.notEqual(domImplRegistry, null, 'domImplRegistryNotNull');
-    domImplList = domImplRegistry.getDOMImplementationList("");
-    length = domImplList.length;
-
-    test.ok((length > 0), 'atLeastOne');
-
+    test.ok(false, 'test relies on DOMImplementationRegistry which is not yet implemented')
+    // var domImplRegistry = DOMImplementationRegistry;
+    // var domImplList = domImplRegistry.getDOMImplementationList('');
+    // test.ok((domImplList.length > 0), 'atLeastOne');
     test.done()
   },
 
@@ -12899,7 +12281,7 @@ exports.tests = {
     var retval;
     var errors = new Array();
 
-    errorHandler = new DOMErrorHandlerN10054();
+    errorHandler = new DOMErrorMonitor();
 
 
     doc = barfoo.barfoo();
@@ -12974,7 +12356,7 @@ exports.tests = {
     var brElem;
     var errors = new Array();
 
-    errorHandler = new DOMErrorHandlerN10053(errors);
+    errorHandler = new DOMErrorMonitor(errors);
 
 
     doc = barfoo.barfoo();
@@ -13708,7 +13090,7 @@ exports.tests = {
 
     try {
       appendedChild = doc.appendChild(docType);
-      fail("throw_HIERARCHY_REQUEST_OR_NOT_SUPPORTED");
+      test.ok(false, 'throw_HIERARCHY_REQUEST_OR_NOT_SUPPORTED');
 
     } catch (ex) {
       if (typeof(ex.code) != 'undefined') {
@@ -13756,7 +13138,7 @@ exports.tests = {
 
     try {
       appendedChild = doc.appendChild(newElem);
-      fail("throw_HIERARCHY_REQUEST_OR_NOT_SUPPORTED");
+      test.ok(false, 'throw_HIERARCHY_REQUEST_OR_NOT_SUPPORTED');
 
     } catch (ex) {
       if (typeof(ex.code) != 'undefined') {
@@ -18364,7 +17746,7 @@ exports.tests = {
 
     try {
       inserted = doc.insertBefore(newDocType,docType);
-      fail("throw_DOMException");
+      test.ok(false, 'throw_DOMException');
 
     } catch (ex) {
       if (typeof(ex.code) != 'undefined') {
@@ -18414,7 +17796,7 @@ exports.tests = {
 
     try {
       inserted = doc.insertBefore(newElem,docElem);
-      fail("throw_DOMException");
+      test.ok(false, 'throw_DOMException');
 
     } catch (ex) {
       if (typeof(ex.code) != 'undefined') {
@@ -18595,7 +17977,7 @@ exports.tests = {
 
     try {
       inserted = doc.insertBefore(newElem,elem);
-      fail("throw_DOMException");
+      test.ok(false, 'throw_DOMException');
 
     } catch (ex) {
       if (typeof(ex.code) != 'undefined') {
@@ -23116,7 +22498,7 @@ exports.tests = {
 
     try {
       removedNode = child.removeChild(parent);
-      fail("throw_DOMException");
+      test.ok(false, 'throw_DOMException');
 
     } catch (ex) {
       if (typeof(ex.code) != 'undefined') {
@@ -23715,7 +23097,7 @@ exports.tests = {
 
     try {
       removedNode = child.removeChild(parent);
-      fail("throw_DOMException");
+      test.ok(false, 'throw_DOMException');
 
     } catch (ex) {
       if (typeof(ex.code) != 'undefined') {
@@ -24055,7 +23437,7 @@ exports.tests = {
 
     try {
       replaced = doc.replaceChild(elem,docElem);
-      fail("throw_WRONG_DOCUMENT_OR_NOT_SUPPORTED");
+      test.ok(false, 'throw_WRONG_DOCUMENT_OR_NOT_SUPPORTED');
 
     } catch (ex) {
       if (typeof(ex.code) != 'undefined') {
@@ -25503,7 +24885,7 @@ exports.tests = {
 
     try {
       retNode = doc.replaceChild(newElement,newComment);
-      fail("throw_HIERARCHY_REQUEST_OR_NOT_SUPPORTED");
+      test.ok(false, 'throw_HIERARCHY_REQUEST_OR_NOT_SUPPORTED');
 
     } catch (ex) {
       if (typeof(ex.code) != 'undefined') {
@@ -25557,7 +24939,7 @@ exports.tests = {
 
     try {
       retNode = doc.replaceChild(newDocType,newComment);
-      fail("throw_HIERARCHY_REQUEST_OR_NOT_SUPPORTED");
+      test.ok(false, 'throw_HIERARCHY_REQUEST_OR_NOT_SUPPORTED');
 
     } catch (ex) {
       if (typeof(ex.code) != 'undefined') {
@@ -29937,89 +29319,32 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-handleUserDataEvent
    */
   userdatahandler01: function (test) {
-    var success;
-    var doc;
-    var node;
-    var pList;
-    userDataMonitor = new UserDataMonitor();
-
-    var oldUserData;
-    var elementNS;
-    var newNode;
-    var notifications = new Array();
-
-    var notification;
-    var operation;
-    var key;
-    var data;
-    var src;
-    var dst;
-    var greetingCount = 0;
-    var salutationCount = 0;
-    var hello = "Hello";
-    var mister = "Mr.";
-
-    doc = barfoo.barfoo();
-    pList = doc.getElementsByTagName("p");
-    node = pList.item(0);
-    if (null == userDataMonitor) {
-      node.setUserData("greeting", hello, null);
-    } else {
-      node.setUserData("greeting", hello, userDataMonitor.handle);
+    var xs = {greeting: 'Hello', salutation: 'Mr.'};
+    var cs = {greeting: 0, salutation: 0}
+    var doc = barfoo.barfoo();
+    var node = doc.getElementsByTagName('p').item(0);
+    node.setUserData('greeting', 'Hello', null);
+    node.setUserData('salutation', 'Mr.', null);
+    var newNode = doc.renameNode(node, node.namespaceURI, 'div');
+    test.equal(userDataMonitor.allNotifications.length, 2, 'twoNotifications');
+    userDataMonitor.allNotifications.forEach(function(notification){
+      test.equal(notification.operation, 4, 'operationIsRename');
+      for (var k in xs) {
+        if (notification.key == k) {
+	  test.equal(notification.data, xs[k], 'notification.data should be '+xs[k]);
+          cs[k] += 1;
+        }
+      }
+      test.equal(notification.src, node, 'srcIsNode')
+      if (notification.dst == null) {
+	test.equal(newNode, node, 'ifDstNullRenameMustReuseNode');
+      } else {
+	test.equal(notification.dst, newNode, 'dstIsNewNode');
+      }
+    });
+    for (var k in cs) {
+      test.equal(cs[k], 1, c+'CountIs1');
     }
-    if (null == userDataMonitor) {
-      node.setUserData("salutation", mister, null);
-    } else {
-      node.setUserData("salutation", mister, userDataMonitor.handle);
-    }
-    elementNS = node.namespaceURI;
-
-    newNode = doc.renameNode(node,elementNS,"div");
-    notifications = userDataMonitor.allNotifications;
-    test.equal(notifications.length, 2, 'twoNotifications');
-    for(var indexN1009E = 0;indexN1009E < notifications.length; indexN1009E++) {
-      notification = notifications[indexN1009E];
-      operation = notification.operation;
-      test.equal(operation, 4, 'operationIsRename');
-      key = notification.key;
-      data = notification.data;
-
-      if(
-	("greeting" == key)
-      ) {
-	test.equal(data, hello, 'greetingDataHello');
-        greetingCount += 1;
-
-      }
-
-      else {
-	test.equal(key, "salutation", 'saluationKey');
-        test.equal(data, mister, 'salutationDataMr');
-        salutationCount += 1;
-
-      }
-      src = notification.src;
-      assertSame("srcIsNode",node,src);
-      dst = notification.dst;
-
-      if(
-
-	(dst == null)
-
-      ) {
-	assertSame("ifDstNullRenameMustReuseNode",node,newNode);
-
-      }
-
-      else {
-	assertSame("dstIsNewNode",newNode,dst);
-
-      }
-
-    }
-    test.equal(greetingCount, 1, 'greetingCountIs1');
-    test.equal(salutationCount, 1, 'salutationCountIs1');
-
     test.done()
   },
 
@@ -30031,45 +29356,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-handleUserDataEvent
    */
   userdatahandler02: function (test) {
-    var success;
-    var doc;
-    var node;
-    var pList;
-    userDataMonitor = new UserDataMonitor();
-
-    var oldUserData;
-    var elementNS;
-    var newNode;
-    var notifications = new Array();
-
-    var notification;
-    var operation;
-    var key;
-    var data;
-    var src;
-    var dst;
+    // start here
     var greetingCount = 0;
     var salutationCount = 0;
-    var hello = "Hello";
-    var mister = "Mr.";
-
-    doc = barfoo.barfoo();
-    pList = doc.getElementsByTagName("p");
-    node = pList.item(0);
-    if (null == userDataMonitor) {
-      node.setUserData("greeting", hello, null);
-    } else {
-      node.setUserData("greeting", hello, userDataMonitor.handle);
-    }
-    if (null == userDataMonitor) {
-      node.setUserData("salutation", mister, null);
-    } else {
-      node.setUserData("salutation", mister, userDataMonitor.handle);
-    }
-    elementNS = node.namespaceURI;
-
-    newNode = node.cloneNode(true);
-    notifications = userDataMonitor.allNotifications;
+    var doc = barfoo.barfoo();
+    var node = doc.getElementsByTagName('p').item(0);
+    node.setUserData('greeting', 'Hello', null);
+    node.setUserData('salutation', 'Mr.', null);
+    var newNode = node.cloneNode(true);
+    var notifications = userDataMonitor.allNotifications;
     test.equal(notifications.length, 2, 'twoNotifications');
     for(var indexN1009C = 0;indexN1009C < notifications.length; indexN1009C++) {
       notification = notifications[indexN1009C];
@@ -30077,30 +29372,21 @@ exports.tests = {
       test.equal(operation, 1, 'operationIsClone');
       key = notification.key;
       data = notification.data;
-
-      if(
-	("greeting" == key)
-      ) {
-	test.equal(data, hello, 'greetingDataHello');
+      if ("greeting" == key) {
+	test.equal(data, 'Hello', 'greetingDataHello');
         greetingCount += 1;
-
-      }
-
-      else {
+      } else {
 	test.equal(key, "salutation", 'saluationKey');
-        test.equal(data, mister, 'salutationDataMr');
+        test.equal(data, 'Mr.', 'salutationDataMr');
         salutationCount += 1;
-
       }
       src = notification.src;
       assertSame("srcIsNode",node,src);
       dst = notification.dst;
       assertSame("dstIsNewNode",newNode,dst);
-
     }
     test.equal(greetingCount, 1, 'greetingCountIs1');
     test.equal(salutationCount, 1, 'salutationCountIs1');
-
     test.done()
   },
 
