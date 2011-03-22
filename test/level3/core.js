@@ -29329,22 +29329,17 @@ exports.tests = {
     test.equal(userDataMonitor.allNotifications.length, 2, 'twoNotifications');
     userDataMonitor.allNotifications.forEach(function(notification){
       test.equal(notification.operation, 4, 'operationIsRename');
-      for (var k in xs) {
-        if (notification.key == k) {
-	  test.equal(notification.data, xs[k], 'notification.data should be '+xs[k]);
-          cs[k] += 1;
-        }
-      }
+      test.equal(notification.data, xs[notification.key], 'notification.data should be '+xs[notification.key]);
       test.equal(notification.src, node, 'srcIsNode')
       if (notification.dst == null) {
 	test.equal(newNode, node, 'ifDstNullRenameMustReuseNode');
       } else {
 	test.equal(notification.dst, newNode, 'dstIsNewNode');
       }
+      cs[notification.key] += 1;
     });
-    for (var k in cs) {
-      test.equal(cs[k], 1, c+'CountIs1');
-    }
+    test.equal(cs.greeting, 1, 'greetingCountIs1');
+    test.equal(cs.salutation, 1, 'salutationCountIs1');
     test.done()
   },
 
@@ -29356,37 +29351,23 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-handleUserDataEvent
    */
   userdatahandler02: function (test) {
-    // start here
-    var greetingCount = 0;
-    var salutationCount = 0;
+    var xs = {greeting: 'Hello', salutation: 'Mr.'};
+    var cs = {greeting: 0, salutation: 0}
     var doc = barfoo.barfoo();
     var node = doc.getElementsByTagName('p').item(0);
     node.setUserData('greeting', 'Hello', null);
     node.setUserData('salutation', 'Mr.', null);
     var newNode = node.cloneNode(true);
-    var notifications = userDataMonitor.allNotifications;
-    test.equal(notifications.length, 2, 'twoNotifications');
-    for(var indexN1009C = 0;indexN1009C < notifications.length; indexN1009C++) {
-      notification = notifications[indexN1009C];
-      operation = notification.operation;
-      test.equal(operation, 1, 'operationIsClone');
-      key = notification.key;
-      data = notification.data;
-      if ("greeting" == key) {
-	test.equal(data, 'Hello', 'greetingDataHello');
-        greetingCount += 1;
-      } else {
-	test.equal(key, "salutation", 'saluationKey');
-        test.equal(data, 'Mr.', 'salutationDataMr');
-        salutationCount += 1;
-      }
-      src = notification.src;
-      assertSame("srcIsNode",node,src);
-      dst = notification.dst;
-      assertSame("dstIsNewNode",newNode,dst);
-    }
-    test.equal(greetingCount, 1, 'greetingCountIs1');
-    test.equal(salutationCount, 1, 'salutationCountIs1');
+    test.equal(userDataMonitor.allNotifications.length, 2, 'twoNotifications');
+    userDataMonitor.allNotifications.forEach(function(notification){
+      test.equal(notification.operation, 1, 'operationIsClone');
+      test.equal(notification.data, xs[notification.key], 'notification.data should be '+xs[notification.key]);
+      test.equal(notification.src, node, 'srcIsNode')
+      test.equal(notification.dst, newNode, 'dstIsNewNode');
+      cs[notification.key] += 1;
+    });
+    test.equal(cs.greeting, 1, 'greetingCountIs1');
+    test.equal(cs.salutation, 1, 'salutationCountIs1');
     test.done()
   },
 
@@ -29398,91 +29379,23 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-handleUserDataEvent
    */
   userdatahandler03: function (test) {
-    var success;
-    var doc;
-    var node;
-    var pList;
-    userDataMonitor = new UserDataMonitor();
-
-    var oldUserData;
-    var elementNS;
-    var newNode;
-    var notifications = new Array();
-
-    var notification;
-    var operation;
-    var key;
-    var data;
-    var src;
-    var dst;
-    var greetingCount = 0;
-    var salutationCount = 0;
-    var hello = "Hello";
-    var mister = "Mr.";
-    var newDoc;
-    var rootName;
-    var rootNS;
-    var domImpl;
-    var docType = null;
-
-    var docElem;
-
-    doc = barfoo.barfoo();
-    domImpl = doc.implementation;
-    docElem = doc.documentElement;
-
-    rootNS = docElem.namespaceURI;
-
-    rootName = docElem.tagName;
-
-    newDoc = domImpl.createDocument(rootNS,rootName,docType);
-    pList = doc.getElementsByTagName("p");
-    node = pList.item(0);
-    if (null == userDataMonitor) {
-      node.setUserData("greeting", hello, null);
-    } else {
-      node.setUserData("greeting", hello, userDataMonitor.handle);
-    }
-    if (null == userDataMonitor) {
-      node.setUserData("salutation", mister, null);
-    } else {
-      node.setUserData("salutation", mister, userDataMonitor.handle);
-    }
-    elementNS = node.namespaceURI;
-
-    newNode = doc.importNode(node,true);
-    notifications = userDataMonitor.allNotifications;
-    test.equal(notifications.length, 2, 'twoNotifications');
-    for(var indexN100CE = 0;indexN100CE < notifications.length; indexN100CE++) {
-      notification = notifications[indexN100CE];
-      operation = notification.operation;
-      test.equal(operation, 2, 'operationIsImport');
-      key = notification.key;
-      data = notification.data;
-
-      if(
-	("greeting" == key)
-      ) {
-	test.equal(data, hello, 'greetingDataHello');
-        greetingCount += 1;
-
-      }
-
-      else {
-	test.equal(key, "salutation", 'saluationKey');
-        test.equal(data, mister, 'salutationDataMr');
-        salutationCount += 1;
-
-      }
-      src = notification.src;
-      assertSame("srcIsNode",node,src);
-      dst = notification.dst;
-      assertSame("dstIsNewNode",newNode,dst);
-
-    }
-    test.equal(greetingCount, 1, 'greetingCountIs1');
-    test.equal(salutationCount, 1, 'salutationCountIs1');
-
+    var xs = {greeting: 'Hello', salutation: 'Mr.'};
+    var cs = {greeting: 0, salutation: 0}
+    var doc = barfoo.barfoo();
+    var node = doc.getElementsByTagName("p").item(0);
+    node.setUserData('greeting', 'Hello', null);
+    node.setUserData('salutation', 'Mr.', null);
+    var newNode = doc.importNode(node,true);
+    test.equal(userDataMonitor.allNotifications.length, 2, 'twoNotifications');
+    userDataMonitor.allNotifications.forEach(function(notification){
+      test.equal(notification.operation, 2, 'operationIsImport');
+      test.equal(notification.data, xs[notification.key], 'notification.data should be '+xs[notification.key]);
+      test.equal(notification.src, node, 'srcIsNode')
+      test.equal(notification.dst, newNode, 'dstIsNewNode');
+      cs[notification.key] += 1;
+    });
+    test.equal(cs.greeting, 1, 'greetingCountIs1');
+    test.equal(cs.salutation, 1, 'salutationCountIs1');
     test.done()
   },
 
@@ -29494,91 +29407,23 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-handleUserDataEvent
    */
   userdatahandler04: function (test) {
-    var success;
-    var doc;
-    var node;
-    var pList;
-    userDataMonitor = new UserDataMonitor();
-
-    var oldUserData;
-    var elementNS;
-    var newNode;
-    var notifications = new Array();
-
-    var notification;
-    var operation;
-    var key;
-    var data;
-    var src;
-    var dst;
-    var greetingCount = 0;
-    var salutationCount = 0;
-    var hello = "Hello";
-    var mister = "Mr.";
-    var newDoc;
-    var rootName;
-    var rootNS;
-    var domImpl;
-    var docType = null;
-
-    var docElem;
-
-    doc = barfoo.barfoo();
-    domImpl = doc.implementation;
-    docElem = doc.documentElement;
-
-    rootNS = docElem.namespaceURI;
-
-    rootName = docElem.tagName;
-
-    newDoc = domImpl.createDocument(rootNS,rootName,docType);
-    pList = doc.getElementsByTagName("p");
-    node = pList.item(0);
-    if (null == userDataMonitor) {
-      node.setUserData("greeting", hello, null);
-    } else {
-      node.setUserData("greeting", hello, userDataMonitor.handle);
-    }
-    if (null == userDataMonitor) {
-      node.setUserData("salutation", mister, null);
-    } else {
-      node.setUserData("salutation", mister, userDataMonitor.handle);
-    }
-    elementNS = node.namespaceURI;
-
-    newNode = doc.adoptNode(node);
-    notifications = userDataMonitor.allNotifications;
-    test.equal(notifications.length, 2, 'twoNotifications');
-    for(var indexN100CD = 0;indexN100CD < notifications.length; indexN100CD++) {
-      notification = notifications[indexN100CD];
-      operation = notification.operation;
-      test.equal(operation, 5, 'operationIsImport');
-      key = notification.key;
-      data = notification.data;
-
-      if(
-	("greeting" == key)
-      ) {
-	test.equal(data, hello, 'greetingDataHello');
-        greetingCount += 1;
-
-      }
-
-      else {
-	test.equal(key, "salutation", 'saluationKey');
-        test.equal(data, mister, 'salutationDataMr');
-        salutationCount += 1;
-
-      }
-      src = notification.src;
-      assertSame("srcIsNode",node,src);
-      dst = notification.dst;
-      test.equal(dst, null, 'dstIsNull');
-
-    }
-    test.equal(greetingCount, 1, 'greetingCountIs1');
-    test.equal(salutationCount, 1, 'salutationCountIs1');
-
+    var xs = {greeting: 'Hello', salutation: 'Mr.'};
+    var cs = {greeting: 0, salutation: 0}
+    var doc = barfoo.barfoo();
+    var node = doc.getElementsByTagName("p").item(0);
+    node.setUserData('greeting', 'Hello', null);
+    node.setUserData('salutation', 'Mr.', null);
+    var newNode = doc.adoptNode(node);
+    test.equal(userDataMonitor.allNotifications.length, 2, 'twoNotifications');
+    userDataMonitor.allNotifications.forEach(function(notification){
+      test.equal(notification.operation, 5, 'operationIsAdopt');
+      test.equal(notification.data, xs[notification.key], 'notification.data should be '+xs[notification.key]);
+      test.equal(notification.src, node, 'srcIsNode')
+      test.equal(notification.dst, null, 'dstIsnull');
+      cs[notification.key] += 1;
+    });
+    test.equal(cs.greeting, 1, 'greetingCountIs1');
+    test.equal(cs.salutation, 1, 'salutationCountIs1');
     test.done()
   },
 
