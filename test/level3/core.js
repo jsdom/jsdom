@@ -17336,37 +17336,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getUserData
    */
   nodegetuserdata01: function (test) {
-    var success;
-    var doc;
-    var userData;
-
-    doc = hc_staff.hc_staff();
-    userData = doc.getUserData("key1");
-    test.equal(userData, null, 'nodegetuserdata01');
-
-    test.done()
-  },
-
-  /**
-   *
-
-
-   Using getUserData with a junk value for the key attempt to retreive the UserData object
-   of this Document node without setting it and verify if null is returned.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getUserData
-   */
-  nodegetuserdata02: function (test) {
-    var success;
-    var doc;
-    var userData;
-
-    doc = hc_staff.hc_staff();
-    userData = doc.getUserData("key1");
-    test.equal(userData, null, 'nodegetuserdata02');
-
+    var doc = hc_staff.hc_staff();
+    test.equal(doc.getUserData('key1'), null, 'nodegetuserdata01');
     test.done()
   },
 
@@ -17383,27 +17354,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getUserData
    */
   nodegetuserdata03: function (test) {
-    var success;
-    var doc;
-    var userData;
-    var retUserData;
-    var success;
-    var elem;
-    var returnedUserData;
-    var nullHandler = null;
-
-
-    doc = barfoo.barfoo();
-    elem = doc.createElementNS("http://www.w3.org/1999/xhtml","body");
-    if (null == nullHandler) {
-      doc.setUserData("something", elem, null);
-    } else {
-      doc.setUserData("something", elem, nullHandler.handle);
-    }
+    // var doc = barfoo.barfoo(); // NOTE: commented out only until barfoo is working
+    var doc = hc_staff.hc_staff();
+    var elem = doc.createElementNS("http://www.w3.org/1999/xhtml","body");
+    doc.setUserData("something", elem, null);
     retUserData = doc.getUserData("something");
-    success = retUserData.isEqualNode(elem);
-    test.ok(success, 'nodegetuserdata03');
-
+    test.ok(retUserData.isEqualNode(elem), 'nodegetuserdata03');
     test.done()
   },
 
@@ -17420,28 +17376,11 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getUserData
    */
   nodegetuserdata04: function (test) {
-    var success;
-    var doc;
-    var docType;
-    var userData;
-    var retUserData;
-    var success;
-    var nullHandler = null;
-
-    var prevUserData;
-
-    doc = hc_staff.hc_staff();
-    docType = doc.doctype;
-
-    if (null == nullHandler) {
-      docType.setUserData("KeyDoc", doc, null);
-    } else {
-      docType.setUserData("KeyDoc", doc, nullHandler.handle);
-    }
-    retUserData = docType.getUserData("KeyDoc");
-    success = retUserData.isEqualNode(doc);
-    test.ok(success, 'nodegetuserdata04');
-
+    var doc = hc_staff.hc_staff();
+    var docType = doc.doctype;
+    docType.setUserData('KeyDoc', doc, null);
+    var retUserData = docType.getUserData('KeyDoc');
+    test.ok(retUserData.isEqualNode(doc), 'nodegetuserdata04');
     test.done()
   },
 
@@ -17456,33 +17395,11 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getUserData
    */
   nodegetuserdata05: function (test) {
-    var success;
-    var doc;
-    var docType;
-    var entities;
-    var entity;
-    var attr;
-    var userData;
-    var retUserData;
-    var nullHandler = null;
-
-    var prevUserData;
-
-    doc = hc_staff.hc_staff();
-    docType = doc.doctype;
-
-    entities = docType.entities;
-
-    entity = entities.getNamedItem("delta");
-    attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","lang");
-    if (null == nullHandler) {
-      entity.setUserData("key", attr, null);
-    } else {
-      entity.setUserData("key", attr, nullHandler.handle);
-    }
-    retUserData = entity.getUserData("Key");
-    test.equal(retUserData, null, 'nodegetuserdata05');
-
+    var doc = hc_staff.hc_staff();
+    var entity = doc.doctype.entities.getNamedItem('delta');
+    var attr = doc.createAttributeNS('http://www.w3.org/XML/1998/namespace', 'lang');
+    entity.setUserData('key', attr, null);
+    test.equal(entity.getUserData('Key'), null, 'nodegetuserdata05');
     test.done()
   },
 
@@ -17498,16 +17415,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getUserData
    */
   nodegetuserdata06: function (test) {
-    var success;
-    var doc;
-    var txt;
-    var retUserData;
-
-    doc = hc_staff.hc_staff();
-    txt = doc.createTextNode("TEXT");
-    retUserData = txt.getUserData("");
-    test.equal(retUserData, null, 'nodegetuserdata06');
-
+    var doc = hc_staff.hc_staff();
+    var txt = doc.createTextNode('TEXT');
+    test.equal(txt.getUserData(''), null, 'nodegetuserdata06');
     test.done()
   },
 
@@ -17524,27 +17434,11 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-getUserData
    */
   nodegetuserdata07: function (test) {
-    var success;
-    var doc;
-    var pi;
-    var userData;
-    var retUserData;
-    var success;
-    var nullHandler = null;
-
-    var prevUserData;
-
-    doc = hc_staff.hc_staff();
-    pi = doc.createProcessingInstruction("PITARGET","PIDATA");
-    if (null == nullHandler) {
-      pi.setUserData("key", pi, null);
-    } else {
-      pi.setUserData("key", pi, nullHandler.handle);
-    }
-    retUserData = pi.getUserData("key");
-    success = retUserData.isEqualNode(pi);
-    test.ok(success, 'nodegetuserdata07');
-
+    var doc = hc_staff.hc_staff();
+    var pi = doc.createProcessingInstruction('PITARGET', 'PIDATA');
+    pi.setUserData('key', pi, null);
+    var retUserData = pi.getUserData('key');
+    test.ok(retUserData.isEqualNode(pi), 'nodegetuserdata07');
     test.done()
   },
 
@@ -19197,17 +19091,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode01: function (test) {
-    var success;
-    var doc1;
-    var doc2;
-    var isEqual;
-
-    doc1 = hc_staff.hc_staff();
-
-    doc2 = hc_staff.hc_staff();
-    isEqual = doc1.isEqualNode(doc2);
-    test.ok(isEqual, 'nodeisequalnode01');
-
+    var doc1 = hc_staff.hc_staff();
+    var doc2 = hc_staff.hc_staff();
+    test.ok(doc1.isEqualNode(doc2), 'nodeisequalnode01');
     test.done()
   },
 
@@ -19221,31 +19107,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode02: function (test) {
-    var success;
-    var doc;
-    var domImpl;
-    var doc1;
-    var doc2;
-    var isEqual;
-    var nullDocType = null;
-
-    var docElem;
-    var rootNS;
-    var rootName;
-
-    doc = hc_staff.hc_staff();
-    docElem = doc.documentElement;
-
-    rootNS = docElem.namespaceURI;
-
-    rootName = docElem.tagName;
-
-    domImpl = doc.implementation;
-    doc1 = domImpl.createDocument(rootNS,rootName,nullDocType);
-    doc2 = domImpl.createDocument(rootNS,rootName,nullDocType);
-    isEqual = doc1.isEqualNode(doc2);
-    test.ok(isEqual, 'nodeisequalnode02');
-
+    var doc = hc_staff.hc_staff();
+    var doc1 = doc.implementation.createDocument(doc.documentElement.namespaceURI, doc.documentElement.tagName, null);
+    var doc2 = doc.implementation.createDocument(doc.documentElement.namespaceURI, doc.documentElement.tagName, null);
+    test.ok(doc1.isEqualNode(doc2), 'nodeisequalnode02');
     test.done()
   },
 
@@ -19261,25 +19126,10 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=528
    */
   nodeisequalnode03: function (test) {
-    var success;
-    var doc1;
-    var doc2;
-    var docElem1;
-    var docElem2;
-    var isEqual;
-
-    doc1 = barfoo_utf8.barfoo_utf8();
-
-    doc2 = barfoo_utf16.barfoo_utf16();
-    isEqual = doc1.isEqualNode(doc2);
-    test.ok(isEqual, 'docAreNotEquals');
-    docElem1 = doc1.documentElement;
-
-    docElem2 = doc2.documentElement;
-
-    isEqual = docElem1.isEqualNode(docElem2);
-    test.ok(isEqual, 'docElemsAreEquals');
-
+    var doc1 = barfoo_utf8.barfoo_utf8();
+    var doc2 = barfoo_utf16.barfoo_utf16();
+    test.ok(doc1.isEqualNode(doc2), 'docAreNotEquals');
+    test.ok(doc1.documentElement.isEqualNode(doc2.documentElement), 'docElemsAreEquals');
     test.done()
   },
 
@@ -19293,19 +19143,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode04: function (test) {
-    var success;
-    var doc;
-    var ownerDoc;
-    var elem;
-    var isEqual;
-
-    doc = barfoo.barfoo();
-    elem = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:p");
-    ownerDoc = elem.ownerDocument;
-
-    isEqual = doc.isEqualNode(ownerDoc);
-    test.ok(isEqual, 'nodeisequalnode04');
-
+    var doc = barfoo.barfoo();
+    var elem = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:p");
+    test.ok(doc.isEqualNode(elem.ownerDocument), 'nodeisequalnode04');
     test.done()
   },
 
@@ -19319,17 +19159,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode05: function (test) {
-    var success;
-    var doc1;
-    var doc2;
-    var isEqual;
-
-    doc1 = barfoo_standalone_yes.barfoo_standalone_yes();
-
-    doc2 = barfoo.barfoo();
-    isEqual = doc1.isEqualNode(doc2);
-    test.equal(isEqual, false, 'nodeisequalnode05');
-
+    var doc1 = barfoo_standalone_yes.barfoo_standalone_yes();
+    var doc2 = barfoo.barfoo();
+    test.equal(doc1.isEqualNode(doc2), false, 'nodeisequalnode05');
     test.done()
   },
 
@@ -19345,18 +19177,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode06: function (test) {
-    var success;
-    var doc;
-    var elem1;
-    var elem2;
-    var isEqual;
-
-    doc = hc_staff.hc_staff();
-    elem1 = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:html");
-    elem2 = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:html");
-    isEqual = elem1.isEqualNode(elem2);
-    test.ok(isEqual, 'nodeisequalnode06');
-
+    var doc = hc_staff.hc_staff();
+    var elem1 = doc.createElementNS('http://www.w3.org/1999/xhtml', 'xhtml:html');
+    var elem2 = doc.createElementNS('http://www.w3.org/1999/xhtml', 'xhtml:html');
+    test.ok(elem1.isEqualNode(elem2), 'nodeisequalnode06');
     test.done()
   },
 
@@ -19370,21 +19194,11 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode07: function (test) {
-    var success;
-    var doc1;
-    var doc2;
-    var elem1;
-    var elem2;
-    var isEqual;
-
-    doc1 = hc_staff.hc_staff();
-
-    doc2 = hc_staff.hc_staff();
-    elem1 = doc1.createElementNS("http://www.w3.org/1999/xhtml","xhtml:html");
-    elem2 = doc2.createElementNS("http://www.w3.org/1999/xhtml","xhtml:html");
-    isEqual = elem1.isEqualNode(elem2);
-    test.ok(isEqual, 'nodeisequalnode07');
-
+    var doc1 = hc_staff.hc_staff();
+    var doc2 = hc_staff.hc_staff();
+    var elem1 = doc1.createElementNS('http://www.w3.org/1999/xhtml', 'xhtml:html');
+    var elem2 = doc2.createElementNS('http://www.w3.org/1999/xhtml', 'xhtml:html');
+    test.ok(elem1.isEqualNode(elem2), 'nodeisequalnode07');
     test.done()
   },
 
@@ -19401,24 +19215,11 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode08: function (test) {
-    var success;
-    var doc;
-    var elem1;
-    var elem2;
-    var employeeList;
-    var text;
-    var isEqual;
-    var appendedChild;
-
-    doc = hc_staff.hc_staff();
-    employeeList = doc.getElementsByTagName("em");
-    elem1 = employeeList.item(0);
-    elem2 = doc.createElementNS("http://www.w3.org/1999/xhtml","em");
-    text = doc.createTextNode("EMP0001");
-    appendedChild = elem2.appendChild(text);
-    isEqual = elem1.isEqualNode(elem2);
-    test.ok(isEqual, 'nodeisequalnode08');
-
+    var doc = hc_staff.hc_staff();
+    var elem1 = doc.getElementsByTagName('em').item(0);
+    var elem2 = doc.createElementNS('http://www.w3.org/2000/xmlns/', 'em');
+    elem2.appendChild(doc.createTextNode('EMP0001'));
+    test.ok(elem1.isEqualNode(elem2), 'nodeisequalnode08');
     test.done()
   },
 
@@ -19432,39 +19233,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode09: function (test) {
-    var success;
-    var doc;
-    var domImpl;
-    var newDoc;
-    var elem1;
-    var elem2;
-    var employeeList;
-    var text;
-    var isEqual;
-    var nullDocType = null;
-
-    var appendedChild;
-    var docElem;
-    var rootNS;
-    var rootName;
-
-    doc = hc_staff.hc_staff();
-    docElem = doc.documentElement;
-
-    rootNS = docElem.namespaceURI;
-
-    rootName = docElem.localName;
-
-    domImpl = doc.implementation;
-    newDoc = domImpl.createDocument(rootNS,rootName,nullDocType);
-    employeeList = doc.getElementsByTagName("em");
-    elem1 = employeeList.item(0);
-    elem2 = newDoc.createElementNS("http://www.w3.org/1999/xhtml","em");
-    text = newDoc.createTextNode("EMP0001");
-    appendedChild = elem2.appendChild(text);
-    isEqual = elem1.isEqualNode(elem2);
-    test.ok(isEqual, 'nodesAreEqual');
-
+    var doc = hc_staff.hc_staff();
+    var newDoc = doc.implementation.createDocument(doc.documentElement.namespaceURI, doc.documentElement.localName, null);
+    var elem1 = doc.getElementsByTagName('em').item(0);
+    var elem2 = newDoc.createElementNS('http://www.w3.org/2000/xmlns/', 'em');
+    elem2.appendChild(newDoc.createTextNode('EMP0001'));
+    test.ok(elem1.isEqualNode(elem2), 'nodesAreEqual');
     test.done()
   },
 
@@ -19478,20 +19252,11 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode10: function (test) {
-    var success;
-    var doc;
-    var elem1;
-    var elem2;
-    var employeeList;
-    var isEqual;
-
-    doc = hc_staff.hc_staff();
-    employeeList = doc.getElementsByTagName("em");
-    elem1 = employeeList.item(0);
-    elem2 = employeeList.item(1);
-    isEqual = elem1.isEqualNode(elem2);
-    test.equal(isEqual, false, 'nodeisequalnode10');
-
+    var doc = hc_staff.hc_staff();
+    var employeeList = doc.getElementsByTagName('em');
+    var elem1 = employeeList.item(0);
+    var elem2 = employeeList.item(1);
+    test.equal(elem1.isEqualNode(elem2), false, 'nodeisequalnode10');
     test.done()
   },
 
@@ -19512,52 +19277,18 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=529
    */
   nodeisequalnode11: function (test) {
-    var success;
-    var doc;
-    var domImpl;
-    var employeeList;
-    var newDoc;
-    var dupDoc;
-    var elem1;
-    var elem2;
-    var elem3;
-    var elem4;
-    var isEqual;
-    var nullDocType = null;
-
-    var docElem;
-    var rootNS;
-    var rootName;
-
-    doc = hc_staff.hc_staff();
-    docElem = doc.documentElement;
-
-    rootNS = docElem.namespaceURI;
-
-    rootName = docElem.tagName;
-
-    domImpl = doc.implementation;
-    newDoc = domImpl.createDocument(rootNS,rootName,nullDocType);
-    employeeList = doc.getElementsByTagName("p");
-    elem1 = employeeList.item(0);
-    elem2 = newDoc.importNode(elem1,false);
-    isEqual = elem1.isEqualNode(elem2);
-    test.equal(isEqual, false, 'nodeisequalnodeFalse11');
-    elem3 = newDoc.importNode(elem1,true);
-    isEqual = elem1.isEqualNode(elem3);
-
-    if(
-      (getImplementationAttribute("validating") == true)
-    ) {
-      test.equal(isEqual, false, 'deepImportNoDTD');
-
+    var doc = hc_staff.hc_staff();
+    var newDoc = doc.implementation.createDocument(doc.documentElement.namespaceURI, doc.documentElement.tagName, null);
+    var elem1 = doc.getElementsByTagName('p').item(0);
+    var elem2 = newDoc.importNode(elem1,false);
+    test.equal(elem1.isEqualNode(elem2), false, 'nodeisequalnodeFalse11');
+    if (getImplementationAttribute("validating") == true) {
+      elem3 = newDoc.importNode(elem1,true);
+      test.equal(elem1.isEqualNode(elem3), false, 'deepImportNoDTD');
     }
-
-    dupDoc = hc_staff.hc_staff();
-    elem4 = dupDoc.importNode(elem1,true);
-    isEqual = elem1.isEqualNode(elem4);
-    test.ok(isEqual, 'deepImportSameDTD');
-
+    var dupDoc = hc_staff.hc_staff();
+    var elem4 = dupDoc.importNode(elem1,true);
+    test.ok(elem1.isEqualNode(elem4), 'deepImportSameDTD');
     test.done()
   },
 
@@ -19573,20 +19304,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode12: function (test) {
-    var success;
-    var doc;
-    var elem1;
-    var elem2;
-    var isEqual;
-
-    doc = hc_staff.hc_staff();
-    elem1 = doc.documentElement;
-
-    elem2 = doc.documentElement;
-
-    isEqual = elem1.isEqualNode(elem2);
-    test.ok(isEqual, 'nodeisequalnode12');
-
+    var doc = hc_staff.hc_staff();
+    var elem1 = doc.documentElement;
+    var elem2 = doc.documentElement;
+    test.ok(elem1.isEqualNode(elem2), 'nodeisequalnode12');
     test.done()
   },
 
@@ -19602,39 +19323,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode13: function (test) {
-    var success;
-    var doc;
-    var domImpl;
-    var newDoc;
-    var employeeList;
-    var elem1;
-    var elem2;
-    var elem3;
-    var isEqual;
-    var nullDocType = null;
-
-    var docElem;
-    var rootNS;
-    var rootName;
-
-    doc = hc_staff.hc_staff();
-    docElem = doc.documentElement;
-
-    rootNS = docElem.namespaceURI;
-
-    rootName = docElem.tagName;
-
-    domImpl = doc.implementation;
-    newDoc = domImpl.createDocument(rootNS,rootName,nullDocType);
-    employeeList = doc.getElementsByTagName("p");
-    elem1 = employeeList.item(0);
-    elem2 = elem1.cloneNode(false);
-    isEqual = elem1.isEqualNode(elem2);
-    test.equal(isEqual, false, 'nodeisequalnodeFalse13');
-    elem3 = elem1.cloneNode(true);
-    isEqual = elem1.isEqualNode(elem3);
-    test.ok(isEqual, 'nodeisequalnodeTrue13');
-
+    var doc = hc_staff.hc_staff();
+    var elem1 = doc.getElementsByTagName('p').item(0);
+    var elem2 = elem1.cloneNode(false);
+    test.equal(elem1.isEqualNode(elem2), false, 'nodeisequalnodeFalse13');
+    var elem3 = elem1.cloneNode(true);
+    test.ok(elem1.isEqualNode(elem3), 'nodeisequalnodeTrue13');
     test.done()
   },
 
@@ -19651,20 +19345,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode14: function (test) {
-    var success;
-    var doc;
-    var attr1;
-    var attr2;
-    var isEqual;
-    var nullNSURI = null;
-
-
-    doc = hc_staff.hc_staff();
-    attr1 = doc.createAttribute("root");
-    attr2 = doc.createAttributeNS(nullNSURI,"root");
-    isEqual = attr1.isEqualNode(attr2);
-    test.equal(isEqual, false, 'nodeisequalnode14');
-
+    var doc = hc_staff.hc_staff();
+    var attr1 = doc.createAttribute('root');
+    var attr2 = doc.createAttributeNS(null, 'root');
+    test.equal(attr1.isEqualNode(attr2), false, 'nodeisequalnode14');
     test.done()
   },
 
@@ -19679,37 +19363,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode15: function (test) {
-    var success;
-    var doc;
-    var attr1;
-    var attr2;
-    var addrElement;
-    var elementList;
-    var isEqual;
-    var nullNS = null;
-
-
-    doc = hc_staff.hc_staff();
-    elementList = doc.getElementsByTagName("acronym");
-    addrElement = elementList.item(3);
-    attr1 = addrElement.getAttributeNodeNS(nullNS,"title");
-
-    if(
-      (getImplementationAttribute("namespaceAware") == true)
-    ) {
-      attr2 = doc.createAttributeNS(nullNS,"title");
-
+    var doc = hc_staff.hc_staff();
+    var attr1 = doc.getElementsByTagName('acronym').item(3).getAttributeNodeNS(null, 'title');
+    if (getImplementationAttribute("namespaceAware") == true) {
+      var attr2 = doc.createAttributeNS(null, 'title');
+    } else {
+      var attr2 = doc.createAttribute('title');
     }
-
-    else {
-      attr2 = doc.createAttribute("title");
-
-    }
-    attr2.value = "Yes";
-
-    isEqual = attr1.isEqualNode(attr2);
-    test.ok(isEqual, 'nodeisequalnode15');
-
+    attr2.value = 'Yes';
+    test.ok(attr1.isEqualNode(attr2), 'nodeisequalnode15');
     test.done()
   },
 
@@ -19725,24 +19387,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode16: function (test) {
-    var success;
-    var doc;
-    var attr1;
-    var attr2;
-    var addrElement;
-    var elementList;
-    var isEqual;
-    var nullNSURI = null;
-
-
-    doc = hc_staff.hc_staff();
-    elementList = doc.getElementsByTagName("p");
-    addrElement = elementList.item(3);
-    attr1 = addrElement.getAttributeNodeNS(nullNSURI,"dir");
-    attr2 = attr1.cloneNode(true);
-    isEqual = attr1.isEqualNode(attr2);
-    test.ok(isEqual, 'nodeisequalnode16');
-
+    var doc = hc_staff.hc_staff();
+    var attr1 = doc.getElementsByTagName('p').item(3).getAttributeNodeNS(null, 'dir');
+    var attr2 = attr1.cloneNode(true);
+    test.ok(attr1.isEqualNode(attr2), 'nodeisequalnode16');
     test.done()
   },
 
@@ -19756,35 +19404,11 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode17: function (test) {
-    var success;
-    var doc;
-    var newDoc;
-    var domImpl;
-    var attr1;
-    var attr2;
-    var isEqual;
-    var nullDocType = null;
-
-    var nullNSURI = null;
-
-    var docElem;
-    var rootNS;
-    var rootName;
-
-    doc = hc_staff.hc_staff();
-    docElem = doc.documentElement;
-
-    rootNS = docElem.namespaceURI;
-
-    rootName = docElem.tagName;
-
-    domImpl = doc.implementation;
-    newDoc = domImpl.createDocument(rootNS,rootName,nullDocType);
-    attr1 = doc.createAttributeNS(nullNSURI,"root");
-    attr2 = newDoc.importNode(attr1,true);
-    isEqual = attr1.isEqualNode(attr2);
-    test.ok(isEqual, 'nodeisequalnode17');
-
+    var doc = hc_staff.hc_staff();
+    var newDoc = doc.implementation.createDocument(doc.documentElement.namespaceURI, doc.documentElement.tagName, null);
+    var attr1 = doc.createAttributeNS(null, 'root');
+    var attr2 = newDoc.importNode(attr1, true);
+    test.ok(attr1.isEqualNode(attr2), 'nodeisequalnode17');
     test.done()
   },
 
@@ -19798,43 +19422,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode18: function (test) {
-    var success;
-    var doc;
-    var newDoc;
-    var domImpl;
-    var attr1;
-    var attr2;
-    var isEqual;
-    var nullDocType = null;
-
-    var nullNSURI = null;
-
-    var docElem;
-    var rootNS;
-    var rootName;
-
-    doc = hc_staff.hc_staff();
-    docElem = doc.documentElement;
-
-    rootName = docElem.tagName;
-
-    rootNS = docElem.namespaceURI;
-
-    domImpl = doc.implementation;
-    newDoc = domImpl.createDocument(rootNS,rootName,nullDocType);
-    attr1 = doc.createAttributeNS(nullNSURI,"title");
-    attr2 = newDoc.adoptNode(attr1);
-
-    if(
-
-      (attr2 != null)
-
-    ) {
-      isEqual = attr1.isEqualNode(attr2);
-      test.ok(isEqual, 'nodeisequalnode18');
-
+    // newDoc is null... START HERE
+    var doc = hc_staff.hc_staff();
+    var newDoc = doc.implementation.createDocument(doc.documentElement.namespaceURI, doc.documentElement.tagName, null);
+    var attr1 = doc.createAttributeNS(null, 'title');
+    var attr2 = newDoc.adoptNode(attr1);
+    if (attr2 != null) {
+      test.ok(attr1.isEqualNode(attr2), 'nodeisequalnode18');
     }
-
     test.done()
   },
 
@@ -19850,20 +19445,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode19: function (test) {
-    var success;
-    var doc;
-    var attr1;
-    var attr2;
-    var isEqual;
-    var nullNSURI = null;
-
-
-    doc = hc_staff.hc_staff();
-    attr1 = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","lang");
-    attr2 = doc.createAttributeNS(nullNSURI,"lang");
-    isEqual = attr1.isEqualNode(attr2);
-    test.equal(isEqual, false, 'nodeisequalnode19');
-
+    var doc = hc_staff.hc_staff();
+    var attr1 = doc.createAttributeNS('http://www.w3.org/XML/1998/namespace', 'lang');
+    var attr2 = doc.createAttributeNS(null, 'lang');
+    test.equal(attr1.isEqualNode(attr2), false, 'nodeisequalnode19');
     test.done()
   },
 
@@ -19877,18 +19462,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode20: function (test) {
-    var success;
-    var doc;
-    var attr1;
-    var elem1;
-    var isEqual;
-
-    doc = hc_staff.hc_staff();
-    elem1 = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:html");
-    attr1 = doc.createAttributeNS("http://www.w3.org/1999/xhtml","xhtml:html");
-    isEqual = attr1.isEqualNode(elem1);
-    test.equal(isEqual, false, 'nodeisequalnode20');
-
+    var doc = hc_staff.hc_staff();
+    var elem1 = doc.createElementNS('http://www.w3.org/1999/xhtml', 'xhtml:html');
+    var attr1 = doc.createAttributeNS('http://www.w3.org/1999/xhtml', 'xhtml:html');
+    test.equal(attr1.isEqualNode(elem1), false, 'nodeisequalnode20');
     test.done()
   },
 
@@ -19904,23 +19481,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode21: function (test) {
-    var success;
-    var doc1;
-    var doc2;
-    var docType1;
-    var docType2;
-    var isEqual;
-
-    doc1 = hc_staff.hc_staff();
-
-    doc2 = hc_staff.hc_staff();
-    docType1 = doc1.doctype;
-
-    docType2 = doc2.doctype;
-
-    isEqual = docType1.isEqualNode(docType2);
-    test.ok(isEqual, 'nodeisequalnode21');
-
+    var doc1 = hc_staff.hc_staff();
+    var doc2 = hc_staff.hc_staff();
+    test.ok(doc1.doctype.isEqualNode(doc2.doctype), 'nodeisequalnode21');
     test.done()
   },
 
@@ -19936,35 +19499,11 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode22: function (test) {
-    var success;
-    var doc1;
-    var doc2;
-    var domImpl1;
-    var domImpl2;
-    var docType1;
-    var docType2;
-    var isEqual;
-    var nullPubId = null;
-
-    var nullSysId = null;
-
-    var oldDocType;
-    var rootName;
-
-    doc1 = barfoo.barfoo();
-    oldDocType = doc1.doctype;
-
-    rootName = oldDocType.name;
-
-
-    doc2 = barfoo.barfoo();
-    domImpl1 = doc1.implementation;
-    domImpl2 = doc2.implementation;
-    docType1 = domImpl1.createDocumentType(rootName,nullPubId,nullSysId);
-    docType2 = domImpl2.createDocumentType(rootName,nullPubId,nullSysId);
-    isEqual = docType1.isEqualNode(docType2);
-    test.ok(isEqual, 'nodeisequalnode22');
-
+    var doc1 = barfoo.barfoo();
+    var doc2 = barfoo.barfoo();
+    var docType1 = doc1.implementation.createDocumentType(doc1.doctype.name, null, null);
+    var docType2 = doc2.implementation.createDocumentType(doc1.doctype.name, null, null);
+    test.ok(docType1.isEqualNode(docType2), 'nodeisequalnode22');
     test.done()
   },
 
@@ -19980,33 +19519,11 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode25: function (test) {
-    var success;
-    var doc1;
-    var doc2;
-    var docType1;
-    var docType2;
-    var entitiesMap1;
-    var entitiesMap2;
-    var alpha;
-    var beta;
-    var isEqual;
-
-    doc1 = hc_staff.hc_staff();
-
-    doc2 = hc_staff.hc_staff();
-    docType1 = doc1.doctype;
-
-    docType2 = doc2.doctype;
-
-    entitiesMap1 = docType1.entities;
-
-    entitiesMap2 = docType2.entities;
-
-    alpha = entitiesMap1.getNamedItem("delta");
-    beta = entitiesMap2.getNamedItem("delta");
-    isEqual = alpha.isEqualNode(beta);
-    test.ok(isEqual, 'nodeisequalnode25');
-
+    var doc1 = hc_staff.hc_staff();
+    var doc2 = hc_staff.hc_staff();
+    var alpha = doc1.doctype.entities.getNamedItem('delta');
+    var beta = doc2.doctype.entities.getNamedItem('delta');
+    test.ok(alpha.isEqualNode(beta), 'nodeisequalnode25');
     test.done()
   },
 
@@ -20022,33 +19539,11 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode26: function (test) {
-    var success;
-    var doc1;
-    var doc2;
-    var docType1;
-    var docType2;
-    var notationsMap1;
-    var notationsMap2;
-    var notation1;
-    var notation2;
-    var isEqual;
-
-    doc1 = hc_staff.hc_staff();
-
-    doc2 = hc_staff.hc_staff();
-    docType1 = doc1.doctype;
-
-    docType2 = doc2.doctype;
-
-    notationsMap1 = docType1.notations;
-
-    notationsMap2 = docType2.notations;
-
-    notation1 = notationsMap1.getNamedItem("notation1");
-    notation2 = notationsMap2.getNamedItem("notation1");
-    isEqual = notation1.isEqualNode(notation2);
-    test.ok(isEqual, 'nodeisequalnode26');
-
+    var doc1 = hc_staff.hc_staff();
+    var doc2 = hc_staff.hc_staff();
+    var notation1 = doc1.doctype.notations.getNamedItem('notation1');
+    var notation2 = doc2.doctype.notations.getNamedItem('notation1');
+    test.ok(notation1.isEqualNode(notation2), 'nodeisequalnode26');
     test.done()
   },
 
@@ -20064,27 +19559,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode27: function (test) {
-    var success;
-    var doc;
-    var docType;
-    var entitiesMap;
-    var notationsMap;
-    var alpha;
-    var notation1;
-    var isEqual;
-
-    doc = hc_staff.hc_staff();
-    docType = doc.doctype;
-
-    entitiesMap = docType.entities;
-
-    notationsMap = docType.notations;
-
-    alpha = entitiesMap.getNamedItem("alpha");
-    notation1 = notationsMap.getNamedItem("notation1");
-    isEqual = notation1.isEqualNode(alpha);
-    test.equal(isEqual, false, 'nodeisequalnode27');
-
+    var doc = hc_staff.hc_staff();
+    var alpha = doc.doctype.entities.getNamedItem('alpha');
+    var notation1 = doc.doctype.notations.getNamedItem('notation1');
+    test.equal(notation1.isEqualNode(alpha), false, 'nodeisequalnode27');
     test.done()
   },
 
@@ -20100,22 +19578,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode28: function (test) {
-    var success;
-    var doc;
-    var text1;
-    var text2;
-    var text3;
-    var isEqual;
-
-    doc = hc_staff.hc_staff();
-    text1 = doc.createTextNode("");
-    text2 = doc.createTextNode("");
-    text3 = doc.createTextNode("#Text");
-    isEqual = text1.isEqualNode(text2);
-    test.ok(isEqual, 'nodeisequalnodeTrue28');
-    isEqual = text1.isEqualNode(text3);
-    test.equal(isEqual, false, 'nodeisequalnodeFalse28');
-
+    var doc = hc_staff.hc_staff();
+    var text1 = doc.createTextNode('');
+    var text2 = doc.createTextNode('');
+    var text3 = doc.createTextNode('#Text');
+    test.ok(text1.isEqualNode(text2), 'nodeisequalnodeTrue28');
+    test.equal(text1.isEqualNode(text3), false, 'nodeisequalnodeFalse28');
     test.done()
   },
 
@@ -20131,22 +19599,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode29: function (test) {
-    var success;
-    var doc;
-    var comment1;
-    var comment2;
-    var comment3;
-    var isEqual;
-
-    doc = hc_staff.hc_staff();
-    comment1 = doc.createComment("comment");
-    comment2 = doc.createComment("comment");
-    comment3 = doc.createComment("#Comment");
-    isEqual = comment1.isEqualNode(comment2);
-    test.ok(isEqual, 'nodeisequalnodeTrue29');
-    isEqual = comment1.isEqualNode(comment3);
-    test.equal(isEqual, false, 'nodeisequalnodeFalse29');
-
+    var doc = hc_staff.hc_staff();
+    var comment1 = doc.createComment('comment');
+    var comment2 = doc.createComment('comment');
+    var comment3 = doc.createComment('#Comment');
+    test.ok(comment1.isEqualNode(comment2), 'nodeisequalnodeTrue29');
+    test.equal(comment1.isEqualNode(comment3), false, 'nodeisequalnodeFalse29');
     test.done()
   },
 
@@ -20162,22 +19620,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode31: function (test) {
-    var success;
-    var doc;
-    var cdata1;
-    var cdata2;
-    var cdata3;
-    var isEqual;
-
-    doc = hc_staff.hc_staff();
-    cdata1 = doc.createCDATASection("cdata");
-    cdata2 = doc.createCDATASection("cdata");
-    cdata3 = doc.createCDATASection("#CDATASection");
-    isEqual = cdata1.isEqualNode(cdata2);
-    test.ok(isEqual, 'nodeisequalnodeTrue29');
-    isEqual = cdata1.isEqualNode(cdata3);
-    test.equal(isEqual, false, 'nodeisequalnodeFalse29');
-
+    var doc = hc_staff.hc_staff();
+    var cdata1 = doc.createCDATASection('cdata');
+    var cdata2 = doc.createCDATASection('cdata');
+    var cdata3 = doc.createCDATASection('#CDATASection');
+    test.ok(cdata1.isEqualNode(cdata2), 'nodeisequalnodeTrue29');
+    test.equal(cdata1.isEqualNode(cdata3), false, 'nodeisequalnodeFalse29');
     test.done()
   },
 
@@ -20193,22 +19641,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode32: function (test) {
-    var success;
-    var doc;
-    var pi1;
-    var pi2;
-    var pi3;
-    var isEqual;
-
-    doc = hc_staff.hc_staff();
-    pi1 = doc.createProcessingInstruction("Target1","pi");
-    pi2 = doc.createProcessingInstruction("Target1","pi");
-    pi3 = doc.createProcessingInstruction("Target1","#ProcessingInstruction");
-    isEqual = pi1.isEqualNode(pi2);
-    test.ok(isEqual, 'nodeisequalnodeTrue29');
-    isEqual = pi1.isEqualNode(pi3);
-    test.equal(isEqual, false, 'nodeisequalnodeFalse29');
-
+    var doc = hc_staff.hc_staff();
+    var pi1 = doc.createProcessingInstruction('Target1', 'pi');
+    var pi2 = doc.createProcessingInstruction('Target1', 'pi');
+    var pi3 = doc.createProcessingInstruction('Target1', '#ProcessingInstruction');
+    test.ok(pi1.isEqualNode(pi2), 'nodeisequalnodeTrue29');
+    test.equal(pi1.isEqualNode(pi3), false, 'nodeisequalnodeFalse29');
     test.done()
   },
 
@@ -25415,23 +24853,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-setUserData
    */
   nodesetuserdata01: function (test) {
-    var success;
-    var doc;
-    var userData;
-    var prevUserData;
-    var nullHandler = null;
-
-    var nullData = null;
-
-
-    doc = hc_staff.hc_staff();
-    if (null == nullHandler) {
-      doc.setUserData("something", nullData, null);
-    } else {
-      doc.setUserData("something", nullData, nullHandler.handle);
-    }
+    var doc = hc_staff.hc_staff();
+    var prevUserData = doc.setUserData('something', null, null);
     test.equal(prevUserData, null, 'nodesetuserdata01');
-
     test.done()
   },
 
@@ -25447,24 +24871,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-setUserData
    */
   nodesetuserdata02: function (test) {
-    var success;
-    var doc;
-    var userData;
-    var prevUserData;
-    var test = null;
-
-    var str = "Junk";
-    var nullHandler = null;
-
-
-    doc = hc_staff.hc_staff();
-    if (null == nullHandler) {
-      doc.setUserData("something", test, null);
-    } else {
-      doc.setUserData("something", test, nullHandler.handle);
-    }
+    var doc = hc_staff.hc_staff();
+    var prevUserData = doc.setUserData('something', 'test', null);
     test.equal(prevUserData, null, 'nodesetuserdata02');
-
     test.done()
   },
 
@@ -25479,33 +24888,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-setUserData
    */
   nodesetuserdata03: function (test) {
-    var success;
-    var doc;
-    var userData;
-    var retUserData;
-    var returnedUserData;
-    var success;
-    var elem;
-    var txt;
-    var nullHandler = null;
-
-
-    doc = hc_staff.hc_staff();
-    elem = doc.createElementNS("http://www.w3.org/1999/xhtml","xhtml:p");
-    txt = doc.createTextNode("TEXT");
-    if (null == nullHandler) {
-      doc.setUserData("Key1", elem, null);
-    } else {
-      doc.setUserData("Key1", elem, nullHandler.handle);
-    }
-    if (null == nullHandler) {
-      doc.setUserData("Key1", txt, null);
-    } else {
-      doc.setUserData("Key1", txt, nullHandler.handle);
-    }
-    success = retUserData.isEqualNode(elem);
-    test.ok(success, 'nodesetuserdata03');
-
+    var doc = hc_staff.hc_staff();
+    var elem = doc.createElementNS('http://www.w3.org/1999/xhtml', 'xhtml:p');
+    var txt = doc.createTextNode('TEXT');
+    doc.setUserData('Key1', elem, null);
+    var retUserData = doc.setUserData('Key1', txt, null);
+    test.ok(retUserData.isEqualNode(elem), 'nodesetuserdata03');
     test.done()
   },
 
@@ -25522,36 +24910,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-setUserData
    */
   nodesetuserdata04: function (test) {
-    var success;
-    var doc;
-    var userData;
-    var returned1;
-    var returned2;
-    var retUserData;
-    var success;
-    var elem;
-    var txt;
-    var nullHandler = null;
-
-
-    doc = hc_staff.hc_staff();
-    elem = doc.createElementNS("http://www.w3.org/1999/xhtml","p");
-    txt = doc.createTextNode("TEXT");
-    if (null == nullHandler) {
-      elem.setUserData("Key1", txt, null);
-    } else {
-      elem.setUserData("Key1", txt, nullHandler.handle);
-    }
-    if (null == nullHandler) {
-      elem.setUserData("Key2", txt, null);
-    } else {
-      elem.setUserData("Key2", txt, nullHandler.handle);
-    }
-    returned1 = elem.getUserData("Key1");
-    returned2 = elem.getUserData("Key2");
-    success = returned1.isEqualNode(returned2);
-    test.ok(success, 'nodesetuserdata04');
-
+    var doc = hc_staff.hc_staff();
+    var elem = doc.createElementNS('http://www.w3.org/1999/xhtml', 'p');
+    var txt = doc.createTextNode('TEXT');
+    elem.setUserData('Key1', txt, null);
+    elem.setUserData('Key2', txt, null);
+    var returned1 = elem.getUserData('Key1');
+    var returned2 = elem.getUserData('Key2');
+    test.ok(returned1.isEqualNode(returned2), 'nodesetuserdata04');
     test.done()
   },
 
@@ -25568,37 +24934,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-setUserData
    */
   nodesetuserdata05: function (test) {
-    var success;
-    var doc;
-    var doc2;
-    var userData;
-    var returned1;
-    var returned2;
-    var retUserData;
-    var success;
-    var attr;
-    var nullHandler = null;
-
-
-    doc = hc_staff.hc_staff();
-
-    doc2 = hc_staff.hc_staff();
-    attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","lang");
-    if (null == nullHandler) {
-      attr.setUserData("Key1", doc, null);
-    } else {
-      attr.setUserData("Key1", doc, nullHandler.handle);
-    }
-    if (null == nullHandler) {
-      attr.setUserData("Key2", doc2, null);
-    } else {
-      attr.setUserData("Key2", doc2, nullHandler.handle);
-    }
-    returned1 = attr.getUserData("Key1");
-    returned2 = attr.getUserData("Key2");
-    success = returned1.isEqualNode(returned2);
-    test.ok(success, 'nodesetuserdata05');
-
+    var doc = hc_staff.hc_staff();
+    var doc2 = hc_staff.hc_staff();
+    var attr = doc.createAttributeNS('http://www.w3.org/XML/1998/namespace', 'lang');
+    attr.setUserData('Key1', doc, null);
+    attr.setUserData('Key2', doc2, null);
+    var returned1 = attr.getUserData('Key1');
+    var returned2 = attr.getUserData('Key2');
+    test.ok(returned1.isEqualNode(returned2), 'nodesetuserdata05');
     test.done()
   },
 
@@ -25615,39 +24958,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-setUserData
    */
   nodesetuserdata06: function (test) {
-    var success;
-    var doc;
-    var docType;
-    var entities;
-    var entity;
-    var comment;
-    var userData;
-    var returned;
-    var retUserData;
-    var success;
-    var nullHandler = null;
-
-
-    doc = hc_staff.hc_staff();
-    docType = doc.doctype;
-
-    entities = docType.entities;
-
-    entity = entities.getNamedItem("delta");
-    comment = doc.createComment("COMMENT_NODE");
-    if (null == nullHandler) {
-      comment.setUserData("Key1", entity, null);
-    } else {
-      comment.setUserData("Key1", entity, nullHandler.handle);
-    }
-    if (null == nullHandler) {
-      comment.setUserData("Key1", entity, null);
-    } else {
-      comment.setUserData("Key1", entity, nullHandler.handle);
-    }
-    success = returned.isEqualNode(entity);
-    test.ok(success, 'nodesetuserdata06');
-
+    var doc = hc_staff.hc_staff();
+    var entity = doc.doctype.entities.getNamedItem('delta');
+    var comment = doc.createComment('COMMENT_NODE');
+    comment.setUserData('Key1', entity, null);
+    var returned = comment.setUserData('Key1', entity, null);
+    test.ok(returned.isEqualNode(entity), 'nodesetuserdata06');
     test.done()
   },
 
@@ -25664,39 +24980,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-setUserData
    */
   nodesetuserdata07: function (test) {
-    var success;
-    var doc;
-    var docType;
-    var notations;
-    var notation;
-    var comment;
-    var userData;
-    var returned;
-    var success;
-    var retUserData;
-    var nullHandler = null;
-
-
-    doc = hc_staff.hc_staff();
-    docType = doc.doctype;
-
-    notations = docType.notations;
-
-    notation = notations.getNamedItem("notation1");
-    comment = doc.createComment("COMMENT_NODE");
-    if (null == nullHandler) {
-      notation.setUserData("Key1", comment, null);
-    } else {
-      notation.setUserData("Key1", comment, nullHandler.handle);
-    }
-    if (null == nullHandler) {
-      notation.setUserData("Key1", comment, null);
-    } else {
-      notation.setUserData("Key1", comment, nullHandler.handle);
-    }
-    success = returned.isEqualNode(comment);
-    test.ok(success, 'nodesetuserdata07');
-
+    var doc = hc_staff.hc_staff();
+    var notation = doc.doctype.notations.getNamedItem('notation1');
+    var comment = doc.createComment('COMMENT_NODE');
+    notation.setUserData('Key1', comment, null);
+    var returned = notation.setUserData('Key1', comment, null);
+    test.ok(returned.isEqualNode(comment), 'nodesetuserdata07');
     test.done()
   },
 
@@ -25711,41 +25000,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-setUserData
    */
   nodesetuserdata08: function (test) {
-    var success;
-    var doc;
-    var docElem;
-    var entRef;
-    var cData;
-    var elemList;
-    var elemName;
-    var userData;
-    var returned1;
-    var returned2;
-    var success;
-    var retUserData;
-    var nullHandler = null;
-
-
-    doc = hc_staff.hc_staff();
-    docElem = doc.documentElement;
-
-    entRef = doc.createEntityReference("delta");
-    cData = doc.createCDATASection("CDATASection");
-    if (null == nullHandler) {
-      entRef.setUserData("Key1", doc, null);
-    } else {
-      entRef.setUserData("Key1", doc, nullHandler.handle);
-    }
-    if (null == nullHandler) {
-      cData.setUserData("Key2", docElem, null);
-    } else {
-      cData.setUserData("Key2", docElem, nullHandler.handle);
-    }
-    returned1 = entRef.getUserData("Key1");
-    returned2 = cData.getUserData("Key2");
-    success = returned1.isEqualNode(returned2);
-    test.equal(success, false, 'nodesetuserdata08');
-
+    var doc = hc_staff.hc_staff();
+    var entRef = doc.createEntityReference('delta');
+    var cData = doc.createCDATASection('CDATASection');
+    entRef.setUserData('Key1', doc, null);
+    cData.setUserData('Key2', doc.documentElement, null);
+    var returned1 = entRef.getUserData('Key1');
+    var returned2 = cData.getUserData('Key2');
+    test.equal(returned1.isEqualNode(returned2), false, 'nodesetuserdata08');
     test.done()
   },
 
@@ -25763,25 +25025,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-setUserData
    */
   nodesetuserdata09: function (test) {
-    var success;
-    var doc;
-    var docElem;
-    var returned;
-    var nullHandler = null;
-
-    var retUserData;
-
-    doc = hc_staff.hc_staff();
-    docElem = doc.documentElement;
-
-    if (null == nullHandler) {
-      docElem.setUserData("Key1", doc, null);
-    } else {
-      docElem.setUserData("Key1", doc, nullHandler.handle);
-    }
-    returned = doc.getUserData("Key1");
-    test.equal(returned, null, 'nodesetuserdata09');
-
+    var doc = hc_staff.hc_staff();
+    doc.documentElement.setUserData('Key1', doc, null);
+    test.equal(doc.getUserData('Key1'), null, 'nodesetuserdata09');
     test.done()
   },
 
@@ -25796,44 +25042,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-setUserData
    */
   nodesetuserdata10: function (test) {
-    var success;
-    var doc;
-    var docElem;
-    var entRef;
-    var cData;
-    var varList;
-    var varElem;
-    var userData;
-    var returned1;
-    var returned2;
-    var success;
-    var retUserData;
-    var nullHandler = null;
-
-
-    doc = hc_staff.hc_staff();
-    docElem = doc.documentElement;
-
-    varList = doc.getElementsByTagName("var");
-    varElem = varList.item(2);
-    entRef = varElem.firstChild;
-
-    cData = doc.createCDATASection("CDATASection");
-    if (null == nullHandler) {
-      entRef.setUserData("Key1", doc, null);
-    } else {
-      entRef.setUserData("Key1", doc, nullHandler.handle);
-    }
-    if (null == nullHandler) {
-      cData.setUserData("Key2", docElem, null);
-    } else {
-      cData.setUserData("Key2", docElem, nullHandler.handle);
-    }
-    returned1 = entRef.getUserData("Key1");
-    returned2 = cData.getUserData("Key2");
-    success = returned1.isEqualNode(returned2);
-    test.equal(success, false, 'nodesetuserdata08');
-
+    var doc = hc_staff.hc_staff();
+    var entRef = doc.getElementsByTagName('var').item(2).firstChild;
+    var cData = doc.createCDATASection('CDATASection');
+    entRef.setUserData('Key1', doc, null);
+    cData.setUserData('Key2', doc.documentElement, null);
+    var returned1 = entRef.getUserData('Key1');
+    var returned2 = cData.getUserData('Key2');
+    test.equal(returned1.isEqualNode(returned2), false, 'nodesetuserdata10');
     test.done()
   },
 
@@ -29319,16 +28535,21 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#ID-handleUserDataEvent
    */
   userdatahandler01: function (test) {
+    var udh = new core.UserDataHandler();
+    udh.notifications = [];
+    udh.handle = function(operation, key, data, src, dst) {
+      udh.notifications.push({operation: operation, key: key, data: data, src: src, dst: dst})
+    };
     var xs = {greeting: 'Hello', salutation: 'Mr.'};
     var cs = {greeting: 0, salutation: 0}
     var doc = barfoo.barfoo();
     var node = doc.getElementsByTagName('p').item(0);
-    node.setUserData('greeting', 'Hello', null);
-    node.setUserData('salutation', 'Mr.', null);
+    node.setUserData('greeting', 'Hello', udh.handle);
+    node.setUserData('salutation', 'Mr.', udh.handle);
     var newNode = doc.renameNode(node, node.namespaceURI, 'div');
-    test.equal(userDataMonitor.allNotifications.length, 2, 'twoNotifications');
-    userDataMonitor.allNotifications.forEach(function(notification){
-      test.equal(notification.operation, 4, 'operationIsRename');
+    test.equal(udh.notifications.length, 2, 'twoNotifications');
+    udh.notifications.forEach(function(notification){
+      test.equal(notification.operation, udh.NODE_RENAME, 'operationIsRename');
       test.equal(notification.data, xs[notification.key], 'notification.data should be '+xs[notification.key]);
       test.equal(notification.src, node, 'srcIsNode')
       if (notification.dst == null) {
