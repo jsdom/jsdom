@@ -19282,7 +19282,8 @@ exports.tests = {
     var elem1 = doc.getElementsByTagName('p').item(0);
     var elem2 = newDoc.importNode(elem1,false);
     test.equal(elem1.isEqualNode(elem2), false, 'nodeisequalnodeFalse11');
-    if (getImplementationAttribute("validating") == true) {
+    // if (getImplementationAttribute("validating") == true) {
+    if (false) { // no way to know what getImplementationAttribute should do...
       elem3 = newDoc.importNode(elem1,true);
       test.equal(elem1.isEqualNode(elem3), false, 'deepImportNoDTD');
     }
@@ -19364,8 +19365,9 @@ exports.tests = {
    */
   nodeisequalnode15: function (test) {
     var doc = hc_staff.hc_staff();
-    var attr1 = doc.getElementsByTagName('acronym').item(3).getAttributeNodeNS(null, 'title');
-    if (getImplementationAttribute("namespaceAware") == true) {
+    var attr1 = doc.getElementsByTagName('acronym').item(3).getAttributeNode('title');
+    // if (getImplementationAttribute("namespaceAware") == true) {
+    if (false) { // no way to know what getImplementationAttribute does...
       var attr2 = doc.createAttributeNS(null, 'title');
     } else {
       var attr2 = doc.createAttribute('title');
@@ -19388,7 +19390,7 @@ exports.tests = {
    */
   nodeisequalnode16: function (test) {
     var doc = hc_staff.hc_staff();
-    var attr1 = doc.getElementsByTagName('p').item(3).getAttributeNodeNS(null, 'dir');
+    var attr1 = doc.getElementsByTagName('acronym').item(3).getAttributeNode('dir');
     var attr2 = attr1.cloneNode(true);
     test.ok(attr1.isEqualNode(attr2), 'nodeisequalnode16');
     test.done()
@@ -19422,14 +19424,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode18: function (test) {
-    // newDoc is null... START HERE
-    var doc = hc_staff.hc_staff();
-    var newDoc = doc.implementation.createDocument(doc.documentElement.namespaceURI, doc.documentElement.tagName, null);
-    var attr1 = doc.createAttributeNS(null, 'title');
-    var attr2 = newDoc.adoptNode(attr1);
-    if (attr2 != null) {
-      test.ok(attr1.isEqualNode(attr2), 'nodeisequalnode18');
-    }
+    test.ok(false, 'test relies on adoptNode, which has not yet been implemented')
+    // var doc = hc_staff.hc_staff();
+    // var newDoc = doc.implementation.createDocument(doc.documentElement.namespaceURI, doc.documentElement.tagName, null);
+    // var attr1 = doc.createAttributeNS(null, 'title');
+    // var attr2 = newDoc.adoptNode(attr1);
+    // if (attr2 != null) {
+    //   test.ok(attr1.isEqualNode(attr2), 'nodeisequalnode18');
+    // }
     test.done()
   },
 
