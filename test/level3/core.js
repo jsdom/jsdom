@@ -19329,7 +19329,7 @@ exports.tests = {
     var elem2 = elem1.cloneNode(false);
     test.equal(elem1.isEqualNode(elem2), false, 'nodeisequalnodeFalse13');
     var elem3 = elem1.cloneNode(true);
-    test.ok(elem1.isEqualNode(elem3), 'nodeisequalnodeTrue13');
+    test.ok(elem1.isEqualNode(elem3), 'nodeisequalnodeTrue13 -- NOTE: failing currently because cloneNode(true) is not correctly implemented');
     test.done()
   },
 
@@ -19424,7 +19424,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-isEqualNode
    */
   nodeisequalnode18: function (test) {
-    test.ok(false, 'test relies on adoptNode, which has not yet been implemented')
+    test.ok(false, 'NOTE: test relies on adoptNode, which has not yet been implemented')
     // var doc = hc_staff.hc_staff();
     // var newDoc = doc.implementation.createDocument(doc.documentElement.namespaceURI, doc.documentElement.tagName, null);
     // var attr1 = doc.createAttributeNS(null, 'title');
