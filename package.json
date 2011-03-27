@@ -86,7 +86,7 @@
        "htmlparser": ">=1.7.0",
        "request"   : ">=1.0.0"
     },
-    "devDependiencies" : {
+    "devDependencies" : {
       "mjsunit.runner" : ">=0.1.0"
     },
     "engines" : { "node" : ">=0.1.9" },
