@@ -19283,12 +19283,11 @@ exports.tests = {
     var elem2 = newDoc.importNode(elem1,false);
     test.equal(elem1.isEqualNode(elem2), false, 'nodeisequalnodeFalse11');
     // if (getImplementationAttribute("validating") == true) {
-    if (false) { // no way to know what getImplementationAttribute should do...
-      elem3 = newDoc.importNode(elem1,true);
-      test.equal(elem1.isEqualNode(elem3), false, 'deepImportNoDTD');
-    }
+    elem3 = newDoc.importNode(elem1,true);
+    test.equal(elem1.isEqualNode(elem3), false, 'deepImportNoDTD');
+    // }
     var dupDoc = hc_staff.hc_staff();
-    var elem4 = dupDoc.importNode(elem1,true);
+    var elem4 = dupDoc.importNode(elem1, true);
     test.ok(elem1.isEqualNode(elem4), 'deepImportSameDTD');
     test.done()
   },

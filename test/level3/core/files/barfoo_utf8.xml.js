@@ -7,7 +7,7 @@
 <!ELEMENT head (title,script*)>
 <!ELEMENT title (#PCDATA)>
 <!ELEMENT script (#PCDATA)>
-<!ATTLIST script 
+<!ATTLIST script
      src CDATA #IMPLIED
      type CDATA #IMPLIED
      charset CDATA #IMPLIED>
@@ -26,3 +26,19 @@
 <p>bar</p>
 </body>
 </html>*/
+
+var core = require("../../../../lib/jsdom/level3/core").dom.level3.core;
+
+exports.barfoo_utf8 = function() {
+  var doc = new core.Document();
+  var implementation = new core.DOMImplementation(doc, {"XML":  ["1.0", "2.0"], "core": ["1.0", "2.0", "3.0"]});
+
+  var notations = new core.NotationNodeMap(doc, doc.createNotationNode("notation1","notation1File", null));
+
+  var entities = new core.EntityNodeMap(doc,
+    doc.createEntityNode('ent1', doc.createTextNode('foo')),
+    doc.createEntityNode('ent2', doc.createTextNode('foo<br/>')));
+
+  doc.normalize();
+  return(doc);
+};
