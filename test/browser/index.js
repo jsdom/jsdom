@@ -213,6 +213,13 @@ exports.tests = {
     assertTrue('Doctype did not serialize correctly',
         /^\s*<!DOCTYPE foo SYSTEM \'foo "bar".dtd\'>/.test(document.outerHTML));
   },
+  parse_doctype_containing_newline : function() {
+    var html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"\n \
+             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n<html></html>',
+        doc  = new browser.Document();
+    doc.innerHTML = html;
+    assertTrue('doctype should not be falsy', !!doc.doctype);
+  },
   basic_nodelist_indexOf : function() {
     var doc = new browser.Document();
 
