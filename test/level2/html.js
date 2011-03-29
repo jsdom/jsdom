@@ -111,7 +111,7 @@ exports.tests = {
     var doc = load("anchor");
     var nodeList = doc.getElementsByTagName("a");
     test.equal(nodeList.length, 1, 'Asize');
-    test.equal(nodeList.item(0).href, __dirname+'/html/files/pix/submit.gif', 'hrefLink');
+    test.equal(nodeList.item(0).href, 'file://'+__dirname+'/html/files/pix/submit.gif', 'hrefLink');
     test.done();
   },
 
@@ -17263,7 +17263,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vhref = testNode.href;
-    test.equal(vhref, __dirname+'/html/files/pix/submit.gif', 'hrefLink');
+    test.equal(vhref, 'file://'+__dirname+'/html/files/pix/submit.gif', 'hrefLink');
     test.done();
   },
 
