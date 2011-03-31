@@ -103,15 +103,13 @@ exports.tests = {
             done: function(errors, window) {
               server.close();
               if (errors) {
-                console.log(errors);
-                // test.ok(false, errors.message)
+                test.ok(false, errors.message)
               } else {
-                console.log("WINDOW GOOD!");
-                // test.notEqual(window.location, null, 'window.location should not be null');
-                // test.equal(window.attachedHere, 123, 'script should execute on our window');
-                // test.equal(window.document.getElementsByTagName("a").item(0).innerHTML, 'World', 'anchor text');
+                test.notEqual(window.location, null, 'window.location should not be null');
+                test.equal(window.attachedHere, 123, 'script should execute on our window');
+                test.equal(window.document.getElementsByTagName("a").item(0).innerHTML, 'World', 'anchor text');
               }
-              // test.done();
+              test.done();
             }
           });
         };
