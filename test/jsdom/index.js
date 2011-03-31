@@ -512,5 +512,8 @@ bye = bye + "bye";\
       document.body.insertBefore(h1, h2);
       document.body.insertBefore(h3, null);
       assertEquals("an event should be dispatched for each created element", 'H2H1H3', created);
+      document.body.removeChild(h1);
+      document.body.insertBefore(h3, h2);
+      assertEquals("an event should be dispatched for each removed element", 'H1H3', removed);
     }
 };
