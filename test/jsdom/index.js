@@ -492,6 +492,25 @@ bye = bye + "bye";\
       var window = jsdom.jsdom("").createWindow();
       assertTrue('document.location and window.location', 
                    window.document.location === window.location);
+    },
+
+    mutation_events : function() {
+      var document = jsdom.jsdom();
+      document.implementation.addFeature('MutationEvents', '2.0');
+      var created = '';
+      var removed = '';
+      document.addEventListener('DOMNodeInserted', function(ev) {
+        created += ev.target.tagName;
+      });
+      document.addEventListener('DOMNodeRemoved', function(ev) {
+        removed += ev.target.tagName;
+      });
+      var h1 = document.createElement('h1');
+      var h2 = document.createElement('h2');
+      var h3 = document.createElement('h3');
+      document.body.appendChild(h2);
+      document.body.insertBefore(h1, h2);
+      document.body.insertBefore(h3, null);
+      assertEquals("an event should be dispatched for each created element", 'H2H1H3', created);
     }
-    
 };
