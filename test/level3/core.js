@@ -4539,15 +4539,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-inputEncoding
    */
   documentgetinputencoding01: function (test) {
-    var success;
-    var doc;
-    var encodingName;
-
-    doc = hc_staff.hc_staff();
-    encodingName = doc.inputEncoding;
-
-    test.equal(encodingName.toLowerCase(), "UTF-8".toLowerCase(), 'documentgetinputencoding01');
-
+    var doc = hc_staff.hc_staff();
+    test.equal(doc.inputEncoding.toLowerCase(), "UTF-8".toLowerCase(), 'documentgetinputencoding01');
     test.done()
   },
 
@@ -4561,30 +4554,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-inputEncoding
    */
   documentgetinputencoding02: function (test) {
-    var success;
-    var doc;
-    var newDoc;
-    var domImpl;
-    var encodingName;
-    var nullDocType = null;
-
-    var docElem;
-    var rootNS;
-    var rootName;
-
-    doc = barfoo.barfoo();
-    domImpl = doc.implementation;
-    docElem = doc.documentElement;
-
-    rootNS = docElem.namespaceURI;
-
-    rootName = docElem.tagName;
-
-    newDoc = domImpl.createDocument(rootNS,rootName,nullDocType);
-    encodingName = newDoc.inputEncoding;
-
-    test.equal(encodingName, null, 'documentgetinputencoding02');
-
+    var doc = barfoo.barfoo();
+    var newDoc = doc.implementation.createDocument(doc.documentElement.namespaceURI, doc.documentElement.tagName, null);
+    test.equal(newDoc.inputEncoding, null, 'documentgetinputencoding02');
     test.done()
   },
 
@@ -4598,15 +4570,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-inputEncoding
    */
   documentgetinputencoding03: function (test) {
-    var success;
-    var doc;
-    var encodingName;
-
-    doc = barfoo_utf16.barfoo_utf16();
-    encodingName = doc.inputEncoding;
-
-    test.equal(encodingName.toLowerCase(), "UTF-16BE".toLowerCase(), 'documentgetinputencoding03');
-
+    var doc = barfoo_utf16.barfoo_utf16();
+    test.equal(doc.inputEncoding.toLowerCase(), "UTF-16BE".toLowerCase(), 'documentgetinputencoding03');
     test.done()
   },
 
@@ -4620,17 +4585,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Document3-inputEncoding
    */
   documentgetinputencoding04: function (test) {
-    var success;
-    var doc;
-    var cloned;
-    var encodingName;
-
-    doc = barfoo_utf8.barfoo_utf8();
-    cloned = doc.cloneNode(true);
-    encodingName = cloned.inputEncoding;
-
+    var doc = barfoo_utf8.barfoo_utf8();
+    var cloned = doc.cloneNode(true);
+    var encodingName = cloned.inputEncoding;
     test.ok((("UTF-8".toUpperCase() == encodingName.toUpperCase()) || (encodingName == null)), 'documentgetinputencoding04');
-
     test.done()
   },
 
@@ -7714,47 +7672,35 @@ exports.tests = {
     var doc;
     var domConfig;
     var nullDocType = null;
-
     var canSet;
     var state;
     var parameter = "cAnOnical-form";
     domImpl = getImplementation();
     doc = domImpl.createDocument("http://www.w3.org/1999/xhtml","html",nullDocType);
     domConfig = doc.domConfig;
-
     state = domConfig.getParameter(parameter);
     test.equal(state, false, 'defaultFalse');
     canSet = domConfig.canSetParameter(parameter,false);
     test.ok(canSet, 'canSetFalse');
     canSet = domConfig.canSetParameter(parameter,true);
 
-    if(
-      canSet
-    ) {
+    if(canSet) {
       domConfig.setParameter(parameter, true);
       state = domConfig.getParameter(parameter);
       test.ok(state, 'setTrueEffective');
-
-    }
-
-    else {
-
-      {
-	success = false;
-	try {
-          domConfig.setParameter(parameter, true);
-	}
-	catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-	}
-	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
+    } else {
+      success = false;
+      try {
+        domConfig.setParameter(parameter, true);
       }
+      catch(ex) {
+        success = (typeof(ex.code) != 'undefined' && ex.code == 9);
+      }
+      test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       state = domConfig.getParameter(parameter);
       test.equal(state, false, 'setTrueNotEffective');
-
     }
     domConfig.setParameter(parameter, false);
-
     test.done()
   },
 
@@ -7771,14 +7717,12 @@ exports.tests = {
     var doc;
     var domConfig;
     var nullDocType = null;
-
     var canSet;
     var state;
     var parameter = "cDaTa-sections";
     domImpl = getImplementation();
     doc = domImpl.createDocument("http://www.w3.org/1999/xhtml","html",nullDocType);
     domConfig = doc.domConfig;
-
     state = domConfig.getParameter(parameter);
     test.ok(state, 'defaultFalse');
     canSet = domConfig.canSetParameter(parameter,false);
@@ -7791,7 +7735,6 @@ exports.tests = {
     domConfig.setParameter(parameter, true);
     state = domConfig.getParameter(parameter);
     test.ok(state, 'setTrueEffective');
-
     test.done()
   },
 
@@ -9481,22 +9424,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-parameterNames
    */
   domstringlistcontains01: function (test) {
-    var success;
-    var doc;
-    var paramList;
-    var domConfig;
-    var contains;
-
-    doc = hc_staff.hc_staff();
-    domConfig = doc.domConfig;
-
-    paramList = domConfig.parameterNames;
-
-    contains = paramList.contains("comments");
-    test.ok(contains, 'paramsContainComments');
-    contains = paramList.contains("");
-    test.equal(contains, false, 'paramsDoesntContainEmpty');
-
+    var doc = hc_staff.hc_staff();
+    var paramList = doc.domConfig.parameterNames;
+    test.ok(paramList.contains('comments'), 'paramsContainComments');
+    test.equal(paramList.contains(''), false, 'paramsDoesntContainEmpty');
     test.done()
   },
 
@@ -9514,34 +9445,16 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMStringList-contains
    */
   domstringlistcontains02: function (test) {
-    var success;
-    var doc;
-    var paramList;
-    var domConfig;
-    var contain;
-
-    doc = hc_staff.hc_staff();
-    domConfig = doc.domConfig;
-
-    paramList = domConfig.parameterNames;
-
-    contain = paramList.contains("comments");
-    test.ok(contain, 'domstringlistcontains02_1');
-    contain = paramList.contains("cdata-sections");
-    test.ok(contain, 'domstringlistcontains02_2');
-    contain = paramList.contains("entities");
-    test.ok(contain, 'domstringlistcontains02_3');
-    contain = paramList.contains("error-handler");
-    test.ok(contain, 'domstringlistcontains02_4');
-    contain = paramList.contains("infoset");
-    test.ok(contain, 'domstringlistcontains02_5');
-    contain = paramList.contains("namespace-declarations");
-    test.ok(contain, 'domstringlistcontains02_6');
-    contain = paramList.contains("element-content-whitespace");
-    test.ok(contain, 'domstringlistcontains02_7');
-    contain = paramList.contains("test");
-    test.equal(contain, false, 'domstringlistcontains02_8');
-
+    var doc = hc_staff.hc_staff();
+    var paramList = doc.domConfig.parameterNames;
+    test.ok(paramList.contains("comments"), 'domstringlistcontains02_1');
+    test.ok(paramList.contains("cdata-sections"), 'domstringlistcontains02_2');
+    test.ok(paramList.contains("entities"), 'domstringlistcontains02_3');
+    test.ok(paramList.contains("error-handler"), 'domstringlistcontains02_4');
+    test.ok(paramList.contains("infoset"), 'domstringlistcontains02_5');
+    test.ok(paramList.contains("namespace-declarations"), 'domstringlistcontains02_6');
+    test.ok(paramList.contains("element-content-whitespace"), 'domstringlistcontains02_7');
+    test.equal(paramList.contains("test"), false, 'domstringlistcontains02_8');
     test.done()
   },
 
@@ -9559,22 +9472,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-parameterNames
    */
   domstringlistgetlength01: function (test) {
-    var success;
-    var doc;
-    var paramList;
-    var domConfig;
-    var listSize;
-
-    doc = hc_staff.hc_staff();
-    domConfig = doc.domConfig;
-
-    paramList = domConfig.parameterNames;
-
+    var doc = hc_staff.hc_staff();
+    var paramList = doc.domConfig.parameterNames;
     test.notEqual(paramList, null, 'domstringlistgetlength01_notNull');
-    listSize = paramList.length;
-
-    test.notEqual(listSize, 0, 'domstringlistgetlength01_notZero');
-
+    test.notEqual(paramList.length, 0, 'domstringlistgetlength01_notZero');
     test.done()
   },
 
@@ -9588,30 +9489,11 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMConfiguration-parameterNames
    */
   domstringlistitem01: function (test) {
-    var success;
-    var doc;
-    var paramList;
-    var domConfig;
-    var contains;
-    var length;
-    var index;
-    var parameter;
-
-    doc = hc_staff.hc_staff();
-    domConfig = doc.domConfig;
-
-    paramList = domConfig.parameterNames;
-
-    length = paramList.length;
-
-    parameter = paramList.item(0);
-    test.notEqual(parameter, null, 'item0NotNull');
-    parameter = paramList.item(length);
-    test.equal(parameter, null, 'itemLengthNull');
-    length -= 1;
-    parameter = paramList.item(length);
-    test.notEqual(parameter, null, 'itemLengthMinus1NotNull');
-
+    var doc = hc_staff.hc_staff();
+    var paramList = doc.domConfig.parameterNames;
+    test.notEqual(paramList.item(0), null, 'item0NotNull');
+    test.equal(paramList.item(paramList.length), null, 'itemLengthNull');
+    test.notEqual(paramList.item(paramList.length-1), null, 'itemLengthMinus1NotNull');
     test.done()
   },
 
@@ -9628,23 +9510,11 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#DOMStringList-item
    */
   domstringlistitem02: function (test) {
-    var success;
-    var doc;
-    var paramList;
-    var domConfig;
-    var listSize;
-    var retStr;
-
-    doc = hc_staff.hc_staff();
-    domConfig = doc.domConfig;
-
-    paramList = domConfig.parameterNames;
-
-    retStr = paramList.item(0);
-    test.notEqual(retStr, null, 'domstringlistitem02_notNull');
+    var doc = hc_staff.hc_staff();
+    var paramList = doc.domConfig.parameterNames;
+    test.notEqual(paramList.item(0), null, 'domstringlistitem02_notNull');
     retStr = paramList.item(100);
     test.equal(retStr, null, 'domstringlistitem02_null');
-
     test.done()
   },
 
