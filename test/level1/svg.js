@@ -11026,7 +11026,7 @@ exports.tests = {
           doc = load(docRef, "doc", "hc_staff");
           addressElementList = doc.getElementsByTagName("acronym");
           testAddress = addressElementList.item(4);
-          oldAttribute = doc.createAttribute("title");
+          oldAttribute = doc.createAttribute("value");
 
           {
             success = false;
