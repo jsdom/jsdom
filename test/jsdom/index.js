@@ -515,5 +515,34 @@ bye = bye + "bye";\
       document.body.removeChild(h1);
       document.body.insertBefore(h3, h2);
       assertEquals("an event should be dispatched for each removed element", 'H1H3', removed);
+    },
+
+    remove_listener_in_handler: function() {
+      var document = jsdom.jsdom();
+      var h1 = 0, h2 = 0;
+
+      // Event handler that removes itself
+      function handler1() {
+        h1++;
+        document.removeEventListener('click', handler1);
+      }
+
+      function handler2() {
+        h2++;
+      }
+
+      document.addEventListener('click', handler1);
+      document.addEventListener('click', handler2);
+
+      var ev = document.createEvent('MouseEvents');
+      ev.initEvent('click', true, true);
+
+      document.dispatchEvent(ev);
+      assertEquals("handler1 must be called once", 1, h1);
+      assertEquals("handler2 must be called once", 1, h2);
+
+      document.dispatchEvent(ev);
+      assertEquals("handler1 must be called once", 1, h1);
+      assertEquals("handler2 must be called twice", 2, h2);
     }
 };
