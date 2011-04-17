@@ -43,14 +43,14 @@ exports.MjsUnitAssertionError = MjsUnitAssertionError;
  * the f-word and ignore all other lines.
  */
 
-exports.fail = function(expected, found, name_opt, msg) {
+var fail = exports.fail = function(expected, found, name_opt, msg) {
   var start;
   start = "Failure (" + msg + "): ";
   throw new MjsUnitAssertionError(msg + " " + start + " expected <" + expected + "> found <" + found + ">");
 };
 
 
-exports.deepObjectEquals = function(a, b) {
+var deepObjectEquals = exports.deepObjectEquals = function(a, b) {
   var aProps = [];
   for (var key in a)
     aProps.push(key);
@@ -69,7 +69,7 @@ exports.deepObjectEquals = function(a, b) {
 };
 
 
-exports.deepEquals = function(a, b) {
+var deepEquals = exports.deepEquals = function(a, b) {
   if (a == b) return true;
   if (typeof a == "number" && typeof b == "number" && isNaN(a) && isNaN(b)) {
     return true;
@@ -100,15 +100,15 @@ exports.deepEquals = function(a, b) {
 };
 
 
-exports.assertEquals = function(msg, expected, found, name_opt) {
+var assertEquals = exports.assertEquals = function(msg, expected, found, name_opt) {
   if (!deepEquals(found, expected)) {
     fail(expected, found, name_opt, msg);
   }
 };
 
-exports.assertSame = exports.assertEquals;
+var assertSame = exports.assertSame = exports.assertEquals;
 
-exports.assertArrayEquals = function(msg, expected, found, name_opt) {
+var assertArrayEquals = exports.assertArrayEquals = function(msg, expected, found, name_opt) {
   var start = "";
   if (name_opt) {
     start = name_opt + " - ";
@@ -122,38 +122,38 @@ exports.assertArrayEquals = function(msg, expected, found, name_opt) {
 };
 
 
-exports.assertTrue = function(msg, value, name_opt) {
+var assertTrue = exports.assertTrue = function(msg, value, name_opt) {
   assertEquals(msg, true, value, name_opt);
 };
 
 
-exports.assertFalse = function(msg, value, name_opt) {
+var assertFalse = exports.assertFalse = function(msg, value, name_opt) {
   assertEquals(msg,false, value, name_opt);
 };
 
 
-exports.assertNaN = function(msg, value, name_opt) {
+var assertNaN = exports.assertNaN = function(msg, value, name_opt) {
   if (!isNaN(value)) {
     fail("NaN", value, name_opt, msg);
   }
 };
 
 
-exports.assertNull = function(msg, value, name_opt) {
+var assertNull = exports.assertNull = function(msg, value, name_opt) {
   if (value !== null) {
     fail("null", value, name_opt, msg);
   }
 };
 
 
-exports.assertNotNull = function(msg, value, name_opt) {
+var assertNotNull = exports.assertNotNull = function(msg, value, name_opt) {
   if (value === null) {
     fail("not null", value, name_opt, msg);
   }
 };
 
 
-exports.assertThrows = function(msg, code, type_opt, cause_opt) {
+var assertThrows = exports.assertThrows = function(msg, code, type_opt, cause_opt) {
   var threwException = true;
   try {
     if (typeof code == 'function') {
@@ -173,14 +173,14 @@ exports.assertThrows = function(msg, code, type_opt, cause_opt) {
 };
 
 
-exports.assertInstanceof = function(msg, obj, type) {
+var assertInstanceof = exports.assertInstanceof = function(msg, obj, type) {
   if (!(obj instanceof type)) {
     assertTrue(msg, false, "Object <" + obj + "> is not an instance of <" + type + ">");
   }
 };
 
 
-exports.assertDoesNotThrow = function(msg, code) {
+var assertDoesNotThrow = exports.assertDoesNotThrow = function(msg, code) {
   try {
     if (typeof code == 'function') {
       code();
@@ -193,7 +193,7 @@ exports.assertDoesNotThrow = function(msg, code) {
 };
 
 
-exports.assertUnreachable = function(msg, name_opt) {
+var assertUnreachable = exports.assertUnreachable = function(msg, name_opt) {
   // Fix this when we ditch the old test runner.
   var message = "Fail" + "ure: unreachable"
   if (name_opt) {
@@ -202,7 +202,7 @@ exports.assertUnreachable = function(msg, name_opt) {
   throw new MjsUnitAssertionError(message);
 };
 
-exports.assertSize = function(msg, obj, expected) {
+var assertSize = exports.assertSize = function(msg, obj, expected) {
   ocount = (obj && obj.length) ? obj.length : parseInt(obj);
   ecount = (expected) ? expected.length : parseInt(expected);
 
@@ -212,14 +212,14 @@ exports.assertSize = function(msg, obj, expected) {
   }    
 };
 
-exports.assertInstanceOf = function(msg, obj, expected) {
+var assertInstanceOf = exports.assertInstanceOf = function(msg, obj, expected) {
     if (!(obj instanceof expected))
     {
         throw new MjsUnitAssertionError("Failure: " + " is not an instance of " + expected);
     }  
 };
 
-exports.assertEqualsList = function(msg, obj, expected) {
+var assertEqualsList = exports.assertEqualsList = function(msg, obj, expected) {
 
   for (var i=0; i<expected.length; i++)
   {
