@@ -603,7 +603,7 @@ bye = bye + "bye";\
       assertEquals('unchanged', true, option1.defaultSelected);
     },
     case_sensitivity_of_markup_missing_html_and_body : function(){
-        var spaces = /[ \r\n]*/g,
+        var spaces = /[ \n]*/g,
             doc1 = jsdom.html("<HTML><BODY></BODY></HTML>").outerHTML.replace(spaces, ''),
             doc2 = jsdom.html("<html><BODY></Body></HTML>").outerHTML.replace(spaces, ''),
             doc3 = jsdom.html("<html><body></body></html>").outerHTML.replace(spaces, ''),
