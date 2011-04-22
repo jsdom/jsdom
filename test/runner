@@ -1,0 +1,20 @@
+#! /usr/bin/env bash
+
+echo "LEVEL 1"
+nodeunit level1/core.js --reporter=minimal
+nodeunit level1/html.js --reporter=minimal
+nodeunit level1/svg.js --reporter=minimal
+echo "LEVEL 2"
+nodeunit level2/core.js --reporter=minimal
+nodeunit level2/extra.js --reporter=minimal
+nodeunit level2/events.js --reporter=minimal
+nodeunit level2/html.js --reporter=minimal
+echo "BROWSER"
+nodeunit browser/index.js --reporter=minimal
+echo "WINDOW"
+nodeunit window/index.js --reporter=minimal
+echo "JSDOM"
+nodeunit jsdom/index.js --reporter=minimal
+# echo "LEVEL 3"
+# nodeunit level3/ls.js --reporter=minimal
+# nodeunit level3/core.js --reporter=minimal

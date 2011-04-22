@@ -183,5 +183,46 @@ exports.tests = {
     var regexp = /^\s*<!DOCTYPE foo SYSTEM \'foo "bar".dtd\'>/;
     test.ok(regexp.test(document.outerHTML), 'Doctype did not serialize correctly');
     test.done();
+  },
+
+  parse_doctype_containing_newline : function(test) {
+    var html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"\n \
+             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n<html></html>',
+        doc  = new browser.Document();
+    doc.innerHTML = html;
+    test.ok(!!doc.doctype, 'doctype should not be falsy');
+    test.done();
+  },
+
+  basic_nodelist_indexOf : function(test) {
+    var doc = new browser.Document();
+    var html = doc.createElement("html");
+    doc.appendChild(html);
+    var body = doc.createElement("body");
+    html.appendChild(body);
+    var p = doc.createElement("p");
+    body.appendChild(p);
+    var div = doc.createElement("div");
+    body.appendChild(div);
+    var span = doc.createElement("span");
+    body.appendChild(span);
+    var index = body.childNodes.indexOf(span);
+    test.equal(index, 2, "indexOf 'span' in childNodes")
+    test.done();
+  },
+
+  nonexistant_nodelist_indexOf : function(test) {
+    var doc = new browser.Document();
+    var html = doc.createElement("html");
+    doc.appendChild(html);
+    var body = doc.createElement("body");
+    html.appendChild(body);
+    var p = doc.createElement("p");
+    body.appendChild(p);
+    var div = doc.createElement("div");
+    p.appendChild(div);
+    var index = body.childNodes.indexOf(div);
+    test.equal(index, -1, "indexOf 'span' in childNodes")
+    test.done();
   }
 };
