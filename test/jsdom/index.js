@@ -1,5 +1,5 @@
-var sys = require("sys"),
-    path = require("path");
+var path = require("path"),
+    fs   = require("fs");
     
 exports.tests = {
 
@@ -471,8 +471,7 @@ bye = bye + "bye";\
                  "123" === a.getAttributeNode('id').nodeValue);
     },
     auto_tostring : function() {
-      var fs     = require("fs"),
-          buffer = fs.readFileSync(__dirname + "/files/env.html"),
+      var buffer = fs.readFileSync(__dirname + "/files/env.html"),
           caught = false,
           dom    = null,
           count  = 0;
@@ -492,6 +491,18 @@ bye = bye + "bye";\
       var window = jsdom.jsdom("").createWindow();
       assertTrue('document.location and window.location', 
                    window.document.location === window.location);
+    },
+    
+    script_execution_in_body : function() {
+      var window, caught = false;
+      
+      try {
+        window = jsdom.jsdom('<html><body><script>document.body.innerHTML = "monkey"</script></body></html>').createWindow();
+      } catch (e) {
+        console.log(e.stack)
+        caught = true;
+      }
+      assertFalse('execution should work as expected', caught);
     }
     
 };
