@@ -1,6 +1,6 @@
 var path = require("path"),
     fs   = require("fs");
-    
+
 exports.tests = {
 
   build_window : function() {
@@ -71,6 +71,23 @@ exports.tests = {
     });
   },
 
+  env_with_absolute_file_and_script : function() {
+    var jquery = fs.readFileSync(path.join(__dirname, '..', '..', 'example', 'jquery', 'jquery.js'));
+    jsdom.env({
+      html : path.join(__dirname, 'files', 'env.html'),
+      scripts : [
+        jquery
+      ],
+      done : function(errors, window) {
+        assertNull('there should have been no errors', errors)
+        var $ = window.jQuery, text = 'Let\'s Rock!';
+        $('body').text(text);
+        assertEquals("jsdom.env() should load jquery, a document and add some text to the body.",
+                   $('body').text(), text);
+      }
+    });
+  },
+
   env_with_html : function() {
     var html = "<html><body><p>hello world!</p></body></html>";
     jsdom.env({
@@ -81,6 +98,7 @@ exports.tests = {
       }
     })
   },
+  
 
   env_with_non_existant_script : function() {
     var html = "<html><body><p>hello world!</p></body></html>";
