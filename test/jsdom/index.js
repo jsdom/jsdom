@@ -492,7 +492,7 @@ bye = bye + "bye";\
       assertTrue('document.location and window.location', 
                    window.document.location === window.location);
     },
-    
+
     script_execution_in_body : function() {
       var window, caught = false;
       
@@ -503,6 +503,57 @@ bye = bye + "bye";\
         caught = true;
       }
       assertFalse('execution should work as expected', caught);
+    },
+
+    mutation_events : function() {
+      var document = jsdom.jsdom();
+      document.implementation.addFeature('MutationEvents', '2.0');
+      var created = '';
+      var removed = '';
+      document.addEventListener('DOMNodeInserted', function(ev) {
+        created += ev.target.tagName;
+      });
+      document.addEventListener('DOMNodeRemoved', function(ev) {
+        removed += ev.target.tagName;
+      });
+      var h1 = document.createElement('h1');
+      var h2 = document.createElement('h2');
+      var h3 = document.createElement('h3');
+      document.body.appendChild(h2);
+      document.body.insertBefore(h1, h2);
+      document.body.insertBefore(h3, null);
+      assertEquals("an event should be dispatched for each created element", 'H2H1H3', created);
+      document.body.removeChild(h1);
+      document.body.insertBefore(h3, h2);
+      assertEquals("an event should be dispatched for each removed element", 'H1H3', removed);
+    },
+
+    remove_listener_in_handler: function() {
+      var document = jsdom.jsdom();
+      var h1 = 0, h2 = 0;
+
+      // Event handler that removes itself
+      function handler1() {
+        h1++;
+        document.removeEventListener('click', handler1);
+      }
+
+      function handler2() {
+        h2++;
+      }
+
+      document.addEventListener('click', handler1);
+      document.addEventListener('click', handler2);
+
+      var ev = document.createEvent('MouseEvents');
+      ev.initEvent('click', true, true);
+
+      document.dispatchEvent(ev);
+      assertEquals("handler1 must be called once", 1, h1);
+      assertEquals("handler2 must be called once", 1, h2);
+
+      document.dispatchEvent(ev);
+      assertEquals("handler1 must be called once", 1, h1);
+      assertEquals("handler2 must be called twice", 2, h2);
     }
-    
 };
