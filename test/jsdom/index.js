@@ -555,5 +555,51 @@ bye = bye + "bye";\
       document.dispatchEvent(ev);
       assertEquals("handler1 must be called once", 1, h1);
       assertEquals("handler2 must be called twice", 2, h2);
+    },
+
+    childNodes_updates_on_insertChild : function() {
+      var window = jsdom.jsdom("").createWindow();
+      var div = window.document.createElement("div")
+      var text = window.document.createTextNode("bar")
+      div.appendChild(text);
+      assertEquals("childNodes NodeList should update after appendChild",
+                   text, div.childNodes[0])
+
+      text = window.document.createTextNode("bar")
+      div.insertBefore(text, null);
+      assertEquals("childNodes NodeList should update after insertBefore",
+                   text, div.childNodes[1])
+    },
+
+    option_set_selected : function() {
+      var window = jsdom.jsdom("").createWindow();
+      var select = window.document.createElement("select")
+
+      var option0 = window.document.createElement('option');
+      select.appendChild(option0);
+      option0.setAttribute('selected', 'selected');
+
+      var optgroup = window.document.createElement('optgroup');
+      select.appendChild(optgroup);
+      var option1 = window.document.createElement('option');
+      optgroup.appendChild(option1);
+
+      assertEquals('initially selected', true, option0.selected);
+      assertEquals('initially not selected', false, option1.selected);
+      assertEquals("options should include options inside optgroup",
+                   option1, select.options[1]);
+
+      option1.defaultSelected = true;
+      assertEquals('selecting other option should deselect this', false, option0.selected);
+      assertEquals('default should not change', true, option0.defaultSelected);
+      assertEquals('selected changes when defaultSelected changes', true, option1.selected);
+      assertEquals('I just set this', true, option1.defaultSelected);
+
+      option0.defaultSelected = false;
+      option0.selected = true;
+      assertEquals('I just set this', true, option0.selected);
+      assertEquals('selected does not set default', false, option0.defaultSelected);
+      assertEquals('should deselect others', false, option1.selected);
+      assertEquals('unchanged', true, option1.defaultSelected);
     }
 };
