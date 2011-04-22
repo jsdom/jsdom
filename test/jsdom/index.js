@@ -601,5 +601,17 @@ bye = bye + "bye";\
       assertEquals('selected does not set default', false, option0.defaultSelected);
       assertEquals('should deselect others', false, option1.selected);
       assertEquals('unchanged', true, option1.defaultSelected);
+    },
+    case_sensitivity_of_markup_missing_html_and_body : function(){
+        var spaces = /[ \r\n]*/g,
+            doc1 = jsdom.html("<HTML><BODY></BODY></HTML>").outerHTML.replace(spaces, ''),
+            doc2 = jsdom.html("<html><BODY></Body></HTML>").outerHTML.replace(spaces, ''),
+            doc3 = jsdom.html("<html><body></body></html>").outerHTML.replace(spaces, ''),
+            doc4 = jsdom.html("<body></body>").outerHTML.replace(spaces, ''),
+            doc5 = jsdom.html("").outerHTML.replace(spaces, '');
+
+        assertTrue('they should all serialize the same',
+            doc1 === doc2 && doc2 == doc3 && doc3 === doc4 && doc4 == doc5)
+        
     }
 };
