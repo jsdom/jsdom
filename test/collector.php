@@ -33,4 +33,4 @@ foreach ($files as $file)
 }
 
 
-file_put_contents($outputFile, "exports.tests = {\r\n".implode(",\r\n", array_filter($functionBodies)) . '\r\n}');
+file_put_contents($outputFile, "exports.tests = {\n".implode(",\n", array_filter($functionBodies)) . '\n}');

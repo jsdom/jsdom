@@ -147,7 +147,7 @@ exports.staff = function() {
 
   names[1].appendChild(doc.createTextNode("Martha Raynolds"));
   names[1].appendChild(doc.createCDATASection("This is a CDATASection with EntityReference number 2 &ent2;"));
-  names[1].appendChild(doc.createTextNode("\r\n"));
+  names[1].appendChild(doc.createTextNode("\n"));
   names[1].appendChild(doc.createCDATASection("This is an adjacent CDATASection with a reference to a tab &tab;"));
   genders[1].appendChild(doc.createTextNode("Female"));
   positions[1].appendChild(doc.createTextNode("Secretary"));

@@ -28,7 +28,7 @@ SAXParser.prototype = {
 }
 
 // character classes and tokens
-var whitespace = "\r\n\t ",
+var whitespace = "\n\t ",
   // this really needs to be replaced with character classes.
   // XML allows all manner of ridiculous numbers and digits.
   number = "0124356789",
