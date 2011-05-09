@@ -200,4 +200,4 @@ var suites = {
   }
 };
 
-require("mjsunit.runner/runner").run(suites);
+require("mjsunit.runner/lib/runner").run(suites);
