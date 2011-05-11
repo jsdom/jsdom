@@ -5172,7 +5172,7 @@ exports.tests = {
           doc = load(docRef, "doc", "hc_staff");
           addressElementList = doc.getElementsByTagName("acronym");
           testAddress = addressElementList.item(4);
-          oldAttribute = doc.createAttribute("value");
+          oldAttribute = doc.createAttribute("title");
 
           {
             success = false;

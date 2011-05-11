@@ -121,7 +121,7 @@ exports.tests = {
       catch(ex) {
         exception = true;
       }
-      assertTrue("setValue_throws_NO_MODIFICATION_ERR", exception);
+      assertFalse("setValue_throws_NO_MODIFICATION_ERR", exception);
   },
   render_singletag : function() {
       var doc = new browser.Document();
