@@ -47,8 +47,8 @@ exports.staffNS = function() {
 
   var defaultAttributes = new dom.NamedNodeMap(doc);
   var entElement = doc.createElementNS("http://www.w3.org/2000/xmlns/","entElement");
-  entElement.setAttribute("attr1", "Attr").specified = false;
-  entElement.setAttribute("domestic", "MALE").specified = false;
+  entElement.setAttribute("attr1", "Attr");
+  entElement.setAttribute("domestic", "MALE");
   defaultAttributes.setNamedItemNS(entElement);
 
   var defaultAddress = doc.createElement("address");
