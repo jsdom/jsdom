@@ -126,7 +126,6 @@ exports.tests = {
   },
   
   env_with_src : function() {
-    // spawn an http server
     var
     html = "<html><body><p>hello world!</p></body></html>",
     src  = "window.attachedHere = 123";
