@@ -125,6 +125,23 @@ exports.tests = {
     });
   },
   
+  env_with_src : function() {
+    var
+    html = "<html><body><p>hello world!</p></body></html>",
+    src  = "window.attachedHere = 123";
+
+    jsdom.env({
+      html    : html,
+      src     : src,
+      done    : function(errors, window) {
+        assertNull("error should not be null", errors);
+        assertNotNull("window should be valid", window.location);
+        assertEquals("script should execute on our window", window.attachedHere, 123);
+        assertEquals("anchor text", window.document.getElementsByTagName("a").item(0).innerHTML, 'World');
+      }
+    });
+  },
+  
   env_processArguments_invalid_args : function() {
     var caught = 0;
 
