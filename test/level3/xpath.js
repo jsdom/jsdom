@@ -1,5 +1,3 @@
-var xpath = require('./xpath');
-var jsdom = require('../../jsdom');
 function all1(re, s) {
   var l = [];
   while (s.length) {
