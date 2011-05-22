@@ -3,3 +3,4 @@
 .*.swp
 gmon.out
 v8.log
+node_modules
