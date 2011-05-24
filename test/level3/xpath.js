@@ -1,5 +1,9 @@
-var xpath = require('./xpath');
-var jsdom = require('../../jsdom');
+var xpath = require('../../lib/jsdom/level3/xpath');
+var jsdom = require('../../lib/jsdom');
+
+/** This test suite works with both nodeunit and mjsunit. */
+
+/** Extracts all $1 groups from the regular expression. */
 function all1(re, s) {
   var l = [];
   while (s.length) {
@@ -888,3 +892,24 @@ exports.testAttributeNodePredicate = function(test) {
   test.done();
 };
 
+function mjsunitize(testCase) {
+  var test = {
+    equals: equal,
+    equal: equal,
+    deepEqual: equal,
+    done: function(){}
+  };
+  function equal(a, b) {
+    assertEquals('', a, b);
+  }
+  return function() {
+    testCase(test);
+  }
+}
+
+exports.mjsunitTests = {};
+for (var x in this) {
+  if (x.substr(0, 4) === 'test') {
+    exports.mjsunitTests[x] = mjsunitize(this[x]);
+  }
+}

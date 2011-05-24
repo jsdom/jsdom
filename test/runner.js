@@ -165,7 +165,11 @@ var suites = {
         };
       }
     }
-  },/*
+  },
+  "level3/xpath" : { cases: require("./level3/xpath").mjsunitTests, setUp : function() {
+    }
+  },
+  /*
  "level3/ls"   : { cases: require("./level3/ls").tests, setUp : function() {
       global.builder.contentType   = "text/html";
       global.builder.type          = "html";
