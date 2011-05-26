@@ -1,3 +1,5 @@
+exports.tests = {};
+
 function all1(re, s) {
   var l = [];
   while (s.length) {
@@ -886,3 +888,479 @@ exports.testAttributeNodePredicate = function(test) {
   test.done();
 };
 
+
+// The following test cases are taken from the NIST XSLT/XPath test suite.
+// http://web.archive.org/web/20041019015748/http://xw2k.sdct.itl.nist.gov/xml/page5.html
+// Only test cases applicable to XPath are included.
+
+var coreFunctionTests = [
+        {
+            name: "NIST_coreFunction001",
+            xpath: "substring(substring('internalexternalcorrect substring',9),9)",
+            expected: "correct substring"
+        },
+        {
+            name: "NIST_coreFunction002",
+            xpath: "substring(substring('internalexternalcorrect substring',9,25),9,17)",
+            expected: "correct substring"
+        },
+        {
+            name: "NIST_coreFunction003",
+            xpath: "concat(concat('A ','N','e'),'w ','Concatenated String')",
+            expected: "A New Concatenated String"
+        },
+        {
+            name: "NIST_coreFunction004",
+            xpath: "string(string('Unchanged String'))",
+            expected: "Unchanged String"
+        },
+        {
+            name: "NIST_coreFunction005",
+            xpath: "substring-after(substring-after('wrongnogoodCorrect Substring After','wrong'),'nogood')",
+            expected: "Correct Substring After"
+        },
+        {
+            name: "NIST_coreFunction006",
+            xpath: "substring-before(substring-before('correct substring Beforenogoodwrong','wrong'),'nogood')",
+            expected: "correct substring Before"
+        },
+        {
+            name: "NIST_coreFunction007",
+            xpath: "translate(translate('old string','old','123'),'123','new')",
+            expected: "new string"
+        },
+        {
+            name: "NIST_coreFunction008",
+            xpath: "translate('old string',translate('123','123','old'),'new')",
+            expected: "new string"
+        },
+        {
+            name: "NIST_coreFunction009",
+            xpath: "translate(translate('old string','old string','old string'),translate('123','123','old'),translate('123','123','new'))",
+            expected: "new string"
+        },
+        {
+            name: "NIST_coreFunction010",
+            xpath: "translate(translate('old string','old string','old string'),translate('123','123','old'),translate('123','123','new'))",
+            expected: "new string"
+        },
+        {
+            name: "NIST_coreFunction011",
+            xpath: "concat('A New ',concat('Conca','tena','ted '),'String')",
+            expected: "A New Concatenated String"
+        },
+        {
+            name: "NIST_coreFunction012",
+            xpath: "concat('A New ','Concatenated ',concat('St','ri','ng'))",
+            expected: "A New Concatenated String"
+        },
+        {
+            name: "NIST_coreFunction013",
+            xpath: "concat(concat('A ','Ne','w '),concat('Conca','tena','ted '),concat('St','ri','ng'))",
+            expected: "A New Concatenated String"
+        },
+        {
+            name: "NIST_coreFunction014",
+            xpath: "substring-after('wrongCorrect Substring After',substring-after('nogoodstringwrong','nogoodstring'))",
+            expected: "Correct Substring After"
+        },
+        {
+            name: "NIST_coreFunction015",
+            xpath: "substring-after(substring-after('nogoodwrongCorrect Substring After','nogood'),substring-after('nogoodstringwrong','nogoodstring'))",
+            expected: "Correct Substring After"
+        },
+        {
+            name: "NIST_coreFunction016",
+            xpath: "substring-before('Correct Substring Beforewrong',substring-before('wrongnogood','nogood'))",
+            expected: "Correct Substring Before"
+        },
+        {
+            name: "NIST_coreFunction017",
+            xpath: "substring-before(substring-before('Correct Substring Beforewrongcut here','cut here'),substring-before('wrongnogood','nogood'))",
+            expected: "Correct Substring Before"
+        },
+        {
+            name: "NIST_coreFunction018",
+            xpath: "string($variable1)",
+            expected: "String From Variable"
+        },
+        {
+            name: "NIST_coreFunction019",
+            xpath: "concat($variable1,'From ','Variable')",
+            expected: "String From Variable"
+        },
+        {
+            name: "NIST_coreFunction020",
+            xpath: "concat('String ',$variable1,'Variable')",
+            expected: "String From Variable"
+        },
+        {
+            name: "NIST_coreFunction021",
+            xpath: "concat('String ','From ',$variable1)",
+            expected: "String From Variable"
+        },
+        {
+            name: "NIST_coreFunction022",
+            xpath: "concat($variable1,$variable2,$variable3)",
+            expected: "String From Variable"
+        },
+        {
+            name: "NIST_coreFunction023",
+            xpath: "substring-before($variable1,'cut this')",
+            expected: "substring-before with variable"
+        },
+        {
+            name: "NIST_coreFunction024",
+            xpath: "substring-before('substring-before with variablecut this',$variable1)",
+            expected: "substring-before with variable"
+        },
+        {
+            name: "NIST_coreFunction025",
+            xpath: "substring-before($variable1,$variable2)",
+            expected: "substring before with variable"
+        },
+        {
+            name: "NIST_coreFunction026",
+            xpath: "substring-after($variable1,'cut this')",
+            expected: "substring-after with variable"
+        },
+        {
+            name: "NIST_coreFunction027",
+            xpath: "substring-after('cut thissubstring after with variable',$variable1)",
+            expected: "substring after with variable"
+        },
+        {
+            name: "NIST_coreFunction028",
+            xpath: "substring-after($variable1,$variable2)",
+            expected: "substring-after with variable"
+        },
+        {
+            name: "NIST_coreFunction029",
+            xpath: "substring($variable1,9)",
+            expected: "substring with variable"
+        },
+        {
+            name: "NIST_coreFunction030",
+            xpath: "substring($variable1,9,23)",
+            expected: "substring with variable"
+        },
+        {
+            name: "NIST_coreFunction031",
+            xpath: "string-length($variable1)",
+            expected: 26
+        },
+        {
+            name: "NIST_coreFunction032",
+            xpath: "translate($variable1,'1234','with')",
+            expected: "translate with variable"
+        },
+        {
+            name: "NIST_coreFunction033",
+            xpath: "translate('translate 1234 variable',$variable1,'with')",
+            expected: "translate with variable"
+        },
+        {
+            name: "NIST_coreFunction034",
+            xpath: "translate('translate 1234 variable','1234',$variable1)",
+            expected: "translate with variable"
+        },
+        {
+            name: "NIST_coreFunction035",
+            xpath: "translate($variable1,$variable2,$variable3)",
+            expected: "translate with variable"
+        },
+        {
+            name: "NIST_coreFunction036",
+            xpath: "string($param1)",
+            expected: "string with param"
+        },
+        {
+            name: "NIST_coreFunction037",
+            xpath: "concat($param1,' with',' param')",
+            expected: "concat with param"
+        },
+        {
+            name: "NIST_coreFunction038",
+            xpath: "concat('concat ',$param1,' param')",
+            expected: "concat with param"
+        },
+        {
+            name: "NIST_coreFunction039",
+            xpath: "concat('concat ','with ',$param1)",
+            expected: "concat with param"
+        },
+        {
+            name: "NIST_coreFunction040",
+            xpath: "concat($param1,$param2,$param3)",
+            expected: "concat with param"
+        },
+        {
+            name: "NIST_coreFunction041",
+            xpath: "starts-with($param1,'This')",
+            expected: true
+        },
+        {
+            name: "NIST_coreFunction042",
+            xpath: "starts-with('This is a string',$param1)",
+            expected: true
+        },
+        {
+            name: "NIST_coreFunction043",
+            xpath: "starts-with($param1,$param2)",
+            expected: true
+        },
+        {
+            name: "NIST_coreFunction044",
+            xpath: "contains($param1,'This')",
+            expected: true
+        },
+        {
+            name: "NIST_coreFunction045",
+            xpath: "contains('This is a string',$param1)",
+            expected: true
+        },
+        {
+            name: "NIST_coreFunction046",
+            xpath: "contains($param1,$param2)",
+            expected: true
+        },
+        {
+            name: "NIST_coreFunction047",
+            xpath: "substring-before($param1,'cut this')",
+            expected: "substring-before with param"
+        },
+        {
+            name: "NIST_coreFunction048",
+            xpath: "substring-before('substring-before with paramcutthis',$param1)",
+            expected: "substring-before with param"
+        },
+        {
+            name: "NIST_coreFunction049",
+            xpath: "substring-before($param1,$param2)",
+            expected: ""
+        },
+        {
+            name: "NIST_coreFunction050",
+            xpath: "substring-after($param1,'cut this')",
+            expected: "substring-after with param"
+        },
+        {
+            name: "NIST_coreFunction051",
+            xpath: "substring-after('cut thissubstring-after with param',$param1)",
+            expected: "substring-after with param"
+        },
+        {
+            name: "NIST_coreFunction052",
+            xpath: "substring-after($param1,$param2)",
+            expected: "substring-after with param"
+        },
+        {
+            name: "NIST_coreFunction053",
+            xpath: "substring($param1,16)",
+            expected: "substring with param"
+        },
+        {
+            name: "NIST_coreFunction054",
+            xpath: "substring($param1,16,20)",
+            expected: "substring with param"
+        },
+        {
+            name: "NIST_coreFunction055",
+            xpath: "string-length($param1)",
+            expected: 15
+        },
+        {
+            name: "NIST_coreFunction056",
+            xpath: "translate($param1,'1234','with')",
+            expected: "translate with param"
+        },
+        {
+            name: "NIST_coreFunction057",
+            xpath: "translate('translate 1234 param',$param1,'with')",
+            expected: "translate with param"
+        },
+        {
+            name: "NIST_coreFunction058",
+            xpath: "translate('translate 1234 param','1234',$param1)",
+            expected: "translate with param"
+        },
+        {
+            name: "NIST_coreFunction059",
+            xpath: "translate($param1,$param2,$param3)",
+            expected: "translate with param"
+        },
+        {
+            name: "NIST_coreFunction060",
+            xpath: "floor(-1.99999)",
+            expected: -2
+        },
+        {
+            name: "NIST_coreFunction061",
+            xpath: "floor(-1.0001)",
+            expected: -2
+        },
+        {
+            name: "NIST_coreFunction062",
+            xpath: "floor($variable1)",
+            expected: 3
+        },
+        {
+            name: "NIST_coreFunction063",
+            xpath: "floor($param1)",
+            expected: 4
+        },
+        {
+            name: "NIST_coreFunction064",
+            xpath: "floor(ceiling(1.2))",
+            expected: 2
+        },
+        {
+            name: "NIST_coreFunction065",
+            xpath: "floor(round(1.2))",
+            expected: 1
+        },
+        {
+            name: "NIST_coreFunction066",
+            xpath: "floor(floor(1.2))",
+            expected: 1
+        },
+        {
+            name: "NIST_coreFunction067",
+            xpath: "floor((((((2*10)-4)+9) div 5) mod 2))",
+            expected: 1
+        },
+        {
+            name: "NIST_coreFunction068",
+            xpath: "ceiling(-1.0001)",
+            expected: -1
+        },
+        {
+            name: "NIST_coreFunction069",
+            xpath: "ceiling(-1.9999)",
+            expected: -1
+        },
+        {
+            name: "NIST_coreFunction070",
+            xpath: "ceiling($variable1)",
+            expected: 3
+        },
+        {
+            name: "NIST_coreFunction071",
+            xpath: "ceiling(floor(2.2))",
+            expected: 2
+        },
+        {
+            name: "NIST_coreFunction072",
+            xpath: "ceiling(ceiling(3.2))",
+            expected: 4
+        },
+        {
+            name: "NIST_coreFunction073",
+            xpath: "ceiling($param1)",
+            expected: 4
+        },
+        {
+            name: "NIST_coreFunction074",
+            xpath: "ceiling((((((2*10)-4)+9) div 5) div 2))",
+            expected: 3
+        },
+        {
+            name: "NIST_coreFunction075",
+            xpath: "round(-1.9999)",
+            expected: -2
+        },
+        {
+            name: "NIST_coreFunction076",
+            xpath: "round($variable1)",
+            expected: 2
+        },
+        {
+            name: "NIST_coreFunction077",
+            xpath: "round($param1)",
+            expected: 2
+        },
+        {
+            name: "NIST_coreFunction078",
+            xpath: "round(ceiling(3.2))",
+            expected: 4
+        },
+        {
+            name: "NIST_coreFunction079",
+            xpath: "round((((((2*10)-4)+9) div 5) div 2))",
+            expected: 3
+        },
+        {
+            name: "NIST_coreFunction080",
+            xpath: "round(NaN)",
+            expected: Math.NaN
+        },
+        {
+            name: "NIST_coreFunction081",
+            xpath: "round(-0)",
+            expected: 0
+        },
+        {
+            name: "NIST_coreFunction082",
+            xpath: "round(-0.25)",
+            expected: 0
+        },
+        {
+            name: "NIST_coreFunction083",
+            xpath: "round(round(2.3))",
+            expected: 2
+        },
+        {
+            name: "NIST_coreFunction084",
+            xpath: "round(2.3 div 0)",
+            expected: Number.POSITIVE_INFINITY
+        },
+        {
+            name: "NIST_coreFunction085",
+            xpath: "round(-2.3 div 0)",
+            expected: Number.NEGATIVE_INFINITY
+        },
+        {
+            name: "NIST_coreFunction086",
+            xpath: "number('-1.9999')",
+            expected: -1.9999
+        },
+        {
+            name: "NIST_coreFunction087",
+            xpath: "number('1.9999')",
+            expected: 1.9999
+        },
+        {
+            name: "NIST_coreFunction088",
+            xml:
+                "<doc>\n" +
+                "  <element1>\n" +
+                "    <child1>Test executed Successfully!!</child1>\n" +
+                "  </element1>\n" +
+                "  <element2>\n" +
+                "    <child1>Incorrect Execution!!</child1>\n" +
+                "  </element2>\n" +
+                "</doc>\n",
+            xpath: "count(//child1[ancestor::element1])",
+            expected: 1
+        },
+        {
+            name: "NIST_coreFunction089",
+            xml:
+                "<doc>\n" +
+                "  <element1>Incorrect Execution!!</element1>\n" +
+                "  <element1>Test executed Successfully!!</element1>\n" +
+                "</doc>\n",
+            xpath: "element1[2]",
+            expected: "Test executed Successfully!!"
+        }];
+
+for (var i=0; i<coreFunctionTests.length; ++i) {
+    var test = coreFunctionTests[i];
+    exports.tests[test.name] = function() {
+        var document = getImplementation().createDocument();
+        document.appendChild(document.createElement('e'));
+        var node = document.documentElement;
+        var result = xpath.evaluateImpl(test.xpath, document, node);
+        assertEquals('', test.expected, result);
+    };
+}
