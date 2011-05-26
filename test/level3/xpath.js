@@ -895,6 +895,11 @@ exports.testAttributeNodePredicate = function(test) {
 
 var coreFunctionTests = [
         {
+            name: "really-simple",
+            xpath: "'a'",
+            expected: "a"
+        },
+        {
             name: "NIST_coreFunction001",
             xpath: "substring(substring('internalexternalcorrect substring',9),9)",
             expected: "correct substring"
@@ -1291,8 +1296,8 @@ var coreFunctionTests = [
         },
         {
             name: "NIST_coreFunction080",
-            xpath: "round(NaN)",
-            expected: Math.NaN
+            xpath: "string(round(NaN))",
+            expected: "NaN"
         },
         {
             name: "NIST_coreFunction081",
@@ -1356,11 +1361,13 @@ var coreFunctionTests = [
 
 for (var i=0; i<coreFunctionTests.length; ++i) {
     var test = coreFunctionTests[i];
-    exports.tests[test.name] = function() {
-        var document = getImplementation().createDocument();
-        document.appendChild(document.createElement('e'));
-        var node = document.documentElement;
-        var result = xpath.evaluateImpl(test.xpath, document, node);
-        assertEquals('', test.expected, result);
-    };
+    exports.tests[test.name] = (function(test) {
+        return function() {
+            var document = getImplementation().createDocument();
+            document.appendChild(document.createElement('e'));
+            var node = document.documentElement;
+            var result = xpath.evaluateImpl(test.xpath, document, node);
+            assertEquals('', test.expected, result);
+        };
+    }(test));
 }
