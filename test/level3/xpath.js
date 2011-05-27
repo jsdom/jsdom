@@ -1677,3 +1677,62 @@ exports.tests.NIST_expression007 = function() {
     assertArrayEquals("sub1|sub2", [sub1, sub2],
             xpath.evaluateImpl("child::sub1|child::sub2", document, doc).nodes);
 };
+
+exports.tests.NIST_expression008 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var book1 = document.createElement("book");
+    doc.appendChild(book1);
+    var author1 = document.createElement("author");
+    book1.appendChild(author1);
+    var name = document.createElement("name");
+    author1.appendChild(name);
+    name.setAttribute("real", "no");
+    var text = document.createTextNode("Carmelo Montanez");
+    name.appendChild(text);
+    var chapters = document.createElement("chapters");
+    author1.appendChild(chapters);
+    text = document.createTextNode("Nine");
+    chapters.appendChild(text);
+    var bibliography = document.createElement("bibliography");
+    author1.appendChild(bibliography);
+    var book2 = document.createElement("book");
+    doc.appendChild(book2);
+    var author2 = document.createElement("author");
+    book2.appendChild(author2);
+    name = document.createElement("name");
+    author2.appendChild(name);
+    name.setAttribute("real", "na");
+    text = document.createTextNode("David Marston");
+    name.appendChild(text);
+    chapters = document.createElement("chapters");
+    author2.appendChild(chapters);
+    text = document.createTextNode("Seven");
+    chapters.appendChild(text);
+    bibliography = document.createElement("bibliography");
+    author2.appendChild(bibliography);
+    var book3 = document.createElement("book");
+    doc.appendChild(book3);
+    var author3 = document.createElement("author");
+    book3.appendChild(author3);
+    name = document.createElement("name");
+    author3.appendChild(name);
+    name.setAttribute("real", "yes");
+    text = document.createTextNode("Mary Brady");
+    name.appendChild(text);
+    chapters = document.createElement("chapters");
+    author3.appendChild(chapters);
+    text = document.createTextNode("Ten");
+    bibliography = document.createElement("bibliography");
+    author3.appendChild(bibliography);
+    
+    assertArrayEquals("Carmelo Montanez", [author1],
+            xpath.evaluateImpl("author[(name/@real='no' and position()=1)]|author[(name/@real='yes' and position()=last())]", document, book1).nodes);
+    
+    assertArrayEquals("empty", [],
+            xpath.evaluateImpl("author[(name/@real='no' and position()=1)]|author[(name/@real='yes' and position()=last())]", document, book2).nodes);
+    
+    assertArrayEquals("Mary Brady", [author3],
+            xpath.evaluateImpl("author[(name/@real='no' and position()=1)]|author[(name/@real='yes' and position()=last())]", document, book3).nodes);
+};
