@@ -2162,3 +2162,24 @@ exports.tests.NIST_expression019_noVariables = function() {
     assertArrayEquals("child1", [child1],
             xpath.evaluateImpl("//child1|//child1", document, doc).nodes);
 };
+
+exports.tests.NIST_expression020 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var sub1 = document.createElement("sub1");
+    doc.appendChild(sub1);
+    var child1 = document.createElement("child1");
+    sub1.appendChild(child1);
+    var text = document.createTextNode("child1");
+    child1.appendChild(text);
+    var sub2 = document.createElement("sub2");
+    doc.appendChild(sub2);
+    var child2 = document.createElement("child2");
+    sub2.appendChild(child2);
+    text = document.createTextNode("child2");
+    child2.appendChild(text);
+    
+    assertArrayEquals("child1|child2", [child1, child2],
+            xpath.evaluateImpl("sub1/child1|sub2/child2", document, doc).nodes);
+};
