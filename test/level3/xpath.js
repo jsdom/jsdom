@@ -1898,3 +1898,29 @@ exports.tests.NIST_expression012_noVariables = function() {
     assertArrayEquals("empty //noChild1|//noChild2", [],
             xpath.evaluateImpl("//noChild1|//noChild2", document, doc).nodes);
 };
+
+exports.tests.NIST_expression013 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var sub1 = document.createElement("sub1");
+    doc.appendChild(sub1);
+    var child1 = document.createElement("child1");
+    sub1.appendChild(child1);
+    var text = document.createTextNode("preceding sibling number 1");
+    child1.appendChild(text);
+    var child2 = document.createElement("child2");
+    sub1.appendChild(child2);
+    text = document.createTextNode("current node");
+    child2.appendChild(text);
+    var child3 = document.createElement("child3");
+    sub1.appendChild(child3);
+    text = document.createTextNode("following sibling number 3");
+    child3.appendChild(text);
+    
+    assertArrayEquals("child2", [child2],
+            xpath.evaluateImpl("//child2", document, doc).nodes);
+    
+    assertArrayEquals("child1|child3", [child1, child3],
+            xpath.evaluateImpl("preceding-sibling::child1|following-sibling::child3", document, child2).nodes);
+};
