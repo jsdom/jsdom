@@ -2340,3 +2340,60 @@ exports.tests.NIST_expression027 = function() {
     var document = getImplementation().createDocument();
     assertTrue("(-0 = 0)", xpath.evaluateImpl("(-0 = 0)", document, document));
 };
+
+exports.tests.NIST_expression028 = function() {
+    var document = getImplementation().createDocument();
+    assertFalse("(-0 < 0)", xpath.evaluateImpl("(-0 < 0)", document, document));
+};
+
+exports.tests.NIST_expression029 = function() {
+    var document = getImplementation().createDocument();
+    assertFalse("(-0 > 0)", xpath.evaluateImpl("(-0 > 0)", document, document));
+};
+
+exports.tests.NIST_expression030 = function() {
+    var document = getImplementation().createDocument();
+    assertTrue("(-0 >= 0)", xpath.evaluateImpl("(-0 >= 0)", document, document));
+};
+
+exports.tests.NIST_expression031 = function() {
+    var document = getImplementation().createDocument();
+    assertTrue("(-0 <= 0)", xpath.evaluateImpl("(-0 <= 0)", document, document));
+};
+
+exports.tests.NIST_expression032 = function() {
+    var document = getImplementation().createDocument();
+    assertFalse("(-0 != 0)", xpath.evaluateImpl("(-0 != 0)", document, document));
+};
+
+exports.tests.NIST_expression033 = function() {
+    var document = getImplementation().createDocument();
+    assertTrue("2.1 > 2.0", xpath.evaluateImpl("2.1 > 2.0", document, document));
+    assertFalse("2.1 < 2.0", xpath.evaluateImpl("2.1 < 2.0", document, document));
+    assertFalse("2.1 = 2.0", xpath.evaluateImpl("2.1 = 2.0", document, document));
+    assertFalse("2.1 > NaN", xpath.evaluateImpl("2.1 > NaN", document, document));
+};
+
+exports.tests.NIST_expression034 = function() {
+    var document = getImplementation().createDocument();
+    assertTrue("2.0 < 2.1", xpath.evaluateImpl("2.0 < 2.1", document, document));
+    assertFalse("2.0 > 2.1", xpath.evaluateImpl("2.0 > 2.1", document, document));
+    assertFalse("2.0 = 2.1", xpath.evaluateImpl("2.0 = 2.1", document, document));
+    assertFalse("2.0 < NaN", xpath.evaluateImpl("2.0 < NaN", document, document));
+};
+
+exports.tests.NIST_expression035 = function() {
+    var document = getImplementation().createDocument();
+    assertTrue("2.0 <= 2.0", xpath.evaluateImpl("2.0 <= 2.0", document, document));
+    assertFalse("2.0 > 2.0", xpath.evaluateImpl("2.0 > 2.0", document, document));
+    assertTrue("2.0 = 2.0", xpath.evaluateImpl("2.0 = 2.0", document, document));
+    assertFalse("2.0 <= NaN", xpath.evaluateImpl("2.0 <= NaN", document, document));
+};
+
+exports.tests.NIST_expression036 = function() {
+    var document = getImplementation().createDocument();
+    assertTrue("2.0 >= 2.0", xpath.evaluateImpl("2.0 >= 2.0", document, document));
+    assertFalse("2.0 < 2.0", xpath.evaluateImpl("2.0 < 2.0", document, document));
+    assertTrue("2.0 = 2.0", xpath.evaluateImpl("2.0 = 2.0", document, document));
+    assertFalse("2.0 <= NaN", xpath.evaluateImpl("2.0 <= NaN", document, document));
+};
