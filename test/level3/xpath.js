@@ -2210,3 +2210,20 @@ exports.tests.NIST_expression021 = function() {
     assertArrayEquals("child2", [child2],
             xpath.evaluateImpl("self::child1|self::child2", document, child2).nodes);
 };
+
+exports.tests.NIST_expression022 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var child1 = document.createElement("child1");
+    doc.appendChild(child1);
+    var text = document.createTextNode("1");
+    child1.appendChild(text);
+    var child2 = document.createElement("child2");
+    doc.appendChild(child2);
+    var text = document.createTextNode("2");
+    child2.appendChild(text);
+    
+    assertArrayEquals("child1|child2", [child1, child2],
+            xpath.evaluateImpl("//child1|//child2", document, doc).nodes);
+};
