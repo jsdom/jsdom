@@ -1841,7 +1841,7 @@ exports.tests.NIST_expression011 = function() {
 // expression012 tests XPath variables, amongst other features, and is
 // omitted as above for other tests. A modified version that does not test
 // variables is included below.
-
+// 
 // exports.tests.NIST_expression012 = function() {
 //     var document = getImplementation().createDocument();
 //     var doc = document.createElement("doc");
@@ -2106,4 +2106,59 @@ exports.tests.NIST_expression018 = function() {
     
     assertArrayEquals("name2", [name2],
             xpath.evaluateImpl("author/name|author/noElement", document, book2).nodes);
+};
+
+// expression019 tests XPath variables, amongst other features, and is
+// omitted as above for other tests. A modified version that does not test
+// variables is included below.
+// 
+// exports.tests.NIST_expression019 = function() {
+//     var document = getImplementation().createDocument();
+//     var doc = document.createElement("doc");
+//     document.appendChild(doc);
+//     var child1 = document.createElement("child1");
+//     doc.appendChild(child1);
+//     var text = document.createTextNode("Text for variable 1.");
+//     child1.appendChild(text);
+//     var child2 = document.createElement("child2");
+//     doc.appendChild(child2);
+//     text = document.createTextNode("Selection of this child is an error.");
+//     child2.appendChild(text);
+//     var child3 = document.createElement("child3");
+//     doc.appendChild(child3);
+//     text = document.createTextNode("Selection of this child is an error.");
+//     child3.appendChild(text);
+//     
+//     var result = xpath.evaluateImpl("//child1", document, doc);
+//     assertArrayEquals("child1", [child1], result.nodes);
+//     
+//     // set $var1 = result.nodes
+//     // set $var2 = result.nodes
+//     
+//     assertArrayEquals("child1", [child1],
+//             xpath.evaluateImpl("$var1|$var2", document, doc));
+// };
+
+exports.tests.NIST_expression019_noVariables = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var child1 = document.createElement("child1");
+    doc.appendChild(child1);
+    var text = document.createTextNode("Text for variable 1.");
+    child1.appendChild(text);
+    var child2 = document.createElement("child2");
+    doc.appendChild(child2);
+    text = document.createTextNode("Selection of this child is an error.");
+    child2.appendChild(text);
+    var child3 = document.createElement("child3");
+    doc.appendChild(child3);
+    text = document.createTextNode("Selection of this child is an error.");
+    child3.appendChild(text);
+    
+    var result = xpath.evaluateImpl("//child1", document, doc);
+    assertArrayEquals("child1", [child1], result.nodes);
+    
+    assertArrayEquals("child1", [child1],
+            xpath.evaluateImpl("//child1|//child1", document, doc).nodes);
 };
