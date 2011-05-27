@@ -1633,3 +1633,25 @@ exports.tests.NIST_expression005 = function() {
     assertArrayEquals("Mary Brady", [author3],
             xpath.evaluateImpl("author[name/@real='no']|author[name/@real='yes']", document, book3).nodes);
 };
+
+exports.tests.NIST_expression006 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    doc.setAttribute("attr1", "attribute 1 ");
+    doc.setAttribute("attr2", "attribute 2");
+    document.appendChild(doc);
+    var sub1 = document.createElement("sub1");
+    doc.appendChild(sub1);
+    var child1 = document.createElement("child1");
+    sub1.appendChild(child1);
+    var text = document.createTextNode("child number 1");
+    child1.appendChild(text);
+    var sub2 = document.createElement("sub2");
+    doc.appendChild(sub2);
+    var child2 = document.createElement("child2");
+    text = document.createTextNode("child number 2");
+    child2.appendChild(text);
+    
+    assertArrayEquals("attributes", [doc.getAttributeNode("attr1"), doc.getAttributeNode("attr2")],
+            xpath.evaluateImpl("attribute::attr1|attribute::attr2", document, doc).nodes);
+};
