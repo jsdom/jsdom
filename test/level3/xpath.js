@@ -2302,3 +2302,41 @@ exports.tests.NIST_expression025_noVariables = function() {
     assertArrayEquals("child1|child2", [child1, child2],
             xpath.evaluateImpl("//child1|child::child2", document, doc).nodes);
 };
+
+// expression026 tests XPath variables, so it is omitted as above. There is no
+// modified version of this test that does not use variables, because it would
+// be redundant with other tests.
+// 
+// exports.tests.NIST_expression026 = function() {
+//     var document = getImplementation().createDocument();
+//     var doc = document.createElement("doc");
+//     document.appendChild(doc);
+//     var child1 = document.createElement("child1");
+//     doc.appendChild(child1);
+//     var text = document.createTextNode("child number 1");
+//     child1.appendChild(text);
+//     var child2 = document.createElement("child2");
+//     doc.appendChild(child2);
+//     text = document.createTextNode("child number 2");
+//     child2.appendChild(text);
+//     var child3 = document.createElement("child3");
+//     text = document.createTextNode("Selection of this child is an error");
+//     child3.appendChild(text);
+//     
+//     var result1 = xpath.evaluateImpl("//child1", document, doc);
+//     assertArrayEquals("child1", [child1], result1.nodes);
+//     
+//     var result2 = xpath.evaluateImpl("//child2", document, doc);
+//     assertArrayEquals("child2", [child2], result2.nodes);
+//     
+//     // set $var1 = result1.nodes
+//     // set $var2 = result2.nodes
+//     
+//     assertArrayEquals("$var1|$var2", [child1, child2],
+//             xpath.evaluateImpl("$var1|$var2", document, doc).nodes);
+// };
+
+exports.tests.NIST_expression027 = function() {
+    var document = getImplementation().createDocument();
+    assertTrue("(-0 = 0)", xpath.evaluateImpl("(-0 = 0)", document, document));
+};
