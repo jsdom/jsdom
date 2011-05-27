@@ -1266,7 +1266,7 @@ exports.tests.NIST_coreFunction079 = function() {
 
 exports.tests.NIST_coreFunction080 = function() {
     var document = getImplementation().createDocument();
-    assertTrue("NaN", isNaN(xpath.evaluateImpl("round(NaN)", document, document)));
+    assertNaN("NaN", xpath.evaluateImpl("round(NaN)", document, document));
 };
 
 exports.tests.NIST_coreFunction081 = function() {
@@ -1476,4 +1476,160 @@ exports.tests.NIST_dataManipulation016 = function() {
     
     assertArrayEquals("element1", [element1],
             xpath.evaluateImpl("//child1[ancestor::element1]", document, document).nodes);
+};
+
+
+exports.tests.NIST_expression001 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var sub1 = document.createElement("sub1");
+    doc.appendChild(sub1);
+    var child1 = document.createElement("child1");
+    sub1.appendChild(child1);
+    var text = document.createTextNode("child1");
+    child1.appendChild(text);
+    var sub2 = document.createElement("sub2");
+    doc.appendChild(sub2);
+    var child2 = document.createElement("child2");
+    sub2.appendChild(child2);
+    text = document.createTextNode("child2");
+    child2.appendChild(text);
+    
+    assertArrayEquals("child1|child2", [child1,child2],
+            xpath.evaluateImpl("/doc/sub1/child1|/doc/sub2/child2", document, doc).nodes);
+};
+
+exports.tests.NIST_expression002 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var sub1 = document.createElement("sub1");
+    doc.appendChild(sub1);
+    var child1 = document.createElement("child1");
+    sub1.appendChild(child1);
+    var text = document.createTextNode("child1");
+    child1.appendChild(text);
+    var sub2 = document.createElement("sub2");
+    doc.appendChild(sub2);
+    var child2 = document.createElement("child2");
+    sub2.appendChild(child2);
+    text = document.createTextNode("child2");
+    child2.appendChild(text);
+    
+    assertArrayEquals("child1|child2", [child1,child2],
+            xpath.evaluateImpl("sub1/child1|/doc/sub2/child2", document, doc).nodes);
+};
+
+exports.tests.NIST_expression003 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var sub1 = document.createElement("sub1");
+    doc.appendChild(sub1);
+    var child1 = document.createElement("child1");
+    sub1.appendChild(child1);
+    var text = document.createTextNode("descendant number 1");
+    child1.appendChild(text);
+    var sub2 = document.createElement("sub2");
+    doc.appendChild(sub2);
+    var child2 = document.createElement("child2");
+    sub2.appendChild(child2);
+    text = document.createTextNode("descendant number 2");
+    child2.appendChild(text);
+    
+    assertArrayEquals("child1|child2", [child1,child2],
+            xpath.evaluateImpl("//child1|//child2", document, doc).nodes);
+    
+    assertArrayEquals("sub1", [sub1],
+            xpath.evaluateImpl("ancestor::sub1|ancestor::sub2", document, child1).nodes);
+    
+    assertArrayEquals("sub2", [sub2],
+            xpath.evaluateImpl("ancestor::sub1|ancestor::sub2", document, child2).nodes);
+};
+
+exports.tests.NIST_expression004 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var sub1 = document.createElement("sub1");
+    doc.appendChild(sub1);
+    var child1 = document.createElement("child1");
+    sub1.appendChild(child1);
+    var text = document.createTextNode("descendant number 1");
+    child1.appendChild(text);
+    var sub2 = document.createElement("sub2");
+    doc.appendChild(sub2);
+    var child2 = document.createElement("child2");
+    sub2.appendChild(child2);
+    text = document.createTextNode("descendant number 2");
+    child2.appendChild(text);
+    
+    assertArrayEquals("child1|child2", [child1,child2],
+            xpath.evaluateImpl("//child1|//child2", document, doc).nodes);
+    
+    assertArrayEquals("sub1", [sub1],
+            xpath.evaluateImpl("ancestor-or-self::sub1|ancestor-or-self::sub2", document, child1).nodes);
+    
+    assertArrayEquals("sub2", [sub2],
+            xpath.evaluateImpl("ancestor-or-self::sub1|ancestor-or-self::sub2", document, child2).nodes);
+};
+
+exports.tests.NIST_expression005 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var book1 = document.createElement("book");
+    doc.appendChild(book1);
+    var author1 = document.createElement("author");
+    book1.appendChild(author1);
+    var name = document.createElement("name");
+    author1.appendChild(name);
+    name.setAttribute("real", "no");
+    var text = document.createTextNode("Carmelo Montanez");
+    name.appendChild(text);
+    var chapters = document.createElement("chapters");
+    author1.appendChild(chapters);
+    text = document.createTextNode("Nine");
+    chapters.appendChild(text);
+    var bibliography = document.createElement("bibliography");
+    author1.appendChild(bibliography);
+    var book2 = document.createElement("book");
+    doc.appendChild(book2);
+    var author2 = document.createElement("author");
+    book2.appendChild(author2);
+    name = document.createElement("name");
+    author2.appendChild(name);
+    name.setAttribute("real", "na");
+    text = document.createTextNode("David Marston");
+    name.appendChild(text);
+    chapters = document.createElement("chapters");
+    author2.appendChild(chapters);
+    text = document.createTextNode("Seven");
+    chapters.appendChild(text);
+    bibliography = document.createElement("bibliography");
+    author2.appendChild(bibliography);
+    var book3 = document.createElement("book");
+    doc.appendChild(book3);
+    var author3 = document.createElement("author");
+    book3.appendChild(author3);
+    name = document.createElement("name");
+    author3.appendChild(name);
+    name.setAttribute("real", "yes");
+    text = document.createTextNode("Mary Brady");
+    name.appendChild(text);
+    chapters = document.createElement("chapters");
+    author3.appendChild(chapters);
+    text = document.createTextNode("Ten");
+    bibliography = document.createElement("bibliography");
+    author3.appendChild(bibliography);
+    
+    assertArrayEquals("Carmelo Montanez", [author1],
+            xpath.evaluateImpl("author[name/@real='no']|author[name/@real='yes']", document, book1).nodes);
+    
+    assertArrayEquals("empty", [],
+            xpath.evaluateImpl("author[name/@real='no']|author[name/@real='yes']", document, book2).nodes);
+    
+    assertArrayEquals("Mary Brady", [author3],
+            xpath.evaluateImpl("author[name/@real='no']|author[name/@real='yes']", document, book3).nodes);
 };
