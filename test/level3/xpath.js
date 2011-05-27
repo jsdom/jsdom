@@ -893,12 +893,7 @@ exports.testAttributeNodePredicate = function(test) {
 // http://web.archive.org/web/20041019015748/http://xw2k.sdct.itl.nist.gov/xml/page5.html
 // Only test cases applicable to XPath are included.
 
-var coreFunctionTests = [
-        {
-            name: "really-simple",
-            xpath: "'a'",
-            expected: "a"
-        },
+var nistTestCases = [
         {
             name: "NIST_coreFunction001",
             xpath: "substring(substring('internalexternalcorrect substring',9),9)",
@@ -1336,38 +1331,183 @@ var coreFunctionTests = [
         },
         {
             name: "NIST_coreFunction088",
-            xml:
-                "<doc>\n" +
-                "  <element1>\n" +
-                "    <child1>Test executed Successfully!!</child1>\n" +
-                "  </element1>\n" +
-                "  <element2>\n" +
-                "    <child1>Incorrect Execution!!</child1>\n" +
-                "  </element2>\n" +
-                "</doc>\n",
+            xml: function() {
+                var document = getImplementation().createDocument();
+                var doc = document.createElement("doc");
+                document.appendChild(doc);
+                var element1 = document.createElement("element1");
+                doc.appendChild(element1);
+                var child1 = document.createElement("child1");
+                element1.appendChild(child1);
+                var text = document.createTextNode("Test executed Successfully!!");
+                child1.appendChild(text);
+                var element2 = document.createElement("element2");
+                doc.appendChild(element2);
+                child1 = document.createElement("child1");
+                text = document.createTextNode("Incorrect execution!!");
+                child1.appendChld(text);
+                return document;
+            },
             xpath: "count(//child1[ancestor::element1])",
             expected: 1
         },
         {
             name: "NIST_coreFunction089",
-            xml:
-                "<doc>\n" +
-                "  <element1>Incorrect Execution!!</element1>\n" +
-                "  <element1>Test executed Successfully!!</element1>\n" +
-                "</doc>\n",
-            xpath: "element1[2]",
+            xml: function() {
+                var document = getImplementation().createDocument();
+                var doc = document.createElement("doc");
+                document.appendChild(doc);
+                var element1 = document.createElement("element1");
+                doc.appendChild(element1);
+                var text = document.createTextNode("Incorrect Execution!!");
+                element1.appendChild(text);
+                element1 = document.createElement("element1");
+                text = document.createTextNode("Test executed Successfully!!");
+                element1.appendChild(text);
+                return document;
+            },
+            xpath: "string(element1[2])",
             expected: "Test executed Successfully!!"
+        },
+        {
+            name: "NIST_dataManipulation001a",
+            xpath: "2 > 1",
+            expected: true
+        },
+        {
+            name: "NIST_dataManipulation001b",
+            xpath: "9 mod 3 = 0",
+            expected: true
+        },
+        {
+            name: "NIST_dataManipulation002a",
+            xpath: "2 > 3",
+            expected: false
+        },
+        {
+            name: "NIST_dataManipulation003",
+            xpath: "(((((2*10)-4)+9) div 5) div 2) > 2",
+            expected: true
+        },
+        {
+            name: "NIST_dataManipulation004",
+            xpath: "(((((2*10)-4)+9) div 5) div 2) > 4",
+            expected: false
+        },
+        {
+            name: "NIST_dataManipulation007",
+            xpath: "(round(3.7) > 3)",
+            expected: true
+        },
+        {
+            name: "NIST_dataManipulation009",
+            xml: function() {
+                var document = getImplementation().createDocument();
+                var doc = document.createElement("doc");
+                document.appendChild(doc);
+                var element1 = document.createElement("element1");
+                doc.appendChild(element1);
+                var text = document.createTextNode("Test executed successfully!!");
+                element1.appendChild(text);
+                var element2 = document.createElement("element2");
+                text = document.createTextNode("Incorrect execution!!");
+                element2.appendChild(text);
+                return document;
+            },
+            xpath: "string(doc/element1)",
+            expected: "Test executed successfully!!"
+        },
+        {
+            name: "NIST_dataManipulation013",
+            xml: function() {
+                var document = getImplementation().createDocument();
+                var doc = document.createElement("doc");
+                document.appendChild(doc);
+                var element1 = document.createElement("element1");
+                doc.appendChild(element1);
+                var text = document.createTextNode("Incorrect execution!!");
+                element1.appendChild(text);
+                element1 = document.createElement("element1");
+                doc.appendChild(element1);
+                text = document.createTextNode("Incorrect execution!!");
+                element1.appendChild(text);
+                element1 = document.createElement("element1");
+                doc.appendChild(element1);
+                text = document.createTextNode("Test Executed Successfully!!");
+                element1.appendChild(text);
+                var element2 = document.createElement("element2");
+                doc.appendChild(element2);
+                text = document.createTextNode("Incorrect execution!!");
+                element2.appendChild(text);
+                return document;
+            },
+            xpath: "string(doc/element1[last()])",
+            expected: "Test Executed Successfully!!"
+        },
+        {
+            name: "NIST_dataManipulation014",
+            xml: function() {
+                var document = getImplementation().createDocument();
+                var doc = document.createElement("doc");
+                document.appendChild(doc);
+                var element1 = document.createElement("element1");
+                doc.appendChild(element1);
+                var text = document.createTextNode("Incorrect execution!!");
+                element1.appendChild(text);
+                element1 = document.createElement("element1");
+                doc.appendChild(element1);
+                text = document.createTextNode("Incorrect execution!!");
+                element1.appendChild(text);
+                element1 = document.createElement("element1");
+                doc.appendChild(element1);
+                text = document.createTextNode("Test Executed Successfully!!");
+                element1.appendChild(text);
+                var element2 = document.createElement("element2");
+                doc.appendChild(element2);
+                text = document.createTextNode("Incorrect execution!!");
+                element2.appendChild(text);
+                return document;
+            },
+            xpath: "string(doc/element1[((((((2*10)-4)+9) div 5) mod 3)+1)])",
+            expected: "Test Executed Successfully!!"
+        },
+        {
+            name: "NIST_dataManipulation016",
+            xml: function() {
+                var document = getImplementation().createDocument();
+                var doc = document.createElement("doc");
+                document.appendChild(doc);
+                var element1 = document.createElement("element1");
+                doc.appendChild(element1);
+                var child1 = document.createElement("child1");
+                element1.appendChild(child1);
+                var text = document.createTextNode("Test Executed Successfully!!");
+                child1.appendChild(text);
+                var element2 = document.createElement("element2");
+                doc.appendChild(element2);
+                child1 = document.createElement("child1");
+                element2.appendChild(child1);
+                text = document.createTextNode("Incorrect Execution!!");
+                child1.appendChild(text);
+                return document;
+            },
+            xpath: "string(//child1[ancestor::element1])",
+            expected: "Test Executed Successfully!!"
         }];
 
-for (var i=0; i<coreFunctionTests.length; ++i) {
-    var test = coreFunctionTests[i];
-    exports.tests[test.name] = (function(test) {
-        return function() {
-            var document = getImplementation().createDocument();
-            document.appendChild(document.createElement('e'));
-            var node = document.documentElement;
-            var result = xpath.evaluateImpl(test.xpath, document, node);
-            assertEquals('', test.expected, result);
-        };
-    }(test));
+function registerNistTestCase(test) {
+    exports.tests[test.name] = function() {
+        var document;
+        if (test.xml) {
+            document = test.xml();
+        } else {
+            document = getImplementation().createDocument();
+        }
+        var result = xpath.evaluateImpl(test.xpath, document, document);
+        assertEquals("", test.expected, result);
+    };
+}
+
+for (var i=0; i<nistTestCases.length; ++i) {
+    registerNistTestCase(nistTestCases[i]);
 }
