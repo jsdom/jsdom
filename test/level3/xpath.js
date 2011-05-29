@@ -2607,3 +2607,24 @@ exports.tests.NIST_locationPath008 = function() {
     assertArrayEquals("element1", [element1b],
             xpath.evaluate("element1[(((((2*10)-4)+9) div 5) mod floor(3))]", document, doc).nodes);
 };
+
+exports.tests.NIST_locationPath009 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var element1a = document.createElement("element1");
+    doc.appendChild(element1a);
+    var text = document.createTextNode("Wrong node selected!!");
+    element1a.appendChild(text);
+    var element1b = document.createElement("element1");
+    doc.appendChild(element1b);
+    text = document.createTextNode("Test executed successfully!!");
+    element1b.appendChild(text);
+    var element1c = document.createElement("element1");
+    doc.appendChild(element1c);
+    text = document.createTextNode("Wrong node selected!!");
+    element1c.appendChild(text);
+    
+    assertArrayEquals("element1", [element1b],
+            xpath.evaluate("element1[floor(2)]", document, doc).nodes);
+};
