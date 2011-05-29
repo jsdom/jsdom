@@ -195,7 +195,6 @@ var suites = {
            }
          };
        }
-       
        global.xpath = require("../lib/jsdom/level3/xpath");
      }
    },

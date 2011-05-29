@@ -283,37 +283,37 @@ exports.testParseRoot = function(test) {
 };
 
 exports.testEvaluateNumber = function(test) {
-  var x = xpath.evaluateImpl('3', null, 'CTX');
+  var x = xpath.evaluate('3', null, 'CTX');
   test.deepEqual(3, x);
   test.done();
 };
 exports.testEvaluateExtraParens = function(test) {
-  var x = xpath.evaluateImpl('(((3)))', null, 'CTX');
+  var x = xpath.evaluate('(((3)))', null, 'CTX');
   test.deepEqual(3, x);
   test.done();
 };
 exports.testEvaluateNumberFunction = function(test) {
-  var x = xpath.evaluateImpl('number("3")', null, 'CTX');
+  var x = xpath.evaluate('number("3")', null, 'CTX');
   test.equal(3, x);
   test.done();
 };
 exports.testEvaluateUnaryMinus = function(test) {
-  var x = xpath.evaluateImpl('-3', null, 'CTX');
+  var x = xpath.evaluate('-3', null, 'CTX');
   test.deepEqual(-3, x);
   test.done();
 };
 exports.testEvaluateUnaryMinusCoerced = function(test) {
-  var x = xpath.evaluateImpl('--"3"', null, 'CTX');
+  var x = xpath.evaluate('--"3"', null, 'CTX');
   test.deepEqual(3, x);
   test.done();
 };
 exports.testEvaluateArithmetic = function(test) {
-  var x = xpath.evaluateImpl('(2*11 + 5)mod 10', null, 'CTX');
+  var x = xpath.evaluate('(2*11 + 5)mod 10', null, 'CTX');
   test.deepEqual(7, x);
   test.done();
 };
 exports.testEvaluateArithmetic2 = function(test) {
-  var x = xpath.evaluateImpl(
+  var x = xpath.evaluate(
     '1>.5 and 1>=.5 and (2=6div 3) and false()<.5 and true()>.5', null, 'CTX');
   test.deepEqual(true, x);
   test.done();
@@ -323,21 +323,21 @@ exports.testEvaluateWildcardChild = function(test) {
       body = doc.getElementsByTagName('body')[0],
       div0 = doc.getElementsByTagName('div')[0],
       div1 = doc.getElementsByTagName('div')[1];
-  var x = xpath.evaluateImpl('*', doc, body);
+  var x = xpath.evaluate('*', doc, body);
   test.deepEqual(xpath.stringifyObject({nodes:[div0,div1], pos: [[1],[2]], lasts: [[2],[2]]}), xpath.stringifyObject(x));
   test.done();
 };
 exports.testEvaluateArithmetic3 = function(test) {
   var doc = jsdom.jsdom('<html><body><div>3</div><div>4</div></body></html>'),
       body = doc.getElementsByTagName('body')[0];
-  var x = xpath.evaluateImpl(
+  var x = xpath.evaluate(
     '*<*', doc, body);
   test.deepEqual(true, x);
   test.done();
 };
 exports.testEvaluateRoot = function(test) {
   var doc = jsdom.jsdom('Hello.');
-  var x = xpath.evaluateImpl('/', doc, doc);
+  var x = xpath.evaluate('/', doc, doc);
   test.deepEqual(xpath.stringifyObject({nodes:[doc]}), xpath.stringifyObject(x));
   test.done();
 };
@@ -393,14 +393,14 @@ exports.testId = function(test) {
     xpath.stringifyObject(
       {nodes: [b,c,d]}),
     xpath.stringifyObject(
-      xpath.evaluateImpl('id(id("test"))', doc, doc)));
+      xpath.evaluate('id(id("test"))', doc, doc)));
   test.done();
 };
 function outerHtml(node) { return node.outerHTML; }
 exports.testEvaluateChildAxis = function(test) {
   var doc = jsdom.jsdom('<html><body>Hello.</body></html>');
   var ctx = doc.body;
-  var x = xpath.evaluateImpl('child::text()', doc, ctx);
+  var x = xpath.evaluate('child::text()', doc, ctx);
   test.deepEqual([doc.body.firstChild], x.nodes);
   test.done();
 };
@@ -437,7 +437,7 @@ exports.testDescendantOrSelfChild = function(test) {
     '</blockquote>' +
     '</html></body>'
   );
-  var newCtx = xpath.evaluateImpl('.//*[ancestor::blockquote]', doc, doc);
+  var newCtx = xpath.evaluate('.//*[ancestor::blockquote]', doc, doc);
   var nodeNames = newCtx.nodes
     .map(function(n) {return n.nodeName;})
     .join(' ').toLowerCase();
@@ -552,7 +552,7 @@ exports.testFollowingSibling = function(test) {
       four = doc.getElementsByTagName('a')[3],
       five = doc.getElementsByTagName('a')[4],
       six = doc.getElementsByTagName('a')[5];
-  var newCtx = xpath.evaluateImpl('a[3]/following-sibling::*', doc, doc.body);
+  var newCtx = xpath.evaluate('a[3]/following-sibling::*', doc, doc.body);
   test.deepEqual(
     xpath.stringifyObject({nodes:[four,five,six]}),
     xpath.stringifyObject(newCtx));
@@ -566,7 +566,7 @@ exports.testPrecedingSibling = function(test) {
       four = doc.getElementsByTagName('a')[3],
       five = doc.getElementsByTagName('a')[4],
       six = doc.getElementsByTagName('a')[5];
-  var newCtx = xpath.evaluateImpl('a[3]/preceding-sibling::*', doc, doc.body);
+  var newCtx = xpath.evaluate('a[3]/preceding-sibling::*', doc, doc.body);
   test.deepEqual(
     xpath.stringifyObject({nodes:[one,two]}),
     xpath.stringifyObject(newCtx));
@@ -607,7 +607,7 @@ exports.testChild = function(test) {
 // TODO: 'concat(a[1], a[position()>1][1])'
 exports.testEvaluatePosition = function(test) {
   var doc = jsdom.jsdom('<html><body><a>one</a><a>two</a><a>three</a></body></html>');
-  var x = xpath.evaluateImpl('concat(a[1], a[1][1])', doc, doc.body);
+  var x = xpath.evaluate('concat(a[1], a[1][1])', doc, doc.body);
   test.deepEqual('oneone', x);
   test.done();
 };
@@ -619,7 +619,7 @@ exports.testEvaluatePositionAndLast = function(test) {
       four = doc.getElementsByTagName('a')[3],
       five = doc.getElementsByTagName('a')[4],
       six = doc.getElementsByTagName('a')[5];
-  var newCtx = xpath.evaluateImpl('//a[last() mod position()=0]', doc, doc.body);
+  var newCtx = xpath.evaluate('//a[last() mod position()=0]', doc, doc.body);
   test.deepEqual(
     xpath.stringifyObject({nodes:[one,two,three,six]}),
     xpath.stringifyObject(newCtx));
@@ -628,7 +628,7 @@ exports.testEvaluatePositionAndLast = function(test) {
 exports.testAttributePredicate = function(test) {
   var doc = jsdom.jsdom('<html><body><a href="x" rel=alternate>a</a></body></html>');
   var a = doc.getElementsByTagName('a')[0];
-  var newCtx = xpath.evaluateImpl('//*[@href="x"]', doc, doc.body);
+  var newCtx = xpath.evaluate('//*[@href="x"]', doc, doc.body);
   test.deepEqual(
     xpath.stringifyObject({nodes:[a]}),
     xpath.stringifyObject(newCtx));
@@ -638,7 +638,7 @@ exports.testMorePredicates = function(test) {
   var doc = jsdom.jsdom('<html><body><blockquote><a></a></blockquote></body></html>');
   var blockquote = doc.getElementsByTagName('blockquote')[0],
       a = doc.getElementsByTagName('a')[0];
-  var newCtx = xpath.evaluateImpl('//*[ancestor::blockquote]', doc, doc.body);
+  var newCtx = xpath.evaluate('//*[ancestor::blockquote]', doc, doc.body);
   test.deepEqual(
     xpath.stringifyObject({nodes:[a]}),
     xpath.stringifyObject(newCtx));
@@ -647,7 +647,7 @@ exports.testMorePredicates = function(test) {
 exports.testAttributeWildcard = function(test) {
   var doc = jsdom.jsdom('<html><body><a href="x" rel=alternate>a</a></body></html>');
   var a = doc.getElementsByTagName('a')[0];
-  var newCtx = xpath.evaluateImpl('//*[@*="alternate"]', doc, doc.body);
+  var newCtx = xpath.evaluate('//*[@*="alternate"]', doc, doc.body);
   test.deepEqual(
     xpath.stringifyObject({nodes:[a]}),
     xpath.stringifyObject(newCtx));
@@ -660,7 +660,7 @@ exports.testEvaluatePath = function(test) {
       div0 = doc.getElementsByTagName('div')[0],
       div1 = doc.getElementsByTagName('div')[1],
       img = doc.getElementsByTagName('img')[0];
-  var newCtx = xpath.evaluateImpl('div/div', doc, doc.body);
+  var newCtx = xpath.evaluate('div/div', doc, doc.body);
   test.deepEqual(
     xpath.stringifyObject(
       {nodes: [div1], pos: [[1]], lasts: [[1]]}),
@@ -669,39 +669,39 @@ exports.testEvaluatePath = function(test) {
 };
 exports.testEvaluateName = function(test) {
   var doc = jsdom.jsdom('<html><head></head><body></body></html>');
-  test.equal('body', xpath.evaluateImpl('name()', doc, doc.body));
-  test.equal('body', xpath.evaluateImpl('local-name()', doc, doc.body));
+  test.equal('body', xpath.evaluate('name()', doc, doc.body));
+  test.equal('body', xpath.evaluate('local-name()', doc, doc.body));
   test.done();
 };
 exports.testEvaluateSubstringBefore = function(test) {
   var doc = jsdom.jsdom('<html></html>');
-  var newCtx = xpath.evaluateImpl('substring-before("1999/04/01","/")', doc, doc.body);
+  var newCtx = xpath.evaluate('substring-before("1999/04/01","/")', doc, doc.body);
   test.equal('1999', newCtx);
   test.done();
 };
 exports.testEvaluateSubstringAfter = function(test) {
   var doc = jsdom.jsdom('<html></html>');
-  var newCtx = xpath.evaluateImpl('substring-after("1999/04/01","/")', doc, doc.body);
+  var newCtx = xpath.evaluate('substring-after("1999/04/01","/")', doc, doc.body);
   test.deepEqual('04/01', newCtx);
   test.done();
 };
 exports.testEvaluateSubstring = function(test) {
   var doc = jsdom.jsdom('<html></html>');
-  test.equal('04', xpath.evaluateImpl('substring("1999/04/01", 6, 2)', doc, doc));
-  test.equal('04/01', xpath.evaluateImpl('substring("1999/04/01", 6)', doc, doc));
+  test.equal('04', xpath.evaluate('substring("1999/04/01", 6, 2)', doc, doc));
+  test.equal('04/01', xpath.evaluate('substring("1999/04/01", 6)', doc, doc));
   test.done();
 };
 exports.testEvaluateContains = function(test) {
   var doc = jsdom.jsdom('<html></html>');
-  test.equal(true, xpath.evaluateImpl('contains("hello", "el")', doc, doc));
-  test.equal(false, xpath.evaluateImpl('contains("hello", "mm")', doc, doc));
+  test.equal(true, xpath.evaluate('contains("hello", "el")', doc, doc));
+  test.equal(false, xpath.evaluate('contains("hello", "mm")', doc, doc));
   test.done();
 };
 exports.testEvaluateTranslate = function(test) {
   var doc = jsdom.jsdom('<html></html>');
-  test.equal('BAr', xpath.evaluateImpl('translate("bar","abc","ABC")', doc, doc));
-  test.equal('AAA', xpath.evaluateImpl('translate("--aaa--", "abc-", "ABC")', doc, doc));
-  test.equal('sub', xpath.evaluateImpl('translate(normalize-space(" s u b"), " ", "")', doc, doc));
+  test.equal('BAr', xpath.evaluate('translate("bar","abc","ABC")', doc, doc));
+  test.equal('AAA', xpath.evaluate('translate("--aaa--", "abc-", "ABC")', doc, doc));
+  test.equal('sub', xpath.evaluate('translate(normalize-space(" s u b"), " ", "")', doc, doc));
   test.done();
 };
 exports.testUnion = function(test) {
@@ -711,7 +711,7 @@ exports.testUnion = function(test) {
       div0 = doc.getElementsByTagName('div')[0],
       div1 = doc.getElementsByTagName('div')[1],
       img = doc.getElementsByTagName('img')[0];
-  var newCtx = xpath.evaluateImpl('img|div/div', doc, doc.body);
+  var newCtx = xpath.evaluate('img|div/div', doc, doc.body);
   test.deepEqual(
     xpath.stringifyObject(
       {nodes: [div1, img]}),
@@ -725,7 +725,7 @@ exports.testUnion2 = function(test) {
       div0 = doc.getElementsByTagName('div')[0],
       div1 = doc.getElementsByTagName('div')[1],
       img = doc.getElementsByTagName('img')[0];
-  var newCtx = xpath.evaluateImpl('div|zz', doc, doc.body);
+  var newCtx = xpath.evaluate('div|zz', doc, doc.body);
   test.deepEqual(
     xpath.stringifyObject(
       {nodes: [div0]}),
@@ -739,7 +739,7 @@ exports.testUnion3 = function(test) {
       div0 = doc.getElementsByTagName('div')[0],
       div1 = doc.getElementsByTagName('div')[1],
       img = doc.getElementsByTagName('img')[0];
-  var newCtx = xpath.evaluateImpl('zz|div', doc, doc.body);
+  var newCtx = xpath.evaluate('zz|div', doc, doc.body);
   test.deepEqual(
     xpath.stringifyObject(
       {nodes: [div0]}),
@@ -755,33 +755,33 @@ exports.testAttributesHaveNoChildren = function(test) {
       i = doc.getElementsByTagName('i')[0];
   test.deepEqual(
     xpath.stringifyObject({nodes: [b], pos: [[1]], lasts: [[1]]}),
-    xpath.stringifyObject(xpath.evaluateImpl('parent::node()', doc, attr)));
+    xpath.stringifyObject(xpath.evaluate('parent::node()', doc, attr)));
   test.deepEqual(
     xpath.stringifyObject({nodes: [attr], pos: [[1]], lasts: [[1]]}),
-    xpath.stringifyObject(xpath.evaluateImpl('self::node()', doc, attr)));
+    xpath.stringifyObject(xpath.evaluate('self::node()', doc, attr)));
   test.deepEqual(
     xpath.stringifyObject({nodes: [], pos: [], lasts: []}),
-    xpath.stringifyObject(xpath.evaluateImpl('child::node()', doc, attr)));
+    xpath.stringifyObject(xpath.evaluate('child::node()', doc, attr)));
   test.deepEqual(
     xpath.stringifyObject({nodes: []}),
-    xpath.stringifyObject(xpath.evaluateImpl('descendant::node()', doc, attr)));
+    xpath.stringifyObject(xpath.evaluate('descendant::node()', doc, attr)));
   test.deepEqual(
     xpath.stringifyObject({nodes: [attr]}),
-    xpath.stringifyObject(xpath.evaluateImpl('descendant-or-self::node()', doc, attr)));
+    xpath.stringifyObject(xpath.evaluate('descendant-or-self::node()', doc, attr)));
   // Note: following DOES include the children of the element that the
   // attribute belongs to.
   test.deepEqual(
     xpath.stringifyObject({nodes: [btext, i]}),
-    xpath.stringifyObject(xpath.evaluateImpl('following::node()', doc, attr)));
+    xpath.stringifyObject(xpath.evaluate('following::node()', doc, attr)));
   test.deepEqual(
     xpath.stringifyObject({nodes: []}),
-    xpath.stringifyObject(xpath.evaluateImpl('following-sibling::node()', doc, attr)));
+    xpath.stringifyObject(xpath.evaluate('following-sibling::node()', doc, attr)));
   test.deepEqual(
     xpath.stringifyObject({nodes: [a], pos: [[1]], lasts: [[1]]}),
-    xpath.stringifyObject(xpath.evaluateImpl('preceding::node()', doc, attr)));
+    xpath.stringifyObject(xpath.evaluate('preceding::node()', doc, attr)));
   test.deepEqual(
     xpath.stringifyObject({nodes: []}),
-    xpath.stringifyObject(xpath.evaluateImpl('preceding-sibling::node()', doc, attr)));
+    xpath.stringifyObject(xpath.evaluate('preceding-sibling::node()', doc, attr)));
   test.done();
 };
 function stringifyNodeList(l) {
@@ -867,21 +867,21 @@ exports.testAttributeNodePredicate = function(test) {
       child21 = child2.firstChild,
       child22 = child21.nextSibling,
       child23 = child22.nextSibling;
-  var result = xpath.evaluateImpl(".//@id[false]", doc, root);
+  var result = xpath.evaluate(".//@id[false]", doc, root);
   test.deepEqual(xpath.stringifyObject({nodes:[]}), xpath.stringifyObject(result));
-  result = xpath.evaluateImpl(".//@id[1]/parent::*", doc, root);
+  result = xpath.evaluate(".//@id[1]/parent::*", doc, root);
   test.deepEqual(
     xpath.stringifyObject({nodes:[child21, child22, child23],
                       pos: [ [ 1 ], [ 1 ], [ 1 ] ],
                       lasts: [ [ 1 ], [ 1 ], [ 1 ] ]}),
     xpath.stringifyObject(result));
-  result = xpath.evaluateImpl(".//@id[2]/parent::*", doc, root);
+  result = xpath.evaluate(".//@id[2]/parent::*", doc, root);
   test.deepEqual(xpath.stringifyObject({nodes:[],pos:[],lasts:[]}), xpath.stringifyObject(result));
-  result = xpath.evaluateImpl(".//@id[string()='21']/parent::*", doc, root);
+  result = xpath.evaluate(".//@id[string()='21']/parent::*", doc, root);
   test.deepEqual(
     xpath.stringifyObject({nodes:[child21], pos:[[1]],lasts:[[1]]}),
     xpath.stringifyObject(result));
-  result = xpath.evaluateImpl(".//@id[string()='22']/parent::*", doc, root);
+  result = xpath.evaluate(".//@id[string()='22']/parent::*", doc, root);
   test.deepEqual(
     xpath.stringifyObject({nodes:[child22], pos:[[1]],lasts:[[1]]}),
     xpath.stringifyObject(result));
@@ -896,103 +896,103 @@ exports.testAttributeNodePredicate = function(test) {
 exports.tests.NIST_coreFunction001 = function() {
     var document = getImplementation().createDocument();
     assertEquals("correct substring", "correct substring",
-            xpath.evaluateImpl("substring(substring('internalexternalcorrect substring',9),9)", document, document));
+            xpath.evaluate("substring(substring('internalexternalcorrect substring',9),9)", document, document));
 };
 
 exports.tests.NIST_coreFunction002 = function() {
     var document = getImplementation().createDocument();
     assertEquals("correct substring", "correct substring",
-            xpath.evaluateImpl("substring(substring('internalexternalcorrect substring',9,25),9,17)", document, document));
+            xpath.evaluate("substring(substring('internalexternalcorrect substring',9,25),9,17)", document, document));
 };
 
 exports.tests.NIST_coreFunction003 = function() {
     var document = getImplementation().createDocument();
     assertEquals("concatenated string", "A New Concatenated String",
-            xpath.evaluateImpl("concat(concat('A ','N','e'),'w ','Concatenated String')", document, document));
+            xpath.evaluate("concat(concat('A ','N','e'),'w ','Concatenated String')", document, document));
 };
 
 exports.tests.NIST_coreFunction004 = function() {
     var document = getImplementation().createDocument();
     assertEquals("unchanged string", "Unchanged String",
-            xpath.evaluateImpl("string(string('Unchanged String'))", document, document));
+            xpath.evaluate("string(string('Unchanged String'))", document, document));
 };
 
 exports.tests.NIST_coreFunction005 = function() {
     var document = getImplementation().createDocument();
     assertEquals("correct substring after", "Correct Substring After",
-            xpath.evaluateImpl("substring-after(substring-after('wrongnogoodCorrect Substring After','wrong'),'nogood')", document, document));
+            xpath.evaluate("substring-after(substring-after('wrongnogoodCorrect Substring After','wrong'),'nogood')", document, document));
 };
 
 exports.tests.NIST_coreFunction006 = function() {
     var document = getImplementation().createDocument();
     assertEquals("correct substring before", "correct substring Before",
-            xpath.evaluateImpl("substring-before(substring-before('correct substring Beforenogoodwrong','wrong'),'nogood')", document, document));
+            xpath.evaluate("substring-before(substring-before('correct substring Beforenogoodwrong','wrong'),'nogood')", document, document));
 };
 
 exports.tests.NIST_coreFunction007 = function() {
     var document = getImplementation().createDocument();
     assertEquals("new string", "new string",
-            xpath.evaluateImpl("translate(translate('old string','old','123'),'123','new')", document, document));
+            xpath.evaluate("translate(translate('old string','old','123'),'123','new')", document, document));
 };
 
 exports.tests.NIST_coreFunction008 = function() {
     var document = getImplementation().createDocument();
     assertEquals("new string", "new string",
-            xpath.evaluateImpl("translate('old string',translate('123','123','old'),'new')", document, document));
+            xpath.evaluate("translate('old string',translate('123','123','old'),'new')", document, document));
 };
 
 exports.tests.NIST_coreFunction009 = function() {
     var document = getImplementation().createDocument();
     assertEquals("new string", "new string",
-            xpath.evaluateImpl("translate(translate('old string','old string','old string'),translate('123','123','old'),translate('123','123','new'))", document, document));
+            xpath.evaluate("translate(translate('old string','old string','old string'),translate('123','123','old'),translate('123','123','new'))", document, document));
 };
 
 exports.tests.NIST_coreFunction010 = function() {
     var document = getImplementation().createDocument();
     assertEquals("new string", "new string",
-            xpath.evaluateImpl("translate(translate('old string','old string','old string'),translate('123','123','old'),translate('123','123','new'))", document, document));
+            xpath.evaluate("translate(translate('old string','old string','old string'),translate('123','123','old'),translate('123','123','new'))", document, document));
 };
 
 exports.tests.NIST_coreFunction011 = function() {
     var document = getImplementation().createDocument();
     assertEquals("a new concatenated string", "A New Concatenated String",
-            xpath.evaluateImpl("concat('A New ',concat('Conca','tena','ted '),'String')", document, document));
+            xpath.evaluate("concat('A New ',concat('Conca','tena','ted '),'String')", document, document));
 };
 
 exports.tests.NIST_coreFunction012 = function() {
     var document = getImplementation().createDocument();
     assertEquals("a new concatenated string", "A New Concatenated String",
-            xpath.evaluateImpl("concat('A New ','Concatenated ',concat('St','ri','ng'))", document, document));
+            xpath.evaluate("concat('A New ','Concatenated ',concat('St','ri','ng'))", document, document));
 };
 
 exports.tests.NIST_coreFunction013 = function() {
     var document = getImplementation().createDocument();
     assertEquals("a new concatnated string", "A New Concatenated String",
-            xpath.evaluateImpl("concat(concat('A ','Ne','w '),concat('Conca','tena','ted '),concat('St','ri','ng'))", document, document));
+            xpath.evaluate("concat(concat('A ','Ne','w '),concat('Conca','tena','ted '),concat('St','ri','ng'))", document, document));
 };
 
 exports.tests.NIST_coreFunction014 = function() {
     var document = getImplementation().createDocument();
     assertEquals("correct substring after", "Correct Substring After",
-            xpath.evaluateImpl("substring-after('wrongCorrect Substring After',substring-after('nogoodstringwrong','nogoodstring'))", document, document));
+            xpath.evaluate("substring-after('wrongCorrect Substring After',substring-after('nogoodstringwrong','nogoodstring'))", document, document));
 };
 
 exports.tests.NIST_coreFunction015 = function() {
     var document = getImplementation().createDocument();
     assertEquals("correct substring after", "Correct Substring After",
-            xpath.evaluateImpl("substring-after(substring-after('nogoodwrongCorrect Substring After','nogood'),substring-after('nogoodstringwrong','nogoodstring'))", document, document));
+            xpath.evaluate("substring-after(substring-after('nogoodwrongCorrect Substring After','nogood'),substring-after('nogoodstringwrong','nogoodstring'))", document, document));
 };
 
 exports.tests.NIST_coreFunction016 = function() {
     var document = getImplementation().createDocument();
     assertEquals("correct substring before", "Correct Substring Before",
-            xpath.evaluateImpl("substring-before('Correct Substring Beforewrong',substring-before('wrongnogood','nogood'))", document, document));
+            xpath.evaluate("substring-before('Correct Substring Beforewrong',substring-before('wrongnogood','nogood'))", document, document));
 };
 
 exports.tests.NIST_coreFunction017 = function() {
     var document = getImplementation().createDocument();
     assertEquals("correct substring before", "Correct Substring Before",
-            xpath.evaluateImpl("substring-before(substring-before('Correct Substring Beforewrongcut here','cut here'),substring-before('wrongnogood','nogood'))", document, document));
+            xpath.evaluate("substring-before(substring-before('Correct Substring Beforewrongcut here','cut here'),substring-before('wrongnogood','nogood'))", document, document));
 };
 
 // coreFunction018 thru coreFunction035 are omitted because they test XPath
@@ -1006,28 +1006,28 @@ exports.tests.NIST_coreFunction017 = function() {
 //     var document = getImplementation().createDocument();
 //     // set $variable1 = "String From Variable"
 //     assertEquals("string from variable", "String From Variable",
-//             xpath.evaluateImpl("string($variable1)", document, document));
+//             xpath.evaluate("string($variable1)", document, document));
 // };
 //
 // exports.tests.NIST_coreFunction019 = function() {
 //     var document = getImplementation().createDocument();
 //     // set $variable1 = "String "
 //     assertEquals("string from variable", "String From Variable",
-//             xpath.evaluateImpl("concat($variable1,'From ','Variable')", document, document));
+//             xpath.evaluate("concat($variable1,'From ','Variable')", document, document));
 // };
 // 
 // exports.tests.NIST_coreFunction020 = function() {
 //     var document = getImplementation().createDocument();
 //     // set $variable1 = "From "
 //     assertEquals("string from variable", "String From Variable",
-//             xpath.evaluateImpl("concat('String ',$variable1,'Variable')", document, document));
+//             xpath.evaluate("concat('String ',$variable1,'Variable')", document, document));
 // };
 // 
 // exports.tests.NIST_coreFunction021 = function() {
 //     var document = getImplementation().createDocument();
 //     // set $variable1 = "Variable"
 //     assertEquals("string from variable", "String From Variable",
-//             xpath.evaluateImpl("concat('String ','From ',$variable1)", document, document));
+//             xpath.evaluate("concat('String ','From ',$variable1)", document, document));
 // };
 // 
 // exports.tests.NIST_coreFunction022 = function() {
@@ -1036,21 +1036,21 @@ exports.tests.NIST_coreFunction017 = function() {
 //     // set $variable2 = "From "
 //     // set $variable3 = "Variable"
 //     assertEquals("string from variable", "String From Variable",
-//             xpath.evaluateImpl("concat($variable1,$variable2,$variable3)", document, document));
+//             xpath.evaluate("concat($variable1,$variable2,$variable3)", document, document));
 // };
 // 
 // exports.tests.NIST_coreFunction023 = function() {
 //     var document = getImplementation().createDocument();
 //     // set $variable1 = "substring-before with variablecut this"
 //     assertEquals("substring-before with variable", "substring-before with variable",
-//             xpath.evaluateImpl("substring-before($variable1,'cut this')", document, document));
+//             xpath.evaluate("substring-before($variable1,'cut this')", document, document));
 // };
 // 
 // exports.tests.NIST_coreFunction024 = function() {
 //     var document = getImplementation().createDocument();
 //     // set $variable1 = "cut this"
 //     assertEquals("substring-before with variable", "substring-before with variable",
-//             xpath.evaluateImpl("substring-before('substring-before with variablecut this',$variable1)", document, document));
+//             xpath.evaluate("substring-before('substring-before with variablecut this',$variable1)", document, document));
 // };
 // 
 // exports.tests.NIST_coreFunction025 = function() {
@@ -1058,21 +1058,21 @@ exports.tests.NIST_coreFunction017 = function() {
 //     // set $variable1 = "substring before with variablecut this"
 //     // set $variable2 = "cut this"
 //     assertEquals("substring before with variable", "substring before with variable",
-//             xpath.evaluateImpl("substring-before($variable1,$variable2)", document, document));
+//             xpath.evaluate("substring-before($variable1,$variable2)", document, document));
 // };
 // 
 // exports.tests.NIST_coreFunction026 = function() {
 //     var document = getImplementation().createDocument();
 //     // set $variable1 = "cut thissubstring-after with variable"
 //     assertEquals("substring-after with variable", "substring-after with variable",
-//             xpath.evaluateImpl("substring-after($variable1,'cut this')", document, document));
+//             xpath.evaluate("substring-after($variable1,'cut this')", document, document));
 // };
 // 
 // exports.tests.NIST_coreFunction027 = function() {
 //     var document = getImplementation().createDocument();
 //     // set $variable1 = "cut this"
 //     assertEquals("substring after with variable", "substring after with variable",
-//             xpath.evaluateImpl("substring-after('cut thissubstring after with variable',$variable1)", document, document));
+//             xpath.evaluate("substring-after('cut thissubstring after with variable',$variable1)", document, document));
 // };
 // 
 // exports.tests.NIST_coreFunction028 = function() {
@@ -1080,49 +1080,49 @@ exports.tests.NIST_coreFunction017 = function() {
 //     // set $variable1 = "cut thissubstring-after with variable"
 //     // set $variable2 = "cut this"
 //     assertEquals("substring-after with variable", "substring-after with variable",
-//             xpath.evaluateImpl("substring-after($variable1,$variable2)", document, document));
+//             xpath.evaluate("substring-after($variable1,$variable2)", document, document));
 // };
 // 
 // exports.tests.NIST_coreFunction029 = function() {
 //     var document = getImplementation().createDocument();
 //     // set $variable1 = "cut thissubstring with variable"
 //     assertEquals("substring with variable", "substring with variable",
-//             xpath.evaluateImpl("substring($variable1,9)", document, document));
+//             xpath.evaluate("substring($variable1,9)", document, document));
 // };
 // 
 // exports.tests.NIST_coreFunction030 = function() {
 //     var document = getImplementation().createDocument();
 //     // set $variable1 = "cut thissubstring with variable"
 //     assertEquals("substring with variable", "substring with variable",
-//             xpath.evaluateImpl("substring($variable1,9,23)", document, document));
+//             xpath.evaluate("substring($variable1,9,23)", document, document));
 // };
 // 
 // exports.tests.NIST_coreFunction031 = function() {
 //     var document = getImplementation().createDocument();
 //     // set $variable1 = "should return the value 26"
 //     assertEquals("length 26", 26,
-//             xpath.evaluateImpl("string-length($variable1)", document, document));
+//             xpath.evaluate("string-length($variable1)", document, document));
 // };
 // 
 // exports.tests.NIST_coreFunction032 = function() {
 //     var document = getImplementation().createDocument();
 //     // set $variable1 = "translate 1234 variable"
 //     assertEquals("translate with variable", "translate with variable",
-//             xpath.evaluateImpl("translate($variable1,'1234','with')", document, document));
+//             xpath.evaluate("translate($variable1,'1234','with')", document, document));
 // };
 // 
 // exports.tests.NIST_coreFunction033 = function() {
 //     var document = getImplementation().createDocument();
 //     // set $variable1 = "1234"
 //     assertEquals("translate with variable", "translate with variable",
-//             xpath.evaluateImpl("translate('translate 1234 variable',$variable1,'with')", document, document));
+//             xpath.evaluate("translate('translate 1234 variable',$variable1,'with')", document, document));
 // };
 // 
 // exports.tests.NIST_coreFunction034 = function() {
 //     var document = getImplementation().createDocument();
 //     // set $variable1 = "with"
 //     assertEquals("translate with variable", "translate with variable",
-//             xpath.evaluateImpl("translate('translate 1234 variable','1234',$variable1)", document, document));
+//             xpath.evaluate("translate('translate 1234 variable','1234',$variable1)", document, document));
 // };
 // 
 // exports.tests.NIST_coreFunction035 = function() {
@@ -1131,7 +1131,7 @@ exports.tests.NIST_coreFunction017 = function() {
 //     // set $variable2 = "1234"
 //     // set $variable3 = "with"
 //     assertEquals("translate with variable", "translate with variable",
-//             xpath.evaluateImpl("translate($variable1,$variable2,$variable3)", document, document));
+//             xpath.evaluate("translate($variable1,$variable2,$variable3)", document, document));
 // };
 
 
@@ -1143,13 +1143,13 @@ exports.tests.NIST_coreFunction017 = function() {
 exports.tests.NIST_coreFunction060 = function() {
     var document = getImplementation().createDocument();
     assertEquals("-2", -2,
-            xpath.evaluateImpl("floor(-1.99999)", document, document));
+            xpath.evaluate("floor(-1.99999)", document, document));
 };
 
 exports.tests.NIST_coreFunction061 = function() {
     var document = getImplementation().createDocument();
     assertEquals("-2", -2,
-            xpath.evaluateImpl("floor(-1.0001)", document, document));
+            xpath.evaluate("floor(-1.0001)", document, document));
 };
 
 
@@ -1159,7 +1159,7 @@ exports.tests.NIST_coreFunction061 = function() {
 //     var document = getImplementation().createDocument();
 //     // set $variable1 = "3.1"
 //     assertEquals("3", 3,
-//             xpath.evaluateImpl("floor($variable1)", document, document));
+//             xpath.evaluate("floor($variable1)", document, document));
 // };
 
 
@@ -1169,37 +1169,37 @@ exports.tests.NIST_coreFunction061 = function() {
 exports.tests.NIST_coreFunction064 = function() {
     var document = getImplementation().createDocument();
     assertEquals("2", 2,
-            xpath.evaluateImpl("floor(ceiling(1.2))", document, document));
+            xpath.evaluate("floor(ceiling(1.2))", document, document));
 };
 
 exports.tests.NIST_coreFunction065 = function() {
     var document = getImplementation().createDocument();
     assertEquals("1", 1,
-            xpath.evaluateImpl("floor(round(1.2))", document, document));
+            xpath.evaluate("floor(round(1.2))", document, document));
 };
 
 exports.tests.NIST_coreFunction066 = function() {
     var document = getImplementation().createDocument();
     assertEquals("1", 1,
-            xpath.evaluateImpl("floor(floor(1.2))", document, document));
+            xpath.evaluate("floor(floor(1.2))", document, document));
 };
 
 exports.tests.NIST_coreFunction067 = function() {
     var document = getImplementation().createDocument();
     assertEquals("1", 1,
-            xpath.evaluateImpl("floor((((((2*10)-4)+9) div 5) mod 2))", document, document));
+            xpath.evaluate("floor((((((2*10)-4)+9) div 5) mod 2))", document, document));
 };
 
 exports.tests.NIST_coreFunction068 = function() {
     var document = getImplementation().createDocument();
     assertEquals("-1", -1,
-            xpath.evaluateImpl("ceiling(-1.0001)", document, document));
+            xpath.evaluate("ceiling(-1.0001)", document, document));
 };
 
 exports.tests.NIST_coreFunction069 = function() {
     var document = getImplementation().createDocument();
     assertEquals("-1", -1,
-            xpath.evaluateImpl("ceiling(-1.9999)", document, document));
+            xpath.evaluate("ceiling(-1.9999)", document, document));
 };
 
 // coreFunction070 is omitted because it tests XPath variables, as above.
@@ -1208,19 +1208,19 @@ exports.tests.NIST_coreFunction069 = function() {
 //     var document = getImplementation().createDocument();
 //     // set $variable1 = "2.5"
 //     assertEquals("3", 3,
-//             xpath.evaluateImpl("ceiling($variable1)", document, document));
+//             xpath.evaluate("ceiling($variable1)", document, document));
 // };
 
 exports.tests.NIST_coreFunction071 = function() {
     var document = getImplementation().createDocument();
     assertEquals("2", 2,
-            xpath.evaluateImpl("ceiling(floor(2.2))", document, document));
+            xpath.evaluate("ceiling(floor(2.2))", document, document));
 };
 
 exports.tests.NIST_coreFunction072 = function() {
     var document = getImplementation().createDocument();
     assertEquals("4", 4,
-            xpath.evaluateImpl("ceiling(ceiling(3.2))", document, document));
+            xpath.evaluate("ceiling(ceiling(3.2))", document, document));
 };
 
 
@@ -1230,13 +1230,13 @@ exports.tests.NIST_coreFunction072 = function() {
 exports.tests.NIST_coreFunction074 = function() {
     var document = getImplementation().createDocument();
     assertEquals("3", 3,
-            xpath.evaluateImpl("ceiling((((((2*10)-4)+9) div 5) div 2))", document, document));
+            xpath.evaluate("ceiling((((((2*10)-4)+9) div 5) div 2))", document, document));
 };
 
 exports.tests.NIST_coreFunction075 = function() {
     var document = getImplementation().createDocument();
     assertEquals("-2", -2,
-            xpath.evaluateImpl("round(-1.9999)", document, document));
+            xpath.evaluate("round(-1.9999)", document, document));
 };
 
 // coreFunction076 is omitted because it tests XPath variables, as above.
@@ -1245,7 +1245,7 @@ exports.tests.NIST_coreFunction075 = function() {
 //     var document = getImplementation().createDocument();
 //     // set $variable1 = "2.3"
 //     assertEquals("2", 2
-//             xpath.evaluateImpl("round($variable1)", document, document));
+//             xpath.evaluate("round($variable1)", document, document));
 // };
 
 
@@ -1255,60 +1255,60 @@ exports.tests.NIST_coreFunction075 = function() {
 exports.tests.NIST_coreFunction078 = function() {
     var document = getImplementation().createDocument();
     assertEquals("4", 4,
-            xpath.evaluateImpl("round(ceiling(3.2))", document, document));
+            xpath.evaluate("round(ceiling(3.2))", document, document));
 };
 
 exports.tests.NIST_coreFunction079 = function() {
     var document = getImplementation().createDocument();
     assertEquals("3", 3,
-            xpath.evaluateImpl("round((((((2*10)-4)+9) div 5) div 2))", document, document));
+            xpath.evaluate("round((((((2*10)-4)+9) div 5) div 2))", document, document));
 };
 
 exports.tests.NIST_coreFunction080 = function() {
     var document = getImplementation().createDocument();
-    assertNaN("NaN", xpath.evaluateImpl("round(NaN)", document, document));
+    assertNaN("NaN", xpath.evaluate("round(NaN)", document, document));
 };
 
 exports.tests.NIST_coreFunction081 = function() {
     var document = getImplementation().createDocument();
     assertEquals("0", 0,
-            xpath.evaluateImpl("round(-0)", document, document));
+            xpath.evaluate("round(-0)", document, document));
 };
 
 exports.tests.NIST_coreFunction082 = function() {
     var document = getImplementation().createDocument();
     assertEquals("0", 0,
-            xpath.evaluateImpl("round(-0.25)", document, document));
+            xpath.evaluate("round(-0.25)", document, document));
 };
 
 exports.tests.NIST_coreFunction083 = function() {
     var document = getImplementation().createDocument();
     assertEquals("2", 2,
-            xpath.evaluateImpl("round(round(2.3))", document, document));
+            xpath.evaluate("round(round(2.3))", document, document));
 };
 
 exports.tests.NIST_coreFunction084 = function() {
     var document = getImplementation().createDocument();
     assertEquals("infinity", Number.POSITIVE_INFINITY,
-            xpath.evaluateImpl("round(2.3 div 0)", document, document));
+            xpath.evaluate("round(2.3 div 0)", document, document));
 };
 
 exports.tests.NIST_coreFunction085 = function() {
     var document = getImplementation().createDocument();
     assertEquals("-infinity", Number.NEGATIVE_INFINITY,
-            xpath.evaluateImpl("round(-2.3 div 0)", document, document));
+            xpath.evaluate("round(-2.3 div 0)", document, document));
 };
 
 exports.tests.NIST_coreFunction086 = function() {
     var document = getImplementation().createDocument();
     assertEquals("-1.9999", -1.9999,
-            xpath.evaluateImpl("number('-1.9999')", document, document));
+            xpath.evaluate("number('-1.9999')", document, document));
 };
 
 exports.tests.NIST_coreFunction087 = function() {
     var document = getImplementation().createDocument();
     assertEquals("1.9999", 1.9999,
-            xpath.evaluateImpl("number('1.9999')", document, document));
+            xpath.evaluate("number('1.9999')", document, document));
 };
 
 exports.tests.NIST_coreFunction088 = function() {
@@ -1328,7 +1328,7 @@ exports.tests.NIST_coreFunction088 = function() {
     child1.appendChild(text);
     
     assertEquals("1", 1,
-            xpath.evaluateImpl("count(//child1[ancestor::element1])", document, doc));
+            xpath.evaluate("count(//child1[ancestor::element1])", document, doc));
 };
 
 exports.tests.NIST_coreFunction089 = function() {
@@ -1345,7 +1345,7 @@ exports.tests.NIST_coreFunction089 = function() {
     element1.appendChild(text);
     
     assertArrayEquals("element1", [element1],
-            xpath.evaluateImpl("element1[2]", document, doc).nodes);
+            xpath.evaluate("element1[2]", document, doc).nodes);
 };
 
 
@@ -1358,37 +1358,37 @@ exports.tests.NIST_coreFunction089 = function() {
 exports.tests.NIST_dataManipulation001a = function() {
     var document = getImplementation().createDocument();
     assertEquals("2 > 1", true,
-            xpath.evaluateImpl("2 > 1", document, document));
+            xpath.evaluate("2 > 1", document, document));
 };
 
 exports.tests.NIST_dataManipulation001b = function() {
     var document = getImplementation().createDocument();
     assertEquals("9 mod 3 = 0", true,
-            xpath.evaluateImpl("9 mod 3 = 0", document, document));
+            xpath.evaluate("9 mod 3 = 0", document, document));
 };
 
 exports.tests.NIST_dataManipulation002a = function() {
     var document = getImplementation().createDocument();
     assertEquals("2 > 3 is false", false,
-            xpath.evaluateImpl("2 > 3", document, document));
+            xpath.evaluate("2 > 3", document, document));
 };
 
 exports.tests.NIST_dataManipulation003 = function() {
     var document = getImplementation().createDocument();
     assertEquals("(((((2*10)-4)+9) div 5) div 2) > 2", true,
-            xpath.evaluateImpl("(((((2*10)-4)+9) div 5) div 2) > 2", document, document));
+            xpath.evaluate("(((((2*10)-4)+9) div 5) div 2) > 2", document, document));
 };
 
 exports.tests.NIST_dataManipulation004 = function() {
     var document = getImplementation().createDocument();
     assertEquals("(((((2*10)-4)+9) div 5) div 2) > 4 is false", false,
-            xpath.evaluateImpl("(((((2*10)-4)+9) div 5) div 2) > 4", document, document));
+            xpath.evaluate("(((((2*10)-4)+9) div 5) div 2) > 4", document, document));
 };
 
 exports.tests.NIST_dataManipulation007 = function() {
     var document = getImplementation().createDocument();
     assertEquals("(round(3.7) > 3)", true,
-            xpath.evaluateImpl("(round(3.7) > 3)", document, document));
+            xpath.evaluate("(round(3.7) > 3)", document, document));
 };
 
 exports.tests.NIST_dataManipulation009 = function() {
@@ -1404,7 +1404,7 @@ exports.tests.NIST_dataManipulation009 = function() {
     element2.appendChild(text);
     
     assertArrayEquals("doc/element1", [element1],
-            xpath.evaluateImpl("doc/element1", document, document).nodes);
+            xpath.evaluate("doc/element1", document, document).nodes);
 };
 
 exports.tests.NIST_dataManipulation013 = function() {
@@ -1429,7 +1429,7 @@ exports.tests.NIST_dataManipulation013 = function() {
     element2.appendChild(text);
     
     assertArrayEquals("doc/element1[last()]", [element1],
-            xpath.evaluateImpl("doc/element1[last()]", document, document).nodes);
+            xpath.evaluate("doc/element1[last()]", document, document).nodes);
 };
 
 exports.tests.NIST_dataManipulation014 = function() {
@@ -1454,7 +1454,7 @@ exports.tests.NIST_dataManipulation014 = function() {
     element2.appendChild(text);
     
     assertArrayEquals("element1", [element1],
-            xpath.evaluateImpl("doc/element1[((((((2*10)-4)+9) div 5) mod 3)+1)]", document, document).nodes);
+            xpath.evaluate("doc/element1[((((((2*10)-4)+9) div 5) mod 3)+1)]", document, document).nodes);
 };
 
 exports.tests.NIST_dataManipulation016 = function() {
@@ -1475,7 +1475,7 @@ exports.tests.NIST_dataManipulation016 = function() {
     child1.appendChild(text);
     
     assertArrayEquals("element1", [element1],
-            xpath.evaluateImpl("//child1[ancestor::element1]", document, document).nodes);
+            xpath.evaluate("//child1[ancestor::element1]", document, document).nodes);
 };
 
 
@@ -1497,7 +1497,7 @@ exports.tests.NIST_expression001 = function() {
     child2.appendChild(text);
     
     assertArrayEquals("child1|child2", [child1,child2],
-            xpath.evaluateImpl("/doc/sub1/child1|/doc/sub2/child2", document, doc).nodes);
+            xpath.evaluate("/doc/sub1/child1|/doc/sub2/child2", document, doc).nodes);
 };
 
 exports.tests.NIST_expression002 = function() {
@@ -1518,7 +1518,7 @@ exports.tests.NIST_expression002 = function() {
     child2.appendChild(text);
     
     assertArrayEquals("child1|child2", [child1,child2],
-            xpath.evaluateImpl("sub1/child1|/doc/sub2/child2", document, doc).nodes);
+            xpath.evaluate("sub1/child1|/doc/sub2/child2", document, doc).nodes);
 };
 
 exports.tests.NIST_expression003 = function() {
@@ -1539,13 +1539,13 @@ exports.tests.NIST_expression003 = function() {
     child2.appendChild(text);
     
     assertArrayEquals("child1|child2", [child1,child2],
-            xpath.evaluateImpl("//child1|//child2", document, doc).nodes);
+            xpath.evaluate("//child1|//child2", document, doc).nodes);
     
     assertArrayEquals("sub1", [sub1],
-            xpath.evaluateImpl("ancestor::sub1|ancestor::sub2", document, child1).nodes);
+            xpath.evaluate("ancestor::sub1|ancestor::sub2", document, child1).nodes);
     
     assertArrayEquals("sub2", [sub2],
-            xpath.evaluateImpl("ancestor::sub1|ancestor::sub2", document, child2).nodes);
+            xpath.evaluate("ancestor::sub1|ancestor::sub2", document, child2).nodes);
 };
 
 exports.tests.NIST_expression004 = function() {
@@ -1566,13 +1566,13 @@ exports.tests.NIST_expression004 = function() {
     child2.appendChild(text);
     
     assertArrayEquals("child1|child2", [child1,child2],
-            xpath.evaluateImpl("//child1|//child2", document, doc).nodes);
+            xpath.evaluate("//child1|//child2", document, doc).nodes);
     
     assertArrayEquals("sub1", [sub1],
-            xpath.evaluateImpl("ancestor-or-self::sub1|ancestor-or-self::sub2", document, child1).nodes);
+            xpath.evaluate("ancestor-or-self::sub1|ancestor-or-self::sub2", document, child1).nodes);
     
     assertArrayEquals("sub2", [sub2],
-            xpath.evaluateImpl("ancestor-or-self::sub1|ancestor-or-self::sub2", document, child2).nodes);
+            xpath.evaluate("ancestor-or-self::sub1|ancestor-or-self::sub2", document, child2).nodes);
 };
 
 exports.tests.NIST_expression005 = function() {
@@ -1625,13 +1625,13 @@ exports.tests.NIST_expression005 = function() {
     author3.appendChild(bibliography);
     
     assertArrayEquals("Carmelo Montanez", [author1],
-            xpath.evaluateImpl("author[name/@real='no']|author[name/@real='yes']", document, book1).nodes);
+            xpath.evaluate("author[name/@real='no']|author[name/@real='yes']", document, book1).nodes);
     
     assertArrayEquals("empty", [],
-            xpath.evaluateImpl("author[name/@real='no']|author[name/@real='yes']", document, book2).nodes);
+            xpath.evaluate("author[name/@real='no']|author[name/@real='yes']", document, book2).nodes);
     
     assertArrayEquals("Mary Brady", [author3],
-            xpath.evaluateImpl("author[name/@real='no']|author[name/@real='yes']", document, book3).nodes);
+            xpath.evaluate("author[name/@real='no']|author[name/@real='yes']", document, book3).nodes);
 };
 
 exports.tests.NIST_expression006 = function() {
@@ -1653,7 +1653,7 @@ exports.tests.NIST_expression006 = function() {
     child2.appendChild(text);
     
     assertArrayEquals("attributes", [doc.getAttributeNode("attr1"), doc.getAttributeNode("attr2")],
-            xpath.evaluateImpl("attribute::attr1|attribute::attr2", document, doc).nodes);
+            xpath.evaluate("attribute::attr1|attribute::attr2", document, doc).nodes);
 };
 
 exports.tests.NIST_expression007 = function() {
@@ -1675,7 +1675,7 @@ exports.tests.NIST_expression007 = function() {
     child2.appendChild(text);
     
     assertArrayEquals("sub1|sub2", [sub1, sub2],
-            xpath.evaluateImpl("child::sub1|child::sub2", document, doc).nodes);
+            xpath.evaluate("child::sub1|child::sub2", document, doc).nodes);
 };
 
 exports.tests.NIST_expression008 = function() {
@@ -1728,13 +1728,13 @@ exports.tests.NIST_expression008 = function() {
     author3.appendChild(bibliography);
     
     assertArrayEquals("Carmelo Montanez", [author1],
-            xpath.evaluateImpl("author[(name/@real='no' and position()=1)]|author[(name/@real='yes' and position()=last())]", document, book1).nodes);
+            xpath.evaluate("author[(name/@real='no' and position()=1)]|author[(name/@real='yes' and position()=last())]", document, book1).nodes);
     
     assertArrayEquals("empty", [],
-            xpath.evaluateImpl("author[(name/@real='no' and position()=1)]|author[(name/@real='yes' and position()=last())]", document, book2).nodes);
+            xpath.evaluate("author[(name/@real='no' and position()=1)]|author[(name/@real='yes' and position()=last())]", document, book2).nodes);
     
     assertArrayEquals("Mary Brady", [author3],
-            xpath.evaluateImpl("author[(name/@real='no' and position()=1)]|author[(name/@real='yes' and position()=last())]", document, book3).nodes);
+            xpath.evaluate("author[(name/@real='no' and position()=1)]|author[(name/@real='yes' and position()=last())]", document, book3).nodes);
 };
 
 exports.tests.NIST_expression009 = function() {
@@ -1755,7 +1755,7 @@ exports.tests.NIST_expression009 = function() {
     child2.appendChild(text);
     
     assertArrayEquals("child1|child2", [child1,child2],
-            xpath.evaluateImpl("descendant::child1|descendant::child2", document, doc).nodes);
+            xpath.evaluate("descendant::child1|descendant::child2", document, doc).nodes);
 };
 
 exports.tests.NIST_expression010 = function() {
@@ -1776,7 +1776,7 @@ exports.tests.NIST_expression010 = function() {
     child2.appendChild(text);
     
     assertArrayEquals("doc", [doc],
-            xpath.evaluateImpl("descendant-or-self::doc|descendant-or-self::doc", document, doc).nodes);
+            xpath.evaluate("descendant-or-self::doc|descendant-or-self::doc", document, doc).nodes);
 };
 
 exports.tests.NIST_expression011 = function() {
@@ -1829,13 +1829,13 @@ exports.tests.NIST_expression011 = function() {
     author3.appendChild(bibliography);
     
     assertArrayEquals("Carmelo Montanez", [author1],
-            xpath.evaluateImpl("author[name='Mary Brady']|author[name/@real='no']", document, book1).nodes);
+            xpath.evaluate("author[name='Mary Brady']|author[name/@real='no']", document, book1).nodes);
     
     assertArrayEquals("empty", [],
-            xpath.evaluateImpl("author[name='Mary Brady']|author[name/@real='no']", document, book2).nodes);
+            xpath.evaluate("author[name='Mary Brady']|author[name/@real='no']", document, book2).nodes);
     
     assertArrayEquals("Mary Brady", [author3],
-            xpath.evaluateImpl("author[name='Mary Brady']|author[name/@real='no']", document, book3).nodes);
+            xpath.evaluate("author[name='Mary Brady']|author[name/@real='no']", document, book3).nodes);
 };
 
 // expression012 tests XPath variables, amongst other features, and is
@@ -1859,17 +1859,17 @@ exports.tests.NIST_expression011 = function() {
 //     text = document.createTextNode("Selection of this child is an error.");
 //     child3.appendChild(text);
 //     
-//     var result1 = xpath.evaluateImpl("//noChild1", document, doc);
+//     var result1 = xpath.evaluate("//noChild1", document, doc);
 //     assertArrayEquals("empty //noChild1", [], result1.nodes);
 //     
-//     var result2 = xpath.evaluateImpl("//noChild2", document, doc);
+//     var result2 = xpath.evaluate("//noChild2", document, doc);
 //     assertArrayEquals("empty //noChild2", [], result2.nodes);
 //     
 //     // set $var1 = result1.nodes
 //     // set $var2 = result2.nodes
 //     
 //     assertArrayEquals("empty $var1|$var2", [],
-//             xpath.evaluateImpl("$var1|$var2", document, docu));
+//             xpath.evaluate("$var1|$var2", document, docu));
 // };
 
 exports.tests.NIST_expression012_noVariables = function() {
@@ -1890,13 +1890,13 @@ exports.tests.NIST_expression012_noVariables = function() {
     child3.appendChild(text);
     
     assertArrayEquals("empty //noChild1", [],
-            xpath.evaluateImpl("//noChild1", document, doc).nodes);
+            xpath.evaluate("//noChild1", document, doc).nodes);
     
     assertArrayEquals("empty //noChild2", [],
-            xpath.evaluateImpl("//noChild2", document, doc).nodes);
+            xpath.evaluate("//noChild2", document, doc).nodes);
     
     assertArrayEquals("empty //noChild1|//noChild2", [],
-            xpath.evaluateImpl("//noChild1|//noChild2", document, doc).nodes);
+            xpath.evaluate("//noChild1|//noChild2", document, doc).nodes);
 };
 
 exports.tests.NIST_expression013 = function() {
@@ -1919,10 +1919,10 @@ exports.tests.NIST_expression013 = function() {
     child3.appendChild(text);
     
     assertArrayEquals("child2", [child2],
-            xpath.evaluateImpl("//child2", document, doc).nodes);
+            xpath.evaluate("//child2", document, doc).nodes);
     
     assertArrayEquals("child1|child3", [child1, child3],
-            xpath.evaluateImpl("preceding-sibling::child1|following-sibling::child3", document, child2).nodes);
+            xpath.evaluate("preceding-sibling::child1|following-sibling::child3", document, child2).nodes);
 };
 
 // expression014 and expression015 are omitted because they test the XSLT
@@ -1988,13 +1988,13 @@ exports.tests.NIST_expression016 = function() {
     chapters.appendChild(text);
     
     assertArrayEquals("name1", [name1],
-            xpath.evaluateImpl("author/name|author/bibliography/author/name", document, book1).nodes);
+            xpath.evaluate("author/name|author/bibliography/author/name", document, book1).nodes);
     
     assertArrayEquals("name2", [name2],
-            xpath.evaluateImpl("author/name|author/bibliography/author/name", document, book2).nodes);
+            xpath.evaluate("author/name|author/bibliography/author/name", document, book2).nodes);
     
     assertArrayEquals("name3|name4", [name3, name4],
-            xpath.evaluateImpl("author/name|author/bibliography/author/name", document, book3).nodes);
+            xpath.evaluate("author/name|author/bibliography/author/name", document, book3).nodes);
 };
 
 exports.tests.NIST_expression017 = function() {
@@ -2057,13 +2057,13 @@ exports.tests.NIST_expression017 = function() {
     chapters.appendChild(text);
     
     assertArrayEquals("name1", [name1],
-            xpath.evaluateImpl("author/name|author/bibliography/author/chapters", document, book1).nodes);
+            xpath.evaluate("author/name|author/bibliography/author/chapters", document, book1).nodes);
     
     assertArrayEquals("name2", [name2],
-            xpath.evaluateImpl("author/name|author/bibliography/author/chapters", document, book2).nodes);
+            xpath.evaluate("author/name|author/bibliography/author/chapters", document, book2).nodes);
     
     assertArrayEquals("name3|chapters", [name3, chapters],
-            xpath.evaluateImpl("author/name|author/bibliography/author/chapters", document, book3).nodes);
+            xpath.evaluate("author/name|author/bibliography/author/chapters", document, book3).nodes);
 };
 
 exports.tests.NIST_expression018 = function() {
@@ -2102,10 +2102,10 @@ exports.tests.NIST_expression018 = function() {
     author2.appendChild(bibliography2);
     
     assertArrayEquals("name1", [name1],
-            xpath.evaluateImpl("author/name|author/noElement", document, book1).nodes);
+            xpath.evaluate("author/name|author/noElement", document, book1).nodes);
     
     assertArrayEquals("name2", [name2],
-            xpath.evaluateImpl("author/name|author/noElement", document, book2).nodes);
+            xpath.evaluate("author/name|author/noElement", document, book2).nodes);
 };
 
 // expression019 tests XPath variables, amongst other features, and is
@@ -2129,14 +2129,14 @@ exports.tests.NIST_expression018 = function() {
 //     text = document.createTextNode("Selection of this child is an error.");
 //     child3.appendChild(text);
 //     
-//     var result = xpath.evaluateImpl("//child1", document, doc);
+//     var result = xpath.evaluate("//child1", document, doc);
 //     assertArrayEquals("child1", [child1], result.nodes);
 //     
 //     // set $var1 = result.nodes
 //     // set $var2 = result.nodes
 //     
 //     assertArrayEquals("child1", [child1],
-//             xpath.evaluateImpl("$var1|$var2", document, doc));
+//             xpath.evaluate("$var1|$var2", document, doc));
 // };
 
 exports.tests.NIST_expression019_noVariables = function() {
@@ -2156,11 +2156,11 @@ exports.tests.NIST_expression019_noVariables = function() {
     text = document.createTextNode("Selection of this child is an error.");
     child3.appendChild(text);
     
-    var result = xpath.evaluateImpl("//child1", document, doc);
+    var result = xpath.evaluate("//child1", document, doc);
     assertArrayEquals("child1", [child1], result.nodes);
     
     assertArrayEquals("child1", [child1],
-            xpath.evaluateImpl("//child1|//child1", document, doc).nodes);
+            xpath.evaluate("//child1|//child1", document, doc).nodes);
 };
 
 exports.tests.NIST_expression020 = function() {
@@ -2181,7 +2181,7 @@ exports.tests.NIST_expression020 = function() {
     child2.appendChild(text);
     
     assertArrayEquals("child1|child2", [child1, child2],
-            xpath.evaluateImpl("sub1/child1|sub2/child2", document, doc).nodes);
+            xpath.evaluate("sub1/child1|sub2/child2", document, doc).nodes);
 };
 
 exports.tests.NIST_expression021 = function() {
@@ -2202,13 +2202,13 @@ exports.tests.NIST_expression021 = function() {
     child2.appendChild(text);
     
     assertArrayEquals("child1|child2", [child1, child2],
-            xpath.evaluateImpl("//child1|//child2", document, doc).nodes);
+            xpath.evaluate("//child1|//child2", document, doc).nodes);
     
     assertArrayEquals("child1", [child1],
-            xpath.evaluateImpl("self::child1|self::child2", document, child1).nodes);
+            xpath.evaluate("self::child1|self::child2", document, child1).nodes);
     
     assertArrayEquals("child2", [child2],
-            xpath.evaluateImpl("self::child1|self::child2", document, child2).nodes);
+            xpath.evaluate("self::child1|self::child2", document, child2).nodes);
 };
 
 exports.tests.NIST_expression022 = function() {
@@ -2225,7 +2225,7 @@ exports.tests.NIST_expression022 = function() {
     child2.appendChild(text);
     
     assertArrayEquals("child1|child2", [child1, child2],
-            xpath.evaluateImpl("//child1|//child2", document, doc).nodes);
+            xpath.evaluate("//child1|//child2", document, doc).nodes);
 };
 
 exports.tests.NIST_expression023 = function() {
@@ -2246,7 +2246,7 @@ exports.tests.NIST_expression023 = function() {
     child3.appendChild(text);
     
     assertArrayEquals("child1|child2|child3", [child1, child2, child3],
-            xpath.evaluateImpl("//child1|//child2|//child3", document, doc).nodes);
+            xpath.evaluate("//child1|//child2|//child3", document, doc).nodes);
 };
 
 // expression024 is omitted because it tests the XSLT key() function.
@@ -2271,13 +2271,13 @@ exports.tests.NIST_expression023 = function() {
 //     text = document.createTextNode("Selection of this child is an error");
 //     child3.appendChild(text);
 //     
-//     var result = xpath.evaluateImpl("//child1", document, doc);
+//     var result = xpath.evaluate("//child1", document, doc);
 //     assertArrayEquals("child1", [child1], result.nodes);
 //     
 //     // set $var1 = result.nodes
 //     
 //     assertArrayEquals("child1|child2", [child1, child2],
-//             xpath.evaluateImpl("$var1|child::child2", document, doc).nodes);
+//             xpath.evaluate("$var1|child::child2", document, doc).nodes);
 // };
 
 exports.tests.NIST_expression025_noVariables = function() {
@@ -2296,11 +2296,11 @@ exports.tests.NIST_expression025_noVariables = function() {
     text = document.createTextNode("Selection of this child is an error");
     child3.appendChild(text);
     
-    var result = xpath.evaluateImpl("//child1", document, doc);
+    var result = xpath.evaluate("//child1", document, doc);
     assertArrayEquals("child1", [child1], result.nodes);
     
     assertArrayEquals("child1|child2", [child1, child2],
-            xpath.evaluateImpl("//child1|child::child2", document, doc).nodes);
+            xpath.evaluate("//child1|child::child2", document, doc).nodes);
 };
 
 // expression026 tests XPath variables, so it is omitted as above. There is no
@@ -2323,77 +2323,77 @@ exports.tests.NIST_expression025_noVariables = function() {
 //     text = document.createTextNode("Selection of this child is an error");
 //     child3.appendChild(text);
 //     
-//     var result1 = xpath.evaluateImpl("//child1", document, doc);
+//     var result1 = xpath.evaluate("//child1", document, doc);
 //     assertArrayEquals("child1", [child1], result1.nodes);
 //     
-//     var result2 = xpath.evaluateImpl("//child2", document, doc);
+//     var result2 = xpath.evaluate("//child2", document, doc);
 //     assertArrayEquals("child2", [child2], result2.nodes);
 //     
 //     // set $var1 = result1.nodes
 //     // set $var2 = result2.nodes
 //     
 //     assertArrayEquals("$var1|$var2", [child1, child2],
-//             xpath.evaluateImpl("$var1|$var2", document, doc).nodes);
+//             xpath.evaluate("$var1|$var2", document, doc).nodes);
 // };
 
 exports.tests.NIST_expression027 = function() {
     var document = getImplementation().createDocument();
-    assertTrue("(-0 = 0)", xpath.evaluateImpl("(-0 = 0)", document, document));
+    assertTrue("(-0 = 0)", xpath.evaluate("(-0 = 0)", document, document));
 };
 
 exports.tests.NIST_expression028 = function() {
     var document = getImplementation().createDocument();
-    assertFalse("(-0 < 0)", xpath.evaluateImpl("(-0 < 0)", document, document));
+    assertFalse("(-0 < 0)", xpath.evaluate("(-0 < 0)", document, document));
 };
 
 exports.tests.NIST_expression029 = function() {
     var document = getImplementation().createDocument();
-    assertFalse("(-0 > 0)", xpath.evaluateImpl("(-0 > 0)", document, document));
+    assertFalse("(-0 > 0)", xpath.evaluate("(-0 > 0)", document, document));
 };
 
 exports.tests.NIST_expression030 = function() {
     var document = getImplementation().createDocument();
-    assertTrue("(-0 >= 0)", xpath.evaluateImpl("(-0 >= 0)", document, document));
+    assertTrue("(-0 >= 0)", xpath.evaluate("(-0 >= 0)", document, document));
 };
 
 exports.tests.NIST_expression031 = function() {
     var document = getImplementation().createDocument();
-    assertTrue("(-0 <= 0)", xpath.evaluateImpl("(-0 <= 0)", document, document));
+    assertTrue("(-0 <= 0)", xpath.evaluate("(-0 <= 0)", document, document));
 };
 
 exports.tests.NIST_expression032 = function() {
     var document = getImplementation().createDocument();
-    assertFalse("(-0 != 0)", xpath.evaluateImpl("(-0 != 0)", document, document));
+    assertFalse("(-0 != 0)", xpath.evaluate("(-0 != 0)", document, document));
 };
 
 exports.tests.NIST_expression033 = function() {
     var document = getImplementation().createDocument();
-    assertTrue("2.1 > 2.0", xpath.evaluateImpl("2.1 > 2.0", document, document));
-    assertFalse("2.1 < 2.0", xpath.evaluateImpl("2.1 < 2.0", document, document));
-    assertFalse("2.1 = 2.0", xpath.evaluateImpl("2.1 = 2.0", document, document));
-    assertFalse("2.1 > NaN", xpath.evaluateImpl("2.1 > NaN", document, document));
+    assertTrue("2.1 > 2.0", xpath.evaluate("2.1 > 2.0", document, document));
+    assertFalse("2.1 < 2.0", xpath.evaluate("2.1 < 2.0", document, document));
+    assertFalse("2.1 = 2.0", xpath.evaluate("2.1 = 2.0", document, document));
+    assertFalse("2.1 > NaN", xpath.evaluate("2.1 > NaN", document, document));
 };
 
 exports.tests.NIST_expression034 = function() {
     var document = getImplementation().createDocument();
-    assertTrue("2.0 < 2.1", xpath.evaluateImpl("2.0 < 2.1", document, document));
-    assertFalse("2.0 > 2.1", xpath.evaluateImpl("2.0 > 2.1", document, document));
-    assertFalse("2.0 = 2.1", xpath.evaluateImpl("2.0 = 2.1", document, document));
-    assertFalse("2.0 < NaN", xpath.evaluateImpl("2.0 < NaN", document, document));
+    assertTrue("2.0 < 2.1", xpath.evaluate("2.0 < 2.1", document, document));
+    assertFalse("2.0 > 2.1", xpath.evaluate("2.0 > 2.1", document, document));
+    assertFalse("2.0 = 2.1", xpath.evaluate("2.0 = 2.1", document, document));
+    assertFalse("2.0 < NaN", xpath.evaluate("2.0 < NaN", document, document));
 };
 
 exports.tests.NIST_expression035 = function() {
     var document = getImplementation().createDocument();
-    assertTrue("2.0 <= 2.0", xpath.evaluateImpl("2.0 <= 2.0", document, document));
-    assertFalse("2.0 > 2.0", xpath.evaluateImpl("2.0 > 2.0", document, document));
-    assertTrue("2.0 = 2.0", xpath.evaluateImpl("2.0 = 2.0", document, document));
-    assertFalse("2.0 <= NaN", xpath.evaluateImpl("2.0 <= NaN", document, document));
+    assertTrue("2.0 <= 2.0", xpath.evaluate("2.0 <= 2.0", document, document));
+    assertFalse("2.0 > 2.0", xpath.evaluate("2.0 > 2.0", document, document));
+    assertTrue("2.0 = 2.0", xpath.evaluate("2.0 = 2.0", document, document));
+    assertFalse("2.0 <= NaN", xpath.evaluate("2.0 <= NaN", document, document));
 };
 
 exports.tests.NIST_expression036 = function() {
     var document = getImplementation().createDocument();
-    assertTrue("2.0 >= 2.0", xpath.evaluateImpl("2.0 >= 2.0", document, document));
-    assertFalse("2.0 < 2.0", xpath.evaluateImpl("2.0 < 2.0", document, document));
-    assertTrue("2.0 = 2.0", xpath.evaluateImpl("2.0 = 2.0", document, document));
-    assertFalse("2.0 <= NaN", xpath.evaluateImpl("2.0 <= NaN", document, document));
+    assertTrue("2.0 >= 2.0", xpath.evaluate("2.0 >= 2.0", document, document));
+    assertFalse("2.0 < 2.0", xpath.evaluate("2.0 < 2.0", document, document));
+    assertTrue("2.0 = 2.0", xpath.evaluate("2.0 = 2.0", document, document));
+    assertFalse("2.0 <= NaN", xpath.evaluate("2.0 <= NaN", document, document));
 };
