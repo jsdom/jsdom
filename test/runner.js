@@ -165,7 +165,40 @@ var suites = {
         };
       }
     }
-  },/*
+  },
+  "level3/xpath" : { cases: require("./level3/xpath").tests, setUp : function() {
+       global.builder.contentType   = "text/xml";
+       global.builder.type          = "xml";
+       global.builder.testDirectory = "level3/xpath";
+       global.load                  = global.originalLoad;
+       global.DOMErrorMonitor = function() {
+         this.allErrors = new Array();
+       }
+
+       global.DOMErrorMonitor.prototype.handleError = function(err) {
+           errorMonitor.allErrors[errorMonitor.allErrors.length] = new DOMErrorImpl(err);
+       }
+
+       global.DOMErrorMonitor.prototype.assertLowerSeverity = function(id, severity) {
+           var i;
+           for (i = 0; i < errorMonitor.allErrors.length; i++) {
+               if (errorMonitor.allErrors[i].severity >= severity) {
+                  assertEquals(id, severity - 1, errorMonitor.allErrors[i].severity);
+               }
+           }
+       }
+       var level3core = require("../lib/jsdom/level3/core").dom.level3.core;
+       global.getImplementation = function() {
+         return {
+           createDocument : function() {
+             return new (level3core.Document)();
+           }
+         };
+       }
+       global.xpath = require("../lib/jsdom/level3/xpath");
+     }
+   },
+  /*
  "level3/ls"   : { cases: require("./level3/ls").tests, setUp : function() {
       global.builder.contentType   = "text/html";
       global.builder.type          = "html";
@@ -200,4 +233,4 @@ var suites = {
   }
 };
 
-require("mjsunit.runner/runner").run(suites);
+require("mjsunit.runner/lib/runner").run(suites);
