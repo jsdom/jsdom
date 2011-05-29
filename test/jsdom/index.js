@@ -612,6 +612,9 @@ bye = bye + "bye";\
 
         assertTrue('they should all serialize the same',
             doc1 === doc2 && doc2 == doc3 && doc3 === doc4 && doc4 == doc5)
-        
+    },
+    children_should_be_available_right_after_document_creation : function() {
+      var doc = jsdom.jsdom("<html><body><div></div></body></html>");
+      assertTrue("there should be a body, and it should have a child", (doc.body.children[0] !== undefined));
     }
 };
