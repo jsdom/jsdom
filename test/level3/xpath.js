@@ -2534,3 +2534,34 @@ exports.tests.NIST_locationPath005 = function() {
     assertArrayEquals("element1", [element1a],
             xpath.evaluate("element1[descendant-or-self::child2]", document, doc).nodes);
 };
+
+exports.tests.NIST_locationPath006 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var element1 = document.createElement("element1");
+    doc.appendChild(element1);
+    var child1a = document.createElement("child1");
+    element1.appendChild(child1a);
+    var text = document.createTextNode("Test executed successfully!!")
+    child1a.appendChild(text);
+    var child2 = document.createElement("child2");
+    element1.appendChild(child2);
+    text = document.createTextNode("child2");
+    child2.appendChild(text);
+    var element2 = document.createElement("element2");
+    doc.appendChild(element2);
+    var child1b = document.createElement("child1");
+    element2.appendChild(child1b);
+    text = document.createTextNode("Wrong node selected!!");
+    child1b.appendChild(text);
+    var element3 = document.createElement("element3");
+    doc.appendChild(element3);
+    var child1c = document.createElement("child1");
+    element3.appendChild(child1c);
+    text = document.createTextNode("Wrong node selected!!");
+    child1c.appendChild(text);
+    
+    assertArrayEquals("child1", [child1a],
+            xpath.evaluate("//child1[parent::element1]", document, doc).nodes);
+};
