@@ -2413,3 +2413,34 @@ exports.tests.NIST_locationPath001 = function() {
             xpath.evaluate("child1[child::child2]", document, doc).nodes);
 };
 
+exports.tests.NIST_locationPath002 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var element1 = document.createElement("element1");
+    var text = document.createTextNode("Text from first element");
+    element1.appendChild(text);
+    var child1a = document.createElement("child1");
+    element1.appendChild(child1a);
+    text = document.createTextNode("Text from child1 of first element");
+    child1a.appendChild(text);
+    var child2a = document.createElement("child2");
+    element1.appendChild(child2a);
+    text = document.createTextNode("Text from child2 of first element");
+    child2a.appendChild(text);
+    var element2 = document.createElement("element2");
+    doc.appendChild(element2);
+    text = document.createTextNode("Text from second element");
+    element2.appendChild(text);
+    var child1b = document.createElement("child1");
+    element2.appendChild(child1b);
+    text = document.createTextNode("Text from child1 of second element");
+    child1b.appendChild(text);
+    var child2b = document.createElement("child2");
+    element2.appendChild(child2b);
+    text = document.createTextNode("Text from child2 of second element (corect execution!!)");
+    child2b.appendChild(text);
+    
+    assertArrayEquals("child2", [child2b],
+            xpath.evaluate("//child2[ancestor::element2]", document, doc).nodes);
+};
