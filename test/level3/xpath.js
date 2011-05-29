@@ -2397,3 +2397,19 @@ exports.tests.NIST_expression036 = function() {
     assertTrue("2.0 = 2.0", xpath.evaluate("2.0 = 2.0", document, document));
     assertFalse("2.0 <= NaN", xpath.evaluate("2.0 <= NaN", document, document));
 };
+
+exports.tests.NIST_locationPath001 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var child1 = document.createElement("child1");
+    doc.appendChild(child1);
+    var text = document.createTextNode("Text from child1");
+    child1.appendChild(text);
+    var child2 = document.createElement("child2");
+    child1.appendChild(child2);
+    
+    assertArrayEquals("child1", [child1],
+            xpath.evaluate("child1[child::child2]", document, doc).nodes);
+};
+
