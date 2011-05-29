@@ -2628,3 +2628,34 @@ exports.tests.NIST_locationPath009 = function() {
     assertArrayEquals("element1", [element1b],
             xpath.evaluate("element1[floor(2)]", document, doc).nodes);
 };
+
+exports.tests.NIST_locationPath010 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var element1a = document.createElement("element1");
+    doc.appendChild(element1a);
+    var text = document.createTextNode("Wrong Node Selected!!");
+    element1a.appendChild(text);
+    var element1b = document.createElement("element1");
+    doc.appendChild(element1b);
+    var child1a = document.createElement("child1");
+    element1b.appendChild(child1a);
+    text = document.createTextNode("Wrong Node Selected!!");
+    child1a.appendChild(text);
+    var child1b = document.createElement("child1");
+    element1b.appendChild(child1b);
+    text = document.createTextNode("Wrong Node Selected!!");
+    child1b.appendChild(text);
+    var child1c = document.createElement("child1");
+    element1b.appendChild(child1c);
+    text = document.createTextNode("Test Executed Successfully!!");
+    child1c.appendChild(text);
+    var element1c = document.createElement("element1");
+    doc.appendChild(element1c);
+    text = document.createTextNode("Wrong Node Selected!!");
+    element1c.appendChild(text);
+    
+    assertArrayEquals("child1", [child1c],
+            xpath.evaluate("doc/element1[(((((2*10)-4)+9) div 5) mod 3)]/child1[last()]", document, document).nodes);
+};
