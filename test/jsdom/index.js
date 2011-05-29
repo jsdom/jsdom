@@ -616,5 +616,18 @@ bye = bye + "bye";\
     children_should_be_available_right_after_document_creation : function() {
       var doc = jsdom.jsdom("<html><body><div></div></body></html>");
       assertTrue("there should be a body, and it should have a child", (doc.body.children[0] !== undefined));
+    },
+    children_should_be_available_right_after_document_creation_scripts : function() {
+      var html = "<html><body>" +
+        "<script type='text/javascript'>" +
+          "var h = document.createElement('div');" +
+          "h.innerHTML = '<div style=\"opacity:0.8\"></div>';" +
+          "window.myNode = h.childNodes[0];" +
+        "</script>" +
+      "</body></html>";
+
+      var window = jsdom.jsdom(html).createWindow();
+      assertTrue('msg', !!window.myNode.nodeType);
     }
+    
 };
