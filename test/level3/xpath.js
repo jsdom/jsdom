@@ -2509,3 +2509,28 @@ exports.tests.NIST_locationPath004 = function() {
     assertArrayEquals("child2", [child2b],
             xpath.evaluate("//child2[attribute::attr1]", document, doc).nodes);
 };
+
+exports.tests.NIST_locationPath005 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var element1a = document.createElement("element1");
+    doc.appendChild(element1a);
+    var text = document.createTextNode("Text from first element (correct execution)!!!");
+    element1a.appendChild(text);
+    var child1 = document.createElement("child1");
+    element1a.appendChild(child1);
+    var child2 = document.createElement("child2");
+    element1a.appendChild(child2);
+    var element1b = document.createElement("element1");
+    doc.appendChild(element1b);
+    text = document.createTextNode("Text from second element");
+    element1b.appendChild(text);
+    child1 = document.createElement("child1");
+    element1b.appendChild(child1);
+    text = document.createTextNode("Text from child1 of second element");
+    child1.appendChild(text);
+    
+    assertArrayEquals("element1", [element1a],
+            xpath.evaluate("element1[descendant-or-self::child2]", document, doc).nodes);
+};
