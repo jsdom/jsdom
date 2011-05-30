@@ -2397,3 +2397,265 @@ exports.tests.NIST_expression036 = function() {
     assertTrue("2.0 = 2.0", xpath.evaluate("2.0 = 2.0", document, document));
     assertFalse("2.0 <= NaN", xpath.evaluate("2.0 <= NaN", document, document));
 };
+
+exports.tests.NIST_locationPath001 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var child1 = document.createElement("child1");
+    doc.appendChild(child1);
+    var text = document.createTextNode("Text from child1");
+    child1.appendChild(text);
+    var child2 = document.createElement("child2");
+    child1.appendChild(child2);
+    
+    assertArrayEquals("child1", [child1],
+            xpath.evaluate("child1[child::child2]", document, doc).nodes);
+};
+
+exports.tests.NIST_locationPath002 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var element1 = document.createElement("element1");
+    var text = document.createTextNode("Text from first element");
+    element1.appendChild(text);
+    var child1a = document.createElement("child1");
+    element1.appendChild(child1a);
+    text = document.createTextNode("Text from child1 of first element");
+    child1a.appendChild(text);
+    var child2a = document.createElement("child2");
+    element1.appendChild(child2a);
+    text = document.createTextNode("Text from child2 of first element");
+    child2a.appendChild(text);
+    var element2 = document.createElement("element2");
+    doc.appendChild(element2);
+    text = document.createTextNode("Text from second element");
+    element2.appendChild(text);
+    var child1b = document.createElement("child1");
+    element2.appendChild(child1b);
+    text = document.createTextNode("Text from child1 of second element");
+    child1b.appendChild(text);
+    var child2b = document.createElement("child2");
+    element2.appendChild(child2b);
+    text = document.createTextNode("Text from child2 of second element (corect execution!!)");
+    child2b.appendChild(text);
+    
+    assertArrayEquals("child2", [child2b],
+            xpath.evaluate("//child2[ancestor::element2]", document, doc).nodes);
+};
+
+exports.tests.NIST_locationPath003 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var element1 = document.createElement("element1");
+    var text = document.createTextNode("Text from first element");
+    element1.appendChild(text);
+    var child1a = document.createElement("child1");
+    element1.appendChild(child1a);
+    text = document.createTextNode("Text from child1 of first element");
+    child1a.appendChild(text);
+    var child2a = document.createElement("child2");
+    element1.appendChild(child2a);
+    text = document.createTextNode("Text from child2 of first element");
+    child2a.appendChild(text);
+    var element2 = document.createElement("element2");
+    doc.appendChild(element2);
+    text = document.createTextNode("Text from second element");
+    element2.appendChild(text);
+    var child1b = document.createElement("child1");
+    element2.appendChild(child1b);
+    text = document.createTextNode("Text from child1 of second element");
+    child1b.appendChild(text);
+    var child2b = document.createElement("child2");
+    element2.appendChild(child2b);
+    text = document.createTextNode("Text from child2 of second element (corect execution!!)");
+    child2b.appendChild(text);
+    
+    assertArrayEquals("child2", [child2b],
+            xpath.evaluate("//child2[ancestor-or-self::element2]", document, doc).nodes);
+};
+
+exports.tests.NIST_locationPath004 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var element1 = document.createElement("element1");
+    var text = document.createTextNode("Text from first element");
+    element1.appendChild(text);
+    var child1a = document.createElement("child1");
+    element1.appendChild(child1a);
+    text = document.createTextNode("Text from child1 of first element");
+    child1a.appendChild(text);
+    var child2a = document.createElement("child2");
+    element1.appendChild(child2a);
+    text = document.createTextNode("Text from child2 of first element");
+    child2a.appendChild(text);
+    var element2 = document.createElement("element2");
+    doc.appendChild(element2);
+    text = document.createTextNode("Text from second element");
+    element2.appendChild(text);
+    var child1b = document.createElement("child1");
+    element2.appendChild(child1b);
+    text = document.createTextNode("Text from child1 of second element");
+    child1b.appendChild(text);
+    var child2b = document.createElement("child2");
+    child2b.setAttribute("attr1", "yes");
+    element2.appendChild(child2b);
+    text = document.createTextNode("Text from child2 of second element (corect execution!!)");
+    child2b.appendChild(text);
+    
+    assertArrayEquals("child2", [child2b],
+            xpath.evaluate("//child2[attribute::attr1]", document, doc).nodes);
+};
+
+exports.tests.NIST_locationPath005 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var element1a = document.createElement("element1");
+    doc.appendChild(element1a);
+    var text = document.createTextNode("Text from first element (correct execution)!!!");
+    element1a.appendChild(text);
+    var child1 = document.createElement("child1");
+    element1a.appendChild(child1);
+    var child2 = document.createElement("child2");
+    element1a.appendChild(child2);
+    var element1b = document.createElement("element1");
+    doc.appendChild(element1b);
+    text = document.createTextNode("Text from second element");
+    element1b.appendChild(text);
+    child1 = document.createElement("child1");
+    element1b.appendChild(child1);
+    text = document.createTextNode("Text from child1 of second element");
+    child1.appendChild(text);
+    
+    assertArrayEquals("element1", [element1a],
+            xpath.evaluate("element1[descendant-or-self::child2]", document, doc).nodes);
+};
+
+exports.tests.NIST_locationPath006 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var element1 = document.createElement("element1");
+    doc.appendChild(element1);
+    var child1a = document.createElement("child1");
+    element1.appendChild(child1a);
+    var text = document.createTextNode("Test executed successfully!!")
+    child1a.appendChild(text);
+    var child2 = document.createElement("child2");
+    element1.appendChild(child2);
+    text = document.createTextNode("child2");
+    child2.appendChild(text);
+    var element2 = document.createElement("element2");
+    doc.appendChild(element2);
+    var child1b = document.createElement("child1");
+    element2.appendChild(child1b);
+    text = document.createTextNode("Wrong node selected!!");
+    child1b.appendChild(text);
+    var element3 = document.createElement("element3");
+    doc.appendChild(element3);
+    var child1c = document.createElement("child1");
+    element3.appendChild(child1c);
+    text = document.createTextNode("Wrong node selected!!");
+    child1c.appendChild(text);
+    
+    assertArrayEquals("child1", [child1a],
+            xpath.evaluate("//child1[parent::element1]", document, doc).nodes);
+};
+
+exports.tests.NIST_locationPath007 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var element1a = document.createElement("element1");
+    doc.appendChild(element1a);
+    var text = document.createTextNode("Wrong node selected!!");
+    element1a.appendChild(text);
+    var element1b = document.createElement("element1");
+    doc.appendChild(element1b);
+    text = document.createTextNode("Test executed successfully!!");
+    element1b.appendChild(text);
+    var element1c = document.createElement("element1");
+    doc.appendChild(element1c);
+    text = document.createTextNode("Wrong node selected!!");
+    element1c.appendChild(text);
+    
+    assertArrayEquals("element1", [element1b],
+            xpath.evaluate("element1[(((((2*10)-4)+9) div 5) mod 3 )]", document, doc).nodes);
+};
+
+exports.tests.NIST_locationPath008 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var element1a = document.createElement("element1");
+    doc.appendChild(element1a);
+    var text = document.createTextNode("Wrong node selected!!");
+    element1a.appendChild(text);
+    var element1b = document.createElement("element1");
+    doc.appendChild(element1b);
+    text = document.createTextNode("Test executed successfully!!");
+    element1b.appendChild(text);
+    var element1c = document.createElement("element1");
+    doc.appendChild(element1c);
+    text = document.createTextNode("Wrong node selected!!");
+    element1c.appendChild(text);
+    
+    assertArrayEquals("element1", [element1b],
+            xpath.evaluate("element1[(((((2*10)-4)+9) div 5) mod floor(3))]", document, doc).nodes);
+};
+
+exports.tests.NIST_locationPath009 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var element1a = document.createElement("element1");
+    doc.appendChild(element1a);
+    var text = document.createTextNode("Wrong node selected!!");
+    element1a.appendChild(text);
+    var element1b = document.createElement("element1");
+    doc.appendChild(element1b);
+    text = document.createTextNode("Test executed successfully!!");
+    element1b.appendChild(text);
+    var element1c = document.createElement("element1");
+    doc.appendChild(element1c);
+    text = document.createTextNode("Wrong node selected!!");
+    element1c.appendChild(text);
+    
+    assertArrayEquals("element1", [element1b],
+            xpath.evaluate("element1[floor(2)]", document, doc).nodes);
+};
+
+exports.tests.NIST_locationPath010 = function() {
+    var document = getImplementation().createDocument();
+    var doc = document.createElement("doc");
+    document.appendChild(doc);
+    var element1a = document.createElement("element1");
+    doc.appendChild(element1a);
+    var text = document.createTextNode("Wrong Node Selected!!");
+    element1a.appendChild(text);
+    var element1b = document.createElement("element1");
+    doc.appendChild(element1b);
+    var child1a = document.createElement("child1");
+    element1b.appendChild(child1a);
+    text = document.createTextNode("Wrong Node Selected!!");
+    child1a.appendChild(text);
+    var child1b = document.createElement("child1");
+    element1b.appendChild(child1b);
+    text = document.createTextNode("Wrong Node Selected!!");
+    child1b.appendChild(text);
+    var child1c = document.createElement("child1");
+    element1b.appendChild(child1c);
+    text = document.createTextNode("Test Executed Successfully!!");
+    child1c.appendChild(text);
+    var element1c = document.createElement("element1");
+    doc.appendChild(element1c);
+    text = document.createTextNode("Wrong Node Selected!!");
+    element1c.appendChild(text);
+    
+    assertArrayEquals("child1", [child1c],
+            xpath.evaluate("doc/element1[(((((2*10)-4)+9) div 5) mod 3)]/child1[last()]", document, document).nodes);
+};
