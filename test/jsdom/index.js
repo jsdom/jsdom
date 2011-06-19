@@ -647,6 +647,21 @@ bye = bye + "bye";\
 
       var window = jsdom.jsdom(html).createWindow();
       assertTrue('msg', !!window.myNode.nodeType);
+    },
+    fix_for_issue_172 : function(t) {
+      jsdom.env("<html><body><script type='text/javascript'></script></body></html>", [
+       'jquery.js'
+      ], function () {
+        //t.done()
+      });
+    },
+    fix_for_issue_221 : function() {
+      var html = '<html><head></head><body></body></html>';
+      var document = jsdom.jsdom(html);
+      var test = document.createElement("div");
+      document.body.appendChild(test);
+      test.appendChild(document.createTextNode("hello world"));
+      assertEquals('Nodelist children should be populated immediately',
+                   test.childNodes[0].nodeValue, 'hello world');
     }
-    
 };
