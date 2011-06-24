@@ -10,7 +10,7 @@ or
 
     git clone http://github.com/tmpvar/jsdom.git
     cd jsdom
-    npm link .
+    npm link
 
 ## Easymode
 
