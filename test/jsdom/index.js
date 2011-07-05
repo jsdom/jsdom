@@ -385,7 +385,11 @@ var abc = 123;\
 </script><script type="text/javascript">\
 hello += " world";\
 bye = bye + "bye";\
-(function() { var hidden = "hidden"; window.exposed = hidden; })();\
+(function() {\
+  var hidden = "hidden";\
+  window.exposed = hidden;\
+  this.imOnAWindow = true;\
+})();\
 </script></head><body></body></html>').createWindow();
 
    assertEquals("window should be the global context",
@@ -399,6 +403,7 @@ bye = bye + "bye";\
 
    assertTrue('vars in a closure are safe', typeof window.hidden === 'undefined');
    assertEquals('vars exposed to the window are global', 'hidden', window.exposed);
+   assertTrue('setting this in the outer context should apply to the window', window.imOnAWindow);
   },
   url_resolution: function() {
       var html = '\
