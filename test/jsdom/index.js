@@ -153,7 +153,7 @@ exports.tests = {
         assertNull("error should not be null", errors);
         assertNotNull("window should be valid", window.location);
         assertEquals("script should execute on our window", window.attachedHere, 123);
-        assertEquals("anchor text", window.document.getElementsByTagName("a").item(0).innerHTML, 'World');
+        assertEquals("anchor text", window.document.getElementsByTagName("p").item(0).innerHTML, 'hello world!');
       }
     });
   },
