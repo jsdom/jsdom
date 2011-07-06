@@ -47,21 +47,21 @@ exports.staffNS = function() {
 
   var defaultAttributes = new dom.NamedNodeMap(doc);
   var entElement = doc.createElementNS("http://www.w3.org/2000/xmlns/","entElement");
-  entElement.setAttribute("attr1", "Attr").specified = false;
-  entElement.setAttribute("domestic", "MALE").specified = false;
+  entElement.setAttribute("attr1", "Attr");
+  entElement.setAttribute("domestic", "MALE");
   defaultAttributes.setNamedItemNS(entElement);
 
   var defaultAddress = doc.createElement("address");
-  defaultAddress.setAttributeNS("http://www.w3.org/2000/xmlns/", "street", "Yes").specified = false;
+  defaultAddress.setAttributeNS("http://www.w3.org/2000/xmlns/", "street", "Yes");
   defaultAttributes.setNamedItem(defaultAddress);
 
   var defaultEmpAddress = doc.createElementNS("http://www.nist.gov", 'emp:address');
-  defaultEmpAddress.setAttributeNS("http://www.nist.gov", "emp:district", "DISTRICT").specified = false;
-  defaultEmpAddress.setAttributeNS("http://www.nist.gov", "emp:local1", "FALSE").specified = false;
+  defaultEmpAddress.setAttributeNS("http://www.nist.gov", "emp:district", "DISTRICT");
+  defaultEmpAddress.setAttributeNS("http://www.nist.gov", "emp:local1", "FALSE");
   defaultAttributes.setNamedItemNS(defaultEmpAddress);
 
   var defaultEmpEmployee = doc.createElementNS("http://www.nist.gov", 'emp:employee');
-  defaultEmpEmployee.setAttributeNS(null, 'defaultAttr', 'defaultVal').specified = false;
+  defaultEmpEmployee.setAttributeNS(null, 'defaultAttr', 'defaultVal');
   defaultAttributes.setNamedItemNS(defaultEmpEmployee);
 
   doc.doctype = new dom.DocumentType(doc, "staff", entities, notations, defaultAttributes);
@@ -189,7 +189,7 @@ exports.staffNS = function() {
 
   employee.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:emp", "http://www.nist.gov");
   employee.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:nm", "http://www.altavista.com");
-  employee.setAttributeNS(null, 'defaultAttr', 'defaultVal').specified = false;
+  employee.setAttributeNS(null, 'defaultAttr', 'defaultVal');
 
   id.appendChild(doc.createTextNode("EMP0004"));
   salary.appendChild(doc.createTextNode("95,000"));

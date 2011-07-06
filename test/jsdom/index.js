@@ -82,6 +82,20 @@ exports.tests = {
     })
   },
 
+  env_with_overridden_url : function() {
+    var html = "<html><body><p>hello world!</p></body></html>";
+    jsdom.env({
+      html : html,
+      url  : 'http://www.example.com/',
+      done : function(errors, window) {
+        assertNull("error should be null", errors);
+        assertEquals("location can be overriden by config.url",
+                     "http://www.example.com/",
+                     window.location.href);
+      }
+    })
+  },
+
   env_with_non_existant_script : function() {
     var html = "<html><body><p>hello world!</p></body></html>";
     jsdom.env({
@@ -118,7 +132,9 @@ exports.tests = {
       done    : function(errors, window) {
         server.close();
         assertNull("error should not be null", errors);
-        assertNotNull("window should be valid", window.location);
+        assertEquals("location should be html url by default",
+                     "http://127.0.0.1:64000/html",
+                     window.location.href);
         assertEquals("script should execute on our window", window.attachedHere, 123);
         assertEquals("anchor text", window.document.getElementsByTagName("a").item(0).innerHTML, 'World');
       }
@@ -189,13 +205,15 @@ exports.tests = {
   env_processArguments_object_and_callback : function() {
     var config = jsdom.env.processArguments([{
       html    : "",
-      scripts : ['path/to/some.js', 'another/path/to.js']
+      scripts : ['path/to/some.js', 'another/path/to.js'],
+      url     : 'http://www.example.com/'
     },
     function() {}
     ]);
 
     assertNotNull("has done", config.done);
     assertNotNull("has html", config.html);
+    assertNotNull('has url', config.url);
     assertEquals('has code', 2, config.scripts.length);
   },
 
@@ -215,12 +233,13 @@ exports.tests = {
     var config = jsdom.env.processArguments([
       "<html></html>",
       ['script.js'],
-      { features : [] },
+      { features : [], url: 'http://www.example.com/' },
       function() {},
     ]);
 
     assertNotNull("has done", config.done);
     assertNotNull("has html", config.html);
+    assertNotNull('has url', config.url);
     assertEquals('script length should be 1', 1, config.scripts.length);
     assertNotNull("has config.features", config.config.features);
   },
@@ -383,7 +402,11 @@ var abc = 123;\
 </script><script type="text/javascript">\
 hello += " world";\
 bye = bye + "bye";\
-(function() { var hidden = "hidden"; window.exposed = hidden; })();\
+(function() {\
+  var hidden = "hidden";\
+  window.exposed = hidden;\
+  this.imOnAWindow = true;\
+})();\
 </script></head><body></body></html>').createWindow();
 
    assertEquals("window should be the global context",
@@ -397,6 +420,7 @@ bye = bye + "bye";\
 
    assertTrue('vars in a closure are safe', typeof window.hidden === 'undefined');
    assertEquals('vars exposed to the window are global', 'hidden', window.exposed);
+   assertTrue('setting this in the outer context should apply to the window', window.imOnAWindow);
   },
   url_resolution: function() {
       var html = '\
@@ -629,6 +653,50 @@ bye = bye + "bye";\
 
         assertTrue('they should all serialize the same',
             doc1 === doc2 && doc2 == doc3 && doc3 === doc4 && doc4 == doc5)
-        
+    },
+    children_should_be_available_right_after_document_creation : function() {
+      var doc = jsdom.jsdom("<html><body><div></div></body></html>");
+      assertTrue("there should be a body, and it should have a child", (doc.body.children[0] !== undefined));
+    },
+    children_should_be_available_right_after_document_creation_scripts : function() {
+      var html = "<html><body>" +
+        "<script type='text/javascript'>" +
+          "var h = document.createElement('div');" +
+          "h.innerHTML = '<div style=\"opacity:0.8\"></div>';" +
+          "window.myNode = h.childNodes[0];" +
+        "</script>" +
+      "</body></html>";
+
+      var window = jsdom.jsdom(html).createWindow();
+      assertTrue('msg', !!window.myNode.nodeType);
+    },
+    fix_for_issue_172 : function(t) {
+      jsdom.env("<html><body><script type='text/javascript'></script></body></html>", [
+       'jquery.js'
+      ], function () {
+        //t.done()
+      });
+    },
+    fix_for_issue_221 : function() {
+      var html = '<html><head></head><body></body></html>';
+      var document = jsdom.jsdom(html);
+      var test = document.createElement("div");
+      document.body.appendChild(test);
+      test.appendChild(document.createTextNode("hello world"));
+      assertEquals('Nodelist children should be populated immediately',
+                   test.childNodes[0].nodeValue, 'hello world');
+    },
+    parsing_and_serializing_entities: function() {
+        var html = '<html><body><a href="http://example.com/?a=b&amp;c=d">&lt;&aelig;&#x263a;foo</a>';
+        var document = jsdom.jsdom(html);
+        var anchor = document.getElementsByTagName('a')[0];
+        assertEquals("href attribute value should be deentitified",
+                     anchor.getAttribute('href'), 'http://example.com/?a=b&c=d');
+        assertEquals("nodeValue of text node should be deentitified",
+                     anchor.firstChild.nodeValue, '<æ☺foo');
+        assertTrue("outerHTML of anchor href should be entitified",
+                   anchor.outerHTML.indexOf('http://example.com/?a=b&amp;c=d') !== -1);
+        assertTrue("innerHTML of anchor should begin with &lt;",
+                   anchor.innerHTML.indexOf("&lt;") === 0);
     }
 };
