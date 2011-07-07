@@ -10,47 +10,56 @@ or
 
     git clone http://github.com/tmpvar/jsdom.git
     cd jsdom
-    npm link .
+    npm link
 
 ## Easymode
 
 Bootstrapping a DOM is generally a difficult process involving many error prone steps. We didn't want jsdom to fall into the same trap and that is why a new method, `jsdom.env()`, has been added in jsdom 0.2.0 which should make everyone's lives easier.
 
+with URL
+
     // Count all of the links from the nodejs build page
     var jsdom = require("jsdom");
     
-    jsdom.env("http://nodejs.org/dist/", [
-      'http://code.jquery.com/jquery-1.5.min.js'
-    ], function(errors, window) {
-      console.log("there have been", window.$("a").length, "nodejs releases!");
-    });
+    jsdom.env("http://nodejs.org/dist/",
+              [
+                 'http://code.jquery.com/jquery-1.5.min.js'
+              ],
+              function(errors, window) {
+                      console.log("there have been", window.$("a").length, "nodejs releases!");
+              });
 
 or with raw html
 
     // Run some jQuery on a html fragment
     var jsdom = require('jsdom');
     
-    jsdom.env('<p><a class="the-link" href="http://jsdom.org>JSDOM\'s Homepage</a></p>', [
-      'http://code.jquery.com/jquery-1.5.min.js'
-    ], function(errors, window) {
-      console.log("contents of a.the-link:", window.$("a.the-link").text());
-    });
+    jsdom.env('<p><a class="the-link" href="http://jsdom.org>JSDOM\'s Homepage</a></p>',
+              [
+                'http://code.jquery.com/jquery-1.5.min.js'
+              ],
+              function(errors, window) {
+                      console.log("contents of a.the-link:", window.$("a.the-link").text());
+              });
 
 or with a configuration object
 
     // Print all of the news items on hackernews
     var jsdom = require('jsdom');
     
-    jsdom.env('http://news.ycombinator.com/', [
-      'http://code.jquery.com/jquery-1.5.min.js'
-    ], function(errors, window) {
-      var $ = window.$;
-
-      console.log('HN Links');
-      $('td.title:not(:last) a').each(function() {
-        console.log(' -', $(this).text());
-      });
-    });
+    jsdom.env({
+                html: 'http://news.ycombinator.com/',
+                scripts: [
+                           'http://code.jquery.com/jquery-1.5.min.js'
+                         ],
+                done: function(errors, window) {
+                                  var $ = window.$;
+                                  console.log('HN Links');
+                                  $('td.title:not(:last) a').each(function() {
+                                                                  console.log(' -', $(this).text());
+                                                                  });
+                          }
+              });
 
 
 ### How it works

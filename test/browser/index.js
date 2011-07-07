@@ -133,11 +133,11 @@ exports.tests = {
 
   serialize_styleattribute: function(test) {
     var doc = new browser.Document();
-		var domToHtml = require('../../lib/jsdom/browser/domtohtml');
+    var domToHtml = require('../../lib/jsdom/browser/domtohtml');
     doc.appendChild(doc.createElement('html'));
     doc.documentElement.style.color = 'black';
     doc.documentElement.style.backgroundColor = 'white';
-    test.equal(domToHtml.domToHtml(doc), '<html style="color: black; background-color: white"></html>\r\n', '');
+    test.equal(domToHtml.domToHtml(doc), '<html style="color: black; background-color: white"></html>\n', '');
     test.done();
   },
 

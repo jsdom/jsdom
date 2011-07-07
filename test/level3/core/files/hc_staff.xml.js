@@ -83,19 +83,19 @@ exports.hc_staff = function() {
     var id       = doc.createElementNS("http://www.w3.org/2000/xmlns/","em");
     var salary   = doc.createElementNS("http://www.w3.org/2000/xmlns/","sup");
 
-    employee.appendChild(doc.createTextNode("\r\n"));
+    employee.appendChild(doc.createTextNode("\n"));
     employee.appendChild(id);
-    employee.appendChild(doc.createTextNode("\r\n"));
+    employee.appendChild(doc.createTextNode("\n"));
     employee.appendChild(name);
-    employee.appendChild(doc.createTextNode("\r\n"));
+    employee.appendChild(doc.createTextNode("\n"));
     employee.appendChild(position);
-    employee.appendChild(doc.createTextNode("\r\n"));
+    employee.appendChild(doc.createTextNode("\n"));
     employee.appendChild(salary);
-    employee.appendChild(doc.createTextNode("\r\n"));
+    employee.appendChild(doc.createTextNode("\n"));
     employee.appendChild(gender);
-    employee.appendChild(doc.createTextNode("\r\n"));
+    employee.appendChild(doc.createTextNode("\n"));
     employee.appendChild(address);
-    employee.appendChild(doc.createTextNode("\r\n"));
+    employee.appendChild(doc.createTextNode("\n"));
     staff.appendChild(employee);
 
     names.push(name);
