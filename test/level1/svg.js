@@ -1,6 +1,7 @@
 var hc_staff = require('./svg/files/hc_staff.svg');
 var staff = require('./svg/files/staff.svg');
 var hc_nodtdstaff = require('./svg/files/hc_nodtdstaff.svg');
+var domTestHelper = require('../DOMTestCase');
 
 exports.tests = {
   /**
@@ -16620,9 +16621,7 @@ exports.tests = {
       result[result.length] = attributeName;
 
     }
-    console.log(result, expectedResult);
-    test.ok(result.join(',') === expectedResult.join(','), 'nodeCloneAttributesCopied');
-
+    domTestHelper.assertEqualsCollection(test, result, expectedResult, 'nodeCloneAttributesCopied');
     test.done();
   },
 
@@ -17358,7 +17357,7 @@ exports.tests = {
       attrList[attrList.length] = attrName;
 
     }
-    test.deepEqual(attrList, expected, 'nodeElementNodeValue');
+    domTestHelper.assertEqualsCollection(test, attrList, expectedResult, 'nodeElementNodeValue');
 
     test.done();
   },

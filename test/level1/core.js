@@ -2,6 +2,7 @@ var staff = require('./core/files/staff.xml');
 var hc_staff = require('./core/files/hc_staff.xml');
 var hc_nodtdstaff = require('./core/files/hc_nodtdstaff.xml');
 var extra = require('./core/files/extra.xml');
+var domTestHelper = require('../DOMTestCase');
 
 exports.tests = {
   /**
@@ -16625,8 +16626,7 @@ exports.tests = {
       result[result.length] = attributeName;
 
     }
-    test.deepEqual(result, expectedResult, 'nodeCloneAttributesCopiedAssert1');
-
+    domTestHelper.assertEqualsCollection(test, result, expectedResult, 'nodeCloneAttributesCopiedAssert1');
     test.done();
   },
 
@@ -17365,8 +17365,7 @@ exports.tests = {
       attrList[attrList.length] = attrName;
 
     }
-    test.deepEqual(attrList, expected, 'nodeElementNodeValueAssert1');
-
+    domTestHelper.assertEqualsCollection(test, attrList, expectedResult, 'nodeElementNodeValueAssert1');
     test.done();
   },
 

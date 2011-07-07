@@ -72,10 +72,10 @@ exports.assertEqualsCollectionAutoCase = function(context, descr, expected, actu
   }
 }
 
-exports.assertEqualsCollection = function(descr, expected, actual) {
+exports.assertEqualsCollection = function(test, expected, actual, descr) {
   //
   //  if they aren't the same size, they aren't equal
-  assertEquals(descr, expected.length, actual.length);
+  test.strictEqual(expected.length, actual.length, descr);
   //
   //  if there length is the same, then every entry in the expected list
   //     must appear once and only once in the actual list
@@ -93,12 +93,8 @@ exports.assertEqualsCollection = function(descr, expected, actual) {
               matches++;
           }
       }
-      if(matches == 0) {
-           throw new MjsUnitAssertionError(descr + ": No match found for " + expectedValue);
-      }
-      if(matches > 1) {
-           throw new MjsUnitAssertionError(descr + ": Multiple matches found for " + expectedValue);
-      }
+      test.ok(matches !== 0, 'No match found for ' + expectedValue);
+      test.ok(matches < 2, 'To many matches found for ' + expectedValue);
   }
 }
 
