@@ -1554,17 +1554,18 @@ exports.tests.NIST_dataManipulation016 = function(test) {
     document.appendChild(doc);
     var element1 = document.createElement("element1");
     doc.appendChild(element1);
-    var child1 = document.createElement("child1");
-    element1.appendChild(child1);
+    var good_child1 = document.createElement("child1");
+    element1.appendChild(good_child1);
     var text = document.createTextNode("Test Executed Successfully!!");
-    child1.appendChild(text);
+    good_child1.appendChild(text);
     var element2 = document.createElement("element2");
     doc.appendChild(element2);
     child1 = document.createElement("child1");
     element2.appendChild(child1);
     text = document.createTextNode("Incorrect Execution!!");
     child1.appendChild(text);
-    domTestHelper.arrayEqual(test, [element1],
+
+    domTestHelper.arrayEqual(test, [good_child1],
             xpath.evaluate("//child1[ancestor::element1]", document, document).nodes);
     test.done();
 };
