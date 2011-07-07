@@ -114,20 +114,21 @@ if (actual.length < minLength) {
 }
 
 
-exports.assertEqualsList = function(descr, expected, actual) {
-var minLength = expected.length;
-if (actual.length < minLength) {
-    minLength = actual.length;
-}
-  //
-  for(var i = 0; i < minLength; i++) {
-      if(expected[i] != actual[i]) {
-		assertEquals(descr, expected[i], actual[i]);
-      }
-  }
+exports.assertEqualsList = exports.arrayEqual = function(test, expected, actual) {
   //
   //  if they aren't the same size, they aren't equal
-  assertEquals(descr, expected.length, actual.length);
+  test.equal(expected.length, actual.length, "Array lengths are not the same!");
+
+  var minLength = expected.length;
+  if (actual.length < minLength) {
+      minLength = actual.length;
+  }
+
+  //
+  for(var i = 0; i < minLength; i++) {
+    test.ok(expected[i] === actual[i], "Arrays not equal!" + expected[i] + ' vs ' + actual[i]);
+  }
+
 }
 
 exports.assertInstanceOf = function(descr, type, obj) {
