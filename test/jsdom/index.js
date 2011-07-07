@@ -265,16 +265,11 @@ exports.tests = {
   </body>\
 </html>';
 
-    var doc = jsdom.jsdom(html);
-    doc.onload = function() {
-      test.equal(doc.getElementById("test").innerHTML, 'hello from javascript', 'js should be executed');
-    };
-
     var doc2 = jsdom.jsdom(html, null, {features: {FetchExternalResources: ['script'], ProcessExternalResources: false}});
     doc2.onload = function() {
       test.equal(doc2.getElementById("test").innerHTML, 'hello from html', 'js should not be executed (doc2)');
+      test.done();
     }
-    test.done();
   },
 
   importNode: function(test) {
