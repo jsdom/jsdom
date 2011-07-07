@@ -81,7 +81,7 @@ exports.tests = {
       html : html,
       url  : 'http://www.example.com/',
       done : function(errors, window) {
-        test.notEqual(null, errors, "error should be null");
+        test.ok(null === errors, "error should be null");
         test.equal("http://www.example.com/",
                    window.location.href,
                    "location can be overriden by config.url");
@@ -110,10 +110,12 @@ exports.tests = {
       "/js": "window.attachedHere = 123",
       "/html": "<a href='/path/to/hello'>World</a>"
     };
+
     var server = require("http").createServer(function(req, res) {
-          res.writeHead(200, {"Content-length": routes[req.url].length});
-          res.end(routes[req.url]);
-        }),
+      res.writeHead(200, {"Content-length": routes[req.url].length});
+      res.end(routes[req.url]);
+    });
+
     var cb = function() {
       jsdom.env({
         html: "http://127.0.0.1:64000/html",
@@ -143,8 +145,8 @@ exports.tests = {
       html    : html,
       src     : src,
       done    : function(errors, window) {
-        test.notEqual(null, errors, "error should not be null");
-        test.notEqual(null, window.location, "window should be valid");
+        test.ok(null === errors, "error should not be null");
+        test.ok(null !== window.location, "window should be valid");
         test.equal(window.attachedHere, 123, "script should execute on our window")
         test.equal(window.document.getElementsByTagName("p").item(0).innerHTML, 'hello world!', "anchor text");
         test.done();
@@ -414,16 +416,12 @@ bye = bye + "bye";\
   },
 
   numeric_values: function(test) {
-    var html = '\
-            <html>\
-              <body>\
-                <td data-year="2011" data-month="0" data-day="9">\
+    var html = '<html><body><td data-year="2011" data-month="0" data-day="9">\
                   <a href="#" class=" ">9</a> \
-                </td>\
-              </body>\
-            </html>',
-    document = jsdom.jsdom(html),
+                </td></body></html>';
+    var document = jsdom.jsdom(html);
     var a = document.body.children.item(0);
+
     a.innerHTML = 9;
     a.setAttribute('id', 123);
     test.strictEqual(a.innerHTML, '9', 'Element stringify');
@@ -443,7 +441,7 @@ bye = bye + "bye";\
     var window = jsdom.jsdom("").createWindow();
     test.strictEqual(window.document.location, window.location, 'document.location and window.location');
     test.done();
-  }
+  },
 
   script_execution_in_body : function(test) {
     var window, caught = false;
@@ -556,7 +554,7 @@ bye = bye + "bye";\
     test.strictEqual(true, option1.defaultSelected, 'unchanged');
     test.done();
   },
-  case_sensitivity_of_markup_missing_html_and_body : function(){
+  case_sensitivity_of_markup_missing_html_and_body : function(test){
       var spaces = /[ \n]*/g,
           doc1 = jsdom.html("<HTML><BODY></BODY></HTML>").outerHTML.replace(spaces, ''),
           doc2 = jsdom.html("<html><BODY></Body></HTML>").outerHTML.replace(spaces, ''),
@@ -573,7 +571,7 @@ bye = bye + "bye";\
     test.ok((doc.body.children[0] !== undefined), "there should be a body, and it should have a child");
     test.done();
   },
-  children_should_be_available_right_after_document_creation_scripts : function() {
+  children_should_be_available_right_after_document_creation_scripts : function(test) {
     var html = "<html><body>" +
       "<script type='text/javascript'>" +
         "var h = document.createElement('div');" +
@@ -584,6 +582,7 @@ bye = bye + "bye";\
 
     var window = jsdom.jsdom(html).createWindow();
     test.ok(!!window.myNode.nodeType);
+    test.done();
   },
   fix_for_issue_172 : function(test) {
     jsdom.env("<html><body><script type='text/javascript'></script></body></html>", [
@@ -596,10 +595,10 @@ bye = bye + "bye";\
   fix_for_issue_221 : function(test) {
     var html = '<html><head></head><body></body></html>';
     var document = jsdom.jsdom(html);
-    var test = document.createElement("div");
-    document.body.appendChild(test);
-    test.appendChild(document.createTextNode("hello world"));
-    test.strictEqual(test.childNodes[0].nodeValue, 'hello world',
+    var div = document.createElement("div");
+    document.body.appendChild(div);
+    div.appendChild(document.createTextNode("hello world"));
+    test.strictEqual(div.childNodes[0].nodeValue, 'hello world',
                'Nodelist children should be populated immediately');
     test.done();
   },

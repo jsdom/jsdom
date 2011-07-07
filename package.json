@@ -88,7 +88,7 @@
        "cssom"     : ">=0.2.0"
     },
     "devDependencies" : {
-      "mjsunit.runner" : ">=0.1.0"
+      "nodeunit" : ">=0.5.x"
     },
     "engines" : { "node" : ">=0.1.9" },
     "directories": {
