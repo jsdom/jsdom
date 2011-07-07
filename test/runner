@@ -9,6 +9,7 @@ nodeunit level2/core.js --reporter=minimal
 nodeunit level2/extra.js --reporter=minimal
 nodeunit level2/events.js --reporter=minimal
 nodeunit level2/html.js --reporter=minimal
+nodeunit level2/style.js --reporter=minimal
 echo "BROWSER"
 nodeunit browser/index.js --reporter=minimal
 echo "WINDOW"
