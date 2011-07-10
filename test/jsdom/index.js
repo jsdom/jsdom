@@ -687,17 +687,17 @@ bye = bye + "bye";\
                    test.childNodes[0].nodeValue, 'hello world');
     },
     parsing_and_serializing_entities: function() {
-        var html = '<html><body><a href="http://example.com/?a=b&amp;c=d">&lt;&aelig;&#x263a;foo</a>';
-        var document = jsdom.jsdom(html);
-        var anchor = document.getElementsByTagName('a')[0];
-        assertEquals("href attribute value should be deentitified",
-                     anchor.getAttribute('href'), 'http://example.com/?a=b&c=d');
-        assertEquals("nodeValue of text node should be deentitified",
-                     anchor.firstChild.nodeValue, '<æ☺foo');
-        assertTrue("outerHTML of anchor href should be entitified",
-                   anchor.outerHTML.indexOf('http://example.com/?a=b&amp;c=d') !== -1);
-        assertTrue("innerHTML of anchor should begin with &lt;",
-                   anchor.innerHTML.indexOf("&lt;") === 0);
+      var html = '<html><body><a href="http://example.com/?a=b&amp;c=d">&lt;&aelig;&#x263a;foo</a>';
+      var document = jsdom.jsdom(html);
+      var anchor = document.getElementsByTagName('a')[0];
+      assertEquals("href attribute value should be deentitified",
+                   anchor.getAttribute('href'), 'http://example.com/?a=b&c=d');
+      assertEquals("nodeValue of text node should be deentitified",
+                   anchor.firstChild.nodeValue, '<æ☺foo');
+      assertTrue("outerHTML of anchor href should be entitified",
+                 anchor.outerHTML.indexOf('http://example.com/?a=b&amp;c=d') !== -1);
+      assertTrue("innerHTML of anchor should begin with &lt;",
+                 anchor.innerHTML.indexOf("&lt;") === 0);
     },
     document_title_and_entities: function () {
       var html = '<html><head><title>&lt;b&gt;Hello&lt;/b&gt;</title></head><body></body></html>';
