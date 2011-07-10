@@ -218,7 +218,7 @@ exports.tests = {
   },
 
   plain_window_document: function(test) {
-    var window = (jsdom.createWindow()); 
+    var window = (jsdom.createWindow());
     test.strictEqual(typeof window.document, 'undefined', 'jsdom.createWindow() should create a documentless window');
     test.done();
   },
@@ -614,5 +614,78 @@ bye = bye + "bye";\
       test.ok(anchor.innerHTML.indexOf("&lt;") === 0,
               "innerHTML of anchor should begin with &lt;");
       test.done();
-  }
+  },
+    document_title_and_entities: function (test) {
+      var html = '<html><head><title>&lt;b&gt;Hello&lt;/b&gt;</title></head><body></body></html>';
+      var document = jsdom.jsdom(html);
+
+      test.strictEqual(document.title, "<b>Hello</b>",
+        "document.title should be the deentitified version of what was in \
+        the original HTML"
+      );
+
+      document.title = "<b>World</b>";
+      test.strictEqual(document.title, "<b>World</b>",
+        "When document.title is set programmatically to something looking like \
+        HTML tags, then read again, it should have the exact same value, no \
+        entification should take place"
+      );
+
+      document.title = "&lt;b&gt;World&lt;/b&gt;";
+      test.strictEqual(document.title, "&lt;b&gt;World&lt;/b&gt;",
+        "When document.title is set programmatically to something looking like \
+        HTML entities, then read again, it should have the exact same value, \
+        no deentification should take place"
+      );
+
+      test.done();
+    },
+    setting_and_getting_textContent: function (test) {
+      var html = '<html><head>\n<title>&lt;foo&gt;</title></head><body>Hello<span><span>, </span>world</span>!</body></html>';
+      var document = jsdom.jsdom(html);
+
+      test.strictEqual(document.textContent, null,
+        "textContent of document should be null"
+      );
+
+      test.strictEqual(document.head.textContent, '\n<foo>',
+        "textContent of document.head should be the initial whitespace plus the textContent of the document title"
+      );
+
+      test.strictEqual(
+        document.body.textContent,
+        "Hello, world!",
+        "textContent of document.body should be the concatenation of the textContent values of its child nodes"
+      );
+
+      test.strictEqual(
+        document.createTextNode('&lt;b&gt;World&lt;/b&gt;').textContent,
+        '&lt;b&gt;World&lt;/b&gt;',
+        "textContent of programmatically created text node should be identical to its nodeValue"
+      );
+
+      test.strictEqual(
+        document.createComment('&lt;b&gt;World&lt;/b&gt;').textContent,
+        '&lt;b&gt;World&lt;/b&gt;',
+        "textContent of programmatically created comment node should be identical to its nodeValue"
+      );
+
+      var frag = document.createDocumentFragment();
+      frag.appendChild(document.createTextNode('&lt;foo&gt;<b></b>'));
+      frag.appendChild(document.createElement('div')).appendChild(document.createTextNode('&lt;foo&gt;<b></b>'));
+
+      test.strictEqual(frag.textContent, '&lt;foo&gt;<b></b>&lt;foo&gt;<b></b>',
+        "textContent of programmatically created document fragment should be the concatenation of the textContent values of its child nodes"
+      );
+
+      var div = document.createElement('div');
+      div.innerHTML = '&amp;lt;b&amp;gt;\nWorld&amp;lt;/b&amp;gt;<span></span><span><span></span></span><span>&amp;lt;b&amp;gt;World&amp;lt;/b&amp;gt;</span>';
+
+      test.strictEqual(div.textContent, '&lt;b&gt;\nWorld&lt;/b&gt;&lt;b&gt;W\orld&lt;/b&gt;',
+        "textContent of complex programmatically created <div> should be the \
+        concatenation of the textContent values of its child nodes"
+      );
+
+      test.done();
+    }
 };
