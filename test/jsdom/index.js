@@ -698,5 +698,40 @@ bye = bye + "bye";\
                    anchor.outerHTML.indexOf('http://example.com/?a=b&amp;c=d') !== -1);
         assertTrue("innerHTML of anchor should begin with &lt;",
                    anchor.innerHTML.indexOf("&lt;") === 0);
+    },
+    document_title_and_entities: function () {
+      var html = '<html><head><title>&lt;b&gt;Hello&lt;/b&gt;</title></head><body></body></html>';
+      var document = jsdom.jsdom(html);
+      assertEquals("document.title should be the deentitified version of what was in the original HTML",
+                   document.title, "<b>Hello</b>");
+      document.title = "<b>World</b>";
+      assertEquals("When document.title is set programmatically to something looking like HTML tags, then read again, it should have the exact same value, no entification should take place",
+                   document.title, "<b>World</b>");
+      document.title = "&lt;b&gt;World&lt;/b&gt;";
+      assertEquals("When document.title is set programmatically to something looking like HTML entities, then read again, it should have the exact same value, no deentification should take place",
+                   document.title, "&lt;b&gt;World&lt;/b&gt;");
+    },
+    setting_and_getting_textContent: function () {
+      var html = '<html><head>\n<title>&lt;foo&gt;</title></head><body>Hello<span><span>, </span>world</span>!</body></html>';
+      var document = jsdom.jsdom(html);
+      assertEquals("textContent of document should be null",
+                   document.textContent, null);
+      assertEquals("textContent of document.head should be the initial whitespace plus the textContent of the document title",
+                   document.head.textContent, '\n<foo>');
+      assertEquals("textContent of document.body should be the concatenation of the textContent values of its child nodes",
+                   document.body.textContent, "Hello, world!");
+      assertEquals("textContent of programmatically created text node should be identical to its nodeValue",
+                   document.createTextNode('&lt;b&gt;World&lt;/b&gt;').textContent, '&lt;b&gt;World&lt;/b&gt;');
+      assertEquals("textContent of programmatically created comment node should be identical to its nodeValue",
+                   document.createComment('&lt;b&gt;World&lt;/b&gt;').textContent, '&lt;b&gt;World&lt;/b&gt;');
+      var frag = document.createDocumentFragment();
+      frag.appendChild(document.createTextNode('&lt;foo&gt;<b></b>'));
+      frag.appendChild(document.createElement('div')).appendChild(document.createTextNode('&lt;foo&gt;<b></b>'));
+      assertEquals("textContent of programmatically created document fragment should be the concatenation of the textContent values of its child nodes",
+                   frag.textContent, '&lt;foo&gt;<b></b>&lt;foo&gt;<b></b>');
+      var div = document.createElement('div');
+      div.innerHTML = '&amp;lt;b&amp;gt;\nWorld&amp;lt;/b&amp;gt;<span></span><span><span></span></span><span>&amp;lt;b&amp;gt;World&amp;lt;/b&amp;gt;</span>';
+      assertEquals("textContent of complex programmatically created <div> should be the concatenation of the textContent values of its child nodes",
+                   div.textContent, '&lt;b&gt;\nWorld&lt;/b&gt;&lt;b&gt;World&lt;/b&gt;');
     }
 };
