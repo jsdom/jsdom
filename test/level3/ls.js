@@ -1,3 +1,27 @@
+var level3 = require("../../lib/jsdom/level3/core").dom.level3.core;
+var getImplementation = function() {
+  var doc = new level3.Document();
+  return doc.implementation;
+};
+
+function DOMErrorMonitor() {
+  this.allErrors = new Array();
+}
+
+DOMErrorMonitor.prototype.handleError = function(err) {
+    errorMonitor.allErrors[errorMonitor.allErrors.length] = new DOMErrorImpl(err);
+}
+
+DOMErrorMonitor.prototype.assertLowerSeverity = function(test, id, severity) {
+    var i;
+    for (i = 0; i < this.allErrors.length; i++) {
+        if (this.allErrors[i].severity >= severity) {
+           test.strictEqual(severity - 1, this.allErrors[i].severity, id);
+        }
+    }
+}
+
+
 exports.tests = {
   /**
    * Changes certifiedText on LSInput.
@@ -5,28 +29,24 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-DOMImplementationLS-createLSInput
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSInput-certifiedText
    */
-  CertifiedText1 : function () {
-    var success;
-    if(checkInitialization(builder, "CertifiedText1") != null) return;
-    var domImpl;
-    var input;
-    var certifiedText;
-    domImpl = getImplementation();
-    input = domImpl.createLSInput();
-    certifiedText = input.certifiedText;
+  CertifiedText1 : function (test) {
+    var domImpl = getImplementation();
+    var input = domImpl.createLSInput();
+    var certifiedText = input.certifiedText;
 
-    assertFalse("initiallyFalse",certifiedText);
+    test.ok(certifiedText === false, "initiallyFalse");
     input.certifiedText = true;
 
     certifiedText = input.certifiedText;
 
-    assertTrue("setTrue",certifiedText);
+    test.ok(certifiedText, "setTrue");
     input.certifiedText = false;
 
     certifiedText = input.certifiedText;
 
-    assertFalse("setFalse",certifiedText);
+    test.ok(certifiedText === false, "setFalse");
 
+    test.done();
   },
   /**
    * Writes a document to a character stream and rereads the document.
@@ -35,63 +55,47 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSInput-characterStream
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSOutput-characterStream
    */
-  CharacterStream1 : function () {
-    var success;
-    if(checkInitialization(builder, "CharacterStream1") != null) return;
-    var testDoc;
-    var domImpl;
-    var output;
-    var serializer;
-    var writer;
-    var checkWriter;
-    var reader;
-    var checkReader;
-    var status;
-    var input;
-    var parser;
-    var checkDoc;
-    var docElem;
-    var docElemName;
-    var NULL_SCHEMA_TYPE = null;
+  CharacterStream1 : function (test) {
+    var success, testDoc, domImpl, output, serializer, writer, checkWriter, reader, checkReader, status, input, parser, checkDoc, docElem, docElemName, NULL_SCHEMA_TYPE = null, testDocRef = null;
 
-
-    var testDocRef = null;
     if (typeof(this.testDoc) != 'undefined') {
       testDocRef = this.testDoc;
     }
+
     testDoc = load(testDocRef, "testDoc", "test0");
     domImpl = getImplementation();
     output = domImpl.createLSOutput();
     checkWriter = output.characterStream;
 
-    assertNull("writerInitiallyNull",checkWriter);
+    test.ok(checkWriter === null, "writerInitiallyNull");
     output.characterStream = writer;
 
     checkWriter = output.characterStream;
 
-    assertNotNull("writerNotNull",checkWriter);
+    test.ok(checkWriter !== null, "writerNotNull");
     serializer = domImpl.createLSSerializer();
     status = serializer.write(testDoc,output);
-    assertTrue("writeStatus",status);
+    test.ok(status, "writeStatus");
     reader =  writer;
     input = domImpl.createLSInput();
     checkReader = input.characterStream;
 
-    assertNull("readerInitiallyNull",checkReader);
+    test.ok(checkReader === null, "readerInitiallyNull");
     input.characterStream = reader;
 
     checkReader = input.characterStream;
 
-    assertNotNull("readerNotNull",checkReader);
+    test.ok(checkReader !== null, "readerNotNull");
     parser = domImpl.createLSParser(1,NULL_SCHEMA_TYPE);
     checkDoc = parser.parse(input);
-    assertNotNull("checkNotNull",checkDoc);
+    test.ok(checkDoc !== null, "checkNotNull");
     docElem = checkDoc.documentElement;
 
     docElemName = docElem.nodeName;
 
-    assertEquals("checkDocElemName","elt0",docElemName);
+    test.strictEqual("elt0", docElemName, "checkDocElemName");
 
+    test.done();
   },
   /**
    * Parses a document twice, once using a filter to reject all elt1 elements.
@@ -101,40 +105,16 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParserFilter-startElement
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParserFilter-whatToShow
    */
-  DOMBuilderFilterTest0 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMBuilderFilterTest0") != null) return;
-    myfilter = new LSParserFilterN10027();
+  DOMBuilderFilterTest0 : function (test) {
+    var
+    success, myfilter = new LSParserFilterN10027(), list, count, resourceURI, 
+    implementation, lsImplementation, inputSource, document, writer, builder,
+    MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2,
+    DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml",
+    SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema",
+    NULL_SCHEMATYPE = null, ACTION_REPLACE_CHILDREN = 2,
+    ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
 
-    var list;
-    var count;
-    var resourceURI;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
-
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -145,18 +125,18 @@ exports.tests = {
     list = document.getElementsByTagName("elt1");
     count = list.length;
 
-    assertEquals("filter_count_1",1,count);
+    test.strictEqual(1, count, "filter_count_1");
     builder.filter = myfilter;
 
     document = builder.parseURI(resourceURI);
-    assertNotNull("secondParseDocumentNotNull",document);
+    test.ok(document !== null, "secondParseDocumentNotNull");
     list = document.getElementsByTagName("elt1");
     count = list.length;
 
-    assertEquals("filter_count_2",0,count);
+    test.strictEqual(0, count, "filter_count_2");
 
+    test.done();
   },
-
   /**
    * DOM Builder Filter test, test whether incorrect node types are never passed to the filter.
    * @author Jeroen van Rotterdam
@@ -165,38 +145,9 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-filter
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParserFilter-acceptNode
    */
-  DOMBuilderFilterTest1 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMBuilderFilterTest1") != null) return;
-    var resourceURI;
-    myfilter = new LSParserFilterN1002B();
+  DOMBuilderFilterTest1 : function (test) {
+    var success, resourceURI, myfilter = new LSParserFilterN1002B(), implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null, ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
 
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
-
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -206,8 +157,9 @@ exports.tests = {
 
     resourceURI = getResourceURI(TEST7);
     document = builder.parseURI(resourceURI);
-    assertNotNull("documentNotNull",document);
+    test.ok(document !== null, "documentNotNull");
 
+    test.done();
   },
   /**
    * Checks that attributes are visible when elements are passed to LSParserFilter.startElement.
@@ -216,38 +168,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-Interfaces-LSParserFilter
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParserFilter-startElement
    */
-  DOMBuilderFilterTest2 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMBuilderFilterTest2") != null) return;
-    var resourceURI;
+  DOMBuilderFilterTest2 : function (test) {
+    var success, resourceURI;
     myfilter = new LSParserFilterN10028();
 
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+    var implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -258,6 +185,7 @@ exports.tests = {
     resourceURI = getResourceURI(TEST3);
     document = builder.parseURI(resourceURI);
 
+    test.done();
   },
   /**
    * Parses a document, writes it to string, parses the string and checks that the number of elt1 elements is as expected.
@@ -268,38 +196,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSInput-stringData
    */
-  DOMBuilderTest0 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMBuilderTest0") != null) return;
-    var elementList;
-    var stringDoc;
-    var resourceURI;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+  DOMBuilderTest0 : function (test) {
+    var success, elementList, stringDoc, resourceURI, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -316,6 +216,7 @@ exports.tests = {
     elementList = document.getElementsByTagName("elt1");
     assertSize("count_elt1_2",2,elementList);
 
+    test.done();
   },
   /**
    * Uses LSParser.parseWithContext to replace a node in an existing document.
@@ -323,40 +224,10 @@ exports.tests = {
    * @author X-Hive Corporation
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseWithContext
    */
-  DOMBuilderTest1 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMBuilderTest1") != null) return;
-    var elementList;
-    var stringDoc;
-    var firstElt2;
-    var returnNode;
-    var resourceURI;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+  DOMBuilderTest1 : function (test) {
+    var success, elementList, stringDoc, firstElt2, returnNode, resourceURI, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -369,7 +240,6 @@ exports.tests = {
     firstElt2 = elementList.item(0);
     resourceURI = getResourceURI(TEST2);
     inputSource.systemId = resourceURI;
-
 
     try {
       returnNode = builder.parseWithContext(inputSource,firstElt2,ACTION_REPLACE);
@@ -391,6 +261,7 @@ exports.tests = {
     elementList = document.getElementsByTagName("elt3");
     assertSize("elt3Count",1,elementList);
 
+    test.done();
   },
   /**
    * Uses LSParser.parseWithContext to append a document as a child of an existing node.
@@ -398,40 +269,10 @@ exports.tests = {
    * @author X-Hive Corporation
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseWithContext
    */
-  DOMBuilderTest2 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMBuilderTest2") != null) return;
-    var elementList;
-    var stringDoc;
-    var firstElt0;
-    var returnNode;
-    var resourceURI;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+  DOMBuilderTest2 : function (test) {
+    var success, elementList, stringDoc, firstElt0, returnNode, resourceURI, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -444,7 +285,6 @@ exports.tests = {
     firstElt0 = elementList.item(0);
     resourceURI = getResourceURI(TEST2);
     inputSource.systemId = resourceURI;
-
 
     try {
       returnNode = builder.parseWithContext(inputSource,firstElt0,ACTION_APPEND_AS_CHILDREN);
@@ -466,6 +306,7 @@ exports.tests = {
     elementList = document.getElementsByTagName("elt3");
     assertSize("count_elt3",1,elementList);
 
+    test.done();
   },
   /**
    * Uses LSParser.parseWithContext to insert a document after a node.
@@ -473,43 +314,10 @@ exports.tests = {
    * @author X-Hive Corporation
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseWithContext
    */
-  DOMBuilderTest3 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMBuilderTest3") != null) return;
-    var elementList;
-    var stringDoc;
-    var firstElt1;
-    var secondElt1;
-    var thirdElt;
-    var nodeName;
-    var returnNode;
-    var resourceURI;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+  DOMBuilderTest3 : function (test) {
+    var success, elementList, stringDoc, firstElt1, secondElt1, thirdElt, nodeName, returnNode, resourceURI, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -524,10 +332,9 @@ exports.tests = {
 
     nodeName = secondElt1.nodeName;
 
-    assertEquals("nextSibling_before_add","elt1",nodeName);
+    test.strictEqual("elt1", nodeName, "nextSibling_before_add");
     resourceURI = getResourceURI(TEST2);
     inputSource.systemId = resourceURI;
-
 
     try {
       returnNode = builder.parseWithContext(inputSource,firstElt1,ACTION_INSERT_AFTER);
@@ -548,13 +355,14 @@ exports.tests = {
 
     nodeName = secondElt1.nodeName;
 
-    assertEquals("nextSibling_after_add","elt2",nodeName);
+    test.strictEqual("elt2", nodeName, "nextSibling_after_add");
     thirdElt = secondElt1.nextSibling;
 
     nodeName = thirdElt.nodeName;
 
-    assertEquals("nextSiblings_sibling_after_add","elt1",nodeName);
+    test.strictEqual("elt1", nodeName, "nextSiblings_sibling_after_add");
 
+    test.done();
   },
   /**
    * Uses LSParser.parseWithContext to insert a document before a node.
@@ -562,43 +370,10 @@ exports.tests = {
    * @author X-Hive Corporation
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseWithContext
    */
-  DOMBuilderTest4 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMBuilderTest4") != null) return;
-    var elementList;
-    var stringDoc;
-    var firstElt1;
-    var secondElt1;
-    var thirdElt;
-    var nodeName;
-    var returnNode;
-    var resourceURI;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+  DOMBuilderTest4 : function (test) {
+    var success, elementList, stringDoc, firstElt1, secondElt1, thirdElt, nodeName, returnNode, resourceURI, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -613,10 +388,9 @@ exports.tests = {
 
     nodeName = firstElt1.nodeName;
 
-    assertEquals("previousSibling_before_insert_before","elt1",nodeName);
+    test.strictEqual("elt1", nodeName, "previousSibling_before_insert_before");
     resourceURI = getResourceURI(TEST2);
     inputSource.systemId = resourceURI;
-
 
     try {
       returnNode = builder.parseWithContext(inputSource,secondElt1,ACTION_INSERT_BEFORE);
@@ -637,11 +411,10 @@ exports.tests = {
 
     nodeName = firstElt1.nodeName;
 
-    assertEquals("previousSibling_after_insert_before","elt2",nodeName);
+    test.strictEqual("elt2", nodeName, "previousSibling_after_insert_before");
 
-  },
-
-  /**
+    test.done();
+  },  /**
    * supported-media-types-only is set to true if supported and
    an XML file with an unsupported media type from an HTTP server
    on the local machine is retrieved.
@@ -650,44 +423,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-supported-media-types-only
    */
-  DOMBuilderTest5 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMBuilderTest5") != null) return;
-    var elementList;
-    var stringDoc;
-    var configuration;
-    var ERROR_HANDLER = "error-handler";
-    var SUPPORTED_MEDIATYPES_ONLY = "supported-media-types-only";
-    var mediaTypesSupported;
-    var resourceURI;
+  DOMBuilderTest5 : function (test) {
+    var success, elementList, stringDoc, configuration, ERROR_HANDLER = "error-handler", SUPPORTED_MEDIATYPES_ONLY = "supported-media-types-only", mediaTypesSupported, resourceURI;
     errorHandler = new DOMErrorHandlerN10042();
 
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+    var implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -697,7 +439,7 @@ exports.tests = {
 
     resourceURI = getResourceURI(TESTPDF);
     document = builder.parseURI(resourceURI);
-    assertNotNull("testpdf_parsed",document);
+    test.ok(document !== null, "testpdf_parsed");
     mediaTypesSupported = configuration.canSetParameter(SUPPORTED_MEDIATYPES_ONLY,true);
 
     if(
@@ -714,26 +456,22 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 81);
 	}
-	assertTrue("throw_PARSE_ERR",success);
+	test.ok(success, "throw_PARSE_ERR");
       }
 
     }
 
+    test.done();
   },
   /**
    * Parses from an uninitialized LSInput.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parse
    */
-  DOMBuilderTest6 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMBuilderTest6") != null) return;
-    var domImpl;
-    var parser;
-    var NULL_SCHEMA_TYPE = null;
+  DOMBuilderTest6 : function (test) {
+    var success, domImpl, parser, NULL_SCHEMA_TYPE = null;
 
-    var input;
-    var document;
+    var input, document;
     domImpl = getImplementation();
     parser = domImpl.createLSParser(1,NULL_SCHEMA_TYPE);
     input = domImpl.createLSInput();
@@ -746,25 +484,20 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 81);
       }
-      assertTrue("throw_PARSE_ERR",success);
+      test.ok(success, "throw_PARSE_ERR");
     }
 
+    test.done();
   },
   /**
    * Parses an unresolvable System ID.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parse
    */
-  DOMBuilderTest8 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMBuilderTest8") != null) return;
-    var domImpl;
-    var parser;
-    var NULL_SCHEMA_TYPE = null;
+  DOMBuilderTest8 : function (test) {
+    var success, domImpl, parser, NULL_SCHEMA_TYPE = null;
 
-    var input;
-    var document;
-    var resourceURI;
+    var input, document, resourceURI;
     domImpl = getImplementation();
     parser = domImpl.createLSParser(1,NULL_SCHEMA_TYPE);
     input = domImpl.createLSInput();
@@ -772,7 +505,6 @@ exports.tests = {
     resourceURI = resourceURI + "_missing";
     input.systemId = resourceURI;
 
-
     {
       success = false;
       try {
@@ -781,9 +513,10 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 81);
       }
-      assertTrue("throw_PARSE_ERR",success);
+      test.ok(success, "throw_PARSE_ERR");
     }
 
+    test.done();
   },
   /**
    * Checks parameters on call to resolve resource are
@@ -793,41 +526,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSResourceResolver-resolveResource
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-resource-resolver
    */
-  DOMEntityResolverTest0 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMEntityResolverTest0") != null) return;
-    var resourceURI;
-    var elt2List;
-    var elt2Count;
+  DOMEntityResolverTest0 : function (test) {
+    var success, resourceURI, elt2List, elt2Count;
     myentityresolver = new LSResourceResolverN10030();
 
-    var configuration;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+    var configuration, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -841,8 +546,9 @@ exports.tests = {
     elt2List = document.getElementsByTagName("elt2");
     elt2Count = elt2List.length;
 
-    assertEquals("elt2Count",1,elt2Count);
+    test.strictEqual(1, elt2Count, "elt2Count");
 
+    test.done();
   },
   /**
    * Tests a custom entity resolver. The entity resolver creates an input source that supplies 2 elt1 elements. The original entity reference referes to 1 elt1
@@ -851,40 +557,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSResourceResolver-resolveResource
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-resource-resolver
    */
-  DOMEntityResolverTest1 : function () {
+  DOMEntityResolverTest1 : function (test) {
     var success;
-    if(checkInitialization(builder, "DOMEntityResolverTest1") != null) return;
     myentityresolver = new LSResourceResolverN10028();
 
-    var elementList;
-    var configuration;
-    var resourceURI;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+    var elementList, configuration, resourceURI, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -901,6 +580,7 @@ exports.tests = {
     elementList = document.getElementsByTagName("elt1");
     assertSize("count_elt1_after_applying_entity_resolver",3,elementList);
 
+    test.done();
   },
   /**
    * Resource resolvers do not participate in resolving the top-level document entity.
@@ -911,41 +591,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSResourceResolver-resolveResource
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-resource-resolver
    */
-  DOMEntityResolverTest2 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMEntityResolverTest2") != null) return;
-    var resourceURI;
-    var docElem;
-    var docElemName;
+  DOMEntityResolverTest2 : function (test) {
+    var success, resourceURI, docElem, docElemName;
     myentityresolver = new LSResourceResolverN10030();
 
-    var configuration;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+    var configuration, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -956,13 +608,14 @@ exports.tests = {
     configuration.setParameter("resource-resolver", myentityresolver);
     resourceURI = getResourceURI(TEST0);
     document = builder.parseURI(resourceURI);
-    assertNotNull("documentNotNull",document);
+    test.ok(document !== null, "documentNotNull");
     docElem = document.documentElement;
 
     docElemName = docElem.nodeName;
 
-    assertEquals("docElemName","elt0",docElemName);
+    test.strictEqual("elt0", docElemName, "docElemName");
 
+    test.done();
   },
   /**
    * Uses DOMImplementationLS.createLSParser to create a synchronous parser with an unspecified schema type.
@@ -973,52 +626,25 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-busy
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-filter
    */
-  DOMImplementationLSTest0 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMImplementationLSTest0") != null) return;
-    var isAsync;
-    var isBusy;
-    var filter;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+  DOMImplementationLSTest0 : function (test) {
+    var success, isAsync, isBusy, filter, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
-    assertNotNull("builderNotNull",builder);
+    test.ok(builder !== null, "builderNotNull");
     isAsync = builder.async;
 
-    assertFalse("notAsync",isAsync);
+    test.ok(isAsync === false, "notAsync");
     isBusy = builder.busy;
 
-    assertFalse("notBusy",isBusy);
+    test.ok(isBusy === false, "notBusy");
     filter = builder.filter;
 
-    assertNull("nullFilter",filter);
+    test.ok(filter === null, "nullFilter");
 
+    test.done();
   },
   /**
    * Calls DOMImplementationLS.createLSParser(MODE_ASYNCHRONOUS, null) and
@@ -1030,52 +656,25 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-busy
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-filter
    */
-  DOMImplementationLSTest1 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMImplementationLSTest1") != null) return;
-    var isAsync;
-    var isBusy;
-    var filter;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+  DOMImplementationLSTest1 : function (test) {
+    var success, isAsync, isBusy, filter, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_ASYNCHRONOUS,NULL_SCHEMATYPE);
-    assertNotNull("builderNotNull",builder);
+    test.ok(builder !== null, "builderNotNull");
     isAsync = builder.async;
 
-    assertTrue("notAsync",isAsync);
+    test.ok(isAsync, "notAsync");
     isBusy = builder.busy;
 
-    assertFalse("notBusy",isBusy);
+    test.ok(isBusy === false, "notBusy");
     filter = builder.filter;
 
-    assertNull("nullFilter",filter);
+    test.ok(filter === null, "nullFilter");
 
+    test.done();
   },
   /**
    * Calls DOMImplementationLS.createLSParser(MODE_SYNCHRONOUS, "http://www.w3.org/TR/REC-xml") and checks the return value is not null.
@@ -1083,40 +682,16 @@ exports.tests = {
    * @author X-Hive Corporation
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-DOMImplementationLS-createLSParser
    */
-  DOMImplementationLSTest2 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMImplementationLSTest2") != null) return;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+  DOMImplementationLSTest2 : function (test) {
+    var success, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,DTD_SCHEMATYPE);
-    assertNotNull("builderNotNull",builder);
+    test.ok(builder !== null, "builderNotNull");
 
+    test.done();
   },
   /**
    * Calls DOMImplementationLS.createLSParser(MODE_SYNCHRONOUS, "http://www.w3.org/2001/XMLSchema").
@@ -1125,41 +700,16 @@ exports.tests = {
    * @author X-Hive Corporation
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-DOMImplementationLS-createLSParser
    */
-  DOMImplementationLSTest3 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMImplementationLSTest3") != null) return;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+  DOMImplementationLSTest3 : function (test) {
+    var success, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
 
     try {
       builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,SCHEMA_SCHEMATYPE);
-      assertNotNull("builderNotNull",builder);
+      test.ok(builder !== null, "builderNotNull");
 
     } catch (ex) {
       if (typeof(ex.code) != 'undefined') {
@@ -1174,6 +724,7 @@ exports.tests = {
       }
     }
 
+    test.done();
   },
   /**
    * Calls DOMImplementationLS.createLSParser(MODE_SYNCHRONOUS, "http://nobody...err") expecting that a
@@ -1182,35 +733,10 @@ exports.tests = {
    * @author X-Hive Corporation
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-DOMImplementationLS-createLSParser
    */
-  DOMImplementationLSTest4 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMImplementationLSTest4") != null) return;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+  DOMImplementationLSTest4 : function (test) {
+    var success, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
 
@@ -1222,9 +748,10 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("NOT_SUPPORTED_ERR",success);
+      test.ok(success, "NOT_SUPPORTED_ERR");
     }
 
+    test.done();
   },
   /**
    * Calls DOMImplementationLS.createLSParser(MODE_SYNCHRONOUS, "http://nobody...err") expecting that a
@@ -1233,35 +760,10 @@ exports.tests = {
    * @author X-Hive Corporation
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-DOMImplementationLS-createLSParser
    */
-  DOMImplementationLSTest5 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMImplementationLSTest5") != null) return;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+  DOMImplementationLSTest5 : function (test) {
+    var success, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
 
@@ -1273,9 +775,10 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
-      assertTrue("NOT_SUPPORTED_ERR",success);
+      test.ok(success, "NOT_SUPPORTED_ERR");
     }
 
+    test.done();
   },
   /**
    * Parses a document from a byte stream.
@@ -1284,37 +787,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSInput-byteStream
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parse
    */
-  DOMInputSourceTest0 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMInputSourceTest0") != null) return;
-    var myByteStream = "3C656C74302F3E";
-    var elementList;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+  DOMInputSourceTest0 : function (test) {
+    var success, myByteStream = "3C656C74302F3E", elementList, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -1326,6 +802,7 @@ exports.tests = {
     elementList = document.getElementsByTagName("elt0");
     assertSize("count_elt0",1,elementList);
 
+    test.done();
   },
   /**
    * Parses a document from a character stream.
@@ -1334,37 +811,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSInput-characterStream
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parse
    */
-  DOMInputSourceTest1 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMInputSourceTest1") != null) return;
-    var myReader = "&lt;elt0/>";
-    var elementList;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+  DOMInputSourceTest1 : function (test) {
+    var success, myReader = "&lt;elt0/>", elementList, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -1376,6 +826,7 @@ exports.tests = {
     elementList = document.getElementsByTagName("elt0");
     assertSize("count_elt0",1,elementList);
 
+    test.done();
   },
   /**
    * test the builder by using a string inputsource
@@ -1384,37 +835,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSInput-stringData
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parse
    */
-  DOMInputSourceTest2 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMInputSourceTest2") != null) return;
-    var elementList;
-    var myString = "&lt;elt0>elt0&lt;/elt0>";
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+  DOMInputSourceTest2 : function (test) {
+    var success, elementList, myString = "&lt;elt0>elt0&lt;/elt0>", implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -1426,6 +850,7 @@ exports.tests = {
     elementList = document.getElementsByTagName("elt0");
     assertSize("count_elt0",1,elementList);
 
+    test.done();
   },
   /**
    * Specify encodings for LSInput with string data.  The
@@ -1435,37 +860,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSInput-encoding
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parse
    */
-  DOMInputSourceTest3 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMInputSourceTest3") != null) return;
-    var myString = "<?xml version='1.0' encoding='UTF-8'?>&lt;elt0>elt0&lt;/elt0>";
-    var encodingString;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+  DOMInputSourceTest3 : function (test) {
+    var success, myString = "<?xml version='1.0' encoding='UTF-8'?>&lt;elt0>elt0&lt;/elt0>", encodingString, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -1478,8 +876,9 @@ exports.tests = {
     document = builder.parse(inputSource);
     encodingString = document.inputEncoding;
 
-    assertEquals("encodingstringcheck0","UTF-16".toLowerCase(),encodingString.toLowerCase());
+    test.strictEqual("UTF-16".toLowerCase(), encodingString.toLowerCase(), "encodingstringcheck0");
 
+    test.done();
   },
   /**
    * tests whether DOMInput whether abort can be called even if loading is finished already
@@ -1487,37 +886,10 @@ exports.tests = {
    * @author X-Hive Corporation
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-abort
    */
-  DOMInputSourceTest4 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMInputSourceTest4") != null) return;
-    var elementList;
-    var myString = "<?xml version='1.0' encoding='UTF-8'?>&lt;elt0>elt0&lt;/elt0>";
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+  DOMInputSourceTest4 : function (test) {
+    var success, elementList, myString = "<?xml version='1.0' encoding='UTF-8'?>&lt;elt0>elt0&lt;/elt0>", implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -1528,6 +900,7 @@ exports.tests = {
     document = builder.parse(inputSource);
     builder.abort();
 
+    test.done();
   },
   /**
    * Parses a document containing an external entity and checks
@@ -1539,40 +912,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSInput-baseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSResourceResolver-resolveResource
    */
-  DOMInputSourceTest5 : function () {
+  DOMInputSourceTest5 : function (test) {
     var success;
-    if(checkInitialization(builder, "DOMInputSourceTest5") != null) return;
     myentityresolver = new LSResourceResolverN1002A();
 
-    var configuration;
-    var resourceURI;
-    var nodeList;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+    var configuration, resourceURI, nodeList, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -1590,12 +936,13 @@ exports.tests = {
     inputSource.baseURI = "http://www.example.com/new_base";
 
     document = builder.parse(inputSource);
-    assertNotNull("documentNotNull",document);
+    test.ok(document !== null, "documentNotNull");
     nodeList = document.getElementsByTagName("elt2");
     assertSize("noElt2",0,nodeList);
     nodeList = document.getElementsByTagName("elt1");
     assertSize("hasElt1",1,nodeList);
 
+    test.done();
   },
   /**
    * Specify encodings for LSInput with a character stream.  The
@@ -1605,37 +952,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSInput-encoding
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parse
    */
-  DOMInputSourceTest6 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMInputSourceTest6") != null) return;
-    var encodingString;
-    var myReader = "<?xml version='1.0' encoding='UTF-8'?>&lt;elt0>elt0&lt;/elt0>";
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+  DOMInputSourceTest6 : function (test) {
+    var success, encodingString, myReader = "<?xml version='1.0' encoding='UTF-8'?>&lt;elt0>elt0&lt;/elt0>", implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -1646,14 +966,13 @@ exports.tests = {
     inputSource.characterStream = myReader;
 
     document = builder.parse(inputSource);
-    assertNotNull("documentNotNull",document);
+    test.ok(document !== null, "documentNotNull");
     encodingString = document.inputEncoding;
 
-    assertEquals("encodingstringcheck0","UTF-16".toLowerCase(),encodingString.toLowerCase());
+    test.strictEqual("UTF-16".toLowerCase(), encodingString.toLowerCase(), "encodingstringcheck0");
 
-  },
-
-  /**
+    test.done();
+  },  /**
    * DOMSerializerFilter test, a simple test eliminating a subtree
    * @author Jeroen van Rotterdam
    * @author X-Hive Corporation
@@ -1661,42 +980,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-LSSerializerFilter
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializerFilter-acceptNode
    */
-  DOMWriterFilterTest0 : function () {
+  DOMWriterFilterTest0 : function (test) {
     var success;
-    if(checkInitialization(builder, "DOMWriterFilterTest0") != null) return;
     myfilter = new LSSerializerFilterN10027();
 
-    var configuration;
-    var stringDoc = "&lt;elt1>first elt1&lt;elt2>elt2&lt;/elt2>&lt;/elt1>";
-    var writeResult;
-    var length;
-    var elementList;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+    var configuration, stringDoc = "&lt;elt1>first elt1&lt;elt2>elt2&lt;/elt2>&lt;/elt1>", writeResult, length, elementList, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -1716,9 +1006,8 @@ exports.tests = {
     elementList = document.getElementsByTagName("elt1");
     assertSize("count_elt1",1,elementList);
 
-  },
-
-  /**
+    test.done();
+  },  /**
    * Uses a serializer filter to eliminate attributes, parses the output and checks if the attribute is not there.
    * @author Jeroen van Rotterdam
    * @author X-Hive Corporation
@@ -1727,44 +1016,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializerFilter-acceptNode
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializerFilter-whatToShow
    */
-  DOMWriterFilterTest1 : function () {
+  DOMWriterFilterTest1 : function (test) {
     var success;
-    if(checkInitialization(builder, "DOMWriterFilterTest1") != null) return;
     myfilter = new LSSerializerFilterN1002A();
 
-    var configuration;
-    var stringDoc = "&lt;elt1 attr1='attr1'>first elt1&lt;/elt1>";
-    var writeResult;
-    var length;
-    var elementList;
-    var elt1;
-    var attrNode;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+    var configuration, stringDoc = "&lt;elt1 attr1='attr1'>first elt1&lt;/elt1>", writeResult, length, elementList, elt1, attrNode, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -1783,11 +1041,10 @@ exports.tests = {
     assertSize("count_elt2",1,elementList);
     elt1 = elementList.item(0);
     attrNode = elt1.getAttributeNode("attr1");
-    assertNull("attrib1",attrNode);
+    test.ok(attrNode === null, "attrib1");
 
-  },
-
-  /**
+    test.done();
+  },  /**
    * Uses a filter to strip text during serialization
    parsers to check expections.
    * @author Jeroen van Rotterdam
@@ -1797,45 +1054,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializerFilter-whatToShow
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=643
    */
-  DOMWriterFilterTest2 : function () {
+  DOMWriterFilterTest2 : function (test) {
     var success;
-    if(checkInitialization(builder, "DOMWriterFilterTest2") != null) return;
     myfilter = new LSSerializerFilterN1002A();
 
-    var stringDoc = "&lt;elt1 attr1='attr1'>first elt1&lt;/elt1>";
-    var writeResult;
-    var length;
-    var elementList;
-    var elt1;
-    var childs;
-    var attrNode;
-    var attr1;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+    var stringDoc = "&lt;elt1 attr1='attr1'>first elt1&lt;/elt1>", writeResult, length, elementList, elt1, childs, attrNode, attr1, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -1853,16 +1078,15 @@ exports.tests = {
     elementList = document.getElementsByTagName("elt1");
     elt1 = elementList.item(0);
     attrNode = elt1.getAttributeNode("attr1");
-    assertNotNull("attrExists",attrNode);
+    test.ok(attrNode !== null, "attrExists");
     attr1 = attrNode.nodeValue;
 
-    assertEquals("attrUnchanged","attr1",attr1);
+    test.strictEqual("attr1", attr1, "attrUnchanged");
     childs = elt1.hasChildNodes();
-    assertFalse("nodeHasChilds_elt1",childs);
+    test.ok(childs === false, "nodeHasChilds_elt1");
 
-  },
-
-  /**
+    test.done();
+  },  /**
    * Eliminates comments on serialization, parses results and checks for comments.
    * @author Jeroen van Rotterdam
    * @author X-Hive Corporation
@@ -1870,44 +1094,13 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializerFilter-acceptNode
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializerFilter-whatToShow
    */
-  DOMWriterFilterTest3 : function () {
+  DOMWriterFilterTest3 : function (test) {
     var success;
-    if(checkInitialization(builder, "DOMWriterFilterTest3") != null) return;
     myfilter = new LSSerializerFilterN10027();
 
-    var configuration;
-    var stringDoc = "&lt;elt1>&lt;elt2>elt2&lt;/elt2><!--comment1-->&lt;/elt1>";
-    var writeResult;
-    var length;
-    var elementList;
-    var children;
-    var elt1;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+    var configuration, stringDoc = "&lt;elt1>&lt;elt2>elt2&lt;/elt2><!--comment1-->&lt;/elt1>", writeResult, length, elementList, children, elt1, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -1929,6 +1122,7 @@ exports.tests = {
 
     assertSize("count_children",1,children);
 
+    test.done();
   },
   /**
    * Calls LSSerializer.writeToString and checks result.
@@ -1936,39 +1130,10 @@ exports.tests = {
    * @author X-Hive Corporation
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    */
-  DOMWriterTest0 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMWriterTest0") != null) return;
-    var stringDoc;
-    var writeResult;
-    var elementList;
-    var resourceURI;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+  DOMWriterTest0 : function (test) {
+    var success, stringDoc, writeResult, elementList, resourceURI, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -1983,6 +1148,7 @@ exports.tests = {
     elementList = document.getElementsByTagName("elt2");
     assertSize("elt2Count_1",1,elementList);
 
+    test.done();
   },
   /**
    * Writes an element node to a byte stream.
@@ -1991,44 +1157,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSOutput-byteStream
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-write
    */
-  DOMWriterTest1 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMWriterTest1") != null) return;
-    var stringDoc;
-    var writeResult;
-    var elementList;
-    var firstElt3;
-    var output;
-    var outputStream;
-    var inputStream = null;
+  DOMWriterTest1 : function (test) {
+    var success, stringDoc, writeResult, elementList, firstElt3, output, outputStream, inputStream = null;
 
-    var resourceURI;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+    var resourceURI, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -2049,6 +1183,7 @@ exports.tests = {
     elementList = document.getElementsByTagName("elt2");
     assertSize("elt2Count_1",0,elementList);
 
+    test.done();
   },
   /**
    * Serializes a document without a XML declaration for both for 'xml-declaration' configuration values.
@@ -2057,40 +1192,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#DOMConfiguration-canSetParameter
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-config
    */
-  DOMWriterTest2 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMWriterTest2") != null) return;
-    var configuration;
-    var XML_DECLARATION = "xml-declaration";
-    var stringDoc = "&lt;hello>me again&lt;/hello>";
-    var writeResult;
-    var xmlDecl;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+  DOMWriterTest2 : function (test) {
+    var success, configuration, XML_DECLARATION = "xml-declaration", stringDoc = "&lt;hello>me again&lt;/hello>", writeResult, xmlDecl, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -2103,13 +1208,14 @@ exports.tests = {
 
     configuration.setParameter(XML_DECLARATION, false);
     writeResult = writer.writeToString(document);
-    assertEquals("without_xml_declaration",stringDoc,writeResult);
+    test.strictEqual(stringDoc, writeResult, "without_xml_declaration");
     configuration.setParameter(XML_DECLARATION, true);
     writeResult = writer.writeToString(document);
     fail("Unrecognized method or attribute substring");
 
-    assertEquals("with_xml_declaration","<?xml ",xmlDecl);
+    test.strictEqual("<?xml ", xmlDecl, "with_xml_declaration");
 
+    test.done();
   },
   /**
    * Serializes a document with a XML declaration for both for 'xml-declaration' configuration values.
@@ -2118,40 +1224,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#DOMConfiguration-canSetParameter
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-config
    */
-  DOMWriterTest3 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMWriterTest3") != null) return;
-    var configuration;
-    var XML_DECLARATION = "xml-declaration";
-    var stringDoc = "<?xml version='1.0'?>&lt;hello>me again&lt;/hello>";
-    var writeResult;
-    var xmlDecl;
-    var implementation;
-    var lsImplementation;
-    var inputSource;
-    var document;
-    var writer;
-    var builder;
-    var MODE_SYNCHRONOUS = 1;
-    var MODE_ASYNCHRONOUS = 2;
-    var DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml";
-    var SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema";
-    var NULL_SCHEMATYPE = null;
+  DOMWriterTest3 : function (test) {
+    var success, configuration, XML_DECLARATION = "xml-declaration", stringDoc = "<?xml version='1.0'?>&lt;hello>me again&lt;/hello>", writeResult, xmlDecl, implementation, lsImplementation, inputSource, document, writer, builder, MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2, DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml", SCHEMA_SCHEMATYPE = "http://www.w3.org/2001/XMLSchema", NULL_SCHEMATYPE = null;
 
-    var ACTION_REPLACE_CHILDREN = 2;
-    var ACTION_APPEND_AS_CHILDREN = 1;
-    var ACTION_INSERT_AFTER = 4;
-    var ACTION_INSERT_BEFORE = 3;
-    var ACTION_REPLACE = 5;
-    var TEST0 = "test0";
-    var TEST1 = "test1";
-    var TEST2 = "test2";
-    var TEST3 = "test3";
-    var TEST4 = "test4";
-    var TEST5 = "test5";
-    var TEST6 = "test6";
-    var TEST7 = "test7";
-    var TESTPDF = "testpdf";
+    var ACTION_REPLACE_CHILDREN = 2, ACTION_APPEND_AS_CHILDREN = 1, ACTION_INSERT_AFTER = 4, ACTION_INSERT_BEFORE = 3, ACTION_REPLACE = 5, TEST0 = "test0", TEST1 = "test1", TEST2 = "test2", TEST3 = "test3", TEST4 = "test4", TEST5 = "test5", TEST6 = "test6", TEST7 = "test7", TESTPDF = "testpdf";
     implementation = getImplementation();
     lsImplementation =  implementation;
     builder = lsImplementation.createLSParser(MODE_SYNCHRONOUS,NULL_SCHEMATYPE);
@@ -2164,27 +1240,22 @@ exports.tests = {
 
     configuration.setParameter(XML_DECLARATION, false);
     writeResult = writer.writeToString(document);
-    assertEquals("without_xml_declaration","&lt;hello>me again&lt;/hello>",writeResult);
+    test.strictEqual("&lt;hello>me again&lt;/hello>", writeResult, "without_xml_declaration");
     configuration.setParameter(XML_DECLARATION, true);
     writeResult = writer.writeToString(document);
     fail("Unrecognized method or attribute substring");
 
-    assertEquals("with_xml_declaration","<?xml ",xmlDecl);
+    test.strictEqual("<?xml ", xmlDecl, "with_xml_declaration");
 
+    test.done();
   },
   /**
    * Writes a document to an uninitialized LSOutput.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-write
    */
-  DOMWriterTest4 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMWriterTest4") != null) return;
-    var testDoc;
-    var domImpl;
-    var output;
-    var serializer;
-    var status;
+  DOMWriterTest4 : function (test) {
+    var success, testDoc, domImpl, output, serializer, status;
 
     var testDocRef = null;
     if (typeof(this.testDoc) != 'undefined') {
@@ -2203,9 +1274,10 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 82);
       }
-      assertTrue("throw_SERIALIZE_ERR",success);
+      test.ok(success, "throw_SERIALIZE_ERR");
     }
 
+    test.done();
   },
   /**
    * Creates an document containing a namespaced attribute node without
@@ -2214,25 +1286,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-write
    * @see http://lists.w3.org/Archives/Public/www-dom/2003OctDec/0062.html
    */
-  DOMWriterTest5 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMWriterTest5") != null) return;
-    var domImpl;
-    var origDoc;
-    var nullDocType = null;
+  DOMWriterTest5 : function (test) {
+    var success, domImpl, origDoc, nullDocType = null;
 
-    var namespaceURI = "http://www.example.com/DOMWriterTest5";
-    var docElem;
-    var outputString;
-    var input;
-    var serializer;
-    var parser;
-    var NULL_SCHEMA_TYPE = null;
+    var namespaceURI = "http://www.example.com/DOMWriterTest5", docElem, outputString, input, serializer, parser, NULL_SCHEMA_TYPE = null;
 
-    var attrValue;
-    var parsedDoc;
-    var docElemLocalName;
-    var docElemNS;
+    var attrValue, parsedDoc, docElemLocalName, docElemNS;
     domImpl = getImplementation();
     origDoc = domImpl.createDocument(namespaceURI,"test",nullDocType);
     docElem = origDoc.documentElement;
@@ -2249,13 +1308,14 @@ exports.tests = {
 
     docElemLocalName = docElem.localName;
 
-    assertEquals("docElemLocalName","test",docElemLocalName);
+    test.strictEqual("test", docElemLocalName, "docElemLocalName");
     docElemNS = docElem.namespaceURI;
 
-    assertEquals("docElemNS",namespaceURI,docElemNS);
+    test.strictEqual(namespaceURI, docElemNS, "docElemNS");
     attrValue = docElem.getAttributeNS(namespaceURI,"attr");
-    assertEquals("properNSAttrValue","test value",attrValue);
+    test.strictEqual("test value", attrValue, "properNSAttrValue");
 
+    test.done();
   },
   /**
    * Creates an document containing a namespaced attribute node with
@@ -2264,25 +1324,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-write
    * @see http://lists.w3.org/Archives/Public/www-dom/2003OctDec/0062.html
    */
-  DOMWriterTest6 : function () {
-    var success;
-    if(checkInitialization(builder, "DOMWriterTest6") != null) return;
-    var domImpl;
-    var origDoc;
-    var nullDocType = null;
+  DOMWriterTest6 : function (test) {
+    var success, domImpl, origDoc, nullDocType = null;
 
-    var namespaceURI = "http://www.example.com/DOMWriterTest5";
-    var docElem;
-    var outputString;
-    var input;
-    var serializer;
-    var parser;
-    var NULL_SCHEMA_TYPE = null;
+    var namespaceURI = "http://www.example.com/DOMWriterTest5", docElem, outputString, input, serializer, parser, NULL_SCHEMA_TYPE = null;
 
-    var attrValue;
-    var parsedDoc;
-    var docElemLocalName;
-    var docElemNS;
+    var attrValue, parsedDoc, docElemLocalName, docElemNS;
     domImpl = getImplementation();
     origDoc = domImpl.createDocument(namespaceURI,"test",nullDocType);
     docElem = origDoc.documentElement;
@@ -2299,204 +1346,169 @@ exports.tests = {
 
     docElemLocalName = docElem.localName;
 
-    assertEquals("docElemLocalName","test",docElemLocalName);
+    test.strictEqual("test", docElemLocalName, "docElemLocalName");
     docElemNS = docElem.namespaceURI;
 
-    assertEquals("docElemNS",namespaceURI,docElemNS);
+    test.strictEqual(namespaceURI, docElemNS, "docElemNS");
     attrValue = docElem.getAttributeNS(namespaceURI,"attr");
-    assertEquals("properNSAttrValue","test value",attrValue);
+    test.strictEqual("test value", attrValue, "properNSAttrValue");
 
+    test.done();
   },
   /**
    * DOMImplementationLS can be obtained by DOMImplementation.getFeature("LS", "3.0").
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#DOMImplementation3-getFeature
    */
-  GetFeature1 : function () {
-    var success;
-    if(checkInitialization(builder, "GetFeature1") != null) return;
-    var domImpl;
-    var domImplLS;
-    var output;
+  GetFeature1 : function (test) {
+    var success, domImpl, domImplLS, output;
     domImpl = getImplementation();
     domImplLS = domImpl.getFeature("LS","3.0");
-    assertNotNull("domImplLSNotNull",domImplLS);
+    test.ok(domImplLS !== null, "domImplLSNotNull");
     output = domImplLS.createLSOutput();
-    assertNotNull("outputNotNull",output);
+    test.ok(output !== null, "outputNotNull");
 
+    test.done();
   },
   /**
    * DOMImplementationLS can be obtained by DOMImplementation.getFeature("+lS", "3.0").
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#DOMImplementation3-getFeature
    */
-  GetFeature2 : function () {
-    var success;
-    if(checkInitialization(builder, "GetFeature2") != null) return;
-    var domImpl;
-    var domImplLS;
-    var output;
+  GetFeature2 : function (test) {
+    var success, domImpl, domImplLS, output;
     domImpl = getImplementation();
     domImplLS = domImpl.getFeature("+lS","3.0");
-    assertNotNull("domImplLSNotNull",domImplLS);
+    test.ok(domImplLS !== null, "domImplLSNotNull");
     output = domImplLS.createLSOutput();
-    assertNotNull("outputNotNull",output);
+    test.ok(output !== null, "outputNotNull");
 
+    test.done();
   },
   /**
    * Implementations should return true for hasFeature("LS", "3.0").
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#ID-5CED94D7
    */
-  HasFeature01 : function () {
-    var success;
-    if(checkInitialization(builder, "HasFeature01") != null) return;
-    var domImpl;
-    var hasLS;
+  HasFeature01 : function (test) {
+    var success, domImpl, hasLS;
     domImpl = getImplementation();
     hasLS = domImpl.hasFeature("LS","3.0");
-    assertTrue("hasFeature_LS3",hasLS);
+    test.ok(hasLS, "hasFeature_LS3");
 
+    test.done();
   },
   /**
    * Implementations should return true for hasFeature("LS", null).
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#ID-5CED94D7
    */
-  HasFeature02 : function () {
-    var success;
-    if(checkInitialization(builder, "HasFeature02") != null) return;
-    var domImpl;
-    var hasLS;
-    var version = null;
+  HasFeature02 : function (test) {
+    var success, domImpl, hasLS, version = null;
 
     domImpl = getImplementation();
     hasLS = domImpl.hasFeature("LS",version);
-    assertTrue("hasFeature_LS",hasLS);
+    test.ok(hasLS, "hasFeature_LS");
 
+    test.done();
   },
   /**
    * Implementations should return true for hasFeature("Core", "2.0") and hasFeature("Core", null).
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#ID-5CED94D7
    */
-  HasFeature03 : function () {
-    var success;
-    if(checkInitialization(builder, "HasFeature03") != null) return;
-    var domImpl;
-    var hasLS;
-    var NULL_VERSION = null;
+  HasFeature03 : function (test) {
+    var success, domImpl, hasLS, NULL_VERSION = null;
 
     domImpl = getImplementation();
     hasLS = domImpl.hasFeature("cOrE","2.0");
-    assertTrue("hasFeature_Core2",hasLS);
+    test.ok(hasLS, "hasFeature_Core2");
     hasLS = domImpl.hasFeature("cOrE",NULL_VERSION);
-    assertTrue("hasFeature_Core",hasLS);
+    test.ok(hasLS, "hasFeature_Core");
 
+    test.done();
   },
   /**
    * Implementations should return true for hasFeature("+lS", "3.0").
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#ID-5CED94D7
    */
-  HasFeature04 : function () {
-    var success;
-    if(checkInitialization(builder, "HasFeature04") != null) return;
-    var domImpl;
-    var hasLS;
+  HasFeature04 : function (test) {
+    var success, domImpl, hasLS;
     domImpl = getImplementation();
     hasLS = domImpl.hasFeature("+lS","3.0");
-    assertTrue("hasFeature_LS3",hasLS);
+    test.ok(hasLS, "hasFeature_LS3");
 
+    test.done();
   },
   /**
    * The return values of hasFeature("lS-aSynC", "3.0") and hasFeature("+Ls-AsYNc", "3.0") should be equal.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#ID-5CED94D7
    */
-  HasFeature05 : function () {
-    var success;
-    if(checkInitialization(builder, "HasFeature05") != null) return;
-    var domImpl;
-    var hasLS1;
-    var hasLS2;
+  HasFeature05 : function (test) {
+    var success, domImpl, hasLS1, hasLS2;
     domImpl = getImplementation();
     hasLS1 = domImpl.hasFeature("lS-aSynC","3.0");
     hasLS2 = domImpl.hasFeature("+Ls-AsYNc","3.0");
-    assertEquals("featuresEqual",hasLS1,hasLS2);
+    test.strictEqual(hasLS1, hasLS2, "featuresEqual");
 
+    test.done();
   },
   /**
    * Checks initial state of parser configuration.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-config
    */
-  LSParserConfig1 : function () {
-    var success;
-    if(checkInitialization(builder, "LSParserConfig1") != null) return;
-    var domImpl;
-    var parser;
-    var config;
-    var state;
-    var resolver;
-    var NULL_SCHEMA_TYPE = null;
+  LSParserConfig1 : function (test) {
+    var success, domImpl, parser, config, state, resolver, NULL_SCHEMA_TYPE = null;
 
     domImpl = getImplementation();
     parser = domImpl.createLSParser(1,NULL_SCHEMA_TYPE);
     config = parser.domConfig;
 
-    assertNotNull("configNotNull",config);
+    test.ok(config !== null, "configNotNull");
     state = config.getParameter("cHarset-overrides-xml-encoding");
-    assertTrue("charset-overrides-xml-encoding-is-true",state);
+    test.ok(state, "charset-overrides-xml-encoding-is-true");
     state = config.getParameter("dIsallow-doctype");
-    assertFalse("disallow-doctype-is-false",state);
+    test.ok(state === false, "disallow-doctype-is-false");
     state = config.getParameter("iGnore-unknown-character-denormalizations");
-    assertTrue("ignore-unknown-character-denormalizations-is-true",state);
+    test.ok(state, "ignore-unknown-character-denormalizations-is-true");
     state = config.getParameter("iNfoset");
-    assertTrue("infoset-is-true",state);
+    test.ok(state, "infoset-is-true");
     state = config.getParameter("nAmespaces");
-    assertTrue("namespaces-is-true",state);
+    test.ok(state, "namespaces-is-true");
     resolver = config.getParameter("rEsource-resolver");
-    assertNull("resource-resolver-is-null",resolver);
+    test.ok(resolver === null, "resource-resolver-is-null");
     state = config.getParameter("sUpported-media-types-only");
-    assertFalse("supported-media-types-only-is-false",state);
+    test.ok(state === false, "supported-media-types-only-is-false");
     state = config.getParameter("wEll-formed");
-    assertTrue("well-formed-is-true",state);
+    test.ok(state, "well-formed-is-true");
 
+    test.done();
   },
   /**
    * Checks getParameterNames and canSetParameter.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-config
    */
-  LSParserConfig2 : function () {
-    var success;
-    if(checkInitialization(builder, "LSParserConfig2") != null) return;
-    var domImpl;
-    var parser;
-    var config;
-    var state;
-    var resolver;
-    var NULL_SCHEMA_TYPE = null;
+  LSParserConfig2 : function (test) {
+    var success, domImpl, parser, config, state, resolver, NULL_SCHEMA_TYPE = null;
 
-    var parameterNames;
-    var parameterName;
-    var matchCount = 0;
-    var paramValue;
-    var canSet;
+    var parameterNames, parameterName, matchCount = 0, paramValue, canSet;
     domImpl = getImplementation();
     parser = domImpl.createLSParser(1,NULL_SCHEMA_TYPE);
     config = parser.domConfig;
 
-    assertNotNull("configNotNull",config);
+    test.ok(config !== null, "configNotNull");
     parameterNames = config.parameterNames;
 
-    assertNotNull("parameterNamesNotNull",parameterNames);
+    test.ok(parameterNames !== null, "parameterNamesNotNull");
     for(var indexN10066 = 0;indexN10066 < parameterNames.length; indexN10066++) {
       parameterName = parameterNames.item(indexN10066);
       paramValue = config.getParameter(parameterName);
       canSet = config.canSetParameter(parameterName,paramValue);
-      assertTrue("canSetToDefaultValue",canSet);
+      test.ok(canSet, "canSetToDefaultValue");
       config.setParameter(parameterName, paramValue);
 
       if(
@@ -2509,446 +1521,344 @@ exports.tests = {
       }
 
     }
-    assertEquals("definedParameterCount",23,matchCount);
+    test.strictEqual(23, matchCount, "definedParameterCount");
 
+    test.done();
   },
   /**
    * Checks support of charset-overrides-xml-encoding.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-config
    */
-  LSParserConfig3 : function () {
-    var success;
-    if(checkInitialization(builder, "LSParserConfig3") != null) return;
-    var domImpl;
-    var parser;
-    var config;
-    var state;
-    var canSet;
-    var NULL_SCHEMA_TYPE = null;
+  LSParserConfig3 : function (test) {
+    var success, domImpl, parser, config, state, canSet, NULL_SCHEMA_TYPE = null;
 
     var propertyName = "cHarset-overrides-xml-encoding";
     domImpl = getImplementation();
     parser = domImpl.createLSParser(1,NULL_SCHEMA_TYPE);
     config = parser.domConfig;
 
-    assertNotNull("configNotNull",config);
+    test.ok(config !== null, "configNotNull");
     state = config.getParameter(propertyName);
-    assertTrue("defaultValue",state);
+    test.ok(state, "defaultValue");
     canSet = config.canSetParameter(propertyName,true);
-    assertTrue("canSetTrue",canSet);
+    test.ok(canSet, "canSetTrue");
     canSet = config.canSetParameter(propertyName,false);
-    assertTrue("canSetFalse",canSet);
+    test.ok(canSet, "canSetFalse");
     config.setParameter(propertyName, false);
     state = config.getParameter(propertyName);
-    assertFalse("setFalse",state);
+    test.ok(state === false, "setFalse");
     config.setParameter(propertyName, true);
     state = config.getParameter(propertyName);
-    assertTrue("setTrue",state);
+    test.ok(state, "setTrue");
 
+    test.done();
   },
   /**
    * Checks support of disallow-doctype.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-config
    */
-  LSParserConfig4 : function () {
-    var success;
-    if(checkInitialization(builder, "LSParserConfig4") != null) return;
-    var domImpl;
-    var parser;
-    var config;
-    var state;
-    var canSet;
-    var propertyName = "dIsAllow-doctype";
-    var NULL_SCHEMA_TYPE = null;
+  LSParserConfig4 : function (test) {
+    var success, domImpl, parser, config, state, canSet, propertyName = "dIsAllow-doctype", NULL_SCHEMA_TYPE = null;
 
     domImpl = getImplementation();
     parser = domImpl.createLSParser(1,NULL_SCHEMA_TYPE);
     config = parser.domConfig;
 
-    assertNotNull("configNotNull",config);
+    test.ok(config !== null, "configNotNull");
     state = config.getParameter(propertyName);
-    assertFalse("defaultValue",state);
+    test.ok(state === false, "defaultValue");
     canSet = config.canSetParameter(propertyName,true);
 
-    if(
-      canSet
-    ) {
+    if(canSet) {
       config.setParameter(propertyName, true);
       state = config.getParameter(propertyName);
-      assertTrue("setTrueIsEffective",state);
+      test.ok(state, "setTrueIsEffective");
       config.setParameter(propertyName, false);
       state = config.getParameter(propertyName);
-      assertFalse("setFalseIsEffective",state);
-
-    }
-
-    else {
+      test.ok(state === false, "setFalseIsEffective");
+    } else {
       config.setParameter(propertyName, false);
 
-      {
-	success = false;
-	try {
-          config.setParameter(propertyName, true);
-	}
-	catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-	}
-	assertTrue("throw_NOT_SUPPORTED_ERR_if_canSetParameter_false",success);
-      }
+     	success = false;
+    	try {
+        config.setParameter(propertyName, true);
+      } catch(ex) {
+        success = (typeof(ex.code) != 'undefined' && ex.code == 9);
+    	}
 
+    	test.ok(success, "throw_NOT_SUPPORTED_ERR_if_canSetParameter_false");
     }
 
+    test.done();
   },
   /**
    * Checks support of ignore-unknown-character-denormalizations.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-config
    */
-  LSParserConfig5 : function () {
-    var success;
-    if(checkInitialization(builder, "LSParserConfig5") != null) return;
-    var domImpl;
-    var parser;
-    var config;
-    var state;
-    var canSet;
-    var propertyName = "iGnOre-unknown-character-denormalizations";
-    var NULL_SCHEMA_TYPE = null;
+  LSParserConfig5 : function (test) {
+    var success, domImpl, parser, config, state, canSet, propertyName = "iGnOre-unknown-character-denormalizations", NULL_SCHEMA_TYPE = null;
 
     domImpl = getImplementation();
     parser = domImpl.createLSParser(1,NULL_SCHEMA_TYPE);
     config = parser.domConfig;
 
-    assertNotNull("configNotNull",config);
+    test.ok(config !== null, "configNotNull");
     state = config.getParameter(propertyName);
-    assertTrue("defaultValue",state);
+    test.ok(state, "defaultValue");
     canSet = config.canSetParameter(propertyName,false);
 
-    if(
-      canSet
-    ) {
+    if(canSet) {
       config.setParameter(propertyName, false);
       state = config.getParameter(propertyName);
-      assertFalse("setFalseIsEffective",state);
+      test.ok(state === false, "setFalseIsEffective");
       config.setParameter(propertyName, true);
       state = config.getParameter(propertyName);
-      assertFalse("setTrueIsEffective",state);
-
-    }
-
-    else {
+      test.ok(state === false, "setTrueIsEffective");
+    } else {
       config.setParameter(propertyName, true);
 
-      {
-	success = false;
-	try {
-          config.setParameter(propertyName, false);
-	}
-	catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-	}
-	assertTrue("throw_NOT_SUPPORTED_ERR_if_not_canSetParameter",success);
+      success = false;
+      try {
+        config.setParameter(propertyName, false);
+      } catch(ex) {
+       success = (typeof(ex.code) != 'undefined' && ex.code == 9);
       }
 
+      test.ok(success, "throw_NOT_SUPPORTED_ERR_if_not_canSetParameter");
     }
 
+    test.done();
   },
   /**
    * Checks support of infoset.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-config
    */
-  LSParserConfig6 : function () {
-    var success;
-    if(checkInitialization(builder, "LSParserConfig6") != null) return;
-    var domImpl;
-    var parser;
-    var config;
-    var state;
-    var canSet;
-    var NULL_SCHEMA_TYPE = null;
+  LSParserConfig6 : function (test) {
+    var success, domImpl, parser, config, state, canSet, NULL_SCHEMA_TYPE = null;
 
     var propertyName = "iNfoset";
     domImpl = getImplementation();
     parser = domImpl.createLSParser(1,NULL_SCHEMA_TYPE);
     config = parser.domConfig;
 
-    assertNotNull("configNotNull",config);
+    test.ok(config !== null, "configNotNull");
     state = config.getParameter(propertyName);
-    assertTrue("defaultValue",state);
+    test.ok(state, "defaultValue");
     canSet = config.canSetParameter(propertyName,true);
-    assertTrue("canSetTrue",canSet);
+    test.ok(canSet, "canSetTrue");
     canSet = config.canSetParameter(propertyName,false);
-    assertTrue("canSetFalse",canSet);
+    test.ok(canSet, "canSetFalse");
     config.setParameter(propertyName, false);
     state = config.getParameter(propertyName);
-    assertTrue("setFalse",state);
+    test.ok(state, "setFalse");
     config.setParameter("comments", false);
     state = config.getParameter(propertyName);
-    assertFalse("falseWhenCommentsFalse",state);
+    test.ok(state === false, "falseWhenCommentsFalse");
     config.setParameter(propertyName, true);
     state = config.getParameter(propertyName);
-    assertTrue("resetTrue",state);
+    test.ok(state, "resetTrue");
     state = config.getParameter("comments");
-    assertTrue("resetTrueComments",state);
+    test.ok(state, "resetTrueComments");
 
+    test.done();
   },
   /**
    * Checks support of namespaces.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-config
    */
-  LSParserConfig7 : function () {
-    var success;
-    if(checkInitialization(builder, "LSParserConfig7") != null) return;
-    var domImpl;
-    var parser;
-    var config;
-    var state;
-    var canSet;
-    var propertyName = "nAmespaces";
-    var NULL_SCHEMA_TYPE = null;
+  LSParserConfig7 : function (test) {
+    var success, domImpl, parser, config, state, canSet, propertyName = "nAmespaces", NULL_SCHEMA_TYPE = null;
 
     domImpl = getImplementation();
     parser = domImpl.createLSParser(1,NULL_SCHEMA_TYPE);
     config = parser.domConfig;
 
-    assertNotNull("configNotNull",config);
+    test.ok(config !== null, "configNotNull");
     state = config.getParameter(propertyName);
-    assertTrue("defaultValue",state);
+    test.ok(state, "defaultValue");
     canSet = config.canSetParameter(propertyName,false);
 
-    if(
-      canSet
-    ) {
+    if(canSet) {
       config.setParameter(propertyName, false);
       state = config.getParameter(propertyName);
-      assertFalse("setFalseIsEffective",state);
+      test.ok(state === false, "setFalseIsEffective");
       config.setParameter(propertyName, true);
       state = config.getParameter(propertyName);
-      assertTrue("setTrueIsEffective",state);
-
-    }
-
-    else {
+      test.ok(state, "setTrueIsEffective");
+    } else {
       config.setParameter(propertyName, true);
 
-      {
-	success = false;
-	try {
-          config.setParameter(propertyName, false);
-	}
-	catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-	}
-	assertTrue("throw_NOT_SUPPORTED_ERR_if_not_canSetParameter",success);
-      }
+    	success = false;
+    	try {
+        config.setParameter(propertyName, false);
+    	} catch(ex) {
+        success = (typeof(ex.code) != 'undefined' && ex.code == 9);
+    	}
 
+    	test.ok(success, "throw_NOT_SUPPORTED_ERR_if_not_canSetParameter");
     }
 
+    test.done();
   },
   /**
    * Checks support of well-formed.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-config
    */
-  LSParserConfig8 : function () {
-    var success;
-    if(checkInitialization(builder, "LSParserConfig8") != null) return;
-    var domImpl;
-    var parser;
-    var config;
-    var state;
-    var canSet;
-    var NULL_SCHEMA_TYPE = null;
+  LSParserConfig8 : function (test) {
+    var success, domImpl, parser, config, state, canSet, NULL_SCHEMA_TYPE = null;
 
     var propertyName = "wEll-formed";
     domImpl = getImplementation();
     parser = domImpl.createLSParser(1,NULL_SCHEMA_TYPE);
     config = parser.domConfig;
 
-    assertNotNull("configNotNull",config);
+    test.ok(config !== null, "configNotNull");
     state = config.getParameter(propertyName);
-    assertTrue("defaultValue",state);
+    test.ok(state, "defaultValue");
     canSet = config.canSetParameter(propertyName,true);
-    assertTrue("canSetTrue",canSet);
+    test.ok(canSet, "canSetTrue");
     canSet = config.canSetParameter(propertyName,false);
-    assertFalse("canSetFalse",canSet);
+    test.ok(canSet === false, "canSetFalse");
 
-    {
-      success = false;
-      try {
-        config.setParameter(propertyName, false);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-      }
-      assertTrue("throw_NOT_SUPPORTED_EXCEPTION",success);
+    success = false;
+    try {
+      config.setParameter(propertyName, false);
+    } catch(ex) {
+      success = (typeof(ex.code) != 'undefined' && ex.code == 9);
     }
 
+    test.ok(success, "throw_NOT_SUPPORTED_EXCEPTION");
+
+    test.done();
   },
   /**
    * Checks support of supported-media-types-only.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-config
    */
-  LSParserConfig9 : function () {
-    var success;
-    if(checkInitialization(builder, "LSParserConfig9") != null) return;
-    var domImpl;
-    var parser;
-    var config;
-    var state;
-    var canSet;
-    var propertyName = "sUpported-media-types-only";
-    var NULL_SCHEMA_TYPE = null;
+  LSParserConfig9 : function (test) {
+    var success, domImpl, parser, config, state, canSet, propertyName = "sUpported-media-types-only", NULL_SCHEMA_TYPE = null;
 
     domImpl = getImplementation();
     parser = domImpl.createLSParser(1,NULL_SCHEMA_TYPE);
     config = parser.domConfig;
 
-    assertNotNull("configNotNull",config);
+    test.ok(config !== null, "configNotNull");
     state = config.getParameter(propertyName);
-    assertFalse("defaultValue",state);
+    test.ok(state === false, "defaultValue");
     canSet = config.canSetParameter(propertyName,true);
 
-    if(
-      canSet
-    ) {
+    if(canSet) {
       config.setParameter(propertyName, true);
       state = config.getParameter(propertyName);
-      assertTrue("setTrueIsEffective",state);
+      test.ok(state, "setTrueIsEffective");
       config.setParameter(propertyName, false);
       state = config.getParameter(propertyName);
-      assertFalse("setFalseIsEffective",state);
 
-    }
-
-    else {
+      test.ok(state === false, "setFalseIsEffective");
+    } else {
       config.setParameter(propertyName, false);
 
-      {
-	success = false;
-	try {
-          config.setParameter(propertyName, true);
-	}
-	catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-	}
-	assertTrue("throw_NOT_SUPPORTED_ERR_if_canSetParameter_false",success);
-      }
+      success = false;
+	    try {
+        config.setParameter(propertyName, true);
+    	} catch(ex) {
+        success = (typeof(ex.code) != 'undefined' && ex.code == 9);
+    	}
 
+	    test.ok(success, "throw_NOT_SUPPORTED_ERR_if_canSetParameter_false");
     }
 
+    test.done();
   },
   /**
    * Checks initial state of serializer configuration.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-config
    */
-  LSSerializerConfig1 : function () {
-    var success;
-    if(checkInitialization(builder, "LSSerializerConfig1") != null) return;
-    var domImpl;
-    var serializer;
-    var config;
-    var state;
-    var canSet;
+  LSSerializerConfig1 : function (test) {
+    var success, domImpl, serializer, config, state, canSet;
     domImpl = getImplementation();
     serializer = domImpl.createLSSerializer();
     config = serializer.domConfig;
 
-    assertNotNull("configNotNull",config);
+    test.ok(config !== null, "configNotNull");
     state = config.getParameter("cAnonical-form");
-    assertFalse("canonical-form-is-false",state);
+    test.ok(state === false, "canonical-form-is-false");
     state = config.getParameter("dIscard-default-content");
-    assertTrue("discard-default-content-is-true",state);
+    test.ok(state, "discard-default-content-is-true");
     state = config.getParameter("fOrmat-pretty-print");
-    assertFalse("format-pretty-print-is-false",state);
+    test.ok(state === false, "format-pretty-print-is-false");
     state = config.getParameter("iGnore-unknown-character-denormalizations");
-    assertTrue("ignore-unknown-character-denormalizations-is-true",state);
+    test.ok(state, "ignore-unknown-character-denormalizations-is-true");
     state = config.getParameter("nOrmalize-characters");
     canSet = config.canSetParameter("normalize-characters",true);
-    assertTrue("normalize-characters-default",
-
-	       (state ||
-	        !canSet)
-              );
+    assertTrue("normalize-characters-default", (state ||
+	        !canSet));
     state = config.getParameter("xMl-declaration");
-    assertTrue("xml-declaration-is-true",state);
+    test.ok(state, "xml-declaration-is-true");
     state = config.getParameter("wEll-formed");
-    assertTrue("well-formed-is-true",state);
+    test.ok(state, "well-formed-is-true");
     state = config.getParameter("nAmespaces");
-    assertTrue("namespaces-is-true",state);
+    test.ok(state, "namespaces-is-true");
     state = config.getParameter("nAmespace-declarations");
-    assertTrue("namespace-declarations-is-true",state);
+    test.ok(state, "namespace-declarations-is-true");
 
+    test.done();
   },
   /**
    * Checks support of namespace-declarations.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-config
    */
-  LSSerializerConfig10 : function () {
-    var success;
-    if(checkInitialization(builder, "LSSerializerConfig10") != null) return;
-    var domImpl;
-    var serializer;
-    var config;
-    var state;
-    var canSet;
-    var propertyName = "nAmespace-declarations";
+  LSSerializerConfig10 : function (test) {
+    var success, domImpl, serializer, config, state, canSet, propertyName = "nAmespace-declarations";
     domImpl = getImplementation();
     serializer = domImpl.createLSSerializer();
     config = serializer.domConfig;
 
-    assertNotNull("configNotNull",config);
+    test.ok(config !== null, "configNotNull");
     state = config.getParameter(propertyName);
-    assertTrue("defaultValue",state);
+    test.ok(state, "defaultValue");
     canSet = config.canSetParameter(propertyName,true);
-    assertTrue("canSetTrue",canSet);
+    test.ok(canSet, "canSetTrue");
     canSet = config.canSetParameter(propertyName,false);
-    assertTrue("canSetFalse",canSet);
+    test.ok(canSet, "canSetFalse");
     config.setParameter(propertyName, false);
     state = config.getParameter(propertyName);
-    assertFalse("setFalseIsEffective",state);
+    test.ok(state === false, "setFalseIsEffective");
     config.setParameter(propertyName, true);
     state = config.getParameter(propertyName);
-    assertTrue("setTrueIsEffective",state);
+    test.ok(state, "setTrueIsEffective");
 
+    test.done();
   },
   /**
    * Checks getParameterNames and canSetParameter.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-config
    */
-  LSSerializerConfig2 : function () {
-    var success;
-    if(checkInitialization(builder, "LSSerializerConfig2") != null) return;
-    var domImpl;
-    var serializer;
-    var config;
-    var state;
-    var parameterNames;
-    var parameterName;
-    var matchCount = 0;
-    var paramValue;
-    var canSet;
+  LSSerializerConfig2 : function (test) {
+    var success, domImpl, serializer, config, state, parameterNames, parameterName, matchCount = 0, paramValue, canSet;
     domImpl = getImplementation();
     serializer = domImpl.createLSSerializer();
     config = serializer.domConfig;
 
-    assertNotNull("configNotNull",config);
+    test.ok(config !== null, "configNotNull");
     parameterNames = config.parameterNames;
 
-    assertNotNull("parameterNamesNotNull",parameterNames);
+    test.ok(parameterNames !== null, "parameterNamesNotNull");
     for(var indexN1005B = 0;indexN1005B < parameterNames.length; indexN1005B++) {
       parameterName = parameterNames.item(indexN1005B);
       paramValue = config.getParameter(parameterName);
       canSet = config.canSetParameter(parameterName,paramValue);
-      assertTrue("canSetToDefaultValue",canSet);
+      test.ok(canSet, "canSetToDefaultValue");
       config.setParameter(parameterName, paramValue);
 
       if(
@@ -2961,30 +1871,24 @@ exports.tests = {
       }
 
     }
-    assertEquals("definedParameterCount",20,matchCount);
+    test.strictEqual(20, matchCount, "definedParameterCount");
 
+    test.done();
   },
   /**
    * Checks support of canonical-form.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-config
    */
-  LSSerializerConfig3 : function () {
-    var success;
-    if(checkInitialization(builder, "LSSerializerConfig3") != null) return;
-    var domImpl;
-    var serializer;
-    var config;
-    var state;
-    var canSet;
-    var propertyName = "cAnonical-form";
+  LSSerializerConfig3 : function (test) {
+    var success, domImpl, serializer, config, state, canSet, propertyName = "cAnonical-form";
     domImpl = getImplementation();
     serializer = domImpl.createLSSerializer();
     config = serializer.domConfig;
 
-    assertNotNull("configNotNull",config);
+    test.ok(config !== null, "configNotNull");
     state = config.getParameter(propertyName);
-    assertFalse("defaultValue",state);
+    test.ok(state === false, "defaultValue");
     canSet = config.canSetParameter(propertyName,true);
 
     if(
@@ -2992,10 +1896,10 @@ exports.tests = {
     ) {
       config.setParameter(propertyName, true);
       state = config.getParameter(propertyName);
-      assertTrue("setTrueIsEffective",state);
+      test.ok(state, "setTrueIsEffective");
       config.setParameter(propertyName, false);
       state = config.getParameter(propertyName);
-      assertFalse("setFalseIsEffective",state);
+      test.ok(state === false, "setFalseIsEffective");
 
     }
 
@@ -3010,66 +1914,54 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
 	}
-	assertTrue("throw_NOT_SUPPORTED_ERR_if_canSetParameter_false",success);
+	test.ok(success, "throw_NOT_SUPPORTED_ERR_if_canSetParameter_false");
       }
 
     }
 
+    test.done();
   },
   /**
    * Checks support of discard-default-content.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-config
    */
-  LSSerializerConfig4 : function () {
-    var success;
-    if(checkInitialization(builder, "LSSerializerConfig4") != null) return;
-    var domImpl;
-    var serializer;
-    var config;
-    var state;
-    var canSet;
-    var propertyName = "dIscard-default-content";
+  LSSerializerConfig4 : function (test) {
+    var success, domImpl, serializer, config, state, canSet, propertyName = "dIscard-default-content";
     domImpl = getImplementation();
     serializer = domImpl.createLSSerializer();
     config = serializer.domConfig;
 
-    assertNotNull("configNotNull",config);
+    test.ok(config !== null, "configNotNull");
     state = config.getParameter(propertyName);
-    assertTrue("defaultValue",state);
+    test.ok(state, "defaultValue");
     canSet = config.canSetParameter(propertyName,true);
-    assertTrue("canSetTrue",canSet);
+    test.ok(canSet, "canSetTrue");
     canSet = config.canSetParameter(propertyName,false);
-    assertTrue("canSetFalse",canSet);
+    test.ok(canSet, "canSetFalse");
     config.setParameter(propertyName, false);
     state = config.getParameter(propertyName);
-    assertFalse("setFalse",state);
+    test.ok(state === false, "setFalse");
     config.setParameter(propertyName, true);
     state = config.getParameter(propertyName);
-    assertTrue("setTrue",state);
+    test.ok(state, "setTrue");
 
+    test.done();
   },
   /**
    * Checks support of format-pretty-print.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-config
    */
-  LSSerializerConfig5 : function () {
-    var success;
-    if(checkInitialization(builder, "LSSerializerConfig5") != null) return;
-    var domImpl;
-    var serializer;
-    var config;
-    var state;
-    var canSet;
-    var propertyName = "fOrmat-pretty-print";
+  LSSerializerConfig5 : function (test) {
+    var success, domImpl, serializer, config, state, canSet, propertyName = "fOrmat-pretty-print";
     domImpl = getImplementation();
     serializer = domImpl.createLSSerializer();
     config = serializer.domConfig;
 
-    assertNotNull("configNotNull",config);
+    test.ok(config !== null, "configNotNull");
     state = config.getParameter(propertyName);
-    assertFalse("defaultValue",state);
+    test.ok(state === false, "defaultValue");
     canSet = config.canSetParameter(propertyName,true);
 
     if(
@@ -3077,10 +1969,10 @@ exports.tests = {
     ) {
       config.setParameter(propertyName, true);
       state = config.getParameter(propertyName);
-      assertTrue("setTrueIsEffective",state);
+      test.ok(state, "setTrueIsEffective");
       config.setParameter(propertyName, false);
       state = config.getParameter(propertyName);
-      assertFalse("setFalseIsEffective",state);
+      test.ok(state === false, "setFalseIsEffective");
 
     }
 
@@ -3095,33 +1987,27 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
 	}
-	assertTrue("throw_NOT_SUPPORTED_ERR_if_canSetParameter_false",success);
+	test.ok(success, "throw_NOT_SUPPORTED_ERR_if_canSetParameter_false");
       }
 
     }
 
+    test.done();
   },
   /**
    * Checks support of ignore-unknown-character-denormalizations.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-config
    */
-  LSSerializerConfig6 : function () {
-    var success;
-    if(checkInitialization(builder, "LSSerializerConfig6") != null) return;
-    var domImpl;
-    var serializer;
-    var config;
-    var state;
-    var canSet;
-    var propertyName = "iGnore-unknown-character-denormalizations";
+  LSSerializerConfig6 : function (test) {
+    var success, domImpl, serializer, config, state, canSet, propertyName = "iGnore-unknown-character-denormalizations";
     domImpl = getImplementation();
     serializer = domImpl.createLSSerializer();
     config = serializer.domConfig;
 
-    assertNotNull("configNotNull",config);
+    test.ok(config !== null, "configNotNull");
     state = config.getParameter(propertyName);
-    assertTrue("defaultValue",state);
+    test.ok(state, "defaultValue");
     canSet = config.canSetParameter(propertyName,false);
 
     if(
@@ -3129,10 +2015,10 @@ exports.tests = {
     ) {
       config.setParameter(propertyName, false);
       state = config.getParameter(propertyName);
-      assertFalse("setFalseIsEffective",state);
+      test.ok(state === false, "setFalseIsEffective");
       config.setParameter(propertyName, true);
       state = config.getParameter(propertyName);
-      assertTrue("setTrueIsEffective",state);
+      test.ok(state, "setTrueIsEffective");
 
     }
 
@@ -3147,68 +2033,56 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
 	}
-	assertTrue("throw_NOT_SUPPORTED_ERR_if_canSetParameter_false",success);
+	test.ok(success, "throw_NOT_SUPPORTED_ERR_if_canSetParameter_false");
       }
 
     }
 
+    test.done();
   },
   /**
    * Checks support of xml-declaration.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-config
    */
-  LSSerializerConfig7 : function () {
-    var success;
-    if(checkInitialization(builder, "LSSerializerConfig7") != null) return;
-    var domImpl;
-    var serializer;
-    var config;
-    var state;
-    var canSet;
-    var propertyName = "xMl-declaration";
+  LSSerializerConfig7 : function (test) {
+    var success, domImpl, serializer, config, state, canSet, propertyName = "xMl-declaration";
     domImpl = getImplementation();
     serializer = domImpl.createLSSerializer();
     config = serializer.domConfig;
 
-    assertNotNull("configNotNull",config);
+    test.ok(config !== null, "configNotNull");
     state = config.getParameter(propertyName);
-    assertTrue("defaultValue",state);
+    test.ok(state, "defaultValue");
     canSet = config.canSetParameter(propertyName,true);
-    assertTrue("canSetTrue",canSet);
+    test.ok(canSet, "canSetTrue");
     canSet = config.canSetParameter(propertyName,false);
-    assertTrue("canSetFalse",canSet);
+    test.ok(canSet, "canSetFalse");
     config.setParameter(propertyName, false);
     state = config.getParameter(propertyName);
-    assertFalse("setFalse",state);
+    test.ok(state === false, "setFalse");
     config.setParameter(propertyName, true);
     state = config.getParameter(propertyName);
-    assertTrue("setTrue",state);
+    test.ok(state, "setTrue");
 
+    test.done();
   },
   /**
    * Checks support of well-formed.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-config
    */
-  LSSerializerConfig8 : function () {
-    var success;
-    if(checkInitialization(builder, "LSSerializerConfig8") != null) return;
-    var domImpl;
-    var serializer;
-    var config;
-    var state;
-    var canSet;
-    var propertyName = "wEll-formed";
+  LSSerializerConfig8 : function (test) {
+    var success, domImpl, serializer, config, state, canSet, propertyName = "wEll-formed";
     domImpl = getImplementation();
     serializer = domImpl.createLSSerializer();
     config = serializer.domConfig;
 
-    assertNotNull("configNotNull",config);
+    test.ok(config !== null, "configNotNull");
     state = config.getParameter(propertyName);
-    assertTrue("defaultValue",state);
+    test.ok(state, "defaultValue");
     canSet = config.canSetParameter(propertyName,true);
-    assertTrue("canSetTrue",canSet);
+    test.ok(canSet, "canSetTrue");
     canSet = config.canSetParameter(propertyName,false);
 
     if(
@@ -3216,10 +2090,10 @@ exports.tests = {
     ) {
       config.setParameter(propertyName, false);
       state = config.getParameter(propertyName);
-      assertFalse("setFalseIsEffective",state);
+      test.ok(state === false, "setFalseIsEffective");
       config.setParameter(propertyName, true);
       state = config.getParameter(propertyName);
-      assertTrue("setTrueIsEffective",state);
+      test.ok(state, "setTrueIsEffective");
 
     }
 
@@ -3233,35 +2107,29 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
 	}
-	assertTrue("throw_NOT_SUPPORTED_EXCEPTION",success);
+	test.ok(success, "throw_NOT_SUPPORTED_EXCEPTION");
       }
 
     }
 
+    test.done();
   },
   /**
    * Checks support of namespaces.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-config
    */
-  LSSerializerConfig9 : function () {
-    var success;
-    if(checkInitialization(builder, "LSSerializerConfig9") != null) return;
-    var domImpl;
-    var serializer;
-    var config;
-    var state;
-    var canSet;
-    var propertyName = "nAmespaces";
+  LSSerializerConfig9 : function (test) {
+    var success, domImpl, serializer, config, state, canSet, propertyName = "nAmespaces";
     domImpl = getImplementation();
     serializer = domImpl.createLSSerializer();
     config = serializer.domConfig;
 
-    assertNotNull("configNotNull",config);
+    test.ok(config !== null, "configNotNull");
     state = config.getParameter(propertyName);
-    assertTrue("defaultValue",state);
+    test.ok(state, "defaultValue");
     canSet = config.canSetParameter(propertyName,true);
-    assertTrue("canSetTrue",canSet);
+    test.ok(canSet, "canSetTrue");
     canSet = config.canSetParameter(propertyName,false);
 
     if(
@@ -3269,10 +2137,10 @@ exports.tests = {
     ) {
       config.setParameter(propertyName, false);
       state = config.getParameter(propertyName);
-      assertFalse("setFalseIsEffective",state);
+      test.ok(state === false, "setFalseIsEffective");
       config.setParameter(propertyName, true);
       state = config.getParameter(propertyName);
-      assertTrue("setTrueIsEffective",state);
+      test.ok(state, "setTrueIsEffective");
 
     }
 
@@ -3286,11 +2154,12 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
 	}
-	assertTrue("settingFalseWhenNotSupported",success);
+	test.ok(success, "settingFalseWhenNotSupported");
       }
 
     }
 
+    test.done();
   },
   /**
    * Writes a document to a URL for a temporary file and rereads the document.
@@ -3298,23 +2167,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSInput-systemId
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSOutput-systemId
    */
-  SystemId1 : function () {
-    var success;
-    if(checkInitialization(builder, "SystemId1") != null) return;
-    var testDoc;
-    var domImpl;
-    var output;
-    var serializer;
-    var systemId;
-    var checkSystemId;
-    var status;
-    var input;
-    var parser;
-    var checkDoc;
-    var docElem;
-    var docElemName;
-    var NULL_SCHEMA_TYPE = null;
-
+  SystemId1 : function (test) {
+    var success, testDoc, domImpl, output, serializer, systemId, checkSystemId, status, input, parser, checkDoc, docElem, docElemName, NULL_SCHEMA_TYPE = null;
 
     var testDocRef = null;
     if (typeof(this.testDoc) != 'undefined') {
@@ -3325,35 +2179,36 @@ exports.tests = {
     output = domImpl.createLSOutput();
     checkSystemId = output.systemId;
 
-    assertNull("LSOutputSystemIdInitiallyNull",checkSystemId);
+    test.ok(checkSystemId === null, "LSOutputSystemIdInitiallyNull");
     fail("Unrecognized method or attribute createTempURI");
 
     output.systemId = systemId;
 
     checkSystemId = output.systemId;
 
-    assertEquals("LSOutputSystemIdMatch",systemId,checkSystemId);
+    test.strictEqual(systemId, checkSystemId, "LSOutputSystemIdMatch");
     serializer = domImpl.createLSSerializer();
     status = serializer.write(testDoc,output);
-    assertTrue("writeStatus",status);
+    test.ok(status, "writeStatus");
     input = domImpl.createLSInput();
     checkSystemId = input.systemId;
 
-    assertNull("LSInputSystemIdInitiallyNull",checkSystemId);
+    test.ok(checkSystemId === null, "LSInputSystemIdInitiallyNull");
     input.systemId = systemId;
 
     checkSystemId = input.systemId;
 
-    assertEquals("LSInputSystemIdMatch",systemId,checkSystemId);
+    test.strictEqual(systemId, checkSystemId, "LSInputSystemIdMatch");
     parser = domImpl.createLSParser(1,NULL_SCHEMA_TYPE);
     checkDoc = parser.parse(input);
-    assertNotNull("checkNotNull",checkDoc);
+    test.ok(checkDoc !== null, "checkNotNull");
     docElem = checkDoc.documentElement;
 
     docElemName = docElem.nodeName;
 
-    assertEquals("checkDocElemName","elt0",docElemName);
+    test.strictEqual("elt0", docElemName, "checkDocElemName");
 
+    test.done();
   },
   /**
    * Writes a document to a URL for a temporary http document and rereads the document.
@@ -3361,23 +2216,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSInput-systemId
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSOutput-systemId
    */
-  SystemId2 : function () {
-    var success;
-    if(checkInitialization(builder, "SystemId2") != null) return;
-    var testDoc;
-    var domImpl;
-    var output;
-    var serializer;
-    var systemId;
-    var checkSystemId;
-    var status;
-    var input;
-    var parser;
-    var checkDoc;
-    var docElem;
-    var docElemName;
-    var NULL_SCHEMA_TYPE = null;
-
+  SystemId2 : function (test) {
+    var success, testDoc, domImpl, output, serializer, systemId, checkSystemId, status, input, parser, checkDoc, docElem, docElemName, NULL_SCHEMA_TYPE = null;
 
     var testDocRef = null;
     if (typeof(this.testDoc) != 'undefined') {
@@ -3388,35 +2228,36 @@ exports.tests = {
     output = domImpl.createLSOutput();
     checkSystemId = output.systemId;
 
-    assertNull("LSOutputSystemIdInitiallyNull",checkSystemId);
+    test.ok(checkSystemId === null, "LSOutputSystemIdInitiallyNull");
     fail("Unrecognized method or attribute createTempURI");
 
     output.systemId = systemId;
 
     checkSystemId = output.systemId;
 
-    assertEquals("LSOutputSystemIdMatch",systemId,checkSystemId);
+    test.strictEqual(systemId, checkSystemId, "LSOutputSystemIdMatch");
     serializer = domImpl.createLSSerializer();
     status = serializer.write(testDoc,output);
-    assertTrue("writeStatus",status);
+    test.ok(status, "writeStatus");
     input = domImpl.createLSInput();
     checkSystemId = input.systemId;
 
-    assertNull("LSInputSystemIdInitiallyNull",checkSystemId);
+    test.ok(checkSystemId === null, "LSInputSystemIdInitiallyNull");
     input.systemId = systemId;
 
     checkSystemId = input.systemId;
 
-    assertEquals("LSInputSystemIdMatch",systemId,checkSystemId);
+    test.strictEqual(systemId, checkSystemId, "LSInputSystemIdMatch");
     parser = domImpl.createLSParser(1,NULL_SCHEMA_TYPE);
     checkDoc = parser.parse(input);
-    assertNotNull("checkNotNull",checkDoc);
+    test.ok(checkDoc !== null, "checkNotNull");
     docElem = checkDoc.documentElement;
 
     docElemName = docElem.nodeName;
 
-    assertEquals("checkDocElemName","elt0",docElemName);
+    test.strictEqual("elt0", docElemName, "checkDocElemName");
 
+    test.done();
   },
   /**
    *
@@ -3427,22 +2268,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-canonical-form
    */
-  canonicalform01 : function () {
-    var success;
-    if(checkInitialization(builder, "canonicalform01") != null) return;
-    var doc;
-    var docElem;
-    var elemList;
-    var elem;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  canonicalform01 : function (test) {
+    var success, doc, docElem, elemList, elem, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var canSet;
+    var resourceURI, canSet;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -3461,10 +2290,11 @@ exports.tests = {
 
       nodeType = node.nodeType;
 
-      assertEquals("acrContentIsText",3,nodeType);
+      test.strictEqual(3, nodeType, "acrContentIsText");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -3475,21 +2305,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-canonical-form
    */
-  canonicalform03 : function () {
-    var success;
-    if(checkInitialization(builder, "canonicalform03") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeType;
-    var domConfig;
-    var pList;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  canonicalform03 : function (test) {
+    var success, doc, elem, node, nodeType, domConfig, pList, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var canSet;
+    var resourceURI, canSet;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -3508,10 +2327,11 @@ exports.tests = {
 
       nodeType = node.nodeType;
 
-      assertEquals("childIsText",3,nodeType);
+      test.strictEqual(3, nodeType, "childIsText");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -3521,19 +2341,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-canonical-form
    */
-  canonicalform04 : function () {
-    var success;
-    if(checkInitialization(builder, "canonicalform04") != null) return;
-    var doc;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  canonicalform04 : function (test) {
+    var success, doc, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var canSet;
+    var resourceURI, canSet;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -3554,11 +2365,12 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 81);
 	}
-	assertTrue("throw_PARSE_ERR",success);
+	test.ok(success, "throw_PARSE_ERR");
       }
 
     }
 
+    test.done();
   },
   /**
    *
@@ -3568,20 +2380,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-namespace-declarations
    */
-  canonicalform05 : function () {
-    var success;
-    if(checkInitialization(builder, "canonicalform05") != null) return;
-    var doc;
-    var docElem;
-    var elemList;
-    var elem;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var canSet;
-    var nullSchemaType = null;
+  canonicalform05 : function (test) {
+    var success, doc, docElem, elemList, elem, node, nodeType, domConfig, domImplLS, lsParser, canSet, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -3599,10 +2399,11 @@ exports.tests = {
       elemList = doc.getElementsByTagName("p");
       elem = elemList.item(0);
       node = elem.getAttributeNode("xmlns:dmstc");
-      assertNotNull("nsAttrNotNull",node);
+      test.ok(node !== null, "nsAttrNotNull");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -3614,22 +2415,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-canonical-form
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate
    */
-  canonicalform06 : function () {
-    var success;
-    if(checkInitialization(builder, "canonicalform06") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  canonicalform06 : function (test) {
+    var success, doc, elem, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var canSetValidate;
-    var canSetCanonicalForm;
-    var elemList;
+    var resourceURI, canSetValidate, canSetCanonicalForm, elemList;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -3652,10 +2441,11 @@ exports.tests = {
 
       nodeType = node.nodeType;
 
-      assertEquals("nodeIsText",3,nodeType);
+      test.strictEqual(3, nodeType, "nodeIsText");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -3665,27 +2455,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-canonical-form
    */
-  canonicalform08 : function () {
-    var success;
-    if(checkInitialization(builder, "canonicalform08") != null) return;
-    var doc;
-    var bodyList;
-    var body;
-    var domConfig;
-    var canSet;
-    var canSetValidate;
-    var node;
-    var nodeName;
-    var nodeValue;
-    var nodeType;
-    var length;
-    var text;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  canonicalform08 : function (test) {
+    var success, doc, bodyList, body, domConfig, canSet, canSetValidate, node, nodeName, nodeValue, nodeType, length, text, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var canSetCanonicalForm;
+    var resourceURI, canSetCanonicalForm;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -3702,76 +2475,77 @@ exports.tests = {
 
       nodeType = node.nodeType;
 
-      assertEquals("PIisFirstChild",7,nodeType);
+      test.strictEqual(7, nodeType, "PIisFirstChild");
       nodeValue = node.data;
 
       length = nodeValue.length;
-      assertEquals("piDataLength",36,length);
+      test.strictEqual(36, length, "piDataLength");
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("TextisSecondChild",3,nodeType);
+      test.strictEqual(3, nodeType, "TextisSecondChild");
       nodeValue = node.nodeValue;
 
       length = nodeValue.length;
-      assertEquals("secondChildLength",1,length);
+      test.strictEqual(1, length, "secondChildLength");
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("ElementisThirdChild",1,nodeType);
+      test.strictEqual(1, nodeType, "ElementisThirdChild");
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("TextisFourthChild",3,nodeType);
+      test.strictEqual(3, nodeType, "TextisFourthChild");
       nodeValue = node.nodeValue;
 
       length = nodeValue.length;
-      assertEquals("fourthChildLength",1,length);
+      test.strictEqual(1, length, "fourthChildLength");
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("PIisFifthChild",7,nodeType);
+      test.strictEqual(7, nodeType, "PIisFifthChild");
       nodeValue = node.data;
 
-      assertEquals("trailingPIData","",nodeValue);
+      test.strictEqual("", nodeValue, "trailingPIData");
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("TextisSixthChild",3,nodeType);
+      test.strictEqual(3, nodeType, "TextisSixthChild");
       nodeValue = node.nodeValue;
 
       length = nodeValue.length;
-      assertEquals("sixthChildLength",1,length);
+      test.strictEqual(1, length, "sixthChildLength");
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("CommentisSeventhChild",8,nodeType);
+      test.strictEqual(8, nodeType, "CommentisSeventhChild");
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("TextisEighthChild",3,nodeType);
+      test.strictEqual(3, nodeType, "TextisEighthChild");
       nodeValue = node.nodeValue;
 
       length = nodeValue.length;
-      assertEquals("eighthChildLength",1,length);
+      test.strictEqual(1, length, "eighthChildLength");
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("CommentisNinthChild",8,nodeType);
+      test.strictEqual(8, nodeType, "CommentisNinthChild");
       node = node.nextSibling;
 
-      assertNull("TenthIsNull",node);
+      test.ok(node === null, "TenthIsNull");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -3782,27 +2556,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-canonical-form
    */
-  canonicalform09 : function () {
-    var success;
-    if(checkInitialization(builder, "canonicalform09") != null) return;
-    var doc;
-    var bodyList;
-    var body;
-    var domConfig;
-    var canSet;
-    var canSetValidate;
-    var node;
-    var nodeName;
-    var nodeValue;
-    var nodeType;
-    var length;
-    var text;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  canonicalform09 : function (test) {
+    var success, doc, bodyList, body, domConfig, canSet, canSetValidate, node, nodeName, nodeValue, nodeType, length, text, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var canSetCanonicalForm;
+    var resourceURI, canSetCanonicalForm;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -3820,48 +2577,49 @@ exports.tests = {
 
       nodeType = node.nodeType;
 
-      assertEquals("PIisFirstChild",7,nodeType);
+      test.strictEqual(7, nodeType, "PIisFirstChild");
       nodeValue = node.data;
 
       length = nodeValue.length;
-      assertEquals("piDataLength",36,length);
+      test.strictEqual(36, length, "piDataLength");
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("TextisSecondChild",3,nodeType);
+      test.strictEqual(3, nodeType, "TextisSecondChild");
       nodeValue = node.nodeValue;
 
       length = nodeValue.length;
-      assertEquals("secondChildLength",1,length);
+      test.strictEqual(1, length, "secondChildLength");
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("ElementisThirdChild",1,nodeType);
+      test.strictEqual(1, nodeType, "ElementisThirdChild");
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("TextisFourthChild",3,nodeType);
+      test.strictEqual(3, nodeType, "TextisFourthChild");
       nodeValue = node.nodeValue;
 
       length = nodeValue.length;
-      assertEquals("fourthChildLength",1,length);
+      test.strictEqual(1, length, "fourthChildLength");
       node = node.nextSibling;
 
       nodeType = node.nodeType;
 
-      assertEquals("PIisFifthChild",7,nodeType);
+      test.strictEqual(7, nodeType, "PIisFifthChild");
       nodeValue = node.data;
 
-      assertEquals("trailingPIData","",nodeValue);
+      test.strictEqual("", nodeValue, "trailingPIData");
       node = node.nextSibling;
 
-      assertNull("SixthIsNull",node);
+      test.ok(node === null, "SixthIsNull");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -3872,20 +2630,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-canonical-form
    */
-  canonicalform10 : function () {
-    var success;
-    if(checkInitialization(builder, "canonicalform10") != null) return;
-    var doc;
-    var divList;
-    var div;
-    var domConfig;
-    var node;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  canonicalform10 : function (test) {
+    var success, doc, divList, div, domConfig, node, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var canSetCanonicalForm;
+    var resourceURI, canSetCanonicalForm;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -3901,12 +2649,13 @@ exports.tests = {
       divList = doc.getElementsByTagName("div");
       div = divList.item(5);
       node = div.getAttributeNode("xmlns");
-      assertNotNull("xmlnsPresent",node);
+      test.ok(node !== null, "xmlnsPresent");
       node = div.getAttributeNode("xmlns:a");
-      assertNull("xmlnsANotPresent",node);
+      test.ok(node === null, "xmlnsANotPresent");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -3916,22 +2665,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-canonical-form
    */
-  canonicalform11 : function () {
-    var success;
-    if(checkInitialization(builder, "canonicalform11") != null) return;
-    var doc;
-    var elemList;
-    var elem;
-    var domConfig;
-    var attr;
-    var attrValue;
-    var attrSpecified;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  canonicalform11 : function (test) {
+    var success, doc, elemList, elem, domConfig, attr, attrValue, attrSpecified, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var canSetCanonicalForm;
+    var resourceURI, canSetCanonicalForm;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -3947,16 +2684,17 @@ exports.tests = {
       elemList = doc.getElementsByTagName("acronym");
       elem = elemList.item(0);
       attr = elem.getAttributeNode("title");
-      assertNotNull("titlePresent",attr);
+      test.ok(attr !== null, "titlePresent");
       attrSpecified = attr.specified;
 
-      assertTrue("titleSpecified",attrSpecified);
+      test.ok(attrSpecified, "titleSpecified");
       attrValue = attr.nodeValue;
 
-      assertEquals("titleValue","default",attrValue);
+      test.strictEqual("default", attrValue, "titleValue");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -3966,18 +2704,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-canonical-form
    */
-  canonicalform12 : function () {
-    var success;
-    if(checkInitialization(builder, "canonicalform12") != null) return;
-    var doc;
-    var doctype;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  canonicalform12 : function (test) {
+    var success, doc, doctype, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var canSet;
+    var resourceURI, canSet;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -3992,10 +2722,11 @@ exports.tests = {
       doc = lsParser.parseURI(resourceURI);
       doctype = doc.doctype;
 
-      assertNull("doctypeIsNull",doctype);
+      test.ok(doctype === null, "doctypeIsNull");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -4005,17 +2736,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-canonical-form
    */
-  canonicalform13 : function () {
-    var success;
-    if(checkInitialization(builder, "canonicalform13") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsSerializer;
-    var docType = null;
+  canonicalform13 : function (test) {
+    var success, doc, domConfig, domImplLS, lsSerializer, docType = null;
 
-    var output;
-    var canSet;
+    var output, canSet;
     domImplLS = getImplementation();
     lsSerializer = domImplLS.createLSSerializer();
     domConfig = lsSerializer.domConfig;
@@ -4030,7 +2754,6 @@ exports.tests = {
 
       try {
         doc.xmlVersion = "1.1";
-
 
       } catch (ex) {
 	if (typeof(ex.code) != 'undefined') {
@@ -4053,11 +2776,12 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 82);
 	}
-	assertTrue("throw_SERIALIZE_ERR",success);
+	test.ok(success, "throw_SERIALIZE_ERR");
       }
 
     }
 
+    test.done();
   },
   /**
    *
@@ -4068,18 +2792,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-cdata-sections
    */
-  cdatasections01 : function () {
-    var success;
-    if(checkInitialization(builder, "cdatasections01") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeType;
-    var domConfig;
-    var pList;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  cdatasections01 : function (test) {
+    var success, doc, elem, node, nodeType, domConfig, pList, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -4095,8 +2809,9 @@ exports.tests = {
 
     nodeType = node.nodeType;
 
-    assertEquals("childIsText",3,nodeType);
+    test.strictEqual(3, nodeType, "childIsText");
 
+    test.done();
   },
   /**
    *
@@ -4107,18 +2822,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-cdata-sections
    */
-  cdatasections02 : function () {
-    var success;
-    if(checkInitialization(builder, "cdatasections02") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeType;
-    var domConfig;
-    var pList;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  cdatasections02 : function (test) {
+    var success, doc, elem, node, nodeType, domConfig, pList, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -4134,8 +2839,9 @@ exports.tests = {
 
     nodeType = node.nodeType;
 
-    assertEquals("childIsCDATA",4,nodeType);
+    test.strictEqual(4, nodeType, "childIsCDATA");
 
+    test.done();
   },
   /**
    *
@@ -4145,19 +2851,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-cdata-sections
    */
-  cdatasections03 : function () {
-    var success;
-    if(checkInitialization(builder, "cdatasections03") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsSerializer;
-    var docType = null;
+  cdatasections03 : function (test) {
+    var success, doc, domConfig, domImplLS, lsSerializer, docType = null;
 
-    var docElem;
-    var newNode;
-    var output;
-    var retNode;
+    var docElem, newNode, output, retNode;
     domImplLS = getImplementation();
     lsSerializer = domImplLS.createLSSerializer();
     doc = domImplLS.createDocument("http://www.example.org","test",docType);
@@ -4169,9 +2866,9 @@ exports.tests = {
 
     domConfig.setParameter("cdata-sections", true);
     output = lsSerializer.writeToString(doc);
-    assertTrue("containsCDATA",
-               (output.indexOf("![CDATA[foo]]") >= 0));
+    test.ok(output.indexOf("![CDATA[foo]]") >= 0, "containsCDATA");
 
+    test.done();
   },
   /**
    *
@@ -4181,19 +2878,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-cdata-sections
    */
-  cdatasections04 : function () {
-    var success;
-    if(checkInitialization(builder, "cdatasections04") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsSerializer;
-    var docType = null;
+  cdatasections04 : function (test) {
+    var success, doc, domConfig, domImplLS, lsSerializer, docType = null;
 
-    var docElem;
-    var newNode;
-    var output;
-    var retNode;
+    var docElem, newNode, output, retNode;
     domImplLS = getImplementation();
     lsSerializer = domImplLS.createLSSerializer();
     doc = domImplLS.createDocument("http://www.example.org","test",docType);
@@ -4205,9 +2893,9 @@ exports.tests = {
 
     domConfig.setParameter("cdata-sections", false);
     output = lsSerializer.writeToString(doc);
-    assertTrue("containsCDATA",
-               (output.indexOf("&gt;foo&lt;/") >= 0));
+    test.ok(output.indexOf("&gt;foo&lt;/") >= 0, "containsCDATA");
 
+    test.done();
   },
   /**
    *
@@ -4218,15 +2906,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-check-character-normalization
    */
-  checkcharacternormalization01 : function () {
-    var success;
-    if(checkInitialization(builder, "checkcharacternormalization01") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
-    var nullSchemaLanguage = null;
+  checkcharacternormalization01 : function (test) {
+    var success, doc, domConfig, domImplLS, lsParser, resourceURI, nullSchemaLanguage = null;
 
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaLanguage);
@@ -4235,8 +2916,9 @@ exports.tests = {
     domConfig.setParameter("check-character-normalization", false);
     resourceURI = getResourceURI("characternormalization1");
     doc = lsParser.parseURI(resourceURI);
-    assertNotNull("docNotNull",doc);
+    test.ok(doc !== null, "docNotNull");
 
+    test.done();
   },
   /**
    *
@@ -4247,25 +2929,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-check-character-normalization
    */
-  checkcharacternormalization02 : function () {
-    var success;
-    if(checkInitialization(builder, "checkcharacternormalization02") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
-    var canSet;
-    var nullSchemaLanguage = null;
+  checkcharacternormalization02 : function (test) {
+    var success, doc, domConfig, domImplLS, lsParser, resourceURI, canSet, nullSchemaLanguage = null;
 
     errorMonitor = new DOMErrorMonitor();
 
     var errors = new Array();
 
-    var error;
-    var severity;
-    var type;
-    var errorCount = 0;
+    var error, severity, type, errorCount = 0;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaLanguage);
     domConfig = lsParser.domConfig;
@@ -4287,7 +2958,7 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 81);
 	}
-	assertTrue("throw_PARSE_ERR",success);
+	test.ok(success, "throw_PARSE_ERR");
       }
       errors = errorMonitor.allErrors;
       for(var indexN1008E = 0;indexN1008E < errors.length; indexN1008E++) {
@@ -4296,23 +2967,23 @@ exports.tests = {
 
         type = error.type;
 
-
 	if(
 
 	  (severity > 1)
 
 	) {
-	  assertEquals("isError",2,severity);
-          assertEquals("isCheck_Failure","check-character-normalization-failure",type);
+	  test.strictEqual(2, severity, "isError");
+          test.strictEqual("check-character-normalization-failure", type, "isCheck_Failure");
           errorCount += 1;
 
 	}
 
       }
-      assertEquals("oneError",1,errorCount);
+      test.strictEqual(1, errorCount, "oneError");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -4322,19 +2993,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-check-character-normalization
    */
-  checkcharacternormalization03 : function () {
-    var success;
-    if(checkInitialization(builder, "checkcharacternormalization03") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsSerializer;
-    var docType = null;
+  checkcharacternormalization03 : function (test) {
+    var success, doc, domConfig, domImplLS, lsSerializer, docType = null;
 
-    var docElem;
-    var newNode;
-    var output;
-    var retNode;
+    var docElem, newNode, output, retNode;
     domImplLS = getImplementation();
     lsSerializer = domImplLS.createLSSerializer();
     doc = domImplLS.createDocument("http://www.example.org","suçon",docType);
@@ -4346,6 +3008,7 @@ exports.tests = {
     domConfig.setParameter("normalize-characters", false);
     output = lsSerializer.writeToString(doc);
 
+    test.done();
   },
   /**
    *
@@ -4355,28 +3018,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-check-character-normalization
    */
-  checkcharacternormalization04 : function () {
-    var success;
-    if(checkInitialization(builder, "checkcharacternormalization04") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsSerializer;
-    var docType = null;
+  checkcharacternormalization04 : function (test) {
+    var success, doc, domConfig, domImplLS, lsSerializer, docType = null;
 
-    var docElem;
-    var newNode;
-    var output;
-    var retNode;
+    var docElem, newNode, output, retNode;
     errorMonitor = new DOMErrorMonitor();
 
     var errors = new Array();
 
-    var error;
-    var severity;
-    var type;
-    var canSet;
-    var errorCount = 0;
+    var error, severity, type, canSet, errorCount = 0;
     domImplLS = getImplementation();
     lsSerializer = domImplLS.createLSSerializer();
     doc = domImplLS.createDocument("http://www.example.org","suçon",docType);
@@ -4401,7 +3051,7 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 82);
 	}
-	assertTrue("throw_SERIALIZE_ERR",success);
+	test.ok(success, "throw_SERIALIZE_ERR");
       }
       errors = errorMonitor.allErrors;
       for(var indexN100A3 = 0;indexN100A3 < errors.length; indexN100A3++) {
@@ -4410,23 +3060,18 @@ exports.tests = {
 
         type = error.type;
 
-
-	if(
-	  ("check-character-normalization-failure" == type)
-	) {
-	  assertEquals("severityError",2,severity);
+	if(("check-character-normalization-failure" == type)) {
+	  test.strictEqual(2, severity, "severityError");
           errorCount += 1;
 
 	}
 
       }
-      assertTrue("hasErrors",
-
-	         (errorCount > 0)
-                );
+      assertTrue("hasErrors", (errorCount > 0));
 
     }
 
+    test.done();
   },
   /**
    *
@@ -4437,17 +3082,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-comments
    */
-  comments01 : function () {
-    var success;
-    if(checkInitialization(builder, "comments01") != null) return;
-    var doc;
-    var docElem;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  comments01 : function (test) {
+    var success, doc, docElem, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -4463,8 +3099,9 @@ exports.tests = {
 
     nodeType = node.nodeType;
 
-    assertEquals("nodeIsDocType",10,nodeType);
+    test.strictEqual(10, nodeType, "nodeIsDocType");
 
+    test.done();
   },
   /**
    *
@@ -4475,17 +3112,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-comments
    */
-  comments02 : function () {
-    var success;
-    if(checkInitialization(builder, "comments02") != null) return;
-    var doc;
-    var docElem;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  comments02 : function (test) {
+    var success, doc, docElem, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -4501,8 +3129,9 @@ exports.tests = {
 
     nodeType = node.nodeType;
 
-    assertEquals("nodeIsDocType",8,nodeType);
+    test.strictEqual(8, nodeType, "nodeIsDocType");
 
+    test.done();
   },
   /**
    *
@@ -4512,19 +3141,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-comments
    */
-  comments03 : function () {
-    var success;
-    if(checkInitialization(builder, "comments03") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsSerializer;
-    var docType = null;
+  comments03 : function (test) {
+    var success, doc, domConfig, domImplLS, lsSerializer, docType = null;
 
-    var docElem;
-    var newNode;
-    var output;
-    var retNode;
+    var docElem, newNode, output, retNode;
     domImplLS = getImplementation();
     lsSerializer = domImplLS.createLSSerializer();
     doc = domImplLS.createDocument("http://www.example.org","test",docType);
@@ -4536,9 +3156,9 @@ exports.tests = {
 
     domConfig.setParameter("comments", true);
     output = lsSerializer.writeToString(doc);
-    assertTrue("hasComment",
-               (output.indexOf("&gt;&lt;!--foo--&gt;&lt;/") >= 0));
+    test.ok(output.indexOf("&gt;&lt;!--foo--&gt;&lt;/") >= 0, "hasComment");
 
+    test.done();
   },
   /**
    *
@@ -4548,19 +3168,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-comments
    */
-  comments04 : function () {
-    var success;
-    if(checkInitialization(builder, "comments04") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsSerializer;
-    var docType = null;
+  comments04 : function (test) {
+    var success, doc, domConfig, domImplLS, lsSerializer, docType = null;
 
-    var docElem;
-    var newNode;
-    var output;
-    var retNode;
+    var docElem, newNode, output, retNode;
     domImplLS = getImplementation();
     lsSerializer = domImplLS.createLSSerializer();
     doc = domImplLS.createDocument("http://www.example.org","test",docType);
@@ -4574,8 +3185,9 @@ exports.tests = {
     output = lsSerializer.writeToString(doc);
 
     {
-      assertFalse("noComment",(output.indexOf("<!--") >= 0));
+      test.ok((output.indexOf("<!--") >= 0) === false, "noComment");
     }
+    test.done();
   },
   /**
    *
@@ -4586,21 +3198,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-datatype-normalization
    */
-  datatypenormalization01 : function () {
-    var success;
-    if(checkInitialization(builder, "datatypenormalization01") != null) return;
-    var doc;
-    var elemList;
-    var element;
-    var domConfig;
-    var str;
-    var canSetNormalization;
-    var canSetValidate;
-    var canSetXMLSchema;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
+  datatypenormalization01 : function (test) {
+    var success, doc, elemList, element, domConfig, str, canSetNormalization, canSetValidate, canSetXMLSchema, xsdNS = "http://www.w3.org/2001/XMLSchema", domImplLS, lsParser, resourceURI;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,xsdNS);
 
@@ -4631,31 +3230,32 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","double");
       element = elemList.item(0);
       str = element.getAttribute("value");
-      assertEquals("firstValue","+0003.141592600E+0000",str);
+      test.strictEqual("+0003.141592600E+0000", str, "firstValue");
       str = element.getAttribute("union");
-      assertEquals("firstUnion","+0003.141592600E+0000",str);
+      test.strictEqual("+0003.141592600E+0000", str, "firstUnion");
       str = element.textContent;
 
-      assertEquals("firstList","-31415926.00E-7 2.718",str);
+      test.strictEqual("-31415926.00E-7 2.718", str, "firstList");
       element = elemList.item(1);
       str = element.getAttribute("value");
-      assertEquals("secondValue","NaN",str);
+      test.strictEqual("NaN", str, "secondValue");
       str = element.getAttribute("union");
-      assertEquals("secondUnion","NaN",str);
+      test.strictEqual("NaN", str, "secondUnion");
       str = element.textContent;
 
-      assertEquals("secondList","INF -INF",str);
+      test.strictEqual("INF -INF", str, "secondList");
       element = elemList.item(2);
       str = element.getAttribute("value");
-      assertEquals("thirdValue","1",str);
+      test.strictEqual("1", str, "thirdValue");
       str = element.getAttribute("union");
-      assertEquals("thirdUnion","1",str);
+      test.strictEqual("1", str, "thirdUnion");
       str = element.textContent;
 
-      assertEquals("thirdList","-0",str);
+      test.strictEqual("-0", str, "thirdList");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -4666,21 +3266,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-datatype-normalization
    */
-  datatypenormalization02 : function () {
-    var success;
-    if(checkInitialization(builder, "datatypenormalization02") != null) return;
-    var doc;
-    var elemList;
-    var element;
-    var domConfig;
-    var str;
-    var canSetNormalization;
-    var canSetValidate;
-    var canSetXMLSchema;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
+  datatypenormalization02 : function (test) {
+    var success, doc, elemList, element, domConfig, str, canSetNormalization, canSetValidate, canSetXMLSchema, xsdNS = "http://www.w3.org/2001/XMLSchema", domImplLS, lsParser, resourceURI;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,xsdNS);
 
@@ -4711,23 +3298,24 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","decimal");
       element = elemList.item(0);
       str = element.getAttribute("value");
-      assertEquals("firstValue","+0003.141592600",str);
+      test.strictEqual("+0003.141592600", str, "firstValue");
       str = element.getAttribute("union");
-      assertEquals("firstUnion","+0003.141592600",str);
+      test.strictEqual("+0003.141592600", str, "firstUnion");
       str = element.textContent;
 
-      assertEquals("firstList","+10 .1",str);
+      test.strictEqual("+10 .1", str, "firstList");
       element = elemList.item(1);
       str = element.getAttribute("value");
-      assertEquals("secondValue","01",str);
+      test.strictEqual("01", str, "secondValue");
       str = element.getAttribute("union");
-      assertEquals("secondUnion","01",str);
+      test.strictEqual("01", str, "secondUnion");
       str = element.textContent;
 
-      assertEquals("secondList","-.001",str);
+      test.strictEqual("-.001", str, "secondList");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -4738,21 +3326,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-datatype-normalization
    */
-  datatypenormalization03 : function () {
-    var success;
-    if(checkInitialization(builder, "datatypenormalization03") != null) return;
-    var doc;
-    var elemList;
-    var element;
-    var domConfig;
-    var str;
-    var canSetNormalization;
-    var canSetValidate;
-    var canSetXMLSchema;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
+  datatypenormalization03 : function (test) {
+    var success, doc, elemList, element, domConfig, str, canSetNormalization, canSetValidate, canSetXMLSchema, xsdNS = "http://www.w3.org/2001/XMLSchema", domImplLS, lsParser, resourceURI;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,xsdNS);
 
@@ -4783,23 +3358,24 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","boolean");
       element = elemList.item(0);
       str = element.getAttribute("value");
-      assertEquals("firstValue","true",str);
+      test.strictEqual("true", str, "firstValue");
       str = element.getAttribute("union");
-      assertEquals("firstUnion","false",str);
+      test.strictEqual("false", str, "firstUnion");
       str = element.textContent;
 
-      assertEquals("firstList","false true false",str);
+      test.strictEqual("false true false", str, "firstList");
       element = elemList.item(1);
       str = element.getAttribute("value");
-      assertEquals("secondValue","1",str);
+      test.strictEqual("1", str, "secondValue");
       str = element.getAttribute("union");
-      assertEquals("secondUnion","0",str);
+      test.strictEqual("0", str, "secondUnion");
       str = element.textContent;
 
-      assertEquals("secondList","0 1 0",str);
+      test.strictEqual("0 1 0", str, "secondList");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -4810,21 +3386,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-datatype-normalization
    */
-  datatypenormalization04 : function () {
-    var success;
-    if(checkInitialization(builder, "datatypenormalization04") != null) return;
-    var doc;
-    var elemList;
-    var element;
-    var domConfig;
-    var str;
-    var canSetNormalization;
-    var canSetValidate;
-    var canSetXMLSchema;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
+  datatypenormalization04 : function (test) {
+    var success, doc, elemList, element, domConfig, str, canSetNormalization, canSetValidate, canSetXMLSchema, xsdNS = "http://www.w3.org/2001/XMLSchema", domImplLS, lsParser, resourceURI;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,xsdNS);
 
@@ -4855,31 +3418,32 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","float");
       element = elemList.item(0);
       str = element.getAttribute("value");
-      assertEquals("firstValue","+0003.141592600E+0000",str);
+      test.strictEqual("+0003.141592600E+0000", str, "firstValue");
       str = element.getAttribute("union");
-      assertEquals("firstUnion","+0003.141592600E+0000",str);
+      test.strictEqual("+0003.141592600E+0000", str, "firstUnion");
       str = element.textContent;
 
-      assertEquals("firstList","-31415926.00E-7 2.718",str);
+      test.strictEqual("-31415926.00E-7 2.718", str, "firstList");
       element = elemList.item(1);
       str = element.getAttribute("value");
-      assertEquals("secondValue","NaN",str);
+      test.strictEqual("NaN", str, "secondValue");
       str = element.getAttribute("union");
-      assertEquals("secondUnion","NaN",str);
+      test.strictEqual("NaN", str, "secondUnion");
       str = element.textContent;
 
-      assertEquals("secondList","INF -INF",str);
+      test.strictEqual("INF -INF", str, "secondList");
       element = elemList.item(2);
       str = element.getAttribute("value");
-      assertEquals("thirdValue","1",str);
+      test.strictEqual("1", str, "thirdValue");
       str = element.getAttribute("union");
-      assertEquals("thirdUnion","1",str);
+      test.strictEqual("1", str, "thirdUnion");
       str = element.textContent;
 
-      assertEquals("thirdList","-0",str);
+      test.strictEqual("-0", str, "thirdList");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -4890,21 +3454,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-datatype-normalization
    */
-  datatypenormalization05 : function () {
-    var success;
-    if(checkInitialization(builder, "datatypenormalization05") != null) return;
-    var doc;
-    var elemList;
-    var element;
-    var domConfig;
-    var str;
-    var canSetNormalization;
-    var canSetValidate;
-    var canSetXMLSchema;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
+  datatypenormalization05 : function (test) {
+    var success, doc, elemList, element, domConfig, str, canSetNormalization, canSetValidate, canSetXMLSchema, xsdNS = "http://www.w3.org/2001/XMLSchema", domImplLS, lsParser, resourceURI;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,xsdNS);
 
@@ -4935,31 +3486,32 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","dateTime");
       element = elemList.item(0);
       str = element.getAttribute("value");
-      assertEquals("firstValue","2004-01-21T15:30:00-05:00",str);
+      test.strictEqual("2004-01-21T15:30:00-05:00", str, "firstValue");
       str = element.getAttribute("union");
-      assertEquals("firstUnion","2004-01-21T20:30:00-05:00",str);
+      test.strictEqual("2004-01-21T20:30:00-05:00", str, "firstUnion");
       str = element.textContent;
 
-      assertEquals("firstList","2004-01-21T15:30:00 2004-01-21T15:30:00Z",str);
+      test.strictEqual("2004-01-21T15:30:00 2004-01-21T15:30:00Z", str, "firstList");
       element = elemList.item(1);
       str = element.getAttribute("value");
-      assertEquals("secondValue","2004-01-21T15:30:00.0000-05:00",str);
+      test.strictEqual("2004-01-21T15:30:00.0000-05:00", str, "secondValue");
       str = element.getAttribute("union");
-      assertEquals("secondUnion","2004-01-21T15:30:00.0000-05:00",str);
+      test.strictEqual("2004-01-21T15:30:00.0000-05:00", str, "secondUnion");
       str = element.textContent;
 
-      assertEquals("secondList","2004-01-21T15:30:00.0000",str);
+      test.strictEqual("2004-01-21T15:30:00.0000", str, "secondList");
       element = elemList.item(2);
       str = element.getAttribute("value");
-      assertEquals("thirdValue","2004-01-21T15:30:00.0001-05:00",str);
+      test.strictEqual("2004-01-21T15:30:00.0001-05:00", str, "thirdValue");
       str = element.getAttribute("union");
-      assertEquals("thirdUnion","2004-01-21T15:30:00.0001-05:00",str);
+      test.strictEqual("2004-01-21T15:30:00.0001-05:00", str, "thirdUnion");
       str = element.textContent;
 
-      assertEquals("thirdList","2004-01-21T15:30:00.0001",str);
+      test.strictEqual("2004-01-21T15:30:00.0001", str, "thirdList");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -4970,21 +3522,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-datatype-normalization
    */
-  datatypenormalization06 : function () {
-    var success;
-    if(checkInitialization(builder, "datatypenormalization06") != null) return;
-    var doc;
-    var elemList;
-    var element;
-    var domConfig;
-    var str;
-    var canSetNormalization;
-    var canSetValidate;
-    var canSetXMLSchema;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  datatypenormalization06 : function (test) {
+    var success, doc, elemList, element, domConfig, str, canSetNormalization, canSetValidate, canSetXMLSchema, xsdNS = "http://www.w3.org/2001/XMLSchema", domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -5017,31 +3556,32 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","time");
       element = elemList.item(0);
       str = element.getAttribute("value");
-      assertEquals("firstValue","15:30:00-05:00",str);
+      test.strictEqual("15:30:00-05:00", str, "firstValue");
       str = element.getAttribute("union");
-      assertEquals("firstUnion","15:30:00-05:00",str);
+      test.strictEqual("15:30:00-05:00", str, "firstUnion");
       str = element.textContent;
 
-      assertEquals("firstList","15:30:00",str);
+      test.strictEqual("15:30:00", str, "firstList");
       element = elemList.item(1);
       str = element.getAttribute("value");
-      assertEquals("secondValue","15:30:00.0000-05:00",str);
+      test.strictEqual("15:30:00.0000-05:00", str, "secondValue");
       str = element.getAttribute("union");
-      assertEquals("secondUnion","15:30:00.0000-05:00",str);
+      test.strictEqual("15:30:00.0000-05:00", str, "secondUnion");
       str = element.textContent;
 
-      assertEquals("secondList","15:30:00.0000",str);
+      test.strictEqual("15:30:00.0000", str, "secondList");
       element = elemList.item(2);
       str = element.getAttribute("value");
-      assertEquals("thirdValue","15:30:00.0001-05:00",str);
+      test.strictEqual("15:30:00.0001-05:00", str, "thirdValue");
       str = element.getAttribute("union");
-      assertEquals("thirdUnion","15:30:00.0001-05:00",str);
+      test.strictEqual("15:30:00.0001-05:00", str, "thirdUnion");
       str = element.textContent;
 
-      assertEquals("thirdList","15:30:00.0001",str);
+      test.strictEqual("15:30:00.0001", str, "thirdList");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -5051,21 +3591,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-datatype-normalization
    */
-  datatypenormalization07 : function () {
-    var success;
-    if(checkInitialization(builder, "datatypenormalization07") != null) return;
-    var doc;
-    var elemList;
-    var element;
-    var domConfig;
-    var str;
-    var canSetNormalization;
-    var canSetValidate;
-    var canSetXMLSchema;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
+  datatypenormalization07 : function (test) {
+    var success, doc, elemList, element, domConfig, str, canSetNormalization, canSetValidate, canSetXMLSchema, xsdNS = "http://www.w3.org/2001/XMLSchema", domImplLS, lsParser, resourceURI;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,xsdNS);
 
@@ -5096,10 +3623,11 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","double");
       element = elemList.item(0);
       str = element.getAttribute("default");
-      assertEquals("firstValue","3.1415926E0",str);
+      test.strictEqual("3.1415926E0", str, "firstValue");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -5109,21 +3637,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-datatype-normalization
    */
-  datatypenormalization08 : function () {
-    var success;
-    if(checkInitialization(builder, "datatypenormalization08") != null) return;
-    var doc;
-    var elemList;
-    var element;
-    var domConfig;
-    var str;
-    var canSetNormalization;
-    var canSetValidate;
-    var canSetXMLSchema;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
+  datatypenormalization08 : function (test) {
+    var success, doc, elemList, element, domConfig, str, canSetNormalization, canSetValidate, canSetXMLSchema, xsdNS = "http://www.w3.org/2001/XMLSchema", domImplLS, lsParser, resourceURI;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,xsdNS);
 
@@ -5154,10 +3669,11 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","decimal");
       element = elemList.item(0);
       str = element.getAttribute("default");
-      assertEquals("firstValue","3.1415926",str);
+      test.strictEqual("3.1415926", str, "firstValue");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -5167,21 +3683,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-datatype-normalization
    */
-  datatypenormalization09 : function () {
-    var success;
-    if(checkInitialization(builder, "datatypenormalization09") != null) return;
-    var doc;
-    var elemList;
-    var element;
-    var domConfig;
-    var str;
-    var canSetNormalization;
-    var canSetValidate;
-    var canSetXMLSchema;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  datatypenormalization09 : function (test) {
+    var success, doc, elemList, element, domConfig, str, canSetNormalization, canSetValidate, canSetXMLSchema, xsdNS = "http://www.w3.org/2001/XMLSchema", domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -5214,10 +3717,11 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","boolean");
       element = elemList.item(0);
       str = element.getAttribute("default");
-      assertEquals("firstValue","true",str);
+      test.strictEqual("true", str, "firstValue");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -5227,21 +3731,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-datatype-normalization
    */
-  datatypenormalization10 : function () {
-    var success;
-    if(checkInitialization(builder, "datatypenormalization10") != null) return;
-    var doc;
-    var elemList;
-    var element;
-    var domConfig;
-    var str;
-    var canSetNormalization;
-    var canSetValidate;
-    var canSetXMLSchema;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
+  datatypenormalization10 : function (test) {
+    var success, doc, elemList, element, domConfig, str, canSetNormalization, canSetValidate, canSetXMLSchema, xsdNS = "http://www.w3.org/2001/XMLSchema", domImplLS, lsParser, resourceURI;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,xsdNS);
 
@@ -5272,10 +3763,11 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","float");
       element = elemList.item(0);
       str = element.getAttribute("default");
-      assertEquals("firstValue","3.1415926E0",str);
+      test.strictEqual("3.1415926E0", str, "firstValue");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -5285,21 +3777,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-datatype-normalization
    */
-  datatypenormalization11 : function () {
-    var success;
-    if(checkInitialization(builder, "datatypenormalization11") != null) return;
-    var doc;
-    var elemList;
-    var element;
-    var domConfig;
-    var str;
-    var canSetNormalization;
-    var canSetValidate;
-    var canSetXMLSchema;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
+  datatypenormalization11 : function (test) {
+    var success, doc, elemList, element, domConfig, str, canSetNormalization, canSetValidate, canSetXMLSchema, xsdNS = "http://www.w3.org/2001/XMLSchema", domImplLS, lsParser, resourceURI;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,xsdNS);
 
@@ -5330,10 +3809,11 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","dateTime");
       element = elemList.item(0);
       str = element.getAttribute("default");
-      assertEquals("firstValue","2004-01-21T20:30:00Z",str);
+      test.strictEqual("2004-01-21T20:30:00Z", str, "firstValue");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -5343,21 +3823,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-datatype-normalization
    */
-  datatypenormalization12 : function () {
-    var success;
-    if(checkInitialization(builder, "datatypenormalization12") != null) return;
-    var doc;
-    var elemList;
-    var element;
-    var domConfig;
-    var str;
-    var canSetNormalization;
-    var canSetValidate;
-    var canSetXMLSchema;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
+  datatypenormalization12 : function (test) {
+    var success, doc, elemList, element, domConfig, str, canSetNormalization, canSetValidate, canSetXMLSchema, xsdNS = "http://www.w3.org/2001/XMLSchema", domImplLS, lsParser, resourceURI;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,xsdNS);
 
@@ -5388,10 +3855,11 @@ exports.tests = {
       elemList = doc.getElementsByTagNameNS("http://www.w3.org/2001/DOM-Test-Suite/Level-3/datatype_normalization","time");
       element = elemList.item(0);
       str = element.getAttribute("default");
-      assertEquals("firstValue","20:30:00Z",str);
+      test.strictEqual("20:30:00Z", str, "firstValue");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -5403,23 +3871,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-datatype-normalization
    */
-  datatypenormalization13 : function () {
-    var success;
-    if(checkInitialization(builder, "datatypenormalization13") != null) return;
-    var doc;
-    var elemList;
-    var element;
-    var domConfig;
-    var str;
-    var canSetNormalization;
-    var canSetValidate;
-    var canSetXMLSchema;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
-    var childNode;
-    var childValue;
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
+  datatypenormalization13 : function (test) {
+    var success, doc, elemList, element, domConfig, str, canSetNormalization, canSetValidate, canSetXMLSchema, xsdNS = "http://www.w3.org/2001/XMLSchema", childNode, childValue, domImplLS, lsParser, resourceURI;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,xsdNS);
 
@@ -5451,13 +3904,14 @@ exports.tests = {
       element = elemList.item(0);
       childNode = element.firstChild;
 
-      assertNotNull("childNodeNotNull",childNode);
+      test.ok(childNode !== null, "childNodeNotNull");
       childValue = childNode.nodeValue;
 
-      assertEquals("content","    EMP  0001   ",childValue);
+      test.strictEqual("    EMP  0001   ", childValue, "content");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -5468,23 +3922,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-datatype-normalization
    */
-  datatypenormalization14 : function () {
-    var success;
-    if(checkInitialization(builder, "datatypenormalization14") != null) return;
-    var doc;
-    var elemList;
-    var element;
-    var domConfig;
-    var str;
-    var canSetNormalization;
-    var canSetValidate;
-    var canSetXMLSchema;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
-    var childNode;
-    var childValue;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  datatypenormalization14 : function (test) {
+    var success, doc, elemList, element, domConfig, str, canSetNormalization, canSetValidate, canSetXMLSchema, xsdNS = "http://www.w3.org/2001/XMLSchema", childNode, childValue, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -5518,13 +3957,14 @@ exports.tests = {
       element = elemList.item(0);
       childNode = element.firstChild;
 
-      assertNotNull("childNodeNotNull",childNode);
+      test.ok(childNode !== null, "childNodeNotNull");
       childValue = childNode.nodeValue;
 
-      assertEquals("content","    EMP  0001   ",childValue);
+      test.strictEqual("    EMP  0001   ", childValue, "content");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -5535,23 +3975,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-datatype-normalization
    */
-  datatypenormalization15 : function () {
-    var success;
-    if(checkInitialization(builder, "datatypenormalization15") != null) return;
-    var doc;
-    var elemList;
-    var element;
-    var domConfig;
-    var str;
-    var canSetNormalization;
-    var canSetValidate;
-    var canSetXMLSchema;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
-    var childNode;
-    var childValue;
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
+  datatypenormalization15 : function (test) {
+    var success, doc, elemList, element, domConfig, str, canSetNormalization, canSetValidate, canSetXMLSchema, xsdNS = "http://www.w3.org/2001/XMLSchema", childNode, childValue, domImplLS, lsParser, resourceURI;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,xsdNS);
 
@@ -5585,22 +4010,23 @@ exports.tests = {
 
       childValue = childNode.nodeValue;
 
-      assertEquals("content1","EMP 0001",childValue);
+      test.strictEqual("EMP 0001", childValue, "content1");
       element = elemList.item(1);
       childNode = element.firstChild;
 
       childValue = childNode.nodeValue;
 
-      assertEquals("content2","EMP 0001",childValue);
+      test.strictEqual("EMP 0001", childValue, "content2");
       element = elemList.item(2);
       childNode = element.firstChild;
 
       childValue = childNode.nodeValue;
 
-      assertEquals("content3","EMP 0001",childValue);
+      test.strictEqual("EMP 0001", childValue, "content3");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -5611,23 +4037,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-datatype-normalization
    */
-  datatypenormalization16 : function () {
-    var success;
-    if(checkInitialization(builder, "datatypenormalization16") != null) return;
-    var doc;
-    var elemList;
-    var element;
-    var domConfig;
-    var str;
-    var canSetNormalization;
-    var canSetValidate;
-    var canSetXMLSchema;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
-    var childNode;
-    var childValue;
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
+  datatypenormalization16 : function (test) {
+    var success, doc, elemList, element, domConfig, str, canSetNormalization, canSetValidate, canSetXMLSchema, xsdNS = "http://www.w3.org/2001/XMLSchema", childNode, childValue, domImplLS, lsParser, resourceURI;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,xsdNS);
 
@@ -5661,28 +4072,29 @@ exports.tests = {
 
       childValue = childNode.nodeValue;
 
-      assertEquals("content1","     EMP  0001 ",childValue);
+      test.strictEqual("     EMP  0001 ", childValue, "content1");
       element = elemList.item(1);
       childNode = element.firstChild;
 
       childValue = childNode.nodeValue;
 
-      assertEquals("content2","EMP  0001",childValue);
+      test.strictEqual("EMP  0001", childValue, "content2");
       element = elemList.item(2);
       childNode = element.firstChild;
 
       childValue = childNode.nodeValue;
 
-      assertEquals("content3","EMP 0001",childValue);
+      test.strictEqual("EMP 0001", childValue, "content3");
       element = elemList.item(3);
       childNode = element.firstChild;
 
       childValue = childNode.nodeValue;
 
-      assertEquals("content4","EMP 0001",childValue);
+      test.strictEqual("EMP 0001", childValue, "content4");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -5693,23 +4105,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-datatype-normalization
    */
-  datatypenormalization17 : function () {
-    var success;
-    if(checkInitialization(builder, "datatypenormalization17") != null) return;
-    var doc;
-    var elemList;
-    var element;
-    var domConfig;
-    var str;
-    var canSetValidate;
-    var canSetXMLSchema;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
-    var childNode;
-    var childValue;
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
-    var nullSchemaType = null;
+  datatypenormalization17 : function (test) {
+    var success, doc, elemList, element, domConfig, str, canSetValidate, canSetXMLSchema, xsdNS = "http://www.w3.org/2001/XMLSchema", childNode, childValue, domImplLS, lsParser, resourceURI, nullSchemaType = null;
 
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,xsdNS);
@@ -5749,8 +4146,9 @@ exports.tests = {
 
     childValue = childNode.nodeValue;
 
-    assertEquals("content2","EMP  0001",childValue);
+    test.strictEqual("EMP  0001", childValue, "content2");
 
+    test.done();
   },
   /**
    *
@@ -5761,25 +4159,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-disallow-doctype
    */
-  disallowdoctype01 : function () {
-    var success;
-    if(checkInitialization(builder, "disallowdoctype01") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
-    var canSet;
-    var nullSchemaLanguage = null;
+  disallowdoctype01 : function (test) {
+    var success, doc, domConfig, domImplLS, lsParser, resourceURI, canSet, nullSchemaLanguage = null;
 
     errorMonitor = new DOMErrorMonitor();
 
     var errors = new Array();
 
-    var error;
-    var severity;
-    var type;
-    var errorCount = 0;
+    var error, severity, type, errorCount = 0;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaLanguage);
     domConfig = lsParser.domConfig;
@@ -5801,7 +4188,7 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 81);
 	}
-	assertTrue("throw_PARSE_ERR",success);
+	test.ok(success, "throw_PARSE_ERR");
       }
       errors = errorMonitor.allErrors;
       for(var indexN1008E = 0;indexN1008E < errors.length; indexN1008E++) {
@@ -5810,23 +4197,23 @@ exports.tests = {
 
         type = error.type;
 
-
 	if(
 
 	  (severity > 1)
 
 	) {
-	  assertEquals("isFatalError",3,severity);
-          assertEquals("isDoctypeNotAllowed","doctype-not-allowed",type);
+	  test.strictEqual(3, severity, "isFatalError");
+          test.strictEqual("doctype-not-allowed", type, "isDoctypeNotAllowed");
           errorCount += 1;
 
 	}
 
       }
-      assertEquals("oneError",1,errorCount);
+      test.strictEqual(1, errorCount, "oneError");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -5836,20 +4223,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-discard-default-content
    */
-  discarddefaultcontent01 : function () {
-    var success;
-    if(checkInitialization(builder, "discarddefaultcontent01") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsSerializer;
-    var docType = null;
+  discarddefaultcontent01 : function (test) {
+    var success, doc, domConfig, domImplLS, lsSerializer, docType = null;
 
-    var docElem;
-    var newNode;
-    var output;
-    var retNode;
-    var canSet;
+    var docElem, newNode, output, retNode, canSet;
     domImplLS = getImplementation();
     lsSerializer = domImplLS.createLSSerializer();
 
@@ -5864,8 +4241,9 @@ exports.tests = {
     output = lsSerializer.writeToString(doc);
 
     {
-      assertFalse("noDirAttr",(output.indexOf("dir=") >= 0));
+      test.ok((output.indexOf("dir=") >= 0) === false, "noDirAttr");
     }
+    test.done();
   },
   /**
    *
@@ -5875,20 +4253,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-discard-default-content
    */
-  discarddefaultcontent02 : function () {
-    var success;
-    if(checkInitialization(builder, "discarddefaultcontent02") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsSerializer;
-    var docType = null;
+  discarddefaultcontent02 : function (test) {
+    var success, doc, domConfig, domImplLS, lsSerializer, docType = null;
 
-    var docElem;
-    var newNode;
-    var output;
-    var retNode;
-    var canSet;
+    var docElem, newNode, output, retNode, canSet;
     domImplLS = getImplementation();
     lsSerializer = domImplLS.createLSSerializer();
 
@@ -5901,9 +4269,9 @@ exports.tests = {
 
     domConfig.setParameter("discard-default-content", false);
     output = lsSerializer.writeToString(doc);
-    assertTrue("hasDirAttr",
-               (output.indexOf("dir=") >= 0));
+    test.ok(output.indexOf("dir=") >= 0, "hasDirAttr");
 
+    test.done();
   },
   /**
    *
@@ -5914,22 +4282,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-element-content-whitespace
    */
-  elementcontentwhitespace01 : function () {
-    var success;
-    if(checkInitialization(builder, "elementcontentwhitespace01") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  elementcontentwhitespace01 : function (test) {
+    var success, doc, elem, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var canSetValidate;
-    var canSetWhitespace;
-    var elemList;
+    var resourceURI, canSetValidate, canSetWhitespace, elemList;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -5952,10 +4308,11 @@ exports.tests = {
 
       nodeType = node.nodeType;
 
-      assertEquals("nodeIsElem",1,nodeType);
+      test.strictEqual(1, nodeType, "nodeIsElem");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -5967,21 +4324,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-element-content-whitespace
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate
    */
-  elementcontentwhitespace02 : function () {
-    var success;
-    if(checkInitialization(builder, "elementcontentwhitespace02") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  elementcontentwhitespace02 : function (test) {
+    var success, doc, elem, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var canSet;
-    var elemList;
+    var resourceURI, canSet, elemList;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -6003,8 +4349,9 @@ exports.tests = {
 
     nodeType = node.nodeType;
 
-    assertEquals("nodeIsText",3,nodeType);
+    test.strictEqual(3, nodeType, "nodeIsText");
 
+    test.done();
   },
   /**
    *
@@ -6014,21 +4361,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-element-content-whitespace
    */
-  elementcontentwhitespace03 : function () {
-    var success;
-    if(checkInitialization(builder, "elementcontentwhitespace03") != null) return;
-    var doc;
-    var domConfig;
-    var serializerDomConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  elementcontentwhitespace03 : function (test) {
+    var success, doc, domConfig, serializerDomConfig, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var lsSerializer;
-    var output;
-    var canSetValidate;
-    var canSetWhitespace;
+    var resourceURI, lsSerializer, output, canSetValidate, canSetWhitespace;
     domImplLS = getImplementation();
     lsSerializer = domImplLS.createLSSerializer();
     domConfig = lsSerializer.domConfig;
@@ -6053,11 +4389,11 @@ exports.tests = {
       doc = lsParser.parseURI(resourceURI);
       serializerDomConfig.setParameter("element-content-whitespace", false);
       output = lsSerializer.writeToString(doc);
-      assertTrue("noWhitespace",
-                 (output.indexOf("&lt;elt0>&lt;elt1>") >= 0));
+      test.ok(output.indexOf("&lt;elt0>&lt;elt1>") >= 0, "noWhitespace");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -6067,12 +4403,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-DOMImplementationLS-createLSOutput
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSOutput-encoding
    */
-  encoding01 : function () {
-    var success;
-    if(checkInitialization(builder, "encoding01") != null) return;
-    var domImplLS;
-    var lsOutput;
-    var encoding;
+  encoding01 : function (test) {
+    var success, domImplLS, lsOutput, encoding;
     domImplLS = getImplementation();
     lsOutput = domImplLS.createLSOutput();
     encoding = lsOutput.encoding;
@@ -6081,8 +4413,9 @@ exports.tests = {
 
     encoding = lsOutput.encoding;
 
-    assertEquals("isLatin1","ISO-8859-1".toLowerCase(),encoding.toLowerCase());
+    test.strictEqual("ISO-8859-1".toLowerCase(), encoding.toLowerCase(), "isLatin1");
 
+    test.done();
   },
   /**
    *
@@ -6093,19 +4426,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-entities
    */
-  entities01 : function () {
-    var success;
-    if(checkInitialization(builder, "entities01") != null) return;
-    var doc;
-    var docElem;
-    var elemList;
-    var elem;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  entities01 : function (test) {
+    var success, doc, docElem, elemList, elem, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -6121,8 +4443,9 @@ exports.tests = {
 
     nodeType = node.nodeType;
 
-    assertEquals("acrContentIsText",3,nodeType);
+    test.strictEqual(3, nodeType, "acrContentIsText");
 
+    test.done();
   },
   /**
    *
@@ -6133,26 +4456,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-entities
    */
-  entities02 : function () {
-    var success;
-    if(checkInitialization(builder, "entities02") != null) return;
-    var doc;
-    var docElem;
-    var elemList;
-    var elem;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  entities02 : function (test) {
+    var success, doc, docElem, elemList, elem, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var attributes;
-    var docType;
-    var entities;
-    var entity;
-    var classAttr;
+    var resourceURI, attributes, docType, entities, entity, classAttr;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -6167,11 +4474,12 @@ exports.tests = {
     classAttr = attributes.getNamedItem("class");
     node = classAttr.lastChild;
 
-    assertNotNull("classAttrChildNotNull",classAttr);
+    test.ok(classAttr !== null, "classAttrChildNotNull");
     nodeType = node.nodeType;
 
-    assertEquals("classAttrChildIsText",3,nodeType);
+    test.strictEqual(3, nodeType, "classAttrChildIsText");
 
+    test.done();
   },
   /**
    *
@@ -6181,21 +4489,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-entities
    */
-  entities03 : function () {
-    var success;
-    if(checkInitialization(builder, "entities03") != null) return;
-    var doc;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  entities03 : function (test) {
+    var success, doc, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var docType;
-    var entities;
-    var entity;
+    var resourceURI, docType, entities, entity;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -6205,12 +4502,13 @@ exports.tests = {
     doc = lsParser.parseURI(resourceURI);
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.ok(docType !== null, "docTypeNotNull");
     entities = docType.entities;
 
     entity = entities.getNamedItem("alpha");
-    assertNotNull("entityNotNull",entity);
+    test.ok(entity !== null, "entityNotNull");
 
+    test.done();
   },
   /**
    *
@@ -6221,19 +4519,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-entities
    */
-  entities04 : function () {
-    var success;
-    if(checkInitialization(builder, "entities04") != null) return;
-    var doc;
-    var docElem;
-    var elemList;
-    var elem;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  entities04 : function (test) {
+    var success, doc, docElem, elemList, elem, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -6249,8 +4536,9 @@ exports.tests = {
 
     nodeType = node.nodeType;
 
-    assertEquals("acrContentIsEntRef",5,nodeType);
+    test.strictEqual(5, nodeType, "acrContentIsEntRef");
 
+    test.done();
   },
   /**
    *
@@ -6261,26 +4549,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-entities
    */
-  entities05 : function () {
-    var success;
-    if(checkInitialization(builder, "entities05") != null) return;
-    var doc;
-    var docElem;
-    var elemList;
-    var elem;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  entities05 : function (test) {
+    var success, doc, docElem, elemList, elem, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var attributes;
-    var docType;
-    var entities;
-    var entity;
-    var classAttr;
+    var resourceURI, attributes, docType, entities, entity, classAttr;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -6295,11 +4567,12 @@ exports.tests = {
     classAttr = attributes.getNamedItem("class");
     node = classAttr.lastChild;
 
-    assertNotNull("classAttrChildNotNull",classAttr);
+    test.ok(classAttr !== null, "classAttrChildNotNull");
     nodeType = node.nodeType;
 
-    assertEquals("classAttrChildIsEntRef",5,nodeType);
+    test.strictEqual(5, nodeType, "classAttrChildIsEntRef");
 
+    test.done();
   },
   /**
    *
@@ -6309,21 +4582,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-entities
    */
-  entities06 : function () {
-    var success;
-    if(checkInitialization(builder, "entities06") != null) return;
-    var doc;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  entities06 : function (test) {
+    var success, doc, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var docType;
-    var entities;
-    var entity;
+    var resourceURI, docType, entities, entity;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -6333,12 +4595,13 @@ exports.tests = {
     doc = lsParser.parseURI(resourceURI);
     docType = doc.doctype;
 
-    assertNotNull("docTypeNotNull",docType);
+    test.ok(docType !== null, "docTypeNotNull");
     entities = docType.entities;
 
     entity = entities.getNamedItem("alpha");
-    assertNotNull("entityNotNull",entity);
+    test.ok(entity !== null, "entityNotNull");
 
+    test.done();
   },
   /**
    *
@@ -6348,25 +4611,14 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-entities
    */
-  entities07 : function () {
-    var success;
-    if(checkInitialization(builder, "entities07") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
-    var canSet;
-    var nullSchemaLanguage = null;
+  entities07 : function (test) {
+    var success, doc, domConfig, domImplLS, lsParser, resourceURI, canSet, nullSchemaLanguage = null;
 
     errorMonitor = new DOMErrorMonitor();
 
     var errors = new Array();
 
-    var error;
-    var severity;
-    var type;
-    var warningCount = 0;
+    var error, severity, type, warningCount = 0;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaLanguage);
     domConfig = lsParser.domConfig;
@@ -6375,7 +4627,7 @@ exports.tests = {
     domConfig.setParameter("error-handler", errorMonitor.handleError);
     resourceURI = getResourceURI("pibase");
     doc = lsParser.parseURI(resourceURI);
-    assertNotNull("docNotNull",doc);
+    test.ok(doc !== null, "docNotNull");
     errors = errorMonitor.allErrors;
     for(var indexN10081 = 0;indexN10081 < errors.length; indexN10081++) {
       error = errors[indexN10081];
@@ -6383,18 +4635,16 @@ exports.tests = {
 
       type = error.type;
 
-
-      if(
-	("pi-base-uri-not-preserved" == type)
-      ) {
-	assertEquals("isError",1,severity);
+      if(("pi-base-uri-not-preserved" == type)) {
+	test.strictEqual(1, severity, "isError");
         warningCount += 1;
 
       }
 
     }
-    assertEquals("hadWarning",1,warningCount);
+    test.strictEqual(1, warningCount, "hadWarning");
 
+    test.done();
   },
   /**
    *
@@ -6404,14 +4654,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-entities
    */
-  entities08 : function () {
-    var success;
-    if(checkInitialization(builder, "entities08") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsSerializer;
-    var output;
+  entities08 : function (test) {
+    var success, doc, domConfig, domImplLS, lsSerializer, output;
     domImplLS = getImplementation();
 
     var docRef = null;
@@ -6424,9 +4668,9 @@ exports.tests = {
 
     domConfig.setParameter("entities", true);
     output = lsSerializer.writeToString(doc);
-    assertTrue("hasEntRef",
-               (output.indexOf("ent4;") >= 0));
+    test.ok(output.indexOf("ent4;") >= 0, "hasEntRef");
 
+    test.done();
   },
   /**
    *
@@ -6436,14 +4680,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-entities
    */
-  entities09 : function () {
-    var success;
-    if(checkInitialization(builder, "entities09") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsSerializer;
-    var output;
+  entities09 : function (test) {
+    var success, doc, domConfig, domImplLS, lsSerializer, output;
     domImplLS = getImplementation();
 
     var docRef = null;
@@ -6458,10 +4696,10 @@ exports.tests = {
     output = lsSerializer.writeToString(doc);
 
     {
-      assertFalse("noEntRef",(output.indexOf("ent4;") >= 0));
-      assertTrue("entDef",
-                 (output.indexOf("!ENTITY") >= 0));
+      test.ok((output.indexOf("ent4;") >= 0) === false, "noEntRef");
+      test.ok(output.indexOf("!ENTITY") >= 0, "entDef");
     }
+    test.done();
   },
   /**
    *
@@ -6471,17 +4709,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-infoset
    */
-  infoset01 : function () {
-    var success;
-    if(checkInitialization(builder, "infoset01") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeName;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  infoset01 : function (test) {
+    var success, doc, elem, node, nodeName, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -6491,14 +4720,15 @@ exports.tests = {
     domConfig.setParameter("infoset", true);
     resourceURI = getResourceURI("validate1");
     doc = lsParser.parseURI(resourceURI);
-    assertNotNull("docNotNull",doc);
+    test.ok(doc !== null, "docNotNull");
     elem = doc.documentElement;
 
-    assertNotNull("docElemNotNull",elem);
+    test.ok(elem !== null, "docElemNotNull");
     nodeName = elem.nodeName;
 
-    assertEquals("docElemName","elt0",nodeName);
+    test.strictEqual("elt0", nodeName, "docElemName");
 
+    test.done();
   },
   /**
    *
@@ -6509,19 +4739,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-infoset
    */
-  infoset02 : function () {
-    var success;
-    if(checkInitialization(builder, "infoset02") != null) return;
-    var doc;
-    var docElem;
-    var elemList;
-    var elem;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  infoset02 : function (test) {
+    var success, doc, docElem, elemList, elem, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -6537,8 +4756,9 @@ exports.tests = {
 
     nodeType = node.nodeType;
 
-    assertEquals("acrContentIsText",3,nodeType);
+    test.strictEqual(3, nodeType, "acrContentIsText");
 
+    test.done();
   },
   /**
    *
@@ -6549,23 +4769,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-datatype-normalization
    */
-  infoset03 : function () {
-    var success;
-    if(checkInitialization(builder, "infoset03") != null) return;
-    var doc;
-    var elemList;
-    var element;
-    var domConfig;
-    var str;
-    var canSetValidate;
-    var canSetXMLSchema;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
-    var childNode;
-    var childValue;
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
-    var nullSchemaType = null;
+  infoset03 : function (test) {
+    var success, doc, elemList, element, domConfig, str, canSetValidate, canSetXMLSchema, xsdNS = "http://www.w3.org/2001/XMLSchema", childNode, childValue, domImplLS, lsParser, resourceURI, nullSchemaType = null;
 
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,xsdNS);
@@ -6605,8 +4810,9 @@ exports.tests = {
 
     childValue = childNode.nodeValue;
 
-    assertEquals("content2","EMP  0001",childValue);
+    test.strictEqual("EMP  0001", childValue, "content2");
 
+    test.done();
   },
   /**
    *
@@ -6617,18 +4823,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-infoset
    */
-  infoset04 : function () {
-    var success;
-    if(checkInitialization(builder, "infoset04") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeType;
-    var domConfig;
-    var pList;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  infoset04 : function (test) {
+    var success, doc, elem, node, nodeType, domConfig, pList, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -6644,8 +4840,9 @@ exports.tests = {
 
     nodeType = node.nodeType;
 
-    assertEquals("childIsText",3,nodeType);
+    test.strictEqual(3, nodeType, "childIsText");
 
+    test.done();
   },
   /**
    *
@@ -6655,19 +4852,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-infoset
    */
-  infoset05 : function () {
-    var success;
-    if(checkInitialization(builder, "infoset05") != null) return;
-    var doc;
-    var docElem;
-    var elemList;
-    var elem;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  infoset05 : function (test) {
+    var success, doc, docElem, elemList, elem, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -6680,8 +4866,9 @@ exports.tests = {
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     node = elem.getAttributeNode("xmlns:dmstc");
-    assertNotNull("nsAttrNotNull",node);
+    test.ok(node !== null, "nsAttrNotNull");
 
+    test.done();
   },
   /**
    *
@@ -6693,21 +4880,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-infoset
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-validate
    */
-  infoset06 : function () {
-    var success;
-    if(checkInitialization(builder, "infoset06") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  infoset06 : function (test) {
+    var success, doc, elem, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var canSet;
-    var elemList;
+    var resourceURI, canSet, elemList;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -6729,8 +4905,9 @@ exports.tests = {
 
     nodeType = node.nodeType;
 
-    assertEquals("nodeIsText",3,nodeType);
+    test.strictEqual(3, nodeType, "nodeIsText");
 
+    test.done();
   },
   /**
    *
@@ -6741,17 +4918,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-infoset
    */
-  infoset07 : function () {
-    var success;
-    if(checkInitialization(builder, "infoset07") != null) return;
-    var doc;
-    var docElem;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  infoset07 : function (test) {
+    var success, doc, docElem, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -6767,8 +4935,9 @@ exports.tests = {
 
     nodeType = node.nodeType;
 
-    assertEquals("nodeIsDocType",8,nodeType);
+    test.strictEqual(8, nodeType, "nodeIsDocType");
 
+    test.done();
   },
   /**
    *
@@ -6778,16 +4947,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-infoset
    */
-  infoset08 : function () {
-    var success;
-    if(checkInitialization(builder, "infoset08") != null) return;
-    var doc;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  infoset08 : function (test) {
+    var success, doc, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -6805,9 +4966,10 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 81);
       }
-      assertTrue("throw_PARSE_ERR",success);
+      test.ok(success, "throw_PARSE_ERR");
     }
 
+    test.done();
   },
   /**
    *
@@ -6818,19 +4980,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-namespace-declarations
    */
-  namespacedeclarations01 : function () {
-    var success;
-    if(checkInitialization(builder, "namespacedeclarations01") != null) return;
-    var doc;
-    var docElem;
-    var elemList;
-    var elem;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  namespacedeclarations01 : function (test) {
+    var success, doc, docElem, elemList, elem, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -6843,8 +4994,9 @@ exports.tests = {
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     node = elem.getAttributeNode("xmlns:dmstc");
-    assertNull("nsAttrNull",node);
+    test.ok(node === null, "nsAttrNull");
 
+    test.done();
   },
   /**
    *
@@ -6854,19 +5006,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-namespace-declarations
    */
-  namespacedeclarations02 : function () {
-    var success;
-    if(checkInitialization(builder, "namespacedeclarations02") != null) return;
-    var doc;
-    var docElem;
-    var elemList;
-    var elem;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  namespacedeclarations02 : function (test) {
+    var success, doc, docElem, elemList, elem, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -6879,8 +5020,9 @@ exports.tests = {
     elemList = doc.getElementsByTagName("p");
     elem = elemList.item(0);
     node = elem.getAttributeNode("xmlns:dmstc");
-    assertNotNull("nsAttrNotNull",node);
+    test.ok(node !== null, "nsAttrNotNull");
 
+    test.done();
   },
   /**
    *
@@ -6890,16 +5032,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-namespaces
    */
-  namespaces01 : function () {
-    var success;
-    if(checkInitialization(builder, "namespaces01") != null) return;
-    var doc;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  namespaces01 : function (test) {
+    var success, doc, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -6917,9 +5051,10 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 81);
       }
-      assertTrue("throw_PARSE_ERR",success);
+      test.ok(success, "throw_PARSE_ERR");
     }
 
+    test.done();
   },
   /**
    *
@@ -6929,21 +5064,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-namespaces
    */
-  namespaces02 : function () {
-    var success;
-    if(checkInitialization(builder, "namespaces02") != null) return;
-    var doc;
-    var node;
-    var nodeType;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  namespaces02 : function (test) {
+    var success, doc, node, nodeType, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var canSet;
-    var docElem;
-    var tagName;
+    var resourceURI, canSet, docElem, tagName;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -6960,10 +5084,11 @@ exports.tests = {
 
       tagName = docElem.tagName;
 
-      assertEquals("tagName","bad:ns:tag",tagName);
+      test.strictEqual("bad:ns:tag", tagName, "tagName");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -6973,18 +5098,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-DOMImplementationLS-createLSSerializer
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-newLine
    */
-  newline01 : function () {
-    var success;
-    if(checkInitialization(builder, "newline01") != null) return;
-    var domImplLS;
-    var lsSerializer;
-    var newLine;
+  newline01 : function (test) {
+    var success, domImplLS, lsSerializer, newLine;
     domImplLS = getImplementation();
     lsSerializer = domImplLS.createLSSerializer();
     newLine = lsSerializer.newLine;
 
-    assertNotNull("newLineNotNull",newLine);
+    test.ok(newLine !== null, "newLineNotNull");
 
+    test.done();
   },
   /**
    *
@@ -6994,20 +5116,17 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-DOMImplementationLS-createLSSerializer
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-newLine
    */
-  newline02 : function () {
-    var success;
-    if(checkInitialization(builder, "newline02") != null) return;
-    var domImplLS;
-    var lsSerializer;
-    var newLine;
+  newline02 : function (test) {
+    var success, domImplLS, lsSerializer, newLine;
     domImplLS = getImplementation();
     lsSerializer = domImplLS.createLSSerializer();
     lsSerializer.newLine = "crlf";
 
     newLine = lsSerializer.newLine;
 
-    assertEquals("newLine","crlf",newLine);
+    test.strictEqual("crlf", newLine, "newLine");
 
+    test.done();
   },
   /**
    *
@@ -7017,14 +5136,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-DOMImplementationLS-createLSSerializer
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-newLine
    */
-  newline03 : function () {
-    var success;
-    if(checkInitialization(builder, "newline03") != null) return;
-    var domImplLS;
-    var lsSerializer;
-    var newLine;
-    var origNewLine;
-    var nullString = null;
+  newline03 : function (test) {
+    var success, domImplLS, lsSerializer, newLine, origNewLine, nullString = null;
 
     domImplLS = getImplementation();
     lsSerializer = domImplLS.createLSSerializer();
@@ -7034,8 +5147,9 @@ exports.tests = {
 
     newLine = lsSerializer.newLine;
 
-    assertEquals("newLine",origNewLine,newLine);
+    test.strictEqual(origNewLine, newLine, "newLine");
 
+    test.done();
   },
   /**
    *
@@ -7045,24 +5159,14 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parse
    */
-  noinputspecified01 : function () {
-    var success;
-    if(checkInitialization(builder, "noinputspecified01") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var lsInput;
-    var nullSchemaLanguage = null;
+  noinputspecified01 : function (test) {
+    var success, doc, domConfig, domImplLS, lsParser, lsInput, nullSchemaLanguage = null;
 
     errorMonitor = new DOMErrorMonitor();
 
     var errors = new Array();
 
-    var error;
-    var severity;
-    var type;
-    var errorCount = 0;
+    var error, severity, type, errorCount = 0;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaLanguage);
     lsInput = domImplLS.createLSInput();
@@ -7078,7 +5182,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 81);
       }
-      assertTrue("throw_PARSE_ERR",success);
+      test.ok(success, "throw_PARSE_ERR");
     }
     errors = errorMonitor.allErrors;
     for(var indexN10077 = 0;indexN10077 < errors.length; indexN10077++) {
@@ -7087,21 +5191,21 @@ exports.tests = {
 
       type = error.type;
 
-
       if(
 
 	(severity > 1)
 
       ) {
-	assertEquals("isFatalError",3,severity);
-        assertEquals("noInputSpecified","no-input-specified",type);
+	test.strictEqual(3, severity, "isFatalError");
+        test.strictEqual("no-input-specified", type, "noInputSpecified");
         errorCount += 1;
 
       }
 
     }
-    assertEquals("oneError",1,errorCount);
+    test.strictEqual(1, errorCount, "oneError");
 
+    test.done();
   },
   /**
    *
@@ -7110,23 +5214,13 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-write
    */
-  nooutputspecified01 : function () {
-    var success;
-    if(checkInitialization(builder, "nooutputspecified01") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsSerializer;
-    var lsOutput;
+  nooutputspecified01 : function (test) {
+    var success, doc, domConfig, domImplLS, lsSerializer, lsOutput;
     errorMonitor = new DOMErrorMonitor();
 
     var errors = new Array();
 
-    var error;
-    var severity;
-    var type;
-    var errorCount = 0;
-    var docType = null;
+    var error, severity, type, errorCount = 0, docType = null;
 
     var retval;
     domImplLS = getImplementation();
@@ -7145,7 +5239,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 82);
       }
-      assertTrue("throw_SERIALIZE_ERR",success);
+      test.ok(success, "throw_SERIALIZE_ERR");
     }
     errors = errorMonitor.allErrors;
     for(var indexN10081 = 0;indexN10081 < errors.length; indexN10081++) {
@@ -7154,21 +5248,21 @@ exports.tests = {
 
       type = error.type;
 
-
       if(
 
 	(severity > 1)
 
       ) {
-	assertEquals("isFatalError",3,severity);
-        assertEquals("noOutputSpecified","no-output-specified",type);
+	test.strictEqual(3, severity, "isFatalError");
+        test.strictEqual("no-output-specified", type, "noOutputSpecified");
         errorCount += 1;
 
       }
 
     }
-    assertEquals("oneError",1,errorCount);
+    test.strictEqual(1, errorCount, "oneError");
 
+    test.done();
   },
   /**
    *
@@ -7178,18 +5272,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-normalize-characters
    */
-  normalizecharacters01 : function () {
-    var success;
-    if(checkInitialization(builder, "normalizecharacters01") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
-    var nullSchemaLanguage = null;
+  normalizecharacters01 : function (test) {
+    var success, doc, domConfig, domImplLS, lsParser, resourceURI, nullSchemaLanguage = null;
 
-    var docElem;
-    var tagName;
+    var docElem, tagName;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaLanguage);
     domConfig = lsParser.domConfig;
@@ -7197,13 +5283,14 @@ exports.tests = {
     domConfig.setParameter("normalize-characters", false);
     resourceURI = getResourceURI("characternormalization1");
     doc = lsParser.parseURI(resourceURI);
-    assertNotNull("docNotNull",doc);
+    test.ok(doc !== null, "docNotNull");
     docElem = doc.documentElement;
 
     tagName = docElem.tagName;
 
-    assertEquals("notNormalized","suçon",tagName);
+    test.strictEqual("suçon", tagName, "notNormalized");
 
+    test.done();
   },
   /**
    *
@@ -7213,19 +5300,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-normalize-characters
    */
-  normalizecharacters02 : function () {
-    var success;
-    if(checkInitialization(builder, "normalizecharacters02") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
-    var canSet;
-    var nullSchemaLanguage = null;
+  normalizecharacters02 : function (test) {
+    var success, doc, domConfig, domImplLS, lsParser, resourceURI, canSet, nullSchemaLanguage = null;
 
-    var docElem;
-    var tagName;
+    var docElem, tagName;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaLanguage);
     domConfig = lsParser.domConfig;
@@ -7238,15 +5316,16 @@ exports.tests = {
       domConfig.setParameter("normalize-characters", true);
       resourceURI = getResourceURI("characternormalization1");
       doc = lsParser.parseURI(resourceURI);
-      assertNotNull("docNotNull",doc);
+      test.ok(doc !== null, "docNotNull");
       docElem = doc.documentElement;
 
       tagName = docElem.tagName;
 
-      assertEquals("charNormalized","suçon",tagName);
+      test.strictEqual("suçon", tagName, "charNormalized");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -7256,20 +5335,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-normalize-characters
    */
-  normalizecharacters03 : function () {
-    var success;
-    if(checkInitialization(builder, "normalizecharacters03") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsSerializer;
-    var docType = null;
+  normalizecharacters03 : function (test) {
+    var success, doc, domConfig, domImplLS, lsSerializer, docType = null;
 
-    var docElem;
-    var newNode;
-    var output;
-    var retNode;
-    var canSet;
+    var docElem, newNode, output, retNode, canSet;
     domImplLS = getImplementation();
     lsSerializer = domImplLS.createLSSerializer();
     domConfig = lsSerializer.domConfig;
@@ -7284,11 +5353,11 @@ exports.tests = {
 
       domConfig.setParameter("normalize-characters", true);
       output = lsSerializer.writeToString(doc);
-      assertTrue("notNormalized",
-                 (output.indexOf("suçon") >= 0));
+      test.ok(output.indexOf("suçon") >= 0, "notNormalized");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -7298,20 +5367,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-normalize-characters
    */
-  normalizecharacters04 : function () {
-    var success;
-    if(checkInitialization(builder, "normalizecharacters04") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsSerializer;
-    var docType = null;
+  normalizecharacters04 : function (test) {
+    var success, doc, domConfig, domImplLS, lsSerializer, docType = null;
 
-    var docElem;
-    var newNode;
-    var output;
-    var retNode;
-    var canSet;
+    var docElem, newNode, output, retNode, canSet;
     domImplLS = getImplementation();
     lsSerializer = domImplLS.createLSSerializer();
     domConfig = lsSerializer.domConfig;
@@ -7322,9 +5381,9 @@ exports.tests = {
 
     domConfig.setParameter("normalize-characters", true);
     output = lsSerializer.writeToString(doc);
-    assertTrue("notNormalized",
-               (output.indexOf("suçon") >= 0));
+    test.ok(output.indexOf("suçon") >= 0, "notNormalized");
 
+    test.done();
   },
   /**
    *
@@ -7336,23 +5395,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-schema-type
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate
    */
-  schemalocation01 : function () {
-    var success;
-    if(checkInitialization(builder, "schemalocation01") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeName;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  schemalocation01 : function (test) {
+    var success, doc, elem, node, nodeName, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var canSetValidate;
-    var canSetSchemaType;
-    var canSetSchemaLocation;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
+    var resourceURI, canSetValidate, canSetSchemaType, canSetSchemaLocation, xsdNS = "http://www.w3.org/2001/XMLSchema";
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -7372,16 +5418,17 @@ exports.tests = {
       domConfig.setParameter("schema-location", resourceURI);
       resourceURI = getResourceURI("validate1");
       doc = lsParser.parseURI(resourceURI);
-      assertNotNull("docNotNull",doc);
+      test.ok(doc !== null, "docNotNull");
       elem = doc.documentElement;
 
-      assertNotNull("docElemNotNull",elem);
+      test.ok(elem !== null, "docElemNotNull");
       nodeName = elem.nodeName;
 
-      assertEquals("docElemName","elt0",nodeName);
+      test.strictEqual("elt0", nodeName, "docElemName");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -7393,30 +5440,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-schema-type
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate
    */
-  schemalocation02 : function () {
-    var success;
-    if(checkInitialization(builder, "schemalocation02") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeName;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  schemalocation02 : function (test) {
+    var success, doc, elem, node, nodeName, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var canSetValidate;
-    var canSetSchemaType;
-    var canSetSchemaLocation;
+    var resourceURI, canSetValidate, canSetSchemaType, canSetSchemaLocation;
     errorMonitor = new DOMErrorMonitor();
 
     var errors = new Array();
 
-    var error;
-    var severity;
-    var errorCount = 0;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
+    var error, severity, errorCount = 0, xsdNS = "http://www.w3.org/2001/XMLSchema";
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -7445,29 +5477,24 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 81);
 	}
-	assertTrue("throw_PARSE_ERR",success);
+	test.ok(success, "throw_PARSE_ERR");
       }
       errors = errorMonitor.allErrors;
       for(var indexN100CE = 0;indexN100CE < errors.length; indexN100CE++) {
         error = errors[indexN100CE];
         severity = error.severity;
 
-
-	if(
-	  (2 == severity)
-	) {
+	if((2 == severity)) {
 	  errorCount += 1;
 
 	}
 
       }
-      assertTrue("atLeastOneError",
-
-	         (errorCount > 0)
-                );
+      assertTrue("atLeastOneError", (errorCount > 0));
 
     }
 
+    test.done();
   },
   /**
    *
@@ -7479,22 +5506,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-schema-type
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate
    */
-  schemalocation03 : function () {
-    var success;
-    if(checkInitialization(builder, "schemalocation03") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeName;
-    var domConfig;
-    var domImplLS;
-    var resourceURI;
-    var canSetValidate;
-    var canSetSchemaType;
-    var canSetSchemaLocation;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
-    var lsSerializer;
-    var nullNS = null;
+  schemalocation03 : function (test) {
+    var success, doc, elem, node, nodeName, domConfig, domImplLS, resourceURI, canSetValidate, canSetSchemaType, canSetSchemaLocation, xsdNS = "http://www.w3.org/2001/XMLSchema", lsSerializer, nullNS = null;
 
     var doctype = null;
 
@@ -7521,6 +5534,7 @@ exports.tests = {
 
     }
 
+    test.done();
   },
   /**
    *
@@ -7532,22 +5546,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-schema-type
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate
    */
-  schemalocation04 : function () {
-    var success;
-    if(checkInitialization(builder, "schemalocation04") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeName;
-    var domConfig;
-    var domImplLS;
-    var resourceURI;
-    var canSetValidate;
-    var canSetSchemaType;
-    var canSetSchemaLocation;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
-    var lsSerializer;
-    var nullNS = null;
+  schemalocation04 : function (test) {
+    var success, doc, elem, node, nodeName, domConfig, domImplLS, resourceURI, canSetValidate, canSetSchemaType, canSetSchemaLocation, xsdNS = "http://www.w3.org/2001/XMLSchema", lsSerializer, nullNS = null;
 
     var doctype = null;
 
@@ -7579,11 +5579,12 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 82);
 	}
-	assertTrue("throw_SERIALIZE_ERR",success);
+	test.ok(success, "throw_SERIALIZE_ERR");
       }
 
     }
 
+    test.done();
   },
   /**
    *
@@ -7594,26 +5595,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-schema-type
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate
    */
-  schematype01 : function () {
-    var success;
-    if(checkInitialization(builder, "schematype01") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  schematype01 : function (test) {
+    var success, doc, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var canSetValidate;
-    var canSetSchemaType;
+    var resourceURI, canSetValidate, canSetSchemaType;
     errorMonitor = new DOMErrorMonitor();
 
     var errors = new Array();
 
-    var error;
-    var severity;
-    var errorCount = 0;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
+    var error, severity, errorCount = 0, xsdNS = "http://www.w3.org/2001/XMLSchema";
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -7639,29 +5629,24 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 81);
 	}
-	assertTrue("throw_PARSE_ERR",success);
+	test.ok(success, "throw_PARSE_ERR");
       }
       errors = errorMonitor.allErrors;
       for(var indexN100A8 = 0;indexN100A8 < errors.length; indexN100A8++) {
         error = errors[indexN100A8];
         severity = error.severity;
 
-
-	if(
-	  (2 == severity)
-	) {
+	if((2 == severity)) {
 	  errorCount += 1;
 
 	}
 
       }
-      assertTrue("atLeastOneError",
-
-	         (errorCount > 0)
-                );
+      assertTrue("atLeastOneError", (errorCount > 0));
 
     }
 
+    test.done();
   },
   /**
    *
@@ -7672,22 +5657,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-schema-type
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate
    */
-  schematype02 : function () {
-    var success;
-    if(checkInitialization(builder, "schematype02") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeName;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  schematype02 : function (test) {
+    var success, doc, elem, node, nodeName, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var canSetValidate;
-    var canSetSchemaType;
-    var dtdNS = "http://www.w3.org/TR/REC-xml";
+    var resourceURI, canSetValidate, canSetSchemaType, dtdNS = "http://www.w3.org/TR/REC-xml";
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -7704,16 +5677,17 @@ exports.tests = {
       domConfig.setParameter("schema-type", dtdNS);
       resourceURI = getResourceURI("test3");
       doc = lsParser.parseURI(resourceURI);
-      assertNotNull("docNotNull",doc);
+      test.ok(doc !== null, "docNotNull");
       elem = doc.documentElement;
 
-      assertNotNull("docElemNotNull",elem);
+      test.ok(elem !== null, "docElemNotNull");
       nodeName = elem.nodeName;
 
-      assertEquals("docElemName","elt0",nodeName);
+      test.strictEqual("elt0", nodeName, "docElemName");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -7724,22 +5698,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-schema-type
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate
    */
-  schematype03 : function () {
-    var success;
-    if(checkInitialization(builder, "schematype03") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeName;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  schematype03 : function (test) {
+    var success, doc, elem, node, nodeName, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var canSetValidate;
-    var canSetSchemaType;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
+    var resourceURI, canSetValidate, canSetSchemaType, xsdNS = "http://www.w3.org/2001/XMLSchema";
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -7756,16 +5718,17 @@ exports.tests = {
       domConfig.setParameter("schema-type", xsdNS);
       resourceURI = getResourceURI("schematype1");
       doc = lsParser.parseURI(resourceURI);
-      assertNotNull("docNotNull",doc);
+      test.ok(doc !== null, "docNotNull");
       elem = doc.documentElement;
 
-      assertNotNull("docElemNotNull",elem);
+      test.ok(elem !== null, "docElemNotNull");
       nodeName = elem.nodeName;
 
-      assertEquals("docElemName","elt0",nodeName);
+      test.strictEqual("elt0", nodeName, "docElemName");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -7776,21 +5739,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-schema-type
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate
    */
-  schematype04 : function () {
-    var success;
-    if(checkInitialization(builder, "schematype04") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeName;
-    var domConfig;
-    var domImplLS;
-    var resourceURI;
-    var canSetValidate;
-    var canSetSchemaType;
-    var xsdNS = "http://www.w3.org/2001/XMLSchema";
-    var lsSerializer;
-    var nullNS = null;
+  schematype04 : function (test) {
+    var success, doc, elem, node, nodeName, domConfig, domImplLS, resourceURI, canSetValidate, canSetSchemaType, xsdNS = "http://www.w3.org/2001/XMLSchema", lsSerializer, nullNS = null;
 
     var doctype = null;
 
@@ -7819,11 +5769,12 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 82);
 	}
-	assertTrue("throw_SERIALIZE_ERR",success);
+	test.ok(success, "throw_SERIALIZE_ERR");
       }
 
     }
 
+    test.done();
   },
   /**
    *
@@ -7833,19 +5784,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-split-cdata-sections
    */
-  splitcdatasections01 : function () {
-    var success;
-    if(checkInitialization(builder, "splitcdatasections01") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsSerializer;
-    var docType = null;
+  splitcdatasections01 : function (test) {
+    var success, doc, domConfig, domImplLS, lsSerializer, docType = null;
 
-    var docElem;
-    var newNode;
-    var output;
-    var retNode;
+    var docElem, newNode, output, retNode;
     domImplLS = getImplementation();
     lsSerializer = domImplLS.createLSSerializer();
     doc = domImplLS.createDocument("http://www.example.org","test",docType);
@@ -7860,8 +5802,9 @@ exports.tests = {
     output = lsSerializer.writeToString(doc);
 
     {
-      assertFalse("notNaive",(output.indexOf("this is not ]]> good") >= 0));
+      test.ok((output.indexOf("this is not ]]> good") >= 0) === false, "notNaive");
     }
+    test.done();
   },
   /**
    *
@@ -7873,27 +5816,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-split-cdata-sections
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-well-formed
    */
-  splitcdatasections02 : function () {
-    var success;
-    if(checkInitialization(builder, "splitcdatasections02") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsSerializer;
-    var docType = null;
+  splitcdatasections02 : function (test) {
+    var success, doc, domConfig, domImplLS, lsSerializer, docType = null;
 
-    var docElem;
-    var newNode;
-    var output;
-    var retNode;
+    var docElem, newNode, output, retNode;
     errorMonitor = new DOMErrorMonitor();
 
     var errors = new Array();
 
-    var error;
-    var severity;
-    var type;
-    var errorCount = 0;
+    var error, severity, type, errorCount = 0;
     domImplLS = getImplementation();
     lsSerializer = domImplLS.createLSSerializer();
     doc = domImplLS.createDocument("http://www.example.org","test",docType);
@@ -7916,7 +5847,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 82);
       }
-      assertTrue("throw_SERIALIZE_ERR",success);
+      test.ok(success, "throw_SERIALIZE_ERR");
     }
     errors = errorMonitor.allErrors;
     for(var indexN100A7 = 0;indexN100A7 < errors.length; indexN100A7++) {
@@ -7925,21 +5856,16 @@ exports.tests = {
 
       type = error.type;
 
-
-      if(
-	("wf-invalid-character" == type)
-      ) {
-	assertEquals("severityError",2,severity);
+      if(("wf-invalid-character" == type)) {
+	test.strictEqual(2, severity, "severityError");
         errorCount += 1;
 
       }
 
     }
-    assertTrue("hasWfErrors",
+    assertTrue("hasWfErrors", (errorCount > 0));
 
-	       (errorCount > 0)
-              );
-
+    test.done();
   },
   /**
    *
@@ -7949,24 +5875,14 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    */
-  unsupportedencoding01 : function () {
-    var success;
-    if(checkInitialization(builder, "unsupportedencoding01") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var resourceURI;
-    var nullSchemaLanguage = null;
+  unsupportedencoding01 : function (test) {
+    var success, doc, domConfig, domImplLS, lsParser, resourceURI, nullSchemaLanguage = null;
 
     errorMonitor = new DOMErrorMonitor();
 
     var errors = new Array();
 
-    var error;
-    var severity;
-    var type;
-    var errorCount = 0;
+    var error, severity, type, errorCount = 0;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaLanguage);
     domConfig = lsParser.domConfig;
@@ -7982,7 +5898,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 81);
       }
-      assertTrue("throw_PARSE_ERR",success);
+      test.ok(success, "throw_PARSE_ERR");
     }
     errors = errorMonitor.allErrors;
     for(var indexN10078 = 0;indexN10078 < errors.length; indexN10078++) {
@@ -7991,18 +5907,16 @@ exports.tests = {
 
       type = error.type;
 
-
-      if(
-	("unsupported-encoding".toUpperCase() == type.toUpperCase())
-      ) {
-	assertEquals("isError",3,severity);
+      if(("unsupported-encoding".toUpperCase() == type.toUpperCase())) {
+	test.strictEqual(3, severity, "isError");
         errorCount += 1;
 
       }
 
     }
-    assertEquals("oneError",1,errorCount);
+    test.strictEqual(1, errorCount, "oneError");
 
+    test.done();
   },
   /**
    *
@@ -8012,17 +5926,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate
    */
-  validate01 : function () {
-    var success;
-    if(checkInitialization(builder, "validate01") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeName;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  validate01 : function (test) {
+    var success, doc, elem, node, nodeName, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -8032,14 +5937,15 @@ exports.tests = {
     domConfig.setParameter("validate", false);
     resourceURI = getResourceURI("test0");
     doc = lsParser.parseURI(resourceURI);
-    assertNotNull("docNotNull",doc);
+    test.ok(doc !== null, "docNotNull");
     elem = doc.documentElement;
 
-    assertNotNull("docElemNotNull",elem);
+    test.ok(elem !== null, "docElemNotNull");
     nodeName = elem.nodeName;
 
-    assertEquals("docElemName","elt0",nodeName);
+    test.strictEqual("elt0", nodeName, "docElemName");
 
+    test.done();
   },
   /**
    *
@@ -8049,27 +5955,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate
    */
-  validate02 : function () {
-    var success;
-    if(checkInitialization(builder, "validate02") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeName;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  validate02 : function (test) {
+    var success, doc, elem, node, nodeName, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     errorMonitor = new DOMErrorMonitor();
 
-    var canSet;
-    var errors = new Array();
+    var canSet, errors = new Array();
 
-    var error;
-    var errorCount = 0;
-    var severity;
+    var error, errorCount = 0, severity;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -8091,29 +5985,24 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 81);
 	}
-	assertTrue("throw_PARSE_ERR",success);
+	test.ok(success, "throw_PARSE_ERR");
       }
       errors = errorMonitor.allErrors;
       for(var indexN10096 = 0;indexN10096 < errors.length; indexN10096++) {
         error = errors[indexN10096];
         severity = error.severity;
 
-
-	if(
-	  (2 == severity)
-	) {
+	if((2 == severity)) {
 	  errorCount += 1;
 
 	}
 
       }
-      assertTrue("atLeastOneError",
-
-	         (errorCount > 0)
-                );
+      assertTrue("atLeastOneError", (errorCount > 0));
 
     }
 
+    test.done();
   },
   /**
    *
@@ -8123,17 +6012,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate
    */
-  validate03 : function () {
-    var success;
-    if(checkInitialization(builder, "validate03") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeName;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  validate03 : function (test) {
+    var success, doc, elem, node, nodeName, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -8143,14 +6023,15 @@ exports.tests = {
     domConfig.setParameter("validate", false);
     resourceURI = getResourceURI("validate1");
     doc = lsParser.parseURI(resourceURI);
-    assertNotNull("docNotNull",doc);
+    test.ok(doc !== null, "docNotNull");
     elem = doc.documentElement;
 
-    assertNotNull("docElemNotNull",elem);
+    test.ok(elem !== null, "docElemNotNull");
     nodeName = elem.nodeName;
 
-    assertEquals("docElemName","elt0",nodeName);
+    test.strictEqual("elt0", nodeName, "docElemName");
 
+    test.done();
   },
   /**
    *
@@ -8160,27 +6041,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate
    */
-  validate04 : function () {
-    var success;
-    if(checkInitialization(builder, "validate04") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeName;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  validate04 : function (test) {
+    var success, doc, elem, node, nodeName, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     errorMonitor = new DOMErrorMonitor();
 
-    var canSet;
-    var errors = new Array();
+    var canSet, errors = new Array();
 
-    var error;
-    var errorCount = 0;
-    var severity;
+    var error, errorCount = 0, severity;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -8202,29 +6071,24 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 81);
 	}
-	assertTrue("throw_PARSE_ERR",success);
+	test.ok(success, "throw_PARSE_ERR");
       }
       errors = errorMonitor.allErrors;
       for(var indexN10096 = 0;indexN10096 < errors.length; indexN10096++) {
         error = errors[indexN10096];
         severity = error.severity;
 
-
-	if(
-	  (2 == severity)
-	) {
+	if((2 == severity)) {
 	  errorCount += 1;
 
 	}
 
       }
-      assertTrue("atLeastOneError",
-
-	         (errorCount > 0)
-                );
+      assertTrue("atLeastOneError", (errorCount > 0));
 
     }
 
+    test.done();
   },
   /**
    *
@@ -8234,14 +6098,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate
    */
-  validate05 : function () {
-    var success;
-    if(checkInitialization(builder, "validate05") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsSerializer;
-    var docType = null;
+  validate05 : function (test) {
+    var success, doc, domConfig, domImplLS, lsSerializer, docType = null;
 
     var output;
     domImplLS = getImplementation();
@@ -8252,6 +6110,7 @@ exports.tests = {
     domConfig.setParameter("validate", false);
     output = lsSerializer.writeToString(doc);
 
+    test.done();
   },
   /**
    *
@@ -8261,17 +6120,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate
    */
-  validate06 : function () {
-    var success;
-    if(checkInitialization(builder, "validate06") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsSerializer;
-    var docType = null;
+  validate06 : function (test) {
+    var success, doc, domConfig, domImplLS, lsSerializer, docType = null;
 
-    var output;
-    var canSet;
+    var output, canSet;
     domImplLS = getImplementation();
     lsSerializer = domImplLS.createLSSerializer();
     doc = domImplLS.createDocument("http://www.example.org","test",docType);
@@ -8292,11 +6144,12 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 82);
 	}
-	assertTrue("throw_SERIALIZE_ERR",success);
+	test.ok(success, "throw_SERIALIZE_ERR");
       }
 
     }
 
+    test.done();
   },
   /**
    *
@@ -8307,21 +6160,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate
    */
-  validate07 : function () {
-    var success;
-    if(checkInitialization(builder, "validate07") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeName;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  validate07 : function (test) {
+    var success, doc, elem, node, nodeName, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var lsSerializer;
-    var output;
+    var resourceURI, lsSerializer, output;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -8329,19 +6171,20 @@ exports.tests = {
     domConfig.setParameter("validate", false);
     resourceURI = getResourceURI("validate1");
     doc = lsParser.parseURI(resourceURI);
-    assertNotNull("docNotNull",doc);
+    test.ok(doc !== null, "docNotNull");
     elem = doc.documentElement;
 
-    assertNotNull("docElemNotNull",elem);
+    test.ok(elem !== null, "docElemNotNull");
     nodeName = elem.nodeName;
 
-    assertEquals("docElemName","elt0",nodeName);
+    test.strictEqual("elt0", nodeName, "docElemName");
     lsSerializer = domImplLS.createLSSerializer();
     domConfig = lsSerializer.domConfig;
 
     domConfig.setParameter("validate", false);
     output = lsSerializer.writeToString(doc);
 
+    test.done();
   },
   /**
    *
@@ -8353,19 +6196,10 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate
    */
-  validate08 : function () {
-    var success;
-    if(checkInitialization(builder, "validate08") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  validate08 : function (test) {
+    var success, doc, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
-    var resourceURI;
-    var lsSerializer;
-    var output;
-    var canSet;
+    var resourceURI, lsSerializer, output, canSet;
     domImplLS = getImplementation();
     lsSerializer = domImplLS.createLSSerializer();
     domConfig = lsSerializer.domConfig;
@@ -8391,11 +6225,12 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 82);
 	}
-	assertTrue("throw_SERIALIZE_ERR",success);
+	test.ok(success, "throw_SERIALIZE_ERR");
       }
 
     }
 
+    test.done();
   },
   /**
    *
@@ -8405,17 +6240,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate-if-schema
    */
-  validateifschema01 : function () {
-    var success;
-    if(checkInitialization(builder, "validateifschema01") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeName;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  validateifschema01 : function (test) {
+    var success, doc, elem, node, nodeName, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -8425,14 +6251,15 @@ exports.tests = {
     domConfig.setParameter("validate-if-schema", false);
     resourceURI = getResourceURI("test0");
     doc = lsParser.parseURI(resourceURI);
-    assertNotNull("docNotNull",doc);
+    test.ok(doc !== null, "docNotNull");
     elem = doc.documentElement;
 
-    assertNotNull("docElemNotNull",elem);
+    test.ok(elem !== null, "docElemNotNull");
     nodeName = elem.nodeName;
 
-    assertEquals("docElemName","elt0",nodeName);
+    test.strictEqual("elt0", nodeName, "docElemName");
 
+    test.done();
   },
   /**
    *
@@ -8442,17 +6269,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate-if-schema
    */
-  validateifschema02 : function () {
-    var success;
-    if(checkInitialization(builder, "validateifschema02") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeName;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  validateifschema02 : function (test) {
+    var success, doc, elem, node, nodeName, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     errorMonitor = new DOMErrorMonitor();
@@ -8471,17 +6289,18 @@ exports.tests = {
       domConfig.setParameter("error-handler", errorMonitor.handleError);
       resourceURI = getResourceURI("test0");
       doc = lsParser.parseURI(resourceURI);
-      assertNotNull("docNotNull",doc);
-      errorMonitor.assertLowerSeverity("noErrors", 2);
+      test.ok(doc !== null, "docNotNull");
+      errorMonitor.assertLowerSeverity(test, "noErrors", 2);
       elem = doc.documentElement;
 
-      assertNotNull("docElemNotNull",elem);
+      test.ok(elem !== null, "docElemNotNull");
       nodeName = elem.nodeName;
 
-      assertEquals("docElemName","elt0",nodeName);
+      test.strictEqual("elt0", nodeName, "docElemName");
 
     }
 
+    test.done();
   },
   /**
    *
@@ -8491,17 +6310,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate-if-schema
    */
-  validateifschema03 : function () {
-    var success;
-    if(checkInitialization(builder, "validateifschema03") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeName;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  validateifschema03 : function (test) {
+    var success, doc, elem, node, nodeName, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     domImplLS = getImplementation();
@@ -8511,14 +6321,15 @@ exports.tests = {
     domConfig.setParameter("validate-if-schema", false);
     resourceURI = getResourceURI("validate1");
     doc = lsParser.parseURI(resourceURI);
-    assertNotNull("docNotNull",doc);
+    test.ok(doc !== null, "docNotNull");
     elem = doc.documentElement;
 
-    assertNotNull("docElemNotNull",elem);
+    test.ok(elem !== null, "docElemNotNull");
     nodeName = elem.nodeName;
 
-    assertEquals("docElemName","elt0",nodeName);
+    test.strictEqual("elt0", nodeName, "docElemName");
 
+    test.done();
   },
   /**
    *
@@ -8528,27 +6339,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-validate-if-schema
    */
-  validateifschema04 : function () {
-    var success;
-    if(checkInitialization(builder, "validateifschema04") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeName;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  validateifschema04 : function (test) {
+    var success, doc, elem, node, nodeName, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     errorMonitor = new DOMErrorMonitor();
 
-    var canSet;
-    var errors = new Array();
+    var canSet, errors = new Array();
 
-    var error;
-    var errorCount = 0;
-    var severity;
+    var error, errorCount = 0, severity;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -8570,29 +6369,24 @@ exports.tests = {
 	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 81);
 	}
-	assertTrue("throw_PARSE_ERR",success);
+	test.ok(success, "throw_PARSE_ERR");
       }
       errors = errorMonitor.allErrors;
       for(var indexN10096 = 0;indexN10096 < errors.length; indexN10096++) {
         error = errors[indexN10096];
         severity = error.severity;
 
-
-	if(
-	  (2 == severity)
-	) {
+	if((2 == severity)) {
 	  errorCount += 1;
 
 	}
 
       }
-      assertTrue("atLeastOneError",
-
-	         (errorCount > 0)
-                );
+      assertTrue("atLeastOneError", (errorCount > 0));
 
     }
 
+    test.done();
   },
   /**
    *
@@ -8602,27 +6396,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-well-formed
    */
-  wellformed01 : function () {
-    var success;
-    if(checkInitialization(builder, "wellformed01") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeName;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  wellformed01 : function (test) {
+    var success, doc, elem, node, nodeName, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     errorMonitor = new DOMErrorMonitor();
 
     var errors = new Array();
 
-    var error;
-    var errorCount = 0;
-    var severity;
-    var type;
+    var error, errorCount = 0, severity, type;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -8639,7 +6421,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 81);
       }
-      assertTrue("throw_PARSE_ERR",success);
+      test.ok(success, "throw_PARSE_ERR");
     }
     errors = errorMonitor.allErrors;
     for(var indexN1008C = 0;indexN1008C < errors.length; indexN1008C++) {
@@ -8648,21 +6430,21 @@ exports.tests = {
 
       severity = error.severity;
 
-
       if(
 
 	(severity > 1)
 
       ) {
-	assertEquals("type","wf-invalid-character-in-node-name",type);
-        assertEquals("severityError",2,severity);
+	test.strictEqual("wf-invalid-character-in-node-name", type, "type");
+        test.strictEqual(2, severity, "severityError");
         errorCount += 1;
 
       }
 
     }
-    assertEquals("oneWFError",1,errorCount);
+    test.strictEqual(1, errorCount, "oneWFError");
 
+    test.done();
   },
   /**
    *
@@ -8672,27 +6454,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-well-formed
    */
-  wellformed02 : function () {
-    var success;
-    if(checkInitialization(builder, "wellformed02") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeName;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  wellformed02 : function (test) {
+    var success, doc, elem, node, nodeName, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     errorMonitor = new DOMErrorMonitor();
 
     var errors = new Array();
 
-    var error;
-    var errorCount = 0;
-    var severity;
-    var type;
+    var error, errorCount = 0, severity, type;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -8709,7 +6479,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 81);
       }
-      assertTrue("throw_PARSE_ERR",success);
+      test.ok(success, "throw_PARSE_ERR");
     }
     errors = errorMonitor.allErrors;
     for(var indexN1008C = 0;indexN1008C < errors.length; indexN1008C++) {
@@ -8718,21 +6488,21 @@ exports.tests = {
 
       severity = error.severity;
 
-
       if(
 
 	(severity > 1)
 
       ) {
-	assertEquals("type","wf-invalid-character-in-node-name",type);
-        assertEquals("severityError",2,severity);
+	test.strictEqual("wf-invalid-character-in-node-name", type, "type");
+        test.strictEqual(2, severity, "severityError");
         errorCount += 1;
 
       }
 
     }
-    assertEquals("oneWFError",1,errorCount);
+    test.strictEqual(1, errorCount, "oneWFError");
 
+    test.done();
   },
   /**
    *
@@ -8743,27 +6513,15 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParser-parseURI
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core#parameter-well-formed
    */
-  wellformed03 : function () {
-    var success;
-    if(checkInitialization(builder, "wellformed03") != null) return;
-    var doc;
-    var elem;
-    var node;
-    var nodeName;
-    var domConfig;
-    var domImplLS;
-    var lsParser;
-    var nullSchemaType = null;
+  wellformed03 : function (test) {
+    var success, doc, elem, node, nodeName, domConfig, domImplLS, lsParser, nullSchemaType = null;
 
     var resourceURI;
     errorMonitor = new DOMErrorMonitor();
 
     var errors = new Array();
 
-    var error;
-    var errorCount = 0;
-    var severity;
-    var type;
+    var error, errorCount = 0, severity, type;
     domImplLS = getImplementation();
     lsParser = domImplLS.createLSParser(1,nullSchemaType);
     domConfig = lsParser.domConfig;
@@ -8780,7 +6538,7 @@ exports.tests = {
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 81);
       }
-      assertTrue("throw_PARSE_ERR",success);
+      test.ok(success, "throw_PARSE_ERR");
     }
     errors = errorMonitor.allErrors;
     for(var indexN1008C = 0;indexN1008C < errors.length; indexN1008C++) {
@@ -8789,18 +6547,16 @@ exports.tests = {
 
       severity = error.severity;
 
-
-      if(
-	("wf-invalid-character" == type)
-      ) {
-	assertEquals("severityError",2,severity);
+      if(("wf-invalid-character" == type)) {
+	test.strictEqual(2, severity, "severityError");
         errorCount += 1;
 
       }
 
     }
-    assertEquals("oneWFError",1,errorCount);
+    test.strictEqual(1, errorCount, "oneWFError");
 
+    test.done();
   },
   /**
    * Writes a document to a URL for a temporary file
@@ -8808,23 +6564,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToURI
    */
-  writeToURI1 : function () {
-    var success;
-    if(checkInitialization(builder, "writeToURI1") != null) return;
-    var testDoc;
-    var domImpl;
-    var output;
-    var serializer;
-    var systemId;
-    var checkSystemId;
-    var status;
-    var input;
-    var parser;
-    var checkDoc;
-    var docElem;
-    var docElemName;
-    var NULL_SCHEMA_TYPE = null;
-
+  writeToURI1 : function (test) {
+    var success, testDoc, domImpl, output, serializer, systemId, checkSystemId, status, input, parser, checkDoc, docElem, docElemName, NULL_SCHEMA_TYPE = null;
 
     var testDocRef = null;
     if (typeof(this.testDoc) != 'undefined') {
@@ -8836,19 +6577,20 @@ exports.tests = {
 
     serializer = domImpl.createLSSerializer();
     status = serializer.writeToURI(testDoc,systemId);
-    assertTrue("writeStatus",status);
+    test.ok(status, "writeStatus");
     input = domImpl.createLSInput();
     input.systemId = systemId;
 
     parser = domImpl.createLSParser(1,NULL_SCHEMA_TYPE);
     checkDoc = parser.parse(input);
-    assertNotNull("checkNotNull",checkDoc);
+    test.ok(checkDoc !== null, "checkNotNull");
     docElem = checkDoc.documentElement;
 
     docElemName = docElem.nodeName;
 
-    assertEquals("checkDocElemName","elt0",docElemName);
+    test.strictEqual("elt0", docElemName, "checkDocElemName");
 
+    test.done();
   },
   /**
    * Writes a document to a URL for a http server
@@ -8856,23 +6598,8 @@ exports.tests = {
    * @author Curt Arnold
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToURI
    */
-  writeToURI2 : function () {
-    var success;
-    if(checkInitialization(builder, "writeToURI2") != null) return;
-    var testDoc;
-    var domImpl;
-    var output;
-    var serializer;
-    var systemId;
-    var checkSystemId;
-    var status;
-    var input;
-    var parser;
-    var checkDoc;
-    var docElem;
-    var docElemName;
-    var NULL_SCHEMA_TYPE = null;
-
+  writeToURI2 : function (test) {
+    var success, testDoc, domImpl, output, serializer, systemId, checkSystemId, status, input, parser, checkDoc, docElem, docElemName, NULL_SCHEMA_TYPE = null;
 
     var testDocRef = null;
     if (typeof(this.testDoc) != 'undefined') {
@@ -8884,19 +6611,20 @@ exports.tests = {
 
     serializer = domImpl.createLSSerializer();
     status = serializer.writeToURI(testDoc,systemId);
-    assertTrue("writeStatus",status);
+    test.ok(status, "writeStatus");
     input = domImpl.createLSInput();
     input.systemId = systemId;
 
     parser = domImpl.createLSParser(1,NULL_SCHEMA_TYPE);
     checkDoc = parser.parse(input);
-    assertNotNull("checkNotNull",checkDoc);
+    test.ok(checkDoc !== null, "checkNotNull");
     docElem = checkDoc.documentElement;
 
     docElemName = docElem.nodeName;
 
-    assertEquals("checkDocElemName","elt0",docElemName);
+    test.strictEqual("elt0", docElemName, "checkDocElemName");
 
+    test.done();
   },
   /**
    *
@@ -8906,14 +6634,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-xml-declaration
    */
-  xmldeclaration01 : function () {
-    var success;
-    if(checkInitialization(builder, "xmldeclaration01") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsSerializer;
-    var docType = null;
+  xmldeclaration01 : function (test) {
+    var success, doc, domConfig, domImplLS, lsSerializer, docType = null;
 
     var output;
     domImplLS = getImplementation();
@@ -8923,13 +6645,11 @@ exports.tests = {
 
     domConfig.setParameter("xml-declaration", true);
     output = lsSerializer.writeToString(doc);
-    assertTrue("containsXMLDecl",
-               (output.indexOf("<?xml") >= 0));
-    assertTrue("containsUTF16",
-               (output.indexOf("UTF-16") >= 0));
-    assertTrue("contains1_0",
-               (output.indexOf("1.0") >= 0));
+    test.ok(output.indexOf("<?xml") >= 0, "containsXMLDecl");
+    test.ok(output.indexOf("UTF-16") >= 0, "containsUTF16");
+    test.ok(output.indexOf("1.0") >= 0, "contains1_0");
 
+    test.done();
   },
   /**
    *
@@ -8939,14 +6659,8 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSSerializer-writeToString
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#parameter-xml-declaration
    */
-  xmldeclaration02 : function () {
-    var success;
-    if(checkInitialization(builder, "xmldeclaration02") != null) return;
-    var doc;
-    var domConfig;
-    var domImplLS;
-    var lsSerializer;
-    var docType = null;
+  xmldeclaration02 : function (test) {
+    var success, doc, domConfig, domImplLS, lsSerializer, docType = null;
 
     var output;
     domImplLS = getImplementation();
@@ -8957,16 +6671,10 @@ exports.tests = {
     domConfig.setParameter("xml-declaration", false);
     output = lsSerializer.writeToString(doc);
 
-    {
-      assertFalse("containsXMLDecl",(output.indexOf("<?xml") >= 0));
+    test.ok((output.indexOf("<?xml") >= 0) === false, "containsXMLDecl");
+    test.ok((output.indexOf("UTF-16") >= 0) === false, "containsUTF16");
+	  test.ok((output.indexOf("1.0") >= 0) === false, "contains1_0");
 
-      {
-	assertFalse("containsUTF16",(output.indexOf("UTF-16") >= 0));
-
-	{
-	  assertFalse("contains1_0",(output.indexOf("1.0") >= 0));
-        }
-      }
-    }
+    test.done();
   }
 }

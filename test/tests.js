@@ -11,8 +11,8 @@ var fetch = [
   "level2/html",
   "level2/style",
   "level2/extra",
-  
-  //"level3/ls",
+  "level3/core",
+  "level3/ls",
   "level3/xpath",
   /*"window",*/
   "jsdom"
