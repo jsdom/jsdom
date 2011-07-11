@@ -41,7 +41,7 @@ function test(fn) {
           test.deepEqual(f, q.apply(q,c), a + " (" + b + ")");
         }
 
-        fn(test, jQuery, document, q, t);
+        fn(test, window, jQuery, document, q, t);
       }
     });
   }
@@ -64,7 +64,7 @@ function url(value) {
 }
 
 module.exports = {};
-module.exports['element'] = test(function(test, jQuery, document, q, t) {
+module.exports['element'] = test(function(test, window, jQuery, document, q, t) {
   var all = jQuery("*"), good = true;
   for ( var i = 0; i < all.length; i++ )
     if ( all[i].nodeType == 8 )
@@ -102,7 +102,7 @@ module.exports['element'] = test(function(test, jQuery, document, q, t) {
 });
 /*
 if ( location.protocol != "file:" ) {
-  module.exports['XML Document Selectors'] = function(test) {
+  module.exports['XML Document Selectors'] = test(function(test, window, jQuery, document, q, t) {
     stop();
     test.ok(false, "needs xmldocument");
     jQuery.get("data/with_fries.xml", function(xml) {
@@ -118,11 +118,11 @@ if ( location.protocol != "file:" ) {
       start();
       test.done();
     });
-    test.done();
-};
-}
+    test.done()
+});
+}*/
 
-module.exports['broken'] = function(test) {
+module.exports['broken'] = test(function(test, window, jQuery, document, q, t) {
 
   function broken(name, selector) {
     try {
@@ -165,10 +165,11 @@ module.exports['broken'] = function(test) {
   broken( "Attribute not escaped", "input[name=foo[baz]]", [] );
 
   attrbad.remove();
-  test.done();
-};
+  test.done()
+});
 
-module.exports['id'] = function(test) {
+
+module.exports['id'] = test(function(test, window, jQuery, document, q, t) {
   t( "ID Selector", "#body", ["body"] );
   t( "ID Selector w/ Element", "body#body", ["body"] );
   t( "ID Selector w/ Element", "ul#first", [] );
@@ -205,16 +206,16 @@ module.exports['id'] = function(test) {
   test.deepEqual( jQuery("body").find("div#form").get(), [], "ID selector within the context of another element" );
 
   //#7533
-  equal( jQuery("<div id=\"A'B~C.D[E]\"><p>foo</p></div>").find("p").length, 1, "Find where context root is a node and has an ID with CSS3 meta characters" );
+  test.strictEqual( jQuery("<div id=\"A'B~C.D[E]\"><p>foo</p></div>").find("p").length, 1, "Find where context root is a node and has an ID with CSS3 meta characters" );
 
   t( "Underscore ID", "#types_all", ["types_all"] );
   t( "Dash ID", "#fx-queue", ["fx-queue"] );
 
   t( "ID with weird characters in it", "#name\\+value", ["name+value"] );
-  test.done();
-};
+  test.done()
+});
 
-module.exports['class'] = function(test) {
+module.exports['class'] = test(function(test, window, jQuery, document, q, t) {
   t( "Class Selector", ".blog", ["mark","simon"] );
   t( "Class Selector", ".GROUPS", ["groups"] );
   t( "Class Selector", ".blog.link", ["simon"] );
@@ -247,10 +248,10 @@ module.exports['class'] = function(test) {
   div.lastChild.className = "e";
 
   test.deepEqual( jQuery(".e", div).get(), [ div.firstChild, div.lastChild ], "Finding a modified class." );
-  test.done();
-};
+  test.done()
+});
 
-module.exports['name'] = function(test) {
+module.exports['name'] = test(function(test, window, jQuery, document, q, t) {
 
   t( "Name selector", "input[name=action]", ["text1"] );
   t( "Name selector with single quotes", "input[name='action']", ["text1"] );
@@ -281,19 +282,19 @@ module.exports['name'] = function(test) {
   t( "Find elements that have similar IDs", "#tName2ID", ["tName2ID"] );
 
   a.remove();
-  test.done();
-};
+  test.done()
+});
 
-module.exports['multiple'] = function(test) {
+module.exports['multiple'] = test(function(test, window, jQuery, document, q, t) {
 
   t( "Comma Support", "h2, #qunit-fixture p", ["qunit-banner","qunit-userAgent","firstp","ap","sndp","en","sap","first"]);
   t( "Comma Support", "h2 , #qunit-fixture p", ["qunit-banner","qunit-userAgent","firstp","ap","sndp","en","sap","first"]);
   t( "Comma Support", "h2 , #qunit-fixture p", ["qunit-banner","qunit-userAgent","firstp","ap","sndp","en","sap","first"]);
   t( "Comma Support", "h2,#qunit-fixture p", ["qunit-banner","qunit-userAgent","firstp","ap","sndp","en","sap","first"]);
-  test.done();
-};
+  test.done()
+});
 
-module.exports['child and adjacent'] = function(test) {
+module.exports['child and adjacent'] = test(function(test, window, jQuery, document, q, t) {
   t( "Child", "p > a", ["simon1","google","groups","mark","yahoo","simon"] );
   t( "Child", "p> a", ["simon1","google","groups","mark","yahoo","simon"] );
   t( "Child", "p >a", ["simon1","google","groups","mark","yahoo","simon"] );
@@ -318,10 +319,10 @@ module.exports['child and adjacent'] = function(test) {
   test.deepEqual( jQuery("#siblingfirst").find("~ em").get(), q("siblingnext"), "Element Preceded By with a context." );
   test.deepEqual( jQuery("#siblingfirst").find("+ em").get(), q("siblingnext"), "Element Directly Preceded By with a context." );
 
-  equal( jQuery("#listWithTabIndex").length, 1, "Parent div for next test is found via ID (#8310)" );
-  equal( jQuery("#listWithTabIndex li:eq(2) ~ li").length, 1, "Find by general sibling combinator (#8310)" );
-  equal( jQuery("#__sizzle__").length, 0, "Make sure the temporary id assigned by sizzle is cleared out (#8310)" );
-  equal( jQuery("#listWithTabIndex").length, 1, "Parent div for previous test is still found via ID (#8310)" );
+  test.strictEqual( jQuery("#listWithTabIndex").length, 1, "Parent div for next test is found via ID (#8310)" );
+  test.strictEqual( jQuery("#listWithTabIndex li:eq(2) ~ li").length, 1, "Find by general sibling combinator (#8310)" );
+  test.strictEqual( jQuery("#__sizzle__").length, 0, "Make sure the temporary id assigned by sizzle is cleared out (#8310)" );
+  test.strictEqual( jQuery("#listWithTabIndex").length, 1, "Parent div for previous test is still found via ID (#8310)" );
 
   t( "Verify deep class selector", "div.blah > p > a", [] );
 
@@ -332,10 +333,10 @@ module.exports['child and adjacent'] = function(test) {
   test.deepEqual( jQuery("> *:first", document.getElementById("nothiddendiv")).get(), q("nothiddendivchild"), "Verify child context positional selctor" );
 
   t( "Non-existant ancestors", ".fototab > .thumbnails > a", [] );
-  test.done();
-};
+  test.done()
+});
 
-module.exports['attributes'] = function(test) {
+module.exports['attributes'] = test(function(test, window, jQuery, document, q, t) {
 
   t( "Attribute Exists", "a[title]", ["google"] );
   t( "Attribute Exists", "*[title]", ["google"] );
@@ -384,7 +385,7 @@ module.exports['attributes'] = function(test) {
   test.ok( match( opt, "[test=]" ), "Attribute With No Quotes No Content Matches" );
   test.ok( match( opt, "[id=option1a]" ), "Attribute With No Quotes Equals Matches" );
   test.ok( match( document.getElementById("simon1"), "a[href*=#]" ), "Attribute With No Quotes Href Contains Matches" );
-
+  return test.done();
   t("Empty values", "#select1 option[value='']", ["option1a"]);
   t("Empty values", "#select1 option[value!='']", ["option1b","option1c","option1d"]);
 
@@ -412,11 +413,11 @@ module.exports['attributes'] = function(test) {
   var div = document.createElement("div");
   div.innerHTML = "<div id='foo' xml:test='something'></div>";
 
-  deepEqual( jQuery( "[xml\\:test]", div ).get(), [ div.firstChild ], "Finding by attribute with escaped characters." );
-  test.done();
-};
+  test.deepEqual( jQuery( "[xml\\:test]", div ).get(), [ div.firstChild ], "Finding by attribute with escaped characters." );
+  test.done()
+});
 
-module.exports['pseudo - child'] = function(test) {
+module.exports['pseudo - child'] = test(function(test, window, jQuery, document, q, t) {
   t( "First Child", "#qunit-fixture p:first-child", ["firstp","sndp"] );
   t( "Last Child", "p:last-child", ["sap"] );
   t( "Only Child", "#qunit-fixture a:only-child", ["simon1","anchor1","yahoo","anchor2","liveLink1","liveLink2"] );
@@ -434,7 +435,6 @@ module.exports['pseudo - child'] = function(test) {
 
   t( "First Child", "p:first-child", [] );
 
-  QUnit.reset();
 
   t( "Last Child", "p:last-child", ["sap"] );
   t( "Last Child", "#qunit-fixture a:last-child", ["simon1","anchor1","mark","yahoo","anchor2","simon","liveLink1","liveLink2"] );
@@ -466,10 +466,10 @@ module.exports['pseudo - child'] = function(test) {
   t( "Nth-child", "#form select:first option:nth-child(-1n+3)", ["option1a", "option1b", "option1c"] );
   t( "Nth-child", "#form select:first option:nth-child(-n+3)", ["option1a", "option1b", "option1c"] );
   t( "Nth-child", "#form select:first option:nth-child(-1n + 3)", ["option1a", "option1b", "option1c"] );
-  test.done();
-};
+  test.done()
+});
 
-module.exports['pseudo - misc'] = function(test) {
+module.exports['pseudo - misc'] = test(function(test, window, jQuery, document, q, t) {
 
   t( "Headers", ":header", ["qunit-header", "qunit-banner", "qunit-userAgent"] );
   t( "Has Children - :has()", "p:has(a)", ["firstp","ap","en","sap"] );
@@ -495,7 +495,6 @@ module.exports['pseudo - misc'] = function(test) {
 
     test.ok( (window.Sizzle || window.jQuery.find).matchesSelector( jQuery("#input_" + type)[0], ":" + type ), "Input Matches :" + type );
     test.ok( (window.Sizzle || window.jQuery.find).matchesSelector( jQuery("#button_" + type)[0], ":" + type ), "Button Matches :" + type );
-    test.done();
   });
 
   document.body.removeChild( tmp );
@@ -507,7 +506,7 @@ module.exports['pseudo - misc'] = function(test) {
   document.body.appendChild( input );
 
   input.focus();
-
+  
   t( "Element focused", "input:focus", [ "focus-input" ] );
 
   test.ok( (window.Sizzle || window.jQuery.find).matchesSelector( input, ":focus" ), ":focus Matches" );
@@ -517,11 +516,11 @@ module.exports['pseudo - misc'] = function(test) {
   test.ok( !(window.Sizzle || window.jQuery.find).matchesSelector( input, ":focus" ), ":focus Doesn't Match" );
 
   document.body.removeChild( input );
-  test.done();
-};
+  test.done()
+});
 
 
-module.exports['pseudo - :not'] = function(test) {
+module.exports['pseudo - :not'] = test(function(test, window, jQuery, document, q, t) {
   t( "Not", "a.blog:not(.link)", ["mark"] );
 
   t( "Not - multiple", "#form option:not(:contains(Nothing),#option1b,:selected)", ["option1c", "option1d", "option2b", "option2c", "option3d", "option3e", "option4e", "option5b", "option5c"] );
@@ -552,10 +551,10 @@ module.exports['pseudo - :not'] = function(test) {
   t( ":not() Multiple Class", "#foo a:not(.blog)", ["yahoo","anchor2"] );
   t( ":not() Multiple Class", "#foo a:not(.link)", ["yahoo","anchor2"] );
   t( ":not() Multiple Class", "#foo a:not(.blog.link)", ["yahoo","anchor2"] );
-  test.done();
-};
+  test.done()
+});
 
-module.exports['pseudo - position'] = function(test) {
+module.exports['pseudo - position'] = test(function(test, window, jQuery, document, q, t) {
   t( "nth Element", "#qunit-fixture p:nth(1)", ["ap"] );
   t( "First Element", "#qunit-fixture p:first", ["firstp"] );
   t( "Last Element", "p:last", ["first"] );
@@ -583,36 +582,36 @@ module.exports['pseudo - position'] = function(test) {
   t( "Check element position", "#dl div:first div:first", ["foo"] );
   t( "Check element position", "#dl div:first > div:first", ["foo"] );
   t( "Check element position", "div#nothiddendiv:first > div:first", ["nothiddendivchild"] );
-  test.done();
-};
+  test.done()
+});
 
-if ( (window.Sizzle || jQuery.find).selectors.filters.visibility ) {
-module.exports['pseudo - visibility'] = function(test) {
+module.exports['pseudo - visibility'] = test(function(test, window, jQuery, document, q, t) {
 
-  t( "Is Visible", "#form input:visible", [] );
-  t( "Is Visible", "div:visible:not(#qunit-testrunner-toolbar):lt(2)", ["nothiddendiv", "nothiddendivchild"] );
-  t( "Is Hidden", "#form input:hidden", ["text1","text2","radio1","radio2","check1","check2","hidden1","hidden2","name","search"] );
-  t( "Is Hidden", "#qunit-fixture:hidden", ["main"] );
-  t( "Is Hidden", "#dl:hidden", ["dl"] );
+  if ( (window.Sizzle || jQuery.find).selectors.filters.visibility ) {
+    t( "Is Visible", "#form input:visible", [] );
+    t( "Is Visible", "div:visible:not(#qunit-testrunner-toolbar):lt(2)", ["nothiddendiv", "nothiddendivchild"] );
+    t( "Is Hidden", "#form input:hidden", ["text1","text2","radio1","radio2","check1","check2","hidden1","hidden2","name","search"] );
+    t( "Is Hidden", "#qunit-fixture:hidden", ["main"] );
+    t( "Is Hidden", "#dl:hidden", ["dl"] );
 
-  var $div = jQuery('<div/>').appendTo("body");
-  $div.css({ fontSize: 0, lineHeight: 0});
-  // IE also needs to set font-size and line-height to 0
-  $div.width(1).height(0);
-  t( "Is Visible", '#nothiddendivchild:visible', ['nothiddendivchild'] );
-  t( "Is Not Visible", '#nothiddendivchild:hidden', [] );
-  $div.width(0).height(1);
-  t( "Is Visible", '#nothiddendivchild:visible', ['nothiddendivchild'] );
-  t( "Is Not Visible", '#nothiddendivchild:hidden', [] );
-  $div.width(1).height(1);
-  t( "Is Visible", '#nothiddendivchild:visible', ['nothiddendivchild'] );
-  t( "Is Not Visible", '#nothiddendivchild:hidden', [] );
-  $div.remove();
-  test.done();
-};
-}
+    var $div = jQuery('<div/>').appendTo("body");
+    $div.css({ fontSize: 0, lineHeight: 0});
+    // IE also needs to set font-size and line-height to 0
+    $div.width(1).height(0);
+    t( "Is Visible", '#nothiddendivchild:visible', ['nothiddendivchild'] );
+    t( "Is Not Visible", '#nothiddendivchild:hidden', [] );
+    $div.width(0).height(1);
+    t( "Is Visible", '#nothiddendivchild:visible', ['nothiddendivchild'] );
+    t( "Is Not Visible", '#nothiddendivchild:hidden', [] );
+    $div.width(1).height(1);
+    t( "Is Visible", '#nothiddendivchild:visible', ['nothiddendivchild'] );
+    t( "Is Not Visible", '#nothiddendivchild:hidden', [] );
+    $div.remove();
+  }
+  test.done()
+});
 
-module.exports['pseudo - form'] = function(test) {
+module.exports['pseudo - form'] = test(function(test, window, jQuery, document, q, t) {
 
   var implied = jQuery('<input id="impliedText"/>').appendTo("#form");
 
@@ -627,17 +626,17 @@ module.exports['pseudo - form'] = function(test) {
   t( "Selected Option Element", "#form option:selected", ["option1a","option2d","option3b","option3c","option4b","option4c","option4d","option5a"] );
 
   implied.remove();
-  test.done();
-};
+  test.done()
+});
 
-module.exports['disconnected nodes'] = function(test) {
+module.exports['disconnected nodes'] = test(function(test, window, jQuery, document, q, t) {
   var $opt = jQuery('<option></option>').attr("value", "whipit").appendTo("#qunit-fixture").detach();
-  equal( $opt.val(), "whipit", "option value" );
-  equal( $opt.is(":selected"), false, "unselected option" );
+  test.strictEqual( $opt.val(), "whipit", "option value" );
+  test.strictEqual( $opt.is(":selected"), false, "unselected option" );
   $opt.attr("selected", true);
-  equal( $opt.is(":selected"), true, "selected option" );
+  test.strictEqual( $opt.is(":selected"), true, "selected option" );
 
   var $div = jQuery( '<div/>' );
-  equal( $div.is("div"), true, "Make sure .is('nodeName') works on disconnect nodes." );
-  test.done();
-};*/
+  test.strictEqual( $div.is("div"), true, "Make sure .is('nodeName') works on disconnect nodes." );
+  test.done()
+});
