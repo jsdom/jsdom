@@ -1,21 +1,154 @@
-#! /usr/bin/env bash
+#!/usr/bin/env node
 
-echo "LEVEL 1"
-nodeunit level1/core.js --reporter=minimal
-nodeunit level1/html.js --reporter=minimal
-nodeunit level1/svg.js --reporter=minimal
-echo "LEVEL 2"
-nodeunit level2/core.js --reporter=minimal
-nodeunit level2/extra.js --reporter=minimal
-nodeunit level2/events.js --reporter=minimal
-nodeunit level2/html.js --reporter=minimal
-nodeunit level2/style.js --reporter=minimal
-echo "BROWSER"
-nodeunit browser/index.js --reporter=minimal
-echo "WINDOW"
-nodeunit window/index.js --reporter=minimal
-echo "JSDOM"
-nodeunit jsdom/index.js --reporter=minimal
-# echo "LEVEL 3"
-# nodeunit level3/ls.js --reporter=minimal
-# nodeunit level3/core.js --reporter=minimal
+var nodeunit = require('nodeunit'),
+    fs = require('fs'),
+    path = require('path'),
+    AssertionError = require('assert').AssertionError;
+
+
+var totalTests = 0;
+var failedTests = 0;
+var passedTests = 0;
+var modules = {};
+var currentModule = "";
+var moduleIndex = 0;
+var start = new Date().getTime();
+
+var files = [ 
+  "level1/core.js",
+  "level1/html.js",
+  "level1/svg.js",
+  "level2/core.js",
+  "level2/html.js",
+  "level2/style.js",
+  "level2/extra.js",
+  "level3/core.js",
+  "level3/ls.js",
+  "level3/xpath.js",
+  /*  
+   TODO: this needs work, will break everything if included.
+   "window",*/
+   "jsdom/index.js",
+   "sizzle/index.js"
+];
+
+
+
+var paths = files.map(function (p) {
+  return path.join(process.cwd(), p);
+});
+
+nodeunit.runFiles(paths, {
+  moduleStart: function (name) {
+    currentModule = files[moduleIndex].replace('.js', '');
+    console.log("running", name, currentModule);
+    modules[currentModule] = {
+      total : 0,
+      fail  : 0,
+      pass  : 0
+    };
+    moduleIndex++;
+  },
+  moduleDone: function (name, assertions) {
+  },
+  testStart: function () {
+    modules[currentModule].total++;   
+  },
+  testDone: function (name, assertions) {
+    totalTests++;
+    if (!assertions.failures()) {
+      passedTests++;
+      modules[currentModule].pass++;
+    }
+    else {
+      failedTests++;
+      modules[currentModule].fail++;
+
+      console.log('✖ ' + currentModule + '/' + name);
+      assertions.forEach(function (a) {
+        if (a.failed()) {
+          a = nodeunit.utils.betterErrors(a);
+          if (a.error instanceof AssertionError && a.message) {
+            console.log(
+                'Assertion Message: ' +
+                assertion_message(a.message)
+            );  
+          }   
+          console.log(a.error.stack + '\n');
+        } 
+      }); 
+    }
+  },
+  done: function (assertions) {
+    var end = new Date().getTime();
+    var duration = end - start;
+    var maxWidths = {
+      name   : 0,
+      ratio   : 0,
+      percent : 4
+    };
+    var width = 0;
+    var keys = Object.keys(modules);
+
+    var calculateMax = function(name, value) {
+      if (!maxWidths[name] || value.length > maxWidths[name]) {
+          maxWidths[name] = value.length;
+      }
+
+      width = 2;
+      Object.keys(maxWidths).forEach(function(v) {
+        width += maxWidths[v] + 2;
+      });
+    }
+
+    var pad = function(name, value, rightJustified) {
+      var ret = '';  
+      var padding = '';
+
+      var amount = maxWidths[name] - value.length;
+      while(amount--) {
+          padding += " ";
+      }
+
+      if (rightJustified) {
+        return ' ' + padding + value + '     ';
+      } else {
+        return ' ' + value + padding + '     ';
+      }
+    }
+
+    // First pass, calculate the max widths
+    keys.forEach(function(v) {
+       var module = modules[v];
+       var ratio  = module.pass + '/' + module.total;
+       var percentage = Math.floor((module.pass/module.total)*100) + '%';
+       modules[v].ratio = ratio;
+       modules[v].percentage = percentage;
+       calculateMax('name', v);
+       calculateMax('ratio', ratio);
+       calculateMax('percentage', percentage);
+    });
+
+    var caps = '';
+    var gen = width;
+
+    while(gen--) {
+      caps += '-';
+    }
+
+    console.log('');
+    Object.keys(modules).forEach(function(v) {
+       var module = modules[v];
+       process.stdout.write(pad('name', v, false));
+       process.stdout.write(pad('ratio', module.ratio, true));
+       process.stdout.write(pad('percentage', module.percentage, true));
+       process.stdout.write('\n');
+    });
+    console.log(caps);
+    var ratio = failedTests + '/' + totalTests;
+    var percent = Math.floor((passedTests/totalTests)*100) + '%';
+    console.log('TOTALS: %s failed; %s success', ratio, percent);
+    console.log('TIME: %dms', duration);
+  }
+});
+
