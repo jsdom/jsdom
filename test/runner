@@ -35,9 +35,8 @@ var files = [
 
 
 var paths = files.map(function (p) {
-  return path.join(process.cwd(), p);
+  return path.join(__dirname, p);
 });
-
 nodeunit.runFiles(paths, {
   moduleStart: function (name) {
     currentModule = files[moduleIndex].replace('.js', '');
