@@ -4,7 +4,7 @@ var r = function(suite) {
 }
 
 var fetch = [
- "level1/core",
+  "level1/core",
   "level1/html",
   "level1/svg",
   "level2/core",
@@ -12,10 +12,13 @@ var fetch = [
   "level2/style",
   "level2/extra",
   "level3/core",
-  "level3/ls",
+  //"level3/ls",
   "level3/xpath",
-  /*"window",*/
-  "jsdom"
+  /*
+   TODO: this needs work, will break everything if included.
+   "window",*/
+   "jsdom",
+   "sizzle"
 ];
 
 module.exports = {};
@@ -25,3 +28,4 @@ module.exports = {};
 fetch.forEach(function(k) {
   module.exports[k] = r(k);
 });
+
