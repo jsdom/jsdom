@@ -54,11 +54,11 @@ exports.tests = {
       html: path.join(__dirname, 'files', 'env.html'),
       scripts: [path.join(__dirname, '..', '..', 'example', 'jquery', 'jquery.js')],
       done: function(errors, window) {
-		test.equal(errors, null, 'errors should be null');
+        test.equal(errors, null, 'errors should be null');
         var $ = window.jQuery, text = 'Let\'s Rock!';
         $('body').text(text);
         test.equal($('body').text(), text, 'jsdom.env() should load jquery, a document and add some text to the body');
-	test.done();
+        test.done();
       }
     });
   },
@@ -68,7 +68,7 @@ exports.tests = {
     jsdom.env({
       html: html,
       done: function(errors, window) {
-	test.equal(errors, null, 'errors should be null');
+  test.equal(errors, null, 'errors should be null');
         test.notEqual(window.location, null, 'window.location should not be null');
         test.done();
       }
