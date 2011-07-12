@@ -1,8 +1,8 @@
 var jsdom        = require('../../lib/jsdom');
 var fs           = require('fs');
-var jqueryString = fs.readFileSync('./support/jquery-1.6.2.js', 'utf-8');
-var testFile     = fs.readFileSync('./files/index.html', 'utf-8');
-
+var jqueryString = fs.readFileSync(__dirname + '/support/jquery-1.6.2.js', 'utf-8');
+var testFile     = fs.readFileSync(__dirname + '/files/index.html', 'utf-8');
+var qunit        = require('./support/qunit').QUnit;
 
 function test(fn) {
   // return a nodeunit compatible test case
@@ -38,7 +38,8 @@ function test(fn) {
             s += (s && ",") + '"' + f[i].id + '"';
           }
 
-          test.deepEqual(f, q.apply(q,c), a + " (" + b + ")");
+          var e = qunit.equiv(f, q.apply(q,c));
+          test.strictEqual(e, true,  a + " (" + b + ")");
         }
 
         fn(test, window, jQuery, document, q, t);
@@ -496,7 +497,6 @@ module.exports['pseudo - misc'] = test(function(test, window, jQuery, document, 
     test.ok( (window.Sizzle || window.jQuery.find).matchesSelector( jQuery("#input_" + type)[0], ":" + type ), "Input Matches :" + type );
     test.ok( (window.Sizzle || window.jQuery.find).matchesSelector( jQuery("#button_" + type)[0], ":" + type ), "Button Matches :" + type );
   });
-
   document.body.removeChild( tmp );
 
   var input = document.createElement("input");
@@ -506,13 +506,12 @@ module.exports['pseudo - misc'] = test(function(test, window, jQuery, document, 
   document.body.appendChild( input );
 
   input.focus();
-  
+ 
   t( "Element focused", "input:focus", [ "focus-input" ] );
 
   test.ok( (window.Sizzle || window.jQuery.find).matchesSelector( input, ":focus" ), ":focus Matches" );
 
   input.blur();
-
   test.ok( !(window.Sizzle || window.jQuery.find).matchesSelector( input, ":focus" ), ":focus Doesn't Match" );
 
   document.body.removeChild( input );
@@ -532,7 +531,6 @@ module.exports['pseudo - :not'] = test(function(test, window, jQuery, document, 
   t( ":not() failing interior", "#qunit-fixture p:not(#blargh)", ["firstp","ap","sndp","en","sap","first"] );
   t( ":not() failing interior", "#qunit-fixture p:not(div#blargh)", ["firstp","ap","sndp","en","sap","first"] );
   t( ":not() failing interior", "#qunit-fixture p:not(p#blargh)", ["firstp","ap","sndp","en","sap","first"] );
-
   t( ":not Multiple", "#qunit-fixture p:not(a)", ["firstp","ap","sndp","en","sap","first"] );
   t( ":not Multiple", "#qunit-fixture p:not(a, b)", ["firstp","ap","sndp","en","sap","first"] );
   t( ":not Multiple", "#qunit-fixture p:not(a, b, div)", ["firstp","ap","sndp","en","sap","first"] );
