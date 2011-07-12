@@ -1451,7 +1451,6 @@ exports.tests = {
     domImpl = getImplementation();
     domImplLS = domImpl.getFeature("+lS","3.0");
     test.ok(domImplLS !== null, "domImplLSNotNull");
-console.log(domImplLS);
     output = domImplLS.createLSOutput();
     test.ok(output !== null, "outputNotNull");
 
