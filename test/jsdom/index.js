@@ -708,6 +708,16 @@ exports.tests = {
       test.done();
     })
   },
+
+  // see: https://github.com/tmpvar/jsdom/issues/163
+  issue_163 : function(test) {
+    jsdom.env('<a />', [__dirname + '/files/163.js'], function(errors, window) {
+      test.ok(!errors, 'no errors');
+      test.ok(window.hasNativeObjects === true, 'window has the expected properties');
+      test.done();
+    });
+  },
+
   // see: https://github.com/tmpvar/jsdom/issues/179
   issue_179 : function(test) {
     jsdom.env('<a />', [__dirname + '/files/179.js'], function(errors, window) {
@@ -717,4 +727,5 @@ exports.tests = {
       test.done();
     });
   }
+
 };
