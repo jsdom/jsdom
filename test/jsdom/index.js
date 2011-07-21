@@ -707,5 +707,14 @@ exports.tests = {
       test.ok(w.$, 'window contains $');
       test.done();
     })
+  },
+  // see: https://github.com/tmpvar/jsdom/issues/179
+  issue_179 : function(test) {
+    jsdom.env('<a />', [__dirname + '/files/179.js'], function(errors, window) {
+      test.ok(!errors, 'no errors');
+      test.ok(window.b === 42, 'local var gets hung off of the window');
+      test.ok(window.exposed === 42, 'read local var from window and exposed it');
+      test.done();
+    });
   }
 };
