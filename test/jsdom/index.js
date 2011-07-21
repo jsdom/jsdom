@@ -331,30 +331,38 @@ exports.tests = {
 
   // TODO: look into breaking into a testcase
   scripts_share_a_global_context: function(test) {
-    var window = jsdom.jsdom('<html><head><script type="text/javascript">\
-Object.prototype.a = 1;\
-hello = "hello";\
-window.bye = "good";\
-var abc = 123;\
-</script>\
-<script type="text/javascript">\
-window.object = new Object();\
-hello += " world";\
-bye = bye + "bye";\
-(function() {\
-  var hidden = "hidden";\
-  window.exposed = hidden;\
-  this.imOnAWindow = true;\
-})();\
-</script></head><body></body></html>').createWindow();
+    var window = jsdom.jsdom('\
+      <html><head>\
+      <script type="text/javascript">\
+        Object.prototype.a = 1;\
+        hello = "hello";\
+        window.bye = "good";\
+        var abc = 123;\
+        var localOnWindow = "look at me, im on a window";\
+      </script>\
+      \
+      <script type="text/javascript">\
+        window.object = new Object();\
+        hello += " world";\
+        bye = bye + "bye";\
+        window.confirmTheLocalIsOnTheWindow = localOnWindow;\
+        (function() {\
+          var hidden = "hidden";\
+          window.exposed = hidden;\
+          this.imOnAWindow = true;\
+        })();\
+      </script>\
+      </head><body></body></html>'
+    ).createWindow();
 
+    test.equal(window.confirmTheLocalIsOnTheWindow, window.localOnWindow, 'local variables should be attached to the window');
     test.equal(window.hello, "hello world", 'window should be the global context');
     test.equal(window.bye, "goodbye", 'window should be the global context');
     test.equal(window.abc, 123, 'local vars should not leak out to the window');
     test.strictEqual(window.hidden, undefined, 'vars in a closure are safe');
     test.equal(window.exposed, 'hidden', 'vars exposed to the window are global');
     test.equal(window.imOnAWindow, true, 'setting this in the outer context should apply to the window');
-    test.equal(window.object.a, 1, 'prototypes should be maintained across contexts')
+    test.equal(window.object.a, 1, 'prototypes should be maintained across contexts');
     test.done();
   },
 
