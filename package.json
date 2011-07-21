@@ -89,7 +89,8 @@
     },
     "devDependencies" : {
       "nodeunit" : ">=0.5.x",
-      "console.log" : "*"
+      "console.log" : "*",
+      "optimist"   : "*"
     },
     "engines" : { "node" : ">=0.1.9" },
     "directories": {
