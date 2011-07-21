@@ -61,6 +61,26 @@ or with a configuration object
                           }
               });
 
+or with raw javascript source
+
+    // Print all of the news items on hackernews
+    var jsdom = require('jsdom');
+
+    var jquery = fs.readFileSync("./jquery-1.5.min.js");
+
+    jsdom.env({
+                html: 'http://news.ycombinator.com/',
+                src: [
+                           jquery
+                         ],
+                done: function(errors, window) {
+                                  var $ = window.$;
+                                  console.log('HN Links');
+                                  $('td.title:not(:last) a').each(function() {
+                                                                  console.log(' -', $(this).text());
+                                                                  });
+                          }
+              });
 
 ### How it works
   `jsdom.env` is built for ease of use, which is rare in the world of the DOM!  Since the web has some absolutely horrible javascript on it, as of jsdom 0.2.0 `jsdom.env` will not process external resources (scripts, images, etc).  If you want to process the javascript use one of the methods below (`jsdom.jsdom` or `jsdom.jQueryify`)
@@ -72,7 +92,10 @@ or with a configuration object
 
   - `scripts` (**optional**)
     May contain files or urls
- 
+
+  - `src` (**optional**)
+    May contain JavaScript
+
   - `callback` (**required**)
     Takes 2 arguments: 
     - `errors` : array of errors
@@ -87,6 +110,7 @@ If you would like to specify a configuration object
 
   - config.html    : see `html` above
   - config.scripts : see `scripts` above
+  - config.src     : see `src` above
   - config.done    : see `callback` above
 
 ## For the hardcore
