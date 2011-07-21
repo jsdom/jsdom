@@ -332,10 +332,13 @@ exports.tests = {
   // TODO: look into breaking into a testcase
   scripts_share_a_global_context: function(test) {
     var window = jsdom.jsdom('<html><head><script type="text/javascript">\
+Object.prototype.a = 1;\
 hello = "hello";\
 window.bye = "good";\
 var abc = 123;\
-</script><script type="text/javascript">\
+</script>\
+<script type="text/javascript">\
+window.object = new Object();\
 hello += " world";\
 bye = bye + "bye";\
 (function() {\
@@ -351,6 +354,7 @@ bye = bye + "bye";\
     test.strictEqual(window.hidden, undefined, 'vars in a closure are safe');
     test.equal(window.exposed, 'hidden', 'vars exposed to the window are global');
     test.equal(window.imOnAWindow, true, 'setting this in the outer context should apply to the window');
+    test.equal(window.object.a, 1, 'prototypes should be maintained across contexts')
     test.done();
   },
 
