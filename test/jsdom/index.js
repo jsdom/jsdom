@@ -691,5 +691,13 @@ bye = bye + "bye";\
     );
 
     test.done();
+  },
+  allow_ender_to_run : function(test) {
+    jsdom.env('<a />', [__dirname + '/files/ender-qwery.js'], function(e, w) {
+      test.ok(!e, 'no errors');
+      test.ok(w.ender, 'ender exists')
+      test.ok(w.$, 'window contains $');
+      test.done();
+    })
   }
 };
