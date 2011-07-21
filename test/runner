@@ -79,14 +79,12 @@ var files = [
   "level2/html.js",
   "level2/style.js",
   "level2/extra.js",
-  "level3/core.js",
-  "level3/ls.js",
+  //"level3/core.js",
+  //"level3/ls.js",
   "level3/xpath.js",
-  /*
-   TODO: this needs work, will break everything if included.
-   "window",*/
-   "sizzle/index.js",
-   "jsdom/index.js"
+  "window",
+  "sizzle/index.js",
+  "jsdom/index.js"
 ];
 
 if (fileFilter.length > 0) {
@@ -172,6 +170,8 @@ nodeunit.runModules(modulesToRun, {
 
             console.log(a.error.message, a.error.stack, (new Error()).stack);
            }
+         } else {
+           console.log(a.message);
          }
       });
 
