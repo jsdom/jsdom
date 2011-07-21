@@ -1,8 +1,9 @@
 var dom = require("../../lib/jsdom/level1/core").dom.level1.core;
-var window = require("../../lib/jsdom/browser/index").windowAugmentation(dom);
 
 exports.tests = {
+
   addmetatohead: function(test) {
+    var window = require("../../lib/jsdom/browser/index").windowAugmentation(dom);
     var meta = window.document.createElement("meta");
     window.document.getElementsByTagName("head").item(0).appendChild(meta);
     var elements = window.document.getElementsByTagName("head").item(0).childNodes;
@@ -13,6 +14,7 @@ exports.tests = {
   },
 
   ensure_a_default_window_has_a_window_location_href: function(test) {
+    var window = require("../../lib/jsdom/browser/index").windowAugmentation(dom);
     var rurl = /^([\w\+\.\-]+:)\/\/([^\/?#:]*)(?::(\d+))?/,
         urlParts = rurl.exec(window.location.href);
     test.ok(urlParts.length > 1, 'url shouldnt be blank');
