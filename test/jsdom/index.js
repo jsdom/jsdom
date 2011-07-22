@@ -408,13 +408,12 @@ appVersion = aGlobal.win.navigator.appVersion\
     test.done();
   },
 
-  window_addEventListener: function(test){
-//TODO: the follow line throws error if put in the html below
-//console.log("ok");\
+  window_functions: function(test){
     var window = jsdom.jsdom('<html><head><script>function handle(){};\
 window.addEventListener("load", handle, false);\
 window.removeEventListener("load", handle, false);\
 var ev = document.createEvent("MouseEvents");ev.initEvent("click", true, true);window.dispatchEvent(ev);\
+console.log("ok");\
 window.DONE=1;</script></head><body></body></html>').createWindow();
     test.strictEqual(window.DONE, 1);
     test.done();
