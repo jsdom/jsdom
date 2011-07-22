@@ -1,4 +1,4 @@
-# jsdom 0.2.0
+# jsdom 0.2.1
 
 A javascript implementation of the W3C DOM.
 
@@ -20,72 +20,71 @@ with URL
 
     // Count all of the links from the nodejs build page
     var jsdom = require("jsdom");
-    
-    jsdom.env("http://nodejs.org/dist/",
-              [
-                 'http://code.jquery.com/jquery-1.5.min.js'
-              ],
-              function(errors, window) {
-                      console.log("there have been", window.$("a").length, "nodejs releases!");
-              });
+
+    jsdom.env("http://nodejs.org/dist/", [
+      'http://code.jquery.com/jquery-1.5.min.js'
+    ],
+    function(errors, window) {
+      console.log("there have been", window.$("a").length, "nodejs releases!");
+    });
 
 or with raw html
 
     // Run some jQuery on a html fragment
     var jsdom = require('jsdom');
-    
-    jsdom.env('<p><a class="the-link" href="http://jsdom.org>JSDOM\'s Homepage</a></p>',
-              [
-                'http://code.jquery.com/jquery-1.5.min.js'
-              ],
-              function(errors, window) {
-                      console.log("contents of a.the-link:", window.$("a.the-link").text());
-              });
+
+    jsdom.env('<p><a class="the-link" href="http://jsdom.org>JSDOM\'s Homepage</a></p>', [
+      'http://code.jquery.com/jquery-1.5.min.js'
+    ],
+    function(errors, window) {
+      console.log("contents of a.the-link:", window.$("a.the-link").text());
+    });
+
 
 or with a configuration object
 
     // Print all of the news items on hackernews
     var jsdom = require('jsdom');
-    
+
     jsdom.env({
-                html: 'http://news.ycombinator.com/',
-                scripts: [
-                           'http://code.jquery.com/jquery-1.5.min.js'
-                         ],
-                done: function(errors, window) {
-                                  var $ = window.$;
-                                  console.log('HN Links');
-                                  $('td.title:not(:last) a').each(function() {
-                                                                  console.log(' -', $(this).text());
-                                                                  });
-                          }
-              });
+      html: 'http://news.ycombinator.com/',
+      scripts: [
+        'http://code.jquery.com/jquery-1.5.min.js'
+      ],
+      done: function(errors, window) {
+        var $ = window.$;
+        console.log('HN Links');
+        $('td.title:not(:last) a').each(function() {
+          console.log(' -', $(this).text());
+        });
+      }
+    });
 
 or with raw javascript source
 
     // Print all of the news items on hackernews
-    var jsdom = require('jsdom');
-
-    var jquery = fs.readFileSync("./jquery-1.5.min.js");
+    var jsdom  = require('jsdom');
+    var fs     = require('fs');
+    var jquery = fs.readFileSync("./jquery-1.6.2.min.js").toString();
 
     jsdom.env({
-                html: 'http://news.ycombinator.com/',
-                src: [
-                           jquery
-                         ],
-                done: function(errors, window) {
-                                  var $ = window.$;
-                                  console.log('HN Links');
-                                  $('td.title:not(:last) a').each(function() {
-                                                                  console.log(' -', $(this).text());
-                                                                  });
-                          }
-              });
+      html: 'http://news.ycombinator.com/',
+      src: [
+        jquery
+      ],
+      done: function(errors, window) {
+        var $ = window.$;
+        console.log('HN Links');
+        $('td.title:not(:last) a').each(function() {
+          console.log(' -', $(this).text());
+        });
+      }
+    });
 
 ### How it works
   `jsdom.env` is built for ease of use, which is rare in the world of the DOM!  Since the web has some absolutely horrible javascript on it, as of jsdom 0.2.0 `jsdom.env` will not process external resources (scripts, images, etc).  If you want to process the javascript use one of the methods below (`jsdom.jsdom` or `jsdom.jQueryify`)
 
-    jsdom.env(html, [scripts], [options], callback)
+    jsdom.env(html, [scripts], [config], callback)
 
   - `html` (**required**)
     May be a url, html fragment, or file
@@ -93,11 +92,8 @@ or with raw javascript source
   - `scripts` (**optional**)
     May contain files or urls
 
-  - `src` (**optional**)
-    May contain JavaScript
-
   - `callback` (**required**)
-    Takes 2 arguments: 
+    Takes 2 arguments:
     - `errors` : array of errors
     - `window` : a brand new window
 
@@ -110,7 +106,7 @@ If you would like to specify a configuration object
 
   - config.html    : see `html` above
   - config.scripts : see `scripts` above
-  - config.src     : see `src` above
+  - config.src     :  An array of javascript strings that will be evaluated against the resulting document.  Similar to `scripts`, but it accepts javascript instead of paths/urls.
   - config.done    : see `callback` above
 
 ## For the hardcore
@@ -120,14 +116,14 @@ If you want to spawn a document/window and specify all sorts of options this is 
     var jsdom  = require("jsdom").jsdom,
         doc    = jsdom(markup, level, options),
         window = doc.createWindow();
- 
+
  - `markup` is a full html/xml document to be parsed
  - `level` is `null` (which means level3) by default, but you can pass another level if you'd like.
 
 
         var jsdom = require('jsdom'),
             doc   = jsdom.jsdom('<html><body></body></html>', jsdom.dom.level1.core)
-     
+
  - `options` see the **Flexibility** section below
 
 ### Flexibility
@@ -149,9 +145,9 @@ the `DOMImplementation` that every `Document` has, and may be tweaked in two way
 will use the defaults specified below (see: Default Features)
 
 2. Previous to creating any documents you can modify the defaults for all future documents
-    
+
         require('jsdom').defaultDocumentFeatures = {
-          FetchExternalResources   : ['script'], 
+          FetchExternalResources   : ['script'],
           ProcessExternalResources : false,
           MutationEvents           : false,
           QuerySelector            : false
@@ -173,7 +169,7 @@ Enables/Disables fetching files over the filesystem/http
 `ProcessExternalResources`
 _default_: ['script']
 _allowed_: ['script'] or false
- 
+
 Disabling this will disable script execution (currently only javascript).
 
 `MutationEvents`

@@ -1,67 +1,90 @@
 {
     "name": "jsdom",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "A javascript implementation of the W3C DOM",
     "keywords": [
-        "dom",
-        "w3c",
-        "javascript"
+      "dom",
+      "w3c",
+      "javascript"
     ],
-    "maintainers": [
-        {
-            "name": "Elijah Insua",
-            "email": "tmpvar@gmail.com",
-            "web": "http://tmpvar.com"
-        }
-    ],
+    "maintainers": [{
+      "name": "Elijah Insua",
+      "email": "tmpvar@gmail.com",
+      "web": "http://tmpvar.com"
+    }],
     "contributors": [
-        {
-            "name": "Vincent Greene",
-            "email": "ulteriorlife@gmail.com"
-        },
-        {
-            "name": "Dav Glass",
-            "email": "davglass@gmail.com"
-        },
-        {
-            "name": "Felix Gnass",
-            "email": "fgnass@gmail.com"
-        },
-        {
-            "name" : "Charlie Robbins",
-            "email": "charlie.robbins@gmail.com"
-        },
-        {
-            "name" : "Aria Stewart",
-            "email": "aredridel@nbtsc.org"
-        },
-        {
-            "name" : "Matthew (http://github.com/matthewpflueger/)",
-            "email": "N.A."
-        },
-        {
-          "name"  : "Olivier El Mekki (http://blog.olivier-elmekki.com/)",
-          "email" : "unknown"
-        },
-        {
-          "name"  : "Shimon Dookdin",
-          "email" : "helpmepro1@gmail.com"
-        },
-        {
-          "name"  : "Daniel Cassidy (http://www.danielcassidy.me.uk/)",
-          "email" : "mail@danielcassidy.me.uk"
-        },
-        {
-          "name"  : "Sam Ruby (http://intertwingly.net/blog/)",
-          "email" : "N/A"
-        },
-        {
-          "name"  : "hij1nx (http://github.com/hij1nx)"
-        },
-        {
-          "name"  : "Karuna Sagar",
-          "email" : "karunasagark@gmail.com"
-        }
+      {
+        "name": "Vincent Greene",
+        "email": "ulteriorlife@gmail.com"
+      },
+      {
+        "name": "Dav Glass",
+        "email": "davglass@gmail.com"
+      },
+      {
+        "name": "Felix Gnass",
+        "email": "fgnass@gmail.com"
+      },
+      {
+        "name" : "Charlie Robbins",
+        "email": "charlie.robbins@gmail.com"
+      },
+      {
+        "name" : "Aria Stewart",
+        "email": "aredridel@nbtsc.org"
+      },
+      {
+        "name" : "Matthew (http://github.com/matthewpflueger/)",
+        "email": "N.A."
+      },
+      {
+        "name"  : "Olivier El Mekki (http://blog.olivier-elmekki.com/)",
+        "email" : "unknown"
+      },
+      {
+        "name"  : "Shimon Dookdin",
+        "email" : "helpmepro1@gmail.com"
+      },
+      {
+        "name"  : "Daniel Cassidy (http://www.danielcassidy.me.uk/)",
+        "email" : "mail@danielcassidy.me.uk"
+      },
+      {
+        "name"  : "Sam Ruby (http://intertwingly.net/blog/)",
+        "email" : "N/A"
+      },
+      {
+        "name"  : "hij1nx (http://github.com/hij1nx)"
+      },
+      {
+        "name"  : "Daniel Cassidy",
+        "email" : "mail@danielcassidy.me.uk"
+      },
+      {
+        "name"  : "Yonathan Randolph (http://github.com/yonran)"
+      },
+      {
+        "name"  : "Martin Davis (http://github.com/waslogic)"
+      },
+      {
+        "name": "Andreas Lind Petersen",
+        "email": "andreas@one.com"
+      },
+      {
+        "name"  : "d-ash (http://github.com/d-ash)"
+      },
+      {
+        "name"  : "Robin",
+        "email" : "fbzhong@gmail.com"
+      },
+      {
+        "name"  : "Alexander Flatter",
+        "email" : "flatter@gmail.com"
+      },
+      {
+        "name"  : "Heng Liu",
+        "email" : "liucougar@gmail.com"
+      }
     ],
     "bugs": {
         "mail": "tmpvar@gmail.com",
