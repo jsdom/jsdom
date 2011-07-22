@@ -230,28 +230,44 @@ This feature is backed by [sizzle][] but currently causes problems with some lib
       console.log(window.$('.testing').text());
     });
 
-# W3C Test Compliance:
+# Test Compliance:
 
-  - DOM Level 1 html/svg/xml (100%)
-  - DOM Level 2 html/events/core (100%)
-  - DOM Level 3 core (14%)
+    level1/core       529/529      100%
+    level1/html       238/238      100%
+    level1/svg        527/527      100%
+    level2/core       283/283      100%
+    level2/html       687/687      100%
+    level2/style          3/3      100%
+    level2/extra          4/4      100%
+    level3/xpath        93/93      100%
+    window                2/2      100%
+    sizzle/index        12/15       80%
+    jsdom/index         44/44      100%
+    -------------------------------------
+    TOTALS: 3/2425 failed; 99% success
+    TIME: 9373ms
 
-see: [testlog][] for w3/jsdom test compliance
+
+## Running the tests
+
+First you'll want to `npm install -g nodeunit` then `npm install --dev`
+
+Using `test/runner` you can slice and dice which tests your want to run from different levels. Usage is as follows:
+
+    test/runner --help
+    Run the jsdom test suite
+
+    Options:
+    -s, --suites     suites that you want to run. ie: -s level1/core,1/html,html [string]
+    -f, --fail-fast  stop on the first failed test
+    -h, --help       show the help
+    -t, --tests      choose the test cases to run. ie: -t jquery
 
 # More
 
 see: [mailing list][]
-
-
-
-see: [plan][] for roadmap and thoughts about this project
-
 see: [project site][] for additional information
 
   [mailing list]: http://groups.google.com/group/jsdom
   [project site]: http://www.jsdom.org
-  [mjsunit.runner]: http://github.com/tmpvar/mjsunit.runner
-  [testlog]: http://github.com/tmpvar/jsdom/blob/master/test/testlog.txt
-  [plan]: http://github.com/tmpvar/jsdom/blob/master/PLAN.json
 
-[mjsunit.runner]: http://github.com/tmpvar/mjsunit.runner

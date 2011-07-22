@@ -1,0 +1,54 @@
+0.2.1
+
+ * Javascript execution fixes [#248, #163, #179]
+ * XPath (Yonathan and Daniel Cassidy)
+ * Start of cssom integration (Yonathan)
+ * Conversion of tests to nodeunit! (Martin Davis)
+ * Added sizzle tests, only failing 3/15
+ * Set the title node's textContent rather than its innerHTML [#242].  (Andreas Lind Petersen)
+ * The textContent getter now walks the DOM and extract the text properly. (Andreas Lind Petersen)
+ * Empty scripts won't cause jsdom.env to hang [#172] (Karuna Sagar)
+ * Every document has either a body or a frameset [#82]. (Karuna Sagar)
+ * Added the ability to grab a level by string + feature. ie: jsdom.level(2, 'html') (Aria Stewart)
+ * Cleaned up htmlencoding and fixed character (de)entification [#147, #177] (Andreas Lind Petersen)
+ * htmlencoding.HTMLDecode: Fixed decoding of `&lt;`, `&gt;`, `&amp;`, and `&apos;`. Closes #147 and #177. ()
+ * Require dom level as a string or object. (Aria Stewart)
+ * JS errors ar triggered on the script element, not document. (Yonathan)
+ * Added configuration property 'headers' for HTTP request headers. (antonj)
+ * Attr.specified is readonly - Karuna Sagar
+ * Removed return value from setAttributeNS() [#207] (Karuna Sagar)
+ * Pass the correct script filename to runInContext. (robin)
+ * Add http referrer support for the download() function. (Robin)
+ * First attempt at fixing the horrible memory leak via window.stopTimers() (d-ash)
+ * Use vm instead of evals binding (d-ash)
+ * Add a way to set the encoding of the jsdom.env html request.
+ * Fixed various typos/lint problems (d-ash)
+ * The first parameter download is now the object returned by URL.parse(). (Robin)
+ * Fixed serialization of elements with a style attribute.
+ * Added src config option to jsdom.env() (Jerry Sievert)
+ * Removed dead code from getNamedItemNS() (Karuna Sagar)
+ * Changes to language/javascript so jsdom would work on v0.5.0-pre (Gord Tanner)
+ * Correct spelling of "Hierarchy request error" (Daniel Cassidy)
+ * Node and Exception type constants are available in all levels. (Daniel Cassidy)
+ * Use \n instead of \r\n during serialization
+ * Fixed auto-insertion of body/html tags  (Adrian Makowski)
+ * Adopt unowned nodes when added to the tree. (Aria Stewart)
+ * Fix the selected and defaultSelected fields of `option` element. - Yonathan
+ * Fix: EventTarget.getListeners() now returns a shallow copy so that listeners can be safely removed while an event is being dispatched. (Felix Gnass)
+ * Added removeEventListener() to DOMWindow (Felix Gnass)
+ * Added the ability to pre-load scripts for jsdom.env() (Jerry Sievert)
+ * Mutation event tests/fixes (Felix Gnass)
+ * Changed HTML serialization code to (optionally) pretty print while traversing the tree instead of doing a regexp-based postprocessing. (Andreas Lind Petersen)
+ * Relative and absolute urls now work as expected
+ * setNamedItem no longer sets Node.parentNode [#153] (Karuna Sagar)
+ * Added missing semicolon after entity name - Felix Gnass
+ * Added NodeList#indexOf implementation/tests (Karuna Sagar)
+ * resourceLoader.download now works correctly with https and redirects (waslogic)
+ * Scheme-less URLs default to the current protocol [#87] (Alexander Flatter)
+ * Simplification the prevSibling(), appendChild(), insertBefore() and replaceChild() code (Karuna Sagar)
+ * Javascript errors use core.Node.trigger (Alexander Flatter)
+ * Add core.Document.trigger in level1/core and level2/events; Make DOMWindow.console use it (Alexander Flatter)
+ * Resource resolver fixes (Alexander Flatter)
+ * Fix serialization of doctypes with new lines [#148] (Karuna Sagar)
+ * Child nodes are calculated immediately instead of after .length is called [#169, #171, #176] (Karuna Sagar)
+
