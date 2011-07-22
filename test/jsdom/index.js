@@ -272,6 +272,24 @@ exports.tests = {
     }
   },
 
+  understand_file_protocol: function(test) {
+    var html = '\
+<html>\
+  <head>\
+    <script type="text/javascript" src="file://'+__dirname+'/files/hello.js"></script>\
+  </head>\
+  <body>\
+    <span id="test">hello from html</span>\
+  </body>\
+</html>';
+
+   var doc = jsdom.jsdom(html);
+   doc.onload = function() {
+     test.equal(doc.getElementById("test").innerHTML, 'hello from javascript', 'resource with file protocol should work');
+     test.done();
+   };
+  },
+
   importNode: function(test) {
     test.doesNotThrow(function() {
       var doc1 = jsdom.jsdom('<html><body><h1 id="headline">Hello <span id="world">World</span></h1></body></html>'),
@@ -363,6 +381,41 @@ exports.tests = {
     test.equal(window.exposed, 'hidden', 'vars exposed to the window are global');
     test.equal(window.imOnAWindow, true, 'setting this in the outer context should apply to the window');
     test.equal(window.object.a, 1, 'prototypes should be maintained across contexts');
+    test.done();
+  },
+
+  global_is_window_in_scripts: function(test){
+    var window = jsdom.jsdom('<html><head><script type="text/javascript">\
+var results=[window===this, window===this.window, window.window===this, document.parentWindow===this];\
+</script></head><body></body></html>').createWindow();
+
+    test.strictEqual(window.results[0], true, "window should equal global this");
+    test.strictEqual(window.results[1], true, "window should equal this.window");
+    test.strictEqual(window.results[2], true, "this should equal window.window");
+    //TODO: issue 250
+    //test.strictEqual(window.results[3], true, "this should equal document.parentWindow");
+    test.done();
+  },
+
+  global_in_object_should_be_valid_in_other_scripts: function(test){
+    var window = jsdom.jsdom('<html><head><script>\
+aGlobal={win:this};\
+</script><script>\
+appVersion = aGlobal.win.navigator.appVersion\
+</script></head><body></body></html>').createWindow();
+
+    test.strictEqual(window.appVersion, process.version);
+    test.done();
+  },
+
+  window_functions: function(test){
+    var window = jsdom.jsdom('<html><head><script>function handle(){};\
+window.addEventListener("load", handle, false);\
+window.removeEventListener("load", handle, false);\
+var ev = document.createEvent("MouseEvents");ev.initEvent("click", true, true);window.dispatchEvent(ev);\
+console.log("ok");\
+window.DONE=1;</script></head><body></body></html>').createWindow();
+    test.strictEqual(window.DONE, 1);
     test.done();
   },
 
