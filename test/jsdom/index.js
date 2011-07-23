@@ -272,6 +272,64 @@ exports.tests = {
     }
   },
 
+  load_mutiple_resources_with_defer_close: function(test) {
+    var html = '<html><head></head><body>\
+<frame src="../level2/html/files/iframe.html"></frame>\
+<frame src="../level2/html/files/iframe.html"></frame>\
+<frame src="../level2/html/files/iframe.html"></frame>\
+</body></html>';
+
+    var doc = jsdom.jsdom(html, null, {features: {FetchExternalResources: ['frame'], ProcessExternalResources: ['frame']}, 
+      deferClose:true});
+    
+    test.ok(doc._queue.paused, 'resource queue should be paused');
+
+    var check_handle, timeout_handle = setTimeout(function() {
+        doc.onload=null;
+        doc.parentWindow.close();
+	if(check_handle) {
+	  clearTimeout(check_handle);
+	}
+	test.ok(false, "timed out when waiting for onload to fire");
+	test.done();
+    }, 1000); //1 second timeout
+    function check() {
+      var q = doc._queue, h = q.tail, count=0;
+
+      check_handle = null;
+      while(h){
+        if(h.fired) {
+          count++;
+          h = h.prev;
+        } else {
+          check_handle = setTimeout(check, 50);
+          return;
+        }
+      }
+      test.equal(count, 3, 'there should be 3 resources in the resource queue');
+      doc.close();
+    }
+    check_handle = setTimeout(check, 50);
+    doc.onload = function() {
+      clearTimeout(timeout_handle);
+      test.done();
+    };
+  },
+
+  resource_queue: function(test) {
+    //ResourceQueue is not exported, so grab it from a doc
+    var doc = jsdom.jsdom(), q = doc._queue, counter = 0, increment=function() {counter++;};
+    
+    var queueHandles = [q.push(increment), q.push(increment)];
+    queueHandles[0](null, true);
+    queueHandles.push(q.push(increment));
+    queueHandles[1](null, true);
+    queueHandles[2](null, true);
+    test.strictEqual(counter, 3);
+    test.strictEqual(q.tail, null);
+    test.done();
+  },
+
   understand_file_protocol: function(test) {
     var html = '\
 <html>\
