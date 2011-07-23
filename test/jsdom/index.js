@@ -419,6 +419,32 @@ window.DONE=1;</script></head><body></body></html>').createWindow();
     test.done();
   },
 
+  frame_parent: function(test) {
+    var window = jsdom.jsdom('<html><head><script>aGlobal=1;\
+var iframe = document.createElement("iframe");\
+iframe.src = "' + __dirname + '/files/iframe.html";\
+document.body.appendChild(iframe);</script></head>\
+<body></body></html>',null, {features:{FetchExternalResources: ['script','iframe'], 
+      ProcessExternalResources: ['script','iframe']}}).createWindow();
+    window.iframe.onload = function(){
+      test.strictEqual(window.DONE, 1);
+      test.strictEqual(window.PARENT_IS_TOP, true);
+      test.done();
+    };
+  },
+
+  frame_src_relative_to_parent_doc: function(test) {
+    var window = jsdom.jsdom('<html><body>\
+<iframe src="./files/iframe.html"></iframe>\
+</body></html>',null, {url:__dirname+"/test.html", features:{FetchExternalResources: ['script','iframe'], 
+      ProcessExternalResources: ['script','iframe']}}).createWindow();
+    window.document.onload = function(){
+      test.strictEqual(window.LOADED_FRAME, 1);
+      test.strictEqual(window.PARENT_IS_TOP, true);
+      test.done();
+    };
+  },
+
   url_resolution: function(test) {
     var html = '\
   <html>\
