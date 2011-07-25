@@ -450,8 +450,8 @@ var results=[window===this, window===this.window, window.window===this, document
     test.strictEqual(window.results[0], true, "window should equal global this");
     test.strictEqual(window.results[1], true, "window should equal this.window");
     test.strictEqual(window.results[2], true, "this should equal window.window");
-    //TODO: issue 250
-    //test.strictEqual(window.results[3], true, "this should equal document.parentWindow");
+    test.strictEqual(window.results[3], true, "this should equal document.parentWindow");
+    test.strictEqual(window.document.parentWindow, window, "outside window context, document.parentWindow should be window as well");
     test.done();
   },
 
@@ -487,7 +487,18 @@ document.body.appendChild(iframe);</script></head>\
     window.iframe.onload = function(){
       test.strictEqual(window.DONE, 1);
       test.strictEqual(window.PARENT_IS_TOP, true);
-      test.done();
+
+      //insert a script tag to make sure the global set in the iframe is visible
+      //in the parent window context
+      var doc = window.document, script = doc.createElement('script');
+      script.textContent = 'results=[aGlobal, DONE, PARENT_IS_TOP]';
+      doc.body.appendChild(script);
+      //the script is executed asynchronously after insertion to the document, 
+      //so setTimeout is needed
+      setTimeout(function(){
+        test.deepEqual(window.results, [1, 1, true]);
+        test.done();
+      },0);
     };
   },
 
