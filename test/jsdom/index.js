@@ -874,6 +874,14 @@ document.body.appendChild(iframe);</script></head>\
       test.ok(window.exposed === 42, 'read local var from window and exposed it');
       test.done();
     });
-  }
+  },
 
+  timer_executes_in_context : function (test) {
+    jsdom.env('<a />', [__dirname + '/files/timer_in_context.js'], function (errors, window) {
+      setTimeout(function () {
+        test.ok(window.x == 1);
+        test.done();
+      }, 1);
+    });
+  }
 };
