@@ -272,6 +272,64 @@ exports.tests = {
     }
   },
 
+  load_mutiple_resources_with_defer_close: function(test) {
+    var html = '<html><head></head><body>\
+<frame src="../level2/html/files/iframe.html"></frame>\
+<frame src="../level2/html/files/iframe.html"></frame>\
+<frame src="../level2/html/files/iframe.html"></frame>\
+</body></html>';
+
+    var doc = jsdom.jsdom(html, null, {features: {FetchExternalResources: ['frame'], ProcessExternalResources: ['frame']}, 
+      deferClose:true});
+    
+    test.ok(doc._queue.paused, 'resource queue should be paused');
+
+    var check_handle, timeout_handle = setTimeout(function() {
+        doc.onload=null;
+        doc.parentWindow.close();
+	if(check_handle) {
+	  clearTimeout(check_handle);
+	}
+	test.ok(false, "timed out when waiting for onload to fire");
+	test.done();
+    }, 1000); //1 second timeout
+    function check() {
+      var q = doc._queue, h = q.tail, count=0;
+
+      check_handle = null;
+      while(h){
+        if(h.fired) {
+          count++;
+          h = h.prev;
+        } else {
+          check_handle = setTimeout(check, 50);
+          return;
+        }
+      }
+      test.equal(count, 3, 'there should be 3 resources in the resource queue');
+      doc.close();
+    }
+    check_handle = setTimeout(check, 50);
+    doc.onload = function() {
+      clearTimeout(timeout_handle);
+      test.done();
+    };
+  },
+
+  resource_queue: function(test) {
+    //ResourceQueue is not exported, so grab it from a doc
+    var doc = jsdom.jsdom(), q = doc._queue, counter = 0, increment=function() {counter++;};
+    
+    var queueHandles = [q.push(increment), q.push(increment)];
+    queueHandles[0](null, true);
+    queueHandles.push(q.push(increment));
+    queueHandles[1](null, true);
+    queueHandles[2](null, true);
+    test.strictEqual(counter, 3);
+    test.strictEqual(q.tail, null);
+    test.done();
+  },
+
   understand_file_protocol: function(test) {
     var html = '\
 <html>\
@@ -392,8 +450,8 @@ var results=[window===this, window===this.window, window.window===this, document
     test.strictEqual(window.results[0], true, "window should equal global this");
     test.strictEqual(window.results[1], true, "window should equal this.window");
     test.strictEqual(window.results[2], true, "this should equal window.window");
-    //TODO: issue 250
-    //test.strictEqual(window.results[3], true, "this should equal document.parentWindow");
+    test.strictEqual(window.results[3], true, "this should equal document.parentWindow");
+    test.strictEqual(window.document.parentWindow, window, "outside window context, document.parentWindow should be window as well");
     test.done();
   },
 
@@ -417,6 +475,43 @@ console.log("ok");\
 window.DONE=1;</script></head><body></body></html>').createWindow();
     test.strictEqual(window.DONE, 1);
     test.done();
+  },
+
+  frame_parent: function(test) {
+    var window = jsdom.jsdom('<html><head><script>aGlobal=1;\
+var iframe = document.createElement("iframe");\
+iframe.src = "' + __dirname + '/files/iframe.html";\
+document.body.appendChild(iframe);</script></head>\
+<body></body></html>',null, {features:{FetchExternalResources: ['script','iframe'], 
+      ProcessExternalResources: ['script','iframe']}}).createWindow();
+    window.iframe.onload = function(){
+      test.strictEqual(window.DONE, 1);
+      test.strictEqual(window.PARENT_IS_TOP, true);
+
+      //insert a script tag to make sure the global set in the iframe is visible
+      //in the parent window context
+      var doc = window.document, script = doc.createElement('script');
+      script.textContent = 'results=[aGlobal, DONE, PARENT_IS_TOP]';
+      doc.body.appendChild(script);
+      //the script is executed asynchronously after insertion to the document, 
+      //so setTimeout is needed
+      setTimeout(function(){
+        test.deepEqual(window.results, [1, 1, true]);
+        test.done();
+      },0);
+    };
+  },
+
+  frame_src_relative_to_parent_doc: function(test) {
+    var window = jsdom.jsdom('<html><body>\
+<iframe src="./files/iframe.html"></iframe>\
+</body></html>',null, {url:__dirname+"/test.html", features:{FetchExternalResources: ['script','iframe'], 
+      ProcessExternalResources: ['script','iframe']}}).createWindow();
+    window.document.onload = function(){
+      test.strictEqual(window.LOADED_FRAME, 1);
+      test.strictEqual(window.PARENT_IS_TOP, true);
+      test.done();
+    };
   },
 
   url_resolution: function(test) {
