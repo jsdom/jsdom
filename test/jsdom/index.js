@@ -883,5 +883,16 @@ document.body.appendChild(iframe);</script></head>\
         test.done();
       }, 1);
     });
+  },
+
+  // see: https://github.com/tmpvar/jsdom/issues/259
+  issue_159 : function(test) {
+    try {
+      jsdom.jsdom('<!DOCTYPE svg>\n<svg version="1.1"></svg>');
+    } catch (e) {
+      console.log(e);
+      test.ok(false, 'Incomplete doctype should not throw an error');
+    }
+    test.done();
   }
 };
