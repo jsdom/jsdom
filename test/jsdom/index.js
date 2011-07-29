@@ -886,13 +886,29 @@ document.body.appendChild(iframe);</script></head>\
   },
 
   // see: https://github.com/tmpvar/jsdom/issues/259
-  issue_159 : function(test) {
+  issue_259 : function(test) {
     try {
       jsdom.jsdom('<!DOCTYPE svg>\n<svg version="1.1"></svg>');
     } catch (e) {
       console.log(e);
       test.ok(false, 'Incomplete doctype should not throw an error');
     }
+    test.done();
+  },
+
+  issues_230_259 : function(test) {
+    var instr = '<html><body style="color: #ffffff; foo: bar"></body></html>';
+    var doc = jsdom.html(instr);
+    test.ok(doc.outerHTML.match(/0: *color/) === null);
+    test.done();
+  },
+
+  // see: https://github.com/tmpvar/jsdom/issues/262
+  issues_262 : function(test) {
+    var document = jsdom.html('<html><body></body></html>');
+    var a = document.createElement('a');
+    a.style.width = '100%';
+    test.ok(a.getAttribute('style').match(/^\s*width\s*:\s*100%\s*;?\s*$/));
     test.done();
   }
 };
