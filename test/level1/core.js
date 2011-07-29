@@ -21794,5 +21794,13 @@ exports.tests = {
     test.strictEqual(children.item(0), firstTextNode, 'After split the first child should still be the same object as before');
     test.strictEqual(children.item(1).nodeType, doc.TEXT_NODE, 'After split the second child should be a text node');
     test.done();
+  },
+  
+  allow_empty_nodelists : function(test) {
+    var doc = extra.extra();
+    var element = doc.createElement('test');
+    test.strictEqual(element.children.length, 0);
+    test.strictEqual(element.children.toArray().length, 0);
+    test.done();
   }
 };
