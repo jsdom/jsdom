@@ -112,7 +112,7 @@
        "htmlparser" : ">=1.7.0",
        "request"    : ">=1.0.0",
        "cssom"      : ">=0.2.0",
-       "contextify" : ">=0.0.1"
+       "contextify" : ">=0.0.2"
     },
     "devDependencies" : {
       "nodeunit" : ">=0.5.x",
