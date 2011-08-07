@@ -1,6 +1,6 @@
 {
     "name": "jsdom",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "description": "A javascript implementation of the W3C DOM",
     "keywords": [
       "dom",
@@ -84,6 +84,9 @@
       {
         "name"  : "Heng Liu",
         "email" : "liucougar@gmail.com"
+      },
+      {
+        "name"  : "Brian McDaniel (http://github.com/brianmcd)"
       }
     ],
     "bugs": {
