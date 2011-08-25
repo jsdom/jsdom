@@ -136,6 +136,56 @@ exports.tests = {
     server.listen(64000, '127.0.0.1', cb);
   },
 
+  // This is in response to issue # 280 - scripts don't load over https.
+  // See: https://github.com/tmpvar/jsdom/issues/280
+  //
+  // When a transfer is done, HTTPS servers in the wild might emit 'close', or
+  // might emit 'end'.  Node's HTTPS server always emits 'end', so we need to
+  // fake a 'close' to test this fix.
+  env_with_https : function (test) {
+    var https = require('https');
+    // Save the real https.request so we can restore it later.
+    var oldRequest = https.request;
+    var EventEmitter = require('events').EventEmitter;
+
+    // Mock response object
+    var res = { setEncoding : function () {} };
+    res.__proto__ = new EventEmitter();
+
+    // Monkey patch https.request so it emits 'close' instead of 'end.
+    https.request = function () {
+      // Mock the request object.
+      var req = { setHeader : function () {} };
+      req.__proto__ = new EventEmitter();
+      process.nextTick(function () {
+        req.emit('response', res);
+        process.nextTick(function () {
+          res.emit('data', 'window.attachedHere = 123');
+          res.emit('close');
+        });
+      });
+      return req;
+    };
+
+    jsdom.env({
+      html: "<a href='/path/to/hello'>World</a>",
+      // The script url doesn't matter as long as its https, since our mocked
+      // request doens't actually fetch anything.
+      scripts: 'https://doesntmatter.com/script.js',
+      done: function(errors, window) {
+        if (errors) {
+          test.ok(false, errors.message)
+        } else {
+          test.notEqual(window.location, null, 'window.location should not be null');
+          test.equal(window.attachedHere, 123, 'script should execute on our window');
+          test.equal(window.document.getElementsByTagName("a").item(0).innerHTML, 'World', 'anchor text');
+        }
+        https.request = oldRequest;
+        test.done();
+      }
+    });
+  },
+
   env_with_src : function(test) {
     var
     html = "<html><body><p>hello world!</p></body></html>",
