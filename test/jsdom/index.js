@@ -272,33 +272,41 @@ exports.tests = {
     }
   },
 
-  load_mutiple_resources_with_defer_close: function(test) {
+  load_multiple_resources_with_defer_close: function(test) {
     var html = '<html><head></head><body>\
-<frame src="../level2/html/files/iframe.html"></frame>\
-<frame src="../level2/html/files/iframe.html"></frame>\
-<frame src="../level2/html/files/iframe.html"></frame>\
-</body></html>';
+      <frame src="../level2/html/files/iframe.html"></frame>\
+      <frame src="../level2/html/files/iframe.html"></frame>\
+      <frame src="../level2/html/files/iframe.html"></frame>\
+      </body></html>';
 
-    var doc = jsdom.jsdom(html, null, {features: {FetchExternalResources: ['frame'], ProcessExternalResources: ['frame']}, 
-      deferClose:true});
+    var doc = jsdom.jsdom(html, null,
+      {
+        features: {
+          FetchExternalResources: ['frame'],
+          ProcessExternalResources: ['frame']
+        }, 
+        deferClose : true
+      });
     
     test.ok(doc._queue.paused, 'resource queue should be paused');
 
-    var check_handle, timeout_handle = setTimeout(function() {
-        doc.onload=null;
-        doc.parentWindow.close();
-	if(check_handle) {
-	  clearTimeout(check_handle);
-	}
-	test.ok(false, "timed out when waiting for onload to fire");
-	test.done();
+    var check_handle;
+    var timeout_handle = setTimeout(function() {
+      doc.onload=null;
+      doc.parentWindow.close();
+      if (check_handle) {
+        clearTimeout(check_handle);
+      }
+      test.ok(false, "timed out when waiting for onload to fire");
+      test.done();
     }, 1000); //1 second timeout
+
     function check() {
       var q = doc._queue, h = q.tail, count=0;
 
       check_handle = null;
-      while(h){
-        if(h.fired) {
+      while (h) {
+        if (h.fired) {
           count++;
           h = h.prev;
         } else {
@@ -332,20 +340,20 @@ exports.tests = {
 
   understand_file_protocol: function(test) {
     var html = '\
-<html>\
-  <head>\
-    <script type="text/javascript" src="file://'+__dirname+'/files/hello.js"></script>\
-  </head>\
-  <body>\
-    <span id="test">hello from html</span>\
-  </body>\
-</html>';
+      <html>\
+        <head>\
+          <script type="text/javascript" src="file://'+__dirname+'/files/hello.js"></script>\
+        </head>\
+        <body>\
+          <span id="test">hello from html</span>\
+        </body>\
+      </html>';
 
-   var doc = jsdom.jsdom(html);
-   doc.onload = function() {
-     test.equal(doc.getElementById("test").innerHTML, 'hello from javascript', 'resource with file protocol should work');
-     test.done();
-   };
+    var doc = jsdom.jsdom(html);
+    doc.onload = function() {
+      test.equal(doc.getElementById("test").innerHTML, 'hello from javascript', 'resource with file protocol should work');
+      test.done();
+    };
   },
 
   importNode: function(test) {
@@ -403,43 +411,6 @@ exports.tests = {
     test.equal(elements4.length, 1, 'one result');
     test.equal(elements4.item(0), newNode, 'newNode and first-p');
     test.done();
-  },
-
-  frame_parent: function(test) {
-    var window = jsdom.jsdom('<html><head><script>aGlobal=1;\
-var iframe = document.createElement("iframe");\
-iframe.src = "' + __dirname + '/files/iframe.html";\
-document.body.appendChild(iframe);</script></head>\
-<body></body></html>',null, {features:{FetchExternalResources: ['script','iframe'], 
-      ProcessExternalResources: ['script','iframe']}}).createWindow();
-    window.iframe.onload = function(){
-      test.strictEqual(window.DONE, 1);
-      test.strictEqual(window.PARENT_IS_TOP, true);
-
-      //insert a script tag to make sure the global set in the iframe is visible
-      //in the parent window context
-      var doc = window.document, script = doc.createElement('script');
-      script.textContent = 'results=[aGlobal, DONE, PARENT_IS_TOP]';
-      doc.body.appendChild(script);
-      //the script is executed asynchronously after insertion to the document, 
-      //so setTimeout is needed
-      setTimeout(function(){
-        test.deepEqual(window.results, [1, 1, true]);
-        test.done();
-      },0);
-    };
-  },
-
-  frame_src_relative_to_parent_doc: function(test) {
-    var window = jsdom.jsdom('<html><body>\
-<iframe src="./files/iframe.html"></iframe>\
-</body></html>',null, {url:__dirname+"/test.html", features:{FetchExternalResources: ['script','iframe'], 
-      ProcessExternalResources: ['script','iframe']}}).createWindow();
-    window.document.onload = function(){
-      test.strictEqual(window.LOADED_FRAME, 1);
-      test.strictEqual(window.PARENT_IS_TOP, true);
-      test.done();
-    };
   },
 
   url_resolution: function(test) {
