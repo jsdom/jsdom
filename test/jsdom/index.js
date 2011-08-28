@@ -910,5 +910,73 @@ document.body.appendChild(iframe);</script></head>\
     a.style.width = '100%';
     test.ok(a.getAttribute('style').match(/^\s*width\s*:\s*100%\s*;?\s*$/));
     test.done();
+  },
+
+  // Test inline event handlers set on the body.
+  test_body_event_handler_inline : function (test) {
+    var html = "\
+      <html>\
+        <head>\
+          <script>\
+            function loader () {\
+              window.loader_called = true;\
+            }\
+          </script>\
+        </head>\
+        <body onload='loader()'></body>\
+      </html>";
+    var doc = jsdom.jsdom(html, null, { deferClose : true });
+    var window = doc.parentWindow;
+    // In JSDOM, listeners registered with addEventListener are called before
+    // "traditional" listeners, so listening for 'load' will fire before our
+    // inline listener.  This means we have to check the value on the next
+    // tick.
+    window.addEventListener('load', function () {
+      process.nextTick(function () {
+        test.equal(window.loader_called, true);
+        test.done();
+      });
+    });
+    doc.close();
+  },
+
+  // Make sure traditional handlers on the body element set via script are
+  // forwarded to the window.
+  test_body_event_handler_script : function (test) {
+    test.expect(2);
+    var doc = jsdom.jsdom("<html><head></head><body></body></html>",
+                          null,
+                          {deferClose : true});
+    var window = doc.parentWindow;
+    test.equal(window.onload, undefined);
+    doc.body.onload = function () {
+      test.done();
+    };
+    test.notEqual(window.onload, undefined);
+    doc.close();
+  },
+
+  // Test inline event handlers on a regular element.
+  test_element_inline_event_handler : function (test) {
+    var doc = jsdom.jsdom("\
+      <html>\
+        <head></head>\
+        <body>\
+          <div id='div1' onclick='window.divClicked = true;'\
+                         onmouseover='window.divMousedOver = true;'\
+          </div>\
+        </body>\
+      </html>");
+    var window = doc.parentWindow;
+    var click = doc.createEvent('MouseEvents');
+    click.initMouseEvent('click', false, false);
+    var div = doc.getElementById('div1');
+    div.dispatchEvent(click);
+    var mouseOver = doc.createEvent('MouseEvents');
+    mouseOver.initMouseEvent('mouseover', false, false);
+    div.dispatchEvent(mouseOver);
+    test.equal(window.divClicked, true);
+    test.equal(window.divMousedOver, true);
+    test.done();
   }
 };
