@@ -978,5 +978,15 @@ document.body.appendChild(iframe);</script></head>\
     test.equal(window.divClicked, true);
     test.equal(window.divMousedOver, true);
     test.done();
+  },
+
+  // Test for issue 287 - element.onevent check doesn't work
+  // See: https://github.com/tmpvar/jsdom/issues/287
+  issue_287 : function (test) {
+    var doc = jsdom.jsdom();
+    var elem = doc.createElement('form');
+    elem.setAttribute('onsubmit', ';');
+    test.equal(typeof elem.onsubmit, 'function');
+    test.done();
   }
 };
