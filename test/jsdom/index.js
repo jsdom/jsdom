@@ -217,6 +217,16 @@ exports.tests = {
     test.done();
   },
 
+  env_handle_incomplete_dom_with_script: function(test) {
+    jsdom.env(
+      "http://www.google.com/foo#bar", 
+      ['http://code.jquery.com/jquery-1.4.4.min.js'], 
+      function(errors, window) {
+        test.equal(errors&&errors.length, 1, 'error handed back to callback');
+        test.done();
+      });
+  },
+
   plain_window_document: function(test) {
     var window = (jsdom.createWindow());
     test.strictEqual(typeof window.document, 'undefined', 'jsdom.createWindow() should create a documentless window');
