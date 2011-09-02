@@ -1,5 +1,36 @@
-0.2.1
+0.2.4
+ * Fix: adding script to invalid/incomplete dom (document.documentElement) now catches the error and passes it in the `.env` callback (Gregory Tomlinson)
+ * Cleanup: trigger and html tests
+ * Add: support for inline event handlers (ie: <div onclick='some.horrible.string()'>) (Brian McDaniel)
+ * Fix: script loading over https (Brian McDaniel) #280
+ * Add: using style.setProperty updates the style attribute (Jimmy Mabey).
+ * Add: invalid markup is reported as an error and attached to the associated element and document
+ * FIX: crash when setChild() failes to create new DOM element (John Hurliman)
+ * Added test for issue #287.
+ * Added support for inline event handlers.
+ * Moved frame tests to test/window/frame.js and cleaned up formatting.
+ * Moved script execution tests to test/window/script.js.
+ * Fix a crash when setChild() fails to create a new DOM element
+ * Override CSSOM to update style attribute
 
+0.2.3
+ * Fix: segfault due to window being garbage collected prematurely
+    NOTE: you must manually close the window to free memory (window.close())
+
+0.2.2
+ * Switch to Contextify to manage the window's script execution.
+ * Fix: allow nodelists to have a length of 0 and toArray to return an empty array
+ * Fix: style serialization; issues #230 and #259
+ * Fix: Incomplete DOCTYPE causes JavaScript error
+ * Fix: indentation, removed outdated debug code and trailing whitespace.
+ * Prevent JavaScript error when parsing incomplete <!DOCTYPE>. Closes #259.
+ * Adding a test from brianmcd that ensures that setTimeout callbacks execute in the context of the window
+ * Fixes issue 250: make document.parentWindow===window work
+ * Added test to ensure that timer callbacks execute in the window context.
+ * Fixes 2 issues in ResourceQueue
+ * Make frame/iframe load/process scripts if the parent has the features enabled
+
+0.2.1
  * Javascript execution fixes [#248, #163, #179]
  * XPath (Yonathan and Daniel Cassidy)
  * Start of cssom integration (Yonathan)
