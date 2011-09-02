@@ -82,7 +82,9 @@ var files = [
   //"level3/core.js",
   //"level3/ls.js",
   "level3/xpath.js",
-  "window",
+  "window/index.js",
+  "window/script.js",
+  "window/frame.js",
   "sizzle/index.js",
   "jsdom/index.js"
 ];

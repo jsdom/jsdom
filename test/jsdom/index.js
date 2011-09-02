@@ -272,33 +272,41 @@ exports.tests = {
     }
   },
 
-  load_mutiple_resources_with_defer_close: function(test) {
+  load_multiple_resources_with_defer_close: function(test) {
     var html = '<html><head></head><body>\
-<frame src="../level2/html/files/iframe.html"></frame>\
-<frame src="../level2/html/files/iframe.html"></frame>\
-<frame src="../level2/html/files/iframe.html"></frame>\
-</body></html>';
+      <frame src="../level2/html/files/iframe.html"></frame>\
+      <frame src="../level2/html/files/iframe.html"></frame>\
+      <frame src="../level2/html/files/iframe.html"></frame>\
+      </body></html>';
 
-    var doc = jsdom.jsdom(html, null, {features: {FetchExternalResources: ['frame'], ProcessExternalResources: ['frame']}, 
-      deferClose:true});
+    var doc = jsdom.jsdom(html, null,
+      {
+        features: {
+          FetchExternalResources: ['frame'],
+          ProcessExternalResources: ['frame']
+        }, 
+        deferClose : true
+      });
     
     test.ok(doc._queue.paused, 'resource queue should be paused');
 
-    var check_handle, timeout_handle = setTimeout(function() {
-        doc.onload=null;
-        doc.parentWindow.close();
-	if(check_handle) {
-	  clearTimeout(check_handle);
-	}
-	test.ok(false, "timed out when waiting for onload to fire");
-	test.done();
+    var check_handle;
+    var timeout_handle = setTimeout(function() {
+      doc.onload=null;
+      doc.parentWindow.close();
+      if (check_handle) {
+        clearTimeout(check_handle);
+      }
+      test.ok(false, "timed out when waiting for onload to fire");
+      test.done();
     }, 1000); //1 second timeout
+
     function check() {
       var q = doc._queue, h = q.tail, count=0;
 
       check_handle = null;
-      while(h){
-        if(h.fired) {
+      while (h) {
+        if (h.fired) {
           count++;
           h = h.prev;
         } else {
@@ -332,20 +340,20 @@ exports.tests = {
 
   understand_file_protocol: function(test) {
     var html = '\
-<html>\
-  <head>\
-    <script type="text/javascript" src="file://'+__dirname+'/files/hello.js"></script>\
-  </head>\
-  <body>\
-    <span id="test">hello from html</span>\
-  </body>\
-</html>';
+      <html>\
+        <head>\
+          <script type="text/javascript" src="file://'+__dirname+'/files/hello.js"></script>\
+        </head>\
+        <body>\
+          <span id="test">hello from html</span>\
+        </body>\
+      </html>';
 
-   var doc = jsdom.jsdom(html);
-   doc.onload = function() {
-     test.equal(doc.getElementById("test").innerHTML, 'hello from javascript', 'resource with file protocol should work');
-     test.done();
-   };
+    var doc = jsdom.jsdom(html);
+    doc.onload = function() {
+      test.equal(doc.getElementById("test").innerHTML, 'hello from javascript', 'resource with file protocol should work');
+      test.done();
+    };
   },
 
   importNode: function(test) {
@@ -403,115 +411,6 @@ exports.tests = {
     test.equal(elements4.length, 1, 'one result');
     test.equal(elements4.item(0), newNode, 'newNode and first-p');
     test.done();
-  },
-
-  // TODO: look into breaking into a testcase
-  scripts_share_a_global_context: function(test) {
-    var window = jsdom.jsdom('\
-      <html><head>\
-      <script type="text/javascript">\
-        Object.prototype.a = 1;\
-        hello = "hello";\
-        window.bye = "good";\
-        var abc = 123;\
-        var localOnWindow = "look at me, im on a window";\
-      </script>\
-      \
-      <script type="text/javascript">\
-        window.object = new Object();\
-        hello += " world";\
-        bye = bye + "bye";\
-        window.confirmTheLocalIsOnTheWindow = localOnWindow;\
-        (function() {\
-          var hidden = "hidden";\
-          window.exposed = hidden;\
-          this.imOnAWindow = true;\
-        })();\
-      </script>\
-      </head><body></body></html>'
-    ).createWindow();
-
-    test.equal(window.confirmTheLocalIsOnTheWindow, window.localOnWindow, 'local variables should be attached to the window');
-    test.equal(window.hello, "hello world", 'window should be the global context');
-    test.equal(window.bye, "goodbye", 'window should be the global context');
-    test.equal(window.abc, 123, 'local vars should not leak out to the window');
-    test.strictEqual(window.hidden, undefined, 'vars in a closure are safe');
-    test.equal(window.exposed, 'hidden', 'vars exposed to the window are global');
-    test.equal(window.imOnAWindow, true, 'setting this in the outer context should apply to the window');
-    test.equal(window.object.a, 1, 'prototypes should be maintained across contexts');
-    test.done();
-  },
-
-  global_is_window_in_scripts: function(test){
-    var window = jsdom.jsdom('<html><head><script type="text/javascript">\
-var results=[window===this, window===this.window, window.window===this, document.parentWindow===this];\
-</script></head><body></body></html>').createWindow();
-
-    test.strictEqual(window.results[0], true, "window should equal global this");
-    test.strictEqual(window.results[1], true, "window should equal this.window");
-    test.strictEqual(window.results[2], true, "this should equal window.window");
-    test.strictEqual(window.results[3], true, "this should equal document.parentWindow");
-    test.strictEqual(window.document.parentWindow, window, "outside window context, document.parentWindow should be window as well");
-    test.done();
-  },
-
-  global_in_object_should_be_valid_in_other_scripts: function(test){
-    var window = jsdom.jsdom('<html><head><script>\
-aGlobal={win:this};\
-</script><script>\
-appVersion = aGlobal.win.navigator.appVersion\
-</script></head><body></body></html>').createWindow();
-
-    test.strictEqual(window.appVersion, process.version);
-    test.done();
-  },
-
-  window_functions: function(test){
-    var window = jsdom.jsdom('<html><head><script>function handle(){};\
-window.addEventListener("load", handle, false);\
-window.removeEventListener("load", handle, false);\
-var ev = document.createEvent("MouseEvents");ev.initEvent("click", true, true);window.dispatchEvent(ev);\
-console.log("ok");\
-window.DONE=1;</script></head><body></body></html>').createWindow();
-    test.strictEqual(window.DONE, 1);
-    test.done();
-  },
-
-  frame_parent: function(test) {
-    var window = jsdom.jsdom('<html><head><script>aGlobal=1;\
-var iframe = document.createElement("iframe");\
-iframe.src = "' + __dirname + '/files/iframe.html";\
-document.body.appendChild(iframe);</script></head>\
-<body></body></html>',null, {features:{FetchExternalResources: ['script','iframe'], 
-      ProcessExternalResources: ['script','iframe']}}).createWindow();
-    window.iframe.onload = function(){
-      test.strictEqual(window.DONE, 1);
-      test.strictEqual(window.PARENT_IS_TOP, true);
-
-      //insert a script tag to make sure the global set in the iframe is visible
-      //in the parent window context
-      var doc = window.document, script = doc.createElement('script');
-      script.textContent = 'results=[aGlobal, DONE, PARENT_IS_TOP]';
-      doc.body.appendChild(script);
-      //the script is executed asynchronously after insertion to the document, 
-      //so setTimeout is needed
-      setTimeout(function(){
-        test.deepEqual(window.results, [1, 1, true]);
-        test.done();
-      },0);
-    };
-  },
-
-  frame_src_relative_to_parent_doc: function(test) {
-    var window = jsdom.jsdom('<html><body>\
-<iframe src="./files/iframe.html"></iframe>\
-</body></html>',null, {url:__dirname+"/test.html", features:{FetchExternalResources: ['script','iframe'], 
-      ProcessExternalResources: ['script','iframe']}}).createWindow();
-    window.document.onload = function(){
-      test.strictEqual(window.LOADED_FRAME, 1);
-      test.strictEqual(window.PARENT_IS_TOP, true);
-      test.done();
-    };
   },
 
   url_resolution: function(test) {
@@ -598,14 +497,6 @@ document.body.appendChild(iframe);</script></head>\
     test.done();
   },
 
-  script_execution_in_body : function(test) {
-    var window, caught = false;
-    var html = '<html><body><script>document.body.innerHTML = "monkey"</script></body></html>';
-    test.doesNotThrow(function() {
-      jsdom.jsdom(html).createWindow();
-    })
-    test.done();
-  },
 
   mutation_events : function(test) {
     var document = jsdom.jsdom();
@@ -709,6 +600,7 @@ document.body.appendChild(iframe);</script></head>\
     test.strictEqual(true, option1.defaultSelected, 'unchanged');
     test.done();
   },
+
   case_sensitivity_of_markup_missing_html_and_body : function(test){
       var spaces = /[ \n]*/g,
           doc1 = jsdom.html("<HTML><BODY></BODY></HTML>").outerHTML.replace(spaces, ''),
@@ -721,11 +613,13 @@ document.body.appendChild(iframe);</script></head>\
               'they should all serialize the same');
       test.done();
   },
+
   children_should_be_available_right_after_document_creation : function(test) {
     var doc = jsdom.jsdom("<html><body><div></div></body></html>");
     test.ok((doc.body.children[0] !== undefined), "there should be a body, and it should have a child");
     test.done();
   },
+
   children_should_be_available_right_after_document_creation_scripts : function(test) {
     var html = "<html><body>" +
       "<script type='text/javascript'>" +
@@ -739,6 +633,7 @@ document.body.appendChild(iframe);</script></head>\
     test.ok(!!window.myNode.nodeType);
     test.done();
   },
+
   fix_for_issue_172 : function(test) {
     jsdom.env("<html><body><script type='text/javascript'></script></body></html>", [
      'jquery.js'
@@ -747,6 +642,7 @@ document.body.appendChild(iframe);</script></head>\
       test.done()
     });
   },
+
   fix_for_issue_221 : function(test) {
     var html = '<html><head></head><body></body></html>';
     var document = jsdom.jsdom(html);
@@ -757,6 +653,7 @@ document.body.appendChild(iframe);</script></head>\
                'Nodelist children should be populated immediately');
     test.done();
   },
+
   parsing_and_serializing_entities: function(test) {
       var html = '<html><body><a href="http://example.com/?a=b&amp;c=d">&lt;&aelig;&#x263a;foo</a>';
       var document = jsdom.jsdom(html);
@@ -775,6 +672,7 @@ document.body.appendChild(iframe);</script></head>\
               "innerHTML of anchor should begin with &lt;");
       test.done();
   },
+
   document_title_and_entities: function (test) {
     var html = '<html><head><title>&lt;b&gt;Hello&lt;/b&gt;</title></head><body></body></html>';
     var document = jsdom.jsdom(html);
@@ -800,6 +698,7 @@ document.body.appendChild(iframe);</script></head>\
 
     test.done();
   },
+
   setting_and_getting_textContent: function (test) {
     var html = '<html><head>\n<title>&lt;foo&gt;</title></head><body>Hello<span><span>, </span>world</span>!</body></html>';
     var document = jsdom.jsdom(html);
@@ -848,6 +747,7 @@ document.body.appendChild(iframe);</script></head>\
 
     test.done();
   },
+
   allow_ender_to_run : function(test) {
     jsdom.env('<a />', [__dirname + '/files/ender-qwery.js'], function(e, w) {
       test.ok(!e, 'no errors');
@@ -855,34 +755,6 @@ document.body.appendChild(iframe);</script></head>\
       test.ok(w.$, 'window contains $');
       test.done();
     })
-  },
-
-  // see: https://github.com/tmpvar/jsdom/issues/163
-  issue_163 : function(test) {
-    jsdom.env('<a />', [__dirname + '/files/163.js'], function(errors, window) {
-      test.ok(!errors, 'no errors');
-      test.ok(window.hasNativeObjects === true, 'window has the expected properties');
-      test.done();
-    });
-  },
-
-  // see: https://github.com/tmpvar/jsdom/issues/179
-  issue_179 : function(test) {
-    jsdom.env('<a />', [__dirname + '/files/179.js'], function(errors, window) {
-      test.ok(!errors, 'no errors');
-      test.ok(window.b === 42, 'local var gets hung off of the window');
-      test.ok(window.exposed === 42, 'read local var from window and exposed it');
-      test.done();
-    });
-  },
-
-  timer_executes_in_context : function (test) {
-    jsdom.env('<a />', [__dirname + '/files/timer_in_context.js'], function (errors, window) {
-      setTimeout(function () {
-        test.ok(window.x == 1);
-        test.done();
-      }, 1);
-    });
   },
 
   // see: https://github.com/tmpvar/jsdom/issues/259
