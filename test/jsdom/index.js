@@ -802,7 +802,7 @@ exports.tests = {
   parser_failure_tag_in_text_content : function(test) {
     var thrown = false;
     try {
-      jsdom.jsdom('\
+      var doc = jsdom.jsdom('\
 <SCRIPT TYPE="text/javascript"> \
 document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");\
 </SCRIPT>');
