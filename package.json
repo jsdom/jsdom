@@ -87,6 +87,10 @@
       },
       {
         "name"  : "Brian McDaniel (http://github.com/brianmcd)"
+      },
+      {
+        "name" : "John Hurliman",
+        "email" : "jhurliman@jhurliman.org"
       }
     ],
     "bugs": {
