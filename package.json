@@ -91,6 +91,9 @@
       {
         "name" : "John Hurliman",
         "email" : "jhurliman@jhurliman.org"
+      },
+      {
+        "name" : "Jimmy Mabey"
       }
     ],
     "bugs": {
