@@ -45,8 +45,21 @@ StylePropertyReflectsStyleAttribute : function (test) {
   });
 },
 
-// TODO: the other way should work too: setting p.style.color
-// should modify p.getAttribute('style').
-// We will have to fork or modify cssom library to listen for change events.
+StyleAttributeReflectsStyleProperty : function (test) {
+  jsdom.env(
+      '<html>',
+      jsdom.defaultLevel, function(err, win) {
+    var p = win.document.createElement('p');
+    p.style.setProperty('color', 'red');
+    test.equal(p.getAttribute('style'), 'color: red;');
+    p.style.setProperty('width', '20px');
+    test.equal(p.getAttribute('style'), 'color: red; width: 20px;');
+    p.style.removeProperty('color');
+    test.equal(p.getAttribute('style'), 'width: 20px;');
+    p.style.removeProperty('width');
+    test.equal(p.getAttribute('style'), '');
+    test.done();
+  });
+},
 
 }
