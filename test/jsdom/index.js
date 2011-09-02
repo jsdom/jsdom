@@ -284,10 +284,10 @@ exports.tests = {
         features: {
           FetchExternalResources: ['frame'],
           ProcessExternalResources: ['frame']
-        }, 
+        },
         deferClose : true
       });
-    
+
     test.ok(doc._queue.paused, 'resource queue should be paused');
 
     var check_handle;
@@ -327,7 +327,7 @@ exports.tests = {
   resource_queue: function(test) {
     //ResourceQueue is not exported, so grab it from a doc
     var doc = jsdom.jsdom(), q = doc._queue, counter = 0, increment=function() {counter++;};
-    
+
     var queueHandles = [q.push(increment), q.push(increment)];
     queueHandles[0](null, true);
     queueHandles.push(q.push(increment));
@@ -781,6 +781,38 @@ exports.tests = {
     var a = document.createElement('a');
     a.style.width = '100%';
     test.ok(a.getAttribute('style').match(/^\s*width\s*:\s*100%\s*;?\s*$/));
+    test.done();
+  },
+
+  parser_failure_broken_markup : function(test) {
+    var thrown = false;
+    var doc;
+    try {
+      doc = jsdom.jsdom('<html><body><div id="<"></div></body></html>')
+    } catch (e) {
+      thrown = true;
+    }
+
+    test.ok(doc.errors.length === 1);
+    test.ok(doc.errors[0].message = "invalid markup");
+    test.ok(thrown === false);
+    test.done();
+  },
+
+  parser_failure_tag_in_text_content : function(test) {
+    var thrown = false;
+    try {
+      jsdom.jsdom('\
+<SCRIPT TYPE="text/javascript"> \
+document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");\
+</SCRIPT>');
+    } catch (e) {
+      thrown = true;
+    }
+
+    test.ok(doc.errors.length === 1);
+    test.ok(doc.errors[0].message = "invalid markup");
+    test.ok(thrown === false);
     test.done();
   }
 };
