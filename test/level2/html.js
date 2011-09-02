@@ -4,7 +4,13 @@ var fileCache = {};
 var load = function(name) {
   var file     = __dirname + "/html/files/" + name + ".html",
       contents = fileCache[file] || fs.readFileSync(file, 'utf8'),
-      doc      = jsdom.jsdom(contents, null, {url: "file://" + file });
+      doc      = jsdom.jsdom(null, null, {url: "file://" + file }),
+      window   = doc.createWindow();
+
+  doc.parent = window;
+  window.loadComplete = function() {};
+
+  doc.innerHTML = contents;
   fileCache[file] = contents;
   return doc;
 }
