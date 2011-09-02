@@ -1,6 +1,6 @@
 {
     "name": "jsdom",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "description": "A javascript implementation of the W3C DOM",
     "keywords": [
       "dom",
