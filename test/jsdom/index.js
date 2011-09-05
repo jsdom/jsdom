@@ -155,7 +155,7 @@ exports.tests = {
     // Monkey patch https.request so it emits 'close' instead of 'end.
     https.request = function () {
       // Mock the request object.
-      var req = { setHeader : function () {} };
+      var req = { setHeader : function () {}, end : function () {} };
       req.__proto__ = new EventEmitter();
       process.nextTick(function () {
         req.emit('response', res);
@@ -347,6 +347,10 @@ exports.tests = {
         },
         deferClose : true
       });
+    // iframe.html sets onload handler to call loadComplete, so we mock it.
+    window = doc.createWindow();
+    doc.parent = window;
+    window.loadComplete = function () {};
 
     test.ok(doc._queue.paused, 'resource queue should be paused');
 
