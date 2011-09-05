@@ -106,7 +106,7 @@ If you would like to specify a configuration object
 
   - config.html    : see `html` above
   - config.scripts : see `scripts` above
-  - config.src     :  An array of javascript strings that will be evaluated against the resulting document.  Similar to `scripts`, but it accepts javascript instead of paths/urls.
+  - config.src     : An array of javascript strings that will be evaluated against the resulting document.  Similar to `scripts`, but it accepts javascript instead of paths/urls.
   - config.done    : see `callback` above
 
 ## For the hardcore
@@ -117,7 +117,7 @@ If you want to spawn a document/window and specify all sorts of options this is 
         doc    = jsdom(markup, level, options),
         window = doc.createWindow();
 
- - `markup` is a full html/xml document to be parsed
+ - `markup` is an html/xml document to be parsed. You can also pass `null` or an undefined value to get a basic document with empty head and body tags. Document fragments are also supported (including `""`), and will behave as sanely as possible (eg. the resulting document will lack the `head`, `body` and `documentElement` properties if the corresponding elements aren't included).
  - `level` is `null` (which means level3) by default, but you can pass another level if you'd like.
 
 
