@@ -22,6 +22,12 @@ exports.tests = {
     test.done();
   },
 
+  jsdom_method_skips_default_document_creation_when_empty_string : function(test) {
+    var doc = jsdom.jsdom('');
+    test.ok(!doc.documentElement);
+    test.done();
+  },
+
   jquerify: function(test) {
     var jQueryFile = __dirname + "/../../example/jquery/jquery.js",
     jQueryUrl = "http://code.jquery.com/jquery-1.4.4.min.js";
@@ -269,8 +275,8 @@ exports.tests = {
 
   env_handle_incomplete_dom_with_script: function(test) {
     jsdom.env(
-      "http://www.google.com/foo#bar", 
-      ['http://code.jquery.com/jquery-1.4.4.min.js'], 
+      "http://www.google.com/foo#bar",
+      ['http://code.jquery.com/jquery-1.4.4.min.js'],
       function(errors, window) {
         test.equal(errors&&errors.length, 1, 'error handed back to callback');
         test.done();
