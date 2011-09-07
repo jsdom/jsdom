@@ -846,11 +846,21 @@ exports.tests = {
   },
 
   // see: https://github.com/tmpvar/jsdom/issues/262
-  issues_262 : function(test) {
+  issue_262 : function(test) {
+    var document = jsdom.html('<html><body></body></html>');
+    var a = document.createElement('a');
+    a.setAttribute("style", "color:blue");
+    a.style.setProperty("color", "red");
+    test.equal(a.outerHTML.match(/style="/g).length, 1, 'style attribute must not be serialized twice');
+    test.done();
+  },
+
+  // see: https://github.com/tmpvar/jsdom/issues/267
+  issue_267 : function(test) {
     var document = jsdom.html('<html><body></body></html>');
     var a = document.createElement('a');
     a.style.width = '100%';
-    test.ok(a.getAttribute('style').match(/^\s*width\s*:\s*100%\s*;?\s*$/));
+    test.ok(!!a.getAttribute('style').match(/^\s*width\s*:\s*100%\s*;?\s*$/), 'style attribute must contain width');
     test.done();
   },
 
