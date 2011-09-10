@@ -591,6 +591,14 @@ exports.tests = {
     document.body.removeChild(h1);
     document.body.insertBefore(h3, h2);
     test.strictEqual('H1H3', removed, "an event should be dispatched for each removed element");
+
+    var text = h2.innerHTML = 'foo';
+    h2.addEventListener('DOMCharacterDataModified', function(ev) {
+      text = ev.target.nodeValue;
+    });
+    h2.firstChild.nodeValue = 'bar';
+    test.equal(h2.innerHTML, text, 'ChactaterData changes should be captured');
+
     test.done()
   },
 
