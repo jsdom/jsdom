@@ -26,6 +26,7 @@ var EventMonitor = function() {
 var _setUp = function() {
   var doc = require('./events/files/hc_staff.xml').hc_staff();
   var monitor = this.monitor = new EventMonitor();
+  this.win = doc._parentWindow;
   this.title = doc.getElementsByTagName("title").item(0);
   this.body = doc.getElementsByTagName("body").item(0);
   this.plist = doc.getElementsByTagName("p").item(0);
@@ -333,17 +334,19 @@ exports['bubble event'] = testcase({
   },
 
   'all non-capturing listeners in a direct line from dispatched node will receive a bubbling event': function(test) {
+    this.win.addEventListener("foo", this.monitor.handleEvent, false);
     this.plist.addEventListener("foo", this.monitor.handleEvent, false);
     this.plist.firstChild.addEventListener("foo", this.monitor.handleEvent, false);
     this.plist.firstChild.dispatchEvent(this.event);
     test.expect(3);
     test.equal(this.monitor.atEvents.length, 1, 'should be at 1 event');
-    test.equal(this.monitor.bubbledEvents.length, 1, 'should have 1 bubbled event');
+    test.equal(this.monitor.bubbledEvents.length, 2, 'should have 2 bubbled events');
     test.equal(this.monitor.capturedEvents.length, 0, 'should not have any captured events');
     test.done();
   },
 
   'only bubble listeners in a direct line from target to the document node should receive the event': function(test) {
+    this.win.addEventListener("foo", this.monitor.handleEvent, false);
     this.title.addEventListener("foo", this.monitor.handleEvent, false);
     this.plist.addEventListener("foo", this._handleEvent('preventDefault'), true);
     this.plist.firstChild.addEventListener("foo", this.monitor.handleEvent, false);
@@ -351,12 +354,13 @@ exports['bubble event'] = testcase({
     test.expect(4);
     test.equal(return_val, false, 'dispatchEvent should return *false*');
     test.equal(this.monitor.atEvents.length, 1, 'should be at 1 event');
-    test.equal(this.monitor.bubbledEvents.length, 0, 'should not have any bubbled events');
+    test.equal(this.monitor.bubbledEvents.length, 1, 'should have 1 bubbled event');
     test.equal(this.monitor.capturedEvents.length, 1, 'should have captured 1 event');
     test.done();
   },
 
   'if an event does not bubble, bubble listeners should not receive the event': function(test) {
+    this.win.addEventListener("foo", this.monitor.handleEvent, false);
     this.body.addEventListener("foo", this.monitor.handleEvent, true);
     this.plist.addEventListener("foo", this._handleEvent('preventDefault'), false);
     this.plist.firstChild.addEventListener("foo", this.monitor.handleEvent, false);
@@ -384,6 +388,7 @@ exports['stop propagation'] = testcase({
   },
 
   'should prevent the target from receiving the event': function(test) {
+    this.win.addEventListener("foo", this.monitor.handleEvent, false);
     this.plist.addEventListener("foo", this._handleEvent('stopPropagation'), true);
     this.plist.firstChild.addEventListener("foo", this.monitor.handleEvent, false);
     this.plist.firstChild.dispatchEvent(this.event);
@@ -395,6 +400,7 @@ exports['stop propagation'] = testcase({
   },
 
   'should prevent all listeners from receiving the event': function(test) {
+    this.win.addEventListener("foo", this.monitor.handleEvent, false);
     this.body.addEventListener("foo", this.monitor.handleEvent, false);
     this.plist.addEventListener("foo", this._handleEvent('stopPropagation'), false);
     this.plist.firstChild.addEventListener("foo", this.monitor.handleEvent, false);
