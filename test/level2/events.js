@@ -122,7 +122,7 @@ exports['dispatch event'] = testcase({
     test.done();
   },
 
-  // An EventListener registered on the target node with capture false, should recieve any event fired on that node.
+  // An EventListener registered on the target node with capture false, should receive any event fired on that node.
   'EventListener with capture false': function (test) {
     var monitor = new EventMonitor();
     this.doc.addEventListener("foo", monitor.handleEvent, false);
@@ -130,7 +130,7 @@ exports['dispatch event'] = testcase({
     event.initEvent("foo",true,false);
     this.doc.dispatchEvent(event);
     test.expect(3);
-    test.equal(monitor.atEvents.length, 1, 'should recieve atEvent');
+    test.equal(monitor.atEvents.length, 1, 'should receive atEvent');
     test.equal(monitor.bubbledEvents.length, 0, 'should not receive at bubble phase');
     test.equal(monitor.capturedEvents.length, 0, 'should not receive at capture phase');
     test.done();
@@ -145,13 +145,13 @@ exports['dispatch event'] = testcase({
     event.initEvent("foo",true,false);
     this.doc.dispatchEvent(event);
     test.expect(3);
-    test.equal(monitor.atEvents.length, 0, 'should not recieve atEvent');
+    test.equal(monitor.atEvents.length, 0, 'should not receive atEvent');
     test.equal(monitor.bubbledEvents.length, 0, 'should not receive at bubble phase');
     test.equal(monitor.capturedEvents.length, 0, 'should not receive at capture phase');
     test.done();
   },
 
-  // The same monitor is registered twice and an event is dispatched.  The monitor should recieve only one handleEvent call.
+  // The same monitor is registered twice and an event is dispatched.  The monitor should receive only one handleEvent call.
   'EventListener is registered twice': function (test) {
     var monitor = new EventMonitor();
     this.doc.addEventListener("foo", monitor.handleEvent, false);
@@ -160,13 +160,13 @@ exports['dispatch event'] = testcase({
     event.initEvent("foo",true,false);
     this.doc.dispatchEvent(event);
     test.expect(3);
-    test.equal(monitor.atEvents.length, 1, 'should recieve atEvent only once');
+    test.equal(monitor.atEvents.length, 1, 'should receive atEvent only once');
     test.equal(monitor.bubbledEvents.length, 0, 'should not receive at bubble phase');
     test.equal(monitor.capturedEvents.length, 0, 'should not receive at capture phase');
     test.done();
   },
 
-  // The same monitor is registered twice, removed once, and an event is dispatched. The monitor should recieve only no handleEvent calls.
+  // The same monitor is registered twice, removed once, and an event is dispatched. The monitor should receive only no handleEvent calls.
   'EventListener is registered twice, removed once': function (test) {
     var monitor = new EventMonitor();
     this.doc.addEventListener("foo", monitor.handleEvent, false);
@@ -180,7 +180,7 @@ exports['dispatch event'] = testcase({
   },
 
   // A monitor is added, multiple calls to removeEventListener are made with similar but not identical arguments, and an event is dispatched.
-  // The monitor should recieve handleEvent calls.
+  // The monitor should receive handleEvent calls.
   'EventListener is registered, other listeners (similar but not identical) are removed': function (test) {
     var monitor = new EventMonitor();
     var other = {handleEvent: function(){}}
