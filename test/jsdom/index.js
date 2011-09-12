@@ -609,7 +609,12 @@ exports.tests = {
     test.equal(event.attrName, 'class', 'attrName should be class');
     test.equal(event.prevValue, 'foo', 'prevValue should be foo');
     test.equal(event.newValue, 'bar', 'newValue should be bar');
-    test.done()
+
+    event = false;
+    h2.setAttribute('class', 'bar');
+    test.ok(!event, 'Setting the same value again should not trigger an event');
+
+    test.done();
   },
 
   remove_listener_in_handler: function(test) {
