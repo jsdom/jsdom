@@ -614,6 +614,11 @@ exports.tests = {
     h2.setAttribute('class', 'bar');
     test.ok(!event, 'Setting the same value again should not trigger an event');
 
+    h2.removeAttribute('class');
+    test.ok(!!event, 'Removing an attribute should trigger DOMAttrModified');
+    test.equal(event.attrName, 'class', 'attrName should be class');
+    test.equal(event.prevValue, 'bar', 'prevValue should be bar');
+
     test.done();
   },
 
