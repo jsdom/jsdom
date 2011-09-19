@@ -210,6 +210,20 @@ exports.tests = {
     });
   },
 
+  env_with_document_referrer : function(test) {
+    var html = "<html><body><p>hello world!</p></body></html>";
+    jsdom.env({
+      html : html,
+      document : { referrer:'https://github.com/tmpvar/jsdom' },
+      done: function(errors, window) {
+        test.equal(errors, null, 'errors should be null');
+        test.notEqual(window.document._referrer, null, 'window.document.referrer should not be null');
+        test.equal(window.document._referrer, 'https://github.com/tmpvar/jsdom', 'window.document._referrer should match the configured value');
+        test.done();
+      }
+    })
+  },
+
   env_processArguments_invalid_args: function(test) {
     test.throws(function(){ jsdom.env.processArguments(); });
     test.throws(function(){ jsdom.env.processArguments({}); });
@@ -227,14 +241,16 @@ exports.tests = {
 
   env_processArguments_object_and_callback: function(test) {
     var config = jsdom.env.processArguments([{
-      html    : "",
-      scripts : ['path/to/some.js', 'another/path/to.js'],
-      url     : 'http://www.example.com/'
+      html     : "",
+      scripts  : ['path/to/some.js', 'another/path/to.js'],
+      url      : 'http://www.example.com/',
+      document : {}
     }, function(){}]);
 
-    test.notEqual(config.done, null, 'config.done should not be null');
-    test.notEqual(config.html, null, 'config.html should not be null');
-    test.notEqual(config.url, null,  'config.url should not be null');
+    test.notEqual(config.done, null,     'config.done should not be null');
+    test.notEqual(config.html, null,     'config.html should not be null');
+    test.notEqual(config.url,  null,     'config.url should not be null');
+    test.notEqual(config.document, null, 'config.document should not be null');
     test.equal(config.scripts.length, 2, 'has code');
     test.done();
   },
