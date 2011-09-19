@@ -13136,6 +13136,22 @@ exports.tests = {
   },
 
   /**
+   * If the "refChild" is the same as the "newChild" then don't do anything.
+   */
+  hc_nodeinsertbeforerefchildequal: function(test) {
+    var doc = hc_staff.hc_staff();
+    var elementList = doc.getElementsByTagName("p");
+    var employeeNode = elementList.item(1);
+    var childList = employeeNode.childNodes;
+
+    var refChild = childList.item(3);
+
+    employeeNode.insertBefore(refChild, refChild);
+
+    test.done();
+  },
+
+  /**
    *
    If the "refChild" is null then the
    "insertBefore(newChild,refChild)" method inserts the
