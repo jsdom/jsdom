@@ -225,26 +225,16 @@ exports.tests = {
     test.done();
   },
 
-  env_processArguments_object_and_callback : function(test) {
+  env_processArguments_object_and_callback: function(test) {
     var config = jsdom.env.processArguments([{
       html    : "",
       scripts : ['path/to/some.js', 'another/path/to.js'],
       url     : 'http://www.example.com/'
-    },
-    function() {}
-    ]);
+    }, function(){}]);
 
-    test.notEqual(null, config.done, "has done");
-    test.notEqual(null, config.html, "has html");
-    test.notEqual(null, config.url, 'has url');
-    test.equal(2, config.scripts.length, 'has code');
-    test.done();
-  },
-
-  env_processArguments_object_and_callback: function(test) {
-    var config = jsdom.env.processArguments([{html: "", scripts: ['path/to/some.js', 'another/path/to.js']}, function(){}]);
     test.notEqual(config.done, null, 'config.done should not be null');
     test.notEqual(config.html, null, 'config.html should not be null');
+    test.notEqual(config.url, null,  'config.url should not be null');
     test.equal(config.scripts.length, 2, 'has code');
     test.done();
   },
