@@ -1,4 +1,4 @@
-# jsdom 0.2.1
+# jsdom
 
 A javascript implementation of the W3C DOM.
 
