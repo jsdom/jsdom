@@ -93,18 +93,22 @@ exports.tests = {
                    "location can be overriden by config.url");
         test.equal("", window.location.hash,
                    "hash should be empty string by default");
+        test.equal("", window.location.search,
+                   "search should be empty string by default");
         test.done();
       }
     })
   },
 
-  env_with_overridden_hash: function(test) {
+  env_with_overridden_search_and_hash: function(test) {
     var html = "<html><body><p>hello world!</p></body></html>";
     jsdom.env({
       html : html,
-      url  : 'http://www.example.com/#foo',
+      url  : 'http://www.example.com/?foo=bar#foo',
       done : function(errors, window) {
         test.ok(null === errors, "error should be null");
+        test.equal("?foo=bar", window.location.search,
+                   "search should pull from URL");
         test.equal("#foo", window.location.hash,
                    "hash should pull from URL");
         test.done();
