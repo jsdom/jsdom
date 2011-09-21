@@ -91,6 +91,22 @@ exports.tests = {
         test.equal("http://www.example.com/",
                    window.location.href,
                    "location can be overriden by config.url");
+        test.equal("", window.location.hash,
+                   "hash should be empty string by default");
+        test.done();
+      }
+    })
+  },
+
+  env_with_overridden_hash: function(test) {
+    var html = "<html><body><p>hello world!</p></body></html>";
+    jsdom.env({
+      html : html,
+      url  : 'http://www.example.com/#foo',
+      done : function(errors, window) {
+        test.ok(null === errors, "error should be null");
+        test.equal("#foo", window.location.hash,
+                   "hash should pull from URL");
         test.done();
       }
     })

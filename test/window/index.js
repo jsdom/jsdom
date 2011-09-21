@@ -19,5 +19,18 @@ exports.tests = {
         urlParts = rurl.exec(window.location.href);
     test.ok(urlParts.length > 1, 'url shouldnt be blank');
     test.done();
+  },
+
+  ensure_a_default_window_has_a_window_location_hash: function(test) {
+    var window = require("../../lib/jsdom/browser/index").windowAugmentation(dom);
+    var defaultHref = window.location.href;
+    test.equals(window.location.hash, "");
+    window.location.href = window.location.href + "#foobar";
+    test.equals(window.location.hash, "#foobar");
+    window.location.hash = "#baz";
+    test.equals(window.location.hash, "#baz");
+    test.equals(window.location.href, defaultHref + "#baz");
+    test.done();
   }
+
 };
