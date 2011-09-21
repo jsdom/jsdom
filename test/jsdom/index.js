@@ -599,7 +599,27 @@ exports.tests = {
     h2.firstChild.nodeValue = 'bar';
     test.equal(h2.innerHTML, text, 'ChactaterData changes should be captured');
 
-    test.done()
+    var event;
+    h2.setAttribute('class', 'foo');
+    document.addEventListener('DOMAttrModified', function(ev) {
+      event = ev;
+    });
+    h2.setAttribute('class', 'bar');
+    test.ok(!!event, 'Changing an attribute should trigger DOMAttrModified');
+    test.equal(event.attrName, 'class', 'attrName should be class');
+    test.equal(event.prevValue, 'foo', 'prevValue should be foo');
+    test.equal(event.newValue, 'bar', 'newValue should be bar');
+
+    event = false;
+    h2.setAttribute('class', 'bar');
+    test.ok(!event, 'Setting the same value again should not trigger an event');
+
+    h2.removeAttribute('class');
+    test.ok(!!event, 'Removing an attribute should trigger DOMAttrModified');
+    test.equal(event.attrName, 'class', 'attrName should be class');
+    test.equal(event.prevValue, 'bar', 'prevValue should be bar');
+
+    test.done();
   },
 
   remove_listener_in_handler: function(test) {
