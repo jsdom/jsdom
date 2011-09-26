@@ -1,3 +1,13 @@
+0.2.5
+ * Fix: serialize special characters in Element.textContent/Element.attributes like a grade A browser (Jason Priestley)
+ * Fix: ensure Element.getElementById only returns elements that are attached to the document
+ * Fix: ensure an Element's id is updated when changing the nodeValue of the 'id' attribute (Felix Gnass)
+ * Add: stacktrace to error reporter (Josh Marshall)
+ * Fix: events now bubble up to the window (Jason Davies)
+ * Add: initial window.location.hash support (Josh Marshall)
+ * Add: Node#insertBefore should do nothing when both params are the same node (Jason Davies)
+ * Add: fixes for DOMAttrModified mutation events (Felix Gnass)
+
 0.2.4
  * Fix: adding script to invalid/incomplete dom (document.documentElement) now catches the error and passes it in the `.env` callback (Gregory Tomlinson)
  * Cleanup: trigger and html tests
@@ -5,7 +15,7 @@
  * Fix: script loading over https (Brian McDaniel) #280
  * Add: using style.setProperty updates the style attribute (Jimmy Mabey).
  * Add: invalid markup is reported as an error and attached to the associated element and document
- * FIX: crash when setChild() failes to create new DOM element (John Hurliman)
+ * Fix: crash when setChild() failes to create new DOM element (John Hurliman)
  * Added test for issue #287.
  * Added support for inline event handlers.
  * Moved frame tests to test/window/frame.js and cleaned up formatting.
