@@ -105,6 +105,21 @@ exports.tests = {
     test.equal(out.match(/<\/img>/), null, 'end tag not included in output')
     test.done();
   },
+	
+  render_specialchars: function(test) {
+	  var doc = new browser.Document();
+	  var p = doc.createElement("p");
+	  var specials = '"<>&\xA0';
+	  var escapedSpecials = '"&lt;&gt;&amp;&nbsp;';
+	  p.setAttribute("specials", specials);
+	  p.innerHTML = escapedSpecials; 
+	  var pp = doc.createElement("p");
+	  pp.appendChild(p);
+	  // This matches the behavior of FireFox, Chrome, and Safari.
+	  // IE8 does not escape <> in attributes, but does escape &shy; in attributes and text content.
+	  test.equal(pp.innerHTML, '<p specials="&quot;&lt;&gt;&amp;&nbsp;">"&lt;&gt;&amp;&nbsp;</p>' );
+	  test.done();
+  },
 
   parse_scripttags: function(test) {
     var doc = new browser.Document();
