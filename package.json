@@ -114,6 +114,10 @@
       {
         "name":  "Josh Marshall",
         "web":   "http://www.ponderingtheobvious.com/"
+      },
+      {
+        "name" : "Jason Priestley",
+        "web" : "https://github.com/jhp"
       }
     ],
     "bugs": {
