@@ -1,5 +1,5 @@
 0.2.5
- * Fix: serialize special characters in Element.textContent/Element.attributes like a grade A browser (Jason Priestley)
+ * Fix: serialize special characters in Element.innerHTML/Element.attributes like a grade A browser (Jason Priestley)
  * Fix: ensure Element.getElementById only returns elements that are attached to the document
  * Fix: ensure an Element's id is updated when changing the nodeValue of the 'id' attribute (Felix Gnass)
  * Add: stacktrace to error reporter (Josh Marshall)
