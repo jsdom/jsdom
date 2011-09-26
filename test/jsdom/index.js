@@ -1016,5 +1016,31 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
     elem.setAttribute('onsubmit', ';');
     test.equal(typeof elem.onsubmit, 'function');
     test.done();
+  },
+
+  get_element_by_id : function (test) {
+    var doc = jsdom.jsdom();
+    var el = doc.createElement('div');
+    el.setAttribute('id', 'foo');
+    test.equal(doc.getElementById('foo'), null, 'Element must not be found until it has been added to the DOM');
+
+    doc.body.appendChild(el);
+    test.equal(doc.getElementById('foo'), el, 'Element must be found after being added');
+
+    el.id = 'bar';
+    test.equal(doc.getElementById('foo'), null, 'Element must not be found by its previous id');
+    test.equal(doc.getElementById('bar'), el, 'Element must be found by its new id');
+
+    el.setAttribute('id', 'baz');
+    test.equal(doc.getElementById('bar'), null, 'Element must not be found by its previous id');
+    test.equal(doc.getElementById('baz'), el, 'Element must be found by its new id');
+
+    el.getAttributeNode('id').nodeValue = 'boo';
+    test.equal(doc.getElementById('boo'), el, 'Element must be found by its new id');
+
+    doc.body.removeChild(el);
+    test.equal(doc.getElementById(el.id), null, 'Element must not be found after it has been removed');
+
+    test.done();
   }
 };
