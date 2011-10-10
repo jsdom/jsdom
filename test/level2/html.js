@@ -1,10 +1,17 @@
 var fs = require('fs');
 var jsdom = require("../../lib/jsdom");
 var fileCache = {};
-var load = function(name) {
-  var file     = __dirname + "/html/files/" + name + ".html",
-      contents = fileCache[file] || fs.readFileSync(file, 'utf8'),
-      doc      = jsdom.jsdom(null, null, {url: "file://" + file }),
+var load = function(name, options) {
+  options || (options = {});
+
+  var file     = __dirname + "/html/files/" + name + ".html";
+
+  if(!options.url) {
+    options.url = "file://" + file;
+  }
+
+  var contents = fileCache[file] || fs.readFileSync(file, 'utf8'),
+      doc      = jsdom.jsdom(null, null, options),
       window   = doc.createWindow();
 
   doc.parent = window;
@@ -2139,6 +2146,12 @@ exports.tests = {
     doc = load("document");
     vreferrer = doc.referrer;
     test.equal(vreferrer, "", "referrerLink");
+
+    // Test configuration of referrer value.
+    doc = load("document", { referrer:'http://www.example.com' });
+    vreferrer = doc.referrer;
+    test.equal(vreferrer, "http://www.example.com", "referrerLink");
+
     test.done();
   },
 
