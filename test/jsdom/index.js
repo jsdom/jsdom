@@ -794,6 +794,7 @@ exports.tests = {
                      "Unknown and unparsable entities should be left in the decoded text");
     test.strictEqual(document.body.innerHTML, "&amp;nowayjose;☺&amp;#xblah;&amp;#9q;",
                      "Unknown and unparsable entities should be reserialized as literal text");
+    test.done();
   },
 
   document_title_and_entities: function (test) {
