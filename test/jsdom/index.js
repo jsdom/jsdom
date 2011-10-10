@@ -78,7 +78,7 @@ exports.tests = {
         test.notEqual(window.location, null, 'window.location should not be null');
         test.done();
       }
-    })
+    });
   },
 
   env_with_overridden_url : function(test) {
@@ -95,7 +95,7 @@ exports.tests = {
                    "hash should be empty string by default");
         test.done();
       }
-    })
+    });
   },
 
   env_with_overridden_hash: function(test) {
@@ -109,7 +109,7 @@ exports.tests = {
                    "hash should pull from URL");
         test.done();
       }
-    })
+    });
   },
 
   env_with_non_existant_script : function(test) {
@@ -119,7 +119,7 @@ exports.tests = {
       scripts: ['path/to/invalid.js', 'another/invalid.js'],
       done: function(errors, window) {
         test.notEqual(errors, null, 'errors should not be null');
-        test.equal(errors.length, 2, 'errors is an array')
+        test.equal(errors.length, 2, 'errors is an array');
         test.notEqual(window.location, null, 'window.location should not be null');
         test.done();
       }
@@ -145,7 +145,7 @@ exports.tests = {
         done: function(errors, window) {
           server.close();
           if (errors) {
-            test.ok(false, errors.message)
+            test.ok(false, errors.message);
           } else {
             test.notEqual(window.location, null, 'window.location should not be null');
             test.equal(window.attachedHere, 123, 'script should execute on our window');
@@ -196,7 +196,7 @@ exports.tests = {
       scripts: 'https://doesntmatter.com/script.js',
       done: function(errors, window) {
         if (errors) {
-          test.ok(false, errors.message)
+          test.ok(false, errors.message);
         } else {
           test.notEqual(window.location, null, 'window.location should not be null');
           test.equal(window.attachedHere, 123, 'script should execute on our window');
@@ -219,7 +219,7 @@ exports.tests = {
       done    : function(errors, window) {
         test.ok(null === errors, "error should not be null");
         test.ok(null !== window.location, "window should be valid");
-        test.equal(window.attachedHere, 123, "script should execute on our window")
+        test.equal(window.attachedHere, 123, "script should execute on our window");
         test.equal(window.document.getElementsByTagName("p").item(0).innerHTML, 'hello world!', "anchor text");
         test.done();
       }
@@ -312,7 +312,7 @@ exports.tests = {
         var doc = jsdom.jsdom();
         doc.appendChild(doc.createElement('html'));
       } catch (e) {
-        test.equal(e.code, 3, 'Should throw HIERARCHY_ERR')
+        test.equal(e.code, 3, 'Should throw HIERARCHY_ERR');
         code = e.code;
         throw(e);
       }
@@ -351,7 +351,7 @@ exports.tests = {
     doc2.onload = function() {
       test.equal(doc2.getElementById("test").innerHTML, 'hello from html', 'js should not be executed (doc2)');
       test.done();
-    }
+    };
   },
 
   load_multiple_resources_with_defer_close: function(test) {
@@ -511,10 +511,10 @@ exports.tests = {
       <a href="#here" id="link5">link5</a>\
       <a href="//example.com/protocol/avoidance.html" id="link6">protocol</a>\
     </body>\
-  </html>'
+  </html>';
 
     function testLocal() {
-      var url = '/path/to/docroot/index.html'
+      var url = '/path/to/docroot/index.html';
       var doc = jsdom.jsdom(html, null, {url: url});
       test.equal(doc.getElementById("link1").href, 'http://example.com', 'Absolute URL should be left alone');
       test.equal(doc.getElementById("link2").href, '/local.html', 'Relative URL should be resolved');
@@ -525,7 +525,7 @@ exports.tests = {
     }
 
     function testRemote() {
-      var url = 'http://example.com/path/to/docroot/index.html'
+      var url = 'http://example.com/path/to/docroot/index.html';
       var doc = jsdom.jsdom(html, null, {url: url});
       test.equal(doc.getElementById("link1").href, 'http://example.com', 'Absolute URL should be left alone');
       test.equal(doc.getElementById("link2").href, 'http://example.com/local.html', 'Relative URL should be resolved');
@@ -573,7 +573,7 @@ exports.tests = {
     var buffer = require("fs").readFileSync(__dirname + "/files/env.html"),
         dom;
     test.doesNotThrow(function(){ dom = jsdom.jsdom(buffer); }, 'buffers should automatically be stringified');
-    test.equal(dom.documentElement.getElementsByTagName("*").length, 3, 'should parse as per usual')
+    test.equal(dom.documentElement.getElementsByTagName("*").length, 3, 'should parse as per usual');
     test.done();
   },
 
@@ -670,13 +670,13 @@ exports.tests = {
 
   childNodes_updates_on_insertChild : function(test) {
     var window = jsdom.jsdom("").createWindow();
-    var div = window.document.createElement("div")
-    var text = window.document.createTextNode("bar")
+    var div = window.document.createElement("div");
+    var text = window.document.createTextNode("bar");
     div.appendChild(text);
     test.strictEqual(text, div.childNodes[0],
                "childNodes NodeList should update after appendChild");
 
-    text = window.document.createTextNode("bar")
+    text = window.document.createTextNode("bar");
     div.insertBefore(text, null);
     test.strictEqual(text, div.childNodes[1],
                "childNodes NodeList should update after insertBefore");
@@ -685,7 +685,7 @@ exports.tests = {
 
   option_set_selected : function(test) {
     var window = jsdom.jsdom("").createWindow();
-    var select = window.document.createElement("select")
+    var select = window.document.createElement("select");
 
     var option0 = window.document.createElement('option');
     select.appendChild(option0);
@@ -716,16 +716,16 @@ exports.tests = {
   },
 
   case_sensitivity_of_markup_missing_html_and_body : function(test){
-      var spaces = /[ \n]*/g,
-          doc1 = jsdom.html("<HTML><BODY></BODY></HTML>").outerHTML.replace(spaces, ''),
-          doc2 = jsdom.html("<html><BODY></Body></HTML>").outerHTML.replace(spaces, ''),
-          doc3 = jsdom.html("<html><body></body></html>").outerHTML.replace(spaces, ''),
-          doc4 = jsdom.html("<body></body>").outerHTML.replace(spaces, ''),
-          doc5 = jsdom.html("").outerHTML.replace(spaces, '');
+    var spaces = /[ \n]*/g,
+        doc1 = jsdom.html("<HTML><BODY></BODY></HTML>").outerHTML.replace(spaces, ''),
+        doc2 = jsdom.html("<html><BODY></Body></HTML>").outerHTML.replace(spaces, ''),
+        doc3 = jsdom.html("<html><body></body></html>").outerHTML.replace(spaces, ''),
+        doc4 = jsdom.html("<body></body>").outerHTML.replace(spaces, ''),
+        doc5 = jsdom.html("").outerHTML.replace(spaces, '');
 
-      test.ok(doc1 === doc2 && doc2 == doc3 && doc3 === doc4 && doc4 == doc5,
-              'they should all serialize the same');
-      test.done();
+    test.ok(doc1 === doc2 && doc2 == doc3 && doc3 === doc4 && doc4 == doc5,
+            'they should all serialize the same');
+    test.done();
   },
 
   children_should_be_available_right_after_document_creation : function(test) {
@@ -753,7 +753,7 @@ exports.tests = {
      'jquery.js'
     ], function () {
       // ensure the callback gets called!
-      test.done()
+      test.done();
     });
   },
 
@@ -769,22 +769,32 @@ exports.tests = {
   },
 
   parsing_and_serializing_entities: function(test) {
-      var html = '<html><body><a href="http://example.com/?a=b&amp;c=d">&lt;&aelig;&#x263a;foo</a>';
-      var document = jsdom.jsdom(html);
-      var anchor = document.getElementsByTagName('a')[0];
+    var html = '<html><body><a href="http://example.com/?a=b&amp;c=d">&lt;&aelig;&#x263a;foo</a>';
+    var document = jsdom.jsdom(html);
+    var anchor = document.getElementsByTagName('a')[0];
 
-      test.strictEqual(anchor.getAttribute('href'), 'http://example.com/?a=b&c=d',
-                       "href attribute value should be deentitified");
+    test.strictEqual(anchor.getAttribute('href'), 'http://example.com/?a=b&c=d',
+                     "href attribute value should be deentitified");
 
-      test.strictEqual(anchor.firstChild.nodeValue, '<æ☺foo',
-                       "nodeValue of text node should be deentitified");
+    test.strictEqual(anchor.firstChild.nodeValue, '<æ☺foo',
+                     "nodeValue of text node should be deentitified");
 
-      test.ok(anchor.outerHTML.indexOf('http://example.com/?a=b&amp;c=d') !== -1,
-              "outerHTML of anchor href should be entitified");
+    test.ok(anchor.outerHTML.indexOf('http://example.com/?a=b&amp;c=d') !== -1,
+            "outerHTML of anchor href should be entitified");
 
-      test.ok(anchor.innerHTML.indexOf("&lt;") === 0,
-              "innerHTML of anchor should begin with &lt;");
-      test.done();
+    test.ok(anchor.innerHTML.indexOf("&lt;") === 0,
+            "innerHTML of anchor should begin with &lt;");
+    test.done();
+  },
+
+  parsing_and_serializing_unknown_entities: function (test) {
+    var html = '<html><body>&nowayjose;&#x263a;&#xblah;&#9q;</body></html>';
+    var document = jsdom.jsdom(html);
+    test.strictEqual(document.body.firstChild.nodeValue, "&nowayjose;☺&#xblah;&#9q;",
+                     "Unknown and unparsable entities should be left in the decoded text");
+    test.strictEqual(document.body.innerHTML, "&amp;nowayjose;☺&amp;#xblah;&amp;#9q;",
+                     "Unknown and unparsable entities should be reserialized as literal text");
+    test.done();
   },
 
   document_title_and_entities: function (test) {
@@ -865,10 +875,10 @@ exports.tests = {
   allow_ender_to_run : function(test) {
     jsdom.env('<a />', [__dirname + '/files/ender-qwery.js'], function(e, w) {
       test.ok(!e, 'no errors');
-      test.ok(w.ender, 'ender exists')
+      test.ok(w.ender, 'ender exists');
       test.ok(w.$, 'window contains $');
       test.done();
-    })
+    });
   },
 
   // see: https://github.com/tmpvar/jsdom/issues/259
@@ -912,7 +922,7 @@ exports.tests = {
     var thrown = false;
     var doc;
     try {
-      doc = jsdom.jsdom('<html><body><div id="<"></div></body></html>')
+      doc = jsdom.jsdom('<html><body><div id="<"></div></body></html>');
     } catch (e) {
       thrown = true;
     }
