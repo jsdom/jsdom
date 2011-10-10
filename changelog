@@ -1,3 +1,6 @@
+0.2.7 (hotfix)
+ * Fix stylesheet loading
+
 0.2.6
  * Add: support for window.location.search and document.cookie (Derek Lindahl)
  * Add: jsdom.env now has a document configuation option which allows users to change the referer of the document (Derek Lindahl)
