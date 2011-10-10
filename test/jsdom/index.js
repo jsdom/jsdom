@@ -958,7 +958,7 @@ exports.tests = {
     var document = jsdom.html('<html><body></body></html>');
     var a = document.createElement('a');
     a.style.width = '100%';
-    // Test fails so disable test.ok(!!a.getAttribute('style').match(/^\s*width\s*:\s*100%\s*;?\s*$/), 'style attribute must contain width');
+    test.ok(!!a.getAttribute('style').match(/^\s*width\s*:\s*100%\s*;?\s*$/), 'style attribute must contain width');
     test.done();
   },
 
