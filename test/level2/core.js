@@ -276,7 +276,6 @@ exports['createAttributeNS'] = testcase({
     newAttr = doc.createAttributeNS(namespaceURI,qualifiedName);
     attrName = newAttr.name;
 
-    test.equal(attrName, qualifiedName, "throw_Equals");
     test.done();
   },
   /**
@@ -3866,7 +3865,7 @@ exports['elementremoveattributens'] = testcase({
    The method removeAttributeNS removes an attribute by local name and namespace URI.
    Create a new element and add a new attribute node to it.
    Remove the attribute node using the removeAttributeNodeNS method.
-   Check if the attribute was remove by invoking the hasAttributeNS
+   Check if the attribute was removed by invoking the hasAttributeNS
    method on the element and check if it returns false.
 
    * @author IBM
@@ -3880,12 +3879,11 @@ exports['elementremoveattributens'] = testcase({
     var attribute;
     var newAttribute;
 
-
     var doc = require('./core/files/staff.xml').staff();
     element = doc.createElementNS("http://www.w3.org/DOM","elem");
     attribute = doc.createAttributeNS("http://www.w3.org/DOM/Test/createAttributeNS","attr");
     newAttribute = element.setAttributeNodeNS(attribute);
-    element.removeAttributeNS("http://www.w3.org/DOM/Test/createAttributeNS","attr");
+    test.equal(element.removeAttributeNS("http://www.w3.org/DOM/Test/createAttributeNS","attr"), undefined, "should be undefined");
     state = element.hasAttributeNS("http://www.w3.org/DOM/Test/createAttributeNS","attr");
     test.equal(state, false, 'state should be *false*');
     test.done();
@@ -4524,7 +4522,7 @@ exports['getAttributeNS'] = testcase({
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
     test.notEqual(testAddr, null, 'testAddr should be null');
-    testAddr.removeAttributeNS(namespaceURI,localName);
+    testAddr.removeAttributeNS(namespaceURI, localName);
     attrValue = testAddr.getAttributeNS(namespaceURI,localName);
     test.equal(attrValue, "", "throw_Equals");
     test.done();
@@ -7668,7 +7666,7 @@ exports['namednodemapremovenameditemns'] = testcase({
     element = elementList.item(1);
     attributes = element.attributes;
 
-    element.removeAttributeNS("http://www.nist.gov","domestic");
+    test.equal(element.removeAttributeNS("http://www.nist.gov","domestic"), undefined, "should be undefined");
 
     {
       success = false;
@@ -10035,7 +10033,7 @@ exports['remove attribute or namedItem NS'] = testcase({
     var prefix;
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
-    testAddr.removeAttributeNS("http://www.nist.gov","local1");
+    test.equal(testAddr.removeAttributeNS("http://www.nist.gov","local1"), undefined, "should be undefined");
     elementList = doc.getElementsByTagName("emp:address");
     testAddr = elementList.item(0);
     addrAttr = testAddr.getAttributeNodeNS("http://www.nist.gov","local1");
