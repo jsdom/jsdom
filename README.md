@@ -119,6 +119,7 @@ If you would like to specify a configuration object
   - config.done     : see `callback` above
   - config.document :
    - referer : the new document will have this referer
+   - cookie : manually set a cookie value i.e. `'key=value; expires=Wed, Sep 21 2011 12:00:00 GMT; path=/'`
   - config.features : see `Flexibility` section below. **Note**: the default feature set for jsdom.env does _not_ include fetching remote javascript and executing it.  This is something that you will need to **carefully** enable yourself.
 
 ## For the hardcore
