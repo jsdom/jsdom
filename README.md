@@ -253,15 +253,14 @@ This feature is backed by [sizzle][] but currently causes problems with some lib
      level2/style           4/4      100%
      level2/extra           4/4      100%
      level3/xpath         93/93      100%
-     window/index           3/3      100%
+     window/index           5/5      100%
      window/script          8/8      100%
      window/frame         14/14      100%
      sizzle/index         12/15       80%
-     jsdom/index          61/61      100%
+     jsdom/index          63/63      100%
     --------------------------------------
-    TOTALS: 3/2468 failed; 99% success
-    TIME: 13159ms
-
+    TOTALS: 3/2472 failed; 99% success
+    TIME: 16730ms
 
 ## Running the tests
 

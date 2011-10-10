@@ -1,3 +1,11 @@
+0.2.6
+ * Add: support for window.location.search and document.cookie (Derek Lindahl)
+ * Add: jsdom.env now has a document configuation option which allows users to change the referer of the document (Derek Lindahl)
+ * Fix: allow users to use different jsdom levels in the same process (sinegar)
+ * Fix: removeAttributeNS no longer has a return value (Jason Davies)
+ * Add: support for encoding/decoding all html entities from html4/5 (papandreou)
+ * Add: jsdom.env() accepts the same features object seen in jsdom.jsom and friends
+
 0.2.5
  * Fix: serialize special characters in Element.innerHTML/Element.attributes like a grade A browser (Jason Priestley)
  * Fix: ensure Element.getElementById only returns elements that are attached to the document
