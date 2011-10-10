@@ -12,6 +12,15 @@ or
     cd jsdom
     npm link
 
+## Human contact
+
+see: [mailing list][]
+
+  [mailing list]: http://groups.google.com/group/jsdom
+
+
+
+
 ## Easymode
 
 Bootstrapping a DOM is generally a difficult process involving many error prone steps. We didn't want jsdom to fall into the same trap and that is why a new method, `jsdom.env()`, has been added in jsdom 0.2.0 which should make everyone's lives easier.
@@ -104,10 +113,13 @@ If you would like to specify a configuration object
 
     jsdom.env({ /* config */ })
 
-  - config.html    : see `html` above
-  - config.scripts : see `scripts` above
-  - config.src     : An array of javascript strings that will be evaluated against the resulting document.  Similar to `scripts`, but it accepts javascript instead of paths/urls.
-  - config.done    : see `callback` above
+  - config.html     : see `html` above
+  - config.scripts  : see `scripts` above
+  - config.src      : An array of javascript strings that will be evaluated against the resulting document.  Similar to `scripts`, but it accepts javascript instead of paths/urls.
+  - config.done     : see `callback` above
+  - config.document :
+   - referer : the new document will have this referer
+  - config.features : see `Flexibility` section below. **Note**: the default feature set for jsdom.env does _not_ include fetching remote javascript and executing it.  This is something that you will need to **carefully** enable yourself.
 
 ## For the hardcore
 
@@ -232,20 +244,22 @@ This feature is backed by [sizzle][] but currently causes problems with some lib
 
 # Test Compliance:
 
-    level1/core       529/529      100%
-    level1/html       238/238      100%
-    level1/svg        527/527      100%
-    level2/core       283/283      100%
-    level2/html       687/687      100%
-    level2/style          3/3      100%
-    level2/extra          4/4      100%
-    level3/xpath        93/93      100%
-    window                2/2      100%
-    sizzle/index        12/15       80%
-    jsdom/index         44/44      100%
-    -------------------------------------
-    TOTALS: 3/2425 failed; 99% success
-    TIME: 9373ms
+     level1/core        531/531      100%
+     level1/html        238/238      100%
+     level1/svg         527/527      100%
+     level2/core        283/283      100%
+     level2/html        687/687      100%
+     level2/style           4/4      100%
+     level2/extra           4/4      100%
+     level3/xpath         93/93      100%
+     window/index           3/3      100%
+     window/script          8/8      100%
+     window/frame         14/14      100%
+     sizzle/index         12/15       80%
+     jsdom/index          61/61      100%
+    --------------------------------------
+    TOTALS: 3/2468 failed; 99% success
+    TIME: 13159ms
 
 
 ## Running the tests
@@ -262,12 +276,3 @@ Using `test/runner` you can slice and dice which tests your want to run from dif
     -f, --fail-fast  stop on the first failed test
     -h, --help       show the help
     -t, --tests      choose the test cases to run. ie: -t jquery
-
-# More
-
-see: [mailing list][]
-see: [project site][] for additional information
-
-  [mailing list]: http://groups.google.com/group/jsdom
-  [project site]: http://www.jsdom.org
-
