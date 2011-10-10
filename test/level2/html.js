@@ -2384,6 +2384,18 @@ exports.tests = {
     doc = load("document");
     vcookie = doc.cookie;
     test.equal(vcookie, "", "cookieLink");
+
+    doc = load("document", { cookie:false } );
+    vcookie = doc.cookie;
+    test.equal(vcookie, "", "cookieLink");
+
+    future = new Date();
+    future.setTime( future.getTime() + (24 * 60 * 60 * 1000) );
+    cookie = 'key=value; expires='+future.toGMTString()+'; path=/';
+    doc = load("document", { cookie:cookie });
+    vcookie = doc.cookie;
+    test.equal(vcookie, cookie, "cookieLink");
+
     test.done();
   },
 

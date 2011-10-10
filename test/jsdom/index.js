@@ -93,6 +93,24 @@ exports.tests = {
                    "location can be overriden by config.url");
         test.equal("", window.location.hash,
                    "hash should be empty string by default");
+        test.equal("", window.location.search,
+                   "search should be empty string by default");
+        test.done();
+      }
+    })
+  },
+
+  env_with_overridden_search_and_hash: function(test) {
+    var html = "<html><body><p>hello world!</p></body></html>";
+    jsdom.env({
+      html : html,
+      url  : 'http://www.example.com/?foo=bar#foo',
+      done : function(errors, window) {
+        test.ok(null === errors, "error should be null");
+        test.equal("?foo=bar", window.location.search,
+                   "search should pull from URL");
+        test.equal("#foo", window.location.hash,
+                   "hash should pull from URL");
         test.done();
       }
     });
@@ -233,8 +251,28 @@ exports.tests = {
       document : { referrer:'https://github.com/tmpvar/jsdom' },
       done: function(errors, window) {
         test.equal(errors, null, 'errors should be null');
-        test.notEqual(window.document._referrer, null, 'window.document.referrer should not be null');
+        test.notEqual(window.document._referrer, null, 'window.document._referrer should not be null');
         test.equal(window.document._referrer, 'https://github.com/tmpvar/jsdom', 'window.document._referrer should match the configured value');
+        test.done();
+      }
+    })
+  },
+
+  env_with_document_cookie : function(test) {
+    var cookie,
+        future = new Date(),
+        html = "<html><body><p>hello world!</p></body></html>";
+
+    future.setTime( future.getTime() + (24 * 60 * 60 * 1000) )
+    cookie = 'key=value; expires='+future.toGMTString()+'; path=/';
+
+    jsdom.env({
+      html : html,
+      document : { cookie:cookie },
+      done: function(errors, window) {
+        test.equal(errors, null, 'errors should be null');
+        test.notEqual(window.document._cookie, null, 'window.document._cookie should not be null');
+        test.equal(window.document._cookie, cookie, 'window.document._cookie should match the configured value');
         test.done();
       }
     })

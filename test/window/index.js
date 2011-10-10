@@ -31,6 +31,27 @@ exports.tests = {
     test.equals(window.location.hash, "#baz");
     test.equals(window.location.href, defaultHref + "#baz");
     test.done();
-  }
+  },
 
+  ensure_a_default_window_has_a_window_location_search: function(test) {
+    var window = require("../../lib/jsdom/browser/index").windowAugmentation(dom);
+    var defaultSearch = window.location.search;
+    test.equals(window.location.search, "");
+    window.location.search = window.location.search + "?foo=bar";
+    test.equals(window.location.search, "?foo=bar");
+    window.location.search = "?baz=qux";
+    test.equals(window.location.search, "?baz=qux");
+    test.equals(window.location.search, defaultSearch + "?baz=qux");
+    test.done();
+  },
+
+  ensure_a_default_window_can_set_search_with_a_hash: function(test) {
+    var window = require("../../lib/jsdom/browser/index").windowAugmentation(dom);
+    window.location.href = window.location.href + "#foo";
+    window.location.search = "?foo=bar";
+    test.equals(window.location.href.split("?")[1], "foo=bar#foo");
+    window.location.search = "";
+    test.equals(window.location.href.indexOf("?"), -1);
+    test.done();
+  }
 };
