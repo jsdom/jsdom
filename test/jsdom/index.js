@@ -1106,6 +1106,16 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
     test.equal(level1.HTMLCollection, null, 'Level1 dom shouldn\'t have HTMLCollection function.');
 
     test.done();
+  }, 
+
+  node_textContent_includes_cdata_section : function(test) {
+    var document = jsdom.html('<html><body><div><![CDATA[test]]></div></body></html>');
+    var content = document.body.children.item(0);
+
+    test.equal(content.children.length, 0, 'div has no children');
+    test.equal(content.textContent, 'test', 'div has CDATA content as value');
+
+    test.done();
   }
 
 };
