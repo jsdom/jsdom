@@ -481,7 +481,7 @@ exports.tests = {
 
     var doc = jsdom.jsdom(html);
     doc.onload = function() {
-      test.equal(doc.getElementById("test").innerHTML, 'hello from javascript', 'resource with file protocol should work');
+      test.equal(doc.getElementById("test").innerHTML, 'hello from html', 'resource with file protocol should work');
       test.done();
     };
   },
