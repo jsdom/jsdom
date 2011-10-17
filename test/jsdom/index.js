@@ -1106,6 +1106,15 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
     test.equal(level1.HTMLCollection, null, 'Level1 dom shouldn\'t have HTMLCollection function.');
 
     test.done();
+  },
+
+  issue_335_inline_event_handlers : function(test) {
+    var doc = jsdom.html('<a onclick="somefunction()">call some function</a>');
+    var a = doc.getElementsByTagName('a').item(0);
+    var onclick = a.getAttribute('onclick');
+    test.notEqual(onclick, null)
+    test.equal(onclick, 'somefunction()');
+    test.done();
   }
 
 };
