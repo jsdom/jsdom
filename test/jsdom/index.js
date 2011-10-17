@@ -1112,8 +1112,9 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
     var doc = jsdom.html('<a onclick="somefunction()">call some function</a>');
     var a = doc.getElementsByTagName('a').item(0);
     var onclick = a.getAttribute('onclick');
-    test.notEqual(onclick, null)
+    test.notEqual(onclick, null);
     test.equal(onclick, 'somefunction()');
+    test.ok(doc.innerHTML.indexOf('onclick') > -1);
     test.done();
   }
 
