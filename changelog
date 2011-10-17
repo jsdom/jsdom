@@ -1,3 +1,6 @@
+0.2.8 (hotfix)
+ * Fix: inline event handlers are ignored by everything except for the javascript context
+
 0.2.7 (hotfix)
  * Fix stylesheet loading
 
