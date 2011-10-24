@@ -126,7 +126,7 @@
     ],
     "bugs": {
         "mail": "tmpvar@gmail.com",
-        "web": "http://github.com/tmpvar/jsdom/issues"
+        "url": "http://github.com/tmpvar/jsdom/issues"
     },
     "licenses": [
         {
