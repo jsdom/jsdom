@@ -1116,6 +1116,13 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
     test.equal(onclick, 'somefunction()');
     test.ok(doc.innerHTML.indexOf('onclick') > -1);
     test.done();
+  },
+
+  issue_338_internal_nodelist_props : function(test) {
+    var doc = jsdom.html();
+    var props = Object.keys(doc.body.childNodes);
+    test.equal(props.length, 1, 'Internal properties must not be enumerable');
+    test.done();
   }
 
 };
