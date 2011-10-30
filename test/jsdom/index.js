@@ -1139,7 +1139,17 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
           test.done();
         }
       }
-    })
-  }
+    });
+  },
 
+  setting_and_getting_script_element_text : function (test) {
+    var doc = jsdom.html("<script></script>");
+    var script = doc.getElementsByTagName('script')[0];
+    test.equal(script.text, '');
+    script.text = 'var x = 3;';
+    test.equal(script.text, 'var x = 3;');
+    script.text = 'var y = 2;';
+    test.equal(script.text, 'var y = 2;');
+    test.done();
+  }
 };
