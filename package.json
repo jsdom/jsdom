@@ -10,7 +10,7 @@
     "maintainers": [{
       "name": "Elijah Insua",
       "email": "tmpvar@gmail.com",
-      "web": "http://tmpvar.com"
+      "url": "http://tmpvar.com"
     }],
     "contributors": [
       {
@@ -36,12 +36,12 @@
       {
         "name":  "Matthew",
         "email": "N.A.",
-        "web":   "http://github.com/matthewpflueger/"
+        "url":   "http://github.com/matthewpflueger/"
       },
       {
         "name":  "Olivier El Mekki",
         "email": "unknown",
-        "web":   "http://blog.olivier-elmekki.com/"
+        "url":   "http://blog.olivier-elmekki.com/"
       },
       {
         "name":  "Shimon Dookdin",
@@ -50,16 +50,16 @@
       {
         "name":  "Daniel Cassidy",
         "email": "mail@danielcassidy.me.uk",
-        "web":   "http://www.danielcassidy.me.uk/"
+        "url":   "http://www.danielcassidy.me.uk/"
       },
       {
         "name":  "Sam Ruby",
         "email": "N/A",
-        "web":   "http://intertwingly.net/blog/"
+        "url":   "http://intertwingly.net/blog/"
       },
       {
         "name":  "hij1nx",
-        "web":   "http://github.com/hij1nx"
+        "url":   "http://github.com/hij1nx"
       },
       {
         "name":  "Daniel Cassidy",
@@ -67,11 +67,11 @@
       },
       {
         "name":  "Yonathan Randolph",
-        "web":   "http://github.com/yonran"
+        "url":   "http://github.com/yonran"
       },
       {
         "name":  "Martin Davis",
-        "web":   "http://github.com/waslogic"
+        "url":   "http://github.com/waslogic"
       },
       {
         "name":  "Andreas Lind Petersen",
@@ -79,7 +79,7 @@
       },
       {
         "name":  "d-ash",
-        "web":   "http://github.com/d-ash"
+        "url":   "http://github.com/d-ash"
       },
       {
         "name":  "Robin Zhong",
@@ -95,7 +95,7 @@
       },
       {
         "name":  "Brian McDaniel",
-        "web":   "http://github.com/brianmcd"
+        "url":   "http://github.com/brianmcd"
       },
       {
         "name":  "John Hurliman",
@@ -109,19 +109,19 @@
       },
       {
         "name":  "Jason Davies",
-        "web":   "http://www.jasondavies.com/"
+        "url":   "http://www.jasondavies.com/"
       },
       {
         "name":  "Josh Marshall",
-        "web":   "http://www.ponderingtheobvious.com/"
+        "url":   "http://www.ponderingtheobvious.com/"
       },
       {
         "name" : "Jason Priestley",
-        "web" : "https://github.com/jhp"
+        "url" : "https://github.com/jhp"
       },
       {
         "name" : "Derek Lindahl",
-        "web" : "https://github.com/dlindahl"
+        "url" : "https://github.com/dlindahl"
       }
     ],
     "bugs": {
