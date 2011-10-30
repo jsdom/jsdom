@@ -86,7 +86,8 @@ var files = [
   "window/script.js",
   "window/frame.js",
   "sizzle/index.js",
-  "jsdom/index.js"
+  "jsdom/index.js",
+  "jsonp/jsonp.js"
 ];
 
 if (fileFilter.length > 0) {
