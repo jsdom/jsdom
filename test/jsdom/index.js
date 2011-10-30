@@ -1123,6 +1123,23 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
     var props = Object.keys(doc.body.childNodes);
     test.equal(props.length, 1, 'Internal properties must not be enumerable');
     test.done();
+  },
+
+  multiple_done_calls_with_src : function(test) {
+    var script = "window.a = (typeof window.a !== 'undefined') ? window.a + 1 : 0;";
+    var doneCounter = 0;
+    jsdom.env({
+      html : '<div />',
+      src : [script, script, script],
+      done: function(errors, window) {
+        doneCounter++;
+        console.log(window.a);
+        if (window.a === 2) {
+          test.equal(doneCounter, 1);
+          test.done();
+        }
+      }
+    })
   }
 
 };
