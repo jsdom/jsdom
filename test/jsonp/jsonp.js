@@ -47,19 +47,24 @@ exports.tests = {
         }
 
         var runTest = function(){
-            jsdom.env("<html><head></head><body></body></html>",
-                [jQueryFile],
-                function(errors, window){
-                    var ok = false;
-                    if(errors) {
-                        complete(false, 'jsdom setup failed: ');
-                    }
-                    window.jQuery.getJSON(targetUrl, function(data){
-                            assert.equal(data.message, 'jsonp works!');
-                            complete(true);
-                        })
-                    wait(0, 3000);
-                });
+          jsdom.env({
+            html   : "<html><head></head><body></body></html>",
+            scripts : [jQueryFile],
+            features : {
+              FetchExternalResources : ['script'],
+              ProcessExternalResources: ['script']
+            },
+            done : function(errors, window){
+              var ok = false;
+              if(errors) {
+                  complete(false, 'jsdom setup failed: ');
+              }
+              window.jQuery.getJSON(targetUrl, function(data) {
+                assert.equal(data.message, 'jsonp works!');
+                complete(true);
+              });
+            }
+          });
         };
 
         // run the test against the server

@@ -1151,5 +1151,18 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
     script.text = 'var y = 2;';
     test.equal(script.text, 'var y = 2;');
     test.done();
+  },
+
+  issue_239_replace_causes_script_execution : function(test) {
+    jsdom.env({
+      html : '<script type="text/javascript">window.a = 1;/* remove me */ console.log("executed?")</script>',
+      done : function(errors, window) {
+
+        window.document.innerHTML = window.document.innerHTML.replace('/* remove me */','');
+        test.equal(typeof window.a, 'undefined');
+        test.done();
+      }
+    });
   }
+
 };
