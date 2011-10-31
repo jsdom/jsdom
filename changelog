@@ -1,3 +1,17 @@
+0.2.9
+ * Fix: ensure features are properly reset after a jsdom.env invocation. Closes #239
+ * Fix: ReferenceError in the scanForImportRules helper function
+ * Fix: bug in appendHtmlToElement with HTML5 parser (Brian McDaniel)
+ * Add: jsonp support (lheiskan)
+ * Fix: for setting script element's text property (Brian McDaniel)
+ * Fix: for jsdom.env src bug
+ * Add: test for jsdom.env src bug (multiple done calls)
+ * Fix: NodeList properties should enumerate like arrays (Felix Gnass)
+ * Fix: when downloading a file, include the url.search in file path
+ * Add: test for making a jsonp request with jquery from jsdom window
+ * Add: test case for issue #338
+ * Fix: double load behavior when mixing jsdom.env's `scripts` and `src` properties (cjroebuck)
+
 0.2.8 (hotfix)
  * Fix: inline event handlers are ignored by everything except for the javascript context
 
