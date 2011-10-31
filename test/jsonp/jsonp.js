@@ -14,7 +14,7 @@ var jsdom = require('../../lib/jsdom'),
       }
       res.end();
     }),
-    jQueryFile = "jquery-1.6.4.min.js";
+    jQueryFile = __dirname + "/jquery-1.6.4.min.js";
 
 
 exports.tests = {
