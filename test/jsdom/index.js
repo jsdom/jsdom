@@ -1157,12 +1157,22 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
     jsdom.env({
       html : '<script type="text/javascript">window.a = 1;/* remove me */ console.log("executed?")</script>',
       done : function(errors, window) {
-
         window.document.innerHTML = window.document.innerHTML.replace('/* remove me */','');
         test.equal(typeof window.a, 'undefined');
         test.done();
       }
     });
+  },
+
+  issue_355_on_events_should_not_execute_js_when_disabled : function(test) {
+    var html = '<html><body onload="throw new Error()">something</body></html>';
+
+    jsdom.env(html, function(e) {
+      console.log("blah")
+      test.equal(e, null);
+      test.done();
+    });
   }
+
 
 };
