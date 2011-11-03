@@ -19,7 +19,9 @@ var optimist = require('optimist')
     .alias('t', 'tests')
     .describe('t', 'choose the test cases to run. ie: -t jquery')
     .alias('d', 'debug')
-    .describe('d', 'run in node\'s interactive debugger mode');
+    .describe('d', 'run in node\'s interactive debugger mode')
+    .alias('v', 'verbose')
+    .describe('v', 'show all tests that are being run');
 
 var argv = optimist.argv;
 if (argv.help) {
@@ -141,11 +143,20 @@ nodeunit.runModules(modulesToRun, {
     moduleIndex++;
   },
   moduleDone: function (name, assertions) {
+    if (argv['verbose']) {
+      console.log(' ');
+    }
   },
-  testStart: function () {
+  testStart: function (test) {
     modules[currentModule].total++;
+    if (argv['verbose']) {
+      process.stdout.write('  ' + test[0] + ' ...');
+    }
   },
-  testDone: function (name, assertions) {
+  testDone: function (test, assertions) {
+    if (argv['verbose']) {
+      console.log(' done');
+    }
     totalTests++;
     if (!assertions.failures()) {
       passedTests++;
@@ -155,7 +166,7 @@ nodeunit.runModules(modulesToRun, {
       failedTests++;
       modules[currentModule].fail++;
 
-      console.log('✖ ' + currentModule + '/' + name);
+      console.log('✖ ' + currentModule + '/' + test);
       assertions.forEach(function (a) {
         if (a.failed()) {
           if (a.error instanceof AssertionError) {
