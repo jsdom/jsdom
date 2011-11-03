@@ -122,6 +122,11 @@
       {
         "name" : "Derek Lindahl",
         "url" : "https://github.com/dlindahl"
+      },
+      {
+        "name" : "Chris Roebuck",
+        "email" : "chris@quillu.com",
+        "url" : "http://www.quillu.com"
       }
     ],
     "bugs": {
