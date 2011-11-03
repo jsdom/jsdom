@@ -392,10 +392,10 @@ exports.tests = {
 </html>';
 
     var doc2 = jsdom.jsdom(html, null, {features: {FetchExternalResources: ['script'], ProcessExternalResources: false}});
-    doc2.onload = function() {
+    setTimeout(function() {
       test.equal(doc2.getElementById("test").innerHTML, 'hello from html', 'js should not be executed (doc2)');
       test.done();
-    };
+    }, 100)
   },
 
   load_multiple_resources_with_defer_close: function(test) {
@@ -409,7 +409,7 @@ exports.tests = {
       {
         features: {
           FetchExternalResources: ['frame'],
-          ProcessExternalResources: ['frame']
+          ProcessExternalResources: ['frame','script']
         },
         deferClose : true
       });
@@ -989,7 +989,7 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
     }
 
     test.ok(doc.errors.length === 1);
-    test.ok(doc.errors[0].message = "invalid markup");
+    test.ok(doc.errors[0].message === "invalid markup");
     test.ok(thrown === false);
     test.done();
   },
@@ -1133,7 +1133,6 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
       src : [script, script, script],
       done: function(errors, window) {
         doneCounter++;
-        console.log(window.a);
         if (window.a === 2) {
           test.equal(doneCounter, 1);
           test.done();
@@ -1165,10 +1164,9 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
   },
 
   issue_355_on_events_should_not_execute_js_when_disabled : function(test) {
-    var html = '<html><body onload="throw new Error()">something</body></html>';
+    var html = '<html><body onload="undefined()">something</body></html>';
 
     jsdom.env(html, function(e) {
-      console.log("blah")
       test.equal(e, null);
       test.done();
     });
