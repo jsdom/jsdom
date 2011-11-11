@@ -1152,6 +1152,17 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
     test.done();
   },
 
+  issue_58_parse_templatedtags: function(test) {
+    var content = ' <%= cid %>'
+    var script = '<script type="text/x-underscore-tmpl">' + content + '</script>'
+    var html = '<html><head>' + script + '</head><body><p>hello world!</p></body></html>'
+    console.log(html);
+    var doc = jsdom.html(html)
+    doc.innerHTML = html;
+    test.equal(doc.head.childNodes[0].innerHTML, content);
+    test.done();
+  },
+
   issue_239_replace_causes_script_execution : function(test) {
     jsdom.env({
       html : '<script type="text/javascript">window.a = 1;/* remove me */ console.log("executed?")</script>',
