@@ -1153,6 +1153,10 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
   },
 
   issue_58_parse_templatedtags: function(test) {
+    /* There is a unit of whitespace at the front of the script tag
+       content as a workaround for
+       https://github.com/tautologistics/node-htmlparser/issues/29
+    */
     var content = ' <%= cid %>'
     var script = '<script type="text/x-underscore-tmpl">' + content + '</script>'
     var html = '<html><head>' + script + '</head><body><p>hello world!</p></body></html>'
