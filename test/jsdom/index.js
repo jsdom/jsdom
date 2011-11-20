@@ -1184,7 +1184,13 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
       test.equal(e, null);
       test.done();
     });
+  },
+
+  issue_361_textarea_value_property: function (test) {
+     var doc = jsdom.html('<html><body><textarea id="mytextarea"></textarea></body></html>');
+
+     doc.getElementById('mytextarea').value = '<foo>';
+     test.equal(doc.getElementById('mytextarea').value, '<foo>');
+     test.done();
   }
-
-
 };
