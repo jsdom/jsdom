@@ -1160,7 +1160,6 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
     var content = ' <%= cid %>'
     var script = '<script type="text/x-underscore-tmpl">' + content + '</script>'
     var html = '<html><head>' + script + '</head><body><p>hello world!</p></body></html>'
-    console.log(html);
     var doc = jsdom.html(html)
     doc.innerHTML = html;
     test.equal(doc.head.childNodes[0].innerHTML, content);
