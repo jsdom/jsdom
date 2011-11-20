@@ -145,13 +145,13 @@
         "http://www.w3.org/TR/REC-DOM-Level-1"
     ],
     "dependencies": {
-       "htmlparser" : ">=1.7.0",
-       "request"    : ">=1.0.0",
-       "cssom"      : ">=0.2.0",
-       "contextify" : ">=0.0.3"
+       "htmlparser" : "1.7.0",
+       "request"    : "1.0.0",
+       "cssom"      : "0.2.0",
+       "contextify" : "0.0.3"
     },
     "devDependencies" : {
-      "nodeunit" : ">=0.5.x",
+      "nodeunit" : "0.5.x",
       "console.log" : "*",
       "optimist"   : "*"
     },
