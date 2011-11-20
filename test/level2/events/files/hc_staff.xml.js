@@ -1,5 +1,4 @@
-var sys = require("sys"),
-    dom = require("../../../../lib/jsdom/level2/core").dom.level2.core,
+var dom = require("../../../../lib/jsdom/level2/core").dom.level2.core,
     createWindow = require("../../../../lib/jsdom/browser/index").createWindow;
 
 exports.hc_staff = function() {

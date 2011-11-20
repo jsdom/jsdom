@@ -1,7 +1,7 @@
 var browser = require("../../lib/jsdom/browser");
 var dom = browser.browserAugmentation(require("../../lib/jsdom/level2/core").dom.level2.core);
 
-var sys = require("sys");
+var util = require("util");
 
 
   var doc = new dom.Document("html");
@@ -16,7 +16,7 @@ var sys = require("sys");
     doc.createNotationNode("notation1","notation1File", null),
     doc.createNotationNode("notation2",null, "notation2File")
   );
-  
+
   // TODO: consider importing the master list of entities
   //       http://www.w3schools.com/tags/ref_symbols.asp
   var entities = new dom.EntityNodeMap(
@@ -34,15 +34,15 @@ var sys = require("sys");
   var acronym = doc.createElement("acronym");
   acronym.setAttribute("dir", "ltr");
   defaultAttributes.setNamedItem(acronym);
-  
-  
+
+
 
   var doctype = new dom.DocumentType(doc, "html", entities, notations, defaultAttributes);
   doc.doctype = doctype;
   doc.implementation = implementation;
-  
+
   doc.appendChild(doc.createComment(" This is comment number 1."));
-  
+
   var html      = doc.createElement("html");
   var html      = doc.appendChild(html);
   var head      = doc.createElement("head");
@@ -52,7 +52,7 @@ var sys = require("sys");
 	meta.setAttribute("http-equiv", "Content-Type");
 	meta.setAttribute("content", "text/html; charset=UTF-8");
   head.appendChild(meta);
-  
+
   var title     = doc.createElement("title")
   title.appendChild(doc.createTextNode("hc_staff"));
   var title     = head.appendChild(title);
@@ -72,7 +72,7 @@ var sys = require("sys");
   var genders   = [];
   var ids       = [];
   var salaries  = [];
-  
+
   // create 5 employees
   for (var i=0; i<5; i++)
   {
@@ -83,31 +83,31 @@ var sys = require("sys");
     var gender   = doc.createElement("var");
     var id       = doc.createElement("em");
     var salary   = doc.createElement("sup");
-    
-    employee.appendChild(doc.createTextNode("\n")); 
+
+    employee.appendChild(doc.createTextNode("\n"));
     employee.appendChild(id);
-    employee.appendChild(doc.createTextNode("\n")); 
+    employee.appendChild(doc.createTextNode("\n"));
     employee.appendChild(name);
-    employee.appendChild(doc.createTextNode("\n")); 
+    employee.appendChild(doc.createTextNode("\n"));
     employee.appendChild(position);
-    employee.appendChild(doc.createTextNode("\n")); 
+    employee.appendChild(doc.createTextNode("\n"));
     employee.appendChild(salary);
-    employee.appendChild(doc.createTextNode("\n")); 
+    employee.appendChild(doc.createTextNode("\n"));
     employee.appendChild(gender);
-    employee.appendChild(doc.createTextNode("\n")); 
+    employee.appendChild(doc.createTextNode("\n"));
     employee.appendChild(address);
-    employee.appendChild(doc.createTextNode("\n")); 
+    employee.appendChild(doc.createTextNode("\n"));
     staff.appendChild(employee);
 
     names.push(name);
     employees.push(employee);
-    addresses.push(address);	
+    addresses.push(address);
     genders.push(gender);
     positions.push(position);
     ids.push(id);
     salaries.push(salary);
   }
-  
+
   ids[0].appendChild(doc.createTextNode("EMP0001"));
   salaries[0].appendChild(doc.createTextNode("56,000"));
   addresses[0].setAttribute("title", "Yes");
@@ -123,7 +123,7 @@ var sys = require("sys");
   addresses[1].appendChild(doc.createTextNode("β Dallas, γ\n 98554"));
   names[1].appendChild(doc.createTextNode("Martha Raynolds"));
   //names[1].appendChild(doc.createCDATASection("This is a CDATASection with EntityReference number 2 &amp;ent2;"));
-  //names[1].appendChild(doc.createCDATASection("This is an adjacent CDATASection with a reference to a tab &amp;tab;"));  
+  //names[1].appendChild(doc.createCDATASection("This is an adjacent CDATASection with a reference to a tab &amp;tab;"));
   genders[1].appendChild(doc.createTextNode("Female"));
   positions[1].appendChild(doc.createTextNode("Secretary"));
 
@@ -145,9 +145,9 @@ var sys = require("sys");
   names[3].appendChild(doc.createTextNode("Jeny Oconnor"));
   genders[3].appendChild(doc.createTextNode("Female"));
   positions[3].appendChild(doc.createTextNode("Personal Director"));
-  
+
   ids[4].appendChild(doc.createTextNode("EMP0005"));
-  salaries[4].appendChild(doc.createTextNode("90,000"));  
+  salaries[4].appendChild(doc.createTextNode("90,000"));
   addresses[4].setAttribute("title", "No");
   addresses[4].id = "theid";
   addresses[4].appendChild(doc.createTextNode("1821 Nordic. Road, Irving Texas 98558"));
@@ -156,11 +156,11 @@ var sys = require("sys");
   positions[4].appendChild(doc.createTextNode("Computer Specialist"));
 
   //doc.appendChild(doc.createProcessingInstruction("TEST-STYLE", "PIDATA"));
-  
+
   doc.normalize();
-  
+
 var sizzleSandbox = {};
 var sizzle = require("./sizzle").sizzleInit(sizzleSandbox, doc);
-sys.puts(sys.inspect(sizzle('.classy,p acronym#theid').length));
+console.log(util.inspect(sizzle('.classy,p acronym#theid').length));
 
 

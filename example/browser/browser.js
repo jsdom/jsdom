@@ -1,6 +1,3 @@
-
-var sys = require('sys');
-
 var dom = require('../../lib/jsdom/level2/html').dom.level2.html;
 var browser = require('../../lib/jsdom/browser/index').windowAugmentation(dom);
 
@@ -24,14 +21,14 @@ el2.id = 'foo2bar';
 el2.innerHTML = '<em class="odd">This is a test</em> This <strong>is another</strong> test ';
 browser.document.body.appendChild(el2);
 
-sys.puts('getElementByid(foo2bar): ' + browser.document.getElementById('foo2bar'));
-sys.puts('getElementByid(foo): ' + browser.document.getElementById('foo'));
-sys.puts('getElementByTagName(em): ' + browser.document.getElementsByTagName('em'));
-sys.puts('getElementByClassName(odd): ' + browser.document.getElementsByClassName('odd'));
+console.log('getElementByid(foo2bar): ' + browser.document.getElementById('foo2bar'));
+console.log('getElementByid(foo): ' + browser.document.getElementById('foo'));
+console.log('getElementByTagName(em): ' + browser.document.getElementsByTagName('em'));
+console.log('getElementByClassName(odd): ' + browser.document.getElementsByClassName('odd'));
 
-sys.puts('');
-sys.puts('document.body.outerHTML: ');
-sys.puts(document.body.outerHTML);
+console.log('');
+console.log('document.body.outerHTML: ');
+console.log(document.body.outerHTML);
 
-sys.puts('document.outerHTML: ');
-sys.puts(document.outerHTML);
+console.log('document.outerHTML: ');
+console.log(document.outerHTML);

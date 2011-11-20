@@ -1,5 +1,4 @@
-var sys = require("sys"),
-    dom = require("../../../../lib/jsdom/level3/core").dom.level3.core;
+var dom = require("../../../../lib/jsdom/level3/core").dom.level3.core;
 
 exports.hc_staff = function() {
 

@@ -11,7 +11,7 @@
 */
 exports.pureInit = function(window, document) {
   var $p, pure = $p = function(){
-	  var sel = arguments[0], 
+	  var sel = arguments[0],
 		  ctxt = false;
 
 	  if(typeof sel === 'string'){
@@ -39,7 +39,7 @@ exports.pureInit = function(window, document) {
 		  default:
 			  templates = [sel];
 	  }
-	
+
 	  for(var i = 0, ii = templates.length; i < ii; i++){
 		  plugins[i] = templates[i];
 	  }
@@ -56,7 +56,7 @@ exports.pureInit = function(window, document) {
 			  IMG:'src',
 			  INPUT:'value'
 		  };
-	
+
 	  return plugins;
 
 
@@ -74,7 +74,7 @@ exports.pureInit = function(window, document) {
 		  }
 		  throw('pure error: ' + e);
 	  }
-	
+
 	  //return a new instance of plugins
 	  function getPlugins(){
 		  var plugins = $p.plugins,
@@ -86,14 +86,14 @@ exports.pureInit = function(window, document) {
 		  f.prototype.render     = plugins.render || render;
 		  f.prototype.autoRender = plugins.autoRender || autoRender;
 		  f.prototype.find       = plugins.find || find;
-		
+
 		  // give the compiler and the error handling to the plugin context
 		  f.prototype._compiler  = compiler;
 		  f.prototype._error     = error;
-   
+
 		  return new f();
 	  }
-	
+
 	  // returns the outer HTML of a node
 	  function outerHTML(node){
 		  // if IE take the internal method otherwise build one
@@ -111,7 +111,7 @@ exports.pureInit = function(window, document) {
 	  function isArray(o){
 		  return Object.prototype.toString.call( o ) === "[object Array]";
 	  }
-	
+
 	  // returns the string generator function
 	  function wrapquote(qfn, f){
 		  return function(ctxt){
@@ -135,7 +135,7 @@ exports.pureInit = function(window, document) {
 		  }
 		  return leaf;
 	  };
-	
+
 	  // default find using querySelector when available on the browser
 	  function find(n, sel){
 		  if(typeof n === 'string'){
@@ -148,7 +148,7 @@ exports.pureInit = function(window, document) {
 			  error('You can test PURE standalone with: iPhone, FF3.5+, Safari4+ and IE8+\n\nTo run PURE on your browser, you need a JS library/framework with a CSS selector engine');
 		  }
 	  }
-	
+
 	  // create a function that concatenates constant string
 	  // sections (given in parts) and the results of called
 	  // functions to fill in the gaps between parts (fns).
@@ -164,7 +164,7 @@ exports.pureInit = function(window, document) {
 			  for(var i = 1; i < n; i++){
 				  fnVal = fns[i]( ctxt );
 				  pVal = parts[i];
-				
+
 				  // if the value is empty and attribute, remove it
 				  if(fnVal === ''){
 					  attLine = strs[ strs.length - 1 ];
@@ -173,7 +173,7 @@ exports.pureInit = function(window, document) {
 						  pVal = pVal.substr( 1 );
 					  }
 				  }
-				
+
 				  strs[ strs.length ] = fnVal;
 				  strs[ strs.length ] = pVal;
 			  }
@@ -190,7 +190,7 @@ exports.pureInit = function(window, document) {
 		  if(m[1] === 'item'){
 			  error('"item<-..." is a reserved word for the current running iteration.\n\nPlease choose another name for your loop.');
 		  }
-		  if( !m[2] || (m[2] && (/context/i).test(m[2]))){ //undefined or space(IE) 
+		  if( !m[2] || (m[2] && (/context/i).test(m[2]))){ //undefined or space(IE)
 			  m[2] = function(ctxt){return ctxt.context;};
 		  }
 		  return {name: m[1], sel: m[2]};
@@ -257,12 +257,12 @@ exports.pureInit = function(window, document) {
 			  if( !m ){
 				  error( 'bad selector syntax: ' + sel );
 			  }
-			
+
 			  prepend = m[1];
 			  selector = m[2];
 			  attr = m[3];
 			  append = m[4];
-			
+
 			  if(selector === '.' || ( !selector && attr ) ){
 				  target[0] = dom;
 			  }else{
@@ -278,7 +278,7 @@ exports.pureInit = function(window, document) {
 			  append = sel.append;
 			  target = [dom];
 		  }
-		
+
 		  if( prepend || append ){
 			  if( prepend && append ){
 				  error('append/prepend cannot take place at the same time');
@@ -328,7 +328,7 @@ exports.pureInit = function(window, document) {
 					  }
 				  };
 			  }else{
-				  getstr = function(node){ 
+				  getstr = function(node){
 					  return node.innerHTML;
 				  };
 				  setstr = function(node, s, ap){
@@ -340,21 +340,21 @@ exports.pureInit = function(window, document) {
 					  }
 				  };
 			  }
-			  quotefn = function(s){ 
+			  quotefn = function(s){
 				  return s;
 			  };
 		  }
 		  var setfn;
 		  if(prepend){
-			  setfn = function(node, s){ 
+			  setfn = function(node, s){
 				  setstr( node, s + getstr( node ) , true);
 			  };
 		  }else if(append){
-			  setfn = function(node, s){ 
+			  setfn = function(node, s){
 				  setstr( node, getstr( node ) + s , true);
 			  };
 		  }else{
-			  setfn = function(node, s){ 
+			  setfn = function(node, s){
 				  setstr( node, s );
 			  };
 		  }
@@ -388,8 +388,8 @@ exports.pureInit = function(window, document) {
 					  a.sort(sorter);
 				  }
 				  //loop on array
-				  for(var i = 0, ii = a.length || 0; i < ii; i++){  
-					  buildArg(i, temp); 
+				  for(var i = 0, ii = a.length || 0; i < ii; i++){
+					  buildArg(i, temp);
 				  }
 			  }else{
 				  if(typeof sorter !== 'undefined'){
@@ -397,7 +397,7 @@ exports.pureInit = function(window, document) {
 				  }
 				  //loop on collections
 				  for(var prop in a){
-					  a.hasOwnProperty( prop ) && buildArg(prop, temp); 
+					  a.hasOwnProperty( prop ) && buildArg(prop, temp);
 				  }
 			  }
 
@@ -435,7 +435,7 @@ exports.pureInit = function(window, document) {
 			  itersel = dataselectfn(spec.sel),
 			  target = gettarget(dom, sel, true),
 			  nodes = target.nodes;
-			
+
 		  for(i = 0; i < nodes.length; i++){
 			  var node = nodes[i],
 				  inner = compiler(node, dsel);
@@ -444,7 +444,7 @@ exports.pureInit = function(window, document) {
 			  setsig(target, fns.length - 1);
 		  }
 	  }
-	
+
 	  function getAutoNodes(n, data){
 		  var ns = n.getElementsByTagName('*'),
 			  an = [],
@@ -458,7 +458,7 @@ exports.pureInit = function(window, document) {
 			  if(ni.nodeType === 1 && ni.className !== ''){
 				  //when a className is found
 				  cs = ni.className.split(' ');
-				  // for each className 
+				  // for each className
 				  for(j = 0, jj=cs.length;j<jj;j++){
 					  cj = cs[j];
 					  // check if it is related to a context property
@@ -470,7 +470,7 @@ exports.pureInit = function(window, document) {
 							  ni.className = ni.className.replace('@'+cspec.attr, '');
 							  if(isNodeValue){
 								  cspec.attr = false;
-							  } 
+							  }
 						  }
 						  an.push({n:ni, cspec:cspec});
 					  }
@@ -478,7 +478,7 @@ exports.pureInit = function(window, document) {
 			  }
 		  }
 		  return an;
-		
+
 		  function checkClass(c, tagName){
 			  // read the class
 			  var ca = c.match(selRx),
@@ -567,18 +567,18 @@ exports.pureInit = function(window, document) {
 				  }
 			  }
 		  }
-          // convert node to a string 
+          // convert node to a string
           var h = outerHTML(dom), pfns = [];
 		  // IE adds an unremovable "selected, value" attribute
 		  // hard replace while waiting for a better solution
           h = h.replace(/<([^>]+)\s(value\=""|selected)\s?([^>]*)>/ig, "<$1 $3>");
-		
+
           // remove attribute prefix
           h = h.split(attPfx).join('');
 
 		  // slice the html string at "Sig"
 		  var parts = h.split( Sig ), p;
-		  // for each slice add the return string of 
+		  // for each slice add the return string of
 		  for(var i = 1; i < parts.length; i++){
 			  p = parts[i];
 			  // part is of the form "fn-number:..." as placed there by setsig.
@@ -598,7 +598,7 @@ exports.pureInit = function(window, document) {
 	  }
 	  //compile with the directive as argument
 	  // run the template function on the context argument
-	  // return an HTML string 
+	  // return an HTML string
 	  // should replace the template and return this
 	  function render(ctxt, directive){
 		  var fn = typeof directive === 'function' ? directive : plugins.compile( directive, false, this[0] );
@@ -611,7 +611,7 @@ exports.pureInit = function(window, document) {
 
 	  // compile the template with autoRender
 	  // run the template function on the context argument
-	  // return an HTML string 
+	  // return an HTML string
 	  function autoRender(ctxt, directive){
 		  var fn = plugins.compile( directive, ctxt, this[0] );
 		  for(var i = 0, ii = this.length; i < ii; i++){
@@ -620,7 +620,7 @@ exports.pureInit = function(window, document) {
 		  context = null;
 		  return this;
 	  }
-	
+
 	  function replaceWith(elm, html){
 		  var tagName = elm.tagName, ne, pa, ep, parent = {TABLE:{}};
 		  if((/TD|TR|TH/).test(tagName)){
@@ -631,8 +631,7 @@ exports.pureInit = function(window, document) {
 		  }else{
 			  pa = document.createElement('SPAN');
 		  }
-		  
-		  var sys = require("sys");
+
 		  ep = elm.parentNode;
 		  // avoid IE mem leak
 		  ep.insertBefore(pa, elm);
@@ -643,7 +642,7 @@ exports.pureInit = function(window, document) {
 		  ep.insertBefore(ne, pa);
 		  ep.removeChild(pa);
 		  elm = ne;
-   
+
 		  pa = ne = ep = null;
 		  return elm;
 	  }
@@ -665,7 +664,7 @@ exports.pureInit = function(window, document) {
 				  return $(n).cssSelect(sel);
 			  };
 		  }
-		  DOMAssistant.attach({ 
+		  DOMAssistant.attach({
 			  publicMethods : [ 'compile', 'render', 'autoRender'],
 			  compile:function(directive, ctxt){ return $p(this).compile(directive, ctxt); },
 			  render:function(ctxt, directive){ return $( $p(this).render(ctxt, directive) )[0]; },
@@ -704,8 +703,8 @@ exports.pureInit = function(window, document) {
 			  };
 		  }
 		  Element.addMethods({
-			  compile:function(element, directive, ctxt){ return $p(element).compile(directive, ctxt); }, 
-			  render:function(element, ctxt, directive){ return $p(element).render(ctxt, directive); }, 
+			  compile:function(element, directive, ctxt){ return $p(element).compile(directive, ctxt); },
+			  render:function(element, ctxt, directive){ return $p(element).render(ctxt, directive); },
 			  autoRender:function(element, ctxt, directive){ return $p(element).autoRender(ctxt, directive); }
 		  });
 	  },
@@ -717,7 +716,7 @@ exports.pureInit = function(window, document) {
 		  }
 	  },
 	  sly:function(){
-		  if(typeof document.querySelector === 'undefined'){  
+		  if(typeof document.querySelector === 'undefined'){
 			  $p.plugins.find = function(n, sel){
 				  return Sly(sel, n);
 			  };
@@ -727,15 +726,15 @@ exports.pureInit = function(window, document) {
 
   // get lib specifics if available
   (function(){
-	  var libkey = 
-		  typeof dojo         !== 'undefined' && 'dojo' || 
+	  var libkey =
+		  typeof dojo         !== 'undefined' && 'dojo' ||
 		  typeof DOMAssistant !== 'undefined' && 'domassistant' ||
-		  typeof jQuery       !== 'undefined' && 'jquery' || 
+		  typeof jQuery       !== 'undefined' && 'jquery' ||
 		  typeof MooTools     !== 'undefined' && 'mootools' ||
-		  typeof Prototype    !== 'undefined' && 'prototype' || 
+		  typeof Prototype    !== 'undefined' && 'prototype' ||
 		  typeof window.Sizzle       !== 'undefined' && 'sizzle' ||
 		  typeof Sly          !== 'undefined' && 'sly';
-		
+
 	  libkey && $p.libs[libkey]();
   })();
   return pure;

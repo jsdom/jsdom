@@ -1,7 +1,7 @@
 var browser = require("../../lib/jsdom/browser/index");
 var dom = new browser.browserAugmentation(require("../../lib/jsdom/level2/html").dom.level2.html);
 var sax = require("./sax");
-var sys = require("sys");
+var util = require('util');
 
 
 // TODO: change this example to use pluggable parser
@@ -83,14 +83,14 @@ doc.implementation = implementation;
 doc.innerHTML = '<html><head></head><body><div class="who"></div></body></html>';
 
 var window = {
-  alert : function() { sys.puts(sys.inspect(arguments)); },
+  alert : function() { console.log(util.inspect(arguments)); },
   document : doc
 };
 
 window.Sizzle = require("../sizzle/sizzle").sizzleInit(window, doc);
 var $   = require("./pure").pureInit(window, doc);
 $("div").autoRender({"who":"Hello Wrrrld"});
-sys.puts(doc.innerHTML);
+console.log(doc.innerHTML);
 
 
 
