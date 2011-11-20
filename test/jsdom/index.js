@@ -1040,25 +1040,33 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
 
   // Test inline event handlers on a regular element.
   test_element_inline_event_handler : function (test) {
-    var doc = jsdom.jsdom("\
-      <html>\
-        <head></head>\
-        <body>\
-          <div id='div1' onclick='window.divClicked = true;'\
-                         onmouseover='window.divMousedOver = true;'\
-          </div>\
-        </body>\
-      </html>");
+    var doc = jsdom.jsdom(
+      "<html>" + 
+        "<head></head>" + 
+        "<body>" +
+        "  <div onclick='window.divClicked = true;'" +
+        "       onmouseover='window.divMousedOver = true;'>" +
+        "    <a></a>" +
+        "  </div>" +
+        "</body>" +
+      "</html>");
+
     var window = doc.parentWindow;
+    var div    = doc.getElementsByTagName('div')[0];
+
+    test.equal(window.divClicked,    undefined);
+    test.equal(window.divMousedOver, undefined);
+
     var click = doc.createEvent('MouseEvents');
     click.initMouseEvent('click', false, false);
-    var div = doc.getElementById('div1');
     div.dispatchEvent(click);
+    test.equal(window.divClicked, true);
+
     var mouseOver = doc.createEvent('MouseEvents');
     mouseOver.initMouseEvent('mouseover', false, false);
     div.dispatchEvent(mouseOver);
-    test.equal(window.divClicked, true);
     test.equal(window.divMousedOver, true);
+
     test.done();
   },
 
@@ -1184,7 +1192,37 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
       test.equal(e, null);
       test.done();
     });
+  },
+
+  on_events_should_be_called_in_bubbling_phase : function (test) {
+    var doc = jsdom.jsdom(
+      "<html>" + 
+        "<head></head>" + 
+        "<body>" +
+        "  <div onclick='window.divClicked = true;'" +
+        "       onmouseover='window.divMousedOver = true;'>" +
+        "    <a></a>" +
+        "  </div>" +
+        "</body>" +
+      "</html>");
+
+    var window = doc.parentWindow;
+    var div    = doc.getElementsByTagName('div')[0];
+    var a      = doc.getElementsByTagName('a')[0];
+
+    test.equal(window.divClicked,    undefined);
+    test.equal(window.divMousedOver, undefined);
+
+    var click = doc.createEvent('MouseEvents');
+    click.initMouseEvent('click', true, false);
+    a.dispatchEvent(click);
+    test.equal(window.divClicked, true);
+
+    var mouseOver = doc.createEvent('MouseEvents');
+    mouseOver.initMouseEvent('mouseover', true, false);
+    a.dispatchEvent(mouseOver);
+    test.equal(window.divMousedOver, true);
+
+    test.done();
   }
-
-
 };
