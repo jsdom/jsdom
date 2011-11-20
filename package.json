@@ -147,7 +147,7 @@
     "dependencies": {
        "htmlparser" : "1.x",
        "request"    : "2.x",
-       "cssom"      : "0.2.0",
+       "cssom"      : "0.2.x",
        "contextify" : "0.0.x"
     },
     "devDependencies" : {
