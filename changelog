@@ -2,7 +2,7 @@
  * Fix: problems with lax dependency versions
  * Fix: CSSOM constructors are hung off of the dom (Brian McDaniel)
  * Fix: move away from deprecated 'sys' module
- * Add: attribute event handlers on bubbling path aren't called (Brian McDaniel)
+ * Fix: attribute event handlers on bubbling path aren't called (Brian McDaniel)
  * Fix: setting textarea.value to markup should not be parsed (Andreas Lind Petersen)
  * Fix: content of script tags should not be escaped (Ken Sternberg)
  * Fix: DocumentFeatures for iframes with no src attribute. (Brian McDaniel) Closes #355
