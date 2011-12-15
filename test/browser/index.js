@@ -164,6 +164,14 @@ exports.tests = {
     test.done();
   },
 
+  innerhtml_null: function(test) {
+    var doc = new browser.HTMLDocument();
+    doc.write('<html><body><p></p><p></p></body></html>');
+    doc.body.innerHTML = null;
+    test.equal(doc.body.childNodes.length, 0, 'still has children');
+    test.done();
+  },
+
   serialize_html5_doctype: function(test) {
     var dom = new browser.DOMImplementation();
     var doctype = dom.createDocumentType('html');

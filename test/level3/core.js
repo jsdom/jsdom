@@ -24268,6 +24268,18 @@ exports.tests = {
     test.done()
   },
 
+  // Set textContent to null clears children.
+  nodesettextcontentnull: function (test) {
+    var doc = hc_staff.hc_staff();
+    var elem = doc.createElementNS("http://www.w3.org/DOM/Test","dom3:elem");
+    elem.textContent = "ELEMENT";
+    elem.textContent = null;
+
+    test.equal(elem.textContent, null, 'nodesettextcontentnull');
+
+    test.done();
+  },
+
   /**
    *
    Attempt to set textContent for a Document node and check that the document appears
