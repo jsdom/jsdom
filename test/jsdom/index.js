@@ -505,13 +505,15 @@ exports.tests = {
   },
 
   queryselector: function(test) {
-    var html = '<html><body><div id="main"><p>Foo</p><p>Bar</p></div></body></html>',
+    var html = '<html><body><div id="main"><p class="foo">Foo</p><p>Bar</p></div></body></html>',
         document = jsdom.jsdom(html, null, {features: {'QuerySelector': true}}),
         div = document.body.children.item(0);
     var element = document.querySelector("#main p");
     test.equal(element, div.children.item(0), 'p and first-p');
     var element2 = div.querySelector("p");
     test.equal(element2, div.children.item(0), 'p and first-p');
+    var element3 = document.querySelector("#main p:not(.foo)");
+    test.equal(element3, div.children.item(1), 'p and second-p');
     test.done();
   },
 
