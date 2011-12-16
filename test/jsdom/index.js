@@ -513,7 +513,7 @@ exports.tests = {
     var element2 = div.querySelector("p");
     test.equal(element2, div.children.item(0), 'p and first-p');
     var element3 = document.querySelector("#main p:not(.foo)");
-    test.equal(element4, div.children.item(1), 'p and second-p');
+    test.equal(element3, div.children.item(1), 'p and second-p');
     test.done();
   },
 
