@@ -157,18 +157,20 @@ exports.tests = {
   },
 
   innerhtml_removeallchildren: function(test) {
-    var doc = new browser.HTMLDocument();
-    doc.write('<html><body><p></p><p></p></body></html>');
-    doc.body.innerHTML = '';
-    test.equal(doc.body.childNodes.length, 0, 'still has children');
+    var doc = new browser.Document();
+    var body = doc.createElement('body');
+    body.appendChild(doc.createElement('p'));
+    body.innerHTML = "";
+    test.equal(body.childNodes.length, 0, 'still has children');
     test.done();
   },
 
   innerhtml_null: function(test) {
     var doc = new browser.HTMLDocument();
-    doc.write('<html><body><p></p><p></p></body></html>');
-    doc.body.innerHTML = null;
-    test.equal(doc.body.childNodes.length, 0, 'still has children');
+    var body = doc.createElement('body');
+    body.appendChild(doc.createElement('p'));
+    body.innerHTML = null;
+    test.equal(body.childNodes.length, 0, 'still has children');
     test.done();
   },
 
