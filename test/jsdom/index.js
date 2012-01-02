@@ -1336,5 +1336,14 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
         test.done();
       }
    });
+  },
+
+  issue_371_outerhtml_noformat : function(test) {
+    var originalHTML = '<li><span>A</span><span>B</span></li>';
+    var dom = jsdom.jsdom(originalHTML);
+    var outerHTML = dom.outerHTML;
+
+    test.equal(originalHTML, outerHTML);
+    test.done();
   }
 };
