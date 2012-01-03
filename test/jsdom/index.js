@@ -1106,6 +1106,22 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
     test.done();
   },
 
+  get_element_by_id_multi_id : function(test) {
+    var doc = jsdom.jsdom(), div, span;
+    div = doc.createElement('div');
+    div.setAttribute('id', 'foo');
+    doc.body.appendChild(div);
+	span = doc.createElement('span');
+    span.setAttribute('id', 'foo');
+    doc.body.appendChild(span);
+
+	// now if we remove the second element, we should still find the first
+	doc.body.removeChild(span);
+    test.equal(doc.getElementById('foo'), div, 'Original div#foo must be found after removing invalid span#foo');
+
+    test.done();
+  },
+
   jsdom_levels: function(test) {
     var level1 = jsdom.level(1);
     var level2 = jsdom.level(2);
