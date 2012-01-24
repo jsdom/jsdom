@@ -1250,9 +1250,8 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
   },
   
   issue_319_HIERARCHY_REQUEST_ERR : function(test){
-   var body = fs.readFileSync(__dirname + '/files/issue_319.html');
    jsdom.env({
-      html: body,
+      html: '<!DOCTYPE html><html><head><title>Title</title></head><body>My body</body></html><div></div>',
       done : function(err,window){
           test.equal(true,true);
           test.done();
