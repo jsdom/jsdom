@@ -1,4 +1,5 @@
-var jsdom = require('../../lib/jsdom');
+var jsdom = require('../../lib/jsdom'),
+    jQueryPath = __dirname + '/files/js/jquery.js';
 
 exports.tests = {
   scripts_share_a_global_context: function(test) {
@@ -35,6 +36,23 @@ exports.tests = {
     test.equal(window.imOnAWindow, true, 'setting this in the outer context should apply to the window');
     test.equal(window.object.a, 1, 'prototypes should be maintained across contexts');
     test.done();
+  },
+
+  scripts_jquerify_have_jsdom_class: function(test) {
+    var window = jsdom.jsdom().createWindow();
+    jsdom.jQueryify(window, [jQueryPath] , function(dom) {
+      test.ok(dom.window.$('script').hasClass("jsdom"));
+      test.done();
+    });
+  },
+
+  scripts_env_have_jsdom_class: function(test) {
+    var htmlString = '<html><head></head><body></body></html>';
+
+    jsdom.env(htmlString, [jQueryPath] , function(error, dom) {
+      test.ok(dom.window.$('script').hasClass("jsdom"));
+      test.done();
+    });
   },
 
   global_is_window_in_scripts: function(test){
