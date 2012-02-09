@@ -150,6 +150,9 @@
        "cssom"      : "0.2.x",
        "contextify" : "0.0.x"
     },
+    "optionalDependencies": {
+       "contextify" : "0.0.x"
+    },
     "devDependencies" : {
       "nodeunit" : ">=0.5.x",
       "console.log" : "*",
