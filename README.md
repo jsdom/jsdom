@@ -139,7 +139,7 @@ If you want to spawn a document/window and specify all sorts of options this is 
 
 
         var jsdom = require('jsdom'),
-            doc   = jsdom.jsdom('<html><body></body></html>', jsdom.dom.level1.core)
+            doc   = jsdom.jsdom('<html><body></body></html>', jsdom.level(1, 'core'))
 
  - `options` see the **Flexibility** section below
 
@@ -217,7 +217,7 @@ This feature is backed by [sizzle][] but currently causes problems with some lib
 
 ## Creating a document
     var jsdom = require("jsdom"),
-        doc   = new (jsdom.dom.level1.core.Document)();
+        doc   = new (jsdom.level(1, 'core').Document)();
     console.log(doc.nodeName);
     // outputs: #document
 
