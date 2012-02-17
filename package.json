@@ -148,7 +148,7 @@
        "htmlparser" : "1.x",
        "request"    : "2.x",
        "cssom"      : "0.2.x",
-       "contextify" : "0.0.x"
+       "contextify" : "0.1.x"
     },
     "devDependencies" : {
       "nodeunit" : ">=0.5.x",
