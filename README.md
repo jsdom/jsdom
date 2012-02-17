@@ -106,8 +106,12 @@ or with raw javascript source
     - `errors` : array of errors
     - `window` : a brand new window
 
-    _example:_  jsdom.env(html, function(`errors`, `window`) {})
+    _example:_  
 
+        jsdom.env(html, function(`errors`, `window`) {
+          // free memory associated with the window
+          window.close();
+        });
 
 If you would like to specify a configuration object
 
