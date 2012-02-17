@@ -1131,7 +1131,7 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
   issue_338_internal_nodelist_props : function(test) {
     var doc = jsdom.html();
     var props = Object.keys(doc.body.childNodes);
-    test.equal(props.length, 1, 'Internal properties must not be enumerable');
+    test.equal(props.length, 2, 'Internal properties must not be enumerable');
     test.done();
   },
 
