@@ -1247,5 +1247,15 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
       test.notEqual(dom.CSSStyleDeclaration, undefined);
     });
     test.done();
+  },
+  
+  issue_319_HIERARCHY_REQUEST_ERR : function(test){
+   jsdom.env({
+      html: '<!DOCTYPE html><html><head><title>Title</title></head><body>My body</body></html><div></div>',
+      done : function(err,window){
+          test.equal(true,true);
+          test.done();
+      }
+   });
   }
 };
