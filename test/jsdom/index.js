@@ -1247,5 +1247,27 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
       test.notEqual(dom.CSSStyleDeclaration, undefined);
     });
     test.done();
+  },
+
+  lookup_namednodemap_by_property : function (test) {
+    var doc = jsdom.jsdom();
+    var core = jsdom.level(3, 'core');
+    var map = new core.NamedNodeMap(doc);
+    test.equal(map.length, 0);
+    var attr1 = doc.createAttribute('attr1');
+    map.setNamedItem(attr1);
+    test.equal(map['attr1'], attr1);
+    test.equal(map.length, 1);
+    var attr2 = doc.createAttribute('attr2');
+    map.setNamedItem(attr2);
+    test.equal(map['attr2'], attr2);
+    test.equal(map.length, 2);
+    var rm1 = map.removeNamedItem('attr1');
+    test.equal(rm1, attr1);
+    test.equal(map.length, 1);
+    var rm2 = map.removeNamedItem('attr2');
+    test.equal(rm2, attr2);
+    test.equal(map.length, 0);
+    test.done();
   }
 };
