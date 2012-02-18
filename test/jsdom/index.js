@@ -1285,5 +1285,17 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
     test.equal(rm2, attr2);
     test.equal(map.length, 0);
     test.done();
+  },
+
+  issue_319_HIERARCHY_REQUEST_ERR : function(test){
+   jsdom.env({
+      html: '<!DOCTYPE html><html><head><title>Title</title></head><body>My body</body></html><div></div>',
+      done : function(errors,window){
+        // TODO: ensure errors is not null, and contains the error message
+        // test.ok(errors);
+        test.ok(window);
+        test.done();
+      }
+   });
   }
 };
