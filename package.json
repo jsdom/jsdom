@@ -1,6 +1,6 @@
 {
     "name": "jsdom",
-    "version": "0.2.10",
+    "version": "0.2.11",
     "description": "A javascript implementation of the W3C DOM",
     "keywords": [
       "dom",
@@ -123,6 +123,10 @@
         "name" : "Chris Roebuck",
         "email" : "chris@quillu.com",
         "url" : "http://www.quillu.com"
+      },
+      {
+        "name" : "Avi Deitcher",
+        "url" : "https://github.com/deitch"
       }
     ],
     "bugs": {
