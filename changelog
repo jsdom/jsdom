@@ -1,3 +1,6 @@
+0.2.12
+ * Fix: do not include gmon.out/v8.log/tests in npm distribution
+
 0.2.11
  * Add: allow non-unique element ids (Avi Deitcher)
  * Fix: make contexify an optional dependency (Isaac Schlueter)
