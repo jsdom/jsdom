@@ -1,3 +1,16 @@
+0.2.11
+ * Add: allow non-unique element ids (Avi Deitcher)
+ * Fix: make contexify an optional dependency (Isaac Schlueter)
+ * Add: scripts injected by jsdom are now marked with a 'jsdom' class for serialization's sake (Peter Lyons)
+ * Fix: definition for ldquo entity (Andrew Morton)
+ * Fix: access NamedNodeMap items via property (Brian McDaniel)
+ * Add: upgrade sizzle from 1.0 to (https://github.com/jquery/sizzle/commit/fe2f618106bb76857b229113d6d11653707d0b22) which is roughly 1.5.1
+ * Add: documentation now includes `jsdom.level(x, 'feature')`
+ * Fix: make toArray and item on NodeList objects non-enumerable properties
+ * Add: a reference to `window.close` in the readme
+ * Fix: Major performance boost (Felix Gnass)
+ * Fix: Using querySelector :not() throws a ReferenceError (Felix Gnass)
+
 0.2.10
  * Fix: problems with lax dependency versions
  * Fix: CSSOM constructors are hung off of the dom (Brian McDaniel)
