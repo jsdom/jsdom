@@ -1,7 +1,11 @@
 var dom = require("../../lib/jsdom/level2/core").dom.level2.core;
-var browser = require("../../lib/jsdom/browser/index").browserAugmentation(dom);
+var browser;
 
 exports.tests = {
+  setUp : function(done) {
+    browser = require("../../lib/jsdom/browser/index").browserAugmentation(dom);
+    done();
+  },
   notfound_getelementsbyclassname: function(test) {
     var doc = new browser.Document();
     var html = doc.createElement("html");
@@ -105,14 +109,14 @@ exports.tests = {
     test.equal(out.match(/<\/img>/), null, 'end tag not included in output')
     test.done();
   },
-	
+
   render_specialchars: function(test) {
 	  var doc = new browser.Document();
 	  var p = doc.createElement("p");
 	  var specials = '"<>&\xA0';
 	  var escapedSpecials = '"&lt;&gt;&amp;&nbsp;';
 	  p.setAttribute("specials", specials);
-	  p.innerHTML = escapedSpecials; 
+	  p.innerHTML = escapedSpecials;
 	  var pp = doc.createElement("p");
 	  pp.appendChild(p);
 	  // This matches the behavior of FireFox, Chrome, and Safari.
