@@ -1,3 +1,6 @@
+0.2.13
+ * Fix: remove unused style property which was causing explosions in 0.2.12 and node 0.4.7
+
 0.2.12
  * Fix: do not include gmon.out/v8.log/tests in npm distribution
 
