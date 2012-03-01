@@ -160,6 +160,19 @@ exports.tests = {
     test.done();
   },
 
+  retain_original_style_attribute_until_style_getter: function (test) {
+    var document = new browser.Document();
+    var div = document.createElement('div');
+    div.setAttribute('style', 'font-weight: bold; font-weight: normal;');
+    test.equal(div.getAttribute('style'), 'font-weight: bold; font-weight: normal;');
+    div.innerHTML = '<div style="color: red; color: blue;"></div>';
+    test.equal(div.innerHTML, '<div style="color: red; color: blue;"></div>');
+    test.equal(div.firstChild.getAttribute('style'), 'color: red; color: blue;');
+    div.firstChild.style.color = 'maroon';
+    test.equal(div.firstChild.getAttribute('style'), 'color: maroon;');
+    test.done();
+  },
+
   innerhtml_removeallchildren: function(test) {
     var doc = new browser.Document();
     var body = doc.createElement('body');
