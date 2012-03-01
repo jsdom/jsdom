@@ -69,6 +69,16 @@ exports.tests = {
     });
   },
 
+  env_with_absolute_file_with_spaces: function(test) {
+    jsdom.env({
+      html: path.join(__dirname, 'files/folder space', 'space.html'),
+      done: function(errors, window) {
+        test.equal(errors, null, 'errors should be null');
+        test.done()
+      }
+    });
+  },
+
   env_with_html: function(test) {
     var html = "<html><body><p>hello world!</p></body></html>";
     jsdom.env({
