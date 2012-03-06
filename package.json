@@ -1,6 +1,7 @@
 {
     "name": "jsdom",
-    "version": "0.2.14",
+    "name": "jsdom-papandreou",
+    "version": "0.2.14-patch1",
     "description": "A javascript implementation of the W3C DOM",
     "keywords": [
       "dom",
@@ -8,145 +9,9 @@
       "javascript"
     ],
     "maintainers": [{
-      "name": "Elijah Insua",
-      "email": "tmpvar@gmail.com",
-      "url": "http://tmpvar.com"
-    }],
-    "contributors": [
-      {
-        "name":  "Vincent Greene",
-        "email": "ulteriorlife@gmail.com"
-      },
-      {
-        "name":  "Dav Glass",
-        "email": "davglass@gmail.com"
-      },
-      {
-        "name":  "Felix Gnass",
-        "email": "fgnass@gmail.com"
-      },
-      {
-        "name":  "Charlie Robbins",
-        "email": "charlie.robbins@gmail.com"
-      },
-      {
-        "name":  "Aria Stewart",
-        "email": "aredridel@nbtsc.org"
-      },
-      {
-        "name":  "Matthew",
-        "email": "N.A.",
-        "url":   "http://github.com/matthewpflueger/"
-      },
-      {
-        "name":  "Olivier El Mekki",
-        "email": "unknown",
-        "url":   "http://blog.olivier-elmekki.com/"
-      },
-      {
-        "name":  "Shimon Dookdin",
-        "email": "helpmepro1@gmail.com"
-      },
-      {
-        "name":  "Daniel Cassidy",
-        "email": "mail@danielcassidy.me.uk",
-        "url":   "http://www.danielcassidy.me.uk/"
-      },
-      {
-        "name":  "Sam Ruby",
-        "email": "N/A",
-        "url":   "http://intertwingly.net/blog/"
-      },
-      {
-        "name":  "hij1nx",
-        "url":   "http://github.com/hij1nx"
-      },
-      {
-        "name":  "Yonathan Randolph",
-        "url":   "http://github.com/yonran"
-      },
-      {
-        "name":  "Martin Davis",
-        "url":   "http://github.com/waslogic"
-      },
-      {
         "name":  "Andreas Lind Petersen",
         "email": "andreas@one.com"
-      },
-      {
-        "name":  "d-ash",
-        "url":   "http://github.com/d-ash"
-      },
-      {
-        "name":  "Robin Zhong",
-        "email": "fbzhong@gmail.com"
-      },
-      {
-        "name":  "Alexander Flatter",
-        "email": "flatter@gmail.com"
-      },
-      {
-        "name":  "Heng Liu",
-        "email": "liucougar@gmail.com"
-      },
-      {
-        "name":  "Brian McDaniel",
-        "url":   "http://github.com/brianmcd"
-      },
-      {
-        "name":  "John Hurliman",
-        "email": "jhurliman@jhurliman.org"
-      },
-      {
-        "name":  "Jimmy Mabey"
-      },
-      {
-        "name":  "Gregory Tomlinson"
-      },
-      {
-        "name":  "Jason Davies",
-        "url":   "http://www.jasondavies.com/"
-      },
-      {
-        "name":  "Josh Marshall",
-        "url":   "http://www.ponderingtheobvious.com/"
-      },
-      {
-        "name" : "Jason Priestley",
-        "url" : "https://github.com/jhp"
-      },
-      {
-        "name" : "Derek Lindahl",
-        "url" : "https://github.com/dlindahl"
-      },
-      {
-        "name" : "Chris Roebuck",
-        "email" : "chris@quillu.com",
-        "url" : "http://www.quillu.com"
-      },
-      {
-        "name" : "Avi Deitcher",
-        "url" : "https://github.com/deitch"
-      },
-      {
-        "name": "Nao Iizuka",
-        "email": "iizuka@kyu-mu.net",
-        "url": "https://github.com/iizukanao"
-      },
-      {
-        "name" : "Peter Perenyi",
-        "web" : "https://github.com/sinegar"
-      },
-      {
-         "name" : "Tiago Rodrigues",
-         "email" : "tmcrodrigues@gmail.com",
-         "web" : "http://trodrigues.net"
-      }
-    ],
-    "bugs": {
-        "email": "tmpvar@gmail.com",
-        "url": "http://github.com/tmpvar/jsdom/issues"
-    },
+    }],
     "licenses": [
         {
             "type": "MIT",
@@ -156,11 +21,8 @@
     "repositories": [
         {
             "type": "git",
-            "url": "http://github.com/tmpvar/jsdom.git"
+            "url": "http://github.com/papandreou/jsdom.git"
         }
-    ],
-    "implements": [
-        "http://www.w3.org/TR/REC-DOM-Level-1"
     ],
     "dependencies": {
        "htmlparser" : "1.x",
