@@ -519,7 +519,7 @@ exports.tests = {
 
   // TODO: look into breaking into a testcase
   queryselectorall: function(test) {
-    var html = '<html><body><div id="main"><p>Foo</p><p>Bar</p><div>Boo</div><div>Far</div></div></body></html>',
+    var html = '<html><body><div id="main"><p>Foo</p><p>Bar</p><div>Boo</div><div>Far</div></div><p>Baz</p></body></html>',
         document = jsdom.jsdom(html, null, {features: {'QuerySelector': true}}),
         div = document.body.children.item(0),
         elements = document.querySelectorAll("#main p");
