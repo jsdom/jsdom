@@ -543,9 +543,9 @@ exports.tests = {
     topNode.id = "fuz";
     newNode.id = "buz";
     topNode.appendChild(newNode);
-    var elements4 = topNode.querySelectorAll("#fuz #buz");
-    test.equal(elements4.length, 1, 'one result');
-    test.equal(elements4.item(0), newNode, 'newNode and first-p');
+    var elements5 = topNode.querySelectorAll("#fuz #buz");
+    test.equal(elements5.length, 1, 'one result');
+    test.equal(elements5.item(0), newNode, 'newNode and first-p');
     test.done();
   },
 
