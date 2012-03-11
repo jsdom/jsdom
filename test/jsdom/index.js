@@ -530,18 +530,21 @@ exports.tests = {
     test.equal(elements2.length, 2, 'two results');
     test.equal(elements2.item(0), div.children.item(0), 'p and first-p');
     test.equal(elements2.item(1), div.children.item(1), 'p and second-p');
-    var elements3 = div.querySelectorAll("#main p");
-    test.equal(elements3.length, 2, 'two results');
-    test.equal(elements3.item(0), div.children.item(0), 'p and first-p');
-    test.equal(elements3.item(1), div.children.item(1), 'p and second-p');
+    test.equal(div.querySelectorAll("#main").length, 0, 'It should not return the base element');
+    test.equal(div.querySelectorAll("div").length, 0, 'There are no div elements under div#main');
     var topNode = document.createElement('p'),
         newNode = document.createElement('p');
     topNode.id = "fuz";
     newNode.id = "buz";
     topNode.appendChild(newNode);
-    var elements4 = topNode.querySelectorAll("#fuz #buz");
-    test.equal(elements4.length, 1, 'one result');
-    test.equal(elements4.item(0), newNode, 'newNode and first-p');
+    test.equal(topNode.querySelectorAll("#fuz").length, 0, "It should not return the base element that is orphaned");
+    var elements3 = topNode.querySelectorAll("#buz");
+    test.equal(elements3.length, 1, 'one result');
+    test.equal(elements3.item(0), newNode, 'newNode and first-p');
+    var elements4 = div.querySelectorAll('p');
+    test.equal(elements4.length, 2, "It should not return elements that are not within the base element's subtrees");
+    test.equal(elements4.item(0), div.children.item(0), 'p and first-p');
+    test.equal(elements4.item(1), div.children.item(1), 'p and second-p');
     test.done();
   },
 
