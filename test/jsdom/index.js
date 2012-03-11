@@ -545,6 +545,15 @@ exports.tests = {
     test.done();
   },
 
+  turn_off_queryselector_feature: function(test) {
+    var html = '<html><body></body></html>',
+        document = jsdom.jsdom(html, null, {features: {'QuerySelector': true}});
+    test.equal(typeof document.querySelector, 'function', 'document.querySelector function exists');
+    document = jsdom.jsdom(html, null, {features: {'QuerySelector': false}});
+    test.equal(typeof document.querySelector, 'undefined', 'document.querySelector does not exist');
+    test.done();
+  },
+
   url_resolution: function(test) {
     var html = '\
   <html>\
