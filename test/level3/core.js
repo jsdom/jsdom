@@ -4377,7 +4377,7 @@ exports.tests = {
 
   /**
    *
-   Retreive the doctype node, create a new Doctype node, call replaceChild and try replacing the
+   Retrieve the doctype node, create a new Doctype node, call replaceChild and try replacing the
    docType node with a new docType node.  Check if the docType node was correctly replaced with
    the new one.
 
@@ -4435,7 +4435,7 @@ exports.tests = {
 
   /**
    *
-   Retreive the documentURI of this document, and verify if it is not null.
+   Retrieve the documentURI of this document, and verify if it is not null.
 
    * @author IBM
    * @author Neil Delima
@@ -4778,7 +4778,7 @@ exports.tests = {
 
   /**
    *
-   Retreive the xmlStandalone attribute of a document for which standalone was not specified, this
+   Retrieve the xmlStandalone attribute of a document for which standalone was not specified, this
    should return false since the default for standalone is no when external markup decls
    are present.
 
@@ -4859,7 +4859,7 @@ exports.tests = {
 
   /**
    *
-   Retreive the documentURI of a document for which standalone was specified as "yes", this
+   Retrieve the documentURI of a document for which standalone was specified as "yes", this
    should return true.
 
    * @author IBM
@@ -5007,7 +5007,7 @@ exports.tests = {
 
   /**
    *
-   Invoke the normalizeDocument method on this document.  Retreive the documentElement node
+   Invoke the normalizeDocument method on this document.  Retrieve the documentElement node
    and check the nodeName of this node to make sure it has not changed.
 
    * @author IBM
@@ -5641,7 +5641,7 @@ exports.tests = {
    and load cycle, putting the document in a "normal" form.
 
    Set the validate-if-schema feature to true.  Invoke the normalizeDocument method on this
-   document.  Retreive the documentElement node and check the nodeName of this node
+   document.  Retrieve the documentElement node and check the nodeName of this node
    to make sure it has not changed.  Now set validate to false and verify the same.
    Register an error handler on this Document and in each case make sure that it does
    not get called.
@@ -5812,7 +5812,7 @@ exports.tests = {
    and load cycle, putting the document in a "normal" form.
 
    Set the validate feature to true.  Invoke the normalizeDocument method on this
-   document.  Retreive the documentElement node and check the nodeName of this node
+   document.  Retrieve the documentElement node and check the nodeName of this node
    to make sure it has not changed.  Now set validate to false and verify the same.
    Register an error handler on this Document and in each case make sure that it does
    not get called.
@@ -7272,7 +7272,7 @@ exports.tests = {
    *
    The setDocmentURI method set the location of the document.
 
-   Create a new document and set its documentURI to a valid string.  Retreive the documentURI
+   Create a new document and set its documentURI to a valid string.  Retrieve the documentURI
    and verify if it is was correctly set.
 
    * @author IBM
@@ -19076,7 +19076,7 @@ exports.tests = {
    *
 
 
-   Retreive an element node of this Document having nodeName as employeeId and
+   Retrieve an element node of this Document having nodeName as employeeId and
    namespaceURI as http://www.nist.gov.  Create a new Element node having the same attributes
    in this Document and using isEqualNode check if 2 Element nodes are equal.
 
@@ -19114,7 +19114,7 @@ exports.tests = {
 
   /**
    *
-   Retreive 2 different "em" nodes of this Document   Use isEqualNode
+   Retrieve 2 different "em" nodes of this Document   Use isEqualNode
    check if nodes are not equal.
 
    * @author IBM
@@ -19132,7 +19132,7 @@ exports.tests = {
 
   /**
    *
-   Retreive the first element node whose localName is "p".  Import it into a new
+   Retrieve the first element node whose localName is "p".  Import it into a new
    Document with deep=false.  Using isEqualNode check if the original and the imported
    Element Node are not equal the child nodes are different.
    Import with deep and the should still be unequal if
@@ -19183,7 +19183,7 @@ exports.tests = {
 
   /**
    *
-   Retreive the first element node whose localName is "p".  Import it into a new
+   Retrieve the first element node whose localName is "p".  Import it into a new
    Document with deep=false.  Using isEqualNode check if the original and the imported
    Element Node are not equal.  Now import it once more with deep=true and using isEqual
    verify if they are now equal.
@@ -24268,6 +24268,18 @@ exports.tests = {
     test.done()
   },
 
+  // Set textContent to null clears children.
+  nodesettextcontentnull: function (test) {
+    var doc = hc_staff.hc_staff();
+    var elem = doc.createElementNS("http://www.w3.org/DOM/Test","dom3:elem");
+    elem.textContent = "ELEMENT";
+    elem.textContent = null;
+
+    test.equal(elem.textContent, null, 'nodesettextcontentnull');
+
+    test.done();
+  },
+
   /**
    *
    Attempt to set textContent for a Document node and check that the document appears
@@ -24346,7 +24358,7 @@ exports.tests = {
 
 
    Using setTextContent on this DocumentType node, attempt to set the textContent of this
-   DocumentType node to textContent.  Retreive the textContent and verify if it is null.
+   DocumentType node to textContent.  Retrieve the textContent and verify if it is null.
 
    * @author IBM
    * @author Neil Delima
@@ -24375,7 +24387,7 @@ exports.tests = {
 
 
    Using setTextContent on this DocumentType node, attempt to set the textContent of a
-   Notation node to textContent.  Retreive the textContent and verify if it is null.
+   Notation node to textContent.  Retrieve the textContent and verify if it is null.
 
    * @author IBM
    * @author Neil Delima
@@ -24408,7 +24420,7 @@ exports.tests = {
    *
 
 
-   Using setTextContent on a default Attr node, attempt to set its value to NA.  Retreive
+   Using setTextContent on a default Attr node, attempt to set its value to NA.  Retrieve
    the textContent and verify if it is was set to NA.
 
    * @author IBM
@@ -24440,7 +24452,7 @@ exports.tests = {
    *
 
 
-   Using setTextContent on a new Attr node with a null value, attempt to set its value to NA.  Retreive
+   Using setTextContent on a new Attr node with a null value, attempt to set its value to NA.  Retrieve
    the textContent and verify if it is was set to NA.
 
    * @author IBM
@@ -24474,7 +24486,7 @@ exports.tests = {
 
 
    Using setTextContent on an existing Text node, attempt to set its value to Text.
-   Retreive the textContent and verify if it is was set to Text.
+   Retrieve the textContent and verify if it is was set to Text.
 
    * @author IBM
    * @author Neil Delima
@@ -24507,7 +24519,7 @@ exports.tests = {
 
 
    Using setTextContent on a new Processing Instruction node, attempt to set its data to PID.
-   Retreive the textContent and verify if it is was set to PID.
+   Retrieve the textContent and verify if it is was set to PID.
 
    * @author IBM
    * @author Neil Delima
@@ -24540,7 +24552,7 @@ exports.tests = {
    The method setTextContent has no effect when the node is defined to be null.
 
    Using setTextContent on a new Element node, attempt to set its content to ELEMENT.
-   Retreive the textContent and verify if it is was set to ELEMENT.
+   Retrieve the textContent and verify if it is was set to ELEMENT.
 
    * @author IBM
    * @author Neil Delima
@@ -24584,7 +24596,7 @@ exports.tests = {
 
 
    Using setTextContent on a new DocumentFragment node Element child, attempt to set its content to
-   DOCUMENTFRAGMENT.  Retreive the textContent and verify if it is was set to DOCUMENTFRAGMENT
+   DOCUMENTFRAGMENT.  Retrieve the textContent and verify if it is was set to DOCUMENTFRAGMENT
 
    * @author IBM
    * @author Neil Delima
