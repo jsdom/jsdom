@@ -519,7 +519,7 @@ exports.tests = {
 
   // TODO: look into breaking into a testcase
   queryselectorall: function(test) {
-    var html = '<html><body><div id="main"><p>Foo</p><p>Bar</p></div></body></html>',
+    var html = '<html><body><div id="main"><p>Foo</p><p>Bar</p><div>Boo</div><div>Far</div></div><p id="fuz"><p id="buz">aa</p></p></body></html>',
         document = jsdom.jsdom(html, null, {features: {'QuerySelector': true}}),
         div = document.body.children.item(0),
         elements = document.querySelectorAll("#main p");
@@ -534,14 +534,14 @@ exports.tests = {
     test.equal(elements3.length, 2, 'two results');
     test.equal(elements3.item(0), div.children.item(0), 'p and first-p');
     test.equal(elements3.item(1), div.children.item(1), 'p and second-p');
-    var topNode = document.createElement('p'),
-        newNode = document.createElement('p');
-    topNode.id = "fuz";
-    newNode.id = "buz";
-    topNode.appendChild(newNode);
-    var elements4 = topNode.querySelectorAll("#fuz #buz");
-    test.equal(elements4.length, 1, 'one result');
-    test.equal(elements4.item(0), newNode, 'newNode and first-p');
+    var elements4 = div.querySelectorAll("div");
+    test.equal(elements4.length, 2, 'two results');
+    test.equal(elements4.item(0), div.children.item(2), 'div and first-div');
+    test.equal(elements4.item(1), div.children.item(3), 'div and second-div');
+    var fuz = document.body.children.item(1);
+    var elements5 = fuz.querySelectorAll("#fuz #buz");
+    test.equal(elements5.length, 1, 'one result');
+    test.equal(elements5.item(0), fuz.children.item(0), 'newNode and first-p');
     test.done();
   },
 
