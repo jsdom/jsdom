@@ -519,7 +519,7 @@ exports.tests = {
 
   // TODO: look into breaking into a testcase
   queryselectorall: function(test) {
-    var html = '<html><body><div id="main"><p>Foo</p><p>Bar</p></div></body></html>',
+    var html = '<html><body><div id="main"><p>Foo</p><p>Bar</p></div><div id="next"><div id="next-child"><p>Baz</p></div></div></body></html>',
         document = jsdom.jsdom(html, null, {features: {'QuerySelector': true}}),
         div = document.body.children.item(0),
         elements = document.querySelectorAll("#main p");
@@ -549,7 +549,11 @@ exports.tests = {
     test.equal(elements5.length, 2, "It should not return elements that are not within the base element's subtrees");
     test.equal(elements5.item(0), div.children.item(0), 'p and first-p');
     test.equal(elements5.item(1), div.children.item(1), 'p and second-p');
-    test.equal(topNode.parentNode, undefined, 'topNode.parentNode is undefined');
+    test.equal(topNode.parentNode, null, 'topNode.parentNode is null');
+    var nextChildDiv = document.getElementById('next-child');
+    var elements6 = nextChildDiv.querySelectorAll('p');
+    test.equal(elements6.length, 1, 'p under div#next-child');
+    test.equal(elements6.item(0), nextChildDiv.children.item(0), 'child of div#next-child');
     test.done();
   },
 
