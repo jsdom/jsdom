@@ -545,6 +545,21 @@ exports.tests = {
     test.done();
   },
 
+  turn_off_queryselector: function(test) {
+    var html = '<html><body></body></html>',
+        document = jsdom.jsdom(html, null, {features: {'QuerySelector': true}});
+    test.equal(typeof document.querySelector, 'function', 'document.querySelector function exists');
+    test.equal(typeof document.querySelectorAll, 'function', 'document.querySelectorAll function exists');
+    test.equal(typeof document.body.querySelector, 'function', 'document.body.querySelector function exists');
+    test.equal(typeof document.body.querySelectorAll, 'function', 'document.body.querySelectorAll function exists');
+    document = jsdom.jsdom(html, null);
+    test.equal(typeof document.querySelector, 'undefined', 'document.querySelector does not exist');
+    test.equal(typeof document.querySelectorAll, 'undefined', 'document.querySelectorAll does not exist');
+    test.equal(typeof document.body.querySelector, 'undefined', 'document.body.querySelector does not exist');
+    test.equal(typeof document.body.querySelectorAll, 'undefined', 'document.body.querySelectorAll does not exist');
+    test.done();
+  },
+
   url_resolution: function(test) {
     var html = '\
   <html>\
