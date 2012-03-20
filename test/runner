@@ -90,6 +90,7 @@ var files = [
   "sizzle/index.js",
   "jsdom/index.js",
   "jsonp/jsonp.js",
+  "browser/contextifyReplacement.js",
   "browser/index.js"
 ];
 
