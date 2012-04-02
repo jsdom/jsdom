@@ -24,7 +24,7 @@
         }
     ],
     "dependencies": {
-       "htmlparser-papandreou" : "1.7.4-patch1",
+       "htmlparser" : "1.x",
        "request"    : "2.x",
        "cssom"      : "0.2.x",
        "contextify" : "0.1.x"
