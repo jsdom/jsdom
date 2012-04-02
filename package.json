@@ -1,6 +1,6 @@
 {
     "name": "jsdom-papandreou",
-    "version": "0.2.13-patch2",
+    "version": "0.2.13-patch3",
     "description": "A javascript implementation of the W3C DOM",
     "keywords": [
       "dom",
