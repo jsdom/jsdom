@@ -1062,7 +1062,8 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
         "<head></head>" +
         "<body>" +
         "  <div onclick='window.divClicked = true;'" +
-        "       onmouseover='window.divMousedOver = true;'>" +
+        "       onmouseover='window.divMousedOver = true;'" +
+        "       onmouseout='window.divCalledFrom = this.tagName;'>" +
         "    <a></a>" +
         "  </div>" +
         "</body>" +
@@ -1083,6 +1084,11 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
     mouseOver.initMouseEvent('mouseover', false, false);
     div.dispatchEvent(mouseOver);
     test.equal(window.divMousedOver, true);
+
+    var mouseOut = doc.createEvent('MouseEvents');
+    mouseOut.initMouseEvent('mouseout', false, false);
+    div.dispatchEvent(mouseOut);
+    test.equal(window.divMousedCalledFrom, "DIV");
 
     test.done();
   },
