@@ -81,6 +81,7 @@ var files = [
   "level2/html.js",
   "level2/style.js",
   "level2/extra.js",
+  "level2/events.js",
   //"level3/core.js",
   //"level3/ls.js",
   "level3/xpath.js",
