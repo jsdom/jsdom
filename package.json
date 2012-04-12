@@ -132,6 +132,10 @@
         "name": "Nao Iizuka",
         "email": "iizuka@kyu-mu.net",
         "url": "https://github.com/iizukanao"
+      },
+      {
+        "name" : "Peter Perenyi",
+        "web" : "https://github.com/sinegar"
       }
     ],
     "bugs": {
