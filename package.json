@@ -127,6 +127,11 @@
       {
         "name" : "Avi Deitcher",
         "url" : "https://github.com/deitch"
+      },
+      {
+        "name": "Nao Iizuka",
+        "email": "iizuka@kyu-mu.net",
+        "url": "https://github.com/iizukanao"
       }
     ],
     "bugs": {
