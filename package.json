@@ -136,6 +136,11 @@
       {
         "name" : "Peter Perenyi",
         "web" : "https://github.com/sinegar"
+      },
+      {
+         "name" : "Tiago Rodrigues",
+         "email" : "tmcrodrigues@gmail.com",
+         "web" : "http://trodrigues.net"
       }
     ],
     "bugs": {
