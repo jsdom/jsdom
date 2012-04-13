@@ -141,6 +141,11 @@
          "name" : "Tiago Rodrigues",
          "email" : "tmcrodrigues@gmail.com",
          "web" : "http://trodrigues.net"
+      },
+      {
+         "name" : "Samori Gorse",
+         "email" : "samorigorse@gmail.com",
+         "web" : "http://github.com/shinuza"
       }
     ],
     "bugs": {
