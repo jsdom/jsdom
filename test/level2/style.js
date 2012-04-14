@@ -39,7 +39,7 @@ exports.tests = {
       test.equal('red', p.style.color);
       p.setAttribute('style', '');
       test.equal(0, p.style.length);
-      test.equal('', p.style.color);
+      test.equal(undefined, p.style.color);
       p.setAttribute('style', 'color:blue');
       test.equal('color', p.style[0]);
       test.equal('blue', p.style.color);
