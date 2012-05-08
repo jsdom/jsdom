@@ -42,7 +42,7 @@ or with raw html
     // Run some jQuery on a html fragment
     var jsdom = require('jsdom');
 
-    jsdom.env('<p><a class="the-link" href="http://jsdom.org>JSDOM\'s Homepage</a></p>', [
+    jsdom.env('<p><a class="the-link" href="https://github.com/tmpvar/jsdom">jsdom\'s Homepage</a></p>', [
       'http://code.jquery.com/jquery-1.5.min.js'
     ],
     function(errors, window) {
