@@ -1,7 +1,7 @@
 {
     "name": "jsdom",
     "name": "jsdom-papandreou",
-    "version": "0.2.14-patch1",
+    "version": "0.2.14-patch2",
     "description": "A javascript implementation of the W3C DOM",
     "keywords": [
       "dom",
