@@ -872,6 +872,7 @@ exports.tests = {
     var html = '<!DOCTYPE html><html><head></head><body><script>alert("&quot;");</script></body></html>';
     var document = jsdom.jsdom(html);
     test.strictEqual(document.body.innerHTML, '<script>alert("&quot;");</script>');
+    test.strictEqual(document.body.firstChild.innerHTML, 'alert("&quot;");');
     test.done();
   },
 
