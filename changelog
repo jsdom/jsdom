@@ -1,3 +1,5 @@
+0.2.15
+ * Fix: HTMLSelectElement single selection implemented its type incorrectly as 'select' instead of 'select-one' (aomega)
 0.2.14
  * Fix: when serializing single tags use ' />' instead of '/>' (kapouer)
  * Fix: support for contextify simulation using vm.runInContext (trodrigues)
