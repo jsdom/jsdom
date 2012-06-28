@@ -393,6 +393,34 @@ exports.tests = {
 
   /**
    *
+   HTMLAnchorElement.hostname should show the hostname of the href when relative
+   * @author Curt Arnold
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-47150313
+   */
+  HTMLAnchorElement15: function(test) {
+    var doc = load("anchor2");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    test.equal(nodeList.item(0).hostname, '', 'a.hostname relative');
+    test.done();
+  },
+
+  /**
+   *
+   HTMLAnchorElement.hostname should show the hostname of the href when absolute
+   * @author Curt Arnold
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-47150313
+   */
+  HTMLAnchorElement16: function(test) {
+    var doc = load("anchor3");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    test.equal(nodeList.item(0).hostname, 'www.github.com', 'a.hostname absolute');
+    test.done();
+  },
+
+  /**
+   *
    The align attribute specifies the alignment of the object(Vertically
    or Horizontally) with respect to its surrounding text.
    Retrieve the align attribute and examine its value.
