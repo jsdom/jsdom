@@ -1,6 +1,6 @@
 {
     "name": "jsdom",
-    "version": "0.2.14",
+    "version": "0.2.15",
     "description": "A javascript implementation of the W3C DOM",
     "keywords": [
       "dom",
@@ -143,9 +143,13 @@
          "web" : "http://trodrigues.net"
       },
       {
-         "name" : "Samori Gorse",
-         "email" : "samorigorse@gmail.com",
-         "web" : "http://github.com/shinuza"
+        "name" : "Samori Gorse",
+        "email" : "samorigorse@gmail.com",
+        "web" : "http://github.com/shinuza"
+      },
+      {
+        "name" : "John Roberts",
+        "email" : "jroberts@logitech.com"
       }
     ],
     "bugs": {
