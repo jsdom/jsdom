@@ -868,6 +868,14 @@ exports.tests = {
     test.done();
   },
 
+  entities_in_script_should_be_left_alone: function (test) {
+    var html = '<!DOCTYPE html><html><head></head><body><script>alert("&quot;");</script></body></html>';
+    var document = jsdom.jsdom(html);
+    test.strictEqual(document.body.innerHTML, '<script>alert("&quot;");</script>');
+    test.strictEqual(document.body.firstChild.innerHTML, 'alert("&quot;");');
+    test.done();
+  },
+
   document_title_and_entities: function (test) {
     var html = '<html><head><title>&lt;b&gt;Hello&lt;/b&gt;</title></head><body></body></html>';
     var document = jsdom.jsdom(html);
