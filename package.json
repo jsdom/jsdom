@@ -166,6 +166,7 @@
        "htmlparser" : "1.x",
        "request"    : "2.x",
        "cssom"      : "0.2.x",
+       "cssstyle"   : "0.1.x",
        "contextify" : "0.1.x"
     },
     "optionalDependencies": {
