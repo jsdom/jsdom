@@ -141,6 +141,11 @@
          "name" : "Tiago Rodrigues",
          "email" : "tmcrodrigues@gmail.com",
          "web" : "http://trodrigues.net"
+      },
+      {
+          "name" : "Chad Walker",
+          "email" : "chad@chad-cat-lore-eddie.com",
+          "url" : "https://github.com/chad3814"
       }
     ],
     "bugs": {
@@ -166,6 +171,7 @@
        "htmlparser" : "1.x",
        "request"    : "2.x",
        "cssom"      : "0.2.x",
+       "cssstyle"   : "0.1.x",
        "contextify" : "0.1.x"
     },
     "optionalDependencies": {
