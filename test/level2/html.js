@@ -394,8 +394,8 @@ exports.tests = {
   /**
    *
    HTMLAnchorElement.hostname should show the hostname of the href when relative
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-47150313
+   * @author Avi Deitcher
+   * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
    */
   HTMLAnchorElement15: function(test) {
     var doc = load("anchor2");
@@ -408,14 +408,41 @@ exports.tests = {
   /**
    *
    HTMLAnchorElement.hostname should show the hostname of the href when absolute
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-47150313
+   * @author Avi Deitcher
+   * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
    */
   HTMLAnchorElement16: function(test) {
     var doc = load("anchor3");
     var nodeList = doc.getElementsByTagName("a");
     test.equal(nodeList.length, 1, 'Asize');
     test.equal(nodeList.item(0).hostname, 'www.github.com', 'a.hostname absolute');
+    test.done();
+  },
+  /**
+   *
+   HTMLAnchorElement.pathname should show the pathname of the href
+   * @author Avi Deitcher
+   * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
+   */
+  HTMLAnchorElement17: function(test) {
+    var doc = load("anchor2");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    test.equal(nodeList.item(0).pathname, __dirname + '/html/files/pix/submit.gif', 'a.pathname relative with ./');
+    test.done();
+  },
+
+  /**
+   *
+   HTMLAnchorElement.pathname should show the pathname of the href
+   * @author Avi Deitcher
+   * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
+   */
+  HTMLAnchorElement18: function(test) {
+    var doc = load("anchor3");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    test.equal(nodeList.item(0).pathname, '/tmpvar/jsdom', 'a.pathname absolute');
     test.done();
   },
 
