@@ -1,9 +1,9 @@
 0.2.15
- * Land: Fix: make sure that doctypes don't get set as the documentElement (Aria Stewart)
- * Land: Add: HTTP proxy support for jsdom.env (Eugene Ware)
- * Land: Add: .hostname and .pathname properties to Anchor elements to comply with WHATWG standard (Avi Deitcher)
- * Land: Fix: Only decode HTML entities in text when not inside a <script> or <style> tag. (Andreas Lind Petersen)
- * Land: Fix: HTMLSelectElement single selection implemented its type incorrectly as 'select' instead of 'select-one' (John Roberts)
+ * Fix: make sure that doctypes don't get set as the documentElement (Aria Stewart)
+ * Add: HTTP proxy support for jsdom.env (Eugene Ware)
+ * Add: .hostname and .pathname properties to Anchor elements to comply with WHATWG standard (Avi Deitcher)
+ * Fix: Only decode HTML entities in text when not inside a <script> or <style> tag. (Andreas Lind Petersen)
+ * Fix: HTMLSelectElement single selection implemented its type incorrectly as 'select' instead of 'select-one' (John Roberts)
 
 0.2.14
  * Fix: when serializing single tags use ' />' instead of '/>' (kapouer)
