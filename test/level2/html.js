@@ -8348,7 +8348,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vsrc = testNode.src;
-    test.equal(vsrc, './pix/dts.gif', 'srcLink');
+    test.equal(vsrc, 'file://'+__dirname+'/html/files/pix/dts.gif', 'srcLink');
     test.done();
   },
 

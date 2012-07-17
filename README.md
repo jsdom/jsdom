@@ -118,6 +118,7 @@ If you would like to specify a configuration object
     jsdom.env({ /* config */ })
 
   - config.html     : see `html` above
+  - config.url      : The URL for location.href if different from html. (Relative anchor href and image src paths are evaluated relative to this.)
   - config.scripts  : see `scripts` above
   - config.src      : An array of javascript strings that will be evaluated against the resulting document.  Similar to `scripts`, but it accepts javascript instead of paths/urls.
   - config.done     : see `callback` above
