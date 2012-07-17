@@ -119,6 +119,7 @@ jsdom.env(config);
 
 - `config.html`: see `html` above.
 - `config.scripts`: see `scripts` above.
+- `config.url`: the URL for `location.href` if `config.html` is not a file path or URL. (Relative `<a href>` and `<img src>` values are evaluated relative to this.)
 - `config.src`: an array of JavaScript strings that will be evaluated against the resulting document. Similar to `scripts`, but it accepts JavaScript instead of paths/URLs.
 - `config.done`: see `callback` above.
 - `config.document`:
