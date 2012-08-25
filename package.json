@@ -150,6 +150,10 @@
       {
         "name" : "John Roberts",
         "email" : "jroberts@logitech.com"
+      },
+      {
+        "name": "Jan Kuča",
+        "email": "jan@jankuca.com"
       }
     ],
     "bugs": {
