@@ -1,13 +1,14 @@
 var fs = require('fs');
+var path = require('path');
 var jsdom = require("../../lib/jsdom");
 var fileCache = {};
 var load = function(name, options) {
   options || (options = {});
 
-  var file     = __dirname + "/html/files/" + name + ".html";
+  var file     = path.resolve(__dirname, "html/files/" + name + ".html");
 
   if(!options.url) {
-    options.url = "file://" + file;
+    options.url = toFileUrl(file);
   }
 
   var contents = fileCache[file] || fs.readFileSync(file, 'utf8'),
@@ -26,6 +27,18 @@ var getImplementation = function() {
   var doc = new level2.HTMLDocument();
   return doc.implementation;
 };
+
+var toFileUrl = function(relativePath) {
+  return 'file://' + toPathname(relativePath);
+};
+
+var toPathname = function(relativePath) {
+  var pathname = path.resolve(__dirname, relativePath).replace(/\\/g, '/');
+  if (pathname[0] !== '/') {
+    pathname = '/' + pathname;
+  }
+  return pathname;
+}
 
 exports.tests = {
   /**
@@ -124,7 +137,7 @@ exports.tests = {
     var doc = load("anchor");
     var nodeList = doc.getElementsByTagName("a");
     test.equal(nodeList.length, 1, 'Asize');
-    test.equal(nodeList.item(0).href, 'file://'+__dirname+'/html/files/pix/submit.gif', 'hrefLink');
+    test.equal(nodeList.item(0).href, toFileUrl('html/files/pix/submit.gif'), 'hrefLink');
     test.done();
   },
 
@@ -428,7 +441,7 @@ exports.tests = {
     var doc = load("anchor2");
     var nodeList = doc.getElementsByTagName("a");
     test.equal(nodeList.length, 1, 'Asize');
-    test.equal(nodeList.item(0).pathname, __dirname + '/html/files/pix/submit.gif', 'a.pathname relative with ./');
+    test.equal(nodeList.item(0).pathname, toPathname('html/files/pix/submit.gif'), 'a.pathname relative with ./');
     test.done();
   },
 
@@ -2255,7 +2268,7 @@ exports.tests = {
     }
     doc = load("document");
     vurl = doc.URL;
-    test.equal(vurl, 'file://'+__dirname+'/html/files/document.html', 'URLLink');
+    test.equal(vurl, toFileUrl('html/files/document.html'), 'URLLink');
     test.done();
   },
 
@@ -17349,7 +17362,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vhref = testNode.href;
-    test.equal(vhref, 'file://'+__dirname+'/html/files/pix/submit.gif', 'hrefLink');
+    test.equal(vhref, toFileUrl('html/files/pix/submit.gif'), 'hrefLink');
     test.done();
   },
 
