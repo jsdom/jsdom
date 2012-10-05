@@ -19762,5 +19762,18 @@ exports.tests = {
     });
 
     test.done();
+  },
+
+  normalize_method_defined_on_string_instances_should_not_affect_attribute_properties: function(test) {
+    var doc;
+    var img;
+    String.prototype.normalize = function() {
+      return 'masked src';
+    }
+    doc = jsdom.jsdom('<img src=\"src\" />');
+    img = doc.getElementsByTagName('img').item(0);
+    test.strictEqual(img.src, 'src', '<img> elements should not have their attribute properties masked by defining a normalize method on string instances');
+    delete String.prototype.normalize;
+    test.done();
   }
 }
