@@ -1,17 +1,24 @@
 {
     "name": "jsdom",
     "version": "0.2.15",
-    "description": "A javascript implementation of the W3C DOM",
+    "description": "A JavaScript implementation of the W3C DOM",
     "keywords": [
       "dom",
       "w3c",
       "javascript"
     ],
-    "maintainers": [{
-      "name": "Elijah Insua",
-      "email": "tmpvar@gmail.com",
-      "url": "http://tmpvar.com"
-    }],
+    "maintainers": [
+      {
+        "name": "Elijah Insua",
+        "email": "tmpvar@gmail.com",
+        "url": "http://tmpvar.com"
+      },
+      {
+        "name": "Domenic Denicola",
+        "email": "domenic@domenicdenicola.com",
+        "url": "http://domenicdenicola.com"
+      }
+    ],
     "contributors": [
       {
         "name":  "Vincent Greene",
@@ -54,7 +61,6 @@
       },
       {
         "name":  "Sam Ruby",
-        "email": "N/A",
         "url":   "http://intertwingly.net/blog/"
       },
       {
