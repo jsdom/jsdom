@@ -21842,7 +21842,7 @@ exports.tests = {
     test.strictEqual(txt6.nodeValue, 'undefined');
 
     var txt7 = doc.createTextNode('');
-    test.strictEqual(txt7.data, '');
+    test.strictEqual(txt7.nodeValue, '');
 
     test.done();
   }
