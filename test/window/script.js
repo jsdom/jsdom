@@ -1,5 +1,6 @@
 var jsdom = require('../../lib/jsdom'),
-    jQueryPath = __dirname + '/files/js/jquery.js';
+    path = require('path')
+    jQueryPath = path.resolve(__dirname, '../browser/files/js/jquery.js');
 
 exports.tests = {
   scripts_share_a_global_context: function(test) {
