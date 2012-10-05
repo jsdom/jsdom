@@ -21811,12 +21811,39 @@ exports.tests = {
     test.strictEqual(children.item(1).nodeType, doc.TEXT_NODE, 'After split the second child should be a text node');
     test.done();
   },
-  
+
   allow_empty_nodelists : function(test) {
     var doc = extra.extra();
     var element = doc.createElement('test');
     test.strictEqual(element.children.length, 0);
     test.strictEqual(element.children.toArray().length, 0);
+    test.done();
+  },
+
+  creating_text_nodes_with_falsy_values: function(test) {
+    var doc = extra.extra();
+
+    var txt1 = doc.createTextNode(0);
+    test.strictEqual(txt1.nodeValue, '0');
+
+    var txt2 = doc.createTextNode(false);
+    test.strictEqual(txt2.nodeValue, 'false');
+
+    var txt3 = doc.createTextNode(null);
+    test.strictEqual(txt3.nodeValue, 'null');
+
+    var txt4 = doc.createTextNode(NaN);
+    test.strictEqual(txt4.nodeValue, 'NaN');
+
+    var txt5 = doc.createTextNode(undefined);
+    test.strictEqual(txt5.nodeValue, 'undefined');
+
+    var txt6 = doc.createTextNode();
+    test.strictEqual(txt6.nodeValue, 'undefined');
+
+    var txt7 = doc.createTextNode('');
+    test.strictEqual(txt7.data, '');
+
     test.done();
   }
 };
