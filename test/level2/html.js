@@ -19741,5 +19741,26 @@ exports.tests = {
     test.equal(preventDefault, false, 'preventDefault should be *false*');
     test.ok(performedDefault, 'performedDefault');
     test.done();
+  },
+
+  only_special_tags_have_name_and_it_reflects_the_attribute: function(test) {
+    var doc = load("anchor");
+
+    ['a', 'applet', 'button', 'form', 'frame', 'iframe', 'img', 'input', 'map',
+     'meta', 'object', 'param', 'select', 'textarea'].forEach(function (tagName) {
+      var element = doc.createElement(tagName);
+      test.strictEqual(element.name, '', '<' + tagName + '> elements should have empty name properties by default.');
+
+      element.name = 'foo';
+      test.strictEqual(element.name, 'foo', '<' + tagName + '> elements should allow setting and retrieving their name properties.');
+      test.strictEqual(element.name, element.getAttribute('name'), '<' + tagName + '> elements should have name properties equal to their name attributes.');
+    });
+
+    ['section', 'abbr', 'label', 'option', 'customTag'].forEach(function (tagName) {
+      var element = doc.createElement(tagName);
+      test.strictEqual(element.name, undefined, '<' + tagName + '> elements should not have a value for the name property');
+    });
+
+    test.done();
   }
 }
