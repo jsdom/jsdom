@@ -1,4 +1,10 @@
+benchmark/
+example/
 test/
+changelog
+status.json
+
+.npmignore
 .DS_Store
 .svn
 .*.swp
