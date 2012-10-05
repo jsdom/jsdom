@@ -189,5 +189,8 @@
     "directories": {
         "lib": "./lib/jsdom"
     },
+    "scripts": {
+        "test": "node ./test/runner"
+    },
     "main": "./lib/jsdom"
 }
