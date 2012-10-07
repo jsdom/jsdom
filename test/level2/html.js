@@ -1,6 +1,9 @@
 var fs = require('fs');
 var path = require('path');
 var jsdom = require("../../lib/jsdom");
+var toPathname = require("../util").toPathname(__dirname);
+var toFileUrl = require("../util").toFileUrl(__dirname);
+
 var fileCache = {};
 var load = function(name, options) {
   options || (options = {});
@@ -27,18 +30,6 @@ var getImplementation = function() {
   var doc = new level2.HTMLDocument();
   return doc.implementation;
 };
-
-var toFileUrl = function(relativePath) {
-  return 'file://' + toPathname(relativePath);
-};
-
-var toPathname = function(relativePath) {
-  var pathname = path.resolve(__dirname, relativePath).replace(/\\/g, '/');
-  if (pathname[0] !== '/') {
-    pathname = '/' + pathname;
-  }
-  return pathname;
-}
 
 exports.tests = {
   /**
@@ -19800,7 +19791,7 @@ exports.tests = {
     var img = doc.getElementsByTagName("img").item(0);
 
     test.strictEqual(img.src, "src", "<img> elements should not have their attribute properties masked by defining a normalize method on string instances");
-    
+
     delete String.prototype.normalize;
     test.done();
   }

@@ -1,6 +1,7 @@
 var path = require("path");
 var fs   = require("fs");
 var jsdom = require('../../lib/jsdom');
+var toFileUrl = require('../util').toFileUrl(__dirname);
 
 exports.tests = {
   build_window: function(test) {
@@ -482,7 +483,7 @@ exports.tests = {
     var html = '\
       <html>\
         <head>\
-          <script type="text/javascript" src="file://'+__dirname+'/files/hello.js"></script>\
+          <script type="text/javascript" src="' + toFileUrl('files/hello.js') + '"></script>\
         </head>\
         <body>\
           <span id="test">hello from html</span>\
