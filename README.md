@@ -263,30 +263,32 @@ jsdom.jQueryify(window, "http://code.jquery.com/jquery.js", function () {
 # Test Compliance:
 
 ```
- level1/core        531/531      100%
- level1/html        238/238      100%
- level1/svg         527/527      100%
- level2/core        283/283      100%
- level2/html        687/687      100%
- level2/style           4/4      100%
- level2/extra           4/4      100%
- level3/xpath         93/93      100%
- window/index           5/5      100%
- window/script          8/8      100%
- window/frame         14/14      100%
- sizzle/index         12/15       80%
- jsdom/index          63/63      100%
---------------------------------------
-TOTALS: 3/2472 failed; 99% success
-TIME: 16730ms
+ level1/core                        532/532      100%
+ level1/html                        238/238      100%
+ level1/svg                         527/527      100%
+ level2/core                        283/283      100%
+ level2/html                        694/694      100%
+ level2/style                           5/5      100%
+ level2/extra                           4/4      100%
+ level2/events                        24/24      100%
+ level3/xpath                         93/93      100%
+ window/index                           5/5      100%
+ window/script                        10/10      100%
+ window/frame                         14/14      100%
+ sizzle/index                         12/15       80%
+ jsdom/index                          77/80       96%
+ jsonp/jsonp                            1/1      100%
+ browser/contextifyReplacement          4/4      100%
+ browser/index                        21/22       95%
+------------------------------------------------------
+TOTALS: 7/2551 failed; 99% success
 ```
 
 ## Running the tests
 
 First you'll want to `npm install`. To run all the tests, use `npm test`, which just calls `node test/runner`.
 
-Using `test/runner` directly, you can slice and dice which tests your want to run from different levels. Usage is as
-follows:
+Using `test/runner` directly, you can slice and dice which tests your want to run from different levels. Usage is as follows:
 
 ```
 test/runner --help
