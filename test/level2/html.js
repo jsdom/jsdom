@@ -19790,5 +19790,18 @@ exports.tests = {
     test.strictEqual(el4.hasAttribute("checked"), false, "changing to false removes attribute");
 
     test.done();
+  },
+
+  normalize_method_defined_on_string_instances_should_not_affect_attribute_properties: function(test) {
+    String.prototype.normalize = function() {
+      return 'masked src';
+    };
+    var doc = jsdom.jsdom("<img src=\"src\" />");
+    var img = doc.getElementsByTagName("img").item(0);
+
+    test.strictEqual(img.src, "src", "<img> elements should not have their attribute properties masked by defining a normalize method on string instances");
+    
+    delete String.prototype.normalize;
+    test.done();
   }
 }
