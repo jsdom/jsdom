@@ -1,6 +1,7 @@
-var path  = require('path'),
-    fs    = require('fs'),
-    jsdom = require('../../lib/jsdom');
+var path = require('path');
+var fs = require('fs');
+var jsdom = require('../../lib/jsdom');
+var toFileUrl = require('../util').toFileUrl(__dirname);
 
 exports.tests = {
   frame_parent: function(test) {
@@ -8,14 +9,14 @@ exports.tests = {
       <script>\
         aGlobal=1;\
         var iframe = document.createElement("iframe");\
-        iframe.src = "' + __dirname + '/files/iframe.html";\
+        iframe.src = "' + toFileUrl('files/iframe.html') + '";\
         document.body.appendChild(iframe);\
       </script>\
       </head><body></body></html>',
       null,
       {
         features : {
-          FetchExternalResources: ['script','iframe'], 
+          FetchExternalResources: ['script','iframe'],
           ProcessExternalResources: ['script','iframe']
         }
       }).createWindow();
@@ -29,7 +30,7 @@ exports.tests = {
       var script = doc.createElement('script');
       script.textContent = 'results=[aGlobal, DONE, PARENT_IS_TOP]';
       doc.body.appendChild(script);
-      //the script is executed asynchronously after insertion to the document, 
+      //the script is executed asynchronously after insertion to the document,
       //so setTimeout is needed
       setTimeout(function(){
         test.deepEqual(window.results, [1, 1, true]);
@@ -44,9 +45,9 @@ exports.tests = {
       </body></html>',
       null,
       {
-        url : __dirname + "/test.html",
+        url : toFileUrl("test.html"),
         features : {
-          FetchExternalResources: ['script','iframe'], 
+          FetchExternalResources: ['script','iframe'],
           ProcessExternalResources: ['script','iframe']
         }
       }).createWindow();
@@ -64,7 +65,7 @@ exports.tests = {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
       },
-      url : __filename
+      url : toFileUrl(__filename)
     });
     var elem = doc.getElementById('simpleIFrameID');
     test.notEqual(elem, null);
@@ -80,7 +81,7 @@ exports.tests = {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
       },
-      url :__filename
+      url : toFileUrl(__filename)
     });
     doc.addEventListener('load', function () {
       var iframeElem = doc.getElementById('simpleIFrameID');
@@ -101,7 +102,7 @@ exports.tests = {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
       },
-      url :__filename
+      url : toFileUrl(__filename)
     });
     var iFrame = doc.createElement('iframe');
     iFrame.addEventListener('load', function () {
@@ -120,7 +121,7 @@ exports.tests = {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
       },
-      url :__filename
+      url : toFileUrl(__filename)
     });
     doc.addEventListener('load', function () {
       var iframeElem = doc.getElementById('simpleIFrameID');
@@ -141,7 +142,7 @@ exports.tests = {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
       },
-      url :__filename
+      url : toFileUrl(__filename)
     });
     doc.addEventListener('load', function () {
       var window = doc.parentWindow;
@@ -164,7 +165,7 @@ exports.tests = {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
       },
-      url :__filename
+      url : toFileUrl(__filename)
     });
     doc.addEventListener('load', function () {
       var window = doc.parentWindow;
@@ -180,7 +181,7 @@ exports.tests = {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
       },
-      url :  __filename
+      url : toFileUrl(__filename)
     });
     var window = doc.parentWindow;
     doc.addEventListener('load', function () {
@@ -215,7 +216,7 @@ exports.tests = {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
       },
-      url : __filename
+      url : toFileUrl(__filename)
     });
     var window = doc.parentWindow;
     doc.addEventListener('load', function () {
@@ -242,7 +243,7 @@ exports.tests = {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
       },
-      url : __filename
+      url : toFileUrl(__filename)
     });
     var window = doc.parentWindow;
     doc.addEventListener('load', function () {
@@ -263,7 +264,7 @@ exports.tests = {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
       },
-      url : __filename
+      url : toFileUrl(__filename)
     });
     var window = doc.parentWindow;
     window.loaded = function () {
@@ -287,7 +288,7 @@ exports.tests = {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
       },
-      url : __filename
+      url : toFileUrl(__filename)
     });
     var iframe = doc.createElement('iframe');
     iframe.addEventListener('load', function () {
@@ -306,7 +307,7 @@ exports.tests = {
         FetchExternalResources   : ['script', 'frame'],
         ProcessExternalResources : ['script', 'frame']
       },
-      url : __filename
+      url : toFileUrl(__filename)
     });
     var window = doc.parentWindow;
     doc.addEventListener('load', function () {
