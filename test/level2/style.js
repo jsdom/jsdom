@@ -55,21 +55,21 @@ exports.tests = {
         jsdom.defaultLevel, function(err, win) {
       var p = win.document.createElement('p');
       p.style.setProperty('color', 'red');
-      test.equal(p.getAttribute('style'), 'color: red; ');
+      test.equal(p.getAttribute('style'), 'color: red;');
       p.style.setProperty('width', '20px');
-      test.equal(p.getAttribute('style'), 'color: red; width: 20px; ');
+      test.equal(p.getAttribute('style'), 'color: red; width: 20px;');
       p.style.removeProperty('color');
-      test.equal(p.getAttribute('style'), 'width: 20px; ');
+      test.equal(p.getAttribute('style'), 'width: 20px;');
       p.style.removeProperty('width');
       test.equal(p.getAttribute('style'), '');
-      p.style.cssText = 'background-color: blue; z-index: 12; ';
+      p.style.cssText = 'background-color: blue; z-index: 12;';
       test.equal(2, p.style.length);
       test.equal('blue', p.style.backgroundColor);
       test.equal('12', p.style.zIndex);
       p.style.removeProperty('z-index');
       test.equal(1, p.style.length);
       p.style.backgroundColor = 'green';
-      test.equal('background-color: green; ', p.style.cssText);
+      test.equal('background-color: green;', p.style.cssText);
       test.equal('background-color', p.style.item(0));
       test.done();
     });
