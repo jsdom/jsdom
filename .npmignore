@@ -3,6 +3,7 @@ example/
 test/
 changelog
 status.json
+Contributing.md
 
 .npmignore
 .DS_Store
