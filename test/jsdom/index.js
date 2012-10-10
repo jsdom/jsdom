@@ -1013,23 +1013,6 @@ exports.tests = {
     test.done();
   },
 
-  parser_failure_tag_in_text_content : function(test) {
-    var thrown = false;
-    try {
-      var doc = jsdom.jsdom('\
-<SCRIPT TYPE="text/javascript"> \
-document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");\
-</SCRIPT>');
-    } catch (e) {
-      thrown = true;
-    }
-
-    test.ok(doc.errors.length === 1);
-    test.ok(doc.errors[0].message === "invalid markup");
-    test.ok(thrown === false);
-    test.done();
-  },
-
   // Test inline event handlers set on the body.
   test_body_event_handler_inline : function (test) {
     var html = "\
