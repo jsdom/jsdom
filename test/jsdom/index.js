@@ -1107,7 +1107,7 @@ document.write("<SCR"+"IPT TYPE=\'text/javascript\' SRC=\'...\'><\/SCR"+"IPT>");
     var mouseOut = doc.createEvent('MouseEvents');
     mouseOut.initMouseEvent('mouseout', false, false);
     div.dispatchEvent(mouseOut);
-    test.equal(window.divMousedCalledFrom, "DIV");
+    test.equal(window.divCalledFrom, "DIV");
 
     test.done();
   },
