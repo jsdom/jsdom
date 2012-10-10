@@ -69,7 +69,7 @@ exports['create event with each event type'] = function(test){
                      'MutationEvents': events.MutationEvent,
                      'UIEvents': events.UIEvent,
                      'MouseEvents': events.MouseEvent ,
-                     'HTMLEvents': events.HTMLEvent};
+                     'HTMLEvents': events.Event};
   test.expect(10);
   for (var type in event_types) {
     var event = doc.createEvent(type);
