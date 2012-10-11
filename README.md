@@ -181,7 +181,7 @@ Default features are extremely important for jsdom as they lower the configurati
 `FetchExternalResources`
 
 - _Default_: `["script"]`
-- _Allowed_: `["script", "img", "css", "frame", "link"]` or `false`
+- _Allowed_: `["script", "img", "css", "frame", "iframe", "link"]` or `false`
 
 Enables/disables fetching files over the file system/HTTP.
 
