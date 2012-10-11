@@ -264,6 +264,22 @@ jsdom.jQueryify(window, "http://code.jquery.com/jquery.js", function () {
 });
 ```
 
+## Passing objects to scripts inside the page
+
+```js
+var jsdom = require("jsdom").jsdom;
+var window = jsdom().createWindow();
+
+window.__myObject = { foo: "bar" };
+
+var scriptEl = window.document.createElement("script");
+scriptEl.src = "anotherScript.js";
+window.document.body.appendChild(scriptEl);
+
+// anotherScript.js will have the ability to read `window.__myObject`, even
+// though it originated in Node!
+```
+
 # Test Compliance:
 
 ```
