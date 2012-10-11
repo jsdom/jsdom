@@ -210,6 +210,10 @@ This feature is backed by [sizzle][] but currently causes problems with some lib
 
 [sizzle]: http://sizzlejs.com/
 
+## Canvas
+
+jsdom includes support for using the [canvas](https://npmjs.org/package/canvas) package to extend any `<canvas>` elements with the canvas API. To make this work, you need to include canvas as a dependency in your project, as a peer of jsdom. If jsdom can find the canvas package, it will use it, but if it's not present, then `<canvas>` elements will behave like `<div>`s.
+
 # More Examples
 
 ## Creating a document-less window
