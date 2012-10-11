@@ -795,8 +795,9 @@ exports.tests = {
         doc4 = jsdom.html("<body></body>").outerHTML.replace(spaces, ''),
         doc5 = jsdom.html("").outerHTML.replace(spaces, '');
 
-    test.ok(doc1 === doc2 && doc2 == doc3 && doc3 === doc4 && doc4 == doc5,
-            'they should all serialize the same');
+    test.ok(doc1 !== doc2 && doc2 !== doc3, 'case sensitivity should be honored');
+    test.ok(doc1.toLowerCase() === doc2.toLowerCase() && doc2.toLowerCase() === doc3 && doc3 === doc4 && doc4 === doc5, 
+    		'they should all serialize the same');
     test.done();
   },
 
