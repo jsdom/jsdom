@@ -1,11 +1,24 @@
-0.2.15
+## 0.2.16
+ * Update: Sizzle version updated to circa September 2012.
+ * Fix: when setting a text node's value to a falsy value, convert it to a string instead of coercing it to `""`.
+ * Fix: Use the cssstyle package for `CSSStyleDeclaration`, giving much more accurate `cssText` and `style` properties on all elements. (chad3814)
+ * Fix: the `checked` property on checkboxes and radiobuttons now reflects the attribute correctly.
+ * Fix: `HTMLOptionElement`'s `text` property should return the option's text, not its value.
+ * Fix: make the `name` property only exist on certain specific tags, and accurately reflect the corresponding `name` attribute.
+ * Fix: don't format `outerHTML` (especially important for `<pre>` elements).
+ * Fix: remove the `value` property from `Text` instances (e.g. text nodes).
+ * Fix: don't break in the presence of a `String.prototype.normalize` method, like that of sugar.js.
+ * Fix: include level3/xpath correctly.
+ * Fix: many more tests passing, especially related to file:/// URLs on Windows. Tests can now be run with `npm test`.
+
+## 0.2.15
  * Fix: make sure that doctypes don't get set as the documentElement (Aria Stewart)
  * Add: HTTP proxy support for jsdom.env (Eugene Ware)
  * Add: .hostname and .pathname properties to Anchor elements to comply with WHATWG standard (Avi Deitcher)
- * Fix: Only decode HTML entities in text when not inside a <script> or <style> tag. (Andreas Lind Petersen)
+ * Fix: Only decode HTML entities in text when not inside a `<script>` or `<style>` tag. (Andreas Lind Petersen)
  * Fix: HTMLSelectElement single selection implemented its type incorrectly as 'select' instead of 'select-one' (John Roberts)
 
-0.2.14
+## 0.2.14
  * Fix: when serializing single tags use ' />' instead of '/>' (kapouer)
  * Fix: support for contextify simulation using vm.runInContext (trodrigues)
  * Fix: allow jsdom.env's config.html to handle file paths which contain spaces (shinuza)
@@ -13,26 +26,26 @@
  * Add: setting textContent to '' or clears children (Jason Davies)
  * Fix: jsdom.env swallows exceptions that occur in the callback (Xavi)
 
-0.2.13
+## 0.2.13
  * Fix: remove unused style property which was causing explosions in 0.2.12 and node 0.4.7
 
-0.2.12
+## 0.2.12
  * Fix: do not include gmon.out/v8.log/tests in npm distribution
 
-0.2.11
+## 0.2.11
  * Add: allow non-unique element ids (Avi Deitcher)
  * Fix: make contexify an optional dependency (Isaac Schlueter)
  * Add: scripts injected by jsdom are now marked with a 'jsdom' class for serialization's sake (Peter Lyons)
  * Fix: definition for ldquo entity (Andrew Morton)
  * Fix: access NamedNodeMap items via property (Brian McDaniel)
- * Add: upgrade sizzle from 1.0 to (https://github.com/jquery/sizzle/commit/fe2f618106bb76857b229113d6d11653707d0b22) which is roughly 1.5.1
+ * Add: upgrade sizzle from 1.0 to [fe2f6181](https://github.com/jquery/sizzle/commit/fe2f618106bb76857b229113d6d11653707d0b22) which is roughly 1.5.1
  * Add: documentation now includes `jsdom.level(x, 'feature')`
- * Fix: make toArray and item on NodeList objects non-enumerable properties
+ * Fix: make `toArray` and `item` on `NodeList` objects non-enumerable properties
  * Add: a reference to `window.close` in the readme
  * Fix: Major performance boost (Felix Gnass)
- * Fix: Using querySelector :not() throws a ReferenceError (Felix Gnass)
+ * Fix: Using querySelector `:not()` throws a `ReferenceError` (Felix Gnass)
 
-0.2.10
+## 0.2.10
  * Fix: problems with lax dependency versions
  * Fix: CSSOM constructors are hung off of the dom (Brian McDaniel)
  * Fix: move away from deprecated 'sys' module
@@ -44,7 +57,7 @@
  * Fix: When `ProcessExternalResources['script']` is disabled, do _not_ run inline event handlers. #355
  * Add: verbose flag to test runner (to show tests as they are running and finishing)
 
-0.2.9
+## 0.2.9
  * Fix: ensure features are properly reset after a jsdom.env invocation. Closes #239
  * Fix: ReferenceError in the scanForImportRules helper function
  * Fix: bug in appendHtmlToElement with HTML5 parser (Brian McDaniel)
@@ -58,13 +71,13 @@
  * Add: test case for issue #338
  * Fix: double load behavior when mixing jsdom.env's `scripts` and `src` properties (cjroebuck)
 
-0.2.8 (hotfix)
+## 0.2.8 (hotfix)
  * Fix: inline event handlers are ignored by everything except for the javascript context
 
-0.2.7 (hotfix)
+## 0.2.7 (hotfix)
  * Fix stylesheet loading
 
-0.2.6
+## 0.2.6
  * Add: support for window.location.search and document.cookie (Derek Lindahl)
  * Add: jsdom.env now has a document configuation option which allows users to change the referer of the document (Derek Lindahl)
  * Fix: allow users to use different jsdom levels in the same process (sinegar)
@@ -72,7 +85,7 @@
  * Add: support for encoding/decoding all html entities from html4/5 (papandreou)
  * Add: jsdom.env() accepts the same features object seen in jsdom.jsdom and friends
 
-0.2.5
+## 0.2.5
  * Fix: serialize special characters in Element.innerHTML/Element.attributes like a grade A browser (Jason Priestley)
  * Fix: ensure Element.getElementById only returns elements that are attached to the document
  * Fix: ensure an Element's id is updated when changing the nodeValue of the 'id' attribute (Felix Gnass)
@@ -82,10 +95,10 @@
  * Add: Node#insertBefore should do nothing when both params are the same node (Jason Davies)
  * Add: fixes for DOMAttrModified mutation events (Felix Gnass)
 
-0.2.4
+## 0.2.4
  * Fix: adding script to invalid/incomplete dom (document.documentElement) now catches the error and passes it in the `.env` callback (Gregory Tomlinson)
  * Cleanup: trigger and html tests
- * Add: support for inline event handlers (ie: <div onclick='some.horrible.string()'>) (Brian McDaniel)
+ * Add: support for inline event handlers (ie: `<div onclick='some.horrible.string()'>`) (Brian McDaniel)
  * Fix: script loading over https (Brian McDaniel) #280
  * Add: using style.setProperty updates the style attribute (Jimmy Mabey).
  * Add: invalid markup is reported as an error and attached to the associated element and document
@@ -97,41 +110,41 @@
  * Fix a crash when setChild() fails to create a new DOM element
  * Override CSSOM to update style attribute
 
-0.2.3
+## 0.2.3
  * Fix: segfault due to window being garbage collected prematurely
     NOTE: you must manually close the window to free memory (window.close())
 
-0.2.2
+## 0.2.2
  * Switch to Contextify to manage the window's script execution.
  * Fix: allow nodelists to have a length of 0 and toArray to return an empty array
  * Fix: style serialization; issues #230 and #259
  * Fix: Incomplete DOCTYPE causes JavaScript error
  * Fix: indentation, removed outdated debug code and trailing whitespace.
- * Prevent JavaScript error when parsing incomplete <!DOCTYPE>. Closes #259.
+ * Prevent JavaScript error when parsing incomplete `<!DOCTYPE>`. Closes #259.
  * Adding a test from brianmcd that ensures that setTimeout callbacks execute in the context of the window
- * Fixes issue 250: make document.parentWindow===window work
+ * Fixes issue 250: make `document.parentWindow === window` work
  * Added test to ensure that timer callbacks execute in the window context.
  * Fixes 2 issues in ResourceQueue
  * Make frame/iframe load/process scripts if the parent has the features enabled
 
-0.2.1
+## 0.2.1
  * Javascript execution fixes [#248, #163, #179]
  * XPath (Yonathan and Daniel Cassidy)
  * Start of cssom integration (Yonathan)
  * Conversion of tests to nodeunit! (Martin Davis)
  * Added sizzle tests, only failing 3/15
- * Set the title node's textContent rather than its innerHTML [#242].  (Andreas Lind Petersen)
+ * Set the title node's textContent rather than its innerHTML #242.  (Andreas Lind Petersen)
  * The textContent getter now walks the DOM and extract the text properly. (Andreas Lind Petersen)
- * Empty scripts won't cause jsdom.env to hang [#172] (Karuna Sagar)
- * Every document has either a body or a frameset [#82]. (Karuna Sagar)
+ * Empty scripts won't cause jsdom.env to hang #172 (Karuna Sagar)
+ * Every document has either a body or a frameset #82. (Karuna Sagar)
  * Added the ability to grab a level by string + feature. ie: jsdom.level(2, 'html') (Aria Stewart)
- * Cleaned up htmlencoding and fixed character (de)entification [#147, #177] (Andreas Lind Petersen)
- * htmlencoding.HTMLDecode: Fixed decoding of `&lt;`, `&gt;`, `&amp;`, and `&apos;`. Closes #147 and #177. ()
+ * Cleaned up htmlencoding and fixed character (de)entification #147, #177 (Andreas Lind Petersen)
+ * htmlencoding.HTMLDecode: Fixed decoding of `&lt;`, `&gt;`, `&amp;`, and `&apos;`. Closes #147 and #177.
  * Require dom level as a string or object. (Aria Stewart)
  * JS errors ar triggered on the script element, not document. (Yonathan)
  * Added configuration property 'headers' for HTTP request headers. (antonj)
  * Attr.specified is readonly - Karuna Sagar
- * Removed return value from setAttributeNS() [#207] (Karuna Sagar)
+ * Removed return value from setAttributeNS() #207 (Karuna Sagar)
  * Pass the correct script filename to runInContext. (robin)
  * Add http referrer support for the download() function. (Robin)
  * First attempt at fixing the horrible memory leak via window.stopTimers() (d-ash)
@@ -155,15 +168,14 @@
  * Mutation event tests/fixes (Felix Gnass)
  * Changed HTML serialization code to (optionally) pretty print while traversing the tree instead of doing a regexp-based postprocessing. (Andreas Lind Petersen)
  * Relative and absolute urls now work as expected
- * setNamedItem no longer sets Node.parentNode [#153] (Karuna Sagar)
+ * setNamedItem no longer sets Node.parentNode #153 (Karuna Sagar)
  * Added missing semicolon after entity name - Felix Gnass
  * Added NodeList#indexOf implementation/tests (Karuna Sagar)
  * resourceLoader.download now works correctly with https and redirects (waslogic)
- * Scheme-less URLs default to the current protocol [#87] (Alexander Flatter)
+ * Scheme-less URLs default to the current protocol #87 (Alexander Flatter)
  * Simplification the prevSibling(), appendChild(), insertBefore() and replaceChild() code (Karuna Sagar)
  * Javascript errors use core.Node.trigger (Alexander Flatter)
  * Add core.Document.trigger in level1/core and level2/events; Make DOMWindow.console use it (Alexander Flatter)
  * Resource resolver fixes (Alexander Flatter)
- * Fix serialization of doctypes with new lines [#148] (Karuna Sagar)
- * Child nodes are calculated immediately instead of after .length is called [#169, #171, #176] (Karuna Sagar)
-
+ * Fix serialization of doctypes with new lines #148 (Karuna Sagar)
+ * Child nodes are calculated immediately instead of after .length is called #169, #171, #176 (Karuna Sagar)

@@ -1,7 +1,7 @@
 benchmark/
 example/
 test/
-changelog
+Changelog.md
 status.json
 Contributing.md
 
