@@ -87,7 +87,7 @@ jsdom.env({
 ```
 
 ### How it works
-`jsdom.env` is built for ease of use, which is rare in the world of the DOM! Since the web has some absolutely horrible javascript on it, as of jsdom 0.2.0 `jsdom.env` will not process external resources (scripts, images, etc).  If you want to process the javascript use one of the methods below (`jsdom.jsdom` or `jsdom.jQueryify`)
+`jsdom.env` is built for ease of use, which is rare in the world of the DOM! Since the web has some absolutely horrible JavaScript on it, as of jsdom 0.2.0 `jsdom.env` will not process external resources (scripts, images, etc).  If you want to process the JavaScript use one of the methods below (`jsdom.jsdom` or `jsdom.jQueryify`)
 
 ```js
 jsdom.env(html, [scripts], [config], callback);
