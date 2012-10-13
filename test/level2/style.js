@@ -18,12 +18,14 @@ exports.tests = {
 
   HTMLStyleAttribute01 : function (test) {
     jsdom.env(
-        '<html><body><p style="color:red">',
+        '<html><body><p style="color:red; background-color: blue">',
         jsdom.defaultLevel, function(err, win) {
       var p = win.document.body.lastChild;
-      test.equal(1, p.style.length);
+      test.equal(2, p.style.length);
       test.equal('color', p.style[0]);
       test.equal('red', p.style.color);
+      test.equal('background-color', p.style[1]);
+      test.equal('blue', p.style.backgroundColor);
       test.done();
     });
   },
@@ -60,6 +62,15 @@ exports.tests = {
       test.equal(p.getAttribute('style'), 'width: 20px;');
       p.style.removeProperty('width');
       test.equal(p.getAttribute('style'), '');
+      p.style.cssText = 'background-color: blue; z-index: 12;';
+      test.equal(2, p.style.length);
+      test.equal('blue', p.style.backgroundColor);
+      test.equal('12', p.style.zIndex);
+      p.style.removeProperty('z-index');
+      test.equal(1, p.style.length);
+      p.style.backgroundColor = 'green';
+      test.equal('background-color: green;', p.style.cssText);
+      test.equal('background-color', p.style.item(0));
       test.done();
     });
   },

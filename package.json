@@ -156,6 +156,11 @@
       {
         "name" : "John Roberts",
         "email" : "jroberts@logitech.com"
+      },
+      {
+        "name" : "Chad Walker",
+        "email" : "chad@chad-cat-lore-eddie.com",
+        "url" : "https://github.com/chad3814"
       }
     ],
     "bugs": {
@@ -180,7 +185,8 @@
     "dependencies": {
        "htmlparser" : "1.x",
        "request"    : "2.x",
-       "cssom"      : "0.2.x",
+       "cssom"      : ">=0.2.2",
+       "cssstyle"   : "0.2.x",
        "contextify" : "0.1.x"
     },
     "optionalDependencies": {

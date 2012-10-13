@@ -156,7 +156,7 @@ exports.tests = {
     doc.appendChild(doc.createElement('html'));
     doc.documentElement.style.color = 'black';
     doc.documentElement.style.backgroundColor = 'white';
-    test.equal(domToHtml.domToHtml(doc), '<html style="color: black; background-color: white"></html>\n', '');
+    test.equal(domToHtml.domToHtml(doc), '<html style="color: black; background-color: white;"></html>\n', '');
     test.done();
   },
 
