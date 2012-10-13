@@ -1329,5 +1329,14 @@ exports.tests = {
 
     test.equal(originalHTML, outerHTML);
     test.done();
+  },
+
+  issue_509_out_of_memory : function(test) {
+    var fs = require("fs");
+
+    var html = fs.readFileSync(path.resolve(__dirname, "files/reddit.html"));
+    jsdom.jsdom(html.toString());
+
+    test.done();
   }
 };
