@@ -1,3 +1,7 @@
+## 0.2.18
+
+ * Un-revert: cssstyle has fixed its memory problems, so we get back accurate `cssText` and `style` properties again.
+
 ## 0.2.17 (hotfix)
 
  * Revert: had to revert the use of the cssstyle package. `cssText` and `style` properties are no longer as accurate.
