@@ -2,6 +2,7 @@ var jsdom = require('../../lib/jsdom');
 var assert = require('assert');
 var http = require('http');
 var fs = require('fs');
+var path = require('path');
 exports.tests = {
 
   HTMLStyleElement01 : function (test) {
@@ -98,7 +99,7 @@ exports.tests = {
     });
   },
 
-  ensure_external_stylesheets_are_loadable : function(test) {
+  ensureExternalStylesheetsAreLoadable : function(test) {
     var css = "body { border: 1px solid #f0f; }";
     var server = http.createServer(function(req, res) {
       res.writeHead(200, {
@@ -110,8 +111,8 @@ exports.tests = {
 
     server.listen(10099);
 
-    jsdom.env(__dirname + '/style/external_css.html', function(e, w) {
-      test.equal(w.document.errors, null);
+    jsdom.env(path.resolve(__dirname, 'style/external_css.html'), function(errors, win) {
+      test.equal(win.document.errors, null);
       server.close();
       test.done();
     });
@@ -129,7 +130,7 @@ exports.tests = {
 
     server.listen(10099);
 
-    var html = fs.readFileSync(__dirname + '/style/getComputedStyleExternal.html', 'utf8');
+    var html = fs.readFileSync(path.resolve(__dirname, 'style/getComputedStyleExternal.html'), 'utf8');
     var doc = jsdom.jsdom(html);
     var win = doc.createWindow();
     doc.onload = function () {
