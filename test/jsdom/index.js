@@ -402,11 +402,29 @@ exports.tests = {
   </body>\
 </html>';
 
-    var doc2 = jsdom.jsdom(html, null, {features: {FetchExternalResources: ['script'], ProcessExternalResources: false}});
+    var doc2 = jsdom.jsdom(html, null, {url: __filename, features: {FetchExternalResources: ['script'], ProcessExternalResources: false}});
     setTimeout(function() {
       test.equal(doc2.getElementById("test").innerHTML, 'hello from html', 'js should not be executed (doc2)');
       test.done();
     }, 100)
+  },
+
+  ensure_scripts_can_be_executed_via_options_features: function(test) {
+    var html = '\
+<html>\
+  <head>\
+    <script type="text/javascript" src="./files/hello.js"></script>\
+  </head>\
+  <body>\
+    <span id="test">hello from html</span>\
+  </body>\
+</html>';
+
+    var doc2 = jsdom.jsdom(html, null, {url: __filename, features: {FetchExternalResources: ['script'], ProcessExternalResources: ['script']}});
+    setTimeout(function() {
+      test.equal(doc2.getElementById("test").innerHTML, 'hello from javascript', 'js should be executed (doc2)');
+      test.done();
+    }, 800)
   },
 
   load_multiple_resources_with_defer_close: function(test) {
@@ -418,6 +436,7 @@ exports.tests = {
 
     var doc = jsdom.jsdom(html, null,
       {
+        url: __filename,
         features: {
           FetchExternalResources: ['frame'],
           ProcessExternalResources: ['frame','script']
