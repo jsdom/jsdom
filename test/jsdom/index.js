@@ -427,6 +427,34 @@ exports.tests = {
     }, 800)
   },
 
+  ensure_resources_can_be_skipped_via_options_features: function(test) {
+    var html = '\
+<html>\
+  <head>\
+    <script type="text/javascript" src="./files/hello.js"></script>\
+    <script type="text/javascript" src="./files/nyan.js"></script>\
+  </head>\
+  <body>\
+    <span id="test">hello from html</span>\
+    <span id="cat">hello from cat</span>\
+  </body>\
+</html>';
+
+    var doc2 = jsdom.jsdom(html, null, {
+      url: __filename,
+      features: {
+        FetchExternalResources: ['script'],
+        ProcessExternalResources: ['script'],
+        SkipExternalResources: new RegExp('^/.*/files/h')
+      }
+    });
+    setTimeout(function() {
+      test.equal(doc2.getElementById("test").innerHTML, 'hello from html', 'js should not be executed (doc2)');
+      test.equal(doc2.getElementById("cat").innerHTML, 'hello from nyan cat', 'js should be executed (doc2)');
+      test.done();
+    }, 800)
+  },
+
   load_multiple_resources_with_defer_close: function(test) {
     var html = '<html><head></head><body>\
       <frame src="../level2/html/files/iframe.html"></frame>\

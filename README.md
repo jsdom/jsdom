@@ -192,6 +192,14 @@ Enables/disables fetching files over the file system/HTTP.
 
 Disabling this will disable script execution (currently only JavaScript).
 
+`SkipExternalResources`
+
+- _Default_: `false`
+- _Allowed_: `/url to be skipped/` or `false`
+- _Example_: `/http:\/\/example.org/js/bad\.js/` or `false`
+
+Do not download and process resources with url matching a regular expression.
+
 `MutationEvents`
 
 - _Default_: `"2.0"`
