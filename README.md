@@ -196,7 +196,7 @@ Disabling this will disable script execution (currently only JavaScript).
 
 - _Default_: `false`
 - _Allowed_: `/url to be skipped/` or `false`
-- _Example_: `/http:\/\/example.org/js/bad\.js/` or `false`
+- _Example_: `/http:\/\/example.org/js/bad\.js/`
 
 Do not download and process resources with url matching a regular expression.
 
