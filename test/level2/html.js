@@ -6,9 +6,11 @@ var toFileUrl = require("../util").toFileUrl(__dirname);
 
 var fileCache = {};
 var load = function(name, options) {
-  options || (options = {});
+  if (!options) {
+    options = {};
+  }
 
-  var file     = path.resolve(__dirname, "html/files/" + name + ".html");
+  var file = path.resolve(__dirname, "html/files/" + name + ".html");
 
   if(!options.url) {
     options.url = toFileUrl(file);
@@ -24,7 +26,7 @@ var load = function(name, options) {
   doc.innerHTML = contents;
   fileCache[file] = contents;
   return doc;
-}
+};
 var level2 = require("../../lib/jsdom/level2/html").dom.level2.html;
 var getImplementation = function() {
   var doc = new level2.HTMLDocument();

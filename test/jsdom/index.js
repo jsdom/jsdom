@@ -392,53 +392,38 @@ exports.tests = {
   },
 
   ensure_scripts_can_be_disabled_via_options_features: function(test) {
-    var html = '\
-<html>\
-  <head>\
-    <script type="text/javascript" src="./files/hello.js"></script>\
-  </head>\
-  <body>\
-    <span id="test">hello from html</span>\
-  </body>\
-</html>';
+    var html = '<html><head><script src="./files/hello.js"></script></head>' +
+               '<body><span id="test">hello from html</span></body></html>';
 
-    var doc2 = jsdom.jsdom(html, null, {url: __filename, features: {FetchExternalResources: ['script'], ProcessExternalResources: false}});
+    var doc2 = jsdom.jsdom(html, null, {
+      url: __filename,
+      features: {
+        FetchExternalResources: ['script'],
+        ProcessExternalResources: false
+      }
+    });
     setTimeout(function() {
       test.equal(doc2.getElementById("test").innerHTML, 'hello from html', 'js should not be executed (doc2)');
       test.done();
-    }, 100)
+    }, 100);
   },
 
   ensure_scripts_can_be_executed_via_options_features: function(test) {
-    var html = '\
-<html>\
-  <head>\
-    <script type="text/javascript" src="./files/hello.js"></script>\
-  </head>\
-  <body>\
-    <span id="test">hello from html</span>\
-  </body>\
-</html>';
+    var html = '<html><head><script src="./files/hello.js"></script></head>' +
+               '<body><span id="test">hello from html</span></body></html>';
 
     var doc2 = jsdom.jsdom(html, null, {url: __filename, features: {FetchExternalResources: ['script'], ProcessExternalResources: ['script']}});
     setTimeout(function() {
       test.equal(doc2.getElementById("test").innerHTML, 'hello from javascript', 'js should be executed (doc2)');
       test.done();
-    }, 800)
+    }, 800);
   },
 
   ensure_resources_can_be_skipped_via_options_features: function(test) {
-    var html = '\
-<html>\
-  <head>\
-    <script type="text/javascript" src="./files/hello.js"></script>\
-    <script type="text/javascript" src="./files/nyan.js"></script>\
-  </head>\
-  <body>\
-    <span id="test">hello from html</span>\
-    <span id="cat">hello from cat</span>\
-  </body>\
-</html>';
+    var html = '<html><head><script src="./files/hello.js"></script>' +
+               '<script src="./files/nyan.js"></script></head>' +
+               '<body><span id="test">hello from html</span><span id="cat">' +
+               'hello from cat</body></html>';
 
     var doc2 = jsdom.jsdom(html, null, {
       url: __filename,
@@ -452,15 +437,15 @@ exports.tests = {
       test.equal(doc2.getElementById("test").innerHTML, 'hello from html', 'js should not be executed (doc2)');
       test.equal(doc2.getElementById("cat").innerHTML, 'hello from nyan cat', 'js should be executed (doc2)');
       test.done();
-    }, 800)
+    }, 800);
   },
 
   load_multiple_resources_with_defer_close: function(test) {
-    var html = '<html><head></head><body>\
-      <frame src="../level2/html/files/iframe.html"></frame>\
-      <frame src="../level2/html/files/iframe.html"></frame>\
-      <frame src="../level2/html/files/iframe.html"></frame>\
-      </body></html>';
+    var html = '<html><head></head><body>' +
+      '<frame src="../level2/html/files/iframe.html"></frame>' +
+      '<frame src="../level2/html/files/iframe.html"></frame>' +
+      '<frame src="../level2/html/files/iframe.html"></frame>' +
+      '</body></html>';
 
     var doc = jsdom.jsdom(html, null,
       {
@@ -469,10 +454,10 @@ exports.tests = {
           FetchExternalResources: ['frame'],
           ProcessExternalResources: ['frame','script']
         },
-        deferClose : true
+        deferClose: true
       });
     // iframe.html sets onload handler to call loadComplete, so we mock it.
-    window = doc.createWindow();
+    var window = doc.createWindow();
     doc.parent = window;
     window.loadComplete = function () {};
 
@@ -480,7 +465,7 @@ exports.tests = {
 
     var check_handle;
     var timeout_handle = setTimeout(function() {
-      doc.onload=null;
+      doc.onload = null;
       doc.parentWindow.close();
       if (check_handle) {
         clearTimeout(check_handle);
