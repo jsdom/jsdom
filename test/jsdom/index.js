@@ -396,7 +396,7 @@ exports.tests = {
                '<body><span id="test">hello from html</span></body></html>';
 
     var doc2 = jsdom.jsdom(html, null, {
-      url: __filename,
+      url: toFileUrl(__filename),
       features: {
         FetchExternalResources: ['script'],
         ProcessExternalResources: false
@@ -412,7 +412,13 @@ exports.tests = {
     var html = '<html><head><script src="./files/hello.js"></script></head>' +
                '<body><span id="test">hello from html</span></body></html>';
 
-    var doc2 = jsdom.jsdom(html, null, {url: __filename, features: {FetchExternalResources: ['script'], ProcessExternalResources: ['script']}});
+    var doc2 = jsdom.jsdom(html, null, {
+      url: toFileUrl(__filename),
+      features: {
+        FetchExternalResources: ['script'],
+        ProcessExternalResources: ['script']
+      }
+    });
     setTimeout(function() {
       test.equal(doc2.getElementById("test").innerHTML, 'hello from javascript', 'js should be executed (doc2)');
       test.done();
@@ -426,11 +432,11 @@ exports.tests = {
                'hello from cat</body></html>';
 
     var doc2 = jsdom.jsdom(html, null, {
-      url: __filename,
+      url: toFileUrl(__filename),
       features: {
         FetchExternalResources: ['script'],
         ProcessExternalResources: ['script'],
-        SkipExternalResources: new RegExp('^/.*/files/h')
+        SkipExternalResources: new RegExp('.*/files/h')
       }
     });
     setTimeout(function() {
@@ -449,7 +455,7 @@ exports.tests = {
 
     var doc = jsdom.jsdom(html, null,
       {
-        url: __filename,
+        url: toFileUrl(__filename),
         features: {
           FetchExternalResources: ['frame'],
           ProcessExternalResources: ['frame','script']
