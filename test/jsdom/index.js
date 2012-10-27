@@ -425,6 +425,24 @@ exports.tests = {
     }, 800);
   },
 
+  ensure_resolution_is_not_thrown_off_by_hrefless_base_tag: function(test) {
+    var html = '<html><head><base target="whatever>' +
+               '<script src="./files/hello.js"></script></head><body>' +
+               '<span id="test">hello from html</span></body></html>';
+
+    var doc2 = jsdom.jsdom(html, null, {
+      url: toFileUrl(__filename),
+      features: {
+        FetchExternalResources: ['script'],
+        ProcessExternalResources: ['script']
+      }
+    });
+    setTimeout(function() {
+      test.equal(doc2.getElementById("test").innerHTML, 'hello from javascript', 'js should be executed (doc2)');
+      test.done();
+    }, 800);
+  },
+
   ensure_resources_can_be_skipped_via_options_features: function(test) {
     var html = '<html><head><script src="./files/hello.js"></script>' +
                '<script src="./files/nyan.js"></script></head>' +
