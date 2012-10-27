@@ -592,6 +592,8 @@ exports.tests = {
     test.equal(element2, div.children.item(0), 'p and first-p');
     var element3 = document.querySelector("#main p:not(.foo)");
     test.equal(element3, div.children.item(1), 'p and second-p');
+    var element3 = document.querySelector("#asdf");
+    test.equal(element3, null, 'nonexistent becomes null');
     test.done();
   },
 
