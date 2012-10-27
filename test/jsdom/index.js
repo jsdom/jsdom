@@ -56,6 +56,17 @@ exports.tests = {
     test.done();
   },
 
+  jquerify_attribute_selector_gh_400: function(test) {
+    var window = jsdom.jsdom().createWindow();
+
+    jsdom.jQueryify(window, "http://code.jquery.com/jquery.js", function () {
+      window.$("body").append('<html><body><div data-foo="bar"/><div data-baz="foo"/></body></html>');
+
+      test.equal(window.$('*[data-foo]').length, 1);
+      test.done();
+    });
+  },
+
   env_with_absolute_file: function(test) {
     jsdom.env({
       html: path.join(__dirname, 'files', 'env.html'),
