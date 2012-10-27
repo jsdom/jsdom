@@ -168,8 +168,7 @@ One of the goals of jsdom is to be as minimal and light as possible. This sectio
   require("jsdom").defaultDocumentFeatures = {
       FetchExternalResources: ["script"],
       ProcessExternalResources: false,
-      MutationEvents: false,
-      QuerySelector: false
+      MutationEvents: false
   };
   ```
 
@@ -208,15 +207,6 @@ Do not download and process resources with url matching a regular expression.
 Initially enabled to be up to spec. Disable this if you do not need mutation events and want jsdom to be a bit more efficient.
 
 **Note**: `ProcessExternalResources` requires this to be enabled.
-
-`QuerySelector`
-
- - _Default_ : `false`
- - _Allowed_ : `true`
-
-This feature is backed by [sizzle][] but currently causes problems with some libraries. Enable this if you want `document.querySelector` and friends, but be aware that many libraries feature detect for this, and it may cause you a bit of trouble.
-
-[sizzle]: http://sizzlejs.com/
 
 ## Canvas
 

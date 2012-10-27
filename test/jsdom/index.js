@@ -584,7 +584,7 @@ exports.tests = {
 
   queryselector: function(test) {
     var html = '<html><body><div id="main"><p class="foo">Foo</p><p>Bar</p></div></body></html>',
-        document = jsdom.jsdom(html, null, {features: {'QuerySelector': true}}),
+        document = jsdom.jsdom(html),
         div = document.body.children.item(0);
     var element = document.querySelector("#main p");
     test.equal(element, div.children.item(0), 'p and first-p');
@@ -600,7 +600,7 @@ exports.tests = {
   // TODO: look into breaking into a testcase
   queryselectorall: function(test) {
     var html = '<html><body><div id="main"><p>Foo</p><p>Bar</p></div><div id="next"><div id="next-child"><p>Baz</p></div></div></body></html>',
-        document = jsdom.jsdom(html, null, {features: {'QuerySelector': true}}),
+        document = jsdom.jsdom(html, null),
         div = document.body.children.item(0),
         elements = document.querySelectorAll("#main p");
     test.equal(elements.length, 2, 'two results');
@@ -634,21 +634,6 @@ exports.tests = {
     var elements6 = nextChildDiv.querySelectorAll('p');
     test.equal(elements6.length, 1, 'p under div#next-child');
     test.equal(elements6.item(0), nextChildDiv.children.item(0), 'child of div#next-child');
-    test.done();
-  },
-
-  turn_off_queryselector: function(test) {
-    var html = '<html><body></body></html>',
-        document = jsdom.jsdom(html, null, {features: {'QuerySelector': true}});
-    test.equal(typeof document.querySelector, 'function', 'document.querySelector function exists');
-    test.equal(typeof document.querySelectorAll, 'function', 'document.querySelectorAll function exists');
-    test.equal(typeof document.body.querySelector, 'function', 'document.body.querySelector function exists');
-    test.equal(typeof document.body.querySelectorAll, 'function', 'document.body.querySelectorAll function exists');
-    document = jsdom.jsdom(html, null);
-    test.equal(typeof document.querySelector, 'undefined', 'document.querySelector does not exist');
-    test.equal(typeof document.querySelectorAll, 'undefined', 'document.querySelectorAll does not exist');
-    test.equal(typeof document.body.querySelector, 'undefined', 'document.body.querySelector does not exist');
-    test.equal(typeof document.body.querySelectorAll, 'undefined', 'document.body.querySelectorAll does not exist');
     test.done();
   },
 
