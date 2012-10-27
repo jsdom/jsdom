@@ -586,7 +586,7 @@ exports.tests = {
 
   // TODO: look into breaking into a testcase
   queryselectorall: function(test) {
-    var html = '<html><body><div id="main"><p>Foo</p><p>Bar</p></div></body></html>',
+    var html = '<html><body><div id="main"><p>Foo</p><p>Bar</p></div><div id="next"><div id="next-child"><p>Baz</p></div></div></body></html>',
         document = jsdom.jsdom(html, null, {features: {'QuerySelector': true}}),
         div = document.body.children.item(0),
         elements = document.querySelectorAll("#main p");
@@ -597,6 +597,8 @@ exports.tests = {
     test.equal(elements2.length, 2, 'two results');
     test.equal(elements2.item(0), div.children.item(0), 'p and first-p');
     test.equal(elements2.item(1), div.children.item(1), 'p and second-p');
+    test.equal(div.querySelectorAll("#main").length, 0, 'It should not return the base element');
+    test.equal(div.querySelectorAll("div").length, 0, 'There are no div elements under div#main');
     var elements3 = div.querySelectorAll("#main p");
     test.equal(elements3.length, 2, 'two results');
     test.equal(elements3.item(0), div.children.item(0), 'p and first-p');
@@ -606,9 +608,19 @@ exports.tests = {
     topNode.id = "fuz";
     newNode.id = "buz";
     topNode.appendChild(newNode);
+    test.equal(topNode.querySelectorAll("#fuz").length, 0, "It should not return the base element that is orphaned");
     var elements4 = topNode.querySelectorAll("#fuz #buz");
     test.equal(elements4.length, 1, 'one result');
     test.equal(elements4.item(0), newNode, 'newNode and first-p');
+    var elements5 = div.querySelectorAll('p');
+    test.equal(elements5.length, 2, "It should not return elements that are not within the base element's subtrees");
+    test.equal(elements5.item(0), div.children.item(0), 'p and first-p');
+    test.equal(elements5.item(1), div.children.item(1), 'p and second-p');
+    test.equal(topNode.parentNode, null, 'topNode.parentNode is null');
+    var nextChildDiv = document.getElementById('next-child');
+    var elements6 = nextChildDiv.querySelectorAll('p');
+    test.equal(elements6.length, 1, 'p under div#next-child');
+    test.equal(elements6.item(0), nextChildDiv.children.item(0), 'child of div#next-child');
     test.done();
   },
 
