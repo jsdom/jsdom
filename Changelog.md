@@ -1,3 +1,9 @@
+## 0.2.19
+
+ * Fix: URL resolution was broken on pages that included `href`-less `<base>` tags.
+ * Fix: avoid putting `attr` in the global scope when using node-canvas.
+ * Add: New `SkipExternalResources` feature accepts a regular expression. (fgalassi)
+
 ## 0.2.18
 
  * Un-revert: cssstyle has fixed its memory problems, so we get back accurate `cssText` and `style` properties again.
