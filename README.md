@@ -154,9 +154,9 @@ One of the goals of jsdom is to be as minimal and light as possible. This sectio
   ```js
   var jsdom = require("jsdom").jsdom;
   var doc = jsdom("<html><body></body></html>", null, {
-    features: {
-      FetchExternalResources : ["img"]
-    }
+      features: {
+        FetchExternalResources : ["img"]
+      }
   });
   ```
 
@@ -166,10 +166,10 @@ One of the goals of jsdom is to be as minimal and light as possible. This sectio
 
   ```js
   require("jsdom").defaultDocumentFeatures = {
-    FetchExternalResources: ["script"],
-    ProcessExternalResources: false,
-    MutationEvents: false,
-    QuerySelector: false
+      FetchExternalResources: ["script"],
+      ProcessExternalResources: false,
+      MutationEvents: false,
+      QuerySelector: false
   };
   ```
 
