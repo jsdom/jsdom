@@ -167,8 +167,7 @@ One of the goals of jsdom is to be as minimal and light as possible. This sectio
   ```js
   require("jsdom").defaultDocumentFeatures = {
       FetchExternalResources: ["script"],
-      ProcessExternalResources: false,
-      MutationEvents: false
+      ProcessExternalResources: false
   };
   ```
 
@@ -198,15 +197,6 @@ Disabling this will disable script execution (currently only JavaScript).
 - _Example_: `/http:\/\/example.org/js/bad\.js/`
 
 Do not download and process resources with url matching a regular expression.
-
-`MutationEvents`
-
-- _Default_: `"2.0"`
-- _Allowed_ : `"2.0"` or `false`
-
-Initially enabled to be up to spec. Disable this if you do not need mutation events and want jsdom to be a bit more efficient.
-
-**Note**: `ProcessExternalResources` requires this to be enabled.
 
 ## Canvas
 
