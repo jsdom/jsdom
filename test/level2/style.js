@@ -2,6 +2,7 @@ var jsdom = require('../../lib/jsdom');
 var assert = require('assert');
 var http = require('http');
 var fs = require('fs');
+var path = require('path');
 exports.tests = {
 
   HTMLStyleElement01 : function (test) {
@@ -75,22 +76,70 @@ exports.tests = {
     });
   },
 
-  ensure_external_stylesheets_are_loadable : function(test) {
+  getComputedStyleInline: function(test) {
+    jsdom.env(
+        '<html>',
+        jsdom.defaultLevel, function(err, win) {
+          var doc = win.document;
+          var html = doc.createElement("html");
+          doc.appendChild(html);
+          var head = doc.createElement("head");
+          html.appendChild(head);
+          var style = doc.createElement("style");
+          style.innerHTML = "p { display: none; }";
+          head.appendChild(style);
+          var body = doc.createElement("body");
+          html.appendChild(body);
+          var p = doc.createElement("p");
+          body.appendChild(p);
+          p = doc.getElementsByTagName("p")[0];
+          var style = win.getComputedStyle(p);
+          test.equal(style.display, "none", "computed display of p is none");
+          test.done();
+    });
+  },
+
+  ensureExternalStylesheetsAreLoadable : function(test) {
     var css = "body { border: 1px solid #f0f; }";
     var server = http.createServer(function(req, res) {
-      req.writeHead(200, {
+      res.writeHead(200, {
         'Content-type' : 'text/css',
         'Content-length' : css.length
       });
-      req.end(css);
+      res.end(css);
     });
 
     server.listen(10099);
 
-    jsdom.env(__dirname + '/style/external_css.html', function(e, w) {
-      test.equal(w.document.errors, null);
+    jsdom.env(path.resolve(__dirname, 'style/external_css.html'), function(errors, win) {
+      test.equal(win.document.errors, null);
       server.close();
       test.done();
     });
-  }
+  },
+
+  getComputedStyleExternal: function(test) {
+    var css = "div { color: red; }";
+    var server = http.createServer(function(req, res) {
+      res.writeHead(200, {
+        'Content-type' : 'text/css',
+        'Content-length' : css.length
+      });
+      res.end(css);
+    });
+
+    server.listen(10099);
+
+    var html = fs.readFileSync(path.resolve(__dirname, 'style/getComputedStyleExternal.html'), 'utf8');
+    var doc = jsdom.jsdom(html);
+    var win = doc.createWindow();
+    doc.onload = function () {
+      var div = doc.getElementsByTagName("div")[0];
+      var style = win.getComputedStyle(div);
+      test.equal(style.color, "red", "computed color of div is red");
+      server.close();
+      test.done();
+    };
+  },
+
 }
