@@ -1423,5 +1423,20 @@ exports.tests = {
     jsdom.jsdom(html.toString());
 
     test.done();
+  },
+
+  issue_530_async_load_events : function(test) {
+    test.expect(1);
+
+    var doc = jsdom.jsdom('<html><head></head><body></body></html>');
+    var window = doc.createWindow();
+
+    // Add the load event after the document is already created; it shouldn't
+    // fire until nextTick. The test will fail (with a timeout) if it has
+    // already fired.
+    window.addEventListener('load', function () {
+      test.ok(true);
+      test.done();
+    });
   }
 };
