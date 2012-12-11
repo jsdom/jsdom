@@ -276,7 +276,7 @@ window.document.body.appendChild(scriptEl);
  level1/svg                         527/527      100%
  level2/core                        283/283      100%
  level2/html                        695/695      100%
- level2/style                           7/7      100%
+ level2/style                           8/8      100%
  level2/extra                           4/4      100%
  level2/events                        24/24      100%
  level3/xpath                         93/93      100%
@@ -289,7 +289,7 @@ window.document.body.appendChild(scriptEl);
  browser/contextifyReplacement          4/4      100%
  browser/index                        22/22      100%
 ------------------------------------------------------
-TOTALS: 6/2558 failed; 99% success
+TOTALS: 6/2559 failed; 99% success
 ```
 
 ## Running the tests

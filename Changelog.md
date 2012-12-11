@@ -1,3 +1,7 @@
+## 0.3.1 (hotfix)
+
+ * Fix: crashes when invalid selectors were present in stylesheets.
+
 ## 0.3.0
 
  * Fix: a real `querySelector` implementation, courtesy of the nwmatcher project, solves many outstanding `querySelector` bugs.
