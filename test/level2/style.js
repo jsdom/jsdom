@@ -93,8 +93,8 @@ exports.tests = {
           var p = doc.createElement("p");
           body.appendChild(p);
           p = doc.getElementsByTagName("p")[0];
-          var style = win.getComputedStyle(p);
-          test.equal(style.display, "none", "computed display of p is none");
+          var cs = win.getComputedStyle(p);
+          test.equal(cs.display, "none", "computed display of p is none");
           test.done();
     });
   },
@@ -142,4 +142,27 @@ exports.tests = {
     };
   },
 
-}
+  getComputedStyleWithBadSelectors: function(test) {
+    jsdom.env(
+        '<html>',
+        jsdom.defaultLevel, function(err, win) {
+          var doc = win.document;
+          var html = doc.createElement("html");
+          doc.appendChild(html);
+          var head = doc.createElement("head");
+          html.appendChild(head);
+          var style = doc.createElement("style");
+          style.innerHTML = ";p { display: none; }";
+          head.appendChild(style);
+          var body = doc.createElement("body");
+          html.appendChild(body);
+          var p = doc.createElement("p");
+          body.appendChild(p);
+          p = doc.getElementsByTagName("p")[0];
+          test.doesNotThrow(function () {
+            win.getComputedStyle(p);
+          });
+          test.done();
+    });
+  }
+};
