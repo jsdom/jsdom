@@ -99,6 +99,40 @@ exports.tests = {
     });
   },
 
+  getComputedStyleFromEmbeddedSheet1: function(test) {
+    jsdom.env(
+        '<html><head><style>#id1 .clazz { margin-left: 100px; }</style></head><body>' 
+            + '<div id="id1"><p class="clazz"></p></div>' 
+            + '</body></html>',
+        jsdom.defaultLevel, function(err, win) {
+          var doc = win.document;
+          p = doc.getElementsByTagName("p")[0];
+          var cs = win.getComputedStyle(p);
+          test.equal(cs.marginLeft, "100px", "computed marginLeft of p[0] is 100px");
+          test.done();
+    });
+  },
+
+  getComputedStyleFromEmbeddedSheet2: function(test) {
+    // use grouping, see http://www.w3.org/TR/CSS2/selector.html#grouping
+    jsdom.env(
+        '<html><head><style>#id1 .clazz, #id2 .clazz { margin-left: 100px; }</style></head><body>' 
+            + '<div id="id1"><p class="clazz"></p></div>' 
+            + '<div id="id2"><p class="clazz"></p></div>' 
+            + '</body></html>',
+        jsdom.defaultLevel, function(err, win) {
+          var doc = win.document;
+          p = doc.getElementsByTagName("p")[0];
+          var cs = win.getComputedStyle(p);
+          test.equal(cs.marginLeft, "100px", "computed marginLeft of p[0] is 100px");
+
+          p = doc.getElementsByTagName("p")[1];
+          var cs = win.getComputedStyle(p);
+          test.equal(cs.marginLeft, "100px", "computed marginLeft of p[1] is 100px");
+          test.done();
+    });
+  },
+
   ensureExternalStylesheetsAreLoadable : function(test) {
     var css = "body { border: 1px solid #f0f; }";
     var server = http.createServer(function(req, res) {
