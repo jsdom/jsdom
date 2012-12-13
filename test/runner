@@ -20,6 +20,8 @@ var optimist = require('optimist')
     .describe('t', 'choose the test cases to run. ie: -t jquery')
     .alias('d', 'debug')
     .describe('d', 'run in node\'s interactive debugger mode')
+    .alias('p', 'parser')
+    .describe('p', 'the HTML parser to use (e.g. html5); default is htmlparser')
     .alias('v', 'verbose')
     .describe('v', 'show all tests that are being run');
 
@@ -133,6 +135,12 @@ files.map(function (p) {
     modulesToRun[p] = module;
   }
 });
+
+if (argv.parser) {
+  var browser = require("../lib/jsdom/browser/index");
+  console.log("Using parser " + argv.parser);
+  browser.setDefaultParser(argv.parser);
+}
 
 nodeunit.runModules(modulesToRun, {
   moduleStart: function (name) {
