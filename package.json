@@ -191,12 +191,12 @@
        "contextify" : "0.1.x"
     },
     "optionalDependencies": {
-       "contextify" : "0.1.x",
-       "html5"      : ">=0.3.8"
+       "contextify" : "0.1.x"
     },
     "devDependencies" : {
       "nodeunit" : ">=0.5.x",
       "console.log" : "*",
+      "html5"      : ">=0.3.8",
       "optimist"   : "*"
     },
     "directories": {
