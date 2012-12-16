@@ -1,3 +1,8 @@
+## 0.3.2
+
+ * Fix: stylesheets with "joining" rules (i.e. those containing comma-separated selectors) now apply when using `getComputedStyle`. (chad3814, godmar)
+ * Add: support for running the tests using @aredridel's [html5](https://npmjs.org/package/html5) parser, as a prelude toward maybe eventually making this the default and fixing various parsing bugs.
+
 ## 0.3.1 (hotfix)
 
  * Fix: crashes when invalid selectors were present in stylesheets.
