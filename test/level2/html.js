@@ -11626,6 +11626,53 @@ exports.tests = {
 
   /**
    *
+   Tests that when document.write is used from within a script tag, the contents will be output after the script element.  Guards against regression
+   * @author Kyle Blomquist
+   */
+
+  HTMLScriptElement08: function(test) {
+    var success;
+    var scriptNode;
+    var testNode;
+    var isAfterScript;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("scriptinline");
+    nodeList = doc.getElementsByTagName("script");
+    test.equal(nodeList.length, 1, 'Asize');
+    scriptNode = nodeList.item(0);
+    testNode = doc.getElementById("inlinetest");
+    test.equal(testNode.innerHTML, 'Test', '#inlinetest exists and contains correct text')
+    isAfterScript = testNode.previousSibling.isEqualNode(scriptNode);
+    test.equal(isAfterScript, true, '#inlinetest is correctly placed after the script tag that created it');
+    test.done();
+  },
+
+  /**
+   *
+   Tests that when document.write is used from within a script tag, the rest of the contents of the page will not be altered.  Guards against regression
+   * @author Kyle Blomquist
+   */
+
+  HTMLScriptElement09: function(test) {
+    var success;
+    var testNode;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("scriptinline");
+    testNode = doc.getElementById("existingtag");
+    test.equal(testNode.innerHTML, 'Hello World', '#inlinetest exists and contains correct text')
+    test.done();
+  },
+
+  /**
+   *
    The type attribute is the string "select-multiple" when multiple
    attribute is true.
    Retrieve the type attribute from the first SELECT element and
