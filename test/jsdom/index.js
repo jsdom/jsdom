@@ -1438,5 +1438,17 @@ exports.tests = {
       test.ok(true);
       test.done();
     });
+  },
+
+  inputs_should_default_to_type_text : function(test) {
+    test.expect(3);
+
+    var doc = jsdom.jsdom('<html><head></head><body><input id="input" /></body></html>');
+    var inputEl = doc.getElementById("input");
+    test.equal(inputEl.hasAttribute('type'), true);
+    test.equal(inputEl.getAttribute('type'), 'text');
+    test.equal(inputEl.type, 'text');
+
+    test.done();
   }
 };
