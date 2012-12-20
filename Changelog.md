@@ -1,3 +1,8 @@
+## 0.3.3
+
+ * Fix: make `document.write` calls insert new elements correctly. (johanoverip, kblomquist).
+ * Fix: `<input>` tags with no `type` attribute now return a default value of `"text"` when calling `inputEl.getAttribute("type")`.
+
 ## 0.3.2
 
  * Fix: stylesheets with "joining" rules (i.e. those containing comma-separated selectors) now apply when using `getComputedStyle`. (chad3814, godmar)
