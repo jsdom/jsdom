@@ -582,6 +582,23 @@ exports.tests = {
     test.done();
   },
 
+  window_getComputedStyle_with_selectorText_undefined: function(test) {
+    var document = jsdom.jsdom(),
+        window   = document.createWindow(),
+        mockNode = {},
+        cssRules = [];
+
+    cssRules.push("dummyCssRules");
+    mockNode.style = {};
+    mockNode.ownerDocument = {};
+    mockNode.ownerDocument.styleSheets = [];
+    mockNode.ownerDocument.styleSheets.push({cssRules: cssRules});
+    
+    window.getComputedStyle( mockNode );
+    test.done();
+  },
+
+
   queryselector: function(test) {
     var html = '<html><body><div id="main"><p class="foo">Foo</p><p>Bar</p></div></body></html>',
         document = jsdom.jsdom(html),
