@@ -101,8 +101,8 @@ exports.tests = {
 
   getComputedStyleFromEmbeddedSheet1: function(test) {
     jsdom.env(
-        '<html><head><style>#id1 .clazz { margin-left: 100px; }</style></head><body>' 
-            + '<div id="id1"><p class="clazz"></p></div>' 
+        '<html><head><style>#id1 .clazz { margin-left: 100px; }</style></head><body>'
+            + '<div id="id1"><p class="clazz"></p></div>'
             + '</body></html>',
         jsdom.level('2', 'html'), function(err, win) {
           var doc = win.document;
@@ -116,9 +116,9 @@ exports.tests = {
   getComputedStyleFromEmbeddedSheet2: function(test) {
     // use grouping, see http://www.w3.org/TR/CSS2/selector.html#grouping
     jsdom.env(
-        '<html><head><style>#id1 .clazz, #id2 .clazz { margin-left: 100px; }</style></head><body>' 
-            + '<div id="id1"><p class="clazz"></p></div>' 
-            + '<div id="id2"><p class="clazz"></p></div>' 
+        '<html><head><style>#id1 .clazz, #id2 .clazz { margin-left: 100px; }</style></head><body>'
+            + '<div id="id1"><p class="clazz"></p></div>'
+            + '<div id="id2"><p class="clazz"></p></div>'
             + '</body></html>',
         jsdom.level('2', 'html'), function(err, win) {
           var doc = win.document;
