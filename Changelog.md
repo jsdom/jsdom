@@ -1,3 +1,7 @@
+## 0.3.4
+
+ * Fix: stylesheets with `@media` rules were crashing calls to `getComputedStyle`, e.g. those in jQuery's initialization.
+
 ## 0.3.3
 
  * Fix: make `document.write` calls insert new elements correctly. (johanoverip, kblomquist).
