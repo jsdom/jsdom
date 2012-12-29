@@ -198,5 +198,16 @@ exports.tests = {
           });
           test.done();
     });
+  },
+
+  getComputedStyleWithMediaRules: function(test) {
+    jsdom.env(
+        '<html><head><style>@media screen,handheld { .citation { color: blue; } } @media print { .citation { color: red; } }</style></head>' +
+        '<body><p class="citation">Hello</p></body></html>',
+        jsdom.level('2', 'html'), function(err, win) {
+          var style = win.getComputedStyle(win.document.querySelector('.citation'));
+          test.equal(style.color, 'blue', 'computed color of p is blue');
+          test.done();
+    });
   }
 };
