@@ -197,7 +197,8 @@
       "nodeunit" : ">=0.5.x",
       "console.log" : "*",
       "html5"      : ">=0.3.8",
-      "optimist"   : "*"
+      "optimist"   : "*",
+			"urlmaster" : ">=0.2.x"
     },
     "directories": {
         "lib": "./lib/jsdom"

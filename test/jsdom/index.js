@@ -705,10 +705,41 @@ exports.tests = {
       test.equal(doc.getElementById("link5").href, 'http://example.com/path/to/docroot/index.html#here', 'Relative URL should be resolved');
       test.equal(doc.getElementById("link6").href, 'http://example.com/protocol/avoidance.html', 'Relative URL should be resolved');
     }
+		
+		function testAutomated() {
+			/*
+			RFC resolution cases from http://tools.ietf.org/html/rfc3986#section-5.2
+			urlmaster builds them all for us
+			*/
+			// create a doc with all of the possible bases and all of the possible refs
+			var um = require('urlmaster'),
+				bases = um.generateAll({scheme:"http",auth:'www.why.com',path:'/a/b',query:'?foo=bar',frag:'#abc'},true),
+				refs = um.generateAll({scheme:"https",auth:'www.not.com',path:'/q/r',query:'?when=now',frag:'#xyz'},true);
+
+			// build html with every possible link
+			var html = '\
+	  <html>\
+	    <head></head>\
+	    <body>';
+			refs.forEach(function(ref,i){
+				html += '<a href="'+ref+'" id="link'+i+'">link'+i+'</a>\n';
+			});
+			html += "</body></html>";
+			
+			// now check each base case
+			bases.forEach(function(base,i){
+	      var doc = jsdom.jsdom(html, null, {url: base}), expected = um.resolveTrack(base,refs);
+				refs.forEach(function(ref,j){
+					var result = expected[j][2];
+		      test.equal(doc.getElementById("link"+j).href, result, 'base '+base+' with ref '+ref+' should resolve to '+result);
+				});
+			});
+		}
 
     testLocal();
     testRemote();
     testBase();
+		testAutomated();
     test.done();
   },
 
