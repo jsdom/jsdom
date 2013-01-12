@@ -276,20 +276,20 @@ window.document.body.appendChild(scriptEl);
  level1/svg                         527/527      100%
  level2/core                        283/283      100%
  level2/html                        697/697      100%
- level2/style                         10/10      100%
+ level2/style                         11/11      100%
  level2/extra                           4/4      100%
  level2/events                        24/24      100%
  level3/xpath                         93/93      100%
  window/index                           5/5      100%
  window/script                        10/10      100%
  window/frame                         14/14      100%
- sizzle/index                          9/14       64%
+ sizzle/index                         10/14       71%
  jsdom/index                          86/86      100%
  jsonp/jsonp                            1/1      100%
  browser/contextifyReplacement          4/4      100%
  browser/index                        22/22      100%
 ------------------------------------------------------
-TOTALS: 5/2564 failed; 99% success
+TOTALS: 4/2565 failed; 99% success
 ```
 
 ## Running the tests
