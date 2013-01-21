@@ -719,19 +719,22 @@ exports.tests = {
 			// build html with every possible link
 			var html = '\
 	  <html>\
-	    <head></head>\
+	    <head><base href=""></base></head>\
 	    <body>';
 			refs.forEach(function(ref,i){
 				html += '<a href="'+ref+'" id="link'+i+'">link'+i+'</a>\n';
 			});
 			html += "</body></html>";
+			var locn =  locn = "file://"+__filename;
 			
 			// now check each base case
 			bases.forEach(function(base,i){
-	      var doc = jsdom.jsdom(html, null, {url: base}), expected = um.resolveTrack(base,refs);
+	      var doc = jsdom.jsdom(html, null, {url: locn}), expected = um.resolveTrack(locn,base,refs);
+				// set up the base
+				doc.getElementsByTagName("base")[0].setAttribute("href",base);
 				refs.forEach(function(ref,j){
-					var result = expected[j][2];
-		      test.equal(doc.getElementById("link"+j).href, result, 'base '+base+' with ref '+ref+' should resolve to '+result);
+					var result = expected[j][3];
+		      test.equal(doc.getElementById("link"+j).href, result, 'locn '+locn+' base '+base+' with ref '+ref+' should resolve to '+result+' instead of '+doc.getElementById("link"+j).href);
 				});
 			});
 		}
