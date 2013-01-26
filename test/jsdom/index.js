@@ -2,6 +2,7 @@ var path = require("path");
 var fs   = require("fs");
 var jsdom = require('../../lib/jsdom');
 var toFileUrl = require('../util').toFileUrl(__dirname);
+var URL = require('url');
 
 exports.tests = {
   build_window: function(test) {
@@ -733,8 +734,10 @@ exports.tests = {
 				// set up the base
 				doc.getElementsByTagName("base")[0].setAttribute("href",base);
 				refs.forEach(function(ref,j){
-					var result = expected[j][3];
-		      test.equal(doc.getElementById("link"+j).href, result, 'locn '+locn+' base '+base+' with ref '+ref+' should resolve to '+result+' instead of '+doc.getElementById("link"+j).href);
+					var href = doc.getElementById("link"+j).href, result = expected[j][3];
+					// empty path must accept href with or without a slash; see http://tools.ietf.org/html/rfc3986#section-3.3
+					// so we consistently push them towards having
+		      test.equal(um.addPathEmpty(href), um.addPathEmpty(result), 'locn '+locn+' base '+base+' with ref '+ref+' should resolve to '+result+' instead of '+doc.getElementById("link"+j).href);
 				});
 			});
 		}
