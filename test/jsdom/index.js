@@ -725,7 +725,7 @@ exports.tests = {
 				html += '<a href="'+ref+'" id="link'+i+'">link'+i+'</a>\n';
 			});
 			html += "</body></html>";
-			var locn =  locn = "file://"+__filename;
+			var locn = toFileUrl(__filename);
 			
 			// now check each base case
 			bases.forEach(function(base,i){
