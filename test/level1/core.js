@@ -21816,7 +21816,7 @@ exports.tests = {
     var doc = extra.extra();
     var element = doc.createElement('test');
     test.strictEqual(element.children.length, 0);
-    test.strictEqual(element.children.toArray().length, 0);
+    test.strictEqual(element.children._toArray().length, 0);
     test.done();
   },
 

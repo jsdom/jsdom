@@ -235,7 +235,7 @@ exports.tests = {
     body.appendChild(div);
     var span = doc.createElement("span");
     body.appendChild(span);
-    var index = body.childNodes.indexOf(span);
+    var index = body.childNodes._toArray().indexOf(span);
     test.equal(index, 2, "indexOf 'span' in childNodes")
     test.done();
   },
@@ -250,7 +250,7 @@ exports.tests = {
     body.appendChild(p);
     var div = doc.createElement("div");
     p.appendChild(div);
-    var index = body.childNodes.indexOf(div);
+    var index = body.childNodes._toArray().indexOf(div);
     test.equal(index, -1, "indexOf 'span' in childNodes")
     test.done();
   }
