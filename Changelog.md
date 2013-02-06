@@ -1,3 +1,10 @@
+## 0.4.0
+
+ * Fix: `getAttribute` now returns `null` for attributes that are not present, as per DOM4 (but in contradiction to DOM1 through DOM3).
+ * Fix: static `NodeList`-returning methods (such as `querySelectorAll`) now return a real `NodeList` instance.
+ * Change: `NodeList`s no longer expose nonstandard properties to the world, like `toArray`, without first prefixing them with an underscore.
+ * Change: `NodeList`s no longer inconsistently have array methods. Previously, live node lists would have `indexOf`, while static node lists would have them all. Now, they have no array methods at all, as is correct per the specification.
+
 ## 0.3.4
 
  * Fix: stylesheets with `@media` rules were crashing calls to `getComputedStyle`, e.g. those in jQuery's initialization.
