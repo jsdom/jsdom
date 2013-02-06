@@ -9881,7 +9881,10 @@ exports.tests = {
     testEmployee = elementList.item(3);
     testEmployee.removeAttribute("class");
     attrValue = testEmployee.getAttribute("class");
-    test.equal(attrValue, "", 'attrValue');
+
+// XXX SUPERCEDED BY DOM4
+//    test.equal(attrValue, "", 'attrValue');
+    test.strictEqual(attrValue, null, 'attrValue');
 
     test.done();
   },

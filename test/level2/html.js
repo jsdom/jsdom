@@ -10113,7 +10113,10 @@ exports.tests = {
     test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vcode = testNode.code;
-    test.equal(vcode, "", "codeLink");
+
+// XXX superceded by DOM4
+//    test.equal(vcode, "", "codeLink");
+    test.strictEqual(vcode, null, "codeLink");
     test.done();
   },
 
@@ -19776,7 +19779,7 @@ exports.tests = {
 
     a._eventDefaults['foo'] = function(event) {
       performedDefault = true;
-    }
+    };
     preventDefault = a.dispatchEvent(evt);
     test.equal(preventDefault, false, 'preventDefault should be *false*');
     test.ok(performedDefault, 'performedDefault');
@@ -19789,7 +19792,9 @@ exports.tests = {
     ['a', 'applet', 'button', 'form', 'frame', 'iframe', 'img', 'input', 'map',
      'meta', 'object', 'param', 'select', 'textarea'].forEach(function (tagName) {
       var element = doc.createElement(tagName);
-      test.strictEqual(element.name, '', '<' + tagName + '> elements should have empty name properties by default.');
+      // http://www.w3.org/html/wg/drafts/html/master/forms.html#attr-fe-name plus
+      // http://www.w3.org/html/wg/drafts/html/master/infrastructure.html#reflect
+      test.strictEqual(element.name, null, '<' + tagName + '> elements should have null name properties by default.');
 
       element.name = 'foo';
       test.strictEqual(element.name, 'foo', '<' + tagName + '> elements should allow setting and retrieving their name properties.');
