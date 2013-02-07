@@ -1,6 +1,10 @@
 var jsdom  = require("../../lib/jsdom");
 
-jsdom.env("<html><body></body></html>", ["ender.js"], function(errors, window) {
+var options = {
+  html: "<html><body></body></html>",
+  scripts: ["ender.js"],
+};
+jsdom.env(options, function(errors, window) {
 	if (errors) {
 		console.error(errors);
 		return;

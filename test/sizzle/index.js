@@ -6,68 +6,69 @@ var qunit        = require('./support/qunit');
 function test(fn) {
   // return a nodeunit compatible test case
   return function(test) {
-    jsdom.env({
+    var options = {
       html: testFile,
       scripts: [__dirname + "/files/jquery.js", __dirname + "/files/sizzle.js"],
-      done: function(e, window) {
-        var Sizzle = window.Sizzle;
-        var document = window.document;
+    };
+    jsdom.env(options, done);
+    function done(e, window) {
+      var Sizzle = window.Sizzle;
+      var document = window.document;
 
-        function getByIds(ids) {
-          return ids.map(function (id) {
-            return document.getElementById(id);
-          });
-        }
+      function getByIds(ids) {
+        return ids.map(function (id) {
+          return document.getElementById(id);
+        });
+      }
 
-        function q() {
-          return getByIds(Array.prototype.slice.call(arguments));
-        }
+      function q() {
+        return getByIds(Array.prototype.slice.call(arguments));
+      }
 
-        function qunitDeepEqual(actual, expected, assertionMessage) {
-          var areEqual = qunit.equiv(actual, expected);
-          if (areEqual) {
-            test.ok(true, assertionMessage);
+      function qunitDeepEqual(actual, expected, assertionMessage) {
+        var areEqual = qunit.equiv(actual, expected);
+        if (areEqual) {
+          test.ok(true, assertionMessage);
+        } else {
+          // If the IDs are unequal, we can provide a more informative error
+          // by comparing them.
+          var actualIds = Array.prototype.map.call(actual, function (el) { return el && el.id; });
+          var expectedIds = Array.prototype.map.call(expected, function (el) { return el && el.id; });
+          var idsEqual = qunit.equiv(actualIds, expectedIds);
+
+          if (!idsEqual) {
+            test.deepEqual(actualIds, expectedIds, assertionMessage);
           } else {
-            // If the IDs are unequal, we can provide a more informative error
-            // by comparing them.
-            var actualIds = Array.prototype.map.call(actual, function (el) { return el && el.id; });
-            var expectedIds = Array.prototype.map.call(expected, function (el) { return el && el.id; });
-            var idsEqual = qunit.equiv(actualIds, expectedIds);
-
-            if (!idsEqual) {
-              test.deepEqual(actualIds, expectedIds, assertionMessage);
-            } else {
-              test.ok(false, assertionMessage);
-            }
+            test.ok(false, assertionMessage);
           }
         }
-
-        /**
-         * Asserts that a select matches the given IDs
-         * @example t("Check for something", "//[a]", ["foo", "baar"]);
-         * @result returns true if "//[a]" return two elements with the IDs 'foo' and 'baar'
-         */
-        function t(testName, selector, expectedIds) {
-          var actual = Sizzle(selector);
-          var expected = getByIds(expectedIds);
-          var assertionMessage = testName + " (" + selector + ")";
-
-          qunitDeepEqual(actual, expected, assertionMessage);
-        }
-
-        window.expect = function () { };
-        window.raises = test.throws;
-        window.ok = test.ok;
-        window.equal = test.equal;
-        window.deepEqual = qunitDeepEqual;
-        window.q = q;
-        window.t = t;
-        window.QUnit = { reset: function () { } };
-
-        fn(window);
-        test.done();
       }
-    });
+
+      /**
+       * Asserts that a select matches the given IDs
+       * @example t("Check for something", "//[a]", ["foo", "baar"]);
+       * @result returns true if "//[a]" return two elements with the IDs 'foo' and 'baar'
+       */
+      function t(testName, selector, expectedIds) {
+        var actual = Sizzle(selector);
+        var expected = getByIds(expectedIds);
+        var assertionMessage = testName + " (" + selector + ")";
+
+        qunitDeepEqual(actual, expected, assertionMessage);
+      }
+
+      window.expect = function () { };
+      window.raises = test.throws;
+      window.ok = test.ok;
+      window.equal = test.equal;
+      window.deepEqual = qunitDeepEqual;
+      window.q = q;
+      window.t = t;
+      window.QUnit = { reset: function () { } };
+
+      fn(window);
+      test.done();
+    }
   };
 }
 

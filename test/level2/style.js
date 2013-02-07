@@ -6,9 +6,11 @@ var path = require('path');
 exports.tests = {
 
   HTMLStyleElement01 : function (test) {
-    jsdom.env(
-        '<html><head><style>p{color:red}</style></head><body>',
-        jsdom.level('2', 'html'), function(err, win) {
+    var options = {
+      html: '<html><head><style>p{color:red}</style></head><body>',
+      document: jsdom.level('2', 'html'),
+    };
+    jsdom.env(options, function(err, win) {
       var style = win.document.head.lastChild;
       test.equal(1, style.sheet.cssRules.length);
       test.equal('p', style.sheet.cssRules[0].selectorText);
@@ -18,9 +20,11 @@ exports.tests = {
   },
 
   HTMLStyleAttribute01 : function (test) {
-    jsdom.env(
-        '<html><body><p style="color:red; background-color: blue">',
-        jsdom.level('2', 'html'), function(err, win) {
+    var options = {
+      html: '<html><body><p style="color:red; background-color: blue">',
+      document: jsdom.level('2', 'html'),
+    };
+    jsdom.env(options, function(err, win) {
       var p = win.document.body.lastChild;
       test.equal(2, p.style.length);
       test.equal('color', p.style[0]);
@@ -32,9 +36,11 @@ exports.tests = {
   },
 
   StylePropertyReflectsStyleAttribute : function (test) {
-    jsdom.env(
-        '<html>',
-        jsdom.level('2', 'html'), function(err, win) {
+    var options = {
+      html: '<html>',
+      document: jsdom.level('2', 'html'),
+    };
+    jsdom.env(options, function(err, win) {
       var p = win.document.createElement('p');
       p.setAttribute('style', 'color:red');
       test.equal(1, p.style.length);
@@ -51,9 +57,11 @@ exports.tests = {
   },
 
   StyleAttributeReflectsStyleProperty : function (test) {
-    jsdom.env(
-        '<html>',
-        jsdom.level('2', 'html'), function(err, win) {
+    var options = {
+      html: '<html>',
+      document: jsdom.level('2', 'html'),
+    };
+    jsdom.env(options, function(err, win) {
       var p = win.document.createElement('p');
       p.style.setProperty('color', 'red');
       test.equal(p.getAttribute('style'), 'color: red;');
@@ -77,9 +85,11 @@ exports.tests = {
   },
 
   getComputedStyleInline: function(test) {
-    jsdom.env(
-        '<html>',
-        jsdom.level('2', 'html'), function(err, win) {
+    var options = {
+      html: '<html>',
+      document: jsdom.level('2', 'html'),
+    };
+    jsdom.env(options, function(err, win) {
           var doc = win.document;
           var html = doc.createElement("html");
           doc.appendChild(html);
@@ -100,13 +110,15 @@ exports.tests = {
   },
 
   getComputedStyleFromEmbeddedSheet1: function(test) {
-    jsdom.env(
-        '<html><head><style>#id1 .clazz { margin-left: 100px; }</style></head><body>'
-            + '<div id="id1"><p class="clazz"></p></div>'
-            + '</body></html>',
-        jsdom.level('2', 'html'), function(err, win) {
+    var html = '<html><head><style>#id1 .clazz { margin-left: 100px; }</style></head>' +
+      '<body><div id="id1"><p class="clazz"></p></div></body></html>';
+    var options = {
+      html: html,
+      document: jsdom.level('2', 'html'),
+    };
+    jsdom.env(options, function(err, win) {
           var doc = win.document;
-          p = doc.getElementsByTagName("p")[0];
+          var p = doc.getElementsByTagName("p")[0];
           var cs = win.getComputedStyle(p);
           test.equal(cs.marginLeft, "100px", "computed marginLeft of p[0] is 100px");
           test.done();
@@ -114,20 +126,24 @@ exports.tests = {
   },
 
   getComputedStyleFromEmbeddedSheet2: function(test) {
+    var html = '<html><head><style>' +
+      '#id1 .clazz, #id2 .clazz { margin-left: 100px; }</style></head><body>' +
+      '<div id="id1"><p class="clazz"></p></div>' +
+      '<div id="id2"><p class="clazz"></p></div>' +
+      '</body></html>';
+    var options = {
+      html: html,
+      document: jsdom.level('2', 'html'),
+    };
     // use grouping, see http://www.w3.org/TR/CSS2/selector.html#grouping
-    jsdom.env(
-        '<html><head><style>#id1 .clazz, #id2 .clazz { margin-left: 100px; }</style></head><body>'
-            + '<div id="id1"><p class="clazz"></p></div>'
-            + '<div id="id2"><p class="clazz"></p></div>'
-            + '</body></html>',
-        jsdom.level('2', 'html'), function(err, win) {
+    jsdom.env(options, function(err, win) {
           var doc = win.document;
-          p = doc.getElementsByTagName("p")[0];
+          var p = doc.getElementsByTagName("p")[0];
           var cs = win.getComputedStyle(p);
           test.equal(cs.marginLeft, "100px", "computed marginLeft of p[0] is 100px");
 
           p = doc.getElementsByTagName("p")[1];
-          var cs = win.getComputedStyle(p);
+          cs = win.getComputedStyle(p);
           test.equal(cs.marginLeft, "100px", "computed marginLeft of p[1] is 100px");
           test.done();
     });
@@ -145,7 +161,10 @@ exports.tests = {
 
     server.listen(10099);
 
-    jsdom.env(path.resolve(__dirname, 'style/external_css.html'), function(errors, win) {
+    var options = {
+      file: path.resolve(__dirname, 'style/external_css.html'),
+    };
+    jsdom.env(options, function(errors, win) {
       test.equal(win.document.errors, null);
       server.close();
       test.done();
@@ -177,9 +196,11 @@ exports.tests = {
   },
 
   getComputedStyleWithBadSelectors: function(test) {
-    jsdom.env(
-        '<html>',
-        jsdom.level('2', 'html'), function(err, win) {
+    var options = {
+      html: '<html>',
+      document: jsdom.level('2', 'html'),
+    };
+    jsdom.env(options, function(err, win) {
           var doc = win.document;
           var html = doc.createElement("html");
           doc.appendChild(html);
@@ -201,10 +222,13 @@ exports.tests = {
   },
 
   getComputedStyleWithMediaRules: function(test) {
-    jsdom.env(
-        '<html><head><style>@media screen,handheld { .citation { color: blue; } } @media print { .citation { color: red; } }</style></head>' +
-        '<body><p class="citation">Hello</p></body></html>',
-        jsdom.level('2', 'html'), function(err, win) {
+    var html = '<html><head><style>@media screen,handheld { .citation { color: blue; } } @media print { .citation { color: red; } }</style></head>' +
+        '<body><p class="citation">Hello</p></body></html>';
+    var options = {
+      html: html,
+      document: jsdom.level('2', 'html'),
+    };
+    jsdom.env(options, function(err, win) {
           var style = win.getComputedStyle(win.document.querySelector('.citation'));
           test.equal(style.color, 'blue', 'computed color of p is blue');
           test.done();
