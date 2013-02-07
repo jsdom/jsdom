@@ -454,6 +454,19 @@ exports.tests = {
 
   /**
    *
+   HTMLAnchorElement.href should show the pathname of the href
+   * @author eleith
+   */
+  HTMLAnchorElement18: function(test) {
+    var doc = load("anchorEmpty");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).href, '', 'A.href is empty');
+    test.done();
+  },
+
+  /**
+   *
    The align attribute specifies the alignment of the object(Vertically
    or Horizontally) with respect to its surrounding text.
    Retrieve the align attribute and examine its value.
