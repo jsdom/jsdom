@@ -1,3 +1,7 @@
+## 0.4.1 (hotfix)
+
+ * Fix: crashes when loading HTML files with `<a>` tags with no `href` attribute. (eleith)
+
 ## 0.4.0
 
  * Fix: `getAttribute` now returns `null` for attributes that are not present, as per DOM4 (but in contradiction to DOM1 through DOM3).
