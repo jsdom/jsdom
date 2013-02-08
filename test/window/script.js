@@ -50,7 +50,10 @@ exports.tests = {
   scripts_env_have_jsdom_class: function(test) {
     var htmlString = '<html><head></head><body></body></html>';
 
-    jsdom.env(htmlString, [jQueryPath] , function(error, dom) {
+    jsdom.env({
+      html: htmlString,
+      scripts: [jQueryPath],
+    }, function(error, dom) {
       test.ok(dom.window.$('script').hasClass("jsdom"));
       test.done();
     });
@@ -118,7 +121,11 @@ exports.tests = {
 
   // see: https://github.com/tmpvar/jsdom/issues/163
   issue_163 : function(test) {
-    jsdom.env('<a />', [__dirname + '/files/163.js'], function(errors, window) {
+    var options = {
+      html: '<a />',
+      scripts: [__dirname + '/files/163.js'],
+    };
+    jsdom.env(options, function(errors, window) {
       test.ok(!errors, 'no errors');
       test.ok(window.hasNativeObjects === true, 'window has the expected properties');
       test.done();
@@ -127,7 +134,11 @@ exports.tests = {
 
   // see: https://github.com/tmpvar/jsdom/issues/179
   issue_179 : function(test) {
-    jsdom.env('<a />', [__dirname + '/files/179.js'], function(errors, window) {
+    var options = {
+      html: '<a />',
+      scripts: [__dirname + '/files/179.js'],
+    };
+    jsdom.env(options, function(errors, window) {
       test.ok(!errors, 'no errors');
       test.ok(window.b === 42, 'local var gets hung off of the window');
       test.ok(window.exposed === 42, 'read local var from window and exposed it');
@@ -136,7 +147,11 @@ exports.tests = {
   },
 
   timer_executes_in_context : function (test) {
-    jsdom.env('<a />', [__dirname + '/files/timer_in_context.js'], function (errors, window) {
+    var options = {
+      html: '<a />',
+      scripts: [__dirname + '/files/timer_in_context.js'],
+    };
+    jsdom.env(options, function (errors, window) {
       setTimeout(function () {
         test.ok(window.x == 1);
         test.done();

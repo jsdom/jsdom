@@ -19,24 +19,24 @@ exports.tests = {
     });
 
     server.listen(43213, '127.0.0.1', function() {
-      jsdom.env({
+      var options = {
         html   : "<html><head></head><body></body></html>",
         scripts : [jQueryFile],
         features : {
           FetchExternalResources : ['script'],
           ProcessExternalResources: ['script']
         },
-        done : function(errors, window){
-          if(errors) {
-            test.fail('jsdom setup failed');
-          }
-
-          window.jQuery.getJSON('http://localhost:43213?jsoncallback=?', function(data) {
-            test.equal(data.message, 'jsonp works!');
-            server.close();
-            test.done();
-          });
+      };
+      jsdom.env(options, function(errors, window){
+        if(errors) {
+          test.fail('jsdom setup failed');
         }
+
+        window.jQuery.getJSON('http://localhost:43213?jsoncallback=?', function(data) {
+          test.equal(data.message, 'jsonp works!');
+          server.close();
+          test.done();
+        });
       });
     });
   }

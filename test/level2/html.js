@@ -19864,13 +19864,13 @@ exports.tests = {
   },
 
   filename_with_spaces_in_script_tag_can_be_read: function(test) {
-    jsdom.env(
-      '<html><head></head><body></body></html>',
-      ['./html/files/js/script with spaces.js'],
-      function(err, window){
-        test.strictEqual(err, null, "There should be no errors when using scripts with spaces in their filenames");
-        test.done();
-      }
-    );
+    var options = {
+      html: '<html><head></head><body></body></html>',
+      scripts: ['./html/files/js/script with spaces.js'],
+    };
+    jsdom.env(options, function(err, window){
+      test.strictEqual(err, null, "There should be no errors when using scripts with spaces in their filenames");
+      test.done();
+    });
   }
 }

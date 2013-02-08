@@ -68,101 +68,96 @@ exports.tests = {
   },
 
   env_with_absolute_file: function(test) {
-    jsdom.env({
-      html: path.join(__dirname, 'files', 'env.html'),
+    var options = {
+      file: path.join(__dirname, 'files', 'env.html'),
       scripts: [path.join(__dirname, '..', '..', 'example', 'jquery', 'jquery.js')],
-      done: function(errors, window) {
-        test.equal(errors, null, 'errors should be null');
-        var $ = window.jQuery, text = 'Let\'s Rock!';
-        $('body').text(text);
-        test.equal($('body').text(), text, 'jsdom.env() should load jquery, a document and add some text to the body');
-        test.done();
-      }
+    };
+    jsdom.env(options, function(errors, window) {
+      test.equal(errors, null, 'errors should be null');
+      var $ = window.jQuery, text = 'Let\'s Rock!';
+      $('body').text(text);
+      test.equal($('body').text(), text, 'jsdom.env() should load jquery, a document and add some text to the body');
+      test.done();
     });
   },
 
   env_with_absolute_file_with_spaces: function(test) {
     jsdom.env({
-      html: path.join(__dirname, 'files/folder space', 'space.html'),
-      done: function(errors, window) {
-        test.equal(errors, null, 'errors should be null');
-        test.done()
-      }
+      file: path.join(__dirname, 'files/folder space', 'space.html'),
+    }, function(errors, window) {
+      test.equal(errors, null, 'errors should be null');
+      test.done()
     });
   },
 
   env_with_html: function(test) {
     var html = "<html><body><p>hello world!</p></body></html>";
-    jsdom.env({
-      html: html,
-      done: function(errors, window) {
-        test.equal(errors, null, 'errors should be null');
-        test.notEqual(window.location, null, 'window.location should not be null');
-        test.done();
-      }
+    jsdom.env({ html: html }, function(errors, window) {
+      test.equal(errors, null, 'errors should be null');
+      test.notEqual(window.location, null, 'window.location should not be null');
+      test.done();
     });
   },
 
   env_with_overridden_url : function(test) {
     var html = "<html><body><p>hello world!</p></body></html>";
-    jsdom.env({
+    var options = {
       html : html,
       url  : 'http://www.example.com/',
-      done : function(errors, window) {
-        test.ok(null === errors, "error should be null");
-        test.equal("http://www.example.com/",
-                   window.location.href,
-                   "location can be overriden by config.url");
-        test.equal("", window.location.hash,
-                   "hash should be empty string by default");
-        test.equal("", window.location.search,
-                   "search should be empty string by default");
-        test.done();
-      }
-    })
+    };
+    jsdom.env(options, function(errors, window) {
+      test.ok(null === errors, "error should be null");
+      test.equal("http://www.example.com/",
+                 window.location.href,
+                 "location can be overriden by config.url");
+      test.equal("", window.location.hash,
+                 "hash should be empty string by default");
+      test.equal("", window.location.search,
+                 "search should be empty string by default");
+      test.done();
+    });
   },
 
   env_with_overridden_search_and_hash: function(test) {
     var html = "<html><body><p>hello world!</p></body></html>";
-    jsdom.env({
-      html : html,
-      url  : 'http://www.example.com/?foo=bar#foo',
-      done : function(errors, window) {
+    var options = {
+      html: html,
+      url: 'http://www.example.com/?foo=bar#foo',
+    };
+    jsdom.env(options, function(errors, window) {
         test.ok(null === errors, "error should be null");
         test.equal("?foo=bar", window.location.search,
                    "search should pull from URL");
         test.equal("#foo", window.location.hash,
                    "hash should pull from URL");
         test.done();
-      }
     });
   },
 
   env_with_overridden_hash: function(test) {
-    var html = "<html><body><p>hello world!</p></body></html>";
-    jsdom.env({
-      html : html,
-      url  : 'http://www.example.com/#foo',
-      done : function(errors, window) {
+    var options = {
+      html: "<html><body><p>hello world!</p></body></html>",
+      url: 'http://www.example.com/#foo',
+    };
+    jsdom.env(options, function(errors, window) {
         test.ok(null === errors, "error should be null");
         test.equal("#foo", window.location.hash,
                    "hash should pull from URL");
         test.done();
-      }
     });
   },
 
   env_with_non_existant_script : function(test) {
     var html = "<html><body><p>hello world!</p></body></html>";
-    jsdom.env({
+    var options = {
       html: html,
       scripts: ['path/to/invalid.js', 'another/invalid.js'],
-      done: function(errors, window) {
+    };
+    jsdom.env(options, function(errors, window) {
         test.notEqual(errors, null, 'errors should not be null');
         test.equal(errors.length, 2, 'errors is an array');
         test.notEqual(window.location, null, 'window.location should not be null');
         test.done();
-      }
     });
   },
 
@@ -179,10 +174,11 @@ exports.tests = {
     });
 
     var cb = function() {
-      jsdom.env({
-        html: "http://127.0.0.1:64000/html",
+      var options = {
+        url: "http://127.0.0.1:64000/html",
         scripts: "http://127.0.0.1:64000/js",
-        done: function(errors, window) {
+      };
+      jsdom.env(options, function(errors, window) {
           server.close();
           if (errors) {
             test.ok(false, errors.message);
@@ -192,7 +188,6 @@ exports.tests = {
             test.equal(window.document.getElementsByTagName("a").item(0).innerHTML, 'World', 'anchor text');
           }
           test.done();
-        }
       });
     };
     server.listen(64000, '127.0.0.1', cb);
@@ -229,12 +224,13 @@ exports.tests = {
       return req;
     };
 
-    jsdom.env({
+    var options = {
       html: "<a href='/path/to/hello'>World</a>",
       // The script url doesn't matter as long as its https, since our mocked
       // request doens't actually fetch anything.
       scripts: 'https://doesntmatter.com/script.js',
-      done: function(errors, window) {
+    };
+    jsdom.env(options, function(errors, window) {
         if (errors) {
           test.ok(false, errors.message);
         } else {
@@ -244,7 +240,6 @@ exports.tests = {
         }
         https.request = oldRequest;
         test.done();
-      }
     });
   },
 
@@ -253,30 +248,30 @@ exports.tests = {
     html = "<html><body><p>hello world!</p></body></html>",
     src  = "window.attachedHere = 123";
 
-    jsdom.env({
+    var options = {
       html    : html,
       src     : src,
-      done    : function(errors, window) {
+    };
+    jsdom.env(options, function(errors, window) {
         test.ok(null === errors, "error should not be null");
         test.ok(null !== window.location, "window should be valid");
         test.equal(window.attachedHere, 123, "script should execute on our window");
         test.equal(window.document.getElementsByTagName("p").item(0).innerHTML, 'hello world!', "anchor text");
         test.done();
-      }
     });
   },
 
   env_with_document_referrer : function(test) {
     var html = "<html><body><p>hello world!</p></body></html>";
-    jsdom.env({
+    var options = {
       html : html,
       document : { referrer:'https://github.com/tmpvar/jsdom' },
-      done: function(errors, window) {
+    };
+    jsdom.env(options, function(errors, window) {
         test.equal(errors, null, 'errors should be null');
         test.notEqual(window.document._referrer, null, 'window.document._referrer should not be null');
         test.equal(window.document._referrer, 'https://github.com/tmpvar/jsdom', 'window.document._referrer should match the configured value');
         test.done();
-      }
     })
   },
 
@@ -288,81 +283,27 @@ exports.tests = {
     future.setTime( future.getTime() + (24 * 60 * 60 * 1000) )
     cookie = 'key=value; expires='+future.toGMTString()+'; path=/';
 
-    jsdom.env({
+    var options = {
       html : html,
       document : { cookie:cookie },
-      done: function(errors, window) {
+    };
+    jsdom.env(options, function(errors, window) {
         test.equal(errors, null, 'errors should be null');
         test.notEqual(window.document._cookie, null, 'window.document._cookie should not be null');
         test.equal(window.document._cookie, cookie, 'window.document._cookie should match the configured value');
         test.done();
-      }
     })
   },
 
-  env_processArguments_invalid_args: function(test) {
-    test.throws(function(){ jsdom.env.processArguments(); });
-    test.throws(function(){ jsdom.env.processArguments({}); });
-    test.throws(function(){ jsdom.env.processArguments([{html: 'abc123'}]); });
-    test.throws(function(){ jsdom.env.processArguments([{done: function(){}}]); });
-    test.done();
-  },
-
-  env_processArguments_config_object: function(test) {
-    var config = jsdom.env.processArguments([{html: "", done: function(){}}]);
-    test.notEqual(config.done, null, 'config.done should not be null');
-    test.notEqual(config.html, null, 'config.html should not be null');
-    test.done();
-  },
-
-  env_processArguments_object_and_callback: function(test) {
-    var config = jsdom.env.processArguments([{
-      html     : "",
-      scripts  : ['path/to/some.js', 'another/path/to.js'],
-      url      : 'http://www.example.com/',
-      document : {}
-    }, function(){}]);
-
-    test.notEqual(config.done, null,     'config.done should not be null');
-    test.notEqual(config.html, null,     'config.html should not be null');
-    test.notEqual(config.url,  null,     'config.url should not be null');
-    test.notEqual(config.document, null, 'config.document should not be null');
-    test.equal(config.scripts.length, 2, 'has code');
-    test.done();
-  },
-
-  env_processArguments_all_args_no_config: function(test) {
-    var config = jsdom.env.processArguments(["<html></html>", ['script.js'], function(){}]);
-    test.notEqual(config.done, null, 'config.done should not be null');
-    test.notEqual(config.html, null, 'config.html should not be null');
-    test.equal(config.scripts.length, 1, 'script length should be 1');
-    test.done();
-  },
-
-  env_processArguments_all_args_with_config: function(test) {
-    var config = jsdom.env.processArguments(
-      ["<html></html>",
-      ['script.js'],
-      {features: [], url : 'http://www.example.com/'},
-      function(){}
-    ]);
-
-    test.notEqual(config.done, null, 'config.done should not be null');
-    test.notEqual(config.html, null, 'config.html should not be null');
-    test.equal(config.scripts.length, 1, 'script length should be 1');
-    test.equal(config.url, 'http://www.example.com/', 'has url');
-    test.notEqual(config.config.features, null, 'config.config.features should not be null');
-    test.done();
-  },
-
   env_handle_incomplete_dom_with_script: function(test) {
-    jsdom.env(
-      "http://www.google.com/foo#bar",
-      ['http://code.jquery.com/jquery-1.4.4.min.js'],
-      function(errors, window) {
-        test.equal(errors&&errors.length, 1, 'error handed back to callback');
-        test.done();
-      });
+    var options = {
+      url: "http://www.google.com/foo#bar",
+      scripts: ['http://code.jquery.com/jquery-1.4.4.min.js'],
+    };
+    jsdom.env(options, function(errors, window) {
+      test.equal(errors&&errors.length, 1, 'error handed back to callback');
+      test.done();
+    });
   },
 
   plain_window_document: function(test) {
@@ -906,9 +847,11 @@ exports.tests = {
   },
 
   fix_for_issue_172 : function(test) {
-    jsdom.env("<html><body><script type='text/javascript'></script></body></html>", [
-     'jquery.js'
-    ], function () {
+    var options = {
+      html: "<html><body><script type='text/javascript'></script></body></html>",
+      scripts: [ 'jquery.js' ],
+    };
+    jsdom.env(options, function () {
       // ensure the callback gets called!
       test.done();
     });
@@ -1038,7 +981,11 @@ exports.tests = {
   },
 
   allow_ender_to_run : function(test) {
-    jsdom.env('<a />', [__dirname + '/files/ender-qwery.js'], function(e, w) {
+    var options = {
+      html: '<a />',
+      scripts: [__dirname + '/files/ender-qwery.js'],
+    };
+    jsdom.env(options, function(e, w) {
       test.ok(!e, 'no errors');
       test.ok(w.ender, 'ender exists');
       test.ok(w.$, 'window contains $');
@@ -1262,16 +1209,16 @@ exports.tests = {
   multiple_done_calls_with_src : function(test) {
     var script = "window.a = (typeof window.a !== 'undefined') ? window.a + 1 : 0;";
     var doneCounter = 0;
-    jsdom.env({
+    var options = {
       html : '<div />',
       src : [script, script, script],
-      done: function(errors, window) {
+    };
+    jsdom.env(options, function(errors, window) {
         doneCounter++;
         if (window.a === 2) {
           test.equal(doneCounter, 1);
           test.done();
         }
-      }
     });
   },
 
@@ -1301,20 +1248,20 @@ exports.tests = {
   },
 
   issue_239_replace_causes_script_execution : function(test) {
-    jsdom.env({
+    var options = {
       html : '<script type="text/javascript">window.a = 1;/* remove me */ console.log("executed?")</script>',
-      done : function(errors, window) {
+    };
+    jsdom.env(options, function(errors, window) {
         window.document.innerHTML = window.document.innerHTML.replace('/* remove me */','');
         test.equal(typeof window.a, 'undefined');
         test.done();
-      }
     });
   },
 
   issue_355_on_events_should_not_execute_js_when_disabled : function(test) {
     var html = '<html><body onload="undefined()">something</body></html>';
 
-    jsdom.env(html, function(e) {
+    jsdom.env({html: html}, function(e) {
       test.equal(e, null);
       test.done();
     });
