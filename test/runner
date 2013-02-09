@@ -90,7 +90,7 @@ var files = [
   "window/index.js",
   "window/script.js",
   "window/frame.js",
-  "sizzle/index.js",
+  "selectors/index.js",
   "jsdom/index.js",
   "jsonp/jsonp.js",
   "browser/contextifyReplacement.js",
@@ -280,7 +280,7 @@ nodeunit.runModules(modulesToRun, {
     }
     console.log('TOTALS: %s failed; %s success', ratio, percent);
     console.log('TIME: %dms', duration);
-    
+
     if (passedTests !== totalTests) {
       process.exit(1);
     }
