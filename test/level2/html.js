@@ -10965,6 +10965,71 @@ exports.tests = {
 
   /**
    *
+   The selected attribute of an option should be true if no other option is
+   selected in the SELECT.
+   */
+  HTMLOptionElement10: function(test) {
+    var doc;
+    doc = load("option");
+    var select = doc.getElementsByName('select2').item(0);
+    select.options._toArray().forEach(function(option, idx) {
+      if (idx === 0) {
+        test.ok(option.selected);
+      } else {
+        test.ok(!option.selected);
+      }
+    });
+    test.done();
+  },
+
+  /**
+   *
+   The selected value of an option should be based on whether or not
+   it has been selected and/or by default if it is at index 0
+   */
+  HTMLOptionElement11: function(test) {
+    var doc;
+    doc = load("option");
+    var select = doc.getElementsByName('select2').item(0);
+
+    select.options.item(3).selected = true;
+
+    select.options._toArray().forEach(function(option, idx) {
+      if (idx === 3) {
+        test.ok(option.selected);
+      } else {
+        test.ok(!option.selected);
+      }
+    });
+    test.done();
+  },
+
+  /**
+   *
+   An orphaned option element should maintain it's existing selected value.
+
+   based on experiements in chrome
+   */
+  HTMLOptionElement12: function(test) {
+    var doc;
+    doc = load("option");
+    var select = doc.getElementsByName('select2').item(0);
+
+    select.options.item(0).selected = true;
+
+    var option = select.options.item(0);
+    select.remove(0);
+
+    test.ok(!option.parentNode);
+    test.ok(option.selected);
+    test.ok(option !== select.options.item(0));
+    test.ok(select.options.item(0).selected);
+
+    test.done();
+  },
+
+  /**
+   *
    An HTMLOptionsCollection is a list of nodes representing HTML option
    element.
    The length attribute specifies the length or size of the list.
