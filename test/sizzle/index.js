@@ -10,6 +10,14 @@ function test(fn) {
       html: testFile,
       scripts: [__dirname + "/files/jquery.js", __dirname + "/files/sizzle.js"],
       done: function(e, window) {
+
+        // Cleanup the scripts injected by jsdom
+        var scripts = window.document.getElementsByClassName('jsdom');
+        var current = scripts.length;
+        while(current--) {
+          scripts[current].parentNode.removeChild(scripts[current]);
+        }
+
         var Sizzle = window.Sizzle;
         var document = window.document;
 
