@@ -271,25 +271,26 @@ window.document.body.appendChild(scriptEl);
 # Test Compliance:
 
 ```
- level1/core                        532/532      100%
- level1/html                        238/238      100%
- level1/svg                         527/527      100%
- level2/core                        283/283      100%
- level2/html                        697/697      100%
- level2/style                         11/11      100%
- level2/extra                           4/4      100%
- level2/events                        24/24      100%
- level3/xpath                         93/93      100%
- window/index                           5/5      100%
- window/script                        10/10      100%
- window/frame                         14/14      100%
- sizzle/index                         10/14       71%
- jsdom/index                          86/86      100%
- jsonp/jsonp                            1/1      100%
- browser/contextifyReplacement          4/4      100%
- browser/index                        22/22      100%
+ level1/core                        532/532      100%     
+ level1/html                        238/238      100%     
+ level1/svg                         527/527      100%     
+ level2/core                        283/283      100%     
+ level2/html                        700/700      100%     
+ level2/style                         11/11      100%     
+ level2/extra                           4/4      100%     
+ level2/events                        24/24      100%     
+ level3/xpath                         93/93      100%     
+ window/index                           5/5      100%     
+ window/script                        10/10      100%     
+ window/frame                         14/14      100%     
+ sizzle/index                         14/14      100%     
+ jsdom/index                          86/86      100%     
+ jsonp/jsonp                            1/1      100%     
+ browser/contextifyReplacement          4/4      100%     
+ browser/index                        22/22      100%     
 ------------------------------------------------------
-TOTALS: 4/2565 failed; 99% success
+TOTALS: 0/2568 failed; 100% success
+TIME: 32648ms
 ```
 
 ## Running the tests
