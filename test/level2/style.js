@@ -76,6 +76,24 @@ exports.tests = {
     });
   },
 
+  retainOriginalStyleAttributeUntilStyleGetter: function (test) {
+    jsdom.env(
+        '<html>',
+        jsdom.level('2', 'html'), function (err, win) {
+          var document = win.document;
+          var div = document.createElement('div');
+          div.setAttribute('style', 'font-weight: bold; font-weight: normal;');
+          test.equal(div.getAttribute('style'), 'font-weight: bold; font-weight: normal;');
+          div.innerHTML = '<div style="color: red; color: blue;"></div>';
+          test.equal(div.innerHTML, '<div style="color: red; color: blue;"></div>');
+          test.equal(div.firstChild.getAttribute('style'), 'color: red; color: blue;');
+          div.firstChild.style.color = 'maroon';
+          test.equal(div.firstChild.getAttribute('style'), 'color: maroon;');
+          test.done();
+        }
+     );
+  },
+
   getComputedStyleInline: function(test) {
     jsdom.env(
         '<html>',
