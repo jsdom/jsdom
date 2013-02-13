@@ -1,3 +1,7 @@
+## 0.5.0
+
+ * Fix: Make `contextify` a non-optional dependency. jsdom never worked without it, really, so this just caused confusion.
+
 ## 0.4.2
 
  * Fix: `selected` now returns true for the first `<option>` in a `<select>` if nothing is explicitly set.
