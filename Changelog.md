@@ -1,3 +1,8 @@
+## 0.4.2
+
+ * Fix: `selected` now returns true for the first `<option>` in a `<select>` if nothing is explicitly set.
+ * Fix: tweaks to accuracy and speed of the `querySelectorAll` implementation.
+
 ## 0.4.1 (hotfix)
 
  * Fix: crashes when loading HTML files with `<a>` tags with no `href` attribute. (eleith)
