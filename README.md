@@ -8,6 +8,8 @@ A JavaScript implementation of the W3C DOM.
 $ npm install jsdom
 ```
 
+If this gives you trouble with errors about installing Contextify, especially on Windows, see [below](#contextify).
+
 ## Human contact
 
 see: [mailing list](http://groups.google.com/group/jsdom)
@@ -309,3 +311,25 @@ Options:
 -h, --help       show the help
 -t, --tests      choose the test cases to run. ie: -t jquery
 ```
+
+## Contextify
+
+[Contextify](https://npmjs.org/package/contextify) is a dependency of jsdom, used for running `<script>` tags within the
+page. In other words, it allows jsdom, which is run in Node.js, to run strings of JavaScript in an isolated environment
+that pretends to be a browser environment instead of a server. You can see how this is an important feature.
+
+Unfortunately, doing this kind of magic requires C++. And in Node.js, using C++ from JavaScript means using "native
+modules." Native modules are compiled at installation time so that they work precisely for your machine; that is, you
+don't download a contextify binary from npm, but instead build one locally after downloading the source from npm.
+
+For Mac and Linux users, this is usually fine. Their systems come preinstalled with the necessaries for compiling C++.
+For Windows users, however, things can be tricky. Thus, one of the most common problems with jsdom is trying to use it
+on Windows without the proper compilation tools installed. Here's what you need to compile Contextify, and thus to
+install jsdom, on Windows:
+
+* A recent copy of the *x86* version of [Node.js for Windows](http://nodejs.org/download/), *not* the x64 version.
+* A copy of [Visual C++ 2010 Express](http://www.microsoft.com/visualstudio/eng/downloads#d-2010-express).
+* A copy of [Python 2.7](http://www.python.org/download/), installed in the default location of `C:\Python27`.
+
+There are some slight modifications to this that can work; for example full versions of Visual Studio usually work, and
+sometimes you can even get an x64 version of Node.js working too. But it's tricky, so start with the basics!
