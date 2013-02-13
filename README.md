@@ -198,13 +198,13 @@ Disabling this will disable script execution (currently only JavaScript).
 
 Do not download and process resources with url matching a regular expression.
 
-## Canvas
+### Canvas
 
 jsdom includes support for using the [canvas](https://npmjs.org/package/canvas) package to extend any `<canvas>` elements with the canvas API. To make this work, you need to include canvas as a dependency in your project, as a peer of jsdom. If jsdom can find the canvas package, it will use it, but if it's not present, then `<canvas>` elements will behave like `<div>`s.
 
-# More Examples
+## More Examples
 
-## Creating a document-less window
+### Creating a document-less window
 
 ```js
 var jsdom = require("jsdom");
@@ -213,7 +213,7 @@ var window = jsdom.createWindow();
 console.log(window.document); // output: undefined
 ```
 
-## Creating a document
+### Creating a document
 
 ```js
 var jsdom = require("jsdom");
@@ -222,7 +222,7 @@ var doc = new (jsdom.level(1, "core").Document)();
 console.log(doc.nodeName); // outputs: #document
 ```
 
-## Creating a browser-like BOM/DOM/Window
+### Creating a browser-like BOM/DOM/Window
 
 ```js
 var jsdom = require("jsdom").jsdom;
@@ -252,7 +252,7 @@ jsdom.jQueryify(window, "http://code.jquery.com/jquery.js", function () {
 });
 ```
 
-## Passing objects to scripts inside the page
+### Passing objects to scripts inside the page
 
 ```js
 var jsdom = require("jsdom").jsdom;
@@ -268,32 +268,32 @@ window.document.body.appendChild(scriptEl);
 // though it originated in Node!
 ```
 
-# Test Compliance:
+## Test Compliance:
 
 ```
- level1/core                        532/532      100%     
- level1/html                        238/238      100%     
- level1/svg                         527/527      100%     
- level2/core                        283/283      100%     
- level2/html                        700/700      100%     
- level2/style                         11/11      100%     
- level2/extra                           4/4      100%     
- level2/events                        24/24      100%     
- level3/xpath                         93/93      100%     
- window/index                           5/5      100%     
- window/script                        10/10      100%     
- window/frame                         14/14      100%     
- sizzle/index                         14/14      100%     
- jsdom/index                          86/86      100%     
- jsonp/jsonp                            1/1      100%     
- browser/contextifyReplacement          4/4      100%     
- browser/index                        22/22      100%     
+ level1/core                        532/532      100%
+ level1/html                        238/238      100%
+ level1/svg                         527/527      100%
+ level2/core                        283/283      100%
+ level2/html                        700/700      100%
+ level2/style                         11/11      100%
+ level2/extra                           4/4      100%
+ level2/events                        24/24      100%
+ level3/xpath                         93/93      100%
+ window/index                           5/5      100%
+ window/script                        10/10      100%
+ window/frame                         14/14      100%
+ sizzle/index                         14/14      100%
+ jsdom/index                          86/86      100%
+ jsonp/jsonp                            1/1      100%
+ browser/contextifyReplacement          4/4      100%
+ browser/index                        22/22      100%
 ------------------------------------------------------
 TOTALS: 0/2568 failed; 100% success
 TIME: 32648ms
 ```
 
-## Running the tests
+### Running the tests
 
 First you'll want to `npm install`. To run all the tests, use `npm test`, which just calls `node test/runner`.
 
