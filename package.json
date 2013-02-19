@@ -198,7 +198,7 @@
       "console.log" : "*",
       "html5"      : ">=0.3.8",
       "optimist"   : "*",
-			"urlmaster" : ">=0.2.14"
+			"urlmaster" : ">=0.2.15"
     },
     "directories": {
         "lib": "./lib/jsdom"
