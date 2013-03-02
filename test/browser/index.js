@@ -256,6 +256,23 @@ exports.tests = {
     test.done();
   },
 
+  input_fires_click_event : function(test) {
+    doc = jsdom.jsdom(
+      '<html><head></head><body>' +
+        '<input type="checkbox" id="check" value="check" />' +
+      '</body>')
+
+    var checkbox = doc.getElementById("check");
+
+    checkbox.addEventListener("click", function(event) {
+      test.equal(event.type, "click", "event type");
+      test.equal(event.target, checkbox, "event type");
+      test.done();
+    })
+
+    checkbox.click();
+  },
+
   basic_radio_selected : function(test) {
     doc = jsdom.jsdom(
       '<html><head></head><body>' +
