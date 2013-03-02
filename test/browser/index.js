@@ -284,5 +284,22 @@ exports.tests = {
     test.ok(radio2.checked, "radio checked");
 
     test.done();
+  },
+
+  radio_no_click_deselected : function(test) {
+    doc = jsdom.jsdom(
+      '<html><head></head><body>' +
+        '<input type="radio" id="rad0" value="rad0" name="radioGroup0" />' +
+      '</body>')
+
+    var radio0 = doc.getElementById("rad0");
+
+    radio0.click();
+    test.ok(radio0.checked, "radio checked");
+
+    radio0.click();
+    test.ok(radio0.checked, "radio checked");
+
+    test.done();
   }
 };
