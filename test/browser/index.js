@@ -1,4 +1,5 @@
 var dom = require("../../lib/jsdom/level2/core").dom.level2.core;
+var jsdom = require('../../lib/jsdom');
 var browser;
 
 exports.tests = {
@@ -253,5 +254,22 @@ exports.tests = {
     var index = body.childNodes._toArray().indexOf(div);
     test.equal(index, -1, "indexOf 'span' in childNodes")
     test.done();
+  },
+
+  input_fires_click_event : function(test) {
+    doc = jsdom.jsdom(
+      '<html><head></head><body>' +
+        '<input type="checkbox" id="check" value="check" />' +
+      '</body>')
+
+    var checkbox = doc.getElementById("check");
+
+    checkbox.addEventListener("click", function(event) {
+      test.equal(event.type, "click", "event type");
+      test.equal(event.target, checkbox, "event type");
+      test.done();
+    })
+
+    checkbox.click();
   }
 };
