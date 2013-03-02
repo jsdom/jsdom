@@ -1,4 +1,5 @@
 var dom = require("../../lib/jsdom/level2/core").dom.level2.core;
+var jsdom = require('../../lib/jsdom');
 var browser;
 
 exports.tests = {
@@ -252,6 +253,53 @@ exports.tests = {
     p.appendChild(div);
     var index = body.childNodes._toArray().indexOf(div);
     test.equal(index, -1, "indexOf 'span' in childNodes")
+    test.done();
+  },
+
+  basic_radio_selected : function(test) {
+    doc = jsdom.jsdom(
+      '<html><head></head><body>' +
+        '<input type="radio" id="rad0" value="rad0" name="radioGroup0" />' +
+        '<input type="radio" id="rad1" value="rad1" name="radioGroup0" checked="checked" />' +
+        '<input type="radio" id="rad2" value="rad2" name="radioGroup1" />' +
+      '</body>')
+
+    var radio0 = doc.getElementById("rad0");
+    var radio1 = doc.getElementById("rad1");
+    var radio2 = doc.getElementById("rad2");
+
+    test.ok(!radio0.checked, "radio not checked");
+    test.ok(radio1.checked, "radio checked");
+    test.ok(!radio2.checked, "radio not checked");
+
+    radio2.click()
+    radio0.click();
+    test.ok(radio0.checked, "radio checked");
+    test.ok(!radio1.checked, "radio not checked");
+    test.ok(radio2.checked, "radio checked");
+
+    radio1.click();
+    test.ok(!radio0.checked, "radio not checked");
+    test.ok(radio1.checked, "radio checked");
+    test.ok(radio2.checked, "radio checked");
+
+    test.done();
+  },
+
+  radio_no_click_deselected : function(test) {
+    doc = jsdom.jsdom(
+      '<html><head></head><body>' +
+        '<input type="radio" id="rad0" value="rad0" name="radioGroup0" />' +
+      '</body>')
+
+    var radio0 = doc.getElementById("rad0");
+
+    radio0.click();
+    test.ok(radio0.checked, "radio checked");
+
+    radio0.click();
+    test.ok(radio0.checked, "radio checked");
+
     test.done();
   }
 };
