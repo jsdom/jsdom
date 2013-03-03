@@ -1,6 +1,6 @@
 {
     "name": "jsdom",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "description": "A JavaScript implementation of the W3C DOM",
     "keywords": [
       "dom",
@@ -161,6 +161,11 @@
         "name" : "Chad Walker",
         "email" : "chad@chad-cat-lore-eddie.com",
         "url" : "https://github.com/chad3814"
+      },
+      {
+        "name": "Zach Smith",
+        "email": "x.coder.zach@gmail.com",
+        "url": "https://github.com/xcoderzach"
       }
     ],
     "bugs": {

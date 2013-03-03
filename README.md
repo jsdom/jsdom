@@ -289,10 +289,9 @@ window.document.body.appendChild(scriptEl);
  jsdom/index                          86/86      100%
  jsonp/jsonp                            1/1      100%
  browser/contextifyReplacement          4/4      100%
- browser/index                        22/22      100%
+ browser/index                        34/34      100%
 ------------------------------------------------------
-TOTALS: 0/2568 failed; 100% success
-TIME: 32648ms
+TOTALS: 0/2580 failed; 100% success
 ```
 
 ### Running the tests

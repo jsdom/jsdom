@@ -1,3 +1,9 @@
+## 0.5.1
+
+ * Fix: `selectedIndex` now changes correctly in response to `<option>` elements being selected. This makes `<select>` elements actually work like you would want, especially with jQuery. (xcoderzach)
+ * Fix: `checked` works correctly on radio buttons, i.e. only one can be checked and clicking on one does not uncheck it. Previously they worked just like checkboxes. (xcoderzach)
+ * Fix: `click()` on `<input>` elements now fires a click event. (xcoderzach)
+
 ## 0.5.0
 
  * Fix: Make `contextify` a non-optional dependency. jsdom never worked without it, really, so this just caused confusion.
