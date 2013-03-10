@@ -227,5 +227,17 @@ exports.tests = {
           test.equal(style.color, 'blue', 'computed color of p is blue');
           test.done();
     });
+  },
+
+  getComputedStyleWithKeyframeRules: function(test) {
+    jsdom.env(
+        '<html><head><style>@-webkit-keyframes breaking {}</style></head>' +
+        '<body><p>Hello</p></body></html>',
+        jsdom.level('2', 'html'), function(err, win) {
+          test.doesNotThrow(function () {
+            var style = win.getComputedStyle(win.document.querySelector('p'));
+          });
+          test.done();
+    });
   }
 };
