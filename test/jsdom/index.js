@@ -343,7 +343,7 @@ exports.tests = {
     var config = jsdom.env.processArguments(
       ["<html></html>",
       ['script.js'],
-      {features: [], url : 'http://www.example.com/'},
+      {features: {}, url : 'http://www.example.com/'},
       function(){}
     ]);
 
@@ -351,7 +351,7 @@ exports.tests = {
     test.notEqual(config.html, null, 'config.html should not be null');
     test.equal(config.scripts.length, 1, 'script length should be 1');
     test.equal(config.url, 'http://www.example.com/', 'has url');
-    test.notEqual(config.config.features, null, 'config.config.features should not be null');
+    test.notEqual(config.features, null, 'config.features should not be null');
     test.done();
   },
 
@@ -363,6 +363,27 @@ exports.tests = {
         test.equal(errors&&errors.length, 1, 'error handed back to callback');
         test.done();
       });
+  },
+
+  env_with_features_and_external_resources: function(test) {
+    jsdom.env(
+      'http://documentcloud.github.com/backbone/examples/todos/index.html',
+      {
+        features: {
+          FetchExternalResources   : ['script', 'img', 'css', 'frame', 'link'],
+          ProcessExternalResources : ['script', 'img', 'css', 'frame', 'link'],
+          MutationEvents           : '2.0',
+          QuerySelector            : false
+        }
+      },
+      function(errors, window) {
+        window.onload = function () {
+          test.equal(typeof window._, 'function', 'Underscore loaded');
+          test.equal(typeof window.$, 'function', 'jQuery loaded');
+          test.done();
+        };
+      }
+    );
   },
 
   plain_window_document: function(test) {
