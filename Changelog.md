@@ -1,3 +1,9 @@
+## 0.5.2
+
+ * Fix: stylesheets with `@-webkit-keyframes` rules were crashing calls to `getComputedStyle`.
+ * Fix: handling of `features` option to `jsdom.env`.
+ * Change: retain the value of the `style` attribute until the element's `style` property is touched. (papandreou)
+
 ## 0.5.1
 
  * Fix: `selectedIndex` now changes correctly in response to `<option>` elements being selected. This makes `<select>` elements actually work like you would want, especially with jQuery. (xcoderzach)
