@@ -4524,7 +4524,7 @@ exports['getAttributeNS'] = testcase({
     test.notEqual(testAddr, null, 'testAddr should be null');
     testAddr.removeAttributeNS(namespaceURI, localName);
     attrValue = testAddr.getAttributeNS(namespaceURI,localName);
-    test.equal(attrValue, "", "throw_Equals");
+    test.equal(attrValue, null, "throw_Equals");
     test.done();
   },
   /**
