@@ -10127,7 +10127,7 @@ exports.tests = {
     testNode = nodeList.item(1);
     vcode = testNode.code;
 
-// XXX superceded by DOM4
+// XXX SUPERSEDED BY DOM4
 //    test.equal(vcode, "", "codeLink");
     test.strictEqual(vcode, null, "codeLink");
     test.done();

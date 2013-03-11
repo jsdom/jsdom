@@ -4525,7 +4525,7 @@ exports['getAttributeNS'] = testcase({
     testAddr.removeAttributeNS(namespaceURI, localName);
     attrValue = testAddr.getAttributeNS(namespaceURI,localName);
 
-// XXX superceded by DOM4
+// XXX SUPERSEDED BY DOM4
 //    test.equal(attrValue, "", "throw_Equals");
     test.equal(attrValue, null, "throw_Equals");
 

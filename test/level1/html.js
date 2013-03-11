@@ -3784,7 +3784,7 @@ exports.tests = {
     testEmployee.removeAttribute("class");
     attrValue = testEmployee.getAttribute("class");
 
-// XXX SUPERCEDED BY DOM4
+// XXX SUPERSEDED BY DOM4
     test.strictEqual(attrValue, null, 'attrValue');
 //    test.equal(attrValue, "", 'attrValue');
 
