@@ -219,9 +219,9 @@ exports.tests = {
       // Mock the request object.
       var req = { setHeader : function () {}, end : function () {} };
       req.__proto__ = new EventEmitter();
-      process.nextTick(function () {
+      setImmediate(function () {
         req.emit('response', res);
-        process.nextTick(function () {
+        setImmediate(function () {
           res.emit('data', 'window.attachedHere = 123');
           res.emit('close');
         });
@@ -1139,7 +1139,7 @@ exports.tests = {
     // inline listener.  This means we have to check the value on the next
     // tick.
     window.addEventListener('load', function () {
-      process.nextTick(function () {
+      setImmediate(function () {
         test.equal(window.loader_called, true);
         test.done();
       });
