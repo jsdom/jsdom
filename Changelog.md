@@ -1,3 +1,10 @@
+## 0.5.3
+
+This release is compatible with Node.js 0.6, whereas all future releases will require at least Node.js 0.8.
+
+ * Fix: `getAttributeNS` now returns `null` for attributes that are not present, just like `getAttribute`. (mbostock)
+ * Change: `"request"` dependency pinned to version 2.14 for Node.js 0.6 compatibility.
+
 ## 0.5.2
 
  * Fix: stylesheets with `@-webkit-keyframes` rules were crashing calls to `getComputedStyle`.
