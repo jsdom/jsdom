@@ -5,8 +5,6 @@ var nodeunit = require('nodeunit'),
     path = require('path'),
     AssertionError = require('assert').AssertionError;
 
-require('console.log');
-
 var optimist = require('optimist')
     .usage('Run the jsdom test suite')
     .alias('s', 'suites')
@@ -280,7 +278,7 @@ nodeunit.runModules(modulesToRun, {
     }
     console.log('TOTALS: %s failed; %s success', ratio, percent);
     console.log('TIME: %dms', duration);
-    
+
     if (passedTests !== totalTests) {
       process.exit(1);
     }
