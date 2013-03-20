@@ -19937,5 +19937,13 @@ exports.tests = {
         test.done();
       }
     );
+  },
+
+  rowIndex_on_detached_table_row_should_return_minus_one: function(test) {
+    var doc = jsdom.jsdom();
+    var row = doc.createElement('tr');
+
+    test.strictEqual(row.rowIndex, -1, "rowIndex should equal -1");
+    test.done();
   }
 }
