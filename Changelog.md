@@ -1,3 +1,12 @@
+## 0.5.4
+
+This release, and all future releases, require at least Node.js 0.8.
+
+ * Add: parser can now be set via `jsdom.env` configuration. (xavi-)
+ * Fix: accessing `rowIndex` for table rows that are not part of a table would throw. (medikoo)
+ * Fix: several places in the code accidentally created global variables, or referenced nonexistant values. (xavi-)
+ * Fix: `<img>` elements' `src` properties now evaluate relative to `location.href`, just like `<a>` elements' `href` properties. (brianmaissy)
+
 ## 0.5.3
 
 This release is compatible with Node.js 0.6, whereas all future releases will require at least Node.js 0.8.
