@@ -1471,5 +1471,30 @@ exports.tests = {
     test.equal(inputEl.type, 'text');
 
     test.done();
+  },
+
+  jquery_val_on_selects : function(test) {
+    var window = jsdom.jsdom().createWindow();
+
+    jsdom.jQueryify(window, "http://code.jquery.com/jquery.js", function () {
+      window.$("body").append('<html><body><select id="foo"><option value="first">f</option><option value="last">l</option></select></body></html>');
+
+      test.equal(window.document.querySelector("[value='first']").selected, true, "`selected` property should be `true` for first");
+      test.equal(window.document.querySelector("[value='last']").selected, false, "`selected` property should be `false` for last");
+
+      test.equal(window.$("[value='first']").val(), "first", "`val()` on first <option> should return its value");
+      test.equal(window.$("[value='last']").val(), "last", "`val()` on last <option> should return its value");
+
+      var f = window.$("#foo");
+      debugger;
+      test.equal(f.val(), "first", "`val()` on <select> should return first <option>'s value");
+
+      window.$('#foo').val("last");
+      test.equal(window.document.querySelector("[value='first']").selected, false, "`selected` property should be `false` for first");
+      test.equal(window.document.querySelector("[value='last']").selected, true, "`selected` property should be `true` for last");
+      test.equal(window.$('#foo').val(), "last", "`val()` should return last <option>'s value");
+
+      test.done();
+    });
   }
 };
