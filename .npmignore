@@ -8,6 +8,7 @@ Contributing.md
 .npmignore
 .DS_Store
 .svn
+.travis.yml
 .*.swp
 **gmon.out
 **v8.log
