@@ -15,7 +15,7 @@ The DOM, thankfully, has lots of tests already out there. Those already included
 
 Of these, of course, the first is preferable. When we find gaps, we usually add the tests at the bottom of the relevant auto-generated test suite, e.g. in `test/level2/html.js`.
 
-Not all of the existing tests pass. The current test compliance is tracked [in the README](https://github.com/tmpvar/jsdom#test-compliance).
+The current test compliance is tracked [in the README](https://github.com/tmpvar/jsdom#test-compliance).
 
 ## Contributing
 
@@ -41,9 +41,11 @@ Once you have those nailed down, you'll want to ask:
 
 **Where can I get a W3C test for this functionality?**
 
-We already have all the DOM1 and DOM2 tests. We even have some DOM3 ones, although sadly they are currently disabled, due to DOM3 not being complete. (Maybe you could help break them out into complete vs. work in progress?)
+We already have all the DOM1 and DOM2 tests. We even have some DOM3 ones, although sadly they are currently disabled, due to our DOM3 support not being complete. (Maybe you could help break them out into complete vs. work in progress?)
 
-DOM4 has no officially-finished, but many tests are found [on w3c-test.org](http://w3c-test.org/). Check in a few different directories, e.g. [html](http://w3c-test.org/html/tests/) and [webapps](http://w3c-test.org/webapps/), or perhaps browse through the nice [test runner interface](http://w3c-test.org/framework/app/suite). If you really can't find anything, you can always ask [public-webapps-testsuite@w3.org](mailto:public-webapps-testsuite@w3.org), [like I did](http://lists.w3.org/Archives/Public/public-webapps-testsuite/2012Aug/0001.html).
+DOM4 has no officially-finished test suite, but many tests are found [on w3c-test.org](http://w3c-test.org/). Check in a few different directories, e.g. [html](http://w3c-test.org/html/tests/) and [webapps](http://w3c-test.org/webapps/), or perhaps browse through the nice [test runner interface](http://w3c-test.org/framework/app/suite). If you really can't find anything, you can always ask [public-webapps-testsuite@w3.org](mailto:public-webapps-testsuite@w3.org), [like I did](http://lists.w3.org/Archives/Public/public-webapps-testsuite/2012Aug/0001.html).
+
+More recently there's been an attempt to consolidate tests for HTML5 in the [w3c/web-platform-tests](https://github.com/w3c/web-platform-tests) repository, so you can try to find things there. Many of the directories are empty, however; it seems that's still largely a work in progress.
 
 If there is no W3C test covering the functionality you're after, then you can write your own, placing it in the appropriate level. But in this case you'll probably want to alert the authors of the relevant test suite that they missed something!
 
