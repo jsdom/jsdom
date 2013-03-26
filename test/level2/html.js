@@ -19945,5 +19945,19 @@ exports.tests = {
 
     test.strictEqual(row.rowIndex, -1, "rowIndex should equal -1");
     test.done();
+  },
+
+  readonly_attribute_works_in_empty_form: function(test) {
+    jsdom.env(
+      '<input id="input" readonly />', function (err, window) {
+        test.strictEqual(window.document.getElementById("input").readOnly, true);
+        jsdom.env(
+          '<input id="input" readonly="" />', function (err, window) {
+            test.strictEqual(window.document.getElementById("input").readOnly, true);
+            test.done();
+          }
+        );
+      }
+    );
   }
 }
