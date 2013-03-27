@@ -19959,5 +19959,16 @@ exports.tests = {
         );
       }
     );
+  },
+
+  selected_attribute_works_in_empty_form: function(test) {
+    jsdom.env(
+      '<select multiple><option selected="" /><option selected /></select>', function (err, window) {
+        var options = window.document.getElementsByTagName('option');
+        test.ok(options[0].selected, 'attribute with empty value');
+        test.ok(options[1].selected, 'attribute without value');
+        test.done();
+      }
+    );
   }
 }
