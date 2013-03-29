@@ -1,3 +1,7 @@
+## 0.5.5
+
+ * Fix: `readOnly` and `selected` properties were not correct when their attribute values were falsy, e.g. `<option selected="">`. (adrianlang)
+
 ## 0.5.4
 
 This release, and all future releases, require at least Node.js 0.8.
