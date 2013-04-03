@@ -19970,5 +19970,29 @@ exports.tests = {
         test.done();
       }
     );
+  },
+
+  htmlcollection_allows_index_access_for_name_and_id: function(test) {
+    jsdom.env(
+      '<form><input name="test"><input id="test2"></form>', function (err, window) {
+        var form = window.document.getElementsByTagName('form')[0];
+        test.ok(form.elements.test, 'form.elements by name');
+        test.ok(form.elements.test2, 'form.elements by id');
+        test.done();
+      }
+    );
+  },
+
+  htmlcollection_index_access_prefers_id_over_name: function(test) {
+    jsdom.env(
+      '<form><input name="test"><input id="test"><input id="test2"><input name="test2"></form>', function (err, window) {
+        var form = window.document.getElementsByTagName('form')[0];
+        var elem = form.elements.test;
+        test.strictEqual(elem && elem.getAttribute('id'), 'test');
+        elem = form.elements.test2;
+        test.strictEqual(elem && elem.getAttribute('id'), 'test2');
+        test.done();
+      }
+    );
   }
 }
