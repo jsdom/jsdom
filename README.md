@@ -274,11 +274,11 @@ window.document.body.appendChild(scriptEl);
 ## Test Compliance:
 
 ```
- level1/core                        532/532      100%
+ level1/core                        535/535      100%
  level1/html                        238/238      100%
  level1/svg                         527/527      100%
  level2/core                        283/283      100%
- level2/html                        703/703      100%
+ level2/html                        705/705      100%
  level2/style                         13/13      100%
  level2/extra                           4/4      100%
  level2/events                        24/24      100%
@@ -292,7 +292,7 @@ window.document.body.appendChild(scriptEl);
  browser/contextifyReplacement          4/4      100%
  browser/index                        34/34      100%
 ------------------------------------------------------
-TOTALS: 0/2587 failed; 100% success
+TOTALS: 0/2592 failed; 100% success
 ```
 
 ### Running the tests

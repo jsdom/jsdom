@@ -1,3 +1,8 @@
+## 0.5.6
+
+ * Fix: `on<event>` properties are correctly updated when using `setAttributeNode`, `attributeNode.value =`, `removeAttribute`, and `removeAttributeNode`; before it only worked with `setAttribute`. (adrianlang)
+ * Fix: `HTMLCollection`s now have named properties based on their members' `id` and `name` attributes, e.g. `form.elements.inputId` is now present. (adrianlang)
+
 ## 0.5.5
 
  * Fix: `readOnly` and `selected` properties were not correct when their attribute values were falsy, e.g. `<option selected="">`. (adrianlang)
