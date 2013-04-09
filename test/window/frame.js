@@ -183,6 +183,28 @@ exports.tests = {
     });
   },
 
+  'update named frames access on name change' : function(test) {
+    var htmlPath = path.resolve(__dirname, 'files', 'iframe_parent.html');
+    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), null, {
+      features : {
+        FetchExternalResources   : ['script', 'iframe'],
+        ProcessExternalResources : ['script', 'iframe']
+      },
+      url : toFileUrl(__filename)
+    });
+    doc.addEventListener('load', function () {
+      var window = doc.parentWindow;
+      var iframeWindow = window.frames['simpleIFrame'];
+      test.notEqual(iframeWindow, null);
+      test.notStrictEqual(iframeWindow, window);
+      test.strictEqual(iframeWindow.parent, window);
+      doc.getElementById('simpleIFrameID').setAttribute('name', 'otherSimpleIFrame');
+      test.ok(!window.frames['simpleIFrame'], 'remove old named property');
+      test.ok(window.frames['otherSimpleIFrame'], 'add new named property');
+      test.done();
+    });
+  },
+
   // See: http://www.w3.org/TR/html5/browsers.html#dom-frames
   'test frames array identity' : function(test) {
     var htmlPath = path.resolve(__dirname, 'files', 'iframe_parent.html');
