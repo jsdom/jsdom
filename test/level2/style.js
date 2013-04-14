@@ -31,6 +31,20 @@ exports.tests = {
     });
   },
 
+  HTMLCanvasStyleAttribute01 : function (test) {
+    jsdom.env(
+        '<html><body><canvas style="background-color: blue; z-index:1">',
+        jsdom.level('2', 'html'), function(err, win) {
+      var c = win.document.body.lastChild;
+      test.equal(2, c.style.length);
+      test.equal('background-color', c.style[0]);
+      test.equal('blue', c.style.backgroundColor);
+      test.equal('z-index', c.style[1]);
+      test.equal(1, c.style.zIndex);
+      test.done();
+    });
+  },
+
   StylePropertyReflectsStyleAttribute : function (test) {
     jsdom.env(
         '<html>',
