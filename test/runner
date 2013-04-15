@@ -90,6 +90,7 @@ var files = [
   "window/frame.js",
   "sizzle/index.js",
   "jsdom/index.js",
+  "jsdom/parsing.js",
   "jsonp/jsonp.js",
   "browser/contextifyReplacement.js",
   "browser/index.js"
