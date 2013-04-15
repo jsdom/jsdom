@@ -62,3 +62,16 @@ exports["empty attributes (GH-488)"] = function (t) {
 
   t.done();
 };
+
+exports["omitting optional closing tags (GH-482)"] = function (t) {
+  var doc = jsdom("<p>First<p>Second<p>Third");
+
+  var ps = doc.getElementsByTagName("p");
+
+  t.equal(ps.length, 3);
+  t.equal(ps[0].innerHTML, "First");
+  t.equal(ps[1].innerHTML, "Second");
+  t.equal(ps[2].innerHTML, "Third");
+
+  t.done();
+};
