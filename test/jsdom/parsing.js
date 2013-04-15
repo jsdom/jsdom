@@ -75,3 +75,16 @@ exports["omitting optional closing tags (GH-482)"] = function (t) {
 
   t.done();
 };
+
+exports["crazy attribute names (GH-368)"] = function (t) {
+  var doc = jsdom("<p <='' FAIL>stuff</p>");
+
+  var ps = doc.getElementsByTagName("p");
+
+  t.equal(ps.length, 1);
+  t.equal(ps[0].innerHTML, "stuff");
+  t.equal(ps[0].getAttribute("<"), "");
+  t.equal(ps[0].getAttribute("fail"), "");
+
+  t.done();
+};
