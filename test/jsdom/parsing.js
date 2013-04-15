@@ -15,3 +15,14 @@ exports["unclosed <td> (GH-605)"] = function (t) {
 
   t.done();
 };
+
+exports["innerHTML of <script type='text/html'> (GH-575)"] = function (t) {
+  var doc = jsdom("<script type='text/html'>script innerHTML</script>");
+
+  var scripts = doc.getElementsByTagName("script");
+
+  t.equal(scripts.length, 1);
+  t.equal(scripts[0].innerHTML, "script innerHTML");
+
+  t.done();
+};
