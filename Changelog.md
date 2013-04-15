@@ -1,3 +1,9 @@
+## 0.5.7
+
+ * Fix: make event handlers attached via `on<event>` more spec-compatible, supporting `return false` and passing the `event` argument. (adrianlang)
+ * Fix: make the getter for `textContent` more accurate, e.g. in cases involving comment nodes or processing instruction nodes. (adrianlang)
+ * Fix: make `<canvas>` behave like a `<div>` when the `node-canvas` package isn't available, instead of crashing. (stepheneb)
+
 ## 0.5.6
 
  * Fix: `on<event>` properties are correctly updated when using `setAttributeNode`, `attributeNode.value =`, `removeAttribute`, and `removeAttributeNode`; before it only worked with `setAttribute`. (adrianlang)
