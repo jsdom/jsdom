@@ -458,7 +458,7 @@ exports.tests = {
   },
 
   ensure_resolution_is_not_thrown_off_by_hrefless_base_tag: function(test) {
-    var html = '<html><head><base target="whatever>' +
+    var html = '<html><head><base target="whatever">' +
                '<script src="./files/hello.js"></script></head><body>' +
                '<span id="test">hello from html</span></body></html>';
 
