@@ -73,7 +73,6 @@
     },
     "devDependencies" : {
       "nodeunit": "~0.8.0",
-      "html5": "*",
       "optimist": "*"
     },
     "directories": {
