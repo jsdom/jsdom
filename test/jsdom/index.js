@@ -1104,21 +1104,6 @@ exports.tests = {
     test.done();
   },
 
-  parser_failure_broken_markup : function(test) {
-    var thrown = false;
-    var doc;
-    try {
-      doc = jsdom.jsdom('<html><body><div id="<"></div></body></html>');
-    } catch (e) {
-      thrown = true;
-    }
-
-    test.ok(doc.errors.length === 1);
-    test.ok(doc.errors[0].message = "invalid markup");
-    test.ok(thrown === false);
-    test.done();
-  },
-
   // Test inline event handlers set on the body.
   test_body_event_handler_inline : function (test) {
     var html = "\
