@@ -16,6 +16,19 @@ exports["unclosed <td> (GH-605)"] = function (t) {
   t.done();
 };
 
+exports["multiline attributes (GH-585)"] = function (t) {
+  var doc = jsdom("<a data-title='<strong>hello \nworld</strong>' href='example.org</strong>'>link</a>");
+
+  var as = doc.getElementsByTagName("a");
+
+  t.equal(as.length, 1);
+  t.equal(as[0].innerHTML, "link");
+  t.equal(as[0].getAttribute("data-title"), "<strong>hello \nworld</strong>");
+  t.equal(as[0].getAttribute("href"), "example.org</strong>");
+
+  t.done();
+};
+
 exports["innerHTML of <script type='text/html'> (GH-575)"] = function (t) {
   var doc = jsdom("<script type='text/html'>script innerHTML</script>");
 
