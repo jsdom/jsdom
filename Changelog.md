@@ -1,3 +1,14 @@
+## 0.6.0
+
+Integrated a new HTML parser, [htmlparser2](https://npmjs.org/package/htmlparser2), from fb55. This is an actively maintained and much less buggy parser, fixing many of our parsing issues, including:
+
+ * Parsing elements with optional closing tags, like `<p>` or `<td>`.
+ * The `innerHTML` of `<script>` tags no longer cuts off the first character.
+ * Empty attributes now have `""` as their value instead of the attribute name.
+ * Multiline attributes no longer get horribly mangled.
+ * Attribute names can now be any value allowed by HTML5, including crazy things like `^`.
+ * Attribute values can now contain any value allowed by HTML5, including e.g. `>` and `<`.
+
 ## 0.5.7
 
  * Fix: make event handlers attached via `on<event>` more spec-compatible, supporting `return false` and passing the `event` argument. (adrianlang)
