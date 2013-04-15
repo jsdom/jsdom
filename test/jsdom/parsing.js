@@ -51,3 +51,14 @@ exports["attributes containing '<' and '>' (GH-494)"] = function (t) {
 
   t.done();
 };
+
+exports["empty attributes (GH-488)"] = function (t) {
+  var doc = jsdom("<div ng-app></div>");
+
+  var divs = doc.getElementsByTagName("div");
+
+  t.equal(divs.length, 1);
+  t.equal(divs[0].getAttribute("ng-app"), "");
+
+  t.done();
+};
