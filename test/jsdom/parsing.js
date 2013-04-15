@@ -26,3 +26,15 @@ exports["innerHTML of <script type='text/html'> (GH-575)"] = function (t) {
 
   t.done();
 };
+
+exports["attributes containing '<' and '>' (GH-494)"] = function (t) {
+  var doc = jsdom("<p title='<'>stuff</p><p title='>'>more</p><p>just testing</p>");
+
+  var ps = doc.getElementsByTagName("p");
+
+  t.equal(ps.length, 3);
+  t.equal(ps[0].getAttribute("title"), "<");
+  t.equal(ps[1].getAttribute("title"), ">");
+
+  t.done();
+};
