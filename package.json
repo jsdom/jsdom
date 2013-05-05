@@ -54,12 +54,10 @@
             "url": "http://github.com/tmpvar/jsdom/blob/master/LICENSE.txt"
         }
     ],
-    "repositories": [
-        {
-            "type": "git",
-            "url": "git://github.com/tmpvar/jsdom.git"
-        }
-    ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/tmpvar/jsdom.git"
+    },
     "implements": [
         "http://www.w3.org/TR/REC-DOM-Level-1"
     ],
