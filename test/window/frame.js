@@ -157,6 +157,54 @@ exports.tests = {
     });
   },
 
+  'get iframe window via indexed frames access with setAttributeNode' : function(test) {
+    var doc = jsdom.jsdom("<html><head></head><body><iframe name='simpleIFrame' id='simpleIFrameID'></iframe></body></html>", null, {
+      features : {
+        FetchExternalResources   : ['script', 'iframe'],
+        ProcessExternalResources : ['script', 'iframe']
+      },
+      url : toFileUrl(__filename)
+    });
+    var iframe = doc.getElementById('simpleIFrameID');
+    var attr = doc.createAttribute('src');
+    attr.value = 'files/simple_iframe.html';
+    iframe.setAttributeNode(attr);
+
+    iframe.addEventListener('load', function () {
+      var window = doc.parentWindow;
+      var iframeWindow = window.frames[0];
+      test.notEqual(iframeWindow, null);
+      test.notStrictEqual(iframeWindow, window);
+      test.strictEqual(iframeWindow.parent, window);
+      var iframeDoc = iframeWindow.document;
+      test.notStrictEqual(iframeWindow.document, window.document);
+      test.notEqual(iframeWindow.document.getElementById('iframeDiv'), null);
+      test.done();
+    });
+  },
+
+  'update named frames access on name change' : function(test) {
+    var htmlPath = path.resolve(__dirname, 'files', 'iframe_parent.html');
+    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), null, {
+      features : {
+        FetchExternalResources   : ['script', 'iframe'],
+        ProcessExternalResources : ['script', 'iframe']
+      },
+      url : toFileUrl(__filename)
+    });
+    doc.addEventListener('load', function () {
+      var window = doc.parentWindow;
+      var iframeWindow = window.frames['simpleIFrame'];
+      test.notEqual(iframeWindow, null);
+      test.notStrictEqual(iframeWindow, window);
+      test.strictEqual(iframeWindow.parent, window);
+      doc.getElementById('simpleIFrameID').setAttribute('name', 'otherSimpleIFrame');
+      test.ok(!window.frames['simpleIFrame'], 'remove old named property');
+      test.ok(window.frames['otherSimpleIFrame'], 'add new named property');
+      test.done();
+    });
+  },
+
   // See: http://www.w3.org/TR/html5/browsers.html#dom-frames
   'test frames array identity' : function(test) {
     var htmlPath = path.resolve(__dirname, 'files', 'iframe_parent.html');
