@@ -1,3 +1,8 @@
+## 0.6.1
+
+ * Make the code parseable with Esprima. (squarooticus)
+ * Use the correct `package.json` field `"repository"` instead of `"repositories"` to prevent npm warnings. (jonathanong)
+
 ## 0.6.0
 
 Integrated a new HTML parser, [htmlparser2](https://npmjs.org/package/htmlparser2), from fb55. This is an actively maintained and much less buggy parser, fixing many of our parsing issues, including:
