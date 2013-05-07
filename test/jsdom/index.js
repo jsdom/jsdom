@@ -1481,5 +1481,17 @@ exports.tests = {
 
       test.done();
     });
+  },
+
+  jquery_attr_mixed_case : function(test) {
+    var window = jsdom.jsdom().createWindow();
+
+    jsdom.jQueryify(window, "http://code.jquery.com/jquery.js", function () {
+      var $el = window.$('<div mixedcase="blah"></div>');
+
+      test.equal($el.attr('mixedCase'), 'blah');
+
+      test.done();
+    });
   }
 };
