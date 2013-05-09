@@ -2,6 +2,7 @@ var path = require("path");
 var fs   = require("fs");
 var jsdom = require('../../lib/jsdom');
 var toFileUrl = require('../util').toFileUrl(__dirname);
+var URL = require('url');
 
 exports.tests = {
   build_window: function(test) {
@@ -678,7 +679,7 @@ exports.tests = {
   },
 
   url_resolution: function(test) {
-    var html = '\
+    var um = require('urlmaster'), html = '\
   <html>\
     <head></head>\
     <body>\
@@ -690,11 +691,12 @@ exports.tests = {
       <a href="//example.com/protocol/avoidance.html" id="link6">protocol</a>\
     </body>\
   </html>';
+	
 
     function testLocal() {
       var url = '/path/to/docroot/index.html';
       var doc = jsdom.jsdom(html, null, {url: url});
-      test.equal(doc.getElementById("link1").href, 'http://example.com', 'Absolute URL should be left alone');
+      test.equal(um.addPathEmpty(doc.getElementById("link1").href), 'http://example.com/', 'Absolute URL should be left alone except for possible trailing slash');
       test.equal(doc.getElementById("link2").href, '/local.html', 'Relative URL should be resolved');
       test.equal(doc.getElementById("link3").href, '/path/to/docroot/local.html', 'Relative URL should be resolved');
       test.equal(doc.getElementById("link4").href, '/path/local.html', 'Relative URL should be resolved');
@@ -705,7 +707,7 @@ exports.tests = {
     function testRemote() {
       var url = 'http://example.com/path/to/docroot/index.html';
       var doc = jsdom.jsdom(html, null, {url: url});
-      test.equal(doc.getElementById("link1").href, 'http://example.com', 'Absolute URL should be left alone');
+      test.equal(um.addPathEmpty(doc.getElementById("link1").href), 'http://example.com/', 'Absolute URL should be left alone except for possible trailing slash');
       test.equal(doc.getElementById("link2").href, 'http://example.com/local.html', 'Relative URL should be resolved');
       test.equal(doc.getElementById("link3").href, 'http://example.com/path/to/docroot/local.html', 'Relative URL should be resolved');
       test.equal(doc.getElementById("link4").href, 'http://example.com/path/local.html', 'Relative URL should be resolved');
@@ -719,17 +721,52 @@ exports.tests = {
           base = doc.createElement("base");
       base.href = 'http://example.com/path/to/docroot/index.html';
       doc.getElementsByTagName("head").item(0).appendChild(base);
-      test.equal(doc.getElementById("link1").href, 'http://example.com', 'Absolute URL should be left alone');
+      test.equal(um.addPathEmpty(doc.getElementById("link1").href), 'http://example.com/', 'Absolute URL should be left alone except for possible trailing slash');
       test.equal(doc.getElementById("link2").href, 'http://example.com/local.html', 'Relative URL should be resolved');
       test.equal(doc.getElementById("link3").href, 'http://example.com/path/to/docroot/local.html', 'Relative URL should be resolved');
       test.equal(doc.getElementById("link4").href, 'http://example.com/path/local.html', 'Relative URL should be resolved');
       test.equal(doc.getElementById("link5").href, 'http://example.com/path/to/docroot/index.html#here', 'Relative URL should be resolved');
       test.equal(doc.getElementById("link6").href, 'http://example.com/protocol/avoidance.html', 'Relative URL should be resolved');
     }
+		
+		function testAutomated() {
+			/*
+			RFC resolution cases from http://tools.ietf.org/html/rfc3986#section-5.2
+			urlmaster builds them all for us
+			*/
+			// create a doc with all of the possible bases and all of the possible refs
+			var bases = um.generateAll({scheme:"http",auth:'www.why.com',path:'/a/b',query:'?foo=bar',frag:'#abc'},true),
+				refs = um.generateAll({scheme:"https",auth:'www.not.com',path:'/q/r',query:'?when=now',frag:'#xyz'},true);
+
+			// build html with every possible link
+			var html = '\
+	  <html>\
+	    <head><base href=""></base></head>\
+	    <body>';
+			refs.forEach(function(ref,i){
+				html += '<a href="'+ref+'" id="link'+i+'">link'+i+'</a>\n';
+			});
+			html += "</body></html>";
+			var locn = toFileUrl(__filename);
+			
+			// now check each base case
+			bases.forEach(function(base,i){
+	      var doc = jsdom.jsdom(html, null, {url: locn}), expected = um.resolveTrack(locn,base,refs);
+				// set up the base
+				doc.getElementsByTagName("base")[0].setAttribute("href",base);
+				refs.forEach(function(ref,j){
+					var href = doc.getElementById("link"+j).href, result = expected[j][3];
+					// empty path must accept href with or without a slash; see http://tools.ietf.org/html/rfc3986#section-3.3
+					// so we consistently push them towards having
+		      test.equal(um.addPathEmpty(href), um.addPathEmpty(result), 'locn \''+locn+'\' base \''+base+'\' with ref \''+ref+'\' should resolve to \''+result+'\' ('+um.addPathEmpty(result)+') instead of \''+href+'\' ('+um.addPathEmpty(href)+')');
+				});
+			});
+		}
 
     testLocal();
     testRemote();
     testBase();
+		testAutomated();
     test.done();
   },
 

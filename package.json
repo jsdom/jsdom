@@ -70,6 +70,9 @@
        "contextify": "~0.1.5"
     },
     "devDependencies" : {
+      "console.log" : "*",
+      "html5"      : ">=0.3.8",
+	"urlmaster" : ">=0.2.15",
       "nodeunit": "~0.8.0",
       "optimist": "*"
     },
