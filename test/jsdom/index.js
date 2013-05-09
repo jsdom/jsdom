@@ -679,7 +679,7 @@ exports.tests = {
   },
 
   url_resolution: function(test) {
-    var html = '\
+    var um = require('urlmaster'), html = '\
   <html>\
     <head></head>\
     <body>\
@@ -691,11 +691,12 @@ exports.tests = {
       <a href="//example.com/protocol/avoidance.html" id="link6">protocol</a>\
     </body>\
   </html>';
+	
 
     function testLocal() {
       var url = '/path/to/docroot/index.html';
       var doc = jsdom.jsdom(html, null, {url: url});
-      test.equal(doc.getElementById("link1").href, 'http://example.com', 'Absolute URL should be left alone');
+      test.equal(um.addPathEmpty(doc.getElementById("link1").href), 'http://example.com/', 'Absolute URL should be left alone except for possible trailing slash');
       test.equal(doc.getElementById("link2").href, '/local.html', 'Relative URL should be resolved');
       test.equal(doc.getElementById("link3").href, '/path/to/docroot/local.html', 'Relative URL should be resolved');
       test.equal(doc.getElementById("link4").href, '/path/local.html', 'Relative URL should be resolved');
@@ -706,7 +707,7 @@ exports.tests = {
     function testRemote() {
       var url = 'http://example.com/path/to/docroot/index.html';
       var doc = jsdom.jsdom(html, null, {url: url});
-      test.equal(doc.getElementById("link1").href, 'http://example.com', 'Absolute URL should be left alone');
+      test.equal(um.addPathEmpty(doc.getElementById("link1").href), 'http://example.com/', 'Absolute URL should be left alone except for possible trailing slash');
       test.equal(doc.getElementById("link2").href, 'http://example.com/local.html', 'Relative URL should be resolved');
       test.equal(doc.getElementById("link3").href, 'http://example.com/path/to/docroot/local.html', 'Relative URL should be resolved');
       test.equal(doc.getElementById("link4").href, 'http://example.com/path/local.html', 'Relative URL should be resolved');
@@ -720,7 +721,7 @@ exports.tests = {
           base = doc.createElement("base");
       base.href = 'http://example.com/path/to/docroot/index.html';
       doc.getElementsByTagName("head").item(0).appendChild(base);
-      test.equal(doc.getElementById("link1").href, 'http://example.com', 'Absolute URL should be left alone');
+      test.equal(um.addPathEmpty(doc.getElementById("link1").href), 'http://example.com/', 'Absolute URL should be left alone except for possible trailing slash');
       test.equal(doc.getElementById("link2").href, 'http://example.com/local.html', 'Relative URL should be resolved');
       test.equal(doc.getElementById("link3").href, 'http://example.com/path/to/docroot/local.html', 'Relative URL should be resolved');
       test.equal(doc.getElementById("link4").href, 'http://example.com/path/local.html', 'Relative URL should be resolved');
@@ -734,8 +735,7 @@ exports.tests = {
 			urlmaster builds them all for us
 			*/
 			// create a doc with all of the possible bases and all of the possible refs
-			var um = require('urlmaster'),
-				bases = um.generateAll({scheme:"http",auth:'www.why.com',path:'/a/b',query:'?foo=bar',frag:'#abc'},true),
+			var bases = um.generateAll({scheme:"http",auth:'www.why.com',path:'/a/b',query:'?foo=bar',frag:'#abc'},true),
 				refs = um.generateAll({scheme:"https",auth:'www.not.com',path:'/q/r',query:'?when=now',frag:'#xyz'},true);
 
 			// build html with every possible link
