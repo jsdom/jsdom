@@ -758,7 +758,7 @@ exports.tests = {
 					var href = doc.getElementById("link"+j).href, result = expected[j][3];
 					// empty path must accept href with or without a slash; see http://tools.ietf.org/html/rfc3986#section-3.3
 					// so we consistently push them towards having
-		      test.equal(um.addPathEmpty(href), um.addPathEmpty(result), 'locn '+locn+' base '+base+' with ref '+ref+' should resolve to '+result+' instead of '+doc.getElementById("link"+j).href);
+		      test.equal(um.addPathEmpty(href), um.addPathEmpty(result), 'locn \''+locn+'\' base \''+base+'\' with ref \''+ref+'\' should resolve to \''+result+'\' ('+um.addPathEmpty(result)+') instead of \''+href+'\' ('+um.addPathEmpty(href)+')');
 				});
 			});
 		}
