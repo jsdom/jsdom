@@ -5,8 +5,6 @@ var nodeunit = require('nodeunit'),
     path = require('path'),
     AssertionError = require('assert').AssertionError;
 
-require('console.log');
-
 var optimist = require('optimist')
     .usage('Run the jsdom test suite')
     .alias('s', 'suites')
@@ -92,6 +90,7 @@ var files = [
   "window/frame.js",
   "sizzle/index.js",
   "jsdom/index.js",
+  "jsdom/parsing.js",
   "jsonp/jsonp.js",
   "browser/contextifyReplacement.js",
   "browser/index.js"
@@ -280,7 +279,7 @@ nodeunit.runModules(modulesToRun, {
     }
     console.log('TOTALS: %s failed; %s success', ratio, percent);
     console.log('TIME: %dms', duration);
-    
+
     if (passedTests !== totalTests) {
       process.exit(1);
     }

@@ -344,7 +344,7 @@ exports.tests = {
     var config = jsdom.env.processArguments(
       ["<html></html>",
       ['script.js'],
-      {features: [], url : 'http://www.example.com/'},
+      {features: {}, url : 'http://www.example.com/'},
       function(){}
     ]);
 
@@ -352,7 +352,7 @@ exports.tests = {
     test.notEqual(config.html, null, 'config.html should not be null');
     test.equal(config.scripts.length, 1, 'script length should be 1');
     test.equal(config.url, 'http://www.example.com/', 'has url');
-    test.notEqual(config.config.features, null, 'config.config.features should not be null');
+    test.notEqual(config.features, null, 'config.features should not be null');
     test.done();
   },
 
@@ -364,6 +364,27 @@ exports.tests = {
         test.equal(errors&&errors.length, 1, 'error handed back to callback');
         test.done();
       });
+  },
+
+  env_with_features_and_external_resources: function(test) {
+    jsdom.env(
+      'http://documentcloud.github.com/backbone/examples/todos/index.html',
+      {
+        features: {
+          FetchExternalResources   : ['script', 'img', 'css', 'frame', 'link'],
+          ProcessExternalResources : ['script', 'img', 'css', 'frame', 'link'],
+          MutationEvents           : '2.0',
+          QuerySelector            : false
+        }
+      },
+      function(errors, window) {
+        window.onload = function () {
+          test.equal(typeof window._, 'function', 'Underscore loaded');
+          test.equal(typeof window.$, 'function', 'jQuery loaded');
+          test.done();
+        };
+      }
+    );
   },
 
   plain_window_document: function(test) {
@@ -438,7 +459,7 @@ exports.tests = {
   },
 
   ensure_resolution_is_not_thrown_off_by_hrefless_base_tag: function(test) {
-    var html = '<html><head><base target="whatever>' +
+    var html = '<html><head><base target="whatever">' +
                '<script src="./files/hello.js"></script></head><body>' +
                '<span id="test">hello from html</span></body></html>';
 
@@ -1120,21 +1141,6 @@ exports.tests = {
     test.done();
   },
 
-  parser_failure_broken_markup : function(test) {
-    var thrown = false;
-    var doc;
-    try {
-      doc = jsdom.jsdom('<html><body><div id="<"></div></body></html>');
-    } catch (e) {
-      thrown = true;
-    }
-
-    test.ok(doc.errors.length === 1);
-    test.ok(doc.errors[0].message = "invalid markup");
-    test.ok(thrown === false);
-    test.done();
-  },
-
   // Test inline event handlers set on the body.
   test_body_event_handler_inline : function (test) {
     var html = "\
@@ -1292,7 +1298,7 @@ exports.tests = {
   issue_338_internal_nodelist_props : function(test) {
     var doc = jsdom.html();
     var props = Object.keys(doc.body.childNodes);
-    test.equal(props.length, 2, 'Internal properties must not be enumerable');
+    test.equal(props.length, 1, 'Internal properties must not be enumerable');
     test.done();
   },
 
@@ -1487,5 +1493,42 @@ exports.tests = {
     test.equal(inputEl.type, 'text');
 
     test.done();
+  },
+
+  jquery_val_on_selects : function(test) {
+    var window = jsdom.jsdom().createWindow();
+
+    jsdom.jQueryify(window, "http://code.jquery.com/jquery.js", function () {
+      window.$("body").append('<html><body><select id="foo"><option value="first">f</option><option value="last">l</option></select></body></html>');
+
+      test.equal(window.document.querySelector("[value='first']").selected, true, "`selected` property should be `true` for first");
+      test.equal(window.document.querySelector("[value='last']").selected, false, "`selected` property should be `false` for last");
+
+      test.equal(window.$("[value='first']").val(), "first", "`val()` on first <option> should return its value");
+      test.equal(window.$("[value='last']").val(), "last", "`val()` on last <option> should return its value");
+
+      var f = window.$("#foo");
+      debugger;
+      test.equal(f.val(), "first", "`val()` on <select> should return first <option>'s value");
+
+      window.$('#foo').val("last");
+      test.equal(window.document.querySelector("[value='first']").selected, false, "`selected` property should be `false` for first");
+      test.equal(window.document.querySelector("[value='last']").selected, true, "`selected` property should be `true` for last");
+      test.equal(window.$('#foo').val(), "last", "`val()` should return last <option>'s value");
+
+      test.done();
+    });
+  },
+
+  jquery_attr_mixed_case : function(test) {
+    var window = jsdom.jsdom().createWindow();
+
+    jsdom.jQueryify(window, "http://code.jquery.com/jquery.js", function () {
+      var $el = window.$('<div mixedcase="blah"></div>');
+
+      test.equal($el.attr('mixedCase'), 'blah');
+
+      test.done();
+    });
   }
 };

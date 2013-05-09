@@ -1,4 +1,5 @@
 var dom = require("../../lib/jsdom/level2/core").dom.level2.core;
+var jsdom = require('../../lib/jsdom');
 var browser;
 
 exports.tests = {
@@ -235,7 +236,7 @@ exports.tests = {
     body.appendChild(div);
     var span = doc.createElement("span");
     body.appendChild(span);
-    var index = body.childNodes.indexOf(span);
+    var index = body.childNodes._toArray().indexOf(span);
     test.equal(index, 2, "indexOf 'span' in childNodes")
     test.done();
   },
@@ -250,8 +251,312 @@ exports.tests = {
     body.appendChild(p);
     var div = doc.createElement("div");
     p.appendChild(div);
-    var index = body.childNodes.indexOf(div);
+    var index = body.childNodes._toArray().indexOf(div);
     test.equal(index, -1, "indexOf 'span' in childNodes")
     test.done();
-  }
+  },
+
+  input_fires_click_event : function(test) {
+    doc = jsdom.jsdom(
+      '<html><head></head><body>' +
+        '<input type="checkbox" id="check" value="check" />' +
+      '</body>')
+
+    var checkbox = doc.getElementById("check");
+
+    checkbox.addEventListener("click", function(event) {
+      test.equal(event.type, "click", "event type");
+      test.equal(event.target, checkbox, "event type");
+      test.done();
+    })
+
+    checkbox.click();
+  },
+
+  basic_radio_selected : function(test) {
+    doc = jsdom.jsdom(
+      '<html><head></head><body>' +
+        '<input type="radio" id="rad0" value="rad0" name="radioGroup0" />' +
+        '<input type="radio" id="rad1" value="rad1" name="radioGroup0" checked="checked" />' +
+        '<input type="radio" id="rad2" value="rad2" name="radioGroup1" />' +
+      '</body>')
+
+    var radio0 = doc.getElementById("rad0");
+    var radio1 = doc.getElementById("rad1");
+    var radio2 = doc.getElementById("rad2");
+
+    test.ok(!radio0.checked, "radio not checked");
+    test.ok(radio1.checked, "radio checked");
+    test.ok(!radio2.checked, "radio not checked");
+
+    radio2.click()
+    radio0.click();
+    test.ok(radio0.checked, "radio checked");
+    test.ok(!radio1.checked, "radio not checked");
+    test.ok(radio2.checked, "radio checked");
+
+    radio1.click();
+    test.ok(!radio0.checked, "radio not checked");
+    test.ok(radio1.checked, "radio checked");
+    test.ok(radio2.checked, "radio checked");
+
+    test.done();
+  },
+
+  radio_no_click_deselected : function(test) {
+    doc = jsdom.jsdom(
+      '<html><head></head><body>' +
+        '<input type="radio" id="rad0" value="rad0" name="radioGroup0" />' +
+      '</body>')
+
+    var radio0 = doc.getElementById("rad0");
+
+    radio0.click();
+    test.ok(radio0.checked, "radio checked");
+
+    radio0.click();
+    test.ok(radio0.checked, "radio checked");
+
+    test.done();
+  },
+
+  select_set_value_updates_value : function(test) {
+    var doc = new browser.Document();
+
+    var html = doc.createElement("html");
+    var body = doc.createElement("body");
+
+    doc.appendChild(html);
+    html.appendChild(body);
+
+    body.innerHTML =
+      '<select id="selectElement">' +
+        '<option value="x">x</option><option value="y">y</option>' +
+      '</select>';
+
+    var select = doc.getElementById("selectElement");
+
+    select.value = "x"
+    test.equal(select.value, "x", "select element value");
+
+    select.value = "y"
+    test.equal(select.value, "y", "select element selectedIndex");
+
+    test.done();
+  },
+
+  select_set_value_updates_selectedIndex : function(test) {
+    var doc = new browser.Document();
+
+    var html = doc.createElement("html");
+    var body = doc.createElement("body");
+
+    doc.appendChild(html);
+    html.appendChild(body);
+
+    body.innerHTML =
+      '<select id="selectElement">' +
+        '<option value="x">x</option><option value="y">y</option>' +
+      '</select>';
+
+    var select = doc.getElementById("selectElement");
+
+    select.value = "x"
+    test.equal(select.selectedIndex, 0, "select element selectedIndex");
+
+    select.value = "y"
+    test.equal(select.selectedIndex, 1, "select element selectedIndex");
+
+    test.done();
+  },
+
+  select_set_value_updates_option_selected : function(test) {
+    var doc = new browser.Document();
+
+    var html = doc.createElement("html");
+    var body = doc.createElement("body");
+
+    doc.appendChild(html);
+    html.appendChild(body);
+
+    body.innerHTML =
+      '<select id="selectElement">' +
+        '<option id="optX" value="x">x</option><option id="optY" value="y">y</option>' +
+      '</select>';
+
+    var select = doc.getElementById("selectElement");
+    var option0 = doc.getElementById("optX");
+    var option1 = doc.getElementById("optY");
+
+    select.value = "x";
+    test.ok(option0.selected, "option element selected");
+
+    select.value = "y";
+    test.ok(option1.selected, "option element selected");
+
+    test.done();
+  },
+
+  select_set_selectedIndex_updates_value : function(test) {
+    var doc = new browser.Document();
+
+    var html = doc.createElement("html");
+    var body = doc.createElement("body");
+
+    doc.appendChild(html);
+    html.appendChild(body);
+
+    body.innerHTML =
+      '<select id="selectElement">' +
+        '<option value="x">x</option><option value="y">y</option>' +
+      '</select>';
+
+    var select = doc.getElementById("selectElement");
+
+    select.selectedIndex = 0
+    test.equal(select.value, "x", "select element selectedIndex");
+
+    select.selectedIndex = 1
+    test.equal(select.value, "y", "select element selectedIndex");
+
+    test.done();
+  },
+
+  select_set_selectedIndex_updates_selectedIndex : function(test) {
+    var doc = new browser.Document();
+
+    var html = doc.createElement("html");
+    var body = doc.createElement("body");
+
+    doc.appendChild(html);
+    html.appendChild(body);
+
+    body.innerHTML =
+      '<select id="selectElement">' +
+        '<option value="x">x</option><option value="y">y</option>' +
+      '</select>';
+
+    var select = doc.getElementById("selectElement");
+
+    select.selectedIndex = 0
+    test.equal(select.selectedIndex, 0, "select element selectedIndex");
+
+    select.selectedIndex = 1
+    test.equal(select.selectedIndex, 1, "select element selectedIndex");
+
+    test.done();
+  },
+
+  select_set_selectedIndex_updates_option_selected : function(test) {
+    var doc = new browser.Document();
+
+    var html = doc.createElement("html");
+    var body = doc.createElement("body");
+
+    doc.appendChild(html);
+    html.appendChild(body);
+
+    body.innerHTML =
+      '<select id="selectElement">' +
+        '<option id="optX" value="x">x</option><option id="optY" value="y">y</option>' +
+      '</select>';
+
+    var select = doc.getElementById("selectElement");
+    var option0 = doc.getElementById("optX");
+    var option1 = doc.getElementById("optY");
+
+    select.selectedIndex = 0;
+    test.ok(option0.selected, "option element selected");
+    test.ok(!option1.selected, "option element selected");
+
+    select.selectedIndex = 1;
+    test.ok(option1.selected, "option element selected");
+    test.ok(!option0.selected, "option element selected");
+
+    test.done();
+  },
+
+  select_set_option_selected_updates_value : function(test) {
+    var doc = new browser.Document();
+
+    var html = doc.createElement("html");
+    var body = doc.createElement("body");
+
+    doc.appendChild(html);
+    html.appendChild(body);
+
+    body.innerHTML =
+      '<select id="selectElement">' +
+        '<option id="optX" value="x">x</option><option id="optY" value="y">y</option>' +
+      '</select>';
+
+    var select = doc.getElementById("selectElement");
+    var option0 = doc.getElementById("optX");
+    var option1 = doc.getElementById("optY");
+
+    select.selectedIndex = 0;
+    option0.selected = true;
+    test.equal(select.value, "x", "select element value");
+
+    option1.selected = true;
+    test.equal(select.value, "y", "select element value");
+
+    test.done();
+  },
+
+  select_set_option_selected_updates_selectedIndex : function(test) {
+    var doc = new browser.Document();
+
+    var html = doc.createElement("html");
+    var body = doc.createElement("body");
+
+    doc.appendChild(html);
+    html.appendChild(body);
+
+    body.innerHTML =
+      '<select id="selectElement">' +
+        '<option id="optX" value="x">x</option><option id="optY" value="y">y</option>' +
+      '</select>';
+
+    var select = doc.getElementById("selectElement");
+    var option0 = doc.getElementById("optX");
+    var option1 = doc.getElementById("optY");
+
+    option0.selected = true;
+    test.equal(select.selectedIndex, 0, "select element selectedIndex");
+
+    option1.selected = true;
+    test.equal(select.selectedIndex, 1, "select element selectedIndex");
+
+    test.done();
+  },
+
+  select_set_option_selected_updates_option_selected : function(test) {
+    var doc = new browser.Document();
+
+    var html = doc.createElement("html");
+    var body = doc.createElement("body");
+
+    doc.appendChild(html);
+    html.appendChild(body);
+
+    body.innerHTML =
+      '<select id="selectElement">' +
+        '<option id="optX" value="x">x</option><option id="optY" value="y">y</option>' +
+      '</select>';
+
+    var select = doc.getElementById("selectElement");
+    var option0 = doc.getElementById("optX");
+    var option1 = doc.getElementById("optY");
+
+    option0.selected = true;
+    test.ok(option0.selected, "option element selected");
+    test.ok(!option1.selected, "option element selected");
+
+    option1.selected = true;
+    test.ok(option1.selected, "option element selected");
+    test.ok(!option0.selected, "option element selected");
+
+    test.done();
+  },
 };

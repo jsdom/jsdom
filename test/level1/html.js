@@ -3070,7 +3070,7 @@ exports.tests = {
     var doc = hc_staff.hc_staff();
     var success = false;
     try {
-      doc.createAttribute("invalid^Name");
+      doc.createAttribute("invalid'Name");
     }
     catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 5);
@@ -3612,7 +3612,7 @@ exports.tests = {
     var testAddress = doc.getElementsByTagName("acronym").item(0);
     var success = false;
     try {
-      testAddress.setAttribute("invalid^Name","value");
+      testAddress.setAttribute("invalid'Name","value");
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 5);
     }
@@ -3783,7 +3783,10 @@ exports.tests = {
     testEmployee = elementList.item(3);
     testEmployee.removeAttribute("class");
     attrValue = testEmployee.getAttribute("class");
-    test.equal(attrValue, "", 'attrValue');
+
+// XXX SUPERSEDED BY DOM4
+    test.strictEqual(attrValue, null, 'attrValue');
+//    test.equal(attrValue, "", 'attrValue');
 
     test.done();
   },

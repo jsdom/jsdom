@@ -31,6 +31,20 @@ exports.tests = {
     });
   },
 
+  HTMLCanvasStyleAttribute01 : function (test) {
+    jsdom.env(
+        '<html><body><canvas style="background-color: blue; z-index:1">',
+        jsdom.level('2', 'html'), function(err, win) {
+      var c = win.document.body.lastChild;
+      test.equal(2, c.style.length);
+      test.equal('background-color', c.style[0]);
+      test.equal('blue', c.style.backgroundColor);
+      test.equal('z-index', c.style[1]);
+      test.equal(1, c.style.zIndex);
+      test.done();
+    });
+  },
+
   StylePropertyReflectsStyleAttribute : function (test) {
     jsdom.env(
         '<html>',
@@ -76,6 +90,24 @@ exports.tests = {
     });
   },
 
+  retainOriginalStyleAttributeUntilStyleGetter: function (test) {
+    jsdom.env(
+        '<html>',
+        jsdom.level('2', 'html'), function (err, win) {
+          var document = win.document;
+          var div = document.createElement('div');
+          div.setAttribute('style', 'font-weight: bold; font-weight: normal;');
+          test.equal(div.getAttribute('style'), 'font-weight: bold; font-weight: normal;');
+          div.innerHTML = '<div style="color: red; color: blue;"></div>';
+          test.equal(div.innerHTML, '<div style="color: red; color: blue;"></div>');
+          test.equal(div.firstChild.getAttribute('style'), 'color: red; color: blue;');
+          div.firstChild.style.color = 'maroon';
+          test.equal(div.firstChild.getAttribute('style'), 'color: maroon;');
+          test.done();
+        }
+     );
+  },
+
   getComputedStyleInline: function(test) {
     jsdom.env(
         '<html>',
@@ -101,8 +133,8 @@ exports.tests = {
 
   getComputedStyleFromEmbeddedSheet1: function(test) {
     jsdom.env(
-        '<html><head><style>#id1 .clazz { margin-left: 100px; }</style></head><body>' 
-            + '<div id="id1"><p class="clazz"></p></div>' 
+        '<html><head><style>#id1 .clazz { margin-left: 100px; }</style></head><body>'
+            + '<div id="id1"><p class="clazz"></p></div>'
             + '</body></html>',
         jsdom.level('2', 'html'), function(err, win) {
           var doc = win.document;
@@ -116,9 +148,9 @@ exports.tests = {
   getComputedStyleFromEmbeddedSheet2: function(test) {
     // use grouping, see http://www.w3.org/TR/CSS2/selector.html#grouping
     jsdom.env(
-        '<html><head><style>#id1 .clazz, #id2 .clazz { margin-left: 100px; }</style></head><body>' 
-            + '<div id="id1"><p class="clazz"></p></div>' 
-            + '<div id="id2"><p class="clazz"></p></div>' 
+        '<html><head><style>#id1 .clazz, #id2 .clazz { margin-left: 100px; }</style></head><body>'
+            + '<div id="id1"><p class="clazz"></p></div>'
+            + '<div id="id2"><p class="clazz"></p></div>'
             + '</body></html>',
         jsdom.level('2', 'html'), function(err, win) {
           var doc = win.document;
@@ -195,6 +227,29 @@ exports.tests = {
           p = doc.getElementsByTagName("p")[0];
           test.doesNotThrow(function () {
             win.getComputedStyle(p);
+          });
+          test.done();
+    });
+  },
+
+  getComputedStyleWithMediaRules: function(test) {
+    jsdom.env(
+        '<html><head><style>@media screen,handheld { .citation { color: blue; } } @media print { .citation { color: red; } }</style></head>' +
+        '<body><p class="citation">Hello</p></body></html>',
+        jsdom.level('2', 'html'), function(err, win) {
+          var style = win.getComputedStyle(win.document.querySelector('.citation'));
+          test.equal(style.color, 'blue', 'computed color of p is blue');
+          test.done();
+    });
+  },
+
+  getComputedStyleWithKeyframeRules: function(test) {
+    jsdom.env(
+        '<html><head><style>@-webkit-keyframes breaking {}</style></head>' +
+        '<body><p>Hello</p></body></html>',
+        jsdom.level('2', 'html'), function(err, win) {
+          test.doesNotThrow(function () {
+            var style = win.getComputedStyle(win.document.querySelector('p'));
           });
           test.done();
     });

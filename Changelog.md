@@ -1,3 +1,86 @@
+## 0.6.1
+
+ * Make the code parseable with Esprima. (squarooticus)
+ * Use the correct `package.json` field `"repository"` instead of `"repositories"` to prevent npm warnings. (jonathanong)
+
+## 0.6.0
+
+Integrated a new HTML parser, [htmlparser2](https://npmjs.org/package/htmlparser2), from fb55. This is an actively maintained and much less buggy parser, fixing many of our parsing issues, including:
+
+ * Parsing elements with optional closing tags, like `<p>` or `<td>`.
+ * The `innerHTML` of `<script>` tags no longer cuts off the first character.
+ * Empty attributes now have `""` as their value instead of the attribute name.
+ * Multiline attributes no longer get horribly mangled.
+ * Attribute names can now be any value allowed by HTML5, including crazy things like `^`.
+ * Attribute values can now contain any value allowed by HTML5, including e.g. `>` and `<`.
+
+## 0.5.7
+
+ * Fix: make event handlers attached via `on<event>` more spec-compatible, supporting `return false` and passing the `event` argument. (adrianlang)
+ * Fix: make the getter for `textContent` more accurate, e.g. in cases involving comment nodes or processing instruction nodes. (adrianlang)
+ * Fix: make `<canvas>` behave like a `<div>` when the `node-canvas` package isn't available, instead of crashing. (stepheneb)
+
+## 0.5.6
+
+ * Fix: `on<event>` properties are correctly updated when using `setAttributeNode`, `attributeNode.value =`, `removeAttribute`, and `removeAttributeNode`; before it only worked with `setAttribute`. (adrianlang)
+ * Fix: `HTMLCollection`s now have named properties based on their members' `id` and `name` attributes, e.g. `form.elements.inputId` is now present. (adrianlang)
+
+## 0.5.5
+
+ * Fix: `readOnly` and `selected` properties were not correct when their attribute values were falsy, e.g. `<option selected="">`. (adrianlang)
+
+## 0.5.4
+
+This release, and all future releases, require at least Node.js 0.8.
+
+ * Add: parser can now be set via `jsdom.env` configuration. (xavi-)
+ * Fix: accessing `rowIndex` for table rows that are not part of a table would throw. (medikoo)
+ * Fix: several places in the code accidentally created global variables, or referenced nonexistant values. (xavi-)
+ * Fix: `<img>` elements' `src` properties now evaluate relative to `location.href`, just like `<a>` elements' `href` properties. (brianmaissy)
+
+## 0.5.3
+
+This release is compatible with Node.js 0.6, whereas all future releases will require at least Node.js 0.8.
+
+ * Fix: `getAttributeNS` now returns `null` for attributes that are not present, just like `getAttribute`. (mbostock)
+ * Change: `"request"` dependency pinned to version 2.14 for Node.js 0.6 compatibility.
+
+## 0.5.2
+
+ * Fix: stylesheets with `@-webkit-keyframes` rules were crashing calls to `getComputedStyle`.
+ * Fix: handling of `features` option to `jsdom.env`.
+ * Change: retain the value of the `style` attribute until the element's `style` property is touched. (papandreou)
+
+## 0.5.1
+
+ * Fix: `selectedIndex` now changes correctly in response to `<option>` elements being selected. This makes `<select>` elements actually work like you would want, especially with jQuery. (xcoderzach)
+ * Fix: `checked` works correctly on radio buttons, i.e. only one can be checked and clicking on one does not uncheck it. Previously they worked just like checkboxes. (xcoderzach)
+ * Fix: `click()` on `<input>` elements now fires a click event. (xcoderzach)
+
+## 0.5.0
+
+ * Fix: Make `contextify` a non-optional dependency. jsdom never worked without it, really, so this just caused confusion.
+
+## 0.4.2
+
+ * Fix: `selected` now returns true for the first `<option>` in a `<select>` if nothing is explicitly set.
+ * Fix: tweaks to accuracy and speed of the `querySelectorAll` implementation.
+
+## 0.4.1 (hotfix)
+
+ * Fix: crashes when loading HTML files with `<a>` tags with no `href` attribute. (eleith)
+
+## 0.4.0
+
+ * Fix: `getAttribute` now returns `null` for attributes that are not present, as per DOM4 (but in contradiction to DOM1 through DOM3).
+ * Fix: static `NodeList`-returning methods (such as `querySelectorAll`) now return a real `NodeList` instance.
+ * Change: `NodeList`s no longer expose nonstandard properties to the world, like `toArray`, without first prefixing them with an underscore.
+ * Change: `NodeList`s no longer inconsistently have array methods. Previously, live node lists would have `indexOf`, while static node lists would have them all. Now, they have no array methods at all, as is correct per the specification.
+
+## 0.3.4
+
+ * Fix: stylesheets with `@media` rules were crashing calls to `getComputedStyle`, e.g. those in jQuery's initialization.
+
 ## 0.3.3
 
  * Fix: make `document.write` calls insert new elements correctly. (johanoverip, kblomquist).

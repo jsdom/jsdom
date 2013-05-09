@@ -3387,7 +3387,7 @@ exports.tests = {
     {
       success = false;
       try {
-        createdAttr = doc.createAttribute("invalid^Name");
+        createdAttr = doc.createAttribute("invalid'Name");
       }
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
@@ -4393,7 +4393,7 @@ exports.tests = {
     {
       success = false;
       try {
-        testAddress.setAttribute("invalid^Name","value");
+        testAddress.setAttribute("invalid'Name","value");
       }
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
@@ -8992,7 +8992,7 @@ exports.tests = {
     {
       success = false;
       try {
-        createdAttr = doc.createAttribute("invalid^Name");
+        createdAttr = doc.createAttribute("invalid'Name");
       }
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
@@ -9683,7 +9683,7 @@ exports.tests = {
     {
       success = false;
       try {
-        testAddress.setAttribute("invalid^Name","value");
+        testAddress.setAttribute("invalid'Name","value");
       }
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
@@ -9881,7 +9881,10 @@ exports.tests = {
     testEmployee = elementList.item(3);
     testEmployee.removeAttribute("class");
     attrValue = testEmployee.getAttribute("class");
-    test.equal(attrValue, "", 'attrValue');
+
+// XXX SUPERSEDED BY DOM4
+//    test.equal(attrValue, "", 'attrValue');
+    test.strictEqual(attrValue, null, 'attrValue');
 
     test.done();
   },
@@ -21816,7 +21819,7 @@ exports.tests = {
     var doc = extra.extra();
     var element = doc.createElement('test');
     test.strictEqual(element.children.length, 0);
-    test.strictEqual(element.children.toArray().length, 0);
+    test.strictEqual(element.children._toArray().length, 0);
     test.done();
   },
 
@@ -21844,6 +21847,39 @@ exports.tests = {
     var txt7 = doc.createTextNode('');
     test.strictEqual(txt7.nodeValue, '');
 
+    test.done();
+  },
+
+  onevent_properties_are_set_on_setAttribute: function(test) {
+    var dom = require("../../lib/jsdom/level1/core").dom.level1.core;
+    var doc = new dom.Document('');
+    var elem = doc.createElement('test');
+    elem.setAttribute('onclick', 'test');
+    test.ok(elem.onclick, 'elem.onevent is set');
+    test.done();
+  },
+
+  onevent_properties_are_set_on_setAttributeNode: function(test) {
+    var dom = require("../../lib/jsdom/level1/core").dom.level1.core;
+    var doc = new dom.Document('');
+    var elem = doc.createElement('test');
+    var attr = doc.createAttribute('onclick');
+
+    attr.value = 'test';
+    elem.setAttributeNode(attr);
+    test.ok(elem.onclick, 'elem.onevent is set');
+    test.done();
+  },
+
+  onevent_properties_are_set_on_attr_set_value: function(test) {
+    var dom = require("../../lib/jsdom/level1/core").dom.level1.core;
+    var doc = new dom.Document('');
+    var elem = doc.createElement('test');
+    var attr = doc.createAttribute('onclick');
+
+    elem.setAttributeNode(attr);
+    attr.value = 'test';
+    test.ok(elem.onclick, 'elem.onevent is set');
     test.done();
   }
 };

@@ -8,6 +8,8 @@ A JavaScript implementation of the W3C DOM.
 $ npm install jsdom
 ```
 
+If this gives you trouble with errors about installing Contextify, especially on Windows, see [below](#contextify).
+
 ## Human contact
 
 see: [mailing list](http://groups.google.com/group/jsdom)
@@ -117,6 +119,7 @@ jsdom.env(config);
 
 - `config.html`: see `html` above.
 - `config.scripts`: see `scripts` above.
+- `config.url`: the URL for `location.href` if `config.html` is not a file path or URL. (Relative `<a href>` and `<img src>` values are evaluated relative to this.)
 - `config.src`: an array of JavaScript strings that will be evaluated against the resulting document. Similar to `scripts`, but it accepts JavaScript instead of paths/URLs.
 - `config.done`: see `callback` above.
 - `config.document`:
@@ -198,13 +201,13 @@ Disabling this will disable script execution (currently only JavaScript).
 
 Do not download and process resources with url matching a regular expression.
 
-## Canvas
+### Canvas
 
 jsdom includes support for using the [canvas](https://npmjs.org/package/canvas) package to extend any `<canvas>` elements with the canvas API. To make this work, you need to include canvas as a dependency in your project, as a peer of jsdom. If jsdom can find the canvas package, it will use it, but if it's not present, then `<canvas>` elements will behave like `<div>`s.
 
-# More Examples
+## More Examples
 
-## Creating a document-less window
+### Creating a document-less window
 
 ```js
 var jsdom = require("jsdom");
@@ -213,7 +216,7 @@ var window = jsdom.createWindow();
 console.log(window.document); // output: undefined
 ```
 
-## Creating a document
+### Creating a document
 
 ```js
 var jsdom = require("jsdom");
@@ -222,7 +225,7 @@ var doc = new (jsdom.level(1, "core").Document)();
 console.log(doc.nodeName); // outputs: #document
 ```
 
-## Creating a browser-like BOM/DOM/Window
+### Creating a browser-like BOM/DOM/Window
 
 ```js
 var jsdom = require("jsdom").jsdom;
@@ -252,7 +255,7 @@ jsdom.jQueryify(window, "http://code.jquery.com/jquery.js", function () {
 });
 ```
 
-## Passing objects to scripts inside the page
+### Passing objects to scripts inside the page
 
 ```js
 var jsdom = require("jsdom").jsdom;
@@ -268,31 +271,32 @@ window.document.body.appendChild(scriptEl);
 // though it originated in Node!
 ```
 
-# Test Compliance:
+## Test Compliance:
 
 ```
- level1/core                        532/532      100%
+ level1/core                        535/535      100%
  level1/html                        238/238      100%
  level1/svg                         527/527      100%
  level2/core                        283/283      100%
- level2/html                        697/697      100%
- level2/style                         10/10      100%
+ level2/html                        705/705      100%
+ level2/style                         14/14      100%
  level2/extra                           4/4      100%
  level2/events                        24/24      100%
  level3/xpath                         93/93      100%
  window/index                           5/5      100%
  window/script                        10/10      100%
  window/frame                         14/14      100%
- sizzle/index                          9/14       64%
- jsdom/index                          86/86      100%
+ sizzle/index                         14/14      100%
+ jsdom/index                          88/88      100%
+ jsdom/parsing                          7/7      100%
  jsonp/jsonp                            1/1      100%
  browser/contextifyReplacement          4/4      100%
- browser/index                        22/22      100%
+ browser/index                        34/34      100%
 ------------------------------------------------------
-TOTALS: 5/2564 failed; 99% success
+TOTALS: 0/2600 failed; 100% success
 ```
 
-## Running the tests
+### Running the tests
 
 First you'll want to `npm install`. To run all the tests, use `npm test`, which just calls `node test/runner`.
 
@@ -308,3 +312,25 @@ Options:
 -h, --help       show the help
 -t, --tests      choose the test cases to run. ie: -t jquery
 ```
+
+## Contextify
+
+[Contextify](https://npmjs.org/package/contextify) is a dependency of jsdom, used for running `<script>` tags within the
+page. In other words, it allows jsdom, which is run in Node.js, to run strings of JavaScript in an isolated environment
+that pretends to be a browser environment instead of a server. You can see how this is an important feature.
+
+Unfortunately, doing this kind of magic requires C++. And in Node.js, using C++ from JavaScript means using "native
+modules." Native modules are compiled at installation time so that they work precisely for your machine; that is, you
+don't download a contextify binary from npm, but instead build one locally after downloading the source from npm.
+
+For Mac and Linux users, this is usually fine. Their systems come preinstalled with the necessaries for compiling C++.
+For Windows users, however, things can be tricky. Thus, one of the most common problems with jsdom is trying to use it
+on Windows without the proper compilation tools installed. Here's what you need to compile Contextify, and thus to
+install jsdom, on Windows:
+
+* A recent copy of the *x86* version of [Node.js for Windows](http://nodejs.org/download/), *not* the x64 version.
+* A copy of [Visual C++ 2010 Express](http://www.microsoft.com/visualstudio/eng/downloads#d-2010-express).
+* A copy of [Python 2.7](http://www.python.org/download/), installed in the default location of `C:\Python27`.
+
+There are some slight modifications to this that can work; for example full versions of Visual Studio usually work, and
+sometimes you can even get an x64 version of Node.js working too. But it's tricky, so start with the basics!

@@ -3375,7 +3375,7 @@ exports.tests = {
     {
       success = false;
       try {
-        createdAttr = doc.createAttribute("invalid^Name");
+        createdAttr = doc.createAttribute("invalid'Name");
       }
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
@@ -4369,7 +4369,7 @@ exports.tests = {
     {
       success = false;
       try {
-        testAddress.setAttribute("invalid^Name","value");
+        testAddress.setAttribute("invalid'Name","value");
       }
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
@@ -8959,7 +8959,7 @@ exports.tests = {
     {
       success = false;
       try {
-        createdAttr = doc.createAttribute("invalid^Name");
+        createdAttr = doc.createAttribute("invalid'Name");
       }
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
@@ -9646,7 +9646,7 @@ exports.tests = {
     {
       success = false;
       try {
-        testAddress.setAttribute("invalid^Name","value");
+        testAddress.setAttribute("invalid'Name","value");
       }
       catch(ex) {
         success = (typeof(ex.code) != 'undefined' && ex.code == 5);
@@ -9844,7 +9844,10 @@ exports.tests = {
     testEmployee = elementList.item(3);
     testEmployee.removeAttribute("class");
     attrValue = testEmployee.getAttribute("class");
-    test.equal(attrValue, '', 'attrValue');
+
+// XXX SUPERSEDED BY DOM4
+//    test.equal(attrValue, '', 'attrValue');
+    test.strictEqual(attrValue, null, 'attrValue');
 
     test.done();
   },

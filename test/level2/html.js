@@ -454,6 +454,19 @@ exports.tests = {
 
   /**
    *
+   HTMLAnchorElement.href should show the pathname of the href
+   * @author eleith
+   */
+  HTMLAnchorElement18: function(test) {
+    var doc = load("anchorEmpty");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).href, '', 'A.href is empty');
+    test.done();
+  },
+
+  /**
+   *
    The align attribute specifies the alignment of the object(Vertically
    or Horizontally) with respect to its surrounding text.
    Retrieve the align attribute and examine its value.
@@ -8354,7 +8367,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vsrc = testNode.src;
-    test.equal(vsrc, './pix/dts.gif', 'srcLink');
+    test.equal(vsrc, toFileUrl('html/files/pix/dts.gif'), 'srcLink');
     test.done();
   },
 
@@ -10113,7 +10126,10 @@ exports.tests = {
     test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(1);
     vcode = testNode.code;
-    test.equal(vcode, "", "codeLink");
+
+// XXX SUPERSEDED BY DOM4
+//    test.equal(vcode, "", "codeLink");
+    test.strictEqual(vcode, null, "codeLink");
     test.done();
   },
 
@@ -10944,6 +10960,71 @@ exports.tests = {
     testNode = nodeList.item(0);
     vvalue = testNode.value;
     test.equal(vvalue, "10001", "valueLink");
+    test.done();
+  },
+
+  /**
+   *
+   The selected attribute of an option should be true if no other option is
+   selected in the SELECT.
+   */
+  HTMLOptionElement10: function(test) {
+    var doc;
+    doc = load("option");
+    var select = doc.getElementsByName('select2').item(0);
+    select.options._toArray().forEach(function(option, idx) {
+      if (idx === 0) {
+        test.ok(option.selected);
+      } else {
+        test.ok(!option.selected);
+      }
+    });
+    test.done();
+  },
+
+  /**
+   *
+   The selected value of an option should be based on whether or not
+   it has been selected and/or by default if it is at index 0
+   */
+  HTMLOptionElement11: function(test) {
+    var doc;
+    doc = load("option");
+    var select = doc.getElementsByName('select2').item(0);
+
+    select.options.item(3).selected = true;
+
+    select.options._toArray().forEach(function(option, idx) {
+      if (idx === 3) {
+        test.ok(option.selected);
+      } else {
+        test.ok(!option.selected);
+      }
+    });
+    test.done();
+  },
+
+  /**
+   *
+   An orphaned option element should maintain it's existing selected value.
+
+   based on experiements in chrome
+   */
+  HTMLOptionElement12: function(test) {
+    var doc;
+    doc = load("option");
+    var select = doc.getElementsByName('select2').item(0);
+
+    select.options.item(0).selected = true;
+
+    var option = select.options.item(0);
+    select.remove(0);
+
+    test.ok(!option.parentNode);
+    test.ok(option.selected);
+    test.ok(option !== select.options.item(0));
+    test.ok(select.options.item(0).selected);
+
     test.done();
   },
 
@@ -19776,7 +19857,7 @@ exports.tests = {
 
     a._eventDefaults['foo'] = function(event) {
       performedDefault = true;
-    }
+    };
     preventDefault = a.dispatchEvent(evt);
     test.equal(preventDefault, false, 'preventDefault should be *false*');
     test.ok(performedDefault, 'performedDefault');
@@ -19789,7 +19870,9 @@ exports.tests = {
     ['a', 'applet', 'button', 'form', 'frame', 'iframe', 'img', 'input', 'map',
      'meta', 'object', 'param', 'select', 'textarea'].forEach(function (tagName) {
       var element = doc.createElement(tagName);
-      test.strictEqual(element.name, '', '<' + tagName + '> elements should have empty name properties by default.');
+      // http://www.w3.org/html/wg/drafts/html/master/forms.html#attr-fe-name plus
+      // http://www.w3.org/html/wg/drafts/html/master/infrastructure.html#reflect
+      test.strictEqual(element.name, null, '<' + tagName + '> elements should have null name properties by default.');
 
       element.name = 'foo';
       test.strictEqual(element.name, 'foo', '<' + tagName + '> elements should allow setting and retrieving their name properties.');
@@ -19834,12 +19917,12 @@ exports.tests = {
 
   normalize_method_defined_on_string_instances_should_not_affect_attribute_properties: function(test) {
     String.prototype.normalize = function() {
-      return 'masked src';
+      return 'masked alt';
     };
-    var doc = jsdom.jsdom("<img src=\"src\" />");
+    var doc = jsdom.jsdom('<img alt="alt" />');
     var img = doc.getElementsByTagName("img").item(0);
 
-    test.strictEqual(img.src, "src", "<img> elements should not have their attribute properties masked by defining a normalize method on string instances");
+    test.strictEqual(img.alt, "alt", "<img> elements should not have their attribute properties masked by defining a normalize method on string instances");
 
     delete String.prototype.normalize;
     test.done();
@@ -19851,6 +19934,63 @@ exports.tests = {
       ['./html/files/js/script with spaces.js'],
       function(err, window){
         test.strictEqual(err, null, "There should be no errors when using scripts with spaces in their filenames");
+        test.done();
+      }
+    );
+  },
+
+  rowIndex_on_detached_table_row_should_return_minus_one: function(test) {
+    var doc = jsdom.jsdom();
+    var row = doc.createElement('tr');
+
+    test.strictEqual(row.rowIndex, -1, "rowIndex should equal -1");
+    test.done();
+  },
+
+  readonly_attribute_works_in_empty_form: function(test) {
+    jsdom.env(
+      '<input id="input" readonly />', function (err, window) {
+        test.strictEqual(window.document.getElementById("input").readOnly, true);
+        jsdom.env(
+          '<input id="input" readonly="" />', function (err, window) {
+            test.strictEqual(window.document.getElementById("input").readOnly, true);
+            test.done();
+          }
+        );
+      }
+    );
+  },
+
+  selected_attribute_works_in_empty_form: function(test) {
+    jsdom.env(
+      '<select multiple><option selected="" /><option selected /></select>', function (err, window) {
+        var options = window.document.getElementsByTagName('option');
+        test.ok(options[0].selected, 'attribute with empty value');
+        test.ok(options[1].selected, 'attribute without value');
+        test.done();
+      }
+    );
+  },
+
+  htmlcollection_allows_index_access_for_name_and_id: function(test) {
+    jsdom.env(
+      '<form><input name="test"><input id="test2"></form>', function (err, window) {
+        var form = window.document.getElementsByTagName('form')[0];
+        test.ok(form.elements.test, 'form.elements by name');
+        test.ok(form.elements.test2, 'form.elements by id');
+        test.done();
+      }
+    );
+  },
+
+  htmlcollection_index_access_prefers_id_over_name: function(test) {
+    jsdom.env(
+      '<form><input name="test"><input id="test"><input id="test2"><input name="test2"></form>', function (err, window) {
+        var form = window.document.getElementsByTagName('form')[0];
+        var elem = form.elements.test;
+        test.strictEqual(elem && elem.getAttribute('id'), 'test');
+        elem = form.elements.test2;
+        test.strictEqual(elem && elem.getAttribute('id'), 'test2');
         test.done();
       }
     );
