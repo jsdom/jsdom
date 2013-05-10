@@ -71,7 +71,8 @@
     },
     "devDependencies" : {
       "nodeunit": "~0.8.0",
-      "optimist": "*"
+      "optimist": "*",
+      "urlmaster": ">=0.2.15"
     },
     "directories": {
         "lib": "./lib/jsdom"
