@@ -1,3 +1,9 @@
+## 0.6.2
+
+ * Fix: URL resolution to be amazing and extremely browser-compatible, including the interplay between the document's original URL, any `<base>` tags that were set, and any relative `href`s. This impacts many parts of jsdom having to do with external resources or accurate `href` and `src` attributes. (deitch)
+ * Add: access to frames and iframes via named properties. (adrianlang)
+ * Fix: node-canvas integration, which had been broken since 0.5.7.
+
 ## 0.6.1
 
  * Make the code parseable with Esprima. (squarooticus)

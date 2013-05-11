@@ -278,14 +278,14 @@ window.document.body.appendChild(scriptEl);
  level1/html                        238/238      100%
  level1/svg                         527/527      100%
  level2/core                        283/283      100%
- level2/html                        705/705      100%
+ level2/html                        706/706      100%
  level2/style                         14/14      100%
  level2/extra                           4/4      100%
  level2/events                        24/24      100%
  level3/xpath                         93/93      100%
  window/index                           5/5      100%
  window/script                        10/10      100%
- window/frame                         14/14      100%
+ window/frame                         16/16      100%
  sizzle/index                         14/14      100%
  jsdom/index                          88/88      100%
  jsdom/parsing                          7/7      100%
@@ -293,7 +293,7 @@ window.document.body.appendChild(scriptEl);
  browser/contextifyReplacement          4/4      100%
  browser/index                        34/34      100%
 ------------------------------------------------------
-TOTALS: 0/2600 failed; 100% success
+TOTALS: 0/2603 failed; 100% success
 ```
 
 ### Running the tests
