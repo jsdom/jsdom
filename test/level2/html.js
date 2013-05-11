@@ -19994,5 +19994,16 @@ exports.tests = {
         test.done();
       }
     );
+  },
+
+  parsing_with_bad_html_tag: function(test) {
+    var doc;
+    test.doesNotThrow(function () {
+      doc = jsdom.jsdom(
+        '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" ' +
+                                                   'xmlns:og="xmlns:fb="http://ogp.me/ns/fb#"></html>');
+    });
+
+    test.done();
   }
 }
