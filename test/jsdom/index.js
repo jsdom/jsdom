@@ -105,6 +105,18 @@ exports.tests = {
     });
   },
 
+  env_with_bad_html: function (test) {
+    var html = "some poorly<div>formed<b>html</div> fragment";
+    jsdom.env({
+      html: html,
+      done: function (errors, window) {
+        test.equal(errors, null, 'errors should be null');
+        test.notEqual(window && window.location || null, null, 'window.location should not be null');
+        test.done()
+      }
+    })
+  },
+
   env_with_overridden_url : function(test) {
     var html = "<html><body><p>hello world!</p></body></html>";
     jsdom.env({
