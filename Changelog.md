@@ -1,3 +1,7 @@
+## 0.6.3
+
+ * Fix: better automatic detection of URLs vs. HTML fragments when using `jsdom.env`. (jden)
+
 ## 0.6.2
 
  * Fix: URL resolution to be amazing and extremely browser-compatible, including the interplay between the document's original URL, any `<base>` tags that were set, and any relative `href`s. This impacts many parts of jsdom having to do with external resources or accurate `href` and `src` attributes. (deitch)
