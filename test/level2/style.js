@@ -165,6 +165,27 @@ exports.tests = {
     });
   },
 
+  getComputedStyleFromEmbeddedSheet3: function(test) {
+    // use grouping with embedded quotes and commas, see https://github.com/tmpvar/jsdom/pull/541#issuecomment-18114747
+    jsdom.env(
+        '<html><head><style>#id1 .clazz, button[onclick="ga(this, event)"], #id2 .clazz { margin-left: 100px; }</style></head><body>'
+            + '<div id="id1"><p class="clazz"></p></div>'
+            + '<div id="id2"><p class="clazz"></p></div>'
+            + '<button onclick="ga(this, event)">analytics button</button>'
+            + '</body></html>',
+        jsdom.level('2', 'html'), function(err, win) {
+          var doc = win.document;
+          var p = doc.getElementsByTagName("p")[1];
+          var cs = win.getComputedStyle(p);
+          test.equal(cs.marginLeft, "100px", "computed marginLeft of p[1] is 100px");
+
+          var button = doc.getElementsByTagName("button")[0];
+          cs = win.getComputedStyle(button);
+          test.equal(cs.marginLeft, "100px", "computed marginLeft of button[0] is 100px");
+          test.done();
+    });
+  },
+
   ensureExternalStylesheetsAreLoadable : function(test) {
     var css = "body { border: 1px solid #f0f; }";
     var server = http.createServer(function(req, res) {
