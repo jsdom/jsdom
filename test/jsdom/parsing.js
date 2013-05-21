@@ -88,3 +88,16 @@ exports["crazy attribute names (GH-368)"] = function (t) {
 
   t.done();
 };
+
+exports["attribute named 'constructor' (GH-625)"] = function (t) {
+  var doc = jsdom("<element constructor='Hello'></element>");
+
+  var els = doc.getElementsByTagName("element");
+
+  t.equal(els.length, 1);
+  t.equal(els[0].getAttribute("constructor"), "Hello");
+  t.equal(els[0].attributes.length, 1);
+  t.equal(els[0].outerHTML, "<element constructor=\"Hello\"></element>");
+
+  t.done();
+};
