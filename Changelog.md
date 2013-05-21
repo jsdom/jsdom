@@ -1,3 +1,7 @@
+## 0.6.5
+
+ * Fix: custom attributes whose names were the same as properties of `Object.prototype`, e.g. `"constructor"`, would confuse jsdom massively.
+
 ## 0.6.4
 
  * Fix: CSS selectors which contain commas inside quotes are no longer misinterpreted. (chad3814)

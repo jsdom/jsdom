@@ -288,12 +288,12 @@ window.document.body.appendChild(scriptEl);
  window/frame                         16/16      100%
  sizzle/index                         14/14      100%
  jsdom/index                          89/89      100%
- jsdom/parsing                          7/7      100%
+ jsdom/parsing                          8/8      100%
  jsonp/jsonp                            1/1      100%
  browser/contextifyReplacement          4/4      100%
  browser/index                        34/34      100%
 ------------------------------------------------------
-TOTALS: 0/2605 failed; 100% success
+TOTALS: 0/2606 failed; 100% success
 ```
 
 ### Running the tests
