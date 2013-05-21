@@ -1,3 +1,8 @@
+## 0.6.4
+
+ * Fix: CSS selectors which contain commas inside quotes are no longer misinterpreted. (chad3814)
+ * Add: `<img>` elements now fire `"load"` events when their `src` attributes are changed. (kapouer)
+
 ## 0.6.3
 
  * Fix: better automatic detection of URLs vs. HTML fragments when using `jsdom.env`. (jden)
