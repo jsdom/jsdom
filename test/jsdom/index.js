@@ -2,6 +2,7 @@ var path = require("path");
 var fs   = require("fs");
 var jsdom = require('../../lib/jsdom');
 var toFileUrl = require('../util').toFileUrl(__dirname);
+var http = require("http");
 var URL = require('url');
 var um = require('urlmaster');
 
@@ -1545,6 +1546,40 @@ exports.tests = {
       test.equal($el.attr('mixedCase'), 'blah');
 
       test.done();
+    });
+  },
+
+  redirected_url_equal_to_location_href : function(test) {
+    var html = "<p>Redirect</p>";
+    var server = http.createServer(function(req, res) {
+      switch (req.url) {
+        case "/":
+          res.writeHead(302, { Location: "/redir" });
+          res.end();
+          break;
+        case "/redir":
+          res.writeHead(200, { "Content-Length": html.length });
+          res.end(html);
+          break;
+      }
+    });
+
+    server.listen(80001, "127.0.0.1", function() {
+      jsdom.env({
+        html: "http://127.0.0.1:80001",
+        done: function(errors, window) {
+          server.close();
+          if (errors) {
+            test.ok(false, errors.message);
+          }
+          else {
+            test.equal(window.document.body.innerHTML, html, "root page should be redirected");
+            test.equal(window.location.href, "http://127.0.0.1:80001/redir",
+              "window.location.href should equal to redirected url");
+          }
+          test.done()
+        }
+      });
     });
   }
 };
