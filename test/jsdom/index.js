@@ -1525,7 +1525,6 @@ exports.tests = {
       test.equal(window.$("[value='last']").val(), "last", "`val()` on last <option> should return its value");
 
       var f = window.$("#foo");
-      debugger;
       test.equal(f.val(), "first", "`val()` on <select> should return first <option>'s value");
 
       window.$('#foo').val("last");
