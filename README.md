@@ -18,10 +18,10 @@ see: [mailing list](http://groups.google.com/group/jsdom)
 
 Bootstrapping a DOM is generally a difficult process involving many error prone steps. We didn't want jsdom to fall into the same trap and that is why a new method, `jsdom.env()`, has been added in jsdom 0.2.0 which should make everyone's lives easier.
 
-with URL
+You can use it with a URL
 
 ```js
-// Count all of the links from the nodejs build page
+// Count all of the links from the Node.js build page
 var jsdom = require("jsdom");
 
 jsdom.env(
@@ -42,7 +42,7 @@ var jsdom = require("jsdom");
 jsdom.env(
   '<p><a class="the-link" href="https://github.com/tmpvar/jsdom">jsdom\'s Homepage</a></p>',
   ["http://code.jquery.com/jquery.js"],
-  function(errors, window) {
+  function (errors, window) {
     console.log("contents of a.the-link:", window.$("a.the-link").text());
   }
 );
@@ -55,7 +55,7 @@ or with a configuration object
 var jsdom = require("jsdom");
 
 jsdom.env({
-  html: "http://news.ycombinator.com/",
+  url: "http://news.ycombinator.com/",
   scripts: ["http://code.jquery.com/jquery.js"],
   done: function (errors, window) {
     var $ = window.$;
@@ -73,15 +73,15 @@ or with raw JavaScript source
 // Print all of the news items on hackernews
 var jsdom = require("jsdom");
 var fs = require("fs");
-var jquery = fs.readFileSync("./jquery.js").toString();
+var jquery = fs.readFileSync("./jquery.js", "utf-8");
 
 jsdom.env({
-  html: "http://news.ycombinator.com/",
+  url: "http://news.ycombinator.com/",
   src: [jquery],
   done: function (errors, window) {
     var $ = window.$;
     console.log("HN Links");
-    $("td.title:not(:last) a").each(function() {
+    $("td.title:not(:last) a").each(function () {
       console.log(" -", $(this).text());
     });
   }
@@ -92,17 +92,19 @@ jsdom.env({
 `jsdom.env` is built for ease of use, which is rare in the world of the DOM! Since the web has some absolutely horrible JavaScript on it, as of jsdom 0.2.0 `jsdom.env` will not process external resources (scripts, images, etc).  If you want to process the JavaScript use one of the methods below (`jsdom.jsdom` or `jsdom.jQueryify`)
 
 ```js
-jsdom.env(html, [scripts], [config], callback);
+jsdom.env(string, [scripts], [config], callback);
 ```
 
-- `html` (**required**): may be a URL, HTML fragment, or file.
-- `scripts` (**optional**): may contain files or URLs.
-- `config` (**optional**): see below.
-- `callback` (**required**): takes two arguments:
-  - `errors`: an array of errors
-  - `window`: a brand new window
+The arguments are:
 
-_example:_
+- `string`: may be a URL, file name, or HTML fragment
+- `scripts`: a string or array of strings, containing file names or URLs that will be inserted as `<script>` tags
+- `config`: see below
+- `callback`: takes two arguments
+  - `error`: either an `Error` object if something failed initializing the window, or an array of error messages from the DOM if there were script errors
+  - `window`: a brand new `window`
+
+_Example:_
 
 ```js
 jsdom.env(html, function (errors, window) {
@@ -117,15 +119,18 @@ If you would like to specify a configuration object only:
 jsdom.env(config);
 ```
 
-- `config.html`: see `html` above.
+- `config.html`: a HTML fragment
+- `config.file`: a file which jsdom will load HTML from; the resulting window's `location.href` will be a `file://` URL.
+- `config.url`: sets the resulting window's `location.href`; if `config.html` and `config.file` are not provided, jsdom will load HTML from this URL.
 - `config.scripts`: see `scripts` above.
-- `config.url`: the URL for `location.href` if `config.html` is not a file path or URL. (Relative `<a href>` and `<img src>` values are evaluated relative to this.)
 - `config.src`: an array of JavaScript strings that will be evaluated against the resulting document. Similar to `scripts`, but it accepts JavaScript instead of paths/URLs.
 - `config.done`: see `callback` above.
 - `config.document`:
   - `referer`: the new document will have this referer
   - `cookie`: manually set a cookie value, e.g. `'key=value; expires=Wed, Sep 21 2011 12:00:00 GMT; path=/'`
 - `config.features` : see `Flexibility` section below. **Note**: the default feature set for jsdom.env does _not_ include fetching remote JavaScript and executing it. This is something that you will need to **carefully** enable yourself.
+
+Note that `config.done` is required, as is one of `config.html`, `config.file`, or `config.url`.
 
 ## For the hardcore
 

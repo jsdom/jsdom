@@ -195,7 +195,7 @@ exports.tests = {
 
     var cb = function() {
       jsdom.env({
-        html: "http://127.0.0.1:64000/html",
+        url: "http://127.0.0.1:64000/html",
         scripts: "http://127.0.0.1:64000/js",
         done: function(errors, window) {
           server.close();
@@ -315,60 +315,14 @@ exports.tests = {
     })
   },
 
-  env_processArguments_invalid_args: function(test) {
-    test.throws(function(){ jsdom.env.processArguments(); });
-    test.throws(function(){ jsdom.env.processArguments({}); });
-    test.throws(function(){ jsdom.env.processArguments([{html: 'abc123'}]); });
-    test.throws(function(){ jsdom.env.processArguments([{done: function(){}}]); });
+  env_invalid_args: function(test) {
+    test.throws(function(){ jsdom.env(); });
+    test.throws(function(){ jsdom.env({}); });
+    test.throws(function(){ jsdom.env({ html: 'abc123' }); });
+    test.throws(function(){ jsdom.env({ done: function () {} }); });
     test.done();
   },
 
-  env_processArguments_config_object: function(test) {
-    var config = jsdom.env.processArguments([{html: "", done: function(){}}]);
-    test.notEqual(config.done, null, 'config.done should not be null');
-    test.notEqual(config.html, null, 'config.html should not be null');
-    test.done();
-  },
-
-  env_processArguments_object_and_callback: function(test) {
-    var config = jsdom.env.processArguments([{
-      html     : "",
-      scripts  : ['path/to/some.js', 'another/path/to.js'],
-      url      : 'http://www.example.com/',
-      document : {}
-    }, function(){}]);
-
-    test.notEqual(config.done, null,     'config.done should not be null');
-    test.notEqual(config.html, null,     'config.html should not be null');
-    test.notEqual(config.url,  null,     'config.url should not be null');
-    test.notEqual(config.document, null, 'config.document should not be null');
-    test.equal(config.scripts.length, 2, 'has code');
-    test.done();
-  },
-
-  env_processArguments_all_args_no_config: function(test) {
-    var config = jsdom.env.processArguments(["<html></html>", ['script.js'], function(){}]);
-    test.notEqual(config.done, null, 'config.done should not be null');
-    test.notEqual(config.html, null, 'config.html should not be null');
-    test.equal(config.scripts.length, 1, 'script length should be 1');
-    test.done();
-  },
-
-  env_processArguments_all_args_with_config: function(test) {
-    var config = jsdom.env.processArguments(
-      ["<html></html>",
-      ['script.js'],
-      {features: {}, url : 'http://www.example.com/'},
-      function(){}
-    ]);
-
-    test.notEqual(config.done, null, 'config.done should not be null');
-    test.notEqual(config.html, null, 'config.html should not be null');
-    test.equal(config.scripts.length, 1, 'script length should be 1');
-    test.equal(config.url, 'http://www.example.com/', 'has url');
-    test.notEqual(config.features, null, 'config.features should not be null');
-    test.done();
-  },
 
   env_handle_incomplete_dom_with_script: function(test) {
     jsdom.env(
@@ -1565,7 +1519,7 @@ exports.tests = {
 
     server.listen(80001, "127.0.0.1", function() {
       jsdom.env({
-        html: "http://127.0.0.1:80001",
+        url: "http://127.0.0.1:80001",
         done: function(errors, window) {
           server.close();
           if (errors) {
