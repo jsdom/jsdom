@@ -242,7 +242,7 @@ console.log(typeof window.document.getElementsByClassName);
 // outputs: function
 ```
 
-## jQueryify
+### jQueryify
 
 ```js
 var jsdom = require("jsdom");
