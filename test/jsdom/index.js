@@ -1580,5 +1580,17 @@ exports.tests = {
         }
       });
     });
+  },
+
+  issue_644_error_back_does_not_work_properly : function(test) {
+    jsdom.env({
+      html: '<p></p>',
+      src: ['foo = ""bar"; bar = "baz"'],
+      done: function(errs, win){
+        test.ok(errs != null);
+        test.done();
+      }
+    });
   }
+
 };
