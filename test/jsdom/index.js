@@ -1471,7 +1471,6 @@ exports.tests = {
     var originalHTML = '<li><span>A</span><span>B</span></li>';
     var dom = jsdom.jsdom(originalHTML);
     var outerHTML = dom.outerHTML;
-
     test.equal(originalHTML, outerHTML);
     test.done();
   },
@@ -1580,5 +1579,17 @@ exports.tests = {
         }
       });
     });
+  },
+
+  issue_644_error_back_does_not_work_properly : function(test) {
+    jsdom.env({
+      html: '<p></p>',
+      src: ['foo = ""bar"; bar = "baz"'],
+      done: function(errs, win){
+        test.ok(errs != null);
+        test.done();
+      }
+    });
   }
+  
 };
