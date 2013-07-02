@@ -53,5 +53,27 @@ exports.tests = {
     window.location.search = "";
     test.equals(window.location.href.indexOf("?"), -1);
     test.done();
+  },
+
+  ensure_a_default_window_fires_hashchange_by_changing_href: function(test) {
+    var window = require("../../lib/jsdom/browser/index").windowAugmentation(dom);
+    var eventfired = false;
+    window.addEventListener("hashchange", function() { eventfired = true; });
+    window.location.href = window.location.href + "#foo";
+    setTimeout(function() {
+      test.ok(eventfired, "hashchange event should be fired.");
+      test.done();
+    }, 100);
+  },
+
+  ensure_a_default_window_fires_hashchange_by_changing_hash: function(test) {
+    var window = require("../../lib/jsdom/browser/index").windowAugmentation(dom);
+    var eventfired = false;
+    window.addEventListener("hashchange", function() { eventfired = true; });
+    window.location.hash = "#foo";
+    setTimeout(function() {
+      test.ok(eventfired, "hashchange event should be fired.");
+      test.done();
+    }, 100);
   }
 };
