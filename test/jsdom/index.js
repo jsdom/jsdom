@@ -1534,5 +1534,16 @@ exports.tests = {
         }
       });
     });
+  },
+
+  issue_644_should_pass_script_errors_to_errback: function(test) {
+    jsdom.env({
+      html: "<p></p>",
+      src: ["foo = ''bar'; bar = 'baz'"],
+      done: function(errors) {
+        test.ok(errors);
+        test.done();
+      }
+    });
   }
 };
