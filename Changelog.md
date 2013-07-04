@@ -1,3 +1,11 @@
+## 0.7.0
+
+ * Change: the logic when passing `jsdom.env` a string is more accurate, and you can be explicit by using the `html`, `url`, or `file` properties. This is a breaking change in the behavior of `html`, which used to do the same auto-detection logic as the string-only version.
+ * Fix: errors raised in scripts are now passed to `jsdom.env`'s callback. (airportyh)
+ * Fix: set `window.location.href` correctly when using `jsdom.env` to construct a window from a URL, when that URL causes a redirect. (fegs)
+ * Add: a more complete and accurate `window.location` object, which includes firing `hashchange` events when the hash is changed. (dai-shi)
+ * Add: when using a non-implemented feature, mention exactly what it was that is not implemented in the error message. (papandreou)
+
 ## 0.6.5
 
  * Fix: custom attributes whose names were the same as properties of `Object.prototype`, e.g. `"constructor"`, would confuse jsdom massively.
