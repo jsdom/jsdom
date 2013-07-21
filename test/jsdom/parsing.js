@@ -118,3 +118,17 @@ exports["CDATA should parse as bogus comments (GH-618)"] = function (t) {
 
   t.done();
 };
+
+exports["innerHTML behavior in <script> vs. <p> (GH-652)"] = function (t) {
+  var doc = jsdom();
+
+  var script = doc.createElement("script");
+  script.innerHTML = "3 < 5";
+  t.equal(script.innerHTML, "3 < 5");
+
+  var p = doc.createElement("p");
+  p.innerHTML = "3 < 5";
+  t.equal(p.innerHTML, "3 &lt; 5");
+
+  t.done();
+};
