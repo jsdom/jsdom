@@ -101,3 +101,20 @@ exports["attribute named 'constructor' (GH-625)"] = function (t) {
 
   t.done();
 };
+
+exports["CDATA should parse as bogus comments (GH-618)"] = function (t) {
+  var doc = jsdom("<html><body><div><![CDATA[test]]></div></body></html>");
+
+  var div = doc.getElementsByTagName("div")[0];
+
+  t.ok(div);
+  t.equal(div.childNodes.length, 1);
+
+  var comment = div.childNodes[0];
+  t.equal(comment.nodeType, comment.COMMENT_NODE);
+  t.equal(comment.nodeValue, "[CDATA[test]]");
+
+  t.equal(doc.documentElement.outerHTML, "<html><body><div><!--[CDATA[test]]--></div></body></html>");
+
+  t.done();
+};
