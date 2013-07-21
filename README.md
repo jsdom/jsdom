@@ -213,15 +213,6 @@ jsdom includes support for using the [canvas](https://npmjs.org/package/canvas) 
 
 ## More Examples
 
-### Creating a document-less window
-
-```js
-var jsdom = require("jsdom");
-var window = jsdom.createWindow();
-
-console.log(window.document); // output: undefined
-```
-
 ### Creating a document
 
 ```js
