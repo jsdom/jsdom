@@ -94,7 +94,6 @@ var files = [
   "jsdom/parsing.js",
   "jsdom/env.js",
   "jsonp/jsonp.js",
-  "browser/contextifyReplacement.js",
   "browser/index.js"
 ];
 
