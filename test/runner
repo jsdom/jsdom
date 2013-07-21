@@ -87,6 +87,7 @@ var files = [
   "level3/xpath.js",
   "window/index.js",
   "window/script.js",
+  "window/console.js",
   "window/frame.js",
   "sizzle/index.js",
   "jsdom/index.js",
