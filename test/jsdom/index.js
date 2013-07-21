@@ -205,39 +205,41 @@ exports.tests = {
     }, 100);
   },
 
-  ensure_scripts_can_be_executed_via_options_features: function(test) {
-    var html = '<html><head><script src="./files/hello.js"></script></head>' +
-               '<body><span id="test">hello from html</span></body></html>';
+  ensure_scripts_can_be_executed_via_options_features: function (t) {
+    var html = "<html><head><script src='./files/hello.js'></script></head>" +
+               "<body><span id='test'>hello from html</span></body></html>";
 
-    var doc2 = jsdom.jsdom(html, null, {
+    var doc = jsdom.jsdom(html, null, {
       url: toFileUrl(__filename),
       features: {
-        FetchExternalResources: ['script'],
-        ProcessExternalResources: ['script']
+        FetchExternalResources: ["script"],
+        ProcessExternalResources: ["script"]
       }
     });
-    setTimeout(function() {
-      test.equal(doc2.getElementById("test").innerHTML, 'hello from javascript', 'js should be executed (doc2)');
-      test.done();
-    }, 800);
+
+    doc.parentWindow.doCheck = function () {
+      t.equal(doc.getElementById("test").innerHTML, "hello from javascript");
+      t.done();
+    };
   },
 
-  ensure_resolution_is_not_thrown_off_by_hrefless_base_tag: function(test) {
-    var html = '<html><head><base target="whatever">' +
-               '<script src="./files/hello.js"></script></head><body>' +
-               '<span id="test">hello from html</span></body></html>';
+  ensure_resolution_is_not_thrown_off_by_hrefless_base_tag: function (t) {
+    var html = "<html><head><base target='whatever'>" +
+               "<script src='./files/hello.js'></script></head><body>" +
+               "<span id='test'>hello from html</span></body></html>";
 
-    var doc2 = jsdom.jsdom(html, null, {
+    var doc = jsdom.jsdom(html, null, {
       url: toFileUrl(__filename),
       features: {
-        FetchExternalResources: ['script'],
-        ProcessExternalResources: ['script']
+        FetchExternalResources: ["script"],
+        ProcessExternalResources: ["script"]
       }
     });
-    setTimeout(function() {
-      test.equal(doc2.getElementById("test").innerHTML, 'hello from javascript', 'js should be executed (doc2)');
-      test.done();
-    }, 800);
+
+    doc.parentWindow.doCheck = function () {
+      t.equal(doc.getElementById("test").innerHTML, "hello from javascript");
+      t.done();
+    };
   },
 
   ensure_resources_can_be_skipped_via_options_features: function(test) {
