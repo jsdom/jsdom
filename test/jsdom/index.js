@@ -1386,17 +1386,26 @@ exports.tests = {
     });
   },
 
-  xhr_with_cookie : function(test) {
-    var html = "<html><head><script>var xhr=new XMLHttpRequest();xhr.onload=function(){document.body.innerHTML=xhr.responseText;};xhr.open('GET', '/foo.txt', true);xhr.send();</script></head><body>foo</body></html>";
-    var server = http.createServer(function(req, res) {
+  xhr_with_cookie : function (t) {
+    var html = "<html><head><script>" +
+               "var xhr = new XMLHttpRequest();" +
+               "xhr.onload = function () {" +
+               "  document.body.innerHTML = xhr.responseText;" +
+               "  window.doCheck();" +
+               "};" +
+               "xhr.open('GET', '/foo.txt', true);" +
+               "xhr.send();" +
+               "</script></head><body>foo</body></html>";
+
+    var server = http.createServer(function (req, res) {
       switch (req.url) {
         case "/":
           res.writeHead(200, { "Content-Length": html.length });
           res.end(html);
           break;
         case "/foo.txt":
-          var cookie = req.headers['cookie'];
-          var name = cookie ? cookie.split('=')[1] : 'no cookie';
+          var cookie = req.headers["cookie"];
+          var name = cookie ? cookie.split("=")[1] : "no cookie";
           var text = "Hello " + name;
           res.writeHead(200, { "Content-Length": text.length });
           res.end(text);
@@ -1407,26 +1416,20 @@ exports.tests = {
     server.listen(80001, "127.0.0.1", function() {
       jsdom.env({
         url: "http://127.0.0.1:80001",
-        document: {
-          cookie: "name=world"
-        },
+        document: { cookie: "name=world" },
         features: {
-          FetchExternalResources: ['script'],
-          ProcessExternalResources: ['script']
+          FetchExternalResources: ["script"],
+          ProcessExternalResources: ["script"]
         },
-        done: function(errors, window) {
-          setTimeout(function() {
+        done: function (err, window) {
+          window.doCheck = function () {
             server.close();
-            if (errors) {
-              test.ok(false, errors.message);
-            } else {
-              test.equal(window.document.body.innerHTML, 'Hello world');
-            }
-            test.done()
-          },100);
+            t.ifError(err);
+            t.equal(window.document.body.innerHTML, "Hello world");
+            t.done();
+          };
         }
       });
     });
   }
-
 };
