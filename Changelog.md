@@ -1,3 +1,9 @@
+## 0.8.1 (hotfix)
+
+ * Fix: a casing issue that prevented jsdom from loading on Unix and Solaris systems (dai-shi)
+ * Fix: `window.location.replace` was broken (dai-shi)
+ * Fix: update minimum htmlparser2 version, to ensure you get the latest parsing-related bugfixes.
+
 ## 0.8.0
 
  * Add: working `XMLHttpRequest` support, including cookie passing! (dai-shi)
