@@ -1,9 +1,12 @@
-var jsdom  = require("../../lib/jsdom"),
-    window = jsdom.jsdom().createWindow();
+"use strict";
+
+var jsdom  = require("../../lib/jsdom");
+var window = jsdom.jsdom().parentWindow;
 
 // this also works:
-// jQueryTag.src = "http://code.jquery.com/jquery-1.4.2.js";
+// jQueryTag.src = "http://code.jquery.com/jquery.js";
+
 jsdom.jQueryify(window, "jquery.js", function() {
-  window.jQuery('body').append("<div class='testing'>Hello World, It works!</div>");
+  window.jQuery("body").append("<div class='testing'>Hello World, It works!</div>");
   console.log(window.jQuery(".testing").text());
 });

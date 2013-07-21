@@ -140,7 +140,7 @@ If you want to spawn a document/window and specify all sorts of options this is 
 ```js
 var jsdom = require("jsdom").jsdom;
 var doc = jsdom(markup, level, options);
-var window = doc.createWindow();
+var window = doc.parentWindow;
 ```
 
 - `markup` is an HTML/XML document to be parsed. You can also pass `null` or an undefined value to get a basic document with empty `<head>` and `<body>` tags. Document fragments are also supported (including `""`), and will behave as sanely as possible (e.g. the resulting document will lack the `head`, `body` and `documentElement` properties if the corresponding elements aren't included).
@@ -227,7 +227,7 @@ console.log(doc.nodeName); // outputs: #document
 ```js
 var jsdom = require("jsdom").jsdom;
 var document = jsdom("<html><head></head><body>hello world</body></html>");
-var window = document.createWindow();
+var window = document.parentWindow;
 
 console.log(window.document.innerHTML);
 // output: "<html><head></head><body>hello world</body></html>"
@@ -243,7 +243,7 @@ console.log(typeof window.document.getElementsByClassName);
 
 ```js
 var jsdom = require("jsdom");
-var window = jsdom.jsdom().createWindow();
+var window = jsdom.jsdom().parentWindow;
 
 jsdom.jQueryify(window, "http://code.jquery.com/jquery.js", function () {
   window.$("body").append('<div class="testing">Hello World, It works</div>');
@@ -256,7 +256,7 @@ jsdom.jQueryify(window, "http://code.jquery.com/jquery.js", function () {
 
 ```js
 var jsdom = require("jsdom").jsdom;
-var window = jsdom().createWindow();
+var window = jsdom().parentWindow;
 
 window.__myObject = { foo: "bar" };
 
