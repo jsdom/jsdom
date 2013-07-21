@@ -48,12 +48,10 @@
         "email": "tmpvar@gmail.com",
         "url": "http://github.com/tmpvar/jsdom/issues"
     },
-    "licenses": [
-        {
-            "type": "MIT",
-            "url": "http://github.com/tmpvar/jsdom/blob/master/LICENSE.txt"
-        }
-    ],
+    "license": {
+        "type": "MIT",
+        "url": "http://github.com/tmpvar/jsdom/blob/master/LICENSE.txt"
+    },
     "repository": {
         "type": "git",
         "url": "git://github.com/tmpvar/jsdom.git"
