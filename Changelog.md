@@ -1,3 +1,8 @@
+## 0.8.0
+
+ * Add: working `XMLHttpRequest` support, including cookie passing! (dai-shi)
+ * Add: there is now a `window.navigator.noUI` property that evaluates to true, if you want to specifically distinguish jsdom in your tests.
+
 ## 0.7.0
 
  * Change: the logic when passing `jsdom.env` a string is more accurate, and you can be explicit by using the `html`, `url`, or `file` properties. This is a breaking change in the behavior of `html`, which used to do the same auto-detection logic as the string-only version.

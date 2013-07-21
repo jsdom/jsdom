@@ -280,27 +280,27 @@ window.document.body.appendChild(scriptEl);
 ## Test Compliance:
 
 ```
- level1/core                        535/535      100%
- level1/html                        238/238      100%
- level1/svg                         527/527      100%
- level2/core                        283/283      100%
- level2/html                        706/706      100%
- level2/style                         15/15      100%
- level2/extra                           4/4      100%
- level2/events                        24/24      100%
- level3/xpath                         93/93      100%
- window/index                           7/7      100%
- window/script                        10/10      100%
- window/frame                         16/16      100%
- sizzle/index                         14/14      100%
- jsdom/index                          87/87      100%
- jsdom/parsing                          8/8      100%
- jsdom/env                            13/13      100%
- jsonp/jsonp                            1/1      100%
- browser/contextifyReplacement          4/4      100%
- browser/index                        34/34      100%
-------------------------------------------------------
-TOTALS: 0/2619 failed; 100% success
+ level1/core         535/535      100%
+ level1/html         238/238      100%
+ level1/svg          527/527      100%
+ level2/core         283/283      100%
+ level2/html         706/706      100%
+ level2/style          15/15      100%
+ level2/extra            4/4      100%
+ level2/events         24/24      100%
+ level3/xpath          93/93      100%
+ window/index            7/7      100%
+ window/script         10/10      100%
+ window/console          2/2      100%
+ window/frame          16/16      100%
+ sizzle/index          14/14      100%
+ jsdom/index           76/76      100%
+ jsdom/parsing           8/8      100%
+ jsdom/env             25/25      100%
+ jsonp/jsonp             1/1      100%
+ browser/index         34/34      100%
+---------------------------------------
+TOTALS: 0/2618 failed; 100% success
 ```
 
 ### Running the tests
