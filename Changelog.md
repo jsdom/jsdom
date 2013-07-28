@@ -1,7 +1,13 @@
+## 0.8.2
+
+ * Add: basic `window.history` support, including `back`, `forward`, `go`, `pushState`, and `replaceState`. (ralphholzmann)
+ * Add: If an `<?xml?>` declaration starts the document, will try to parse as XML, e.g. not lowercasing the tags. (robdodson)
+ * Fix: tag names passed to `createElement` are coerced to strings before evaluating.
+
 ## 0.8.1 (hotfix)
 
- * Fix: a casing issue that prevented jsdom from loading on Unix and Solaris systems (dai-shi)
- * Fix: `window.location.replace` was broken (dai-shi)
+ * Fix: a casing issue that prevented jsdom from loading on Unix and Solaris systems. (dai-shi)
+ * Fix: `window.location.replace` was broken. (dai-shi)
  * Fix: update minimum htmlparser2 version, to ensure you get the latest parsing-related bugfixes.
 
 ## 0.8.0

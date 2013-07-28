@@ -281,17 +281,18 @@ window.document.body.appendChild(scriptEl);
  level2/events         24/24      100%
  level3/xpath          93/93      100%
  window/index            7/7      100%
+ window/history          5/5      100%
  window/script         10/10      100%
  window/console          2/2      100%
  window/frame          16/16      100%
  sizzle/index          14/14      100%
  jsdom/index           76/76      100%
- jsdom/parsing         10/10      100%
+ jsdom/parsing         11/11      100%
  jsdom/env             25/25      100%
  jsonp/jsonp             1/1      100%
  browser/index         34/34      100%
 ---------------------------------------
-TOTALS: 0/2620 failed; 100% success
+TOTALS: 0/2626 failed; 100% success
 ```
 
 ### Running the tests
