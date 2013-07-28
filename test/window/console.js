@@ -3,7 +3,7 @@
 var jsdom = require("../..").jsdom;
 
 exports["should put errors in the window.document.errors array"] = function (t) {
-  var window = jsdom("<!DOCTYPE html><html><body>Hi</body></html>").createWindow();
+  var window = jsdom("<!DOCTYPE html><html><body>Hi</body></html>").parentWindow;
 
   window.console.log("foo");
   window.console.info("bar");
@@ -15,8 +15,8 @@ exports["should put errors in the window.document.errors array"] = function (t) 
 };
 
 exports["should send errors to the correct window when multiple are in play (GH-658)"] = function (t) {
-  var window1 = jsdom("<!DOCTYPE html><html><body>Hi</body></html>").createWindow();
-  var window2 = jsdom("<!DOCTYPE html><html><body>Hi</body></html>").createWindow();
+  var window1 = jsdom("<!DOCTYPE html><html><body>Hi</body></html>").parentWindow;
+  var window2 = jsdom("<!DOCTYPE html><html><body>Hi</body></html>").parentWindow;
 
   window1.console.error("foo");
   window2.console.error("bar");
