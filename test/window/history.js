@@ -1,138 +1,134 @@
-var dom = require("../../lib/jsdom/level1/core").dom.level1.core;
+"use strict";
 
-exports.tests = {
-  ensure_a_default_window_has_a_history_object_with_correct_default_values: function(test) {
-    var window = require("../../lib/jsdom/browser/index").windowAugmentation(dom);
-    test.ok(!!window.history);
-    test.equals(window.history.state, null);
-    test.equals(window.history.length, 0);
-    test.done();
-  },
+var jsdom = require("../..").jsdom;
 
-  ensure_the_history_object_updates_properties_correctly_when_calling_pushState_and_replaceState: function (test) {
-    var window = require("../../lib/jsdom/browser/index").windowAugmentation(dom);
+exports["a default window should have a history object with correct default values"] = function (t) {
+  var window = jsdom().parentWindow;
 
-    // Absolute path
-    window.history.pushState({
-      foo: "one"
-    }, "unused title", "/bar/baz");
-    test.equals(window.history.length, 1);
-    test.equals(window.history.state.foo, "one");
-    test.equals(window.location.pathname, "/bar/baz");
+  t.ok(window.history);
+  t.strictEqual(window.history.state, null);
+  t.strictEqual(window.history.length, 0);
 
-    // Relative path
-    window.history.pushState({
-      foo: "two"
-    }, "unused title 2", "fizz");
-    test.equals(window.history.length, 2);
-    test.equals(window.history.state.foo, "two");
-    test.equals(window.location.pathname, "/bar/baz/fizz");
+  t.done();
+};
 
-    window.history.replaceState({
-      foo: "three"
-    }, "unused title 3", "/buzz");
-    test.equals(window.history.length, 2);
-    test.equals(window.history.state.foo, "three");
-    test.equals(window.location.pathname, "/buzz");
+exports["the history object should update correctly when calling pushState/replaceState"] = function (t) {
+  var window = jsdom().parentWindow;
 
-    test.done();
-  },
+  // Absolute path
+  window.history.pushState({ foo: "one" }, "unused title", "/bar/baz");
+  t.strictEqual(window.history.length, 1);
+  t.strictEqual(window.history.state.foo, "one");
+  t.strictEqual(window.location.pathname, "/bar/baz");
 
-  ensure_the_history_object_updates_properties_correctly_when_calling_forward_back_and_go: function (test) {
-    var window = require("../../lib/jsdom/browser/index").windowAugmentation(dom);
-    [
-      [{ foo: "bar"  }, "title 1", "/bar"],
-      [{ foo: "baz"  }, "title 2", "/baz"],
-      [{ foo: "buzz" }, "title 3", "/buzz"]
-    ].forEach(function (args) {
-      window.history.pushState.apply(window.history, args);
-    });
+  // Relative path
+  window.history.pushState({ foo: "two" }, "unused title 2", "fizz");
+  t.strictEqual(window.history.length, 2);
+  t.strictEqual(window.history.state.foo, "two");
+  t.strictEqual(window.location.pathname, "/bar/baz/fizz");
 
-    // Sanity check
-    test.equals(window.history.length, 3);
-    test.equals(window.history.state.foo, "buzz");
-    test.equals(window.location.pathname, "/buzz");
+  window.history.replaceState({ foo: "three" }, "unused title 3", "/buzz");
+  t.strictEqual(window.history.length, 2);
+  t.strictEqual(window.history.state.foo, "three");
+  t.strictEqual(window.location.pathname, "/buzz");
 
-    // Test forward boundary
-    window.history.forward();
-    test.equals(window.history.length, 3);
-    test.equals(window.history.state.foo, "buzz");
-    test.equals(window.location.pathname, "/buzz");
+  t.done();
+};
 
-    window.history.back();
-    test.equals(window.history.length, 3);
-    test.equals(window.history.state.foo, "baz");
-    test.equals(window.location.pathname, "/baz");
+exports["the history object should update correctly when calling forward/back/go"] = function (t) {
+  var window = jsdom().parentWindow;
 
-    window.history.back();
-    test.equals(window.history.length, 3);
-    test.equals(window.history.state.foo, "bar");
-    test.equals(window.location.pathname, "/bar");
+  [
+    [{ foo: "bar" }, "title 1", "/bar"],
+    [{ foo: "baz" }, "title 2", "/baz"],
+    [{ foo: "buzz" }, "title 3", "/buzz"]
+  ].forEach(function (args) {
+    window.history.pushState.apply(window.history, args);
+  });
 
-    // Test backward boundary
-    window.history.back();
-    test.equals(window.history.length, 3);
-    test.equals(window.history.state.foo, "bar");
-    test.equals(window.location.pathname, "/bar");
+  // Sanity check
+  t.strictEqual(window.history.length, 3);
+  t.strictEqual(window.history.state.foo, "buzz");
+  t.strictEqual(window.location.pathname, "/buzz");
 
-    window.history.go(2);
-    test.equals(window.history.length, 3);
-    test.equals(window.history.state.foo, "buzz");
-    test.equals(window.location.pathname, "/buzz");
+  // Test forward boundary
+  window.history.forward();
+  t.strictEqual(window.history.length, 3);
+  t.strictEqual(window.history.state.foo, "buzz");
+  t.strictEqual(window.location.pathname, "/buzz");
 
-    test.done();
-  },
+  window.history.back();
+  t.strictEqual(window.history.length, 3);
+  t.strictEqual(window.history.state.foo, "baz");
+  t.strictEqual(window.location.pathname, "/baz");
 
-  ensure_the_history_object_updates_correctly_when_calling_pushState_and_index_is_behind_length: function (test) {
-    var window = require("../../lib/jsdom/browser/index").windowAugmentation(dom);
-    [
-      [{ foo: "bar"  }, "title 1", "/bar"],
-      [{ foo: "baz"  }, "title 2", "/baz"],
-      [{ foo: "buzz" }, "title 3", "/buzz"]
-    ].forEach(function (args) {
-      window.history.pushState.apply(window.history, args);
-    });
+  window.history.back();
+  t.strictEqual(window.history.length, 3);
+  t.strictEqual(window.history.state.foo, "bar");
+  t.strictEqual(window.location.pathname, "/bar");
 
-    // Sanity check
-    test.equals(window.history.length, 3);
-    test.equals(window.history.state.foo, "buzz");
-    test.equals(window.location.pathname, "/buzz");
-    window.history.go(-2);
+  // Test backward boundary
+  window.history.back();
+  t.strictEqual(window.history.length, 3);
+  t.strictEqual(window.history.state.foo, "bar");
+  t.strictEqual(window.location.pathname, "/bar");
 
-    test.equals(window.history.length, 3);
-    test.equals(window.history.state.foo, "bar");
-    test.equals(window.location.pathname, "/bar");
+  window.history.go(2);
+  t.strictEqual(window.history.length, 3);
+  t.strictEqual(window.history.state.foo, "buzz");
+  t.strictEqual(window.location.pathname, "/buzz");
 
-    // Call pushState when index is behind length
-    window.history.pushState({
-      foo: "bar-b"
-    }, "title 2b", "/bar/b");
+  t.done();
+};
 
-    test.equals(window.history.length, 2);
-    test.equals(window.history.state.foo, "bar-b");
-    test.equals(window.location.pathname, "/bar/b");
+exports["the history object should update correctly when calling pushState with index behind length"] = function (t) {
+  var window = jsdom().parentWindow;
 
-    test.done();
-  },
+  [
+    [{ foo: "bar" }, "title 1", "/bar"],
+    [{ foo: "baz" }, "title 2", "/baz"],
+    [{ foo: "buzz" }, "title 3", "/buzz"]
+  ].forEach(function (args) {
+    window.history.pushState.apply(window.history, args);
+  });
 
-  ensure_the_history_object_fires_popstate_while_navigating_history: function (test) {
-    var window = require("../../lib/jsdom/browser/index").windowAugmentation(dom);
-    var eventfired = false;
-    var state = {
-      foo: "bar"
-    };
-    var eventState;
+  // Sanity check
+  t.strictEqual(window.history.length, 3);
+  t.strictEqual(window.history.state.foo, "buzz");
+  t.strictEqual(window.location.pathname, "/buzz");
+  window.history.go(-2);
 
+  t.strictEqual(window.history.length, 3);
+  t.strictEqual(window.history.state.foo, "bar");
+  t.strictEqual(window.location.pathname, "/bar");
 
-    window.addEventListener("popstate", function(event) {
-      eventState = event.state;
-      eventfired = true;
-    });
-    window.history.pushState(state, "title", "bar");
-    setTimeout(function() {
-      test.ok(eventfired, "popstate event should be fired.");
-      test.equals(state, eventState);
-      test.done();
-    }, 100);
-  }
+  // Call pushState when index is behind length
+  window.history.pushState({ foo: "bar-b" }, "title 2b", "/bar/b");
+
+  t.strictEqual(window.history.length, 2);
+  t.strictEqual(window.history.state.foo, "bar-b");
+  t.strictEqual(window.location.pathname, "/bar/b");
+
+  t.done();
+};
+
+exports["the history object should fire popstate on the window while navigating the history"] = function (t) {
+  var window = jsdom().parentWindow;
+
+  var eventFired = false;
+  var state = { foo: "bar" };
+  var eventState;
+
+  window.addEventListener("popstate", function (event) {
+    eventFired = true;
+    eventState = event.state;
+  });
+
+  window.history.pushState(state, "title", "bar");
+
+  setTimeout(function () {
+    t.ok(eventFired, "popstate event should be fired.");
+    t.strictEqual(state, eventState);
+    t.done();
+  }, 0);
 };
