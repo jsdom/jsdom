@@ -132,3 +132,15 @@ exports["innerHTML behavior in <script> vs. <p> (GH-652)"] = function (t) {
 
   t.done();
 };
+
+exports["lower-cases tags in outerHTML and innerHTML"] = function (t) {
+  var doc = jsdom("<HTML><BODY><P ALIGN='RIGHT'>test</P></BODY></HTML>");
+
+  t.equal(doc.documentElement.outerHTML, "<html><body><p align=\"RIGHT\">test</p></body></html>");
+
+  doc.body.innerHTML = "<DIV>test</DIV>";
+
+  t.equal(doc.body.innerHTML, "<div>test</div>");
+
+  t.done();
+};
