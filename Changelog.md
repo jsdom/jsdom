@@ -1,3 +1,7 @@
+## 0.8.3
+
+ * Fix: When auto-detecting whether the first parameter to `jsdom.env` is a HTML string or a filename, deal with long strings correctly instead of erroring. (baryshev)
+
 ## 0.8.2
 
  * Add: basic `window.history` support, including `back`, `forward`, `go`, `pushState`, and `replaceState`. (ralphholzmann)
