@@ -1,3 +1,8 @@
+## 0.8.4
+
+ * Add: Typed array constructors on the `window`. (nlacasse)
+ * Fix: `querySelector` and `querySelectorAll` should be on the prototypes of `Element` and `Document`, not own-properties. (mbostock)
+
 ## 0.8.3
 
  * Fix: When auto-detecting whether the first parameter to `jsdom.env` is a HTML string or a filename, deal with long strings correctly instead of erroring. (baryshev)
