@@ -1,3 +1,7 @@
+## 0.8.5
+
+* Add: `href` property on `CSSStyleSheet` instances for external CSS files. (FrozenCow)
+
 ## 0.8.4
 
  * Add: Typed array constructors on the `window`. (nlacasse)
