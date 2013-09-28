@@ -1,20 +1,25 @@
+## 0.8.6
+
+* Fix: stop accidentally modifying `Error.prototype`. (mitar)
+* Add: a dummy `getBoundingClientRect` method, that returns `0` for all properties of the rectangle, is now implemented. (F1LT3R)
+
 ## 0.8.5
 
 * Add: `href` property on `CSSStyleSheet` instances for external CSS files. (FrozenCow)
 
 ## 0.8.4
 
- * Add: Typed array constructors on the `window`. (nlacasse)
+ * Add: typed array constructors on the `window`. (nlacasse)
  * Fix: `querySelector` and `querySelectorAll` should be on the prototypes of `Element` and `Document`, not own-properties. (mbostock)
 
 ## 0.8.3
 
- * Fix: When auto-detecting whether the first parameter to `jsdom.env` is a HTML string or a filename, deal with long strings correctly instead of erroring. (baryshev)
+ * Fix: when auto-detecting whether the first parameter to `jsdom.env` is a HTML string or a filename, deal with long strings correctly instead of erroring. (baryshev)
 
 ## 0.8.2
 
  * Add: basic `window.history` support, including `back`, `forward`, `go`, `pushState`, and `replaceState`. (ralphholzmann)
- * Add: If an `<?xml?>` declaration starts the document, will try to parse as XML, e.g. not lowercasing the tags. (robdodson)
+ * Add: if an `<?xml?>` declaration starts the document, will try to parse as XML, e.g. not lowercasing the tags. (robdodson)
  * Fix: tag names passed to `createElement` are coerced to strings before evaluating.
 
 ## 0.8.1 (hotfix)
