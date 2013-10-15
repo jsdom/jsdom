@@ -467,6 +467,23 @@ exports.tests = {
 
   /**
    *
+   HTMLAnchorElement.host should show the host and port if port is not default
+   * @author Salvatore Porchia
+   * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
+   */
+  HTMLAnchorElement19: function(test) {
+    var doc = load("anchor3");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    test.equal(nodeList.item(0).host, 'www.github.com', 'a.host');
+    var doc = load("anchor4");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    test.equal(nodeList.item(0).host, 'www.github.com:3020', 'a.host');
+    test.done();
+  },
+  /**
+   *
    The align attribute specifies the alignment of the object(Vertically
    or Horizontally) with respect to its surrounding text.
    Retrieve the align attribute and examine its value.
