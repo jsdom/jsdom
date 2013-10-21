@@ -1,3 +1,7 @@
+## 0.8.7
+
+* Add: `host` property to `HTMLAnchorElement`. (sporchia)
+
 ## 0.8.6
 
 * Fix: stop accidentally modifying `Error.prototype`. (mitar)

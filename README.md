@@ -275,7 +275,7 @@ window.document.body.appendChild(scriptEl);
  level1/html         238/238      100%
  level1/svg          527/527      100%
  level2/core         283/283      100%
- level2/html         706/706      100%
+ level2/html         707/707      100%
  level2/style          15/15      100%
  level2/extra            4/4      100%
  level2/events         24/24      100%
@@ -292,7 +292,7 @@ window.document.body.appendChild(scriptEl);
  jsonp/jsonp             1/1      100%
  browser/index         34/34      100%
 ---------------------------------------
-TOTALS: 0/2626 failed; 100% success
+TOTALS: 0/2627 failed; 100% success
 ```
 
 ### Running the tests
