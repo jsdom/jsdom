@@ -1,3 +1,7 @@
+## 0.8.8
+
+* Fix: avoid repeated `NodeList.prototype.length` calculation, for a speed improvement. (peller)
+
 ## 0.8.7
 
 * Add: `host` property to `HTMLAnchorElement`. (sporchia)
