@@ -20022,5 +20022,59 @@ exports.tests = {
     });
 
     test.done();
+  },
+
+  /**
+   * The form.elements[name] getter should provide an element
+   * @author Pavel Vanecek
+   * @see http://www.w3.org/TR/html5/forms.html#dom-form-elements
+   */
+  form_elements_namedItem_should_return_element: function(test) {
+    var doc;
+    var nodeList;
+    var formNode;
+    var formElementsList;
+    var inputsList;
+
+    doc = load("form4");
+    nodeList = doc.getElementsByTagName("form");
+    test.equal(nodeList.length, 1, "one form node should be found");
+
+    formNode = nodeList[0];
+    test.equal(formNode.nodeName, "FORM", "form node should be found");
+
+    formElementsList = formNode.elements;
+    inputsList = formElementsList.namedItem("submit1");
+    test.ok("object" == typeof inputsList, "namedItem should return object");
+    test.equal(inputsList.nodeName, "INPUT", "returned element should be of type input")
+
+    test.done();
+  },
+
+  /**
+   * The form.elements[name] getter should provide an array of elements, if inputs of that name are more than one (e. g. radio inputs)
+   * @author Pavel Vanecek
+   * @see http://www.w3.org/TR/html5/forms.html#dom-form-elements
+   */
+  form_elements_radio_buttons_should_be_an_array: function(test) {
+    var doc;
+    var nodeList;
+    var formNode;
+    var formElementsList;
+    var radioInputsList;
+
+    doc = load("form4");
+    nodeList = doc.getElementsByTagName("form");
+    test.equal(nodeList.length, 1, "one form node should be found");
+
+    formNode = nodeList[0];
+    test.equal(formNode.nodeName, "FORM", "form node should be found");
+
+    formElementsList = formNode.elements;
+    radioInputsList = formElementsList.namedItem("radioInput");
+    test.ok(Array.isArray(radioInputsList), "namedItem should return array");
+    test.equal(radioInputsList.length, 2, "there should be two radio input nodes found");
+
+    test.done();
   }
 }
