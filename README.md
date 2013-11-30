@@ -290,9 +290,10 @@ window.document.body.appendChild(scriptEl);
  jsdom/parsing         11/11      100%
  jsdom/env             25/25      100%
  jsonp/jsonp             1/1      100%
+ browser/css             1/1      100%
  browser/index         34/34      100%
 ---------------------------------------
-TOTALS: 0/2627 failed; 100% success
+TOTALS: 0/2628 failed; 100% success
 ```
 
 ### Running the tests

@@ -1,6 +1,6 @@
 {
     "name": "jsdom",
-    "version": "0.8.8",
+    "version": "0.8.9",
     "description": "A JavaScript implementation of the W3C DOM",
     "keywords": ["dom", "w3c", "html"],
     "maintainers": [
@@ -72,9 +72,6 @@
       "nodeunit": "~0.8.0",
       "optimist": "*",
       "urlmaster": ">=0.2.15"
-    },
-    "directories": {
-        "lib": "./lib/jsdom"
     },
     "scripts": {
         "test": "node ./test/runner"

@@ -1,3 +1,8 @@
+## 0.8.9
+
+* Upgrade: `cssom` to 0.3.0, adding support for `@-moz-document` and fixing a few other issues.
+* Upgrade: `cssstyle` to 0.2.6, adding support for many shorthand properties and better unit handling.
+
 ## 0.8.8
 
 * Fix: avoid repeated `NodeList.prototype.length` calculation, for a speed improvement. (peller)
