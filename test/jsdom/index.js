@@ -1315,9 +1315,9 @@ exports.tests = {
       }
     });
 
-    server.listen(80001, "127.0.0.1", function() {
+    server.listen(8001, "127.0.0.1", function() {
       jsdom.env({
-        url: "http://127.0.0.1:80001",
+        url: "http://127.0.0.1:8001",
         done: function(errors, window) {
           server.close();
           if (errors) {
@@ -1325,7 +1325,7 @@ exports.tests = {
           }
           else {
             test.equal(window.document.body.innerHTML, html, "root page should be redirected");
-            test.equal(window.location.href, "http://127.0.0.1:80001/redir",
+            test.equal(window.location.href, "http://127.0.0.1:8001/redir",
               "window.location.href should equal to redirected url");
           }
           test.done()
@@ -1364,9 +1364,9 @@ exports.tests = {
       }
     });
 
-    server.listen(80001, "127.0.0.1", function () {
+    server.listen(8001, "127.0.0.1", function () {
       jsdom.env({
-        url: "http://127.0.0.1:80001",
+        url: "http://127.0.0.1:8001",
         document: { cookie: "name=world" },
         features: {
           FetchExternalResources: ["script"],
@@ -1411,9 +1411,9 @@ exports.tests = {
       }
     });
 
-    server.listen(80001, "127.0.0.1", function() {
+    server.listen(8001, "127.0.0.1", function() {
       jsdom.env({
-        url: "http://127.0.0.1:80001",
+        url: "http://127.0.0.1:8001",
         document: { cookie: "name=world" },
         features: {
           FetchExternalResources: ["script"],
