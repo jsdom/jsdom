@@ -323,10 +323,12 @@ Unfortunately, doing this kind of magic requires C++. And in Node.js, using C++ 
 modules." Native modules are compiled at installation time so that they work precisely for your machine; that is, you
 don't download a contextify binary from npm, but instead build one locally after downloading the source from npm.
 
-For Mac and Linux users, this is usually fine. Their systems come preinstalled with the necessaries for compiling C++.
-For Windows users, however, things can be tricky. Thus, one of the most common problems with jsdom is trying to use it
-on Windows without the proper compilation tools installed. Here's what you need to compile Contextify, and thus to
-install jsdom, on Windows:
+
+Unfortunately, getting C++ compiled within npm's installation system can be tricky, especially for Windows users. Thus,
+one of the most common problems with jsdom is trying to use it without the proper compilation tools installed.
+Here's what you need to compile Contextify, and thus to install jsdom:
+
+### Windows
 
 * A recent copy of the *x86* version of [Node.js for Windows](http://nodejs.org/download/), *not* the x64 version.
 * A copy of [Visual C++ 2010 Express](http://www.microsoft.com/visualstudio/eng/downloads#d-2010-express).
@@ -334,3 +336,14 @@ install jsdom, on Windows:
 
 There are some slight modifications to this that can work; for example full versions of Visual Studio usually work, and
 sometimes you can even get an x64 version of Node.js working too. But it's tricky, so start with the basics!
+
+### Mac
+
+* XCode needs to be installed
+* "Command line tools for XCode" need to be installed
+* Launch XCode once to accept the license, etc. and ensure it's properly installed
+
+### Linux
+
+You'll need various build tools installed, like `make`, Python 2.7, and a compiler toolchain. How to install these will
+be specific to your distro, if you don't already have them.
