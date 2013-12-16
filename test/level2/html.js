@@ -483,6 +483,19 @@ exports.tests = {
     test.done();
   },
   /**
+   * HTMLAnchorElement.hash should show part of url after hash
+   * @author Peter Culak
+   * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
+   */
+   HTMLAnchorElement20: function(test) {
+     var doc = load("anchor5");
+     var nodeList = doc.getElementsByTagName("a");
+     test.equal(nodeList.length, 1, 'Asize');
+     test.equal(nodeList.item(0).host, 'www.github.com:3020', 'a.host');
+     test.equal(nodeList.item(0).hash, '#fragment-identifier', 'a.hash');
+     test.done();
+  },
+  /**
    *
    The align attribute specifies the alignment of the object(Vertically
    or Horizontally) with respect to its surrounding text.
