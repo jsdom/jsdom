@@ -1,3 +1,7 @@
+## 0.8.10
+
+* Add: `hash` property to `HTMLAnchorElement`. (fr0z3nk0)
+
 ## 0.8.9
 
 * Upgrade: `cssom` to 0.3.0, adding support for `@-moz-document` and fixing a few other issues.

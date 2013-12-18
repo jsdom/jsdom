@@ -275,7 +275,7 @@ window.document.body.appendChild(scriptEl);
  level1/html         238/238      100%
  level1/svg          527/527      100%
  level2/core         283/283      100%
- level2/html         707/707      100%
+ level2/html         708/708      100%
  level2/style          15/15      100%
  level2/extra            4/4      100%
  level2/events         24/24      100%
@@ -293,7 +293,7 @@ window.document.body.appendChild(scriptEl);
  browser/css             1/1      100%
  browser/index         34/34      100%
 ---------------------------------------
-TOTALS: 0/2628 failed; 100% success
+TOTALS: 0/2629 failed; 100% success
 ```
 
 ### Running the tests
