@@ -117,3 +117,105 @@ exports["defineGetter does not remove existing setters"] = function (t) {
 
   t.done();
 };
+
+exports.createFrom = {
+  "returns an object with the given [[Prototype]]": function (t) {
+    var proto = {};
+
+    var o = utils.createFrom(proto);
+    t.strictEqual(Object.getPrototypeOf(o), proto);
+
+    t.done();
+  },
+  "createFrom returns an object extended with the given properties":
+    function (t) {
+      var properties = {
+        get accessor () {},
+        set accessor (value) {},
+        foo: 'bar'
+      };
+
+      Object.defineProperties(properties, {
+        frozen: {
+          value: 'brrr',
+          configurable: false,
+          writable: false
+        },
+        hidden: {
+          value: 'shhh',
+          enumerable: false
+        }
+      });
+
+      var o = utils.createFrom({}, properties);
+
+      Object.getOwnPropertyNames(o).
+        forEach(function (name) {
+          t.deepEqual(Object.getOwnPropertyDescriptor(o, name),
+            Object.getOwnPropertyDescriptor(properties, name),
+            name + ' descriptors should be deeply equal'
+          );
+        });
+
+      t.done();
+    }
+};
+
+exports.inheritFrom = {
+  "sets Subclass.prototype to an object w/ [[Prototype]] Superclass.prototype":
+    function (t) {
+      function Subclass(){}
+      function Superclass(){}
+
+      utils.inheritFrom(Superclass, Subclass);
+
+      t.strictEqual(Object.getPrototypeOf(Subclass.prototype),
+        Superclass.prototype);
+
+      t.done();
+    },
+    "sets Subclass.prototype.constructor to Subclass": function (t) {
+      function Subclass(){}
+      function Superclass(){}
+
+      utils.inheritFrom(Superclass, Subclass);
+
+      t.strictEqual(Subclass.prototype.constructor, Subclass);
+
+      t.done();
+    },
+    "extends Subclass.prototype with the given properties": function (t) {
+      function Subclass(){}
+      function Superclass(){}
+      var properties = {
+        get accessor () {},
+        set accessor (value) {},
+        foo: 'bar'
+      };
+
+      Object.defineProperties(properties, {
+        frozen: {
+          value: 'brrr',
+          configurable: false,
+          writable: false
+        },
+        hidden: {
+          value: 'shhh',
+          enumerable: false
+        }
+      });
+
+      utils.inheritFrom(Superclass, Subclass, properties);
+
+      Object.getOwnPropertyNames(Subclass.prototype).
+        forEach(function (name) {
+          t.deepEqual(
+            Object.getOwnPropertyDescriptor(Subclass.prototype, name),
+            Object.getOwnPropertyDescriptor(properties, name),
+            name + ' descriptors should be deeply equal'
+          );
+        });
+
+      t.done();
+    }
+};
