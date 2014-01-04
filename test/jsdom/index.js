@@ -1,6 +1,7 @@
 var path = require("path");
 var fs   = require("fs");
 var jsdom = require('../../lib/jsdom');
+var inheritFrom = require("../../lib/jsdom/utils").inheritFrom;
 var toFileUrl = require('../util').toFileUrl(__dirname);
 var http = require("http");
 var URL = require('url');
@@ -83,14 +84,15 @@ exports.tests = {
     var EventEmitter = require('events').EventEmitter;
 
     // Mock response object
-    var res = { setEncoding : function () {} };
-    res.__proto__ = new EventEmitter();
+    var res = Object.create(EventEmitter.prototype);
+    res.setEncoding = function () {};
 
     // Monkey patch https.request so it emits 'close' instead of 'end.
     https.request = function () {
       // Mock the request object.
-      var req = { setHeader : function () {}, end : function () {} };
-      req.__proto__ = new EventEmitter();
+      var req = Object.create(EventEmitter.prototype);
+      req.setHeader = function () {};
+      req.end = function () {};
       process.nextTick(function () {
         req.emit('response', res);
         process.nextTick(function () {
