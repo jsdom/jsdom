@@ -124,6 +124,7 @@ jsdom.env(config);
 - `config.url`: sets the resulting window's `location.href`; if `config.html` and `config.file` are not provided, jsdom will load HTML from this URL.
 - `config.scripts`: see `scripts` above.
 - `config.src`: an array of JavaScript strings that will be evaluated against the resulting document. Similar to `scripts`, but it accepts JavaScript instead of paths/URLs.
+- `config.jar`: a custom cookie jar, if desired; see [mikeal/request](https://github.com/mikeal/request) documentation.
 - `config.done`: see `callback` above.
 - `config.document`:
   - `referer`: the new document will have this referer.
@@ -152,7 +153,7 @@ var window = doc.parentWindow;
   var doc = jsdom.jsdom("<html><body></body></html>", jsdom.level(1, "core"));
   ```
 
-- `options` see the **Flexibility** section below.
+- `options` See the explanation of the `config` object above.
 
 ### Flexibility
 
