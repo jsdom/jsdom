@@ -10000,7 +10000,7 @@ exports['remove attribute or namedItem NS'] = testcase({
     test.notEqual(genElement, null, 'genElement should not be null')
     var success = false;
     try {
-      genElement.removeAttributeNS("www.xyz.com","local1");
+      genElement.removeAttributeNS("http://www.w3.org/2000/xmlns/","local1");
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 7);
     }
