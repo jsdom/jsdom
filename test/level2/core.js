@@ -7650,8 +7650,7 @@ exports['namednodemapremovenameditemns'] = testcase({
 
    Retreive an attribute node from a namednodemap.  Remove the attribute node from the document
    object.  Since NamedNodeMaps are live it should also automatically get removed from
-   the node map.  And so if an attempt is made to remove it using removeAttributeNS, this should
-   raise a NOT_FOUND_ERR.
+   the node map.
 
    * @author IBM
    * @author Neil Delima
@@ -10049,6 +10048,28 @@ exports['remove attribute or namedItem NS'] = testcase({
     test.equal(namespaceURI, 'http://www.nist.gov');
     test.equal(localName, 'local1');
     test.equal(prefix, 'emp');
+    test.done();
+  },
+  /**
+   *
+   (This test is not from the w3.org test suite but specific to jsdom.)
+
+   The "removeAttributeNS(namespaceURI,localName)" does not raise
+   NOT_FOUND_ERR if the attribute is not present.
+
+   Remove the attribute "{http://nonexistent}local" from emp:address
+   node by invoking the "removeAttributeNS(namespaceURI,localName)" method.
+
+   * @author Louis-Dominique Dubeau
+   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElRemAtNS
+   * @see http://www.w3.org/2000/11/DOM-Level-2-errata#core-19
+   * @see http://dom.spec.whatwg.org/#dom-element-removeattributens
+   */
+  removeAttributeNS03: function(test) {
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var elementList = doc.getElementsByTagName("emp:address");
+    var testAddr = elementList.item(0);
+    test.equal(testAddr.removeAttributeNS("http://nonexistent","nonexistent"), undefined, "should be undefined");
     test.done();
   },
   /**
