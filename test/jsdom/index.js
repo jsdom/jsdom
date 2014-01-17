@@ -1207,6 +1207,21 @@ exports.tests = {
     test.done();
   },
 
+  issue_723_namednodemap_property_names_that_collide_with_method_names : function (test) {
+    var doc = jsdom.jsdom();
+    var core = jsdom.level(1, 'core');
+    var map = new core.NamedNodeMap(doc);
+    var fooAttribute = doc.createAttribute('foo');
+    map.setNamedItem(fooAttribute);
+    var itemAttribute = doc.createAttribute('item');
+    map.setNamedItem(itemAttribute);
+    test.equal(map.foo, fooAttribute);
+    test.equal(map.item, core.NamedNodeMap.prototype.item);
+    map.removeNamedItem('item');
+    test.equal(map.item, core.NamedNodeMap.prototype.item);
+    test.done();
+  },
+
   issue_319_HIERARCHY_REQUEST_ERR : function(test){
    jsdom.env({
       html: '<!DOCTYPE html><html><head><title>Title</title></head><body>My body</body></html><div></div>',
