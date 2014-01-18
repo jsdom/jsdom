@@ -1,5 +1,7 @@
 # jsdom
 
+[![Build Status](https://secure.travis-ci.org/tmpvar/jsdom.png?branch=master)](http://travis-ci.org/#!/tmpvar/jsdom)
+
 A JavaScript implementation of the W3C DOM.
 
 ## Install
