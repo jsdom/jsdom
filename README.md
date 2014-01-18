@@ -275,7 +275,7 @@ window.document.body.appendChild(scriptEl);
  level1/core         535/535      100%
  level1/html         238/238      100%
  level1/svg          527/527      100%
- level2/core         283/283      100%
+ level2/core         284/284      100%
  level2/html         708/708      100%
  level2/style          15/15      100%
  level2/extra            4/4      100%
@@ -287,14 +287,15 @@ window.document.body.appendChild(scriptEl);
  window/console          2/2      100%
  window/frame          16/16      100%
  sizzle/index          14/14      100%
- jsdom/index           76/76      100%
+ jsdom/index           77/77      100%
  jsdom/parsing         11/11      100%
  jsdom/env             25/25      100%
+ jsdom/utils           11/11      100%
  jsonp/jsonp             1/1      100%
  browser/css             1/1      100%
  browser/index         34/34      100%
 ---------------------------------------
-TOTALS: 0/2629 failed; 100% success
+TOTALS: 0/2642 failed; 100% success
 ```
 
 ### Running the tests

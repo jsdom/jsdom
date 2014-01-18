@@ -1,3 +1,10 @@
+## 0.8.11
+
+* Add: store and use cookies between requests; customizable cookie jars also possible. (stockholmux)
+* Fix: attributes named the same as prototype properties of `NamedNodeMap` no longer break jsdom. (papandreou)
+* Fix: `removeAttributeNS` should not throw on missing attributes. (lddubeau)
+* Change: remove `__proto__`, `__defineGetter__`, and `__defineSetter__` usage, as part of a project to make jsdom work better across multiple environments. (lawnsea)
+
 ## 0.8.10
 
 * Add: `hash` property to `HTMLAnchorElement`. (fr0z3nk0)
