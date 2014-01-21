@@ -21855,7 +21855,7 @@ exports.tests = {
     var doc = new dom.Document('');
     var elem = doc.createElement('test');
     elem.setAttribute('onclick', 'test');
-    test.ok(elem.onclick, 'elem.onevent is set');
+    test.ok(elem.onclick, 'elem.onclick is set');
     test.done();
   },
 
