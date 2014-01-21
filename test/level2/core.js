@@ -2346,7 +2346,7 @@ exports['documentimportnode'] = testcase({
     newDoc = domImpl.createDocument(nullNS,"staff",nullDocType);
     imported = newDoc.importNode(employeeElem,true);
     attrNode = imported.getAttributeNodeNS(nullNS,"defaultAttr");
-    test.equal(attrNode, null, 'attrNode should not be null');
+    test.equal(attrNode, null, 'attrNode should be null');
 
     attrValue = imported.getAttributeNS("http://www.w3.org/2000/xmlns/","emp");
     test.equal(attrValue, "http://www.nist.gov", "explicitAttrImported");
