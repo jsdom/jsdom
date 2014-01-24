@@ -67,9 +67,23 @@
        "contextify": "~0.1.5"
     },
     "devDependencies" : {
+      "browser-request": "~0.3.1",
+      "cssstyle-browserify": "git://github.com/TreehouseJS/CSSStyleDeclaration.git",
       "nodeunit": "~0.8.0",
       "optimist": "*",
-      "urlmaster": ">=0.2.15"
+      "urlmaster": ">=0.2.15",
+      "browserify": "^5.9.1",
+      "portfinder": "^0.2.1",
+      "q": "^1.0.1",
+      "wd": "^0.2.21",
+      "selenium-standalone": "^2.42.0-2.9.0",
+      "http-server": "^0.6.1"
+    },
+    "browser": {
+        "canvas": false,
+        "contextify": "./lib/jsdom/contextify-shim.js",
+        "cssstyle": "./node_modules/cssstyle-browserify/lib/CSSStyleDeclaration.js",
+        "request": "./node_modules/browser-request/index.js"
     },
     "scripts": {
         "test": "node ./test/runner"

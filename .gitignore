@@ -4,3 +4,4 @@
 gmon.out
 v8.log
 node_modules
+test/worker-bundle.js

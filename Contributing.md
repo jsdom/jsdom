@@ -56,6 +56,28 @@ Options:
 -t, --tests      choose the test cases to run. ie: -t jquery
 ```
 
+### Browser tests
+
+jsdom now has experimental support for Web Workers. Many tests fail at present. To run all test suites that pass, run `node test/browser-runner.js`. The browser runner supports the same options as `test/runner`, as well as a few more specific to running browser tests via WebDriver.
+
+```
+$ node test/browser-runner.js -h
+Run the jsdom test suite in a browser via WebDriver
+
+Options:
+  -s, --suites               suites that you want to run. ie: -s level1/core,1/html,html
+  -f, --fail-fast            stop on the first failed test
+  -h, --help                 show the help
+  -t, --tests                choose the test cases to run. ie: -t jquery
+  -d, --debug                run in node's interactive debugger mode
+  -p, --parser               the HTML parser to use (e.g. html5); default is htmlparser
+  -v, --verbose              show all tests that are being run
+  --http-port                port to run test server on (defaults to pid + 20000)
+  --web-driver-port          port to run Selenium on (defaults to pid + 20000)
+  --verbose-web-driver       print verbose output from wd to stdout
+  --verbose-browser-console  print browser console to stdout
+```
+
 ## Issues
 
 Finally, we have [an active and full issue tracker](https://github.com/tmpvar/jsdom/issues) that we'd love you to help with. Go find something broken, and fix it!
