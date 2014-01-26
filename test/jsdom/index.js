@@ -1273,10 +1273,32 @@ exports.tests = {
     test.expect(3);
 
     var doc = jsdom.jsdom('<html><head></head><body><input id="input" /></body></html>');
-    var inputEl = doc.getElementById("input");
-    test.equal(inputEl.hasAttribute('type'), true);
-    test.equal(inputEl.getAttribute('type'), 'text');
+    var inputEl = doc.getElementById('input');
+    test.equal(inputEl.hasAttribute('type'), false);
+    test.equal(inputEl.getAttribute('type'), null);
     test.equal(inputEl.type, 'text');
+
+    test.done();
+  },
+
+  input_type_should_set_attribute : function(test) {
+    test.expect(1);
+
+    var doc = jsdom.jsdom('<html><head></head><body><input id="input" /></body></html>');
+    var inputEl = doc.getElementById('input');
+    inputEl.type = 'checkbox';
+    test.equal(inputEl.getAttribute('type'), 'checkbox');
+
+    test.done();
+  },
+
+  input_type_should_reflect_in_property : function(test) {
+    test.expect(2);
+
+    var doc = jsdom.jsdom('<html><head></head><body><input id="input" type="checkbox" /></body></html>');
+    var inputEl = doc.getElementById('input');
+    test.equal(inputEl.type, 'checkbox');
+    test.equal(inputEl.getAttribute('type'), 'checkbox');
 
     test.done();
   },
