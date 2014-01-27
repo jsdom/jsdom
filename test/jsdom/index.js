@@ -1,6 +1,7 @@
 var path = require("path");
 var fs   = require("fs");
 var jsdom = require('../../lib/jsdom');
+var inheritFrom = require("../../lib/jsdom/utils").inheritFrom;
 var toFileUrl = require('../util').toFileUrl(__dirname);
 var http = require("http");
 var URL = require('url');
@@ -83,14 +84,15 @@ exports.tests = {
     var EventEmitter = require('events').EventEmitter;
 
     // Mock response object
-    var res = { setEncoding : function () {} };
-    res.__proto__ = new EventEmitter();
+    var res = Object.create(EventEmitter.prototype);
+    res.setEncoding = function () {};
 
     // Monkey patch https.request so it emits 'close' instead of 'end.
     https.request = function () {
       // Mock the request object.
-      var req = { setHeader : function () {}, end : function () {} };
-      req.__proto__ = new EventEmitter();
+      var req = Object.create(EventEmitter.prototype);
+      req.setHeader = function () {};
+      req.end = function () {};
       process.nextTick(function () {
         req.emit('response', res);
         process.nextTick(function () {
@@ -1207,6 +1209,21 @@ exports.tests = {
     test.done();
   },
 
+  issue_723_namednodemap_property_names_that_collide_with_method_names : function (test) {
+    var doc = jsdom.jsdom();
+    var core = jsdom.level(1, 'core');
+    var map = new core.NamedNodeMap(doc);
+    var fooAttribute = doc.createAttribute('foo');
+    map.setNamedItem(fooAttribute);
+    var itemAttribute = doc.createAttribute('item');
+    map.setNamedItem(itemAttribute);
+    test.equal(map.foo, fooAttribute);
+    test.equal(map.item, core.NamedNodeMap.prototype.item);
+    map.removeNamedItem('item');
+    test.equal(map.item, core.NamedNodeMap.prototype.item);
+    test.done();
+  },
+
   issue_319_HIERARCHY_REQUEST_ERR : function(test){
    jsdom.env({
       html: '<!DOCTYPE html><html><head><title>Title</title></head><body>My body</body></html><div></div>',
@@ -1315,9 +1332,9 @@ exports.tests = {
       }
     });
 
-    server.listen(80001, "127.0.0.1", function() {
+    server.listen(8001, "127.0.0.1", function() {
       jsdom.env({
-        url: "http://127.0.0.1:80001",
+        url: "http://127.0.0.1:8001",
         done: function(errors, window) {
           server.close();
           if (errors) {
@@ -1325,7 +1342,7 @@ exports.tests = {
           }
           else {
             test.equal(window.document.body.innerHTML, html, "root page should be redirected");
-            test.equal(window.location.href, "http://127.0.0.1:80001/redir",
+            test.equal(window.location.href, "http://127.0.0.1:8001/redir",
               "window.location.href should equal to redirected url");
           }
           test.done()
@@ -1364,9 +1381,9 @@ exports.tests = {
       }
     });
 
-    server.listen(80001, "127.0.0.1", function () {
+    server.listen(8001, "127.0.0.1", function () {
       jsdom.env({
-        url: "http://127.0.0.1:80001",
+        url: "http://127.0.0.1:8001",
         document: { cookie: "name=world" },
         features: {
           FetchExternalResources: ["script"],
@@ -1411,9 +1428,9 @@ exports.tests = {
       }
     });
 
-    server.listen(80001, "127.0.0.1", function() {
+    server.listen(8001, "127.0.0.1", function() {
       jsdom.env({
-        url: "http://127.0.0.1:80001",
+        url: "http://127.0.0.1:8001",
         document: { cookie: "name=world" },
         features: {
           FetchExternalResources: ["script"],

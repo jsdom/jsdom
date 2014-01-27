@@ -124,6 +124,7 @@ jsdom.env(config);
 - `config.url`: sets the resulting window's `location.href`; if `config.html` and `config.file` are not provided, jsdom will load HTML from this URL.
 - `config.scripts`: see `scripts` above.
 - `config.src`: an array of JavaScript strings that will be evaluated against the resulting document. Similar to `scripts`, but it accepts JavaScript instead of paths/URLs.
+- `config.jar`: a custom cookie jar, if desired; see [mikeal/request](https://github.com/mikeal/request) documentation.
 - `config.done`: see `callback` above.
 - `config.document`:
   - `referer`: the new document will have this referer.
@@ -152,7 +153,7 @@ var window = doc.parentWindow;
   var doc = jsdom.jsdom("<html><body></body></html>", jsdom.level(1, "core"));
   ```
 
-- `options` see the **Flexibility** section below.
+- `options` See the explanation of the `config` object above.
 
 ### Flexibility
 
@@ -274,8 +275,8 @@ window.document.body.appendChild(scriptEl);
  level1/core         535/535      100%
  level1/html         238/238      100%
  level1/svg          527/527      100%
- level2/core         283/283      100%
- level2/html         706/706      100%
+ level2/core         284/284      100%
+ level2/html         708/708      100%
  level2/style          15/15      100%
  level2/extra            4/4      100%
  level2/events         24/24      100%
@@ -286,13 +287,15 @@ window.document.body.appendChild(scriptEl);
  window/console          2/2      100%
  window/frame          16/16      100%
  sizzle/index          14/14      100%
- jsdom/index           76/76      100%
+ jsdom/index           77/77      100%
  jsdom/parsing         11/11      100%
  jsdom/env             25/25      100%
+ jsdom/utils           11/11      100%
  jsonp/jsonp             1/1      100%
+ browser/css             1/1      100%
  browser/index         34/34      100%
 ---------------------------------------
-TOTALS: 0/2626 failed; 100% success
+TOTALS: 0/2642 failed; 100% success
 ```
 
 ### Running the tests
@@ -322,10 +325,12 @@ Unfortunately, doing this kind of magic requires C++. And in Node.js, using C++ 
 modules." Native modules are compiled at installation time so that they work precisely for your machine; that is, you
 don't download a contextify binary from npm, but instead build one locally after downloading the source from npm.
 
-For Mac and Linux users, this is usually fine. Their systems come preinstalled with the necessaries for compiling C++.
-For Windows users, however, things can be tricky. Thus, one of the most common problems with jsdom is trying to use it
-on Windows without the proper compilation tools installed. Here's what you need to compile Contextify, and thus to
-install jsdom, on Windows:
+
+Unfortunately, getting C++ compiled within npm's installation system can be tricky, especially for Windows users. Thus,
+one of the most common problems with jsdom is trying to use it without the proper compilation tools installed.
+Here's what you need to compile Contextify, and thus to install jsdom:
+
+### Windows
 
 * A recent copy of the *x86* version of [Node.js for Windows](http://nodejs.org/download/), *not* the x64 version.
 * A copy of [Visual C++ 2010 Express](http://www.microsoft.com/visualstudio/eng/downloads#d-2010-express).
@@ -333,3 +338,14 @@ install jsdom, on Windows:
 
 There are some slight modifications to this that can work; for example full versions of Visual Studio usually work, and
 sometimes you can even get an x64 version of Node.js working too. But it's tricky, so start with the basics!
+
+### Mac
+
+* XCode needs to be installed
+* "Command line tools for XCode" need to be installed
+* Launch XCode once to accept the license, etc. and ensure it's properly installed
+
+### Linux
+
+You'll need various build tools installed, like `make`, Python 2.7, and a compiler toolchain. How to install these will
+be specific to your distro, if you don't already have them.

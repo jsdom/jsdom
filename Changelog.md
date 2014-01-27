@@ -1,3 +1,27 @@
+## 0.8.11
+
+* Add: store and use cookies between requests; customizable cookie jars also possible. (stockholmux)
+* Fix: attributes named the same as prototype properties of `NamedNodeMap` no longer break jsdom. (papandreou)
+* Fix: `removeAttributeNS` should not throw on missing attributes. (lddubeau)
+* Change: remove `__proto__`, `__defineGetter__`, and `__defineSetter__` usage, as part of a project to make jsdom work better across multiple environments. (lawnsea)
+
+## 0.8.10
+
+* Add: `hash` property to `HTMLAnchorElement`. (fr0z3nk0)
+
+## 0.8.9
+
+* Upgrade: `cssom` to 0.3.0, adding support for `@-moz-document` and fixing a few other issues.
+* Upgrade: `cssstyle` to 0.2.6, adding support for many shorthand properties and better unit handling.
+
+## 0.8.8
+
+* Fix: avoid repeated `NodeList.prototype.length` calculation, for a speed improvement. (peller)
+
+## 0.8.7
+
+* Add: `host` property to `HTMLAnchorElement`. (sporchia)
+
 ## 0.8.6
 
 * Fix: stop accidentally modifying `Error.prototype`. (mitar)

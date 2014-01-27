@@ -94,7 +94,9 @@ var files = [
   "jsdom/index.js",
   "jsdom/parsing.js",
   "jsdom/env.js",
+  "jsdom/utils.js",
   "jsonp/jsonp.js",
+  "browser/css.js",
   "browser/index.js"
 ];
 
