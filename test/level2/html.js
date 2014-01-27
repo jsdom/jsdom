@@ -3,30 +3,8 @@ var path = require('path');
 var jsdom = require("../../lib/jsdom");
 var toPathname = require("../util").toPathname(__dirname);
 var toFileUrl = require("../util").toFileUrl(__dirname);
+var load = require("../util").load(__dirname +  "/html/");
 
-var fileCache = {};
-var load = function(name, options) {
-  if (!options) {
-    options = {};
-  }
-
-  var file = path.resolve(__dirname, "html/files/" + name + ".html");
-
-  if(!options.url) {
-    options.url = toFileUrl(file);
-  }
-
-  var contents = fileCache[file] || fs.readFileSync(file, 'utf8'),
-      doc      = jsdom.jsdom(null, null, options),
-      window   = doc.createWindow();
-
-  doc.parent = window;
-  window.loadComplete = function() {};
-
-  doc.innerHTML = contents;
-  fileCache[file] = contents;
-  return doc;
-};
 var level2 = require("../../lib/jsdom/level2/html").dom.level2.html;
 var getImplementation = function() {
   var doc = new level2.HTMLDocument();
