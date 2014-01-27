@@ -527,7 +527,7 @@ exports.tests = {
     var doc = load("anchor2");
     var nodeList = doc.getElementsByTagName("a");
     test.equal(nodeList.length, 1, 'Asize');
-    test.equal(nodeList.item(0).protocol, 'http:', 'a.protocol');
+    test.equal(nodeList.item(0).protocol, 'file:', 'a.protocol');
     var doc = load("anchor3");
     var nodeList = doc.getElementsByTagName("a");
     test.equal(nodeList.length, 1, 'Asize');
