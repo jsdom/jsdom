@@ -467,7 +467,7 @@ exports.tests = {
 
   /**
    *
-   HTMLAnchorElement.host should show the host and port if port is not default
+   * HTMLAnchorElement.host should show the host and port if port is not default
    * @author Salvatore Porchia
    * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
    */
@@ -494,6 +494,53 @@ exports.tests = {
      test.equal(nodeList.item(0).host, 'www.github.com:3020', 'a.host');
      test.equal(nodeList.item(0).hash, '#fragment-identifier', 'a.hash');
      test.done();
+  },
+  /**
+   *
+   * HTMLAnchorElement.port should show the port if port is not default
+   * @author Salvatore Porchia
+   * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
+   */
+  HTMLAnchorElement21: function(test) {
+    var doc = load("anchor3");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    test.equal(nodeList.item(0).port, null, 'a.port');
+    var doc = load("anchor4");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    test.equal(nodeList.item(0).port, '3020', 'a.port');
+    test.done();
+  },
+  /**
+   *
+   * HTMLAnchorElement.protocol should show the protocol including trailing ':'.
+   * @author Salvatore Porchia
+   * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
+   */
+  HTMLAnchorElement22: function(test) {
+    var doc = load("anchorEmpty");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    // Firefox shows 'http:' Chrome/Safari show ':' on empty href.
+    test.equal(nodeList.item(0).protocol, ':', 'a.protocol');
+    var doc = load("anchor2");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    test.equal(nodeList.item(0).protocol, 'http:', 'a.protocol');
+    var doc = load("anchor3");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    test.equal(nodeList.item(0).protocol, 'https:', 'a.protocol');
+    var doc = load("anchor4");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    test.equal(nodeList.item(0).protocol, 'http:', 'a.protocol');
+    var doc = load("anchor6");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    test.equal(nodeList.item(0).protocol, 'special:', 'a.protocol');
+    test.done();
   },
   /**
    *
