@@ -2500,6 +2500,7 @@ exports.tests = {
    * @author NIST
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-8747038
+   * Updated with multiple-cookie test by dai-shi in GH-738.
    */
   HTMLDocument12: function(test) {
     var success;
@@ -2523,7 +2524,13 @@ exports.tests = {
     cookie = 'key=value; expires='+future.toGMTString()+'; path=/';
     doc = load("document", { cookie:cookie });
     vcookie = doc.cookie;
-    test.equal(vcookie, cookie, "cookieLink");
+    test.equal(vcookie, "key=value", "cookieLink");
+
+    doc = load("document");
+    doc.cookie = "key1=value1";
+    doc.cookie = "key2=value2";
+    vcookie = doc.cookie;
+    test.equal(vcookie, "key1=value1; key2=value2", "cookieLink");
 
     test.done();
   },
