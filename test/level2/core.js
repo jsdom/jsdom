@@ -2346,7 +2346,7 @@ exports['documentimportnode'] = testcase({
     newDoc = domImpl.createDocument(nullNS,"staff",nullDocType);
     imported = newDoc.importNode(employeeElem,true);
     attrNode = imported.getAttributeNodeNS(nullNS,"defaultAttr");
-    test.equal(attrNode, null, 'attrNode should not be null');
+    test.equal(attrNode, null, 'attrNode should be null');
 
     attrValue = imported.getAttributeNS("http://www.w3.org/2000/xmlns/","emp");
     test.equal(attrValue, "http://www.nist.gov", "explicitAttrImported");
@@ -3537,7 +3537,29 @@ exports['elementgetattributens'] = testcase({
     attrValue = element.getAttributeNS(nullNS,"defaultAttr");
     test.equal(attrValue, "defaultVal", "elementgetattributens02");
     test.done();
+  },
+  /**
+   *
+   The method getAttributeNS treats an empty string for the namespace
+   URI as meaning no namespace.
+
+   Using getAttributeNS, verify that we get the value of an attribute
+   which is not in any namespace if we pass a namespace URI equal to
+   "".
+
+   * @author Louis-Dominique Dubeau
+   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAttrNS
+   * @see http://dom.spec.whatwg.org/#dom-element-getattributens
+   */
+  elementgetattributens03: function(test) {
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    var childList = doc.getElementsByTagNameNS("http://www.nist.gov", "employee");
+    var element = childList.item(1);
+    test.equal(element.getAttributeNS("", "defaultAttr"), "defaultVal",
+               "value should be 'defaultVal'");
+    test.done();
   }
+
 })
 
 exports['elementgetelementsbytagnamens'] = testcase({
@@ -4380,6 +4402,29 @@ exports['elementsetattributens'] = testcase({
       }
       test.ok(success, 'elementsetattributens08_Err2');
     }
+    test.done();
+  },
+  /**
+   *
+   The method setAttributeNS adds a new attribute in no namespace if
+   the namespace URI is set to "".
+
+   * @author Louis-Dominique Dubeau
+   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
+   * @see http://dom.spec.whatwg.org/#dom-element-setattributens
+   */
+  elementsetattributens09: function(test) {
+    var element;
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    element = doc.createElement("elem");
+
+    element.setAttributeNS("","x","test");
+    test.equal(element.getAttribute("x"), "test", "getAttribute");
+    test.equal(element.getAttributeNS("", "x"), "test",
+               "getAttributeNS with ''");
+    test.equal(element.getAttributeNS(null, "x"), "test",
+               "getAttributeNS with null");
     test.done();
   }
 })
@@ -5615,7 +5660,28 @@ exports['hasAttributeNS'] = testcase({
     state = testNode.hasAttributeNS(namespaceURI,localName);
     test.ok(state, 'hasAttribute');
     test.done();
+  },
+  /**
+   *
+   The method hasAttributeNS checks in no namespace if the namespace
+   URI is set to "".
+
+   * @author Louis-Dominique Dubeau
+   * @see http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-ElHasAttrNS
+   * @see http://dom.spec.whatwg.org/#dom-element-hasattributens
+   */
+  hasAttributeNS06: function(test) {
+    var element;
+
+    var doc = require('./core/files/staffNS.xml').staffNS();
+    element = doc.createElement("elem");
+
+    element.setAttribute("x","test");
+    test.ok(element.hasAttributeNS("", "x"), "getAttributeNS with ''");
+    test.ok(element.hasAttributeNS(null, "x"), "getAttributeNS with null");
+    test.done();
   }
+
 })
 
 exports['hasAttributes'] = testcase({
