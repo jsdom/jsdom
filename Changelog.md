@@ -1,3 +1,11 @@
+## 0.9.0
+
+* Add: implement attribute ordering semantics from WHATWG DOM spec, and in general overhaul attribute storage implementation to be much more awesome and accurate. (lddubeau)
+* Add: `port` and `protocol` to `HTMLAnchorElement`. (sporchia)
+* Fix: make `HTMLInputElement` not have a `type` *attribute* by default. It still has a default value for the `type` *property*, viz. `"text"`. (aredridel)
+* Fix: treat empty namespace URI as meaning "no namespace" with the `getAttributeNS`, `hasAttributeNS`, and `setAttributeNS` functions. (lddubeau)
+* Fix: reference typed arrays in a way that doesn't immediately break on Node 0.6. Node 0.6 isn't supported in general, though. (kangax)
+
 ## 0.8.11
 
 * Add: store and use cookies between requests; customizable cookie jars also possible. (stockholmux)
