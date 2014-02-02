@@ -327,7 +327,7 @@ exports["with document cookie"] = function (t) {
     document: { cookie: cookie },
     done: function (err, window) {
       t.ifError(err);
-      t.equal(window.document.cookie, cookie);
+      t.equal(window.document.cookie, "key=value");
       t.done();
     }
   });
