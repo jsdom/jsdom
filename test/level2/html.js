@@ -2498,7 +2498,13 @@ exports.tests = {
     cookie = 'key=value; expires='+future.toGMTString()+'; path=/';
     doc = load("document", { cookie:cookie });
     vcookie = doc.cookie;
-    test.equal(vcookie, cookie, "cookieLink");
+    test.equal(vcookie, "key=value", "cookieLink");
+
+    doc = load("document");
+    doc.cookie = "key1=value1";
+    doc.cookie = "key2=value2";
+    vcookie = doc.cookie;
+    test.equal(vcookie, "key1=value1;key2=value2", "cookieLink");
 
     test.done();
   },
