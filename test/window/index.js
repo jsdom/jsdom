@@ -75,5 +75,11 @@ exports.tests = {
       test.ok(eventfired, "hashchange event should be fired.");
       test.done();
     }, 100);
+  },
+  
+  ensure_a_default_window_has_a_defined_port: function(test) {
+    var window = require("../../lib/jsdom/browser/index").windowAugmentation(dom);
+    test.equals(window.location.port, "");
+    test.done();
   }
 };
