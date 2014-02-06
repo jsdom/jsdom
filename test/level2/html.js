@@ -2530,7 +2530,7 @@ exports.tests = {
     doc.cookie = "key1=value1";
     doc.cookie = "key2=value2";
     vcookie = doc.cookie;
-    test.equal(vcookie, "key1=value1; key2=value2", "cookieLink");
+    test.equal(vcookie, "key1=value1;key2=value2", "cookieLink");
 
     test.done();
   },
