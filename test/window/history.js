@@ -130,5 +130,5 @@ exports["the history object should fire popstate on the window while navigating 
     t.ok(eventFired, "popstate event should be fired.");
     t.strictEqual(state, eventState);
     t.done();
-  }, 0);
+  }, 10);
 };
