@@ -282,7 +282,7 @@ window.document.body.appendChild(scriptEl);
  level2/events            24/24      100%
  level3/xpath             93/93      100%
  whatwg/attributes        10/10      100%
- window/index               7/7      100%
+ window/index               8/8      100%
  window/history             5/5      100%
  window/script            10/10      100%
  window/console             2/2      100%
@@ -296,7 +296,7 @@ window.document.body.appendChild(scriptEl);
  browser/css                1/1      100%
  browser/index            34/34      100%
 ------------------------------------------
-TOTALS: 0/2659 failed; 100% success
+TOTALS: 0/2660 failed; 100% success
 ```
 
 ### Running the tests

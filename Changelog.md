@@ -1,3 +1,7 @@
+## 0.10.1
+
+* Fix: `window.location.port` should default to `""`, not `null`. (bpeacock)
+
 ## 0.10.0
 
 * Add: a more complete `document.cookie` implementation, that supports multiple cookies. Note that options like `path`, `max-age`, etc. are still ignored. (dai-shi)
