@@ -25,7 +25,7 @@ exports["the history object should update correctly when calling pushState/repla
   window.history.pushState({ foo: "two" }, "unused title 2", "fizz");
   t.strictEqual(window.history.length, 2);
   t.strictEqual(window.history.state.foo, "two");
-  t.strictEqual(window.location.pathname, "/bar/baz/fizz");
+  t.strictEqual(window.location.pathname, "/bar/fizz");
 
   window.history.replaceState({ foo: "three" }, "unused title 3", "/buzz");
   t.strictEqual(window.history.length, 2);
