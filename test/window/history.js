@@ -16,16 +16,18 @@ exports["the history object should update correctly when calling pushState/repla
   var window = jsdom().parentWindow;
 
   // Absolute path
-  window.history.pushState({ foo: "one" }, "unused title", "/bar/baz");
+  window.history.pushState({ foo: "one" }, "unused title", "/bar/baz#fuzz");
   t.strictEqual(window.history.length, 1);
   t.strictEqual(window.history.state.foo, "one");
   t.strictEqual(window.location.pathname, "/bar/baz");
+  t.strictEqual(window.location.hash, "#fuzz");
 
   // Relative path
   window.history.pushState({ foo: "two" }, "unused title 2", "fizz");
   t.strictEqual(window.history.length, 2);
   t.strictEqual(window.history.state.foo, "two");
   t.strictEqual(window.location.pathname, "/bar/fizz");
+  t.strictEqual(window.location.hash, "");
 
   window.history.replaceState({ foo: "three" }, "unused title 3", "/buzz");
   t.strictEqual(window.history.length, 2);
