@@ -1,5 +1,6 @@
 var jsdom        = require('../../lib/jsdom');
 var fs           = require('fs');
+var path         = require('path');
 var testFile     = fs.readFileSync(__dirname + '/files/index.html', 'utf-8');
 var qunit        = require('./support/qunit');
 
@@ -8,7 +9,10 @@ function test(fn) {
   return function(test) {
     jsdom.env({
       html: testFile,
-      scripts: [__dirname + "/files/jquery.js", __dirname + "/files/sizzle.js"],
+      scripts: [
+        path.resolve(__dirname, '../jquery-fixtures/jquery-1.8.3.js'),
+        path.resolve(__dirname, 'files/sizzle.js')
+      ],
       done: function(e, window) {
 
         // Cleanup the scripts injected by jsdom

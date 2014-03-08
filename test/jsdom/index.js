@@ -34,8 +34,8 @@ exports.tests = {
   },
 
   jquerify: function(test) {
-    var jQueryFile = __dirname + "/../../example/jquery/jquery.js",
-    jQueryUrl = "http://code.jquery.com/jquery-1.4.4.min.js";
+    var jQueryFile = path.resolve(__dirname, '../jquery-fixtures/jquery-1.4.4.js');
+    var jQueryUrl = 'http://code.jquery.com/jquery-1.4.4.min.js';
 
     function tmpWindow() {
       return jsdom.jsdom(null, null, {documentRoot: __dirname}).createWindow();
@@ -63,7 +63,7 @@ exports.tests = {
   jquerify_attribute_selector_gh_400: function(test) {
     var window = jsdom.jsdom().createWindow();
 
-    jsdom.jQueryify(window, "http://code.jquery.com/jquery.js", function () {
+    jsdom.jQueryify(window, path.resolve(__dirname, '../jquery-fixtures/jquery-1.11.0.js'), function () {
       try {
           window.$("body").append('<html><body><div data-foo="bar"/><div data-baz="foo"/></body></html>');
 
@@ -743,7 +743,7 @@ exports.tests = {
 
   fix_for_issue_172 : function(test) {
     jsdom.env("<html><body><script type='text/javascript'></script></body></html>", [
-     'jquery.js'
+      path.resolve(__dirname, '../jquery-fixtures/jquery-1.6.2.js')
     ], function () {
       // ensure the callback gets called!
       test.done();
@@ -1313,7 +1313,7 @@ exports.tests = {
   jquery_val_on_selects : function(test) {
     var window = jsdom.jsdom().createWindow();
 
-    jsdom.jQueryify(window, "http://code.jquery.com/jquery.js", function () {
+    jsdom.jQueryify(window, path.resolve(__dirname, '../jquery-fixtures/jquery-1.11.0.js'), function () {
       window.$("body").append('<html><body><select id="foo"><option value="first">f</option><option value="last">l</option></select></body></html>');
 
       test.equal(window.document.querySelector("[value='first']").selected, true, "`selected` property should be `true` for first");
@@ -1337,7 +1337,7 @@ exports.tests = {
   jquery_attr_mixed_case : function(test) {
     var window = jsdom.jsdom().createWindow();
 
-    jsdom.jQueryify(window, "http://code.jquery.com/jquery.js", function () {
+    jsdom.jQueryify(window, path.resolve(__dirname, '../jquery-fixtures/jquery-1.11.0.js'), function () {
       var $el = window.$('<div mixedcase="blah"></div>');
 
       test.equal($el.attr('mixedCase'), 'blah');
