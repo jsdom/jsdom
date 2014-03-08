@@ -27,12 +27,6 @@ exports.tests = {
     test.done();
   },
 
-  jsdom_method_skips_default_document_creation_when_empty_string : function(test) {
-    var doc = jsdom.jsdom('');
-    test.ok(!doc.documentElement);
-    test.done();
-  },
-
   jquerify: function(test) {
     var jQueryFile = path.resolve(__dirname, '../jquery-fixtures/jquery-1.4.4.js');
     var jQueryUrl = 'http://code.jquery.com/jquery-1.4.4.min.js';
@@ -1343,6 +1337,20 @@ exports.tests = {
       test.equal($el.attr('mixedCase'), 'blah');
 
       test.done();
+    });
+  },
+
+  "Calling show() method in jQuery 1.11.0 (GH-709)": function (t) {
+    var window = jsdom.jsdom("<!DOCTYPE html><html><head></head><body></body></html>").createWindow();
+
+    jsdom.jQueryify(window, path.resolve(__dirname, "../jquery-fixtures/jquery-1.11.0.js"), function () {
+      var $el = window.$("<div></div>");
+
+      t.doesNotThrow(function () {
+        $el.show();
+      });
+
+      t.done();
     });
   },
 
