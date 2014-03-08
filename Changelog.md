@@ -1,3 +1,8 @@
+## 0.10.2
+
+* Fix: Using jQuery 1.11's `show()` method would cause an error to be thrown.
+* Fix: `window.location` properties were not updating correctly after using `pushState` or `replaceState`. (toomanydaves)
+
 ## 0.10.1
 
 * Fix: `window.location.port` should default to `""`, not `null`. (bpeacock)

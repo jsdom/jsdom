@@ -1,11 +1,11 @@
 {
     "name": "jsdom",
-    "version": "0.10.1",
+    "version": "0.10.2",
     "description": "A JavaScript implementation of the W3C DOM",
     "keywords": ["dom", "w3c", "html"],
     "maintainers": [
         "Elijah Insua <tmpvar@gmail.com> (http://tmpvar.com)",
-        "Domenic Denicola <domenic@domenicdenicola.com (http://domenicdenicola.com)"
+        "Domenic Denicola <domenic@domenicdenicola.com (http://domenic.me/)"
     ],
     "contributors": [
         "Vincent Greene <ulteriorlife@gmail.com>",
