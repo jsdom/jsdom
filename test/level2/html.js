@@ -432,19 +432,6 @@ exports.tests = {
 
   /**
    *
-   HTMLAnchorElement.href should show the pathname of the href
-   * @author eleith
-   */
-  HTMLAnchorElement18: function(test) {
-    var doc = load("anchorEmpty");
-    var nodeList = doc.getElementsByTagName("a");
-    test.equal(nodeList.length, 1, 'A size');
-    test.equal(nodeList.item(0).href, '', 'A.href is empty');
-    test.done();
-  },
-
-  /**
-   *
    * HTMLAnchorElement.host should show the host and port if port is not default
    * @author Salvatore Porchia
    * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
@@ -520,6 +507,34 @@ exports.tests = {
     test.equal(nodeList.item(0).protocol, 'special:', 'a.protocol');
     test.done();
   },
+
+  /**
+   *
+   HTMLAnchorElement.href should show the pathname of the href
+   * @author eleith
+   */
+  HTMLAnchorElement23: function(test) {
+    var doc = load("anchorEmpty");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).href, '', 'A.href is empty');
+    test.done();
+  },
+
+  /**
+   *
+   * HTMLAnchorElement.pathname should be the empty string when path is empty
+   * @author Adam Faulkner
+   * @see http://url.spec.whatwg.org/#dom-url-pathname
+   */
+  HTMLAnchorElement24: function(test) {
+    var doc = load("anchorEmpty");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).pathname, '', 'A.pathname is empty');
+    test.done();
+  },
+
   /**
    *
    The align attribute specifies the alignment of the object(Vertically
