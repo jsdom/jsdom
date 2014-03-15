@@ -470,7 +470,7 @@ exports.tests = {
     var doc = load("anchor3");
     var nodeList = doc.getElementsByTagName("a");
     test.equal(nodeList.length, 1, 'Asize');
-    test.equal(nodeList.item(0).port, null, 'a.port');
+    test.equal(nodeList.item(0).port, '', 'a.port');
     var doc = load("anchor4");
     var nodeList = doc.getElementsByTagName("a");
     test.equal(nodeList.length, 1, 'Asize');
