@@ -1,3 +1,7 @@
+## 0.10.3
+
+* Fix: various defaults on `HTMLAnchorElement` and `window.location` should not be `null`; they should usually be the empty string.
+
 ## 0.10.2
 
 * Fix: Using jQuery 1.11's `show()` method would cause an error to be thrown.
