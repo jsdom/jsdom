@@ -384,7 +384,26 @@ exports.tests = {
     var element3 = document.querySelector("#main p:not(.foo)");
     test.equal(element3, div.children.item(1), 'p and second-p');
     var element3 = document.querySelector("#asdf");
-    test.equal(element3, null, 'nonexistent becomes null');
+    test.strictEqual(element3, null, 'nonexistent becomes null');
+    test.done();
+  },
+  
+  queryselector_documentfragment: function(test) {
+    var html = '<html><body><div id="main"><p class="foo">Foo</p><p>Bar</p></div></body></html>',
+        document = jsdom.jsdom(html),
+        div = document.body.children.item(0),
+        fragment = document.createDocumentFragment();
+    
+    fragment.appendChild(document.body.firstChild);
+    test.strictEqual(document.body.firstChild, null);
+    var element = fragment.querySelector("#main p");
+    test.equal(element, div.children.item(0), 'p and first-p');
+    var element2 = div.querySelector("p");
+    test.equal(element2, div.children.item(0), 'p and first-p');
+    var element3 = fragment.querySelector("#main p:not(.foo)");
+    test.equal(element3, div.children.item(1), 'p and second-p');
+    var element3 = fragment.querySelector("#asdf");
+    test.strictEqual(element3, null, 'nonexistent becomes null');
     test.done();
   },
 
@@ -420,11 +439,60 @@ exports.tests = {
     test.equal(elements5.length, 2, "It should not return elements that are not within the base element's subtrees");
     test.equal(elements5.item(0), div.children.item(0), 'p and first-p');
     test.equal(elements5.item(1), div.children.item(1), 'p and second-p');
-    test.equal(topNode.parentNode, null, 'topNode.parentNode is null');
+    test.strictEqual(topNode.parentNode, null, 'topNode.parentNode is null');
     var nextChildDiv = document.getElementById('next-child');
     var elements6 = nextChildDiv.querySelectorAll('p');
     test.equal(elements6.length, 1, 'p under div#next-child');
     test.equal(elements6.item(0), nextChildDiv.children.item(0), 'child of div#next-child');
+    test.done();
+  },
+  
+  queryselectorall__documentfragment: function(test) {
+    var html = '<html><body><div id="main"><p>Foo</p><p>Bar</p></div><div id="next"><div id="next-child"><p>Baz</p></div></div></body></html>',
+        document = jsdom.jsdom(html, null),
+        fragment = document.createDocumentFragment();
+    fragment.appendChild(document.body.firstChild);
+    fragment.appendChild(document.body.firstChild);
+    test.strictEqual(document.body.firstChild, null, 'The body should now be empty');
+    var div = fragment.firstChild;
+    var elements = fragment.querySelectorAll("#main p");
+    test.equal(elements.length, 2, 'two results');
+    test.equal(elements.item(0), div.children.item(0), 'p and first-p');
+    test.equal(elements.item(1), div.children.item(1), 'p and second-p');
+    var elements2 = div.querySelectorAll("p");
+    test.equal(elements2.length, 2, 'two results');
+    test.equal(elements2.item(0), div.children.item(0), 'p and first-p');
+    test.equal(elements2.item(1), div.children.item(1), 'p and second-p');
+    test.equal(div.querySelectorAll("#main").length, 0, 'It should not return the base element');
+    test.equal(div.querySelectorAll("div").length, 0, 'There are no div elements under div#main');
+    var elements3 = div.querySelectorAll("#main p");
+    test.equal(elements3.length, 2, 'two results');
+    test.equal(elements3.item(0), div.children.item(0), 'p and first-p');
+    test.equal(elements3.item(1), div.children.item(1), 'p and second-p');
+    var topNode = document.createElement('p'),
+        newNode = document.createElement('p');
+    topNode.id = "fuz";
+    newNode.id = "buz";
+    topNode.appendChild(newNode);
+    test.equal(topNode.querySelectorAll("#fuz").length, 0, "It should not return the base element that is orphaned");
+    var elements4 = topNode.querySelectorAll("#fuz #buz");
+    test.equal(elements4.length, 1, 'one result');
+    test.equal(elements4.item(0), newNode, 'newNode and first-p');
+    var elements5 = div.querySelectorAll('p');
+    test.equal(elements5.length, 2, "It should not return elements that are not within the base element's subtrees");
+    test.equal(elements5.item(0), div.children.item(0), 'p and first-p');
+    test.equal(elements5.item(1), div.children.item(1), 'p and second-p');
+    test.equal(topNode.parentNode, null, 'topNode.parentNode is null');
+    var nextChildDiv = fragment.querySelectorAll('#next-child').item(0);
+    test.notStrictEqual(nextChildDiv, null, 'id selector on fragment not null');
+    var elements6 = nextChildDiv.querySelectorAll('p');
+    test.equal(elements6.length, 1, 'p under div#next-child');
+    test.equal(elements6.item(0), nextChildDiv.children.item(0), 'child of div#next-child');
+    var elements7 = fragment.querySelectorAll('p');
+    test.equal(elements7.length, 3, 'all p');
+    test.equal(elements7.item(0), div.children.item(0), 'p and first-p');
+    test.equal(elements7.item(1), div.children.item(1), 'p and second-p');
+    test.equal(elements7.item(2), nextChildDiv.children.item(0), 'child of div#next-child');
     test.done();
   },
 
