@@ -1,3 +1,8 @@
+## 0.10.4
+
+* Fix: another case was found where jQuery 1.11's `show()` method would cause errors.
+* Add: `querySelector` and `querySelectorAll` methods to `DocumentFragment`s. (Joris-van-der-Wel)
+
 ## 0.10.3
 
 * Fix: various defaults on `HTMLAnchorElement` and `window.location` should not be `null`; they should usually be the empty string.
