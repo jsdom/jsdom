@@ -1422,6 +1422,22 @@ exports.tests = {
     });
   },
 
+  "Calling show() method in jQuery 1.11.0, second case (GH-709)": function (t) {
+    var window = jsdom.jsdom("<!DOCTYPE html><html><head></head><body></body></html>").createWindow();
+
+    jsdom.jQueryify(window, path.resolve(__dirname, "../jquery-fixtures/jquery-1.11.0.js"), function () {
+      var $el1 = window.$("<div></div>");
+      var $el2 = window.$("<span></span>");
+
+      t.doesNotThrow(function () {
+        $el1.show();
+        $el2.show();
+      });
+
+      t.done();
+    });
+  },
+
   redirected_url_equal_to_location_href : function(test) {
     var html = "<p>Redirect</p>";
     var server = http.createServer(function(req, res) {
