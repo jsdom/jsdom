@@ -783,6 +783,13 @@ exports.tests = {
     test.done();
   },
 
+  serialization_of_void_elements : function(test){
+    var html = '<html><body><div><br><hr><audio><source></audio></div></body></html>',
+        doc = jsdom.html(html);
+    test.strictEqual(doc.outerHTML, html)
+    test.done();
+  },
+
   children_should_be_available_right_after_document_creation : function(test) {
     var doc = jsdom.jsdom("<html><body><div></div></body></html>");
     test.ok((doc.body.children[0] !== undefined), "there should be a body, and it should have a child");
