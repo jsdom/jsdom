@@ -1,3 +1,8 @@
+## 0.10.5
+
+* Fix: the list of void elements has been updated to match the latest HTML spec.
+* Fix: when serializing void elements, don't include a ` /`: i.e. the result is now `<br>` instead of `<br />`.
+
 ## 0.10.4
 
 * Fix: another case was found where jQuery 1.11's `show()` method would cause errors.
