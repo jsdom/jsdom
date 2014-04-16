@@ -402,6 +402,7 @@ exports.tests = {
     test.equal(nodeList.item(0).hostname, 'www.github.com', 'a.hostname absolute');
     test.done();
   },
+
   /**
    *
    HTMLAnchorElement.pathname should show the pathname of the href
@@ -447,6 +448,7 @@ exports.tests = {
     test.equal(nodeList.item(0).host, 'www.github.com:3020', 'a.host');
     test.done();
   },
+
   /**
    * HTMLAnchorElement.hash should show part of url after hash
    * @author Peter Culak
@@ -460,6 +462,7 @@ exports.tests = {
      test.equal(nodeList.item(0).hash, '#fragment-identifier', 'a.hash');
      test.done();
   },
+
   /**
    *
    * HTMLAnchorElement.port should show the port if port is not default
@@ -477,6 +480,7 @@ exports.tests = {
     test.equal(nodeList.item(0).port, '3020', 'a.port');
     test.done();
   },
+
   /**
    *
    * HTMLAnchorElement.protocol should show the protocol including trailing ':'.
@@ -486,24 +490,24 @@ exports.tests = {
   HTMLAnchorElement22: function(test) {
     var doc = load("anchorEmpty");
     var nodeList = doc.getElementsByTagName("a");
-    test.equal(nodeList.length, 1, 'Asize');
+    test.equal(nodeList.length, 1, 'A size');
     // Firefox shows 'http:' Chrome/Safari show ':' on empty href.
     test.equal(nodeList.item(0).protocol, ':', 'a.protocol');
     var doc = load("anchor2");
     var nodeList = doc.getElementsByTagName("a");
-    test.equal(nodeList.length, 1, 'Asize');
+    test.equal(nodeList.length, 1, 'A size');
     test.equal(nodeList.item(0).protocol, 'file:', 'a.protocol');
     var doc = load("anchor3");
     var nodeList = doc.getElementsByTagName("a");
-    test.equal(nodeList.length, 1, 'Asize');
+    test.equal(nodeList.length, 1, 'A size');
     test.equal(nodeList.item(0).protocol, 'https:', 'a.protocol');
     var doc = load("anchor4");
     var nodeList = doc.getElementsByTagName("a");
-    test.equal(nodeList.length, 1, 'Asize');
+    test.equal(nodeList.length, 1, 'A size');
     test.equal(nodeList.item(0).protocol, 'http:', 'a.protocol');
     var doc = load("anchor6");
     var nodeList = doc.getElementsByTagName("a");
-    test.equal(nodeList.length, 1, 'Asize');
+    test.equal(nodeList.length, 1, 'A size');
     test.equal(nodeList.item(0).protocol, 'special:', 'a.protocol');
     test.done();
   },
@@ -532,6 +536,86 @@ exports.tests = {
     var nodeList = doc.getElementsByTagName("a");
     test.equal(nodeList.length, 1, 'A size');
     test.equal(nodeList.item(0).pathname, '', 'A.pathname is empty');
+    test.done();
+  },
+
+  /**
+   *
+   * HTMLAnchorElement.username
+   * @author Salvatore Porchia
+   * @see http://url.spec.whatwg.org/#dom-url-username
+   */
+  HTMLAnchorElement25: function(test) {
+    var doc = load("anchor7");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).username, 'user', 'A.username');
+    test.done();
+  },
+
+  /**
+   *
+   * HTMLAnchorElement.password
+   * @author Salvatore Porchia
+   * @see http://url.spec.whatwg.org/#dom-url-password
+   */
+  HTMLAnchorElement26: function(test) {
+    var doc = load("anchor7");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).password, 'pa:ss', 'A.password');
+    test.done();
+  },
+
+  /**
+   *
+   * HTMLAnchorElement.origin
+   * @author Salvatore Porchia
+   * @see http://url.spec.whatwg.org/#dom-url-origin
+   */
+  HTMLAnchorElement27: function(test) {
+    var doc = load("anchorEmpty");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).origin, '', 'a.origin');
+    var doc = load("anchor2");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).origin, 'file://', 'a.origin');
+    var doc = load("anchor3");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).origin, 'https://www.github.com', 'a.origin');
+    var doc = load("anchor4");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).origin, 'http://www.github.com:3020', 'a.origin');
+    var doc = load("anchor6");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).origin, 'special://www.github.com', 'a.origin');
+    var doc = load("anchor7");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).origin, 'http://www.github.com:500', 'a.origin');
+    test.done();
+  },
+
+  /**
+   *
+   * HTMLAnchorElement.search
+   * @author Salvatore Porchia
+   * @see http://url.spec.whatwg.org/#dom-url-search
+   */
+  HTMLAnchorElement28: function(test) {
+    var doc = load("anchor6");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).search, '', 'a.search');
+    var doc = load("anchor7");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).search, '?testing=tested', 'A.search');
     test.done();
   },
 
