@@ -1,6 +1,6 @@
 var jsdom = require('../../lib/jsdom'),
     path = require('path')
-    jQueryPath = path.resolve(__dirname, '../browser/files/js/jquery.js');
+    jQueryPath = path.resolve(__dirname, '../jquery-fixtures/jquery-1.4.2.js');
 
 exports.tests = {
   scripts_share_a_global_context: function(test) {

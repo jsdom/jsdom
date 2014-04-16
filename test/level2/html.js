@@ -3,30 +3,8 @@ var path = require('path');
 var jsdom = require("../../lib/jsdom");
 var toPathname = require("../util").toPathname(__dirname);
 var toFileUrl = require("../util").toFileUrl(__dirname);
+var load = require("../util").load(__dirname +  "/html/");
 
-var fileCache = {};
-var load = function(name, options) {
-  if (!options) {
-    options = {};
-  }
-
-  var file = path.resolve(__dirname, "html/files/" + name + ".html");
-
-  if(!options.url) {
-    options.url = toFileUrl(file);
-  }
-
-  var contents = fileCache[file] || fs.readFileSync(file, 'utf8'),
-      doc      = jsdom.jsdom(null, null, options),
-      window   = doc.createWindow();
-
-  doc.parent = window;
-  window.loadComplete = function() {};
-
-  doc.innerHTML = contents;
-  fileCache[file] = contents;
-  return doc;
-};
 var level2 = require("../../lib/jsdom/level2/html").dom.level2.html;
 var getImplementation = function() {
   var doc = new level2.HTMLDocument();
@@ -424,6 +402,7 @@ exports.tests = {
     test.equal(nodeList.item(0).hostname, 'www.github.com', 'a.hostname absolute');
     test.done();
   },
+
   /**
    *
    HTMLAnchorElement.pathname should show the pathname of the href
@@ -454,14 +433,189 @@ exports.tests = {
 
   /**
    *
+   * HTMLAnchorElement.host should show the host and port if port is not default
+   * @author Salvatore Porchia
+   * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
+   */
+  HTMLAnchorElement19: function(test) {
+    var doc = load("anchor3");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    test.equal(nodeList.item(0).host, 'www.github.com', 'a.host');
+    var doc = load("anchor4");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    test.equal(nodeList.item(0).host, 'www.github.com:3020', 'a.host');
+    test.done();
+  },
+
+  /**
+   * HTMLAnchorElement.hash should show part of url after hash
+   * @author Peter Culak
+   * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
+   */
+   HTMLAnchorElement20: function(test) {
+     var doc = load("anchor5");
+     var nodeList = doc.getElementsByTagName("a");
+     test.equal(nodeList.length, 1, 'Asize');
+     test.equal(nodeList.item(0).host, 'www.github.com:3020', 'a.host');
+     test.equal(nodeList.item(0).hash, '#fragment-identifier', 'a.hash');
+     test.done();
+  },
+
+  /**
+   *
+   * HTMLAnchorElement.port should show the port if port is not default
+   * @author Salvatore Porchia
+   * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
+   */
+  HTMLAnchorElement21: function(test) {
+    var doc = load("anchor3");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    test.equal(nodeList.item(0).port, '', 'a.port');
+    var doc = load("anchor4");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    test.equal(nodeList.item(0).port, '3020', 'a.port');
+    test.done();
+  },
+
+  /**
+   *
+   * HTMLAnchorElement.protocol should show the protocol including trailing ':'.
+   * @author Salvatore Porchia
+   * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
+   */
+  HTMLAnchorElement22: function(test) {
+    var doc = load("anchorEmpty");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    // Firefox shows 'http:' Chrome/Safari show ':' on empty href.
+    test.equal(nodeList.item(0).protocol, ':', 'a.protocol');
+    var doc = load("anchor2");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).protocol, 'file:', 'a.protocol');
+    var doc = load("anchor3");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).protocol, 'https:', 'a.protocol');
+    var doc = load("anchor4");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).protocol, 'http:', 'a.protocol');
+    var doc = load("anchor6");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).protocol, 'special:', 'a.protocol');
+    test.done();
+  },
+
+  /**
+   *
    HTMLAnchorElement.href should show the pathname of the href
    * @author eleith
    */
-  HTMLAnchorElement18: function(test) {
+  HTMLAnchorElement23: function(test) {
     var doc = load("anchorEmpty");
     var nodeList = doc.getElementsByTagName("a");
     test.equal(nodeList.length, 1, 'A size');
     test.equal(nodeList.item(0).href, '', 'A.href is empty');
+    test.done();
+  },
+
+  /**
+   *
+   * HTMLAnchorElement.pathname should be the empty string when path is empty
+   * @author Adam Faulkner
+   * @see http://url.spec.whatwg.org/#dom-url-pathname
+   */
+  HTMLAnchorElement24: function(test) {
+    var doc = load("anchorEmpty");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).pathname, '', 'A.pathname is empty');
+    test.done();
+  },
+
+  /**
+   *
+   * HTMLAnchorElement.username
+   * @author Salvatore Porchia
+   * @see http://url.spec.whatwg.org/#dom-url-username
+   */
+  HTMLAnchorElement25: function(test) {
+    var doc = load("anchor7");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).username, 'user', 'A.username');
+    test.done();
+  },
+
+  /**
+   *
+   * HTMLAnchorElement.password
+   * @author Salvatore Porchia
+   * @see http://url.spec.whatwg.org/#dom-url-password
+   */
+  HTMLAnchorElement26: function(test) {
+    var doc = load("anchor7");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).password, 'pa:ss', 'A.password');
+    test.done();
+  },
+
+  /**
+   *
+   * HTMLAnchorElement.origin
+   * @author Salvatore Porchia
+   * @see http://url.spec.whatwg.org/#dom-url-origin
+   */
+  HTMLAnchorElement27: function(test) {
+    var doc = load("anchorEmpty");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).origin, '', 'a.origin');
+    var doc = load("anchor2");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).origin, 'file://', 'a.origin');
+    var doc = load("anchor3");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).origin, 'https://www.github.com', 'a.origin');
+    var doc = load("anchor4");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).origin, 'http://www.github.com:3020', 'a.origin');
+    var doc = load("anchor6");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).origin, 'special://www.github.com', 'a.origin');
+    var doc = load("anchor7");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).origin, 'http://www.github.com:500', 'a.origin');
+    test.done();
+  },
+
+  /**
+   *
+   * HTMLAnchorElement.search
+   * @author Salvatore Porchia
+   * @see http://url.spec.whatwg.org/#dom-url-search
+   */
+  HTMLAnchorElement28: function(test) {
+    var doc = load("anchor6");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).search, '', 'a.search');
+    var doc = load("anchor7");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).search, '?testing=tested', 'A.search');
     test.done();
   },
 
@@ -2445,6 +2599,7 @@ exports.tests = {
    * @author NIST
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-8747038
+   * Updated with multiple-cookie test by dai-shi in GH-738.
    */
   HTMLDocument12: function(test) {
     var success;
@@ -2468,7 +2623,19 @@ exports.tests = {
     cookie = 'key=value; expires='+future.toGMTString()+'; path=/';
     doc = load("document", { cookie:cookie });
     vcookie = doc.cookie;
-    test.equal(vcookie, cookie, "cookieLink");
+    test.equal(vcookie, "key=value", "cookieLink");
+
+    doc = load("document");
+    doc.cookie = "key1=value1";
+    doc.cookie = "key2=value2";
+    vcookie = doc.cookie;
+    test.equal(vcookie, "key1=value1; key2=value2", "cookieLink");
+
+    doc = load("document");
+    doc.cookie = "key3=value3; max-age=300";
+    doc.cookie = "key4=value4; path=/";
+    vcookie = doc.cookie;
+    test.equal(vcookie, "key3=value3; key4=value4", "cookieLink");
 
     test.done();
   },
@@ -10244,7 +10411,7 @@ exports.tests = {
     testNode = nodeList.item(0);
     vcodebase = testNode.codeBase;
     // assertURIEquals("codebaseLink",null,"//xw2k.sdct.itl.nist.gov/brady/dom/",null,null,null,null,null,null,vcodebase);
-	test.equal(vcodebase, 'http://xw2k.sdct.itl.nist.gov/brady/dom/', 'codebaseLink');
+  test.equal(vcodebase, 'http://xw2k.sdct.itl.nist.gov/brady/dom/', 'codebaseLink');
     test.done();
   },
 

@@ -179,7 +179,7 @@ exports["explicit config.file, invalid"] = function (t) {
 exports["explicit config.file, with a script"] = function (t) {
   env({
     file: path.resolve(__dirname, "files/env.html"),
-    scripts: [path.resolve(__dirname, "files/jquery.js")],
+    scripts: [path.resolve(__dirname, "../jquery-fixtures/jquery-1.6.2.js")],
     done: function (err, window) {
       t.ifError(err);
 
@@ -327,7 +327,7 @@ exports["with document cookie"] = function (t) {
     document: { cookie: cookie },
     done: function (err, window) {
       t.ifError(err);
-      t.equal(window.document.cookie, cookie);
+      t.equal(window.document.cookie, "key=value");
       t.done();
     }
   });

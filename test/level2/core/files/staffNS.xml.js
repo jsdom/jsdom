@@ -188,7 +188,6 @@ exports.staffNS = function() {
 
   employee.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:emp", "http://www.nist.gov");
   employee.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:nm", "http://www.altavista.com");
-  employee.setAttributeNS(null, 'defaultAttr', 'defaultVal');
 
   id.appendChild(doc.createTextNode("EMP0004"));
   salary.appendChild(doc.createTextNode("95,000"));

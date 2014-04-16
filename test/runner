@@ -85,6 +85,7 @@ var files = [
   //"level3/core.js",
   //"level3/ls.js",
   "level3/xpath.js",
+  "whatwg/attributes.js",
   "window/index.js",
   "window/history.js",
   "window/script.js",
@@ -94,7 +95,9 @@ var files = [
   "jsdom/index.js",
   "jsdom/parsing.js",
   "jsdom/env.js",
+  "jsdom/utils.js",
   "jsonp/jsonp.js",
+  "browser/css.js",
   "browser/index.js"
 ];
 
@@ -288,4 +291,3 @@ nodeunit.runModules(modulesToRun, {
 
   }
 });
-
