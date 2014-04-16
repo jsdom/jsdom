@@ -22,6 +22,7 @@ exports["explicit config.html, full document"] = function (t) {
       t.ifError(err);
       t.equal(window.document.innerHTML, "<html><head><title>Hi</title></head><body>Hello</body></html>");
       t.equal(window.location.href, "http://example.com/");
+      t.equal(window.location.origin, "http://example.com");
       t.done();
     }
   });
@@ -35,6 +36,7 @@ exports["explicit config.html, with overriden config.url"] = function (t) {
       t.ifError(err);
       t.equal(window.document.innerHTML, "<html><body>Hello</body></html>");
       t.equal(window.location.href, "http://example.com/");
+      t.equal(window.location.origin, "http://example.com");
       t.equal(window.location.search, "");
       t.equal(window.location.hash, "");
       t.done();
@@ -132,6 +134,7 @@ exports["explicit config.url, valid"] = function (t) {
       t.ifError(err);
       t.equal(window.document.innerHTML, html);
       t.equal(window.location.href, "http://localhost:8976/");
+      t.equal(window.location.origin, "http://localhost:8976");
       t.done();
     }
   });
@@ -222,6 +225,7 @@ exports["string, parseable as a URL, valid"] = function (t) {
       t.ifError(err);
       t.equal(window.document.innerHTML, html);
       t.equal(window.location.href, "http://localhost:8976/");
+      t.equal(window.location.origin, "http://localhost:8976");
       t.done();
     }
   );
@@ -353,6 +357,7 @@ exports["with scripts and content retrieved from URLs"] = function (t) {
 
         t.ifError(err);
         t.equal(window.location.href, "http://127.0.0.1:64000/html");
+        t.equal(window.location.origin, "http://127.0.0.1:64000");
         t.equal(window.attachedHere, 123);
         t.equal(window.document.getElementsByTagName("a").item(0).innerHTML, "World");
         t.done();
