@@ -127,7 +127,7 @@ jsdom.env(config);
 - `config.jar`: a custom cookie jar, if desired; see [mikeal/request](https://github.com/mikeal/request) documentation.
 - `config.done`: see `callback` above.
 - `config.document`:
-  - `referer`: the new document will have this referer.
+  - `referrer`: the new document will have this referrer.
   - `cookie`: manually set a cookie value, e.g. `'key=value; expires=Wed, Sep 21 2011 12:00:00 GMT; path=/'`.
   - `cookieDomain`: a cookie domain for the manually set cookie; defaults to `127.0.0.1`.
 - `config.features` : see `Flexibility` section below. **Note**: the default feature set for jsdom.env does _not_ include fetching remote JavaScript and executing it. This is something that you will need to **carefully** enable yourself.
@@ -272,30 +272,31 @@ window.document.body.appendChild(scriptEl);
 ## Test Compliance:
 
 ```
- level1/core         535/535      100%
- level1/html         238/238      100%
- level1/svg          527/527      100%
- level2/core         284/284      100%
- level2/html         708/708      100%
- level2/style          15/15      100%
- level2/extra            4/4      100%
- level2/events         24/24      100%
- level3/xpath          93/93      100%
- window/index            7/7      100%
- window/history          5/5      100%
- window/script         10/10      100%
- window/console          2/2      100%
- window/frame          16/16      100%
- sizzle/index          14/14      100%
- jsdom/index           77/77      100%
- jsdom/parsing         11/11      100%
- jsdom/env             25/25      100%
- jsdom/utils           11/11      100%
- jsonp/jsonp             1/1      100%
- browser/css             1/1      100%
- browser/index         34/34      100%
----------------------------------------
-TOTALS: 0/2642 failed; 100% success
+ level1/core            535/535      100%
+ level1/html            238/238      100%
+ level1/svg             527/527      100%
+ level2/core            287/287      100%
+ level2/html            712/712      100%
+ level2/style             15/15      100%
+ level2/extra               4/4      100%
+ level2/events            24/24      100%
+ level3/xpath             93/93      100%
+ whatwg/attributes        10/10      100%
+ window/index               8/8      100%
+ window/history             5/5      100%
+ window/script            10/10      100%
+ window/console             2/2      100%
+ window/frame             16/16      100%
+ sizzle/index             14/14      100%
+ jsdom/index              83/83      100%
+ jsdom/parsing            11/11      100%
+ jsdom/env                25/25      100%
+ jsdom/utils              11/11      100%
+ jsonp/jsonp                1/1      100%
+ browser/css                1/1      100%
+ browser/index            34/34      100%
+------------------------------------------
+TOTALS: 0/2666 failed; 100% success
 ```
 
 ### Running the tests

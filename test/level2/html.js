@@ -3,30 +3,8 @@ var path = require('path');
 var jsdom = require("../../lib/jsdom");
 var toPathname = require("../util").toPathname(__dirname);
 var toFileUrl = require("../util").toFileUrl(__dirname);
+var load = require("../util").load(__dirname +  "/html/");
 
-var fileCache = {};
-var load = function(name, options) {
-  if (!options) {
-    options = {};
-  }
-
-  var file = path.resolve(__dirname, "html/files/" + name + ".html");
-
-  if(!options.url) {
-    options.url = toFileUrl(file);
-  }
-
-  var contents = fileCache[file] || fs.readFileSync(file, 'utf8'),
-      doc      = jsdom.jsdom(null, null, options),
-      window   = doc.createWindow();
-
-  doc.parent = window;
-  window.loadComplete = function() {};
-
-  doc.innerHTML = contents;
-  fileCache[file] = contents;
-  return doc;
-};
 var level2 = require("../../lib/jsdom/level2/html").dom.level2.html;
 var getImplementation = function() {
   var doc = new level2.HTMLDocument();
@@ -454,19 +432,6 @@ exports.tests = {
 
   /**
    *
-   HTMLAnchorElement.href should show the pathname of the href
-   * @author eleith
-   */
-  HTMLAnchorElement18: function(test) {
-    var doc = load("anchorEmpty");
-    var nodeList = doc.getElementsByTagName("a");
-    test.equal(nodeList.length, 1, 'A size');
-    test.equal(nodeList.item(0).href, '', 'A.href is empty');
-    test.done();
-  },
-
-  /**
-   *
    * HTMLAnchorElement.host should show the host and port if port is not default
    * @author Salvatore Porchia
    * @see https://developer.mozilla.org/en/DOM/HTMLAnchorElement
@@ -505,7 +470,7 @@ exports.tests = {
     var doc = load("anchor3");
     var nodeList = doc.getElementsByTagName("a");
     test.equal(nodeList.length, 1, 'Asize');
-    test.equal(nodeList.item(0).port, null, 'a.port');
+    test.equal(nodeList.item(0).port, '', 'a.port');
     var doc = load("anchor4");
     var nodeList = doc.getElementsByTagName("a");
     test.equal(nodeList.length, 1, 'Asize');
@@ -542,6 +507,34 @@ exports.tests = {
     test.equal(nodeList.item(0).protocol, 'special:', 'a.protocol');
     test.done();
   },
+
+  /**
+   *
+   HTMLAnchorElement.href should show the pathname of the href
+   * @author eleith
+   */
+  HTMLAnchorElement23: function(test) {
+    var doc = load("anchorEmpty");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).href, '', 'A.href is empty');
+    test.done();
+  },
+
+  /**
+   *
+   * HTMLAnchorElement.pathname should be the empty string when path is empty
+   * @author Adam Faulkner
+   * @see http://url.spec.whatwg.org/#dom-url-pathname
+   */
+  HTMLAnchorElement24: function(test) {
+    var doc = load("anchorEmpty");
+    var nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).pathname, '', 'A.pathname is empty');
+    test.done();
+  },
+
   /**
    *
    The align attribute specifies the alignment of the object(Vertically
@@ -2522,6 +2515,7 @@ exports.tests = {
    * @author NIST
    * @author Rick Rivello
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-8747038
+   * Updated with multiple-cookie test by dai-shi in GH-738.
    */
   HTMLDocument12: function(test) {
     var success;
@@ -2545,7 +2539,19 @@ exports.tests = {
     cookie = 'key=value; expires='+future.toGMTString()+'; path=/';
     doc = load("document", { cookie:cookie });
     vcookie = doc.cookie;
-    test.equal(vcookie, cookie, "cookieLink");
+    test.equal(vcookie, "key=value", "cookieLink");
+
+    doc = load("document");
+    doc.cookie = "key1=value1";
+    doc.cookie = "key2=value2";
+    vcookie = doc.cookie;
+    test.equal(vcookie, "key1=value1; key2=value2", "cookieLink");
+
+    doc = load("document");
+    doc.cookie = "key3=value3; max-age=300";
+    doc.cookie = "key4=value4; path=/";
+    vcookie = doc.cookie;
+    test.equal(vcookie, "key3=value3; key4=value4", "cookieLink");
 
     test.done();
   },
@@ -10321,7 +10327,7 @@ exports.tests = {
     testNode = nodeList.item(0);
     vcodebase = testNode.codeBase;
     // assertURIEquals("codebaseLink",null,"//xw2k.sdct.itl.nist.gov/brady/dom/",null,null,null,null,null,null,vcodebase);
-	test.equal(vcodebase, 'http://xw2k.sdct.itl.nist.gov/brady/dom/', 'codebaseLink');
+  test.equal(vcodebase, 'http://xw2k.sdct.itl.nist.gov/brady/dom/', 'codebaseLink');
     test.done();
   },
 

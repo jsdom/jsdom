@@ -27,15 +27,9 @@ exports.tests = {
     test.done();
   },
 
-  jsdom_method_skips_default_document_creation_when_empty_string : function(test) {
-    var doc = jsdom.jsdom('');
-    test.ok(!doc.documentElement);
-    test.done();
-  },
-
   jquerify: function(test) {
-    var jQueryFile = __dirname + "/../../example/jquery/jquery.js",
-    jQueryUrl = "http://code.jquery.com/jquery-1.4.4.min.js";
+    var jQueryFile = path.resolve(__dirname, '../jquery-fixtures/jquery-1.4.4.js');
+    var jQueryUrl = 'http://code.jquery.com/jquery-1.4.4.min.js';
 
     function tmpWindow() {
       return jsdom.jsdom(null, null, {documentRoot: __dirname}).createWindow();
@@ -63,11 +57,18 @@ exports.tests = {
   jquerify_attribute_selector_gh_400: function(test) {
     var window = jsdom.jsdom().createWindow();
 
-    jsdom.jQueryify(window, "http://code.jquery.com/jquery.js", function () {
-      window.$("body").append('<html><body><div data-foo="bar"/><div data-baz="foo"/></body></html>');
+    jsdom.jQueryify(window, path.resolve(__dirname, '../jquery-fixtures/jquery-1.11.0.js'), function () {
+      try {
+          window.$("body").append('<html><body><div data-foo="bar"/><div data-baz="foo"/></body></html>');
 
-      test.equal(window.$('*[data-foo]').length, 1);
-      test.done();
+          test.equal(window.$('*[data-foo]').length, 1);
+          test.done();
+      }
+      catch(ex) {
+          console.log(ex);
+          test.ok(false, "Encountered an error");
+          test.done();
+      }
     });
   },
 
@@ -383,7 +384,26 @@ exports.tests = {
     var element3 = document.querySelector("#main p:not(.foo)");
     test.equal(element3, div.children.item(1), 'p and second-p');
     var element3 = document.querySelector("#asdf");
-    test.equal(element3, null, 'nonexistent becomes null');
+    test.strictEqual(element3, null, 'nonexistent becomes null');
+    test.done();
+  },
+  
+  queryselector_documentfragment: function(test) {
+    var html = '<html><body><div id="main"><p class="foo">Foo</p><p>Bar</p></div></body></html>',
+        document = jsdom.jsdom(html),
+        div = document.body.children.item(0),
+        fragment = document.createDocumentFragment();
+    
+    fragment.appendChild(document.body.firstChild);
+    test.strictEqual(document.body.firstChild, null);
+    var element = fragment.querySelector("#main p");
+    test.equal(element, div.children.item(0), 'p and first-p');
+    var element2 = div.querySelector("p");
+    test.equal(element2, div.children.item(0), 'p and first-p');
+    var element3 = fragment.querySelector("#main p:not(.foo)");
+    test.equal(element3, div.children.item(1), 'p and second-p');
+    var element3 = fragment.querySelector("#asdf");
+    test.strictEqual(element3, null, 'nonexistent becomes null');
     test.done();
   },
 
@@ -419,11 +439,60 @@ exports.tests = {
     test.equal(elements5.length, 2, "It should not return elements that are not within the base element's subtrees");
     test.equal(elements5.item(0), div.children.item(0), 'p and first-p');
     test.equal(elements5.item(1), div.children.item(1), 'p and second-p');
-    test.equal(topNode.parentNode, null, 'topNode.parentNode is null');
+    test.strictEqual(topNode.parentNode, null, 'topNode.parentNode is null');
     var nextChildDiv = document.getElementById('next-child');
     var elements6 = nextChildDiv.querySelectorAll('p');
     test.equal(elements6.length, 1, 'p under div#next-child');
     test.equal(elements6.item(0), nextChildDiv.children.item(0), 'child of div#next-child');
+    test.done();
+  },
+  
+  queryselectorall__documentfragment: function(test) {
+    var html = '<html><body><div id="main"><p>Foo</p><p>Bar</p></div><div id="next"><div id="next-child"><p>Baz</p></div></div></body></html>',
+        document = jsdom.jsdom(html, null),
+        fragment = document.createDocumentFragment();
+    fragment.appendChild(document.body.firstChild);
+    fragment.appendChild(document.body.firstChild);
+    test.strictEqual(document.body.firstChild, null, 'The body should now be empty');
+    var div = fragment.firstChild;
+    var elements = fragment.querySelectorAll("#main p");
+    test.equal(elements.length, 2, 'two results');
+    test.equal(elements.item(0), div.children.item(0), 'p and first-p');
+    test.equal(elements.item(1), div.children.item(1), 'p and second-p');
+    var elements2 = div.querySelectorAll("p");
+    test.equal(elements2.length, 2, 'two results');
+    test.equal(elements2.item(0), div.children.item(0), 'p and first-p');
+    test.equal(elements2.item(1), div.children.item(1), 'p and second-p');
+    test.equal(div.querySelectorAll("#main").length, 0, 'It should not return the base element');
+    test.equal(div.querySelectorAll("div").length, 0, 'There are no div elements under div#main');
+    var elements3 = div.querySelectorAll("#main p");
+    test.equal(elements3.length, 2, 'two results');
+    test.equal(elements3.item(0), div.children.item(0), 'p and first-p');
+    test.equal(elements3.item(1), div.children.item(1), 'p and second-p');
+    var topNode = document.createElement('p'),
+        newNode = document.createElement('p');
+    topNode.id = "fuz";
+    newNode.id = "buz";
+    topNode.appendChild(newNode);
+    test.equal(topNode.querySelectorAll("#fuz").length, 0, "It should not return the base element that is orphaned");
+    var elements4 = topNode.querySelectorAll("#fuz #buz");
+    test.equal(elements4.length, 1, 'one result');
+    test.equal(elements4.item(0), newNode, 'newNode and first-p');
+    var elements5 = div.querySelectorAll('p');
+    test.equal(elements5.length, 2, "It should not return elements that are not within the base element's subtrees");
+    test.equal(elements5.item(0), div.children.item(0), 'p and first-p');
+    test.equal(elements5.item(1), div.children.item(1), 'p and second-p');
+    test.equal(topNode.parentNode, null, 'topNode.parentNode is null');
+    var nextChildDiv = fragment.querySelectorAll('#next-child').item(0);
+    test.notStrictEqual(nextChildDiv, null, 'id selector on fragment not null');
+    var elements6 = nextChildDiv.querySelectorAll('p');
+    test.equal(elements6.length, 1, 'p under div#next-child');
+    test.equal(elements6.item(0), nextChildDiv.children.item(0), 'child of div#next-child');
+    var elements7 = fragment.querySelectorAll('p');
+    test.equal(elements7.length, 3, 'all p');
+    test.equal(elements7.item(0), div.children.item(0), 'p and first-p');
+    test.equal(elements7.item(1), div.children.item(1), 'p and second-p');
+    test.equal(elements7.item(2), nextChildDiv.children.item(0), 'child of div#next-child');
     test.done();
   },
 
@@ -714,6 +783,13 @@ exports.tests = {
     test.done();
   },
 
+  serialization_of_void_elements : function(test){
+    var html = '<html><body><div><br><hr><audio><source></audio></div></body></html>',
+        doc = jsdom.html(html);
+    test.strictEqual(doc.outerHTML, html)
+    test.done();
+  },
+
   children_should_be_available_right_after_document_creation : function(test) {
     var doc = jsdom.jsdom("<html><body><div></div></body></html>");
     test.ok((doc.body.children[0] !== undefined), "there should be a body, and it should have a child");
@@ -736,7 +812,7 @@ exports.tests = {
 
   fix_for_issue_172 : function(test) {
     jsdom.env("<html><body><script type='text/javascript'></script></body></html>", [
-     'jquery.js'
+      path.resolve(__dirname, '../jquery-fixtures/jquery-1.6.2.js')
     ], function () {
       // ensure the callback gets called!
       test.done();
@@ -1273,10 +1349,32 @@ exports.tests = {
     test.expect(3);
 
     var doc = jsdom.jsdom('<html><head></head><body><input id="input" /></body></html>');
-    var inputEl = doc.getElementById("input");
-    test.equal(inputEl.hasAttribute('type'), true);
-    test.equal(inputEl.getAttribute('type'), 'text');
+    var inputEl = doc.getElementById('input');
+    test.equal(inputEl.hasAttribute('type'), false);
+    test.equal(inputEl.getAttribute('type'), null);
     test.equal(inputEl.type, 'text');
+
+    test.done();
+  },
+
+  input_type_should_set_attribute : function(test) {
+    test.expect(1);
+
+    var doc = jsdom.jsdom('<html><head></head><body><input id="input" /></body></html>');
+    var inputEl = doc.getElementById('input');
+    inputEl.type = 'checkbox';
+    test.equal(inputEl.getAttribute('type'), 'checkbox');
+
+    test.done();
+  },
+
+  input_type_should_reflect_in_property : function(test) {
+    test.expect(2);
+
+    var doc = jsdom.jsdom('<html><head></head><body><input id="input" type="checkbox" /></body></html>');
+    var inputEl = doc.getElementById('input');
+    test.equal(inputEl.type, 'checkbox');
+    test.equal(inputEl.getAttribute('type'), 'checkbox');
 
     test.done();
   },
@@ -1284,7 +1382,7 @@ exports.tests = {
   jquery_val_on_selects : function(test) {
     var window = jsdom.jsdom().createWindow();
 
-    jsdom.jQueryify(window, "http://code.jquery.com/jquery.js", function () {
+    jsdom.jQueryify(window, path.resolve(__dirname, '../jquery-fixtures/jquery-1.11.0.js'), function () {
       window.$("body").append('<html><body><select id="foo"><option value="first">f</option><option value="last">l</option></select></body></html>');
 
       test.equal(window.document.querySelector("[value='first']").selected, true, "`selected` property should be `true` for first");
@@ -1308,12 +1406,42 @@ exports.tests = {
   jquery_attr_mixed_case : function(test) {
     var window = jsdom.jsdom().createWindow();
 
-    jsdom.jQueryify(window, "http://code.jquery.com/jquery.js", function () {
+    jsdom.jQueryify(window, path.resolve(__dirname, '../jquery-fixtures/jquery-1.11.0.js'), function () {
       var $el = window.$('<div mixedcase="blah"></div>');
 
       test.equal($el.attr('mixedCase'), 'blah');
 
       test.done();
+    });
+  },
+
+  "Calling show() method in jQuery 1.11.0 (GH-709)": function (t) {
+    var window = jsdom.jsdom("<!DOCTYPE html><html><head></head><body></body></html>").createWindow();
+
+    jsdom.jQueryify(window, path.resolve(__dirname, "../jquery-fixtures/jquery-1.11.0.js"), function () {
+      var $el = window.$("<div></div>");
+
+      t.doesNotThrow(function () {
+        $el.show();
+      });
+
+      t.done();
+    });
+  },
+
+  "Calling show() method in jQuery 1.11.0, second case (GH-709)": function (t) {
+    var window = jsdom.jsdom("<!DOCTYPE html><html><head></head><body></body></html>").createWindow();
+
+    jsdom.jQueryify(window, path.resolve(__dirname, "../jquery-fixtures/jquery-1.11.0.js"), function () {
+      var $el1 = window.$("<div></div>");
+      var $el2 = window.$("<span></span>");
+
+      t.doesNotThrow(function () {
+        $el1.show();
+        $el2.show();
+      });
+
+      t.done();
     });
   },
 

@@ -1,3 +1,38 @@
+## 0.10.5
+
+* Fix: the list of void elements has been updated to match the latest HTML spec.
+* Fix: when serializing void elements, don't include a ` /`: i.e. the result is now `<br>` instead of `<br />`.
+
+## 0.10.4
+
+* Fix: another case was found where jQuery 1.11's `show()` method would cause errors.
+* Add: `querySelector` and `querySelectorAll` methods to `DocumentFragment`s. (Joris-van-der-Wel)
+
+## 0.10.3
+
+* Fix: various defaults on `HTMLAnchorElement` and `window.location` should not be `null`; they should usually be the empty string.
+
+## 0.10.2
+
+* Fix: Using jQuery 1.11's `show()` method would cause an error to be thrown.
+* Fix: `window.location` properties were not updating correctly after using `pushState` or `replaceState`. (toomanydaves)
+
+## 0.10.1
+
+* Fix: `window.location.port` should default to `""`, not `null`. (bpeacock)
+
+## 0.10.0
+
+* Add: a more complete `document.cookie` implementation, that supports multiple cookies. Note that options like `path`, `max-age`, etc. are still ignored. (dai-shi)
+
+## 0.9.0
+
+* Add: implement attribute ordering semantics from WHATWG DOM spec, and in general overhaul attribute storage implementation to be much more awesome and accurate. (lddubeau)
+* Add: `port` and `protocol` to `HTMLAnchorElement`. (sporchia)
+* Fix: make `HTMLInputElement` not have a `type` *attribute* by default. It still has a default value for the `type` *property*, viz. `"text"`. (aredridel)
+* Fix: treat empty namespace URI as meaning "no namespace" with the `getAttributeNS`, `hasAttributeNS`, and `setAttributeNS` functions. (lddubeau)
+* Fix: reference typed arrays in a way that doesn't immediately break on Node 0.6. Node 0.6 isn't supported in general, though. (kangax)
+
 ## 0.8.11
 
 * Add: store and use cookies between requests; customizable cookie jars also possible. (stockholmux)

@@ -3,10 +3,7 @@
 var jsdom  = require("../../lib/jsdom");
 var window = jsdom.jsdom().parentWindow;
 
-// this also works:
-// jQueryTag.src = "http://code.jquery.com/jquery.js";
-
-jsdom.jQueryify(window, "jquery.js", function() {
+jsdom.jQueryify(window, "http://code.jquery.com/jquery.js", function() {
   window.jQuery("body").append("<div class='testing'>Hello World, It works!</div>");
   console.log(window.jQuery(".testing").text());
 });

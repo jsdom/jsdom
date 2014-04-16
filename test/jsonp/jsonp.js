@@ -1,43 +1,37 @@
-/*
- * Test making a jsonp request from jsdom window using jqery.
- */
-var
-jsdom      = require('../../lib/jsdom'),
-url        = require('url'),
-jQueryFile = __dirname + "/jquery-1.6.4.min.js";
+"use strict";
 
-exports.tests = {
+var jsdom = require("../../").jsdom;
+var url = require("url");
+var path = require("path");
+var http = require("http");
+var querystring = require("querystring");
+var jQueryFile = path.resolve(__dirname, "../jquery-fixtures/jquery-1.6.4.min.js");
 
-  test_jquery_getJSON : function(test){
+exports["making a JSONP request from a jsdom window using jQuery"] = function (t) {
+  var server = http.createServer(function (req, res) {
+    res.writeHead(200);
+    var u = url.parse(req.url, true);
+    res.write(u.query.jsoncallback + "({\"message\":\"jsonp works!\"});");
+    res.end();
+  });
 
-    var server = require("http").createServer(function(req, res) {
-      res.writeHead(200);
-      var u = url.parse(req.url);
-      var q = require('querystring').parse(u.query);
-      res.write(q.jsoncallback + "({'message':'jsonp works!'});");
-      res.end();
+  server.listen(43213, "127.0.0.1", function () {
+    jsdom.env({
+      html: "<!DOCTYPE html><html><head></head><body></body></html>",
+      scripts: [jQueryFile],
+      features: {
+        FetchExternalResources: ["script"],
+        ProcessExternalResources: ["script"]
+      },
+      done: function (errors, window) {
+        t.ifError(errors);
+
+        window.jQuery.getJSON("http://localhost:43213?jsoncallback=?", function (data) {
+          t.equal(data.message, "jsonp works!");
+          server.close();
+          t.done();
+        });
+      }
     });
-
-    server.listen(43213, '127.0.0.1', function() {
-      jsdom.env({
-        html   : "<html><head></head><body></body></html>",
-        scripts : [jQueryFile],
-        features : {
-          FetchExternalResources : ['script'],
-          ProcessExternalResources: ['script']
-        },
-        done : function(errors, window){
-          if(errors) {
-            test.fail('jsdom setup failed');
-          }
-
-          window.jQuery.getJSON('http://localhost:43213?jsoncallback=?', function(data) {
-            test.equal(data.message, 'jsonp works!');
-            server.close();
-            test.done();
-          });
-        }
-      });
-    });
-  }
-}
+  });
+};
