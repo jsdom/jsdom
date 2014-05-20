@@ -21,6 +21,14 @@ exports.tests = {
     test.done();
   },
 
+  jsdom_empty_html: function(test) {
+    var document = jsdom.jsdom('');
+    test.equal(document.innerHTML, '', 'Passing an empty string into jsdom() results in an empty doc');
+    document = jsdom.jsdom(' ');
+    test.equal(document.innerHTML, '', 'Passing a blank string into jsdom() results in an empty doc');
+    test.done();
+  },
+
   jsdom_method_creates_default_document: function(test) {
     var doc = jsdom.jsdom();
     test.equal(doc.documentElement.nodeName, 'HTML', 'Calling jsdom.jsdom() should automatically populate the doc');
