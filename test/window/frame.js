@@ -114,6 +114,17 @@ exports.tests = {
     doc.documentElement.appendChild(iFrame);
   },
 
+  'iframe loads blank document when src unspecified' : function(test) {
+    var doc = jsdom.jsdom(null);
+    var iFrame = doc.createElement('iframe');
+    iFrame.addEventListener('load', function () {
+      test.notEqual(iFrame.contentDocument, null);
+      test.strictEqual(iFrame.contentDocument.readyState, 'complete');
+      test.done();
+    });
+    doc.documentElement.appendChild(iFrame);
+  },
+
   'test iframe.contentWindow acccess' : function(test) {
     var htmlPath = path.resolve(__dirname, 'files', 'iframe_parent.html');
     var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), null, {
