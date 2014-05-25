@@ -69,57 +69,6 @@ exports.tests = {
 
   /**
    *
-   The "createProcessingInstruction(target,data) method
-   raises an INVALID_CHARACTER_ERR DOMException if the
-   specified tagName contains an invalid character.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='INVALID_CHARACTER_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-135944439
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-135944439')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
-   */
-  documentinvalidcharacterexceptioncreatepi: function(test) {
-    var success;
-    var badPI;
-    var doc = hc_staff.hc_staff();
-    success = false;
-    try {
-      badPI = doc.createProcessingInstruction("foo","data");
-    } catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-    }
-    test.ok(success, 'throw_NOT_SUPPORTED_ERR');
-    test.done();
-  },
-
-  /**
-   *
-   Creating a processing instruction with an empty target should cause an INVALID_CHARACTER_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='INVALID_CHARACTER_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-135944439
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-135944439')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
-   */
-  documentinvalidcharacterexceptioncreatepi1: function(test) {
-    var success;
-    var badPI;
-    var doc = hc_staff.hc_staff();
-    success = false;
-    try {
-      badPI = doc.createProcessingInstruction("foo","data");
-    } catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-    }
-    test.ok(success, 'throw_NOT_SUPPORTED_ERR');
-    test.done();
-  },
-
-  /**
-   *
    Appends a text node to an attribute and checks if the value of
    the attribute is changed.
 

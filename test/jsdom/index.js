@@ -173,6 +173,8 @@ exports.tests = {
         }
       },
       function(errors, window) {
+        test.ifError(errors);
+
         window.onload = function () {
           test.equal(typeof window._, 'function', 'Underscore loaded');
           test.equal(typeof window.$, 'function', 'jQuery loaded');
@@ -415,13 +417,13 @@ exports.tests = {
     test.strictEqual(element3, null, 'nonexistent becomes null');
     test.done();
   },
-  
+
   queryselector_documentfragment: function(test) {
     var html = '<html><body><div id="main"><p class="foo">Foo</p><p>Bar</p></div></body></html>',
         document = jsdom.jsdom(html),
         div = document.body.children.item(0),
         fragment = document.createDocumentFragment();
-    
+
     fragment.appendChild(document.body.firstChild);
     test.strictEqual(document.body.firstChild, null);
     var element = fragment.querySelector("#main p");
@@ -474,7 +476,7 @@ exports.tests = {
     test.equal(elements6.item(0), nextChildDiv.children.item(0), 'child of div#next-child');
     test.done();
   },
-  
+
   queryselectorall__documentfragment: function(test) {
     var html = '<html><body><div id="main"><p>Foo</p><p>Bar</p></div><div id="next"><div id="next-child"><p>Baz</p></div></div></body></html>',
         document = jsdom.jsdom(html, null),

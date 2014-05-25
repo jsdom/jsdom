@@ -20,7 +20,7 @@ exports["explicit config.html, full document"] = function (t) {
     url: "http://example.com/",
     done: function (err, window) {
       t.ifError(err);
-      t.equal(window.document.innerHTML, "<html><head><title>Hi</title></head><body>Hello</body></html>");
+      t.equal(window.document.innerHTML, "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>");
       t.equal(window.location.href, "http://example.com/");
       t.equal(window.location.origin, "http://example.com");
       t.done();
@@ -132,7 +132,7 @@ exports["explicit config.url, valid"] = function (t) {
     url: "http://localhost:8976/",
     done: function (err, window) {
       t.ifError(err);
-      t.equal(window.document.innerHTML, html);
+      t.equal(window.document.innerHTML, responseText);
       t.equal(window.location.href, "http://localhost:8976/");
       t.equal(window.location.origin, "http://localhost:8976");
       t.done();
@@ -160,7 +160,7 @@ exports["explicit config.file, valid"] = function (t) {
       file: fileName,
       done: function (err, window) {
         t.ifError(err);
-        t.equal(window.document.doctype + window.document.innerHTML, text);
+        t.equal(window.document.innerHTML, text);
         t.equal(window.location.href, toFileUrl(fileName));
         t.done();
       }
@@ -223,7 +223,7 @@ exports["string, parseable as a URL, valid"] = function (t) {
     "http://localhost:8976/",
     function (err, window) {
       t.ifError(err);
-      t.equal(window.document.innerHTML, html);
+      t.equal(window.document.innerHTML, responseText);
       t.equal(window.location.href, "http://localhost:8976/");
       t.equal(window.location.origin, "http://localhost:8976");
       t.done();
@@ -251,7 +251,7 @@ exports["string, for an existing filename"] = function (t) {
       fileName,
       function (err, window) {
         t.ifError(err);
-        t.equal(window.document.doctype + window.document.innerHTML, text);
+        t.equal(window.document.innerHTML, text);
         t.equal(window.location.href, toFileUrl(fileName));
         t.done();
       }
@@ -277,7 +277,7 @@ exports["string, full HTML document"] = function (t) {
     "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>",
     function (err, window) {
       t.ifError(err);
-      t.equal(window.document.innerHTML, "<html><head><title>Hi</title></head><body>Hello</body></html>");
+      t.equal(window.document.innerHTML, "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>");
       t.done();
     }
   );

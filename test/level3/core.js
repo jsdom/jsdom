@@ -28868,5 +28868,60 @@ exports.tests = {
 
     }
     test.done()
-  }
+  },
+
+  /**
+   * Ensure that the DOCUMENT_POSITION_DISCONNECTED 'constant' is a property of the Node constructor
+   * @author Andrew Smith
+   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#ID-1950641247
+   */
+  documentPositionConstants01: function (test) {
+    test.equal(core.Node.DOCUMENT_POSITION_DISCONNECTED, 0x01);
+    test.done();
+  },
+
+  /**
+   * Ensure that the DOCUMENT_POSITION_PRECEEDING 'constant' is a property of the Node constructor
+   * @author Andrew Smith
+   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#ID-1950641247
+   */
+  documentPositionConstants02: function (test) {
+    test.equal(core.Node.DOCUMENT_POSITION_PRECEDING, 0x02);
+    test.done();
+  },
+
+  /**
+   * Ensure that the DOCUMENT_POSITION_FOLLOWING 'constant' is a property of the Node constructor
+   * @author Andrew Smith
+   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#ID-1950641247
+   */
+  documentPositionConstants03: function (test) {
+    test.equal(core.Node.DOCUMENT_POSITION_FOLLOWING, 0x04);
+    test.done();
+  },
+
+  /**
+   * Ensure that the DOCUMENT_POSITION_CONTAINS 'constant' is a property of the Node constructor
+   * @author Andrew Smith
+   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#ID-1950641247
+   */
+  documentPositionConstants04: function (test) {
+    test.equal(core.Node.DOCUMENT_POSITION_CONTAINS, 0x08);
+    test.done();
+  },
+
+  /**
+   * Ensure that the DOCUMENT_POSITION_CONTAINED_BY 'constant' is a property of the Node constructor
+   * @author Andrew Smith
+   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#ID-1950641247
+   */
+  documentPositionConstants05: function (test) {
+    test.equal(core.Node.DOCUMENT_POSITION_CONTAINED_BY, 0x10);
+    test.done();
+  },
+
+  documentPositionConstants06: function (test) {
+    test.equal(core.Node.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC, 0x20);
+    test.done();
+  },
 }
