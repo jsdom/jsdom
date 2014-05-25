@@ -28868,5 +28868,383 @@ exports.tests = {
 
     }
     test.done()
+  },
+
+
+  /**
+   * Ensure that the DOCUMENT_POSITION_DISCONNECTED 'constant' is a property of the Node constructor
+   * @author Andrew Smith
+   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#ID-1950641247
+   */
+  documentPositionConstants01: function (test) {
+    test.equal(core.Node.DOCUMENT_POSITION_DISCONNECTED, 0x01);
+    test.done();
+  },
+
+  /**
+   * Ensure that the DOCUMENT_POSITION_PRECEEDING 'constant' is a property of the Node constructor
+   * @author Andrew Smith
+   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#ID-1950641247
+   */
+  documentPositionConstants02: function (test) {
+    test.equal(core.Node.DOCUMENT_POSITION_PRECEEDING, 0x02);
+    test.done();
+  },
+
+  /**
+   * Ensure that the DOCUMENT_POSITION_FOLLOWING 'constant' is a property of the Node constructor
+   * @author Andrew Smith
+   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#ID-1950641247
+   */
+  documentPositionConstants03: function (test) {
+    test.equal(core.Node.DOCUMENT_POSITION_FOLLOWING, 0x04);
+    test.done();
+  },
+
+  /**
+   * Ensure that the DOCUMENT_POSITION_CONTAINS 'constant' is a property of the Node constructor
+   * @author Andrew Smith
+   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#ID-1950641247
+   */
+  documentPositionConstants04: function (test) {
+    test.equal(core.Node.DOCUMENT_POSITION_CONTAINS, 0x08);
+    test.done();
+  },
+
+  /**
+   * Ensure that the DOCUMENT_POSITION_CONTAINED_BY 'constant' is a property of the Node constructor
+   * @author Andrew Smith
+   * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#ID-1950641247
+   */
+  documentPositionConstants05: function (test) {
+    test.equal(core.Node.DOCUMENT_POSITION_CONTAINED_BY, 0x10);
+    test.done();
+  },
+
+  documentPositionConstants06: function (test) {
+    test.equal(core.Node.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC, 0x20);
+    test.done();
+  },
+
+  /**
+   * Check that a Document contains its DocumentType and that the DocumentType does not contain its Document
+   * @author Andrew Smith
+   * @see http://dom.spec.whatwg.org/#dom-node-contains
+   *
+   */
+  nodeContains01: function (test) {
+    var doc = hc_staff.hc_staff(),
+        doctype = doc.doctype;
+
+    test.ok(doc.contains(doctype), 'Document contains its DocumentType');
+    test.ok(!doctype.contains(doc), 'DocumentType does not contain its Document');
+    test.done();
+  },
+
+  /**
+   * Check that a Document is an inclusive descendant of itself
+   * @author Andrew Smith
+   * @see http://dom.spec.whatwg.org/#dom-node-contains
+   * @see http://dom.spec.whatwg.org/#concept-tree-inclusive-descendant
+   */
+  nodeContains02: function (test) {
+    var doc = hc_staff.hc_staff();
+    test.ok(doc.contains(doc), 'Document contains itself');
+    test.done();
+  },
+
+
+  /**
+   * Check that a Document contains its DocumentElement and that the DocumentElement does not
+   * contain the Document
+   * @author Andrew Smith
+   * @see http://dom.spec.whatwg.org/#dom-node-contains
+   */
+  nodeContains03: function (test) {
+    var doc = hc_staff.hc_staff(),
+        docElement = doc.documentElement;
+
+    test.ok(doc.contains(docElement), 'Document contains its DocumentElement');
+    test.ok(!docElement.contains(doc), 'Document Element does not contain its Document');
+    test.done()
+  },
+
+  /**
+   * Check that a DocumentElement contains a newly created and appended element and that the
+   * newly created and appended element does not contain the DocumentElement
+   * @author Andrew Smith
+   * @see http://dom.spec.whatwg.org/#dom-node-contains
+   */
+  nodeContains04: function (test) {
+      var doc = hc_staff.hc_staff(),
+      docElement = doc.documentElement,
+      newElement = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
+
+      docElement.appendChild(newElement);
+
+      test.ok(docElement.contains(newElement), 'DocumentElement contains new appended element');
+      test.ok(!newElement.contains(docElement), 'New appended Element does not contain DocumentElement');
+      test.done();
+  },
+
+  /**
+   * Check that the Document contains a descendant node and that the descendant node does not contain the document
+   * @author Andrew Smith
+   * @see http://dom.spec.whatwg.org/#dom-node-contains
+   */
+  nodeContains05: function (test) {
+    var doc = hc_staff.hc_staff(),
+    elem = doc.getElementsByTagName("p").item(3);
+
+    test.ok(doc.contains(elem), "Document contains a descendant node");
+    test.ok(!elem.contains(doc), "Descentant node does not contain Document");
+    test.done();
+  },
+
+  /**
+   * Check that an element contains a new appended element and that the new appended element does not contain
+   * the element
+   * @author Andrew Smith
+   * @see http://dom.spec.whatwg.org/#dom-node-contains
+   */
+  nodeContains06: function (test) {
+    var doc = hc_staff.hc_staff(),
+    elem = doc.getElementsByTagName("p").item(3),
+    newElem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
+
+    elem.appendChild(newElem);
+
+    test.ok(elem.contains(newElem), "Element contains new appended Element");
+    test.ok(!newElem.contains(elem), "New Element does not contain Element");
+    test.done();
+  },
+
+  /**
+   * Check that the Document contains an attribute node and that the attribute node does not contain the Document
+   * @author Andrew Smith
+   * @see http://dom.spec.whatwg.org/#dom-node-contains
+   */
+  nodeContains07: function (test) {
+    var doc = hc_staff.hc_staff(),
+    elem = doc.getElementsByTagName("acronym").item(0),
+    dir = elem.getAttributeNode("title");
+
+    test.ok(doc.contains(dir), "Document contains its an attribute node");
+    test.ok(!dir.contains(doc), "Attribute node does not contain its element");
+    test.done();
+  },
+
+  /**
+   * Check that the Document contains a new attached Attribute and that the Attribute does not contain the Document
+   * @author Andrew Smith
+   * @see http://dom.spec.whatwg.org/#dom-node-contains
+   */
+  nodeContains08: function (test) {
+    var doc = hc_staff.hc_staff(),
+    elem = doc.getElementsByTagName("p").item(3),
+    attr = doc.createAttribute("title");
+
+    elem.setAttributeNode(attr);
+
+    test.ok(doc.contains(attr), "Document contains new attached attribute");
+    test.ok(!attr.contains(doc), "Attribute does not contain document");
+    test.done();
+  },
+
+  /**
+   * Check that the Document contains a new attached ProcessingInstruction and that the ProcessingInstruction does not
+   * contain the Document
+   * @author Andrew Smith
+   * @see http://dom.spec.whatwg.org/#dom-node-contains
+   */
+  nodeContains09: function (test) {
+    doc = hc_staff.hc_staff(),
+    pi = doc.createProcessingInstruction("PITarget", "PIDATA");
+
+    doc.appendChild(pi);
+    test.ok(doc.contains(pi), "Document contains new attached processing instruction");
+    test.ok(!pi.contains(doc), "Processing Instruction does not contain doc");
+    test.done();
+  },
+
+  /**
+   * Check that the document contains a new attached Comment and that the Comment does not contain the Document
+   * @author Andrew Smith
+   * @see http://dom.spec.whatwg.org/#dom-node-contains
+   */
+  nodeContains10: function (test) {
+    var doc = hc_staff.hc_staff(),
+    elem = doc.getElementsByTagName("p").item(3),
+    comment = doc.createComment("Another Comment");
+
+    elem.appendChild(comment);
+
+    test.ok(doc.contains(comment), "Document contains new attached Comment");
+    test.ok(!comment.contains(doc), "Comment does not contain Document");
+    test.done();
+  },
+
+  /**
+   * Check that a DocumentFragment contains a child node and that the child node does not contain
+   * the document fragment
+   * @author Andrew Smith
+   * @see http://dom.spec.whatwg.org/#dom-node-contains
+   */
+  nodeContains11: function (test) {
+    var doc = hc_staff.hc_staff(),
+    docElement = doc.documentElement,
+    docFragment = doc.createDocumentFragment();
+
+    docFragment.appendChild(docElement);
+
+    var docFragmentChild = docFragment.firstChild;
+
+    test.ok(docFragment.contains(docFragmentChild), "DocumentFragment contains child");
+    test.ok(!docFragmentChild.contains(docFragment), "DocumentFragment child does not contain DocumentFragment");
+    test.done();
+  },
+
+
+  /**
+   * Check that an Element contains an attached Attribute and that the Attribute does not contain the Element
+   * @author Andrew Smith
+   * @see http://dom.spec.whatwg.org/#dom-node-contains
+   */
+  nodeContains12: function (test) {
+    var doc = hc_staff.hc_staff(),
+    docElement = doc.documentElement,
+    docFragment = doc.createDocumentFragment(),
+    attr = doc.createAttribute("title");
+
+    docElement.setAttributeNode(attr);
+    docFragment.appendChild(docElement);
+
+    test.ok(docFragment.firstChild.contains(attr), "Element contains attribute");
+    test.ok(!attr.contains(docFragment.firstChild), "Attribute does not contain element");
+    test.done();
+  },
+
+  /**
+   * Check that created and attached sibling ProcessingInstructions do not contain one another.
+   * @author Andrew Smith
+   * @see http://dom.spec.whatwg.org/#dom-node-contains
+   */
+  nodeContains13: function (test) {
+    var doc = hc_staff.hc_staff(),
+    pi1 = doc.createProcessingInstruction("PI1", ""),
+    pi2 = doc.createProcessingInstruction("PI2", "");
+
+    doc.appendChild(pi1);
+    doc.appendChild(pi2);
+
+    test.ok(!pi1.contains(pi2), "Attached ProcessingInstruction does not contain second attached ProcessingInstruction");
+    test.ok(!pi2.contains(pi1), "Second attached ProcessingInstruction does not contain first attached ProcessingInstruction");
+    test.done();
+  },
+
+  /**
+   * Check that two created sibling ProcessingInstruction nodes do not contain one another.
+   * @author Andrew Smith
+   * @see http://dom.spec.whatwg.org/#dom-node-contains
+   */
+  nodeContains14: function (test) {
+    var doc = hc_staff.hc_staff(),
+    docElement = doc.documentElement,
+    txt1 = doc.createTextNode("T1"),
+    txt2 = doc.createTextNode("T2");
+
+    docElement.appendChild(txt1);
+    docElement.appendChild(txt2);
+
+    test.ok(!txt1.contains(txt2), "First attached TextNode does not contain second attached TextNode");
+    test.ok(!txt2.contains(txt1), "Second attached TextNode does not contain first attached TextNode");
+    test.done();
+  },
+
+  /**
+   * Check that two existing sibling CData nodes do not contain one another
+   * @author Andrew Smith
+   * @see http://dom.spec.whatwg.org/#dom-node-contains
+   */
+  nodeContains15: function (test) {
+    var doc = hc_staff.hc_staff(),
+    elemStrong = doc.getElementsByTagNameNS("*", "strong").item(1),
+    cdata2 = elemStrong.lastChild,
+    cdata1 = cdata2.previousSibling.previousSibling;
+
+    test.ok(!cdata1.contains(cdata2), "First CData node does not contain sibling CData node");
+    test.ok(!cdata2.contains(cdata1), "Sibling CData node does not contain first CData node");
+    test.done();
+  },
+
+  /**
+  * Check that two existing sibling CData and Text nodes do not contain one another
+  * @author Andrew Smith
+  * @see http://dom.spec.whatwg.org/#dom-node-contains
+  */
+  nodeContains16: function (test) {
+    var doc = hc_staff.hc_staff(),
+    elemStrong = doc.getElementsByTagName("strong").item(1),
+    txt = elemStrong.firstChild,
+    cdata = elemStrong.lastChild;
+
+    test.ok(!txt.contains(cdata), "Text node does not contain sibling CData node");
+    test.ok(!cdata.contains(txt), "CData node does not contain sibling Text node");
+    test.done();
+  },
+
+  /**
+  * Check that the Text node children of two sibling elements do not contain one another.
+  * @author Andrew Smith
+  * @see http://dom.spec.whatwg.org/#dom-node-contains
+  */
+  nodeContains17: function (test) {
+    var doc = hc_staff.hc_staff(),
+    txt1 = doc.getElementsByTagName("strong").item(0).firstChild,
+    txt2 = doc.getElementsByTagName("strong").item(1).firstChild;
+
+    test.ok(!txt1.contains(txt2), "Text node child of first sibling Element does not contain Text node child of second sibling Element");
+    test.ok(!txt2.contains(txt1), "Text node child of second sibling Element does not contain Text node child of first sibling Element");
+    test.done();
+  },
+
+  /**
+  * Check that two unrelated notations do not contain one another
+  * @author Andrew Smith
+  * @see http://dom.spec.whatwg.org/#dom-node-contains
+  */
+  nodeContains18: function (test) {
+    var doc = hc_staff.hc_staff(),
+    doctype = doc.doctype,
+    notationsMap = doctype.notations,
+    notation1 = notationsMap.getNamedItem("notation1"),
+    notation2 = notationsMap.getNamedItem("notation2");
+
+    test.ok(!notation1.contains(notation2), "Notation 1 does not contain notation 2");
+    test.ok(!notation2.contains(notation1), "Notation 2 does not contain notation 1");
+    test.done();
+  },
+
+  /**
+  * Check that an element contains its child EntityReference node.
+  * @author Andrew Smith
+  * @see http://dom.spec.whatwg.org/#dom-node-contains
+  */
+  nodeContains19: function (test) {
+    var doc = hc_staff.hc_staff(),
+    elemName = doc.getElementsByTagName("var").item(2),
+    entRef = elemName.firstChild;
+
+    test.ok(elemName.contains(entRef), "EntityReference contained by its parent node");
+    test.ok(!entRef.contains(elemName), "EntityReference does not contain its parent node");
+    test.done();
   }
+
+  //TODO: Implement tests based on compareDocumentPosition 30 +
+  //TODO: Check various node types with null
+  //TODO: Check various node types with a detached Element
+  //TODO: Check various node types with a detached Attribute
+  //TODO: Check a DocumentFragment with a detached node
+
+
 }
