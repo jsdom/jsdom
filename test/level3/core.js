@@ -13120,11 +13120,14 @@ exports.tests = {
 
     docComp = hc_staff.hc_staff();
     documentPosition1 = doc.compareDocumentPosition(docComp);
-    test.equal(documentPosition1, 33, 'isImplSpecificDisconnected1');
+    test.equal(documentPosition1, 37, 'isImplSpecificDisconnected1');
     documentPosition2 = docComp.compareDocumentPosition(doc);
-    test.notEqual(documentPosition2, documentPosition1, 'notBothPreceding');
-    test.notEqual(documentPosition2, documentPosition1, 'notBothFollowing');
-    test.equal(documentPosition2, 33, 'isImplSpecificDisconnected2');
+
+    // Following two tests not supported by the spec
+    // test.notEqual(documentPosition2, documentPosition1, 'notBothPreceding');
+    // test.notEqual(documentPosition2, documentPosition1, 'notBothFollowing');
+
+    test.equal(documentPosition2, 37, 'isImplSpecificDisconnected2');
     documentPosition3 = doc.compareDocumentPosition(docComp);
     test.equal(documentPosition3, documentPosition1, 'isConsistent');
 
@@ -13175,7 +13178,7 @@ exports.tests = {
     var rootNS;
     var docElem;
 
-    doc = barfoo.barfoo();
+    doc = hc_staff.hc_staff();
     docElem = doc.documentElement;
 
     rootName = docElem.tagName;
@@ -13185,11 +13188,14 @@ exports.tests = {
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument(rootNS,rootName,nullDocType);
     documentPosition1 = doc.compareDocumentPosition(newDoc);
-    test.equal(documentPosition1, 33, 'isImplSpecificDisconnected1');
+    test.equal(documentPosition1, 37, 'isImplSpecificDisconnected1');
     documentPosition2 = newDoc.compareDocumentPosition(doc);
-    test.equal(documentPosition2, 33, 'isImplSpecificDisconnected2');
-    test.notEqual(documentPosition2, documentPosition1, 'notBothPreceding');
-    test.notEqual(documentPosition2, documentPosition1, 'notBothFollowing');
+    test.equal(documentPosition2, 37, 'isImplSpecificDisconnected2');
+
+    // The following two tests do not appear to be supported by the spec
+    // test.notEqual(documentPosition2, documentPosition1, 'notBothPreceding');
+    // test.notEqual(documentPosition2, documentPosition1, 'notBothFollowing');
+
     documentPosition3 = doc.compareDocumentPosition(newDoc);
     test.equal(documentPosition3, documentPosition1, 'isConsistent');
 
@@ -13532,11 +13538,12 @@ exports.tests = {
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     attrCloned = attr.cloneNode(true);
     position1 = docFrag.compareDocumentPosition(attrCloned);
-    test.equal(position1, 33, 'isImplSpecificDisconnected1');
+    test.equal(position1, 37, 'isImplSpecificDisconnected1');
     position2 = attrCloned.compareDocumentPosition(docFrag);
-    test.notEqual(position2, position1, 'notBothPreceding');
-    test.notEqual(position2, position1, 'notBothFollowing');
-    test.equal(position2, 33, 'isImplSpecificDisconnected2');
+    // The following two tests appear unsupported by the spec
+    // test.notEqual(position2, position1, 'notBothPreceding');
+    // test.notEqual(position2, position1, 'notBothFollowing');
+    test.equal(position2, 37, 'isImplSpecificDisconnected2');
     position3 = docFrag.compareDocumentPosition(attrCloned);
     test.equal(position3, position1, 'isConsistent');
 
@@ -13617,11 +13624,13 @@ exports.tests = {
    of the second element whose localName is name compared with the second CDATASection node
    is PRECEDING and is FOLLOWING vice versa.
 
+   This test is removed because it relies on obsolete node types (CDATA_SECTION Nodes)
+
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition19: function (test) {
+  /*nodecomparedocumentposition19: function (test) {
     var success;
     var doc;
     var elemList;
@@ -13647,7 +13656,7 @@ exports.tests = {
     test.equal(cdata2Position, 2, 'nodecomparedocumentposition_cdata1Precedes');
 
     test.done()
-  },
+  },*/
 
   /**
    *
@@ -13655,11 +13664,13 @@ exports.tests = {
    of the second element whose localName is name compared with the next CDATASection node
    is PRECEDING and FOLLOWING vice versa.
 
+   This test is removed because it relies on obsolete node type (CDATA_SECTION nodes)
+
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition20: function (test) {
+  /*nodecomparedocumentposition20: function (test) {
     var success;
     var doc;
     var elemList;
@@ -13682,7 +13693,7 @@ exports.tests = {
     test.equal(cdataPosition, 2, 'nodecomparedocumentpositionPRECEDING20');
 
     test.done()
-  },
+  },*/
 
   /**
    *
@@ -13727,11 +13738,13 @@ exports.tests = {
    Using compareDocumentPosition check if the Entity node precedes the Notation node and the Notation
    node follows the Entity node.
 
+   This test is removed because it relies on Obsolete node types (NOTATION and ENTITY nodes)
+
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition22: function (test) {
+  /*(nodecomparedocumentposition22: function (test) {
     var success;
     var doc;
     var docType;
@@ -13757,18 +13770,20 @@ exports.tests = {
     test.equal(notationPosition, 2, 'nodecomparedocumentpositionPRECEDING22');
 
     test.done()
-  },
+  },*/
 
   /**
    *
    Using compareDocumentPosition check if the document position of an Entity node compared to another
    Entity node following it in DocumentType is implementation specific.
 
+   This test is removed because it relies on obsolete node types
+
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition23: function (test) {
+  /*nodecomparedocumentposition23: function (test) {
     var success;
     var doc;
     var docType;
@@ -13796,18 +13811,20 @@ exports.tests = {
     test.equal(position3, position1, 'isConsistent');
 
     test.done()
-  },
+  },*/
 
   /**
    *
    Using compareDocumentPosition check if the return value of document position of a Notation node compared to another
    that is the same is not flagged.
 
+   This test is removed because it relies on obsolete node types.
+
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition24: function (test) {
+  /*nodecomparedocumentposition24: function (test) {
     var success;
     var doc;
     var docType;
@@ -13827,7 +13844,7 @@ exports.tests = {
     test.equal(notationPosition, 0, 'nodecomparedocumentposition24');
 
     test.done()
-  },
+  },*/
 
   /**
    *
@@ -13835,11 +13852,13 @@ exports.tests = {
    parent Element node, and that the Element node contains and precedes the
    EntityReference or Text node.
 
+   This test is removed because it relies on an obsolete node type (ENTITY_REFERENCE)
+
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition25: function (test) {
+  /*nodecomparedocumentposition25: function (test) {
     var success;
     var doc;
     var elemList;
@@ -13859,18 +13878,19 @@ exports.tests = {
     test.equal(entRefPosition, 10, 'nodecomparedocumentpositionContainsPRECEDING25');
 
     test.done()
-  },
+  },*/
 
   /**
    *
    Using compareDocumentPosition check if the EntityReference node contains and precedes it's first
    childElement, and that the childElement is contained and follows the EntityReference node.
 
+   This test is removed because it relies on an obsolete node type (ENTITY_REFERENCE)
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition26: function (test) {
+  /*nodecomparedocumentposition26: function (test) {
     var success;
     var doc;
     var varList;
@@ -13907,18 +13927,20 @@ exports.tests = {
     test.equal(entRefChild1Position, 10, 'nodecomparedocumentpositionContainsPRECEDING26');
 
     test.done()
-  },
+  },*/
 
   /**
    *
    Using compareDocumentPosition to check if the EntityReference node contains and precedes it's last
    childElement, and that this childElement is contained and follows the EntityReference node.
 
+   This test is removed because it relies on an obsolete node type
+
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition27: function (test) {
+  /*nodecomparedocumentposition27: function (test) {
     var success;
     var doc;
     var varList;
@@ -13955,7 +13977,7 @@ exports.tests = {
     test.equal(entRefChild1Position, 10, 'nodecomparedocumentpositionContainsPRECEDING');
 
     test.done()
-  },
+  },*/
 
   /**
    *
@@ -13963,11 +13985,13 @@ exports.tests = {
    first child and last child.  Invoke compareDocumentPositon on first child with last child as a parameter
    should return FOLLOWING, and should return PRECEDING vice versa.
 
+   This test is removed because it relies on an obsolete node type (ENTITY_REFERENCE)
+
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition28: function (test) {
+  /*nodecomparedocumentposition28: function (test) {
     var success;
     var doc;
     var varList;
@@ -14008,7 +14032,7 @@ exports.tests = {
     test.equal(entRefChild2Position, 2, 'nodecomparedocumentpositionPRECEDING28');
 
     test.done()
-  },
+  },*/
 
   /**
    *
@@ -14016,11 +14040,13 @@ exports.tests = {
    Ref node precedes the child of the second Entity Ref node, and that the child of the second Entity Ref node
    follows the child of the first Entity Ref node.
 
+   This test is removed because it relies on an obsolete node type
+
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition29: function (test) {
+  /*nodecomparedocumentposition29: function (test) {
     var success;
     var doc;
     var docElem;
@@ -14051,7 +14077,7 @@ exports.tests = {
     test.equal(entRefChild2Position, 2, 'nodecomparedocumentpositionPRECEDING29');
 
     test.done()
-  },
+  },*/
 
   /**
    *
@@ -14182,11 +14208,16 @@ exports.tests = {
     position5 = attr.compareDocumentPosition(elem);
     test.equal(position5, 10, 'nodecomparedocumentposition4ContainsPRECEDING33');
     position1 = doc.compareDocumentPosition(elem);
-    test.equal(position1, 33, 'isImplSpecificDisconnected1');
+    test.equal(position1, 37, 'isImplSpecificDisconnected1');
     position2 = elem.compareDocumentPosition(doc);
-    test.notEqual(position2, position1, 'notBothPreceding');
-    test.notEqual(position2, position1, 'notBothFollowing');
-    test.equal(position2, 33, 'isImplSpecificDisconnected2');
+
+    // These two tests do not appear to be supported by the spec.
+    // See http://dom.spec.whatwg.org/#dom-node-comparedocumentposition
+    // step 3
+    //test.notEqual(position2, position1, 'notBothPreceding');
+    //test.notEqual(position2, position1, 'notBothFollowing');
+
+    test.equal(position2, 37, 'isImplSpecificDisconnected2');
     position3 = doc.compareDocumentPosition(elem);
     test.equal(position3, position1, 'isConsistent');
 
@@ -14235,11 +14266,13 @@ exports.tests = {
    Using compareDocumentPosition to check if the Element contains and precedes its default attribute
    and that the attribute follows and iscontained by the Element
 
+   This test is removed because Attribute no longer inherits from Node
+
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition35: function (test) {
+  /*nodecomparedocumentposition35: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14258,7 +14291,7 @@ exports.tests = {
     test.equal(attrPosition, 10, 'nodecomparedocumentpositionPRECEDINGContains35');
 
     test.done()
-  },
+  },*/
 
   /**
    *
@@ -14266,11 +14299,13 @@ exports.tests = {
    the element that follows its parent as a parameter is FOLLOWING, and is PRECEDING
    vice versa.
 
+   This test is removed because attribute no longer inherits from node
+
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition36: function (test) {
+  /*nodecomparedocumentposition36: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14294,7 +14329,7 @@ exports.tests = {
     test.equal(elemFollowsPosition, 2, 'nodecomparedocumentpositionPRECEEDING36');
 
     test.done()
-  },
+  },*/
 
   /**
    *
@@ -14302,11 +14337,13 @@ exports.tests = {
    of the element acronym when compared with the elements text content as a parameter is
    is FOLLOWING, and is PRECEDING vice versa.
 
+   This test is removed because Attribute no longer inherits from Node
+
    * @author IBM
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition37: function (test) {
+  /*nodecomparedocumentposition37: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14328,18 +14365,20 @@ exports.tests = {
     test.equal(txtPosition, 2, 'nodecomparetreepositionPRECEDING37');
 
     test.done()
-  },
+  },*/
 
   /**
    *
    Using compareDocumentPosition to check if the class's attribute contains and precedes it's content,
    and the content node is contained and follows the attribute node.
 
+   This test is removed because Attribute no longer inherits from Node
+
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition38: function (test) {
+  /*nodecomparedocumentposition38: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14360,18 +14399,20 @@ exports.tests = {
     test.equal(attrChildPosition, 10, 'nodecomparedocumentpositionContainsPRECEDING38');
 
     test.done()
-  },
+  },*/
 
   /**
    *
    Using compareDocumentPosition to check if the document position of the class's attribute
    when compared with the local1 attribute node is implementation_specific.
 
+   This test is removed because Attribute no longer inherits from Node
+
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition39: function (test) {
+  /*nodecomparedocumentposition39: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14395,18 +14436,20 @@ exports.tests = {
     test.notEqual(attrPosition, swappedPosition, 'onlyOneFollowing');
 
     test.done()
-  },
+  },*/
 
   /**
    *
    Using compareDocumentPosition to check if the document position of the class's attribute
    when compared with a new attribute node is implementation_specific
 
+   This test is removed because Attribute no longer inherits from Node
+
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  nodecomparedocumentposition40: function (test) {
+  /*nodecomparedocumentposition40: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14431,7 +14474,7 @@ exports.tests = {
     test.notEqual(attrPosition, swappedPosition, 'onlyOneFollowing');
 
     test.done()
-  },
+  },*/
 
   /**
    *
@@ -29238,13 +29281,44 @@ exports.tests = {
     test.ok(elemName.contains(entRef), "EntityReference contained by its parent node");
     test.ok(!entRef.contains(elemName), "EntityReference does not contain its parent node");
     test.done();
+  },
+
+  /**
+  * Check that an element does not contain a following element and vice versa
+  * @author Andrew Smith
+  * @see http://dom.spec.whatwg.org/#dom-node-contains
+  */
+  nodeContains20: function (test) {
+    var doc = hc_staff.hc_staff(),
+    strong = doc.getElementsByTagName("strong").item(0),
+    code = doc.getElementsByTagName("code").item(0);
+
+    test.ok(!strong.contains(code), "Element does not contain following element");
+    test.ok(!code.contains(strong), "Element does not contain previous element");
+    test.done();
+  },
+
+  nodeContains21: function (test) {
+    var doc = hc_staff.hc_staff(),
+    elem = doc.createElementNS("http://www.w3.org/1999/xhtml","br"),
+    attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
+
+    elem.setAttributeNodeNS(attr);
+    test.ok(elem.contains(attr), "Detached element contains attribute");
+    test.ok(!attr.contains(elem), "Detached attribute does not contain element");
+    test.ok(!doc.contains(elem), "Document does not contain detached element");
+    test.ok(!elem.contains(doc), "Detached element does not contain document");
+    test.done();
   }
+
+
 
   //TODO: Implement tests based on compareDocumentPosition 30 +
   //TODO: Check various node types with null
   //TODO: Check various node types with a detached Element
   //TODO: Check various node types with a detached Attribute
   //TODO: Check a DocumentFragment with a detached node
+  //TODO: Remember to re-comment out the core tests!
 
 
 }
