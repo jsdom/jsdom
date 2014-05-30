@@ -216,7 +216,7 @@ exports.tests = {
     });
   },
 
-  // See: http://www.w3.org/TR/html5/browsers.html#dom-frames
+  // See: http://www.whatwg.org/specs/web-apps/current-work/#dom-frames
   'test frames array identity' : function(test) {
     var htmlPath = path.resolve(__dirname, 'files', 'iframe_parent.html');
     var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), null, {
