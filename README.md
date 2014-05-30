@@ -1,6 +1,6 @@
 # jsdom
 
-A JavaScript implementation of the W3C DOM.
+A JavaScript implementation of the WHATWG DOM and HTML standards.
 
 ## Install
 
