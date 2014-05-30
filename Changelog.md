@@ -1,3 +1,11 @@
+## 0.10.6
+
+* Add: remaining URL properties to `window.location` and `HTMLAnchorElement`.
+* Fix: the presence of `String.prototype.normalize`, which is available by default in Node 0.11.13 onwards, caused reflected attributes to break. (brock8503)
+* Fix: iframes now correctly load `about:blank` when the `src` attribute is empty or missing. (mcmathja)
+* Fix: documents containing only whitespace now correctly generate wrapper documents, just like blank documents do. (nikolas)
+* Tweak: lazy-load the request module, to improve overall jsdom loading time. (tantaman)
+
 ## 0.10.5
 
 * Fix: the list of void elements has been updated to match the latest HTML spec.
