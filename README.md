@@ -288,7 +288,7 @@ window.document.body.appendChild(scriptEl);
  window/console             2/2      100%
  window/frame             16/16      100%
  sizzle/index             14/14      100%
- jsdom/index              83/83      100%
+ jsdom/index              84/84      100%
  jsdom/parsing            11/11      100%
  jsdom/env                25/25      100%
  jsdom/utils              11/11      100%
@@ -296,7 +296,7 @@ window.document.body.appendChild(scriptEl);
  browser/css                1/1      100%
  browser/index            34/34      100%
 ------------------------------------------
-TOTALS: 0/2666 failed; 100% success
+TOTALS: 0/2667 failed; 100% success
 ```
 
 ### Running the tests
