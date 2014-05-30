@@ -19998,14 +19998,31 @@ exports.tests = {
     test.done();
   },
 
-  normalize_method_defined_on_string_instances_should_not_affect_attribute_properties: function(test) {
-    String.prototype.normalize = function() {
-      return 'masked alt';
+  normalize_method_defined_on_string_prototype_should_not_affect_getting_attribute_properties: function (test) {
+    String.prototype.normalize = function () {
+      return "masked alt";
     };
-    var doc = jsdom.jsdom('<img alt="alt" />');
+    var doc = jsdom.jsdom("<img alt=\"alt\" />");
     var img = doc.getElementsByTagName("img").item(0);
 
-    test.strictEqual(img.alt, "alt", "<img> elements should not have their attribute properties masked by defining a normalize method on string instances");
+    test.strictEqual(img.alt, "alt", "<img> elements should not have their attribute properties masked by defining " +
+      "a normalize method on string instances");
+
+    delete String.prototype.normalize;
+    test.done();
+  },
+
+
+  normalize_method_defined_on_string_prototype_should_not_affect_setting_attribute_properties: function (test) {
+    String.prototype.normalize = function () {
+      return "masked action";
+    };
+    var doc = jsdom.jsdom("<form></form>");
+    var form = doc.getElementsByTagName("form").item(0);
+    form.action = "test.html";
+
+    test.strictEqual(form.action, "test.html", "<form> elements should not have their attribute properties masked " +
+      "by defining a normalize method on string instances when removing empty attributes");
 
     delete String.prototype.normalize;
     test.done();
