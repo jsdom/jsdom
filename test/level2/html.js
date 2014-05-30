@@ -20105,5 +20105,19 @@ exports.tests = {
     });
 
     test.done();
+  },
+
+  normalize_method_defined_on_string_instances_should_not_affect_adding_attribute_properties: function(test) {
+    String.prototype.normalize = function() {
+      return 'masked action';
+    };
+    var doc = jsdom.jsdom('<form></form>');
+    var form = doc.getElementsByTagName("form").item(0);
+    form.action = 'test.html';
+
+    test.strictEqual(form.action, "test.html", "<form> elements should not have their attribute properties masked by defining a normalize method on string instances when removing empty attributes");
+
+    delete String.prototype.normalize;
+    test.done();
   }
 }
