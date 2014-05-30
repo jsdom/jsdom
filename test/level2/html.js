@@ -14000,5962 +14000,5962 @@ exports.tests = {
     test.equal(nodeList.length, 3, 'Asize');
     var tbodies = nodeList.item(2).tBodies;
     var result = [];
-for(var i=0;i<tbodies.length;i++) {
-  result.push(tbodies.item(i).nodeName);
-}
-test.deepEqual(result, expectedOptions, 'tbodiesLink');
-test.done();
-},
-
-/**
-*
-The align attribute specifies the table's position with respect to the
-rest of the document.
-Retrieve the align attribute of the first TABLE element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-23180977
-*/
-HTMLTableElement10: function(test) {
-var success;
-var nodeList;
-var testNode;
-var valign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(0);
-valign = testNode.align;
-test.equal(valign, "center", "alignLink");
-test.done();
-},
-
-/**
-*
-The bgColor attribute specifies cell background color.
-Retrieve the bgColor attribute of the first TABLE element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83532985
-*/
-HTMLTableElement11: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vbgcolor;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vbgcolor = testNode.bgColor;
-test.equal(vbgcolor, "#ff0000", "bgColorLink");
-test.done();
-},
-
-/**
-*
-The border attribute specifies the width of the border around the table.
-Retrieve the border attribute of the first TABLE element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-50969400
-*/
-HTMLTableElement12: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vborder;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vborder = testNode.border;
-test.equal(vborder, "4", "borderLink");
-test.done();
-},
-
-/**
-*
-The cellpadding attribute specifies the horizontal and vertical space
-between cell content and cell borders.
-Retrieve the cellpadding attribute of the first TABLE element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59162158
-*/
-HTMLTableElement13: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vcellpadding;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vcellpadding = testNode.cellPadding;
-test.equal(vcellpadding, "2", "cellPaddingLink");
-test.done();
-},
-
-/**
-*
-The cellSpacing attribute specifies the horizontal and vertical separation
-between cells.
-Retrieve the cellSpacing attribute of the first TABLE element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68907883
-*/
-HTMLTableElement14: function(test) {
-var success;
-var nodeList;
-var testNode;
-var cellSpacing;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-cellSpacing = testNode.cellSpacing;
-test.equal(cellSpacing, "2", "cellSpacingLink");
-test.done();
-},
-
-/**
-*
-The frame attribute specifies which external table borders to render.
-Retrieve the frame attribute of the first TABLE element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64808476
-*/
-HTMLTableElement15: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vframe;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vframe = testNode.frame;
-test.equal(vframe, "border", "frameLink");
-test.done();
-},
-
-/**
-*
-The rules attribute specifies which internal table borders to render.
-Retrieve the rules attribute of the first TABLE element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-26347553
-*/
-HTMLTableElement16: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vrules;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vrules = testNode.rules;
-test.equal(vrules, "all", "rulesLink");
-test.done();
-},
-
-/**
-*
-The summary attribute is a description about the purpose or structure
-of a table.
-Retrieve the summary attribute of the first TABLE element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-44998528
-*/
-HTMLTableElement17: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsummary;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vsummary = testNode.summary;
-test.equal(vsummary, "HTML Control Table", "summaryLink");
-test.done();
-},
-
-/**
-*
-The width attribute specifies the desired table width.
-Retrieve the width attribute of the first TABLE element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-77447361
-*/
-HTMLTableElement18: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vwidth;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vwidth = testNode.width;
-test.equal(vwidth, "680", "widthLink");
-test.done();
-},
-
-/**
-*
-The createTHead() method creates a table header row or returns
-an existing one.
-Create a new THEAD element on the first TABLE element.  The first
-TABLE element should return null to make sure one doesn't exist.
-After creation of the THEAD element the value is once again
-checked and should not be null.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-70313345
-*/
-HTMLTableElement19: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsection1;
-var vsection2;
-var newHead;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(0);
-vsection1 = testNode.tHead;
-test.equal(vsection1, null, 'vsection1 should be null');
-newHead = testNode.createTHead();
-vsection2 = testNode.tHead;
-test.notEqual(vsection2, null, 'vsection2 should not be null');
-test.done();
-},
-
-/**
-*
-The createTHead() method creates a table header row or returns
-an existing one.
-Try to create a new THEAD element on the second TABLE element.
-Since a THEAD element already exists in the TABLE element a new
-THEAD element is not created and information from the already
-existing THEAD element is returned.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-70313345
-*/
-HTMLTableElement20: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsection;
-var newHead;
-var valign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-newHead = testNode.createTHead();
-vsection = testNode.tHead;
-valign = vsection.align;
-test.equal(valign, "center", "alignLink");
-test.done();
-},
-
-/**
-*
-The deleteTHead() method deletes the header from the table.
-The deleteTHead() method will delete the THEAD Element from the
-second TABLE element.  First make sure that the THEAD element exists
-and then count the number of rows.  After the THEAD element is
-deleted there should be one less row.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-38310198
-*/
-HTMLTableElement21: function(test) {
-var success;
-var nodeList;
-var rowsnodeList;
-var testNode;
-var vsection1;
-var vsection2;
-var vrows;
-var doc;
-var result = new Array();
-expectedResult = new Array();
-expectedResult[0] = 4;
-expectedResult[1] = 3;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vsection1 = testNode.tHead;
-test.notEqual(vsection1, null, 'vsection1 should not be null');
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-result[result.length] = vrows;
-testNode.deleteTHead();
-vsection2 = testNode.tHead;
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-result[result.length] = vrows;
-test.deepEqual(result, expectedResult, 'rowsLink');
-test.done();
-},
-
-/**
-*
-The createTFoot() method creates a table footer row or returns
-an existing one.
-Create a new TFOOT element on the first TABLE element.  The first
-TABLE element should return null to make sure one doesn't exist.
-After creation of the TFOOT element the value is once again
-checked and should not be null.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-8453710
-*/
-HTMLTableElement22: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsection1;
-var vsection2;
-var newFoot;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(0);
-vsection1 = testNode.tFoot;
-test.equal(vsection1, null, 'vsection1 should be null');
-newFoot = testNode.createTFoot();
-vsection2 = testNode.tFoot;
-test.notEqual(vsection2, null, 'vsection2 should not be null');
-test.done();
-},
-
-/**
-*
-The createTFoot() method creates a table footer row or returns
-an existing one.
-Try to create a new TFOOT element on the second TABLE element.
-Since a TFOOT element already exists in the TABLE element a new
-TFOOT element is not created and information from the already
-existing TFOOT element is returned.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-8453710
-*/
-HTMLTableElement23: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsection;
-var newFoot;
-var valign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-newFoot = testNode.createTFoot();
-vsection = testNode.tFoot;
-valign = vsection.align;
-test.equal(valign, "center", "alignLink");
-test.done();
-},
-
-/**
-*
-The deleteTFoot() method deletes the footer from the table.
-The deleteTFoot() method will delete the TFOOT Element from the
-second TABLE element.  First make sure that the TFOOT element exists
-and then count the number of rows.  After the TFOOT element is
-deleted there should be one less row.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78363258
-*/
-HTMLTableElement24: function(test) {
-var success;
-var nodeList;
-var rowsnodeList;
-var testNode;
-var vsection1;
-var vsection2;
-var vrows;
-var doc;
-var result = new Array();
-expectedResult = new Array();
-expectedResult[0] = 4;
-expectedResult[1] = 3;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vsection1 = testNode.tFoot;
-test.notEqual(vsection1, null, 'vsection1 should not be null');
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-result[result.length] = vrows;
-testNode.deleteTFoot();
-vsection2 = testNode.tFoot;
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-result[result.length] = vrows;
-test.deepEqual(result, expectedResult, 'rowsLink');
-test.done();
-},
-
-/**
-*
-The createCaption() method creates a new table caption object or returns
-an existing one.
-Create a new CAPTION element on the first TABLE element.  Since
-one does not currently exist the CAPTION element is created.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-96920263
-*/
-HTMLTableElement25: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsection1;
-var vsection2;
-var newCaption;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(0);
-vsection1 = testNode.caption;
-test.equal(vsection1, null, 'vsection1 should be null');
-newCaption = testNode.createCaption();
-vsection2 = testNode.caption;
-test.notEqual(vsection2, null, 'vsection2 should not be null');
-test.done();
-},
-
-/**
-*
-The createCaption() method creates a new table caption object or returns
-an existing one.
-Create a new CAPTION element on the first TABLE element.  Since
-one currently exists the CAPTION element is not created and you
-can get the align attribute from the CAPTION element that exists.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-96920263
-*/
-HTMLTableElement26: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsection1;
-var vcaption;
-var newCaption;
-var valign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vsection1 = testNode.caption;
-test.notEqual(vsection1, null, 'vsection1 should not be null');
-newCaption = testNode.createCaption();
-vcaption = testNode.caption;
-valign = vcaption.align;
-test.equal(valign, "top", "alignLink");
-test.done();
-},
-
-/**
-*
-The deleteCaption() method deletes the table caption.
-Delete the CAPTION element on the second TABLE element.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-22930071
-*/
-HTMLTableElement27: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsection1;
-var vsection2;
-var valign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vsection1 = testNode.caption;
-test.notEqual(vsection1, null, 'vsection1 should not be null');
-testNode.deleteCaption();
-vsection2 = testNode.caption;
-test.equal(vsection2, null, 'vsection2 should be null');
-test.done();
-},
-
-/**
-*
-The insertRow() method inserts a new empty table row.
-Retrieve the second TABLE element and invoke the insertRow() method
-with an index of 0. Currently the zero indexed row is in the THEAD
-section of the TABLE.  The number of rows in the THEAD section before
-insertion of the new row is one.  After the new row is inserted the number
-of rows in the THEAD section is two.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39872903
-*/
-HTMLTableElement28: function(test) {
-var success;
-var nodeList;
-var testNode;
-var newRow;
-var rowsnodeList;
-var vsection1;
-var vsection2;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vsection1 = testNode.tHead;
-rowsnodeList = vsection1.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 1, "rowsLink1");
-newRow = testNode.insertRow(0);
-vsection2 = testNode.tHead;
-rowsnodeList = vsection2.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 2, "rowsLink2");
-test.done();
-},
-
-/**
-*
-The insertRow() method inserts a new empty table row.
-Retrieve the second TABLE element and invoke the insertRow() method
-with an index of two. Currently the 2nd indexed row is in the TBODY
-section of the TABLE.  The number of rows in the TBODY section before
-insertion of the new row is two.  After the new row is inserted the number
-of rows in the TBODY section is three.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39872903
-*/
-HTMLTableElement29: function(test) {
-var success;
-var nodeList;
-var tbodiesnodeList;
-var testNode;
-var bodyNode;
-var newRow;
-var rowsnodeList;
-var vsection1;
-var vsection2;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-tbodiesnodeList = testNode.tBodies;
-bodyNode = tbodiesnodeList.item(0);
-rowsnodeList = bodyNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 2, "rowsLink1");
-newRow = testNode.insertRow(2);
-tbodiesnodeList = testNode.tBodies;
-bodyNode = tbodiesnodeList.item(0);
-rowsnodeList = bodyNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 3, "rowsLink2");
-test.done();
-},
-
-/**
-*
-The insertRow() method inserts a new empty table row.
-Retrieve the second TABLE element and invoke the insertRow() method
-with an index of four. After the new row is inserted the number of rows
-in the table should be five.
-Also the number of rows in the TFOOT section before
-insertion of the new row is one.  After the new row is inserted the number
-of rows in the TFOOT section is two.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39872903
-*/
-HTMLTableElement30: function(test) {
-var success;
-var nodeList;
-var tbodiesnodeList;
-var testNode;
-var newRow;
-var rowsnodeList;
-var vsection1;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 4, "rowsLink1");
-vsection1 = testNode.tFoot;
-rowsnodeList = vsection1.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 1, "rowsLink");
-newRow = testNode.insertRow(4);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 5, "rowsLink2");
-vsection1 = testNode.tFoot;
-rowsnodeList = vsection1.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 2, "rowsLink3");
-test.done();
-},
-
-/**
-*
-The insertRow() method inserts a new empty table row.  In addition, when
-the table is empty the row is inserted into a TBODY which is created
-and inserted into the table.
-Load the table1 file which has a non-empty table element.
-Create an empty TABLE element and append to the document.
-Check to make sure that the empty TABLE element doesn't
-have a TBODY element.  Insert a new row into the empty
-TABLE element.  Check for existence of the a TBODY element
-in the table.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39872903
-* @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Aug/0019.html
-* @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=502
-*/
-HTMLTableElement31: function(test) {
-var success;
-var nodeList;
-var testNode;
-var tableNode;
-var tbodiesnodeList;
-var newRow;
-var doc;
-var table;
-var tbodiesLength;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table1");
-nodeList = doc.getElementsByTagName("body");
-test.equal(nodeList.length, 1, 'tableSize1');
-testNode = nodeList.item(0);
-table = doc.createElement("table");
-tableNode = testNode.appendChild(table);
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 2, 'tableSize2');
-tbodiesnodeList = tableNode.tBodies;
-tbodiesLength = tbodiesnodeList.length;
-test.equal(tbodiesLength, 0, "Asize3");
-newRow = tableNode.insertRow(0);
-tbodiesnodeList = tableNode.tBodies;
-tbodiesLength = tbodiesnodeList.length;
-test.equal(tbodiesLength, 1, "Asize4");
-test.done();
-},
-
-/**
-*
-The deleteRow() method deletes a table row.
-Retrieve the second TABLE element and invoke the deleteRow() method
-with an index of 0(first row). Currently there are four rows in the
-table.  After the deleteRow() method is called there should be
-three rows in the table.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-13114938
-*/
-HTMLTableElement32: function(test) {
-var success;
-var nodeList;
-var testNode;
-var rowsnodeList;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 4, "rowsLink1");
-testNode.deleteRow(0);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 3, "rowsLink2");
-test.done();
-},
-
-/**
-*
-The deleteRow() method deletes a table row.
-Retrieve the second TABLE element and invoke the deleteRow() method
-with an index of 3(last row). Currently there are four rows in the
-table.  The deleteRow() method is called and now there should be three.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-13114938
-*/
-HTMLTableElement33: function(test) {
-var success;
-var nodeList;
-var testNode;
-var rowsnodeList;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 4, "rowsLink1");
-testNode.deleteRow(3);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 3, "rowsLink2");
-test.done();
-},
-
-/**
-*
-The insertRow() method throws a INDEX_SIZE_ERR DOMException
-if the specified index is greater than the number of rows.
-Retrieve the second TABLE element which has four rows.  Try
-to insert a new row using an index of five.  This should throw
-a INDEX_SIZE_ERR DOMException since there are only four rows.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-39872903
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-39872903')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
-*/
-HTMLTableElement34: function(test) {
-var success;
-var nodeList;
-var testNode;
-var newRow;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-{
-  success = false;
-  try {
-    newRow = testNode.insertRow(5);
-  }
-  catch(ex) {
-    success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-  }
-  test.ok(success, 'HTMLTableElement34');
-}
-test.done();
-},
-
-/**
-*
-The insertRow() method throws a INDEX_SIZE_ERR DOMException
-if the specified index is negative.
-Retrieve the second TABLE element which has four rows.  Try
-to insert a new row using an index of negative five.  This should throw
-a INDEX_SIZE_ERR DOMException since the index is negative.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-39872903
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-39872903')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
-*/
-HTMLTableElement35: function(test) {
-var success;
-var nodeList;
-var testNode;
-var newRow;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-{
-  success = false;
-  try {
-    newRow = testNode.insertRow(-5);
-  }
-  catch(ex) {
-    success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-  }
-  test.ok(success, 'HTMLTableElement35');
-}
-test.done();
-},
-
-/**
-*
-The deleteRow() method throws a INDEX_SIZE_ERR DOMException
-if the specified index is greater than the number of rows.
-Retrieve the second TABLE element which has four rows.  Try
-to delete a new row using an index of five.  This should throw
-a INDEX_SIZE_ERR DOMException since there are only four rows.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-13114938
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-13114938')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
-*/
-HTMLTableElement36: function(test) {
-var success;
-var nodeList;
-var testNode;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-{
-  success = false;
-  try {
-    testNode.deleteRow(5);
-  }
-  catch(ex) {
-    success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-  }
-  test.ok(success, 'HTMLTableElement36');
-}
-test.done();
-},
-
-/**
-*
-The deleteRow() method throws a INDEX_SIZE_ERR DOMException
-if the specified index is equal the number of rows.
-Retrieve the second TABLE element which has four rows.  Try
-to delete a new row using an index of four.  This should throw
-a INDEX_SIZE_ERR DOMException since the index is equal to the
-number of rows.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-13114938
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-13114938')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
-*/
-HTMLTableElement37: function(test) {
-var success;
-var nodeList;
-var testNode;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-{
-  success = false;
-  try {
-    testNode.deleteRow(4);
-  }
-  catch(ex) {
-    success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-  }
-  test.ok(success, 'HTMLTableElement37');
-}
-test.done();
-},
-
-/**
-*
-The deleteRow() method throws a INDEX_SIZE_ERR DOMException
-if the specified index is negative.
-Retrieve the second TABLE element which has four rows.  Try
-to delete a new row using an index of negative five.  This should throw
-a INDEX_SIZE_ERR DOMException since the index is negative.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-13114938
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-13114938')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
-*/
-HTMLTableElement38: function(test) {
-var success;
-var nodeList;
-var testNode;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-{
-  success = false;
-  try {
-    testNode.deleteRow(-5);
-  }
-  catch(ex) {
-    success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-  }
-  test.ok(success, 'HTMLTableElement38');
-}
-test.done();
-},
-
-/**
-*
-The insertRow() method inserts a new empty table row.
-If index is -1 or equal to the number of rows, the new row
-is appended.
-Retrieve the second TABLE element and invoke the insertRow() method
-with an index of negative one.
-The number of rows in the TBODY section before insertion with an index
-of negative one is two.  After the new row is inserted the number
-of rows in the TBODY section is three.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-39872903
-*/
-HTMLTableElement39: function(test) {
-var success;
-var nodeList;
-var tbodiesnodeList;
-var testNode;
-var bodyNode;
-var newRow;
-var rowsnodeList;
-var vsection1;
-var vsection2;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-tbodiesnodeList = testNode.tBodies;
-bodyNode = tbodiesnodeList.item(0);
-rowsnodeList = bodyNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 2, "rowsLink1");
-newRow = testNode.insertRow(-1);
-tbodiesnodeList = testNode.tBodies;
-bodyNode = tbodiesnodeList.item(0);
-rowsnodeList = bodyNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 3, "rowsLink2");
-test.done();
-},
-
-/**
-*
-The deleteRow() method deletes a table row.  If the index is -1
-the last row of the table is deleted.
-Retrieve the second TABLE element and invoke the deleteRow() method
-with an index of negative one. Currently there are four rows in the
-table.  The deleteRow() method is called and now there should be three.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-13114938
-*/
-HTMLTableElement40: function(test) {
-var success;
-var nodeList;
-var testNode;
-var rowsnodeList;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 4, "rowsLink1");
-testNode.deleteRow(-1);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 3, "rowsLink2");
-test.done();
-},
-
-/**
-*
-The rowIndex attribute specifies the index of the row, relative to the
-entire table, starting from 0.  This is in document tree order and
-not display order.  The rowIndex does not take into account sections
-(THEAD, TFOOT, or TBODY) within the table.
-Retrieve the third TR element within the document and examine
-its rowIndex value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-67347567
-*/
-HTMLTableRowElement01: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vrowindex;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(3);
-vrowindex = testNode.rowIndex;
-test.equal(vrowindex, 1, "rowIndexLink");
-test.done();
-},
-
-/**
-*
-The sectionRowIndex attribute specifies the index of this row, relative
-to the current section(THEAD, TFOOT, or TBODY),starting from 0.
-Retrieve the second TR(1st In THEAD) element within the document and
-examine its sectionRowIndex value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-79105901
-*/
-HTMLTableRowElement02: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsectionrowindex;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(1);
-vsectionrowindex = testNode.sectionRowIndex;
-test.equal(vsectionrowindex, 0, "sectionRowIndexLink");
-test.done();
-},
-
-/**
-*
-The sectionRowIndex attribute specifies the index of this row, relative
-to the current section(THEAD, TFOOT, or TBODY),starting from 0.
-Retrieve the third TR(1st In TFOOT) element within the document and
-examine its sectionRowIndex value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-79105901
-*/
-HTMLTableRowElement03: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsectionrowindex;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(2);
-vsectionrowindex = testNode.sectionRowIndex;
-test.equal(vsectionrowindex, 0, "sectionRowIndexLink");
-test.done();
-},
-
-/**
-*
-The sectionRowIndex attribute specifies the index of this row, relative
-to the current section(THEAD, TFOOT, or TBODY),starting from 0.
-Retrieve the fifth TR(2nd In TBODY) element within the document and
-examine its sectionRowIndex value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-79105901
-*/
-HTMLTableRowElement04: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsectionrowindex;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(4);
-vsectionrowindex = testNode.sectionRowIndex;
-test.equal(vsectionrowindex, 1, "sectionRowIndexLink");
-test.done();
-},
-
-/**
-*
-The cells attribute specifies the collection of cells in this row.
-Retrieve the fourth TR element and examine the value of
-the cells length attribute.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-67349879
-*/
-HTMLTableRowElement05: function(test) {
-var success;
-var nodeList;
-var cellsnodeList;
-var testNode;
-var vcells;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(3);
-cellsnodeList = testNode.cells;
-vcells = cellsnodeList.length;
-test.equal(vcells, 6, "cellsLink");
-test.done();
-},
-
-/**
-*
-The align attribute specifies the horizontal alignment of data within
-cells of this row.
-Retrieve the align attribute of the second TR element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-74098257
-*/
-HTMLTableRowElement06: function(test) {
-var success;
-var nodeList;
-var testNode;
-var valign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(1);
-valign = testNode.align;
-test.equal(valign, "center", "alignLink");
-test.done();
-},
-
-/**
-*
-The bgColor attribute specifies the background color of rows.
-Retrieve the bgColor attribute of the second TR element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-18161327
-*/
-HTMLTableRowElement07: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vbgcolor;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(1);
-vbgcolor = testNode.bgColor;
-test.equal(vbgcolor.toLowerCase(), "#00FFFF".toLowerCase(), "bgColorLink");
-test.done();
-},
-
-/**
-*
-The ch attribute specifies the alignment character for cells in a column.
-Retrieve the char attribute of the second TR element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-16230502
-*/
-HTMLTableRowElement08: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vch;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(1);
-vch = testNode.ch;
-test.equal(vch, "*", "chLink");
-test.done();
-},
-
-/**
-*
-The chOff attribute specifies the offset of alignment character.
-Retrieve the charoff attribute of the second TR element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68207461
-*/
-HTMLTableRowElement09: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vchoff;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(1);
-vchoff = testNode.chOff;
-test.equal(vchoff, "1", "charOffLink");
-test.done();
-},
-
-/**
-*
-The vAlign attribute specifies the vertical alignment of data within
-cells of this row.
-Retrieve the vAlign attribute of the second TR element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-90000058
-*/
-HTMLTableRowElement10: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vvalign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(1);
-vvalign = testNode.vAlign;
-test.equal(vvalign, "middle", "vAlignLink");
-test.done();
-},
-
-/**
-*
-The insertCell() method inserts an empty TD cell into this row.
-Retrieve the fourth TR element and examine the value of
-the cells length attribute which should be set to six.
-Check the value of the first TD element.  Invoke the
-insertCell() which will create an empty TD cell at the
-zero index position.  Check the value of the newly created
-cell and make sure it is null and also the numbers of cells
-should now be seven.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68927016
-*/
-HTMLTableRowElement11: function(test) {
-var success;
-var nodeList;
-var cellsnodeList;
-var testNode;
-var trNode;
-var cellNode;
-var value;
-var newCell;
-var vcells;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(3);
-cellsnodeList = testNode.cells;
-vcells = cellsnodeList.length;
-test.equal(vcells, 6, "cellsLink1");
-trNode = cellsnodeList.item(0);
-cellNode = trNode.firstChild;
-value = cellNode.nodeValue;
-test.equal(value, "EMP0001", "value1Link");
-newCell = testNode.insertCell(0);
-testNode = nodeList.item(3);
-cellsnodeList = testNode.cells;
-vcells = cellsnodeList.length;
-test.equal(vcells, 7, "cellsLink2");
-trNode = cellsnodeList.item(0);
-cellNode = trNode.firstChild;
-test.equal(cellNode, null, 'cellNode should be null');
-test.done();
-},
-
-/**
-*
-The insertCell() method inserts an empty TD cell into this row.
-Retrieve the fourth TR element and examine the value of
-the cells length attribute which should be set to six.
-Check the value of the last TD element.  Invoke the
-insertCell() which will append the empty cell to the end of the list.
-Check the value of the newly created cell and make sure it is null
-and also the numbers of cells should now be seven.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68927016
-*/
-HTMLTableRowElement12: function(test) {
-var success;
-var nodeList;
-var cellsnodeList;
-var testNode;
-var trNode;
-var cellNode;
-var value;
-var newCell;
-var vcells;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(3);
-cellsnodeList = testNode.cells;
-vcells = cellsnodeList.length;
-test.equal(vcells, 6, "cellsLink1");
-trNode = cellsnodeList.item(5);
-cellNode = trNode.firstChild;
-value = cellNode.nodeValue;
-test.equal(value, "1230 North Ave. Dallas, Texas 98551", "value1Link");
-newCell = testNode.insertCell(6);
-testNode = nodeList.item(3);
-cellsnodeList = testNode.cells;
-vcells = cellsnodeList.length;
-test.equal(vcells, 7, "cellsLink2");
-trNode = cellsnodeList.item(6);
-cellNode = trNode.firstChild;
-test.equal(cellNode, null, 'cellNode should be null');
-test.done();
-},
-
-/**
-*
-The deleteCell() method deletes a cell from the current row.
-Retrieve the fourth TR element and examine the value of
-the cells length attribute which should be set to six.
-Check the value of the first TD element.  Invoke the
-deleteCell() method which will delete a cell from the current row.
-Check the value of the cell at the zero index and also check
-the number of cells which should now be five.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-11738598
-*/
-HTMLTableRowElement13: function(test) {
-var success;
-var nodeList;
-var cellsnodeList;
-var testNode;
-var trNode;
-var cellNode;
-var value;
-var vcells;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(3);
-cellsnodeList = testNode.cells;
-vcells = cellsnodeList.length;
-test.equal(vcells, 6, "cellsLink1");
-trNode = cellsnodeList.item(0);
-cellNode = trNode.firstChild;
-value = cellNode.nodeValue;
-test.equal(value, "EMP0001", "value1Link");
-testNode.deleteCell(0);
-testNode = nodeList.item(3);
-cellsnodeList = testNode.cells;
-vcells = cellsnodeList.length;
-test.equal(vcells, 5, "cellsLink2");
-trNode = cellsnodeList.item(0);
-cellNode = trNode.firstChild;
-value = cellNode.nodeValue;
-test.equal(value, "Margaret Martin", "value2Link");
-test.done();
-},
-
-/**
-*
-The deleteCell() method deletes a cell from the current row.
-Retrieve the fourth TR element and examine the value of
-the cells length attribute which should be set to six.
-Check the value of the third(index 2) TD element.  Invoke the
-deleteCell() method which will delete a cell from the current row.
-Check the value of the third cell(index 2) and also check
-the number of cells which should now be five.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-11738598
-*/
-HTMLTableRowElement14: function(test) {
-var success;
-var nodeList;
-var cellsnodeList;
-var testNode;
-var trNode;
-var cellNode;
-var value;
-var vcells;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(3);
-cellsnodeList = testNode.cells;
-vcells = cellsnodeList.length;
-test.equal(vcells, 6, "cellsLink1");
-trNode = cellsnodeList.item(2);
-cellNode = trNode.firstChild;
-value = cellNode.nodeValue;
-test.equal(value, "Accountant", "value1Link");
-testNode.deleteCell(2);
-testNode = nodeList.item(3);
-cellsnodeList = testNode.cells;
-vcells = cellsnodeList.length;
-test.equal(vcells, 5, "cellsLink2");
-trNode = cellsnodeList.item(2);
-cellNode = trNode.firstChild;
-value = cellNode.nodeValue;
-test.equal(value, "56,000", "value2Link");
-test.done();
-},
-
-/**
-*
-The insertCell() method throws a INDEX_SIZE_ERR DOMException
-if the specified index is greater than the number of cells.
-Retrieve the fourth TR element which has six cells.  Try
-to insert a cell using an index of seven.  This should throw
-a INDEX_SIZE_ERR DOMException since there are only six cells.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-68927016
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-68927016')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
-*/
-HTMLTableRowElement15: function(test) {
-var success;
-var nodeList;
-var testNode;
-var newCell;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(3);
-{
-  success = false;
-  try {
-    newCell = testNode.insertCell(7);
-  }
-  catch(ex) {
-    success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-  }
-  test.ok(success, 'HTMLTableRowElement15');
-}
-test.done();
-},
-
-/**
-*
-The insertCell() method throws a INDEX_SIZE_ERR DOMException
-if the specified index is negative.
-Retrieve the fourth TR element which has six cells.  Try
-to insert a cell using an index of negative seven.  This should throw
-a INDEX_SIZE_ERR DOMException since the index is negative.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-68927016
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-68927016')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
-*/
-HTMLTableRowElement16: function(test) {
-var success;
-var nodeList;
-var testNode;
-var newCell;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(3);
-{
-  success = false;
-  try {
-    newCell = testNode.insertCell(-7);
-  }
-  catch(ex) {
-    success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-  }
-  test.ok(success, 'HTMLTableRowElement16');
-}
-test.done();
-},
-
-/**
-*
-The deleteCell() method throws a INDEX_SIZE_ERR DOMException
-if the specified index is greater than the number of cells.
-Retrieve the fourth TR element which has six cells.  Try
-to delete a cell using an index of seven.  This should throw
-a INDEX_SIZE_ERR DOMException since there are only six cells.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-11738598
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-11738598')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
-*/
-HTMLTableRowElement17: function(test) {
-var success;
-var nodeList;
-var testNode;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(3);
-{
-  success = false;
-  try {
-    testNode.deleteCell(7);
-  }
-  catch(ex) {
-    success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-  }
-  test.ok(success, 'HTMLTableRowElement17');
-}
-test.done();
-},
-
-/**
-*
-The deleteCell() method throws a INDEX_SIZE_ERR DOMException
-if the specified index is equal to the number of cells.
-Retrieve the fourth TR element which has six cells.  Try
-to delete a cell using an index of six.  This should throw
-a INDEX_SIZE_ERR DOMException since there are only six cells.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-11738598
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-11738598')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
-*/
-HTMLTableRowElement18: function(test) {
-var success;
-var nodeList;
-var testNode;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(3);
-{
-  success = false;
-  try {
-    testNode.deleteCell(6);
-  }
-  catch(ex) {
-    success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-  }
-  test.ok(success, 'HTMLTableRowElement18');
-}
-test.done();
-},
-
-/**
-*
-The deleteCell() method throws a INDEX_SIZE_ERR DOMException
-if the specified index is negative.
-Retrieve the fourth TR element which has six cells.  Try
-to delete a cell using an index of negative six.  This should throw
-a INDEX_SIZE_ERR DOMException since the index is negative.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-11738598
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-11738598')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
-*/
-HTMLTableRowElement19: function(test) {
-var success;
-var nodeList;
-var testNode;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(3);
-{
-  success = false;
-  try {
-    testNode.deleteCell(-6);
-  }
-  catch(ex) {
-    success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-  }
-  test.ok(success, 'HTMLTableRowElement19');
-}
-test.done();
-},
-
-/**
-*
-The insertCell() method inserts an empty TD cell into this row.
-If index is -1 or equal to the number of cells, the new cell is
-appended.
-Retrieve the fourth TR element and examine the value of
-the cells length attribute which should be set to six.
-Check the value of the last TD element.  Invoke the
-insertCell() with an index of negative one
-which will append the empty cell to the end of the list.
-Check the value of the newly created cell and make sure it is null
-and also the numbers of cells should now be seven.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-68927016
-*/
-HTMLTableRowElement20: function(test) {
-var success;
-var nodeList;
-var cellsnodeList;
-var testNode;
-var trNode;
-var cellNode;
-var value;
-var newCell;
-var vcells;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(3);
-cellsnodeList = testNode.cells;
-vcells = cellsnodeList.length;
-test.equal(vcells, 6, "cellsLink1");
-trNode = cellsnodeList.item(5);
-cellNode = trNode.firstChild;
-value = cellNode.nodeValue;
-test.equal(value, "1230 North Ave. Dallas, Texas 98551", "value1Link");
-newCell = testNode.insertCell(-1);
-testNode = nodeList.item(3);
-cellsnodeList = testNode.cells;
-vcells = cellsnodeList.length;
-test.equal(vcells, 7, "cellsLink2");
-trNode = cellsnodeList.item(6);
-cellNode = trNode.firstChild;
-test.equal(cellNode, null, 'cellNode should be null');
-test.done();
-},
-
-/**
-*
-The deleteCell() method deletes a cell from the currtent row.  If
-the index is -1 the last cell in the row is deleted.
-Retrieve the fourth TR element and examine the value of
-the cells length attribute which should be set to six.
-Check the value of the last TD element.  Invoke the
-deleteCell() with an index of negative one
-which will delete the last cell in the row.
-Check the value of the of the last cell
-and also the numbers of cells should now be five.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-11738598
-*/
-HTMLTableRowElement21: function(test) {
-var success;
-var nodeList;
-var cellsnodeList;
-var testNode;
-var trNode;
-var cellNode;
-var value;
-var vcells;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(3);
-cellsnodeList = testNode.cells;
-vcells = cellsnodeList.length;
-test.equal(vcells, 6, "cellsLink1");
-trNode = cellsnodeList.item(5);
-cellNode = trNode.firstChild;
-value = cellNode.nodeValue;
-test.equal(value, "1230 North Ave. Dallas, Texas 98551", "value1Link");
-testNode.deleteCell(-1);
-testNode = nodeList.item(3);
-cellsnodeList = testNode.cells;
-vcells = cellsnodeList.length;
-test.equal(vcells, 5, "cellsLink2");
-trNode = cellsnodeList.item(4);
-cellNode = trNode.firstChild;
-value = cellNode.nodeValue;
-test.equal(value, "Female", "value2Link");
-test.done();
-},
-
-/**
-*
-The align attribute specifies the horizontal alignment of data within
-cells.
-Retrieve the align attribute of the first THEAD element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-40530119
-*/
-HTMLTableSectionElement01: function(test) {
-var success;
-var nodeList;
-var testNode;
-var valign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("thead");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-valign = testNode.align;
-test.equal(valign, "center", "alignLink");
-test.done();
-},
-
-/**
-*
-The align attribute specifies the horizontal alignment of data within
-cells.
-Retrieve the align attribute of the first TFOOT element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-40530119
-*/
-HTMLTableSectionElement02: function(test) {
-var success;
-var nodeList;
-var testNode;
-var valign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("tfoot");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-valign = testNode.align;
-test.equal(valign, "center", "alignLink");
-test.done();
-},
-
-/**
-*
-The align attribute specifies the horizontal alignment of data within
-cells.
-Retrieve the align attribute of the first TBODY element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-40530119
-*/
-HTMLTableSectionElement03: function(test) {
-var success;
-var nodeList;
-var testNode;
-var valign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("tbody");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-valign = testNode.align;
-test.equal(valign, "center", "alignLink");
-test.done();
-},
-
-/**
-*
-The ch attribute specifies the alignment character for cells in a
-column.
-Retrieve the char attribute of the first THEAD element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83470012
-*/
-HTMLTableSectionElement04: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vch;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("thead");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vch = testNode.ch;
-test.equal(vch, "*", "chLink");
-test.done();
-},
-
-/**
-*
-The ch attribute specifies the alignment character for cells in a
-column.
-Retrieve the char attribute of the first TFOOT element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83470012
-*/
-HTMLTableSectionElement05: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vch;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("tfoot");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vch = testNode.ch;
-test.equal(vch, "+", "chLink");
-test.done();
-},
-
-/**
-*
-The ch attribute specifies the alignment character for cells in a
-column.
-Retrieve the char attribute of the first TBODY element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83470012
-*/
-HTMLTableSectionElement06: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vch;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("tbody");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-vch = testNode.ch;
-test.equal(vch, "$", "chLink");
-test.done();
-},
-
-/**
-*
-The chOff attribute specifies the offset of alignment character.
-Retrieve the charoff attribute of the first THEAD element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-53459732
-*/
-HTMLTableSectionElement07: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vcharoff;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("thead");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vcharoff = testNode.chOff;
-test.equal(vcharoff, "1", "chOffLink");
-test.done();
-},
-
-/**
-*
-The chOff attribute specifies the offset of alignment character.
-Retrieve the charoff attribute of the first TFOOT element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-53459732
-*/
-HTMLTableSectionElement08: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vcharoff;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("tfoot");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vcharoff = testNode.chOff;
-test.equal(vcharoff, "2", "chOffLink");
-test.done();
-},
-
-/**
-*
-The chOff attribute specifies the offset of alignment character.
-Retrieve the charoff attribute of the first TBODY element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-53459732
-*/
-HTMLTableSectionElement09: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vcharoff;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("tbody");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-vcharoff = testNode.chOff;
-test.equal(vcharoff, "3", "chOffLink");
-test.done();
-},
-
-/**
-*
-The vAlign attribute specifies the vertical alignment of cell data in
-column.
-Retrieve the vAlign attribute of the first THEAD element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-4379116
-*/
-HTMLTableSectionElement10: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vvalign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("thead");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vvalign = testNode.vAlign;
-test.equal(vvalign, "middle", "vAlignLink");
-test.done();
-},
-
-/**
-*
-The vAlign attribute specifies the vertical alignment of cell data in
-column.
-Retrieve the vAlign attribute of the first TFOOT element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-4379116
-*/
-HTMLTableSectionElement11: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vvalign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("tfoot");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vvalign = testNode.vAlign;
-test.equal(vvalign, "middle", "vAlignLink");
-test.done();
-},
-
-/**
-*
-The vAlign attribute specifies the vertical alignment of cell data in
-column.
-Retrieve the vAlign attribute of the first TBODY element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-4379116
-*/
-HTMLTableSectionElement12: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vvalign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("tbody");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-vvalign = testNode.vAlign;
-test.equal(vvalign, "middle", "vAlignLink");
-test.done();
-},
-
-/**
-*
-The rows attribute specifies the collection of rows in this table section.
-Retrieve the first THEAD element and examine the value of
-the rows length attribute.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52092650
-*/
-HTMLTableSectionElement13: function(test) {
-var success;
-var nodeList;
-var rowsnodeList;
-var testNode;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("thead");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 1, "rowsLink");
-test.done();
-},
-
-/**
-*
-The rows attribute specifies the collection of rows in this table section.
-Retrieve the first TFOOT element and examine the value of
-the rows length attribute.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52092650
-*/
-HTMLTableSectionElement14: function(test) {
-var success;
-var nodeList;
-var rowsnodeList;
-var testNode;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("tfoot");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 1, "rowsLink");
-test.done();
-},
-
-/**
-*
-The rows attribute specifies the collection of rows in this table section.
-Retrieve the first TBODY element and examine the value of
-the rows length attribute.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52092650
-*/
-HTMLTableSectionElement15: function(test) {
-var success;
-var nodeList;
-var rowsnodeList;
-var testNode;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("tbody");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 2, "rowsLink");
-test.done();
-},
-
-/**
-*
-The insertRow() method inserts a new empty table row.
-Retrieve the first THEAD element and invoke the insertRow() method
-with an index of 0.  The nuber of rows in the THEAD section before
-insertion of the new row is one.  After the new row is inserted the number
-of rows in the THEAD section is two.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93995626
-*/
-HTMLTableSectionElement16: function(test) {
-var success;
-var nodeList;
-var testNode;
-var newRow;
-var rowsnodeList;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("thead");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 1, "rowsLink1");
-newRow = testNode.insertRow(0);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 2, "rowsLink2");
-test.done();
-},
-
-/**
-*
-The insertRow() method inserts a new empty table row.
-Retrieve the first TFOOT element and invoke the insertRow() method
-with an index of 0.  The nuber of rows in the TFOOT section before
-insertion of the new row is one.  After the new row is inserted the number
-of rows in the TFOOT section is two.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93995626
-*/
-HTMLTableSectionElement17: function(test) {
-var success;
-var nodeList;
-var testNode;
-var newRow;
-var rowsnodeList;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("tfoot");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 1, "rowsLink1");
-newRow = testNode.insertRow(0);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 2, "rowsLink2");
-test.done();
-},
-
-/**
-*
-The insertRow() method inserts a new empty table row.
-Retrieve the first TBODY element and invoke the insertRow() method
-with an index of 0.  The nuber of rows in the TBODY section before
-insertion of the new row is two.  After the new row is inserted the number
-of rows in the TBODY section is three.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93995626
-*/
-HTMLTableSectionElement18: function(test) {
-var success;
-var nodeList;
-var testNode;
-var newRow;
-var rowsnodeList;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("tbody");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 2, "rowsLink1");
-newRow = testNode.insertRow(0);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 3, "rowsLink2");
-test.done();
-},
-
-/**
-*
-The insertRow() method inserts a new empty table row.
-Retrieve the first THEAD element and invoke the insertRow() method
-with an index of 1.  The nuber of rows in the THEAD section before
-insertion of the new row is one therefore the new row is appended.
-After the new row is inserted the number of rows in the THEAD
-section is two.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93995626
-*/
-HTMLTableSectionElement19: function(test) {
-var success;
-var nodeList;
-var testNode;
-var newRow;
-var rowsnodeList;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("thead");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 1, "rowsLink1");
-newRow = testNode.insertRow(1);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 2, "rowsLink2");
-test.done();
-},
-
-/**
-*
-The insertRow() method inserts a new empty table row.
-Retrieve the first TFOOT element and invoke the insertRow() method
-with an index of one.  The nuber of rows in the TFOOT section before
-insertion of the new row is one therefore the new row is appended.
-After the new row is inserted the number of rows in the TFOOT section
-is two.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93995626
-*/
-HTMLTableSectionElement20: function(test) {
-var success;
-var nodeList;
-var testNode;
-var newRow;
-var rowsnodeList;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("tfoot");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 1, "rowsLink1");
-newRow = testNode.insertRow(1);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 2, "rowsLink2");
-test.done();
-},
-
-/**
-*
-The insertRow() method inserts a new empty table row.
-Retrieve the first TBODY element and invoke the insertRow() method
-with an index of two.  The number of rows in the TBODY section before
-insertion of the new row is two therefore the row is appended.
-After the new row is inserted the number of rows in the TBODY section is
-three.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93995626
-* @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=502
-*/
-HTMLTableSectionElement21: function(test) {
-var success;
-var nodeList;
-var testNode;
-var newRow;
-var rowsnodeList;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("tbody");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 2, "rowsLink1");
-newRow = testNode.insertRow(2);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 3, "rowsLink2");
-test.done();
-},
-
-/**
-*
-The deleteRow() method deletes a row from this section.
-Retrieve the first THEAD element and invoke the deleteRow() method
-with an index of 0.  The nuber of rows in the THEAD section before
-the deletion of the row is one.  After the row is deleted the number
-of rows in the THEAD section is zero.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-5625626
-*/
-HTMLTableSectionElement22: function(test) {
-var success;
-var nodeList;
-var testNode;
-var rowsnodeList;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("thead");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 1, "rowsLink1");
-testNode.deleteRow(0);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 0, "rowsLink2");
-test.done();
-},
-
-/**
-*
-The deleteRow() method deletes a row from this section.
-Retrieve the first TFOOT element and invoke the deleteRow() method
-with an index of 0.  The nuber of rows in the TFOOT section before
-the deletion of the row is one.  After the row is deleted the number
-of rows in the TFOOT section is zero.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-5625626
-*/
-HTMLTableSectionElement23: function(test) {
-var success;
-var nodeList;
-var testNode;
-var rowsnodeList;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("tfoot");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 1, "rowsLink1");
-testNode.deleteRow(0);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 0, "rowsLink2");
-test.done();
-},
-
-/**
-*
-The deleteRow() method deletes a row from this section.
-Retrieve the first TBODY element and invoke the deleteRow() method
-with an index of 0.  The nuber of rows in the TBODY section before
-the deletion of the row is two.  After the row is deleted the number
-of rows in the TBODY section is one.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-5625626
-*/
-HTMLTableSectionElement24: function(test) {
-var success;
-var nodeList;
-var testNode;
-var rowsnodeList;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("tbody");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 2, "rowsLink1");
-testNode.deleteRow(0);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 1, "rowsLink2");
-test.done();
-},
-
-/**
-*
-The insertRow() method throws a INDEX_SIZE_ERR DOMException
-if the specified index is greater than the number of rows.
-Retrieve the first THEAD element which has one row.  Try
-to insert a new row using an index of two.  This should throw
-a INDEX_SIZE_ERR DOMException since there is only one row.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-93995626
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-93995626')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
-*/
-HTMLTableSectionElement25: function(test) {
-var success;
-var nodeList;
-var testNode;
-var newRow;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("thead");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-{
-  success = false;
-  try {
+    for(var i=0;i<tbodies.length;i++) {
+      result.push(tbodies.item(i).nodeName);
+    }
+    test.deepEqual(result, expectedOptions, 'tbodiesLink');
+    test.done();
+  },
+
+  /**
+   *
+   The align attribute specifies the table's position with respect to the
+   rest of the document.
+   Retrieve the align attribute of the first TABLE element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-23180977
+   */
+  HTMLTableElement10: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var valign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(0);
+    valign = testNode.align;
+    test.equal(valign, "center", "alignLink");
+    test.done();
+  },
+
+  /**
+   *
+   The bgColor attribute specifies cell background color.
+   Retrieve the bgColor attribute of the first TABLE element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83532985
+   */
+  HTMLTableElement11: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vbgcolor;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vbgcolor = testNode.bgColor;
+    test.equal(vbgcolor, "#ff0000", "bgColorLink");
+    test.done();
+  },
+
+  /**
+   *
+   The border attribute specifies the width of the border around the table.
+   Retrieve the border attribute of the first TABLE element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-50969400
+   */
+  HTMLTableElement12: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vborder;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vborder = testNode.border;
+    test.equal(vborder, "4", "borderLink");
+    test.done();
+  },
+
+  /**
+   *
+   The cellpadding attribute specifies the horizontal and vertical space
+   between cell content and cell borders.
+   Retrieve the cellpadding attribute of the first TABLE element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59162158
+   */
+  HTMLTableElement13: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vcellpadding;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vcellpadding = testNode.cellPadding;
+    test.equal(vcellpadding, "2", "cellPaddingLink");
+    test.done();
+  },
+
+  /**
+   *
+   The cellSpacing attribute specifies the horizontal and vertical separation
+   between cells.
+   Retrieve the cellSpacing attribute of the first TABLE element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68907883
+   */
+  HTMLTableElement14: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var cellSpacing;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    cellSpacing = testNode.cellSpacing;
+    test.equal(cellSpacing, "2", "cellSpacingLink");
+    test.done();
+  },
+
+  /**
+   *
+   The frame attribute specifies which external table borders to render.
+   Retrieve the frame attribute of the first TABLE element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64808476
+   */
+  HTMLTableElement15: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vframe;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vframe = testNode.frame;
+    test.equal(vframe, "border", "frameLink");
+    test.done();
+  },
+
+  /**
+   *
+   The rules attribute specifies which internal table borders to render.
+   Retrieve the rules attribute of the first TABLE element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-26347553
+   */
+  HTMLTableElement16: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vrules;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vrules = testNode.rules;
+    test.equal(vrules, "all", "rulesLink");
+    test.done();
+  },
+
+  /**
+   *
+   The summary attribute is a description about the purpose or structure
+   of a table.
+   Retrieve the summary attribute of the first TABLE element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-44998528
+   */
+  HTMLTableElement17: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsummary;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vsummary = testNode.summary;
+    test.equal(vsummary, "HTML Control Table", "summaryLink");
+    test.done();
+  },
+
+  /**
+   *
+   The width attribute specifies the desired table width.
+   Retrieve the width attribute of the first TABLE element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-77447361
+   */
+  HTMLTableElement18: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vwidth;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vwidth = testNode.width;
+    test.equal(vwidth, "680", "widthLink");
+    test.done();
+  },
+
+  /**
+   *
+   The createTHead() method creates a table header row or returns
+   an existing one.
+   Create a new THEAD element on the first TABLE element.  The first
+   TABLE element should return null to make sure one doesn't exist.
+   After creation of the THEAD element the value is once again
+   checked and should not be null.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-70313345
+   */
+  HTMLTableElement19: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsection1;
+    var vsection2;
+    var newHead;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(0);
+    vsection1 = testNode.tHead;
+    test.equal(vsection1, null, 'vsection1 should be null');
+    newHead = testNode.createTHead();
+    vsection2 = testNode.tHead;
+    test.notEqual(vsection2, null, 'vsection2 should not be null');
+    test.done();
+  },
+
+  /**
+   *
+   The createTHead() method creates a table header row or returns
+   an existing one.
+   Try to create a new THEAD element on the second TABLE element.
+   Since a THEAD element already exists in the TABLE element a new
+   THEAD element is not created and information from the already
+   existing THEAD element is returned.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-70313345
+   */
+  HTMLTableElement20: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsection;
+    var newHead;
+    var valign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    newHead = testNode.createTHead();
+    vsection = testNode.tHead;
+    valign = vsection.align;
+    test.equal(valign, "center", "alignLink");
+    test.done();
+  },
+
+  /**
+   *
+   The deleteTHead() method deletes the header from the table.
+   The deleteTHead() method will delete the THEAD Element from the
+   second TABLE element.  First make sure that the THEAD element exists
+   and then count the number of rows.  After the THEAD element is
+   deleted there should be one less row.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-38310198
+   */
+  HTMLTableElement21: function(test) {
+    var success;
+    var nodeList;
+    var rowsnodeList;
+    var testNode;
+    var vsection1;
+    var vsection2;
+    var vrows;
+    var doc;
+    var result = new Array();
+    expectedResult = new Array();
+    expectedResult[0] = 4;
+    expectedResult[1] = 3;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vsection1 = testNode.tHead;
+    test.notEqual(vsection1, null, 'vsection1 should not be null');
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    result[result.length] = vrows;
+    testNode.deleteTHead();
+    vsection2 = testNode.tHead;
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    result[result.length] = vrows;
+    test.deepEqual(result, expectedResult, 'rowsLink');
+    test.done();
+  },
+
+  /**
+   *
+   The createTFoot() method creates a table footer row or returns
+   an existing one.
+   Create a new TFOOT element on the first TABLE element.  The first
+   TABLE element should return null to make sure one doesn't exist.
+   After creation of the TFOOT element the value is once again
+   checked and should not be null.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-8453710
+   */
+  HTMLTableElement22: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsection1;
+    var vsection2;
+    var newFoot;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(0);
+    vsection1 = testNode.tFoot;
+    test.equal(vsection1, null, 'vsection1 should be null');
+    newFoot = testNode.createTFoot();
+    vsection2 = testNode.tFoot;
+    test.notEqual(vsection2, null, 'vsection2 should not be null');
+    test.done();
+  },
+
+  /**
+   *
+   The createTFoot() method creates a table footer row or returns
+   an existing one.
+   Try to create a new TFOOT element on the second TABLE element.
+   Since a TFOOT element already exists in the TABLE element a new
+   TFOOT element is not created and information from the already
+   existing TFOOT element is returned.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-8453710
+   */
+  HTMLTableElement23: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsection;
+    var newFoot;
+    var valign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    newFoot = testNode.createTFoot();
+    vsection = testNode.tFoot;
+    valign = vsection.align;
+    test.equal(valign, "center", "alignLink");
+    test.done();
+  },
+
+  /**
+   *
+   The deleteTFoot() method deletes the footer from the table.
+   The deleteTFoot() method will delete the TFOOT Element from the
+   second TABLE element.  First make sure that the TFOOT element exists
+   and then count the number of rows.  After the TFOOT element is
+   deleted there should be one less row.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-78363258
+   */
+  HTMLTableElement24: function(test) {
+    var success;
+    var nodeList;
+    var rowsnodeList;
+    var testNode;
+    var vsection1;
+    var vsection2;
+    var vrows;
+    var doc;
+    var result = new Array();
+    expectedResult = new Array();
+    expectedResult[0] = 4;
+    expectedResult[1] = 3;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vsection1 = testNode.tFoot;
+    test.notEqual(vsection1, null, 'vsection1 should not be null');
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    result[result.length] = vrows;
+    testNode.deleteTFoot();
+    vsection2 = testNode.tFoot;
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    result[result.length] = vrows;
+    test.deepEqual(result, expectedResult, 'rowsLink');
+    test.done();
+  },
+
+  /**
+   *
+   The createCaption() method creates a new table caption object or returns
+   an existing one.
+   Create a new CAPTION element on the first TABLE element.  Since
+   one does not currently exist the CAPTION element is created.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-96920263
+   */
+  HTMLTableElement25: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsection1;
+    var vsection2;
+    var newCaption;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(0);
+    vsection1 = testNode.caption;
+    test.equal(vsection1, null, 'vsection1 should be null');
+    newCaption = testNode.createCaption();
+    vsection2 = testNode.caption;
+    test.notEqual(vsection2, null, 'vsection2 should not be null');
+    test.done();
+  },
+
+  /**
+   *
+   The createCaption() method creates a new table caption object or returns
+   an existing one.
+   Create a new CAPTION element on the first TABLE element.  Since
+   one currently exists the CAPTION element is not created and you
+   can get the align attribute from the CAPTION element that exists.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-96920263
+   */
+  HTMLTableElement26: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsection1;
+    var vcaption;
+    var newCaption;
+    var valign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vsection1 = testNode.caption;
+    test.notEqual(vsection1, null, 'vsection1 should not be null');
+    newCaption = testNode.createCaption();
+    vcaption = testNode.caption;
+    valign = vcaption.align;
+    test.equal(valign, "top", "alignLink");
+    test.done();
+  },
+
+  /**
+   *
+   The deleteCaption() method deletes the table caption.
+   Delete the CAPTION element on the second TABLE element.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-22930071
+   */
+  HTMLTableElement27: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsection1;
+    var vsection2;
+    var valign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vsection1 = testNode.caption;
+    test.notEqual(vsection1, null, 'vsection1 should not be null');
+    testNode.deleteCaption();
+    vsection2 = testNode.caption;
+    test.equal(vsection2, null, 'vsection2 should be null');
+    test.done();
+  },
+
+  /**
+   *
+   The insertRow() method inserts a new empty table row.
+   Retrieve the second TABLE element and invoke the insertRow() method
+   with an index of 0. Currently the zero indexed row is in the THEAD
+   section of the TABLE.  The number of rows in the THEAD section before
+   insertion of the new row is one.  After the new row is inserted the number
+   of rows in the THEAD section is two.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39872903
+   */
+  HTMLTableElement28: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var newRow;
+    var rowsnodeList;
+    var vsection1;
+    var vsection2;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vsection1 = testNode.tHead;
+    rowsnodeList = vsection1.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 1, "rowsLink1");
+    newRow = testNode.insertRow(0);
+    vsection2 = testNode.tHead;
+    rowsnodeList = vsection2.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 2, "rowsLink2");
+    test.done();
+  },
+
+  /**
+   *
+   The insertRow() method inserts a new empty table row.
+   Retrieve the second TABLE element and invoke the insertRow() method
+   with an index of two. Currently the 2nd indexed row is in the TBODY
+   section of the TABLE.  The number of rows in the TBODY section before
+   insertion of the new row is two.  After the new row is inserted the number
+   of rows in the TBODY section is three.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39872903
+   */
+  HTMLTableElement29: function(test) {
+    var success;
+    var nodeList;
+    var tbodiesnodeList;
+    var testNode;
+    var bodyNode;
+    var newRow;
+    var rowsnodeList;
+    var vsection1;
+    var vsection2;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    tbodiesnodeList = testNode.tBodies;
+    bodyNode = tbodiesnodeList.item(0);
+    rowsnodeList = bodyNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 2, "rowsLink1");
     newRow = testNode.insertRow(2);
-  }
-  catch(ex) {
-    success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-  }
-  test.ok(success, 'HTMLTableSectionElement25');
-}
-test.done();
-},
-
-/**
-*
-The insertRow() method throws a INDEX_SIZE_ERR DOMException
-if the specified index is negative.
-Retrieve the first THEAD element which has one row.  Try
-to insert a new row using an index of negative two.  This should throw
-a INDEX_SIZE_ERR DOMException since the index is negative.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-93995626
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-93995626')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
-*/
-HTMLTableSectionElement26: function(test) {
-var success;
-var nodeList;
-var testNode;
-var newRow;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("thead");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-{
-  success = false;
-  try {
-    newRow = testNode.insertRow(-2);
-  }
-  catch(ex) {
-    success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-  }
-  test.ok(success, 'HTMLTableSectionElement26');
-}
-test.done();
-},
-
-/**
-*
-The deleteRow() method throws a INDEX_SIZE_ERR DOMException
-if the specified index is greater than the number of rows.
-Retrieve the first THEAD element which has one row.  Try
-to delete a row using an index of two.  This should throw
-a INDEX_SIZE_ERR DOMException since the index is greater than the
-number of rows.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-5625626
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-5625626')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
-*/
-HTMLTableSectionElement27: function(test) {
-var success;
-var nodeList;
-var testNode;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("thead");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-{
-  success = false;
-  try {
-    testNode.deleteRow(2);
-  }
-  catch(ex) {
-    success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-  }
-  test.ok(success, 'HTMLTableSectionElement27');
-}
-test.done();
-},
-
-/**
-*
-The deleteRow() method throws a INDEX_SIZE_ERR DOMException
-if the specified index is equal to the number of rows.
-Retrieve the first THEAD element which has one row.  Try
-to delete a row using an index of 1.  This should throw
-a INDEX_SIZE_ERR DOMException since the index is equal to the
-number of rows.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-5625626
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-5625626')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
-*/
-HTMLTableSectionElement28: function(test) {
-var success;
-var nodeList;
-var testNode;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("thead");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-{
-  success = false;
-  try {
-    testNode.deleteRow(1);
-  }
-  catch(ex) {
-    success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-  }
-  test.ok(success, 'HTMLTableSectionElement28');
-}
-test.done();
-},
-
-/**
-*
-The deleteRow() method throws a INDEX_SIZE_ERR DOMException
-if the specified index is negative.
-Retrieve the first THEAD element which has one row.  Try
-to delete a row using an index of negative two.  This should throw
-a INDEX_SIZE_ERR DOMException since the index is negative.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-5625626
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-5625626')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
-*/
-HTMLTableSectionElement29: function(test) {
-var success;
-var nodeList;
-var testNode;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("thead");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-{
-  success = false;
-  try {
-    testNode.deleteRow(-2);
-  }
-  catch(ex) {
-    success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-  }
-  test.ok(success, 'HTMLTableSectionElement29');
-}
-test.done();
-},
-
-/**
-*
-The insertRow() method inserts a new empty table row.  The new
-row is inserted immediately before the current indexth row in this
-section.  If index is -1 or equal to the number of rows in this section,
-the new row is appended.
-Retrieve the first THEAD element and invoke the insertRow() method
-with an index of negative one.  Since the index is negative one the
-new row is appended.
-After the new row is appended the number of rows in the THEAD
-section is two.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-93995626
-*/
-HTMLTableSectionElement30: function(test) {
-var success;
-var nodeList;
-var testNode;
-var newRow;
-var rowsnodeList;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("thead");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 1, "rowsLink1");
-newRow = testNode.insertRow(-1);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 2, "rowsLink2");
-test.done();
-},
-
-/**
-*
-The deleteRow() method deletes a row from this section.  The index
-starts from 0 and is relative only to the rows contained inside
-this section, not all the rows in the table.  If the index is -1
-the last row will be deleted.
-Retrieve the second TBODY element and invoke the deleteRow() method
-with an index of -1.  The nuber of rows in the THEAD section before
-the deletion of the row is two.  After the row is deleted the number
-of rows in the TBODY section is one.
-* @author NIST
-* @author Rick Rivello
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-5625626
-*/
-HTMLTableSectionElement31: function(test) {
-var success;
-var nodeList;
-var testNode;
-var rowsnodeList;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("tbody");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 2, "rowsLink1");
-testNode.deleteRow(-1);
-rowsnodeList = testNode.rows;
-vrows = rowsnodeList.length;
-test.equal(vrows, 1, "rowsLink2");
-test.done();
-},
-
-/**
-*
-The defaultValue attribute represents the HTML value of the attribute
-when the type attribute has the value of "Text", "File" or "Password".
-Retrieve the defaultValue attribute of the 2nd TEXTAREA element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-36152213
-*/
-HTMLTextAreaElement01: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vdefaultvalue;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("textarea");
-nodeList = doc.getElementsByTagName("textarea");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vdefaultvalue = testNode.defaultValue;
-test.equal(vdefaultvalue, "TEXTAREA2", "defaultValueLink");
-test.done();
-},
-
-/**
-*
-The form attribute returns the FORM element containing this control.
-Retrieve the form attribute from the first TEXTAREA element
-and examine its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-18911464
-*/
-HTMLTextAreaElement02: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vform;
-var fNode;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("textarea");
-nodeList = doc.getElementsByTagName("textarea");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(0);
-fNode = testNode.form;
-vform = fNode.id;
-test.equal(vform, "form1", "formLink");
-test.done();
-},
-
-/**
-*
-The form attribute returns null if control in not within the context of
-a form.
-Retrieve the second TEXTAREA element and
-examine its form element.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-18911464
-*/
-HTMLTextAreaElement03: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vform;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("textarea");
-nodeList = doc.getElementsByTagName("textarea");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vform = testNode.form;
-test.equal(vform, null, 'vform should be null');
-test.done();
-},
-
-/**
-*
-The accessKey attribute specifies a single character access key to
-give access to the form control.
-Retrieve the accessKey attribute of the 1st TEXTAREA element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93102991
-*/
-HTMLTextAreaElement04: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vaccesskey;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("textarea");
-nodeList = doc.getElementsByTagName("textarea");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(0);
-vaccesskey = testNode.accessKey;
-test.equal(vaccesskey, "c", "accessKeyLink");
-test.done();
-},
-
-/**
-*
-The cols attribute specifies the width of control(in characters).
-Retrieve the cols attribute of the 1st TEXTAREA element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-51387225
-*/
-HTMLTextAreaElement05: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vcols;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("textarea");
-nodeList = doc.getElementsByTagName("textarea");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(0);
-vcols = testNode.cols;
-test.equal(vcols, 20, "colsLink");
-test.done();
-},
-
-/**
-*
-The disabled attribute specifies the control is unavailable in this
-context.
-Retrieve the disabled attribute from the 2nd TEXTAREA element and
-examine its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-98725443
-*/
-HTMLTextAreaElement06: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vdisabled;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("textarea");
-nodeList = doc.getElementsByTagName("textarea");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vdisabled = testNode.disabled;
-test.ok(vdisabled, 'disabledLink');
-test.done();
-},
-
-/**
-*
-The name attribute specifies the form control or object name when
-submitted with a form.
-Retrieve the name attribute of the 1st TEXTAREA element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-70715578
-*/
-HTMLTextAreaElement07: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vname;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("textarea");
-nodeList = doc.getElementsByTagName("textarea");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(0);
-vname = testNode.name;
-test.equal(vname, "text1", "nameLink");
-test.done();
-},
-
-/**
-*
-The readOnly attribute specifies this control is read-only.
-Retrieve the readOnly attribute from the 3rd TEXTAREA element and
-examine its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39131423
-*/
-HTMLTextAreaElement08: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vreadonly;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("textarea");
-nodeList = doc.getElementsByTagName("textarea");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(2);
-vreadonly = testNode.readOnly;
-test.ok(vreadonly, 'readOnlyLink');
-test.done();
-},
-
-/**
-*
-The rows attribute specifies the number of text rowns.
-Retrieve the rows attribute of the 1st TEXTAREA element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-46975887
-*/
-HTMLTextAreaElement09: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("textarea");
-nodeList = doc.getElementsByTagName("textarea");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(0);
-vrows = testNode.rows;
-test.equal(vrows, 7, "rowsLink");
-test.done();
-},
-
-/**
-*
-The tabIndex attribute is an index that represents the element's position
-in the tabbing order.
-Retrieve the tabIndex attribute of the 1st TEXTAREA element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-60363303
-*/
-HTMLTextAreaElement10: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vtabindex;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("textarea");
-nodeList = doc.getElementsByTagName("textarea");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(0);
-vtabindex = testNode.tabIndex;
-test.equal(vtabindex, 5, "tabIndexLink");
-test.done();
-},
-
-/**
-*
-The type attribute specifies the type of this form control.
-Retrieve the type attribute of the 1st TEXTAREA element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-24874179
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#HTML-HTMLTextAreaElement-type
-*/
-HTMLTextAreaElement11: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vtype;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("textarea");
-nodeList = doc.getElementsByTagName("textarea");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(0);
-vtype = testNode.type;
-test.equal(vtype, "textarea", "typeLink");
-test.done();
-},
-
-/**
-*
-The value attribute represents the current contents of the corresponding
-form control, in an interactive user agent.
-Retrieve the value attribute of the 1st TEXTAREA element and examine
-its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-70715579
-*/
-HTMLTextAreaElement12: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vvalue;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("textarea");
-nodeList = doc.getElementsByTagName("textarea");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(0);
-vvalue = testNode.value;
-test.equal(vvalue, "TEXTAREA1", "valueLink");
-test.done();
-},
-
-/**
-*
-Calling HTMLTextAreaElement.blur should surrender input focus.
-* @author Curt Arnold
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-6750689
-*/
-HTMLTextAreaElement13: function(test) {
-var success;
-var nodeList;
-var testNode;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("textarea");
-nodeList = doc.getElementsByTagName("textarea");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(0);
-testNode.blur();
-test.done();
-},
-
-/**
-*
-Calling HTMLTextAreaElement.focus should capture input focus.
-* @author Curt Arnold
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39055426
-*/
-HTMLTextAreaElement14: function(test) {
-var success;
-var nodeList;
-var testNode;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("textarea");
-nodeList = doc.getElementsByTagName("textarea");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(0);
-testNode.focus();
-test.done();
-},
-
-/**
-*
-Calling HTMLTextAreaElement.select should select the text area.
-* @author Curt Arnold
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-48880622
-*/
-HTMLTextAreaElement15: function(test) {
-var success;
-var nodeList;
-var testNode;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("textarea");
-nodeList = doc.getElementsByTagName("textarea");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(0);
-testNode.select();
-test.done();
-},
-
-/**
-*
-The text attribute is the specified title as a string.
-Retrieve the text attribute and examine its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-77500413
-*/
-HTMLTitleElement01: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vtext;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("title");
-nodeList = doc.getElementsByTagName("title");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vtext = testNode.text;
-test.equal(vtext, "NIST DOM HTML Test - TITLE", "textLink");
-test.done();
-},
-
-/**
-*
-The compact attribute specifies whether to reduce spacing between list
-items.
-Retrieve the compact attribute and examine its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39864178
-*/
-HTMLUListElement01: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vcompact;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("ulist");
-nodeList = doc.getElementsByTagName("ul");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-vcompact = testNode.compact;
-test.ok(vcompact, 'compactLink');
-test.done();
-},
-
-/**
-*
-The type attribute specifies the bullet style.
-Retrieve the type attribute and examine its value.
-* @author NIST
-* @author Mary Brady
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-96874670
-*/
-HTMLUListElement02: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vtype;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("ulist");
-nodeList = doc.getElementsByTagName("ul");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-vtype = testNode.type;
-test.equal(vtype, "disc", "typeLink");
-test.done();
-},
-
-/**
-*
-A single character access key to give access to the form control.
-The value of attribute accessKey of the anchor element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-89647724
-*/
-anchor01: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vaccesskey;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("anchor");
-nodeList = doc.getElementsByTagName("a");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vaccesskey = testNode.accessKey;
-test.equal(vaccesskey, "g", "accessKeyLink");
-test.done();
-},
-
-/**
-*
-The character encoding of the linked resource.
-The value of attribute charset of the anchor element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-67619266
-*/
-anchor02: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vcharset;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("anchor");
-nodeList = doc.getElementsByTagName("a");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vcharset = testNode.charset;
-test.equal(vcharset, "US-ASCII", "charsetLink");
-test.done();
-},
-
-/**
-*
-Comma-separated list of lengths, defining an active region geometry.
-The value of attribute coords of the anchor element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-92079539
-*/
-anchor03: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vcoords;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("anchor");
-nodeList = doc.getElementsByTagName("a");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vcoords = testNode.coords;
-test.equal(vcoords, "0,0,100,100", "coordsLink");
-test.done();
-},
-
-/**
-*
-The URI of the linked resource.
-The value of attribute href of the anchor element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-88517319
-*/
-anchor04: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vhref;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("anchor");
-nodeList = doc.getElementsByTagName("a");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vhref = testNode.href;
-test.equal(vhref, toFileUrl('html/files/pix/submit.gif'), 'hrefLink');
-test.done();
-},
-
-/**
-*
-Advisory content type.
-The value of attribute type of the anchor element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63938221
-*/
-anchor05: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vtype;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("anchor");
-nodeList = doc.getElementsByTagName("a");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vtype = testNode.type;
-test.equal(vtype, "image/gif", "typeLink");
-test.done();
-},
-
-/**
-*
-The shape of the active area. The coordinates are given by coords
-The value of attribute shape of the anchor element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-49899808
-*/
-anchor06: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vshape;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("anchor");
-nodeList = doc.getElementsByTagName("a");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vshape = testNode.shape;
-test.equal(vshape, "rect", "shapeLink");
-test.done();
-},
-
-/**
-*
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-66021476
-*/
-area01: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vcoords;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("area");
-nodeList = doc.getElementsByTagName("area");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vcoords = testNode.coords;
-test.equal(vcoords, "0,2,45,45", "coordsLink");
-test.done();
-},
-
-/**
-*
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-61826871
-*/
-area02: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vnohref;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("area");
-nodeList = doc.getElementsByTagName("area");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vnohref = testNode.noHref;
-test.equal(vnohref, false, 'vnohref should be *false*');
-test.done();
-},
-
-/**
-*
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-8722121
-*/
-area03: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vtabindex;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("area");
-nodeList = doc.getElementsByTagName("area");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vtabindex = testNode.tabIndex;
-test.equal(vtabindex, 10, "tabIndexLink");
-test.done();
-},
-
-/**
-*
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-57944457
-*/
-area04: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vaccesskey;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("area");
-nodeList = doc.getElementsByTagName("area");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vaccesskey = testNode.accessKey;
-test.equal(vaccesskey, "a", "accessKeyLink");
-test.done();
-},
-
-/**
-*
-The value of attribute color of the basefont element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-87502302
-*/
-basefont01: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vcolor;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("basefont");
-nodeList = doc.getElementsByTagName("basefont");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vcolor = testNode.color;
-test.equal(vcolor, "#000000", "colorLink");
-test.done();
-},
-
-/**
-*
-Color of active links (after mouse-button down, but before mouse-button up).
-The value of attribute alink of the body element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59424581
-*/
-body01: function(test) {
-var success;
-var nodeList;
-var testNode;
-var valink;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("body");
-nodeList = doc.getElementsByTagName("body");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-valink = testNode.aLink;
-test.equal(valink, "#0000ff", "aLinkLink");
-test.done();
-},
-
-/**
-*
-Returns the FORM element containing this control. Returns null if this control is not within the context of a form.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-71254493
-*/
-button01: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vform;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("button");
-nodeList = doc.getElementsByTagName("button");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-vform = testNode.form;
-test.equal(vform, null, 'vform should be null');
-test.done();
-},
-
-/**
-*
-The value of attribute name of the form element which contains this button is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-71254493
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
-*/
-button02: function(test) {
-var success;
-var nodeList;
-var testNode;
-var formNode;
-var vfname;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("button");
-nodeList = doc.getElementsByTagName("button");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-formNode = testNode.form;
-vfname = formNode.id;
-test.equal(vfname, "form2", "formLink");
-test.done();
-},
-
-/**
-*
-The value of attribute action of the form element which contains this button is read and checked against the expected value
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-71254493
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-74049184
-*/
-button03: function(test) {
-var success;
-var nodeList;
-var testNode;
-var formNode;
-var vfaction;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("button");
-nodeList = doc.getElementsByTagName("button");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-formNode = testNode.form;
-vfaction = formNode.action;
-test.equal(vfaction, "...", "formLink");
-test.done();
-},
-
-/**
-*
-The value of attribute method of the form element which contains this button is read and checked against the expected value
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-71254493
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-82545539
-*/
-button04: function(test) {
-var success;
-var nodeList;
-var testNode;
-var formNode;
-var vfmethod;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("button");
-nodeList = doc.getElementsByTagName("button");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-formNode = testNode.form;
-vfmethod = formNode.method;
-test.equal(vfmethod.toLowerCase(), "POST".toLowerCase(), "formLink");
-test.done();
-},
-
-/**
-*
-A single character access key to give access to the form control.
-The value of attribute accessKey of the button element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-73169431
-*/
-button05: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vakey;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("button");
-nodeList = doc.getElementsByTagName("button");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-vakey = testNode.accessKey;
-test.equal(vakey.toLowerCase(), "f".toLowerCase(), "accessKeyLink");
-test.done();
-},
-
-/**
-*
-Index that represents the element's position in the tabbing order.
-The value of attribute tabIndex of the button element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39190908
-*/
-button06: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vtabIndex;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("button");
-nodeList = doc.getElementsByTagName("button");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-vtabIndex = testNode.tabIndex;
-test.equal(vtabIndex, 20, "tabIndexLink");
-test.done();
-},
-
-/**
-*
-The type of button
-The value of attribute type of the button element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-27430092
-*/
-button07: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vtype;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("button");
-nodeList = doc.getElementsByTagName("button");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-vtype = testNode.type;
-test.equal(vtype, "reset", "typeLink");
-test.done();
-},
-
-/**
-*
-The control is unavailable in this context.
-The boolean value of attribute disabled of the button element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-92757155
-*/
-button08: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vdisabled;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("button");
-nodeList = doc.getElementsByTagName("button");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-vdisabled = testNode.disabled;
-test.ok(vdisabled, 'disabledLink');
-test.done();
-},
-
-/**
-*
-The current form control value.
-The value of attribute value of the button element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-72856782
-*/
-button09: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vvalue;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("button");
-nodeList = doc.getElementsByTagName("button");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-vvalue = testNode.value;
-test.equal(vvalue, "Reset Disabled Button", "typeLink");
-test.done();
-},
-
-/**
-*
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-21738539
-*/
-dlist01: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vcompact;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("dl");
-nodeList = doc.getElementsByTagName("dl");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vcompact = testNode.compact;
-test.ok(vcompact, 'compactLink');
-test.done();
-},
-
-/**
-*
-Retrieve the title attribute of HTMLDocument and examine it's value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-18446827
-*/
-doc01: function(test) {
-var success;
-var vtitle;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("anchor");
-vtitle = doc.title;
-test.equal(vtitle, "NIST DOM HTML Test - Anchor", "titleLink");
-test.done();
-},
-
-/**
-*
-hasFeature("hTmL", null) should return true.
-* @author Curt Arnold
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-5CED94D7
-*/
-hasFeature01: function(test) {
-var success;
-var doc;
-var domImpl;
-var version = null;
-var state;
-domImpl = getImplementation();
-state = domImpl.hasFeature("hTmL",version);
-test.ok(state, 'hasHTMLnull');
-test.done();
-},
-
-/**
-*
-hasFeature("hTmL", "2.0") should return true.
-* @author Curt Arnold
-* @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
-*/
-hasFeature02: function(test) {
-var success;
-var doc;
-var domImpl;
-var version = "2.0";
-var state;
-domImpl = getImplementation();
-state = domImpl.hasFeature("hTmL",version);
-test.ok(state, 'hasHTML2');
-test.done();
-},
-
-/**
-*
-hasFeature("xhTmL", null) should return true if hasFeature("XML", null) returns true.
-* @author Curt Arnold
-* @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
-*/
-hasFeature03: function(test) {
-var success;
-var doc;
-var domImpl;
-var version = null;
-var state;
-var hasXML;
-domImpl = getImplementation();
-hasXML = domImpl.hasFeature("XML",version);
-state = domImpl.hasFeature("xhTmL",version);
-test.equal(state, hasXML, "hasXHTML");
-test.done();
-},
-
-/**
-*
-hasFeature("xhTmL", "2.0") should return true if hasFeature("XML", "2.0") returns true.
-* @author Curt Arnold
-* @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
-*/
-hasFeature04: function(test) {
-var success;
-var doc;
-var domImpl;
-var version = "2.0";
-var state;
-var hasXML;
-domImpl = getImplementation();
-hasXML = domImpl.hasFeature("XML",version);
-state = domImpl.hasFeature("xhTmL",version);
-test.equal(state, hasXML, "hasXHTML");
-test.done();
-},
-
-/**
-*
-hasFeature("cOrE", null) should return true.
-* @author Curt Arnold
-* @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
-*/
-hasFeature05: function(test) {
-var success;
-var doc;
-var domImpl;
-var version = null;
-var state;
-domImpl = getImplementation();
-state = domImpl.hasFeature("cOrE",version);
-test.ok(state, 'hasCore');
-test.done();
-},
-
-/**
-*
-hasFeature("cOrE", "2.0") should return true.
-* @author Curt Arnold
-* @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
-*/
-hasFeature06: function(test) {
-var success;
-var doc;
-var domImpl;
-var version = "2.0";
-var state;
-domImpl = getImplementation();
-state = domImpl.hasFeature("cOrE",version);
-test.ok(state, 'hasCore');
-test.done();
-},
-
-/**
-*
-Returns the FORM element containing this control. Returns null if this control is not within the context of a form.
-The value of attribute form of the object element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-46094773
-*/
-object01: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vform;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("object");
-nodeList = doc.getElementsByTagName("object");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-vform = testNode.form;
-test.equal(vform, null, 'vform should be null');
-test.done();
-},
-
-/**
-*
-Aligns this object (vertically or horizontally) with respect to its surrounding text.
-The value of attribute align of the object element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-16962097
-*/
-object02: function(test) {
-var success;
-var nodeList;
-var testNode;
-var valign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("object");
-nodeList = doc.getElementsByTagName("object");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-valign = testNode.align;
-test.equal(valign, "middle", "alignLink");
-test.done();
-},
-
-/**
-*
-Space-separated list of archives
-The value of attribute archive of the object element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-47783837
-*/
-object03: function(test) {
-var success;
-var nodeList;
-var testNode;
-var varchive;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("object");
-nodeList = doc.getElementsByTagName("object");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-varchive = testNode.archive;
-test.equal(varchive, "", "archiveLink");
-test.done();
-},
-
-/**
-*
-Width of border around the object.
-The value of attribute border of the object element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-82818419
-*/
-object04: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vborder;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("object");
-nodeList = doc.getElementsByTagName("object");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-vborder = testNode.border;
-test.equal(vborder, "0", "borderLink");
-test.done();
-},
-
-/**
-*
-Base URI for classid, data, and archive attributes.
-The value of attribute codebase of the object element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-25709136
-*/
-object05: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vcodebase;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("object");
-nodeList = doc.getElementsByTagName("object");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-vcodebase = testNode.codeBase;
-test.equal(vcodebase, "http://xw2k.sdct.itl.nist.gov/brady/dom/", "codebaseLink");
-test.done();
-},
-
-/**
-*
-A URI specifying the location of the object's data.
-The value of attribute data of the object element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-81766986
-*/
-object06: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vdata;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("object");
-nodeList = doc.getElementsByTagName("object");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-vdata = testNode.data;
-test.equal(vdata, "./pix/logo.gif", "dataLink");
-test.done();
-},
-
-/**
-*
-The value of attribute height of the object element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-88925838
-*/
-object07: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vheight;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("object");
-nodeList = doc.getElementsByTagName("object");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-vheight = testNode.height;
-test.equal(vheight, "60", "heightLink");
-test.done();
-},
-
-/**
-*
-Horizontal space to the left and right of this image, applet, or object.
-The value of attribute hspace of the object element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-17085376
-*/
-object08: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vhspace;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("object");
-nodeList = doc.getElementsByTagName("object");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-vhspace = testNode.hspace;
-test.equal(vhspace, 0, "hspaceLink");
-test.done();
-},
-
-/**
-*
-Message to render while loading the object.
-The value of attribute standby of the object element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-25039673
-*/
-object09: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vstandby;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("object");
-nodeList = doc.getElementsByTagName("object");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-vstandby = testNode.standby;
-test.equal(vstandby, "Loading Image ...", "standbyLink");
-test.done();
-},
-
-/**
-*
-Index that represents the element's position in the tabbing order.
-The value of attribute tabIndex of the object element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-27083787
-*/
-object10: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vtabindex;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("object");
-nodeList = doc.getElementsByTagName("object");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-vtabindex = testNode.tabIndex;
-test.equal(vtabindex, 0, "tabIndexLink");
-test.done();
-},
-
-/**
-*
-Content type for data downloaded via data attribute.
-The value of attribute type of the object element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-91665621
-*/
-object11: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vtype;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("object");
-nodeList = doc.getElementsByTagName("object");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-vtype = testNode.type;
-test.equal(vtype, "image/gif", "typeLink");
-test.done();
-},
-
-/**
-*
-The value of attribute usemap of the object element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-6649772
-*/
-object12: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vusemap;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("object");
-nodeList = doc.getElementsByTagName("object");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-vusemap = testNode.useMap;
-test.equal(vusemap, "#DivLogo-map", "useMapLink");
-test.done();
-},
-
-/**
-*
-Vertical space above and below this image, applet, or object.
-The value of attribute vspace of the object element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-8682483
-*/
-object13: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vvspace;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("object");
-nodeList = doc.getElementsByTagName("object");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-vvspace = testNode.vspace;
-test.equal(vvspace, 0, "vspaceLink");
-test.done();
-},
-
-/**
-*
-The value of attribute width of the object element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-38538620
-*/
-object14: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vwidth;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("object");
-nodeList = doc.getElementsByTagName("object");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(0);
-vwidth = testNode.width;
-test.equal(vwidth, "550", "widthLink");
-test.done();
-},
-
-/**
-*
-Content type for data downloaded via classid attribute.
-The value of attribute codetype of the object element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-19945008
-*/
-object15: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vcodetype;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("object");
-nodeList = doc.getElementsByTagName("object");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-vcodetype = testNode.codeType;
-test.equal(vcodetype, "image/gif", "codeTypeLink");
-test.done();
-},
-
-/**
-*
-Returns the table's CAPTION, or void if none exists.
-The value of attribute caption of the table element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-14594520
-*/
-table01: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vcaption;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table1");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vcaption = testNode.caption;
-test.equal(vcaption, null, 'vcaption should be null');
-test.done();
-},
-
-/**
-*
-Caption alignment with respect to the table.
-The value of attribute align of the tablecaption element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-14594520
-*/
-table02: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vcaption;
-var valign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-vcaption = testNode.caption;
-valign = vcaption.align;
-test.equal(valign, "top", "alignLink");
-test.done();
-},
-
-/**
-*
-Alignment character for cells in a column.
-The value of attribute ch of the tablesection element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-9530944
-*/
-table03: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsection;
-var vch;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-vsection = testNode.tHead;
-vch = vsection.ch;
-test.equal(vch, "*", "chLink");
-test.done();
-},
-
-/**
-*
-Horizontal alignment of data in cells.
-The value of attribute align of the tablesection element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-9530944
-*/
-table04: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsection;
-var valign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-vsection = testNode.tHead;
-valign = vsection.align;
-test.equal(valign, "center", "alignLink");
-test.done();
-},
-
-/**
-*
-Vertical alignment of data in cells.
-The value of attribute valign of the tablesection element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
-*/
-table06: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsection;
-var vvAlign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-vsection = testNode.tFoot;
-vvAlign = vsection.vAlign;
-test.equal(vvAlign, "middle", "vAlignLink");
-test.done();
-},
-
-/**
-*
-The collection of rows in this table section.
-The value of attribute rows of the tablesection element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
-*/
-table07: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsection;
-var vcollection;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-vsection = testNode.tFoot;
-vcollection = vsection.rows;
-vrows = vcollection.length;
-test.equal(vrows, 1, "vrowsLink");
-test.done();
-},
-
-/**
-*
-Horizontal alignment of data in cells.
-The value of attribute align of the tablesection element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
-*/
-table08: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsection;
-var valign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-vsection = testNode.tFoot;
-valign = vsection.align;
-test.equal(valign, "center", "alignLink");
-test.done();
-},
-
-/**
-*
-Vertical alignment of data in cells.
-The value of attribute valign of the table element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-9530944
-*/
-table09: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsection;
-var vvalign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-vsection = testNode.tHead;
-vvalign = vsection.vAlign;
-test.equal(vvalign, "middle", "alignLink");
-test.done();
-},
-
-/**
-*
-Alignment character for cells in a column.
-The value of attribute ch of the tablesection element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
-*/
-table10: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsection;
-var vch;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-vsection = testNode.tFoot;
-vch = vsection.ch;
-test.equal(vch, "+", "chLink");
-test.done();
-},
-
-/**
-*
-Offset of alignment character.
-The value of attribute choff of the tablesection element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
-*/
-table12: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsection;
-var vchoff;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-vsection = testNode.tHead;
-vchoff = vsection.chOff;
-test.equal(vchoff, "1", "choffLink");
-test.done();
-},
-
-/**
-*
-The collection of rows in this table section.
-The value of attribute rows of the tablesection element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
-*/
-table15: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsection;
-var vcollection;
-var vrows;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-vsection = testNode.tHead;
-vcollection = vsection.rows;
-vrows = vcollection.length;
-test.equal(vrows, 1, "vrowsLink");
-test.done();
-},
-
-/**
-*
-Offset of alignment character.
-The value of attribute chOff of the tablesection element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
-*/
-table17: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsection;
-var vchoff;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablesection");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 2, 'Asize');
-testNode = nodeList.item(1);
-vsection = testNode.tFoot;
-vchoff = vsection.chOff;
-test.equal(vchoff, "2", "choffLink");
-test.done();
-},
-
-/**
-*
-The index of this cell in the row.
-The value of attribute cellIndex of the tablecell element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-80748363
-*/
-table18: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vcindex;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablecell");
-nodeList = doc.getElementsByTagName("td");
-test.equal(nodeList.length, 4, 'Asize');
-testNode = nodeList.item(1);
-vcindex = testNode.cellIndex;
-test.equal(vcindex, 1, "cellIndexLink");
-test.done();
-},
-
-/**
-*
-Abbreviation for header cells.
-The index of this cell in the row.
-The value of attribute abbr of the tablecell element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-74444037
-*/
-table19: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vabbr;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablecell");
-nodeList = doc.getElementsByTagName("td");
-test.equal(nodeList.length, 4, 'Asize');
-testNode = nodeList.item(1);
-vabbr = testNode.abbr;
-test.equal(vabbr, "hd2", "abbrLink");
-test.done();
-},
-
-/**
-*
-Names group of related headers.
-The value of attribute axis of the tablecell element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-76554418
-*/
-table20: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vaxis;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablecell");
-nodeList = doc.getElementsByTagName("td");
-test.equal(nodeList.length, 4, 'Asize');
-testNode = nodeList.item(1);
-vaxis = testNode.axis;
-test.equal(vaxis, "center", "axisLink");
-test.done();
-},
-
-/**
-*
-Horizontal alignment of data in cell.
-The value of attribute align of the tablecell element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-98433879
-*/
-table21: function(test) {
-var success;
-var nodeList;
-var testNode;
-var valign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablecell");
-nodeList = doc.getElementsByTagName("td");
-test.equal(nodeList.length, 4, 'Asize');
-testNode = nodeList.item(1);
-valign = testNode.align;
-test.equal(valign, "center", "alignLink");
-test.done();
-},
-
-/**
-*
-Cell background color.
-The value of attribute bgColor of the tablecell element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-88135431
-*/
-table22: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vbgcolor;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablecell");
-nodeList = doc.getElementsByTagName("td");
-test.equal(nodeList.length, 4, 'Asize');
-testNode = nodeList.item(1);
-vbgcolor = testNode.bgColor;
-test.equal(vbgcolor.toLowerCase(), "#FF0000".toLowerCase(), "bgcolorLink");
-test.done();
-},
-
-/**
-*
-Alignment character for cells in a column.
-The value of attribute char of the tablecell element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-30914780
-*/
-table23: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vch;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablecell");
-nodeList = doc.getElementsByTagName("td");
-test.equal(nodeList.length, 4, 'Asize');
-testNode = nodeList.item(1);
-vch = testNode.ch;
-test.equal(vch, ":", "chLink");
-test.done();
-},
-
-/**
-*
-offset of alignment character.
-The value of attribute chOff of the tablecell element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-20144310
-*/
-table24: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vchoff;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablecell");
-nodeList = doc.getElementsByTagName("td");
-test.equal(nodeList.length, 4, 'Asize');
-testNode = nodeList.item(1);
-vchoff = testNode.chOff;
-test.equal(vchoff, "1", "chOffLink");
-test.done();
-},
-
-/**
-*
-Number of columns spanned by cell.
-The value of attribute colspan of the tablecell element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-84645244
-*/
-table25: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vcolspan;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablecell");
-nodeList = doc.getElementsByTagName("td");
-test.equal(nodeList.length, 4, 'Asize');
-testNode = nodeList.item(1);
-vcolspan = testNode.colSpan;
-test.equal(vcolspan, 1, "colSpanLink");
-test.done();
-},
-
-/**
-*
-The value of attribute height of the tablecell element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83679212
-*/
-table26: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vheight;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablecell");
-nodeList = doc.getElementsByTagName("td");
-test.equal(nodeList.length, 4, 'Asize');
-testNode = nodeList.item(1);
-vheight = testNode.height;
-test.equal(vheight, "50", "heightLink");
-test.done();
-},
-
-/**
-*
-Suppress word wrapping.
-The value of attribute nowrap of the tablecell element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-62922045
-*/
-table27: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vnowrap;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablecell");
-nodeList = doc.getElementsByTagName("td");
-test.equal(nodeList.length, 4, 'Asize');
-testNode = nodeList.item(1);
-vnowrap = testNode.noWrap;
-test.ok(vnowrap, 'nowrapLink');
-test.done();
-},
-
-/**
-*
-Number of rows spanned by cell.
-The value of attribute rowspan of the tablecell element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-48237625
-*/
-table28: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vrowspan;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablecell");
-nodeList = doc.getElementsByTagName("td");
-test.equal(nodeList.length, 4, 'Asize');
-testNode = nodeList.item(1);
-vrowspan = testNode.rowSpan;
-test.equal(vrowspan, 1, "rowSpanLink");
-test.done();
-},
-
-/**
-*
-Scope covered by header cells.
-The value of attribute scope of the tablecell element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-36139952
-*/
-table29: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vscope;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablecell");
-nodeList = doc.getElementsByTagName("td");
-test.equal(nodeList.length, 4, 'Asize');
-testNode = nodeList.item(1);
-vscope = testNode.scope;
-test.equal(vscope, "col", "scopeLink");
-test.done();
-},
-
-/**
-*
-List of id attribute values for header cells.
-The value of attribute headers of the tablecell element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-89104817
-*/
-table30: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vheaders;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablecell");
-nodeList = doc.getElementsByTagName("td");
-test.equal(nodeList.length, 4, 'Asize');
-testNode = nodeList.item(1);
-vheaders = testNode.headers;
-test.equal(vheaders, "header-3", "headersLink");
-test.done();
-},
-
-/**
-*
-Vertical alignment of data in cell.
-The value of attribute valign of the tablecell element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-58284221
-*/
-table31: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vvalign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablecell");
-nodeList = doc.getElementsByTagName("td");
-test.equal(nodeList.length, 4, 'Asize');
-testNode = nodeList.item(1);
-vvalign = testNode.vAlign;
-test.equal(vvalign, "middle", "vAlignLink");
-test.done();
-},
-
-/**
-*
-cell width.
-The value of attribute width of the table element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-27480795
-*/
-table32: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vwidth;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablecell");
-nodeList = doc.getElementsByTagName("td");
-test.equal(nodeList.length, 4, 'Asize');
-testNode = nodeList.item(1);
-vwidth = testNode.width;
-test.equal(vwidth, "175", "vwidthLink");
-test.done();
-},
-
-/**
-*
-Specifies the table's position with respect to the rest of the document.
-The value of attribute align of the table element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-23180977
-*/
-table33: function(test) {
-var success;
-var nodeList;
-var testNode;
-var valign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-valign = testNode.align;
-test.equal(valign, "center", "alignLink");
-test.done();
-},
-
-/**
-*
-The width of the border around the table.
-The value of attribute border of the table element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-50969400
-*/
-table34: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vborder;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vborder = testNode.border;
-test.equal(vborder, "4", "borderLink");
-test.done();
-},
-
-/**
-*
-Cell background color.
-The value of attribute bgcolor of the table element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83532985
-*/
-table35: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vbgcolor;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vbgcolor = testNode.bgColor;
-test.equal(vbgcolor, "#ff0000", "bgcolorLink");
-test.done();
-},
-
-/**
-*
-Specifies which external table borders to render.
-The value of attribute frame of the table element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64808476
-*/
-table36: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vframe;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vframe = testNode.frame;
-test.equal(vframe, "border", "frameLink");
-test.done();
-},
-
-/**
-*
-Specifies the horizontal and vertical space between cell content and cell borders. The value of attribute cellpadding of the table element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59162158
-*/
-table37: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vcellpadding;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vcellpadding = testNode.cellPadding;
-test.equal(vcellpadding, "2", "cellpaddingLink");
-test.done();
-},
-
-/**
-*
-Specifies the horizontal and vertical separation between cells.
-The value of attribute cellspacing of the table element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68907883
-*/
-table38: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vcellspacing;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vcellspacing = testNode.cellSpacing;
-test.equal(vcellspacing, "2", "cellspacingLink");
-test.done();
-},
-
-/**
-*
-Supplementary description about the purpose or structure of a table.
-The value of attribute summary of the table element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-44998528
-*/
-table39: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vsummary;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vsummary = testNode.summary;
-test.equal(vsummary, "HTML Control Table", "summaryLink");
-test.done();
-},
-
-/**
-*
-Specifies which internal table borders to render.
-The value of attribute rules of the table element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-26347553
-*/
-table40: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vrules;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vrules = testNode.rules;
-test.equal(vrules, "all", "rulesLink");
-test.done();
-},
-
-/**
-*
-Specifies the desired table width.
-The value of attribute width of the table element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-77447361
-*/
-table41: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vwidth;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("table");
-test.equal(nodeList.length, 3, 'Asize');
-testNode = nodeList.item(1);
-vwidth = testNode.width;
-test.equal(vwidth, "680", "widthLink");
-test.done();
-},
-
-/**
-*
-Horizontal alignment of data within cells of this row.
-The value of attribute align of the tablerow element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-74098257
-*/
-table42: function(test) {
-var success;
-var nodeList;
-var testNode;
-var valign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 8, 'Asize');
-testNode = nodeList.item(1);
-valign = testNode.align;
-test.equal(valign, "center", "alignLink");
-test.done();
-},
-
-/**
-*
-Background color for rows.
-The value of attribute bgcolor of the tablerow element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-18161327
-*/
-table43: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vbgcolor;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 8, 'Asize');
-testNode = nodeList.item(1);
-vbgcolor = testNode.bgColor;
-test.equal(vbgcolor.toLowerCase(), "#00FFFF".toLowerCase(), "bgcolorLink");
-test.done();
-},
-
-/**
-*
-Vertical alignment of data within cells of this row.
-The value of attribute valign of the tablerow element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-90000058
-*/
-table44: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vvalign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("table");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 8, 'Asize');
-testNode = nodeList.item(1);
-vvalign = testNode.vAlign;
-test.equal(vvalign, "middle", "valignLink");
-test.done();
-},
-
-/**
-*
-Alignment character for cells in a column.
-The value of attribute ch of the tablerow element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-16230502
-*/
-table45: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vch;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(1);
-vch = testNode.ch;
-test.equal(vch, "*", "vchLink");
-test.done();
-},
-
-/**
-*
-Offset of alignment character.
-The value of attribute choff of the tablerow element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68207461
-*/
-table46: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vchoff;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(1);
-vchoff = testNode.chOff;
-test.equal(vchoff, "1", "choffLink");
-test.done();
-},
-
-/**
-*
-The index of this row, relative to the entire table.
-The value of attribute rowIndex of the table element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-67347567
-*/
-table47: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vrindex;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablerow");
-nodeList = doc.getElementsByTagName("tr");
-test.equal(nodeList.length, 5, 'Asize');
-testNode = nodeList.item(4);
-vrindex = testNode.rowIndex;
-test.equal(vrindex, 2, "rowIndexLink");
-test.done();
-},
-
-/**
-*
-Horizontal alignment of cell data in column.
-The value of attribute align of the tablecol element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-74098257
-*/
-table48: function(test) {
-var success;
-var nodeList;
-var testNode;
-var valign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablecol");
-nodeList = doc.getElementsByTagName("col");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-valign = testNode.align;
-test.equal(valign, "center", "alignLink");
-test.done();
-},
-
-/**
-*
-Alignment character for cells in a column.
-The value of attribute ch of the tablecol element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-16230502
-*/
-table49: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vch;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablecol");
-nodeList = doc.getElementsByTagName("col");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vch = testNode.ch;
-test.equal(vch, "*", "chLink");
-test.done();
-},
-
-/**
-*
-Offset of alignment character.
-The value of attribute choff of the tablecol element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68207461
-*/
-table50: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vchoff;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablecol");
-nodeList = doc.getElementsByTagName("col");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vchoff = testNode.chOff;
-test.equal(vchoff, "20", "chOffLink");
-test.done();
-},
-
-/**
-*
-Indicates the number of columns in a group or affected by a grouping.
-The value of attribute span of the tablecol element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-96511335
-*/
-table51: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vspan;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablecol");
-nodeList = doc.getElementsByTagName("col");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vspan = testNode.span;
-test.equal(vspan, 1, "spanLink");
-test.done();
-},
-
-/**
-*
-Vertical alignment of cell data in column.
-The value of attribute valign of the tablecol element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83291710
-*/
-table52: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vvalign;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablecol");
-nodeList = doc.getElementsByTagName("col");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vvalign = testNode.vAlign;
-test.equal(vvalign, "middle", "vAlignLink");
-test.done();
-},
-
-/**
-*
-Default column width.
-The value of attribute width of the tablecol element is read and checked against the expected value.
-* @author Netscape
-* @author Sivakiran Tummala
-* @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-25196799
-*/
-table53: function(test) {
-var success;
-var nodeList;
-var testNode;
-var vwidth;
-var doc;
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("tablecol");
-nodeList = doc.getElementsByTagName("col");
-test.equal(nodeList.length, 1, 'Asize');
-testNode = nodeList.item(0);
-vwidth = testNode.width;
-test.equal(vwidth, "20", "widthLink");
-test.done();
-},
-
-document_write_before_loaded: function(test) {
-var anchor, doc, docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("anchor");
-doc.innerHTML = "<html><body><p><a id='Anchor'>Anchor Text</a></body></html>";
-anchor = doc.getElementById("Anchor");
-doc.readyState = 'loading';
-doc.write("hello world");
-test.equal(anchor.innerHTML, 'hello world', "#Anchor's innerHTML should be set");
-test.done();
-},
-
-event_default_action: function(test) {
-var success;
-var doc;
-var target;
-var evt;
-var preventDefault;
-var performedDefault = false;
-
-var docRef = null;
-if (typeof(this.doc) != 'undefined') {
-  docRef = this.doc;
-}
-doc = load("anchor");
-var a = doc.getElementById("Anchor");
-a.addEventListener("foo", function() {}, true);
-evt = doc.createEvent("Events");
-evt.initEvent("foo",false,false);
-
-a._eventDefaults['foo'] = function(event) {
-  performedDefault = true;
-};
-preventDefault = a.dispatchEvent(evt);
-test.equal(preventDefault, false, 'preventDefault should be *false*');
-test.ok(performedDefault, 'performedDefault');
-test.done();
-},
-
-only_special_tags_have_name_and_it_reflects_the_attribute: function(test) {
-var doc = load("anchor");
-
-['a', 'applet', 'button', 'form', 'frame', 'iframe', 'img', 'input', 'map',
- 'meta', 'object', 'param', 'select', 'textarea'].forEach(function (tagName) {
-  var element = doc.createElement(tagName);
-  // http://www.w3.org/html/wg/drafts/html/master/forms.html#attr-fe-name plus
-  // http://www.w3.org/html/wg/drafts/html/master/infrastructure.html#reflect
-  test.strictEqual(element.name, null, '<' + tagName + '> elements should have null name properties by default.');
+    tbodiesnodeList = testNode.tBodies;
+    bodyNode = tbodiesnodeList.item(0);
+    rowsnodeList = bodyNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 3, "rowsLink2");
+    test.done();
+  },
+
+  /**
+   *
+   The insertRow() method inserts a new empty table row.
+   Retrieve the second TABLE element and invoke the insertRow() method
+   with an index of four. After the new row is inserted the number of rows
+   in the table should be five.
+   Also the number of rows in the TFOOT section before
+   insertion of the new row is one.  After the new row is inserted the number
+   of rows in the TFOOT section is two.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39872903
+   */
+  HTMLTableElement30: function(test) {
+    var success;
+    var nodeList;
+    var tbodiesnodeList;
+    var testNode;
+    var newRow;
+    var rowsnodeList;
+    var vsection1;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 4, "rowsLink1");
+    vsection1 = testNode.tFoot;
+    rowsnodeList = vsection1.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 1, "rowsLink");
+    newRow = testNode.insertRow(4);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 5, "rowsLink2");
+    vsection1 = testNode.tFoot;
+    rowsnodeList = vsection1.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 2, "rowsLink3");
+    test.done();
+  },
+
+  /**
+   *
+   The insertRow() method inserts a new empty table row.  In addition, when
+   the table is empty the row is inserted into a TBODY which is created
+   and inserted into the table.
+   Load the table1 file which has a non-empty table element.
+   Create an empty TABLE element and append to the document.
+   Check to make sure that the empty TABLE element doesn't
+   have a TBODY element.  Insert a new row into the empty
+   TABLE element.  Check for existence of the a TBODY element
+   in the table.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39872903
+   * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Aug/0019.html
+   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=502
+   */
+  HTMLTableElement31: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var tableNode;
+    var tbodiesnodeList;
+    var newRow;
+    var doc;
+    var table;
+    var tbodiesLength;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table1");
+    nodeList = doc.getElementsByTagName("body");
+    test.equal(nodeList.length, 1, 'tableSize1');
+    testNode = nodeList.item(0);
+    table = doc.createElement("table");
+    tableNode = testNode.appendChild(table);
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 2, 'tableSize2');
+    tbodiesnodeList = tableNode.tBodies;
+    tbodiesLength = tbodiesnodeList.length;
+    test.equal(tbodiesLength, 0, "Asize3");
+    newRow = tableNode.insertRow(0);
+    tbodiesnodeList = tableNode.tBodies;
+    tbodiesLength = tbodiesnodeList.length;
+    test.equal(tbodiesLength, 1, "Asize4");
+    test.done();
+  },
+
+  /**
+   *
+   The deleteRow() method deletes a table row.
+   Retrieve the second TABLE element and invoke the deleteRow() method
+   with an index of 0(first row). Currently there are four rows in the
+   table.  After the deleteRow() method is called there should be
+   three rows in the table.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-13114938
+   */
+  HTMLTableElement32: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var rowsnodeList;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 4, "rowsLink1");
+    testNode.deleteRow(0);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 3, "rowsLink2");
+    test.done();
+  },
+
+  /**
+   *
+   The deleteRow() method deletes a table row.
+   Retrieve the second TABLE element and invoke the deleteRow() method
+   with an index of 3(last row). Currently there are four rows in the
+   table.  The deleteRow() method is called and now there should be three.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-13114938
+   */
+  HTMLTableElement33: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var rowsnodeList;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 4, "rowsLink1");
+    testNode.deleteRow(3);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 3, "rowsLink2");
+    test.done();
+  },
+
+  /**
+   *
+   The insertRow() method throws a INDEX_SIZE_ERR DOMException
+   if the specified index is greater than the number of rows.
+   Retrieve the second TABLE element which has four rows.  Try
+   to insert a new row using an index of five.  This should throw
+   a INDEX_SIZE_ERR DOMException since there are only four rows.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-39872903
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-39872903')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
+   */
+  HTMLTableElement34: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var newRow;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    {
+      success = false;
+      try {
+        newRow = testNode.insertRow(5);
+      }
+      catch(ex) {
+        success = (typeof(ex.code) != 'undefined' && ex.code == 1);
+      }
+      test.ok(success, 'HTMLTableElement34');
+    }
+    test.done();
+  },
+
+  /**
+   *
+   The insertRow() method throws a INDEX_SIZE_ERR DOMException
+   if the specified index is negative.
+   Retrieve the second TABLE element which has four rows.  Try
+   to insert a new row using an index of negative five.  This should throw
+   a INDEX_SIZE_ERR DOMException since the index is negative.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-39872903
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-39872903')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
+   */
+  HTMLTableElement35: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var newRow;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    {
+      success = false;
+      try {
+        newRow = testNode.insertRow(-5);
+      }
+      catch(ex) {
+        success = (typeof(ex.code) != 'undefined' && ex.code == 1);
+      }
+      test.ok(success, 'HTMLTableElement35');
+    }
+    test.done();
+  },
+
+  /**
+   *
+   The deleteRow() method throws a INDEX_SIZE_ERR DOMException
+   if the specified index is greater than the number of rows.
+   Retrieve the second TABLE element which has four rows.  Try
+   to delete a new row using an index of five.  This should throw
+   a INDEX_SIZE_ERR DOMException since there are only four rows.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-13114938
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-13114938')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
+   */
+  HTMLTableElement36: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    {
+      success = false;
+      try {
+        testNode.deleteRow(5);
+      }
+      catch(ex) {
+        success = (typeof(ex.code) != 'undefined' && ex.code == 1);
+      }
+      test.ok(success, 'HTMLTableElement36');
+    }
+    test.done();
+  },
+
+  /**
+   *
+   The deleteRow() method throws a INDEX_SIZE_ERR DOMException
+   if the specified index is equal the number of rows.
+   Retrieve the second TABLE element which has four rows.  Try
+   to delete a new row using an index of four.  This should throw
+   a INDEX_SIZE_ERR DOMException since the index is equal to the
+   number of rows.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-13114938
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-13114938')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
+   */
+  HTMLTableElement37: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    {
+      success = false;
+      try {
+        testNode.deleteRow(4);
+      }
+      catch(ex) {
+        success = (typeof(ex.code) != 'undefined' && ex.code == 1);
+      }
+      test.ok(success, 'HTMLTableElement37');
+    }
+    test.done();
+  },
+
+  /**
+   *
+   The deleteRow() method throws a INDEX_SIZE_ERR DOMException
+   if the specified index is negative.
+   Retrieve the second TABLE element which has four rows.  Try
+   to delete a new row using an index of negative five.  This should throw
+   a INDEX_SIZE_ERR DOMException since the index is negative.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-13114938
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-13114938')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
+   */
+  HTMLTableElement38: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    {
+      success = false;
+      try {
+        testNode.deleteRow(-5);
+      }
+      catch(ex) {
+        success = (typeof(ex.code) != 'undefined' && ex.code == 1);
+      }
+      test.ok(success, 'HTMLTableElement38');
+    }
+    test.done();
+  },
+
+  /**
+   *
+   The insertRow() method inserts a new empty table row.
+   If index is -1 or equal to the number of rows, the new row
+   is appended.
+   Retrieve the second TABLE element and invoke the insertRow() method
+   with an index of negative one.
+   The number of rows in the TBODY section before insertion with an index
+   of negative one is two.  After the new row is inserted the number
+   of rows in the TBODY section is three.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-39872903
+   */
+  HTMLTableElement39: function(test) {
+    var success;
+    var nodeList;
+    var tbodiesnodeList;
+    var testNode;
+    var bodyNode;
+    var newRow;
+    var rowsnodeList;
+    var vsection1;
+    var vsection2;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    tbodiesnodeList = testNode.tBodies;
+    bodyNode = tbodiesnodeList.item(0);
+    rowsnodeList = bodyNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 2, "rowsLink1");
+    newRow = testNode.insertRow(-1);
+    tbodiesnodeList = testNode.tBodies;
+    bodyNode = tbodiesnodeList.item(0);
+    rowsnodeList = bodyNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 3, "rowsLink2");
+    test.done();
+  },
+
+  /**
+   *
+   The deleteRow() method deletes a table row.  If the index is -1
+   the last row of the table is deleted.
+   Retrieve the second TABLE element and invoke the deleteRow() method
+   with an index of negative one. Currently there are four rows in the
+   table.  The deleteRow() method is called and now there should be three.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-13114938
+   */
+  HTMLTableElement40: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var rowsnodeList;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 4, "rowsLink1");
+    testNode.deleteRow(-1);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 3, "rowsLink2");
+    test.done();
+  },
+
+  /**
+   *
+   The rowIndex attribute specifies the index of the row, relative to the
+   entire table, starting from 0.  This is in document tree order and
+   not display order.  The rowIndex does not take into account sections
+   (THEAD, TFOOT, or TBODY) within the table.
+   Retrieve the third TR element within the document and examine
+   its rowIndex value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-67347567
+   */
+  HTMLTableRowElement01: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vrowindex;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(3);
+    vrowindex = testNode.rowIndex;
+    test.equal(vrowindex, 1, "rowIndexLink");
+    test.done();
+  },
+
+  /**
+   *
+   The sectionRowIndex attribute specifies the index of this row, relative
+   to the current section(THEAD, TFOOT, or TBODY),starting from 0.
+   Retrieve the second TR(1st In THEAD) element within the document and
+   examine its sectionRowIndex value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-79105901
+   */
+  HTMLTableRowElement02: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsectionrowindex;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(1);
+    vsectionrowindex = testNode.sectionRowIndex;
+    test.equal(vsectionrowindex, 0, "sectionRowIndexLink");
+    test.done();
+  },
+
+  /**
+   *
+   The sectionRowIndex attribute specifies the index of this row, relative
+   to the current section(THEAD, TFOOT, or TBODY),starting from 0.
+   Retrieve the third TR(1st In TFOOT) element within the document and
+   examine its sectionRowIndex value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-79105901
+   */
+  HTMLTableRowElement03: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsectionrowindex;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(2);
+    vsectionrowindex = testNode.sectionRowIndex;
+    test.equal(vsectionrowindex, 0, "sectionRowIndexLink");
+    test.done();
+  },
+
+  /**
+   *
+   The sectionRowIndex attribute specifies the index of this row, relative
+   to the current section(THEAD, TFOOT, or TBODY),starting from 0.
+   Retrieve the fifth TR(2nd In TBODY) element within the document and
+   examine its sectionRowIndex value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-79105901
+   */
+  HTMLTableRowElement04: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsectionrowindex;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(4);
+    vsectionrowindex = testNode.sectionRowIndex;
+    test.equal(vsectionrowindex, 1, "sectionRowIndexLink");
+    test.done();
+  },
+
+  /**
+   *
+   The cells attribute specifies the collection of cells in this row.
+   Retrieve the fourth TR element and examine the value of
+   the cells length attribute.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-67349879
+   */
+  HTMLTableRowElement05: function(test) {
+    var success;
+    var nodeList;
+    var cellsnodeList;
+    var testNode;
+    var vcells;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(3);
+    cellsnodeList = testNode.cells;
+    vcells = cellsnodeList.length;
+    test.equal(vcells, 6, "cellsLink");
+    test.done();
+  },
+
+  /**
+   *
+   The align attribute specifies the horizontal alignment of data within
+   cells of this row.
+   Retrieve the align attribute of the second TR element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-74098257
+   */
+  HTMLTableRowElement06: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var valign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(1);
+    valign = testNode.align;
+    test.equal(valign, "center", "alignLink");
+    test.done();
+  },
+
+  /**
+   *
+   The bgColor attribute specifies the background color of rows.
+   Retrieve the bgColor attribute of the second TR element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-18161327
+   */
+  HTMLTableRowElement07: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vbgcolor;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(1);
+    vbgcolor = testNode.bgColor;
+    test.equal(vbgcolor.toLowerCase(), "#00FFFF".toLowerCase(), "bgColorLink");
+    test.done();
+  },
+
+  /**
+   *
+   The ch attribute specifies the alignment character for cells in a column.
+   Retrieve the char attribute of the second TR element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-16230502
+   */
+  HTMLTableRowElement08: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vch;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(1);
+    vch = testNode.ch;
+    test.equal(vch, "*", "chLink");
+    test.done();
+  },
+
+  /**
+   *
+   The chOff attribute specifies the offset of alignment character.
+   Retrieve the charoff attribute of the second TR element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68207461
+   */
+  HTMLTableRowElement09: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vchoff;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(1);
+    vchoff = testNode.chOff;
+    test.equal(vchoff, "1", "charOffLink");
+    test.done();
+  },
+
+  /**
+   *
+   The vAlign attribute specifies the vertical alignment of data within
+   cells of this row.
+   Retrieve the vAlign attribute of the second TR element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-90000058
+   */
+  HTMLTableRowElement10: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vvalign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(1);
+    vvalign = testNode.vAlign;
+    test.equal(vvalign, "middle", "vAlignLink");
+    test.done();
+  },
+
+  /**
+   *
+   The insertCell() method inserts an empty TD cell into this row.
+   Retrieve the fourth TR element and examine the value of
+   the cells length attribute which should be set to six.
+   Check the value of the first TD element.  Invoke the
+   insertCell() which will create an empty TD cell at the
+   zero index position.  Check the value of the newly created
+   cell and make sure it is null and also the numbers of cells
+   should now be seven.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68927016
+   */
+  HTMLTableRowElement11: function(test) {
+    var success;
+    var nodeList;
+    var cellsnodeList;
+    var testNode;
+    var trNode;
+    var cellNode;
+    var value;
+    var newCell;
+    var vcells;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(3);
+    cellsnodeList = testNode.cells;
+    vcells = cellsnodeList.length;
+    test.equal(vcells, 6, "cellsLink1");
+    trNode = cellsnodeList.item(0);
+    cellNode = trNode.firstChild;
+    value = cellNode.nodeValue;
+    test.equal(value, "EMP0001", "value1Link");
+    newCell = testNode.insertCell(0);
+    testNode = nodeList.item(3);
+    cellsnodeList = testNode.cells;
+    vcells = cellsnodeList.length;
+    test.equal(vcells, 7, "cellsLink2");
+    trNode = cellsnodeList.item(0);
+    cellNode = trNode.firstChild;
+    test.equal(cellNode, null, 'cellNode should be null');
+    test.done();
+  },
+
+  /**
+   *
+   The insertCell() method inserts an empty TD cell into this row.
+   Retrieve the fourth TR element and examine the value of
+   the cells length attribute which should be set to six.
+   Check the value of the last TD element.  Invoke the
+   insertCell() which will append the empty cell to the end of the list.
+   Check the value of the newly created cell and make sure it is null
+   and also the numbers of cells should now be seven.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68927016
+   */
+  HTMLTableRowElement12: function(test) {
+    var success;
+    var nodeList;
+    var cellsnodeList;
+    var testNode;
+    var trNode;
+    var cellNode;
+    var value;
+    var newCell;
+    var vcells;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(3);
+    cellsnodeList = testNode.cells;
+    vcells = cellsnodeList.length;
+    test.equal(vcells, 6, "cellsLink1");
+    trNode = cellsnodeList.item(5);
+    cellNode = trNode.firstChild;
+    value = cellNode.nodeValue;
+    test.equal(value, "1230 North Ave. Dallas, Texas 98551", "value1Link");
+    newCell = testNode.insertCell(6);
+    testNode = nodeList.item(3);
+    cellsnodeList = testNode.cells;
+    vcells = cellsnodeList.length;
+    test.equal(vcells, 7, "cellsLink2");
+    trNode = cellsnodeList.item(6);
+    cellNode = trNode.firstChild;
+    test.equal(cellNode, null, 'cellNode should be null');
+    test.done();
+  },
+
+  /**
+   *
+   The deleteCell() method deletes a cell from the current row.
+   Retrieve the fourth TR element and examine the value of
+   the cells length attribute which should be set to six.
+   Check the value of the first TD element.  Invoke the
+   deleteCell() method which will delete a cell from the current row.
+   Check the value of the cell at the zero index and also check
+   the number of cells which should now be five.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-11738598
+   */
+  HTMLTableRowElement13: function(test) {
+    var success;
+    var nodeList;
+    var cellsnodeList;
+    var testNode;
+    var trNode;
+    var cellNode;
+    var value;
+    var vcells;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(3);
+    cellsnodeList = testNode.cells;
+    vcells = cellsnodeList.length;
+    test.equal(vcells, 6, "cellsLink1");
+    trNode = cellsnodeList.item(0);
+    cellNode = trNode.firstChild;
+    value = cellNode.nodeValue;
+    test.equal(value, "EMP0001", "value1Link");
+    testNode.deleteCell(0);
+    testNode = nodeList.item(3);
+    cellsnodeList = testNode.cells;
+    vcells = cellsnodeList.length;
+    test.equal(vcells, 5, "cellsLink2");
+    trNode = cellsnodeList.item(0);
+    cellNode = trNode.firstChild;
+    value = cellNode.nodeValue;
+    test.equal(value, "Margaret Martin", "value2Link");
+    test.done();
+  },
+
+  /**
+   *
+   The deleteCell() method deletes a cell from the current row.
+   Retrieve the fourth TR element and examine the value of
+   the cells length attribute which should be set to six.
+   Check the value of the third(index 2) TD element.  Invoke the
+   deleteCell() method which will delete a cell from the current row.
+   Check the value of the third cell(index 2) and also check
+   the number of cells which should now be five.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-11738598
+   */
+  HTMLTableRowElement14: function(test) {
+    var success;
+    var nodeList;
+    var cellsnodeList;
+    var testNode;
+    var trNode;
+    var cellNode;
+    var value;
+    var vcells;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(3);
+    cellsnodeList = testNode.cells;
+    vcells = cellsnodeList.length;
+    test.equal(vcells, 6, "cellsLink1");
+    trNode = cellsnodeList.item(2);
+    cellNode = trNode.firstChild;
+    value = cellNode.nodeValue;
+    test.equal(value, "Accountant", "value1Link");
+    testNode.deleteCell(2);
+    testNode = nodeList.item(3);
+    cellsnodeList = testNode.cells;
+    vcells = cellsnodeList.length;
+    test.equal(vcells, 5, "cellsLink2");
+    trNode = cellsnodeList.item(2);
+    cellNode = trNode.firstChild;
+    value = cellNode.nodeValue;
+    test.equal(value, "56,000", "value2Link");
+    test.done();
+  },
+
+  /**
+   *
+   The insertCell() method throws a INDEX_SIZE_ERR DOMException
+   if the specified index is greater than the number of cells.
+   Retrieve the fourth TR element which has six cells.  Try
+   to insert a cell using an index of seven.  This should throw
+   a INDEX_SIZE_ERR DOMException since there are only six cells.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-68927016
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-68927016')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
+   */
+  HTMLTableRowElement15: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var newCell;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(3);
+    {
+      success = false;
+      try {
+        newCell = testNode.insertCell(7);
+      }
+      catch(ex) {
+        success = (typeof(ex.code) != 'undefined' && ex.code == 1);
+      }
+      test.ok(success, 'HTMLTableRowElement15');
+    }
+    test.done();
+  },
+
+  /**
+   *
+   The insertCell() method throws a INDEX_SIZE_ERR DOMException
+   if the specified index is negative.
+   Retrieve the fourth TR element which has six cells.  Try
+   to insert a cell using an index of negative seven.  This should throw
+   a INDEX_SIZE_ERR DOMException since the index is negative.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-68927016
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-68927016')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
+   */
+  HTMLTableRowElement16: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var newCell;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(3);
+    {
+      success = false;
+      try {
+        newCell = testNode.insertCell(-7);
+      }
+      catch(ex) {
+        success = (typeof(ex.code) != 'undefined' && ex.code == 1);
+      }
+      test.ok(success, 'HTMLTableRowElement16');
+    }
+    test.done();
+  },
+
+  /**
+   *
+   The deleteCell() method throws a INDEX_SIZE_ERR DOMException
+   if the specified index is greater than the number of cells.
+   Retrieve the fourth TR element which has six cells.  Try
+   to delete a cell using an index of seven.  This should throw
+   a INDEX_SIZE_ERR DOMException since there are only six cells.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-11738598
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-11738598')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
+   */
+  HTMLTableRowElement17: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(3);
+    {
+      success = false;
+      try {
+        testNode.deleteCell(7);
+      }
+      catch(ex) {
+        success = (typeof(ex.code) != 'undefined' && ex.code == 1);
+      }
+      test.ok(success, 'HTMLTableRowElement17');
+    }
+    test.done();
+  },
+
+  /**
+   *
+   The deleteCell() method throws a INDEX_SIZE_ERR DOMException
+   if the specified index is equal to the number of cells.
+   Retrieve the fourth TR element which has six cells.  Try
+   to delete a cell using an index of six.  This should throw
+   a INDEX_SIZE_ERR DOMException since there are only six cells.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-11738598
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-11738598')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
+   */
+  HTMLTableRowElement18: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(3);
+    {
+      success = false;
+      try {
+        testNode.deleteCell(6);
+      }
+      catch(ex) {
+        success = (typeof(ex.code) != 'undefined' && ex.code == 1);
+      }
+      test.ok(success, 'HTMLTableRowElement18');
+    }
+    test.done();
+  },
+
+  /**
+   *
+   The deleteCell() method throws a INDEX_SIZE_ERR DOMException
+   if the specified index is negative.
+   Retrieve the fourth TR element which has six cells.  Try
+   to delete a cell using an index of negative six.  This should throw
+   a INDEX_SIZE_ERR DOMException since the index is negative.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-11738598
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-11738598')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
+   */
+  HTMLTableRowElement19: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(3);
+    {
+      success = false;
+      try {
+        testNode.deleteCell(-6);
+      }
+      catch(ex) {
+        success = (typeof(ex.code) != 'undefined' && ex.code == 1);
+      }
+      test.ok(success, 'HTMLTableRowElement19');
+    }
+    test.done();
+  },
+
+  /**
+   *
+   The insertCell() method inserts an empty TD cell into this row.
+   If index is -1 or equal to the number of cells, the new cell is
+   appended.
+   Retrieve the fourth TR element and examine the value of
+   the cells length attribute which should be set to six.
+   Check the value of the last TD element.  Invoke the
+   insertCell() with an index of negative one
+   which will append the empty cell to the end of the list.
+   Check the value of the newly created cell and make sure it is null
+   and also the numbers of cells should now be seven.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-68927016
+   */
+  HTMLTableRowElement20: function(test) {
+    var success;
+    var nodeList;
+    var cellsnodeList;
+    var testNode;
+    var trNode;
+    var cellNode;
+    var value;
+    var newCell;
+    var vcells;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(3);
+    cellsnodeList = testNode.cells;
+    vcells = cellsnodeList.length;
+    test.equal(vcells, 6, "cellsLink1");
+    trNode = cellsnodeList.item(5);
+    cellNode = trNode.firstChild;
+    value = cellNode.nodeValue;
+    test.equal(value, "1230 North Ave. Dallas, Texas 98551", "value1Link");
+    newCell = testNode.insertCell(-1);
+    testNode = nodeList.item(3);
+    cellsnodeList = testNode.cells;
+    vcells = cellsnodeList.length;
+    test.equal(vcells, 7, "cellsLink2");
+    trNode = cellsnodeList.item(6);
+    cellNode = trNode.firstChild;
+    test.equal(cellNode, null, 'cellNode should be null');
+    test.done();
+  },
+
+  /**
+   *
+   The deleteCell() method deletes a cell from the currtent row.  If
+   the index is -1 the last cell in the row is deleted.
+   Retrieve the fourth TR element and examine the value of
+   the cells length attribute which should be set to six.
+   Check the value of the last TD element.  Invoke the
+   deleteCell() with an index of negative one
+   which will delete the last cell in the row.
+   Check the value of the of the last cell
+   and also the numbers of cells should now be five.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-11738598
+   */
+  HTMLTableRowElement21: function(test) {
+    var success;
+    var nodeList;
+    var cellsnodeList;
+    var testNode;
+    var trNode;
+    var cellNode;
+    var value;
+    var vcells;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(3);
+    cellsnodeList = testNode.cells;
+    vcells = cellsnodeList.length;
+    test.equal(vcells, 6, "cellsLink1");
+    trNode = cellsnodeList.item(5);
+    cellNode = trNode.firstChild;
+    value = cellNode.nodeValue;
+    test.equal(value, "1230 North Ave. Dallas, Texas 98551", "value1Link");
+    testNode.deleteCell(-1);
+    testNode = nodeList.item(3);
+    cellsnodeList = testNode.cells;
+    vcells = cellsnodeList.length;
+    test.equal(vcells, 5, "cellsLink2");
+    trNode = cellsnodeList.item(4);
+    cellNode = trNode.firstChild;
+    value = cellNode.nodeValue;
+    test.equal(value, "Female", "value2Link");
+    test.done();
+  },
+
+  /**
+   *
+   The align attribute specifies the horizontal alignment of data within
+   cells.
+   Retrieve the align attribute of the first THEAD element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-40530119
+   */
+  HTMLTableSectionElement01: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var valign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("thead");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    valign = testNode.align;
+    test.equal(valign, "center", "alignLink");
+    test.done();
+  },
+
+  /**
+   *
+   The align attribute specifies the horizontal alignment of data within
+   cells.
+   Retrieve the align attribute of the first TFOOT element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-40530119
+   */
+  HTMLTableSectionElement02: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var valign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("tfoot");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    valign = testNode.align;
+    test.equal(valign, "center", "alignLink");
+    test.done();
+  },
+
+  /**
+   *
+   The align attribute specifies the horizontal alignment of data within
+   cells.
+   Retrieve the align attribute of the first TBODY element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-40530119
+   */
+  HTMLTableSectionElement03: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var valign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("tbody");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    valign = testNode.align;
+    test.equal(valign, "center", "alignLink");
+    test.done();
+  },
+
+  /**
+   *
+   The ch attribute specifies the alignment character for cells in a
+   column.
+   Retrieve the char attribute of the first THEAD element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83470012
+   */
+  HTMLTableSectionElement04: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vch;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("thead");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vch = testNode.ch;
+    test.equal(vch, "*", "chLink");
+    test.done();
+  },
+
+  /**
+   *
+   The ch attribute specifies the alignment character for cells in a
+   column.
+   Retrieve the char attribute of the first TFOOT element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83470012
+   */
+  HTMLTableSectionElement05: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vch;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("tfoot");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vch = testNode.ch;
+    test.equal(vch, "+", "chLink");
+    test.done();
+  },
+
+  /**
+   *
+   The ch attribute specifies the alignment character for cells in a
+   column.
+   Retrieve the char attribute of the first TBODY element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83470012
+   */
+  HTMLTableSectionElement06: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vch;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("tbody");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    vch = testNode.ch;
+    test.equal(vch, "$", "chLink");
+    test.done();
+  },
+
+  /**
+   *
+   The chOff attribute specifies the offset of alignment character.
+   Retrieve the charoff attribute of the first THEAD element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-53459732
+   */
+  HTMLTableSectionElement07: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vcharoff;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("thead");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vcharoff = testNode.chOff;
+    test.equal(vcharoff, "1", "chOffLink");
+    test.done();
+  },
+
+  /**
+   *
+   The chOff attribute specifies the offset of alignment character.
+   Retrieve the charoff attribute of the first TFOOT element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-53459732
+   */
+  HTMLTableSectionElement08: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vcharoff;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("tfoot");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vcharoff = testNode.chOff;
+    test.equal(vcharoff, "2", "chOffLink");
+    test.done();
+  },
+
+  /**
+   *
+   The chOff attribute specifies the offset of alignment character.
+   Retrieve the charoff attribute of the first TBODY element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-53459732
+   */
+  HTMLTableSectionElement09: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vcharoff;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("tbody");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    vcharoff = testNode.chOff;
+    test.equal(vcharoff, "3", "chOffLink");
+    test.done();
+  },
+
+  /**
+   *
+   The vAlign attribute specifies the vertical alignment of cell data in
+   column.
+   Retrieve the vAlign attribute of the first THEAD element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-4379116
+   */
+  HTMLTableSectionElement10: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vvalign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("thead");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vvalign = testNode.vAlign;
+    test.equal(vvalign, "middle", "vAlignLink");
+    test.done();
+  },
+
+  /**
+   *
+   The vAlign attribute specifies the vertical alignment of cell data in
+   column.
+   Retrieve the vAlign attribute of the first TFOOT element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-4379116
+   */
+  HTMLTableSectionElement11: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vvalign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("tfoot");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vvalign = testNode.vAlign;
+    test.equal(vvalign, "middle", "vAlignLink");
+    test.done();
+  },
+
+  /**
+   *
+   The vAlign attribute specifies the vertical alignment of cell data in
+   column.
+   Retrieve the vAlign attribute of the first TBODY element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-4379116
+   */
+  HTMLTableSectionElement12: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vvalign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("tbody");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    vvalign = testNode.vAlign;
+    test.equal(vvalign, "middle", "vAlignLink");
+    test.done();
+  },
+
+  /**
+   *
+   The rows attribute specifies the collection of rows in this table section.
+   Retrieve the first THEAD element and examine the value of
+   the rows length attribute.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52092650
+   */
+  HTMLTableSectionElement13: function(test) {
+    var success;
+    var nodeList;
+    var rowsnodeList;
+    var testNode;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("thead");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 1, "rowsLink");
+    test.done();
+  },
+
+  /**
+   *
+   The rows attribute specifies the collection of rows in this table section.
+   Retrieve the first TFOOT element and examine the value of
+   the rows length attribute.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52092650
+   */
+  HTMLTableSectionElement14: function(test) {
+    var success;
+    var nodeList;
+    var rowsnodeList;
+    var testNode;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("tfoot");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 1, "rowsLink");
+    test.done();
+  },
+
+  /**
+   *
+   The rows attribute specifies the collection of rows in this table section.
+   Retrieve the first TBODY element and examine the value of
+   the rows length attribute.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-52092650
+   */
+  HTMLTableSectionElement15: function(test) {
+    var success;
+    var nodeList;
+    var rowsnodeList;
+    var testNode;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("tbody");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 2, "rowsLink");
+    test.done();
+  },
+
+  /**
+   *
+   The insertRow() method inserts a new empty table row.
+   Retrieve the first THEAD element and invoke the insertRow() method
+   with an index of 0.  The nuber of rows in the THEAD section before
+   insertion of the new row is one.  After the new row is inserted the number
+   of rows in the THEAD section is two.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93995626
+   */
+  HTMLTableSectionElement16: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var newRow;
+    var rowsnodeList;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("thead");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 1, "rowsLink1");
+    newRow = testNode.insertRow(0);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 2, "rowsLink2");
+    test.done();
+  },
+
+  /**
+   *
+   The insertRow() method inserts a new empty table row.
+   Retrieve the first TFOOT element and invoke the insertRow() method
+   with an index of 0.  The nuber of rows in the TFOOT section before
+   insertion of the new row is one.  After the new row is inserted the number
+   of rows in the TFOOT section is two.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93995626
+   */
+  HTMLTableSectionElement17: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var newRow;
+    var rowsnodeList;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("tfoot");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 1, "rowsLink1");
+    newRow = testNode.insertRow(0);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 2, "rowsLink2");
+    test.done();
+  },
+
+  /**
+   *
+   The insertRow() method inserts a new empty table row.
+   Retrieve the first TBODY element and invoke the insertRow() method
+   with an index of 0.  The nuber of rows in the TBODY section before
+   insertion of the new row is two.  After the new row is inserted the number
+   of rows in the TBODY section is three.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93995626
+   */
+  HTMLTableSectionElement18: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var newRow;
+    var rowsnodeList;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("tbody");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 2, "rowsLink1");
+    newRow = testNode.insertRow(0);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 3, "rowsLink2");
+    test.done();
+  },
+
+  /**
+   *
+   The insertRow() method inserts a new empty table row.
+   Retrieve the first THEAD element and invoke the insertRow() method
+   with an index of 1.  The nuber of rows in the THEAD section before
+   insertion of the new row is one therefore the new row is appended.
+   After the new row is inserted the number of rows in the THEAD
+   section is two.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93995626
+   */
+  HTMLTableSectionElement19: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var newRow;
+    var rowsnodeList;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("thead");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 1, "rowsLink1");
+    newRow = testNode.insertRow(1);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 2, "rowsLink2");
+    test.done();
+  },
+
+  /**
+   *
+   The insertRow() method inserts a new empty table row.
+   Retrieve the first TFOOT element and invoke the insertRow() method
+   with an index of one.  The nuber of rows in the TFOOT section before
+   insertion of the new row is one therefore the new row is appended.
+   After the new row is inserted the number of rows in the TFOOT section
+   is two.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93995626
+   */
+  HTMLTableSectionElement20: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var newRow;
+    var rowsnodeList;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("tfoot");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 1, "rowsLink1");
+    newRow = testNode.insertRow(1);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 2, "rowsLink2");
+    test.done();
+  },
+
+  /**
+   *
+   The insertRow() method inserts a new empty table row.
+   Retrieve the first TBODY element and invoke the insertRow() method
+   with an index of two.  The number of rows in the TBODY section before
+   insertion of the new row is two therefore the row is appended.
+   After the new row is inserted the number of rows in the TBODY section is
+   three.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93995626
+   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=502
+   */
+  HTMLTableSectionElement21: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var newRow;
+    var rowsnodeList;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("tbody");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 2, "rowsLink1");
+    newRow = testNode.insertRow(2);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 3, "rowsLink2");
+    test.done();
+  },
+
+  /**
+   *
+   The deleteRow() method deletes a row from this section.
+   Retrieve the first THEAD element and invoke the deleteRow() method
+   with an index of 0.  The nuber of rows in the THEAD section before
+   the deletion of the row is one.  After the row is deleted the number
+   of rows in the THEAD section is zero.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-5625626
+   */
+  HTMLTableSectionElement22: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var rowsnodeList;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("thead");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 1, "rowsLink1");
+    testNode.deleteRow(0);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 0, "rowsLink2");
+    test.done();
+  },
+
+  /**
+   *
+   The deleteRow() method deletes a row from this section.
+   Retrieve the first TFOOT element and invoke the deleteRow() method
+   with an index of 0.  The nuber of rows in the TFOOT section before
+   the deletion of the row is one.  After the row is deleted the number
+   of rows in the TFOOT section is zero.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-5625626
+   */
+  HTMLTableSectionElement23: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var rowsnodeList;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("tfoot");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 1, "rowsLink1");
+    testNode.deleteRow(0);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 0, "rowsLink2");
+    test.done();
+  },
+
+  /**
+   *
+   The deleteRow() method deletes a row from this section.
+   Retrieve the first TBODY element and invoke the deleteRow() method
+   with an index of 0.  The nuber of rows in the TBODY section before
+   the deletion of the row is two.  After the row is deleted the number
+   of rows in the TBODY section is one.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-5625626
+   */
+  HTMLTableSectionElement24: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var rowsnodeList;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("tbody");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 2, "rowsLink1");
+    testNode.deleteRow(0);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 1, "rowsLink2");
+    test.done();
+  },
+
+  /**
+   *
+   The insertRow() method throws a INDEX_SIZE_ERR DOMException
+   if the specified index is greater than the number of rows.
+   Retrieve the first THEAD element which has one row.  Try
+   to insert a new row using an index of two.  This should throw
+   a INDEX_SIZE_ERR DOMException since there is only one row.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-93995626
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-93995626')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
+   */
+  HTMLTableSectionElement25: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var newRow;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("thead");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    {
+      success = false;
+      try {
+        newRow = testNode.insertRow(2);
+      }
+      catch(ex) {
+        success = (typeof(ex.code) != 'undefined' && ex.code == 1);
+      }
+      test.ok(success, 'HTMLTableSectionElement25');
+    }
+    test.done();
+  },
+
+  /**
+   *
+   The insertRow() method throws a INDEX_SIZE_ERR DOMException
+   if the specified index is negative.
+   Retrieve the first THEAD element which has one row.  Try
+   to insert a new row using an index of negative two.  This should throw
+   a INDEX_SIZE_ERR DOMException since the index is negative.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-93995626
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-93995626')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
+   */
+  HTMLTableSectionElement26: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var newRow;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("thead");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    {
+      success = false;
+      try {
+        newRow = testNode.insertRow(-2);
+      }
+      catch(ex) {
+        success = (typeof(ex.code) != 'undefined' && ex.code == 1);
+      }
+      test.ok(success, 'HTMLTableSectionElement26');
+    }
+    test.done();
+  },
+
+  /**
+   *
+   The deleteRow() method throws a INDEX_SIZE_ERR DOMException
+   if the specified index is greater than the number of rows.
+   Retrieve the first THEAD element which has one row.  Try
+   to delete a row using an index of two.  This should throw
+   a INDEX_SIZE_ERR DOMException since the index is greater than the
+   number of rows.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-5625626
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-5625626')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
+   */
+  HTMLTableSectionElement27: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("thead");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    {
+      success = false;
+      try {
+        testNode.deleteRow(2);
+      }
+      catch(ex) {
+        success = (typeof(ex.code) != 'undefined' && ex.code == 1);
+      }
+      test.ok(success, 'HTMLTableSectionElement27');
+    }
+    test.done();
+  },
+
+  /**
+   *
+   The deleteRow() method throws a INDEX_SIZE_ERR DOMException
+   if the specified index is equal to the number of rows.
+   Retrieve the first THEAD element which has one row.  Try
+   to delete a row using an index of 1.  This should throw
+   a INDEX_SIZE_ERR DOMException since the index is equal to the
+   number of rows.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-5625626
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-5625626')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
+   */
+  HTMLTableSectionElement28: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("thead");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    {
+      success = false;
+      try {
+        testNode.deleteRow(1);
+      }
+      catch(ex) {
+        success = (typeof(ex.code) != 'undefined' && ex.code == 1);
+      }
+      test.ok(success, 'HTMLTableSectionElement28');
+    }
+    test.done();
+  },
+
+  /**
+   *
+   The deleteRow() method throws a INDEX_SIZE_ERR DOMException
+   if the specified index is negative.
+   Retrieve the first THEAD element which has one row.  Try
+   to delete a row using an index of negative two.  This should throw
+   a INDEX_SIZE_ERR DOMException since the index is negative.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-5625626
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#xpointer(id('ID-5625626')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
+   */
+  HTMLTableSectionElement29: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("thead");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    {
+      success = false;
+      try {
+        testNode.deleteRow(-2);
+      }
+      catch(ex) {
+        success = (typeof(ex.code) != 'undefined' && ex.code == 1);
+      }
+      test.ok(success, 'HTMLTableSectionElement29');
+    }
+    test.done();
+  },
+
+  /**
+   *
+   The insertRow() method inserts a new empty table row.  The new
+   row is inserted immediately before the current indexth row in this
+   section.  If index is -1 or equal to the number of rows in this section,
+   the new row is appended.
+   Retrieve the first THEAD element and invoke the insertRow() method
+   with an index of negative one.  Since the index is negative one the
+   new row is appended.
+   After the new row is appended the number of rows in the THEAD
+   section is two.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-93995626
+   */
+  HTMLTableSectionElement30: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var newRow;
+    var rowsnodeList;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("thead");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 1, "rowsLink1");
+    newRow = testNode.insertRow(-1);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 2, "rowsLink2");
+    test.done();
+  },
+
+  /**
+   *
+   The deleteRow() method deletes a row from this section.  The index
+   starts from 0 and is relative only to the rows contained inside
+   this section, not all the rows in the table.  If the index is -1
+   the last row will be deleted.
+   Retrieve the second TBODY element and invoke the deleteRow() method
+   with an index of -1.  The nuber of rows in the THEAD section before
+   the deletion of the row is two.  After the row is deleted the number
+   of rows in the TBODY section is one.
+   * @author NIST
+   * @author Rick Rivello
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-5625626
+   */
+  HTMLTableSectionElement31: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var rowsnodeList;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("tbody");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 2, "rowsLink1");
+    testNode.deleteRow(-1);
+    rowsnodeList = testNode.rows;
+    vrows = rowsnodeList.length;
+    test.equal(vrows, 1, "rowsLink2");
+    test.done();
+  },
+
+  /**
+   *
+   The defaultValue attribute represents the HTML value of the attribute
+   when the type attribute has the value of "Text", "File" or "Password".
+   Retrieve the defaultValue attribute of the 2nd TEXTAREA element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-36152213
+   */
+  HTMLTextAreaElement01: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vdefaultvalue;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("textarea");
+    nodeList = doc.getElementsByTagName("textarea");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vdefaultvalue = testNode.defaultValue;
+    test.equal(vdefaultvalue, "TEXTAREA2", "defaultValueLink");
+    test.done();
+  },
+
+  /**
+   *
+   The form attribute returns the FORM element containing this control.
+   Retrieve the form attribute from the first TEXTAREA element
+   and examine its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-18911464
+   */
+  HTMLTextAreaElement02: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vform;
+    var fNode;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("textarea");
+    nodeList = doc.getElementsByTagName("textarea");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(0);
+    fNode = testNode.form;
+    vform = fNode.id;
+    test.equal(vform, "form1", "formLink");
+    test.done();
+  },
+
+  /**
+   *
+   The form attribute returns null if control in not within the context of
+   a form.
+   Retrieve the second TEXTAREA element and
+   examine its form element.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-18911464
+   */
+  HTMLTextAreaElement03: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vform;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("textarea");
+    nodeList = doc.getElementsByTagName("textarea");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vform = testNode.form;
+    test.equal(vform, null, 'vform should be null');
+    test.done();
+  },
+
+  /**
+   *
+   The accessKey attribute specifies a single character access key to
+   give access to the form control.
+   Retrieve the accessKey attribute of the 1st TEXTAREA element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-93102991
+   */
+  HTMLTextAreaElement04: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vaccesskey;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("textarea");
+    nodeList = doc.getElementsByTagName("textarea");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(0);
+    vaccesskey = testNode.accessKey;
+    test.equal(vaccesskey, "c", "accessKeyLink");
+    test.done();
+  },
+
+  /**
+   *
+   The cols attribute specifies the width of control(in characters).
+   Retrieve the cols attribute of the 1st TEXTAREA element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-51387225
+   */
+  HTMLTextAreaElement05: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vcols;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("textarea");
+    nodeList = doc.getElementsByTagName("textarea");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(0);
+    vcols = testNode.cols;
+    test.equal(vcols, 20, "colsLink");
+    test.done();
+  },
+
+  /**
+   *
+   The disabled attribute specifies the control is unavailable in this
+   context.
+   Retrieve the disabled attribute from the 2nd TEXTAREA element and
+   examine its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-98725443
+   */
+  HTMLTextAreaElement06: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vdisabled;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("textarea");
+    nodeList = doc.getElementsByTagName("textarea");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vdisabled = testNode.disabled;
+    test.ok(vdisabled, 'disabledLink');
+    test.done();
+  },
+
+  /**
+   *
+   The name attribute specifies the form control or object name when
+   submitted with a form.
+   Retrieve the name attribute of the 1st TEXTAREA element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-70715578
+   */
+  HTMLTextAreaElement07: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vname;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("textarea");
+    nodeList = doc.getElementsByTagName("textarea");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(0);
+    vname = testNode.name;
+    test.equal(vname, "text1", "nameLink");
+    test.done();
+  },
+
+  /**
+   *
+   The readOnly attribute specifies this control is read-only.
+   Retrieve the readOnly attribute from the 3rd TEXTAREA element and
+   examine its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39131423
+   */
+  HTMLTextAreaElement08: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vreadonly;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("textarea");
+    nodeList = doc.getElementsByTagName("textarea");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(2);
+    vreadonly = testNode.readOnly;
+    test.ok(vreadonly, 'readOnlyLink');
+    test.done();
+  },
+
+  /**
+   *
+   The rows attribute specifies the number of text rowns.
+   Retrieve the rows attribute of the 1st TEXTAREA element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-46975887
+   */
+  HTMLTextAreaElement09: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("textarea");
+    nodeList = doc.getElementsByTagName("textarea");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(0);
+    vrows = testNode.rows;
+    test.equal(vrows, 7, "rowsLink");
+    test.done();
+  },
+
+  /**
+   *
+   The tabIndex attribute is an index that represents the element's position
+   in the tabbing order.
+   Retrieve the tabIndex attribute of the 1st TEXTAREA element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-60363303
+   */
+  HTMLTextAreaElement10: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vtabindex;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("textarea");
+    nodeList = doc.getElementsByTagName("textarea");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(0);
+    vtabindex = testNode.tabIndex;
+    test.equal(vtabindex, 5, "tabIndexLink");
+    test.done();
+  },
+
+  /**
+   *
+   The type attribute specifies the type of this form control.
+   Retrieve the type attribute of the 1st TEXTAREA element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-24874179
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#HTML-HTMLTextAreaElement-type
+   */
+  HTMLTextAreaElement11: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vtype;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("textarea");
+    nodeList = doc.getElementsByTagName("textarea");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(0);
+    vtype = testNode.type;
+    test.equal(vtype, "textarea", "typeLink");
+    test.done();
+  },
+
+  /**
+   *
+   The value attribute represents the current contents of the corresponding
+   form control, in an interactive user agent.
+   Retrieve the value attribute of the 1st TEXTAREA element and examine
+   its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-70715579
+   */
+  HTMLTextAreaElement12: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vvalue;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("textarea");
+    nodeList = doc.getElementsByTagName("textarea");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(0);
+    vvalue = testNode.value;
+    test.equal(vvalue, "TEXTAREA1", "valueLink");
+    test.done();
+  },
+
+  /**
+   *
+   Calling HTMLTextAreaElement.blur should surrender input focus.
+   * @author Curt Arnold
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-6750689
+   */
+  HTMLTextAreaElement13: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("textarea");
+    nodeList = doc.getElementsByTagName("textarea");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(0);
+    testNode.blur();
+    test.done();
+  },
+
+  /**
+   *
+   Calling HTMLTextAreaElement.focus should capture input focus.
+   * @author Curt Arnold
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39055426
+   */
+  HTMLTextAreaElement14: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("textarea");
+    nodeList = doc.getElementsByTagName("textarea");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(0);
+    testNode.focus();
+    test.done();
+  },
+
+  /**
+   *
+   Calling HTMLTextAreaElement.select should select the text area.
+   * @author Curt Arnold
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-48880622
+   */
+  HTMLTextAreaElement15: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("textarea");
+    nodeList = doc.getElementsByTagName("textarea");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(0);
+    testNode.select();
+    test.done();
+  },
+
+  /**
+   *
+   The text attribute is the specified title as a string.
+   Retrieve the text attribute and examine its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-77500413
+   */
+  HTMLTitleElement01: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vtext;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("title");
+    nodeList = doc.getElementsByTagName("title");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vtext = testNode.text;
+    test.equal(vtext, "NIST DOM HTML Test - TITLE", "textLink");
+    test.done();
+  },
+
+  /**
+   *
+   The compact attribute specifies whether to reduce spacing between list
+   items.
+   Retrieve the compact attribute and examine its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39864178
+   */
+  HTMLUListElement01: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vcompact;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("ulist");
+    nodeList = doc.getElementsByTagName("ul");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    vcompact = testNode.compact;
+    test.ok(vcompact, 'compactLink');
+    test.done();
+  },
+
+  /**
+   *
+   The type attribute specifies the bullet style.
+   Retrieve the type attribute and examine its value.
+   * @author NIST
+   * @author Mary Brady
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-96874670
+   */
+  HTMLUListElement02: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vtype;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("ulist");
+    nodeList = doc.getElementsByTagName("ul");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    vtype = testNode.type;
+    test.equal(vtype, "disc", "typeLink");
+    test.done();
+  },
+
+  /**
+   *
+   A single character access key to give access to the form control.
+   The value of attribute accessKey of the anchor element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-89647724
+   */
+  anchor01: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vaccesskey;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("anchor");
+    nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vaccesskey = testNode.accessKey;
+    test.equal(vaccesskey, "g", "accessKeyLink");
+    test.done();
+  },
+
+  /**
+   *
+   The character encoding of the linked resource.
+   The value of attribute charset of the anchor element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-67619266
+   */
+  anchor02: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vcharset;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("anchor");
+    nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vcharset = testNode.charset;
+    test.equal(vcharset, "US-ASCII", "charsetLink");
+    test.done();
+  },
+
+  /**
+   *
+   Comma-separated list of lengths, defining an active region geometry.
+   The value of attribute coords of the anchor element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-92079539
+   */
+  anchor03: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vcoords;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("anchor");
+    nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vcoords = testNode.coords;
+    test.equal(vcoords, "0,0,100,100", "coordsLink");
+    test.done();
+  },
+
+  /**
+   *
+   The URI of the linked resource.
+   The value of attribute href of the anchor element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-88517319
+   */
+  anchor04: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vhref;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("anchor");
+    nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vhref = testNode.href;
+    test.equal(vhref, toFileUrl('html/files/pix/submit.gif'), 'hrefLink');
+    test.done();
+  },
+
+  /**
+   *
+   Advisory content type.
+   The value of attribute type of the anchor element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63938221
+   */
+  anchor05: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vtype;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("anchor");
+    nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vtype = testNode.type;
+    test.equal(vtype, "image/gif", "typeLink");
+    test.done();
+  },
+
+  /**
+   *
+   The shape of the active area. The coordinates are given by coords
+   The value of attribute shape of the anchor element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-49899808
+   */
+  anchor06: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vshape;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("anchor");
+    nodeList = doc.getElementsByTagName("a");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vshape = testNode.shape;
+    test.equal(vshape, "rect", "shapeLink");
+    test.done();
+  },
+
+  /**
+   *
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-66021476
+   */
+  area01: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vcoords;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("area");
+    nodeList = doc.getElementsByTagName("area");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vcoords = testNode.coords;
+    test.equal(vcoords, "0,2,45,45", "coordsLink");
+    test.done();
+  },
+
+  /**
+   *
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-61826871
+   */
+  area02: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vnohref;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("area");
+    nodeList = doc.getElementsByTagName("area");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vnohref = testNode.noHref;
+    test.equal(vnohref, false, 'vnohref should be *false*');
+    test.done();
+  },
+
+  /**
+   *
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-8722121
+   */
+  area03: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vtabindex;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("area");
+    nodeList = doc.getElementsByTagName("area");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vtabindex = testNode.tabIndex;
+    test.equal(vtabindex, 10, "tabIndexLink");
+    test.done();
+  },
+
+  /**
+   *
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-57944457
+   */
+  area04: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vaccesskey;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("area");
+    nodeList = doc.getElementsByTagName("area");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vaccesskey = testNode.accessKey;
+    test.equal(vaccesskey, "a", "accessKeyLink");
+    test.done();
+  },
+
+  /**
+   *
+   The value of attribute color of the basefont element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-87502302
+   */
+  basefont01: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vcolor;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("basefont");
+    nodeList = doc.getElementsByTagName("basefont");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vcolor = testNode.color;
+    test.equal(vcolor, "#000000", "colorLink");
+    test.done();
+  },
+
+  /**
+   *
+   Color of active links (after mouse-button down, but before mouse-button up).
+   The value of attribute alink of the body element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59424581
+   */
+  body01: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var valink;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("body");
+    nodeList = doc.getElementsByTagName("body");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    valink = testNode.aLink;
+    test.equal(valink, "#0000ff", "aLinkLink");
+    test.done();
+  },
+
+  /**
+   *
+   Returns the FORM element containing this control. Returns null if this control is not within the context of a form.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-71254493
+   */
+  button01: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vform;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("button");
+    nodeList = doc.getElementsByTagName("button");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    vform = testNode.form;
+    test.equal(vform, null, 'vform should be null');
+    test.done();
+  },
+
+  /**
+   *
+   The value of attribute name of the form element which contains this button is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-71254493
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-63534901
+   */
+  button02: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var formNode;
+    var vfname;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("button");
+    nodeList = doc.getElementsByTagName("button");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    formNode = testNode.form;
+    vfname = formNode.id;
+    test.equal(vfname, "form2", "formLink");
+    test.done();
+  },
+
+  /**
+   *
+   The value of attribute action of the form element which contains this button is read and checked against the expected value
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-71254493
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-74049184
+   */
+  button03: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var formNode;
+    var vfaction;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("button");
+    nodeList = doc.getElementsByTagName("button");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    formNode = testNode.form;
+    vfaction = formNode.action;
+    test.equal(vfaction, "...", "formLink");
+    test.done();
+  },
+
+  /**
+   *
+   The value of attribute method of the form element which contains this button is read and checked against the expected value
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-71254493
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-82545539
+   */
+  button04: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var formNode;
+    var vfmethod;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("button");
+    nodeList = doc.getElementsByTagName("button");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    formNode = testNode.form;
+    vfmethod = formNode.method;
+    test.equal(vfmethod.toLowerCase(), "POST".toLowerCase(), "formLink");
+    test.done();
+  },
+
+  /**
+   *
+   A single character access key to give access to the form control.
+   The value of attribute accessKey of the button element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-73169431
+   */
+  button05: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vakey;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("button");
+    nodeList = doc.getElementsByTagName("button");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    vakey = testNode.accessKey;
+    test.equal(vakey.toLowerCase(), "f".toLowerCase(), "accessKeyLink");
+    test.done();
+  },
+
+  /**
+   *
+   Index that represents the element's position in the tabbing order.
+   The value of attribute tabIndex of the button element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-39190908
+   */
+  button06: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vtabIndex;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("button");
+    nodeList = doc.getElementsByTagName("button");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    vtabIndex = testNode.tabIndex;
+    test.equal(vtabIndex, 20, "tabIndexLink");
+    test.done();
+  },
+
+  /**
+   *
+   The type of button
+   The value of attribute type of the button element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-27430092
+   */
+  button07: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vtype;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("button");
+    nodeList = doc.getElementsByTagName("button");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    vtype = testNode.type;
+    test.equal(vtype, "reset", "typeLink");
+    test.done();
+  },
+
+  /**
+   *
+   The control is unavailable in this context.
+   The boolean value of attribute disabled of the button element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-92757155
+   */
+  button08: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vdisabled;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("button");
+    nodeList = doc.getElementsByTagName("button");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    vdisabled = testNode.disabled;
+    test.ok(vdisabled, 'disabledLink');
+    test.done();
+  },
+
+  /**
+   *
+   The current form control value.
+   The value of attribute value of the button element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-72856782
+   */
+  button09: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vvalue;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("button");
+    nodeList = doc.getElementsByTagName("button");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    vvalue = testNode.value;
+    test.equal(vvalue, "Reset Disabled Button", "typeLink");
+    test.done();
+  },
+
+  /**
+   *
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-21738539
+   */
+  dlist01: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vcompact;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("dl");
+    nodeList = doc.getElementsByTagName("dl");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vcompact = testNode.compact;
+    test.ok(vcompact, 'compactLink');
+    test.done();
+  },
+
+  /**
+   *
+   Retrieve the title attribute of HTMLDocument and examine it's value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-18446827
+   */
+  doc01: function(test) {
+    var success;
+    var vtitle;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("anchor");
+    vtitle = doc.title;
+    test.equal(vtitle, "NIST DOM HTML Test - Anchor", "titleLink");
+    test.done();
+  },
+
+  /**
+   *
+   hasFeature("hTmL", null) should return true.
+   * @author Curt Arnold
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-5CED94D7
+   */
+  hasFeature01: function(test) {
+    var success;
+    var doc;
+    var domImpl;
+    var version = null;
+    var state;
+    domImpl = getImplementation();
+    state = domImpl.hasFeature("hTmL",version);
+    test.ok(state, 'hasHTMLnull');
+    test.done();
+  },
+
+  /**
+   *
+   hasFeature("hTmL", "2.0") should return true.
+   * @author Curt Arnold
+   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
+   */
+  hasFeature02: function(test) {
+    var success;
+    var doc;
+    var domImpl;
+    var version = "2.0";
+    var state;
+    domImpl = getImplementation();
+    state = domImpl.hasFeature("hTmL",version);
+    test.ok(state, 'hasHTML2');
+    test.done();
+  },
+
+  /**
+   *
+   hasFeature("xhTmL", null) should return true if hasFeature("XML", null) returns true.
+   * @author Curt Arnold
+   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
+   */
+  hasFeature03: function(test) {
+    var success;
+    var doc;
+    var domImpl;
+    var version = null;
+    var state;
+    var hasXML;
+    domImpl = getImplementation();
+    hasXML = domImpl.hasFeature("XML",version);
+    state = domImpl.hasFeature("xhTmL",version);
+    test.equal(state, hasXML, "hasXHTML");
+    test.done();
+  },
+
+  /**
+   *
+   hasFeature("xhTmL", "2.0") should return true if hasFeature("XML", "2.0") returns true.
+   * @author Curt Arnold
+   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
+   */
+  hasFeature04: function(test) {
+    var success;
+    var doc;
+    var domImpl;
+    var version = "2.0";
+    var state;
+    var hasXML;
+    domImpl = getImplementation();
+    hasXML = domImpl.hasFeature("XML",version);
+    state = domImpl.hasFeature("xhTmL",version);
+    test.equal(state, hasXML, "hasXHTML");
+    test.done();
+  },
+
+  /**
+   *
+   hasFeature("cOrE", null) should return true.
+   * @author Curt Arnold
+   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
+   */
+  hasFeature05: function(test) {
+    var success;
+    var doc;
+    var domImpl;
+    var version = null;
+    var state;
+    domImpl = getImplementation();
+    state = domImpl.hasFeature("cOrE",version);
+    test.ok(state, 'hasCore');
+    test.done();
+  },
+
+  /**
+   *
+   hasFeature("cOrE", "2.0") should return true.
+   * @author Curt Arnold
+   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
+   */
+  hasFeature06: function(test) {
+    var success;
+    var doc;
+    var domImpl;
+    var version = "2.0";
+    var state;
+    domImpl = getImplementation();
+    state = domImpl.hasFeature("cOrE",version);
+    test.ok(state, 'hasCore');
+    test.done();
+  },
+
+  /**
+   *
+   Returns the FORM element containing this control. Returns null if this control is not within the context of a form.
+   The value of attribute form of the object element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-46094773
+   */
+  object01: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vform;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("object");
+    nodeList = doc.getElementsByTagName("object");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    vform = testNode.form;
+    test.equal(vform, null, 'vform should be null');
+    test.done();
+  },
+
+  /**
+   *
+   Aligns this object (vertically or horizontally) with respect to its surrounding text.
+   The value of attribute align of the object element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-16962097
+   */
+  object02: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var valign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("object");
+    nodeList = doc.getElementsByTagName("object");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    valign = testNode.align;
+    test.equal(valign, "middle", "alignLink");
+    test.done();
+  },
+
+  /**
+   *
+   Space-separated list of archives
+   The value of attribute archive of the object element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-47783837
+   */
+  object03: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var varchive;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("object");
+    nodeList = doc.getElementsByTagName("object");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    varchive = testNode.archive;
+    test.equal(varchive, "", "archiveLink");
+    test.done();
+  },
+
+  /**
+   *
+   Width of border around the object.
+   The value of attribute border of the object element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-82818419
+   */
+  object04: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vborder;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("object");
+    nodeList = doc.getElementsByTagName("object");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    vborder = testNode.border;
+    test.equal(vborder, "0", "borderLink");
+    test.done();
+  },
+
+  /**
+   *
+   Base URI for classid, data, and archive attributes.
+   The value of attribute codebase of the object element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-25709136
+   */
+  object05: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vcodebase;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("object");
+    nodeList = doc.getElementsByTagName("object");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    vcodebase = testNode.codeBase;
+    test.equal(vcodebase, "http://xw2k.sdct.itl.nist.gov/brady/dom/", "codebaseLink");
+    test.done();
+  },
+
+  /**
+   *
+   A URI specifying the location of the object's data.
+   The value of attribute data of the object element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-81766986
+   */
+  object06: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vdata;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("object");
+    nodeList = doc.getElementsByTagName("object");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    vdata = testNode.data;
+    test.equal(vdata, "./pix/logo.gif", "dataLink");
+    test.done();
+  },
+
+  /**
+   *
+   The value of attribute height of the object element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-88925838
+   */
+  object07: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vheight;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("object");
+    nodeList = doc.getElementsByTagName("object");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    vheight = testNode.height;
+    test.equal(vheight, "60", "heightLink");
+    test.done();
+  },
+
+  /**
+   *
+   Horizontal space to the left and right of this image, applet, or object.
+   The value of attribute hspace of the object element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-17085376
+   */
+  object08: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vhspace;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("object");
+    nodeList = doc.getElementsByTagName("object");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    vhspace = testNode.hspace;
+    test.equal(vhspace, 0, "hspaceLink");
+    test.done();
+  },
+
+  /**
+   *
+   Message to render while loading the object.
+   The value of attribute standby of the object element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-25039673
+   */
+  object09: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vstandby;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("object");
+    nodeList = doc.getElementsByTagName("object");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    vstandby = testNode.standby;
+    test.equal(vstandby, "Loading Image ...", "standbyLink");
+    test.done();
+  },
+
+  /**
+   *
+   Index that represents the element's position in the tabbing order.
+   The value of attribute tabIndex of the object element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-27083787
+   */
+  object10: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vtabindex;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("object");
+    nodeList = doc.getElementsByTagName("object");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    vtabindex = testNode.tabIndex;
+    test.equal(vtabindex, 0, "tabIndexLink");
+    test.done();
+  },
+
+  /**
+   *
+   Content type for data downloaded via data attribute.
+   The value of attribute type of the object element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-91665621
+   */
+  object11: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vtype;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("object");
+    nodeList = doc.getElementsByTagName("object");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    vtype = testNode.type;
+    test.equal(vtype, "image/gif", "typeLink");
+    test.done();
+  },
+
+  /**
+   *
+   The value of attribute usemap of the object element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-6649772
+   */
+  object12: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vusemap;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("object");
+    nodeList = doc.getElementsByTagName("object");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    vusemap = testNode.useMap;
+    test.equal(vusemap, "#DivLogo-map", "useMapLink");
+    test.done();
+  },
+
+  /**
+   *
+   Vertical space above and below this image, applet, or object.
+   The value of attribute vspace of the object element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-8682483
+   */
+  object13: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vvspace;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("object");
+    nodeList = doc.getElementsByTagName("object");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    vvspace = testNode.vspace;
+    test.equal(vvspace, 0, "vspaceLink");
+    test.done();
+  },
+
+  /**
+   *
+   The value of attribute width of the object element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-38538620
+   */
+  object14: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vwidth;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("object");
+    nodeList = doc.getElementsByTagName("object");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(0);
+    vwidth = testNode.width;
+    test.equal(vwidth, "550", "widthLink");
+    test.done();
+  },
+
+  /**
+   *
+   Content type for data downloaded via classid attribute.
+   The value of attribute codetype of the object element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-19945008
+   */
+  object15: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vcodetype;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("object");
+    nodeList = doc.getElementsByTagName("object");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    vcodetype = testNode.codeType;
+    test.equal(vcodetype, "image/gif", "codeTypeLink");
+    test.done();
+  },
+
+  /**
+   *
+   Returns the table's CAPTION, or void if none exists.
+   The value of attribute caption of the table element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-14594520
+   */
+  table01: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vcaption;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table1");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vcaption = testNode.caption;
+    test.equal(vcaption, null, 'vcaption should be null');
+    test.done();
+  },
+
+  /**
+   *
+   Caption alignment with respect to the table.
+   The value of attribute align of the tablecaption element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-14594520
+   */
+  table02: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vcaption;
+    var valign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    vcaption = testNode.caption;
+    valign = vcaption.align;
+    test.equal(valign, "top", "alignLink");
+    test.done();
+  },
+
+  /**
+   *
+   Alignment character for cells in a column.
+   The value of attribute ch of the tablesection element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-9530944
+   */
+  table03: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsection;
+    var vch;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    vsection = testNode.tHead;
+    vch = vsection.ch;
+    test.equal(vch, "*", "chLink");
+    test.done();
+  },
+
+  /**
+   *
+   Horizontal alignment of data in cells.
+   The value of attribute align of the tablesection element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-9530944
+   */
+  table04: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsection;
+    var valign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    vsection = testNode.tHead;
+    valign = vsection.align;
+    test.equal(valign, "center", "alignLink");
+    test.done();
+  },
+
+  /**
+   *
+   Vertical alignment of data in cells.
+   The value of attribute valign of the tablesection element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
+   */
+  table06: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsection;
+    var vvAlign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    vsection = testNode.tFoot;
+    vvAlign = vsection.vAlign;
+    test.equal(vvAlign, "middle", "vAlignLink");
+    test.done();
+  },
+
+  /**
+   *
+   The collection of rows in this table section.
+   The value of attribute rows of the tablesection element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
+   */
+  table07: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsection;
+    var vcollection;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    vsection = testNode.tFoot;
+    vcollection = vsection.rows;
+    vrows = vcollection.length;
+    test.equal(vrows, 1, "vrowsLink");
+    test.done();
+  },
+
+  /**
+   *
+   Horizontal alignment of data in cells.
+   The value of attribute align of the tablesection element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
+   */
+  table08: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsection;
+    var valign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    vsection = testNode.tFoot;
+    valign = vsection.align;
+    test.equal(valign, "center", "alignLink");
+    test.done();
+  },
+
+  /**
+   *
+   Vertical alignment of data in cells.
+   The value of attribute valign of the table element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-9530944
+   */
+  table09: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsection;
+    var vvalign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    vsection = testNode.tHead;
+    vvalign = vsection.vAlign;
+    test.equal(vvalign, "middle", "alignLink");
+    test.done();
+  },
+
+  /**
+   *
+   Alignment character for cells in a column.
+   The value of attribute ch of the tablesection element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
+   */
+  table10: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsection;
+    var vch;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    vsection = testNode.tFoot;
+    vch = vsection.ch;
+    test.equal(vch, "+", "chLink");
+    test.done();
+  },
+
+  /**
+   *
+   Offset of alignment character.
+   The value of attribute choff of the tablesection element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
+   */
+  table12: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsection;
+    var vchoff;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    vsection = testNode.tHead;
+    vchoff = vsection.chOff;
+    test.equal(vchoff, "1", "choffLink");
+    test.done();
+  },
+
+  /**
+   *
+   The collection of rows in this table section.
+   The value of attribute rows of the tablesection element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
+   */
+  table15: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsection;
+    var vcollection;
+    var vrows;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    vsection = testNode.tHead;
+    vcollection = vsection.rows;
+    vrows = vcollection.length;
+    test.equal(vrows, 1, "vrowsLink");
+    test.done();
+  },
+
+  /**
+   *
+   Offset of alignment character.
+   The value of attribute chOff of the tablesection element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64197097
+   */
+  table17: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsection;
+    var vchoff;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablesection");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 2, 'Asize');
+    testNode = nodeList.item(1);
+    vsection = testNode.tFoot;
+    vchoff = vsection.chOff;
+    test.equal(vchoff, "2", "choffLink");
+    test.done();
+  },
+
+  /**
+   *
+   The index of this cell in the row.
+   The value of attribute cellIndex of the tablecell element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-80748363
+   */
+  table18: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vcindex;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablecell");
+    nodeList = doc.getElementsByTagName("td");
+    test.equal(nodeList.length, 4, 'Asize');
+    testNode = nodeList.item(1);
+    vcindex = testNode.cellIndex;
+    test.equal(vcindex, 1, "cellIndexLink");
+    test.done();
+  },
+
+  /**
+   *
+   Abbreviation for header cells.
+   The index of this cell in the row.
+   The value of attribute abbr of the tablecell element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-74444037
+   */
+  table19: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vabbr;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablecell");
+    nodeList = doc.getElementsByTagName("td");
+    test.equal(nodeList.length, 4, 'Asize');
+    testNode = nodeList.item(1);
+    vabbr = testNode.abbr;
+    test.equal(vabbr, "hd2", "abbrLink");
+    test.done();
+  },
+
+  /**
+   *
+   Names group of related headers.
+   The value of attribute axis of the tablecell element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-76554418
+   */
+  table20: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vaxis;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablecell");
+    nodeList = doc.getElementsByTagName("td");
+    test.equal(nodeList.length, 4, 'Asize');
+    testNode = nodeList.item(1);
+    vaxis = testNode.axis;
+    test.equal(vaxis, "center", "axisLink");
+    test.done();
+  },
+
+  /**
+   *
+   Horizontal alignment of data in cell.
+   The value of attribute align of the tablecell element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-98433879
+   */
+  table21: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var valign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablecell");
+    nodeList = doc.getElementsByTagName("td");
+    test.equal(nodeList.length, 4, 'Asize');
+    testNode = nodeList.item(1);
+    valign = testNode.align;
+    test.equal(valign, "center", "alignLink");
+    test.done();
+  },
+
+  /**
+   *
+   Cell background color.
+   The value of attribute bgColor of the tablecell element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-88135431
+   */
+  table22: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vbgcolor;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablecell");
+    nodeList = doc.getElementsByTagName("td");
+    test.equal(nodeList.length, 4, 'Asize');
+    testNode = nodeList.item(1);
+    vbgcolor = testNode.bgColor;
+    test.equal(vbgcolor.toLowerCase(), "#FF0000".toLowerCase(), "bgcolorLink");
+    test.done();
+  },
+
+  /**
+   *
+   Alignment character for cells in a column.
+   The value of attribute char of the tablecell element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-30914780
+   */
+  table23: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vch;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablecell");
+    nodeList = doc.getElementsByTagName("td");
+    test.equal(nodeList.length, 4, 'Asize');
+    testNode = nodeList.item(1);
+    vch = testNode.ch;
+    test.equal(vch, ":", "chLink");
+    test.done();
+  },
+
+  /**
+   *
+   offset of alignment character.
+   The value of attribute chOff of the tablecell element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-20144310
+   */
+  table24: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vchoff;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablecell");
+    nodeList = doc.getElementsByTagName("td");
+    test.equal(nodeList.length, 4, 'Asize');
+    testNode = nodeList.item(1);
+    vchoff = testNode.chOff;
+    test.equal(vchoff, "1", "chOffLink");
+    test.done();
+  },
+
+  /**
+   *
+   Number of columns spanned by cell.
+   The value of attribute colspan of the tablecell element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-84645244
+   */
+  table25: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vcolspan;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablecell");
+    nodeList = doc.getElementsByTagName("td");
+    test.equal(nodeList.length, 4, 'Asize');
+    testNode = nodeList.item(1);
+    vcolspan = testNode.colSpan;
+    test.equal(vcolspan, 1, "colSpanLink");
+    test.done();
+  },
+
+  /**
+   *
+   The value of attribute height of the tablecell element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83679212
+   */
+  table26: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vheight;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablecell");
+    nodeList = doc.getElementsByTagName("td");
+    test.equal(nodeList.length, 4, 'Asize');
+    testNode = nodeList.item(1);
+    vheight = testNode.height;
+    test.equal(vheight, "50", "heightLink");
+    test.done();
+  },
+
+  /**
+   *
+   Suppress word wrapping.
+   The value of attribute nowrap of the tablecell element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-62922045
+   */
+  table27: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vnowrap;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablecell");
+    nodeList = doc.getElementsByTagName("td");
+    test.equal(nodeList.length, 4, 'Asize');
+    testNode = nodeList.item(1);
+    vnowrap = testNode.noWrap;
+    test.ok(vnowrap, 'nowrapLink');
+    test.done();
+  },
+
+  /**
+   *
+   Number of rows spanned by cell.
+   The value of attribute rowspan of the tablecell element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-48237625
+   */
+  table28: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vrowspan;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablecell");
+    nodeList = doc.getElementsByTagName("td");
+    test.equal(nodeList.length, 4, 'Asize');
+    testNode = nodeList.item(1);
+    vrowspan = testNode.rowSpan;
+    test.equal(vrowspan, 1, "rowSpanLink");
+    test.done();
+  },
+
+  /**
+   *
+   Scope covered by header cells.
+   The value of attribute scope of the tablecell element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-36139952
+   */
+  table29: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vscope;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablecell");
+    nodeList = doc.getElementsByTagName("td");
+    test.equal(nodeList.length, 4, 'Asize');
+    testNode = nodeList.item(1);
+    vscope = testNode.scope;
+    test.equal(vscope, "col", "scopeLink");
+    test.done();
+  },
+
+  /**
+   *
+   List of id attribute values for header cells.
+   The value of attribute headers of the tablecell element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-89104817
+   */
+  table30: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vheaders;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablecell");
+    nodeList = doc.getElementsByTagName("td");
+    test.equal(nodeList.length, 4, 'Asize');
+    testNode = nodeList.item(1);
+    vheaders = testNode.headers;
+    test.equal(vheaders, "header-3", "headersLink");
+    test.done();
+  },
+
+  /**
+   *
+   Vertical alignment of data in cell.
+   The value of attribute valign of the tablecell element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-58284221
+   */
+  table31: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vvalign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablecell");
+    nodeList = doc.getElementsByTagName("td");
+    test.equal(nodeList.length, 4, 'Asize');
+    testNode = nodeList.item(1);
+    vvalign = testNode.vAlign;
+    test.equal(vvalign, "middle", "vAlignLink");
+    test.done();
+  },
+
+  /**
+   *
+   cell width.
+   The value of attribute width of the table element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-27480795
+   */
+  table32: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vwidth;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablecell");
+    nodeList = doc.getElementsByTagName("td");
+    test.equal(nodeList.length, 4, 'Asize');
+    testNode = nodeList.item(1);
+    vwidth = testNode.width;
+    test.equal(vwidth, "175", "vwidthLink");
+    test.done();
+  },
+
+  /**
+   *
+   Specifies the table's position with respect to the rest of the document.
+   The value of attribute align of the table element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-23180977
+   */
+  table33: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var valign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    valign = testNode.align;
+    test.equal(valign, "center", "alignLink");
+    test.done();
+  },
+
+  /**
+   *
+   The width of the border around the table.
+   The value of attribute border of the table element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-50969400
+   */
+  table34: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vborder;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vborder = testNode.border;
+    test.equal(vborder, "4", "borderLink");
+    test.done();
+  },
+
+  /**
+   *
+   Cell background color.
+   The value of attribute bgcolor of the table element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83532985
+   */
+  table35: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vbgcolor;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vbgcolor = testNode.bgColor;
+    test.equal(vbgcolor, "#ff0000", "bgcolorLink");
+    test.done();
+  },
+
+  /**
+   *
+   Specifies which external table borders to render.
+   The value of attribute frame of the table element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-64808476
+   */
+  table36: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vframe;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vframe = testNode.frame;
+    test.equal(vframe, "border", "frameLink");
+    test.done();
+  },
+
+  /**
+   *
+   Specifies the horizontal and vertical space between cell content and cell borders. The value of attribute cellpadding of the table element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-59162158
+   */
+  table37: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vcellpadding;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vcellpadding = testNode.cellPadding;
+    test.equal(vcellpadding, "2", "cellpaddingLink");
+    test.done();
+  },
+
+  /**
+   *
+   Specifies the horizontal and vertical separation between cells.
+   The value of attribute cellspacing of the table element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68907883
+   */
+  table38: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vcellspacing;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vcellspacing = testNode.cellSpacing;
+    test.equal(vcellspacing, "2", "cellspacingLink");
+    test.done();
+  },
+
+  /**
+   *
+   Supplementary description about the purpose or structure of a table.
+   The value of attribute summary of the table element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-44998528
+   */
+  table39: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vsummary;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vsummary = testNode.summary;
+    test.equal(vsummary, "HTML Control Table", "summaryLink");
+    test.done();
+  },
+
+  /**
+   *
+   Specifies which internal table borders to render.
+   The value of attribute rules of the table element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-26347553
+   */
+  table40: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vrules;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vrules = testNode.rules;
+    test.equal(vrules, "all", "rulesLink");
+    test.done();
+  },
+
+  /**
+   *
+   Specifies the desired table width.
+   The value of attribute width of the table element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-77447361
+   */
+  table41: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vwidth;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("table");
+    test.equal(nodeList.length, 3, 'Asize');
+    testNode = nodeList.item(1);
+    vwidth = testNode.width;
+    test.equal(vwidth, "680", "widthLink");
+    test.done();
+  },
+
+  /**
+   *
+   Horizontal alignment of data within cells of this row.
+   The value of attribute align of the tablerow element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-74098257
+   */
+  table42: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var valign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 8, 'Asize');
+    testNode = nodeList.item(1);
+    valign = testNode.align;
+    test.equal(valign, "center", "alignLink");
+    test.done();
+  },
+
+  /**
+   *
+   Background color for rows.
+   The value of attribute bgcolor of the tablerow element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-18161327
+   */
+  table43: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vbgcolor;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 8, 'Asize');
+    testNode = nodeList.item(1);
+    vbgcolor = testNode.bgColor;
+    test.equal(vbgcolor.toLowerCase(), "#00FFFF".toLowerCase(), "bgcolorLink");
+    test.done();
+  },
+
+  /**
+   *
+   Vertical alignment of data within cells of this row.
+   The value of attribute valign of the tablerow element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-90000058
+   */
+  table44: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vvalign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("table");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 8, 'Asize');
+    testNode = nodeList.item(1);
+    vvalign = testNode.vAlign;
+    test.equal(vvalign, "middle", "valignLink");
+    test.done();
+  },
+
+  /**
+   *
+   Alignment character for cells in a column.
+   The value of attribute ch of the tablerow element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-16230502
+   */
+  table45: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vch;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(1);
+    vch = testNode.ch;
+    test.equal(vch, "*", "vchLink");
+    test.done();
+  },
+
+  /**
+   *
+   Offset of alignment character.
+   The value of attribute choff of the tablerow element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68207461
+   */
+  table46: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vchoff;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(1);
+    vchoff = testNode.chOff;
+    test.equal(vchoff, "1", "choffLink");
+    test.done();
+  },
+
+  /**
+   *
+   The index of this row, relative to the entire table.
+   The value of attribute rowIndex of the table element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-67347567
+   */
+  table47: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vrindex;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablerow");
+    nodeList = doc.getElementsByTagName("tr");
+    test.equal(nodeList.length, 5, 'Asize');
+    testNode = nodeList.item(4);
+    vrindex = testNode.rowIndex;
+    test.equal(vrindex, 2, "rowIndexLink");
+    test.done();
+  },
+
+  /**
+   *
+   Horizontal alignment of cell data in column.
+   The value of attribute align of the tablecol element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-74098257
+   */
+  table48: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var valign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablecol");
+    nodeList = doc.getElementsByTagName("col");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    valign = testNode.align;
+    test.equal(valign, "center", "alignLink");
+    test.done();
+  },
+
+  /**
+   *
+   Alignment character for cells in a column.
+   The value of attribute ch of the tablecol element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-16230502
+   */
+  table49: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vch;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablecol");
+    nodeList = doc.getElementsByTagName("col");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vch = testNode.ch;
+    test.equal(vch, "*", "chLink");
+    test.done();
+  },
+
+  /**
+   *
+   Offset of alignment character.
+   The value of attribute choff of the tablecol element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-68207461
+   */
+  table50: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vchoff;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablecol");
+    nodeList = doc.getElementsByTagName("col");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vchoff = testNode.chOff;
+    test.equal(vchoff, "20", "chOffLink");
+    test.done();
+  },
+
+  /**
+   *
+   Indicates the number of columns in a group or affected by a grouping.
+   The value of attribute span of the tablecol element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-96511335
+   */
+  table51: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vspan;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablecol");
+    nodeList = doc.getElementsByTagName("col");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vspan = testNode.span;
+    test.equal(vspan, 1, "spanLink");
+    test.done();
+  },
+
+  /**
+   *
+   Vertical alignment of cell data in column.
+   The value of attribute valign of the tablecol element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-83291710
+   */
+  table52: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vvalign;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablecol");
+    nodeList = doc.getElementsByTagName("col");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vvalign = testNode.vAlign;
+    test.equal(vvalign, "middle", "vAlignLink");
+    test.done();
+  },
+
+  /**
+   *
+   Default column width.
+   The value of attribute width of the tablecol element is read and checked against the expected value.
+   * @author Netscape
+   * @author Sivakiran Tummala
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-25196799
+   */
+  table53: function(test) {
+    var success;
+    var nodeList;
+    var testNode;
+    var vwidth;
+    var doc;
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("tablecol");
+    nodeList = doc.getElementsByTagName("col");
+    test.equal(nodeList.length, 1, 'Asize');
+    testNode = nodeList.item(0);
+    vwidth = testNode.width;
+    test.equal(vwidth, "20", "widthLink");
+    test.done();
+  },
+
+  document_write_before_loaded: function(test) {
+    var anchor, doc, docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("anchor");
+    doc.innerHTML = "<html><body><p><a id='Anchor'>Anchor Text</a></body></html>";
+    anchor = doc.getElementById("Anchor");
+    doc.readyState = 'loading';
+    doc.write("hello world");
+    test.equal(anchor.innerHTML, 'hello world', "#Anchor's innerHTML should be set");
+    test.done();
+  },
+
+  event_default_action: function(test) {
+    var success;
+    var doc;
+    var target;
+    var evt;
+    var preventDefault;
+    var performedDefault = false;
+
+    var docRef = null;
+    if (typeof(this.doc) != 'undefined') {
+      docRef = this.doc;
+    }
+    doc = load("anchor");
+    var a = doc.getElementById("Anchor");
+    a.addEventListener("foo", function() {}, true);
+    evt = doc.createEvent("Events");
+    evt.initEvent("foo",false,false);
+
+    a._eventDefaults['foo'] = function(event) {
+      performedDefault = true;
+    };
+    preventDefault = a.dispatchEvent(evt);
+    test.equal(preventDefault, false, 'preventDefault should be *false*');
+    test.ok(performedDefault, 'performedDefault');
+    test.done();
+  },
+
+  only_special_tags_have_name_and_it_reflects_the_attribute: function(test) {
+    var doc = load("anchor");
+
+    ['a', 'applet', 'button', 'form', 'frame', 'iframe', 'img', 'input', 'map',
+     'meta', 'object', 'param', 'select', 'textarea'].forEach(function (tagName) {
+      var element = doc.createElement(tagName);
+      // http://www.w3.org/html/wg/drafts/html/master/forms.html#attr-fe-name plus
+      // http://www.w3.org/html/wg/drafts/html/master/infrastructure.html#reflect
+      test.strictEqual(element.name, null, '<' + tagName + '> elements should have null name properties by default.');
 
       element.name = 'foo';
       test.strictEqual(element.name, 'foo', '<' + tagName + '> elements should allow setting and retrieving their name properties.');
