@@ -1,0 +1,165 @@
+var AssertionError = require('assert').AssertionError;
+
+var totalTests = 0;
+var failedTests = 0;
+var passedTests = 0;
+var modules = {};
+var currentModule = "";
+var moduleIndex = 0;
+var start;
+var argv;
+
+var runnerHandlers = {
+  moduleStart: function (name) {
+    currentModule = name.replace('.js', '');
+    console.log("running", name, currentModule);
+    modules[currentModule] = {
+      total : 0,
+      fail  : 0,
+      pass  : 0
+    };
+    moduleIndex++;
+  },
+  moduleDone: function (name, assertions) {
+    if (argv['verbose']) {
+      console.log(' ');
+    }
+  },
+  testStart: function (test) {
+    modules[currentModule].total++;
+    if (argv['verbose']) {
+      process.stdout.write('  ' + test[0] + ' ...');
+    }
+  },
+  testDone: function (test, assertions) {
+    if (argv['verbose']) {
+      console.log(' done');
+    }
+    totalTests++;
+    if (!assertions.failures()) {
+      passedTests++;
+      modules[currentModule].pass++;
+    }
+    else {
+      failedTests++;
+      modules[currentModule].fail++;
+
+      console.log('✖ ' + currentModule + '/' + test);
+      assertions.forEach(function (a) {
+        if (a.failed()) {
+          if (a.error instanceof AssertionError) {
+            a = nodeunit.utils.betterErrors(a);
+            if (a.message) {
+                console.log(
+                    'Assertion Message: ' + assertion_message(a.message) + '\n' +
+                    'expected:', a.error.expected, 'got:', a.error.actual
+                 );
+            }
+           } else {
+            if (a.error.expected || a.error.actual) {
+              console.log('\nERROR', a.error.expected, 'vs', a.error.actual, '\n');
+            }
+
+            console.log(a.error.message, a.error.stack, (new Error()).stack);
+           }
+         } else {
+           console.log(a.message);
+         }
+      });
+
+      if (argv['fail-fast']) {
+        process.exit();
+      }
+    }
+  },
+  done: function (assertions) {
+    var end = new Date().getTime();
+    var duration = end - start;
+    var maxWidths = {
+      name   : 0,
+      ratio   : 0,
+      percent : 4
+    };
+    var width = 0;
+    var keys = Object.keys(modules);
+
+    var calculateMax = function(name, value) {
+      if (!maxWidths[name] || value.length > maxWidths[name]) {
+          maxWidths[name] = value.length;
+      }
+
+      width = 2;
+      Object.keys(maxWidths).forEach(function(v) {
+        width += maxWidths[v] + 2;
+      });
+    }
+
+    var pad = function(name, value, rightJustified) {
+      var ret = '';
+      var padding = '';
+
+      var amount = maxWidths[name] - value.length;
+      while(amount--) {
+          padding += " ";
+      }
+
+      if (rightJustified) {
+        return ' ' + padding + value + '     ';
+      } else {
+        return ' ' + value + padding + '     ';
+      }
+    }
+
+    // First pass, calculate the max widths
+    keys.forEach(function(v) {
+       var module = modules[v];
+       var ratio  = module.pass + '/' + module.total;
+       var percentage = Math.floor((module.pass/module.total)*100) + '%';
+       modules[v].ratio = ratio;
+       modules[v].percentage = percentage;
+       calculateMax('name', v);
+       calculateMax('ratio', ratio);
+       calculateMax('percentage', percentage);
+    });
+
+    var caps = '';
+    var gen = width;
+
+    while(gen--) {
+      caps += '-';
+    }
+
+    console.log('');
+    Object.keys(modules).forEach(function(v) {
+       var module = modules[v];
+       process.stdout.write(pad('name', v, false));
+       process.stdout.write(pad('ratio', module.ratio, true));
+       process.stdout.write(pad('percentage', module.percentage, true));
+       process.stdout.write('\n');
+    });
+    console.log(caps);
+    var ratio = failedTests + '/' + totalTests;
+    var percent = 0;
+    if (totalTests === 0) {
+      percent = '100%';
+    } else {
+      percent = Math.floor((passedTests/totalTests)*100) + '%';
+    }
+    console.log('TOTALS: %s failed; %s success', ratio, percent);
+    console.log('TIME: %dms', duration);
+
+    if (passedTests !== totalTests) {
+      process.exit(1);
+    }
+
+  }
+};
+
+module.exports = function (runner, args) {
+  argv = args;
+  start = new Date().getTime();
+
+  Object.keys(runnerHandlers).forEach(function (event) {
+    runner.on(event, runnerHandlers[event]);
+  });
+};
