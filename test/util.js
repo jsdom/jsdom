@@ -26,8 +26,10 @@ exports.toPathname = function (dirname) {
   };
 };
 
-exports.load = function (dirname) {
+exports.load = function (dirname, level) {
   var fileCache = Object.create(null);
+
+  level = level ? level : null;
 
   return function (name, options) {
     options = options || {};
@@ -39,7 +41,7 @@ exports.load = function (dirname) {
     }
 
     var contents = fileCache[file] || fs.readFileSync(file, 'utf8');
-    var doc = jsdom.jsdom(null, null, options);
+    var doc = jsdom.jsdom(null, level, options);
     var window = doc.createWindow();
 
     doc.parent = window;

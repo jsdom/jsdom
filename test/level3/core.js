@@ -601,10 +601,10 @@ exports.tests = {
         severity = error.severity;
 
 
-	if(
-	  (2 == severity)
-	) {
-	  location = error.location;
+  if(
+    (2 == severity)
+  ) {
+    location = error.location;
 
           problemNode = location.relatedNode;
 
@@ -627,7 +627,7 @@ exports.tests = {
           message = error.message;
 
           length = message.length;
-      	  test.ok((length > 0), 'messageNotEmpty');
+          test.ok((length > 0), 'messageNotEmpty');
           type = error.type;
 
           relatedData = error.relatedData;
@@ -636,12 +636,12 @@ exports.tests = {
 
           errorCount += 1;
 
-	}
+  }
 
-	else {
-	  test.equal(severity, 1, 'anyOthersShouldBeWarnings');
+  else {
+    test.equal(severity, 1, 'anyOthersShouldBeWarnings');
 
-	}
+  }
 
       }
       test.equal(errorCount, 1, 'oneError');
@@ -783,9 +783,9 @@ exports.tests = {
       domConfig.setParameter("error-handler", errorMonitor.handleError);
 
       if(
-	(getImplementationAttribute("ignoringElementContentWhitespace") == true)
+  (getImplementationAttribute("ignoringElementContentWhitespace") == true)
       ) {
-	bodyList = doc.getElementsByTagName("body");
+  bodyList = doc.getElementsByTagName("body");
         body = bodyList.item(0);
         child = body.firstChild;
 
@@ -1293,10 +1293,10 @@ exports.tests = {
         severity = error.severity;
 
 
-	if(
-	  (2 == severity)
-	) {
-	  errorCount += 1;
+  if(
+    (2 == severity)
+  ) {
+    errorCount += 1;
           errorType = error.type;
 
           test.equal(errorType, "check-character-normalization-failure", 'errorType');
@@ -1306,7 +1306,7 @@ exports.tests = {
 
           test.equal(relatedNode, text, 'relatedNodeSame');
 
-	}
+  }
 
       }
       test.equal(errorCount, 1, 'oneError');
@@ -2576,9 +2576,9 @@ exports.tests = {
 
 
       if(
-	("Y" == firstChildValue)
+  ("Y" == firstChildValue)
       ) {
-	secondChild = firstChild.nextSibling;
+  secondChild = firstChild.nextSibling;
 
         test.notEqual(secondChild, null, 'secondChildNotNull');
         secondChildType = secondChild.nodeType;
@@ -2591,7 +2591,7 @@ exports.tests = {
       }
 
       else {
-	test.equal(nodeValue, "Yα", 'documentadoptnode01_nodeValue');
+  test.equal(nodeValue, "Yα", 'documentadoptnode01_nodeValue');
 
       }
 
@@ -2676,9 +2676,9 @@ exports.tests = {
 
 
       if(
-	("Y" == firstChildValue)
+  ("Y" == firstChildValue)
       ) {
-	secondChild = firstChild.nextSibling;
+  secondChild = firstChild.nextSibling;
 
         test.notEqual(secondChild, null, 'secondChildNotNull');
         secondChildType = secondChild.nodeType;
@@ -2691,7 +2691,7 @@ exports.tests = {
       }
 
       else {
-	test.equal(nodeValue, "Yα", 'documentadoptnode02_nodeValue');
+  test.equal(nodeValue, "Yα", 'documentadoptnode02_nodeValue');
 
       }
 
@@ -3012,7 +3012,7 @@ exports.tests = {
   /**
    *
    Invoke the adoptNode method on this document with a new document as the value of the
-   source parameter. 	Verify if a NOT_SUPPORTED_ERR is thrown.
+   source parameter.  Verify if a NOT_SUPPORTED_ERR is thrown.
 
    * @author IBM
    * @author Neil Delima
@@ -3057,7 +3057,7 @@ exports.tests = {
   /**
    *
    Invoke the adoptNode method on a new document with this document as the value of the
-   source parameter. 	Verify if a NOT_SUPPORTED_ERR is thrown.
+   source parameter.  Verify if a NOT_SUPPORTED_ERR is thrown.
 
    * @author IBM
    * @author Neil Delima
@@ -3427,14 +3427,14 @@ exports.tests = {
 
 
       if(
-	(5 == firstChildType)
+  (5 == firstChildType)
       ) {
-	test.equal(firstChildName, "gamma", 'firstChildEnt3Ref');
+  test.equal(firstChildName, "gamma", 'firstChildEnt3Ref');
 
       }
 
       else {
-	test.equal(firstChildValue, "Texas", 'documentadoptnode16');
+  test.equal(firstChildValue, "Texas", 'documentadoptnode16');
 
       }
 
@@ -4352,10 +4352,10 @@ exports.tests = {
 
       if(
 
-	(adoptedPI2 != null)
+  (adoptedPI2 != null)
 
       ) {
-	piTarget = adoptedPI1.target;
+  piTarget = adoptedPI1.target;
 
         piData = adoptedPI1.data;
 
@@ -5273,9 +5273,9 @@ exports.tests = {
 
 
       if(
-	(2 == severity)
+  (2 == severity)
       ) {
-	location = error.location;
+  location = error.location;
 
         problemNode = location.relatedNode;
 
@@ -5298,7 +5298,7 @@ exports.tests = {
         message = error.message;
 
         length = message.length;
-      	test.ok((length > 0), 'messageNotEmpty');
+        test.ok((length > 0), 'messageNotEmpty');
         type = error.type;
 
         relatedData = error.relatedData;
@@ -5310,7 +5310,7 @@ exports.tests = {
       }
 
       else {
-	test.equal(severity, 1, 'anyOthersShouldBeWarnings');
+  test.equal(severity, 1, 'anyOthersShouldBeWarnings');
 
       }
 
@@ -5402,17 +5402,17 @@ exports.tests = {
         severity = error.severity;
 
 
-	if(
-	  ("cdata-sections-splitted" == type)
-	) {
-	  relatedData = error.relatedData;
+  if(
+    ("cdata-sections-splitted" == type)
+  ) {
+    relatedData = error.relatedData;
 
           test.equal(relatedData, newChild, 'relatedData');
           test.equal(severity, 1, 'severity');
           message = error.message;
 
           length = message.length;
-      	  test.ok((length > 0), 'messageNotEmpty');
+          test.ok((length > 0), 'messageNotEmpty');
           relatedException = error.relatedException;
 
           location = error.location;
@@ -5432,12 +5432,12 @@ exports.tests = {
 
           splittedCount += 1;
 
-	}
+  }
 
-	else {
-	  test.equal(severity, 1, 'anyOthersShouldBeWarnings');
+  else {
+    test.equal(severity, 1, 'anyOthersShouldBeWarnings');
 
-	}
+  }
 
       }
       test.equal(splittedCount, 1, 'oneSplittedWarning');
@@ -5516,9 +5516,9 @@ exports.tests = {
 
 
       if(
-	(2 == severity)
+  (2 == severity)
       ) {
-	location = error.location;
+  location = error.location;
 
         problemNode = location.relatedNode;
 
@@ -5536,7 +5536,7 @@ exports.tests = {
         message = error.message;
 
         length = message.length;
-      	test.ok((length > 0), 'messageNotEmpty');
+        test.ok((length > 0), 'messageNotEmpty');
         type = error.type;
 
         relatedData = error.relatedData;
@@ -5548,7 +5548,7 @@ exports.tests = {
       }
 
       else {
-	test.equal(severity, 1, 'anyOthersShouldBeWarnings');
+  test.equal(severity, 1, 'anyOthersShouldBeWarnings');
 
       }
 
@@ -5610,14 +5610,14 @@ exports.tests = {
 
 
       if(
-	("cdata-sections-splitted" == type)
+  ("cdata-sections-splitted" == type)
       ) {
-	splittedCount += 1;
+  splittedCount += 1;
 
       }
 
       else {
-	test.equal(severity, 1, 'anyOthersShouldBeWarnings');
+  test.equal(severity, 1, 'anyOthersShouldBeWarnings');
 
       }
 
@@ -5917,9 +5917,9 @@ exports.tests = {
 
 
       if(
-	(2 == severity)
+  (2 == severity)
       ) {
-	location = error.location;
+  location = error.location;
 
         problemNode = location.relatedNode;
 
@@ -5942,7 +5942,7 @@ exports.tests = {
         message = error.message;
 
         length = message.length;
-      	test.ok((length > 0), 'messageNotEmpty');
+        test.ok((length > 0), 'messageNotEmpty');
         type = error.type;
 
         relatedData = error.relatedData;
@@ -5954,7 +5954,7 @@ exports.tests = {
       }
 
       else {
-	test.equal(severity, 1, 'anyOthersShouldBeWarnings');
+  test.equal(severity, 1, 'anyOthersShouldBeWarnings');
 
       }
 
@@ -6362,14 +6362,14 @@ exports.tests = {
       qualifiedName = qualifiedNames[indexN10060];
 
       {
-	success = false;
-	try {
+  success = false;
+  try {
           renamedNode = doc.renameNode(textNode,"http://www.w3.org/XML/1998/namespace",qualifiedName);
         }
-	catch(ex) {
+  catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-	}
-	test.ok(success, 'documentrenamenode10_NOT_SUPPORTED_ERR');
+  }
+  test.ok(success, 'documentrenamenode10_NOT_SUPPORTED_ERR');
       }
 
     }
@@ -6757,14 +6757,14 @@ exports.tests = {
       qualifiedName = qualifiedNames[indexN1006C];
 
       {
-	success = false;
-	try {
+  success = false;
+  try {
           renamedNode = doc.renameNode(element,"http://www.w3.org/2000/XMLNS",qualifiedName);
         }
-	catch(ex) {
+  catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 14);
-	}
-	test.ok(success, 'documentrenamenode19_NAMESPACE_ERR');
+  }
+  test.ok(success, 'documentrenamenode19_NAMESPACE_ERR');
       }
 
     }
@@ -7520,15 +7520,15 @@ exports.tests = {
       versionValue = illegalVersion[indexN10087];
 
       {
-	success = false;
-	try {
+  success = false;
+  try {
           doc.xmlVersion = versionValue;
 
         }
-	catch(ex) {
+  catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-	}
-	test.ok(success, 'NOT_SUPPORTED_ERR_documentsetversion01');
+  }
+  test.ok(success, 'NOT_SUPPORTED_ERR_documentsetversion01');
       }
 
     }
@@ -7777,14 +7777,14 @@ exports.tests = {
     else {
 
       {
-	success = false;
-	try {
+  success = false;
+  try {
           domConfig.setParameter(parameter, true);
-	}
-	catch(ex) {
+  }
+  catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-	}
-	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
+  }
+  test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
       test.equal(state, false, 'setTrueNotEffective');
@@ -7869,14 +7869,14 @@ exports.tests = {
     else {
 
       {
-	success = false;
-	try {
+  success = false;
+  try {
           domConfig.setParameter(parameter, true);
-	}
-	catch(ex) {
+  }
+  catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-	}
-	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
+  }
+  test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
       test.equal(state, false, 'setTrueNotEffective');
@@ -7961,14 +7961,14 @@ exports.tests = {
     else {
 
       {
-	success = false;
-	try {
+  success = false;
+  try {
           domConfig.setParameter(parameter, false);
-	}
-	catch(ex) {
+  }
+  catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-	}
-	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
+  }
+  test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
       test.ok(state, 'setFalseNotEffective');
@@ -8219,14 +8219,14 @@ exports.tests = {
     else {
 
       {
-	success = false;
-	try {
+  success = false;
+  try {
           domConfig.setParameter(parameter, false);
-	}
-	catch(ex) {
+  }
+  catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-	}
-	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
+  }
+  test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
       test.ok(state, 'setFalseNotEffective');
@@ -8298,14 +8298,14 @@ exports.tests = {
     else {
 
       {
-	success = false;
-	try {
+  success = false;
+  try {
           domConfig.setParameter(parameter, true);
-	}
-	catch(ex) {
+  }
+  catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-	}
-	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
+  }
+  test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
       test.equal(state, false, 'setTrueNotEffective');
@@ -8366,10 +8366,10 @@ exports.tests = {
 
       if(
 
-	(("canonical-form".toUpperCase() == parameterName.toUpperCase()) || ("cdata-sections".toUpperCase() == parameterName.toUpperCase()) || ("check-character-normalization".toUpperCase() == parameterName.toUpperCase()) || ("comments".toUpperCase() == parameterName.toUpperCase()) || ("datatype-normalization".toUpperCase() == parameterName.toUpperCase()) || ("entities".toUpperCase() == parameterName.toUpperCase()) || ("error-handler".toUpperCase() == parameterName.toUpperCase()) || ("infoset".toUpperCase() == parameterName.toUpperCase()) || ("namespaces".toUpperCase() == parameterName.toUpperCase()) || ("namespace-declarations".toUpperCase() == parameterName.toUpperCase()) || ("normalize-characters".toUpperCase() == parameterName.toUpperCase()) || ("split-cdata-sections".toUpperCase() == parameterName.toUpperCase()) || ("validate".toUpperCase() == parameterName.toUpperCase()) || ("validate-if-schema".toUpperCase() == parameterName.toUpperCase()) || ("well-formed".toUpperCase() == parameterName.toUpperCase()) || ("element-content-whitespace".toUpperCase() == parameterName.toUpperCase()))
+  (("canonical-form".toUpperCase() == parameterName.toUpperCase()) || ("cdata-sections".toUpperCase() == parameterName.toUpperCase()) || ("check-character-normalization".toUpperCase() == parameterName.toUpperCase()) || ("comments".toUpperCase() == parameterName.toUpperCase()) || ("datatype-normalization".toUpperCase() == parameterName.toUpperCase()) || ("entities".toUpperCase() == parameterName.toUpperCase()) || ("error-handler".toUpperCase() == parameterName.toUpperCase()) || ("infoset".toUpperCase() == parameterName.toUpperCase()) || ("namespaces".toUpperCase() == parameterName.toUpperCase()) || ("namespace-declarations".toUpperCase() == parameterName.toUpperCase()) || ("normalize-characters".toUpperCase() == parameterName.toUpperCase()) || ("split-cdata-sections".toUpperCase() == parameterName.toUpperCase()) || ("validate".toUpperCase() == parameterName.toUpperCase()) || ("validate-if-schema".toUpperCase() == parameterName.toUpperCase()) || ("well-formed".toUpperCase() == parameterName.toUpperCase()) || ("element-content-whitespace".toUpperCase() == parameterName.toUpperCase()))
 
       ) {
-	matchCount += 1;
+  matchCount += 1;
 
       }
 
@@ -8491,14 +8491,14 @@ exports.tests = {
     else {
 
       {
-	success = false;
-	try {
+  success = false;
+  try {
           domConfig.setParameter(parameter, dtdType);
-	}
-	catch(ex) {
+  }
+  catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-	}
-	test.ok(success, 'throw_NOT_SUPPORTED_ERR_dtd');
+  }
+  test.ok(success, 'throw_NOT_SUPPORTED_ERR_dtd');
       }
 
     }
@@ -8516,14 +8516,14 @@ exports.tests = {
     else {
 
       {
-	success = false;
-	try {
+  success = false;
+  try {
           domConfig.setParameter(parameter, xmlSchemaType);
-	}
-	catch(ex) {
+  }
+  catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-	}
-	test.ok(success, 'throw_NOT_SUPPORTED_ERR_schema');
+  }
+  test.ok(success, 'throw_NOT_SUPPORTED_ERR_schema');
       }
 
     }
@@ -8741,7 +8741,7 @@ exports.tests = {
 
    The parameter element-content-whitespace is turned on by default. Set this parameter to false will
    discard all Text nodes that contain whitespaces in element content, as described in [element content whitespace].
-   Check to see if this feature can be set	to false by invoking canSetParameter method.  Verify that the text node
+   Check to see if this feature can be set  to false by invoking canSetParameter method.  Verify that the text node
    still exist after invoking canSetParameter.
 
    * @author IBM
@@ -8892,14 +8892,14 @@ exports.tests = {
     else {
 
       {
-	success = false;
-	try {
+  success = false;
+  try {
           domConfig.setParameter(parameter, true);
-	}
-	catch(ex) {
+  }
+  catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-	}
-	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
+  }
+  test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
       test.equal(state, false, 'setTrueNotEffective');
@@ -8949,14 +8949,14 @@ exports.tests = {
     else {
 
       {
-	success = false;
-	try {
+  success = false;
+  try {
           domConfig.setParameter(parameter, true);
-	}
-	catch(ex) {
+  }
+  catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-	}
-	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
+  }
+  test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
       test.equal(state, false, 'setTrueNotEffective');
@@ -9006,14 +9006,14 @@ exports.tests = {
     else {
 
       {
-	success = false;
-	try {
+  success = false;
+  try {
           domConfig.setParameter(parameter, false);
-	}
-	catch(ex) {
+  }
+  catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-	}
-	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
+  }
+  test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
       test.ok(state, 'setFalseNotEffective');
@@ -13120,14 +13120,11 @@ exports.tests = {
 
     docComp = hc_staff.hc_staff();
     documentPosition1 = doc.compareDocumentPosition(docComp);
-    test.equal(documentPosition1, 37, 'isImplSpecificDisconnected1');
+    test.equal(documentPosition1, 33, 'isImplSpecificDisconnected1');
     documentPosition2 = docComp.compareDocumentPosition(doc);
-
-    // Following two tests not supported by the spec
-    // test.notEqual(documentPosition2, documentPosition1, 'notBothPreceding');
-    // test.notEqual(documentPosition2, documentPosition1, 'notBothFollowing');
-
-    test.equal(documentPosition2, 37, 'isImplSpecificDisconnected2');
+    test.notEqual(documentPosition2, documentPosition1, 'notBothPreceding');
+    test.notEqual(documentPosition2, documentPosition1, 'notBothFollowing');
+    test.equal(documentPosition2, 33, 'isImplSpecificDisconnected2');
     documentPosition3 = doc.compareDocumentPosition(docComp);
     test.equal(documentPosition3, documentPosition1, 'isConsistent');
 
@@ -13178,7 +13175,7 @@ exports.tests = {
     var rootNS;
     var docElem;
 
-    doc = hc_staff.hc_staff();
+    doc = barfoo.barfoo();
     docElem = doc.documentElement;
 
     rootName = docElem.tagName;
@@ -13188,14 +13185,11 @@ exports.tests = {
     domImpl = doc.implementation;
     newDoc = domImpl.createDocument(rootNS,rootName,nullDocType);
     documentPosition1 = doc.compareDocumentPosition(newDoc);
-    test.equal(documentPosition1, 37, 'isImplSpecificDisconnected1');
+    test.equal(documentPosition1, 33, 'isImplSpecificDisconnected1');
     documentPosition2 = newDoc.compareDocumentPosition(doc);
-    test.equal(documentPosition2, 37, 'isImplSpecificDisconnected2');
-
-    // The following two tests do not appear to be supported by the spec
-    // test.notEqual(documentPosition2, documentPosition1, 'notBothPreceding');
-    // test.notEqual(documentPosition2, documentPosition1, 'notBothFollowing');
-
+    test.equal(documentPosition2, 33, 'isImplSpecificDisconnected2');
+    test.notEqual(documentPosition2, documentPosition1, 'notBothPreceding');
+    test.notEqual(documentPosition2, documentPosition1, 'notBothFollowing');
     documentPosition3 = doc.compareDocumentPosition(newDoc);
     test.equal(documentPosition3, documentPosition1, 'isConsistent');
 
@@ -13442,7 +13436,7 @@ exports.tests = {
 
   /**
    *
-   Using compareDocumentPosition check if the DocumentFragment node contains and precedes 	an Element
+   Using compareDocumentPosition check if the DocumentFragment node contains and precedes   an Element
    node appended to it, and that the Element node is contained and follows the DocumentFragment node.
 
    * @author IBM
@@ -13538,12 +13532,11 @@ exports.tests = {
     attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
     attrCloned = attr.cloneNode(true);
     position1 = docFrag.compareDocumentPosition(attrCloned);
-    test.equal(position1, 37, 'isImplSpecificDisconnected1');
+    test.equal(position1, 33, 'isImplSpecificDisconnected1');
     position2 = attrCloned.compareDocumentPosition(docFrag);
-    // The following two tests appear unsupported by the spec
-    // test.notEqual(position2, position1, 'notBothPreceding');
-    // test.notEqual(position2, position1, 'notBothFollowing');
-    test.equal(position2, 37, 'isImplSpecificDisconnected2');
+    test.notEqual(position2, position1, 'notBothPreceding');
+    test.notEqual(position2, position1, 'notBothFollowing');
+    test.equal(position2, 33, 'isImplSpecificDisconnected2');
     position3 = docFrag.compareDocumentPosition(attrCloned);
     test.equal(position3, position1, 'isConsistent');
 
@@ -13624,13 +13617,11 @@ exports.tests = {
    of the second element whose localName is name compared with the second CDATASection node
    is PRECEDING and is FOLLOWING vice versa.
 
-   This test is removed because it relies on obsolete node types (CDATA_SECTION Nodes)
-
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  /*nodecomparedocumentposition19: function (test) {
+  nodecomparedocumentposition19: function (test) {
     var success;
     var doc;
     var elemList;
@@ -13656,7 +13647,7 @@ exports.tests = {
     test.equal(cdata2Position, 2, 'nodecomparedocumentposition_cdata1Precedes');
 
     test.done()
-  },*/
+  },
 
   /**
    *
@@ -13664,13 +13655,11 @@ exports.tests = {
    of the second element whose localName is name compared with the next CDATASection node
    is PRECEDING and FOLLOWING vice versa.
 
-   This test is removed because it relies on obsolete node type (CDATA_SECTION nodes)
-
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  /*nodecomparedocumentposition20: function (test) {
+  nodecomparedocumentposition20: function (test) {
     var success;
     var doc;
     var elemList;
@@ -13693,7 +13682,7 @@ exports.tests = {
     test.equal(cdataPosition, 2, 'nodecomparedocumentpositionPRECEDING20');
 
     test.done()
-  },*/
+  },
 
   /**
    *
@@ -13738,13 +13727,11 @@ exports.tests = {
    Using compareDocumentPosition check if the Entity node precedes the Notation node and the Notation
    node follows the Entity node.
 
-   This test is removed because it relies on Obsolete node types (NOTATION and ENTITY nodes)
-
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  /*(nodecomparedocumentposition22: function (test) {
+  nodecomparedocumentposition22: function (test) {
     var success;
     var doc;
     var docType;
@@ -13770,20 +13757,18 @@ exports.tests = {
     test.equal(notationPosition, 2, 'nodecomparedocumentpositionPRECEDING22');
 
     test.done()
-  },*/
+  },
 
   /**
    *
    Using compareDocumentPosition check if the document position of an Entity node compared to another
    Entity node following it in DocumentType is implementation specific.
 
-   This test is removed because it relies on obsolete node types
-
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  /*nodecomparedocumentposition23: function (test) {
+  nodecomparedocumentposition23: function (test) {
     var success;
     var doc;
     var docType;
@@ -13811,20 +13796,18 @@ exports.tests = {
     test.equal(position3, position1, 'isConsistent');
 
     test.done()
-  },*/
+  },
 
   /**
    *
    Using compareDocumentPosition check if the return value of document position of a Notation node compared to another
    that is the same is not flagged.
 
-   This test is removed because it relies on obsolete node types.
-
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  /*nodecomparedocumentposition24: function (test) {
+  nodecomparedocumentposition24: function (test) {
     var success;
     var doc;
     var docType;
@@ -13844,7 +13827,7 @@ exports.tests = {
     test.equal(notationPosition, 0, 'nodecomparedocumentposition24');
 
     test.done()
-  },*/
+  },
 
   /**
    *
@@ -13852,13 +13835,11 @@ exports.tests = {
    parent Element node, and that the Element node contains and precedes the
    EntityReference or Text node.
 
-   This test is removed because it relies on an obsolete node type (ENTITY_REFERENCE)
-
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  /*nodecomparedocumentposition25: function (test) {
+  nodecomparedocumentposition25: function (test) {
     var success;
     var doc;
     var elemList;
@@ -13878,19 +13859,18 @@ exports.tests = {
     test.equal(entRefPosition, 10, 'nodecomparedocumentpositionContainsPRECEDING25');
 
     test.done()
-  },*/
+  },
 
   /**
    *
    Using compareDocumentPosition check if the EntityReference node contains and precedes it's first
    childElement, and that the childElement is contained and follows the EntityReference node.
 
-   This test is removed because it relies on an obsolete node type (ENTITY_REFERENCE)
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  /*nodecomparedocumentposition26: function (test) {
+  nodecomparedocumentposition26: function (test) {
     var success;
     var doc;
     var varList;
@@ -13927,20 +13907,18 @@ exports.tests = {
     test.equal(entRefChild1Position, 10, 'nodecomparedocumentpositionContainsPRECEDING26');
 
     test.done()
-  },*/
+  },
 
   /**
    *
    Using compareDocumentPosition to check if the EntityReference node contains and precedes it's last
    childElement, and that this childElement is contained and follows the EntityReference node.
 
-   This test is removed because it relies on an obsolete node type
-
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  /*nodecomparedocumentposition27: function (test) {
+  nodecomparedocumentposition27: function (test) {
     var success;
     var doc;
     var varList;
@@ -13977,7 +13955,7 @@ exports.tests = {
     test.equal(entRefChild1Position, 10, 'nodecomparedocumentpositionContainsPRECEDING');
 
     test.done()
-  },*/
+  },
 
   /**
    *
@@ -13985,13 +13963,11 @@ exports.tests = {
    first child and last child.  Invoke compareDocumentPositon on first child with last child as a parameter
    should return FOLLOWING, and should return PRECEDING vice versa.
 
-   This test is removed because it relies on an obsolete node type (ENTITY_REFERENCE)
-
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  /*nodecomparedocumentposition28: function (test) {
+  nodecomparedocumentposition28: function (test) {
     var success;
     var doc;
     var varList;
@@ -14032,7 +14008,7 @@ exports.tests = {
     test.equal(entRefChild2Position, 2, 'nodecomparedocumentpositionPRECEDING28');
 
     test.done()
-  },*/
+  },
 
   /**
    *
@@ -14040,13 +14016,11 @@ exports.tests = {
    Ref node precedes the child of the second Entity Ref node, and that the child of the second Entity Ref node
    follows the child of the first Entity Ref node.
 
-   This test is removed because it relies on an obsolete node type
-
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  /*nodecomparedocumentposition29: function (test) {
+  nodecomparedocumentposition29: function (test) {
     var success;
     var doc;
     var docElem;
@@ -14077,7 +14051,7 @@ exports.tests = {
     test.equal(entRefChild2Position, 2, 'nodecomparedocumentpositionPRECEDING29');
 
     test.done()
-  },*/
+  },
 
   /**
    *
@@ -14208,16 +14182,11 @@ exports.tests = {
     position5 = attr.compareDocumentPosition(elem);
     test.equal(position5, 10, 'nodecomparedocumentposition4ContainsPRECEDING33');
     position1 = doc.compareDocumentPosition(elem);
-    test.equal(position1, 37, 'isImplSpecificDisconnected1');
+    test.equal(position1, 33, 'isImplSpecificDisconnected1');
     position2 = elem.compareDocumentPosition(doc);
-
-    // These two tests do not appear to be supported by the spec.
-    // See http://dom.spec.whatwg.org/#dom-node-comparedocumentposition
-    // step 3
-    //test.notEqual(position2, position1, 'notBothPreceding');
-    //test.notEqual(position2, position1, 'notBothFollowing');
-
-    test.equal(position2, 37, 'isImplSpecificDisconnected2');
+    test.notEqual(position2, position1, 'notBothPreceding');
+    test.notEqual(position2, position1, 'notBothFollowing');
+    test.equal(position2, 33, 'isImplSpecificDisconnected2');
     position3 = doc.compareDocumentPosition(elem);
     test.equal(position3, position1, 'isConsistent');
 
@@ -14266,13 +14235,11 @@ exports.tests = {
    Using compareDocumentPosition to check if the Element contains and precedes its default attribute
    and that the attribute follows and iscontained by the Element
 
-   This test is removed because Attribute no longer inherits from Node
-
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  /*nodecomparedocumentposition35: function (test) {
+  nodecomparedocumentposition35: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14291,7 +14258,7 @@ exports.tests = {
     test.equal(attrPosition, 10, 'nodecomparedocumentpositionPRECEDINGContains35');
 
     test.done()
-  },*/
+  },
 
   /**
    *
@@ -14299,13 +14266,11 @@ exports.tests = {
    the element that follows its parent as a parameter is FOLLOWING, and is PRECEDING
    vice versa.
 
-   This test is removed because attribute no longer inherits from node
-
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  /*nodecomparedocumentposition36: function (test) {
+  nodecomparedocumentposition36: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14329,7 +14294,7 @@ exports.tests = {
     test.equal(elemFollowsPosition, 2, 'nodecomparedocumentpositionPRECEEDING36');
 
     test.done()
-  },*/
+  },
 
   /**
    *
@@ -14337,13 +14302,11 @@ exports.tests = {
    of the element acronym when compared with the elements text content as a parameter is
    is FOLLOWING, and is PRECEDING vice versa.
 
-   This test is removed because Attribute no longer inherits from Node
-
    * @author IBM
    * @author Neil Delima
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  /*nodecomparedocumentposition37: function (test) {
+  nodecomparedocumentposition37: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14365,20 +14328,18 @@ exports.tests = {
     test.equal(txtPosition, 2, 'nodecomparetreepositionPRECEDING37');
 
     test.done()
-  },*/
+  },
 
   /**
    *
    Using compareDocumentPosition to check if the class's attribute contains and precedes it's content,
    and the content node is contained and follows the attribute node.
 
-   This test is removed because Attribute no longer inherits from Node
-
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  /*nodecomparedocumentposition38: function (test) {
+  nodecomparedocumentposition38: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14399,20 +14360,18 @@ exports.tests = {
     test.equal(attrChildPosition, 10, 'nodecomparedocumentpositionContainsPRECEDING38');
 
     test.done()
-  },*/
+  },
 
   /**
    *
    Using compareDocumentPosition to check if the document position of the class's attribute
    when compared with the local1 attribute node is implementation_specific.
 
-   This test is removed because Attribute no longer inherits from Node
-
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  /*nodecomparedocumentposition39: function (test) {
+  nodecomparedocumentposition39: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14436,20 +14395,18 @@ exports.tests = {
     test.notEqual(attrPosition, swappedPosition, 'onlyOneFollowing');
 
     test.done()
-  },*/
+  },
 
   /**
    *
    Using compareDocumentPosition to check if the document position of the class's attribute
    when compared with a new attribute node is implementation_specific
 
-   This test is removed because Attribute no longer inherits from Node
-
    * @author IBM
    * @author Jenny Hsu
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core#Node3-compareDocumentPosition
    */
-  /*nodecomparedocumentposition40: function (test) {
+  nodecomparedocumentposition40: function (test) {
     var success;
     var doc;
     var elemList;
@@ -14474,7 +14431,7 @@ exports.tests = {
     test.notEqual(attrPosition, swappedPosition, 'onlyOneFollowing');
 
     test.done()
-  },*/
+  },
 
   /**
    *
@@ -21876,14 +21833,14 @@ exports.tests = {
     ) {
 
       {
-	success = false;
-	try {
+  success = false;
+  try {
           removedNode = child.removeChild(entRefChild);
         }
-	catch(ex) {
+  catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-	}
-	test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
+  }
+  test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
       }
 
     }
@@ -22475,14 +22432,14 @@ exports.tests = {
     ) {
 
       {
-	success = false;
-	try {
+  success = false;
+  try {
           removedNode = child.removeChild(entRefChild);
         }
-	catch(ex) {
+  catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-	}
-	test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
+  }
+  test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
       }
 
     }
@@ -28479,9 +28436,9 @@ exports.tests = {
       test.equal(notification.data, xs[notification.key], 'notification.data should be '+xs[notification.key]);
       test.equal(notification.src, node, 'srcIsNode')
       if (notification.dst == null) {
-	test.equal(newNode, node, 'ifDstNullRenameMustReuseNode');
+  test.equal(newNode, node, 'ifDstNullRenameMustReuseNode');
       } else {
-	test.equal(notification.dst, newNode, 'dstIsNewNode');
+  test.equal(notification.dst, newNode, 'dstIsNewNode');
       }
       cs[notification.key] += 1;
     });
@@ -28913,7 +28870,6 @@ exports.tests = {
     test.done()
   },
 
-
   /**
    * Ensure that the DOCUMENT_POSITION_DISCONNECTED 'constant' is a property of the Node constructor
    * @author Andrew Smith
@@ -28930,7 +28886,7 @@ exports.tests = {
    * @see http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#ID-1950641247
    */
   documentPositionConstants02: function (test) {
-    test.equal(core.Node.DOCUMENT_POSITION_PRECEEDING, 0x02);
+    test.equal(core.Node.DOCUMENT_POSITION_PRECEDING, 0x02);
     test.done();
   },
 
@@ -28968,357 +28924,4 @@ exports.tests = {
     test.equal(core.Node.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC, 0x20);
     test.done();
   },
-
-  /**
-   * Check that a Document contains its DocumentType and that the DocumentType does not contain its Document
-   * @author Andrew Smith
-   * @see http://dom.spec.whatwg.org/#dom-node-contains
-   *
-   */
-  nodeContains01: function (test) {
-    var doc = hc_staff.hc_staff(),
-        doctype = doc.doctype;
-
-    test.ok(doc.contains(doctype), 'Document contains its DocumentType');
-    test.ok(!doctype.contains(doc), 'DocumentType does not contain its Document');
-    test.done();
-  },
-
-  /**
-   * Check that a Document is an inclusive descendant of itself
-   * @author Andrew Smith
-   * @see http://dom.spec.whatwg.org/#dom-node-contains
-   * @see http://dom.spec.whatwg.org/#concept-tree-inclusive-descendant
-   */
-  nodeContains02: function (test) {
-    var doc = hc_staff.hc_staff();
-    test.ok(doc.contains(doc), 'Document contains itself');
-    test.done();
-  },
-
-
-  /**
-   * Check that a Document contains its DocumentElement and that the DocumentElement does not
-   * contain the Document
-   * @author Andrew Smith
-   * @see http://dom.spec.whatwg.org/#dom-node-contains
-   */
-  nodeContains03: function (test) {
-    var doc = hc_staff.hc_staff(),
-        docElement = doc.documentElement;
-
-    test.ok(doc.contains(docElement), 'Document contains its DocumentElement');
-    test.ok(!docElement.contains(doc), 'Document Element does not contain its Document');
-    test.done()
-  },
-
-  /**
-   * Check that a DocumentElement contains a newly created and appended element and that the
-   * newly created and appended element does not contain the DocumentElement
-   * @author Andrew Smith
-   * @see http://dom.spec.whatwg.org/#dom-node-contains
-   */
-  nodeContains04: function (test) {
-      var doc = hc_staff.hc_staff(),
-      docElement = doc.documentElement,
-      newElement = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
-
-      docElement.appendChild(newElement);
-
-      test.ok(docElement.contains(newElement), 'DocumentElement contains new appended element');
-      test.ok(!newElement.contains(docElement), 'New appended Element does not contain DocumentElement');
-      test.done();
-  },
-
-  /**
-   * Check that the Document contains a descendant node and that the descendant node does not contain the document
-   * @author Andrew Smith
-   * @see http://dom.spec.whatwg.org/#dom-node-contains
-   */
-  nodeContains05: function (test) {
-    var doc = hc_staff.hc_staff(),
-    elem = doc.getElementsByTagName("p").item(3);
-
-    test.ok(doc.contains(elem), "Document contains a descendant node");
-    test.ok(!elem.contains(doc), "Descentant node does not contain Document");
-    test.done();
-  },
-
-  /**
-   * Check that an element contains a new appended element and that the new appended element does not contain
-   * the element
-   * @author Andrew Smith
-   * @see http://dom.spec.whatwg.org/#dom-node-contains
-   */
-  nodeContains06: function (test) {
-    var doc = hc_staff.hc_staff(),
-    elem = doc.getElementsByTagName("p").item(3),
-    newElem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
-
-    elem.appendChild(newElem);
-
-    test.ok(elem.contains(newElem), "Element contains new appended Element");
-    test.ok(!newElem.contains(elem), "New Element does not contain Element");
-    test.done();
-  },
-
-  /**
-   * Check that the Document contains an attribute node and that the attribute node does not contain the Document
-   * @author Andrew Smith
-   * @see http://dom.spec.whatwg.org/#dom-node-contains
-   */
-  nodeContains07: function (test) {
-    var doc = hc_staff.hc_staff(),
-    elem = doc.getElementsByTagName("acronym").item(0),
-    dir = elem.getAttributeNode("title");
-
-    test.ok(doc.contains(dir), "Document contains its an attribute node");
-    test.ok(!dir.contains(doc), "Attribute node does not contain its element");
-    test.done();
-  },
-
-  /**
-   * Check that the Document contains a new attached Attribute and that the Attribute does not contain the Document
-   * @author Andrew Smith
-   * @see http://dom.spec.whatwg.org/#dom-node-contains
-   */
-  nodeContains08: function (test) {
-    var doc = hc_staff.hc_staff(),
-    elem = doc.getElementsByTagName("p").item(3),
-    attr = doc.createAttribute("title");
-
-    elem.setAttributeNode(attr);
-
-    test.ok(doc.contains(attr), "Document contains new attached attribute");
-    test.ok(!attr.contains(doc), "Attribute does not contain document");
-    test.done();
-  },
-
-  /**
-   * Check that the Document contains a new attached ProcessingInstruction and that the ProcessingInstruction does not
-   * contain the Document
-   * @author Andrew Smith
-   * @see http://dom.spec.whatwg.org/#dom-node-contains
-   */
-  nodeContains09: function (test) {
-    doc = hc_staff.hc_staff(),
-    pi = doc.createProcessingInstruction("PITarget", "PIDATA");
-
-    doc.appendChild(pi);
-    test.ok(doc.contains(pi), "Document contains new attached processing instruction");
-    test.ok(!pi.contains(doc), "Processing Instruction does not contain doc");
-    test.done();
-  },
-
-  /**
-   * Check that the document contains a new attached Comment and that the Comment does not contain the Document
-   * @author Andrew Smith
-   * @see http://dom.spec.whatwg.org/#dom-node-contains
-   */
-  nodeContains10: function (test) {
-    var doc = hc_staff.hc_staff(),
-    elem = doc.getElementsByTagName("p").item(3),
-    comment = doc.createComment("Another Comment");
-
-    elem.appendChild(comment);
-
-    test.ok(doc.contains(comment), "Document contains new attached Comment");
-    test.ok(!comment.contains(doc), "Comment does not contain Document");
-    test.done();
-  },
-
-  /**
-   * Check that a DocumentFragment contains a child node and that the child node does not contain
-   * the document fragment
-   * @author Andrew Smith
-   * @see http://dom.spec.whatwg.org/#dom-node-contains
-   */
-  nodeContains11: function (test) {
-    var doc = hc_staff.hc_staff(),
-    docElement = doc.documentElement,
-    docFragment = doc.createDocumentFragment();
-
-    docFragment.appendChild(docElement);
-
-    var docFragmentChild = docFragment.firstChild;
-
-    test.ok(docFragment.contains(docFragmentChild), "DocumentFragment contains child");
-    test.ok(!docFragmentChild.contains(docFragment), "DocumentFragment child does not contain DocumentFragment");
-    test.done();
-  },
-
-
-  /**
-   * Check that an Element contains an attached Attribute and that the Attribute does not contain the Element
-   * @author Andrew Smith
-   * @see http://dom.spec.whatwg.org/#dom-node-contains
-   */
-  nodeContains12: function (test) {
-    var doc = hc_staff.hc_staff(),
-    docElement = doc.documentElement,
-    docFragment = doc.createDocumentFragment(),
-    attr = doc.createAttribute("title");
-
-    docElement.setAttributeNode(attr);
-    docFragment.appendChild(docElement);
-
-    test.ok(docFragment.firstChild.contains(attr), "Element contains attribute");
-    test.ok(!attr.contains(docFragment.firstChild), "Attribute does not contain element");
-    test.done();
-  },
-
-  /**
-   * Check that created and attached sibling ProcessingInstructions do not contain one another.
-   * @author Andrew Smith
-   * @see http://dom.spec.whatwg.org/#dom-node-contains
-   */
-  nodeContains13: function (test) {
-    var doc = hc_staff.hc_staff(),
-    pi1 = doc.createProcessingInstruction("PI1", ""),
-    pi2 = doc.createProcessingInstruction("PI2", "");
-
-    doc.appendChild(pi1);
-    doc.appendChild(pi2);
-
-    test.ok(!pi1.contains(pi2), "Attached ProcessingInstruction does not contain second attached ProcessingInstruction");
-    test.ok(!pi2.contains(pi1), "Second attached ProcessingInstruction does not contain first attached ProcessingInstruction");
-    test.done();
-  },
-
-  /**
-   * Check that two created sibling ProcessingInstruction nodes do not contain one another.
-   * @author Andrew Smith
-   * @see http://dom.spec.whatwg.org/#dom-node-contains
-   */
-  nodeContains14: function (test) {
-    var doc = hc_staff.hc_staff(),
-    docElement = doc.documentElement,
-    txt1 = doc.createTextNode("T1"),
-    txt2 = doc.createTextNode("T2");
-
-    docElement.appendChild(txt1);
-    docElement.appendChild(txt2);
-
-    test.ok(!txt1.contains(txt2), "First attached TextNode does not contain second attached TextNode");
-    test.ok(!txt2.contains(txt1), "Second attached TextNode does not contain first attached TextNode");
-    test.done();
-  },
-
-  /**
-   * Check that two existing sibling CData nodes do not contain one another
-   * @author Andrew Smith
-   * @see http://dom.spec.whatwg.org/#dom-node-contains
-   */
-  nodeContains15: function (test) {
-    var doc = hc_staff.hc_staff(),
-    elemStrong = doc.getElementsByTagNameNS("*", "strong").item(1),
-    cdata2 = elemStrong.lastChild,
-    cdata1 = cdata2.previousSibling.previousSibling;
-
-    test.ok(!cdata1.contains(cdata2), "First CData node does not contain sibling CData node");
-    test.ok(!cdata2.contains(cdata1), "Sibling CData node does not contain first CData node");
-    test.done();
-  },
-
-  /**
-  * Check that two existing sibling CData and Text nodes do not contain one another
-  * @author Andrew Smith
-  * @see http://dom.spec.whatwg.org/#dom-node-contains
-  */
-  nodeContains16: function (test) {
-    var doc = hc_staff.hc_staff(),
-    elemStrong = doc.getElementsByTagName("strong").item(1),
-    txt = elemStrong.firstChild,
-    cdata = elemStrong.lastChild;
-
-    test.ok(!txt.contains(cdata), "Text node does not contain sibling CData node");
-    test.ok(!cdata.contains(txt), "CData node does not contain sibling Text node");
-    test.done();
-  },
-
-  /**
-  * Check that the Text node children of two sibling elements do not contain one another.
-  * @author Andrew Smith
-  * @see http://dom.spec.whatwg.org/#dom-node-contains
-  */
-  nodeContains17: function (test) {
-    var doc = hc_staff.hc_staff(),
-    txt1 = doc.getElementsByTagName("strong").item(0).firstChild,
-    txt2 = doc.getElementsByTagName("strong").item(1).firstChild;
-
-    test.ok(!txt1.contains(txt2), "Text node child of first sibling Element does not contain Text node child of second sibling Element");
-    test.ok(!txt2.contains(txt1), "Text node child of second sibling Element does not contain Text node child of first sibling Element");
-    test.done();
-  },
-
-  /**
-  * Check that two unrelated notations do not contain one another
-  * @author Andrew Smith
-  * @see http://dom.spec.whatwg.org/#dom-node-contains
-  */
-  nodeContains18: function (test) {
-    var doc = hc_staff.hc_staff(),
-    doctype = doc.doctype,
-    notationsMap = doctype.notations,
-    notation1 = notationsMap.getNamedItem("notation1"),
-    notation2 = notationsMap.getNamedItem("notation2");
-
-    test.ok(!notation1.contains(notation2), "Notation 1 does not contain notation 2");
-    test.ok(!notation2.contains(notation1), "Notation 2 does not contain notation 1");
-    test.done();
-  },
-
-  /**
-  * Check that an element contains its child EntityReference node.
-  * @author Andrew Smith
-  * @see http://dom.spec.whatwg.org/#dom-node-contains
-  */
-  nodeContains19: function (test) {
-    var doc = hc_staff.hc_staff(),
-    elemName = doc.getElementsByTagName("var").item(2),
-    entRef = elemName.firstChild;
-
-    test.ok(elemName.contains(entRef), "EntityReference contained by its parent node");
-    test.ok(!entRef.contains(elemName), "EntityReference does not contain its parent node");
-    test.done();
-  },
-
-  /**
-  * Check that an element does not contain a following element and vice versa
-  * @author Andrew Smith
-  * @see http://dom.spec.whatwg.org/#dom-node-contains
-  */
-  nodeContains20: function (test) {
-    var doc = hc_staff.hc_staff(),
-    strong = doc.getElementsByTagName("strong").item(0),
-    code = doc.getElementsByTagName("code").item(0);
-
-    test.ok(!strong.contains(code), "Element does not contain following element");
-    test.ok(!code.contains(strong), "Element does not contain previous element");
-    test.done();
-  },
-
-  nodeContains21: function (test) {
-    var doc = hc_staff.hc_staff(),
-    elem = doc.createElementNS("http://www.w3.org/1999/xhtml","br"),
-    attr = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:lang");
-
-    elem.setAttributeNodeNS(attr);
-    test.ok(elem.contains(attr), "Detached element contains attribute");
-    test.ok(!attr.contains(elem), "Detached attribute does not contain element");
-    test.ok(!doc.contains(elem), "Document does not contain detached element");
-    test.ok(!elem.contains(doc), "Detached element does not contain document");
-    test.done();
-  }
-
-
-
-  //TODO: Implement tests based on compareDocumentPosition 30 +
-  //TODO: Check various node types with null
-  //TODO: Check various node types with a detached Element
-  //TODO: Check various node types with a detached Attribute
-  //TODO: Check a DocumentFragment with a detached node
-  //TODO: Remember to re-comment out the core tests!
-
-
 }
