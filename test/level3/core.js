@@ -601,10 +601,10 @@ exports.tests = {
         severity = error.severity;
 
 
-  if(
-    (2 == severity)
-  ) {
-    location = error.location;
+	if(
+	  (2 == severity)
+	) {
+	  location = error.location;
 
           problemNode = location.relatedNode;
 
@@ -627,7 +627,7 @@ exports.tests = {
           message = error.message;
 
           length = message.length;
-          test.ok((length > 0), 'messageNotEmpty');
+      	  test.ok((length > 0), 'messageNotEmpty');
           type = error.type;
 
           relatedData = error.relatedData;
@@ -636,12 +636,12 @@ exports.tests = {
 
           errorCount += 1;
 
-  }
+	}
 
-  else {
-    test.equal(severity, 1, 'anyOthersShouldBeWarnings');
+	else {
+	  test.equal(severity, 1, 'anyOthersShouldBeWarnings');
 
-  }
+	}
 
       }
       test.equal(errorCount, 1, 'oneError');
@@ -783,9 +783,9 @@ exports.tests = {
       domConfig.setParameter("error-handler", errorMonitor.handleError);
 
       if(
-  (getImplementationAttribute("ignoringElementContentWhitespace") == true)
+	(getImplementationAttribute("ignoringElementContentWhitespace") == true)
       ) {
-  bodyList = doc.getElementsByTagName("body");
+	bodyList = doc.getElementsByTagName("body");
         body = bodyList.item(0);
         child = body.firstChild;
 
@@ -1293,10 +1293,10 @@ exports.tests = {
         severity = error.severity;
 
 
-  if(
-    (2 == severity)
-  ) {
-    errorCount += 1;
+	if(
+	  (2 == severity)
+	) {
+	  errorCount += 1;
           errorType = error.type;
 
           test.equal(errorType, "check-character-normalization-failure", 'errorType');
@@ -1306,7 +1306,7 @@ exports.tests = {
 
           test.equal(relatedNode, text, 'relatedNodeSame');
 
-  }
+	}
 
       }
       test.equal(errorCount, 1, 'oneError');
@@ -2576,9 +2576,9 @@ exports.tests = {
 
 
       if(
-  ("Y" == firstChildValue)
+	("Y" == firstChildValue)
       ) {
-  secondChild = firstChild.nextSibling;
+	secondChild = firstChild.nextSibling;
 
         test.notEqual(secondChild, null, 'secondChildNotNull');
         secondChildType = secondChild.nodeType;
@@ -2591,7 +2591,7 @@ exports.tests = {
       }
 
       else {
-  test.equal(nodeValue, "Yα", 'documentadoptnode01_nodeValue');
+	test.equal(nodeValue, "Yα", 'documentadoptnode01_nodeValue');
 
       }
 
@@ -2676,9 +2676,9 @@ exports.tests = {
 
 
       if(
-  ("Y" == firstChildValue)
+	("Y" == firstChildValue)
       ) {
-  secondChild = firstChild.nextSibling;
+	secondChild = firstChild.nextSibling;
 
         test.notEqual(secondChild, null, 'secondChildNotNull');
         secondChildType = secondChild.nodeType;
@@ -2691,7 +2691,7 @@ exports.tests = {
       }
 
       else {
-  test.equal(nodeValue, "Yα", 'documentadoptnode02_nodeValue');
+	test.equal(nodeValue, "Yα", 'documentadoptnode02_nodeValue');
 
       }
 
@@ -3012,7 +3012,7 @@ exports.tests = {
   /**
    *
    Invoke the adoptNode method on this document with a new document as the value of the
-   source parameter.  Verify if a NOT_SUPPORTED_ERR is thrown.
+   source parameter. 	Verify if a NOT_SUPPORTED_ERR is thrown.
 
    * @author IBM
    * @author Neil Delima
@@ -3057,7 +3057,7 @@ exports.tests = {
   /**
    *
    Invoke the adoptNode method on a new document with this document as the value of the
-   source parameter.  Verify if a NOT_SUPPORTED_ERR is thrown.
+   source parameter. 	Verify if a NOT_SUPPORTED_ERR is thrown.
 
    * @author IBM
    * @author Neil Delima
@@ -3427,14 +3427,14 @@ exports.tests = {
 
 
       if(
-  (5 == firstChildType)
+	(5 == firstChildType)
       ) {
-  test.equal(firstChildName, "gamma", 'firstChildEnt3Ref');
+	test.equal(firstChildName, "gamma", 'firstChildEnt3Ref');
 
       }
 
       else {
-  test.equal(firstChildValue, "Texas", 'documentadoptnode16');
+	test.equal(firstChildValue, "Texas", 'documentadoptnode16');
 
       }
 
@@ -4352,10 +4352,10 @@ exports.tests = {
 
       if(
 
-  (adoptedPI2 != null)
+	(adoptedPI2 != null)
 
       ) {
-  piTarget = adoptedPI1.target;
+	piTarget = adoptedPI1.target;
 
         piData = adoptedPI1.data;
 
@@ -5273,9 +5273,9 @@ exports.tests = {
 
 
       if(
-  (2 == severity)
+	(2 == severity)
       ) {
-  location = error.location;
+	location = error.location;
 
         problemNode = location.relatedNode;
 
@@ -5298,7 +5298,7 @@ exports.tests = {
         message = error.message;
 
         length = message.length;
-        test.ok((length > 0), 'messageNotEmpty');
+      	test.ok((length > 0), 'messageNotEmpty');
         type = error.type;
 
         relatedData = error.relatedData;
@@ -5310,7 +5310,7 @@ exports.tests = {
       }
 
       else {
-  test.equal(severity, 1, 'anyOthersShouldBeWarnings');
+	test.equal(severity, 1, 'anyOthersShouldBeWarnings');
 
       }
 
@@ -5402,17 +5402,17 @@ exports.tests = {
         severity = error.severity;
 
 
-  if(
-    ("cdata-sections-splitted" == type)
-  ) {
-    relatedData = error.relatedData;
+	if(
+	  ("cdata-sections-splitted" == type)
+	) {
+	  relatedData = error.relatedData;
 
           test.equal(relatedData, newChild, 'relatedData');
           test.equal(severity, 1, 'severity');
           message = error.message;
 
           length = message.length;
-          test.ok((length > 0), 'messageNotEmpty');
+      	  test.ok((length > 0), 'messageNotEmpty');
           relatedException = error.relatedException;
 
           location = error.location;
@@ -5432,12 +5432,12 @@ exports.tests = {
 
           splittedCount += 1;
 
-  }
+	}
 
-  else {
-    test.equal(severity, 1, 'anyOthersShouldBeWarnings');
+	else {
+	  test.equal(severity, 1, 'anyOthersShouldBeWarnings');
 
-  }
+	}
 
       }
       test.equal(splittedCount, 1, 'oneSplittedWarning');
@@ -5516,9 +5516,9 @@ exports.tests = {
 
 
       if(
-  (2 == severity)
+	(2 == severity)
       ) {
-  location = error.location;
+	location = error.location;
 
         problemNode = location.relatedNode;
 
@@ -5536,7 +5536,7 @@ exports.tests = {
         message = error.message;
 
         length = message.length;
-        test.ok((length > 0), 'messageNotEmpty');
+      	test.ok((length > 0), 'messageNotEmpty');
         type = error.type;
 
         relatedData = error.relatedData;
@@ -5548,7 +5548,7 @@ exports.tests = {
       }
 
       else {
-  test.equal(severity, 1, 'anyOthersShouldBeWarnings');
+	test.equal(severity, 1, 'anyOthersShouldBeWarnings');
 
       }
 
@@ -5610,14 +5610,14 @@ exports.tests = {
 
 
       if(
-  ("cdata-sections-splitted" == type)
+	("cdata-sections-splitted" == type)
       ) {
-  splittedCount += 1;
+	splittedCount += 1;
 
       }
 
       else {
-  test.equal(severity, 1, 'anyOthersShouldBeWarnings');
+	test.equal(severity, 1, 'anyOthersShouldBeWarnings');
 
       }
 
@@ -5917,9 +5917,9 @@ exports.tests = {
 
 
       if(
-  (2 == severity)
+	(2 == severity)
       ) {
-  location = error.location;
+	location = error.location;
 
         problemNode = location.relatedNode;
 
@@ -5942,7 +5942,7 @@ exports.tests = {
         message = error.message;
 
         length = message.length;
-        test.ok((length > 0), 'messageNotEmpty');
+      	test.ok((length > 0), 'messageNotEmpty');
         type = error.type;
 
         relatedData = error.relatedData;
@@ -5954,7 +5954,7 @@ exports.tests = {
       }
 
       else {
-  test.equal(severity, 1, 'anyOthersShouldBeWarnings');
+	test.equal(severity, 1, 'anyOthersShouldBeWarnings');
 
       }
 
@@ -6362,14 +6362,14 @@ exports.tests = {
       qualifiedName = qualifiedNames[indexN10060];
 
       {
-  success = false;
-  try {
+	success = false;
+	try {
           renamedNode = doc.renameNode(textNode,"http://www.w3.org/XML/1998/namespace",qualifiedName);
         }
-  catch(ex) {
+	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-  }
-  test.ok(success, 'documentrenamenode10_NOT_SUPPORTED_ERR');
+	}
+	test.ok(success, 'documentrenamenode10_NOT_SUPPORTED_ERR');
       }
 
     }
@@ -6757,14 +6757,14 @@ exports.tests = {
       qualifiedName = qualifiedNames[indexN1006C];
 
       {
-  success = false;
-  try {
+	success = false;
+	try {
           renamedNode = doc.renameNode(element,"http://www.w3.org/2000/XMLNS",qualifiedName);
         }
-  catch(ex) {
+	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 14);
-  }
-  test.ok(success, 'documentrenamenode19_NAMESPACE_ERR');
+	}
+	test.ok(success, 'documentrenamenode19_NAMESPACE_ERR');
       }
 
     }
@@ -7520,15 +7520,15 @@ exports.tests = {
       versionValue = illegalVersion[indexN10087];
 
       {
-  success = false;
-  try {
+	success = false;
+	try {
           doc.xmlVersion = versionValue;
 
         }
-  catch(ex) {
+	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-  }
-  test.ok(success, 'NOT_SUPPORTED_ERR_documentsetversion01');
+	}
+	test.ok(success, 'NOT_SUPPORTED_ERR_documentsetversion01');
       }
 
     }
@@ -7777,14 +7777,14 @@ exports.tests = {
     else {
 
       {
-  success = false;
-  try {
+	success = false;
+	try {
           domConfig.setParameter(parameter, true);
-  }
-  catch(ex) {
+	}
+	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-  }
-  test.ok(success, 'throw_NOT_SUPPORTED_ERR');
+	}
+	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
       test.equal(state, false, 'setTrueNotEffective');
@@ -7869,14 +7869,14 @@ exports.tests = {
     else {
 
       {
-  success = false;
-  try {
+	success = false;
+	try {
           domConfig.setParameter(parameter, true);
-  }
-  catch(ex) {
+	}
+	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-  }
-  test.ok(success, 'throw_NOT_SUPPORTED_ERR');
+	}
+	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
       test.equal(state, false, 'setTrueNotEffective');
@@ -7961,14 +7961,14 @@ exports.tests = {
     else {
 
       {
-  success = false;
-  try {
+	success = false;
+	try {
           domConfig.setParameter(parameter, false);
-  }
-  catch(ex) {
+	}
+	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-  }
-  test.ok(success, 'throw_NOT_SUPPORTED_ERR');
+	}
+	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
       test.ok(state, 'setFalseNotEffective');
@@ -8219,14 +8219,14 @@ exports.tests = {
     else {
 
       {
-  success = false;
-  try {
+	success = false;
+	try {
           domConfig.setParameter(parameter, false);
-  }
-  catch(ex) {
+	}
+	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-  }
-  test.ok(success, 'throw_NOT_SUPPORTED_ERR');
+	}
+	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
       test.ok(state, 'setFalseNotEffective');
@@ -8298,14 +8298,14 @@ exports.tests = {
     else {
 
       {
-  success = false;
-  try {
+	success = false;
+	try {
           domConfig.setParameter(parameter, true);
-  }
-  catch(ex) {
+	}
+	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-  }
-  test.ok(success, 'throw_NOT_SUPPORTED_ERR');
+	}
+	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
       test.equal(state, false, 'setTrueNotEffective');
@@ -8366,10 +8366,10 @@ exports.tests = {
 
       if(
 
-  (("canonical-form".toUpperCase() == parameterName.toUpperCase()) || ("cdata-sections".toUpperCase() == parameterName.toUpperCase()) || ("check-character-normalization".toUpperCase() == parameterName.toUpperCase()) || ("comments".toUpperCase() == parameterName.toUpperCase()) || ("datatype-normalization".toUpperCase() == parameterName.toUpperCase()) || ("entities".toUpperCase() == parameterName.toUpperCase()) || ("error-handler".toUpperCase() == parameterName.toUpperCase()) || ("infoset".toUpperCase() == parameterName.toUpperCase()) || ("namespaces".toUpperCase() == parameterName.toUpperCase()) || ("namespace-declarations".toUpperCase() == parameterName.toUpperCase()) || ("normalize-characters".toUpperCase() == parameterName.toUpperCase()) || ("split-cdata-sections".toUpperCase() == parameterName.toUpperCase()) || ("validate".toUpperCase() == parameterName.toUpperCase()) || ("validate-if-schema".toUpperCase() == parameterName.toUpperCase()) || ("well-formed".toUpperCase() == parameterName.toUpperCase()) || ("element-content-whitespace".toUpperCase() == parameterName.toUpperCase()))
+	(("canonical-form".toUpperCase() == parameterName.toUpperCase()) || ("cdata-sections".toUpperCase() == parameterName.toUpperCase()) || ("check-character-normalization".toUpperCase() == parameterName.toUpperCase()) || ("comments".toUpperCase() == parameterName.toUpperCase()) || ("datatype-normalization".toUpperCase() == parameterName.toUpperCase()) || ("entities".toUpperCase() == parameterName.toUpperCase()) || ("error-handler".toUpperCase() == parameterName.toUpperCase()) || ("infoset".toUpperCase() == parameterName.toUpperCase()) || ("namespaces".toUpperCase() == parameterName.toUpperCase()) || ("namespace-declarations".toUpperCase() == parameterName.toUpperCase()) || ("normalize-characters".toUpperCase() == parameterName.toUpperCase()) || ("split-cdata-sections".toUpperCase() == parameterName.toUpperCase()) || ("validate".toUpperCase() == parameterName.toUpperCase()) || ("validate-if-schema".toUpperCase() == parameterName.toUpperCase()) || ("well-formed".toUpperCase() == parameterName.toUpperCase()) || ("element-content-whitespace".toUpperCase() == parameterName.toUpperCase()))
 
       ) {
-  matchCount += 1;
+	matchCount += 1;
 
       }
 
@@ -8491,14 +8491,14 @@ exports.tests = {
     else {
 
       {
-  success = false;
-  try {
+	success = false;
+	try {
           domConfig.setParameter(parameter, dtdType);
-  }
-  catch(ex) {
+	}
+	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-  }
-  test.ok(success, 'throw_NOT_SUPPORTED_ERR_dtd');
+	}
+	test.ok(success, 'throw_NOT_SUPPORTED_ERR_dtd');
       }
 
     }
@@ -8516,14 +8516,14 @@ exports.tests = {
     else {
 
       {
-  success = false;
-  try {
+	success = false;
+	try {
           domConfig.setParameter(parameter, xmlSchemaType);
-  }
-  catch(ex) {
+	}
+	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-  }
-  test.ok(success, 'throw_NOT_SUPPORTED_ERR_schema');
+	}
+	test.ok(success, 'throw_NOT_SUPPORTED_ERR_schema');
       }
 
     }
@@ -8741,7 +8741,7 @@ exports.tests = {
 
    The parameter element-content-whitespace is turned on by default. Set this parameter to false will
    discard all Text nodes that contain whitespaces in element content, as described in [element content whitespace].
-   Check to see if this feature can be set  to false by invoking canSetParameter method.  Verify that the text node
+   Check to see if this feature can be set	to false by invoking canSetParameter method.  Verify that the text node
    still exist after invoking canSetParameter.
 
    * @author IBM
@@ -8892,14 +8892,14 @@ exports.tests = {
     else {
 
       {
-  success = false;
-  try {
+	success = false;
+	try {
           domConfig.setParameter(parameter, true);
-  }
-  catch(ex) {
+	}
+	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-  }
-  test.ok(success, 'throw_NOT_SUPPORTED_ERR');
+	}
+	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
       test.equal(state, false, 'setTrueNotEffective');
@@ -8949,14 +8949,14 @@ exports.tests = {
     else {
 
       {
-  success = false;
-  try {
+	success = false;
+	try {
           domConfig.setParameter(parameter, true);
-  }
-  catch(ex) {
+	}
+	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-  }
-  test.ok(success, 'throw_NOT_SUPPORTED_ERR');
+	}
+	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
       test.equal(state, false, 'setTrueNotEffective');
@@ -9006,14 +9006,14 @@ exports.tests = {
     else {
 
       {
-  success = false;
-  try {
+	success = false;
+	try {
           domConfig.setParameter(parameter, false);
-  }
-  catch(ex) {
+	}
+	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-  }
-  test.ok(success, 'throw_NOT_SUPPORTED_ERR');
+	}
+	test.ok(success, 'throw_NOT_SUPPORTED_ERR');
       }
       state = domConfig.getParameter(parameter);
       test.ok(state, 'setFalseNotEffective');
@@ -13436,7 +13436,7 @@ exports.tests = {
 
   /**
    *
-   Using compareDocumentPosition check if the DocumentFragment node contains and precedes   an Element
+   Using compareDocumentPosition check if the DocumentFragment node contains and precedes 	an Element
    node appended to it, and that the Element node is contained and follows the DocumentFragment node.
 
    * @author IBM
@@ -21833,14 +21833,14 @@ exports.tests = {
     ) {
 
       {
-  success = false;
-  try {
+	success = false;
+	try {
           removedNode = child.removeChild(entRefChild);
         }
-  catch(ex) {
+	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-  }
-  test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
+	}
+	test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
       }
 
     }
@@ -22432,14 +22432,14 @@ exports.tests = {
     ) {
 
       {
-  success = false;
-  try {
+	success = false;
+	try {
           removedNode = child.removeChild(entRefChild);
         }
-  catch(ex) {
+	catch(ex) {
           success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-  }
-  test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
+	}
+	test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
       }
 
     }
@@ -28436,9 +28436,9 @@ exports.tests = {
       test.equal(notification.data, xs[notification.key], 'notification.data should be '+xs[notification.key]);
       test.equal(notification.src, node, 'srcIsNode')
       if (notification.dst == null) {
-  test.equal(newNode, node, 'ifDstNullRenameMustReuseNode');
+	test.equal(newNode, node, 'ifDstNullRenameMustReuseNode');
       } else {
-  test.equal(notification.dst, newNode, 'dstIsNewNode');
+	test.equal(notification.dst, newNode, 'dstIsNewNode');
       }
       cs[notification.key] += 1;
     });
