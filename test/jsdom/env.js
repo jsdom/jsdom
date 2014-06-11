@@ -365,3 +365,40 @@ exports["with scripts and content retrieved from URLs"] = function (t) {
     });
   });
 };
+
+
+exports["should call callbacks correctly"] = function (t) {
+  t.expect(11);
+
+  env({
+    html: "<!DOCTYPE html><html><head><script>window.isExecuted = true;window.wasCreatedSet = window.isCreated;</script></head><body></body></html>",
+    features: {
+      FetchExternalResources: ["script"],
+      ProcessExternalResources: ["script"],
+      SkipExternalResources: false
+    },
+    created: function (err, window) {
+      t.ifError(err);
+
+      t.notEqual(window.isExecuted, true);
+      t.strictEqual(window.wasCreatedSet, undefined);
+      window.isCreated = true;
+    },
+    loaded: function (err, window) {
+      t.ifError(err);
+
+      t.strictEqual(window.isCreated, true);
+      t.strictEqual(window.isExecuted, true);
+      t.strictEqual(window.wasCreatedSet, true);
+    },
+    done: function (err, window) {
+      t.ifError(err);
+
+      t.strictEqual(window.isCreated, true);
+      t.strictEqual(window.isExecuted, true);
+      t.strictEqual(window.wasCreatedSet, true);
+
+      t.done();
+    }
+  });
+};
