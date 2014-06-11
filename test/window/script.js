@@ -1,5 +1,7 @@
 var jsdom = require('../../lib/jsdom'),
-    path = require('path')
+    path = require('path'),
+    fs = require('fs'),
+    http = require('http'),
     jQueryPath = path.resolve(__dirname, '../jquery-fixtures/jquery-1.4.2.js');
 
 exports.tests = {
@@ -132,6 +134,53 @@ exports.tests = {
       test.ok(window.b === 42, 'local var gets hung off of the window');
       test.ok(window.exposed === 42, 'read local var from window and exposed it');
       test.done();
+    });
+  },
+
+  env_external_scripts_with_src: function (test) {
+    var app = http.createServer(function (req, res) {
+      fs.createReadStream(__dirname + '/files' + req.url).pipe(res);
+    }).listen(0, function () {
+      jsdom.env({
+        url: 'http://127.0.0.1:' + app.address().port + '/external_script.html',
+        src: ['window.a = "test";'],
+        features: {
+          FetchExternalResources: ['script'],
+          ProcessExternalResources: ['script'],
+          SkipExternalResources: false
+        },
+        done: function (err, window) {
+          test.strictEqual(err, null, 'no errors should occur');
+
+          test.strictEqual(window.a, 'test', 'given src wasn\'t executed');
+          test.strictEqual(window.b, 'other', 'external script wasn\'t executed');
+
+          test.done();
+          app.close();
+        }
+      });
+    });
+  },
+
+  env_external_scripts_no_src: function (test) {
+    var app = http.createServer(function (req, res) {
+      fs.createReadStream(__dirname + '/files' + req.url).pipe(res);
+    }).listen(0, function () {
+      jsdom.env({
+        url: 'http://127.0.0.1:' + app.address().port + '/external_script.html',
+        features: {
+          FetchExternalResources: ['script'],
+          ProcessExternalResources: ['script'],
+          SkipExternalResources: false
+        },
+        done: function (err, window) {
+          test.strictEqual(err, null, 'no errors should occur');
+          test.strictEqual(window.b, 'other', 'external script wasn\'t executed');
+
+          test.done();
+          app.close();
+        }
+      });
     });
   },
 
