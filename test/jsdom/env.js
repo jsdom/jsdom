@@ -365,3 +365,34 @@ exports["with scripts and content retrieved from URLs"] = function (t) {
     });
   });
 };
+
+
+exports["should call callbacks correctly"] = function (t) {
+  t.expect(6);
+
+  env({
+    html: "<!DOCTYPE html><html><head><script type='text/javascript'>window.a = 'b';</script></head><body></body></html>",
+    features: {
+      FetchExternalResources: ['script'],
+      ProcessExternalResources: ['script'],
+      SkipExternalResources: false
+    },
+    ready: function (err, window) {
+      t.ifError(err);
+
+      t.notEqual(window.a, 'b');
+    },
+    load: function (err, window) {
+      t.ifError(err);
+
+      t.equal(window.a, 'b');
+    },
+    done: function (err, window) {
+      t.ifError(err);
+
+      t.equal(window.a, 'b');
+
+      t.done();
+    }
+  });
+};
