@@ -7,6 +7,26 @@ var http = require("http");
 var URL = require('url');
 var um = require('urlmaster');
 
+function tmpWindow() {
+  return jsdom.jsdom(null, null, { documentRoot: __dirname }).createWindow();
+}
+
+function testFunction(test, window, jQuery, checkVersion) {
+  test.notEqual(window.jQuery.find, null, 'window.jQuery.find should not be null');
+  test.notEqual(jQuery.find, null, 'jQuery.find should not be null');
+  jQuery("body").html('<p id="para"><a class="link">click <em class="emph">ME</em></a></p>');
+  var res = jQuery("#para .emph").text();
+  var res2 = jQuery("a.link .emph").text();
+  test.equal(jQuery('p#para a.link', window.document.body).attr('class'), 'link', "selecting from body");
+
+  if (checkVersion) {
+    test.strictEqual(jQuery('body').jquery, '1.4.4', 'jQuery version 1.4.4');
+  }
+
+  test.equal(res, "ME", "selector should work as expected");
+  test.equal(res2, "ME", "selector should work as expected");
+};
+
 exports.tests = {
   build_window: function(test) {
     var window = jsdom.jsdom().createWindow();
@@ -34,31 +54,24 @@ exports.tests = {
     test.done();
   },
 
-  jquerify: function(test) {
+  jquerify_file: function(test) {
     var jQueryFile = path.resolve(__dirname, '../jquery-fixtures/jquery-1.4.4.js');
+
+    test.expect(6);
+    jsdom.jQueryify(tmpWindow(), jQueryFile, function(window, jQuery) {
+      testFunction(test, window, jQuery, true);
+      test.done();
+    });
+  },
+
+  jquerify_url: function(test) {
     var jQueryUrl = 'http://code.jquery.com/jquery-1.4.4.min.js';
 
-    function tmpWindow() {
-      return jsdom.jsdom(null, null, {documentRoot: __dirname}).createWindow();
-    }
-
-    // TODO: may need to run this as two different tests... the test seems to be ending before the second callback is happening
-    function testFunction(window, jQuery) {
-      test.notEqual(window.jQuery.find, null, 'window.jQuery.find should not be null');
-      test.notEqual(jQuery.find, null, 'jQuery.find should not be null');
-      jQuery("body").html('<p id="para"><a class="link">click <em class="emph">ME</em></a></p>');
-      var res = jQuery("#para .emph").text();
-      var res2 = jQuery("a.link .emph").text();
-      test.equal(jQuery('p#para a.link',window.document.body).attr('class'), 'link', "selecting from body");
-      test.strictEqual(jQuery('body').jquery, '1.4.4', 'jQuery version 1.4.4');
-      test.equal(res, "ME", "selector should work as expected");
-      test.equal(res2, "ME", "selector should work as expected");
-    };
-
-    // test.expect(12);
-    jsdom.jQueryify(tmpWindow(), jQueryFile, testFunction);
-    jsdom.jQueryify(tmpWindow(), jQueryUrl, testFunction);
-    test.done();
+    test.expect(6);
+    jsdom.jQueryify(tmpWindow(), jQueryUrl, function (window, jQuery) {
+      testFunction(test, window, jQuery, true);
+      test.done();
+    });
   },
 
   jquerify_attribute_selector_gh_400: function(test) {
