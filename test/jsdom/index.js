@@ -74,6 +74,14 @@ exports.tests = {
     });
   },
 
+  jquerify_invalid: function (test) {
+    test.expect(5);
+    jsdom.jQueryify(tmpWindow(), 1, function (window, jQuery) {
+      testFunction(test, window, jQuery, false);
+      test.done();
+    });
+  },
+
   jquerify_attribute_selector_gh_400: function(test) {
     var window = jsdom.jsdom().createWindow();
 
