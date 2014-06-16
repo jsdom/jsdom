@@ -1,3 +1,14 @@
+## 0.11.0
+
+* Add: new default level, `living`, reflecting our focus on the [DOM Living Standard](http://dom.spec.whatwg.org/) and the [HTML Living Standard](http://www.whatwg.org/specs/web-apps/current-work/multipage/), which are what browsers actually implement. This should open the door for more features of the modern DOM and HTML specs to be implemented in jsdom. (robotlovesyou)
+* Add: `Node.prototype.contains` now implemented. (robotlovesyou)
+* Add: `navigator.cookieEnabled` now implemented; it always returns `true`. (Sebmaster)
+* Change: DOCTYPEs no longer have their `name` property uppercased during parsing, and appear in the output of `document.innerHTML`.
+* Fix: `Node.prototype.compareDocumentPosition` implemented correctly; various document position constants added to the `Node` constructor. (robotlovesyou)
+* Fix: `DocumentType.prototype.parentNode` now returns the document node, not `null`. (robotlovesyou)
+* Fix: various `navigator` properties are now getters, not data properties. (Sebmaster)
+* Fix: a bug involving invalid script paths and `jsdom.jQueryify`. (Sebmaster)
+
 ## 0.10.6
 
 * Add: remaining URL properties to `window.location` and `HTMLAnchorElement`.
