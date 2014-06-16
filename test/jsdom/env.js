@@ -20,7 +20,7 @@ exports["explicit config.html, full document"] = function (t) {
     url: "http://example.com/",
     done: function (err, window) {
       t.ifError(err);
-      t.equal(window.document.innerHTML, "<html><head><title>Hi</title></head><body>Hello</body></html>");
+      t.equal(window.document.innerHTML, "<!DOCTYPE HTML><html><head><title>Hi</title></head><body>Hello</body></html>");
       t.equal(window.location.href, "http://example.com/");
       t.equal(window.location.origin, "http://example.com");
       t.done();
@@ -120,7 +120,7 @@ exports["explicit config.html, a string that is also a valid file"] = function (
 
 exports["explicit config.url, valid"] = function (t) {
   var html = "<html><head><title>Example URL</title></head><body>Example!</body></html>";
-  var responseText = "<!DOCTYPE html>" + html;
+  var responseText = "<!DOCTYPE HTML>" + html;
 
   var server = http.createServer(function (req, res) {
     res.writeHead(200, { "Content-Length": responseText.length });
@@ -132,7 +132,7 @@ exports["explicit config.url, valid"] = function (t) {
     url: "http://localhost:8976/",
     done: function (err, window) {
       t.ifError(err);
-      t.equal(window.document.innerHTML, html);
+      t.equal(window.document.innerHTML, responseText);
       t.equal(window.location.href, "http://localhost:8976/");
       t.equal(window.location.origin, "http://localhost:8976");
       t.done();
@@ -160,7 +160,7 @@ exports["explicit config.file, valid"] = function (t) {
       file: fileName,
       done: function (err, window) {
         t.ifError(err);
-        t.equal(window.document.doctype + window.document.innerHTML, text);
+        t.equal(window.document.innerHTML, text);
         t.equal(window.location.href, toFileUrl(fileName));
         t.done();
       }
@@ -211,7 +211,7 @@ exports["explicit config.file, with spaces in the file name"] = function (t) {
 
 exports["string, parseable as a URL, valid"] = function (t) {
   var html = "<html><head><title>Example URL</title></head><body>Example!</body></html>";
-  var responseText = "<!DOCTYPE html>" + html;
+  var responseText = "<!DOCTYPE HTML>" + html;
 
   var server = http.createServer(function (req, res) {
     res.writeHead(200, { "Content-Length": responseText.length });
@@ -223,7 +223,7 @@ exports["string, parseable as a URL, valid"] = function (t) {
     "http://localhost:8976/",
     function (err, window) {
       t.ifError(err);
-      t.equal(window.document.innerHTML, html);
+      t.equal(window.document.innerHTML, responseText);
       t.equal(window.location.href, "http://localhost:8976/");
       t.equal(window.location.origin, "http://localhost:8976");
       t.done();
@@ -251,7 +251,7 @@ exports["string, for an existing filename"] = function (t) {
       fileName,
       function (err, window) {
         t.ifError(err);
-        t.equal(window.document.doctype + window.document.innerHTML, text);
+        t.equal(window.document.innerHTML, text);
         t.equal(window.location.href, toFileUrl(fileName));
         t.done();
       }
@@ -274,10 +274,10 @@ exports["string, does not exist as a file"] = function (t) {
 
 exports["string, full HTML document"] = function (t) {
   env(
-    "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>",
+    "<!DOCTYPE HTML><html><head><title>Hi</title></head><body>Hello</body></html>",
     function (err, window) {
       t.ifError(err);
-      t.equal(window.document.innerHTML, "<html><head><title>Hi</title></head><body>Hello</body></html>");
+      t.equal(window.document.innerHTML, "<!DOCTYPE HTML><html><head><title>Hi</title></head><body>Hello</body></html>");
       t.done();
     }
   );
