@@ -377,13 +377,13 @@ exports["should call callbacks correctly"] = function (t) {
       ProcessExternalResources: ['script'],
       SkipExternalResources: false
     },
-    create: function (err, window) {
+    created: function (err, window) {
       t.ifError(err);
 
       t.notEqual(window.a, 'b');
       window.a = 'c';
     },
-    load: function (err, window) {
+    loaded: function (err, window) {
       t.ifError(err);
 
       t.equal(window.a, 'c');

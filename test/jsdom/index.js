@@ -1545,7 +1545,7 @@ exports.tests = {
           FetchExternalResources: ["script"],
           ProcessExternalResources: ["script"]
         },
-        create: function (err, window) {
+        created: function (err, window) {
           window.doCheck = function () {
             server.close();
             t.ifError(err);
