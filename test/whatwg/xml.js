@@ -8,6 +8,7 @@ exports["should recognize svg and not wrap in <body> (GH-779)"] = function (t) {
     html: fs.readFileSync(__dirname + '/files/svg.svg'),
     done: function (errs, window) {
       t.ok(window.document.outerHTML.indexOf('<body>') === -1, 'should not contain body');
+      window.close();
       t.done();
     }
   });
@@ -22,6 +23,7 @@ exports["should allow inserting scripts into svg"] = function (t) {
       t.ifError(errs);
 
       t.notEqual(window.$, undefined, 'should load jQuery');
+      window.close();
       t.done();
     }
   });
