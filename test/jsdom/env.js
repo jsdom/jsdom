@@ -368,10 +368,10 @@ exports["with scripts and content retrieved from URLs"] = function (t) {
 
 
 exports["should call callbacks correctly"] = function (t) {
-  t.expect(6);
+  t.expect(11);
 
   env({
-    html: "<!DOCTYPE html><html><head><script>window.a = window.a || 'b';</script></head><body></body></html>",
+    html: "<!DOCTYPE html><html><head><script>window.isExecuted = true;window.wasCreatedSet = window.isCreated;</script></head><body></body></html>",
     features: {
       FetchExternalResources: ["script"],
       ProcessExternalResources: ["script"],
@@ -380,18 +380,23 @@ exports["should call callbacks correctly"] = function (t) {
     created: function (err, window) {
       t.ifError(err);
 
-      t.notEqual(window.a, "b");
-      window.a = "c";
+      t.notEqual(window.isExecuted, true);
+      t.strictEqual(window.wasCreatedSet, undefined);
+      window.isCreated = true;
     },
     loaded: function (err, window) {
       t.ifError(err);
 
-      t.equal(window.a, "c");
+      t.strictEqual(window.isCreated, true);
+      t.strictEqual(window.isExecuted, true);
+      t.strictEqual(window.wasCreatedSet, true);
     },
     done: function (err, window) {
       t.ifError(err);
 
-      t.equal(window.a, "c");
+      t.strictEqual(window.isCreated, true);
+      t.strictEqual(window.isExecuted, true);
+      t.strictEqual(window.wasCreatedSet, true);
 
       t.done();
     }
