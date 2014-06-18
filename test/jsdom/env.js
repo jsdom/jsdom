@@ -371,27 +371,27 @@ exports["should call callbacks correctly"] = function (t) {
   t.expect(6);
 
   env({
-    html: "<!DOCTYPE html><html><head><script type='text/javascript'>window.a = window.a || 'b';</script></head><body></body></html>",
+    html: "<!DOCTYPE html><html><head><script>window.a = window.a || 'b';</script></head><body></body></html>",
     features: {
-      FetchExternalResources: ['script'],
-      ProcessExternalResources: ['script'],
+      FetchExternalResources: ["script"],
+      ProcessExternalResources: ["script"],
       SkipExternalResources: false
     },
     created: function (err, window) {
       t.ifError(err);
 
-      t.notEqual(window.a, 'b');
-      window.a = 'c';
+      t.notEqual(window.a, "b");
+      window.a = "c";
     },
     loaded: function (err, window) {
       t.ifError(err);
 
-      t.equal(window.a, 'c');
+      t.equal(window.a, "c");
     },
     done: function (err, window) {
       t.ifError(err);
 
-      t.equal(window.a, 'c');
+      t.equal(window.a, "c");
 
       t.done();
     }
