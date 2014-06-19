@@ -14,9 +14,9 @@ If this gives you trouble with errors about installing Contextify, especially on
 
 see: [mailing list](http://groups.google.com/group/jsdom)
 
-## Easymode
+## Easymode: `jsdom.env`
 
-Bootstrapping a DOM is generally a difficult process involving many error prone steps. We didn't want jsdom to fall into the same trap and that is why a new method, `jsdom.env()`, has been added in jsdom 0.2.0 which should make everyone's lives easier.
+`jsdom.env` is an API that allows you to throw a bunch of stuff at it, and it will generally do the right thing.
 
 You can use it with a URL
 
@@ -51,7 +51,7 @@ jsdom.env(
 or with a configuration object
 
 ```js
-// Print all of the news items on hackernews
+// Print all of the news items on Hacker News
 var jsdom = require("jsdom");
 
 jsdom.env({
@@ -70,7 +70,7 @@ jsdom.env({
 or with raw JavaScript source
 
 ```js
-// Print all of the news items on hackernews
+// Print all of the news items on Hacker News
 var jsdom = require("jsdom");
 var fs = require("fs");
 var jquery = fs.readFileSync("./jquery.js", "utf-8");
@@ -169,9 +169,11 @@ Now that you know about `created` and `loaded`, you can see that `done` is essen
 
 If you used jsdom before v1.0.0, it only had a `done` callback, and it was kind of buggy, sometimes behaving one way, and sometimes another. Due to some excellent work by [@Sebmaster](https://github.com/Sebmaster) in [#792](https://github.com/tmpvar/jsdom/pull/792), we fixed it up into the above lifecycle. For more information on the migration, see [the wiki](https://github.com/tmpvar/jsdom/wiki/PR-792).
 
-## For the hardcore
+## For the hardcore: `jsdom.jsdom`
 
-If you want to spawn a document/window and specify all sorts of options this is the section for you. This section covers the `jsdom.jsdom` method:
+The `jsdom.jsdom` method does less things automatically; it takes in only HTML source, and does not let you to separately supply script that it will inject and execute. It just gives you back a `document` object, with usable `document.parentWindow`, and starts asynchronously executing any `<script>`s included in the HTML source. You can listen for the `'load'` event to wait until scripts are done loading and executing, just like you would in a normal HTML page.
+
+Usage of the API generally looks like this:
 
 ```js
 var jsdom = require("jsdom").jsdom;
@@ -179,14 +181,9 @@ var doc = jsdom(markup, level, options);
 var window = doc.parentWindow;
 ```
 
-- `markup` is an HTML/XML document to be parsed. You can also pass `null` or an undefined value to get a basic document with empty `<head>` and `<body>` tags. Document fragments are also supported (including `""`), and will behave as sanely as possible (e.g. the resulting document will lack the `head`, `body` and `documentElement` properties if the corresponding elements aren't included).
+- `markup` is an HTML/XML document to be parsed. You can also pass `undefined` to get the basic document, equivalent to what a browser will give if you open up an empty `.html` file. Our parser currently doesn't do that well with missing `<html>`, `<head>`, and `<body>` tags, but we're working to fix that.
 
-- `level` is `null` (which means level3) by default, but you can pass another level if you'd like.
-
-  ```js
-  var jsdom = require("jsdom");
-  var doc = jsdom.jsdom("<html><body></body></html>", jsdom.level(1, "core"));
-  ```
+- `level` is `undefined` (which means conforming to the latest Living Standard) by default, but you can pass another level if you'd like.
 
 - `options` See the explanation of the `config` object above.
 
