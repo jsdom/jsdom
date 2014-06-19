@@ -8,7 +8,7 @@ var URL = require('url');
 var um = require('urlmaster');
 
 function tmpWindow() {
-  return jsdom.jsdom(null, null, { documentRoot: __dirname }).createWindow();
+  return jsdom.jsdom(null, null, { documentRoot: __dirname }).parentWindow;
 }
 
 function testFunction(test, window, jQuery, checkVersion) {
@@ -29,7 +29,7 @@ function testFunction(test, window, jQuery, checkVersion) {
 
 exports.tests = {
   build_window: function(test) {
-    var window = jsdom.jsdom().createWindow();
+    var window = jsdom.jsdom().parentWindow;
     test.notEqual(window, null, 'window should not be null');
     test.notEqual(window.document, null, 'window.document should not be null');
     test.done();
@@ -83,7 +83,7 @@ exports.tests = {
   },
 
   jquerify_attribute_selector_gh_400: function(test) {
-    var window = jsdom.jsdom().createWindow();
+    var window = jsdom.jsdom().parentWindow;
 
     jsdom.jQueryify(window, path.resolve(__dirname, '../jquery-fixtures/jquery-1.11.0.js'), function () {
       try {
@@ -180,12 +180,6 @@ exports.tests = {
         test.done();
       }
     );
-  },
-
-  plain_window_document: function(test) {
-    var window = (jsdom.createWindow());
-    test.strictEqual(typeof window.document, 'undefined', 'jsdom.createWindow() should create a documentless window');
-    test.done();
   },
 
   appendChild_to_document_with_existing_documentElement: function(test) {
@@ -311,7 +305,7 @@ exports.tests = {
         deferClose: true
       });
     // iframe.html sets onload handler to call loadComplete, so we mock it.
-    var window = doc.createWindow();
+    var window = doc.parentWindow;
     doc.parent = window;
     window.loadComplete = function () {};
 
@@ -395,7 +389,7 @@ exports.tests = {
 
   window_is_augmented_with_dom_features: function(test) {
     var document = jsdom.jsdom(),
-        window   = document.createWindow();
+        window   = document.parentWindow;
     test.ok(window._augmented, 'window must be augmented');
     test.notEqual(window.Element, null, 'window.Element should not be null');
     test.done();
@@ -661,7 +655,7 @@ exports.tests = {
   },
 
   document_should_expose_location: function(test) {
-    var window = jsdom.jsdom("").createWindow();
+    var window = jsdom.jsdom("").parentWindow;
     test.strictEqual(window.document.location, window.location, 'document.location and window.location');
     test.done();
   },
@@ -752,7 +746,7 @@ exports.tests = {
   },
 
   childNodes_updates_on_insertChild : function(test) {
-    var window = jsdom.jsdom("").createWindow();
+    var window = jsdom.jsdom("").parentWindow;
     var div = window.document.createElement("div");
     var text = window.document.createTextNode("bar");
     div.appendChild(text);
@@ -767,7 +761,7 @@ exports.tests = {
   },
 
   option_set_selected : function(test) {
-    var window = jsdom.jsdom("").createWindow();
+    var window = jsdom.jsdom("").parentWindow;
     var select = window.document.createElement("select");
 
     var option0 = window.document.createElement('option');
@@ -833,7 +827,7 @@ exports.tests = {
       "</script>" +
     "</body></html>";
 
-    var window = jsdom.jsdom(html).createWindow();
+    var window = jsdom.jsdom(html).parentWindow;
     test.ok(!!window.myNode.nodeType);
     test.done();
   },
@@ -1362,7 +1356,7 @@ exports.tests = {
     test.expect(1);
 
     var doc = jsdom.jsdom('<html><head></head><body></body></html>');
-    var window = doc.createWindow();
+    var window = doc.parentWindow;
 
     // Add the load event after the document is already created; it shouldn't
     // fire until nextTick. The test will fail (with a timeout) if it has
@@ -1408,7 +1402,7 @@ exports.tests = {
   },
 
   jquery_val_on_selects : function(test) {
-    var window = jsdom.jsdom().createWindow();
+    var window = jsdom.jsdom().parentWindow;
 
     jsdom.jQueryify(window, path.resolve(__dirname, '../jquery-fixtures/jquery-1.11.0.js'), function () {
       window.$("body").append('<html><body><select id="foo"><option value="first">f</option><option value="last">l</option></select></body></html>');
@@ -1432,7 +1426,7 @@ exports.tests = {
   },
 
   jquery_attr_mixed_case : function(test) {
-    var window = jsdom.jsdom().createWindow();
+    var window = jsdom.jsdom().parentWindow;
 
     jsdom.jQueryify(window, path.resolve(__dirname, '../jquery-fixtures/jquery-1.11.0.js'), function () {
       var $el = window.$('<div mixedcase="blah"></div>');
@@ -1444,7 +1438,7 @@ exports.tests = {
   },
 
   "Calling show() method in jQuery 1.11.0 (GH-709)": function (t) {
-    var window = jsdom.jsdom("<!DOCTYPE html><html><head></head><body></body></html>").createWindow();
+    var window = jsdom.jsdom("<!DOCTYPE html><html><head></head><body></body></html>").parentWindow;
 
     jsdom.jQueryify(window, path.resolve(__dirname, "../jquery-fixtures/jquery-1.11.0.js"), function () {
       var $el = window.$("<div></div>");
@@ -1458,7 +1452,7 @@ exports.tests = {
   },
 
   "Calling show() method in jQuery 1.11.0, second case (GH-709)": function (t) {
-    var window = jsdom.jsdom("<!DOCTYPE html><html><head></head><body></body></html>").createWindow();
+    var window = jsdom.jsdom("<!DOCTYPE html><html><head></head><body></body></html>").parentWindow;
 
     jsdom.jQueryify(window, path.resolve(__dirname, "../jquery-fixtures/jquery-1.11.0.js"), function () {
       var $el1 = window.$("<div></div>");

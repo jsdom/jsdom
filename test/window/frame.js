@@ -19,7 +19,7 @@ exports.tests = {
           FetchExternalResources: ['script','iframe'],
           ProcessExternalResources: ['script','iframe']
         }
-      }).createWindow();
+      }).parentWindow;
     window.iframe.onload = function() {
       test.strictEqual(window.DONE, 1);
       test.strictEqual(window.PARENT_IS_TOP, true);
@@ -50,7 +50,7 @@ exports.tests = {
           FetchExternalResources: ['script','iframe'],
           ProcessExternalResources: ['script','iframe']
         }
-      }).createWindow();
+      }).parentWindow;
     window.document.onload = function(){
       test.strictEqual(window.LOADED_FRAME, 1);
       test.strictEqual(window.PARENT_IS_TOP, true);
