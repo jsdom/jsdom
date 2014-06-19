@@ -794,11 +794,11 @@ exports.tests = {
 
   case_sensitivity_of_markup_missing_html_and_body : function(test){
     var spaces = /[ \n]*/g,
-        doc1 = jsdom.html("<HTML><BODY></BODY></HTML>").outerHTML.replace(spaces, ''),
-        doc2 = jsdom.html("<html><BODY></Body></HTML>").outerHTML.replace(spaces, ''),
-        doc3 = jsdom.html("<html><body></body></html>").outerHTML.replace(spaces, ''),
-        doc4 = jsdom.html("<body></body>").outerHTML.replace(spaces, ''),
-        doc5 = jsdom.html("").outerHTML.replace(spaces, '');
+        doc1 = jsdom.jsdom("<HTML><BODY></BODY></HTML>").outerHTML.replace(spaces, ''),
+        doc2 = jsdom.jsdom("<html><BODY></Body></HTML>").outerHTML.replace(spaces, ''),
+        doc3 = jsdom.jsdom("<html><body></body></html>").outerHTML.replace(spaces, ''),
+        doc4 = jsdom.jsdom("<body></body>").outerHTML.replace(spaces, ''),
+        doc5 = jsdom.jsdom("").outerHTML.replace(spaces, '');
 
     test.ok(doc1 === doc2 && doc2 == doc3 && doc3 === doc4 && doc4 == doc5,
             'they should all serialize the same');
@@ -807,7 +807,7 @@ exports.tests = {
 
   serialization_of_void_elements : function(test){
     var html = '<html><body><div><br><hr><audio><source></audio></div></body></html>',
-        doc = jsdom.html(html);
+        doc = jsdom.jsdom(html);
     test.strictEqual(doc.outerHTML, html)
     test.done();
   },
@@ -986,14 +986,14 @@ exports.tests = {
 
   issues_230_259 : function(test) {
     var instr = '<html><body style="color: #ffffff; foo: bar"></body></html>';
-    var doc = jsdom.html(instr);
+    var doc = jsdom.jsdom(instr);
     test.ok(doc.outerHTML.match(/0: *color/) === null);
     test.done();
   },
 
   // see: https://github.com/tmpvar/jsdom/issues/262
   issue_262 : function(test) {
-    var document = jsdom.html('<html><body></body></html>');
+    var document = jsdom.jsdom('<html><body></body></html>');
     var a = document.createElement('a');
     a.setAttribute("style", "color:blue");
     a.style.setProperty("color", "red");
@@ -1003,7 +1003,7 @@ exports.tests = {
 
   // see: https://github.com/tmpvar/jsdom/issues/267
   issue_267 : function(test) {
-    var document = jsdom.html('<html><body></body></html>');
+    var document = jsdom.jsdom('<html><body></body></html>');
     var a = document.createElement('a');
     a.style.width = '100%';
     test.ok(!!a.getAttribute('style').match(/^\s*width\s*:\s*100%\s*;?\s*$/), 'style attribute must contain width');
@@ -1155,7 +1155,7 @@ exports.tests = {
   },
 
   issue_335_inline_event_handlers : function(test) {
-    var doc = jsdom.html('<a onclick="somefunction()">call some function</a>');
+    var doc = jsdom.jsdom('<a onclick="somefunction()">call some function</a>');
     var a = doc.getElementsByTagName('a').item(0);
     var onclick = a.getAttribute('onclick');
     test.notEqual(onclick, null);
@@ -1165,7 +1165,7 @@ exports.tests = {
   },
 
   issue_338_internal_nodelist_props : function(test) {
-    var doc = jsdom.html();
+    var doc = jsdom.jsdom();
     var props = Object.keys(doc.body.childNodes);
     test.equal(props.length, 1, 'Internal properties must not be enumerable');
     test.done();
@@ -1188,7 +1188,7 @@ exports.tests = {
   },
 
   setting_and_getting_script_element_text : function (test) {
-    var doc = jsdom.html("<script></script>");
+    var doc = jsdom.jsdom("<script></script>");
     var script = doc.getElementsByTagName('script')[0];
     test.equal(script.text, '');
     script.text = 'var x = 3;';
@@ -1206,7 +1206,7 @@ exports.tests = {
     var content = ' <%= cid %>'
     var script = '<script type="text/x-underscore-tmpl">' + content + '</script>'
     var html = '<html><head>' + script + '</head><body><p>hello world!</p></body></html>'
-    var doc = jsdom.html(html)
+    var doc = jsdom.jsdom(html)
     doc.innerHTML = html;
     test.equal(doc.head.childNodes[0].innerHTML, content);
     test.done();
@@ -1233,7 +1233,7 @@ exports.tests = {
   },
 
   issue_361_textarea_value_property: function (test) {
-     var doc = jsdom.html('<html><body><textarea id="mytextarea"></textarea></body></html>');
+     var doc = jsdom.jsdom('<html><body><textarea id="mytextarea"></textarea></body></html>');
 
      doc.getElementById('mytextarea').value = '<foo>';
      test.equal(doc.getElementById('mytextarea').value, '<foo>');
