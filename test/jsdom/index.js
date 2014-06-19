@@ -151,16 +151,6 @@ exports.tests = {
     });
   },
 
-  env_handle_incomplete_dom_with_script: function(test) {
-    jsdom.env(
-      "http://www.google.com/foo#bar",
-      ['http://code.jquery.com/jquery-1.4.4.min.js'],
-      function(errors, window) {
-        test.equal(errors&&errors.length, 1, 'error handed back to callback');
-        test.done();
-      });
-  },
-
   env_with_features_and_external_resources: function(test) {
     jsdom.env(
       'http://documentcloud.github.com/backbone/examples/todos/index.html',
@@ -806,7 +796,7 @@ exports.tests = {
   },
 
   serialization_of_void_elements : function(test){
-    var html = '<html><body><div><br><hr><audio><source></audio></div></body></html>',
+    var html = '<html><head></head><body><div><br><hr><audio><source></audio></div></body></html>',
         doc = jsdom.jsdom(html);
     test.strictEqual(doc.outerHTML, html)
     test.done();
@@ -1166,7 +1156,7 @@ exports.tests = {
   issue_338_internal_nodelist_props : function(test) {
     var doc = jsdom.jsdom();
     var props = Object.keys(doc.body.childNodes);
-    test.equal(props.length, 1, 'Internal properties must not be enumerable');
+    test.equal(props.length, 0, 'Internal properties must not be enumerable');
     test.done();
   },
 
@@ -1338,7 +1328,7 @@ exports.tests = {
     var dom = jsdom.jsdom(originalHTML);
     var outerHTML = dom.outerHTML;
 
-    test.equal(originalHTML, outerHTML);
+    test.equal(outerHTML, '<html><head></head><body>' + originalHTML + '</body></html>');
     test.done();
   },
 

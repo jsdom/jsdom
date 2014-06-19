@@ -47,7 +47,7 @@ exports.tests = {
 
   StylePropertyReflectsStyleAttribute : function (test) {
     jsdom.env(
-        '<html>',
+        '',
         function(err, win) {
       var p = win.document.createElement('p');
       p.setAttribute('style', 'color:red');
@@ -66,7 +66,7 @@ exports.tests = {
 
   StyleAttributeReflectsStyleProperty : function (test) {
     jsdom.env(
-        '<html>',
+        '',
         function(err, win) {
       var p = win.document.createElement('p');
       p.style.setProperty('color', 'red');
@@ -92,7 +92,7 @@ exports.tests = {
 
   retainOriginalStyleAttributeUntilStyleGetter: function (test) {
     jsdom.env(
-        '<html>',
+        '',
         function (err, win) {
           var document = win.document;
           var div = document.createElement('div');
@@ -110,20 +110,14 @@ exports.tests = {
 
   getComputedStyleInline: function(test) {
     jsdom.env(
-        '<html>',
+        '',
         function(err, win) {
           var doc = win.document;
-          var html = doc.createElement("html");
-          doc.appendChild(html);
-          var head = doc.createElement("head");
-          html.appendChild(head);
           var style = doc.createElement("style");
           style.innerHTML = "p { display: none; }";
-          head.appendChild(style);
-          var body = doc.createElement("body");
-          html.appendChild(body);
+          doc.getElementsByTagName('head')[0].appendChild(style);
           var p = doc.createElement("p");
-          body.appendChild(p);
+          doc.body.appendChild(p);
           p = doc.getElementsByTagName("p")[0];
           var cs = win.getComputedStyle(p);
           test.equal(cs.display, "none", "computed display of p is none");
@@ -231,20 +225,14 @@ exports.tests = {
 
   getComputedStyleWithBadSelectors: function(test) {
     jsdom.env(
-        '<html>',
+        '',
         function(err, win) {
           var doc = win.document;
-          var html = doc.createElement("html");
-          doc.appendChild(html);
-          var head = doc.createElement("head");
-          html.appendChild(head);
           var style = doc.createElement("style");
           style.innerHTML = ";p { display: none; }";
-          head.appendChild(style);
-          var body = doc.createElement("body");
-          html.appendChild(body);
+          doc.getElementsByTagName('head')[0].appendChild(style);
           var p = doc.createElement("p");
-          body.appendChild(p);
+          doc.body.appendChild(p);
           p = doc.getElementsByTagName("p")[0];
           test.doesNotThrow(function () {
             win.getComputedStyle(p);
