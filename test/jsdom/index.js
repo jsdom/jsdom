@@ -1204,6 +1204,7 @@ exports.tests = {
   issue_239_replace_causes_script_execution : function(test) {
     jsdom.env({
       html : '<script type="text/javascript">window.a = 1;/* remove me */ console.log("executed?")</script>',
+      features: { ProcessExternalResources: false },
       done : function(errors, window) {
         window.document.innerHTML = window.document.innerHTML.replace('/* remove me */','');
         test.equal(typeof window.a, 'undefined');
@@ -1215,7 +1216,7 @@ exports.tests = {
   issue_355_on_events_should_not_execute_js_when_disabled : function(test) {
     var html = '<html><body onload="undefined()">something</body></html>';
 
-    jsdom.env(html, function(e) {
+    jsdom.env(html, { features: { ProcessExternalResources: false } }, function(e) {
       test.equal(e, null);
       test.done();
     });
