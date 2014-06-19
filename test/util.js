@@ -39,7 +39,7 @@ exports.load = function (dirname) {
     }
 
     var contents = fileCache[file] || fs.readFileSync(file, 'utf8');
-    var doc = jsdom.jsdom(null, null, options);
+    var doc = jsdom.jsdom(null, options);
     var window = doc.parentWindow;
 
     doc.parent = window;

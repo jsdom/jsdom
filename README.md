@@ -126,11 +126,12 @@ jsdom.env(config);
 - `config.scripts`: see `scripts` above.
 - `config.src`: an array of JavaScript strings that will be evaluated against the resulting document. Similar to `scripts`, but it accepts JavaScript instead of paths/URLs.
 - `config.jar`: a custom cookie jar, if desired; see [mikeal/request](https://github.com/mikeal/request) documentation.
+- `config.level`: either `1`, `2`, `3`, or `'living'`, to restrict yourselves to features in certain DOM specifications. The default is `'living'`.
 - `config.document`:
   - `referrer`: the new document will have this referrer.
   - `cookie`: manually set a cookie value, e.g. `'key=value; expires=Wed, Sep 21 2011 12:00:00 GMT; path=/'`.
   - `cookieDomain`: a cookie domain for the manually set cookie; defaults to `127.0.0.1`.
-- `config.features` : see `Flexibility` section below. **Note**: the default feature set for jsdom.env does _not_ include fetching remote JavaScript and executing it. This is something that you will need to **carefully** enable yourself.
+- `config.features`: see `Flexibility` section below. **Note**: the default feature set for jsdom.env does _not_ include fetching remote JavaScript and executing it. This is something that you will need to **carefully** enable yourself.
 - `config.done`, `config.loaded`, `config.created`: see below.
 
 Note that at least one of the callbacks (`done`, `loaded`, or `created`) is required, as is one of `html`, `file`, or `url`.
@@ -177,13 +178,11 @@ Usage of the API generally looks like this:
 
 ```js
 var jsdom = require("jsdom").jsdom;
-var doc = jsdom(markup, level, options);
+var doc = jsdom(markup, options);
 var window = doc.parentWindow;
 ```
 
 - `markup` is an HTML/XML document to be parsed. You can also pass `undefined` to get the basic document, equivalent to what a browser will give if you open up an empty `.html` file. Our parser currently doesn't do that well with missing `<html>`, `<head>`, and `<body>` tags, but we're working to fix that.
-
-- `level` is `undefined` (which means conforming to the latest Living Standard) by default, but you can pass another level if you'd like.
 
 - `options` See the explanation of the `config` object above.
 
@@ -195,7 +194,7 @@ One of the goals of jsdom is to be as minimal and light as possible. This sectio
 
   ```js
   var jsdom = require("jsdom").jsdom;
-  var doc = jsdom("<html><body></body></html>", null, {
+  var doc = jsdom("<html><body></body></html>", {
       features: {
         FetchExternalResources : ["img"]
       }
@@ -246,16 +245,7 @@ jsdom includes support for using the [canvas](https://npmjs.org/package/canvas) 
 
 ## More Examples
 
-### Creating a document
-
-```js
-var jsdom = require("jsdom");
-var doc = new (jsdom.level(1, "core").Document)();
-
-console.log(doc.nodeName); // outputs: #document
-```
-
-### Creating a browser-like BOM/DOM/Window
+### Creating a browser-like Window
 
 ```js
 var jsdom = require("jsdom").jsdom;
@@ -305,7 +295,7 @@ window.document.body.appendChild(scriptEl);
 
 First you'll want to `npm install`. To run all the tests, use `npm test`, which just calls `node test/runner`.
 
-Using `test/runner` directly, you can slice and dice which tests your want to run from different levels. Usage is as follows:
+Using `test/runner` directly, you can slice and dice which tests your want to run. Usage is as follows:
 
 ```
 test/runner --help
