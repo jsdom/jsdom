@@ -103,7 +103,7 @@ exports["attribute named 'constructor' (GH-625)"] = function (t) {
 };
 
 exports["CDATA should parse as bogus comments (GH-618)"] = function (t) {
-  var doc = jsdom("<html><body><div><![CDATA[test]]></div></body></html>");
+  var doc = jsdom("<html><head></head><body><div><![CDATA[test]]></div></body></html>");
 
   var div = doc.getElementsByTagName("div")[0];
 
@@ -114,7 +114,7 @@ exports["CDATA should parse as bogus comments (GH-618)"] = function (t) {
   t.equal(comment.nodeType, comment.COMMENT_NODE);
   t.equal(comment.nodeValue, "[CDATA[test]]");
 
-  t.equal(doc.documentElement.outerHTML, "<html><body><div><!--[CDATA[test]]--></div></body></html>");
+  t.equal(doc.documentElement.outerHTML, "<html><head></head><body><div><!--[CDATA[test]]--></div></body></html>");
 
   t.done();
 };
@@ -134,9 +134,9 @@ exports["innerHTML behavior in <script> vs. <p> (GH-652)"] = function (t) {
 };
 
 exports["lower-cases tags in outerHTML and innerHTML"] = function (t) {
-  var doc = jsdom("<HTML><BODY><P ALIGN='RIGHT'>test</P></BODY></HTML>");
+  var doc = jsdom("<HTML><HEAD></HEAD><BODY><P ALIGN='RIGHT'>test</P></BODY></HTML>");
 
-  t.equal(doc.documentElement.outerHTML, "<html><body><p align=\"RIGHT\">test</p></body></html>");
+  t.equal(doc.documentElement.outerHTML, "<html><head></head><body><p align=\"RIGHT\">test</p></body></html>");
 
   doc.body.innerHTML = "<DIV>test</DIV>";
 

@@ -34,7 +34,7 @@ exports["explicit config.html, with overriden config.url"] = function (t) {
     url: "http://example.com/",
     done: function (err, window) {
       t.ifError(err);
-      t.equal(window.document.innerHTML, "<html><body>Hello</body></html>");
+      t.equal(window.document.innerHTML, "<html><head></head><body>Hello</body></html>");
       t.equal(window.location.href, "http://example.com/");
       t.equal(window.location.origin, "http://example.com");
       t.equal(window.location.search, "");
@@ -71,7 +71,7 @@ exports["explicit config.html, with overriden config.url including search and ha
 
 exports["explicit config.html, without a config.url"] = function (t) {
   env({
-    html: "<html><body><p>hello world!</p></body></html>",
+    html: "<html><head></head><body><p>hello world!</p></body></html>",
     done: function (err, window) {
       t.ifError(err);
       t.notEqual(window.location.href, null);
@@ -97,7 +97,7 @@ exports["explicit config.html, a string that is also a valid URL"] = function (t
     url: "http://example.com/",
     done: function (err, window) {
       t.ifError(err);
-      t.equal(window.document.innerHTML, "<html><body>http://example.com/</body></html>");
+      t.equal(window.document.innerHTML, "<html><head></head><body>http://example.com/</body></html>");
       t.equal(window.location.href, "http://example.com/");
       t.done();
     }
@@ -111,7 +111,7 @@ exports["explicit config.html, a string that is also a valid file"] = function (
     url: "http://example.com/",
     done: function (err, window) {
       t.ifError(err);
-      t.equal(window.document.innerHTML, "<html><body>" + body + "</body></html>");
+      t.equal(window.document.innerHTML, "<html><head></head><body>" + body + "</body></html>");
       t.equal(window.location.href, "http://example.com/");
       t.done();
     }
@@ -160,7 +160,7 @@ exports["explicit config.file, valid"] = function (t) {
       file: fileName,
       done: function (err, window) {
         t.ifError(err);
-        t.equal(window.document.innerHTML, text);
+        t.equal(window.document.innerHTML, text.trim());
         t.equal(window.location.href, toFileUrl(fileName));
         t.done();
       }
@@ -251,7 +251,7 @@ exports["string, for an existing filename"] = function (t) {
       fileName,
       function (err, window) {
         t.ifError(err);
-        t.equal(window.document.innerHTML, text);
+        t.equal(window.document.innerHTML, text.trim());
         t.equal(window.location.href, toFileUrl(fileName));
         t.done();
       }
@@ -266,7 +266,7 @@ exports["string, does not exist as a file"] = function (t) {
     body,
     function (err, window) {
       t.ifError(err);
-      t.equal(window.document.innerHTML, "<html><body>" + body + "</body></html>");
+      t.equal(window.document.innerHTML, "<html><head></head><body>" + body + "</body></html>");
       t.done();
     }
   );
@@ -285,7 +285,7 @@ exports["string, full HTML document"] = function (t) {
 
 exports["with a nonexistant script"] = function (t) {
   env({
-    html: "<!DOCTYPE html><html><body><p>hello world!</p></body></html>",
+    html: "<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>",
     scripts: ["path/to/invalid.js", "another/invalid.js"],
     done: function (err, window) {
       t.ok(err);
@@ -298,7 +298,7 @@ exports["with a nonexistant script"] = function (t) {
 
 exports["with src"] = function (t) {
   env({
-    html: "<!DOCTYPE html><html><body><p>hello world!</p></body></html>",
+    html: "<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>",
     src: "window.attachedHere = 123;",
     done: function (err, window) {
       t.ifError(err);
@@ -312,7 +312,7 @@ exports["with src"] = function (t) {
 
 exports["with document referrer"] = function (t) {
   env({
-    html: "<!DOCTYPE html><html><body><p>hello world!</p></body></html>",
+    html: "<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>",
     document: { referrer: "https://github.com/tmpvar/jsdom" },
     done: function (err, window) {
       t.ifError(err);
@@ -327,7 +327,7 @@ exports["with document cookie"] = function (t) {
   var cookie = "key=value; expires=" + time.toGMTString() + "; path=/";
 
   env({
-    html: "<!DOCTYPE html><html><body><p>hello world!</p></body></html>",
+    html: "<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>",
     document: { cookie: cookie },
     done: function (err, window) {
       t.ifError(err);
