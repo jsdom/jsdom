@@ -89,6 +89,7 @@ jsdom.env({
 ```
 
 ### How it works
+
 `jsdom.env` is built for ease of use, which is rare in the world of the DOM! Since the web has some absolutely horrible JavaScript on it, as of jsdom 0.2.0 `jsdom.env` will not process external resources (scripts, images, etc).  If you want to process the JavaScript use one of the methods below (`jsdom.jsdom` or `jsdom.jQueryify`)
 
 ```js
@@ -101,8 +102,8 @@ The arguments are:
 - `scripts`: a string or array of strings, containing file names or URLs that will be inserted as `<script>` tags
 - `config`: see below
 - `callback`: takes two arguments
-  - `error`: either an `Error` object if something failed initializing the window, or an array of error messages from the DOM if there were script errors
-  - `window`: a brand new `window`
+  - `errors`: either `null`, if nothing goes wrong, or an array of errors
+  - `window`: a brand new `window`, if there were no loading errors
 
 _Example:_
 
@@ -125,14 +126,48 @@ jsdom.env(config);
 - `config.scripts`: see `scripts` above.
 - `config.src`: an array of JavaScript strings that will be evaluated against the resulting document. Similar to `scripts`, but it accepts JavaScript instead of paths/URLs.
 - `config.jar`: a custom cookie jar, if desired; see [mikeal/request](https://github.com/mikeal/request) documentation.
-- `config.done`: see `callback` above.
 - `config.document`:
   - `referrer`: the new document will have this referrer.
   - `cookie`: manually set a cookie value, e.g. `'key=value; expires=Wed, Sep 21 2011 12:00:00 GMT; path=/'`.
   - `cookieDomain`: a cookie domain for the manually set cookie; defaults to `127.0.0.1`.
 - `config.features` : see `Flexibility` section below. **Note**: the default feature set for jsdom.env does _not_ include fetching remote JavaScript and executing it. This is something that you will need to **carefully** enable yourself.
+- `config.done`, `config.loaded`, `config.created`: see below.
 
-Note that `config.done` is required, as is one of `config.html`, `config.file`, or `config.url`.
+Note that at least one of the callbacks (`done`, `loaded`, or `created`) is required, as is one of `html`, `file`, or `url`.
+
+### Initialization lifecycle
+
+If you just want to load the document and execute it, the `done` callback shown above is the simplest. If anything goes wrong, either while loading the document and creating the window, or while executing any `<script>`s, the problem will show up in the `errors` array passed as the first argument.
+
+However, if you want more control over or insight into the initialization lifecycle, you'll want to use the `created` and/or `loaded` callbacks:
+
+#### `created(error, window)`
+
+The `created` callback is called as soon as the window is created, or if that process fails. You may access all `window` properties here; however, `window.document` is not ready for use yet, as the HTML has not been parsed.
+
+The primary use-case for `created` is to modify the window object (e.g. add new functions on built-in prototypes) before any scripts execute.
+
+You can also set an event handler for `'load'` or other events on the window if you wish. But the `loaded` callback, below, can be more useful, since it includes script errors.
+
+If the `error` argument is non-`null`, it will contain whatever loading error caused the window creation to fail; in that case `window` will not be passed.
+
+#### `loaded(errors, window)`
+
+The `loaded` callback is called along with the window's `'load'` event. This means it will only be called if creation succeeds without error. Note that by the time it has called, any external resources will have been downloaded, and any `<script>`s will have finished executing.
+
+If `errors` is non-`null`, it will contain an array of all JavaScript errors that occured during script execution. `window` will still be passed, however.
+
+#### `done(errors, window)`
+
+Now that you know about `created` and `loaded`, you can see that `done` is essentially both of them smashed together:
+
+- If window creation succeeds and no `<script>`s cause errors, then `errors` will be null, and `window` will be usable.
+- If window creation succeeds but there are script errors, then `errors` will be an array containing those errors, but `window` will still be usable.
+- If window creation fails, then `errors` will be an array containing the creation error, and `window` will not be passed.
+
+#### Migrating from before v1.0.0
+
+If you used jsdom before v1.0.0, it only had a `done` callback, and it was kind of buggy, sometimes behaving one way, and sometimes another. Due to some excellent work by [@Sebmaster](https://github.com/Sebmaster) in [#792](https://github.com/tmpvar/jsdom/pull/792), we fixed it up into the above lifecycle. For more information on the migration, see [the wiki](https://github.com/tmpvar/jsdom/wiki/PR-792).
 
 ## For the hardcore
 
