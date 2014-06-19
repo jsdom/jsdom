@@ -8,7 +8,7 @@ exports.tests = {
   HTMLStyleElement01 : function (test) {
     jsdom.env(
         '<html><head><style>p{color:red}</style></head><body>',
-        jsdom.level('2', 'html'), function(err, win) {
+        function(err, win) {
       var style = win.document.head.lastChild;
       test.equal(1, style.sheet.cssRules.length);
       test.equal('p', style.sheet.cssRules[0].selectorText);
@@ -20,7 +20,7 @@ exports.tests = {
   HTMLStyleAttribute01 : function (test) {
     jsdom.env(
         '<html><body><p style="color:red; background-color: blue">',
-        jsdom.level('2', 'html'), function(err, win) {
+        function(err, win) {
       var p = win.document.body.lastChild;
       test.equal(2, p.style.length);
       test.equal('color', p.style[0]);
@@ -34,7 +34,7 @@ exports.tests = {
   HTMLCanvasStyleAttribute01 : function (test) {
     jsdom.env(
         '<html><body><canvas style="background-color: blue; z-index:1">',
-        jsdom.level('2', 'html'), function(err, win) {
+        function(err, win) {
       var c = win.document.body.lastChild;
       test.equal(2, c.style.length);
       test.equal('background-color', c.style[0]);
@@ -48,7 +48,7 @@ exports.tests = {
   StylePropertyReflectsStyleAttribute : function (test) {
     jsdom.env(
         '<html>',
-        jsdom.level('2', 'html'), function(err, win) {
+        function(err, win) {
       var p = win.document.createElement('p');
       p.setAttribute('style', 'color:red');
       test.equal(1, p.style.length);
@@ -67,7 +67,7 @@ exports.tests = {
   StyleAttributeReflectsStyleProperty : function (test) {
     jsdom.env(
         '<html>',
-        jsdom.level('2', 'html'), function(err, win) {
+        function(err, win) {
       var p = win.document.createElement('p');
       p.style.setProperty('color', 'red');
       test.equal(p.getAttribute('style'), 'color: red;');
@@ -93,7 +93,7 @@ exports.tests = {
   retainOriginalStyleAttributeUntilStyleGetter: function (test) {
     jsdom.env(
         '<html>',
-        jsdom.level('2', 'html'), function (err, win) {
+        function (err, win) {
           var document = win.document;
           var div = document.createElement('div');
           div.setAttribute('style', 'font-weight: bold; font-weight: normal;');
@@ -111,7 +111,7 @@ exports.tests = {
   getComputedStyleInline: function(test) {
     jsdom.env(
         '<html>',
-        jsdom.level('2', 'html'), function(err, win) {
+        function(err, win) {
           var doc = win.document;
           var html = doc.createElement("html");
           doc.appendChild(html);
@@ -136,7 +136,7 @@ exports.tests = {
         '<html><head><style>#id1 .clazz { margin-left: 100px; }</style></head><body>'
             + '<div id="id1"><p class="clazz"></p></div>'
             + '</body></html>',
-        jsdom.level('2', 'html'), function(err, win) {
+        function(err, win) {
           var doc = win.document;
           p = doc.getElementsByTagName("p")[0];
           var cs = win.getComputedStyle(p);
@@ -152,7 +152,7 @@ exports.tests = {
             + '<div id="id1"><p class="clazz"></p></div>'
             + '<div id="id2"><p class="clazz"></p></div>'
             + '</body></html>',
-        jsdom.level('2', 'html'), function(err, win) {
+        function(err, win) {
           var doc = win.document;
           p = doc.getElementsByTagName("p")[0];
           var cs = win.getComputedStyle(p);
@@ -173,7 +173,7 @@ exports.tests = {
             + '<div id="id2"><p class="clazz"></p></div>'
             + '<button onclick="ga(this, event)">analytics button</button>'
             + '</body></html>',
-        jsdom.level('2', 'html'), function(err, win) {
+        function(err, win) {
           var doc = win.document;
           var p = doc.getElementsByTagName("p")[1];
           var cs = win.getComputedStyle(p);
@@ -232,7 +232,7 @@ exports.tests = {
   getComputedStyleWithBadSelectors: function(test) {
     jsdom.env(
         '<html>',
-        jsdom.level('2', 'html'), function(err, win) {
+        function(err, win) {
           var doc = win.document;
           var html = doc.createElement("html");
           doc.appendChild(html);
@@ -257,7 +257,7 @@ exports.tests = {
     jsdom.env(
         '<html><head><style>@media screen,handheld { .citation { color: blue; } } @media print { .citation { color: red; } }</style></head>' +
         '<body><p class="citation">Hello</p></body></html>',
-        jsdom.level('2', 'html'), function(err, win) {
+        function(err, win) {
           var style = win.getComputedStyle(win.document.querySelector('.citation'));
           test.equal(style.color, 'blue', 'computed color of p is blue');
           test.done();
@@ -268,7 +268,7 @@ exports.tests = {
     jsdom.env(
         '<html><head><style>@-webkit-keyframes breaking {}</style></head>' +
         '<body><p>Hello</p></body></html>',
-        jsdom.level('2', 'html'), function(err, win) {
+        function(err, win) {
           test.doesNotThrow(function () {
             var style = win.getComputedStyle(win.document.querySelector('p'));
           });

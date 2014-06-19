@@ -8,7 +8,7 @@ var URL = require('url');
 var um = require('urlmaster');
 
 function tmpWindow() {
-  return jsdom.jsdom(null, null, { documentRoot: __dirname }).parentWindow;
+  return jsdom.jsdom(null, { documentRoot: __dirname }).parentWindow;
 }
 
 function testFunction(test, window, jQuery, checkVersion) {
@@ -217,7 +217,7 @@ exports.tests = {
     var html = '<html><head><script src="./files/hello.js"></script></head>' +
                '<body><span id="test">hello from html</span></body></html>';
 
-    var doc2 = jsdom.jsdom(html, null, {
+    var doc2 = jsdom.jsdom(html, {
       url: toFileUrl(__filename),
       features: {
         FetchExternalResources: ['script'],
@@ -234,7 +234,7 @@ exports.tests = {
     var html = "<html><head><script src='./files/hello.js'></script></head>" +
                "<body><span id='test'>hello from html</span></body></html>";
 
-    var doc = jsdom.jsdom(html, null, {
+    var doc = jsdom.jsdom(html, {
       url: toFileUrl(__filename),
       features: {
         FetchExternalResources: ["script"],
@@ -253,7 +253,7 @@ exports.tests = {
                "<script src='./files/hello.js'></script></head><body>" +
                "<span id='test'>hello from html</span></body></html>";
 
-    var doc = jsdom.jsdom(html, null, {
+    var doc = jsdom.jsdom(html, {
       url: toFileUrl(__filename),
       features: {
         FetchExternalResources: ["script"],
@@ -273,7 +273,7 @@ exports.tests = {
                '<body><span id="test">hello from html</span><span id="cat">' +
                'hello from cat</body></html>';
 
-    var doc2 = jsdom.jsdom(html, null, {
+    var doc2 = jsdom.jsdom(html, {
       url: toFileUrl(__filename),
       features: {
         FetchExternalResources: ['script'],
@@ -295,7 +295,7 @@ exports.tests = {
       '<frame src="../level2/html/files/iframe.html"></frame>' +
       '</body></html>';
 
-    var doc = jsdom.jsdom(html, null,
+    var doc = jsdom.jsdom(html,
       {
         url: toFileUrl(__filename),
         features: {
@@ -432,7 +432,7 @@ exports.tests = {
   // TODO: look into breaking into a testcase
   queryselectorall: function(test) {
     var html = '<html><body><div id="main"><p>Foo</p><p>Bar</p></div><div id="next"><div id="next-child"><p>Baz</p></div></div></body></html>',
-        document = jsdom.jsdom(html, null),
+        document = jsdom.jsdom(html),
         div = document.body.children.item(0),
         elements = document.querySelectorAll("#main p");
     test.equal(elements.length, 2, 'two results');
@@ -471,7 +471,7 @@ exports.tests = {
 
   queryselectorall__documentfragment: function(test) {
     var html = '<html><body><div id="main"><p>Foo</p><p>Bar</p></div><div id="next"><div id="next-child"><p>Baz</p></div></div></body></html>',
-        document = jsdom.jsdom(html, null),
+        document = jsdom.jsdom(html),
         fragment = document.createDocumentFragment();
     fragment.appendChild(document.body.firstChild);
     fragment.appendChild(document.body.firstChild);
@@ -553,7 +553,7 @@ exports.tests = {
 
     function testLocal() {
       var url = '/path/to/docroot/index.html';
-      var doc = jsdom.jsdom(html, null, {url: url});
+      var doc = jsdom.jsdom(html, {url: url});
       test.equal(um.addPathEmpty(doc.getElementById("link1").href), 'http://example.com/', 'Absolute URL should be left alone except for possible trailing slash');
       test.equal(doc.getElementById("link2").href, '/local.html', 'Relative URL should be resolved');
       test.equal(doc.getElementById("link3").href, '/path/to/docroot/local.html', 'Relative URL should be resolved');
@@ -564,7 +564,7 @@ exports.tests = {
 
     function testRemote() {
       var url = 'http://example.com/path/to/docroot/index.html';
-      var doc = jsdom.jsdom(html, null, {url: url});
+      var doc = jsdom.jsdom(html, {url: url});
       test.equal(um.addPathEmpty(doc.getElementById("link1").href), 'http://example.com/', 'Absolute URL should be left alone except for possible trailing slash');
       test.equal(doc.getElementById("link2").href, 'http://example.com/local.html', 'Relative URL should be resolved');
       test.equal(doc.getElementById("link3").href, 'http://example.com/path/to/docroot/local.html', 'Relative URL should be resolved');
@@ -575,7 +575,7 @@ exports.tests = {
 
     function testBase() {
       var url  = 'blahblahblah-invalid',
-      doc  = jsdom.jsdom(html, null, {url: url}),
+      doc  = jsdom.jsdom(html, {url: url}),
       base = doc.createElement("base");
       base.href = 'http://example.com/path/to/docroot/index.html';
       doc.getElementsByTagName("head").item(0).appendChild(base);
@@ -605,7 +605,7 @@ exports.tests = {
 
       // now check each base case
       bases.forEach(function (base, i) {
-       var doc = jsdom.jsdom(html, null, { url: locn });
+       var doc = jsdom.jsdom(html, { url: locn });
        var expected = um.resolveTrack(locn, base, refs);
 
       // set up the base
@@ -1023,7 +1023,7 @@ exports.tests = {
         </head>\
         <body onload='loader()'></body>\
       </html>";
-    var doc = jsdom.jsdom(html, null, { deferClose : true });
+    var doc = jsdom.jsdom(html, { deferClose : true });
     var window = doc.parentWindow;
     // In JSDOM, listeners registered with addEventListener are called before
     // "traditional" listeners, so listening for 'load' will fire before our
@@ -1043,7 +1043,6 @@ exports.tests = {
   test_body_event_handler_script : function (test) {
     test.expect(2);
     var doc = jsdom.jsdom("<html><head></head><body></body></html>",
-                          null,
                           {deferClose : true});
     var window = doc.parentWindow;
     test.equal(window.onload, undefined);

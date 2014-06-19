@@ -13,7 +13,6 @@ exports.tests = {
         document.body.appendChild(iframe);\
       </script>\
       </head><body></body></html>',
-      null,
       {
         features : {
           FetchExternalResources: ['script','iframe'],
@@ -43,7 +42,6 @@ exports.tests = {
     var window = jsdom.jsdom('<html><body>\
       <iframe src="./files/iframe.html"></iframe>\
       </body></html>',
-      null,
       {
         url : toFileUrl("test.html"),
         features : {
@@ -60,7 +58,7 @@ exports.tests = {
 
   'test iframe element existence' : function (test) {
     var iframeParentPath = path.resolve(__dirname, 'files', 'iframe_parent.html');
-    var doc = jsdom.jsdom(fs.readFileSync(iframeParentPath, 'utf8'), null, {
+    var doc = jsdom.jsdom(fs.readFileSync(iframeParentPath, 'utf8'), {
       features : {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
@@ -76,7 +74,7 @@ exports.tests = {
 
   'test iframe.contentDocument access' : function(test) {
     var iframeParentPath = path.resolve(__dirname, 'files', 'iframe_parent.html');
-    var doc = jsdom.jsdom(fs.readFileSync(iframeParentPath, 'utf8'), null, {
+    var doc = jsdom.jsdom(fs.readFileSync(iframeParentPath, 'utf8'), {
       features : {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
@@ -97,7 +95,7 @@ exports.tests = {
   },
 
   'test iframe load event' : function(test) {
-    var doc = jsdom.jsdom(null, null, {
+    var doc = jsdom.jsdom(null, {
       features : {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
@@ -127,7 +125,7 @@ exports.tests = {
 
   'test iframe.contentWindow acccess' : function(test) {
     var htmlPath = path.resolve(__dirname, 'files', 'iframe_parent.html');
-    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), null, {
+    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), {
       features : {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
@@ -148,7 +146,7 @@ exports.tests = {
 
   'get iframe window via indexed frames access' : function(test) {
     var htmlPath = path.resolve(__dirname, 'files', 'iframe_parent.html');
-    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), null, {
+    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), {
       features : {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
@@ -169,7 +167,7 @@ exports.tests = {
   },
 
   'get iframe window via indexed frames access with setAttributeNode' : function(test) {
-    var doc = jsdom.jsdom("<html><head></head><body><iframe name='simpleIFrame' id='simpleIFrameID'></iframe></body></html>", null, {
+    var doc = jsdom.jsdom("<html><head></head><body><iframe name='simpleIFrame' id='simpleIFrameID'></iframe></body></html>", {
       features : {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
@@ -196,7 +194,7 @@ exports.tests = {
 
   'update named frames access on name change' : function(test) {
     var htmlPath = path.resolve(__dirname, 'files', 'iframe_parent.html');
-    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), null, {
+    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), {
       features : {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
@@ -219,7 +217,7 @@ exports.tests = {
   // See: http://www.whatwg.org/specs/web-apps/current-work/#dom-frames
   'test frames array identity' : function(test) {
     var htmlPath = path.resolve(__dirname, 'files', 'iframe_parent.html');
-    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), null, {
+    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), {
       features : {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
@@ -235,7 +233,7 @@ exports.tests = {
 
   'test nested iframes' : function (test) {
     var htmlPath = path.resolve(__dirname, 'files', 'iframe_parent.html');
-    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), null, {
+    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), {
       features : {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
@@ -270,7 +268,7 @@ exports.tests = {
 
   'test multiple iframes' : function (test) {
     var htmlPath = path.resolve(__dirname, 'files', 'multiple_iframe_parent.html');
-    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), null, {
+    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), {
       features : {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
@@ -297,7 +295,7 @@ exports.tests = {
 
   'test named lookup' : function (test) {
     var htmlPath = path.resolve(__dirname, 'files', 'multiple_iframe_parent.html');
-    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), null, {
+    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), {
       features : {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
@@ -318,7 +316,7 @@ exports.tests = {
 
   // This is based off of a test from the jQuery test suite that was failing.
   'test iframe without src' : function (test) {
-    var doc = jsdom.jsdom(null, null, {
+    var doc = jsdom.jsdom(null, {
       features : {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
@@ -342,7 +340,7 @@ exports.tests = {
   },
 
   'test setting src multiple times' : function (test) {
-    var doc = jsdom.jsdom(null, null, {
+    var doc = jsdom.jsdom(null, {
       features : {
         FetchExternalResources   : ['script', 'iframe'],
         ProcessExternalResources : ['script', 'iframe']
@@ -361,7 +359,7 @@ exports.tests = {
 
   'test framesets' : function (test) {
     var htmlPath = path.resolve(__dirname, 'files', 'frameset_parent.html');
-    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), null, {
+    var doc = jsdom.jsdom(fs.readFileSync(htmlPath, 'utf8'), {
       features : {
         FetchExternalResources   : ['script', 'frame'],
         ProcessExternalResources : ['script', 'frame']
