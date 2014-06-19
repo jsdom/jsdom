@@ -106,7 +106,8 @@ var files = [
   "jsdom/utils.js",
   "jsonp/jsonp.js",
   "browser/css.js",
-  "browser/index.js"
+  "browser/index.js",
+  "w3c/index.js"
 ];
 
 if (fileFilter.length > 0) {
