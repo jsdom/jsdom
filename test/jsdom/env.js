@@ -372,6 +372,11 @@ exports["should call callbacks correctly"] = function (t) {
 
   env({
     html: "<!DOCTYPE html><html><head><script>window.isExecuted = true;window.wasCreatedSet = window.isCreated;</script></head><body></body></html>",
+    features: {
+      FetchExternalResources: ["script"],
+      ProcessExternalResources: ["script"],
+      SkipExternalResources: false
+    },
     created: function (err, window) {
       t.ifError(err);
 

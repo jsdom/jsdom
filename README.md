@@ -131,7 +131,7 @@ jsdom.env(config);
   - `referrer`: the new document will have this referrer.
   - `cookie`: manually set a cookie value, e.g. `'key=value; expires=Wed, Sep 21 2011 12:00:00 GMT; path=/'`.
   - `cookieDomain`: a cookie domain for the manually set cookie; defaults to `127.0.0.1`.
-- `config.features`: see `Flexibility` section below. **Note**: the default feature set for `jsdom.env` will fetch and execute remote JavaScript, which may be dangerous. Be careful!
+- `config.features`: see `Flexibility` section below. **Note**: the default feature set for jsdom.env does _not_ include fetching remote JavaScript and executing it. This is something that you will need to **carefully** enable yourself.
 - `config.done`, `config.loaded`, `config.created`: see below.
 
 Note that at least one of the callbacks (`done`, `loaded`, or `created`) is required, as is one of `html`, `file`, or `url`.
