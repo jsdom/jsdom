@@ -84,6 +84,7 @@ var files = [
   "level2/events.js",
   //"level3/core.js",
   //"level3/ls.js",
+  "level3/textContent.js",
   "level3/xpath.js",
   "living/core.js",
   "whatwg/attributes.js",
