@@ -289,11 +289,11 @@ exports.tests = {
         SkipExternalResources: new RegExp('.*/files/h')
       }
     });
-    setTimeout(function() {
+    doc2.parentWindow.onload = function () {
       test.equal(doc2.getElementById("test").innerHTML, 'hello from html', 'js should not be executed (doc2)');
       test.equal(doc2.getElementById("cat").innerHTML, 'hello from nyan cat', 'js should be executed (doc2)');
       test.done();
-    }, 800);
+    };
   },
 
   load_multiple_resources_with_defer_close: function(test) {
