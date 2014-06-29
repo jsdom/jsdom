@@ -89,6 +89,7 @@ var files = [
   "living/core.js",
   "whatwg/attributes.js",
   "whatwg/navigator.js",
+  "whatwg/xml.js",
   "window/index.js",
   "window/history.js",
   "window/script.js",
