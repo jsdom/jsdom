@@ -173,13 +173,11 @@ exports.tests = {
         }
       },
       function(errors, window) {
-        test.ifError(errors);
+        test.notEqual(errors, null, 'localStorage error should occur');
 
-        window.onload = function () {
-          test.equal(typeof window._, 'function', 'Underscore loaded');
-          test.equal(typeof window.$, 'function', 'jQuery loaded');
-          test.done();
-        };
+        test.equal(typeof window._, 'function', 'Underscore loaded');
+        test.equal(typeof window.$, 'function', 'jQuery loaded');
+        test.done();
       }
     );
   },
@@ -1547,7 +1545,7 @@ exports.tests = {
           FetchExternalResources: ["script"],
           ProcessExternalResources: ["script"]
         },
-        done: function (err, window) {
+        created: function (err, window) {
           window.doCheck = function () {
             server.close();
             t.ifError(err);
