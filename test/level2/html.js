@@ -20189,5 +20189,142 @@ exports.tests = {
     });
 
     test.done();
+  },
+
+
+  /**
+   * Node.parentElement
+   *
+   * Tests adapted from https://github.com/w3c/web-platform-tests/blob/master/dom/nodes/Node-parentElement.html
+   * Spec: http://dom.spec.whatwg.org/#dom-node-parentelement
+   */
+
+  Node_parentElement__When_the_parent_is_null_parentElement_should_be_null: function(test) {
+    var dom = require("../../lib/jsdom/level2/html").dom.level2.html;
+    var document = new dom.Document('');
+    test.strictEqual(document.parentElement, null, "When the parent is null, parentElement is null");
+    test.done();
+  },
+
+  Node_parentElement__When_the_parent_is_a_document_parentElement_should_be_null_doctype: function (test) {
+    var dom = require("../../lib/jsdom/level2/html").dom.level2.html;
+    var document = new dom.Document('');
+    // Set a doctype manually
+    document.doctype = new dom.DocumentType(document);
+    test.strictEqual(document.doctype.parentElement, null,
+        "When the parent is a document, parentElement should be null (doctype)");
+    test.done();
+  },
+
+  Node_parentElement__When_the_parent_is_a_document_parentElement_should_be_null_element: function (test) {
+    var dom = require("../../lib/jsdom/level2/html").dom.level2.html;
+    var document = new dom.Document('');
+    // Provide a documentElement
+    document.appendChild(document.createElement('html'));
+    test.strictEqual(document.documentElement.parentElement, null,
+        "When the parent is a document, parentElement should be null (element)");
+    test.done();
+  },
+
+  Node_parentElement__When_the_parent_is_a_document_parentElement_should_be_null_comment: function(test) {
+    var dom = require("../../lib/jsdom/level2/html").dom.level2.html;
+    var document = new dom.Document('');
+    // Add a comment
+    var comment = document.appendChild(document.createComment("foo"));
+    test.strictEqual(comment.parentElement, null,
+        "When the parent is a document, parentElement should be null (comment)");
+    test.done();
+  },
+
+  Node_parentElement__parentElement_should_return_null_for_children_of_DocumentFragments_element: function(test) {
+    var dom = require("../../lib/jsdom/level2/html").dom.level2.html;
+    var document = new dom.Document('');
+    var df = document.createDocumentFragment();
+    test.strictEqual(df.parentElement, null);
+    var el = document.createElement("div");
+    test.strictEqual(el.parentElement, null);
+    df.appendChild(el);
+    test.strictEqual(el.parentNode, df);
+    test.strictEqual(el.parentElement, null,
+        "parentElement should return null for children of DocumentFragments (element)");
+    test.done();
+  },
+
+  Node_parentElement__parentElement_should_return_null_for_children_of_DocumentFragments_text: function(test) {
+    var dom = require("../../lib/jsdom/level2/html").dom.level2.html;
+    var document = new dom.Document('');
+    var df = document.createDocumentFragment();
+    test.strictEqual(df.parentElement, null);
+    var text = document.createTextNode("bar");
+    test.strictEqual(text.parentElement, null);
+    df.appendChild(text);
+    test.strictEqual(text.parentNode, df);
+    test.strictEqual(text.parentElement, null, "parentElement should work correctly with DocumentFragments (text)");
+    test.done();
+  },
+
+  Node_parentElement__parentElement_should_work_correctly_with_DocumentFragments_element: function(test) {
+    var dom = require("../../lib/jsdom/level2/html").dom.level2.html;
+    var document = new dom.Document('');
+    var df = document.createDocumentFragment();
+    var parent = document.createElement("div");
+    df.appendChild(parent);
+    var el = document.createElement("div");
+    test.strictEqual(el.parentElement, null);
+    parent.appendChild(el);
+    test.strictEqual(el.parentElement, parent, "parentElement should work correctly with DocumentFragments (element)");
+    test.done();
+  },
+
+  Node_parentElement__parentElement_should_work_correctly_with_DocumentFragments_text: function(test) {
+    var dom = require("../../lib/jsdom/level2/html").dom.level2.html;
+    var document = new dom.Document('');
+    var df = document.createDocumentFragment();
+    var parent = document.createElement("div");
+    df.appendChild(parent);
+    var text = document.createTextNode("bar");
+    test.strictEqual(text.parentElement, null);
+    parent.appendChild(text);
+    test.strictEqual(text.parentElement, parent, "parentElement should work correctly with DocumentFragments (text)");
+    test.done();
+  },
+
+  Node_parentElement__parentElement_should_work_correctly_in_disconnected_subtrees_element: function(test) {
+    var dom = require("../../lib/jsdom/level2/html").dom.level2.html;
+    var document = new dom.Document('');
+    var parent = document.createElement("div");
+    var el = document.createElement("div");
+    test.strictEqual(el.parentElement, null);
+    parent.appendChild(el);
+    test.strictEqual(el.parentElement, parent, "parentElement should work correctly in disconnected subtrees (element)");
+    test.done();
+  },
+
+  Node_parentElement__parentElement_should_work_correctly_in_disconnected_subtrees_text: function(test) {
+    var dom = require("../../lib/jsdom/level2/html").dom.level2.html;
+    var document = new dom.Document('');
+    var parent = document.createElement("div");
+    var text = document.createTextNode("bar");
+    test.strictEqual(text.parentElement, null);
+    parent.appendChild(text);
+    test.strictEqual(text.parentElement, parent, "parentElement should work correctly in disconnected subtrees (text)");
+    test.done();
+  },
+
+  Node_parentElement__parentElement_should_work_correctly_in_a_document_element: function(test) {
+    var dom = require("../../lib/jsdom/level2/html").dom.level2.html;
+    var document = new dom.HTMLDocument('');
+    // Create document.body manually
+    var html = document.createElement('html');
+    document.appendChild(html);
+    test.strictEqual(document.documentElement, html);
+    var body = document.createElement('body');
+    document.documentElement.appendChild(body);
+    test.equal(document.body, body);
+    var el = document.createElement("div");
+    test.strictEqual(el.parentElement, null);
+    document.body.appendChild(el);
+    test.strictEqual(el.parentElement, document.body, "parentElement should work correctly in a document (element)");
+    test.done();
   }
 }
