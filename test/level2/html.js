@@ -10294,9 +10294,7 @@ exports.tests = {
     testNode = nodeList.item(1);
     vcode = testNode.code;
 
-// XXX SUPERSEDED BY DOM4
-//    test.equal(vcode, "", "codeLink");
-    test.strictEqual(vcode, null, "codeLink");
+    test.strictEqual(vcode, "", "codeLink");
     test.done();
   },
 
@@ -20039,7 +20037,7 @@ exports.tests = {
       var element = doc.createElement(tagName);
       // http://www.w3.org/html/wg/drafts/html/master/forms.html#attr-fe-name plus
       // http://www.w3.org/html/wg/drafts/html/master/infrastructure.html#reflect
-      test.strictEqual(element.name, null, '<' + tagName + '> elements should have null name properties by default.');
+      test.strictEqual(element.name, '', '<' + tagName + '> elements should have empty string name properties by default.');
 
       element.name = 'foo';
       test.strictEqual(element.name, 'foo', '<' + tagName + '> elements should allow setting and retrieving their name properties.');
