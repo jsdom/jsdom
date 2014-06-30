@@ -472,3 +472,135 @@ exports["Test that an unattached element does not contain another unattached ele
   t.ok(!e2.contains(e1), "Second Element does not contain Element");
   t.done();
 };
+
+
+
+  /**
+   * Node.parentElement
+   *
+   * Tests adapted from https://github.com/w3c/web-platform-tests/blob/master/dom/nodes/Node-parentElement.html
+   * Spec: http://dom.spec.whatwg.org/#dom-node-parentelement
+   */
+
+exports["Node.parentElement: When the parent is null parentElement should be null"]= function(test) {
+    var document = load('test');
+    test.strictEqual(document.parentElement, null,
+        "When the parent is null, parentElement is not null");
+    test.done();
+};
+
+exports["Node.parentElement: When the parent is a document parentElement should be null (doctype)"] = function(test) {
+    var document = load('test');
+    test.strictEqual(document.doctype.parentElement, null,
+        "When the parent is a document, parentElement is not null (doctype)");
+    test.done();
+};
+
+exports["Node.parentElement: When the parent is a document parentElement should be null (element)"] = function(test) {
+    var document = load('test');
+    test.strictEqual(document.documentElement.parentElement, null,
+        "When the parent is a document, parentElement is not null (element)");
+    test.done();
+};
+
+exports["Node.parentElement: When the parent is a document parentElement should be null (comment)"] = function(test) {
+    var document = load('test');
+    var comment = document.appendChild(document.createComment("foo"));
+    test.strictEqual(comment.parentElement, null,
+        "When the parent is a document, parentElement is not null (comment)");
+    test.done();
+};
+
+exports["Node.parentElement: parentElement should return null for children of DocumentFragments (element)"] = function(test) {
+    var document = load('test');
+    var df = document.createDocumentFragment();
+    test.strictEqual(df.parentElement, null, "parentElement of DocumentFragment does not return null");
+    var el = document.createElement("div");
+    test.strictEqual(el.parentElement, null,
+        "parentElement of Element that is not attached to the DOM does not return null");
+    df.appendChild(el);
+    test.strictEqual(el.parentNode, df,
+        "parentNode does return null for an child Element of DocumentFragment");
+    test.strictEqual(el.parentElement, null,
+        "parentElement does not return null for children of DocumentFragments (element)");
+    test.done();
+};
+
+
+exports["Node.parentElement: parentElement should return null for children of DocumentFragments (text)"]= function(test) {
+    var document = load('test');
+    var df = document.createDocumentFragment();
+    test.strictEqual(df.parentElement, null, "parentElement of DocumentFragment does not return null");
+    var text = document.createTextNode("bar");
+    test.strictEqual(text.parentElement, null,
+        "parentElement of Text that is not attached to the DOM does not return null");
+    df.appendChild(text);
+    test.strictEqual(text.parentNode, df,
+        "parentNode does return null for an child Text node of DocumentFragment");
+    test.strictEqual(text.parentElement, null,
+        "parentElement doesn't return null for children of DocumentFragments (text)");
+    test.done();
+};
+
+exports["Node.parentElement: parentElement should work correctly with DocumentFragments (element)"] = function(test) {
+    var document = load('test');
+    var df = document.createDocumentFragment();
+    var parent = document.createElement("div");
+    df.appendChild(parent);
+    var el = document.createElement("div");
+    test.strictEqual(el.parentElement, null,
+        "parentElement of Element that is not attached to the DOM does not return null");
+    parent.appendChild(el);
+    test.strictEqual(el.parentElement, parent,
+        "parentElement doesn't work correctly with DocumentFragments (element)");
+    test.done();
+};
+
+exports["Node.parentElement: parentElement should work correctly with DocumentFragments (text)"] = function(test) {
+    var document = load('test');
+    var df = document.createDocumentFragment();
+    var parent = document.createElement("div");
+    df.appendChild(parent);
+    var text = document.createTextNode("bar");
+    test.strictEqual(text.parentElement, null,
+        "parentElement of Text that is not attached to the DOM does not return null");
+    parent.appendChild(text);
+    test.strictEqual(text.parentElement, parent,
+        "parentElement doesn't work correctly with DocumentFragments (text)");
+    test.done();
+};
+
+exports["Node.parentElement: parentElement should work correctly in disconnected subtrees (element)"] = function(test) {
+    var document = load('test');
+    var parent = document.createElement("div");
+    var el = document.createElement("div");
+    test.strictEqual(el.parentElement, null,
+        "parentElement of Element that is not attached to the DOM does not return null");
+    parent.appendChild(el);
+    test.strictEqual(el.parentElement, parent,
+        "parentElement doesn't work correctly in disconnected subtrees (element)");
+    test.done();
+};
+
+exports["Node.parentElement: parentElement should work correctly in disconnected subtrees (text)"] = function(test) {
+    var document = load('test');
+    var parent = document.createElement("div");
+    var text = document.createTextNode("bar");
+    test.strictEqual(text.parentElement, null,
+        "parentElement of Text that is not attached to the DOM does not return null");
+    parent.appendChild(text);
+    test.strictEqual(text.parentElement, parent,
+        "parentElement doesn't work correctly in disconnected subtrees (text)");
+    test.done();
+};
+
+exports["Node.parentElement: parentElement should work correctly in a document (element)"] = function(test) {
+    var document = load('test');
+    var el = document.createElement("div");
+    test.strictEqual(el.parentElement, null,
+        "parentElement of Element that is not attached to the DOM does not return null");
+    document.body.appendChild(el);
+    test.strictEqual(el.parentElement, document.body
+        , "parentElement doesn't work correctly in a document (element)");
+    test.done();
+};
