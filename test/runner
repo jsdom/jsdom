@@ -86,9 +86,14 @@ var files = [
   //"level3/ls.js",
   "level3/textContent.js",
   "level3/xpath.js",
-  "living/core.js",
-  "whatwg/attributes.js",
-  "whatwg/navigator.js",
+
+  "living-dom/attributes.js",
+  "living-dom/compare-document-position.js",
+  "living-dom/node-contains.js",
+  "living-dom/node-parent-element.js",
+  "living-dom/attributes.js",
+  "living-html/navigator.js",
+
   "window/index.js",
   "window/history.js",
   "window/script.js",
