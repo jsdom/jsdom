@@ -11,7 +11,8 @@ exports["A document contains and precedes its document type"] = function (t) {
   var doc = load("test");
   var doctype = doc.doctype;
 
-  t.ok(doc.compareDocumentPosition(doctype) & doc.parentWindow.Node.DOCUMENT_POSITION_CONTAINED_BY, "Doctype contained");
+  t.ok(doc.compareDocumentPosition(doctype) & doc.parentWindow.Node.DOCUMENT_POSITION_CONTAINED_BY,
+    "Doctype contained");
   t.ok(doc.compareDocumentPosition(doctype) & doc.parentWindow.Node.DOCUMENT_POSITION_FOLLOWING, "Doctype follows");
   t.done();
 };
@@ -24,7 +25,8 @@ exports["A document contains and precedes its newly attached document type"] = f
 
   doc.replaceChild(newDoctype, doctype);
 
-  t.ok(doc.compareDocumentPosition(newDoctype) & doc.parentWindow.Node.DOCUMENT_POSITION_CONTAINED_BY, "Doctype contained");
+  t.ok(doc.compareDocumentPosition(newDoctype) & doc.parentWindow.Node.DOCUMENT_POSITION_CONTAINED_BY,
+    "Doctype contained");
   t.ok(doc.compareDocumentPosition(newDoctype) & doc.parentWindow.Node.DOCUMENT_POSITION_FOLLOWING, "Doctype follows");
   t.done();
 };
@@ -35,7 +37,8 @@ exports["Two document nodes obtained from the same document are disconnected & i
   var docB = load("test");
 
   t.ok(docA.compareDocumentPosition(docB) & doc.parentWindow.Node.DOCUMENT_POSITION_DISCONNECTED, "Disconnected");
-  t.ok(docA.compareDocumentPosition(docB) & doc.parentWindow.Node.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC, "Implementation Specific");
+  t.ok(docA.compareDocumentPosition(docB) & doc.parentWindow.Node.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC,
+    "Implementation Specific");
   t.done();
 };
 
@@ -45,9 +48,11 @@ exports["A document is disconnected from and precedes a DocumentFragment"] = fun
   var fragment = doc.createDocumentFragment();
   fragment.innerHTML = "<span>I AM SPAN</span>";
 
-  t.ok(doc.compareDocumentPosition(fragment) & doc.parentWindow.Node.DOCUMENT_POSITION_DISCONNECTED, "Fragment disconnected");
+  t.ok(doc.compareDocumentPosition(fragment) & doc.parentWindow.Node.DOCUMENT_POSITION_DISCONNECTED,
+    "Fragment disconnected");
   t.ok(doc.compareDocumentPosition(fragment) & doc.parentWindow.Node.DOCUMENT_POSITION_FOLLOWING, "Fragment follows");
-  t.ok(doc.compareDocumentPosition(fragment) & doc.parentWindow.Node.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC, "Implementation Specific");
+  t.ok(doc.compareDocumentPosition(fragment) & doc.parentWindow.Node.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC,
+    "Implementation Specific");
   t.done();
 };
 
@@ -64,9 +69,11 @@ exports["A document and a newly created document are disconnected and implementa
   var doc = load("test");
   var newDoc = doc.implementation.createDocument();
 
-  t.ok(doc.compareDocumentPosition(newDoc) & doc.parentWindow.Node.DOCUMENT_POSITION_DISCONNECTED, "Fragment disconnected");
+  t.ok(doc.compareDocumentPosition(newDoc) & doc.parentWindow.Node.DOCUMENT_POSITION_DISCONNECTED,
+    "Fragment disconnected");
   t.ok(doc.compareDocumentPosition(newDoc) & doc.parentWindow.Node.DOCUMENT_POSITION_FOLLOWING, "Fragment follows");
-  t.ok(doc.compareDocumentPosition(newDoc) & doc.parentWindow.Node.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC, "Implementation Specific");
+  t.ok(doc.compareDocumentPosition(newDoc) & doc.parentWindow.Node.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC,
+    "Implementation Specific");
   t.done();
 };
 
@@ -75,10 +82,14 @@ exports["A document contains and precedes its document element and vice versa"] 
   var doc = load("test");
   var documentElement = doc.documentElement;
 
-  t.ok(doc.compareDocumentPosition(documentElement) & doc.parentWindow.Node.DOCUMENT_POSITION_CONTAINED_BY, "DocumentElement contained");
-  t.ok(doc.compareDocumentPosition(documentElement) & doc.parentWindow.Node.DOCUMENT_POSITION_FOLLOWING, "DocumentElement follows");
-  t.ok(documentElement.compareDocumentPosition(doc) & doc.parentWindow.Node.DOCUMENT_POSITION_CONTAINS, "Document contains");
-  t.ok(documentElement.compareDocumentPosition(doc) & doc.parentWindow.Node.DOCUMENT_POSITION_PRECEDING, "Document precedes");
+  t.ok(doc.compareDocumentPosition(documentElement) & doc.parentWindow.Node.DOCUMENT_POSITION_CONTAINED_BY,
+    "DocumentElement contained");
+  t.ok(doc.compareDocumentPosition(documentElement) & doc.parentWindow.Node.DOCUMENT_POSITION_FOLLOWING,
+    "DocumentElement follows");
+  t.ok(documentElement.compareDocumentPosition(doc) & doc.parentWindow.Node.DOCUMENT_POSITION_CONTAINS,
+    "Document contains");
+  t.ok(documentElement.compareDocumentPosition(doc) & doc.parentWindow.Node.DOCUMENT_POSITION_PRECEDING,
+    "Document precedes");
   t.done();
 };
 
@@ -88,8 +99,10 @@ exports["Document contains and precedes a newly attached element and vice versa"
   var newElement = doc.createElement("p");
   doc.documentElement.appendChild(newElement);
 
-  t.ok(doc.compareDocumentPosition(newElement) & doc.parentWindow.Node.DOCUMENT_POSITION_CONTAINED_BY, "Document contains");
-  t.ok(doc.compareDocumentPosition(newElement) & doc.parentWindow.Node.DOCUMENT_POSITION_FOLLOWING, "Document precedes");
+  t.ok(doc.compareDocumentPosition(newElement) & doc.parentWindow.Node.DOCUMENT_POSITION_CONTAINED_BY,
+    "Document contains");
+  t.ok(doc.compareDocumentPosition(newElement) & doc.parentWindow.Node.DOCUMENT_POSITION_FOLLOWING,
+    "Document precedes");
   t.ok(newElement.compareDocumentPosition(doc) & doc.parentWindow.Node.DOCUMENT_POSITION_CONTAINS, "Element contained");
   t.ok(newElement.compareDocumentPosition(doc) & doc.parentWindow.Node.DOCUMENT_POSITION_PRECEDING, "Element follows");
   t.done();
@@ -100,7 +113,8 @@ exports["Document contains and precedes an existing element and vice versa"] = f
   var doc = load("test");
   var element = doc.querySelectorAll("span").item(0);
 
-  t.ok(doc.compareDocumentPosition(element) & doc.parentWindow.Node.DOCUMENT_POSITION_CONTAINED_BY, "Document contains");
+  t.ok(doc.compareDocumentPosition(element) & doc.parentWindow.Node.DOCUMENT_POSITION_CONTAINED_BY,
+    "Document contains");
   t.ok(doc.compareDocumentPosition(element) & doc.parentWindow.Node.DOCUMENT_POSITION_FOLLOWING, "Document precedes");
   t.ok(element.compareDocumentPosition(doc) & doc.parentWindow.Node.DOCUMENT_POSITION_CONTAINS, "Element contained");
   t.ok(element.compareDocumentPosition(doc) & doc.parentWindow.Node.DOCUMENT_POSITION_PRECEDING, "Element follows");
@@ -130,7 +144,8 @@ exports["Document contains and precedes a newly attached comment and vice versa"
 
   span.appendChild(comment);
 
-  t.ok(doc.compareDocumentPosition(comment) & doc.parentWindow.Node.DOCUMENT_POSITION_CONTAINED_BY, "Document contains");
+  t.ok(doc.compareDocumentPosition(comment) & doc.parentWindow.Node.DOCUMENT_POSITION_CONTAINED_BY,
+    "Document contains");
   t.ok(doc.compareDocumentPosition(comment) & doc.parentWindow.Node.DOCUMENT_POSITION_FOLLOWING, "Document precedes");
   t.ok(comment.compareDocumentPosition(doc) & doc.parentWindow.Node.DOCUMENT_POSITION_CONTAINS, "Comment contained");
   t.ok(comment.compareDocumentPosition(doc) & doc.parentWindow.Node.DOCUMENT_POSITION_PRECEDING, "Comment follows");
@@ -145,7 +160,8 @@ exports["Document fragment contains and precedes a newly attached nide and vice 
 
   fragment.appendChild(span);
 
-  t.ok(fragment.compareDocumentPosition(span) & doc.parentWindow.Node.DOCUMENT_POSITION_CONTAINED_BY, "Fragment contains");
+  t.ok(fragment.compareDocumentPosition(span) & doc.parentWindow.Node.DOCUMENT_POSITION_CONTAINED_BY,
+    "Fragment contains");
   t.ok(fragment.compareDocumentPosition(span) & doc.parentWindow.Node.DOCUMENT_POSITION_FOLLOWING, "Fragment precedes");
   t.ok(span.compareDocumentPosition(fragment) & doc.parentWindow.Node.DOCUMENT_POSITION_CONTAINS, "Span contained");
   t.ok(span.compareDocumentPosition(fragment) & doc.parentWindow.Node.DOCUMENT_POSITION_PRECEDING, "Span follows");
@@ -210,8 +226,10 @@ exports["A Child node precedes a child of a node later in the markup"] = functio
   var strong = doc.getElementsByTagName("strong").item(0);
   var em = doc.getElementsByTagName("em").item(0);
 
-  t.ok(strong.compareDocumentPosition(em) & doc.parentWindow.Node.DOCUMENT_POSITION_FOLLOWING, "Second Element Follows");
-  t.ok(em.compareDocumentPosition(strong) & doc.parentWindow.Node.DOCUMENT_POSITION_PRECEDING, "First Element Precedes");
+  t.ok(strong.compareDocumentPosition(em) & doc.parentWindow.Node.DOCUMENT_POSITION_FOLLOWING,
+    "Second Element Follows");
+  t.ok(em.compareDocumentPosition(strong) & doc.parentWindow.Node.DOCUMENT_POSITION_PRECEDING,
+    "First Element Precedes");
   t.done();
 };
 
@@ -224,8 +242,10 @@ exports["A newly attached child node precedes a child node later in the markup"]
 
   span.appendChild(newEl);
 
-  t.ok(newEl.compareDocumentPosition(em) & doc.parentWindow.Node.DOCUMENT_POSITION_FOLLOWING, "Second Element Follows");
-  t.ok(em.compareDocumentPosition(newEl) & doc.parentWindow.Node.DOCUMENT_POSITION_PRECEDING, "New Element Precedes");
+  t.ok(newEl.compareDocumentPosition(em) & doc.parentWindow.Node.DOCUMENT_POSITION_FOLLOWING,
+    "Second Element Follows");
+  t.ok(em.compareDocumentPosition(newEl) & doc.parentWindow.Node.DOCUMENT_POSITION_PRECEDING,
+    "New Element Precedes");
   t.done();
 };
 
@@ -238,8 +258,10 @@ exports["A newly attached child node follows a child node earlier in the markup"
 
   p.appendChild(newEl);
 
-  t.ok(newEl.compareDocumentPosition(strong) & doc.parentWindow.Node.DOCUMENT_POSITION_PRECEDING, "Second Element Precedes");
-  t.ok(strong.compareDocumentPosition(newEl) & doc.parentWindow.Node.DOCUMENT_POSITION_FOLLOWING, "New Element Follows");
+  t.ok(newEl.compareDocumentPosition(strong) & doc.parentWindow.Node.DOCUMENT_POSITION_PRECEDING,
+    "Second Element Precedes");
+  t.ok(strong.compareDocumentPosition(newEl) & doc.parentWindow.Node.DOCUMENT_POSITION_FOLLOWING,
+    "New Element Follows");
   t.done();
 };
 
@@ -256,6 +278,7 @@ exports["Testing a node against a non node type throws an error"] = function (t)
  * Tests for node.contains
  * @see  http://dom.spec.whatwg.org/#dom-node-contains
  */
+
 exports["A node should contain its document type"] = function (t) {
   var doc = load("test"),
       doctype = doc.doctype;
@@ -366,8 +389,10 @@ exports["Check that created and attached sibling ProcessingInstructions do not c
   doc.appendChild(pi1);
   doc.appendChild(pi2);
 
-  t.ok(!pi1.contains(pi2), "Attached ProcessingInstruction does not contain second attached ProcessingInstruction");
-  t.ok(!pi2.contains(pi1), "Second attached ProcessingInstruction does not contain first attached ProcessingInstruction");
+  t.ok(!pi1.contains(pi2),
+    "Attached ProcessingInstruction does not contain second attached ProcessingInstruction");
+  t.ok(!pi2.contains(pi1),
+    "Second attached ProcessingInstruction does not contain first attached ProcessingInstruction");
   t.done();
 };
 
@@ -392,8 +417,10 @@ exports["Check that the Text node children of two sibling elements do not contai
   txt1 = doc.getElementsByTagName("span").item(0).firstChild,
   txt2 = doc.getElementsByTagName("p").item(0).firstChild;
 
-  t.ok(!txt1.contains(txt2), "Text node child of first sibling Element does not contain Text node child of second sibling Element");
-  t.ok(!txt2.contains(txt1), "Text node child of second sibling Element does not contain Text node child of first sibling Element");
+  t.ok(!txt1.contains(txt2),
+    "Text node child of first sibling Element does not contain Text node child of second sibling Element");
+  t.ok(!txt2.contains(txt1),
+    "Text node child of second sibling Element does not contain Text node child of first sibling Element");
   t.done();
 };
 
