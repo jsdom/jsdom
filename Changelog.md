@@ -1,3 +1,10 @@
+## 0.11.1
+
+* Add: `Node.prototype.parentElement`. (lukasbuenger)
+* Fix: attributes that are reflected as properties should be `''` when not present, instead of `null`. (Note that `getAttribute` still returns `null` for them). (thejameskyle)
+* Fix: `textContent` now works for nodes that do not have children, like text nodes for example. (hayes)
+* Fix: `jsdom.jQueryify` was using the wrong URL for jQuery by default. (lukasbuenger)
+
 ## 0.11.0
 
 * Add: new default level, `living`, reflecting our focus on the [DOM Living Standard](http://dom.spec.whatwg.org/) and the [HTML Living Standard](http://www.whatwg.org/specs/web-apps/current-work/multipage/), which are what browsers actually implement. This should open the door for more features of the modern DOM and HTML specs to be implemented in jsdom. (robotlovesyou)
