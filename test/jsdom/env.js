@@ -154,17 +154,20 @@ exports["explicit config.url, invalid"] = function (t) {
 exports["explicit config.file, valid"] = function (t) {
   var fileName = path.resolve(__dirname, "files/env.html");
 
-  fs.readFile(fileName, 'utf-8', function (err, text) {
-    t.ifError(err);
-    env({
-      file: fileName,
-      done: function (err, window) {
-        t.ifError(err);
-        t.equal(window.document.innerHTML, text.trim());
-        t.equal(window.location.href, toFileUrl(fileName));
-        t.done();
-      }
-    });
+  env({
+    file: fileName,
+    done: function (err, window) {
+      t.ifError(err);
+      t.equal(window.document.innerHTML, '<!DOCTYPE html><html><head>\n\
+    <title>hello, Node.js!</title>\n\
+  </head>\n\
+  <body>\n\
+  \n\
+\n\
+</body></html>');
+      t.equal(window.location.href, toFileUrl(fileName));
+      t.done();
+    }
   });
 };
 
@@ -245,18 +248,21 @@ exports["string, parseable as a URL, invalid"] = function (t) {
 exports["string, for an existing filename"] = function (t) {
   var fileName = path.resolve(__dirname, "files/env.html");
 
-  fs.readFile(fileName, 'utf-8', function (err, text) {
-    t.ifError(err);
-    env(
-      fileName,
-      function (err, window) {
-        t.ifError(err);
-        t.equal(window.document.innerHTML, text.trim());
-        t.equal(window.location.href, toFileUrl(fileName));
-        t.done();
-      }
-    );
-  });
+  env(
+    fileName,
+    function (err, window) {
+      t.ifError(err);
+      t.equal(window.document.innerHTML, '<!DOCTYPE html><html><head>\n\
+    <title>hello, Node.js!</title>\n\
+  </head>\n\
+  <body>\n\
+  \n\
+\n\
+</body></html>');
+      t.equal(window.location.href, toFileUrl(fileName));
+      t.done();
+    }
+  );
 };
 
 exports["string, does not exist as a file"] = function (t) {
