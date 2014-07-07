@@ -1,51 +1,64 @@
 ﻿"use strict";
 
+var fs = require('fs');
+var path = require('path');
 var request = require("request");
 var jsdom = require("../..");
 
-function testUrl(url, t) {
-  request.get(url, function (err, resp, respBody) {
-    if (err) {
-      t.ifError(err, 'request should go through without error');
-      t.done();
-      return;
-    }
-    if (resp.statusCode < 200 || resp.statusCode >= 300) {
-      t.ok(false, 'request should return OK status code');
-      t.done();
-      return;
-    }
-
-    var input = respBody.replace(
-      /<script src="\/resources\/testharnessreport.js"><\/script>/,
+function createJsdom(source, url, t) {
+  var input = source.replace(
+      /<script src="(.*?)\/resources\/testharnessreport.js"><\/script>/,
       "<script>window.shimTest();</script>");
 
-    if (input === respBody) {
-      t.ok(false, "Couldn't replace test reporter!");
-      t.done();
+  if (input === source) {
+    t.ok(false, "Couldn't replace test reporter!");
+    t.done();
+  }
+
+  jsdom.env({
+    html: input,
+    url: url,
+    features: {
+      FetchExternalResources: ["script", "img", "css", "frame", "iframe", "link"],
+      ProcessExternalResources: ["script"]
+    },
+    created: function (err, window) {
+      window.shimTest = function () {
+        window.add_result_callback(function (test) {
+          t.notEqual(test.status, 1, test.name + ": failed");
+          t.notEqual(test.status, 2, test.name + ": timeout");
+        });
+
+        window.add_completion_callback(function () {
+          window.close();
+          t.done();
+        });
+      };
     }
+  });
+}
 
-    jsdom.env({
-      html: input,
-      url: url,
-      features: {
-        FetchExternalResources: ["script", "img", "css", "frame", "iframe", "link"],
-        ProcessExternalResources: ["script"]
-      },
-      created: function (err, window) {
-        window.shimTest = function () {
-          window.add_result_callback(function (test) {
-            t.notEqual(test.status, 1, test.name + ": failed");
-            t.notEqual(test.status, 2, test.name + ": timeout");
-          });
+function testUrl(url, t) {
+  fs.readFile(path.resolve(__dirname, 'tests', url), 'utf8', function (err, file) {
+    if (err) {
+      request.get('http://w3c-test.org/' + url, function (err, resp, respBody) {
+        if (err) {
+          t.ifError(err, 'request should go through without error');
+          t.done();
+          return;
+        }
+        if (resp.statusCode < 200 || resp.statusCode >= 300) {
+          t.ok(false, 'request should return OK status code');
+          t.done();
+          return;
+        }
 
-          window.add_completion_callback(function () {
-            window.close();
-            t.done();
-          });
-        };
-      }
-    });
+        createJsdom(respBody, 'http://w3c-test.org/' + url, t);
+      });
+    } else {
+      file = file.replace(/\/resources\//gi, __dirname + '/tests/resources/');
+      createJsdom(file, path.resolve(__dirname, 'tests', url), t);
+    }
   });
 }
 
