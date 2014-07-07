@@ -865,10 +865,10 @@ exports.tests = {
   parsing_and_serializing_unknown_entities: function (test) {
     var html = '<html><body>&nowayjose;&#x263a;&#xblah;&#9q;</body></html>';
     var document = jsdom.jsdom(html);
-    test.strictEqual(document.body.firstChild.nodeValue, "&nowayjose;☺&#xblah;&#9q;",
-                     "Unknown and unparsable entities should be left in the decoded text");
-    test.strictEqual(document.body.innerHTML, "&amp;nowayjose;☺&amp;#xblah;&amp;#9q;",
-                     "Unknown and unparsable entities should be reserialized as literal text");
+    test.strictEqual(document.body.firstChild.nodeValue, "&nowayjose;☺lah;	q;",
+                     "Unknown and unparsable entities should be handled like a browser would");
+    test.strictEqual(document.body.innerHTML, "&amp;nowayjose;☺lah;	q;",
+                     "Unknown and unparsable entities should be handled like a browser would");
     test.done();
   },
 
