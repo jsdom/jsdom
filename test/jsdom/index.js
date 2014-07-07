@@ -279,11 +279,11 @@ exports.tests = {
   },
 
   load_multiple_resources_with_defer_close: function(test) {
-    var html = '<html><head></head><body>' +
+    var html = '<html><head></head><frameset>' +
       '<frame src="../level2/html/files/iframe.html"></frame>' +
       '<frame src="../level2/html/files/iframe.html"></frame>' +
       '<frame src="../level2/html/files/iframe.html"></frame>' +
-      '</body></html>';
+      '</frameset></html>';
 
     var doc = jsdom.jsdom(html,
       {
