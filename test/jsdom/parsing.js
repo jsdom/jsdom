@@ -168,3 +168,16 @@ exports["Parsing of single <html> tag (GH-827)"] = function (t) {
 
   t.done();
 };
+
+exports["Don't error on invalid chinese tags (GH-719)"] = function (t) {
+  jsdom.env({
+    html: "<div>chinese here:<中文></div>",
+    done: function (errs, window) {
+      t.ifError(errs);
+
+      t.strictEqual(window.document.body.innerHTML, "<div>chinese here:&lt;中文&gt;</div>");
+
+      t.done();
+    }
+  });
+};
