@@ -221,3 +221,24 @@ exports["Handle more non-standard markup (GH-88)"] = function (t) {
 
   t.done();
 };
+
+exports[".innerHTML with < character (GH-652)"] = function (t) {
+  jsdom.env({
+    html: "<html>",
+    done: function (errs, window) {
+      t.ifError(errs);
+
+      var doc = window.document;
+
+      var script = doc.createElement("script");
+      script.innerHTML = "5 < 3";
+      t.strictEqual(script.innerHTML, "5 < 3");
+
+      var p = doc.createElement("p");
+      p.innerHTML = "5 < 3";
+      t.strictEqual(p.innerHTML, "5 &lt; 3");
+
+      t.done();
+    }
+  });
+};
