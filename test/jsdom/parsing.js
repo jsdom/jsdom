@@ -144,3 +144,11 @@ exports["lower-cases tags in outerHTML and innerHTML"] = function (t) {
 
   t.done();
 };
+
+exports["Non-strict HTML entities (GH-821)"] = function (t) {
+  var doc = jsdom("<a>&#x61</a>");
+
+  t.strictEqual(doc.getElementsByTagName("a")[0].textContent, "a");
+
+  t.done();
+};
