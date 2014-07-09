@@ -206,3 +206,18 @@ exports["Handle missing <body> tag correctly (GH-389)"] = function (t) {
     }
   });
 };
+
+exports["Handle more non-standard markup (GH-88)"] = function (t) {
+  var doc;
+
+  doc = jsdom("<html><body></body></html>");
+  t.strictEqual(doc.body.innerHTML, "");
+
+  doc = jsdom("<body></body>");
+  t.strictEqual(doc.body.innerHTML, "");
+
+  doc = jsdom("gavin!");
+  t.strictEqual(doc.body.innerHTML, "gavin!");
+
+  t.done();
+};
