@@ -90,13 +90,11 @@ jsdom.env({
 
 ### How it works
 
-`jsdom.env` is built for ease of use, which is rare in the world of the DOM! Since the web has some absolutely horrible JavaScript on it, as of jsdom 0.2.0 `jsdom.env` will not process external resources (scripts, images, etc).  If you want to process the JavaScript use one of the methods below (`jsdom.jsdom` or `jsdom.jQueryify`)
+The do-what-I-mean API is used like so:
 
 ```js
 jsdom.env(string, [scripts], [config], callback);
 ```
-
-The arguments are:
 
 - `string`: may be a URL, file name, or HTML fragment
 - `scripts`: a string or array of strings, containing file names or URLs that will be inserted as `<script>` tags
@@ -170,6 +168,10 @@ Now that you know about `created` and `loaded`, you can see that `done` is essen
 
 If you used jsdom before v1.0.0, it only had a `done` callback, and it was kind of buggy, sometimes behaving one way, and sometimes another. Due to some excellent work by [@Sebmaster](https://github.com/Sebmaster) in [#792](https://github.com/tmpvar/jsdom/pull/792), we fixed it up into the above lifecycle. For more information on the migration, see [the wiki](https://github.com/tmpvar/jsdom/wiki/PR-792).
 
+### On running scripts and being safe
+
+By default, `jsdom.env` will not process and run external JavaScript, since our sandbox is not foolproof. That is, code running inside the DOM's `<script>`s can, if it tries hard enough, get access to the Node environment, and thus to your machine. If you want to (carefully!) enable running JavaScript, you can use `jsdom.jsdom`, `jsdom.jQueryify`, or modify the defaults passed to `jsdom.env`.
+
 ## For the hardcore: `jsdom.jsdom`
 
 The `jsdom.jsdom` method does less things automatically; it takes in only HTML source, and does not let you to separately supply script that it will inject and execute. It just gives you back a `document` object, with usable `document.parentWindow`, and starts asynchronously executing any `<script>`s included in the HTML source. You can listen for the `'load'` event to wait until scripts are done loading and executing, just like you would in a normal HTML page.
@@ -182,15 +184,15 @@ var doc = jsdom(markup, options);
 var window = doc.parentWindow;
 ```
 
-- `markup` is an HTML/XML document to be parsed. You can also pass `undefined` to get the basic document, equivalent to what a browser will give if you open up an empty `.html` file. Our parser currently doesn't do that well with missing `<html>`, `<head>`, and `<body>` tags, but we're working to fix that.
+- `markup` is a HTML document to be parsed. You can also pass `undefined` to get the basic document, equivalent to what a browser will give if you open up an empty `.html` file.
 
-- `options` See the explanation of the `config` object above.
+- `options`: see the explanation of the `config` object above.
 
 ### Flexibility
 
-One of the goals of jsdom is to be as minimal and light as possible. This section details how someone can change the behavior of `Document`s on the fly.  These features are baked into the `DOMImplementation` that every `Document` has, and may be tweaked in two ways:
+One of the goals of jsdom is to be as minimal and light as possible. This section details how someone can change the behavior of `Document`s before they are created. These features are baked into the `DOMImplementation` that every `Document` has, and may be tweaked in two ways:
 
-1. When you create a new `Document` using the jsdom builder (`require("jsdom").jsdom()`)
+1. When you create a new `Document`, by overriding the configuration:
 
   ```js
   var jsdom = require("jsdom").jsdom;
@@ -212,32 +214,33 @@ One of the goals of jsdom is to be as minimal and light as possible. This sectio
   };
   ```
 
-#### Default Features
+#### External Resources
 
 Default features are extremely important for jsdom as they lower the configuration requirement and present developers a set of consistent default behaviors. The following sections detail the available features, their defaults, and the values that jsdom uses.
-
 
 `FetchExternalResources`
 
 - _Default_: `["script"]`
 - _Allowed_: `["script", "img", "css", "frame", "iframe", "link"]` or `false`
+- _Default for `jsdom.env`_: `false`
 
-Enables/disables fetching files over the file system/HTTP.
+Enables/disables fetching files over the file system/HTTP
 
 `ProcessExternalResources`
 
 - _Default_: `["script"]`
 - _Allowed_: `["script"]` or `false`
+- _Default for `jsdom.env`_: `false`
 
-Disabling this will disable script execution (currently only JavaScript).
+Enables/disables JavaScript execution
 
 `SkipExternalResources`
 
-- _Default_: `false`
+- _Default_: `false` (allow all)
 - _Allowed_: `/url to be skipped/` or `false`
 - _Example_: `/http:\/\/example.org/js/bad\.js/`
 
-Do not download and process resources with url matching a regular expression.
+Filters resource downloading and processing to disallow those maching the given regular expression
 
 ### Canvas
 
@@ -249,7 +252,7 @@ jsdom includes support for using the [canvas](https://npmjs.org/package/canvas) 
 
 ```js
 var jsdom = require("jsdom").jsdom;
-var document = jsdom("<html><head></head><body>hello world</body></html>");
+var document = jsdom("hello world");
 var window = document.parentWindow;
 
 console.log(window.document.innerHTML);
@@ -318,10 +321,9 @@ Unfortunately, doing this kind of magic requires C++. And in Node.js, using C++ 
 modules." Native modules are compiled at installation time so that they work precisely for your machine; that is, you
 don't download a contextify binary from npm, but instead build one locally after downloading the source from npm.
 
-
-Unfortunately, getting C++ compiled within npm's installation system can be tricky, especially for Windows users. Thus,
-one of the most common problems with jsdom is trying to use it without the proper compilation tools installed.
-Here's what you need to compile Contextify, and thus to install jsdom:
+Getting C++ compiled within npm's installation system can be tricky, especially for Windows users. Thus, one of the
+most common problems with jsdom is trying to use it without the proper compilation tools installed. Here's what you
+need to compile Contextify, and thus to install jsdom:
 
 ### Windows
 
