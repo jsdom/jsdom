@@ -192,3 +192,17 @@ exports["Handle missing <html> tag correctly (GH-555)"] = function (t) {
 
   t.done();
 };
+
+exports["Handle missing <body> tag correctly (GH-389)"] = function (t) {
+  t.expect(1);
+
+  jsdom.env({
+    html: "<html></html>",
+    src: "''",
+    done: function (errs, window) {
+      t.ifError(errs);
+
+      t.done();
+    }
+  });
+};
