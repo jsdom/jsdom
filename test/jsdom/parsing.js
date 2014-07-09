@@ -181,3 +181,14 @@ exports["Don't error on invalid chinese tags (GH-719)"] = function (t) {
     }
   });
 };
+
+exports["Handle missing <html> tag correctly (GH-555)"] = function (t) {
+  var doctype = "<!DOCTYPE html PUBLIC\"-//W3C//DTD HTML 4.0//EN\">";
+  var docA = jsdom(doctype + "<html><head><title></title></head><p>");
+  var docB = jsdom(doctype + "<head><title></title></head><p>")
+
+  t.strictEqual(docA.querySelectorAll("p").length, 1);
+  t.strictEqual(docB.querySelectorAll("p").length, 1);
+
+  t.done();
+};
