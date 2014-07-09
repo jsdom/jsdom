@@ -327,12 +327,12 @@ need to compile Contextify, and thus to install jsdom:
 
 ### Windows
 
-* A recent copy of the *x86* version of [Node.js for Windows](http://nodejs.org/download/), *not* the x64 version.
-* A copy of [Visual C++ 2010 Express](http://www.microsoft.com/visualstudio/eng/downloads#d-2010-express).
-* A copy of [Python 2.7](http://www.python.org/download/), installed in the default location of `C:\Python27`.
+* The latest version of [Node.js for Windows](http://nodejs.org/download/)
+* A copy of [Visual Studio Express 2013 for Windows Desktop](http://www.visualstudio.com/downloads/download-visual-studio-vs#d-express-windows-desktop)
+* A copy of [Python 2.7](http://www.python.org/download/), installed in the default location of `C:\Python27`
 
-There are some slight modifications to this that can work; for example full versions of Visual Studio usually work, and
-sometimes you can even get an x64 version of Node.js working too. But it's tricky, so start with the basics!
+There are some slight modifications to this that can work; for example other Visual Studio versions often work too. But
+it's tricky, so start with the basics!
 
 ### Mac
 
