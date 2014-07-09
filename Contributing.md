@@ -39,6 +39,23 @@ These days the [w3c/web-platform-tests](https://github.com/w3c/web-platform-test
 
 If there is no official test covering the functionality you're after, then you can write your own. You might want to submit a pull request to the web-platform-tests repo too!
 
+## Running the tests
+
+First you'll want to `npm install`. To run all the tests, use `npm test`, which just calls `node test/runner`.
+
+Using `test/runner` directly, you can slice and dice which tests your want to run. Usage is as follows:
+
+```
+test/runner --help
+Run the jsdom test suite
+
+Options:
+-s, --suites     suites that you want to run. ie: -s level1/core,1/html,html [string]
+-f, --fail-fast  stop on the first failed test
+-h, --help       show the help
+-t, --tests      choose the test cases to run. ie: -t jquery
+```
+
 ## Issues
 
 Finally, we have [an active and full issue tracker](https://github.com/tmpvar/jsdom/issues) that we'd love you to help with. Go find something broken, and fix it!

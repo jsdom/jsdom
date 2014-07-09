@@ -294,23 +294,6 @@ window.document.body.appendChild(scriptEl);
 // though it originated in Node!
 ```
 
-## Running the tests
-
-First you'll want to `npm install`. To run all the tests, use `npm test`, which just calls `node test/runner`.
-
-Using `test/runner` directly, you can slice and dice which tests your want to run. Usage is as follows:
-
-```
-test/runner --help
-Run the jsdom test suite
-
-Options:
--s, --suites     suites that you want to run. ie: -s level1/core,1/html,html [string]
--f, --fail-fast  stop on the first failed test
--h, --help       show the help
--t, --tests      choose the test cases to run. ie: -t jquery
-```
-
 ## Contextify
 
 [Contextify](https://npmjs.org/package/contextify) is a dependency of jsdom, used for running `<script>` tags within the page. In other words, it allows jsdom, which is run in Node.js, to run strings of JavaScript in an isolated environment that pretends to be a browser environment instead of a server. You can see how this is an important feature.
