@@ -160,3 +160,11 @@ exports["Added < or > generate strange HTML (GH-826)"] = function (t) {
 
   t.done();
 };
+
+exports["Parsing of single <html> tag (GH-827)"] = function (t) {
+  var doc = jsdom("<html>");
+
+  t.strictEqual(doc.documentElement.innerHTML, "<head></head><body></body>");
+
+  t.done();
+};
