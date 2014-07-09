@@ -242,3 +242,12 @@ exports[".innerHTML with < character (GH-652)"] = function (t) {
     }
   });
 };
+
+exports["whitespace after <!DOCTYPE> (GH-160)"] = function (t) {
+  var doc = jsdom("<!DOCTYPE html>\n<html></html>");
+
+  var firstChild = doc.firstChild;
+  t.strictEqual(firstChild.nodeName, "html");
+
+  t.done();
+};
