@@ -152,3 +152,11 @@ exports["Non-strict HTML entities (GH-821)"] = function (t) {
 
   t.done();
 };
+
+exports["Added < or > generate strange HTML (GH-826)"] = function (t) {
+  var doc = jsdom("<<script>alert(1);//<</script>");
+
+  t.strictEqual(doc.body.innerHTML, "&lt;<script>alert(1);//<</script>");
+
+  t.done();
+};
