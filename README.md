@@ -268,7 +268,7 @@ console.log(typeof window.document.getElementsByClassName);
 var jsdom = require("jsdom");
 var window = jsdom.jsdom().parentWindow;
 
-jsdom.jQueryify(window, "http://code.jquery.com/jquery.js", function () {
+jsdom.jQueryify(window, "http://code.jquery.com/jquery-2.1.1.js", function () {
   window.$("body").append('<div class="testing">Hello World, It works</div>');
 
   console.log(window.$(".testing").text());

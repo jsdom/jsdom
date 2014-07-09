@@ -75,9 +75,10 @@ exports.tests = {
   },
 
   jquerify_invalid: function (test) {
-    test.expect(5);
+    test.expect(2);
     jsdom.jQueryify(tmpWindow(), 1, function (window, jQuery) {
-      testFunction(test, window, jQuery, false);
+      test.strictEqual(window.jQuery, undefined);
+      test.strictEqual(jQuery, undefined);
       test.done();
     });
   },

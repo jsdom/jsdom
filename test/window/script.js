@@ -43,7 +43,7 @@ exports.tests = {
 
   scripts_jquerify_have_jsdom_class: function(test) {
     var window = jsdom.jsdom().parentWindow;
-    jsdom.jQueryify(window, [jQueryPath] , function(dom) {
+    jsdom.jQueryify(window, jQueryPath, function (dom) {
       test.ok(dom.window.$('script').hasClass("jsdom"));
       test.done();
     });
