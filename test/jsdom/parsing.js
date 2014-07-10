@@ -1,5 +1,6 @@
 "use strict";
 
+var path = require("path");
 var jsdom = require("../..").jsdom;
 
 // These tests are mostly random regression tests, not systematic parsing tests. They are compiled from the bug tracker.
@@ -270,4 +271,17 @@ exports["querySelector should not throw when applied to Document fragments (GH-5
   t.strictEqual(doc.querySelector("[href]").tagName, "A");
 
   t.done();
+};
+
+exports["< should not break the parser (GH-800)"] = function (t) {
+  t.expect(2);
+
+  jsdom.env(
+    path.resolve(__dirname, "files", "steam.html"),
+    function (errors, window) {
+      t.ifError(errors);
+      t.notEqual(window.document.querySelector(".badge_card_set_text"), null);
+
+      t.done();
+    });
 };
