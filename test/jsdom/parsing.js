@@ -251,3 +251,15 @@ exports["whitespace after <!DOCTYPE> (GH-160)"] = function (t) {
 
   t.done();
 };
+
+exports["parsing of pre tag with < and > characters (GH-755)"] = function (t) {
+  var doc = jsdom("<pre>[task.h:277] - RunnableMethod<DOMStorageDispatcherHost,void " +
+    "( DOMStorageDispatcherHost::*)(DOMStorageType,IPC::Message *),Tuple2<DOMStorageType,IPC::Message *>>" +
+    "::Run()</pre>");
+
+  t.strictEqual(doc.body.innerHTML, "<pre>[task.h:277] - RunnableMethod<domstoragedispatcherhost,void " +
+    "(=\"\" domstoragedispatcherhost::*)(domstoragetype,ipc::message=\"\" *),tuple2<domstoragetype,ipc::message=\"\" *=\"\">" +
+    "&gt;::Run()</domstoragedispatcherhost,void></pre>");
+
+  t.done();
+};
