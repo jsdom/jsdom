@@ -294,6 +294,12 @@ window.document.body.appendChild(scriptEl);
 // though it originated in Node!
 ```
 
+## What Standards Does jsdom Support, Exactly?
+
+Our mission is to get something very close to a headless browser, with emphasis more on the DOM/HTML side of things than the CSS side. As such, our primary goals are supporting [The DOM Standard](http://dom.spec.whatwg.org/) and [The HTML Standard](http://www.whatwg.org/specs/web-apps/current-work/multipage/). We only support some subset of these so far; in particular we have the subset covered by the outdated DOM 2 spec family down pretty well. We're slowly including more and more from the modern DOM and HTML specs, including some `Node` APIs, `querySelector(All)`, attribute semantics, the history and URL APIs, and the HTML parsing algorithm.
+
+We also support some subset of the [CSSOM](http://dev.w3.org/csswg/cssom/), largely via [@chad3814](https://github.com/chad3814)'s excellent [cssstyle](https://www.npmjs.org/package/cssstyle) package. In general we want to make webpages run headlessly as best we can, and if there are other specs we should be incorporating, let us know.
+
 ## Contextify
 
 [Contextify](https://npmjs.org/package/contextify) is a dependency of jsdom, used for running `<script>` tags within the page. In other words, it allows jsdom, which is run in Node.js, to run strings of JavaScript in an isolated environment that pretends to be a browser environment instead of a server. You can see how this is an important feature.
