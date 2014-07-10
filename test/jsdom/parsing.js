@@ -263,3 +263,11 @@ exports["parsing of pre tag with < and > characters (GH-755)"] = function (t) {
 
   t.done();
 };
+
+exports["querySelector should not throw when applied to Document fragments (GH-523)"] = function (t) {
+  var doc = jsdom("<a href='http://foo'></a>");
+
+  t.strictEqual(doc.querySelector("[href]").tagName, "A");
+
+  t.done();
+};
