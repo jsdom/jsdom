@@ -1,7 +1,7 @@
 ﻿"use strict";
 
-var fs = require('fs');
-var path = require('path');
+var fs = require("fs");
+var path = require("path");
 var request = require("request");
 var jsdom = require("../..");
 
@@ -62,10 +62,19 @@ function testUrl(url, t) {
   });
 }
 
+var rawManifest = fs.readFileSync(path.resolve(__dirname, "MANIFEST.json"), "utf8");
+var manifest = JSON.parse(rawManifest);
+
+var testharnessTests = manifest.items.testharness;
+
 module.exports = function (exports) {
   return function (url) {
-    exports[url] = function (t) {
-      testUrl(url, t);
-    };
+    testharnessTests.forEach(function (testHarness) {
+      if (testHarness.path.indexOf(url) === 0) {
+        exports[testHarness.path] = function (t) {
+          testUrl(testHarness.path, t);
+        };
+      }
+    });
   };
 };
