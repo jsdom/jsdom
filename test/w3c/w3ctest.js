@@ -7,7 +7,7 @@ var jsdom = require("../..");
 
 function createJsdom(source, url, t) {
   var input = source.replace(
-      /<script src="(.*?)\/resources\/testharnessreport.js"><\/script>/,
+      /<script src="?(.*?)\/resources\/testharnessreport.js"?><\/script>/,
       "<script>window.shimTest();</script>");
 
   if (input === source) {
