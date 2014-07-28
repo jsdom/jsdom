@@ -21881,5 +21881,25 @@ exports.tests = {
     attr.value = 'test';
     test.ok(elem.onclick, 'elem.onevent is set');
     test.done();
+  },
+
+  memoized_queries_cleared_on_remove_child: function(test) {
+    var doc = hc_staff.hc_staff();
+    var elemList = doc.getElementsByTagName('acronym');
+    var origLength = elemList.length;
+    elemList.item(0).parentNode.removeChild(elemList.item(0));
+    var newLength = doc.getElementsByTagName('acronym').length;
+    test.equal(newLength, origLength - 1, 'Num elements queried has changed');
+    test.done();
+  },
+
+  memoized_queries_cleared_on_append_child: function(test) {
+    var doc = hc_staff.hc_staff();
+    var origLength = doc.getElementsByTagName('acronym').length;
+    var newElement = doc.createElement('acronym');
+    doc.getElementsByTagName('p')[0].appendChild(newElement);
+    var newLength = doc.getElementsByTagName('acronym').length;
+    test.equal(newLength, origLength + 1, 'Num elements queried has changed');
+    test.done();
   }
 };

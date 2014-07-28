@@ -11011,3 +11011,19 @@ exports['systemId01'] = function(test) {
   test.equal(doc.doctype.systemId, 'staffNS.dtd')
   test.done();
 }
+
+/**
+ * Verify that `getElementsByTagNameNS` memoization is cleared
+ * when the document is modified.
+ *
+ * @author Chris Carpita
+ */
+exports['memoizationQueriesCleared'] = function(test) {
+  var doc = require('./core/files/staffNS.xml').staffNS();
+  var oldCount = doc.getElementsByTagNameNS("http://www.nist.gov", "address").length;
+  var address = doc.createElementNS("http://www.nist.gov", "address");
+  doc.getElementsByTagName('employee')[0].appendChild(address);
+  var newCount = doc.getElementsByTagNameNS("http://www.nist.gov", "address").length;
+  test.equal(newCount, oldCount + 1, "address count should be incremented after adding element w/ matching NS");
+  test.done();
+}
