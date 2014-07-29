@@ -1,3 +1,4 @@
+var serializeDocument = require('../../lib/jsdom').serializeDocument;
 var dom = require("../../lib/jsdom/level1/core").dom.level1.core;
 
 exports.tests = {
@@ -8,8 +9,8 @@ exports.tests = {
     window.document.getElementsByTagName("head").item(0).appendChild(meta);
     var elements = window.document.getElementsByTagName("head").item(0).childNodes;
     test.strictEqual(elements.item(elements.length-1), meta, 'last element should be the new meta tag');
-    test.ok(window.document.innerHTML.indexOf("<meta>") > -1, 'meta should have open tag');
-    test.strictEqual(window.document.innerHTML.indexOf("</meta>"), -1, 'meta should not be stringified with a closing tag');
+    test.ok(serializeDocument(window.document).indexOf("<meta>") > -1, 'meta should have open tag');
+    test.strictEqual(serializeDocument(window.document).indexOf("</meta>"), -1, 'meta should not be stringified with a closing tag');
     test.done();
   },
 
