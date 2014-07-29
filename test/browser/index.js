@@ -1,5 +1,6 @@
 var dom = require("../../lib/jsdom/level2/core").dom.level2.core;
 var jsdom = require('../../lib/jsdom');
+var serializeDocument = require('../../lib/jsdom').serializeDocument;
 var browser;
 
 exports.tests = {
@@ -184,7 +185,7 @@ exports.tests = {
     var doctype = dom.createDocumentType('html');
     var document = dom.createDocument(null, null, doctype);
     var regexp = /^\s*<!DOCTYPE html>/;
-    test.ok(regexp.test(document.outerHTML), 'HTML 5 doctype did not serialize correctly');
+    test.ok(regexp.test(serializeDocument(document)), 'HTML 5 doctype did not serialize correctly');
     test.done();
   },
 
@@ -193,7 +194,7 @@ exports.tests = {
     var doctype = dom.createDocumentType('html', '-//W3C//DTD HTML 4.01//EN', 'http://www.w3.org/TR/html4/strict.dtd');
     var document = dom.createDocument(null, null, doctype);
     var regexp = /^\s*<!DOCTYPE html PUBLIC "-\/\/W3C\/\/DTD HTML 4.01\/\/EN" "http:\/\/www.w3.org\/TR\/html4\/strict.dtd">/;
-    test.ok(regexp.test(document.outerHTML), 'HTML 4 strict doctype did not serialize correctly');
+    test.ok(regexp.test(serializeDocument(document)), 'HTML 4 strict doctype did not serialize correctly');
     test.done();
   },
 
@@ -202,7 +203,7 @@ exports.tests = {
     var doctype = dom.createDocumentType('foo', null, 'foo.dtd');
     var document = dom.createDocument(null, null, doctype);
     var regexp = /^\s*<!DOCTYPE foo SYSTEM "foo.dtd">/;
-    test.ok(regexp.test(document.outerHTML), 'Doctype did not serialize correctly');
+    test.ok(regexp.test(serializeDocument(document)), 'Doctype did not serialize correctly');
     test.done();
   },
 
@@ -211,7 +212,7 @@ exports.tests = {
     var doctype = dom.createDocumentType('foo', null, 'foo "bar".dtd');
     var document = dom.createDocument(null, null, doctype);
     var regexp = /^\s*<!DOCTYPE foo SYSTEM \'foo "bar".dtd\'>/;
-    test.ok(regexp.test(document.outerHTML), 'Doctype did not serialize correctly');
+    test.ok(regexp.test(serializeDocument(document)), 'Doctype did not serialize correctly');
     test.done();
   },
 
