@@ -7,6 +7,8 @@ var http = require("http");
 var URL = require('url');
 var um = require('urlmaster');
 
+var serializeDocument = require('../../lib/jsdom').serializeDocument;
+
 function tmpWindow() {
   return jsdom.jsdom(null, { documentRoot: __dirname }).parentWindow;
 }
@@ -785,11 +787,11 @@ exports.tests = {
 
   case_sensitivity_of_markup_missing_html_and_body : function(test){
     var spaces = /[ \n]*/g,
-        doc1 = jsdom.jsdom("<HTML><BODY></BODY></HTML>").outerHTML.replace(spaces, ''),
-        doc2 = jsdom.jsdom("<html><BODY></Body></HTML>").outerHTML.replace(spaces, ''),
-        doc3 = jsdom.jsdom("<html><body></body></html>").outerHTML.replace(spaces, ''),
-        doc4 = jsdom.jsdom("<body></body>").outerHTML.replace(spaces, ''),
-        doc5 = jsdom.jsdom("").outerHTML.replace(spaces, '');
+        doc1 = serializeDocument(jsdom.jsdom("<HTML><BODY></BODY></HTML>"), true).replace(spaces, ''),
+        doc2 = serializeDocument(jsdom.jsdom("<html><BODY></Body></HTML>"), true).replace(spaces, ''),
+        doc3 = serializeDocument(jsdom.jsdom("<html><body></body></html>"), true).replace(spaces, ''),
+        doc4 = serializeDocument(jsdom.jsdom("<body></body>"), true).replace(spaces, ''),
+        doc5 = serializeDocument(jsdom.jsdom(""), true).replace(spaces, '');
 
     test.ok(doc1 === doc2 && doc2 == doc3 && doc3 === doc4 && doc4 == doc5,
             'they should all serialize the same');
@@ -799,7 +801,7 @@ exports.tests = {
   serialization_of_void_elements : function(test){
     var html = '<html><head></head><body><div><br><hr><audio><source></audio></div></body></html>',
         doc = jsdom.jsdom(html);
-    test.strictEqual(doc.outerHTML, html)
+    test.strictEqual(serializeDocument(doc, true), html)
     test.done();
   },
 
@@ -978,7 +980,7 @@ exports.tests = {
   issues_230_259 : function(test) {
     var instr = '<html><body style="color: #ffffff; foo: bar"></body></html>';
     var doc = jsdom.jsdom(instr);
-    test.ok(doc.outerHTML.match(/0: *color/) === null);
+    test.ok(serializeDocument(doc, true).match(/0: *color/) === null);
     test.done();
   },
 
@@ -1150,7 +1152,7 @@ exports.tests = {
     var onclick = a.getAttribute('onclick');
     test.notEqual(onclick, null);
     test.equal(onclick, 'somefunction()');
-    test.ok(doc.innerHTML.indexOf('onclick') > -1);
+    test.ok(serializeDocument(doc).indexOf('onclick') > -1);
     test.done();
   },
 
@@ -1206,7 +1208,7 @@ exports.tests = {
     jsdom.env({
       html : '<script type="text/javascript">window.a = 1;/* remove me */ console.log("executed?")</script>',
       done : function(errors, window) {
-        window.document.innerHTML = window.document.innerHTML.replace('/* remove me */','');
+        window.document.innerHTML = serializeDocument(window.document).replace('/* remove me */','');
         test.equal(typeof window.a, 'undefined');
         test.done();
       }
@@ -1327,7 +1329,7 @@ exports.tests = {
   issue_371_outerhtml_noformat : function(test) {
     var originalHTML = '<li><span>A</span><span>B</span></li>';
     var dom = jsdom.jsdom(originalHTML);
-    var outerHTML = dom.outerHTML;
+    var outerHTML = serializeDocument(dom, true);
 
     test.equal(outerHTML, '<html><head></head><body>' + originalHTML + '</body></html>');
     test.done();
