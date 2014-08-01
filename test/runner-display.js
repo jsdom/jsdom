@@ -147,19 +147,22 @@ var runnerHandlers = {
     }
     console.log('TOTALS: %s failed; %s success', ratio, percent);
     console.log('TIME: %dms', duration);
-
-    if (passedTests !== totalTests) {
-      process.exit(1);
-    }
-
   }
 };
 
-module.exports = function (runner, args) {
+module.exports = function (runner, args, callback) {
   argv = args;
   start = new Date().getTime();
 
   Object.keys(runnerHandlers).forEach(function (event) {
     runner.on(event, runnerHandlers[event]);
+  });
+
+  runner.on('done', function () {
+    if (passedTests !== totalTests) {
+      callback(new Error(failedTests + ' failures'));
+    } else {
+      callback();
+    }
   });
 };

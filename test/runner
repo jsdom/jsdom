@@ -104,4 +104,6 @@ if (argv.parser) {
 }
 
 var runner = require('./runner-core')(modulesToRun);
-require('./runner-display')(runner, argv);
+require('./runner-display')(runner, argv, function (err) {
+  process.exit(err ? 1 : 0);
+});
