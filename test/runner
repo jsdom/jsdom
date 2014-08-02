@@ -5,13 +5,17 @@ var nodeunit = require('nodeunit'),
     path = require('path'),
     AssertionError = require('assert').AssertionError;
 
-var argv = require('./runner-options');
+var argv = require('./runner-options').argv;
+
+if (argv.help) {
+  optimist.showHelp();
+  process.exit();
+}
 
 var fileFilter = [];
 var testFilter = [];
 
 Error.stackTraceLimit = 100;
-
 
 if (argv.suites) {
   fileFilter = argv.suites.replace(/\s/g, '').split(',');

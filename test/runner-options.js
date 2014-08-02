@@ -16,10 +16,4 @@ var optimist = require('optimist')
     .alias('v', 'verbose')
     .describe('v', 'show all tests that are being run');
 
-var argv = optimist.argv;
-if (argv.help) {
-  optimist.showHelp();
-  process.exit();
-}
-
-module.exports = argv;
+module.exports = optimist;
