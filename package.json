@@ -61,7 +61,7 @@
        "parse5":  "~1.0.0",
        "nwmatcher": "~1.3.2",
        "request": "2.x",
-       "xmlhttprequest": ">=1.5.0",
+       "w3c-xmlhttprequest": "~1.2.0",
        "cssom": "~0.3.0",
        "cssstyle": "~0.2.9",
        "contextify": "~0.1.5"
