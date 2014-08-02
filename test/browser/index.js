@@ -158,7 +158,7 @@ exports.tests = {
     doc.appendChild(doc.createElement('html'));
     doc.documentElement.style.color = 'black';
     doc.documentElement.style.backgroundColor = 'white';
-    test.equal(domToHtml.domToHtml(doc), '<html style="color: black; background-color: white;"></html>\n', '');
+    test.equal(domToHtml.domToHtml(doc), '<html style="color: black; background-color: white;"></html>', '');
     test.done();
   },
 
@@ -182,7 +182,7 @@ exports.tests = {
 
   serialize_html5_doctype: function(test) {
     var dom = new browser.DOMImplementation();
-    var doctype = dom.createDocumentType('html');
+    var doctype = dom.createDocumentType('html', '', '');
     var document = dom.createDocument(null, null, doctype);
     var regexp = /^\s*<!DOCTYPE html>/;
     test.ok(regexp.test(serializeDocument(document)), 'HTML 5 doctype did not serialize correctly');
@@ -200,7 +200,7 @@ exports.tests = {
 
   serialize_system_doctype: function(test) {
     var dom = new browser.DOMImplementation();
-    var doctype = dom.createDocumentType('foo', null, 'foo.dtd');
+    var doctype = dom.createDocumentType('foo', '', 'foo.dtd');
     var document = dom.createDocument(null, null, doctype);
     var regexp = /^\s*<!DOCTYPE foo SYSTEM "foo.dtd">/;
     test.ok(regexp.test(serializeDocument(document)), 'Doctype did not serialize correctly');
@@ -209,7 +209,7 @@ exports.tests = {
 
   serialize_doctype_containing_quotes: function(test) {
     var dom = new browser.DOMImplementation();
-    var doctype = dom.createDocumentType('foo', null, 'foo "bar".dtd');
+    var doctype = dom.createDocumentType('foo', '', 'foo "bar".dtd');
     var document = dom.createDocument(null, null, doctype);
     var regexp = /^\s*<!DOCTYPE foo SYSTEM \'foo "bar".dtd\'>/;
     test.ok(regexp.test(serializeDocument(document)), 'Doctype did not serialize correctly');
