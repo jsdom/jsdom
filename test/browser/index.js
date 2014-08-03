@@ -121,9 +121,7 @@ exports.tests = {
 	  p.innerHTML = escapedSpecials;
 	  var pp = doc.createElement("p");
 	  pp.appendChild(p);
-	  // This matches the behavior of FireFox, Chrome, and Safari.
-	  // IE8 does not escape <> in attributes, but does escape &shy; in attributes and text content.
-	  test.equal(pp.innerHTML, '<p specials="&quot;&lt;&gt;&amp;&nbsp;">"&lt;&gt;&amp;&nbsp;</p>' );
+	  test.equal(pp.innerHTML, '<p specials="&quot;<>&amp;&nbsp;">"&lt;&gt;&amp;&nbsp;</p>');
 	  test.done();
   },
 
