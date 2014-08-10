@@ -252,11 +252,11 @@ jsdom includes support for using the [canvas](https://npmjs.org/package/canvas) 
 
 ```js
 var jsdom = require("jsdom").jsdom;
-var document = jsdom("hello world");
+var document = jsdom("<html><body>hello world</body></html>");
 var window = document.parentWindow;
 
 console.log(window.document.innerHTML);
-// output: "<html><head></head><body>hello world</body></html>"
+// output: "<html><body>hello world</body></html>"
 
 console.log(window.innerWidth);
 // output: 1024
