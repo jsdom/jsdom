@@ -2637,6 +2637,11 @@ exports.tests = {
     vcookie = doc.cookie;
     test.equal(vcookie, "key3=value3; key4=value4", "cookieLink");
 
+    var ret = doc.cookie = null;
+    test.equal(ret, null, "cookieLink");
+    test.equal(doc.cookie, vcookie, "cookieLink");
+    
+
     test.done();
   },
 
