@@ -129,11 +129,15 @@ exports['dispatch event'] = testcase({
     this.doc.addEventListener("foo", monitor.handleEvent, false);
     var event = this.doc.createEvent("Events");
     event.initEvent("foo",true,false);
+    test.expect(7);
+    test.strictEqual(event.eventPhase, 0);
+    test.strictEqual(event.currentTarget, null);
     this.doc.dispatchEvent(event);
-    test.expect(3);
     test.equal(monitor.atEvents.length, 1, 'should receive atEvent');
     test.equal(monitor.bubbledEvents.length, 0, 'should not receive at bubble phase');
     test.equal(monitor.capturedEvents.length, 0, 'should not receive at capture phase');
+    test.strictEqual(event.eventPhase, 0);
+    test.strictEqual(event.currentTarget, null);
     test.done();
   },
 
@@ -143,11 +147,15 @@ exports['dispatch event'] = testcase({
     this.doc.addEventListener("foo", monitor.handleEvent, true);
     var event = this.doc.createEvent("Events");
     event.initEvent("foo",true,false);
+    test.expect(7);
+    test.strictEqual(event.eventPhase, 0);
+    test.strictEqual(event.currentTarget, null);
     this.doc.dispatchEvent(event);
-    test.expect(3);
     test.equal(monitor.atEvents.length, 1, 'should receive atEvent');
     test.equal(monitor.bubbledEvents.length, 0, 'should not receive at bubble phase');
     test.equal(monitor.capturedEvents.length, 0, 'should not receive at capture phase');
+    test.strictEqual(event.eventPhase, 0);
+    test.strictEqual(event.currentTarget, null);
     test.done();
   },
 
