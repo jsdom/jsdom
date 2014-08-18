@@ -137,8 +137,7 @@ exports['dispatch event'] = testcase({
     test.done();
   },
 
-  // An event is dispatched to the document with a capture listener attached.
-  // A capturing EventListener will not be triggered by events dispatched directly to the EventTarget upon which it is registered.
+  // An EventListener registered on the target node with capture true, should receive any event fired on that node.
   'EventListener with capture true': function (test) {
     var monitor = new EventMonitor();
     this.doc.addEventListener("foo", monitor.handleEvent, true);
@@ -146,7 +145,7 @@ exports['dispatch event'] = testcase({
     event.initEvent("foo",true,false);
     this.doc.dispatchEvent(event);
     test.expect(3);
-    test.equal(monitor.atEvents.length, 0, 'should not receive atEvent');
+    test.equal(monitor.atEvents.length, 1, 'should receive atEvent');
     test.equal(monitor.bubbledEvents.length, 0, 'should not receive at bubble phase');
     test.equal(monitor.capturedEvents.length, 0, 'should not receive at capture phase');
     test.done();
@@ -408,6 +407,21 @@ exports['stop propagation'] = testcase({
     test.expect(3);
     test.equal(this.monitor.atEvents.length, 1, 'should be at 1 event');
     test.equal(this.monitor.bubbledEvents.length, 1, 'should have 1 bubbled event');
+    test.equal(this.monitor.capturedEvents.length, 0, 'should have no captured events');
+    test.done();
+  },
+  
+  'stopPropagation should not prevent listeners on the same element from receiving the event': function(test) {
+    this.win.addEventListener("foo", this.monitor.handleEvent, false);
+    this.body.addEventListener("foo", this.monitor.handleEvent, false);
+    this.plist.addEventListener("foo", this._handleEvent('stopPropagation'), true);
+    this.plist.addEventListener("foo", this._handleEvent('stopPropagation'), false);
+    this.plist.addEventListener("foo",  this.monitor.handleEvent, true);
+    this.plist.addEventListener("foo",  this.monitor.handleEvent, false);
+    this.plist.dispatchEvent(this.event);
+    test.expect(3);
+    test.equal(this.monitor.atEvents.length, 4, 'should be at 4 events');
+    test.equal(this.monitor.bubbledEvents.length, 0, 'should have no bubbled events');
     test.equal(this.monitor.capturedEvents.length, 0, 'should have no captured events');
     test.done();
   }
