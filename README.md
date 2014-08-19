@@ -168,6 +168,29 @@ Now that you know about `created` and `loaded`, you can see that `done` is essen
 
 If you used jsdom before v1.0.0, it only had a `done` callback, and it was kind of buggy, sometimes behaving one way, and sometimes another. Due to some excellent work by [@Sebmaster](https://github.com/Sebmaster) in [#792](https://github.com/tmpvar/jsdom/pull/792), we fixed it up into the above lifecycle. For more information on the migration, see [the wiki](https://github.com/tmpvar/jsdom/wiki/PR-792).
 
+#### Dealing with asynchronous script loading
+
+If you load scripts asynchronously, e.g. with a module loader like RequireJS, none of the above hooks will really give you what you want. There's nothing, either in jsdom or in browsers, to say "notify me after all asynchronous loads have completed." The solution is to use the mechanisms of the framework you are using to notify about this finishing up. E.g., with RequireJS, you could do
+
+```js
+// On the Node side:
+var window = jsdom.jsdom(...).parentWindow;
+window.onModulesLoaded = function () {
+  console.log("ready to roll!");
+};
+```
+
+```html
+<!-- Inside the HTML you supply to jsdom -->
+<script>
+requirejs(["entry-module"], function () {
+  window.onModulesLoaded();
+});
+</script>
+```
+
+For more details, see the discussion in [#640](https://github.com/tmpvar/jsdom/issues/640), especially [@matthewkastor](https://github.com/matthewkastor)'s [insightful comment](https://github.com/tmpvar/jsdom/issues/640#issuecomment-22216965).
+
 ### On running scripts and being safe
 
 By default, `jsdom.env` will not process and run external JavaScript, since our sandbox is not foolproof. That is, code running inside the DOM's `<script>`s can, if it tries hard enough, get access to the Node environment, and thus to your machine. If you want to (carefully!) enable running JavaScript, you can use `jsdom.jsdom`, `jsdom.jQueryify`, or modify the defaults passed to `jsdom.env`.
