@@ -1,3 +1,44 @@
+## 1.0.0-pre.1
+
+This is a prerelease of jsdom's first major version. It incorporates several great additions, as well as a general cleanup of the API surface, which make it more backward-incompatible than usual. Starting with the 1.0.0 release, we will be following semantic versioning, so that you can depend on stability within major version ranges. But we still have [a few more issues](https://github.com/tmpvar/jsdom/issues?q=is%3Aopen+is%3Aissue+milestone%3A1.0) before we can get there, so I don't want to do 1.0.0 quite yet.
+
+This release owes a special thanks to [@Sebmaster](https://github.com/Sebmaster), for his amazing work taking on some of the hardest problems in jsdom and solving them with gusto.
+
+### Major changes
+
+* jsdom now can be browserified into a bundle that works in web workers! This is highly experimental, but also highly exciting! (lawnsea)
+* An overhaul of the [initialization lifecycle](https://github.com/tmpvar/jsdom#initialization-lifecycle), to bring more control and address common use cases. (Sebmaster)
+* The excellent [parse5](https://npmjs.org/package/parse5) HTML parser is now the default parser, fixing many parsing bugs and giving us full, official-test-suite-passing HTML parsing support. This especially impacts documents that didn't include optional tags like `<html>`, `<head>`, or `<body>` in their source. We also use parse5 for serialization, fixing many bugs there. (Sebmaster)
+* As part of the new parser story, we are not supporting XML for now. It might work if you switch to a different parser (e.g. htmlparser2), but in the end, HTML and XML are very different, and we are not attempting to be an XML DOM. That said, we eventually want to support XML to the same extent browsers do (i.e., support XHTML and SVG, with an appropriate MIME type switch); this is being planned in [#820](https://github.com/tmpvar/jsdom/issues/820).
+
+### Removed jsdom APIs
+
+* `jsdom.createWindow`: use `document.parentWindow` after creating a document
+* `jsdom.html`: use `jsdom.jsdom`
+* `jsdom.version`: use `require("jsdom/package.json").version`
+* `jsdom.level`: levels are deprecated and will probably be removed in 2.0.0
+* `jsdom.dom`
+* `jsdom.browserAugmentation`
+* `jsdom.windowAugmentation`
+
+### Changed jsdom APIs
+
+* `jsdom.jsdom` no longer takes a level as its second argument.
+* `jsdom.jQueryify` now requires a jQuery URL, since [always picking the latest was a bad idea](http://blog.jquery.com/2014/07/03/dont-use-jquery-latest-js/).
+
+### Removed non-standard DOM APIs
+
+* `document.createWindow`: use `document.parentWindow`
+* `document.innerHTML` and `document.outerHTML`: use the new `jsdom.serializeDocument` to include the DOCTYPE, or use `document.documentElement.outerHTML` to omit it.
+
+### Other fixes
+
+* Allow empty strings to be passed to `jsdom.env`. (michaelmior)
+* Fix for a memory leak in `EventTarget.prototype.dispatchEvent`. (Joris-van-der-Wel)
+* Make event listeners in the capture phase also fire on the event target. (Joris-van-der-Wel)
+* Correctly reset `eventPhase` and `currentTarget` on events, before and after a dispatch. (Joris-van-der-Wel)
+* Fix `document.cookie = null` to not throw, but instead just do nothing. (kapouer)
+
 ## 0.11.1
 
 * Add: `Node.prototype.parentElement`. (lukasbuenger)

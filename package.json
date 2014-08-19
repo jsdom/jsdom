@@ -1,6 +1,6 @@
 {
     "name": "jsdom",
-    "version": "0.11.1",
+    "version": "1.0.0-pre.1",
     "description": "A JavaScript implementation of the DOM and HTML standards",
     "keywords": ["dom", "html", "whatwg", "w3c"],
     "maintainers": [
