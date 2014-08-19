@@ -40,7 +40,7 @@ or with raw HTML
 var jsdom = require("jsdom");
 
 jsdom.env(
-  '<p><a class="the-link" href="https://github.com/tmpvar/jsdom">jsdom\'s Homepage</a></p>',
+  '<p><a class="the-link" href="https://github.com/tmpvar/jsdom">jsdom!</a></p>',
   ["http://code.jquery.com/jquery.js"],
   function (errors, window) {
     console.log("contents of a.the-link:", window.$("a.the-link").text());
@@ -129,7 +129,7 @@ jsdom.env(config);
   - `referrer`: the new document will have this referrer.
   - `cookie`: manually set a cookie value, e.g. `'key=value; expires=Wed, Sep 21 2011 12:00:00 GMT; path=/'`.
   - `cookieDomain`: a cookie domain for the manually set cookie; defaults to `127.0.0.1`.
-- `config.features`: see `Flexibility` section below. **Note**: the default feature set for jsdom.env does _not_ include fetching remote JavaScript and executing it. This is something that you will need to **carefully** enable yourself.
+- `config.features`: see Flexibility section below. **Note**: the default feature set for jsdom.env does _not_ include fetching remote JavaScript and executing it. This is something that you will need to _carefully_ enable yourself.
 - `config.done`, `config.loaded`, `config.created`: see below.
 
 Note that at least one of the callbacks (`done`, `loaded`, or `created`) is required, as is one of `html`, `file`, or `url`.
@@ -248,7 +248,7 @@ jsdom includes support for using the [canvas](https://npmjs.org/package/canvas) 
 
 ## More Examples
 
-### Creating a browser-like Window
+### Creating a browser-like window object
 
 ```js
 var jsdom = require("jsdom").jsdom;

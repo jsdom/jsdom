@@ -8,14 +8,11 @@ We're transitioning from an older model based on separate and obsolete "DOM1," "
 
 ## Existing Tests
 
-The DOM, thankfully, has lots of tests already out there. Those already included in the repository are of two types:
+The DOM, thankfully, has lots of tests already out there. Those already included in the repository are of three types:
 
 * Auto-generated or adapted from older W3C tests.
 * Written by contributors to plug gaps in those tests.
-
-Of these, of course, the first is preferable. When we find gaps, we usually add the tests at the bottom of the relevant auto-generated test suite, e.g. in `test/level2/html.js`.
-
-The current test compliance is tracked [in the README](https://github.com/tmpvar/jsdom#test-compliance).
+* Imported from the newer [w3c/web-platform-tests](https://github.com/w3c/web-platform-tests) project.
 
 ## Contributing
 
@@ -31,13 +28,13 @@ Almost all of our relevant functionality is covered in either the [DOM Living St
 
 Once you have that nailed down, you'll want to ask:
 
-**Where can I get an official test for this functionality?**
+**Can I get an official test for this functionality?**
 
 We ported in some of the tests for the old DOM1 and DOM2 specs, as well as some DOM3 ones that are currently disabled. These are sometimes wrong however (given that browsers never really implemented those specs), and we have had to change, add to, or remove them in the past.
 
-These days the [w3c/web-platform-tests](https://github.com/w3c/web-platform-tests) project has an ever-growing set of tests for the DOM and HTML standards, and is the best place to try to find good tests to adapt. jsdom doesn't yet have the ability to run those tests directly (that's [#666](https://github.com/tmpvar/jsdom/issues/666)), but you can copy and adapt them as you see fit. If you can't find anything, you can always ask [public-webapps-testsuite@w3.org](mailto:public-webapps-testsuite@w3.org), [like I did](http://lists.w3.org/Archives/Public/public-webapps-testsuite/2012Aug/0001.html), or stop into the #whatwg IRC channel.
+These days the [w3c/web-platform-tests](https://github.com/w3c/web-platform-tests) project has an ever-growing set of tests for the DOM and HTML standards, and is the best place to try to find good tests to adapt. We have reasonable support for running these tests directly, although I imagine some of them (e.g. those dependent on the web-platform-tests Python server) won't work. See below for details on how to add such tests to the suite.
 
-If there is no official test covering the functionality you're after, then you can write your own. You might want to submit a pull request to the web-platform-tests repo too!
+If there is no official test covering the functionality you're after, then you can write your own. If you're not sure, you can always ask [public-webapps-testsuite@w3.org](mailto:public-webapps-testsuite@w3.org), [like I did](http://lists.w3.org/Archives/Public/public-webapps-testsuite/2012Aug/0001.html), or stop into the #whatwg IRC channel. You might want to submit a pull request to the web-platform-tests repo too!
 
 ## Running the tests
 
@@ -56,9 +53,19 @@ Options:
 -t, --tests      choose the test cases to run. ie: -t jquery
 ```
 
+### Writing or importing tests
+
+To import a test from w3c/web-platform-tests, add the appropriate line to `test/w3c/index.js`. This framework is still in its early days, so feel free to open an issue if it's not working quite like you expect.
+
+If you're just adding a simple fix to existing functionality, you can add an appropriate test to the bottom of the relevant test file, e.g. in `test/level2/html.js`.
+
+If you're writing a bunch of new tests for a feature, and those tests don't exist in w3c/web-platform-tests, you can do one of two things. The most noble course of action is to submit a pull request to web-platform-tests, get it accepted and merged, then update jsdom to run those tests. That way, all existing browsers will run the test too, improving interoperability for everyone!
+
+Alternately, you can write some tests just for jsdom. The older tests, being a mix of auto-generated and organically-grown, have gotten pretty hairy over time. But for new tests we try to follow a clean and uniform style, which you can see in files like [test/living-dom/attributes.js](https://github.com/tmpvar/jsdom/blob/master/test/living-dom/attributes.js) or [test/window/history.js](https://github.com/tmpvar/jsdom/blob/master/test/window/history.js). Do your best to follow that.
+
 ### Browser tests
 
-jsdom now has experimental support for Web Workers. Many tests fail at present. To run all test suites that pass, run `node test/browser-runner.js`. The browser runner supports the same options as `test/runner`, as well as a few more specific to running browser tests via WebDriver.
+jsdom now has experimental support for web workers. Many tests fail at present. To run all test suites that pass, run `node test/browser-runner.js`. The browser runner supports the same options as `test/runner`, as well as a few more specific to running browser tests via WebDriver.
 
 ```
 $ node test/browser-runner.js -h
