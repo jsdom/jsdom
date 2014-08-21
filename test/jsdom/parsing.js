@@ -285,3 +285,12 @@ exports["< should not break the parser (GH-800)"] = function (t) {
       t.done();
     });
 };
+
+exports["should parse namespace prefixes properly"] = function (t) {
+  var doc = jsdom();
+  doc.body.innerHTML = "<svg xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='#test'></use></svg>";
+
+  t.ok(doc.body.firstChild.getAttribute("xmlns:xlink"));
+
+  t.done();
+};
