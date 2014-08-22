@@ -1,3 +1,7 @@
+## 1.0.0-pre.3
+
+* Fix: void elements no longer parsed correctly when using `innerHTML`. This was a regression between 0.11.1 and 1.0.0-pre.1. (Sebmaster)
+
 ## 1.0.0-pre.2
 
 * Fix: parsing and serialization of attributes in the form `x:y`, e.g. `xmlns:xlink` or `xlink:href`. This was a regression between 0.11.1 and 1.0.0-pre.1. (Sebmaster)
