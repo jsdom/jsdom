@@ -19988,6 +19988,35 @@ exports.tests = {
     test.done();
   },
 
+  memoized_queries_cleared_on_innerhtml_set: function(test) {
+    var doc = load('menu');
+    var oldCount = doc.getElementsByTagName('em').length;
+    test.equal(oldCount, 0, 'Count of <em> should be 0');
+    doc.getElementsByTagName('li')[2].innerHTML = 'Give start <em>date</em>';
+    var newCount = doc.getElementsByTagName('em').length;
+    test.equal(newCount, 1, 'Count of <em> should be 1');
+    test.done();
+  },
+
+  memoized_queries_cleared_on_element: function(test) {
+    var doc = load('menu');
+    var menu = doc.getElementsByTagName('menu')[0];
+    var oldCount = menu.getElementsByTagName('li').length;
+    test.equal(oldCount, 3, 'Count of <li> should be 3');
+    menu.innerHTML = '<li>one</li><li>two</li>';
+    var newCount = menu.getElementsByTagName('li').length;
+    test.equal(newCount, 2, 'Count of <li> should be 2 after innerHTML is set');
+    test.done();
+  },
+
+  memoized_href_resolver_returns_valid_url: function(test) {
+    var doc = load('anchor');
+    var a = doc.getElementsByTagName('a')[0];
+    test.ok(a.href.match(/pix\/submit\.gif$/), "anchor href should be valid")
+    test.ok(a.href.match(/pix\/submit\.gif$/), "anchor href (2nd accession) should be valid")
+    test.done();
+  },
+
   normalize_method_defined_on_string_prototype_should_not_affect_getting_attribute_properties: function (test) {
     String.prototype.normalize = function () {
       return "masked alt";

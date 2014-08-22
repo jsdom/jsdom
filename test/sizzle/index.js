@@ -864,3 +864,16 @@ exports['caching'] = test(function (window) { with (window) {
   Sizzle( ":not(code)", document.getElementById("ap") );
   deepEqual( Sizzle( ":not(code)", document.getElementById("foo") ), q("sndp", "en", "yahoo", "sap", "anchor2", "simon"), "Reusing selector with new context" );
 }});
+
+exports['query-memoization'] = test(function (window) { with (window) {
+  expect( 2 );
+  equal(Sizzle('#foo').length, 1, '#foo query should return 1 element');
+  var el = document.getElementById('foo');
+  el.parentNode.removeChild(el);
+  equal(Sizzle('#foo').length, 0, '#foo query should return 0 elements after removal');
+
+  var oldAttrLen = Sizzle('p[lang=en]').length;
+  Sizzle('#ap')[0].setAttribute('lang', 'en');
+  var newAttrLen = Sizzle('p[lang=en]').length;
+  equal(newAttrLen, oldAttrLen + 1, 'Query should return 1 more element for matching attribute test');
+}});
