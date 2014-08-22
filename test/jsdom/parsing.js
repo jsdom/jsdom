@@ -294,3 +294,12 @@ exports["should parse namespace prefixes properly"] = function (t) {
 
   t.done();
 };
+
+exports["should parse self closing tags properly (GH-863)"] = function (t) {
+  var doc = jsdom();
+  doc.body.innerHTML = "<p>hello <img src=\"test\"> world</p>";
+
+  t.strictEqual(doc.body.firstChild.childNodes.length, 3, "paragraph should contain 3 children");
+
+  t.done();
+};
