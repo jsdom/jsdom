@@ -1,3 +1,7 @@
+## 1.0.0-pre.2
+
+* Fix: parsing and serialization of attributes in the form `x:y`, e.g. `xmlns:xlink` or `xlink:href`. This was a regression between 0.11.1 and 1.0.0-pre.1. (Sebmaster)
+
 ## 1.0.0-pre.1
 
 This is a prerelease of jsdom's first major version. It incorporates several great additions, as well as a general cleanup of the API surface, which make it more backward-incompatible than usual. Starting with the 1.0.0 release, we will be following semantic versioning, so that you can depend on stability within major version ranges. But we still have [a few more issues](https://github.com/tmpvar/jsdom/issues?q=is%3Aopen+is%3Aissue+milestone%3A1.0) before we can get there, so I don't want to do 1.0.0 quite yet.
