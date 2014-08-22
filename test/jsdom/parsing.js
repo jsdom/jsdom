@@ -146,7 +146,7 @@ exports["lower-cases tags in outerHTML and innerHTML"] = function (t) {
   t.done();
 };
 
-exports["Non-strict HTML entities (GH-821)"] = function (t) {
+exports["HTML entities without ; (GH-821)"] = function (t) {
   var doc = jsdom("<a>&#x61</a>");
 
   t.strictEqual(doc.getElementsByTagName("a")[0].textContent, "a");
@@ -154,7 +154,7 @@ exports["Non-strict HTML entities (GH-821)"] = function (t) {
   t.done();
 };
 
-exports["Added < or > generate strange HTML (GH-826)"] = function (t) {
+exports["Added < and > near <script> tags (GH-826)"] = function (t) {
   var doc = jsdom("<<script>alert(1);//<</script>");
 
   t.strictEqual(doc.body.innerHTML, "&lt;<script>alert(1);//<</script>");
@@ -162,15 +162,7 @@ exports["Added < or > generate strange HTML (GH-826)"] = function (t) {
   t.done();
 };
 
-exports["Parsing of single <html> tag (GH-827)"] = function (t) {
-  var doc = jsdom("<html>");
-
-  t.strictEqual(doc.documentElement.innerHTML, "<head></head><body></body>");
-
-  t.done();
-};
-
-exports["Don't error on invalid chinese tags (GH-719)"] = function (t) {
+exports["Chinese characters as a 'tag name' (GH-719)"] = function (t) {
   jsdom.env({
     html: "<div>chinese here:<中文></div>",
     done: function (errs, window) {
@@ -183,7 +175,15 @@ exports["Don't error on invalid chinese tags (GH-719)"] = function (t) {
   });
 };
 
-exports["Handle missing <html> tag correctly (GH-555)"] = function (t) {
+exports["A single <html> tag (GH-827)"] = function (t) {
+  var doc = jsdom("<html>");
+
+  t.strictEqual(doc.documentElement.innerHTML, "<head></head><body></body>");
+
+  t.done();
+};
+
+exports["Missing <html> tags (GH-555)"] = function (t) {
   var doctype = "<!DOCTYPE html PUBLIC\"-//W3C//DTD HTML 4.0//EN\">";
   var docA = jsdom(doctype + "<html><head><title></title></head><p>");
   var docB = jsdom(doctype + "<head><title></title></head><p>")
@@ -194,7 +194,7 @@ exports["Handle missing <html> tag correctly (GH-555)"] = function (t) {
   t.done();
 };
 
-exports["Handle missing <body> tag correctly (GH-389)"] = function (t) {
+exports["Missing <body> tag with script src (GH-389)"] = function (t) {
   t.expect(1);
 
   jsdom.env({
@@ -208,7 +208,7 @@ exports["Handle missing <body> tag correctly (GH-389)"] = function (t) {
   });
 };
 
-exports["Handle more non-standard markup (GH-88)"] = function (t) {
+exports["More missing <html> and <body> tag tests (GH-88)"] = function (t) {
   var doc;
 
   doc = jsdom("<html><body></body></html>");
@@ -253,7 +253,7 @@ exports["whitespace after <!DOCTYPE> (GH-160)"] = function (t) {
   t.done();
 };
 
-exports["parsing of pre tag with < and > characters (GH-755)"] = function (t) {
+exports["pre tag with < and > characters (GH-755)"] = function (t) {
   var doc = jsdom("<pre>[task.h:277] - RunnableMethod<DOMStorageDispatcherHost,void " +
     "( DOMStorageDispatcherHost::*)(DOMStorageType,IPC::Message *),Tuple2<DOMStorageType,IPC::Message *>>" +
     "::Run()</pre>");
@@ -265,7 +265,7 @@ exports["parsing of pre tag with < and > characters (GH-755)"] = function (t) {
   t.done();
 };
 
-exports["querySelector should not throw when applied to Document fragments (GH-523)"] = function (t) {
+exports["querySelector applied to document fragments (GH-523)"] = function (t) {
   var doc = jsdom("<a href='http://foo'></a>");
 
   t.strictEqual(doc.querySelector("[href]").tagName, "A");
@@ -273,7 +273,7 @@ exports["querySelector should not throw when applied to Document fragments (GH-5
   t.done();
 };
 
-exports["< should not break the parser (GH-800)"] = function (t) {
+exports["real-world page with < inside a text node (GH-800)"] = function (t) {
   t.expect(2);
 
   jsdom.env(
@@ -286,7 +286,7 @@ exports["< should not break the parser (GH-800)"] = function (t) {
     });
 };
 
-exports["should parse namespace prefixes properly"] = function (t) {
+exports["namespace prefixes (GH-861)"] = function (t) {
   var doc = jsdom();
   doc.body.innerHTML = "<svg xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='#test'></use></svg>";
 
@@ -295,7 +295,7 @@ exports["should parse namespace prefixes properly"] = function (t) {
   t.done();
 };
 
-exports["should parse self closing tags properly (GH-863)"] = function (t) {
+exports["void tags with innerHTML (GH-863)"] = function (t) {
   var doc = jsdom();
   doc.body.innerHTML = "<p>hello <img src=\"test\"> world</p>";
 
