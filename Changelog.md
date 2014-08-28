@@ -1,3 +1,7 @@
+## 1.0.0-pre.4
+
+* Fix: attributes and elements now have their `prefix`, `localName`, and `namespaceURI` properties set correctly in all cases. (Excepting `application/xhtml+xml` mode, which jsdom does not support yet.) (Sebmaster)
+
 ## 1.0.0-pre.3
 
 * Fix: void elements no longer parsed correctly when using `innerHTML`. This was a regression between 0.11.1 and 1.0.0-pre.1. (Sebmaster)
