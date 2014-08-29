@@ -2640,7 +2640,7 @@ exports.tests = {
     var ret = doc.cookie = null;
     test.equal(ret, null, "cookieLink");
     test.equal(doc.cookie, vcookie, "cookieLink");
-    
+
 
     test.done();
   },
@@ -20065,6 +20065,27 @@ exports.tests = {
         test.done();
       }
     );
+  },
+
+  radio_group_with_same_name_in_several_forms_work: function(test) {
+    var html = '<form>' +
+        '<input type="radio" name="group1" value="3" checked="checked" id="form1-input1" />' +
+        '<input type="radio" name="group1" value="2" id="form1-input2" />' +
+        '</form><form>' +
+        '<input type="radio" name="group1" value="1" checked="checked" id="form2-input1" />' +
+        '<input type="radio" name="group1" value="5" id="form2-input2" /></form>';
+    jsdom.env(html, function (err, window) {
+        var input1 = window.document.getElementById('form1-input1');
+        var input2 = window.document.getElementById('form1-input2');
+        var input3 = window.document.getElementById('form2-input1');
+
+        input2.checked = true;
+
+        test.equal(input1.checked, false, 'Radio input in the same form should be unchecked');
+        test.ok(input2.checked, 'The radio input should be checked');
+        test.ok(input3.checked, 'Radio input in a different form should still be checked');
+        test.done();
+    });
   },
 
   htmlcollection_allows_index_access_for_name_and_id: function(test) {
