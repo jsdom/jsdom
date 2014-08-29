@@ -263,7 +263,7 @@ Enables/disables JavaScript execution
 - _Allowed_: `/url to be skipped/` or `false`
 - _Example_: `/http:\/\/example.org/js/bad\.js/`
 
-Filters resource downloading and processing to disallow those maching the given regular expression
+Filters resource downloading and processing to disallow those matching the given regular expression
 
 ### Canvas
 
