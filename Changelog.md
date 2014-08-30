@@ -1,3 +1,7 @@
+## 1.0.0-pre.5
+
+* Fix: sometimes calling `window.close()` would cause a segfault. (paton)
+
 ## 1.0.0-pre.4
 
 * Fix: attributes and elements now have their `prefix`, `localName`, and `namespaceURI` properties set correctly in all cases. (Excepting `application/xhtml+xml` mode, which jsdom does not support yet.) (Sebmaster)
