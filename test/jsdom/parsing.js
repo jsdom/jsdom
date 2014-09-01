@@ -295,20 +295,15 @@ exports["void tags with innerHTML (GH-863)"] = function (t) {
   t.done();
 };
 
-exports["void tags with innerHTML from window (GH-863)"] = function (t) {
-  t.expect(2);
+exports["void tags set by innerHTML from createElement (GH-863/872)"] = function (t) {
+  var doc = jsdom();
+  var div = doc.createElement('div');
+  div.innerHTML = "first <img src=\"test\"> third";
   
-  jsdom.env({
-    html: "<div></div>",
-    done: function (errs, window) {
-      t.ifError(errs);
+  t.equal(div.childNodes.length, 3);
+  t.equal(div.childNodes[0].textContent, 'first ');
+  t.equal(div.childNodes[1].nodeName, 'IMG');
+  t.equal(div.childNodes[2].textContent, ' third');
 
-      var div = window.document.createElement('div');
-      div.innerHTML = "hello <img src=\"test\"> world";
-
-      t.strictEqual(div.childNodes.length, 3, "paragraph should contain 3 children");      
-
-      t.done();
-    }
-  });
+  t.done();
 };
