@@ -294,3 +294,16 @@ exports["void tags with innerHTML (GH-863)"] = function (t) {
 
   t.done();
 };
+
+exports["void tags set by innerHTML from createElement (GH-863/872)"] = function (t) {
+  var doc = jsdom();
+  var div = doc.createElement('div');
+  div.innerHTML = "first <img src=\"test\"> third";
+  
+  t.equal(div.childNodes.length, 3);
+  t.equal(div.childNodes[0].textContent, 'first ');
+  t.equal(div.childNodes[1].nodeName, 'IMG');
+  t.equal(div.childNodes[2].textContent, ' third');
+
+  t.done();
+};
