@@ -1,3 +1,8 @@
+## 1.0.0-pre.6
+
+* Fix: another parsing issues with void elements and `innerHTML`, this time related to disconnected nodes. This was a regression between 0.11.1 and 1.0.0-pre.1. (paton)
+* Fix: same-named radio inputs should not be mutually exclusive unless they are in the same form. (stof)
+
 ## 1.0.0-pre.5
 
 * Fix: sometimes calling `window.close()` would cause a segfault. (paton)
