@@ -275,11 +275,11 @@ jsdom includes support for using the [canvas](https://npmjs.org/package/canvas) 
 
 ```js
 var jsdom = require("jsdom").jsdom;
-var document = jsdom("hello world");
+var document = jsdom("<div class='selector'><div class='innerselector'></div>");
 var window = document.parentWindow;
 
-console.log(window.document.innerHTML);
-// output: "<html><head></head><body>hello world</body></html>"
+console.log(window.document.querySelector('body').innerHTML);
+// output: "<div class="selector"><div class="innerselector"></div></div>"
 
 console.log(window.innerWidth);
 // output: 1024
