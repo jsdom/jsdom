@@ -278,7 +278,7 @@ var jsdom = require("jsdom").jsdom;
 var document = jsdom("hello world");
 var window = document.parentWindow;
 
-console.log(window.document.innerHTML);
+console.log(window.document.documentElement.outerHTML);
 // output: "<html><head></head><body>hello world</body></html>"
 
 console.log(window.innerWidth);
