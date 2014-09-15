@@ -25,8 +25,11 @@ function createJsdom(source, url, t) {
     created: function (err, window) {
       window.shimTest = function () {
         window.add_result_callback(function (test) {
-          t.notEqual(test.status, 1, test.name + ": failed");
-          t.notEqual(test.status, 2, test.name + ": timeout");
+          if (test.status === 1) {
+            t.ok(false, "Failed in \"" + t.name + "\": \n" + t.message);
+          } else if (test.status === 2) {
+            t.ok(false, "Timout in \"" + t.name + "\": \n" + t.message);
+          }
         });
 
         window.add_completion_callback(function () {
