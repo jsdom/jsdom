@@ -110,7 +110,7 @@ if (argv.parser) {
   browser.setDefaultParser(argv.parser);
 }
 
-var runner = require('./runner-core')(modulesToRun);
-require('./runner-display')(runner, argv, function (err) {
+var reporter = nodeunit.reporters.minimal;
+reporter.run(modulesToRun, null, function(err) {
   process.exit(err ? 1 : 0);
 });
