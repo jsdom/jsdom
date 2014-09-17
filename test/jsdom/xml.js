@@ -119,3 +119,26 @@ exports["parsingMode should take precedence over text/xml header"] = function (t
     });
   });
 };
+
+exports["should auto-detect XML documents based on .xml extension"] = function (t) {
+  var document = jsdom.env({
+    file: __dirname + "/files/xml.xml",
+    done: function (err, window) {
+      t.strictEqual(window.document.getElementsByTagName("CUSTOMTAG")[0].innerHTML.trim(), "");
+
+      t.done();
+    }
+  });
+};
+
+exports["parsingMode option should take precendence over .xml extension detection"] = function (t) {
+  var document = jsdom.env({
+    file: __dirname + "/files/xml.xml",
+    parsingMode: "html",
+    done: function (err, window) {
+      t.strictEqual(window.document.getElementsByTagName("CUSTOMTAG")[0].innerHTML.trim(), "a");
+
+      t.done();
+    }
+  });
+};
