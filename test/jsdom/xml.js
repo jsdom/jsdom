@@ -105,6 +105,24 @@ exports["should auto-detect XML documents based on text/xml header"] = function 
   });
 };
 
+exports["should auto-detect XML documents based on application/xhtml+xml header"] = function (t) {
+  var server = http.createServer(function (req, res) {
+    res.setHeader("Content-Type", "application/xhtml+xml");
+    res.end(xmlString);
+  });
+
+  server.listen(0, function () {
+    var document = jsdom.env({
+      url: "http://127.0.0.1:" + server.address().port + "/",
+      done: function (err, window) {
+        t.ok(isParsedAsXml(window.document));
+
+        t.done();
+      }
+    });
+  });
+};
+
 exports["parsingMode should take precedence over text/xml header"] = function (t) {
   var server = http.createServer(function (req, res) {
     res.setHeader("Content-Type", "text/xml");
