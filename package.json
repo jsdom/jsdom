@@ -69,6 +69,7 @@
     "devDependencies" : {
       "browser-request": "~0.3.1",
       "cssstyle-browserify": "git://github.com/TreehouseJS/CSSStyleDeclaration.git",
+      "colors": "^0.6.2",
       "nodeunit": "~0.8.0",
       "optimist": "*",
       "urlmaster": ">=0.2.15",
