@@ -8,7 +8,7 @@ var nodeunit = require('nodeunit'),
 var argv = require('./runner-options').argv;
 
 if (argv.help) {
-  optimist.showHelp();
+  require('optimist').showHelp();
   process.exit();
 }
 
