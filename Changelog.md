@@ -1,3 +1,10 @@
+## 1.0.0-pre.7
+
+* Remove: support for old, untested HTML and XML parsers, namely davglass/node-htmlparser and isaacs/sax-js. In the future we plan to work toward a standardized parsing interface that other parsers can implement, instead of adding custom code to jsdom for various parsers. This interface still is being decided though, as it needs to support complex things like pausing the parse stream (for `document.write`) and parsing disconnected fragments (for `document.innerHTML`). (Sebmaster)
+* Add: new `parsingMode` configuration, to allow you to manually specify XML or HTML. (Sebmaster)
+* Change: jsdom will no longer use the presence of `<?xml` or similar to attempt to auto-detect XHTML documents. Instead, it will by default treat them the same as browsers do, with the `<?xml` declaration just being a bogus comment. If you need your document interpreted as XHTML instead of HTML, use the `parsingMode` option. (Sebmaster)
+* Tweak: memoize various DOM-querying functions (e.g. `getElementsByTagName`, `querySelector`, etc.) to improve performance. (ccarpita)
+
 ## 1.0.0-pre.6
 
 * Fix: another parsing issues with void elements and `innerHTML`, this time related to disconnected nodes. This was a regression between 0.11.1 and 1.0.0-pre.1. (paton)
