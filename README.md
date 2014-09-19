@@ -124,7 +124,6 @@ jsdom.env(config);
 - `config.scripts`: see `scripts` above.
 - `config.src`: an array of JavaScript strings that will be evaluated against the resulting document. Similar to `scripts`, but it accepts JavaScript instead of paths/URLs.
 - `config.jar`: a custom cookie jar, if desired; see [mikeal/request](https://github.com/mikeal/request) documentation.
-- `config.level`: either `1`, `2`, `3`, or `'living'`, to restrict yourselves to features in certain DOM specifications. The default is `'living'`.
 - `config.document`:
   - `referrer`: the new document will have this referrer.
   - `cookie`: manually set a cookie value, e.g. `'key=value; expires=Wed, Sep 21 2011 12:00:00 GMT; path=/'`.
