@@ -45,7 +45,9 @@ exports.load = function (dirname) {
     doc.parent = window;
     window.loadComplete = function () {};
 
-    doc.innerHTML = contents;
+    doc.write(contents);
+    doc.close();
+
     fileCache[file] = contents;
     return doc;
   };

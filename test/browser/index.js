@@ -146,7 +146,7 @@ exports.tests = {
   parse_doublespacetags: function(test) {
     var doc = new browser.Document();
     var html = '<html><body  class="testing" /></html>';
-    test.doesNotThrow(function(){ doc.innerHTML = html; }), 'setValue_throws_INVALID_CHARACTER_ERR';
+    test.doesNotThrow(function(){ doc.write(html); }), 'setValue_throws_INVALID_CHARACTER_ERR';
     test.done();
   },
 
@@ -218,7 +218,7 @@ exports.tests = {
     var html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"\n \
              "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n<html></html>',
         doc  = new browser.Document();
-    doc.innerHTML = html;
+    doc.write(html);
     test.ok(!!doc.doctype, 'doctype should not be falsy');
     test.done();
   },

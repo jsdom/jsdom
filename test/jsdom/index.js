@@ -1199,7 +1199,8 @@ exports.tests = {
     var script = '<script type="text/x-underscore-tmpl">' + content + '</script>'
     var html = '<html><head>' + script + '</head><body><p>hello world!</p></body></html>'
     var doc = jsdom.jsdom(html)
-    doc.innerHTML = html;
+    doc.write(html);
+    doc.close();
     test.equal(doc.head.childNodes[0].innerHTML, content);
     test.done();
   },
@@ -1208,7 +1209,8 @@ exports.tests = {
     jsdom.env({
       html : '<script type="text/javascript">window.a = 1;/* remove me */ console.log("executed?")</script>',
       done : function(errors, window) {
-        window.document.innerHTML = serializeDocument(window.document).replace('/* remove me */','');
+        window.document.write(serializeDocument(window.document).replace('/* remove me */',''));
+        window.document.close();
         test.equal(typeof window.a, 'undefined');
         test.done();
       }

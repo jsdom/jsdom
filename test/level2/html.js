@@ -19907,7 +19907,8 @@ exports.tests = {
       docRef = this.doc;
     }
     doc = load("anchor");
-    doc.innerHTML = "<html><body><p><a id='Anchor'>Anchor Text</a></body></html>";
+    doc.write("<html><body><p><a id='Anchor'>Anchor Text</a></body></html>");
+    doc.close();
     anchor = doc.getElementById("Anchor");
     doc.readyState = 'loading';
     doc.write("hello world");
@@ -19968,23 +19969,23 @@ exports.tests = {
   checked_property_is_boolean: function(test) {
     var doc = load("anchor");
 
-    doc.innerHTML = '<input id="x" type="checkbox" checked>';
+    doc.body.innerHTML = '<input id="x" type="checkbox" checked>';
     var el1 = doc.getElementById("x");
 
     test.strictEqual(el1.checked, true, "no attribute value");
 
-    doc.innerHTML = '<input id="x" type="checkbox" checked="">';
+    doc.body.innerHTML = '<input id="x" type="checkbox" checked="">';
     var el2 = doc.getElementById("x");
 
     test.strictEqual(el2.checked, true, "empty attribute value");
 
-    doc.innerHTML = '<input id="x" type="checkbox">';
+    doc.body.innerHTML = '<input id="x" type="checkbox">';
     var el3 = doc.getElementById("x");
     el3.checked = false;
 
     test.strictEqual(el3.hasAttribute("checked"), false, "staying false does not insert attribute");
 
-    doc.innerHTML = '<input id="x" type="checkbox" checked="checked">';
+    doc.body.innerHTML = '<input id="x" type="checkbox" checked="checked">';
     var el4 = doc.getElementById("x");
     el4.checked = false;
 
