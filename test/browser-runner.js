@@ -194,6 +194,12 @@ browserify('./test/worker.js').
             run();
           }
         });
+        wdServer.stderr.on('data', function (output) {
+          if (output.toString().indexOf('Started org.openqa.jetty.jetty.Server') >= 0) {
+            clearTimeout(h);
+            run();
+          }
+        });
       }).
       catch(function (err) {
         console.error('Failed to run browser tests', err);
