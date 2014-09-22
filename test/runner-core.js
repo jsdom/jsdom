@@ -1,29 +1,6 @@
 var EventEmitter = require('events').EventEmitter;
 var nodeunit = require('nodeunit');
 
-var assert = require('nodeunit/lib/assert');
-
-assert.equal = function equal(actual, expected, message) {
-  if (actual != expected) {
-    if (actual && actual.nodeType) {
-      actual = actual.toString();
-    }
-
-    if (expected && expected.nodeType) {
-      expected = expected.toString();
-    }
-
-    assert.fail(actual, expected, message, '==', assert.equal);
-  }
-};
-
-assert.domSame = function(actual, expected, message) {
-  if(expected != actual) {
-    assert.equal(expected.nodeType, actual.nodeType);
-    assert.equal(expected.nodeValue, actual.nodeValue);
-  }
-};
-
 module.exports = function runModules(toRun) {
   var emitter = new EventEmitter();
 
