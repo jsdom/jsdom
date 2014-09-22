@@ -104,12 +104,6 @@ files.map(function (p) {
   }
 });
 
-if (argv.parser) {
-  var browser = require("../lib/jsdom/browser/index");
-  console.log("Using parser " + argv.parser);
-  browser.setDefaultParser(argv.parser);
-}
-
 var reporter = nodeunit.reporters.minimal;
 reporter.run(modulesToRun, null, function(err) {
   process.exit(err ? 1 : 0);

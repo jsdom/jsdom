@@ -11,8 +11,6 @@ var optimist = require('optimist')
     .describe('t', 'choose the test cases to run. ie: -t jquery')
     .alias('d', 'debug')
     .describe('d', 'run in node\'s interactive debugger mode')
-    .alias('p', 'parser')
-    .describe('p', 'the HTML parser to use (e.g. html5); default is htmlparser')
     .alias('v', 'verbose')
     .describe('v', 'show all tests that are being run');
 

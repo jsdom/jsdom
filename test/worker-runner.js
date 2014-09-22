@@ -110,12 +110,6 @@ self.onmessage = function (e) {
       }
     });
 
-  if (options.parser) {
-    var browser = require("../lib/jsdom/browser/index");
-    console.log("Using parser " + options.parser);
-    browser.setDefaultParser(options.parser);
-  }
-
   var runnerEmitter = runner(modulesToRun);
   [
     'moduleStart',
