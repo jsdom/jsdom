@@ -8,7 +8,7 @@ var optimist = require('./runner-options');
 var portfinder = require('portfinder');
 var Q = require('q');
 var querystring = require('querystring');
-var runnerDisplay = require('./runner-display');
+var runnerDisplay = require('./browser-display');
 var seleniumStandalone = require('selenium-standalone');
 var wd = require('wd');
 

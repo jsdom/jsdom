@@ -122,7 +122,7 @@ self.onmessage = function (e) {
   ].forEach(function (event) {
     runnerEmitter.on(event, fire.bind(null, event));
   });
-  require('./runner-display')(runnerEmitter, options, function () {
+  require('./browser-display')(runnerEmitter, options, function () {
     console.log('display finished...');
   });
 };
