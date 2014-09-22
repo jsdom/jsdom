@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 
 var nodeunit = require('nodeunit'),
-    fs = require('fs'),
-    path = require('path'),
-    AssertionError = require('assert').AssertionError;
+    path = require('path');
 
 var argv = require('./runner-options').argv;
 
