@@ -12,7 +12,7 @@ function fire(event) {
   });
 }
 
-var runner = require('./runner-core');
+var runner = require('./browser-core');
 self.onmessage = function (e) {
   var options = require('querystring').parse(e.data);
   var fileFilter, testFilter;
