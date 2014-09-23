@@ -43,8 +43,13 @@ function getFnBody(fn) {
 
 function run() {
   var passed = false;
-  browser.init({ browserName: 'chrome' }).
-    then(function () {
+  browser.init({
+    browserName: 'chrome',
+    name: 'Travis tmpvar/jsdom #' + process.env['TRAVIS_JOB_NUMBER'],
+    'tunnel-identifier': process.env['TRAVIS_JOB_NUMBER'],
+    build: process.env['TRAVIS_BUILD_NUMBER'],
+    tags: ['tmpvar/jsdom', 'CI']
+  }).then(function () {
       return browser.setAsyncScriptTimeout(5000);
     }).
     then(function () {
@@ -149,10 +154,22 @@ browserify('./test/worker.js').
       then(function (port) {
         wdPort = port;
 
-        // set up webdriver
-        browser = wd.promiseRemote({
+        var opts = {
           port: wdPort
-        });
+        };
+
+        if (process.env['TEST_SUITE'] === 'browser') {
+          wdPort = 4445;
+
+          opts = {
+            port: wdPort,
+            user: process.env['SAUCE_USERNAME'],
+            pwd: process.env['SAUCE_ACCESS_KEY']
+          };
+        }
+
+        // set up webdriver
+        browser = wd.promiseRemote(opts);
 
         if (argv['verbose-web-driver']) {
           // really verbose wd logging
@@ -172,34 +189,38 @@ browserify('./test/worker.js').
             console[detail.level].apply(console, detail.message);
           });
         }
+        
+        if (process.env['TEST_SUITE'] !== 'browser') {
+          // start selenium
+          console.log('starting selenium server on port', wdPort);
+          var selenium = seleniumStandalone;
+          var wdServer = selenium({
+            stdio: 'pipe'
+          }, ['-port', wdPort]);
 
-        // start selenium
-        console.log('starting selenium server on port', wdPort);
-        var selenium = seleniumStandalone;
-        var wdServer = selenium({
-          stdio: 'pipe'
-        }, ['-port', wdPort]);
+          // time out after a default of 30 seconds
+          var h = setTimeout(function () {
+            console.log('Timed out waiting for selenium server to start');
+            wdServer.kill();
+            process.exit(1);
+          }, argv.wdTimeout || 30 * 1000);
 
-        // time out after a default of 30 seconds
-        var h = setTimeout(function () {
-          console.log('Timed out waiting for selenium server to start');
-          wdServer.kill();
-          process.exit(1);
-        }, argv.wdTimeout || 30 * 1000);
-
-        // Wait for selenium server to start.
-        wdServer.stdout.on('data', function (output) {
-          if (output.toString().indexOf('Started org.openqa.jetty.jetty.Server') >= 0) {
-            clearTimeout(h);
-            run();
-          }
-        });
-        wdServer.stderr.on('data', function (output) {
-          if (output.toString().indexOf('Started org.openqa.jetty.jetty.Server') >= 0) {
-            clearTimeout(h);
-            run();
-          }
-        });
+          // Wait for selenium server to start.
+          wdServer.stdout.on('data', function (output) {
+            if (output.toString().indexOf('Started org.openqa.jetty.jetty.Server') >= 0) {
+              clearTimeout(h);
+              run();
+            }
+          });
+          wdServer.stderr.on('data', function (output) {
+            if (output.toString().indexOf('Started org.openqa.jetty.jetty.Server') >= 0) {
+              clearTimeout(h);
+              run();
+            }
+          });
+        } else {
+          run();
+        }
       }).
       catch(function (err) {
         console.error('Failed to run browser tests', err);
