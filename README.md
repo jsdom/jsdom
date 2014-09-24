@@ -348,6 +348,12 @@ Getting C++ compiled within npm's installation system can be tricky, especially 
 - The latest version of [Node.js for Windows](http://nodejs.org/download/)
 - A copy of [Visual Studio Express 2013 for Windows Desktop](http://www.visualstudio.com/downloads/download-visual-studio-vs#d-express-windows-desktop)
 - A copy of [Python 2.7](http://www.python.org/download/), installed in the default location of `C:\Python27`
+- Set your system environment variable GYP_MSVS_VERSION like so (assuming you have Visual Studio 2013 installed):
+  ```shell
+  setx GYP_MSVS_VERSION 2013
+  ```
+
+- Restart your command prompt window to ensure required path variables are present.
 
 There are some slight modifications to this that can work; for example other Visual Studio versions often work too. But it's tricky, so start with the basics!
 
