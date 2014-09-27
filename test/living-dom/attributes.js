@@ -1,5 +1,6 @@
 "use strict";
 
+var jsdom = require("../..");
 var load = require("../util").load(__dirname);
 
 exports["setAttribute should change the first attribute, irrespective of namespace"] = function (t) {

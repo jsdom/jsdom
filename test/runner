@@ -42,6 +42,7 @@ var files = [
   "living-dom/node-contains.js",
   "living-dom/node-parent-element.js",
   "living-dom/attributes.js",
+  "living-html/htmlinputelement.js",
   "living-html/navigator.js",
 
   "window/index.js",
