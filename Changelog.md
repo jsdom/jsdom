@@ -1,3 +1,11 @@
+## 1.0.0
+
+For a consolidated list of changes from 0.11.1 to 1.0.0, see [this wiki page](https://github.com/tmpvar/jsdom/wiki/Changes-from-0.11.1-to-1.0.0).
+
+* Remove: nonstandard `EventTarget.getListeners`; `EventTarget.forwardIterator`; `EventTarget.backwardIterator`; `EventTarget.singleIterator`.
+* Remove: nonstandard `document.innerHTML`. (jorendorff)
+* Fix: `value` and `defaultValue` properties of a `HTMLInputElement` are now correctly synced to the `value=""` attribute. (Sebmaster)
+
 ## 1.0.0-pre.7
 
 * Remove: support for old, untested HTML and XML parsers, namely davglass/node-htmlparser and isaacs/sax-js. In the future we plan to work toward a standardized parsing interface that other parsers can implement, instead of adding custom code to jsdom for various parsers. This interface still is being decided though, as it needs to support complex things like pausing the parse stream (for `document.write`) and parsing disconnected fragments (for `document.innerHTML`). (Sebmaster)
