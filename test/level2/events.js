@@ -320,7 +320,7 @@ exports['capture event'] = testcase({
     this.plist.firstChild.addEventListener("foo", this.monitor.handleEvent, false);
     var return_val = this.plist.firstChild.dispatchEvent(this.event);
     test.expect(4);
-    test.equal(return_val, false, 'dispatchEvent should return *false*');
+    test.equal(return_val, true, 'dispatchEvent should return *true*');
     test.equal(this.monitor.atEvents.length, 1, 'should be at 1 event');
     test.equal(this.monitor.bubbledEvents.length, 1, 'should have bubbled 1 event');
     test.equal(this.monitor.capturedEvents.length, 0, 'should not have captured any events');
@@ -359,7 +359,7 @@ exports['bubble event'] = testcase({
     this.plist.firstChild.addEventListener("foo", this.monitor.handleEvent, false);
     var return_val = this.plist.firstChild.dispatchEvent(this.event);
     test.expect(4);
-    test.equal(return_val, false, 'dispatchEvent should return *false*');
+    test.equal(return_val, true, 'dispatchEvent should return *true*');
     test.equal(this.monitor.atEvents.length, 1, 'should be at 1 event');
     test.equal(this.monitor.bubbledEvents.length, 1, 'should have 1 bubbled event');
     test.equal(this.monitor.capturedEvents.length, 1, 'should have captured 1 event');
@@ -374,7 +374,7 @@ exports['bubble event'] = testcase({
     this.event.initEvent("foo",false,false);
     var return_val = this.plist.firstChild.dispatchEvent(this.event);
     test.expect(4);
-    test.equal(return_val, false, 'dispatchEvent should return *false*');
+    test.equal(return_val, true, 'dispatchEvent should return *true*');
     test.equal(this.monitor.atEvents.length, 1, 'should be at 1 event');
     test.equal(this.monitor.bubbledEvents.length, 0, 'should not have any bubbled events');
     test.equal(this.monitor.capturedEvents.length, 1, 'should have captured 1 event');
@@ -453,7 +453,7 @@ exports['prevent default'] = testcase({
     this.plist.firstChild.addEventListener("foo", this.monitor.handleEvent, false);
     var return_val = this.plist.firstChild.dispatchEvent(this.event);
     test.expect(4);
-    test.equal(return_val, true, 'dispatchEvent should return *true*');
+    test.equal(return_val, false, 'dispatchEvent should return *false*');
     test.equal(this.monitor.atEvents.length, 1, 'should be at 1 event');
     test.equal(this.monitor.bubbledEvents.length, 1, 'should have bubbled 1 event');
     test.equal(this.monitor.capturedEvents.length, 1, 'should have captured 1 event');
@@ -467,7 +467,7 @@ exports['prevent default'] = testcase({
     this.event.initEvent("foo",true,false);
     var return_val = this.plist.firstChild.dispatchEvent(this.event);
     test.expect(4);
-    test.equal(return_val, false, 'dispatchEvent should return *false*');
+    test.equal(return_val, true, 'dispatchEvent should return *true*');
     test.equal(this.monitor.atEvents.length, 1, 'should be at 1 event');
     test.equal(this.monitor.bubbledEvents.length, 1, 'should have bubbled 1 event');
     test.equal(this.monitor.capturedEvents.length, 1, 'should have captured 1 event');

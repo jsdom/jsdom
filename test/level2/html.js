@@ -19921,7 +19921,7 @@ exports.tests = {
     var doc;
     var target;
     var evt;
-    var preventDefault;
+    var canceled;
     var performedDefault = false;
 
     var docRef = null;
@@ -19937,8 +19937,8 @@ exports.tests = {
     a._eventDefaults['foo'] = function(event) {
       performedDefault = true;
     };
-    preventDefault = a.dispatchEvent(evt);
-    test.equal(preventDefault, false, 'preventDefault should be *false*');
+    canceled = !a.dispatchEvent(evt);
+    test.equal(canceled, false, 'canceled should be *false*');
     test.ok(performedDefault, 'performedDefault');
     test.done();
   },
