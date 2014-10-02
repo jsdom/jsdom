@@ -26,9 +26,9 @@ function createJsdom(source, url, t) {
       window.shimTest = function () {
         window.add_result_callback(function (test) {
           if (test.status === 1) {
-            t.ok(false, "Failed in \"" + t.name + "\": \n" + t.message);
+            t.ok(false, "Failed in \"" + test.name + "\": \n" + test.message);
           } else if (test.status === 2) {
-            t.ok(false, "Timout in \"" + t.name + "\": \n" + t.message);
+            t.ok(false, "Timout in \"" + test.name + "\": \n" + test.message);
           }
         });
 
