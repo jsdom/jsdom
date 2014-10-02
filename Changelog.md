@@ -1,3 +1,7 @@
+## 1.0.1
+
+* Fix: the return value of `EventTarget.prototype.dispatchEvent` should be `true` when the default is *not* prevented; previously it was the opposite. (eventualbuddha)
+
 ## 1.0.0
 
 For a consolidated list of changes from 0.11.1 to 1.0.0, see [this wiki page](https://github.com/tmpvar/jsdom/wiki/Changes-from-0.11.1-to-1.0.0).
