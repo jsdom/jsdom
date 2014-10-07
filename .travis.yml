@@ -12,10 +12,11 @@ matrix:
       node_js: "0.10"
     - env: TEST_SUITE=browser
       node_js: "0.10"
-      addons:
-        sauce_connect:
-          username: "jsdom"
-          access_key: "7d402b1d-0388-467c-8d99-edf195456eee"
+
+addons:
+  sauce_connect:
+    username: "jsdom"
+    access_key: "7d402b1d-0388-467c-8d99-edf195456eee"
 
 
 script: node test/ci.js
