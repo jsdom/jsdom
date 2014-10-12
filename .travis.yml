@@ -18,4 +18,5 @@ matrix:
           access_key: "7d402b1d-0388-467c-8d99-edf195456eee"
 
 
-script: node test/ci.js
+script:
+  - '([ "${TRAVIS_PULL_REQUEST}" = "false" ] || [ "${TEST_SUITE}" != "browser" ]) && node test/ci.js || true'
