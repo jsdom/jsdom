@@ -1,5 +1,6 @@
 ## 1.0.2
 
+* Fix: temporarily pin `cssstyle` dependency to at most 0.2.18 until [chad3814/CSSStyleDeclaration#20](https://github.com/chad3814/CSSStyleDeclaration/issues/20) is fixed.
 * Fix: browserifying jsdom should work better now that the required packages are included as `dependencies` instead of `devDependencies`. (Sebmaster)
 * Fix: using `jsom.env` in a browser environment now correctly defaults `options.url` to `location.href` instead of trying to infer a reasonable `fil://` URL using techniques that fail in the browser. (rattrayalex)
 
