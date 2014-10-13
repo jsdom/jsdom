@@ -92,7 +92,8 @@
     "request": "browser-request"
   },
   "scripts": {
-    "test": "node ./test/runner"
+    "test": "node ./test/runner",
+    "test-browser": "node ./test/browser-runner"
   },
   "main": "./lib/jsdom"
 }

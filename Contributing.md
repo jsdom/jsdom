@@ -38,20 +38,25 @@ If there is no official test covering the functionality you're after, then you c
 
 ## Running the tests
 
-First you'll want to `npm install`. To run all the tests, use `npm test`, which just calls `node test/runner`.
+First you'll want to `npm install`. To run all the tests, use `npm test`.
 
-Using `test/runner` directly, you can slice and dice which tests your want to run. Usage is as follows:
+Using options to `npm test`, you can slice and dice which tests your want to run. Usage is as follows:
 
 ```
-test/runner --help
+$ npm test -- --help
+
 Run the jsdom test suite
 
 Options:
--s, --suites     suites that you want to run. ie: -s level1/core,1/html,html [string]
--f, --fail-fast  stop on the first failed test
--h, --help       show the help
--t, --tests      choose the test cases to run. ie: -t jquery
+  -s, --suites     suites that you want to run. ie: -s level1/core,1/html,html
+  -f, --fail-fast  stop on the first failed test
+  -h, --help       show the help
+  -t, --tests      choose the test cases to run. ie: -t jquery
+  -d, --debug      run in node's interactive debugger mode
+  -v, --verbose    show all tests that are being run
 ```
+
+So e.g. use `npm test -- -s console` to run the console-related tests.
 
 ### Writing or importing tests
 
@@ -65,10 +70,13 @@ Alternately, you can write some tests just for jsdom. The older tests, being a m
 
 ### Browser tests
 
-jsdom now has experimental support for web workers. Many tests fail at present. To run all test suites that pass, run `node test/browser-runner.js`. The browser runner supports the same options as `test/runner`, as well as a few more specific to running browser tests via WebDriver.
+jsdom now has experimental support for web workers! To test this support, we have a special test setup that involves Selenium driving Chrome. To make that work, you need to install Java and have it in your PATH. Then you can use `npm run test-browser` to have Selenium open up Chrome, spawn a web worker, and run some jsdom tests inside it.
+
+The browser runner supports the same options as `npm test`, as well as a few more specific to running browser tests via WebDriver. Many tests fail at present, so by default `npm run test-browser` only runs the suites that pass.
 
 ```
-$ node test/browser-runner.js -h
+$ npm run test-browser -- --help
+
 Run the jsdom test suite in a browser via WebDriver
 
 Options:
@@ -77,10 +85,9 @@ Options:
   -h, --help                 show the help
   -t, --tests                choose the test cases to run. ie: -t jquery
   -d, --debug                run in node's interactive debugger mode
-  -p, --parser               the HTML parser to use (e.g. html5); default is htmlparser
   -v, --verbose              show all tests that are being run
-  --http-port                port to run test server on (defaults to pid + 20000)
-  --web-driver-port          port to run Selenium on (defaults to pid + 20000)
+  --http-port                port to run test server on
+  --web-driver-port          port to run Selenium on
   --verbose-web-driver       print verbose output from wd to stdout
   --verbose-browser-console  print browser console to stdout
 ```
