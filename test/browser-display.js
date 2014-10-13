@@ -55,12 +55,12 @@ var runnerHandlers = {
                     'expected:', a.error.expected, 'got:', a.error.actual
                  );
             }
-           } else {
-            if (a.error.expected || a.error.actual) {
-              console.log('\nERROR', a.error.expected, 'vs', a.error.actual, '\n');
+          } else {
+            if (a.method) {
+              console.log(a.method + ': ' + a.message);
+            } else {
+              console.log(a.message);
             }
-
-            console.log(a.error.message, a.error.stack, (new Error()).stack);
            }
          } else {
            console.log(a.message);
