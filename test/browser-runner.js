@@ -136,6 +136,7 @@ function run() {
 
 // browserify and run the tests
 browserify('./test/worker.js').
+  require('./test/browser-fs.js', { expose: 'fs' }).
   bundle().
   pipe(fs.createWriteStream('./test/worker-bundle.js')).
   on('finish', function () {
