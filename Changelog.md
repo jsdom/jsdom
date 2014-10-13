@@ -1,3 +1,8 @@
+## 1.0.2
+
+* Fix: browserifying jsdom should work better now that the required packages are included as `dependencies` instead of `devDependencies`. (Sebmaster)
+* Fix: using `jsom.env` in a browser environment now correctly defaults `options.url` to `location.href` instead of trying to infer a reasonable `fil://` URL using techniques that fail in the browser. (rattrayalex)
+
 ## 1.0.1
 
 * Fix: the return value of `EventTarget.prototype.dispatchEvent` should be `true` when the default is *not* prevented; previously it was the opposite. (eventualbuddha)
