@@ -1,7 +1,3 @@
-## 1.0.4
-
-* Fix: revert 1.0.3 changes since apparently `cssstyle@0.2.20` was unpublished.
-
 ## 1.0.3
 
 * Update: no longer requiring separate `cssstyle` and `cssstyle-browserify` dependencies; now `cssstyle` can be used directly. This also un-pins the `cssstyle` dependency so that future fixes arrive as they appear upstream.
