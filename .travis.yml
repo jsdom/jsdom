@@ -19,4 +19,4 @@ matrix:
 
 
 script:
-  - '([ "${TRAVIS_PULL_REQUEST}" = "false" ] || [ "${TEST_SUITE}" != "browser" ]) && node test/ci.js || true'
+  - '([ "${TRAVIS_PULL_REQUEST}" != "false" ] && [ "${TEST_SUITE}" = "browser" ]) || (npm run lint && node test/ci.js)'
