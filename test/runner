@@ -103,7 +103,7 @@ files.map(function (p) {
   }
 });
 
-var reporter = nodeunit.reporters.minimal;
+var reporter = argv.verbose ? nodeunit.reporters.default : nodeunit.reporters.minimal;
 reporter.run(modulesToRun, null, function(err) {
   process.exit(err ? 1 : 0);
 });
