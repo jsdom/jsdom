@@ -1,0 +1,22 @@
+{
+    "bitwise": true,
+    "camelcase": true,
+    "curly": true,
+    "eqeqeq": true,
+    "node": true,
+    "immed": true,
+    "indent": 2,
+    "latedef": "nofunc",
+    "newcap": true,
+    "noarg": true,
+    "noempty": true,
+    "nonbsp": true,
+    "nonew": true,
+    "quotmark": "double",
+    "undef": true,
+    "unused": true,
+    "maxlen": 120,
+
+    "globalstrict": true,
+    "multistr": true
+}
