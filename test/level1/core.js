@@ -4857,40 +4857,6 @@ exports.tests = {
 
   /**
    *
-   The "getAttributes()" method(Node Interface) may
-   be used to retrieve the set of all attributes of an
-   element.
-
-   Create a list of all the attributes of the last child
-   of the first employee by using the "getAttributes()"
-   method.  Examine the length of the attribute list.
-   This test uses the "getLength()" method from the
-   NameNodeMap interface.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
-   * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
-   */
-  elementretrieveallattributes: function(test) {
-    var success;
-    var doc;
-    var addressList;
-    var testAddress;
-    var attributes;
-
-    doc = staff.staff();
-    addressList = doc.getElementsByTagName("address");
-    testAddress = addressList.item(0);
-    attributes = testAddress.attributes;
-
-    test.equal(attributes.length, 2, 'elementRetrieveAllAttributesAssert');
-
-    test.done();
-  },
-
-  /**
-   *
    The "getAttribute(name)" method returns an attribute
    value by name.
 
@@ -10161,46 +10127,6 @@ exports.tests = {
 
   /**
    *
-   Create a NamedNodeMap object from the attributes of the
-   last child of the third "p" element and traverse the
-   list from index 0 thru length -1.  All indices should
-   be valid.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D0FB19E
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=250
-   */
-  hc_namednodemapchildnoderange: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var testEmployee;
-    var attributes;
-    var child;
-    var strong;
-    var length;
-
-    doc = hc_staff.hc_staff();
-    elementList = doc.getElementsByTagName("acronym");
-    testEmployee = elementList.item(2);
-    attributes = testEmployee.attributes;
-    length = attributes.length;
-    test.equal(length, 3, 'length');
-    child = attributes.item(2);
-    test.notEqual(child, null, 'attr2');
-    child = attributes.item(0);
-    test.notEqual(child, null, 'attr0');
-    child = attributes.item(1);
-    test.notEqual(child, null, 'attr1');
-    child = attributes.item(3);
-    test.equal(child, null, 'attr3');
-    test.done();
-  },
-
-  /**
-   *
    Retrieve the second "p" element and create a NamedNodeMap
    listing of the attributes of the last child.  Once the
    list is created an invocation of the "getNamedItem(name)"
@@ -10331,36 +10257,6 @@ exports.tests = {
       }
       test.ok(success, 'throw_NOT_FOUND_ERR');
     }
-
-    test.done();
-  },
-
-  /**
-   *
-   Retrieve the second "p" element and evaluate Node.attributes.length.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D0FB19E
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=250
-   */
-  hc_namednodemapnumberofnodes: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var testEmployee;
-    var attributes;
-    var length;
-
-    doc = hc_staff.hc_staff();
-    elementList = doc.getElementsByTagName("acronym");
-    testEmployee = elementList.item(2);
-    attributes = testEmployee.attributes;
-
-    length = attributes.length;
-
-
-    test.equal(length, 3, 'length');
 
     test.done();
   },
