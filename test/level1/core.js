@@ -4,6 +4,9 @@ var hc_nodtdstaff = require('./core/files/hc_nodtdstaff.xml');
 var extra = require('./core/files/extra.xml');
 var domTestHelper = require('../DOMTestCase');
 
+// NB: these tests have been modified to be compliant with the modern DOM, instead of the "DOM Level 1" they were
+// written for. Check the revision history.
+
 exports.tests = {
   /**
    *
@@ -2898,7 +2901,7 @@ exports.tests = {
     newElement = doc.createElement("address");
     newElementName = newElement.nodeName;
 
-    test.equal(newElementName, "address", 'name');
+    test.equal(newElementName, "ADDRESS", 'name');
     newElementType = newElement.nodeType;
 
     test.equal(newElementType, 1, 'type');
@@ -3353,7 +3356,7 @@ exports.tests = {
     rootName = root.nodeName;
 
 
-    test.equal(rootName, "staff", 'documentGetRootNodeAssert');
+    test.equal(rootName, "STAFF", 'documentGetRootNodeAssert');
 
     test.done();
   },
@@ -4179,7 +4182,7 @@ exports.tests = {
     }
     childName = child.nodeName;
 
-    test.equal(childName, "employeeId", 'nodename');
+    test.equal(childName, "EMPLOYEEID", 'nodename');
     child = child.firstChild;
 
     childValue = child.nodeValue;
@@ -4241,12 +4244,12 @@ exports.tests = {
     var result = new Array();
 
     expectedResult = new Array();
-    expectedResult[0] = "employeeId";
-    expectedResult[1] = "name";
-    expectedResult[2] = "position";
-    expectedResult[3] = "salary";
-    expectedResult[4] = "gender";
-    expectedResult[5] = "address";
+    expectedResult[0] = "EMPLOYEEID";
+    expectedResult[1] = "NAME";
+    expectedResult[2] = "POSITION";
+    expectedResult[3] = "SALARY";
+    expectedResult[4] = "GENDER";
+    expectedResult[5] = "ADDRESS";
 
 
     doc = staff.staff();
@@ -4296,7 +4299,7 @@ exports.tests = {
     tagname = root.tagName;
 
 
-    test.equal(tagname, "staff", 'elementGetTagNameAssert');
+    test.equal(tagname, "STAFF", 'elementGetTagNameAssert');
 
     test.done();
   },
@@ -5064,10 +5067,10 @@ exports.tests = {
     testEmployee = elementList.item(1);
     name = testEmployee.nodeName;
 
-    test.equal(name, "position", 'nodename');
+    test.equal(name, "POSITION", 'nodename');
     name = testEmployee.tagName;
 
-    test.equal(name, "position", 'tagname');
+    test.equal(name, "POSITION", 'tagname');
 
     test.done();
   },
@@ -8603,7 +8606,7 @@ exports.tests = {
     newElement = doc.createElement("acronym");
     newElementName = newElement.nodeName;
 
-    test.equal(newElementName, "acronym", 'element strong');
+    test.equal(newElementName, "ACRONYM", 'element strong');
     newElementType = newElement.nodeType;
 
     test.equal(newElementType, 1, 'type');
@@ -8656,7 +8659,7 @@ exports.tests = {
     nodeName2 = newElement2.nodeName;
 
     test.equal(nodeName1, "ACRONYM", 'element nodeName1');
-    test.equal(nodeName2, "acronym", 'element nodeName2');
+    test.equal(nodeName2, "ACRONYM", 'element nodeName2');
 
     test.done();
   },
@@ -8766,93 +8769,93 @@ exports.tests = {
     var doc;
     var nameList;
     expectedNames = new Array();
-    expectedNames[0] = "html";
-    expectedNames[1] = "head";
-    expectedNames[2] = "meta";
-    expectedNames[3] = "title";
-    expectedNames[4] = "script";
-    expectedNames[5] = "script";
-    expectedNames[6] = "script";
-    expectedNames[7] = "body";
-    expectedNames[8] = "p";
-    expectedNames[9] = "em";
-    expectedNames[10] = "strong";
-    expectedNames[11] = "code";
-    expectedNames[12] = "sup";
-    expectedNames[13] = "var";
-    expectedNames[14] = "acronym";
-    expectedNames[15] = "p";
-    expectedNames[16] = "em";
-    expectedNames[17] = "strong";
-    expectedNames[18] = "code";
-    expectedNames[19] = "sup";
-    expectedNames[20] = "var";
-    expectedNames[21] = "acronym";
-    expectedNames[22] = "p";
-    expectedNames[23] = "em";
-    expectedNames[24] = "strong";
-    expectedNames[25] = "code";
-    expectedNames[26] = "sup";
-    expectedNames[27] = "var";
-    expectedNames[28] = "acronym";
-    expectedNames[29] = "p";
-    expectedNames[30] = "em";
-    expectedNames[31] = "strong";
-    expectedNames[32] = "code";
-    expectedNames[33] = "sup";
-    expectedNames[34] = "var";
-    expectedNames[35] = "acronym";
-    expectedNames[36] = "p";
-    expectedNames[37] = "em";
-    expectedNames[38] = "strong";
-    expectedNames[39] = "code";
-    expectedNames[40] = "sup";
-    expectedNames[41] = "var";
-    expectedNames[42] = "acronym";
+    expectedNames[0] = "HTML";
+    expectedNames[1] = "HEAD";
+    expectedNames[2] = "META";
+    expectedNames[3] = "TITLE";
+    expectedNames[4] = "SCRIPT";
+    expectedNames[5] = "SCRIPT";
+    expectedNames[6] = "SCRIPT";
+    expectedNames[7] = "BODY";
+    expectedNames[8] = "P";
+    expectedNames[9] = "EM";
+    expectedNames[10] = "STRONG";
+    expectedNames[11] = "CODE";
+    expectedNames[12] = "SUP";
+    expectedNames[13] = "VAR";
+    expectedNames[14] = "ACRONYM";
+    expectedNames[15] = "P";
+    expectedNames[16] = "EM";
+    expectedNames[17] = "STRONG";
+    expectedNames[18] = "CODE";
+    expectedNames[19] = "SUP";
+    expectedNames[20] = "VAR";
+    expectedNames[21] = "ACRONYM";
+    expectedNames[22] = "P";
+    expectedNames[23] = "EM";
+    expectedNames[24] = "STRONG";
+    expectedNames[25] = "CODE";
+    expectedNames[26] = "SUP";
+    expectedNames[27] = "VAR";
+    expectedNames[28] = "ACRONYM";
+    expectedNames[29] = "P";
+    expectedNames[30] = "EM";
+    expectedNames[31] = "STRONG";
+    expectedNames[32] = "CODE";
+    expectedNames[33] = "SUP";
+    expectedNames[34] = "VAR";
+    expectedNames[35] = "ACRONYM";
+    expectedNames[36] = "P";
+    expectedNames[37] = "EM";
+    expectedNames[38] = "STRONG";
+    expectedNames[39] = "CODE";
+    expectedNames[40] = "SUP";
+    expectedNames[41] = "VAR";
+    expectedNames[42] = "ACRONYM";
 
     svgExpectedNames = new Array();
-    svgExpectedNames[0] = "svg";
-    svgExpectedNames[1] = "rect";
-    svgExpectedNames[2] = "script";
-    svgExpectedNames[3] = "head";
-    svgExpectedNames[4] = "meta";
-    svgExpectedNames[5] = "title";
-    svgExpectedNames[6] = "body";
-    svgExpectedNames[7] = "p";
-    svgExpectedNames[8] = "em";
-    svgExpectedNames[9] = "strong";
-    svgExpectedNames[10] = "code";
-    svgExpectedNames[11] = "sup";
-    svgExpectedNames[12] = "var";
-    svgExpectedNames[13] = "acronym";
-    svgExpectedNames[14] = "p";
-    svgExpectedNames[15] = "em";
-    svgExpectedNames[16] = "strong";
-    svgExpectedNames[17] = "code";
-    svgExpectedNames[18] = "sup";
-    svgExpectedNames[19] = "var";
-    svgExpectedNames[20] = "acronym";
-    svgExpectedNames[21] = "p";
-    svgExpectedNames[22] = "em";
-    svgExpectedNames[23] = "strong";
-    svgExpectedNames[24] = "code";
-    svgExpectedNames[25] = "sup";
-    svgExpectedNames[26] = "var";
-    svgExpectedNames[27] = "acronym";
-    svgExpectedNames[28] = "p";
-    svgExpectedNames[29] = "em";
-    svgExpectedNames[30] = "strong";
-    svgExpectedNames[31] = "code";
-    svgExpectedNames[32] = "sup";
-    svgExpectedNames[33] = "var";
-    svgExpectedNames[34] = "acronym";
-    svgExpectedNames[35] = "p";
-    svgExpectedNames[36] = "em";
-    svgExpectedNames[37] = "strong";
-    svgExpectedNames[38] = "code";
-    svgExpectedNames[39] = "sup";
-    svgExpectedNames[40] = "var";
-    svgExpectedNames[41] = "acronym";
+    svgExpectedNames[0] = "SVG";
+    svgExpectedNames[1] = "RECT";
+    svgExpectedNames[2] = "SCRIPT";
+    svgExpectedNames[3] = "HEAD";
+    svgExpectedNames[4] = "META";
+    svgExpectedNames[5] = "TITLE";
+    svgExpectedNames[6] = "BODY";
+    svgExpectedNames[7] = "P";
+    svgExpectedNames[8] = "EM";
+    svgExpectedNames[9] = "STRONG";
+    svgExpectedNames[10] = "CODE";
+    svgExpectedNames[11] = "SUP";
+    svgExpectedNames[12] = "VAR";
+    svgExpectedNames[13] = "ACRONYM";
+    svgExpectedNames[14] = "P";
+    svgExpectedNames[15] = "EM";
+    svgExpectedNames[16] = "STRONG";
+    svgExpectedNames[17] = "CODE";
+    svgExpectedNames[18] = "SUP";
+    svgExpectedNames[19] = "VAR";
+    svgExpectedNames[20] = "ACRONYM";
+    svgExpectedNames[21] = "P";
+    svgExpectedNames[22] = "EM";
+    svgExpectedNames[23] = "STRONG";
+    svgExpectedNames[24] = "CODE";
+    svgExpectedNames[25] = "SUP";
+    svgExpectedNames[26] = "VAR";
+    svgExpectedNames[27] = "ACRONYM";
+    svgExpectedNames[28] = "P";
+    svgExpectedNames[29] = "EM";
+    svgExpectedNames[30] = "STRONG";
+    svgExpectedNames[31] = "CODE";
+    svgExpectedNames[32] = "SUP";
+    svgExpectedNames[33] = "VAR";
+    svgExpectedNames[34] = "ACRONYM";
+    svgExpectedNames[35] = "P";
+    svgExpectedNames[36] = "EM";
+    svgExpectedNames[37] = "STRONG";
+    svgExpectedNames[38] = "CODE";
+    svgExpectedNames[39] = "SUP";
+    svgExpectedNames[40] = "VAR";
+    svgExpectedNames[41] = "ACRONYM";
 
     var actualNames = new Array();
 
@@ -8959,7 +8962,7 @@ exports.tests = {
     rootName = root.nodeName;
 
 
-    test.equal(rootName, "html", 'element docElemName');
+    test.equal(rootName, "HTML", 'element docElemName');
 
     test.done();
   },
@@ -9498,7 +9501,7 @@ exports.tests = {
     }
     childName = firstC.nodeName;
 
-    test.equal(childName, "em", 'element childName');
+    test.equal(childName, "EM", 'element childName');
     employeeIDNode = firstC.firstChild;
 
     employeeID = employeeIDNode.nodeValue;
@@ -9558,12 +9561,12 @@ exports.tests = {
     var result = new Array();
 
     expectedResult = new Array();
-    expectedResult[0] = "em";
-    expectedResult[1] = "strong";
-    expectedResult[2] = "code";
-    expectedResult[3] = "sup";
-    expectedResult[4] = "var";
-    expectedResult[5] = "acronym";
+    expectedResult[0] = "EM";
+    expectedResult[1] = "STRONG";
+    expectedResult[2] = "CODE";
+    expectedResult[3] = "SUP";
+    expectedResult[4] = "VAR";
+    expectedResult[5] = "ACRONYM";
 
 
     doc = hc_staff.hc_staff();
@@ -9603,7 +9606,7 @@ exports.tests = {
     tagname = root.tagName;
 
 
-    test.equal(tagname, "html", 'element tagname');
+    test.equal(tagname, "HTML", 'element tagname');
 
     test.done();
   },
@@ -10134,10 +10137,10 @@ exports.tests = {
     testEmployee = elementList.item(1);
     strong = testEmployee.nodeName;
 
-    test.equal(strong, "code", 'element nodename');
+    test.equal(strong, "CODE", 'element nodename');
     strong = testEmployee.tagName;
 
-    test.equal(strong, "code", 'element tagname');
+    test.equal(strong, "CODE", 'element tagname');
 
     test.done();
   },
@@ -10945,7 +10948,7 @@ exports.tests = {
 
     childName = lchild.nodeName;
 
-    test.equal(childName, "br", 'element nodeName');
+    test.equal(childName, "BR", 'element nodeName');
 
     test.done();
   },
@@ -10980,12 +10983,12 @@ exports.tests = {
 
     var nodeType;
     expected = new Array();
-    expected[0] = "strong";
-    expected[1] = "code";
-    expected[2] = "sup";
-    expected[3] = "var";
-    expected[4] = "acronym";
-    expected[5] = "em";
+    expected[0] = "STRONG";
+    expected[1] = "CODE";
+    expected[2] = "SUP";
+    expected[3] = "VAR";
+    expected[4] = "ACRONYM";
+    expected[5] = "EM";
 
     var appendedChild;
 
@@ -11057,14 +11060,14 @@ exports.tests = {
     var appendedChild;
     var nodeType;
     expected = new Array();
-    expected[0] = "em";
-    expected[1] = "strong";
-    expected[2] = "code";
-    expected[3] = "sup";
-    expected[4] = "var";
-    expected[5] = "acronym";
-    expected[6] = "br";
-    expected[7] = "b";
+    expected[0] = "EM";
+    expected[1] = "STRONG";
+    expected[2] = "CODE";
+    expected[3] = "SUP";
+    expected[4] = "VAR";
+    expected[5] = "ACRONYM";
+    expected[6] = "BR";
+    expected[7] = "B";
 
 
     doc = hc_staff.hc_staff();
@@ -11132,7 +11135,7 @@ exports.tests = {
     appendNode = employeeNode.appendChild(newChild);
     childName = appendNode.nodeName;
 
-    test.equal(childName, "br", 'element nodeName');
+    test.equal(childName, "BR", 'element nodeName');
 
     test.done();
   },
@@ -11438,12 +11441,12 @@ exports.tests = {
     var actual = new Array();
 
     expected = new Array();
-    expected[0] = "em";
-    expected[1] = "strong";
-    expected[2] = "code";
-    expected[3] = "sup";
-    expected[4] = "var";
-    expected[5] = "acronym";
+    expected[0] = "EM";
+    expected[1] = "STRONG";
+    expected[2] = "CODE";
+    expected[3] = "SUP";
+    expected[4] = "VAR";
+    expected[5] = "ACRONYM";
 
 
     doc = hc_staff.hc_staff();
@@ -11509,13 +11512,13 @@ exports.tests = {
     var actual = new Array();
 
     expected = new Array();
-    expected[0] = "em";
-    expected[1] = "strong";
-    expected[2] = "code";
-    expected[3] = "sup";
-    expected[4] = "var";
-    expected[5] = "acronym";
-    expected[6] = "br";
+    expected[0] = "EM";
+    expected[1] = "STRONG";
+    expected[2] = "CODE";
+    expected[3] = "SUP";
+    expected[4] = "VAR";
+    expected[5] = "ACRONYM";
+    expected[6] = "BR";
 
 
     doc = hc_staff.hc_staff();
@@ -11711,7 +11714,7 @@ exports.tests = {
     clonedNode = employeeNode.cloneNode(false);
     cloneName = clonedNode.nodeName;
 
-    test.equal(cloneName, "p", 'element strong');
+    test.equal(cloneName, "P", 'element strong');
     cloneChildren = clonedNode.childNodes;
 
     length = cloneChildren.length;
@@ -12246,7 +12249,7 @@ exports.tests = {
     elementName = elementNode.nodeName;
 
 
-    test.equal(elementName, "html", 'element nodeName');
+    test.equal(elementName, "HTML", 'element nodeName');
 
     test.done();
   },
@@ -12340,7 +12343,7 @@ exports.tests = {
     }
 
     else {
-      test.equal(childName, "em", 'element firstChild_wo_whitespace');
+      test.equal(childName, "EM", 'element firstChild_wo_whitespace');
 
     }
 
@@ -12542,7 +12545,7 @@ exports.tests = {
     elementName = docElement.nodeName;
 
 
-    test.equal(elementName, "html", 'element ownerDocElemTagName');
+    test.equal(elementName, "HTML", 'element ownerDocElemTagName');
 
     test.done();
   },
@@ -12737,13 +12740,13 @@ exports.tests = {
     var actual = new Array();
 
     expected = new Array();
-    expected[0] = "em";
-    expected[1] = "strong";
-    expected[2] = "code";
-    expected[3] = "br";
-    expected[4] = "sup";
-    expected[5] = "var";
-    expected[6] = "acronym";
+    expected[0] = "EM";
+    expected[1] = "STRONG";
+    expected[2] = "CODE";
+    expected[3] = "BR";
+    expected[4] = "SUP";
+    expected[5] = "VAR";
+    expected[6] = "ACRONYM";
 
     var nodeType;
 
@@ -12823,11 +12826,11 @@ exports.tests = {
     child = childList.item(3);
     childName = child.nodeName;
 
-    test.equal(childName, "br", 'element childName3');
+    test.equal(childName, "BR", 'element childName3');
     child = childList.item(4);
     childName = child.nodeName;
 
-    test.equal(childName, "b", 'element childName4');
+    test.equal(childName, "B", 'element childName4');
 
     test.done();
   },
@@ -12961,12 +12964,12 @@ exports.tests = {
     var childName;
     var insertedNode;
     expected = new Array();
-    expected[0] = "strong";
-    expected[1] = "code";
-    expected[2] = "sup";
-    expected[3] = "var";
-    expected[4] = "em";
-    expected[5] = "acronym";
+    expected[0] = "STRONG";
+    expected[1] = "CODE";
+    expected[2] = "SUP";
+    expected[3] = "VAR";
+    expected[4] = "EM";
+    expected[5] = "ACRONYM";
 
     var result = new Array();
 
@@ -13085,7 +13088,7 @@ exports.tests = {
     insertedNode = employeeNode.insertBefore(newChild,refChild);
     childName = insertedNode.nodeName;
 
-    test.equal(childName, "br", 'element nodeName');
+    test.equal(childName, "BR", 'element nodeName');
 
     test.done();
   },
@@ -13195,7 +13198,7 @@ exports.tests = {
 
     childName = child.nodeName;
 
-    test.equal(childName, "br", 'element nodeName');
+    test.equal(childName, "BR", 'element nodeName');
 
     test.done();
   },
@@ -13243,7 +13246,7 @@ exports.tests = {
     }
 
     else {
-      test.equal(childName, "em", 'element childName_wo_whitespace');
+      test.equal(childName, "EM", 'element childName_wo_whitespace');
 
     }
 
@@ -13372,7 +13375,7 @@ exports.tests = {
     }
 
     else {
-      test.equal(childName, "strong", 'element childName_strong');
+      test.equal(childName, "STRONG", 'element childName_strong');
 
     }
 
@@ -13416,7 +13419,7 @@ exports.tests = {
     }
 
     else {
-      test.equal(childName, "em", 'element nodeName_wo_space');
+      test.equal(childName, "EM", 'element nodeName_wo_space');
 
     }
 
@@ -13496,12 +13499,12 @@ exports.tests = {
     var result = new Array();
 
     expected = new Array();
-    expected[0] = "em";
-    expected[1] = "strong";
-    expected[2] = "code";
-    expected[3] = "sup";
-    expected[4] = "var";
-    expected[5] = "acronym";
+    expected[0] = "EM";
+    expected[1] = "STRONG";
+    expected[2] = "CODE";
+    expected[3] = "SUP";
+    expected[4] = "VAR";
+    expected[5] = "ACRONYM";
 
 
     doc = hc_staff.hc_staff();
@@ -13562,7 +13565,7 @@ exports.tests = {
 
     parentName = parentNode.nodeName;
 
-    test.equal(parentName, "body", 'element parentNodeName');
+    test.equal(parentName, "BODY", 'element parentNodeName');
 
     test.done();
   },
@@ -13706,11 +13709,11 @@ exports.tests = {
     var removedName;
     var nodeType;
     expected = new Array();
-    expected[0] = "strong";
-    expected[1] = "code";
-    expected[2] = "sup";
-    expected[3] = "var";
-    expected[4] = "acronym";
+    expected[0] = "STRONG";
+    expected[1] = "CODE";
+    expected[2] = "SUP";
+    expected[3] = "VAR";
+    expected[4] = "ACRONYM";
 
     var actual = new Array();
 
@@ -13725,7 +13728,7 @@ exports.tests = {
     removedChild = employeeNode.removeChild(oldChild);
     removedName = removedChild.nodeName;
 
-    test.equal(removedName, "em", 'element removedName');
+    test.equal(removedName, "EM", 'element removedName');
     for(var indexN10098 = 0;indexN10098 < childList.length; indexN10098++) {
       child = childList.item(indexN10098);
       nodeType = child.nodeType;
@@ -13833,7 +13836,7 @@ exports.tests = {
     child = childList.item(0);
     childName = child.nodeName;
 
-    test.equal(childName, "br", 'element nodeName');
+    test.equal(childName, "BR", 'element nodeName');
 
     test.done();
   },
@@ -13966,11 +13969,11 @@ exports.tests = {
     var actual = new Array();
 
     expected = new Array();
-    expected[0] = "strong";
-    expected[1] = "code";
-    expected[2] = "sup";
-    expected[3] = "var";
-    expected[4] = "em";
+    expected[0] = "STRONG";
+    expected[1] = "CODE";
+    expected[2] = "SUP";
+    expected[3] = "VAR";
+    expected[4] = "EM";
 
     var replacedChild;
     var nodeType;
@@ -14096,7 +14099,7 @@ exports.tests = {
     replacedNode = employeeNode.replaceChild(newChild,oldChild);
     childName = replacedNode.nodeName;
 
-    test.equal(childName, "em", 'element replacedNodeName');
+    test.equal(childName, "EM", 'element replacedNodeName');
 
     test.done();
   },
@@ -15704,7 +15707,7 @@ exports.tests = {
 
     childName = lchild.nodeName;
 
-    test.equal(childName, "newChild", 'nodeAppendChildAssert1');
+    test.equal(childName, "NEWCHILD", 'nodeAppendChildAssert1');
 
     test.done();
   },
@@ -15755,15 +15758,15 @@ exports.tests = {
 
 
     if(
-      ("employeeId" == initialName)
+      ("EMPLOYEEID" == initialName)
     ) {
-      test.equal(fchildName, "name", 'assert1_nowhitespace');
-      test.equal(lchildName, "employeeId", 'assert2_nowhitespace');
+      test.equal(fchildName, "NAME", 'assert1_nowhitespace');
+      test.equal(lchildName, "EMPLOYEEID", 'assert2_nowhitespace');
 
     }
 
     else {
-      test.equal(fchildName, "employeeId", 'assert1');
+      test.equal(fchildName, "EMPLOYEEID", 'assert1');
       test.equal(lchildName, "#text", 'assert2');
 
     }
@@ -15802,15 +15805,15 @@ exports.tests = {
     var nodeType;
     var appendedChild;
     expected = new Array();
-    expected[0] = "employeeId";
-    expected[1] = "name";
-    expected[2] = "position";
-    expected[3] = "salary";
-    expected[4] = "gender";
-    expected[5] = "address";
-    expected[6] = "newChild1";
-    expected[7] = "newChild2";
-    expected[8] = "newChild3";
+    expected[0] = "EMPLOYEEID";
+    expected[1] = "NAME";
+    expected[2] = "POSITION";
+    expected[3] = "SALARY";
+    expected[4] = "GENDER";
+    expected[5] = "ADDRESS";
+    expected[6] = "NEWCHILD1";
+    expected[7] = "NEWCHILD2";
+    expected[8] = "NEWCHILD3";
 
 
     doc = staff.staff();
@@ -15882,7 +15885,7 @@ exports.tests = {
     appendNode = employeeNode.appendChild(newChild);
     childName = appendNode.nodeName;
 
-    test.equal(childName, "newChild", 'nodeAppendChildGetNodeNameAssert1');
+    test.equal(childName, "NEWCHILD", 'nodeAppendChildGetNodeNameAssert1');
 
     test.done();
   },
@@ -16491,12 +16494,12 @@ exports.tests = {
     var elementNames = new Array();
 
     expectedElementNames = new Array();
-    expectedElementNames[0] = "employeeId";
-    expectedElementNames[1] = "name";
-    expectedElementNames[2] = "position";
-    expectedElementNames[3] = "salary";
-    expectedElementNames[4] = "gender";
-    expectedElementNames[5] = "address";
+    expectedElementNames[0] = "EMPLOYEEID";
+    expectedElementNames[1] = "NAME";
+    expectedElementNames[2] = "POSITION";
+    expectedElementNames[3] = "SALARY";
+    expectedElementNames[4] = "GENDER";
+    expectedElementNames[5] = "ADDRESS";
 
 
     doc = staff.staff();
@@ -16752,7 +16755,7 @@ exports.tests = {
     clonedNode = employeeNode.cloneNode(false);
     cloneName = clonedNode.nodeName;
 
-    test.equal(cloneName, "employee", 'name');
+    test.equal(cloneName, "EMPLOYEE", 'name');
     cloneChildren = clonedNode.childNodes;
 
     length = cloneChildren.length;
@@ -16793,26 +16796,26 @@ exports.tests = {
 
     expectedWhitespace = new Array();
     expectedWhitespace[0] = "#text";
-    expectedWhitespace[1] = "employeeId";
+    expectedWhitespace[1] = "EMPLOYEEID";
     expectedWhitespace[2] = "#text";
-    expectedWhitespace[3] = "name";
+    expectedWhitespace[3] = "NAME";
     expectedWhitespace[4] = "#text";
-    expectedWhitespace[5] = "position";
+    expectedWhitespace[5] = "POSITION";
     expectedWhitespace[6] = "#text";
-    expectedWhitespace[7] = "salary";
+    expectedWhitespace[7] = "SALARY";
     expectedWhitespace[8] = "#text";
-    expectedWhitespace[9] = "gender";
+    expectedWhitespace[9] = "GENDER";
     expectedWhitespace[10] = "#text";
-    expectedWhitespace[11] = "address";
+    expectedWhitespace[11] = "ADDRESS";
     expectedWhitespace[12] = "#text";
 
     expectedNoWhitespace = new Array();
-    expectedNoWhitespace[0] = "employeeId";
-    expectedNoWhitespace[1] = "name";
-    expectedNoWhitespace[2] = "position";
-    expectedNoWhitespace[3] = "salary";
-    expectedNoWhitespace[4] = "gender";
-    expectedNoWhitespace[5] = "address";
+    expectedNoWhitespace[0] = "EMPLOYEEID";
+    expectedNoWhitespace[1] = "NAME";
+    expectedNoWhitespace[2] = "POSITION";
+    expectedNoWhitespace[3] = "SALARY";
+    expectedNoWhitespace[4] = "GENDER";
+    expectedNoWhitespace[5] = "ADDRESS";
 
 
     doc = staff.staff();
@@ -17423,7 +17426,7 @@ exports.tests = {
     elementName = elementNode.nodeName;
 
 
-    test.equal(elementName, "staff", 'nodeElementNodeNameAssert1');
+    test.equal(elementName, "STAFF", 'nodeElementNodeNameAssert1');
 
     test.done();
   },
@@ -17854,7 +17857,7 @@ exports.tests = {
 
 
     }
-    test.equal(childName, "employeeId", 'nodeName');
+    test.equal(childName, "EMPLOYEEID", 'nodeName');
 
     test.done();
   },
@@ -17938,7 +17941,7 @@ exports.tests = {
 
 
     }
-    test.equal(childName, "address", 'nodeName');
+    test.equal(childName, "ADDRESS", 'nodeName');
 
     test.done();
   },
@@ -18022,7 +18025,7 @@ exports.tests = {
 
 
     }
-    test.equal(nsName, "name", 'nodeName');
+    test.equal(nsName, "NAME", 'nodeName');
 
     test.done();
   },
@@ -18101,7 +18104,7 @@ exports.tests = {
     elementName = docElement.nodeName;
 
 
-    test.equal(elementName, "staff", 'nodeGetOwnerDocumentAssert1');
+    test.equal(elementName, "STAFF", 'nodeGetOwnerDocumentAssert1');
 
     test.done();
   },
@@ -18162,7 +18165,7 @@ exports.tests = {
 
 
     }
-    test.equal(psName, "employeeId", 'nodeName');
+    test.equal(psName, "EMPLOYEEID", 'nodeName');
 
     test.done();
   },
@@ -18303,28 +18306,28 @@ exports.tests = {
 
     expectedWithWhitespace = new Array();
     expectedWithWhitespace[0] = "#text";
-    expectedWithWhitespace[1] = "employeeId";
+    expectedWithWhitespace[1] = "EMPLOYEEID";
     expectedWithWhitespace[2] = "#text";
-    expectedWithWhitespace[3] = "name";
+    expectedWithWhitespace[3] = "NAME";
     expectedWithWhitespace[4] = "#text";
-    expectedWithWhitespace[5] = "position";
+    expectedWithWhitespace[5] = "POSITION";
     expectedWithWhitespace[6] = "#text";
-    expectedWithWhitespace[7] = "newChild";
-    expectedWithWhitespace[8] = "salary";
+    expectedWithWhitespace[7] = "NEWCHILD";
+    expectedWithWhitespace[8] = "SALARY";
     expectedWithWhitespace[9] = "#text";
-    expectedWithWhitespace[10] = "gender";
+    expectedWithWhitespace[10] = "GENDER";
     expectedWithWhitespace[11] = "#text";
-    expectedWithWhitespace[12] = "address";
+    expectedWithWhitespace[12] = "ADDRESS";
     expectedWithWhitespace[13] = "#text";
 
     expectedWithoutWhitespace = new Array();
-    expectedWithoutWhitespace[0] = "employeeId";
-    expectedWithoutWhitespace[1] = "name";
-    expectedWithoutWhitespace[2] = "position";
-    expectedWithoutWhitespace[3] = "newChild";
-    expectedWithoutWhitespace[4] = "salary";
-    expectedWithoutWhitespace[5] = "gender";
-    expectedWithoutWhitespace[6] = "address";
+    expectedWithoutWhitespace[0] = "EMPLOYEEID";
+    expectedWithoutWhitespace[1] = "NAME";
+    expectedWithoutWhitespace[2] = "POSITION";
+    expectedWithoutWhitespace[3] = "NEWCHILD";
+    expectedWithoutWhitespace[4] = "SALARY";
+    expectedWithoutWhitespace[5] = "GENDER";
+    expectedWithoutWhitespace[6] = "ADDRESS";
 
     var expected = new Array();
 
@@ -18411,11 +18414,11 @@ exports.tests = {
     child = childList.item(3);
     childName = child.nodeName;
 
-    test.equal(childName, "newChild1", 'childName3');
+    test.equal(childName, "NEWCHILD1", 'childName3');
     child = childList.item(4);
     childName = child.nodeName;
 
-    test.equal(childName, "newChild2", 'childName4');
+    test.equal(childName, "NEWCHILD2", 'childName4');
 
     test.done();
   },
@@ -18551,25 +18554,25 @@ exports.tests = {
     expectedWhitespace = new Array();
     expectedWhitespace[0] = "#text";
     expectedWhitespace[1] = "#text";
-    expectedWhitespace[2] = "name";
+    expectedWhitespace[2] = "NAME";
     expectedWhitespace[3] = "#text";
-    expectedWhitespace[4] = "position";
+    expectedWhitespace[4] = "POSITION";
     expectedWhitespace[5] = "#text";
-    expectedWhitespace[6] = "salary";
+    expectedWhitespace[6] = "SALARY";
     expectedWhitespace[7] = "#text";
-    expectedWhitespace[8] = "gender";
+    expectedWhitespace[8] = "GENDER";
     expectedWhitespace[9] = "#text";
-    expectedWhitespace[10] = "employeeId";
-    expectedWhitespace[11] = "address";
+    expectedWhitespace[10] = "EMPLOYEEID";
+    expectedWhitespace[11] = "ADDRESS";
     expectedWhitespace[12] = "#text";
 
     expectedNoWhitespace = new Array();
-    expectedNoWhitespace[0] = "name";
-    expectedNoWhitespace[1] = "position";
-    expectedNoWhitespace[2] = "salary";
-    expectedNoWhitespace[3] = "gender";
-    expectedNoWhitespace[4] = "employeeId";
-    expectedNoWhitespace[5] = "address";
+    expectedNoWhitespace[0] = "NAME";
+    expectedNoWhitespace[1] = "POSITION";
+    expectedNoWhitespace[2] = "SALARY";
+    expectedNoWhitespace[3] = "GENDER";
+    expectedNoWhitespace[4] = "EMPLOYEEID";
+    expectedNoWhitespace[5] = "ADDRESS";
 
     var expected = new Array();
 
@@ -18700,7 +18703,7 @@ exports.tests = {
     insertedNode = employeeNode.insertBefore(newChild,refChild);
     childName = insertedNode.nodeName;
 
-    test.equal(childName, "newChild", 'nodeInsertBeforeNodeNameAssert1');
+    test.equal(childName, "NEWCHILD", 'nodeInsertBeforeNodeNameAssert1');
 
     test.done();
   },
@@ -18904,7 +18907,7 @@ exports.tests = {
 
     childName = child.nodeName;
 
-    test.equal(childName, "newChild", 'nodeInsertBeforeRefChildNullAssert1');
+    test.equal(childName, "NEWCHILD", 'nodeInsertBeforeRefChildNullAssert1');
 
     test.done();
   },
@@ -18940,7 +18943,7 @@ exports.tests = {
     if(
       !("#text" == childName)
     ) {
-      test.equal(childName, "employeeId", 'childName');
+      test.equal(childName, "EMPLOYEEID", 'childName');
 
     }
 
@@ -19046,7 +19049,7 @@ exports.tests = {
     }
     childName = child.nodeName;
 
-    test.equal(childName, "name", 'nodeName');
+    test.equal(childName, "NAME", 'nodeName');
 
     test.done();
   },
@@ -19084,7 +19087,7 @@ exports.tests = {
     if(
       (6 == length)
     ) {
-      test.equal(childName, "employeeId", 'firstChildNoWhitespace');
+      test.equal(childName, "EMPLOYEEID", 'firstChildNoWhitespace');
 
     }
 
@@ -19129,7 +19132,7 @@ exports.tests = {
       child = employeeList.item(5);
       childName = child.nodeName;
 
-      test.equal(childName, "address", 'nodeName1');
+      test.equal(childName, "ADDRESS", 'nodeName1');
 
     }
 
@@ -19170,26 +19173,26 @@ exports.tests = {
     var length;
     expectedWhitespace = new Array();
     expectedWhitespace[0] = "#text";
-    expectedWhitespace[1] = "employeeId";
+    expectedWhitespace[1] = "EMPLOYEEID";
     expectedWhitespace[2] = "#text";
-    expectedWhitespace[3] = "name";
+    expectedWhitespace[3] = "NAME";
     expectedWhitespace[4] = "#text";
-    expectedWhitespace[5] = "position";
+    expectedWhitespace[5] = "POSITION";
     expectedWhitespace[6] = "#text";
-    expectedWhitespace[7] = "salary";
+    expectedWhitespace[7] = "SALARY";
     expectedWhitespace[8] = "#text";
-    expectedWhitespace[9] = "gender";
+    expectedWhitespace[9] = "GENDER";
     expectedWhitespace[10] = "#text";
-    expectedWhitespace[11] = "address";
+    expectedWhitespace[11] = "ADDRESS";
     expectedWhitespace[12] = "#text";
 
     expectedNoWhitespace = new Array();
-    expectedNoWhitespace[0] = "employeeId";
-    expectedNoWhitespace[1] = "name";
-    expectedNoWhitespace[2] = "position";
-    expectedNoWhitespace[3] = "salary";
-    expectedNoWhitespace[4] = "gender";
-    expectedNoWhitespace[5] = "address";
+    expectedNoWhitespace[0] = "EMPLOYEEID";
+    expectedNoWhitespace[1] = "NAME";
+    expectedNoWhitespace[2] = "POSITION";
+    expectedNoWhitespace[3] = "SALARY";
+    expectedNoWhitespace[4] = "GENDER";
+    expectedNoWhitespace[5] = "ADDRESS";
 
 
     doc = staff.staff();
@@ -19402,7 +19405,7 @@ exports.tests = {
     parentName = parentNode.nodeName;
 
 
-    test.equal(parentName, "staff", 'nodeParentNodeAssert1');
+    test.equal(parentName, "STAFF", 'nodeParentNodeAssert1');
 
     test.done();
   },
@@ -19690,7 +19693,7 @@ exports.tests = {
     if(
       (6 == length)
     ) {
-      test.equal(childName, "employeeId", 'nowhitespace');
+      test.equal(childName, "EMPLOYEEID", 'nowhitespace');
 
     }
 
@@ -19744,14 +19747,14 @@ exports.tests = {
     if(
       (5 == length)
     ) {
-      test.equal(removedName, "employeeId", 'removedNameNoWhitespace');
-      test.equal(childName, "name", 'childNameNoWhitespace');
+      test.equal(removedName, "EMPLOYEEID", 'removedNameNoWhitespace');
+      test.equal(childName, "NAME", 'childNameNoWhitespace');
 
     }
 
     else {
       test.equal(removedName, "#text", 'removedName');
-      test.equal(childName, "employeeId", 'childName');
+      test.equal(childName, "EMPLOYEEID", 'childName');
       test.equal(length, 12, 'length');
 
     }
@@ -19947,7 +19950,7 @@ exports.tests = {
     child = childList.item(0);
     childName = child.nodeName;
 
-    test.equal(childName, "newChild", 'nodeReplaceChildAssert1');
+    test.equal(childName, "NEWCHILD", 'nodeReplaceChildAssert1');
 
     test.done();
   },
@@ -20082,24 +20085,24 @@ exports.tests = {
     var expected = new Array();
 
     expectedWithoutWhitespace = new Array();
-    expectedWithoutWhitespace[0] = "name";
-    expectedWithoutWhitespace[1] = "position";
-    expectedWithoutWhitespace[2] = "salary";
-    expectedWithoutWhitespace[3] = "gender";
-    expectedWithoutWhitespace[4] = "employeeId";
+    expectedWithoutWhitespace[0] = "NAME";
+    expectedWithoutWhitespace[1] = "POSITION";
+    expectedWithoutWhitespace[2] = "SALARY";
+    expectedWithoutWhitespace[3] = "GENDER";
+    expectedWithoutWhitespace[4] = "EMPLOYEEID";
 
     expectedWithWhitespace = new Array();
     expectedWithWhitespace[0] = "#text";
     expectedWithWhitespace[1] = "#text";
-    expectedWithWhitespace[2] = "name";
+    expectedWithWhitespace[2] = "NAME";
     expectedWithWhitespace[3] = "#text";
-    expectedWithWhitespace[4] = "position";
+    expectedWithWhitespace[4] = "POSITION";
     expectedWithWhitespace[5] = "#text";
-    expectedWithWhitespace[6] = "salary";
+    expectedWithWhitespace[6] = "SALARY";
     expectedWithWhitespace[7] = "#text";
-    expectedWithWhitespace[8] = "gender";
+    expectedWithWhitespace[8] = "GENDER";
     expectedWithWhitespace[9] = "#text";
-    expectedWithWhitespace[10] = "employeeId";
+    expectedWithWhitespace[10] = "EMPLOYEEID";
     expectedWithWhitespace[11] = "#text";
 
     var replacedChild;
@@ -20237,12 +20240,12 @@ exports.tests = {
     if(
       (6 == length)
     ) {
-      test.equal(childName, "name", 'nowhitespace');
+      test.equal(childName, "NAME", 'nowhitespace');
 
     }
 
     else {
-      test.equal(childName, "employeeId", 'whitespace');
+      test.equal(childName, "EMPLOYEEID", 'whitespace');
 
     }
 
