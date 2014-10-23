@@ -58,7 +58,7 @@ exports['attrgetownerelement'] = testcase({
     var element = this.doc.getElementsByTagNameNS("*","address").item(1);
     element.parentNode.removeChild(element);
     var attr = element.attributes.getNamedItemNS(null, "street");
-    test.equal(attr.ownerElement.nodeName, 'address');
+    test.equal(attr.ownerElement.nodeName, 'ADDRESS');
     test.done();
   }
 })
@@ -1071,7 +1071,7 @@ exports['createElementNS'] = testcase({
     newElement = doc.createElementNS(namespaceURI,qualifiedName);
     elementName = newElement.tagName;
 
-    test.equal(elementName, qualifiedName, "throw_Equals");
+    test.equal(elementName, "GOV:FACULTY", "throw_Equals");
     test.done();
   },
   /**
@@ -4736,7 +4736,7 @@ exports['getElementById'] = testcase({
     element = doc.getElementById("CANADA");
     tagname = element.tagName;
 
-    test.equal(tagname, "emp:address", "throw_Equals");
+    test.equal(tagname, "EMP:ADDRESS", "throw_Equals");
     test.done();
   },
   /**
@@ -4852,20 +4852,20 @@ exports['getElementsByTagNameNS'] = testcase({
     var result = new Array();
 
     expectedResult = new Array();
-    expectedResult[0] = "employee";
-    expectedResult[1] = "employeeId";
-    expectedResult[2] = "name";
-    expectedResult[3] = "position";
-    expectedResult[4] = "salary";
-    expectedResult[5] = "gender";
-    expectedResult[6] = "address";
-    expectedResult[7] = "emp:employee";
-    expectedResult[8] = "emp:employeeId";
-    expectedResult[9] = "emp:position";
-    expectedResult[10] = "emp:salary";
-    expectedResult[11] = "emp:gender";
-    expectedResult[12] = "emp:address";
-    expectedResult[13] = "address";
+    expectedResult[0] = "EMPLOYEE";
+    expectedResult[1] = "EMPLOYEEID";
+    expectedResult[2] = "NAME";
+    expectedResult[3] = "POSITION";
+    expectedResult[4] = "SALARY";
+    expectedResult[5] = "GENDER";
+    expectedResult[6] = "ADDRESS";
+    expectedResult[7] = "EMP:EMPLOYEE";
+    expectedResult[8] = "EMP:EMPLOYEEID";
+    expectedResult[9] = "EMP:POSITION";
+    expectedResult[10] = "EMP:SALARY";
+    expectedResult[11] = "EMP:GENDER";
+    expectedResult[12] = "EMP:ADDRESS";
+    expectedResult[13] = "ADDRESS";
 
 
 
@@ -4905,11 +4905,11 @@ exports['getElementsByTagNameNS'] = testcase({
     var result = new Array();
 
     expectedResult = new Array();
-    expectedResult[0] = "address";
-    expectedResult[1] = "address";
-    expectedResult[2] = "address";
-    expectedResult[3] = "emp:address";
-    expectedResult[4] = "address";
+    expectedResult[0] = "ADDRESS";
+    expectedResult[1] = "ADDRESS";
+    expectedResult[2] = "ADDRESS";
+    expectedResult[3] = "EMP:ADDRESS";
+    expectedResult[4] = "ADDRESS";
 
 
 
@@ -5100,20 +5100,20 @@ exports['getElementsByTagNameNS'] = testcase({
     var result = new Array();
 
     expectedResult = new Array();
-    expectedResult[0] = "employee";
-    expectedResult[1] = "employeeId";
-    expectedResult[2] = "name";
-    expectedResult[3] = "position";
-    expectedResult[4] = "salary";
-    expectedResult[5] = "gender";
-    expectedResult[6] = "address";
-    expectedResult[7] = "emp:employee";
-    expectedResult[8] = "emp:employeeId";
-    expectedResult[9] = "emp:position";
-    expectedResult[10] = "emp:salary";
-    expectedResult[11] = "emp:gender";
-    expectedResult[12] = "emp:address";
-    expectedResult[13] = "address";
+    expectedResult[0] = "EMPLOYEE";
+    expectedResult[1] = "EMPLOYEEID";
+    expectedResult[2] = "NAME";
+    expectedResult[3] = "POSITION";
+    expectedResult[4] = "SALARY";
+    expectedResult[5] = "GENDER";
+    expectedResult[6] = "ADDRESS";
+    expectedResult[7] = "EMP:EMPLOYEE";
+    expectedResult[8] = "EMP:EMPLOYEEID";
+    expectedResult[9] = "EMP:POSITION";
+    expectedResult[10] = "EMP:SALARY";
+    expectedResult[11] = "EMP:GENDER";
+    expectedResult[12] = "EMP:ADDRESS";
+    expectedResult[13] = "ADDRESS";
 
 
 
@@ -5157,11 +5157,11 @@ exports['getElementsByTagNameNS'] = testcase({
     var result = new Array();
 
     expectedResult = new Array();
-    expectedResult[0] = "address";
-    expectedResult[1] = "address";
-    expectedResult[2] = "address";
-    expectedResult[3] = "emp:address";
-    expectedResult[4] = "address";
+    expectedResult[0] = "ADDRESS";
+    expectedResult[1] = "ADDRESS";
+    expectedResult[2] = "ADDRESS";
+    expectedResult[3] = "EMP:ADDRESS";
+    expectedResult[4] = "ADDRESS";
 
 
 
@@ -6220,7 +6220,7 @@ exports['importNode'] = testcase({
     test.equal(hasChild, false, 'hasChild should be *false*');
     ownerDocument = aNode.ownerDocument;
     test.equal(doc.doctype.systemId, 'staffNS.dtd')
-    test.equal(aNode.nodeName, "emp:address", "nodeName");
+    test.equal(aNode.nodeName, "EMP:ADDRESS", "nodeName");
     test.done();
   },
   /**
@@ -6260,7 +6260,7 @@ exports['importNode'] = testcase({
     test.ok(hasChild, 'throw_True');
     name = aNode.nodeName;
 
-    test.equal(name, "emp:address", "nodeName");
+    test.equal(name, "EMP:ADDRESS", "nodeName");
     child = aNode.firstChild;
 
     value = child.nodeValue;
@@ -6307,7 +6307,7 @@ exports['importNode'] = testcase({
     test.equal(attributes.length, 1, "throw_Size");
     name = aNode.nodeName;
 
-    test.equal(name, "emp:employee", "nodeName");
+    test.equal(name, "EMP:EMPLOYEE", "nodeName");
     attr = attributes.item(0);
     lname = attr.localName;
 
@@ -6473,7 +6473,7 @@ exports['importNode'] = testcase({
     test.equal(entity1.ownerDocument.doctype.systemId, 'staffNS.dtd')
     test.equal(entity1.nodeName, "ent4", "entityName");
     test.notEqual(entity1.firstChild, null, 'child should be null');
-    test.equal(entity1.firstChild.nodeName, "entElement1", "childName");
+    test.equal(entity1.firstChild.nodeName, "ENTELEMENT1", "childName");
     test.done();
   },
   /**
@@ -9152,8 +9152,8 @@ exports['nodenormalize'] = testcase({
 
     elementNodeName = element.nodeName;
 
-    test.equal(elementTagName, "dmstc:address", "nodesetprefix01_tagname");
-    test.equal(elementNodeName, "dmstc:address", "nodesetprefix01_nodeName");
+    test.equal(elementTagName, "DMSTC:ADDRESS", "nodesetprefix01_tagname");
+    test.equal(elementNodeName, "DMSTC:ADDRESS", "nodesetprefix01_nodeName");
     test.done();
   },
   /**
@@ -9553,7 +9553,7 @@ exports['ownerDocument'] = testcase({
 
     name = elementNode.nodeName;
 
-    test.equal(name, "address", "throw_Equals");
+    test.equal(name, "ADDRESS", "throw_Equals");
     test.done();
   },
   /**
