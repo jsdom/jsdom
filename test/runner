@@ -26,7 +26,6 @@ if (argv.tests) {
 var files = [
   "level1/core.js",
   "level1/html.js",
-  "level1/svg.js",
   "level2/core.js",
   "level2/html.js",
   "level2/style.js",

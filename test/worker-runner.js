@@ -20,7 +20,6 @@ self.onmessage = function (e) {
   var modules = {
     "level1/core": require("../test/level1/core"), // ok
     "level1/html": require("../test/level1/html"), // ok
-    "level1/svg": require("../test/level1/svg"), // ok
     "level2/core": require("../test/level2/core"), // ok
     "level2/html": require("../test/level2/html"), // 6/708
     "level2/style": require("../test/level2/style"), // 0/15
