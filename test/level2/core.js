@@ -1,5 +1,8 @@
 var testcase = require('nodeunit').testCase;
 
+// NB: these tests have been modified to be compliant with the modern DOM, instead of the "DOM Level 2" they were
+// written for. Check the revision history.
+
 // The "getOwnerElement()" will return the Element node this attribute is attached to or null if this attribute is not in use.
 // @author IBM
 // @author Neil Delima
@@ -14,15 +17,6 @@ exports['attrgetownerelement'] = testcase({
     this.doc = undefined;
     delete(this.doc);
     cb();
-  },
-
-  // Retreive the default attribute defaultAttr and check its owner element.  Verify if the name the nodeName of the returned ownerElement is emp:employee.
-  // @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
-  attrgetownerelement01: function(test) {
-    var element = this.doc.getElementsByTagNameNS("http://www.nist.gov","employee").item(1);
-    var attr = element.attributes.getNamedItemNS(null,"defaultAttr");
-    test.equal(attr.ownerElement.nodeName, 'emp:employee');
-    test.done();
   },
 
   // Create a new element and attribute node, attach the attribute to the element. Check the value of owner element of the new attribute node
@@ -58,7 +52,7 @@ exports['attrgetownerelement'] = testcase({
     var element = this.doc.getElementsByTagNameNS("*","address").item(1);
     element.parentNode.removeChild(element);
     var attr = element.attributes.getNamedItemNS(null, "street");
-    test.equal(attr.ownerElement.nodeName, 'address');
+    test.equal(attr.ownerElement.nodeName, 'ADDRESS');
     test.done();
   }
 })
@@ -1071,7 +1065,7 @@ exports['createElementNS'] = testcase({
     newElement = doc.createElementNS(namespaceURI,qualifiedName);
     elementName = newElement.tagName;
 
-    test.equal(elementName, qualifiedName, "throw_Equals");
+    test.equal(elementName, "GOV:FACULTY", "throw_Equals");
     test.done();
   },
   /**
@@ -1875,101 +1869,6 @@ exports['documentimportnode'] = testcase({
     test.equal(nodeName, "emp:zone", "documentimportnode02_nodeName");
     test.equal(nodeType, 2, "documentimportnode02_nodeType");
     test.equal(nodeValue, "CANADA", "documentimportnode02_nodeValue");
-    test.done();
-  },
-  /**
-   *
-   The importNode method imports a node from another document to this document.
-   The returned node has no parent; (parentNode is null). The source node is not
-   altered or removed from the original document but a new copy of the source node
-   is created.
-
-   Using the method importNode with deep=false, import the default Attribute attribute,
-   "defaultAttr" of the second element node whose namespaceURI="http://www.nist.gov" and
-   localName="defaultAttr", into the same document.
-   Check the parentNode, nodeName, nodeType and nodeValue of the imported node to
-   verify if it has been imported correctly.
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
-   */
-  documentimportnode03: function(test) {
-    var success;
-    var element;
-    var attr;
-    var childList;
-    var importedAttr;
-    var nodeName;
-    var nodeType;
-    var nodeValue;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    childList = doc.getElementsByTagNameNS("http://www.nist.gov","employee");
-    element = childList.item(1);
-    attr = element.getAttributeNode("defaultAttr");
-    importedAttr = doc.importNode(attr,false);
-    nodeName = importedAttr.nodeName;
-
-    nodeValue = importedAttr.nodeValue;
-
-    nodeType = importedAttr.nodeType;
-
-    test.equal(nodeName, "defaultAttr", "documentimportnode03_nodeName");
-    test.equal(nodeType, 2, "documentimportnode03_nodeType");
-    test.equal(nodeValue, "defaultVal", "documentimportnode03_nodeValue");
-    test.done();
-  },
-  /**
-   *
-   The importNode method imports a node from another document to this document.
-   The returned node has no parent; (parentNode is null). The source node is not
-   altered or removed from the original document but a new copy of the source node
-   is created.
-
-   Using the method importNode with deep=true, import the default Attribute attribute,
-   "defaultAttr" of the second element node whose namespaceURI="http://www.nist.gov" and
-   localName="defaultAttr", into a new document.
-   Check the parentNode, nodeName, nodeType and nodeValue of the imported node to
-   verify if it has been imported correctly.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
-   */
-  documentimportnode04: function(test) {
-    var success;
-    var newDoc;
-    var docType = null;
-
-    var domImpl;
-    var element;
-    var attr;
-    var childList;
-    var importedAttr;
-    var nodeName;
-    var nodeType;
-    var nodeValue;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    domImpl = doc.implementation;
-    newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","l2:root",docType);
-    childList = doc.getElementsByTagNameNS("http://www.nist.gov","employee");
-    element = childList.item(1);
-    attr = element.getAttributeNode("defaultAttr");
-    importedAttr = newDoc.importNode(attr,true);
-    nodeName = importedAttr.nodeName;
-
-    nodeValue = importedAttr.nodeValue;
-
-    nodeType = importedAttr.nodeType;
-
-    test.equal(nodeName, "defaultAttr", "documentimportnode04_nodeName");
-    test.equal(nodeType, 2, "documentimportnode04_nodeType");
-    test.equal(nodeValue, "defaultVal", "documentimportnode04_nodeValue");
     test.done();
   },
   /**
@@ -3477,89 +3376,7 @@ exports['elementgetattributenodens'] = testcase({
 
     test.equal(attrValue, "", "elementgetattributenodens02");
     test.done();
-  },
-  /**
-   *
-   The method getAttributeNodeNS retrieves an Attr node by local name and namespace URI.
-   Using the getAttributeNodeNS, retrieve and verify the value of the default
-   attribute node.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAtNodeNS
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
-   */
-  elementgetattributenodens03: function(test) {
-    var success;
-    var element;
-    var attribute;
-    var attrValue;
-    var childList;
-    var nullNS = null;
-
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    childList = doc.getElementsByTagNameNS("http://www.nist.gov","employee");
-    element = childList.item(1);
-    attribute = element.getAttributeNodeNS(nullNS,"defaultAttr");
-    attrValue = attribute.nodeValue;
-
-    test.equal(attrValue, "defaultVal", "elementgetattributenodens03");
-    test.done();
   }
-})
-
-exports['elementgetattributens'] = testcase({
-  /**
-   *
-   The method getAttributeNS retrieves an attribute value by local name and namespace URI.
-   Using the getAttributeNodeNS, retreive and verify the value of the default
-   attribute node.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAttrNS
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
-   */
-  elementgetattributens02: function(test) {
-    var success;
-    var element;
-    var attrValue;
-    var childList;
-    var nullNS = null;
-
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    childList = doc.getElementsByTagNameNS("http://www.nist.gov","employee");
-    element = childList.item(1);
-    attrValue = element.getAttributeNS(nullNS,"defaultAttr");
-    test.equal(attrValue, "defaultVal", "elementgetattributens02");
-    test.done();
-  },
-  /**
-   *
-   The method getAttributeNS treats an empty string for the namespace
-   URI as meaning no namespace.
-
-   Using getAttributeNS, verify that we get the value of an attribute
-   which is not in any namespace if we pass a namespace URI equal to
-   "".
-
-   * @author Louis-Dominique Dubeau
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElGetAttrNS
-   * @see http://dom.spec.whatwg.org/#dom-element-getattributens
-   */
-  elementgetattributens03: function(test) {
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    var childList = doc.getElementsByTagNameNS("http://www.nist.gov", "employee");
-    var element = childList.item(1);
-    test.equal(element.getAttributeNS("", "defaultAttr"), "defaultVal",
-               "value should be 'defaultVal'");
-    test.done();
-  }
-
 })
 
 exports['elementgetelementsbytagnamens'] = testcase({
@@ -3696,32 +3513,6 @@ exports['elementhasattribute'] = testcase({
 
     state = element.hasAttribute("");
     test.equal(state, false, 'state should be *false*');
-    test.done();
-  },
-  /**
-   *
-   The method hasAttribute returns true when an attribute with a given name is specified
-   on this element or has a default value, false otherwise
-   Invoke the hasAttribute method to on an element with default attributes and verify if it
-   returns true.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
-   */
-  elementhasattribute02: function(test) {
-    var success;
-    var element;
-    var state;
-    var elementList;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    elementList = doc.getElementsByTagName("emp:employee");
-    element = elementList.item(0);
-    test.notEqual(element, null, 'element should be null');
-    state = element.hasAttribute("defaultAttr");
-    test.ok(state, 'elementhasattribute02');
     test.done();
   },
   /**
@@ -4736,7 +4527,7 @@ exports['getElementById'] = testcase({
     element = doc.getElementById("CANADA");
     tagname = element.tagName;
 
-    test.equal(tagname, "emp:address", "throw_Equals");
+    test.equal(tagname, "EMP:ADDRESS", "throw_Equals");
     test.done();
   },
   /**
@@ -4852,20 +4643,20 @@ exports['getElementsByTagNameNS'] = testcase({
     var result = new Array();
 
     expectedResult = new Array();
-    expectedResult[0] = "employee";
-    expectedResult[1] = "employeeId";
-    expectedResult[2] = "name";
-    expectedResult[3] = "position";
-    expectedResult[4] = "salary";
-    expectedResult[5] = "gender";
-    expectedResult[6] = "address";
-    expectedResult[7] = "emp:employee";
-    expectedResult[8] = "emp:employeeId";
-    expectedResult[9] = "emp:position";
-    expectedResult[10] = "emp:salary";
-    expectedResult[11] = "emp:gender";
-    expectedResult[12] = "emp:address";
-    expectedResult[13] = "address";
+    expectedResult[0] = "EMPLOYEE";
+    expectedResult[1] = "EMPLOYEEID";
+    expectedResult[2] = "NAME";
+    expectedResult[3] = "POSITION";
+    expectedResult[4] = "SALARY";
+    expectedResult[5] = "GENDER";
+    expectedResult[6] = "ADDRESS";
+    expectedResult[7] = "EMP:EMPLOYEE";
+    expectedResult[8] = "EMP:EMPLOYEEID";
+    expectedResult[9] = "EMP:POSITION";
+    expectedResult[10] = "EMP:SALARY";
+    expectedResult[11] = "EMP:GENDER";
+    expectedResult[12] = "EMP:ADDRESS";
+    expectedResult[13] = "ADDRESS";
 
 
 
@@ -4905,11 +4696,11 @@ exports['getElementsByTagNameNS'] = testcase({
     var result = new Array();
 
     expectedResult = new Array();
-    expectedResult[0] = "address";
-    expectedResult[1] = "address";
-    expectedResult[2] = "address";
-    expectedResult[3] = "emp:address";
-    expectedResult[4] = "address";
+    expectedResult[0] = "ADDRESS";
+    expectedResult[1] = "ADDRESS";
+    expectedResult[2] = "ADDRESS";
+    expectedResult[3] = "EMP:ADDRESS";
+    expectedResult[4] = "ADDRESS";
 
 
 
@@ -5100,20 +4891,20 @@ exports['getElementsByTagNameNS'] = testcase({
     var result = new Array();
 
     expectedResult = new Array();
-    expectedResult[0] = "employee";
-    expectedResult[1] = "employeeId";
-    expectedResult[2] = "name";
-    expectedResult[3] = "position";
-    expectedResult[4] = "salary";
-    expectedResult[5] = "gender";
-    expectedResult[6] = "address";
-    expectedResult[7] = "emp:employee";
-    expectedResult[8] = "emp:employeeId";
-    expectedResult[9] = "emp:position";
-    expectedResult[10] = "emp:salary";
-    expectedResult[11] = "emp:gender";
-    expectedResult[12] = "emp:address";
-    expectedResult[13] = "address";
+    expectedResult[0] = "EMPLOYEE";
+    expectedResult[1] = "EMPLOYEEID";
+    expectedResult[2] = "NAME";
+    expectedResult[3] = "POSITION";
+    expectedResult[4] = "SALARY";
+    expectedResult[5] = "GENDER";
+    expectedResult[6] = "ADDRESS";
+    expectedResult[7] = "EMP:EMPLOYEE";
+    expectedResult[8] = "EMP:EMPLOYEEID";
+    expectedResult[9] = "EMP:POSITION";
+    expectedResult[10] = "EMP:SALARY";
+    expectedResult[11] = "EMP:GENDER";
+    expectedResult[12] = "EMP:ADDRESS";
+    expectedResult[13] = "ADDRESS";
 
 
 
@@ -5157,11 +4948,11 @@ exports['getElementsByTagNameNS'] = testcase({
     var result = new Array();
 
     expectedResult = new Array();
-    expectedResult[0] = "address";
-    expectedResult[1] = "address";
-    expectedResult[2] = "address";
-    expectedResult[3] = "emp:address";
-    expectedResult[4] = "address";
+    expectedResult[0] = "ADDRESS";
+    expectedResult[1] = "ADDRESS";
+    expectedResult[2] = "ADDRESS";
+    expectedResult[3] = "EMP:ADDRESS";
+    expectedResult[4] = "ADDRESS";
 
 
 
@@ -6220,7 +6011,7 @@ exports['importNode'] = testcase({
     test.equal(hasChild, false, 'hasChild should be *false*');
     ownerDocument = aNode.ownerDocument;
     test.equal(doc.doctype.systemId, 'staffNS.dtd')
-    test.equal(aNode.nodeName, "emp:address", "nodeName");
+    test.equal(aNode.nodeName, "EMP:ADDRESS", "nodeName");
     test.done();
   },
   /**
@@ -6260,7 +6051,7 @@ exports['importNode'] = testcase({
     test.ok(hasChild, 'throw_True');
     name = aNode.nodeName;
 
-    test.equal(name, "emp:address", "nodeName");
+    test.equal(name, "EMP:ADDRESS", "nodeName");
     child = aNode.firstChild;
 
     value = child.nodeValue;
@@ -6307,7 +6098,7 @@ exports['importNode'] = testcase({
     test.equal(attributes.length, 1, "throw_Size");
     name = aNode.nodeName;
 
-    test.equal(name, "emp:employee", "nodeName");
+    test.equal(name, "EMP:EMPLOYEE", "nodeName");
     attr = attributes.item(0);
     lname = attr.localName;
 
@@ -6473,7 +6264,7 @@ exports['importNode'] = testcase({
     test.equal(entity1.ownerDocument.doctype.systemId, 'staffNS.dtd')
     test.equal(entity1.nodeName, "ent4", "entityName");
     test.notEqual(entity1.firstChild, null, 'child should be null');
-    test.equal(entity1.firstChild.nodeName, "entElement1", "childName");
+    test.equal(entity1.firstChild.nodeName, "ENTELEMENT1", "childName");
     test.done();
   },
   /**
@@ -7445,46 +7236,6 @@ exports['namednodemapremovenameditemns'] = testcase({
     attribute = attributes.removeNamedItemNS("http://www.nist.gov","domestic");
     attribute = attributes.getNamedItemNS("http://www.nist.gov","domestic");
     test.equal(attribute, null, 'attribute should not be null');
-    test.done();
-  },
-  /**
-   *
-   The method removeNamedItemNS removes a node specified by local name and namespace
-   A removed attribute may be known to have a default value when this map contains the
-   attributes attached to an element, as returned by the attributes attribute of the Node
-   interface. If so, an attribute immediately appears containing the default value as well
-   as the corresponding namespace URI, local name, and prefix when applicable.
-
-   Retreive a default attribute node.  Remove it from the NodeMap.  Check if a new one immediately
-   appears containing the default value.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-D58B193
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
-   */
-  namednodemapremovenameditemns02: function(test) {
-    var success;
-    var attributes;
-    var element;
-    var attribute;
-    var elementList;
-    var attrValue;
-    var nullNS = null;
-
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    elementList = doc.getElementsByTagNameNS("http://www.nist.gov","employee");
-    element = elementList.item(1);
-    attributes = element.attributes;
-
-    attribute = attributes.removeNamedItemNS(nullNS,"defaultAttr");
-    attribute = attributes.getNamedItemNS(nullNS,"defaultAttr");
-    attrValue = attribute.nodeValue;
-
-    test.notEqual(attribute, null, 'attribute should be null');
-    test.equal(attrValue, "defaultVal", "namednodemapremovenameditemns02_attrValue");
     test.done();
   },
   /**
@@ -9152,8 +8903,8 @@ exports['nodenormalize'] = testcase({
 
     elementNodeName = element.nodeName;
 
-    test.equal(elementTagName, "dmstc:address", "nodesetprefix01_tagname");
-    test.equal(elementNodeName, "dmstc:address", "nodesetprefix01_nodeName");
+    test.equal(elementTagName, "DMSTC:ADDRESS", "nodesetprefix01_tagname");
+    test.equal(elementNodeName, "DMSTC:ADDRESS", "nodesetprefix01_nodeName");
     test.done();
   },
   /**
@@ -9227,46 +8978,6 @@ exports['nodenormalize'] = testcase({
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
       test.ok(success, 'throw_NAMESPACE_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
-   The method setPrefix raises a NAMESPACE_ERR if the namespaceURI of this node is null.
-
-   Retreive the a default Attribute node which does not have a namespace prefix. Call the setPrefix
-   method on it.  Check if a NAMESPACE_ERR is thrown.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
-   */
-  nodesetprefix04: function(test) {
-    var success;
-    var element;
-    var attribute;
-    var elementList;
-    var nullNS = null;
-
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    elementList = doc.getElementsByTagName("emp:employee");
-    element = elementList.item(0);
-    test.notEqual(element, null, 'element should be null');
-    attribute = element.getAttributeNodeNS(nullNS,"defaultAttr");
-
-    {
-      success = false;
-      try {
-        attribute.prefix = "test";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 14);
-      }
-      test.ok(success, 'nodesetprefix04');
     }
     test.done();
   },
@@ -9553,7 +9264,7 @@ exports['ownerDocument'] = testcase({
 
     name = elementNode.nodeName;
 
-    test.equal(name, "address", "throw_Equals");
+    test.equal(name, "ADDRESS", "throw_Equals");
     test.done();
   },
   /**
