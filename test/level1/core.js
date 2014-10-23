@@ -9941,28 +9941,6 @@ exports.tests = {
 
   /**
    *
-   Create a list of all the attributes of the last child
-   of the first "p" element by using the "getAttributes()"
-   method.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
-   * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
-   */
-  hc_elementretrieveallattributes: function(test) {
-    var doc = hc_staff.hc_staff();
-    var attributes = doc.getElementsByTagName("acronym").item(0).attributes;
-    var actual = [];
-    for(var i=0;i<attributes.length;i++) {
-      actual.push(attributes.item(i).nodeName);
-    }
-    test.deepEqual(actual, ['dir', 'title'], 'attributeNames');
-    test.done();
-  },
-
-  /**
-   *
    The "getAttribute(name)" method returns an attribute
    value by name.
 
@@ -10464,60 +10442,6 @@ exports.tests = {
 
     test.equal(attrName, "class", 'attribute name');
 
-    test.done();
-  },
-
-  /**
-   *
-   The "item(index)" method returns the indexth item in
-   the map(test for first item).
-
-   Retrieve the second "acronym" get the NamedNodeMap of the attributes. Since the
-   DOM does not specify an order of these nodes the contents
-   of the FIRST node can contain either "title", "class" or "dir".
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
-   * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
-   */
-  hc_namednodemapreturnfirstitem: function(test) {
-    var doc = hc_staff.hc_staff();
-    var attributes = doc.getElementsByTagName("acronym").item(1).attributes;
-    var actual = [];
-    for(var i=0;i<attributes.length;i++) {
-      actual.push(attributes.item(i).nodeName);
-    }
-    test.deepEqual(actual, ["dir", "title", "class"], 'attrName');
-    test.done();
-  },
-
-  /**
-   *
-   The "item(index)" method returns the indexth item in
-   the map(test for last item).
-
-   Retrieve the second "acronym" and get the attribute name. Since the
-   DOM does not specify an order of these nodes the contents
-   of the LAST node can contain either "title" or "class".
-   The test should return "true" if the LAST node is either
-   of these values.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
-   * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
-   */
-  hc_namednodemapreturnlastitem: function(test) {
-    var doc = hc_staff.hc_staff();
-    var attributes = doc.getElementsByTagName("acronym").item(1).attributes;
-    var actual = [];
-    for(var i=0;i<attributes.length;i++) {
-      actual.push(attributes.item(i).nodeName);
-    }
-    test.deepEqual(actual, ["dir", "title", "class"], 'attrName');
     test.done();
   },
 
@@ -12079,27 +12003,6 @@ exports.tests = {
   hc_nodedocumentnodevalue: function(test) {
     var doc = hc_staff.hc_staff();
     test.equal(doc.nodeValue, null, 'documentNodeValue');
-    test.done();
-  },
-
-  /**
-   *
-   Retrieve the third "acronym" element and evaluate Node.attributes.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=236
-   * @see http://lists.w3.org/Archives/Public/www-dom-ts/2003Jun/0011.html
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=184
-   */
-  hc_nodeelementnodeattributes: function(test) {
-    var doc = hc_staff.hc_staff();
-    var attributes = doc.getElementsByTagName("acronym").item(2).attributes;
-    var actual = [];
-    for(var i=0;i<attributes.length;i++) {
-      actual.push(attributes.item(i).nodeName);
-    }
-    test.deepEqual(actual, ['dir', 'title', 'class'], 'attrNames');
     test.done();
   },
 
