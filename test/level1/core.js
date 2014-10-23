@@ -136,47 +136,6 @@ exports.tests = {
 
   /**
    *
-   If there is not an explicit value assigned to an attribute
-   and there is a declaration for this attribute and that
-   declaration includes a default value, then that default
-   value is the attributes default value.
-   Retrieve the attribute named "street" from the last
-   child of of the first employee and examine its
-   value.  That value should be the value given the
-   attribute in the DTD file.  The test uses the
-   "getNamedItem(name)" method from the NamedNodeMap
-   interface.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1074577549
-   * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
-   */
-  attrdefaultvalue: function(test) {
-    var success;
-    var doc;
-    var addressList;
-    var testNode;
-    var attributes;
-    var streetAttr;
-    var value;
-
-    doc = staff.staff();
-    addressList = doc.getElementsByTagName("address");
-    testNode = addressList.item(0);
-    attributes = testNode.attributes;
-
-    streetAttr = attributes.getNamedItem("street");
-    value = streetAttr.nodeValue;
-
-    test.equal(value, "Yes", 'attrDefaultValueAssert');
-
-    test.done();
-  },
-
-  /**
-   *
    If an Attr is explicitly assigned any value, then that value is the attributes effective value.
    Retrieve the attribute named "domestic" from the last child of of the first employee
    and examine its nodeValue attribute.  This test uses the "getNamedItem(name)" method
@@ -316,44 +275,6 @@ exports.tests = {
     s = domesticAttr.nextSibling;
 
     test.equal(s, null, 'attrNextSiblingNullAssert');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "getSpecified()" method for an Attr node should
-   be set to false if the attribute was not explicitly given
-   a value.
-   Retrieve the attribute named "street" from the last
-   child of of the first employee and examine the value
-   returned by the "getSpecified()" method.  This test uses
-   the "getNamedItem(name)" method from the NamedNodeMap
-   interface.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-862529273
-   * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
-   */
-  attrnotspecifiedvalue: function(test) {
-    var success;
-    var doc;
-    var addressList;
-    var testNode;
-    var attributes;
-    var streetAttr;
-    var state;
-
-    doc = staff.staff();
-    addressList = doc.getElementsByTagName("address");
-    testNode = addressList.item(0);
-    attributes = testNode.attributes;
-
-    streetAttr = attributes.getNamedItem("street");
-    state = streetAttr.specified;
-
-    test.equal(state, false, 'streetNotSpecified');
 
     test.done();
   },
@@ -2945,50 +2866,6 @@ exports.tests = {
     attribute2 = newElement2.getAttribute("county");
     test.equal(attribute1, "Fort Worth", 'attrib1');
     test.equal(attribute2, "Dallas", 'attrib2');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "createElement(tagName)" method creates an Element
-   of the type specified.  In addition, if there are known attributes
-   with default values, Attr nodes representing them are automatically
-   created and attached to the element.
-   Retrieve the entire DOM document and invoke its
-   "createElement(tagName)" method with tagName="address".
-   The method should create an instance of an Element node
-   whose tagName is "address".  The tagName "address" has an
-   attribute with default values, therefore the newly created element
-   will have them.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-2141741547
-   * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
-   */
-  documentcreateelementdefaultattr: function(test) {
-    var success;
-    var doc;
-    var newElement;
-    var defaultAttr;
-    var child;
-    var name;
-    var value;
-
-    doc = staff.staff();
-    newElement = doc.createElement("address");
-    defaultAttr = newElement.attributes;
-
-    child = defaultAttr.item(0);
-    test.notEqual(child, null, 'defaultAttrNotNull');
-    name = child.nodeName;
-
-    test.equal(name, "street", 'attrName');
-    value = child.nodeValue;
-
-    test.equal(value, "Yes", 'attrValue');
-    test.equal(defaultAttr.length, 1, 'attrCount');
 
     test.done();
   },
