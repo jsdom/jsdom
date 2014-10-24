@@ -193,8 +193,10 @@ exports.tests = {
 
   // TODO: break into two tests
   apply_jsdom_features_at_build_time: function(test) {
-    var doc  = new (jsdom.defaultLevel.Document)(),
-        doc2 = new (jsdom.defaultLevel.Document)(),
+    var dom = jsdom.jsdom().parentWindow;
+
+    var doc = new (dom.Document)(),
+        doc2 = new (dom.Document)(),
         defaults = jsdom.defaultDocumentFeatures;
     jsdom.applyDocumentFeatures(doc);
     for (var i=0; i<defaults.length; i++) {
