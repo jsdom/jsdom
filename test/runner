@@ -39,6 +39,7 @@ var files = [
 
   "living-dom/attributes.js",
   "living-dom/compare-document-position.js",
+  "living-dom/domimplementation-createhtmldocument.js",
   "living-dom/node-contains.js",
   "living-dom/node-parent-element.js",
   "living-dom/attributes.js",
