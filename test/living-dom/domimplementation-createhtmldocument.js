@@ -14,8 +14,8 @@ function checkDoc(testName, title, expectedtitle) {
     var doc = document.implementation.createHTMLDocument(title);
 
     t.strictEqual(doc.doctype.name, "html");
-    t.strictEqual(doc.doctype.publicId, "undefined");
-    t.strictEqual(doc.doctype.systemId, "undefined");
+    t.strictEqual(doc.doctype.publicId, "");
+    t.strictEqual(doc.doctype.systemId, "");
     t.strictEqual(doc.documentElement.localName, "html");
     t.strictEqual(doc.documentElement.firstChild.localName, "head");
     if (title !== undefined && title !== null) {
@@ -48,8 +48,8 @@ exports["createHTMLDocument(): Missing title argument"] = function (t) {
   var doc = document.implementation.createHTMLDocument();
 
   t.strictEqual(doc.doctype.name, "html");
-  t.strictEqual(doc.doctype.publicId, "undefined");
-  t.strictEqual(doc.doctype.systemId, "undefined");
+  t.strictEqual(doc.doctype.publicId, "");
+  t.strictEqual(doc.doctype.systemId, "");
   t.strictEqual(doc.documentElement.localName, "html");
   t.strictEqual(doc.documentElement.firstChild.localName, "head");
   t.strictEqual(doc.documentElement.firstChild.childNodes.length, 0);
