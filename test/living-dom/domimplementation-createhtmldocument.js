@@ -16,17 +16,17 @@ function checkDoc(testName, title, expectedtitle) {
     t.strictEqual(doc.doctype.name, "html");
     t.strictEqual(doc.doctype.publicId, "undefined");
     t.strictEqual(doc.doctype.systemId, "undefined");
-    t.strictEqual(doc.documentElement.nodeName, "HTML");
-    t.strictEqual(doc.documentElement.firstChild.nodeName, "HEAD");
+    t.strictEqual(doc.documentElement.localName, "html");
+    t.strictEqual(doc.documentElement.firstChild.localName, "head");
     if (title !== undefined && title !== null) {
       t.strictEqual(doc.documentElement.firstChild.childNodes.length, 1);
-      t.strictEqual(doc.documentElement.firstChild.firstChild.nodeName, "TITLE");
+      t.strictEqual(doc.documentElement.firstChild.firstChild.localName, "title");
       t.strictEqual(doc.documentElement.firstChild.firstChild.firstChild.data,
                     expectedtitle);
     } else {
       t.strictEqual(doc.documentElement.firstChild.childNodes.length, 0);
     }
-    t.strictEqual(doc.documentElement.lastChild.nodeName, "BODY");
+    t.strictEqual(doc.documentElement.lastChild.localName, "body");
     t.strictEqual(doc.documentElement.lastChild.childNodes.length, 0);
     t.done();
   };
@@ -50,10 +50,10 @@ exports["createHTMLDocument(): Missing title argument"] = function (t) {
   t.strictEqual(doc.doctype.name, "html");
   t.strictEqual(doc.doctype.publicId, "undefined");
   t.strictEqual(doc.doctype.systemId, "undefined");
-  t.strictEqual(doc.documentElement.nodeName, "HTML");
-  t.strictEqual(doc.documentElement.firstChild.nodeName, "HEAD");
+  t.strictEqual(doc.documentElement.localName, "html");
+  t.strictEqual(doc.documentElement.firstChild.localName, "head");
   t.strictEqual(doc.documentElement.firstChild.childNodes.length, 0);
-  t.strictEqual(doc.documentElement.lastChild.nodeName, "BODY");
+  t.strictEqual(doc.documentElement.lastChild.localName, "body");
   t.strictEqual(doc.documentElement.lastChild.childNodes.length, 0);
   t.done();
 };
@@ -71,7 +71,7 @@ exports["createHTMLDocument(): metadata"] = function (t) {
   // // XXX Spec says "utf-8", browsers do "UTF-8".
   // t.strictEqual(doc.characterSet.toUpperCase(), "UTF-8");
   t.strictEqual(doc.contentType, "text/html");
-  t.strictEqual(doc.createElement("DIV").nodeName, "DIV");
+  t.strictEqual(doc.createElement("DIV").localName, "div");
   t.done();
 };
 

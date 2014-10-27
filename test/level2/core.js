@@ -7125,7 +7125,7 @@ exports['localName'] = testcase({
     createdNode = doc.createElement("test:employee");
     localName = createdNode.localName;
 
-    test.equal(localName, null, 'localName should not be null');
+    test.equal(localName, 'employee', 'localName should be "employee"');
     test.done();
   },
   /**
