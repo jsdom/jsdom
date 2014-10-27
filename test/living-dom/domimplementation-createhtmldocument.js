@@ -18,7 +18,7 @@ function checkDoc(testName, title, expectedtitle) {
     t.strictEqual(doc.doctype.systemId, "");
     t.strictEqual(doc.documentElement.localName, "html");
     t.strictEqual(doc.documentElement.firstChild.localName, "head");
-    if (title !== undefined && title !== null) {
+    if (title !== undefined) {
       t.strictEqual(doc.documentElement.firstChild.childNodes.length, 1);
       t.strictEqual(doc.documentElement.firstChild.firstChild.localName, "title");
       t.strictEqual(doc.documentElement.firstChild.firstChild.firstChild.data,
