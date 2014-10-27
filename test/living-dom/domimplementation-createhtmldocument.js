@@ -64,12 +64,11 @@ exports["createHTMLDocument(): metadata"] = function (t) {
   document.implementation = new (core.DOMImplementation)(document);
   var doc = document.implementation.createHTMLDocument("test");
 
-  // TODO: metadata is not set
-  // t.strictEqual(doc.URL, "about:blank");
-  // t.strictEqual(doc.documentURI, "about:blank");
-  // t.strictEqual(doc.compatMode, "CSS1Compat");
-  // // XXX Spec says "utf-8", browsers do "UTF-8".
-  // t.strictEqual(doc.characterSet.toUpperCase(), "UTF-8");
+  t.strictEqual(doc.URL, "about:blank");
+  t.strictEqual(doc.documentURI, "about:blank");
+  t.strictEqual(doc.compatMode, "CSS1Compat");
+  // XXX Spec says "utf-8", browsers do "UTF-8".
+  t.strictEqual(doc.characterSet.toUpperCase(), "UTF-8");
   t.strictEqual(doc.contentType, "text/html");
   t.strictEqual(doc.createElement("DIV").localName, "div");
   t.done();
