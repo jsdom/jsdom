@@ -9,10 +9,10 @@ var toFileUrl = require("../util").toFileUrl(__dirname);
 var serializeDocument = require('../../lib/jsdom').serializeDocument;
 
 exports["with invalid arguments"] = function (t) {
-  t.throws(function () { jsdom.env(); });
-  t.throws(function () { jsdom.env({}); });
-  t.throws(function () { jsdom.env({ html: "abc123" }); });
-  t.throws(function () { jsdom.env({ done: function () {} }); });
+  t.throws(function () { env(); });
+  t.throws(function () { env({}); });
+  t.throws(function () { env({ html: "abc123" }); });
+  t.throws(function () { env({ done: function () {} }); });
   t.done();
 };
 
