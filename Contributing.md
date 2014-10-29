@@ -68,6 +68,8 @@ If you're writing a bunch of new tests for a feature, and those tests don't exis
 
 Alternately, you can write some tests just for jsdom. The older tests, being a mix of auto-generated and organically-grown, have gotten pretty hairy over time. But for new tests we try to follow a clean and uniform style, which you can see in files like [test/living-dom/attributes.js](https://github.com/tmpvar/jsdom/blob/master/test/living-dom/attributes.js) or [test/window/history.js](https://github.com/tmpvar/jsdom/blob/master/test/window/history.js). Do your best to follow that.
 
+Note for future reference: to update the submodules used for the web-platform-tests use the command `git submodule update --recursive --remote`.
+
 ### Browser tests
 
 jsdom now has experimental support for web workers! To test this support, we have a special test setup that involves Selenium driving Chrome. To make that work, you need to install Java and have it in your PATH. Then you can use `npm run test-browser` to have Selenium open up Chrome, spawn a web worker, and run some jsdom tests inside it.
