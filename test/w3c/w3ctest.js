@@ -29,6 +29,8 @@ function createJsdom(source, url, t) {
             t.ok(false, "Failed in \"" + test.name + "\": \n" + test.message);
           } else if (test.status === 2) {
             t.ok(false, "Timout in \"" + test.name + "\": \n" + test.message);
+          } else {
+            t.ok(true, test.name);
           }
         });
 
@@ -37,6 +39,12 @@ function createJsdom(source, url, t) {
           t.done();
         });
       };
+    },
+
+    loaded: function (err, window) {
+      t.ifError(err && err[0].data.error);
+      t.done();
+      window.close();
     }
   });
 }
