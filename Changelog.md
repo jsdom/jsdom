@@ -1,3 +1,8 @@
+## 1.1.0
+
+* Add: `document.implementation.createHTMLDocument()`. (fhemberger)
+* Fix: `localName` was sometimes `null` for elements when it should not be. (fhemberger)
+
 ## 1.0.3
 
 * Update: no longer requiring separate `cssstyle` and `cssstyle-browserify` dependencies; now `cssstyle` can be used directly. This also un-pins the `cssstyle` dependency so that future fixes arrive as they appear upstream.
