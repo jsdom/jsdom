@@ -21,9 +21,6 @@ lib/jsdom/level3/html.js
 lib/jsdom/level3/index.js
 lib/jsdom/level3/ls.js
 lib/jsdom/level3/xpath.js
-lib/jsdom/living/core.js
-lib/jsdom/living/index.js
-lib/jsdom/living/node.js
 lib/jsdom/selectors/index.js
 
 
