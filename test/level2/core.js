@@ -11027,3 +11027,26 @@ exports['memoizationQueriesCleared'] = function(test) {
   test.equal(newCount, oldCount + 1, "address count should be incremented after adding element w/ matching NS");
   test.done();
 }
+
+exports['NodeFilter'] = function(test) {
+  var core = require('../../lib/jsdom/level2/core.js').dom.level2.core;
+
+  test.equal(core.NodeFilter.FILTER_ACCEPT, 1, "acceptNode: FILTER_ACCEPT = 1"),
+  test.equal(core.NodeFilter.FILTER_REJECT, 2, "acceptNode: FILTER_REJECT = 2");
+  test.equal(core.NodeFilter.FILTER_SKIP,   3, "acceptNode: FILTER_SKIP = 3");
+
+  test.equal(core.NodeFilter.SHOW_ALL,              0xFFFFFFFF, "whatToShow: SHOW_ALL = 0xFFFFFFFF");
+  test.equal(core.NodeFilter.SHOW_ELEMENT,                 0x1, "whatToShow: SHOW_ELEMENT = 0x1");
+  test.equal(core.NodeFilter.SHOW_ATTRIBUTE,               0x2, "whatToShow: SHOW_ATTRIBUTE = 0x2");
+  test.equal(core.NodeFilter.SHOW_TEXT,                    0x4, "whatToShow: SHOW_TEXT = 0x4");
+  test.equal(core.NodeFilter.SHOW_CDATA_SECTION,           0x8, "whatToShow: SHOW_CDATA_SECTION = 0x8");
+  test.equal(core.NodeFilter.SHOW_ENTITY_REFERENCE,       0x10, "whatToShow: SHOW_ENTITY_REFERENCE = 0x10");
+  test.equal(core.NodeFilter.SHOW_ENTITY,                 0x20, "whatToShow: SHOW_ENTITY = 0x20");
+  test.equal(core.NodeFilter.SHOW_PROCESSING_INSTRUCTION, 0x40, "whatToShow: SHOW_PROCESSING_INSTRUCTION = 0x40");
+  test.equal(core.NodeFilter.SHOW_COMMENT,                0x80, "whatToShow: SHOW_COMMENT = 0x80");
+  test.equal(core.NodeFilter.SHOW_DOCUMENT,              0x100, "whatToShow: SHOW_DOCUMENT = 0x100");
+  test.equal(core.NodeFilter.SHOW_DOCUMENT_TYPE,         0x200, "whatToShow: SHOW_DOCUMENT_TYPE = 0x200");
+  test.equal(core.NodeFilter.SHOW_DOCUMENT_FRAGMENT,     0x400, "whatToShow: SHOW_DOCUMENT_FRAGMENT = 0x400");
+  test.equal(core.NodeFilter.SHOW_NOTATION,              0x800, "whatToShow: SHOW_NOTATION = 0x800");
+  test.done();
+}
