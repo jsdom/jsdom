@@ -2,6 +2,8 @@
 
 A JavaScript implementation of the W3C DOM.
 
+This is a fork and does not follow the original module. This one is based on an older version and is modified so the html returned is raw, i.e. does not encode the html.
+
 ## Install
 
 ```bash
