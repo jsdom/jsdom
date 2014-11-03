@@ -1,6 +1,6 @@
 {
-    "name": "jsdom",
-    "version": "0.9.0",
+    "name": "jsdom-daily",
+    "version": "0.9.1",
     "description": "A JavaScript implementation of the W3C DOM",
     "keywords": ["dom", "w3c", "html"],
     "maintainers": [
