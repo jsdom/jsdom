@@ -15,6 +15,10 @@ exports["a default window should have a history object with correct default valu
 exports["the history object should update correctly when calling pushState/replaceState"] = function (t) {
   var window = jsdom().parentWindow;
 
+  window.addEventListener("popstate", function () {
+    t.fail("popstate should not fire as a result of a pushState() or replaceState() call");
+  });
+
   // Absolute path
   window.history.pushState({ foo: "one" }, "unused title", "/bar/baz#fuzz");
   t.strictEqual(window.history.length, 2);
@@ -139,6 +143,8 @@ exports["the history object should fire popstate on the window while navigating 
   });
 
   window.history.pushState(state, "title", "bar");
+  window.history.pushState(null, "", "baz");
+  window.history.back();
 
   setTimeout(function () {
     t.ok(eventFired, "popstate event should be fired.");
