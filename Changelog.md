@@ -1,3 +1,9 @@
+## 1.2.0
+
+* Add: `NodeFilter`, in particular its constants. (fhemberger)
+* Fix: initial `history.length` should be `1`, not `0`. (rgrove)
+* Fix: `history.pushState` and `history.replaceState` should not fire the `popstate` event. (rgrove)
+
 ## 1.1.0
 
 * Add: `document.implementation.createHTMLDocument()`. (fhemberger)

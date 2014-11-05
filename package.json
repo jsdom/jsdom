@@ -1,6 +1,6 @@
 {
   "name": "jsdom",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A JavaScript implementation of the DOM and HTML standards",
   "keywords": [
     "dom",
@@ -10,7 +10,8 @@
   ],
   "maintainers": [
     "Elijah Insua <tmpvar@gmail.com> (http://tmpvar.com)",
-    "Domenic Denicola <domenic@domenicdenicola.com (http://domenic.me/)"
+    "Domenic Denicola <domenic@domenicdenicola.com (http://domenic.me/)",
+    "Sebastian Mayr <sebmaster16@gmail.com> (http://blog.smayr.name/)"
   ],
   "contributors": [
     "Vincent Greene <ulteriorlife@gmail.com>",
