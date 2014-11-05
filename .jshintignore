@@ -1,6 +1,5 @@
 lib/jsdom.js
 lib/jsdom/contextify-shim.js
-lib/jsdom/utils.js
 lib/jsdom/browser/documentAdapter.js
 lib/jsdom/browser/documentfeatures.js
 lib/jsdom/browser/domtohtml.js
