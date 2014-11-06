@@ -4,6 +4,16 @@ var path = require("path");
 var jsdom = require("../..").jsdom;
 
 // These tests are mostly random regression tests, not systematic parsing tests. They are compiled from the bug tracker.
+exports["<template> content document fragment (GH-942)"] = function (t) {
+  var doc = jsdom("<ul><template><div>Hello world!</div></template></ul>");
+
+  var tmpl = doc.getElementsByTagName("template");
+
+  t.equal(tmpl[0].childNodes[0].nodeType, 11);
+  t.equal(tmpl[0].innerHTML, '<div>Hello world!</div>');
+
+  t.done();
+};
 
 exports["unclosed <td> (GH-605)"] = function (t) {
   var doc = jsdom("<table><tr><td>first td<td>second td</tr></table>");
