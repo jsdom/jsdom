@@ -40,7 +40,44 @@ exports.tests = {
     test.equal(window.object.a, 1, 'prototypes should be maintained across contexts');
     test.done();
   },
+  
+  insert_row_in_a_table_declared_in_one_line_works: function(test) {
+    var window = jsdom.jsdom('\
+      <html><head><body>\
+      <table id="grid"></table> \
+      <script type="text/javascript">\
+      window.onload = function() { \
+          document.getElementById("grid").insertRow(-1); \
+      }; \
+      </script>\
+      <body></body></html>'
+    ).parentWindow;
 
+    jsdom.jQueryify(window, jQueryPath, function (dom) {
+      test.ok(dom.window.$('#grid tr').length == 1);
+      test.done();
+    });    
+  },
+
+  insert_row_in_a_table_declared_in_two_lines_fails: function(test) {
+    var window = jsdom.jsdom('\
+      <html><head><body>\
+      <table id="grid">\
+      </table> \
+      <script type="text/javascript">\
+      window.onload = function() { \
+          document.getElementById("grid").insertRow(-1); \
+      }; \
+      </script>\
+      <body></body></html>'
+    ).parentWindow;
+
+    jsdom.jQueryify(window, jQueryPath, function (dom) {
+      test.ok(dom.window.$('#grid tr').length == 0);
+      test.done();
+    });    
+  },
+  
   scripts_jquerify_have_jsdom_class: function(test) {
     var window = jsdom.jsdom().parentWindow;
     jsdom.jQueryify(window, jQueryPath, function (dom) {
@@ -117,6 +154,8 @@ exports.tests = {
     })
     test.done();
   },
+
+  
 
   // see: https://github.com/tmpvar/jsdom/issues/163
   issue_163 : function(test) {
