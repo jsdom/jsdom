@@ -2,7 +2,7 @@
 
 A JavaScript implementation of the W3C DOM.
 
-This is a fork and does not follow the original module. This one is based on an older version and is modified so the html returned is raw, i.e. does not encode the html.
+This is a fork and does not follow the original module. This one is based on an older version and has additionnal options.
 
 ## Install
 
@@ -209,6 +209,11 @@ Disabling this will disable script execution (currently only JavaScript).
 - _Example_: `/http:\/\/example.org/js/bad\.js/`
 
 Do not download and process resources with url matching a regular expression.
+
+Additionnal options:
+
+- `forceRaw`: Forces the module to return raw html
+- `ignoreChars`: array of characters that won't be decoded
 
 ### Canvas
 
