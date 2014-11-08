@@ -1,3 +1,7 @@
+## 1.2.1
+
+* Fix: handling of `<template>` element parsing and serialization, now that it is supported by parse5. (inikulin)
+
 ## 1.2.0
 
 * Add: `NodeFilter`, in particular its constants. (fhemberger)
