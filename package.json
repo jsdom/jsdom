@@ -10,7 +10,7 @@
   ],
   "maintainers": [
     "Elijah Insua <tmpvar@gmail.com> (http://tmpvar.com)",
-    "Domenic Denicola <domenic@domenicdenicola.com (http://domenic.me/)",
+    "Domenic Denicola <d@domenic.me> (https://domenic.me/)",
     "Sebastian Mayr <sebmaster16@gmail.com> (http://blog.smayr.name/)"
   ],
   "contributors": [
@@ -19,7 +19,7 @@
     "Felix Gnass <fgnass@gmail.com>",
     "Charlie Robbins <charlie.robbins@gmail.com>",
     "Aria Stewart <aredridel@nbtsc.org>",
-    "Matthew <N.A.> (http://github.com/matthewpflueger/)",
+    "Matthew (http://github.com/matthewpflueger/)",
     "Olivier El Mekki <unknown> (http://blog.olivier-elmekki.com/)",
     "Shimon Dookdin <helpmepro1@gmail.com>",
     "Daniel Cassidy <mail@danielcassidy.me.uk> (http://www.danielcassidy.me.uk/)",
@@ -50,18 +50,11 @@
     "Chad Walker <chad@chad-cat-lore-eddie.com> (https://github.com/chad3814)",
     "Zach Smith <x.coder.zach@gmail.com> (https://github.com/xcoderzach)"
   ],
-  "bugs": {
-    "email": "tmpvar@gmail.com",
-    "url": "http://github.com/tmpvar/jsdom/issues"
-  },
   "license": {
     "type": "MIT",
     "url": "http://github.com/tmpvar/jsdom/blob/master/LICENSE.txt"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/tmpvar/jsdom.git"
-  },
+  "repository": "tmpvar/jsdom",
   "dependencies": {
     "contextify": ">= 0.1.9 < 0.2.0",
     "cssom": ">= 0.3.0 < 0.4.0",
@@ -96,5 +89,8 @@
     "test-browser": "node ./test/browser-runner",
     "lint": "jshint lib/ && jshint test/"
   },
-  "main": "./lib/jsdom"
+  "main": "./lib/jsdom",
+  "files": [
+    "lib/"
+  ]
 }
