@@ -1506,6 +1506,12 @@ exports.tests = {
     });
   },
 
+  issue_935_document_tostring_returns_null: function(test) {
+    var document = jsdom.jsdom();
+    test.equal(document.toString(), "[object HTMLDocument]");
+    test.done();
+  },
+
   script_with_cookie: function (t) {
     var html = "<!DOCTYPE html><html><head><script src='/foo.js'></script></head><body>foo</body></html>";
 
