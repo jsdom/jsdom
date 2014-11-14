@@ -21901,5 +21901,14 @@ exports.tests = {
     var newLength = doc.getElementsByTagName('acronym').length;
     test.equal(newLength, origLength + 1, 'Num elements queried has changed');
     test.done();
+  },
+
+  restrict_text_data_type: function(test) {
+    var dom = require("../../lib/jsdom/level1/core").dom.level1.core;
+    var doc = new dom.Document('');
+    var text = doc.createTextNode('foo');
+    text.data = 34;
+    test.ok(text.data === '34', 'String type forced');
+    test.done();
   }
 };
