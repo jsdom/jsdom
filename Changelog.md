@@ -1,3 +1,9 @@
+## 1.2.2
+
+* Fix: `querySelectorAll` correctly coerces its argument to a string; notably this allows you to pass arrays. (jeffcarp)
+* Fix: the `data` setter on text nodes correctly coerces the new value to a string. (medikoo)
+* Fix: `document.toString()` now returns `[object HTMLDocument]`. (jeffcarp)
+
 ## 1.2.1
 
 * Fix: handling of `<template>` element parsing and serialization, now that it is supported by parse5. (inikulin)
