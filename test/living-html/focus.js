@@ -4,7 +4,7 @@ var jsdom = require("../..");
 
 exports["focus method exists on any html element"] = function (t) {
   t.expect(6);
-  jsdom.env('<input /><div></div>', function(errors, window) {
+  jsdom.env("<input><div></div>", function (errors, window) {
     t.ifError(errors);
     var doc = window.document;
 
