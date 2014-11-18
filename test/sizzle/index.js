@@ -628,8 +628,6 @@ exports['pseudo - misc'] = test(function (window) { with (window) {
 
   document.body.removeChild( tmp );
 
-/** XX TODO make focus work on all elements
-
   // Recreate tmp
   tmp = document.createElement("div");
   tmp.id = "tmp_input";
@@ -672,13 +670,6 @@ exports['pseudo - misc'] = test(function (window) { with (window) {
     ok( match( input, ":focus" ), ":focus matches" );
   }
 
-  // :active selector: this selector does not depend on document focus
-  if ( document.activeElement === input ) {
-    ok( match( input, ":active" ), ":active Matches" );
-  } else {
-    ok( true, "The input did not become active. Skip checking the :active match." );
-  }
-
   input.blur();
 
   // When IE is out of focus, blur does not work. Force it here.
@@ -687,10 +678,7 @@ exports['pseudo - misc'] = test(function (window) { with (window) {
   }
 
   ok( !match( input, ":focus" ), ":focus doesn't match" );
-  ok( !match( input, ":active" ), ":active doesn't match" );
   document.body.removeChild( input );
-
-*/
 
   deepEqual(
     Sizzle( "[id='select1'] *:not(:last-child), [id='select2'] *:not(:last-child)", q("qunit-fixture")[0] ),
