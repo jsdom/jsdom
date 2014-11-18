@@ -1,3 +1,7 @@
+## 1.2.3
+
+* Tweak: improve performance of `Node.prototype.insertBefore`, `Node.prototype.removeChild`, and several `AttributeList` methods. (Joris-van-der-Wel)
+
 ## 1.2.2
 
 * Fix: `querySelectorAll` correctly coerces its argument to a string; notably this allows you to pass arrays. (jeffcarp)
