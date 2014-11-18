@@ -40,3 +40,29 @@ exports["html input should handle value/defaultValue correctly"] = function (t) 
 
   t.done();
 };
+
+exports['html input should handle checked/defaultChecked correctly'] = function(t) {
+  var doc = jsdom.jsdom('<html><head></head><body></body></html>');
+  var checked = doc.createElement('input');
+
+  t.strictEqual(checked.checked, false,
+    'checkedness is false by default');
+
+  checked.setAttribute('checked', 'checked');
+  t.strictEqual(checked.checked, true,
+    'checked IDL must return the current checkedness');
+
+  checked.removeAttribute('checked');
+  t.strictEqual(checked.checked, false,
+    'dirty checkedness is still false, the checkedness should have been changed');
+
+  checked.checked = false; // sets the element's dirty checkedness flag to true
+  t.strictEqual(checked.checked, false,
+    'on setting, the checked IDL must set the element\'s checkedness to the new value');
+
+  checked.setAttribute('checked', 'checked');
+  t.strictEqual(checked.checked, false,
+    'checkedness should not have been changed because dirty checkedness is now true');
+
+  t.done();
+};
