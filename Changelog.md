@@ -1,3 +1,7 @@
+## 1.3.1
+
+* Fix: changing attributes on `<option>` elements will now have the correct consequences. For example changing the `id` attribute now interacts correctly with `document.getElementById`. (Joris-van-der-Wel)
+
 ## 1.3.0
 
 * Add: moved `focus` and `blur` methods to `HTMLElement.prototype`, instead of having them only be present on certain element prototypes. Our focus story is still not very spec-compliant, but this is a step in the right direction. (vincentsiao)
