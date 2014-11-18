@@ -19981,13 +19981,13 @@ exports.tests = {
 
     doc.body.innerHTML = '<input id="x" type="checkbox">';
     var el3 = doc.getElementById("x");
-    el3.checked = false;
+    el3.defaultChecked = false;
 
     test.strictEqual(el3.hasAttribute("checked"), false, "staying false does not insert attribute");
 
     doc.body.innerHTML = '<input id="x" type="checkbox" checked="checked">';
     var el4 = doc.getElementById("x");
-    el4.checked = false;
+    el4.defaultChecked = false;
 
     test.strictEqual(el4.hasAttribute("checked"), false, "changing to false removes attribute");
 
@@ -20164,4 +20164,4 @@ exports.tests = {
     test.ok(doc.getElementById('bar') === option, 'getElementById("bar") should match after the id has been changed from foo to bar');
     test.done();
   }
-}
+};
