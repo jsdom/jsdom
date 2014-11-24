@@ -43,6 +43,7 @@ var files = [
   "living-dom/node-parent-element.js",
   "living-dom/query-selector.js",
   "living-dom/query-selector-all.js",
+  "living-html/dataset.js",
   "living-html/focus.js",
   "living-html/htmlinputelement.js",
   "living-html/navigator.js",
