@@ -2,6 +2,9 @@
 
 var jsdom = require("../..");
 
+// Tests for node.focus
+// Spec: http://html.spec.whatwg.org/#focus
+
 exports["focus method exists on any html element"] = function (t) {
   t.expect(6);
   jsdom.env("<input><div></div>", function (errors, window) {
