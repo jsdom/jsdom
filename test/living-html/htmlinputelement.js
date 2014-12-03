@@ -74,3 +74,75 @@ exports['html input should handle checked/defaultChecked correctly'] = function(
 
   t.done();
 };
+
+exports['uncheck other radio buttons in the same group'] = function (t) {
+  var doc = jsdom.jsdom('<html><head></head><body></body></html>');
+  var form = doc.createElement('form');
+  var div = doc.createElement('div');
+  var radioA = doc.createElement('input');
+  var radioB = doc.createElement('input');
+  var radioC = doc.createElement('input');
+  var checkD = doc.createElement('input');
+  radioA.type = 'radio';
+  radioB.type = 'radio';
+  radioC.type = 'radio';
+  checkD.type = 'checkbox';
+  radioA.name = 'foo';
+  radioB.name = 'foo';
+  radioC.name = 'foo';
+  checkD.name = 'foo';
+
+  div.appendChild(radioA);
+  div.appendChild(radioB);
+  // not yet C
+  div.appendChild(checkD);
+
+  checkD.checked = true;
+  radioA.checked = true;
+  radioB.checked = true;
+
+  t.strictEqual(radioA.checked, false,
+    'Setting checked on a radio should uncheck others in the same group');
+  t.strictEqual(radioB.checked, true ,
+    'Last radio to be set should be checked');
+  t.strictEqual(checkD.checked, true ,
+    'Radio\'s should not affect the checkedness of checkboxes');
+
+  radioA.checked = true;
+  form.appendChild(radioA);
+  t.strictEqual(radioA.checked, true ,
+                'Just checked this');
+  radioB.checked = true;
+  form.appendChild(radioB);
+  t.strictEqual(radioB.checked, true ,
+    'Just checked this');
+  t.strictEqual(radioA.checked, false,
+    'Changing the form owner should uncheck others');
+
+  form.appendChild(radioC);
+  radioC.name = 'bar';
+  radioA.checked = true;
+  radioC.checked = true;
+  t.strictEqual(radioA.checked, true ,
+    'Just checked this');
+  t.strictEqual(radioC.checked, true ,
+    'Just checked this');
+  radioC.name = 'foo';
+  t.strictEqual(radioA.checked, false,
+    'Changing the name should uncheck others');
+  t.strictEqual(radioC.checked, true ,
+    'Changing the name not uncheck itself');
+
+  form.appendChild(checkD);
+  radioC.checked = true;
+  checkD.checked = true;
+  t.strictEqual(radioC.checked, true ,
+    'Just checked this');
+  checkD.type = 'radio';
+  t.strictEqual(radioC.checked, false,
+    'Changing the type should uncheck others');
+  t.strictEqual(checkD.checked, true ,
+    'Changing the name not uncheck itself');
+
+  t.done();
+};
