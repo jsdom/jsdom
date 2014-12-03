@@ -21915,5 +21915,16 @@ exports.tests = {
     text.data = testObj;
     test.ok(text.data === 'str', 'String type forced (set)');
     test.done();
+  },
+  
+  hc_docclonenodetrue: function(test) {
+    var doc;
+    var docClone;
+
+    doc = hc_staff.hc_staff();
+    docClone = doc.cloneNode(true);
+    test.notDeepEqual(doc, docClone, 'clone');
+
+    test.done();
   }
 };
