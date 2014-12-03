@@ -15,13 +15,14 @@ exports["html input should handle value/defaultValue correctly"] = function (t) 
   input.defaultValue = "abc";
 
   t.strictEqual(input.value, "abc",
-    "value should default to defaultValue if undefined");
+    "setting the defaultValue should also change the value if 'dirty value' is false");
   t.strictEqual(input.defaultValue, "abc",
     "defaultValue should equal to set string");
   t.strictEqual(input.getAttribute("value"), "abc",
     "value attribute should equal to set string");
 
   input.value = "def";
+  // dirtyValue is now true
 
   t.strictEqual(input.value, "def",
     "value should get changed by setter");
@@ -30,11 +31,18 @@ exports["html input should handle value/defaultValue correctly"] = function (t) 
   t.strictEqual(input.getAttribute("value"), "abc",
     "value attribute should not change");
 
+  input.defaultValue = "abc2";
+
+  t.strictEqual(input.value, "def",
+    "value should not change by setting defaultValue is dirtyValue is set");
+  t.strictEqual(input.defaultValue, "abc2",
+    "defaultValue should equal to set string");
+
   input.value = null;
 
-  t.strictEqual(input.value, "abc",
-    "resetting value should fall back to defaultValue");
-  t.strictEqual(input.getAttribute("value"), "abc",
+  t.strictEqual(input.value, "",
+    "setting value to null should result in an empty string");
+  t.strictEqual(input.getAttribute("value"), "abc2",
     "value attribute should not change");
 
 
