@@ -1,3 +1,7 @@
+## 1.3.2
+
+* Fix: check if `module.parent` exists before using it to construct a document's initial URL. Apparently some testing frameworks like Jest do not correctly emulate the module environment; this compensates. (SegFaultx64)
+
 ## 1.3.1
 
 * Fix: changing attributes on `<option>` elements will now have the correct consequences. For example changing the `id` attribute now interacts correctly with `document.getElementById`. (Joris-van-der-Wel)
