@@ -20163,5 +20163,13 @@ exports.tests = {
     test.ok(!doc.getElementById('foo'), 'getElementById("foo") should not match after the id has been changed from foo to bar');
     test.ok(doc.getElementById('bar') === option, 'getElementById("bar") should match after the id has been changed from foo to bar');
     test.done();
-  }
+  },
+  
+  div_element_to_string: function(test) {
+    var doc = jsdom.jsdom('<html><head></head><body></body></html>');
+    var div = doc.createElement('div');
+
+    test.ok(div.toString() === '[object HTMLDivElement]', 'div.toString() should return "[object HTMLDivElement] just like a browser');
+    test.done();
+  }  
 }
