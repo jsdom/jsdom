@@ -1,3 +1,16 @@
+## 1.4.0
+
+* Fix: `HTMLInputElement.prototype.checked` and `defaultChecked` now behave per the spec. (Joris-van-der-Wel)
+* Fix: `HTMLOptionElement.prototype.selected` now behaves per the spec. (Joris-van-der-Wel)
+* Fix: `HTMLInputElement.prototype.value` now behaves per the spec. (Joris-van-der-Wel)
+* Fix: `HTMLTextAreaElement.prototype.value` and `defaultValue` now behave per the spec. (Joris-van-der-Wel)
+* Add: `HTMLTextAreaElement.prototype.defaultValue` now has a setter, and `HTMLTextAreaElement.prototype.textLength` now exists. (Joris-van-der-Wel)
+* Fix: resetting a `<form>` now behaves per spec for all different types of form elements. (Joris-van-der-Wel)
+* Fix: radio buttons reset other radio buttons correctly now per the spec. (Joris-van-der-Wel)
+* Fix: `document.cloneNode` now works. (AVGP)
+* Fix: `hasAttribute` is now case-insensitive, as it should be. (AVGP)
+* Fix: `div.toString()` now returns `[object HTMLDivElement]`. (AVGP)
+
 ## 1.3.2
 
 * Fix: check if `module.parent` exists before using it to construct a document's initial URL. Apparently some testing frameworks like Jest do not correctly emulate the module environment; this compensates. (SegFaultx64)
