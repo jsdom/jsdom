@@ -179,3 +179,15 @@ exports["setting an attribute should not overwrite the fields of an `AttributeLi
   t.equal(body.attributes.length, 1, "one attribute");
   t.done();
 };
+
+exports["hasAttribute should work with all attribute casings"] = function (t) {
+  var document = jsdom.jsdom();
+  document.body.innerHTML = "<span data-e2='2' data-F2='3' id='t'></span>";
+
+  t.ok(document.getElementById("t").hasAttribute("data-e2"));
+  t.ok(document.getElementById("t").hasAttribute("data-E2"));
+  t.ok(document.getElementById("t").hasAttribute("data-f2"));
+  t.ok(document.getElementById("t").hasAttribute("data-F2"));
+
+  t.done();
+};
