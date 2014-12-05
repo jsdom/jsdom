@@ -10,7 +10,7 @@ exports["<template> content document fragment (GH-942)"] = function (t) {
   var tmpl = doc.getElementsByTagName("template");
 
   t.equal(tmpl[0].childNodes[0].nodeType, 11);
-  t.equal(tmpl[0].innerHTML, '<div>Hello world!</div>');
+  t.equal(tmpl[0].innerHTML, "<div>Hello world!</div>");
 
   t.done();
 };
@@ -21,8 +21,8 @@ exports["unclosed <td> (GH-605)"] = function (t) {
   var tds = doc.getElementsByTagName("td");
 
   t.equal(tds.length, 2);
-  t.equal(tds[0].innerHTML, 'first td');
-  t.equal(tds[1].innerHTML, 'second td');
+  t.equal(tds[0].innerHTML, "first td");
+  t.equal(tds[1].innerHTML, "second td");
 
   t.done();
 };
@@ -196,7 +196,7 @@ exports["A single <html> tag (GH-827)"] = function (t) {
 exports["Missing <html> tags (GH-555)"] = function (t) {
   var doctype = "<!DOCTYPE html PUBLIC\"-//W3C//DTD HTML 4.0//EN\">";
   var docA = jsdom(doctype + "<html><head><title></title></head><p>");
-  var docB = jsdom(doctype + "<head><title></title></head><p>")
+  var docB = jsdom(doctype + "<head><title></title></head><p>");
 
   t.strictEqual(docA.querySelectorAll("p").length, 1);
   t.strictEqual(docB.querySelectorAll("p").length, 1);
@@ -210,7 +210,7 @@ exports["Missing <body> tag with script src (GH-389)"] = function (t) {
   jsdom.env({
     html: "<html></html>",
     src: "''",
-    done: function (errs, window) {
+    done: function (errs) {
       t.ifError(errs);
 
       t.done();
@@ -269,8 +269,8 @@ exports["pre tag with < and > characters (GH-755)"] = function (t) {
     "::Run()</pre>");
 
   t.strictEqual(doc.body.innerHTML, "<pre>[task.h:277] - RunnableMethod<domstoragedispatcherhost,void " +
-    "(=\"\" domstoragedispatcherhost::*)(domstoragetype,ipc::message=\"\" *),tuple2<domstoragetype,ipc::message=\"\" *=\"\">" +
-    "&gt;::Run()</domstoragedispatcherhost,void></pre>");
+    "(=\"\" domstoragedispatcherhost::*)(domstoragetype,ipc::message=\"\" *),tuple2" +
+    "<domstoragetype,ipc::message=\"\" *=\"\">&gt;::Run()</domstoragedispatcherhost,void></pre>");
 
   t.done();
 };

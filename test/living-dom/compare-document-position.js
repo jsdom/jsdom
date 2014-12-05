@@ -28,12 +28,13 @@ exports["A document contains and precedes its newly attached document type"] = f
   t.done();
 };
 
-exports["Two document nodes obtained from the same document are disconnected & implementation specific"] = function (t) {
+exports["Two document nodes obtained from the same document are disconnected and implementation specific"] =
+    function (t) {
   var docA = load("test");
   var docB = load("test");
 
-  t.ok(docA.compareDocumentPosition(docB) & doc.parentWindow.Node.DOCUMENT_POSITION_DISCONNECTED, "Disconnected");
-  t.ok(docA.compareDocumentPosition(docB) & doc.parentWindow.Node.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC,
+  t.ok(docA.compareDocumentPosition(docB) & docA.parentWindow.Node.DOCUMENT_POSITION_DISCONNECTED, "Disconnected");
+  t.ok(docA.compareDocumentPosition(docB) & docA.parentWindow.Node.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC,
     "Implementation Specific");
   t.done();
 };

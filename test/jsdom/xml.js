@@ -10,13 +10,13 @@ function isParsedAsXml(document) {
 }
 
 exports["should not throw if no parser is given"] = function (t) {
-  var document = jsdom.jsdom("<!DOCTYPE html><html></html>");
+  jsdom.jsdom("<!DOCTYPE html><html></html>");
 
   t.done();
 };
 
 exports["should not throw if invalid html document is given"] = function (t) {
-  var document = jsdom.jsdom("<!DOCTYPE html><html</html>");
+  jsdom.jsdom("<!DOCTYPE html><html</html>");
 
   t.done();
 };
@@ -40,7 +40,7 @@ exports["should handle self-closing tags properly in xml docs (in .jsdom)"] = fu
 };
 
 exports["should handle self-closing tags properly in xml docs (in .env)"] = function (t) {
-  var document = jsdom.env({
+  jsdom.env({
     html: xmlString,
     parsingMode: "xml",
     done: function (err, window) {
@@ -58,7 +58,7 @@ exports["should auto-detect HTML documents based on header"] = function (t) {
   });
 
   server.listen(0, function () {
-    var document = jsdom.env({
+    jsdom.env({
       url: "http://127.0.0.1:" + server.address().port + "/",
       done: function (err, window) {
         t.ok(!isParsedAsXml(window.document));
@@ -76,7 +76,7 @@ exports["should auto-detect XML documents based on application/xml header"] = fu
   });
 
   server.listen(0, function () {
-    var document = jsdom.env({
+    jsdom.env({
       url: "http://127.0.0.1:" + server.address().port + "/",
       done: function (err, window) {
         t.ok(isParsedAsXml(window.document));
@@ -94,7 +94,7 @@ exports["should auto-detect XML documents based on text/xml header"] = function 
   });
 
   server.listen(0, function () {
-    var document = jsdom.env({
+    jsdom.env({
       url: "http://127.0.0.1:" + server.address().port + "/",
       done: function (err, window) {
         t.ok(isParsedAsXml(window.document));
@@ -112,7 +112,7 @@ exports["should auto-detect XML documents based on application/xhtml+xml header"
   });
 
   server.listen(0, function () {
-    var document = jsdom.env({
+    jsdom.env({
       url: "http://127.0.0.1:" + server.address().port + "/",
       done: function (err, window) {
         t.ok(isParsedAsXml(window.document));
@@ -130,7 +130,7 @@ exports["parsingMode should take precedence over text/xml header"] = function (t
   });
 
   server.listen(0, function () {
-    var document = jsdom.env({
+    jsdom.env({
       url: "http://127.0.0.1:" + server.address().port + "/",
       parsingMode: "html",
       done: function (err, window) {
@@ -143,7 +143,7 @@ exports["parsingMode should take precedence over text/xml header"] = function (t
 };
 
 exports["should auto-detect XML documents based on .xml extension"] = function (t) {
-  var document = jsdom.env({
+  jsdom.env({
     file: __dirname + "/files/xml.xml",
     done: function (err, window) {
       t.ok(isParsedAsXml(window.document));
@@ -154,7 +154,7 @@ exports["should auto-detect XML documents based on .xml extension"] = function (
 };
 
 exports["parsingMode option should take precendence over .xml extension detection"] = function (t) {
-  var document = jsdom.env({
+  jsdom.env({
     file: __dirname + "/files/xml.xml",
     parsingMode: "html",
     done: function (err, window) {

@@ -23,4 +23,17 @@ lib/jsdom/level3/xpath.js
 lib/jsdom/selectors/index.js
 
 
-test/*
+test/browser
+test/jquery-fixtures
+test/jsonp
+test/level1
+test/level2
+test/level3
+test/sizzle
+test/w3c
+test/window
+test/*.js
+
+test/jsdom/index.js
+test/jsdom/leak.js
+test/jsdom/files

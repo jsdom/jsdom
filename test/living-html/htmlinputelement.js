@@ -5,92 +5,77 @@ var jsdom = require("../..");
 exports["html input should handle value/defaultValue correctly"] = function (t) {
   var input = jsdom.jsdom("<input>").querySelector("input");
 
-  t.strictEqual(input.value, "",
-    "value should equal empty string if uninitialized");
-  t.strictEqual(input.defaultValue, "",
-    "defaultValue should equal empty string if uninitialized");
-  t.strictEqual(input.getAttribute("value"), null,
-    "value attribute should be null (uninitialized)");
+  t.strictEqual(input.value, "", "value should equal empty string if uninitialized");
+  t.strictEqual(input.defaultValue, "", "defaultValue should equal empty string if uninitialized");
+  t.strictEqual(input.getAttribute("value"), null, "value attribute should be null (uninitialized)");
 
   input.defaultValue = "abc";
 
   t.strictEqual(input.value, "abc",
-    "setting the defaultValue should also change the value if 'dirty value' is false");
-  t.strictEqual(input.defaultValue, "abc",
-    "defaultValue should equal to set string");
-  t.strictEqual(input.getAttribute("value"), "abc",
-    "value attribute should equal to set string");
+    "setting the defaultValue should also change the value if \"dirty value\" is false");
+  t.strictEqual(input.defaultValue, "abc", "defaultValue should equal to set string");
+  t.strictEqual(input.getAttribute("value"), "abc", "value attribute should equal to set string");
 
   input.value = "def";
   // dirtyValue is now true
 
-  t.strictEqual(input.value, "def",
-    "value should get changed by setter");
-  t.strictEqual(input.defaultValue, "abc",
-    "defaultValue should equal to set string");
-  t.strictEqual(input.getAttribute("value"), "abc",
-    "value attribute should not change");
+  t.strictEqual(input.value, "def", "value should get changed by setter");
+  t.strictEqual(input.defaultValue, "abc", "defaultValue should equal to set string");
+  t.strictEqual(input.getAttribute("value"), "abc", "value attribute should not change");
 
   input.defaultValue = "abc2";
 
-  t.strictEqual(input.value, "def",
-    "value should not change by setting defaultValue is dirtyValue is set");
-  t.strictEqual(input.defaultValue, "abc2",
-    "defaultValue should equal to set string");
+  t.strictEqual(input.value, "def", "value should not change by setting defaultValue is dirtyValue is set");
+  t.strictEqual(input.defaultValue, "abc2", "defaultValue should equal to set string");
 
   input.value = null;
 
-  t.strictEqual(input.value, "",
-    "setting value to null should result in an empty string");
-  t.strictEqual(input.getAttribute("value"), "abc2",
-    "value attribute should not change");
+  t.strictEqual(input.value, "", "setting value to null should result in an empty string");
+  t.strictEqual(input.getAttribute("value"), "abc2", "value attribute should not change");
 
 
   t.done();
 };
 
-exports['html input should handle checked/defaultChecked correctly'] = function(t) {
-  var doc = jsdom.jsdom('<html><head></head><body></body></html>');
-  var checked = doc.createElement('input');
+exports["html input should handle checked/defaultChecked correctly"] = function(t) {
+  var doc = jsdom.jsdom();
+  var checked = doc.createElement("input");
 
+  t.strictEqual(checked.checked, false, "checkedness is false by default");
+
+  checked.setAttribute("checked", "checked");
+  t.strictEqual(checked.checked, true, "checked property must return the current checkedness");
+
+  checked.removeAttribute("checked");
+  t.strictEqual(checked.checked, false, "dirty checkedness is still false, the checkedness should have been changed");
+
+  checked.checked = false; // sets the element"s dirty checkedness flag to true
   t.strictEqual(checked.checked, false,
-    'checkedness is false by default');
+    "on setting, the checked property must set the element's checkedness to the new value");
 
-  checked.setAttribute('checked', 'checked');
-  t.strictEqual(checked.checked, true,
-    'checked IDL must return the current checkedness');
-
-  checked.removeAttribute('checked');
+  checked.setAttribute("checked", "checked");
   t.strictEqual(checked.checked, false,
-    'dirty checkedness is still false, the checkedness should have been changed');
-
-  checked.checked = false; // sets the element's dirty checkedness flag to true
-  t.strictEqual(checked.checked, false,
-    'on setting, the checked IDL must set the element\'s checkedness to the new value');
-
-  checked.setAttribute('checked', 'checked');
-  t.strictEqual(checked.checked, false,
-    'checkedness should not have been changed because dirty checkedness is now true');
+    "checkedness should not have been changed because dirty checkedness is now true");
 
   t.done();
 };
 
-exports['uncheck other radio buttons in the same group'] = function (t) {
-  var doc = jsdom.jsdom('<html><head></head><body></body></html>');
-  var form = doc.createElement('form');
-  var div = doc.createElement('div');
-  var radioA = doc.createElement('input');
-  var radioB = doc.createElement('input');
-  var radioC = doc.createElement('input');
-  var checkD = doc.createElement('input');
-  radioA.type = 'radio';
-  radioB.type = 'radio';
-  radioC.type = 'radio';
-  checkD.type = 'checkbox';
-  radioA.name = 'foo';
-  radioB.name = 'foo';
-  radioC.name = 'foo';
-  checkD.name = 'foo';
+exports["uncheck other radio buttons in the same group"] = function (t) {
+  var doc = jsdom.jsdom();
+  var form = doc.createElement("form");
+  var div = doc.createElement("div");
+  var radioA = doc.createElement("input");
+  var radioB = doc.createElement("input");
+  var radioC = doc.createElement("input");
+  var checkD = doc.createElement("input");
+  radioA.type = "radio";
+  radioB.type = "radio";
+  radioC.type = "radio";
+  checkD.type = "checkbox";
+  radioA.name = "foo";
+  radioB.name = "foo";
+  radioC.name = "foo";
+  checkD.name = "foo";
 
   div.appendChild(radioA);
   div.appendChild(radioB);
@@ -101,48 +86,35 @@ exports['uncheck other radio buttons in the same group'] = function (t) {
   radioA.checked = true;
   radioB.checked = true;
 
-  t.strictEqual(radioA.checked, false,
-    'Setting checked on a radio should uncheck others in the same group');
-  t.strictEqual(radioB.checked, true ,
-    'Last radio to be set should be checked');
-  t.strictEqual(checkD.checked, true ,
-    'Radio\'s should not affect the checkedness of checkboxes');
+  t.strictEqual(radioA.checked, false, "Setting checked on a radio should uncheck others in the same group");
+  t.strictEqual(radioB.checked, true, "Last radio to be set should be checked");
+  t.strictEqual(checkD.checked, true, "Radio\"s should not affect the checkedness of checkboxes");
 
   radioA.checked = true;
   form.appendChild(radioA);
-  t.strictEqual(radioA.checked, true ,
-                'Just checked this');
+  t.strictEqual(radioA.checked, true, "Just checked this");
   radioB.checked = true;
   form.appendChild(radioB);
-  t.strictEqual(radioB.checked, true ,
-    'Just checked this');
-  t.strictEqual(radioA.checked, false,
-    'Changing the form owner should uncheck others');
+  t.strictEqual(radioB.checked, true, "Just checked this");
+  t.strictEqual(radioA.checked, false, "Changing the form owner should uncheck others");
 
   form.appendChild(radioC);
-  radioC.name = 'bar';
+  radioC.name = "bar";
   radioA.checked = true;
   radioC.checked = true;
-  t.strictEqual(radioA.checked, true ,
-    'Just checked this');
-  t.strictEqual(radioC.checked, true ,
-    'Just checked this');
-  radioC.name = 'foo';
-  t.strictEqual(radioA.checked, false,
-    'Changing the name should uncheck others');
-  t.strictEqual(radioC.checked, true ,
-    'Changing the name not uncheck itself');
+  t.strictEqual(radioA.checked, true, "Just checked this");
+  t.strictEqual(radioC.checked, true, "Just checked this");
+  radioC.name = "foo";
+  t.strictEqual(radioA.checked, false, "Changing the name should uncheck others");
+  t.strictEqual(radioC.checked, true, "Changing the name not uncheck itself");
 
   form.appendChild(checkD);
   radioC.checked = true;
   checkD.checked = true;
-  t.strictEqual(radioC.checked, true ,
-    'Just checked this');
-  checkD.type = 'radio';
-  t.strictEqual(radioC.checked, false,
-    'Changing the type should uncheck others');
-  t.strictEqual(checkD.checked, true ,
-    'Changing the name not uncheck itself');
+  t.strictEqual(radioC.checked, true, "Just checked this");
+  checkD.type = "radio";
+  t.strictEqual(radioC.checked, false, "Changing the type should uncheck others");
+  t.strictEqual(checkD.checked, true, "Changing the name not uncheck itself");
 
   t.done();
 };

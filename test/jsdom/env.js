@@ -3,10 +3,9 @@
 var env = require("../..").env;
 var path = require("path");
 var http = require("http");
-var fs = require("fs");
 var toFileUrl = require("../util").toFileUrl(__dirname);
 
-var serializeDocument = require('../../lib/jsdom').serializeDocument;
+var serializeDocument = require("../../lib/jsdom").serializeDocument;
 
 exports["with invalid arguments"] = function (t) {
   t.throws(function () { env(); });
@@ -22,7 +21,8 @@ exports["explicit config.html, full document"] = function (t) {
     url: "http://example.com/",
     done: function (err, window) {
       t.ifError(err);
-      t.equal(serializeDocument(window.document), "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>");
+      t.equal(serializeDocument(window.document),
+        "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>");
       t.equal(window.location.href, "http://example.com/");
       t.equal(window.location.origin, "http://example.com");
       t.done();
@@ -146,8 +146,8 @@ exports["explicit config.url, invalid"] = function (t) {
   env({
     url: "http://localhost:8976",
     done: function (err, window) {
-      t.ok(err, 'an error should exist');
-      t.strictEqual(window, undefined, 'window should not exist');
+      t.ok(err, "an error should exist");
+      t.strictEqual(window, undefined, "window should not exist");
       t.done();
     }
   });
@@ -160,13 +160,13 @@ exports["explicit config.file, valid"] = function (t) {
     file: fileName,
     done: function (err, window) {
       t.ifError(err);
-      t.equal(serializeDocument(window.document), '<!DOCTYPE html><html><head>\n\
+      t.equal(serializeDocument(window.document), "<!DOCTYPE html><html><head>\n\
     <title>hello, Node.js!</title>\n\
   </head>\n\
   <body>\n\
   \n\
 \n\
-</body></html>');
+</body></html>");
       t.equal(window.location.href, toFileUrl(fileName));
       t.done();
     }
@@ -177,8 +177,8 @@ exports["explicit config.file, invalid"] = function (t) {
   env({
     file: "__DOES_NOT_EXIST__",
     done: function (err, window) {
-      t.ok(err, 'an error should exist');
-      t.strictEqual(window, undefined, 'window should not exist');
+      t.ok(err, "an error should exist");
+      t.strictEqual(window, undefined, "window should not exist");
       t.done();
     }
   });
@@ -207,7 +207,7 @@ exports["explicit config.file, with spaces in the file name"] = function (t) {
 
   env({
     file: fileName,
-    done: function (err, window) {
+    done: function (err) {
       t.ifError(err);
       t.done();
     }
@@ -240,8 +240,8 @@ exports["string, parseable as a URL, invalid"] = function (t) {
   env(
     "http://localhost:8976",
     function (err, window) {
-      t.ok(err, 'an error should exist');
-      t.strictEqual(window, undefined, 'window should not exist');
+      t.ok(err, "an error should exist");
+      t.strictEqual(window, undefined, "window should not exist");
       t.done();
     }
   );
@@ -254,13 +254,13 @@ exports["string, for an existing filename"] = function (t) {
     fileName,
     function (err, window) {
       t.ifError(err);
-      t.equal(serializeDocument(window.document), '<!DOCTYPE html><html><head>\n\
+      t.equal(serializeDocument(window.document), "<!DOCTYPE html><html><head>\n\
     <title>hello, Node.js!</title>\n\
   </head>\n\
   <body>\n\
   \n\
 \n\
-</body></html>');
+</body></html>");
       t.equal(window.location.href, toFileUrl(fileName));
       t.done();
     }
@@ -285,7 +285,8 @@ exports["string, full HTML document"] = function (t) {
     "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>",
     function (err, window) {
       t.ifError(err);
-      t.equal(serializeDocument(window.document), "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>");
+      t.equal(serializeDocument(window.document),
+        "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>");
       t.done();
     }
   );
@@ -379,7 +380,8 @@ exports["should call callbacks correctly"] = function (t) {
   t.expect(11);
 
   env({
-    html: "<!DOCTYPE html><html><head><script>window.isExecuted = true;window.wasCreatedSet = window.isCreated;</script></head><body></body></html>",
+    html: "<!DOCTYPE html><html><head><script>window.isExecuted = true;" +
+          "window.wasCreatedSet = window.isCreated;</script></head><body></body></html>",
     features: {
       FetchExternalResources: ["script"],
       ProcessExternalResources: ["script"],

@@ -1,4 +1,5 @@
-﻿var fs = require("fs");
+﻿"use strict";
+var fs = require("fs");
 var jsdom = require("../..");
 
 function testHTMLDocument(t, document) {

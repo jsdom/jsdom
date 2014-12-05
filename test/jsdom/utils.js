@@ -5,10 +5,10 @@ var utils = require("../../lib/jsdom/utils");
 exports["defineSetter defines a setter"] = function (t) {
   var o = {};
   var called = false;
-  var expected = 'bar';
+  var expected = "bar";
   var actual;
 
-  utils.defineSetter(o, 'foo', function (val) {
+  utils.defineSetter(o, "foo", function (val) {
     called = true;
     actual = val;
   });
@@ -25,11 +25,11 @@ exports["defineSetter replaces existing setters"] = function (t) {
   var originalCalled = false;
   var newCalled = false;
 
-  utils.defineSetter(o, 'foo', function (val) {
+  utils.defineSetter(o, "foo", function () {
     originalCalled = true;
   });
 
-  utils.defineSetter(o, 'foo', function (val) {
+  utils.defineSetter(o, "foo", function () {
     newCalled = true;
   });
 
@@ -43,15 +43,15 @@ exports["defineSetter replaces existing setters"] = function (t) {
 exports["defineSetter does not remove existing getters"] = function (t) {
   var o = {};
   var called = false;
-  var expected = 'bar';
+  var expected = "bar";
   var actual;
 
-  utils.defineGetter(o, 'foo', function () {
+  utils.defineGetter(o, "foo", function () {
     called = true;
     return expected;
   });
 
-  utils.defineSetter(o, 'foo', function (val) { /* NOP */ });
+  utils.defineSetter(o, "foo", function () { /* NOP */ });
 
   actual = o.foo;
   t.equal(called, true);
@@ -63,12 +63,12 @@ exports["defineSetter does not remove existing getters"] = function (t) {
 exports["defineGetter defines a getter"] = function (t) {
   var o = {};
   var called = false;
-  var expected = 'bar';
+  var expected = "bar";
   var actual;
 
-  utils.defineGetter(o, 'foo', function () {
+  utils.defineGetter(o, "foo", function () {
     called = true;
-    return expected
+    return expected;
   });
 
   actual = o.foo;
@@ -83,15 +83,17 @@ exports["defineGetter replaces existing getters"] = function (t) {
   var originalCalled = false;
   var newCalled = false;
 
-  utils.defineGetter(o, 'foo', function (val) {
+  utils.defineGetter(o, "foo", function () {
     originalCalled = true;
   });
 
-  utils.defineGetter(o, 'foo', function (val) {
+  utils.defineGetter(o, "foo", function () {
     newCalled = true;
   });
 
-  var actual = o.foo;
+  /*jshint -W030 */
+  o.foo;
+
   t.equal(originalCalled, false);
   t.equal(newCalled, true);
 
@@ -101,15 +103,15 @@ exports["defineGetter replaces existing getters"] = function (t) {
 exports["defineGetter does not remove existing setters"] = function (t) {
   var o = {};
   var called = false;
-  var expected = 'bar';
+  var expected = "bar";
   var actual;
 
-  utils.defineSetter(o, 'foo', function (val) {
+  utils.defineSetter(o, "foo", function (val) {
     called = true;
     actual = val;
   });
 
-  utils.defineGetter(o, 'foo', function () { /* NOP */ });
+  utils.defineGetter(o, "foo", function () { /* NOP */ });
 
   o.foo = expected;
   t.equal(called, true);
@@ -118,104 +120,102 @@ exports["defineGetter does not remove existing setters"] = function (t) {
   t.done();
 };
 
-exports.createFrom = {
-  "returns an object with the given [[Prototype]]": function (t) {
-    var proto = {};
+exports["createFrom returns an object with the given [[Prototype]]"] = function (t) {
+  var proto = {};
 
-    var o = utils.createFrom(proto);
-    t.strictEqual(Object.getPrototypeOf(o), proto);
+  var o = utils.createFrom(proto);
+  t.strictEqual(Object.getPrototypeOf(o), proto);
 
-    t.done();
-  },
-  "createFrom returns an object extended with the given properties":
-    function (t) {
-      var properties = {
-        get accessor () {},
-        set accessor (value) {},
-        foo: 'bar'
-      };
-
-      Object.defineProperties(properties, {
-        frozen: {
-          value: 'brrr',
-          configurable: false,
-          writable: false
-        },
-        hidden: {
-          value: 'shhh',
-          enumerable: false
-        }
-      });
-
-      var o = utils.createFrom({}, properties);
-
-      Object.getOwnPropertyNames(o).
-        forEach(function (name) {
-          t.deepEqual(Object.getOwnPropertyDescriptor(o, name),
-            Object.getOwnPropertyDescriptor(properties, name),
-            name + ' descriptors should be deeply equal'
-          );
-        });
-
-      t.done();
-    }
+  t.done();
 };
 
-exports.inheritFrom = {
-  "sets Subclass.prototype to an object w/ [[Prototype]] Superclass.prototype":
-    function (t) {
-      function Subclass(){}
-      function Superclass(){}
 
-      utils.inheritFrom(Superclass, Subclass);
+exports["createFrom returns an object extended with the given properties"] = function (t) {
+  var properties = {
+    get accessor() {},
+    set accessor(value) { /*jshint unused: false */  },
+    foo: "bar"
+  };
 
-      t.strictEqual(Object.getPrototypeOf(Subclass.prototype),
-        Superclass.prototype);
-
-      t.done();
+  Object.defineProperties(properties, {
+    frozen: {
+      value: "brrr",
+      configurable: false,
+      writable: false
     },
-    "sets Subclass.prototype.constructor to Subclass": function (t) {
-      function Subclass(){}
-      function Superclass(){}
-
-      utils.inheritFrom(Superclass, Subclass);
-
-      t.strictEqual(Subclass.prototype.constructor, Subclass);
-
-      t.done();
-    },
-    "extends Subclass.prototype with the given properties": function (t) {
-      function Subclass(){}
-      function Superclass(){}
-      var properties = {
-        get accessor () {},
-        set accessor (value) {},
-        foo: 'bar'
-      };
-
-      Object.defineProperties(properties, {
-        frozen: {
-          value: 'brrr',
-          configurable: false,
-          writable: false
-        },
-        hidden: {
-          value: 'shhh',
-          enumerable: false
-        }
-      });
-
-      utils.inheritFrom(Superclass, Subclass, properties);
-
-      Object.getOwnPropertyNames(Subclass.prototype).
-        forEach(function (name) {
-          t.deepEqual(
-            Object.getOwnPropertyDescriptor(Subclass.prototype, name),
-            Object.getOwnPropertyDescriptor(properties, name),
-            name + ' descriptors should be deeply equal'
-          );
-        });
-
-      t.done();
+    hidden: {
+      value: "shhh",
+      enumerable: false
     }
+  });
+
+  var o = utils.createFrom({}, properties);
+
+  Object.getOwnPropertyNames(o).
+    forEach(function (name) {
+      t.deepEqual(Object.getOwnPropertyDescriptor(o, name),
+        Object.getOwnPropertyDescriptor(properties, name),
+        name + " descriptors should be deeply equal"
+      );
+    });
+
+  t.done();
+};
+
+exports["inheritFrom sets Subclass.prototype to an object w/ [[Prototype]] Superclass.prototype"] = function (t) {
+  function Subclass(){}
+  function Superclass(){}
+
+  utils.inheritFrom(Superclass, Subclass);
+
+  t.strictEqual(Object.getPrototypeOf(Subclass.prototype),
+    Superclass.prototype);
+
+  t.done();
+};
+
+exports["inheritFrom sets Subclass.prototype.constructor to Subclass"] = function (t) {
+  function Subclass(){}
+  function Superclass(){}
+
+  utils.inheritFrom(Superclass, Subclass);
+
+  t.strictEqual(Subclass.prototype.constructor, Subclass);
+
+  t.done();
+};
+
+exports["inheritFrom extends Subclass.prototype with the given properties"] = function (t) {
+  function Subclass(){}
+  function Superclass(){}
+  var properties = {
+    get accessor() {},
+    set accessor(value) { /*jshint unused: false */ },
+    foo: "bar"
+  };
+
+  Object.defineProperties(properties, {
+    frozen: {
+      value: "brrr",
+      configurable: false,
+      writable: false
+    },
+    hidden: {
+      value: "shhh",
+      enumerable: false
+    }
+  });
+
+  utils.inheritFrom(Superclass, Subclass, properties);
+
+  Object.getOwnPropertyNames(Subclass.prototype).
+    forEach(function (name) {
+      t.deepEqual(
+        Object.getOwnPropertyDescriptor(Subclass.prototype, name),
+        Object.getOwnPropertyDescriptor(properties, name),
+        name + " descriptors should be deeply equal"
+      );
+    });
+
+  t.done();
 };
