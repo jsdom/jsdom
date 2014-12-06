@@ -22,7 +22,7 @@
 </body>
 </html>*/
 
-var core = require('../../../../lib/jsdom/level3/core').dom.level3.core;
+var core = require('../../../../lib/jsdom/living');
 
 exports.barfoo_utf16 = function() {
   var doc = new core.Document();

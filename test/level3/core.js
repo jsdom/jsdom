@@ -27,7 +27,7 @@ DOMErrorMonitor.prototype.assertLowerSeverity = function(id, severity) {
     }
   });
 }
-var core = require("../../lib/jsdom/level3/core").dom.level3.core;
+var core = require("../../lib/jsdom/living");
 var getImplementation = function() {
   var doc = new core.Document();
   return doc.implementation;

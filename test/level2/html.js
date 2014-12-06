@@ -5,9 +5,9 @@ var toPathname = require("../util").toPathname(__dirname);
 var toFileUrl = require("../util").toFileUrl(__dirname);
 var load = require("../util").load(__dirname +  "/html/");
 
-var level2 = require("../../lib/jsdom/level2/html").dom.level2.html;
+var html = require("../../lib/jsdom/living");
 var getImplementation = function() {
-  var doc = new level2.HTMLDocument();
+  var doc = new html.HTMLDocument();
   return doc.implementation;
 };
 

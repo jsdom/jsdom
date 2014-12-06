@@ -1,4 +1,4 @@
-var dom = require("../../../../lib/jsdom/level2/core").dom.level2.core;
+var dom = require("../../../../lib/jsdom/living");
 
 exports.hc_staff = function() {
 

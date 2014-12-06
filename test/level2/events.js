@@ -1,5 +1,5 @@
 var testcase = require('nodeunit').testCase;
-var events = require("../../lib/jsdom/level2/events").dom.level2.events;
+var events = require("../../lib/jsdom/living");
 var EventMonitor = function() {
   self = this;
   self.atEvents = [];
@@ -418,7 +418,7 @@ exports['stop propagation'] = testcase({
     test.equal(this.monitor.capturedEvents.length, 0, 'should have no captured events');
     test.done();
   },
-  
+
   'stopPropagation should not prevent listeners on the same element from receiving the event': function(test) {
     this.win.addEventListener("foo", this.monitor.handleEvent, false);
     this.body.addEventListener("foo", this.monitor.handleEvent, false);

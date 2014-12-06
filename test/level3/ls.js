@@ -1,4 +1,4 @@
-var level3 = require("../../lib/jsdom/level3").dom.level3;
+var level3 = require("../../lib/jsdom/living");
 var getImplementation = function() {
   var doc = new level3.core.Document();
   return doc.implementation;
@@ -115,12 +115,12 @@ exports.tests = {
    * @see http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save#LS-LSParserFilter-whatToShow
    */
   DOMBuilderFilterTest0 : function (test) {
-    
+
     // TODO: finish the implementation of this filter
     function LSParserFilterN10027() {}
 
     var
-    success, myfilter = new LSParserFilterN10027(), list, count, resourceURI, 
+    success, myfilter = new LSParserFilterN10027(), list, count, resourceURI,
     implementation, lsImplementation, inputSource, document, writer, builder,
     MODE_SYNCHRONOUS = 1, MODE_ASYNCHRONOUS = 2,
     DTD_SCHEMATYPE = "http://www.w3.org/TR/REC-xml",
@@ -926,13 +926,13 @@ exports.tests = {
    */
   DOMInputSourceTest5 : function (test) {
     function LSResourceResolverN1002A() {}
-   
+
     /**
-     *    
+     *
      * Allow the application to resolve external resources.
      * TheLSParserwill call this method before opening any external resource,
      * including the external DTD subset, external entities referenced within the DTD,
-     * and external entities referenced within the document element (however, the 
+     * and external entities referenced within the document element (however, the
      * top-level document entity is not passed to this method). The application may then
      * request that theLSParserresolve the external resource itself, that it use an
      * alternative URI, or that it use an entirely different input source.
@@ -941,21 +941,21 @@ exports.tests = {
      * secure and/or local URI, to look up public identifiers in a catalogue, or to read
      * an entity from a database or other input source (including, for example, a dialog box).
      *
-     * @param type 
+     * @param type
      *  The type of the resource being resolved. For XMLresources (i.e. entities), applications must
-     *  use the value"http://www.w3.org/TR/REC-xml". For XML Schema, applications must use the 
+     *  use the value"http://www.w3.org/TR/REC-xml". For XML Schema, applications must use the
      *  value"http://www.w3.org/2001/XMLSchema". Other types of resources are outside the scope of
      *  this specification and therefore should recommend an absolute URI in order to use this method.
-     * @param namespaceURI 
+     * @param namespaceURI
      *  The namespace of the resource being resolved, e.g. the target namespace of the XML Schemawhen
      *  resolving XML Schema resources.
-     * @param publicId 
+     * @param publicId
      *  The public identifier of the external entity being referenced, ornullif no public identifier
      *  was supplied or if the resource is not an entity.
-     * @param systemId 
+     * @param systemId
      *  The system identifier, a URI reference, of the external resource being referenced, ornullif no
      *  system identifier was supplied.
-     * @param baseURI 
+     * @param baseURI
      *  The absolute base URI of the resource being parsed, ornullif there is no base URI.
      */
     LSResourceResolverN1002A.prototype.resolveResource = function(type, namespaceURI, publicId, systemId, baseURI) {
@@ -966,13 +966,13 @@ exports.tests = {
       var input;
       test.strictEqual("http://www.example.com/new_base",baseURI);
       test.strictEqual("-//X-Hive//native xml storage//EN",publicId);
-   
+
       // TODO: implement this in a helper somewhere
       //assertURIEquals(test,null,null,null,null,"test5",null,null,true,systemId);
       domImplLS = getImplementation();
       input = domImplLS.createLSInput();
       input.stringData = "";
-     
+
       return input;
     }
 
@@ -993,7 +993,7 @@ exports.tests = {
     configuration.setParameter("entities", false);
     // TODO: WTF IS THIS?
     //resourceURI = getResourceURI(TEST4);
-    
+
     inputSource.systemId = resourceURI;
 
     inputSource.publicId = "-//X-Hive//native xml storage//DE";
@@ -3004,7 +3004,7 @@ exports.tests = {
    */
   checkcharacternormalization02 : function (test) {
     var success, doc, domConfig, domImplLS, lsParser, resourceURI, canSet, nullSchemaLanguage = null;
-    
+
     errorMonitor = new DOMErrorMonitor();
 
     var errors = new Array();

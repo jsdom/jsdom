@@ -21530,7 +21530,7 @@ exports.tests = {
   },
 
   onevent_properties_are_set_on_setAttribute: function(test) {
-    var dom = require("../../lib/jsdom/level1/core").dom.level1.core;
+    var dom = require("../../lib/jsdom/living");
     var doc = new dom.Document('');
     var elem = doc.createElement('test');
     elem.setAttribute('onclick', 'test');
@@ -21539,7 +21539,7 @@ exports.tests = {
   },
 
   onevent_properties_are_set_on_setAttributeNode: function(test) {
-    var dom = require("../../lib/jsdom/level1/core").dom.level1.core;
+    var dom = require("../../lib/jsdom/living");
     var doc = new dom.Document('');
     var elem = doc.createElement('test');
     var attr = doc.createAttribute('onclick');
@@ -21551,7 +21551,7 @@ exports.tests = {
   },
 
   onevent_properties_are_set_on_attr_set_value: function(test) {
-    var dom = require("../../lib/jsdom/level1/core").dom.level1.core;
+    var dom = require("../../lib/jsdom/living");
     var doc = new dom.Document('');
     var elem = doc.createElement('test');
     var attr = doc.createAttribute('onclick');
@@ -21583,7 +21583,7 @@ exports.tests = {
   },
 
   restrict_text_data_type: function(test) {
-    var dom = require("../../lib/jsdom/level1/core").dom.level1.core;
+    var dom = require("../../lib/jsdom/living");
     var doc = new dom.Document('');
     var testObj = {
       valueOf: function () { return 34; },
@@ -21595,7 +21595,7 @@ exports.tests = {
     test.ok(text.data === 'str', 'String type forced (set)');
     test.done();
   },
-  
+
   hc_docclonenodetrue: function(test) {
     var doc;
     var docClone;

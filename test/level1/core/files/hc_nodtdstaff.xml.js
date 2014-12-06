@@ -1,4 +1,4 @@
-var dom = require("../../../../lib/jsdom/level1/core").dom.level1.core;
+var dom = require("../../../../lib/jsdom/living");
 exports.hc_nodtdstaff = function() {
 
   var doc = new dom.Document("html");

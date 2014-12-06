@@ -1,5 +1,5 @@
 /* Contains extra test cases for parts of DOM Level 2 that aren't covered by the standard W3C test cases. */
-var core = require("../../lib/jsdom/level2/core").dom.level2.core;
+var core = require("../../lib/jsdom/living");
 
 exports['create an empty document'] = function (test) {
   var dom = new core.DOMImplementation();
