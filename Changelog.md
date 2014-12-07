@@ -1,3 +1,7 @@
+## 1.4.1
+
+* Tweak: faster implementation of `NodeList.prototype.length`, which should speed up common operations like `appendChild` and similar. (Joris-van-der-Wel)
+
 ## 1.4.0
 
 * Fix: `HTMLInputElement.prototype.checked` and `defaultChecked` now behave per the spec. (Joris-van-der-Wel)
