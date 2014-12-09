@@ -60,6 +60,7 @@ var files = [
   "jsdom/env.js",
   "jsdom/utils.js",
   "jsdom/namespaces.js",
+  "jsdom/virtual-console.js",
   "jsdom/xml.js",
 
   "jsonp/jsonp.js",
