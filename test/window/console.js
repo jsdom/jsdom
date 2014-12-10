@@ -2,7 +2,7 @@
 
 var jsdom = require("../..").jsdom;
 
-exports["should put errors in the window.document.errors array"] = function (t) {
+exports["only console.error should put errors in the window.document.errors array"] = function (t) {
   var window = jsdom("<!DOCTYPE html><html><body>Hi</body></html>").parentWindow;
 
   window.console.log("foo");
