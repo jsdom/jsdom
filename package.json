@@ -85,6 +85,7 @@
     "request": "browser-request"
   },
   "scripts": {
+    "postinstall": "git submodule update --init --recursive",
     "test": "node ./test/runner",
     "test-browser": "node ./test/browser-runner",
     "lint": "jshint lib/ && jshint test/"

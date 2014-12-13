@@ -3,9 +3,6 @@ language: node_js
 git:
   submodules: false
 
-before_install:
-  - git submodule update --init --recursive
-
 matrix:
   include:
     - env: TEST_SUITE=node
