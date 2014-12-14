@@ -1,3 +1,8 @@
+## 1.5.0
+
+* Add: missing `window.console` methods, viz. `assert`, `clear`, `count`, `debug`, `group`, `groupCollapse`, `groupEnd`, `table`, `time`, `timeEnd`, and `trace`. All except `assert` do nothing for now, but see [#979](https://github.com/tmpvar/jsdom/issues/979) for future plans. (jeffcarp)
+* Tweak: make `childNodes`, and the many places in jsdom that use it, much faster. (Joris-van-der-Wel)
+
 ## 1.4.1
 
 * Tweak: faster implementation of `NodeList.prototype.length`, which should speed up common operations like `appendChild` and similar. (Joris-van-der-Wel)
