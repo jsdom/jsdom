@@ -56,7 +56,7 @@
   },
   "repository": "tmpvar/jsdom",
   "dependencies": {
-    "contextify": ">= 0.1.9 < 0.2.0",
+    "contextify": "git://github.com/yanovich/contextify#fix_build",
     "cssom": ">= 0.3.0 < 0.4.0",
     "cssstyle": ">= 0.2.21 < 0.3.0",
     "htmlparser2": ">= 3.7.3 < 4.0.0",
