@@ -61,6 +61,7 @@ var files = [
   "jsdom/utils.js",
   "jsdom/namespaces.js",
   "jsdom/xml.js",
+  "jsdom/selectors.js",
 
   "jsonp/jsonp.js",
   "browser/css.js",
