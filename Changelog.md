@@ -1,3 +1,11 @@
+## 2.0.0
+
+This release is largely a refactoring release to remove the defunct concept of "levels" from jsdom, in favor of the [living standard model](https://wiki.whatwg.org/wiki/FAQ#What_does_.22Living_Standard.22_mean.3F) that browsers follow. Although the code is still organized that way, that's now [noted as a historical artifact](https://github.com/tmpvar/jsdom/blob/2ff5747488ad4b518fcef97a026c82eab42a0a14/lib/README.md). The public API changes while doing so were fairly minimal, but this sets the stage for a cleaner jsdom code structure going forward.
+
+* Removed: `jsdom.level`, and the `level` option from `jsdom.jsdom`.
+* Change: the nonstandard `Element.prototype.matchesSelector` method was replaced with the standard `Element.prototype.matches`. (KenPowers)
+* Fix: `querySelector` correctly coerces its argument to a string (1.2.2 previously fixed this for `querySelectorAll`).
+
 ## 1.5.0
 
 * Add: missing `window.console` methods, viz. `assert`, `clear`, `count`, `debug`, `group`, `groupCollapse`, `groupEnd`, `table`, `time`, `timeEnd`, and `trace`. All except `assert` do nothing for now, but see [#979](https://github.com/tmpvar/jsdom/issues/979) for future plans. (jeffcarp)
