@@ -513,21 +513,21 @@ exports.tests = {
     test.done();
   },
 
-  matchesselector: function(test) {
+  matches: function(test) {
     var html = '<html><body><div id="main"><p class="foo">Foo</p><p>Bar</p></div></body></html>';
     var document = jsdom.jsdom(html);
     var div = document.body.children.item(0);
 
     var element = document.querySelector("#main p");
-    test.equal(element.matchesSelector("#main p"), true, 'p and first-p');
+    test.equal(element.matches("#main p"), true, 'p and first-p');
     var element2 = div.querySelector("p");
-    test.equal(element2.matchesSelector("p"), true, 'p and first-p');
+    test.equal(element2.matches("p"), true, 'p and first-p');
     var element3 = document.querySelector("#main p:not(.foo)");
-    test.equal(element3.matchesSelector("#main p:not(.foo)"), true, 'p and second-p');
+    test.equal(element3.matches("#main p:not(.foo)"), true, 'p and second-p');
 
-    test.equal(element.matchesSelector("#asdf"), false, "doesn't match wrong selector");
-    test.equal(element2.matchesSelector("#asdf"), false, "doesn't match wrong selector");
-    test.equal(element3.matchesSelector("#asdf"), false, "doesn't match wrong selector");
+    test.equal(element.matches("#asdf"), false, "doesn't match wrong selector");
+    test.equal(element2.matches("#asdf"), false, "doesn't match wrong selector");
+    test.equal(element3.matches("#asdf"), false, "doesn't match wrong selector");
 
     test.done();
   },
