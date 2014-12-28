@@ -20,55 +20,6 @@ exports.tests = {
 
   /**
    *
-   The "createEntityReference(tagName)" method raises an
-   INVALID_CHARACTER_ERR DOMException if the specified
-   tagName contains an invalid character.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='INVALID_CHARACTER_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-392B75AE
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-392B75AE')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
-   */
-  documentinvalidcharacterexceptioncreateentref: function(test) {
-    var badEntityRef;
-    var doc = hc_staff.hc_staff();
-    var success = false;
-    try {
-      badEntityRef = doc.createEntityReference("foo");
-    } catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-    }
-    test.ok(success, 'throw_NOT_SUPPORTED_ERR');
-    test.done();
-  },
-
-  /**
-   *
-   Creating an entity reference with an empty name should cause an INVALID_CHARACTER_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='INVALID_CHARACTER_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-392B75AE
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-392B75AE')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
-   */
-  documentinvalidcharacterexceptioncreateentref1: function(test) {
-    var badEntityRef;
-    var doc = hc_staff.hc_staff();
-    var success = false;
-    try {
-      badEntityRef = doc.createEntityReference("foo");
-    } catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-    }
-    test.ok(success, 'throw_NOT_SUPPORTED_ERR');
-    test.done();
-  },
-
-  /**
-   *
    Appends a text node to an attribute and checks if the value of
    the attribute is changed.
 
@@ -186,27 +137,6 @@ exports.tests = {
 
     test.equal(value, "day", 'lastChildValue');
 
-    test.done();
-  },
-
-  /**
-   *
-   Attempt to append a CDATASection to an attribute which should result
-   in a HIERARCHY_REQUEST_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
-   */
-  hc_attrappendchild4: function(test) {
-    var doc = hc_staff.hc_staff();
-    var success = false;
-    try {
-      doc.createCDATASection("terday");
-    } catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-    }
-    test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     test.done();
   },
 
@@ -434,7 +364,7 @@ exports.tests = {
     var attributes = docFragment.firstChild.attributes;
     for(var i=0;i<attributes.length;i++) {
       attribute = attributes.item(i);
-      attrName = attribute.nodeName;
+      attrName = attribute.name;
       if(attrName == "lang") {
         langAttrCount += 1;
       }
@@ -631,25 +561,6 @@ exports.tests = {
 
     test.equal(value, "Yα", 'attrValue1');
 
-    test.done();
-  },
-
-  /**
-   *
-   Checks the value of an attribute that contains entity references.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
-   */
-  hc_attrgetvalue2: function(test) {
-    var doc = hc_staff.hc_staff();
-    var success = false;
-    try {
-      doc.createEntityReference("alpha");
-    } catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-    }
-    test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     test.done();
   },
 
@@ -921,27 +832,6 @@ exports.tests = {
 
   /**
    *
-   Attempt to append a CDATASection to an attribute which should result
-   in a HIERARCHY_REQUEST_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
-   */
-  hc_attrinsertbefore5: function(test) {
-    var doc = hc_staff.hc_staff();
-    var success = false;
-    try {
-      doc.createCDATASection("terday");
-    } catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-    }
-    test.ok(success, 'throw_NOT_SUPPORTED_ERR');
-    test.done();
-  },
-
-  /**
-   *
    Attempt to append a text node from another document to an attribute which should result
    in a WRONG_DOCUMENT_ERR.
 
@@ -961,26 +851,6 @@ exports.tests = {
       success = (typeof(ex.code) != 'undefined' && ex.code == 4);
     }
     test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
-    test.done();
-  },
-
-  /**
-   *
-   Appends a document fragment containing a CDATASection to an attribute.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
-   */
-  hc_attrinsertbefore7: function(test) {
-    var doc = hc_staff.hc_staff();
-    var success = false;
-    try {
-      doc.createCDATASection("day");
-    } catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-    }
-    test.ok(success, 'throw_NOT_SUPPORTED_ERR');
     test.done();
   },
 
@@ -1041,7 +911,6 @@ exports.tests = {
   hc_attrname: function(test) {
     var doc = hc_staff.hc_staff();
     var streetAttr = doc.getElementsByTagName("acronym").item(1).attributes.getNamedItem("class");
-    test.equal(streetAttr.nodeName, 'class', 'attribute nodeName');
     test.equal(streetAttr.name, 'class', 'attribute name');
     test.done();
   },
@@ -1897,14 +1766,12 @@ exports.tests = {
 
   /**
    *
-   The "deleteData(offset,count)" method raises an
-   INDEX_SIZE_ERR DOMException if the specified count
+   The "deleteData(offset,count)" method works if the specified count
    is negative.
 
    Retrieve the character data of the last child of the
    first employee and invoke its "deleteData(offset,count)"
-   method with offset=10 and count=-3.  It should raise the
-   desired exception since the count is negative.
+   method with offset=10 and count=-3.
 
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='INDEX_SIZE_ERR'])
@@ -1915,12 +1782,8 @@ exports.tests = {
     var doc = hc_staff.hc_staff();
     var child = doc.getElementsByTagName("acronym").item(0).firstChild;
     var success = false;
-    try {
-      child.substringData(10,-3);
-    } catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-    }
-    test.ok(success, 'throws_INDEX_SIZE_ERR');
+
+    test.equal(child.substringData(10,-3), " Ave. Dallas, Texas 98551");
     test.done();
   },
 
@@ -2049,15 +1912,13 @@ exports.tests = {
 
   /**
    *
-   The "replaceData(offset,count,arg)" method raises an
-   INDEX_SIZE_ERR DOMException if the specified count
+   The "substringData(offset,count)" method works if the specified count
    is negative.
 
    Retrieve the character data of the last child of the
    first employee and invoke its
    "replaceData(offset,count,arg) method with offset=10
-   and count=-3 and arg="ABC".  It should raise the
-   desired exception since the count is negative.
+   and count=-3 and arg="ABC".
 
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='INDEX_SIZE_ERR'])
@@ -2067,14 +1928,8 @@ exports.tests = {
   hc_characterdataindexsizeerrreplacedatacountnegative: function(test) {
     var doc = hc_staff.hc_staff();
     var child = doc.getElementsByTagName("acronym").item(0).firstChild;
-    var success = false;
-    try {
-      child.substringData(10,-3);
-    }
-    catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-    }
-    test.ok(success, 'throws_INDEX_SIZE_ERR');
+
+    test.equal(child.substringData(10,-3), " Ave. Dallas, Texas 98551");
     test.done();
   },
 
@@ -2131,38 +1986,10 @@ exports.tests = {
   hc_characterdataindexsizeerrreplacedataoffsetnegative: function(test) {
     var doc = hc_staff.hc_staff();
     var child = doc.getElementsByTagName("acronym").item(0).firstChild;
+    test.equal(child.substringData(10,-3), " Ave. Dallas, Texas 98551");
     success = false;
     try {
       child.replaceData(-5,3,"ABC");
-    } catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-    }
-    test.ok(success, 'throws_INDEX_SIZE_ERR');
-    test.done();
-  },
-
-  /**
-   *
-   The "substringData(offset,count)" method raises an
-   INDEX_SIZE_ERR DOMException if the specified count
-   is negative.
-
-   Retrieve the character data of the last child of the
-   first employee and invoke its "substringData(offset,count)
-   method with offset=10 and count=-3.  It should raise the
-   desired exception since the count is negative.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='INDEX_SIZE_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6531BCCF
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6531BCCF')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INDEX_SIZE_ERR'])
-   */
-  hc_characterdataindexsizeerrsubstringcountnegative: function(test) {
-    var doc = hc_staff.hc_staff();
-    var child = doc.getElementsByTagName("acronym").item(0).firstChild;
-    var success = false;
-    try {
-      child.substringData(10,-3);
     } catch(ex) {
       success = (typeof(ex.code) != 'undefined' && ex.code == 1);
     }
@@ -2711,7 +2538,7 @@ exports.tests = {
     var doc = hc_staff.hc_staff();
     var newAttrNode = doc.createAttribute("title");
     test.equal(newAttrNode.nodeValue, "", 'value');
-    test.equal(newAttrNode.nodeName, 'title', 'attribute name');
+    test.equal(newAttrNode.name, 'title', 'attribute name');
     test.equal(newAttrNode.nodeType, 2, 'type');
     test.done();
   },
@@ -3314,7 +3141,7 @@ exports.tests = {
    */
   hc_elementgetattributenode: function(test) {
     var doc = hc_staff.hc_staff();
-    var nodeName = doc.getElementsByTagName("acronym").item(0).getAttributeNode("title").nodeName;
+    var nodeName = doc.getElementsByTagName("acronym").item(0).getAttributeNode("title").name;
     test.equal(nodeName, 'title', 'attribute nodeName');
     test.done();
   },
@@ -3926,7 +3753,7 @@ exports.tests = {
     var attributes = doc.getElementsByTagName("acronym").item(0).attributes;
     var actual = [];
     for(var i=0;i<attributes.length;i++) {
-      actual.push(attributes.item(i).nodeName);
+      actual.push(attributes.item(i).name);
     }
     test.deepEqual(actual, ['title'])
     test.done();
@@ -4120,7 +3947,7 @@ exports.tests = {
   hc_namednodemapgetnameditem: function(test) {
     var doc = hc_staff.hc_staff();
     var domesticAttr = doc.getElementsByTagName("acronym").item(1).attributes.getNamedItem("title");
-    test.equal(domesticAttr.nodeName, 'title', 'attribute nodeName');
+    test.equal(domesticAttr.name, 'title', 'attribute nodeName');
     test.done();
   },
 
@@ -4264,7 +4091,6 @@ exports.tests = {
     var doc = hc_staff.hc_staff();
     var streetAttr = doc.getElementsByTagName("acronym").item(1).attributes.getNamedItem("class");
     test.equal(streetAttr.nodeType, 2, 'typeAssert')
-    test.equal(streetAttr.nodeName, 'class', 'attribute nodeName');
     test.equal(streetAttr.name, 'class', 'attribute name');
     test.done();
   },
@@ -4289,7 +4115,7 @@ exports.tests = {
     var attributes = doc.getElementsByTagName("acronym").item(1).attributes;
     var actual = [];
     for(var i=0;i<attributes.length;i++) {
-      actual.push(attributes.item(i).nodeName);
+      actual.push(attributes.item(i).name);
     }
     // assertEqualsCollection("attrName_html",toLowerArray(htmlExpected),toLowerArray(actual));
     test.deepEqual(actual, ['title', 'class'])
@@ -4318,7 +4144,7 @@ exports.tests = {
     var attributes = doc.getElementsByTagName("acronym").item(1).attributes;
     var actual = [];
     for(var i=0;i<attributes.length;i++) {
-      actual.push(attributes.item(i).nodeName);
+      actual.push(attributes.item(i).name);
     }
     test.deepEqual(actual, ['title', 'class'])
     test.done();
@@ -4386,7 +4212,7 @@ exports.tests = {
     var newAttribute = doc.createAttribute("lang");
     var attributes = testAddress.attributes;
     attributes.setNamedItem(newAttribute);
-    test.equal(attributes.getNamedItem("lang").nodeName, 'lang', 'attribute nodeName');
+    test.equal(attributes.getNamedItem("lang").name, 'lang', 'attribute nodeName');
     test.done();
   },
 
@@ -4854,7 +4680,7 @@ exports.tests = {
   hc_nodeattributenodename: function(test) {
     var doc = hc_staff.hc_staff();
     var addrAttr = doc.getElementsByTagName("acronym").item(0).getAttributeNode("title");
-    test.equal(addrAttr.nodeName, 'title', 'attribute nodeName');
+    test.equal(addrAttr.name, 'title', 'attribute nodeName');
     test.done();
   },
 
@@ -5107,7 +4933,7 @@ exports.tests = {
     var attributes = doc.getElementsByTagName("acronym").item(1).cloneNode(false).attributes;
     var actual = [];
     for(var i=0;i<attributes.length;i++) {
-      actual.push(attributes.item(i).nodeName);
+      actual.push(attributes.item(i).name);
     }
     test.deepEqual(actual, ['title', 'class'])
     test.done();
@@ -5700,7 +5526,7 @@ exports.tests = {
     var attributes = doc.getElementsByTagName("acronym").item(2).attributes;
     var actual = [];
     for(var i=0;i<attributes.length;i++) {
-      actual.push(attributes.item(i).nodeName);
+      actual.push(attributes.item(i).name);
     }
     test.deepEqual(actual, ['title', 'class'])
     test.done();
@@ -7290,27 +7116,6 @@ exports.tests = {
 
   /**
    *
-   An entity reference is created, setNodeValue is called with a non-null argument, but getNodeValue
-   should still return null.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-11C98490
-   */
-  hc_nodevalue03: function(test) {
-    doc = hc_staff.hc_staff();
-    success = false;
-    try {
-      doc.createEntityReference("ent1");
-    } catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-    }
-    test.ok(success, 'throw_NOT_SUPPORTED_ERR');
-    test.done();
-  },
-
-  /**
-   *
    An document type accessed, setNodeValue is called with a non-null argument, but getNodeValue
    should still return null.
 
@@ -7382,61 +7187,6 @@ exports.tests = {
 
     test.equal(newValue, null, 'nullAfterAttemptedChange');
 
-    test.done();
-  },
-
-  /**
-   *
-   An Entity is accessed, setNodeValue is called with a non-null argument, but getNodeValue
-   should still return null.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-527DCFF2
-   */
-  hc_nodevalue07: function(test) {
-    // NOTE: no tests run here...
-    test.done();
-  },
-
-  /**
-   *
-   An notation is accessed, setNodeValue is called with a non-null argument, but getNodeValue
-   should still return null.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-5431D1B9
-   */
-  hc_nodevalue08: function(test) {
-    // NOTE: no tests run here...
-    test.done();
-  },
-
-  /**
-   *
-   An attempt to add remove an notation should result in a NO_MODIFICATION_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D46829EF
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D58B193
-   */
-  hc_notationsremovenameditem1: function(test) {
-    // NOTE: no tests run here
-    test.done();
-  },
-
-  /**
-   *
-   An attempt to add an element to the named node map returned by notations should
-   result in a NO_MODIFICATION_ERR or HIERARCHY_REQUEST_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D46829EF
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
-   */
-  hc_notationssetnameditem1: function(test) {
-    // NOTE: no tests run here
     test.done();
   },
 

@@ -24,9 +24,9 @@ var EventMonitor = function() {
   };
 };
 var _setUp = function() {
-  var doc = require('./events/files/hc_staff.xml').hc_staff();
+  var doc = require('../level1/core/files/hc_staff.xml').hc_staff();
   var monitor = this.monitor = new EventMonitor();
-  this.win = doc._parentWindow;
+  this.win = doc.parentWindow;
   this.title = doc.getElementsByTagName("title").item(0);
   this.body = doc.getElementsByTagName("body").item(0);
   this.plist = doc.getElementsByTagName("p").item(0);
@@ -46,7 +46,7 @@ var _tearDown = function(xs) {
 // @author Curt Arnold
 // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-DocumentEvent
 exports['DocumentEvent interface'] = function (test) {
-  var doc = require('./events/files/hc_staff.xml').hc_staff();
+  var doc = require('../level1/core/files/hc_staff.xml').hc_staff();
   test.ok((doc.createEvent instanceof Function), "should have createEvent function");
   test.done();
 }
@@ -55,7 +55,7 @@ exports['DocumentEvent interface'] = function (test) {
 // @author Curt Arnold
 // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-EventTarget
 exports['EventTarget interface'] = function (test) {
-  var doc = require('./events/files/hc_staff.xml').hc_staff();
+  var doc = require('../level1/core/files/hc_staff.xml').hc_staff();
   test.ok((doc instanceof events.EventTarget), 'should be an instance of EventTarget');
   test.done();
 }
@@ -64,7 +64,7 @@ exports['EventTarget interface'] = function (test) {
 // @author Curt Arnold
 // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-DocumentEvent-createEvent
 exports['create event with each event type'] = function(test){
-  var doc = require('./events/files/hc_staff.xml').hc_staff(),
+  var doc = require('../level1/core/files/hc_staff.xml').hc_staff(),
       event_types = {'Events': events.Event,
                      'MutationEvents': events.MutationEvent,
                      'UIEvents': events.UIEvent,
@@ -85,7 +85,7 @@ exports['create event with each event type'] = function(test){
 // @see http://www.w3.org/TR/DOM-Level-2-Events/events#xpointer(id('Events-EventTarget-dispatchEvent')/raises/exception[@name='EventException']/descr/p[substring-before(.,':')='UNSPECIFIED_EVENT_TYPE_ERR'])
 exports['dispatch event'] = testcase({
   setUp: function(cb){
-    this.doc = require('./events/files/hc_staff.xml').hc_staff();
+    this.doc = require('../level1/core/files/hc_staff.xml').hc_staff();
     cb();
   },
 
@@ -237,7 +237,7 @@ exports['dispatch event'] = testcase({
 // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-Event-initEvent
 exports['init event'] = testcase({
   setUp: function(cb){
-    var doc = require('./events/files/hc_staff.xml').hc_staff();
+    var doc = require('../level1/core/files/hc_staff.xml').hc_staff();
     this._events = ['Events', 'MutationEvents'].map(function(t){ return(doc.createEvent(t)); })
     cb();
   },

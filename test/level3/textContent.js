@@ -1,4 +1,4 @@
-var hc_staff = require("./core/files/hc_staff.xml");
+var hc_staff = require("../level1/core/files/hc_staff.xml");
 
 // Most of the level3 tests fail, so we don't turn them on by default. We extracted out one that passes into this file.
 

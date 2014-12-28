@@ -1,7 +1,7 @@
 var dom = require("../../../../lib/jsdom/living");
 exports.extra = function() {
 
-  var doc = new dom.Document("staff");
+  var doc = new dom.Document({ parsingMode: "xml" });
 
   var splitTextTest     = doc.createElement("splitTextTest");
   splitTextTest.appendChild(doc.createTextNode("Split me"));

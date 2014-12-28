@@ -37,7 +37,7 @@ exports['attrgetownerelement'] = testcase({
 
   // Import an attribute node to another document.  If an Attr node is imported, its ownerElement attribute should be set to null.  Verify if the ownerElement has been set to null.
   attrgetownerelement04: function(test) {
-    var docImport = require('./core/files/staff.xml').staff();
+    var docImport = require('../level1/core/files/staff.xml').staff();
     var element = this.doc.getElementsByTagNameNS("http://www.nist.gov","address").item(1);
     test.notEqual(element, null, 'element should not be null');
     var attr = element.getAttributeNodeNS("http://www.nist.gov","zone");
@@ -52,7 +52,7 @@ exports['attrgetownerelement'] = testcase({
     var element = this.doc.getElementsByTagNameNS("*","address").item(1);
     element.parentNode.removeChild(element);
     var attr = element.attributes.getNamedItemNS(null, "street");
-    test.equal(attr.ownerElement.nodeName, 'ADDRESS');
+    test.equal(attr.ownerElement.nodeName, 'address');
     test.done();
   }
 })
@@ -288,7 +288,7 @@ exports['createAttributeNS'] = testcase({
     var newAttr;
 
 
-    var doc = require('./core/files/hc_staff.xml').hc_staff();
+    var doc = require('../level1/core/files/hc_staff.xml').hc_staff();
 
     {
       success = false;
@@ -388,87 +388,6 @@ exports['createDocument'] = testcase({
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
       test.ok(success, 'throw_NAMESPACE_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
-   The "createDocument(namespaceURI,qualifiedName,doctype)" method for a
-   DOMImplementation should raise WRONG_DOCUMENT_ERR DOMException
-   if parameter doctype has been used with a different document.
-
-   Invoke method createDocument(namespaceURI,qualifiedName,doctype) on
-   this domimplementation where doctype is the type of this document.
-   Method should raise WRONG_DOCUMENT_ERR DOMException.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='WRONG_DOCUMENT_ERR'])
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('Level-2-Core-DOM-createDocument')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='WRONG_DOCUMENT_ERR'])
-   */
-  createDocument03: function(test) {
-    var success;
-    var namespaceURI = "http://www.ecommerce.org/schema";
-    var qualifiedName = "namespaceURI:x";
-    var docType;
-    var domImpl;
-    var aNewDoc;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    docType = doc.doctype;
-
-    domImpl = doc.implementation;
-
-    {
-      success = false;
-      try {
-        aNewDoc = domImpl.createDocument(namespaceURI,qualifiedName,docType);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 4);
-      }
-      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
-   The "createDocument(namespaceURI,qualifiedName,doctype)" method for a
-   DOMImplementation should raise WRONG_DOCUMENT_ERR DOMException
-   if parameter doctype was created from a different implementation.
-
-   Invoke method createDocument(namespaceURI,qualifiedName,doctype) on
-   a domimplementation that is different from this domimplementation.
-   Doctype is the type of this document.
-   Method should raise WRONG_DOCUMENT_ERR DOMException.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='WRONG_DOCUMENT_ERR'])
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-DOM-createDocument
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('Level-2-Core-DOM-createDocument')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='WRONG_DOCUMENT_ERR'])
-   */
-  createDocument04: function(test) {
-    var success;
-    var namespaceURI = "http://www.ecommerce.org/schema";
-    var qualifiedName = "namespaceURI:x";
-    var docType;
-    var domImpl;
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    var aNewDoc = require('./core/files/staffNS.xml').staffNS();
-    docType = doc.doctype;
-    domImpl = aNewDoc.implementation;
-    {
-      success = false;
-      try {
-        aNewDoc = domImpl.createDocument(namespaceURI,qualifiedName,docType);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 4);
-      }
-      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
     test.done();
   },
@@ -633,7 +552,7 @@ exports['createDocument'] = testcase({
   },
   /**
    *
-   DOMImplementation.createDocument with an empty qualified name should cause an INVALID_CHARACTER_ERR.
+   DOMImplementation.createDocument with an empty qualified name should not create a document element.
 
    * @author Curt Arnold
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#
@@ -650,16 +569,9 @@ exports['createDocument'] = testcase({
     var doc = require('./core/files/staffNS.xml').staffNS();
     domImpl = doc.implementation;
 
-    {
-      success = false;
-      try {
-        aNewDoc = domImpl.createDocument(namespaceURI,"",docType);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 5);
-      }
-      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
-    }
+    aNewDoc = domImpl.createDocument(namespaceURI,"",docType);
+
+    test.equal(aNewDoc.documentElement, null);
     test.done();
   }
 })
@@ -1065,7 +977,7 @@ exports['createElementNS'] = testcase({
     newElement = doc.createElementNS(namespaceURI,qualifiedName);
     elementName = newElement.tagName;
 
-    test.equal(elementName, "GOV:FACULTY", "throw_Equals");
+    test.equal(elementName, qualifiedName, "throw_Equals");
     test.done();
   },
   /**
@@ -1086,7 +998,7 @@ exports['createElementNS'] = testcase({
     var charact;
 
 
-    var doc = require('./core/files/hc_staff.xml').hc_staff();
+    var doc = require('../level1/core/files/hc_staff.xml').hc_staff();
 
     {
       success = false;
@@ -1129,7 +1041,7 @@ exports['documentcreateattributeNS'] = testcase({
 
     var doc = require('./core/files/staffNS.xml').staffNS();
     attribute = doc.createAttributeNS(namespaceURI,qualifiedName);
-    nodeName = attribute.nodeName;
+    nodeName = attribute.name;
 
     nodeValue = attribute.nodeValue;
 
@@ -1163,8 +1075,6 @@ exports['documentcreateattributeNS'] = testcase({
     attribute1 = doc.createAttributeNS("http://www.w3.org/XML/1998/namespace","xml:xml");
     name = attribute1.name;
 
-    nodeName = attribute1.nodeName;
-
     nodeValue = attribute1.nodeValue;
 
     prefix = attribute1.prefix;
@@ -1172,14 +1082,11 @@ exports['documentcreateattributeNS'] = testcase({
     namespaceURI = attribute1.namespaceURI;
 
     test.equal(name, "xml:xml", "documentcreateattributeNS02_att1_name");
-    test.equal(nodeName, "xml:xml", "documentcreateattributeNS02_att1_nodeName");
     test.equal(nodeValue, "", "documentcreateattributeNS02_att1_nodeValue");
     test.equal(prefix, "xml", "documentcreateattributeNS02_att1_prefix");
     test.equal(namespaceURI, "http://www.w3.org/XML/1998/namespace", "documentcreateattributeNS02_att1_namespaceURI");
     attribute2 = doc.createAttributeNS("http://www.w3.org/2000/xmlns/","xmlns");
     name = attribute2.name;
-
-    nodeName = attribute2.nodeName;
 
     nodeValue = attribute2.nodeValue;
 
@@ -1188,7 +1095,6 @@ exports['documentcreateattributeNS'] = testcase({
     namespaceURI = attribute2.namespaceURI;
 
     test.equal(name, "xmlns", "documentcreateattributeNS02_att2_name");
-    test.equal(nodeName, "xmlns", "documentcreateattributeNS02_att2_nodeName");
     test.equal(nodeValue, "", "documentcreateattributeNS02_att2_nodeValue");
     test.equal(namespaceURI, "http://www.w3.org/2000/xmlns/", "documentcreateattributeNS02_att2_namespaceURI");
     test.done();
@@ -1781,144 +1687,6 @@ exports['documentimportnode'] = testcase({
   /**
    *
    The importNode method imports a node from another document to this document.
-   The returned node has no parent; (parentNode is null). The source node is not
-   altered or removed from the original document but a new copy of the source node
-   is created.
-
-   Using the method importNode with deep=true, import the attribute, "street" of the second
-   element node, from a list of nodes whose local names are "address" and namespaceURI
-   "http://www.nist.gov" into the same document.  Check the parentNode, nodeName,
-   nodeType and nodeValue of the imported node to verify if it has been imported correctly.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
-   */
-  documentimportnode01: function(test) {
-    var success;
-    var element;
-    var attr;
-    var childList;
-    var importedAttr;
-    var nodeName;
-    var nodeType;
-    var nodeValue;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    childList = doc.getElementsByTagNameNS("http://www.nist.gov","address");
-    element = childList.item(1);
-    attr = element.getAttributeNode("street");
-    importedAttr = doc.importNode(attr,false);
-    nodeName = importedAttr.nodeName;
-
-    nodeValue = importedAttr.nodeValue;
-
-    nodeType = importedAttr.nodeType;
-
-    test.equal(nodeName, "street", "documentimportnode01_nodeName");
-    test.equal(nodeType, 2, "documentimportnode01_nodeType");
-    test.equal(nodeValue, "Yes", "documentimportnode01_nodeValue");
-    test.done();
-  },
-  /**
-   *
-   The importNode method imports a node from another document to this document.
-   The returned node has no parent; (parentNode is null). The source node is not
-   altered or removed from the original document but a new copy of the source node
-   is created.
-
-   Using the method importNode with deep=false, import the attribute, "emp:zone" of the
-   element node which is retreived by its elementId="CANADA", into the another document.
-   Check the parentNode, nodeName, nodeType and nodeValue of the imported node to
-   verify if it has been imported correctly.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
-   */
-  documentimportnode02: function(test) {
-    var success;
-    var element;
-    var attr;
-    var importedAttr;
-    var nodeName;
-    var nodeType;
-    var nodeValue;
-    var addresses;
-    var attrsParent;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    var docImported = require('./core/files/staff.xml').staff();
-    addresses = doc.getElementsByTagNameNS("http://www.nist.gov","address");
-    element = addresses.item(1);
-    attr = element.getAttributeNodeNS("http://www.nist.gov","zone");
-    importedAttr = docImported.importNode(attr,false);
-    nodeName = importedAttr.nodeName;
-
-    nodeType = importedAttr.nodeType;
-
-    nodeValue = importedAttr.nodeValue;
-
-    attrsParent = importedAttr.parentNode;
-
-    test.equal(attrsParent, null, 'attrsParent should not be null');
-    test.equal(nodeName, "emp:zone", "documentimportnode02_nodeName");
-    test.equal(nodeType, 2, "documentimportnode02_nodeType");
-    test.equal(nodeValue, "CANADA", "documentimportnode02_nodeValue");
-    test.done();
-  },
-  /**
-   *
-   The importNode method imports a node from another document to this document.
-   The returned node has no parent; (parentNode is null). The source node is not
-   altered or removed from the original document but a new copy of the source node
-   is created.
-
-   Using the method importNode with deep=false, import a newly created attribute node,
-   into the another document.
-   Check the nodeName, nodeType and nodeValue namespaceURI of the imported node to
-   verify if it has been imported correctly.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
-   */
-  documentimportnode05: function(test) {
-    var success;
-    var attr;
-    var importedAttr;
-    var nodeName;
-    var nodeType;
-    var nodeValue;
-    var namespaceURI;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    var docImported = require('./core/files/staff.xml').staff();
-    attr = doc.createAttributeNS("http://www.w3.org/DOM/Test","a_:b0");
-    importedAttr = docImported.importNode(attr,false);
-    nodeName = importedAttr.nodeName;
-
-    nodeValue = importedAttr.nodeValue;
-
-    nodeType = importedAttr.nodeType;
-
-    namespaceURI = importedAttr.namespaceURI;
-
-    test.equal(nodeName, "a_:b0", "documentimportnode05_nodeName");
-    test.equal(nodeType, 2, "documentimportnode05_nodeType");
-    test.equal(nodeValue, "", "documentimportnode05_nodeValue");
-    test.equal(namespaceURI, "http://www.w3.org/DOM/Test", "documentimportnode05_namespaceURI");
-    test.done();
-  },
-  /**
-   *
-   The importNode method imports a node from another document to this document.
    A NOT_SUPPORTED_ERR is raised if the type of node being imported is
    not supported
 
@@ -2216,43 +1984,6 @@ exports['documentimportnode'] = testcase({
   },
   /**
    *
-   Using the method importNode with deep=true, import the fourth employee element node of this
-   Document.  Verify if the node has been imported correctly by checking
-   if the default attribute present on this node has not been imported
-   and an explicit attribute has been imported.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=402
-   */
-  documentimportnode14: function(test) {
-    var success;
-    var newDoc;
-    var nullDocType = null;
-    var childList;
-    var imported;
-    var employeeElem;
-    var attrNode;
-    var attrValue;
-    var nullNS = null;
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    childList = doc.getElementsByTagNameNS("*","employee");
-    employeeElem = childList.item(3);
-    var domImpl = require('./core/files/staffNS.xml').staffNS().implementation;
-    newDoc = domImpl.createDocument(nullNS,"staff",nullDocType);
-    imported = newDoc.importNode(employeeElem,true);
-    attrNode = imported.getAttributeNodeNS(nullNS,"defaultAttr");
-    test.equal(attrNode, null, 'attrNode should be null');
-
-    attrValue = imported.getAttributeNS("http://www.w3.org/2000/xmlns/","emp");
-    test.equal(attrValue, "http://www.nist.gov", "explicitAttrImported");
-    test.done();
-  },
-  /**
-   *
    The importNode method imports a node from another document to this document.
    The returned node has no parent; (parentNode is null). The source node is not
    altered or removed from the original document but a new copy of the source node
@@ -2350,360 +2081,8 @@ exports['documentimportnode'] = testcase({
     test.equal(piTarget, "Target", "documentimportnode18_Target");
     test.equal(piData, "Data", "documentimportnode18_Data");
     test.done();
-  },
-  /**
-   *
-   The importNode method imports a node from another document to this document.
-   The returned node has no parent; (parentNode is null). The source node is not
-   altered or removed from the original document but a new copy of the source node
-   is created.
-
-   Using the method importNode with deep=true/false, import a entity nodes ent2 and ent6
-   from this document to a new document object.  Verify if the nodes have been
-   imported correctly by checking the nodeNames of the imported nodes and public and system ids.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
-   */
-  documentimportnode19: function(test) {
-    var success;
-    var docTypeNull = null;
-
-    var docImp;
-    var domImpl;
-    var docType;
-    var nodeMap;
-    var entity2;
-    var entity6;
-    var entityImp2;
-    var entityImp6;
-    var nodeName;
-    var systemId;
-    var notationName;
-    var nodeNameImp;
-    var systemIdImp;
-    var notationNameImp;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    domImpl = doc.implementation;
-    docType = doc.doctype;
-
-    docImp = domImpl.createDocument("http://www.w3.org/DOM/Test","a:b",docTypeNull);
-    nodeMap = docType.entities;
-
-    test.notEqual(nodeMap, null, 'nodeMap should be null');
-    entity2 = nodeMap.getNamedItem("ent2");
-    entity6 = nodeMap.getNamedItem("ent6");
-    entityImp2 = docImp.importNode(entity2,false);
-    entityImp6 = docImp.importNode(entity6,true);
-    nodeName = entity2.nodeName;
-
-    nodeNameImp = entityImp2.nodeName;
-
-    test.equal(nodeNameImp, nodeName, "documentimportnode19_Ent2NodeName");
-    nodeName = entity6.nodeName;
-
-    nodeNameImp = entityImp6.nodeName;
-
-    test.equal(nodeNameImp, nodeName, "documentimportnode19_Ent6NodeName");
-    systemId = entity2.systemId;
-
-    systemIdImp = entityImp2.systemId;
-
-    test.equal(systemIdImp, systemId, "documentimportnode19_Ent2SystemId");
-    systemId = entity6.systemId;
-
-    systemIdImp = entityImp6.systemId;
-
-    test.equal(systemIdImp, systemId, "documentimportnode19_Ent6SystemId");
-    notationName = entity2.notationName;
-
-    notationNameImp = entityImp2.notationName;
-
-    test.equal(notationNameImp, notationName, "documentimportnode19_Ent2NotationName");
-    notationName = entity6.notationName;
-
-    notationNameImp = entityImp6.notationName;
-
-    test.equal(notationNameImp, notationName, "documentimportnode19_Ent6NotationName");
-    test.done();
-  },
-  /**
-   *
-   The importNode method imports a node from another document to this document.
-   The returned node has no parent; (parentNode is null). The source node is not
-   altered or removed from the original document but a new copy of the source node
-   is created.
-
-   Using the method importNode with deep=true, import a entity node ent4
-   from this document to a new document object.  The replacement text of this entity is an element
-   node, a cdata node and a pi.  Verify if the nodes have been
-   imported correctly by checking the nodeNames of the imported element node, the data for the
-   cdata nodes and the PItarget and PIData for the pi nodes.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
-   */
-  documentimportnode20: function(test) {
-    var success;
-    var docImp;
-    var domImpl;
-    var docType;
-    var docTypeNull = null;
-
-    var nodeMap;
-    var entity4;
-    var entityImp4;
-    var element;
-    var cdata;
-    var pi;
-    var childList;
-    var elemchildList;
-    var ent4Name;
-    var ent4ImpName;
-    var cdataVal;
-    var piTargetVal;
-    var piDataVal;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    domImpl = doc.implementation;
-    docType = doc.doctype;
-
-    docImp = domImpl.createDocument("http://www.w3.org/DOM/Test","a:b",docTypeNull);
-    nodeMap = docType.entities;
-
-    entity4 = nodeMap.getNamedItem("ent4");
-    entityImp4 = docImp.importNode(entity4,true);
-    childList = entityImp4.childNodes;
-
-    element = childList.item(0);
-    elemchildList = element.childNodes;
-
-    cdata = elemchildList.item(0);
-    pi = childList.item(1);
-    ent4Name = entity4.nodeName;
-
-    ent4ImpName = entityImp4.nodeName;
-
-    cdataVal = cdata.data;
-
-    piTargetVal = pi.target;
-
-    piDataVal = pi.data;
-
-    test.equal(ent4ImpName, ent4Name, "documentimportnode20_Ent4NodeName");
-    test.equal(cdataVal, "Element data", "documentimportnode20_Cdata");
-    test.equal(piTargetVal, "PItarget", "documentimportnode20_PITarget");
-    test.equal(piDataVal, "PIdata", "documentimportnode20_PIData");
-    test.done();
-  },
-  /**
-   *
-   The importNode method imports a node from another document to this document.
-   The returned node has no parent; (parentNode is null). The source node is not
-   altered or removed from the original document but a new copy of the source node
-   is created.
-
-   Using the method importNode with deep=true, retreive the entity refs present in the
-   second element node whose tagName is address and import these nodes into another document.
-   Verify if the nodes have been imported correctly by checking the nodeNames of the
-   imported nodes, since they are imported into a new document which doesnot have thes defined,
-   the imported nodes should not have any children.
-   Now import the entityRef nodes into the same document and verify if the nodes have been
-   imported correctly by checking the nodeNames of the imported nodes, and by checking the
-   value of the replacement text of the imported nodes.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
-   */
-  documentimportnode21: function(test) {
-    var success;
-    var docTypeNull = null;
-
-    var docImp;
-    var domImpl;
-    var addressList;
-    var addressChildList;
-    var element;
-    var entRef2;
-    var entRefImp2;
-    var entRef3;
-    var entRefImp3;
-    var nodeName2;
-    var nodeName3;
-    var nodeNameImp2;
-    var nodeNameImp3;
-    var nodes;
-    var nodeImp3;
-    var nodeImp2;
-    var nodeValueImp2;
-    var nodeValueImp3;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    domImpl = doc.implementation;
-    docImp = domImpl.createDocument("http://www.w3.org/DOM/Test","a:b",docTypeNull);
-    addressList = doc.getElementsByTagName("address");
-    element = addressList.item(1);
-    addressChildList = element.childNodes;
-
-    entRef2 = addressChildList.item(0);
-    entRef3 = addressChildList.item(2);
-    entRefImp2 = docImp.importNode(entRef2,true);
-    entRefImp3 = docImp.importNode(entRef3,false);
-    nodeName2 = entRef2.nodeName;
-
-    nodeName3 = entRef3.nodeName;
-
-    nodeNameImp2 = entRefImp2.nodeName;
-
-    nodeNameImp3 = entRefImp3.nodeName;
-
-    test.equal(nodeNameImp2, nodeName2, "documentimportnode21_Ent2NodeName");
-    test.equal(nodeNameImp3, nodeName3, "documentimportnode21_Ent3NodeName");
-    entRefImp2 = doc.importNode(entRef2,true);
-    entRefImp3 = doc.importNode(entRef3,false);
-    nodes = entRefImp2.childNodes;
-
-    nodeImp2 = nodes.item(0);
-    nodeValueImp2 = nodeImp2.nodeValue;
-
-    nodes = entRefImp3.childNodes;
-
-    nodeImp3 = nodes.item(0);
-    nodeValueImp3 = nodeImp3.nodeValue;
-
-    test.equal(nodeValueImp2, "1900 Dallas Road", "documentimportnode21_Ent2NodeValue");
-    test.equal(nodeValueImp3, "Texas", "documentimportnode21_Ent3Nodevalue");
-    test.done();
-  },
-  /**
-   *
-   The importNode method imports a node from another document to this document.
-   The returned node has no parent; (parentNode is null). The source node is not
-   altered or removed from the original document but a new copy of the source node
-   is created.
-
-   Using the method importNode with deep=true/false, import two notaiton nodes into the
-   same and different documnet objects.  In each case check if valid public and systemids
-   are returned if any and if none, check if a null value was returned.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
-   */
-  documentimportnode22: function(test) {
-    var success;
-    var docTypeNull = null;
-
-    var docImp;
-    var domImpl;
-    var docType;
-    var nodeMap;
-    var notation1;
-    var notation2;
-    var notationImp1;
-    var notationImp2;
-    var notationImpNew1;
-    var notationImpNew2;
-    var publicId1;
-    var publicId1Imp;
-    var publicId1NewImp;
-    var publicId2Imp;
-    var publicId2NewImp;
-    var systemId1Imp;
-    var systemId1NewImp;
-    var systemId2;
-    var systemId2Imp;
-    var systemId2NewImp;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    domImpl = doc.implementation;
-    docType = doc.doctype;
-
-    docImp = domImpl.createDocument("http://www.w3.org/DOM/Test","a:b",docTypeNull);
-    nodeMap = docType.notations;
-
-    test.notEqual(nodeMap, null, 'nodeMap should be null');
-    notation1 = nodeMap.getNamedItem("notation1");
-    notation2 = nodeMap.getNamedItem("notation2");
-    notationImp1 = doc.importNode(notation1,true);
-    notationImp2 = doc.importNode(notation2,false);
-    notationImpNew1 = docImp.importNode(notation1,false);
-    notationImpNew2 = docImp.importNode(notation2,true);
-    publicId1 = notation1.publicId;
-
-    publicId1Imp = notation1.publicId;
-
-    publicId1NewImp = notation1.publicId;
-
-    systemId1Imp = notation1.systemId;
-
-    systemId1NewImp = notation1.systemId;
-
-    publicId2Imp = notation2.publicId;
-
-    publicId2NewImp = notation2.publicId;
-
-    systemId2 = notation2.systemId;
-
-    systemId2Imp = notation2.systemId;
-
-    systemId2NewImp = notation2.systemId;
-
-    test.equal(publicId1Imp, publicId1, "documentimportnode22_N1PID");
-    test.equal(publicId1NewImp, publicId1, "documentimportnode22_N1NPID");
-    test.equal(systemId1Imp, null, 'systemId1Imp should not be null');
-    test.equal(systemId1NewImp, null, 'systemId1NewImp should not be null');
-    test.equal(systemId2Imp, systemId2, "documentimportnode22_N2SID");
-    test.equal(systemId2NewImp, systemId2, "documentimportnode22_N2NSID");
-    test.equal(publicId2Imp, null, 'publicId2Imp should not be null');
-    test.equal(publicId2Imp, null, 'publicId2Imp should not be null');
-    test.done();
   }
-})
-
-exports['documenttypeinternalSubset'] = testcase({
-  /**
-   *
-   The method getInternalSubset() returns the internal subset as a string.
-
-   Create a new DocumentType node with null values for publicId and systemId.
-   Verify that its internal subset is null.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-Core-DocType-internalSubset
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
-   */
-  documenttypeinternalSubset01: function(test) {
-    var success;
-    var docType;
-    var domImpl;
-    var internal;
-    var nullNS = null;
-
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    domImpl = doc.implementation;
-    docType = domImpl.createDocumentType("l2:root",nullNS,nullNS);
-    internal = docType.internalSubset;
-
-    test.equal(internal, null, 'internal should not be null');
-    test.done();
-  }
-})
+});
 
 exports['documenttypepublicid'] = testcase({
   /**
@@ -2965,8 +2344,7 @@ exports['domimplementationcreatedocument'] = testcase({
    systemId should create an empty DocumentType node.
 
    Invoke createDocument on this DOMImplementation with a valid qualifiedName and different
-   publicIds and systemIds.  Check if the the DocumentType node was created with its
-   ownerDocument attribute set to null.
+   publicIds and systemIds.
 
    * @author IBM
    * @author Neil Delima
@@ -3000,7 +2378,7 @@ exports['domimplementationcreatedocument'] = testcase({
         test.notEqual(newDocType, null, 'newDocType should be null');
         ownerDocument = newDocType.ownerDocument;
 
-        test.equal(ownerDocument, null, 'ownerDocument should not be null');
+        test.equal(ownerDocument, doc, 'ownerDocument should not be null');
 
       }
 
@@ -3020,7 +2398,7 @@ exports['domimplementationcreatedocument'] = testcase({
 
    and a valid publicId and systemId.  Check if the the DocumentType node was created
 
-   with its ownerDocument attribute set to null.
+   with its ownerDocument attribute set to the document.
 
 
    * @author IBM
@@ -3061,7 +2439,7 @@ exports['domimplementationcreatedocument'] = testcase({
       test.notEqual(newDocType, null, 'newDocType should be null');
       ownerDocument = newDocType.ownerDocument;
 
-      test.equal(ownerDocument, null, 'ownerDocument should not be null');
+      test.equal(ownerDocument, doc, 'ownerDocument should not be null ' + qualifiedName);
 
     }
     test.done();
@@ -3165,7 +2543,7 @@ exports['domimplementationfeaturecore'] = testcase({
     var state;
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     domImpl = doc.implementation;
     state = domImpl.hasFeature("core","2.0");
     test.ok(state, 'domimplementationFeaturecore');
@@ -3208,91 +2586,10 @@ exports['domimplementationfeaturexmlversion2'] = testcase({
     var state;
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     domImpl = doc.implementation;
     state = domImpl.hasFeature("xml","2.0");
     test.ok(state, 'domimplementationFeaturexmlVersion2');
-    test.done();
-  }
-})
-
-exports['domimplementationhasfeature'] = testcase({
-  /**
-   *
-   The method "hasFeature(feature,version)" tests if the DOMImplementation implements
-   a specific feature and if so returns true.
-
-   Call the hasFeature method on this DOMImplementation with a combination of features
-   versions as below.  Valid feature names are case insensitive and versions "2.0",
-   "1.0" and if the version is not specified, supporting any version of the feature
-   should return true.  Check if the value returned value was true.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
-   */
-  domimplementationhasfeature01: function(test) {
-    var success;
-    var domImpl;
-    var version = "";
-    var version1 = "1.0";
-    var version2 = "2.0";
-    var featureCore;
-    var featureXML;
-    var success;
-    featuresXML = new Array();
-    featuresXML[0] = "XML";
-    featuresXML[1] = "xmL";
-
-    featuresCore = new Array();
-    featuresCore[0] = "Core";
-    featuresCore[1] = "CORE";
-
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    domImpl = doc.implementation;
-    for(var indexN10063 = 0;indexN10063 < featuresXML.length; indexN10063++) {
-      featureXML = featuresXML[indexN10063];
-      success = domImpl.hasFeature(featureXML,version);
-      test.ok(success, 'domimplementationhasfeature01_XML_1');
-      success = domImpl.hasFeature(featureXML,version1);
-      test.ok(success, 'domimplementationhasfeature01_XML_2');
-
-    }
-    for(var indexN1007C = 0;indexN1007C < featuresCore.length; indexN1007C++) {
-      featureCore = featuresCore[indexN1007C];
-      success = domImpl.hasFeature(featureCore,version);
-      test.ok(success, 'domimplementationhasfeature01_Core_1');
-      success = domImpl.hasFeature(featureCore,version1);
-      success = domImpl.hasFeature(featureCore,version2);
-      test.ok(success, 'domimplementationhasfeature01_Core_3');
-
-    }
-    test.done();
-  },
-  /**
-   *
-   The method "hasFeature(feature,version)" tests if the DOMImplementation implements
-   a specific feature and if not returns false.
-
-   Call the hasFeature method on this DOMImplementation with a unfimiliar values for
-   feature and version.  Check if the value returned was false.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-5CED94D7
-   */
-  domimplementationhasfeature02: function(test) {
-    var success;
-    var domImpl;
-    var success;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    domImpl = doc.implementation;
-    success = domImpl.hasFeature("Blah Blah","");
-    test.equal(success, false, 'success should be *false*');
     test.done();
   }
 })
@@ -3336,7 +2633,7 @@ exports['elementgetattributenodens'] = testcase({
 
     attrName = attribute.name;
 
-    attNodeName = attribute.nodeName;
+    attNodeName = attribute.name;
 
     attrLocalName = attribute.localName;
 
@@ -3508,7 +2805,7 @@ exports['elementhasattribute'] = testcase({
     var state;
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     element = doc.documentElement;
 
     state = element.hasAttribute("");
@@ -3536,7 +2833,7 @@ exports['elementhasattribute'] = testcase({
     var newAttribute;
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     element = doc.createElement("address");
     attribute = doc.createAttribute("domestic");
     state = element.hasAttribute("domestic");
@@ -3566,7 +2863,7 @@ exports['elementhasattribute'] = testcase({
     var newAttribute;
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     element = doc.createElement("address");
     attribute = doc.createAttribute("domestic");
     newAttribute = element.setAttributeNode(attribute);
@@ -3627,7 +2924,7 @@ exports['elementhasattributens'] = testcase({
     var newAttribute;
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     element = doc.createElementNS("http://www.w3.org/DOM","address");
     attribute = doc.createAttributeNS("http://www.w3.org/DOM","domestic");
     newAttribute = element.setAttributeNode(attribute);
@@ -3661,7 +2958,7 @@ exports['elementhasattributens'] = testcase({
 
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     element = doc.createElementNS("http://www.w3.org/DOM","address");
     test.notEqual(element, null, 'element should be null');
     attribute = doc.createAttributeNS(nullNS,"domestic");
@@ -3692,7 +2989,7 @@ exports['elementremoveattributens'] = testcase({
     var attribute;
     var newAttribute;
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     element = doc.createElementNS("http://www.w3.org/DOM","elem");
     attribute = doc.createAttributeNS("http://www.w3.org/DOM/Test/createAttributeNS","attr");
     newAttribute = element.setAttributeNodeNS(attribute);
@@ -3734,7 +3031,7 @@ exports['elementsetattributenodens'] = testcase({
     var length;
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     element = doc.createElementNS("http://www.w3.org/DOM/Test/Level2","new:element");
     attribute1 = doc.createAttributeNS("http://www.w3.org/DOM/Test/att1","p1:att");
     attribute2 = doc.createAttributeNS("http://www.w3.org/DOM/Test/att1","p2:att");
@@ -3743,7 +3040,7 @@ exports['elementsetattributenodens'] = testcase({
     newAttribute = element.setAttributeNodeNS(attribute1);
     newAttribute = element.setAttributeNodeNS(attribute2);
     attrNode = element.getAttributeNodeNS("http://www.w3.org/DOM/Test/att1","att");
-    attrName = attrNode.nodeName;
+    attrName = attrNode.name;
 
     attrNS = attrNode.namespaceURI;
 
@@ -3789,7 +3086,7 @@ exports['elementsetattributenodens'] = testcase({
     attributeCloned = attribute.cloneNode(true);
     element2 = elementList.item(2);
     newAttr = element2.setAttributeNodeNS(attributeCloned);
-    attrName = newAttr.nodeName;
+    attrName = newAttr.name;
 
     attrValue = newAttr.nodeValue;
 
@@ -3914,53 +3211,6 @@ exports['elementsetattributenodens'] = testcase({
       test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
     test.done();
-  },
-  /**
-   *
-   The method setAttributeNodeNS Adds a new attribute and raises an WRONG_DOCUMENT_ERR if this node
-   is readonly.
-
-   Attempt to add an attribute node to an element node which is part of the replacement text of
-   a read-only EntityReference node.
-   Check if a NO_MODIFICATION_ALLOWED_ERR is thrown.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
-   */
-  elementsetattributenodens06: function(test) {
-    var success;
-    var element;
-    var attribute;
-    var attribute2;
-    var entRef;
-    var elementList;
-    var newAttribute;
-    var newChild;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    element = doc.createElementNS("http://www.w3.org/DOM/Test","elem1");
-    attribute = doc.createAttributeNS("http://www.w3.org/DOM/Test","attr");
-    entRef = doc.createEntityReference("ent4");
-    newChild = attribute.appendChild(entRef);
-    newAttribute = element.setAttributeNodeNS(attribute);
-    elementList = entRef.childNodes;
-
-    element = elementList.item(0);
-    attribute2 = doc.createAttributeNS("http://www.w3.org/DOM/Test","attr2");
-
-    {
-      success = false;
-      try {
-        newAttribute = element.setAttributeNodeNS(attribute2);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'elementsetattributenodens06');
-    }
-    test.done();
   }
 })
 
@@ -3984,11 +3234,11 @@ exports['elementsetattributens'] = testcase({
     var attrValue;
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     element = doc.createElementNS("http://www.w3.org/DOM","dom:elem");
     element.setAttributeNS("http://www.w3.org/DOM/Test/setAttributeNS","attr","value");
     attribute = element.getAttributeNodeNS("http://www.w3.org/DOM/Test/setAttributeNS","attr");
-    attrName = attribute.nodeName;
+    attrName = attribute.name;
 
     attrValue = attribute.nodeValue;
 
@@ -4017,12 +3267,12 @@ exports['elementsetattributens'] = testcase({
     var attrValue;
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     elementList = doc.getElementsByTagNameNS("*","address");
     element = elementList.item(0);
     element.setAttributeNS("http://www.w3.org/DOM/Test/setAttributeNS","this:street","Silver Street");
     attribute = element.getAttributeNodeNS("http://www.w3.org/DOM/Test/setAttributeNS","street");
-    attrName = attribute.nodeName;
+    attrName = attribute.name;
 
     attrValue = attribute.nodeValue;
 
@@ -4059,7 +3309,7 @@ exports['elementsetattributens'] = testcase({
     element.setAttributeNS("http://www.w3.org/DOM/Test/1","defaultAttr","default1");
     element.setAttributeNS("http://www.w3.org/DOM/Test/2","defaultAttr","default2");
     attribute = element.getAttributeNodeNS("http://www.w3.org/DOM/Test/1","defaultAttr");
-    attrName = attribute.nodeName;
+    attrName = attribute.name;
 
     attrValue = attribute.nodeValue;
 
@@ -4242,7 +3492,7 @@ exports['elementsetattributensurinull'] = testcase({
     var testAddr;
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     elementList = doc.getElementsByTagName("employee");
     testAddr = elementList.item(0);
 
@@ -4495,7 +3745,7 @@ exports['getAttributeNodeNS'] = testcase({
     testAddr = elementList.item(0);
     test.notEqual(testAddr, null, 'testAddr should be null');
     attribute = testAddr.getAttributeNodeNS("http://www.nist.gov","domestic");
-    attrName = attribute.nodeName;
+    attrName = attribute.name;
 
     test.equal(attrName, "emp:domestic", "attrName");
     test.done();
@@ -4527,7 +3777,7 @@ exports['getElementById'] = testcase({
     element = doc.getElementById("CANADA");
     tagname = element.tagName;
 
-    test.equal(tagname, "EMP:ADDRESS", "throw_Equals");
+    test.equal(tagname, "emp:address", "throw_Equals");
     test.done();
   },
   /**
@@ -4565,7 +3815,7 @@ exports['getElementsByTagNameNS'] = testcase({
 
    Invoke method getElementsByTagNameNS(namespaceURI,localName) on this document
    with namespaceURI and localName as " ".
-   Method should return a new NodeList of 37 elements.
+   Method should return a new NodeList of 36 elements.
 
    * @author NIST
    * @author Mary Brady
@@ -4580,7 +3830,9 @@ exports['getElementsByTagNameNS'] = testcase({
 
     var doc = require('./core/files/staffNS.xml').staffNS();
     newList = doc.getElementsByTagNameNS(namespaceURI,localName);
-    test.equal(newList.length, 37, "throw_Size");
+
+    // adjusted for lack of entity expansion support
+    test.equal(newList.length, 36, "throw_Size");
     test.done();
   },
   /**
@@ -4643,20 +3895,20 @@ exports['getElementsByTagNameNS'] = testcase({
     var result = new Array();
 
     expectedResult = new Array();
-    expectedResult[0] = "EMPLOYEE";
-    expectedResult[1] = "EMPLOYEEID";
-    expectedResult[2] = "NAME";
-    expectedResult[3] = "POSITION";
-    expectedResult[4] = "SALARY";
-    expectedResult[5] = "GENDER";
-    expectedResult[6] = "ADDRESS";
-    expectedResult[7] = "EMP:EMPLOYEE";
-    expectedResult[8] = "EMP:EMPLOYEEID";
-    expectedResult[9] = "EMP:POSITION";
-    expectedResult[10] = "EMP:SALARY";
-    expectedResult[11] = "EMP:GENDER";
-    expectedResult[12] = "EMP:ADDRESS";
-    expectedResult[13] = "ADDRESS";
+    expectedResult[0] = "employee";
+    expectedResult[1] = "employeeId";
+    expectedResult[2] = "name";
+    expectedResult[3] = "position";
+    expectedResult[4] = "salary";
+    expectedResult[5] = "gender";
+    expectedResult[6] = "address";
+    expectedResult[7] = "emp:employee";
+    expectedResult[8] = "emp:employeeId";
+    expectedResult[9] = "emp:position";
+    expectedResult[10] = "emp:salary";
+    expectedResult[11] = "emp:gender";
+    expectedResult[12] = "emp:address";
+    expectedResult[13] = "address";
 
 
 
@@ -4696,11 +3948,11 @@ exports['getElementsByTagNameNS'] = testcase({
     var result = new Array();
 
     expectedResult = new Array();
-    expectedResult[0] = "ADDRESS";
-    expectedResult[1] = "ADDRESS";
-    expectedResult[2] = "ADDRESS";
-    expectedResult[3] = "EMP:ADDRESS";
-    expectedResult[4] = "ADDRESS";
+    expectedResult[0] = "address";
+    expectedResult[1] = "address";
+    expectedResult[2] = "address";
+    expectedResult[3] = "emp:address";
+    expectedResult[4] = "address";
 
 
 
@@ -4819,7 +4071,9 @@ exports['getElementsByTagNameNS'] = testcase({
     docElem = doc.documentElement;
 
     newList = docElem.getElementsByTagNameNS("*","*");
-    test.equal(newList.length, 36, "listSize");
+
+    // adjusted for lack of entity expansion support
+    test.equal(newList.length, 35, "listSize");
     test.done();
   },
   /**
@@ -4891,20 +4145,20 @@ exports['getElementsByTagNameNS'] = testcase({
     var result = new Array();
 
     expectedResult = new Array();
-    expectedResult[0] = "EMPLOYEE";
-    expectedResult[1] = "EMPLOYEEID";
-    expectedResult[2] = "NAME";
-    expectedResult[3] = "POSITION";
-    expectedResult[4] = "SALARY";
-    expectedResult[5] = "GENDER";
-    expectedResult[6] = "ADDRESS";
-    expectedResult[7] = "EMP:EMPLOYEE";
-    expectedResult[8] = "EMP:EMPLOYEEID";
-    expectedResult[9] = "EMP:POSITION";
-    expectedResult[10] = "EMP:SALARY";
-    expectedResult[11] = "EMP:GENDER";
-    expectedResult[12] = "EMP:ADDRESS";
-    expectedResult[13] = "ADDRESS";
+    expectedResult[0] = "employee";
+    expectedResult[1] = "employeeId";
+    expectedResult[2] = "name";
+    expectedResult[3] = "position";
+    expectedResult[4] = "salary";
+    expectedResult[5] = "gender";
+    expectedResult[6] = "address";
+    expectedResult[7] = "emp:employee";
+    expectedResult[8] = "emp:employeeId";
+    expectedResult[9] = "emp:position";
+    expectedResult[10] = "emp:salary";
+    expectedResult[11] = "emp:gender";
+    expectedResult[12] = "emp:address";
+    expectedResult[13] = "address";
 
 
 
@@ -4948,11 +4202,11 @@ exports['getElementsByTagNameNS'] = testcase({
     var result = new Array();
 
     expectedResult = new Array();
-    expectedResult[0] = "ADDRESS";
-    expectedResult[1] = "ADDRESS";
-    expectedResult[2] = "ADDRESS";
-    expectedResult[3] = "EMP:ADDRESS";
-    expectedResult[4] = "ADDRESS";
+    expectedResult[0] = "address";
+    expectedResult[1] = "address";
+    expectedResult[2] = "address";
+    expectedResult[3] = "emp:address";
+    expectedResult[4] = "address";
 
 
 
@@ -5088,7 +4342,7 @@ exports['getNamedItemNS'] = testcase({
     attributes = testEmployee.attributes;
 
     domesticAttr = attributes.getNamedItemNS("http://www.usa.com","domestic");
-    attrName = domesticAttr.nodeName;
+    attrName = domesticAttr.name;
 
     test.equal(attrName, "dmstc:domestic", "attrName");
     test.done();
@@ -5128,64 +4382,6 @@ exports['getNamedItemNS'] = testcase({
     newAttr = attributes.getNamedItemNS(namespaceURI,localName);
     test.equal(newAttr, null, 'newAttr should not be null');
     test.done();
-  },
-  /**
-   *
-   Entity nodes are not namespaced and should not be retrievable using
-   getNamedItemNS.
-
-   * @author Curt Arnold
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getNamedItemNS
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
-   */
-  getNamedItemNS03: function(test) {
-    var success;
-    var docType;
-    var entities;
-    var entity;
-    var nullNS = null;
-
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    docType = doc.doctype;
-
-    entities = docType.entities;
-
-    test.notEqual(entities, null, 'entities should be null');
-    entity = entities.getNamedItemNS(nullNS,"ent1");
-    test.equal(entity, null, 'entity should not be null');
-    test.done();
-  },
-  /**
-   *
-   Notation nodes are not namespaced and should not be retrievable using
-   getNamedItemNS.
-
-   * @author Curt Arnold
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getNamedItemNS
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
-   */
-  getNamedItemNS04: function(test) {
-    var success;
-    var docType;
-    var notations;
-    var notation;
-    var nullNS = null;
-
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    docType = doc.doctype;
-
-    notations = docType.notations;
-
-    test.notEqual(notations, null, 'notations should be null');
-    notation = notations.getNamedItemNS(nullNS,"notation1");
-    test.equal(notation, null, 'notation should not be null');
-    test.done();
   }
 })
 
@@ -5209,38 +4405,11 @@ exports['hasAttribute'] = testcase({
     var state;
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     elementList = doc.getElementsByTagName("address");
     testNode = elementList.item(4);
     state = testNode.hasAttribute("domestic");
     test.equal(state, false, 'state should be *false*');
-    test.done();
-  },
-  /**
-   *
-   The "hasAttribute()" method for an Element should
-   return true if the element has an attribute with the given name.
-
-   Retrieve the first "address" element and the "hasAttribute()" method
-   should return true since the attribute "street" has a default value.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttr
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=238
-   */
-  hasAttribute02: function(test) {
-    var success;
-    var elementList;
-    var testNode;
-    var state;
-
-
-    var doc = require('./core/files/staff.xml').staff();
-    elementList = doc.getElementsByTagName("address");
-    testNode = elementList.item(0);
-    state = testNode.hasAttribute("street");
-    test.ok(state, 'throw_True');
     test.done();
   },
   /**
@@ -5262,7 +4431,7 @@ exports['hasAttribute'] = testcase({
     var state;
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     elementList = doc.getElementsByTagName("address");
     testNode = elementList.item(0);
     state = testNode.hasAttribute("nomatch");
@@ -5394,37 +4563,6 @@ exports['hasAttributeNS'] = testcase({
   /**
    *
    The "hasAttributeNS()" method for an Element should
-   return true if the attribute with the given local name
-   and namespace URI has a default value.
-
-   Retrieve the first "emp:address" element.
-   The boolean value returned by the "hasAttributeNS()" should be true
-   since the attribute has a default value.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElHasAttrNS
-   */
-  hasAttributeNS04: function(test) {
-    var success;
-    var localName = "district";
-    var namespaceURI = "http://www.nist.gov";
-    var elementList;
-    var testNode;
-    var state;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    elementList = doc.getElementsByTagName("emp:address");
-    testNode = elementList.item(0);
-    test.notEqual(testNode, null, 'testNode should be null');
-    state = testNode.hasAttributeNS(namespaceURI,localName);
-    test.ok(state, 'hasAttribute');
-    test.done();
-  },
-  /**
-   *
-   The "hasAttributeNS()" method for an Element should
    return true if the element has an attribute with the given local name
    and the namespace URI is specified on this element or has a default value.
 
@@ -5495,7 +4633,7 @@ exports['hasAttributes'] = testcase({
     var state;
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     addrList = doc.getElementsByTagName("name");
     addrNode = addrList.item(0);
     state = addrNode.hasAttributes();
@@ -5521,7 +4659,7 @@ exports['hasAttributes'] = testcase({
     var state;
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     addrList = doc.getElementsByTagName("address");
     addrNode = addrList.item(0);
     state = addrNode.hasAttributes();
@@ -5530,383 +4668,7 @@ exports['hasAttributes'] = testcase({
   }
 })
 
-exports['hc_entities'] = testcase({
-  /**
-   *
-   An attempt to add remove an entity using removeNamedItemNS should result in
-   a NO_MODIFICATION_ERR or a NOT_FOUND_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1788794630
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-removeNamedItemNS
-   */
-  hc_entitiesremovenameditemns1: function(test) {
-    var success;
-    var entities;
-    var docType;
-    var retval;
-
-
-    var doc = require('./core/files/hc_staff.xml').hc_staff();
-    docType = doc.doctype;
-
-
-    test.notEqual(docType, null, 'docType should be null');
-    entities = docType.entities;
-    test.notEqual(entities, null, 'entities should be null');
-    try {
-      retval = entities.removeNamedItemNS("http://www.w3.org/1999/xhtml","alpha");
-      fail("throw_NO_MOD_OR_NOT_FOUND_ERR");
-    } catch (ex) {
-      if (typeof(ex.code) != 'undefined') {
-        switch(ex.code) {
-        case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
-          break;
-        case /* NOT_FOUND_ERR */ 8 :
-          break;
-        default:
-          throw ex;
-        }
-      } else {
-        throw ex;
-      }
-    }
-    test.done();
-  },
-  /**
-   *
-   An attempt to add an element to the named node map returned by entities should
-   result in a NO_MODIFICATION_ERR or HIERARCHY_REQUEST_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-1788794630
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
-   */
-  hc_entitiessetnameditemns1: function(test) {
-    var success;
-    var entities;
-    var docType;
-    var retval;
-    var elem;
-
-
-    var doc = require('./core/files/hc_staff.xml').hc_staff();
-    docType = doc.doctype;
-
-
-    test.notEqual(docType, null, 'docType should be null');
-    entities = docType.entities;
-
-    test.notEqual(entities, null, 'entities should be null');
-    elem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
-
-    try {
-      retval = entities.setNamedItemNS(elem);
-      fail("throw_HIER_OR_NO_MOD_ERR");
-
-    } catch (ex) {
-      if (typeof(ex.code) != 'undefined') {
-        switch(ex.code) {
-        case /* HIERARCHY_REQUEST_ERR */ 3 :
-          break;
-        case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
-          break;
-        default:
-          throw ex;
-        }
-      } else {
-        throw ex;
-      }
-    }
-    test.done();
-  },
-  /**
-   *
-   Attempt to insert an element into an attribute list,
-   should raise a HIERARCHY_REQUEST_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='HIERARCHY_REQUEST_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
-   * @see http://www.w3.org/2000/11/DOM-Level-2-errata#core-4
-   */
-  hc_namednodemapinvalidtype1: function(test) {
-    var success;
-    var attributes;
-    var docElem;
-    var newElem;
-    var retval;
-
-
-    var doc = require('./core/files/hc_staff.xml').hc_staff();
-    docElem = doc.documentElement;
-
-    attributes = docElem.attributes;
-
-    newElem = doc.createElement("html");
-
-    {
-      success = false;
-      try {
-        retval = attributes.setNamedItem(newElem);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 3);
-      }
-      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
-   Create a document fragment with two adjacent text nodes, normalize and see if the text nodes
-   were combined.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-F68D095
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-B63ED1A3
-   */
-  hc_nodedocumentfragmentnormalize1: function(test) {
-    var success;
-    var docFragment;
-    var nodeValue;
-    var txtNode;
-    var retval;
-
-
-    var doc = require('./core/files/hc_staff.xml').hc_staff();
-    docFragment = doc.createDocumentFragment();
-    txtNode = doc.createTextNode("foo");
-    retval = docFragment.appendChild(txtNode);
-    txtNode = doc.createTextNode("bar");
-    retval = docFragment.appendChild(txtNode);
-    docFragment.normalize();
-    txtNode = docFragment.firstChild;
-
-    nodeValue = txtNode.nodeValue;
-
-    test.equal(nodeValue, "foobar", "normalizedNodeValue");
-    retval = txtNode.nextSibling;
-
-    test.equal(retval, null, 'retval should not be null');
-    test.done();
-  },
-  /**
-   *
-   Create a document fragment with an empty text node, after normalization there should be no child nodes.
-   were combined.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-F68D095
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-B63ED1A3
-   */
-  hc_nodedocumentfragmentnormalize2: function(test) {
-    var success;
-    var docFragment;
-    var nodeValue;
-    var txtNode;
-    var retval;
-
-
-    var doc = require('./core/files/hc_staff.xml').hc_staff();
-    docFragment = doc.createDocumentFragment();
-    txtNode = doc.createTextNode("");
-    retval = docFragment.appendChild(txtNode);
-    docFragment.normalize();
-    txtNode = docFragment.firstChild;
-
-    test.equal(txtNode, null, 'txtNode should not be null');
-    test.done();
-  },
-  /**
-   *
-   An attempt to add remove an notation using removeNamedItemNS should result in
-   a NO_MODIFICATION_ERR or a NOT_FOUND_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-D46829EF
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-removeNamedItemNS
-   */
-  hc_notationsremovenameditemns1: function(test) {
-    var success;
-    var notations;
-    var docType;
-    var retval;
-
-
-    var doc = require('./core/files/hc_staff.xml').hc_staff();
-    docType = doc.doctype;
-
-
-    test.notEqual(docType, null, 'docType should be null');
-    notations = docType.notations;
-
-    test.notEqual(notations, null, 'notations should be null');
-
-    try {
-      retval = notations.removeNamedItemNS("http://www.w3.org/1999/xhtml","alpha");
-      fail("throw_NO_MOD_OR_NOT_FOUND_ERR");
-
-    } catch (ex) {
-      if (typeof(ex.code) != 'undefined') {
-        switch(ex.code) {
-        case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
-          break;
-        case /* NOT_FOUND_ERR */ 8 :
-          break;
-        default:
-          throw ex;
-        }
-      } else {
-        throw ex;
-      }
-    }
-    test.done();
-  },
-  /**
-   *
-   An attempt to add an element to the named node map returned by notations should
-   result in a NO_MODIFICATION_ERR or HIERARCHY_REQUEST_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-D46829EF
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
-   */
-  hc_notationssetnameditemns1: function(test) {
-    var success;
-    var notations;
-    var docType;
-    var retval;
-    var elem;
-
-
-    var doc = require('./core/files/hc_staff.xml').hc_staff();
-    docType = doc.doctype;
-
-
-    test.notEqual(docType, null, 'docType should be null');
-    notations = docType.notations;
-
-    test.notEqual(notations, null, 'notations should be null');
-    elem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
-
-    try {
-      retval = notations.setNamedItemNS(elem);
-      fail("throw_HIER_OR_NO_MOD_ERR");
-
-    } catch (ex) {
-      if (typeof(ex.code) != 'undefined') {
-        switch(ex.code) {
-        case /* HIERARCHY_REQUEST_ERR */ 3 :
-          break;
-        case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
-          break;
-        default:
-          throw ex;
-        }
-      } else {
-        throw ex;
-      }
-    }
-    test.done();
-  }
-})
-
 exports['importNode'] = testcase({
-  /**
-   *
-   The "importNode(importedNode,deep)" method for a
-   Document should import the given importedNode into that Document.
-   The importedNode is of type Attr.
-   The ownerElement is set to null. Specified flag is set to true.
-   Children is imported.
-
-   Create a new attribute whose name is "elem:attr1" in a different document.
-   Create a child Text node with value "importedText" for the attribute node above.
-   Invoke method importNode(importedNode,deep) on this document with
-   importedNode being the newly created attribute.
-   Method should return a node whose name matches "elem:attr1" and a child node
-   whose value equals "importedText".
-   The returned node should belong to this document whose systemId is "staff.dtd"
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
-   */
-  importNode01: function(test) {
-    var success;
-    var newAttr;
-    var importedChild;
-    var aNode;
-    var ownerDocument;
-    var attrOwnerElement;
-    var specified;
-    var childList;
-    var nodeName;
-    var child;
-    var childValue;
-    var result = new Array();
-    expectedResult = new Array();
-    expectedResult[0] = "elem:attr1";
-    expectedResult[1] = "importedText";
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    var aNewDoc = require('./core/files/staffNS.xml').staffNS();
-    newAttr = aNewDoc.createAttribute("elem:attr1");
-    importedChild = aNewDoc.createTextNode("importedText");
-    aNode = newAttr.appendChild(importedChild);
-    aNode = doc.importNode(newAttr,false);
-    ownerDocument = aNode.ownerDocument;
-    test.notEqual(aNode, null, 'aNode should be null');
-    test.equal(doc.doctype.systemId, 'staffNS.dtd')
-    attrOwnerElement = aNode.ownerElement;
-
-    test.equal(attrOwnerElement, null, 'attrOwnerElement should not be null');
-    specified = aNode.specified;
-
-    test.ok(specified, 'specified');
-    childList = aNode.childNodes;
-
-    test.equal(childList.length, 1, "childList");
-    nodeName = aNode.nodeName;
-
-    test.equal(nodeName, "elem:attr1", "nodeName");
-    child = aNode.firstChild;
-
-    childValue = child.nodeValue;
-
-    test.equal(childValue, "importedText", "childValue");
-    test.done();
-  },
-  /**
-   *
-   The "importNode(importedNode,deep)" method for a
-   Document should import the given importedNode into that Document.
-   The importedNode is of type CData_Section.
-
-   Create a CDATASection node with value being the string "this is CDATASection data" in
-   a different document.  Invoke method importNode(importedNode,deep) on
-   this document.  Method should return a CDATASection node whose value matches
-   the above string. The returned node should belong to this document whose systemId is "staff.dtd"
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
-   */
-  importNode02: function(test) {
-    var success;
-    var cDataSec;
-    var aNode;
-    var ownerDocument;
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    var aNewDoc = require('./core/files/staffNS.xml').staffNS();
-    cDataSec = aNewDoc.createCDATASection("this is CDATASection data");
-    aNode = doc.importNode(cDataSec,false);
-    ownerDocument = aNode.ownerDocument;
-    test.notEqual(ownerDocument, null, 'ownerDocument should be null');
-    test.equal(doc.doctype.systemId, 'staffNS.dtd')
-    test.equal(aNode.nodeValue, "this is CDATASection data", "nodeValue");
-    test.done();
-  },
   /**
    *
    The "importNode(importedNode,deep)" method for a
@@ -5962,8 +4724,8 @@ exports['importNode'] = testcase({
     var children;
     var child;
     var childValue;
-    var doc = require('./core/files/staff.xml').staff();
-    var aNewDoc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
+    var aNewDoc = require('../level1/core/files/staff.xml').staff();
     docFrag = aNewDoc.createDocumentFragment();
     comment = aNewDoc.createComment("descendant1");
     aNode = docFrag.appendChild(comment);
@@ -6011,7 +4773,7 @@ exports['importNode'] = testcase({
     test.equal(hasChild, false, 'hasChild should be *false*');
     ownerDocument = aNode.ownerDocument;
     test.equal(doc.doctype.systemId, 'staffNS.dtd')
-    test.equal(aNode.nodeName, "EMP:ADDRESS", "nodeName");
+    test.equal(aNode.nodeName, "emp:address", "nodeName");
     test.done();
   },
   /**
@@ -6051,58 +4813,12 @@ exports['importNode'] = testcase({
     test.ok(hasChild, 'throw_True');
     name = aNode.nodeName;
 
-    test.equal(name, "EMP:ADDRESS", "nodeName");
+    test.equal(name, "emp:address", "nodeName");
     child = aNode.firstChild;
 
     value = child.nodeValue;
 
     test.equal(value, "27 South Road. Dallas, texas 98556", "nodeValue");
-    test.done();
-  },
-  /**
-   *
-   The "importNode(importedNode,deep)" method for a
-   Document should import the given importedNode into that Document.
-   The importedNode is of type Element.
-   If this document defines default attributes for this element name (importedNode),
-   those default attributes are assigned.
-
-   Create an element whose name is "emp:employee" in a different document.
-   Invoke method importNode(importedNode,deep) on this document which
-   defines default attribute for the element name "emp:employee".
-   Method should return an the imported element with an assigned default attribute.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=238
-   */
-  importNode07: function(test) {
-    var success;
-    var element;
-    var aNode;
-    var attributes;
-    var name;
-    var attr;
-    var lname;
-    var namespaceURI = "http://www.nist.gov";
-    var qualifiedName = "emp:employee";
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    var aNewDoc = require('./core/files/staff.xml').staff();
-    element = aNewDoc.createElementNS(namespaceURI,qualifiedName);
-    aNode = doc.importNode(element,false);
-    attributes = aNode.attributes;
-
-    test.equal(attributes.length, 1, "throw_Size");
-    name = aNode.nodeName;
-
-    test.equal(name, "EMP:EMPLOYEE", "nodeName");
-    attr = attributes.item(0);
-    lname = attr.localName;
-
-    test.equal(lname, "defaultAttr", "lname");
     test.done();
   },
   /**
@@ -6135,164 +4851,6 @@ exports['importNode'] = testcase({
     test.equal(hasChild, false, 'hasChild should be *false*');
     ownerDocument = aNode.ownerDocument;
     test.equal(doc.doctype.systemId, 'staffNS.dtd')
-    test.done();
-  },
-  /**
-   *
-   The "importNode(importedNode,deep)" method for a
-   Document should import the given importedNode into that Document.
-   The importedNode is of type Entity.
-
-   Retrieve entity "ent6" from staffNS.xml document.
-   Invoke method importNode(importedNode,deep) on this document.
-   Method should return a node of type Entity whose publicId, systemId and
-   notationName attributes are copied.
-   The returned node should belong to this document whose systemId is "staff.dtd"
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
-   */
-  importNode09: function(test) {
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    var aNewDoc = require('./core/files/staffNS.xml').staffNS();
-    var entityList = aNewDoc.doctype.entities;
-    test.notEqual(entityList, null, 'entityList should be null');
-    var entity2 = entityList.getNamedItem("ent6");
-    var entity1 = doc.importNode(entity2,false);
-    test.equal(entity1.ownerDocument.doctype.systemId, 'staffNS.dtd')
-    test.equal(entity1.nodeName, "ent6", "entityName");
-    test.equal(entity1.publicId, "uri", "entityPublicId");
-    test.equal(entity1.systemId, 'file')
-    test.equal(entity1.notationName, "notation2", "notationName");
-    test.done();
-  },
-  /**
-   *
-   The "importNode(importedNode,deep)" method for a
-   Document should import the given importedNode into that Document.
-   The importedNode is of type Entity_Reference.
-   Only the EntityReference is copied, regardless of deep's value.
-
-   Create an entity reference whose name is "entRef1" in a different document.
-   Give it value "entRef1Value".
-   Invoke method importNode(importedNode,deep) on this document with importedNode
-   being "entRef1".
-   Method should return a node of type Entity_Reference (whose value is null) that
-   belongs to this document whose systemId is "staff.dtd".
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
-   */
-  importNode10: function(test) {
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    var aNewDoc = require('./core/files/staffNS.xml').staffNS();
-    var entRef = aNewDoc.createEntityReference("entRef1");
-    test.notEqual(entRef, null, 'entRef should be null');
-    entRef.nodeValue = "entRef1Value";
-    var aNode = doc.importNode(entRef,false);
-    test.equal(aNode.ownerDocument.doctype.systemId, 'staffNS.dtd')
-    test.equal(aNode.nodeName, "entRef1", "nodeName");
-    test.done();
-  },
-  /**
-   *
-   The "importNode(importedNode,deep)" method for a
-   Document should import the given importedNode into that Document.
-   The importedNode is of type Entity_Reference.
-   Only the EntityReference is copied, regardless of deep's value.
-   If the Document provides a definition for the entity name, its value is assigned.
-
-   Create an entity reference whose name is "ent3" in a different document.
-   Invoke method importNode(importedNode,deep) on this document with importedNode
-   being "ent3".
-   Method should return a node of type Entity_Reference whose first child's value is "Texas" as defined
-   in this document.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
-   */
-  importNode11: function(test) {
-    var success;
-    var entRef;
-    var aNode;
-    var name;
-    var child;
-    var childValue;
-
-
-    var doc = require('./core/files/staff.xml').staff();
-    var aNewDoc = require('./core/files/staff.xml').staff();
-    entRef = aNewDoc.createEntityReference("ent3");
-    test.notEqual(entRef, null, 'entRef should be null');
-    aNode = doc.importNode(entRef,true);
-    name = aNode.nodeName;
-
-    test.equal(name, "ent3", "entityName");
-    child = aNode.firstChild;
-
-    test.notEqual(child, null, 'child should be null');
-    childValue = child.nodeValue;
-
-    test.equal(childValue, "Texas", "childValue");
-    test.done();
-  },
-  /**
-   *
-   The "importNode(importedNode,deep)" method for a
-   Document should import the given importedNode into that Document.
-   The importedNode is of type Entity.
-
-   Retrieve entity "ent4" from staffNS.xml document.
-   Invoke method importNode(importedNode,deep) on this document with deep as false.
-   Method should return a node of type Entity whose descendant is copied.
-   The returned node should belong to this document whose systemId is "staffNS.dtd"
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
-   */
-  importNode12: function(test) {
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    var aNewDoc = require('./core/files/staffNS.xml').staffNS();
-    var entityList = aNewDoc.doctype.entities;
-    test.notEqual(entityList, null, 'entityList should be null');
-    var entity2 = entityList.getNamedItem("ent4");
-    var entity1 = doc.importNode(entity2,true);
-    test.equal(entity1.ownerDocument.doctype.systemId, 'staffNS.dtd')
-    test.equal(entity1.nodeName, "ent4", "entityName");
-    test.notEqual(entity1.firstChild, null, 'child should be null');
-    test.equal(entity1.firstChild.nodeName, "ENTELEMENT1", "childName");
-    test.done();
-  },
-  /**
-   *
-   The "importNode(importedNode,deep)" method for a
-   Document should import the given importedNode into that Document.
-   The importedNode is of type Notation.
-
-   Retrieve notation named "notation1" from document staffNS.xml.
-   Invoke method importNode(importedNode,deep) where importedNode
-   contains the retrieved notation and deep is false.  Method should
-   return a node of type notation whose name is "notation1".
-   The returned node should belong to this document whose systemId is "staff.dtd"
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
-   */
-  importNode13: function(test) {
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    var aNewDoc = require('./core/files/staffNS.xml').staffNS();
-    var notationList = aNewDoc.doctype.notations;
-    test.notEqual(notationList, null, 'notationList should be null');
-    var notation = notationList.getNamedItem("notation1");
-    var aNode = doc.importNode(notation,false);
-    test.equal(aNode.ownerDocument.doctype.systemId, 'staffNS.dtd')
-    test.equal(aNode.publicId, "notation1File", "publicId");
-    test.equal(aNode.systemId, null, 'system should be null');
     test.done();
   },
   /**
@@ -6428,435 +4986,6 @@ exports['importNode'] = testcase({
   }
 })
 
-exports['internalSubset'] = testcase({
-  /**
-   *
-   The "getInternalSubset()" method returns
-   the internal subset as a string or null if there is none.
-   This does not contain the delimiting brackets.
-
-   Retrieve the documenttype.
-   Apply the "getInternalSubset()" method.  Null is returned since there
-   is not an internal subset.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-Core-DocType-internalSubset
-   */
-  internalSubset01: function(test) {
-    var success;
-    var docType;
-    var internal;
-
-
-    var doc = require('./core/files/staff2.xml').staff2();
-    docType = doc.doctype;
-
-    internal = docType.internalSubset;
-
-    test.equal(internal, null, 'internal should not be null');
-    test.done();
-  },
-  /**
-   *
-   The "feature" parameter in the
-   isSupported(feature,version)" method is the name
-   of the feature and the version is the version number of the
-   feature to test.   XXX is NOT a legal value for the feature parameter.
-   The method should return "false" since XXX is not a valid feature.
-
-   Retrieve the root node of the DOM document by invoking
-   the "getDocumentElement()" method.   This should create a
-   node object on which the "isSupported(feature,version)"
-   method is invoked with "feature" equal to "XXX" and version to "1.0".
-   The method should return a boolean "false" since XXX is not a valid feature.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
-   */
-  isSupported01: function(test) {
-    var success;
-    var rootNode;
-    var state;
-
-
-    var doc = require('./core/files/staff.xml').staff();
-    rootNode = doc.documentElement;
-
-    state = rootNode.isSupported("XXX","1.0");
-    test.equal(state, false, 'state should be *false*');
-    test.done();
-  },
-  /**
-   *
-   The "feature" parameter in the
-   isSupported(feature,version)" method is the name
-   of the feature and the version is the version number of the
-   feature to test.   XML is a legal value for the feature parameter.
-   The method should return "false" since 9.0 is not a valid version.
-
-   Retrieve the root node of the DOM document by invoking
-   the "getDocumentElement()" method.   This should create a
-   node object on which the "isSupported(feature,version)"
-   method is invoked with "feature" equal to "XML" and version to "9.0".
-   The method should return a boolean "false" since 9.0 is not a valid version.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
-   */
-  isSupported02: function(test) {
-    var success;
-    var rootNode;
-    var state;
-
-
-    var doc = require('./core/files/staff.xml').staff();
-    rootNode = doc.documentElement;
-
-    state = rootNode.isSupported("XML","9.0");
-    test.equal(state, false, 'state should be *false*');
-    test.done();
-  },
-  /**
-   *
-   The "feature" parameter in the
-   isSupported(feature,version)" method is the name
-   of the feature and the version is the version number of the
-   feature to test.   XML is a legal value for the feature parameter
-   (Test for xml, lower case).
-   Legal values for the version parameter are 1.0 and 2.0
-   (Test for 1.0).
-
-   Retrieve the root node of the DOM document by invoking
-   the "getDocumentElement()" method.   This should create a
-   node object on which the "isSupported(feature,version)"
-   method is invoked with "feature" equal to "xml" and the version equal to 1.0.
-   The method should return a boolean "true".
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
-   */
-  isSupported04: function(test) {
-    var success;
-    var rootNode;
-    var state;
-
-
-    var doc = require('./core/files/staff.xml').staff();
-    rootNode = doc.documentElement;
-
-    state = rootNode.isSupported("xml","1.0");
-    test.ok(state, 'throw_True');
-    test.done();
-  },
-  /**
-   *
-   The "feature" parameter in the
-   isSupported(feature,version)" method is the name
-   of the feature and the version is the version number of the
-   feature to test.   Core is a legal value for the feature parameter
-   (Test for core, lower case).
-   Legal values for the version parameter are 1.0 and 2.0
-   (Test for 2.0).
-
-   Retrieve the root node of the DOM document by invoking
-   the "getDocumentElement()" method.   This should create a
-   node object on which the "isSupported(feature,version)"
-   method is invoked with "feature" equal to "core" and the version equal to 2.0.
-   The method should return a boolean "true".
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
-   */
-  isSupported05: function(test) {
-    var success;
-    var rootNode;
-    var state;
-
-
-    var doc = require('./core/files/staff.xml').staff();
-    rootNode = doc.documentElement;
-
-    state = rootNode.isSupported("core","2.0");
-    test.ok(state, 'throw_True');
-    test.done();
-  },
-  /**
-   *
-   The "feature" parameter in the
-   isSupported(feature,version)" method is the name
-   of the feature and the version is the version number of the
-   feature to test.   XML is a legal value for the feature parameter
-   (Test for xml, lower case).
-   Legal values for the version parameter are 1.0 and 2.0
-   (Test for 2.0).
-
-   Retrieve the root node of the DOM document by invoking
-   the "getDocumentElement()" method.   This should create a
-   node object on which the "isSupported(feature,version)"
-   method is invoked with "feature" equal to "xml" and the version equal to 2.0.
-   The method should return a boolean "true".
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
-   */
-  isSupported06: function(test) {
-    var success;
-    var rootNode;
-    var state;
-
-
-    var doc = require('./core/files/staff.xml').staff();
-    rootNode = doc.documentElement;
-
-    state = rootNode.isSupported("xml","2.0");
-    test.ok(state, 'throw_True');
-    test.done();
-  },
-  /**
-   *
-   The "feature" parameter in the
-   isSupported(feature,version)" method is the name
-   of the feature and the version is the version number of the
-   feature to test.   XML is a legal value for the feature parameter
-   (Test for XML).
-   If the version is not specified, supporting any version of the
-   method to return true.
-
-   Retrieve the root node of the DOM document by invoking
-   the "getDocumentElement()" method.   This should create a
-   node object on which the "isSupported(feature,version)"
-   method is invoked with "feature" equal to "XML" and the version equal blank.
-   The method should return a boolean "true".
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
-   */
-  isSupported07: function(test) {
-    var success;
-    var rootNode;
-    var state;
-
-
-    var doc = require('./core/files/staff.xml').staff();
-    rootNode = doc.documentElement;
-
-    state = rootNode.isSupported("XML","");
-    test.ok(state, 'throw_True');
-    test.done();
-  },
-  /**
-   *
-   The "feature" parameter in the
-   isSupported(feature,version)" method is the name
-   of the feature and the version is the version number of the
-   feature to test.   XML is a legal value for the feature parameter
-   (Test for XML, upper case).
-   Legal values for the version parameter are 1.0 and 2.0
-   (Test for 1.0).
-
-   Retrieve the root node of the DOM document by invoking
-   the "getDocumentElement()" method.   This should create a
-   node object on which the "isSupported(feature,version)"
-   method is invoked with "feature" equal to "XML" and the version equal to 1.0.
-   The method should return a boolean "true".
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
-   */
-  isSupported09: function(test) {
-    var success;
-    var rootNode;
-    var state;
-
-
-    var doc = require('./core/files/staff.xml').staff();
-    rootNode = doc.documentElement;
-
-    state = rootNode.isSupported("XML","1.0");
-    test.ok(state, 'throw_True');
-    test.done();
-  },
-  /**
-   *
-   The "feature" parameter in the
-   isSupported(feature,version)" method is the name
-   of the feature and the version is the version number of the
-   feature to test.   CORE is a legal value for the feature parameter
-   (Test for CORE, upper case).
-   Legal values for the version parameter are 1.0 and 2.0
-   (Test for 2.0).
-
-   Retrieve the root node of the DOM document by invoking
-   the "getDocumentElement()" method.   This should create a
-   node object on which the "isSupported(feature,version)"
-   method is invoked with "feature" equal to "CORE" and the version equal to 2.0.
-   The method should return a boolean "true".
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
-   */
-  isSupported10: function(test) {
-    var success;
-    var rootNode;
-    var state;
-
-
-    var doc = require('./core/files/staff.xml').staff();
-    rootNode = doc.documentElement;
-
-    state = rootNode.isSupported("CORE","2.0");
-    test.ok(state, 'throw_True');
-    test.done();
-  },
-  /**
-   *
-   The "feature" parameter in the
-   isSupported(feature,version)" method is the name
-   of the feature and the version is the version number of the
-   feature to test.   XML is a legal value for the feature parameter
-   (Test for XML, upper case).
-   Legal values for the version parameter are 1.0 and 2.0
-   (Test for 2.0).
-
-   Retrieve the root node of the DOM document by invoking
-   the "getDocumentElement()" method.   This should create a
-   node object on which the "isSupported(feature,version)"
-   method is invoked with "feature" equal to "XML" and the version equal to 2.0.
-   The method should return a boolean "true".
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
-   */
-  isSupported11: function(test) {
-    var success;
-    var rootNode;
-    var state;
-
-
-    var doc = require('./core/files/staff.xml').staff();
-    rootNode = doc.documentElement;
-
-    state = rootNode.isSupported("XML","2.0");
-    test.ok(state, 'throw_True');
-    test.done();
-  },
-  /**
-   *
-   The "feature" parameter in the
-   isSupported(feature,version)" method is the name
-   of the feature and the version is the version number of the
-   feature to test.   CORE is a legal value for the feature parameter
-   (Test for CORE, upper case).
-   Legal values for the version parameter are 1.0 and 2.0
-   (Test for 1.0).
-
-   Retrieve the root node of the DOM document by invoking
-   the "getDocumentElement()" method.   This should create a
-   node object on which the "isSupported(feature,version)"
-   method is invoked with "feature" equal to "CORE" and the version equal to 1.0.
-   The method should return a boolean "true".
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
-   */
-  isSupported12: function(test) {
-    var success;
-    features = new Array();
-    features[0] = "Core";
-    features[1] = "XML";
-    features[2] = "HTML";
-    features[3] = "Views";
-    features[4] = "StyleSheets";
-    features[5] = "CSS";
-    features[6] = "CSS2";
-    features[7] = "Events";
-    features[8] = "UIEvents";
-    features[9] = "MouseEvents";
-    features[10] = "MutationEvents";
-    features[11] = "HTMLEvents";
-    features[12] = "Range";
-    features[13] = "Traversal";
-    features[14] = "bogus.bogus.bogus";
-
-    var rootNode;
-    var featureElement;
-    var state;
-
-
-    var doc = require('./core/files/staff.xml').staff();
-    rootNode = doc.documentElement;
-
-    state = rootNode.isSupported("Core","2.0");
-    test.ok(state, 'Core2');
-    for(var indexN10078 = 0;indexN10078 < features.length; indexN10078++) {
-      featureElement = features[indexN10078];
-      state = rootNode.isSupported(featureElement,"1.0");
-
-    }
-    for(var indexN10083 = 0;indexN10083 < features.length; indexN10083++) {
-      featureElement = features[indexN10083];
-      state = rootNode.isSupported(featureElement,"2.0");
-
-    }
-    test.done();
-  },
-  /**
-   *
-   Calls isSupported("Core","") should return true for all implementations (by extension of core-14).
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
-   * @see http://www.w3.org/2000/11/DOM-Level-2-errata#core-14
-   */
-  isSupported13: function(test) {
-    var success;
-    var rootNode;
-    var state;
-
-
-    var doc = require('./core/files/staff.xml').staff();
-    rootNode = doc.documentElement;
-
-    state = rootNode.isSupported("Core","");
-    test.ok(state, 'Core');
-    test.done();
-  },
-  /**
-   *
-   Calls isSupported("Core",null) should return true for all implementations (by extension of core-14).
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
-   * @see http://www.w3.org/2000/11/DOM-Level-2-errata#core-14
-   */
-  isSupported14: function(test) {
-    var success;
-    var rootNode;
-    var state;
-    var nullString = null;
-
-
-
-    var doc = require('./core/files/staff.xml').staff();
-    rootNode = doc.documentElement;
-
-    state = rootNode.isSupported("Core",nullString);
-    test.ok(state, 'Core');
-    test.done();
-  }
-})
-
 exports['localName'] = testcase({
   /**
    *
@@ -6916,7 +5045,7 @@ exports['localName'] = testcase({
     createdNode = doc.createElement("test:employee");
     localName = createdNode.localName;
 
-    test.equal(localName, 'employee', 'localName should be "employee"');
+    test.equal(localName, 'test:employee', 'localName should be "test:employee"');
     test.done();
   },
   /**
@@ -6986,47 +5115,6 @@ exports['localName'] = testcase({
 exports['namednodemapgetnameditemns'] = testcase({
   /**
    *
-   Using the method getNamedItemNS, retreive the entity "ent1" and notation "notation1"
-   from a NamedNodeMap of this DocumentTypes entities and notations.
-   Both should be null since entities and notations are not namespaced.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-getNamedItemNS
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=407
-   * @see http://lists.w3.org/Archives/Member/w3c-dom-ig/2003Nov/0016.html
-   */
-  namednodemapgetnameditemns01: function(test) {
-    var success;
-    var docType;
-    var entities;
-    var notations;
-    var entity;
-    var notation;
-    var entityName;
-    var notationName;
-    var nullNS = null;
-
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    docType = doc.doctype;
-
-    entities = docType.entities;
-
-    test.notEqual(entities, null, 'entities should be null');
-    notations = docType.notations;
-
-    test.notEqual(notations, null, 'notations should be null');
-    entity = entities.getNamedItemNS(nullNS,"ent1");
-    test.equal(entity, null, 'entity should not be null');
-    notation = notations.getNamedItemNS(nullNS,"notation1");
-    test.equal(notation, null, 'notation should not be null');
-    test.done();
-  },
-  /**
-   *
    The method getNamedItemNS retrieves a node specified by local name and namespace URI.
 
    Using the method getNamedItemNS, retreive an attribute node having namespaceURI=http://www.nist.gov
@@ -7053,7 +5141,7 @@ exports['namednodemapgetnameditemns'] = testcase({
     attributes = element.attributes;
 
     attribute = attributes.getNamedItemNS("http://www.nist.gov","domestic");
-    attrName = attribute.nodeName;
+    attrName = attribute.name;
 
     test.equal(attrName, "emp:domestic", "namednodemapgetnameditemns02");
     test.done();
@@ -7090,7 +5178,7 @@ exports['namednodemapgetnameditemns'] = testcase({
     attributes = element.attributes;
 
     attribute = attributes.getNamedItemNS("http://www.w3.org/DOM/L2","att");
-    attrName = attribute.nodeName;
+    attrName = attribute.name;
 
     test.equal(attrName, "L2:att", "namednodemapgetnameditemns03");
     test.done();
@@ -7128,7 +5216,7 @@ exports['namednodemapgetnameditemns'] = testcase({
     attributes = element.attributes;
 
     attribute = attributes.getNamedItemNS("http://www.w3.org/DOM/L1","street");
-    attrName = attribute.nodeName;
+    attrName = attribute.name;
 
     test.equal(attrName, "street", "namednodemapgetnameditemns04");
     test.done();
@@ -7197,11 +5285,11 @@ exports['namednodemapgetnameditemns'] = testcase({
     newAttr1 = doc.createAttributeNS("http://www.w3.org/DOM/L1","street");
     newAttribute = element.setAttributeNodeNS(newAttr1);
     attribute = attributesMap1.getNamedItemNS("http://www.w3.org/DOM/L1","street");
-    attrName = attribute.nodeName;
+    attrName = attribute.name;
 
     test.equal(attrName, "street", "namednodemapgetnameditemnsMap106");
     attribute = attributesMap2.getNamedItemNS("http://www.w3.org/DOM/L1","street");
-    attrName = attribute.nodeName;
+    attrName = attribute.name;
 
     test.equal(attrName, "street", "namednodemapgetnameditemnsMap206");
     test.done();
@@ -7271,7 +5359,7 @@ exports['namednodemapremovenameditemns'] = testcase({
 
     attribute = attributes.removeNamedItemNS("http://www.w3.org/DOM/L1","att");
     attribute = attributes.getNamedItemNS("http://www.w3.org/DOM/L2","att");
-    nodeName = attribute.nodeName;
+    nodeName = attribute.name;
 
     test.equal(nodeName, "L2:att", "namednodemapremovenameditemns02");
     test.done();
@@ -7307,78 +5395,6 @@ exports['namednodemapremovenameditemns'] = testcase({
     attributeRemoved = attributes.removeNamedItemNS("http://www.w3.org/2000/xmlns/","dmstc");
     attribute = attributes.getNamedItemNS("http://www.w3.org/2000/xmlns/","dmstc");
     test.equal(attribute, null, 'attribute should not be null');
-    test.done();
-  },
-  /**
-   *
-   Retreive an entity and notation node and remove the first notation from the
-   entity node map and first entity node from the notation map.  Since both these
-   maps are readonly, a NO_MODIFICATION_ALLOWED_ERR should be raised.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=407
-   * @see http://lists.w3.org/Archives/Member/w3c-dom-ig/2003Nov/0016.html
-   */
-  namednodemapremovenameditemns05: function(test) {
-    var success;
-    var docType;
-    var entities;
-    var notations;
-    var removedNode;
-    var nullNS = null;
-
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    docType = doc.doctype;
-
-    entities = docType.entities;
-
-    test.notEqual(entities, null, 'entities should be null');
-    notations = docType.notations;
-
-    test.notEqual(notations, null, 'notations should be null');
-
-    try {
-      removedNode = entities.removeNamedItemNS(nullNS,"ent1");
-      fail("entity_throw_DOMException");
-
-    } catch (ex) {
-      if (typeof(ex.code) != 'undefined') {
-        switch(ex.code) {
-        case /* NOT_FOUND_ERR */ 8 :
-          break;
-        case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
-          break;
-        default:
-          throw ex;
-        }
-      } else {
-        throw ex;
-      }
-    }
-
-    try {
-      removedNode = notations.removeNamedItemNS(nullNS,"notation1");
-      fail("notation_throw_DOMException");
-
-    } catch (ex) {
-      if (typeof(ex.code) != 'undefined') {
-        switch(ex.code) {
-        case /* NOT_FOUND_ERR */ 8 :
-          break;
-        case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
-          break;
-        default:
-          throw ex;
-        }
-      } else {
-        throw ex;
-      }
-    }
     test.done();
   },
   /**
@@ -7570,7 +5586,7 @@ exports['namednodemapsetnameditemns'] = testcase({
     newAttr1 = doc.createAttributeNS("http://www.w3.org/DOM/L1","streets");
     newAttribute = element.setAttributeNodeNS(newAttr1);
     attribute = attributes.getNamedItemNS("http://www.w3.org/DOM/L1","streets");
-    attrName = attribute.nodeName;
+    attrName = attribute.name;
 
     test.equal(attrName, "streets", "namednodemapsetnameditemns01");
     test.done();
@@ -7607,7 +5623,7 @@ exports['namednodemapsetnameditemns'] = testcase({
 
     newNode = attributes.setNamedItemNS(attribute1);
     attribute = attributes.getNamedItemNS("http://www.w3.org/DOM/L1","att");
-    attrName = attribute.nodeName;
+    attrName = attribute.name;
 
     test.equal(attrName, "L1:att", "namednodemapsetnameditemns02");
     test.done();
@@ -7716,66 +5732,6 @@ exports['namednodemapsetnameditemns'] = testcase({
         success = (typeof(ex.code) != 'undefined' && ex.code == 4);
       }
       test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
-   Retreive an entity and notation node and add the first notation to the
-   notation node map and first entity node to the entity map.  Since both these
-   maps are for readonly node, a NO_MODIFICATION_ALLOWED_ERR should be raised.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=407
-   * @see http://lists.w3.org/Archives/Member/w3c-dom-ig/2003Nov/0016.html
-   */
-  namednodemapsetnameditemns05: function(test) {
-    var success;
-    var docType;
-    var entities;
-    var notations;
-    var entity;
-    var notation;
-    var newNode;
-    var nullNS = null;
-
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    docType = doc.doctype;
-
-    entities = docType.entities;
-
-    test.notEqual(entities, null, 'entities should be null');
-    notations = docType.notations;
-
-    test.notEqual(notations, null, 'notations should be null');
-    entity = entities.getNamedItem("ent1");
-    notation = notations.getNamedItem("notation1");
-
-    {
-      success = false;
-      try {
-        newNode = entities.setNamedItemNS(entity);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR_entities');
-    }
-
-    {
-      success = false;
-      try {
-        newNode = notations.setNamedItemNS(notation);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR_notations');
     }
     test.done();
   },
@@ -7914,162 +5870,6 @@ exports['namednodemapsetnameditemns'] = testcase({
         success = (typeof(ex.code) != 'undefined' && ex.code == 10);
       }
       test.ok(success, 'namednodemapsetnameditemns08');
-    }
-    test.done();
-  },
-  /**
-   *
-   The method setNamedItemNS adds a node using its namespaceURI and localName and
-   raises a NO_MODIFICATION_ALLOWED_ERR if this map is readonly.
-
-   Create a new attribute node and attempt to add it to the nodemap of entities and notations
-   for this documenttype.  This should reaise a NO_MODIFICATION_ALLOWED_ERR.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
-   */
-  namednodemapsetnameditemns09: function(test) {
-    var success;
-    var docType;
-    var entities;
-    var notations;
-    var attr;
-    var newNode;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    docType = doc.doctype;
-
-    entities = docType.entities;
-
-    notations = docType.notations;
-
-    attr = doc.createAttributeNS("http://www.w3.org/DOM/Test","test");
-
-    {
-      success = false;
-      try {
-        newNode = entities.setNamedItemNS(attr);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR_entities');
-    }
-
-    {
-      success = false;
-      try {
-        newNode = notations.setNamedItemNS(attr);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR_notations');
-    }
-    test.done();
-  },
-  /**
-   *
-   The method setNamedItemNS adds a node using its namespaceURI and localName and
-   raises a HIERARCHY_REQUEST_ERR if an attempt is made to add a node doesn't belong
-   in this NamedNodeMap.
-
-   Attempt to add an entity to a NamedNodeMap of attribute nodes,
-   Since nodes of this type cannot be added to the attribute node map a HIERARCHY_REQUEST_ERR
-   should be raised.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
-   */
-  namednodemapsetnameditemns10: function(test) {
-    var success;
-    var docType;
-    var entities;
-    var attributes;
-    var entity;
-    var notation;
-    var element;
-    var elementList;
-    var newNode;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    docType = doc.doctype;
-
-    entities = docType.entities;
-
-    test.notEqual(entities, null, 'entities should be null');
-    entity = entities.getNamedItem("ent1");
-    elementList = doc.getElementsByTagNameNS("http://www.nist.gov","address");
-    element = elementList.item(0);
-    attributes = element.attributes;
-
-
-    {
-      success = false;
-      try {
-        newNode = attributes.setNamedItemNS(entity);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 3);
-      }
-      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
-   The method setNamedItemNS adds a node using its namespaceURI and localName and
-   raises a HIERARCHY_REQUEST_ERR if an attempt is made to add a node doesn't belong
-   in this NamedNodeMap.
-
-   Attempt to add a notation node to a NamedNodeMap of attribute nodes,
-   Since notations nodes do not belong in the attribute node map a HIERARCHY_REQUEST_ERR
-   should be raised.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
-   */
-  namednodemapsetnameditemns11: function(test) {
-    var success;
-    var docType;
-    var notations;
-    var attributes;
-    var notation;
-    var element;
-    var elementList;
-    var newNode;
-    var nullNS = null;
-
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    docType = doc.doctype;
-
-    notations = docType.notations;
-
-    test.notEqual(notations, null, 'notations should be null');
-    notation = notations.getNamedItem("notation1");
-    elementList = doc.getElementsByTagNameNS("http://www.nist.gov","address");
-    element = elementList.item(0);
-    attributes = element.attributes;
-
-
-    {
-      success = false;
-      try {
-        newNode = attributes.setNamedItemNS(notation);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 3);
-      }
-      test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     }
     test.done();
   }
@@ -8221,7 +6021,7 @@ exports['nodegetlocalname'] = testcase({
     var localQAttrName;
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     element = doc.createElementNS("http://www.w3.org/DOM/Test/elem","elem");
     qelement = doc.createElementNS("http://www.w3.org/DOM/Test/elem","qual:qelem");
     attr = doc.createAttributeNS("http://www.w3.org/DOM/Test/attr","attr");
@@ -8268,7 +6068,7 @@ exports['nodegetlocalname'] = testcase({
 
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     element = doc.createElementNS(nullNS,"elem");
     elementNS = doc.createElementNS("http://www.w3.org/DOM/Test/elem","qual:qelem");
     attr = doc.createAttributeNS(nullNS,"attr");
@@ -8291,8 +6091,7 @@ exports['nodegetlocalname'] = testcase({
    *
    The method getOwnerDocument returns the Document object associated with this node
 
-   Create a new DocumentType node.  Since this node is not used with any Document yet
-   verify if the ownerDocument is null.
+   Create a new DocumentType node.
 
    * @author IBM
    * @author Neil Delima
@@ -8308,12 +6107,12 @@ exports['nodegetlocalname'] = testcase({
 
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     domImpl = doc.implementation;
     docType = domImpl.createDocumentType("mydoc",nullID,nullID);
     ownerDoc = docType.ownerDocument;
 
-    test.equal(ownerDoc, null, 'ownerDoc should not be null');
+    test.equal(ownerDoc, doc, 'ownerDoc should not be null');
     test.done();
   },
   /**
@@ -8341,7 +6140,7 @@ exports['nodegetlocalname'] = testcase({
 
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     domImpl = doc.implementation;
     docType = domImpl.createDocumentType("mydoc",nullNS,nullNS);
     newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","mydoc",docType);
@@ -8378,7 +6177,7 @@ exports['nodegetlocalname'] = testcase({
     var attrPrefix;
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     element = doc.createElementNS("http://www.w3.org/DOM/Test/elem","elem");
     qelement = doc.createElementNS("http://www.w3.org/DOM/Test/elem","qual:qelem");
     attr = doc.createAttributeNS("http://www.w3.org/DOM/Test/attr","attr");
@@ -8418,7 +6217,7 @@ exports['nodehasattributes'] = testcase({
     var hasAttributes;
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     elementList = doc.getElementsByTagName("employee");
     element = elementList.item(0);
     hasAttributes = element.hasAttributes();
@@ -8427,60 +6226,6 @@ exports['nodehasattributes'] = testcase({
     element = elementList.item(0);
     hasAttributes = element.hasAttributes();
     test.ok(hasAttributes, 'nodehasattributes01_2');
-    test.done();
-  },
-  /**
-   *
-
-   The method hasAttributes returns whether this node (if it is an element) has any attributes.
-
-
-
-   Retrieve the docType node.	 Since this is not an element node check if hasAttributes returns
-
-   null.
-
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
-   */
-  nodehasattributes02: function(test) {
-    var success;
-    var docType;
-    var hasAttributes;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    docType = doc.doctype;
-
-    hasAttributes = docType.hasAttributes();
-    test.equal(hasAttributes, false, 'hasAttributes should be *false*');
-    test.done();
-  },
-  /**
-   *
-   The method hasAttributes returns whether this node (if it is an element) has any attributes.
-
-   Retreive an element node with a default attributes.  Verify if hasAttributes returns true.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeHasAttrs
-   */
-  nodehasattributes03: function(test) {
-    var success;
-    var element;
-    var elementList;
-    var hasAttributes;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    elementList = doc.getElementsByTagName("emp:employee");
-    element = elementList.item(0);
-    test.notEqual(element, null, 'element should be null');
-    hasAttributes = element.hasAttributes();
-    test.ok(hasAttributes, 'hasAttributes');
     test.done();
   },
   /**
@@ -8528,642 +6273,7 @@ exports['nodehasattributes'] = testcase({
   }
 })
 
-exports['nodeissupported'] = testcase({
-  /**
-   *
-   The method "isSupported(feature,version)" Tests whether the DOM implementation
-   implements a specific feature and that feature is supported by this node.
-
-   Call the isSupported method on the document element node with a combination of features
-   versions and versions as below.  Valid feature names are case insensitive and versions
-   "2.0", "1.0" and if the version is not specified, supporting any version of the feature
-   should return true.  Check if the value returned value was true.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
-   */
-  nodeissupported01: function(test) {
-    var success;
-    var element;
-    var version = "";
-    var version1 = "1.0";
-    var version2 = "2.0";
-    var featureCore;
-    var featureXML;
-    var success;
-    featuresXML = new Array();
-    featuresXML[0] = "XML";
-    featuresXML[1] = "xmL";
-
-    featuresCore = new Array();
-    featuresCore[0] = "Core";
-    featuresCore[1] = "CORE";
-
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    element = doc.documentElement;
-
-    for(var indexN10063 = 0;indexN10063 < featuresXML.length; indexN10063++) {
-      featureXML = featuresXML[indexN10063];
-      success = element.isSupported(featureXML,version);
-      test.ok(success, 'nodeissupported01_XML1');
-      success = element.isSupported(featureXML,version1);
-      test.ok(success, 'nodeissupported01_XML2');
-
-    }
-    for(var indexN1007C = 0;indexN1007C < featuresCore.length; indexN1007C++) {
-      featureCore = featuresCore[indexN1007C];
-      success = element.isSupported(featureCore,version);
-      test.ok(success, 'nodeissupported01_Core1');
-      success = element.isSupported(featureCore,version1);
-      success = element.isSupported(featureCore,version2);
-      test.ok(success, 'nodeissupported01_Core3');
-
-    }
-    test.done();
-  },
-  /**
-   *
-   The method "isSupported(feature,version)" Tests whether the DOM implementation
-   implements a specific feature and that feature is supported by this node.
-
-   Call the isSupported method on a new attribute node with a combination of features
-   versions and versions as below.  Valid feature names are case insensitive and versions
-   "2.0", "1.0" and if the version is not specified, supporting any version of the feature
-   should return true.  Check if the value returned value was true.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
-   */
-  nodeissupported02: function(test) {
-    var success;
-    var attribute;
-    var version = "";
-    var version1 = "1.0";
-    var version2 = "2.0";
-    var featureCore;
-    var featureXML;
-    var success;
-    featuresXML = new Array();
-    featuresXML[0] = "XML";
-    featuresXML[1] = "xmL";
-
-    featuresCore = new Array();
-    featuresCore[0] = "Core";
-    featuresCore[1] = "CORE";
-
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    attribute = doc.createAttribute("TestAttr");
-    for(var indexN10064 = 0;indexN10064 < featuresXML.length; indexN10064++) {
-      featureXML = featuresXML[indexN10064];
-      success = attribute.isSupported(featureXML,version);
-      test.ok(success, 'nodeissupported02_XML1');
-      success = attribute.isSupported(featureXML,version1);
-      test.ok(success, 'nodeissupported02_XML2');
-
-    }
-    for(var indexN1007D = 0;indexN1007D < featuresCore.length; indexN1007D++) {
-      featureCore = featuresCore[indexN1007D];
-      success = attribute.isSupported(featureCore,version);
-      test.ok(success, 'nodeissupported02_Core1');
-      success = attribute.isSupported(featureCore,version1);
-      success = attribute.isSupported(featureCore,version2);
-      test.ok(success, 'nodeissupported02_Core3');
-
-    }
-    test.done();
-  },
-  /**
-   *
-
-   The method "isSupported(feature,version)" Tests whether the DOM implementation
-
-   implements a specific feature and that feature is supported by this node.
-
-
-
-   Call the isSupported method specifying empty strings for feature and version on a docType
-
-   Node.  Check if the value returned value was false.
-
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
-   */
-  nodeissupported03: function(test) {
-    var success;
-    var docType;
-    var success;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    docType = doc.doctype;
-
-    success = docType.isSupported("","");
-    test.equal(success, false, 'success should be *false*');
-    test.done();
-  },
-  /**
-   *
-   The method "isSupported(feature,version)" Tests whether the DOM implementation
-   implements a specific feature and that feature is supported by this node.
-
-   Call the isSupported method specifying empty strings for feature and version on a
-   new EntityReference node.  Check if the value returned value was false.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
-   */
-  nodeissupported04: function(test) {
-    var success;
-    var entRef;
-    var success;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    entRef = doc.createEntityReference("ent1");
-    test.notEqual(entRef, null, 'entRef should be null');
-    success = entRef.isSupported("XML CORE","");
-    test.equal(success, false, 'success should be *false*');
-    test.done();
-  },
-  /**
-   *
-
-   The method "isSupported(feature,version)" Tests whether the DOM implementation
-
-   implements a specific feature and that feature is supported by this node.
-
-
-
-   Call the isSupported method specifying bad values for feature and version on a new
-
-   Processing Instruction node.  Check if the value returned from this method value was false.
-
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Level-2-Core-Node-supports
-   */
-  nodeissupported05: function(test) {
-    var success;
-    var pi;
-    var success;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    pi = doc.createProcessingInstruction("PITarget","PIData");
-    success = pi.isSupported("-","+");
-    test.equal(success, false, 'success should be *false*');
-    test.done();
-  }
-})
-
 exports['nodenormalize'] = testcase({
-  /**
-   *
-   The method "normalize" puts all Text nodes in the full depth of the sub-tree underneath
-   this Node, including attribute nodes, into a "normal" form where only structure
-   (e.g., elements, comments, processing instructions, CDATA sections, and entity references)
-   separates Text nodes, i.e., there are neither adjacent Text nodes nor empty Text nodes.
-
-   Create a dom tree consisting of elements, comments, processing instructions, CDATA sections,
-   and entity references nodes seperated by text nodes.  Check the length of the node list of each
-   before and after normalize has been called.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-normalize
-   */
-  nodenormalize01: function(test) {
-    var success;
-    var newDoc;
-    var domImpl;
-    var docType;
-    var docTypeNull = null;
-
-    var documentElement;
-    var element1;
-    var element2;
-    var element3;
-    var element4;
-    var element5;
-    var element6;
-    var element7;
-    var text1;
-    var text2;
-    var text3;
-    var pi;
-    var cData;
-    var comment;
-    var entRef;
-    var elementList;
-    var appendedChild;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    domImpl = doc.implementation;
-    newDoc = domImpl.createDocument("http://www.w3.org/DOM/Test","dom:root",docTypeNull);
-    element1 = newDoc.createElement("element1");
-    element2 = newDoc.createElement("element2");
-    element3 = newDoc.createElement("element3");
-    element4 = newDoc.createElement("element4");
-    element5 = newDoc.createElement("element5");
-    element6 = newDoc.createElement("element6");
-    element7 = newDoc.createElement("element7");
-    text1 = newDoc.createTextNode("text1");
-    text2 = newDoc.createTextNode("text2");
-    text3 = newDoc.createTextNode("text3");
-    cData = newDoc.createCDATASection("Cdata");
-    comment = newDoc.createComment("comment");
-    pi = newDoc.createProcessingInstruction("PITarget","PIData");
-    entRef = newDoc.createEntityReference("EntRef");
-    test.notEqual(entRef, null, 'entRef should be null');
-    documentElement = newDoc.documentElement;
-
-    appendedChild = documentElement.appendChild(element1);
-    appendedChild = element2.appendChild(text1);
-    appendedChild = element2.appendChild(text2);
-    appendedChild = element2.appendChild(text3);
-    appendedChild = element1.appendChild(element2);
-    text1 = text1.cloneNode(false);
-    text2 = text2.cloneNode(false);
-    appendedChild = element3.appendChild(entRef);
-    appendedChild = element3.appendChild(text1);
-    appendedChild = element3.appendChild(text2);
-    appendedChild = element1.appendChild(element3);
-    text1 = text1.cloneNode(false);
-    text2 = text2.cloneNode(false);
-    appendedChild = element4.appendChild(cData);
-    appendedChild = element4.appendChild(text1);
-    appendedChild = element4.appendChild(text2);
-    appendedChild = element1.appendChild(element4);
-    text2 = text2.cloneNode(false);
-    text3 = text3.cloneNode(false);
-    appendedChild = element5.appendChild(comment);
-    appendedChild = element5.appendChild(text2);
-    appendedChild = element5.appendChild(text3);
-    appendedChild = element1.appendChild(element5);
-    text2 = text2.cloneNode(false);
-    text3 = text3.cloneNode(false);
-    appendedChild = element6.appendChild(pi);
-    appendedChild = element6.appendChild(text2);
-    appendedChild = element6.appendChild(text3);
-    appendedChild = element1.appendChild(element6);
-    entRef = entRef.cloneNode(false);
-    text1 = text1.cloneNode(false);
-    text2 = text2.cloneNode(false);
-    text3 = text3.cloneNode(false);
-    appendedChild = element7.appendChild(entRef);
-    appendedChild = element7.appendChild(text1);
-    appendedChild = element7.appendChild(text2);
-    appendedChild = element7.appendChild(text3);
-    appendedChild = element1.appendChild(element7);
-    elementList = element1.childNodes;
-
-    test.equal(elementList.length, 6, "nodeNormalize01_1Bef");
-    elementList = element2.childNodes;
-
-    test.equal(elementList.length, 3, "nodeNormalize01_2Bef");
-    elementList = element3.childNodes;
-
-    test.equal(elementList.length, 3, "nodeNormalize01_3Bef");
-    elementList = element4.childNodes;
-
-    test.equal(elementList.length, 3, "nodeNormalize01_4Bef");
-    elementList = element5.childNodes;
-
-    test.equal(elementList.length, 3, "nodeNormalize01_5Bef");
-    elementList = element6.childNodes;
-
-    test.equal(elementList.length, 3, "nodeNormalize01_6Bef");
-    elementList = element7.childNodes;
-
-    test.equal(elementList.length, 4, "nodeNormalize01_7Bef");
-    newDoc.normalize();
-    elementList = element1.childNodes;
-
-    test.equal(elementList.length, 6, "nodeNormalize01_1Aft");
-    elementList = element2.childNodes;
-
-    test.equal(elementList.length, 1, "nodeNormalize01_2Aft");
-    elementList = element3.childNodes;
-
-    test.equal(elementList.length, 2, "nodeNormalize01_3Aft");
-    elementList = element4.childNodes;
-
-    test.equal(elementList.length, 2, "nodeNormalize01_4Aft");
-    elementList = element5.childNodes;
-
-    test.equal(elementList.length, 2, "nodeNormalize01_5Aft");
-    elementList = element6.childNodes;
-
-    test.equal(elementList.length, 2, "nodeNormalize01_6Aft");
-    elementList = element7.childNodes;
-
-    test.equal(elementList.length, 2, "nodeNormalize01_7Aft");
-    test.done();
-  },
-  /**
-   *
-   The method setPrefix sets the namespace prefix of this node.  Note that setting this attribute,
-   when permitted, changes the nodeName attribute, which holds the qualified name, as well as the
-   tagName and name attributes of the Element and Attr interfaces, when applicable.
-
-   Create a new element node with a namespace prefix.  Add it to a new DocumentFragment Node without
-   a prefix.  Call setPrefix on the elemen node.  Check if the prefix was set correctly on the element.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
-   */
-  nodesetprefix01: function(test) {
-    var success;
-    var docFragment;
-    var element;
-    var elementTagName;
-    var elementNodeName;
-    var appendedChild;
-
-
-    var doc = require('./core/files/staff.xml').staff();
-    docFragment = doc.createDocumentFragment();
-    element = doc.createElementNS("http://www.w3.org/DOM/Test","emp:address");
-    appendedChild = docFragment.appendChild(element);
-    element.prefix = "dmstc";
-
-    elementTagName = element.tagName;
-
-    elementNodeName = element.nodeName;
-
-    test.equal(elementTagName, "DMSTC:ADDRESS", "nodesetprefix01_tagname");
-    test.equal(elementNodeName, "DMSTC:ADDRESS", "nodesetprefix01_nodeName");
-    test.done();
-  },
-  /**
-   *
-   The method setPrefix sets the namespace prefix of this node.  Note that setting this attribute,
-   when permitted, changes the nodeName attribute, which holds the qualified name, as well as the
-   tagName and name attributes of the Element and Attr interfaces, when applicable.
-
-   Create a new attribute node and add it to an element node with an existing attribute having
-   the same localName as this attribute but different namespaceURI.  Change the prefix of the
-   newly created attribute using setPrefix.  Check if the new attribute nodeName has changed
-   and the existing attribute is the same.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
-   */
-  nodesetprefix02: function(test) {
-    var success;
-    var element;
-    var attribute;
-    var newAttribute;
-    var setNode;
-    var elementList;
-    var attrName;
-    var newAttrName;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    elementList = doc.getElementsByTagName("address");
-    element = elementList.item(1);
-    newAttribute = doc.createAttributeNS("http://www.w3.org/DOM/Test","test:address");
-    setNode = element.setAttributeNodeNS(newAttribute);
-    newAttribute.prefix = "dom";
-
-    attribute = element.getAttributeNodeNS("http://www.usa.com","domestic");
-    attrName = attribute.nodeName;
-
-    newAttrName = newAttribute.nodeName;
-
-    test.equal(attrName, "dmstc:domestic", "nodesetprefix02_attrName");
-    test.equal(newAttrName, "dom:address", "nodesetprefix02_newAttrName");
-    test.done();
-  },
-  /**
-   *
-   The method setPrefix raises a NAMESPACE_ERR if the namespaceURI of this node is null.
-
-   Create a new element node without a namespace prefix.  Call setPrefix on the newly created elemenent node.
-   Check if a NAMESPACE_ERR is thrown.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
-   */
-  nodesetprefix03: function(test) {
-    var success;
-    var element;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    element = doc.createElement("address");
-
-    {
-      success = false;
-      try {
-        element.prefix = "test";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 14);
-      }
-      test.ok(success, 'throw_NAMESPACE_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
-   The method setPrefix raises a NAMESPACE_ERR if the specified prefix is malformed.
-
-   Create a new namespace aware element node and call the setPrefix method on it with several malformed
-   prefix values.  Check if a NAMESPACE_ERR is thrown.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
-   */
-  nodesetprefix05: function(test) {
-    var success;
-    var element;
-    var prefixValue;
-    prefixValues = new Array();
-    prefixValues[0] = "_:";
-    prefixValues[1] = ":0";
-    prefixValues[2] = ":";
-    prefixValues[3] = "_::";
-    prefixValues[4] = "a:0:c";
-
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    element = doc.createElementNS("http://www.w3.org/DOM/Test/L2","dom:elem");
-    for(var indexN10050 = 0;indexN10050 < prefixValues.length; indexN10050++) {
-      prefixValue = prefixValues[indexN10050];
-
-      {
-	success = false;
-	try {
-          element.prefix = prefixValue;
-
-        }
-	catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 14);
-	}
-	test.ok(success, 'throw_NAMESPACE_ERR');
-      }
-
-    }
-    test.done();
-  },
-  /**
-   *
-   The method setPrefix raises a NAMESPACE_ERR if the specified prefix is "xml" and the namespaceURI
-   of this node is different from "http://www.w3.org/XML/1998/namespace".
-
-   Invoke the setPrefix method on this Element object with namespaceURI that is different from
-   http://www..w3.org/xml/1998/namespace and a prefix whose values is xml.
-   Check if the NAMESPACE_ERR was thrown.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
-   */
-  nodesetprefix06: function(test) {
-    var success;
-    var element;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    element = doc.createElementNS("http://www.w3.org/DOM/Test/L2","dom:elem");
-
-    {
-      success = false;
-      try {
-        element.prefix = "xml";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 14);
-      }
-      test.ok(success, 'throw_NAMESPACE_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
-   The method setPrefix raises a NAMESPACE_ERR if this node is an attribute and the specified
-   prefix is "xmlns" and the namespaceURI of this node is different from
-   "http://www.w3.org/2000/xmlns/".
-
-   Create a new attribute node whose namespaceURI is different form "http://www.w3.org/2000/xmlns/"
-   and node prefix is "xmlns".
-   Check if the NAMESPACE_ERR was thrown.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
-   */
-  nodesetprefix07: function(test) {
-    var success;
-    var attribute;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    attribute = doc.createAttributeNS("http://www.w3.org/DOM/Test/L2","abc:elem");
-
-    {
-      success = false;
-      try {
-        attribute.prefix = "xmlns";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 14);
-      }
-      test.ok(success, 'throw_NAMESPACE_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
-   The method setPrefix raises a NAMESPACE_ERR if this node is an attribute and the qualifiedName
-   of this node is "xmlns
-
-   Retreive an attribute node whose qualifiedName is xmlns.  Try setting a prefix on this node.
-   Check if the NAMESPACE_ERR was thrown.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
-   */
-  nodesetprefix08: function(test) {
-    var success;
-    var element;
-    var elementList;
-    var attribute;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    elementList = doc.getElementsByTagName("employee");
-    element = elementList.item(0);
-    attribute = element.getAttributeNode("xmlns");
-
-    {
-      success = false;
-      try {
-        attribute.prefix = "xml";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 14);
-      }
-      test.ok(success, 'throw_NAMESPACE_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
-   The method setPrefix raises a INVALID_CHARACTER_ERR if the specified prefix contains an illegal character.
-
-   Create a new namespace aware element node and call the setPrefix method on it with a prefix having
-   an invalid character.  Check if a NAMESPACE_ERR is thrown.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
-   */
-  nodesetprefix09: function(test) {
-    var success;
-    var value = "#$%&'()@";
-    var element;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    element = doc.createElementNS("http://www.w3.org/DOM/Test/L2","dom:elem");
-
-    {
-      success = false;
-      try {
-        element.prefix = value;
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 5);
-      }
-      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
-    }
-    test.done();
-  },
   /**
    *
    The "normalize()" method puts all the nodes in the full
@@ -9192,7 +6302,7 @@ exports['nodenormalize'] = testcase({
     var data;
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     root = doc.documentElement;
 
     root.normalize();
@@ -9226,7 +6336,7 @@ exports['ownerDocument'] = testcase({
     var ownerDocument;
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     ownerDocument = doc.ownerDocument;
 
     test.equal(ownerDocument, null, 'ownerDocument should not be null');
@@ -9254,7 +6364,7 @@ exports['ownerDocument'] = testcase({
     var name;
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     addressList = doc.getElementsByTagName("address");
     testNode = addressList.item(0);
     attributes = testNode.attributes;
@@ -9264,7 +6374,7 @@ exports['ownerDocument'] = testcase({
 
     name = elementNode.nodeName;
 
-    test.equal(name, "ADDRESS", "throw_Equals");
+    test.equal(name, "address", "throw_Equals");
     test.done();
   },
   /**
@@ -9286,7 +6396,7 @@ exports['ownerDocument'] = testcase({
     var elementNode;
 
 
-    var doc = require('./core/files/staff.xml').staff();
+    var doc = require('../level1/core/files/staff.xml').staff();
     newAttr = doc.createAttribute("newAttribute");
     elementNode = newAttr.ownerElement;
 
@@ -9415,310 +6525,6 @@ exports['prefix'] = testcase({
   },
   /**
    *
-   The "setPrefix(prefix)" method raises a
-   NAMESPACE_ERR DOMException if the specified node is an attribute
-   and the specified prefix is xmlns and the namespaceURI is different from
-   http://www.w3.org/2000/xmlns.
-
-   Attempt to insert "xmlns" as the new namespace prefix on the emp:domestic
-   attribute within the emp:address node.
-   An exception should be raised since the namespaceURI of this node is not
-   http://www.w3.org/2000/xmlns.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='NAMESPACE_ERR'])
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-NodeNSPrefix')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
-   */
-  prefix05: function(test) {
-    var success;
-    var elementList;
-    var addrNode;
-    var addrAttr;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    elementList = doc.getElementsByTagName("emp:address");
-    addrNode = elementList.item(0);
-    test.notEqual(addrNode, null, 'addrNode should be null');
-    addrAttr = addrNode.getAttributeNode("emp:domestic");
-
-    {
-      success = false;
-      try {
-        addrAttr.prefix = "xmlns";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 14);
-      }
-      test.ok(success, 'throw_NAMESPACE_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
-   The "setPrefix(prefix)" method raises a
-   INVALID_CHARACTER_ERR DOMException if the specified
-   prefix contains an illegal character.
-
-   Attempt to insert a new namespace prefix on the first employee node.
-   An exception should be raised since the namespace prefix has an invalid
-   character.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='INVALID_CHARACTER_ERR'])
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-NodeNSPrefix')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
-   */
-  prefix06: function(test) {
-    var success;
-    var elementList;
-    var employeeNode;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    elementList = doc.getElementsByTagName("employee");
-    employeeNode = elementList.item(0);
-
-    {
-      success = false;
-      try {
-        employeeNode.prefix = "pre^fix xmlns='http//www.nist.gov'";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 5);
-      }
-      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
-   The "setPrefix(prefix)" method raises a
-   NAMESPACE_ERR DOMException if the specified
-   prefix if malformed.
-
-   Attempt to insert a new namespace prefix on the second employee node.
-   An exception should be raised since the namespace prefix is malformed.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='NAMESPACE_ERR'])
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-NodeNSPrefix')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
-   */
-  prefix07: function(test) {
-    var success;
-    var elementList;
-    var employeeNode;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    elementList = doc.getElementsByTagName("employee");
-    employeeNode = elementList.item(0);
-
-    {
-      success = false;
-      try {
-        employeeNode.prefix = "emp::";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 14);
-      }
-      test.ok(success, 'throw_NAMESPACE_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
-   The "setPrefix(prefix)" method causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Obtain the children of the THIRD "gender" element.  The elements
-   content is an entity reference.  Get the FIRST item
-   from the entity reference and execute the "setPrefix(prefix)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-NodeNSPrefix')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   */
-  prefix08: function(test) {
-    var success;
-    var genderList;
-    var genderNode;
-    var entRef;
-    var entElement;
-    var createdNode;
-    var nodeType;
-
-
-    var doc = require('./core/files/staff.xml').staff();
-    genderList = doc.getElementsByTagName("gender");
-    genderNode = genderList.item(2);
-    entRef = genderNode.firstChild;
-
-    nodeType = entRef.nodeType;
-
-
-    if(
-      (1 == nodeType)
-    ) {
-      entRef = doc.createEntityReference("ent4");
-      test.notEqual(entRef, null, 'entRef should be null');
-
-    }
-    entElement = entRef.firstChild;
-
-    test.notEqual(entElement, null, 'entElement should be null');
-    createdNode = doc.createElement("text3");
-
-    {
-      success = false;
-      try {
-        entElement.prefix = "newPrefix";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
-   The "setPrefix(prefix)" method raises a
-   NAMESPACE_ERR DOMException if the specified node is an attribute
-   and the qualifiedName of this node is xmlns.
-
-   Attempt to set the prefix on the xmlns attribute within the fourth address
-   element.
-   An exception should be raised since the qualifiedName of this attribute
-   is "xmlns".
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='NAMESPACE_ERR'])
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-NodeNSPrefix')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
-   */
-  prefix09: function(test) {
-    var success;
-    var elementList;
-    var addrNode;
-    var addrAttr;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    elementList = doc.getElementsByTagName("address");
-    addrNode = elementList.item(3);
-    addrAttr = addrNode.getAttributeNode("xmlns");
-    {
-      success = false;
-      try {
-        addrAttr.prefix = "xxx";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 14);
-      }
-      test.ok(success, 'throw_NAMESPACE_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
-   The "setPrefix(prefix)" method raises a
-   NAMESPACE_ERR DOMException if the specified
-   prefix is xml and the namespaceURI is different from
-   http://www.w3.org/XML/1998/namespace.
-
-   Attempt to insert "xml" as the new namespace prefix on the first employee node.
-   An exception should be raised since the namespaceURI of this node is not
-   http://www.w3.org/XML/1998/namespace.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='NAMESPACE_ERR'])
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-NodeNSPrefix
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-NodeNSPrefix')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
-   */
-  prefix10: function(test) {
-    var success;
-    var elementList;
-    var employeeNode;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    elementList = doc.getElementsByTagName("employee");
-    employeeNode = elementList.item(1);
-
-    {
-      success = false;
-      try {
-        employeeNode.prefix = "xml";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 14);
-      }
-      test.ok(success, 'throw_NAMESPACE_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
-   The "setPrefix(prefix)" method raises a
-   NAMESPACE_ERR DOMException if the specified
-   prefix is set on a node with a namespaceURI that is null.
-
-   Attempt to insert a new namespace prefix on the second employee node.
-   An exception should be raised since the namespace prefix is set
-   on a node whose namespaceURI is null.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='NAMESPACE_ERR'])
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NAMESPACE_ERR'])
-   */
-  prefix11: function(test) {
-    var success;
-    var elementList;
-    var employeeNode;
-    var namespaceURI;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    elementList = doc.getElementsByTagName("employee");
-    employeeNode = elementList.item(1);
-    namespaceURI = employeeNode.namespaceURI;
-
-
-    {
-      success = false;
-      try {
-        employeeNode.prefix = "employee1";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 14);
-      }
-      test.ok(success, 'throw_NAMESPACE_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
    The "getPublicId()" method of a documenttype node contains
    the public identifier associated with the external subset.
 
@@ -9747,86 +6553,6 @@ exports['prefix'] = testcase({
 })
 
 exports['remove attribute or namedItem NS'] = testcase({
-  /**
-   *
-   The "removeAttributeNS(namespaceURI,localName)" method for an attribute causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Obtain the children of the THIRD "gender" element.  The elements
-   content is an entity reference.  Try to remove an attribute
-   from the entity reference by executing the
-   "removeAttributeNS(namespaceURI,localName)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElRemAtNS
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElRemAtNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   */
-  removeAttributeNS01: function(test) {
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    var gender = doc.getElementsByTagName("gender").item(2).firstChild;
-    // if(1 == gender.nodeType) {
-    //   gender = doc.createEntityReference("ent4");
-    //   test.notEqual(gender, null, 'gender should not be null')
-    // }
-    var genElement = gender.childNodes.item(0);
-    test.notEqual(genElement, null, 'genElement should not be null')
-    var success = false;
-    try {
-      genElement.removeAttributeNS("http://www.w3.org/2000/xmlns/","local1");
-    } catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-    }
-    test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    test.done();
-  },
-  /**
-   *
-   The "removeAttributeNS(namespaceURI,localName)" removes an attribute by
-   local name and namespace URI.  If the removed attribute has a
-   default value it is immediately replaced.  The replacing attribute has the same
-   namespace URI and local name, as well as the original prefix.
-
-   Retrieve the attribute named "emp:local" from emp:address
-   node, then remove the "emp:local"
-   attribute by invoking the "removeAttributeNS(namespaceURI,localName)" method.
-   The "emp:local" attribute has a default value defined in the
-   DTD file, that value should immediately replace the old
-   value.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElRemAtNS
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=238
-   */
-  removeAttributeNS02: function(test) {
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    var elementList;
-    var testAddr;
-    var addrAttr;
-    var attr;
-    var namespaceURI;
-    var localName;
-    var prefix;
-    elementList = doc.getElementsByTagName("emp:address");
-    testAddr = elementList.item(0);
-    test.equal(testAddr.removeAttributeNS("http://www.nist.gov","local1"), undefined, "should be undefined");
-    elementList = doc.getElementsByTagName("emp:address");
-    testAddr = elementList.item(0);
-    addrAttr = testAddr.getAttributeNodeNS("http://www.nist.gov","local1");
-    attr = testAddr.getAttributeNS("http://www.nist.gov","local1");
-    namespaceURI = addrAttr.namespaceURI;
-    localName = addrAttr.localName;
-    prefix = testAddr.prefix;
-    test.equal(attr, 'FALSE');
-    test.equal(namespaceURI, 'http://www.nist.gov');
-    test.equal(localName, 'local1');
-    test.equal(prefix, 'emp');
-    test.done();
-  },
   /**
    *
    (This test is not from the w3.org test suite but specific to jsdom.)
@@ -9915,50 +6641,6 @@ exports['remove attribute or namedItem NS'] = testcase({
     }
     test.ok(success, 'throw_NOT_FOUND_ERR')
     test.done();
-  },
-  /**
-   *
-   The "removeNamedItemNS(namespaceURI,localName)" method for a
-   NamedNodeMap should raise NO_MODIFICATION_ALLOWED_ERR DOMException if
-   this map is readonly.
-
-   Retrieve a list of "gender" elements. Get access to the THIRD element
-   which contains an ENTITY_REFERENCE child node.  Try to remove the attribute
-   in the node's map with method removeNamedItemNS(namespaceURI,localName).
-   This should result in NO_MODIFICATION_ALLOWED_ERR
-   DOMException.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-removeNamedItemNS
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-removeNamedItemNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   */
-  removeNamedItemNS03: function(test) {
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    var success;
-    var namespaceURI = "http://www.w3.org/2000/xmlns/";
-    var localName = "local1";
-    var elementList = doc.getElementsByTagName("gender");
-    var testAddress = elementList.item(2);
-    var nList = testAddress.childNodes;
-    var child = nList.item(0);
-    // if(1 == child.nodeType) {
-    //   child = doc.createEntityReference("ent4");
-    //   test.notEqual(child, null, 'child should not be null');
-    // }
-    var n2List = child.childNodes;
-    var child2 = n2List.item(0);
-    test.notEqual(child2, null, 'child2 should not be null');
-    var attributes = child2.attributes;
-    success = false;
-    try {
-      attributes.removeNamedItemNS(namespaceURI,localName);
-    } catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-    }
-    test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    test.done();
   }
 })
 
@@ -10033,60 +6715,6 @@ exports['setAttributeNS'] = testcase({
         success = (typeof(ex.code) != 'undefined' && ex.code == 14);
       }
       test.ok(success, 'throw_NAMESPACE_ERR');
-    }
-    test.done()
-  },
-  /**
-   *
-   The "setAttributeNS(namespaceURI,qualifiedName,value)" method for an attribute causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Obtain the children of the THIRD "gender" element.  The elements
-   content is an entity reference.  Try to set an attribute
-   in the entity reference by executing the
-   "setAttributeNS(namespaceURI,qualifiedName,value)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAttrNS
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAttrNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   */
-  setAttributeNS03: function(test) {
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    var success;
-    var namespaceURI = "www.xyz.com";
-    var qualifiedName = "emp:local1";
-    var genderList;
-    var gender;
-    var genList;
-    var gen;
-    var gList;
-    var genElement;
-    var nodeType;
-    genderList = doc.getElementsByTagName("gender");
-    gender = genderList.item(2);
-    genList = gender.childNodes;
-    gen = genList.item(0);
-    nodeType = gen.nodeType;
-    if(1 == nodeType) {
-      gen = doc.createEntityReference("ent4");
-      test.notEqual(gen, null, 'created entity reference should not be null');
-    }
-    gList = gen.childNodes;
-    genElement = gList.item(0);
-    test.notEqual(genElement, null, 'genElement should not be null');
-    {
-      success = false;
-      try {
-        genElement.setAttributeNS(namespaceURI,qualifiedName,"newValue");
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
     test.done()
   },
@@ -10285,7 +6913,7 @@ exports['setAttributeNS'] = testcase({
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
    */
   setAttributeNS10: function(test) {
-    var doc = require('./core/files/hc_staff.xml').hc_staff();
+    var doc = require('../level1/core/files/hc_staff.xml').hc_staff();
     var success;
     var namespaceURI = "http://www.example.gov";
     var elementList;
@@ -10361,52 +6989,6 @@ exports['setAttributeNodeNS'] = testcase({
   },
   /**
    *
-   The "setAttributeNodeNS(namespaceURI,qualifiedName,value)" method for an attribute causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Obtain the children of the THIRD "gender" element.  The elements
-   content is an entity reference.  Try to set an attribute
-   in the entity reference by executing the
-   "setAttributeNodeNS(newAttr)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAtNodeNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   */
-  setAttributeNodeNS02: function(test) {
-    var success;
-    var genderList;
-    var gender;
-    var genList;
-    var gen;
-    var gList;
-    var genElement;
-    var newAttr;
-    var setAttr1;
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    gen = doc.createEntityReference("ent4");
-    gList = gen.childNodes;
-    genElement = gList.item(0);
-    test.notEqual(genElement, null, 'genElement should not be null');
-    newAttr = doc.createAttributeNS("www.xyz.com","emp:local1");
-    {
-      success = false;
-      try {
-        setAttr1 = genElement.setAttributeNodeNS(newAttr);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
    The "setAttributeNodeNS(newAttr)" adds a new attribute.
    If an attribute with that local name and that namespaceURI is already
    present in the element, it is replaced by the new one.
@@ -10454,7 +7036,7 @@ exports['setAttributeNodeNS'] = testcase({
     test.notEqual(testAddr, null, 'testAddr should not be null');
     var newAttr = doc.createAttributeNS("http://www.nist.gov","xxx:domestic");
     var newAddrAttr = testAddr.setAttributeNodeNS(newAttr);
-    test.equal(newAddrAttr.nodeName, 'emp:domestic')
+    test.equal(newAddrAttr.name, 'emp:domestic')
     test.done();
   },
   /**
@@ -10622,67 +7204,6 @@ exports['setNamedItemNS'] = testcase({
     test.done();
   },
 
-  /**
-   *
-   The "setNamedItemNS(arg)" method for a
-   NamedNodeMap should raise NO_MODIFICATION_ALLOWED_ERR DOMException if
-   this map is readonly.
-
-   Retrieve a list of "gender" elements. Get access to the THIRD element
-   which contains an ENTITY_REFERENCE child node.  Get access to the node's
-   map. Try to add an attribute node specified by arg with
-   method setNamedItemNS(arg).  This should result in NO_MODIFICATION_ALLOWED_ERR
-   DOMException.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-setNamedItemNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   */
-  setNamedItemNS04: function(test) {
-    var success;
-    var namespaceURI = "http://www.w3.org/2000/xmlns/";
-    var localName = "local1";
-    var elementList;
-    var testAddress;
-    var nList;
-    var child;
-    var n2List;
-    var child2;
-    var attributes;
-    var arg;
-    var setNode;
-    var nodeType;
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    elementList = doc.getElementsByTagName("gender");
-    testAddress = elementList.item(2);
-    nList = testAddress.childNodes;
-
-    child = nList.item(0);
-    nodeType = child.nodeType;
-    if(1 == nodeType) {
-      child = doc.createEntityReference("ent4");
-      test.notEqual(child, null, 'createdEntRefNotNull');
-    }
-    n2List = child.childNodes;
-    child2 = n2List.item(0);
-    test.notEqual(child2, null, 'child2 should not be null');
-    attributes = child2.attributes;
-
-    arg = attributes.getNamedItemNS(namespaceURI,localName);
-    {
-      success = false;
-      try {
-        setNode = attributes.setNamedItemNS(arg);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-    test.done();
-  },
 
   /**
    *

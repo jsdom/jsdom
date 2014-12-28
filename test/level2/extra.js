@@ -8,13 +8,6 @@ exports['create an empty document'] = function (test) {
   test.done();
 }
 
-exports['create a document with namespace URI, but not qualified Name'] = function (test) {
-  var dom = new core.DOMImplementation();
-  test.throws(function () { dom.createDocument("http://example.org/motorcycle", null, null); },
-              core.DOMException), 'should throw a DOMException';
-  test.done();
-}
-
 exports['doctype ownerDocument'] = function (test) {
   var dom = new core.DOMImplementation();
   var doctype = dom.createDocumentType("bananas");

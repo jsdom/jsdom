@@ -1,3 +1,4 @@
+var jsdom = require('../..');
 var staff = require('./core/files/staff.xml');
 var hc_staff = require('./core/files/hc_staff.xml');
 var hc_nodtdstaff = require('./core/files/hc_nodtdstaff.xml');
@@ -168,44 +169,6 @@ exports.tests = {
     test.done();
   },
 
-  /**
-   *
-   The "getValue()" method will return the value of the
-   attribute as a string.  The general entity references
-   are replaced with their values.
-   Retrieve the attribute named "street" from the last
-   child of of the fourth employee and examine the string
-   returned by the "getValue()" method.  The value should
-   be set to "Yes" after the EntityReference is
-   replaced with its value.  This test uses the
-   "getNamedItem(name)" method from the NamedNodeMap
-   interface.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
-   */
-  attrentityreplacement: function(test) {
-    var success;
-    var doc;
-    var addressList;
-    var testNode;
-    var attributes;
-    var streetAttr;
-    var value;
-
-    doc = staff.staff();
-    addressList = doc.getElementsByTagName("address");
-    testNode = addressList.item(3);
-    attributes = testNode.attributes;
-
-    streetAttr = attributes.getNamedItem("street");
-    value = streetAttr.value;
-
-    test.equal(value, "Yes", 'streetYes');
-
-    test.done();
-  },
 
   /**
    *
@@ -235,7 +198,7 @@ exports.tests = {
     attributes = testNode.attributes;
 
     streetAttr = attributes.getNamedItem("street");
-    name = streetAttr.nodeName;
+    name = streetAttr.name;
 
     test.equal(name, "street", 'nodeName');
     name = streetAttr.name;
@@ -349,240 +312,6 @@ exports.tests = {
 
   /**
    *
-   Removing a child node from an attribute in an entity reference
-   should result in an NO_MODIFICATION_ALLOWED_ERR DOMException.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-1734834066')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   */
-  attrremovechild1: function(test) {
-    var success;
-    var doc;
-    var entRef;
-    var entElement;
-    var attrNode;
-    var textNode;
-    var removedNode;
-
-    doc = staff.staff();
-    entRef = doc.createEntityReference("ent4");
-    test.notEqual(entRef, null, 'createdEntRefNotNull');
-    entElement = entRef.firstChild;
-
-    test.notEqual(entElement, null, 'entElementNotNull');
-    attrNode = entElement.getAttributeNode("domestic");
-    textNode = attrNode.firstChild;
-
-    test.notEqual(textNode, null, 'attrChildNotNull');
-
-    {
-      success = false;
-      try {
-        removedNode = attrNode.removeChild(textNode);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'setValue_throws_NO_MODIFICATION_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   Replacing a child node from an attribute in an entity reference
-   should result in an NO_MODIFICATION_ALLOWED_ERR DOMException.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-785887307')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   */
-  attrreplacechild1: function(test) {
-    var success;
-    var doc;
-    var entRef;
-    var entElement;
-    var attrNode;
-    var textNode;
-    var removedNode;
-    var newChild;
-
-    doc = staff.staff();
-    entRef = doc.createEntityReference("ent4");
-    test.notEqual(entRef, null, 'createdEntRefNotNull');
-    entElement = entRef.firstChild;
-
-    test.notEqual(entElement, null, 'entElementNotNull');
-    attrNode = entElement.getAttributeNode("domestic");
-    textNode = attrNode.firstChild;
-
-    test.notEqual(textNode, null, 'attrChildNotNull');
-    newChild = doc.createTextNode("Yesterday");
-
-    {
-      success = false;
-      try {
-        removedNode = attrNode.replaceChild(newChild,textNode);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'setValue_throws_NO_MODIFICATION_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   The "setValue()" method for an attribute causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-   Obtain the children of the THIRD "gender" element.  The elements
-   content is an entity reference.  Get the "domestic" attribute
-   from the entity reference and execute the "setValue()" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-core#ID-221662474
-   * @see http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-core#xpointer(id('ID-221662474')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/DOM/updates/REC-DOM-Level-1-19981001-errata.html
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
-   */
-  attrsetvaluenomodificationallowederr: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var gender;
-    var genList;
-    var gen;
-    var gList;
-    var g;
-    var attrList;
-    var attrNode;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    gender = genderList.item(2);
-    test.notEqual(gender, null, 'genderNotNull');
-    genList = gender.childNodes;
-
-    gen = genList.item(0);
-    test.notEqual(gen, null, 'genderFirstChildNotNull');
-    gList = gen.childNodes;
-
-    g = gList.item(0);
-    test.notEqual(g, null, 'genderFirstGrandchildNotNull');
-    attrList = g.attributes;
-
-    test.notEqual(attrList, null, 'attributesNotNull');
-    attrNode = attrList.getNamedItem("domestic");
-    test.notEqual(attrNode, null, 'attrNotNull');
-
-    {
-      success = false;
-      try {
-        attrNode.value = "newvalue";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'setValue_throws_NO_MODIFICATION');
-    }
-
-    {
-      success = false;
-      try {
-        attrNode.nodeValue = "newvalue2";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'setNodeValue_throws_NO_MODIFICATION');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   The "setValue()" method for an attribute causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Create an entity reference using document.createEntityReference()
-   Get the "domestic" attribute from the entity
-   reference and execute the "setValue()" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-core#ID-221662474
-   * @see http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-one-core#xpointer(id('ID-221662474')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/DOM/updates/REC-DOM-Level-1-19981001-errata.html
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
-   * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/attrsetvaluenomodificationallowederr.xml
-   */
-  attrsetvaluenomodificationallowederrEE: function(test) {
-    var success;
-    var doc;
-    var entRef;
-    var entElement;
-    var attrList;
-    var attrNode;
-    var gender;
-    var genderList;
-    var appendedChild;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    gender = genderList.item(2);
-    test.notEqual(gender, null, 'genderNotNull');
-    entRef = doc.createEntityReference("ent4");
-    test.notEqual(entRef, null, 'entRefNotNull');
-    appendedChild = gender.appendChild(entRef);
-    entElement = entRef.firstChild;
-
-    test.notEqual(entElement, null, 'entElementNotNull');
-    attrList = entElement.attributes;
-
-    attrNode = attrList.getNamedItem("domestic");
-
-    {
-      success = false;
-      try {
-        attrNode.value = "newvalue";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'setValue_throws_NO_MODIFICATION');
-    }
-
-    {
-      success = false;
-      try {
-        attrNode.nodeValue = "newvalue2";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'setNodeValue_throws_NO_MODIFICATION');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
    The "getSpecified()" method for an Attr node should
    be set to true if the attribute was explicitly given
    a value.
@@ -653,129 +382,6 @@ exports.tests = {
     state = streetAttr.specified;
 
     test.ok(state, 'streetSpecified');
-
-    test.done();
-  },
-
-  /**
-   *
-   To respecify the attribute to its default value from
-   the DTD, the attribute must be deleted.  This will then
-   make a new attribute available with the "getSpecified()"
-   method value set to false.
-   Retrieve the attribute named "street" from the last
-   child of of the THIRD employee and delete it.  This
-   should then create a new attribute with its default
-   value and also cause the "getSpecified()" method to
-   return false.
-   This test uses the "removeAttribute(name)" method
-   from the Element interface and the "getNamedItem(name)"
-   method from the NamedNodeMap interface.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D6AC0F9
-   * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
-   */
-  attrspecifiedvalueremove: function(test) {
-    var success;
-    var doc;
-    var addressList;
-    var testNode;
-    var attributes;
-    var streetAttr;
-    var state;
-
-    doc = staff.staff();
-    addressList = doc.getElementsByTagName("address");
-    testNode = addressList.item(2);
-    testNode.removeAttribute("street");
-    attributes = testNode.attributes;
-
-    streetAttr = attributes.getNamedItem("street");
-    test.notEqual(streetAttr, null, 'streetAttrNotNull');
-    state = streetAttr.specified;
-
-    test.equal(state, false, 'attrSpecifiedValueRemoveAssert');
-
-    test.done();
-  },
-
-  /**
-   *
-   Retrieve the last CDATASection node located inside the
-   second child of the second employee and examine its
-   content.  Since the CDATASection interface inherits
-   from the CharacterData interface(via the Text node),
-   the "getData()" method can be used to access the
-   CDATA content.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
-   */
-  cdatasectiongetdata: function(test) {
-    var success;
-    var doc;
-    var nameList;
-    var child;
-    var lastChild;
-    var data;
-    var nodeType;
-
-    doc = staff.staff();
-    nameList = doc.getElementsByTagName("name");
-    child = nameList.item(1);
-    lastChild = child.lastChild;
-
-    nodeType = lastChild.nodeType;
-
-    test.equal(nodeType, 4, 'isCDATA');
-    data = lastChild.data;
-
-    test.equal(data, "This is an adjacent CDATASection with a reference to a tab &tab;", 'data');
-
-    test.done();
-  },
-
-  /**
-   *
-   Adjacent CDATASection nodes cannot be merged together by
-   use of the "normalize()" method from the Element interface.
-   Retrieve second child of the second employee and invoke
-   the "normalize()" method.  The Element under contains
-   two CDATASection nodes that should not be merged together
-   by the "normalize()" method.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-162CF083
-   */
-  cdatasectionnormalize: function(test) {
-    var success;
-    var doc;
-    var nameList;
-    var lChild;
-    var childNodes;
-    var cdataN;
-    var data;
-
-    doc = staff.staff();
-    nameList = doc.getElementsByTagName("name");
-    lChild = nameList.item(1);
-    lChild.normalize();
-    childNodes = lChild.childNodes;
-
-    cdataN = childNodes.item(1);
-    test.notEqual(cdataN, null, 'firstCDATASection');
-    data = cdataN.data;
-
-    test.equal(data, "This is a CDATASection with EntityReference number 2 &ent2;", 'data1');
-    cdataN = childNodes.item(3);
-    test.notEqual(cdataN, null, 'secondCDATASection');
-    data = cdataN.data;
-
-    test.equal(data, "This is an adjacent CDATASection with a reference to a tab &tab;", 'data3');
 
     test.done();
   },
@@ -855,113 +461,6 @@ exports.tests = {
     childData = child.data;
 
     test.equal(childData, "Margaret Martin, Esquire", 'characterdataAppendDataGetDataAssert');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "appendData(arg)" method raises a NO_MODIFICATION_ALLOWED_ERR
-   DOMException if the node is readonly.
-   Obtain the children of the THIRD "gender" element.  The elements
-   content is an entity reference.  Get the FIRST item
-   from the entity reference and execute the "appendData(arg)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-32791A2F
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-32791A2F')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-32791A2F
-   */
-  characterdataappenddatanomodificationallowederr: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var genderNode;
-    var entElement;
-    var entElementContent;
-    var entReference;
-    var nodeType;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    genderNode = genderList.item(2);
-    entReference = genderNode.firstChild;
-
-    test.notEqual(entReference, null, 'entReferenceNotNull');
-    nodeType = entReference.nodeType;
-
-
-    if(
-      (1 == nodeType)
-    ) {
-      entReference = doc.createEntityReference("ent4");
-      test.notEqual(entReference, null, 'createdEntRefNotNull');
-
-    }
-    entElement = entReference.firstChild;
-
-    test.notEqual(entElement, null, 'entElementNotNull');
-    entElementContent = entElement.firstChild;
-
-    test.notEqual(entElementContent, null, 'entElementContentNotNull');
-
-    {
-      success = false;
-      try {
-        entElementContent.appendData("newString");
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   Create an ent3 entity reference and call appendData on a text child, should thrown a NO_MODIFICATION_ALLOWED_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-32791A2F
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-32791A2F')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-32791A2F
-   * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/characterdataappenddatanomodificationallowederr.xml
-   */
-  characterdataappenddatanomodificationallowederrEE: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var genderNode;
-    var entText;
-    var entReference;
-    var appendedChild;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    genderNode = genderList.item(2);
-    entReference = doc.createEntityReference("ent3");
-    test.notEqual(entReference, null, 'createdEntRefNotNull');
-    appendedChild = genderNode.appendChild(entReference);
-    entText = entReference.firstChild;
-
-    test.notEqual(entText, null, 'entTextNotNull');
-
-    {
-      success = false;
-      try {
-        entText.appendData("newString");
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
 
     test.done();
   },
@@ -1173,113 +672,6 @@ exports.tests = {
 
   /**
    *
-   The "deleteData(offset,count)" method raises a NO_MODIFICATION_ALLOWED_ERR
-   DOMException if the node is readonly.
-   Obtain the children of the THIRD "gender" element.  The elements
-   content is an entity reference.  Get the FIRST item
-   from the entity reference and execute the "deleteData(offset,count)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-7C603781')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
-   */
-  characterdatadeletedatanomodificationallowederr: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var genderNode;
-    var entElement;
-    var entElementContent;
-    var nodeType;
-    var entReference;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    genderNode = genderList.item(2);
-    entReference = genderNode.firstChild;
-
-    test.notEqual(entReference, null, 'entReferenceNotNull');
-    nodeType = entReference.nodeType;
-
-
-    if(
-      (3 == nodeType)
-    ) {
-      entReference = doc.createEntityReference("ent4");
-      test.notEqual(entReference, null, 'createdEntRefNotNull');
-
-    }
-    entElement = entReference.firstChild;
-
-    test.notEqual(entElement, null, 'entElementNotNull');
-    entElementContent = entElement.firstChild;
-
-    test.notEqual(entElementContent, null, 'entElementContentNotNull');
-
-    {
-      success = false;
-      try {
-        entElementContent.deleteData(1,3);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   Create an ent3 entity reference and call deleteData on a text child, should thrown a NO_MODIFICATION_ALLOWED_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-7C603781')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-7C603781
-   * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/characterdatadeletedatanomodificationallowederr.xml
-   */
-  characterdatadeletedatanomodificationallowederrEE: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var genderNode;
-    var entText;
-    var entReference;
-    var appendedChild;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    genderNode = genderList.item(2);
-    entReference = doc.createEntityReference("ent3");
-    test.notEqual(entReference, null, 'createdEntRefNotNull');
-    appendedChild = genderNode.appendChild(entReference);
-    entText = entReference.firstChild;
-
-    test.notEqual(entText, null, 'entTextNotNull');
-
-    {
-      success = false;
-      try {
-        entText.deleteData(1,3);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
 
    The "getData()" method retrieves the character data
 
@@ -1355,14 +747,11 @@ exports.tests = {
 
   /**
    *
-   The "deleteData(offset,count)" method raises an
-   INDEX_SIZE_ERR DOMException if the specified count
-   is negative.
+   The "deleteData(offset,count)" method works with negative counts.
 
    Retrieve the character data of the last child of the
    first employee and invoke its "deleteData(offset,count)"
-   method with offset=10 and count=-3.  It should raise the
-   desired exception since the count is negative.
+   method with offset=10 and count=-3.
 
    * @author NIST
    * @author Mary Brady
@@ -1382,17 +771,9 @@ exports.tests = {
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
 
+    child.deleteData(10,-3);
 
-    {
-      success = false;
-      try {
-        child.deleteData(10,-3);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-      }
-      test.ok(success, 'throws_INDEX_SIZE_ERR');
-    }
+    test.equal(child.data, "1230 North");
 
     test.done();
   },
@@ -1581,15 +962,12 @@ exports.tests = {
 
   /**
    *
-   The "replaceData(offset,count,arg)" method raises an
-   INDEX_SIZE_ERR DOMException if the specified count
-   is negative.
+   The "replaceData(offset,count,arg)" method works with negative counts.
 
    Retrieve the character data of the last child of the
    first employee and invoke its
    "replaceData(offset,count,arg) method with offset=10
-   and count=-3 and arg="ABC".  It should raise the
-   desired exception since the count is negative.
+   and count=-3 and arg="ABC".
 
    * @author NIST
    * @author Mary Brady
@@ -1609,18 +987,9 @@ exports.tests = {
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
 
+    child.replaceData(10,-3,"ABC");
 
-    {
-      success = false;
-      try {
-        child.replaceData(10,-3,"ABC");
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-      }
-      test.ok(success, 'throws_INDEX_SIZE_ERR');
-    }
-
+    test.equal(child.data, "1230 NorthABC");
     test.done();
   },
 
@@ -1719,14 +1088,11 @@ exports.tests = {
 
   /**
    *
-   The "substringData(offset,count)" method raises an
-   INDEX_SIZE_ERR DOMException if the specified count
-   is negative.
+   The "substringData(offset,count)" method works if count is negative.
 
    Retrieve the character data of the last child of the
    first employee and invoke its "substringData(offset,count)
-   method with offset=10 and count=-3.  It should raise the
-   desired exception since the count is negative.
+   method with offset=10 and count=-3.
 
    * @author NIST
    * @author Mary Brady
@@ -1747,18 +1113,9 @@ exports.tests = {
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
 
+    badSubstring = child.substringData(10,-3);
 
-    {
-      success = false;
-      try {
-        badSubstring = child.substringData(10,-3);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-      }
-      test.ok(success, 'throws_INDEX_SIZE_ERR');
-    }
-
+    test.equal(badSubstring, " Ave. Dallas, Texas 98551");
     test.done();
   },
 
@@ -1972,111 +1329,6 @@ exports.tests = {
 
   /**
    *
-   The "insertData(offset,arg)" method raises a NO_MODIFICATION_ALLOWED_ERR
-   DOMException if the node is readonly.
-   Obtain the children of the THIRD "gender" element.  The elements
-   content is an entity reference.  Get the FIRST item
-   from the entity reference and execute the "insertData(offset,arg)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-3EDB695F')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
-   */
-  characterdatainsertdatanomodificationallowederr: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var genderNode;
-    var entElement;
-    var nodeType;
-    var entElementContent;
-    var entReference;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    genderNode = genderList.item(2);
-    entReference = genderNode.firstChild;
-
-    test.notEqual(entReference, null, 'entReferenceNotNull');
-    nodeType = entReference.nodeType;
-
-
-    if(
-      (1 == nodeType)
-    ) {
-      entReference = doc.createEntityReference("ent4");
-      test.notEqual(entReference, null, 'createdEntRefNotNull');
-
-    }
-    entElement = entReference.firstChild;
-
-    test.notEqual(entElement, null, 'entElementNotNull');
-    entElementContent = entElement.firstChild;
-
-    test.notEqual(entElementContent, null, 'entElementContentNotNull');
-
-    {
-      success = false;
-      try {
-        entElementContent.insertData(1,"newArg");
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   Create an ent3 entity reference and call insertData on a text child, should thrown a NO_MODIFICATION_ALLOWED_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-3EDB695F')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3EDB695F
-   * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/characterdatainsertdatanomodificationallowederr.xml
-   */
-  characterdatainsertdatanomodificationallowederrEE: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var genderNode;
-    var entText;
-    var entReference;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    genderNode = genderList.item(2);
-    entReference = doc.createEntityReference("ent3");
-    test.notEqual(entReference, null, 'createdEntRefNotNull');
-    entText = entReference.firstChild;
-
-    test.notEqual(entText, null, 'entTextNotNull');
-
-    {
-      success = false;
-      try {
-        entText.insertData(1,"newArg");
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
    The "replaceData(offset,count,arg)" method replaces the
    characters starting at the specified offset with the
    specified string.  Test for replacement in the
@@ -2271,221 +1523,6 @@ exports.tests = {
 
   /**
    *
-   The "replaceData(offset,count,arg)" method raises a NO_MODIFICATION_ALLOWED_ERR
-   DOMException if the node is readonly.
-
-   Obtain the children of the THIRD "gender" element.  The elements
-   content is an entity reference.  Get the FIRST item
-   from the entity reference and execute the "replaceData(offset,count,arg)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-E5CBA7FB')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
-   */
-  characterdatareplacedatanomodificationallowederr: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var genderNode;
-    var entElement;
-    var entElementContent;
-    var entReference;
-    var nodeType;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    genderNode = genderList.item(2);
-    entReference = genderNode.firstChild;
-
-    test.notEqual(entReference, null, 'entReferenceNotNull');
-    nodeType = entReference.nodeType;
-
-
-    if(
-      (1 == nodeType)
-    ) {
-      entReference = doc.createEntityReference("ent4");
-      test.notEqual(entReference, null, 'createdEntRefNotNull');
-
-    }
-    entElement = entReference.firstChild;
-
-    test.notEqual(entElement, null, 'entElementNotNull');
-    entElementContent = entElement.firstChild;
-
-    test.notEqual(entElementContent, null, 'entElementContentNotNull');
-
-    {
-      success = false;
-      try {
-        entElementContent.replaceData(1,3,"newArg");
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   Create an ent3 entity reference and call replaceData on a text child, should thrown a NO_MODIFICATION_ALLOWED_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-E5CBA7FB')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E5CBA7FB
-   * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/characterdatareplacedatanomodificationallowederr.xml
-   */
-  characterdatareplacedatanomodificationallowederrEE: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var genderNode;
-    var entText;
-    var entReference;
-    var appendedNode;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    genderNode = genderList.item(2);
-    entReference = doc.createEntityReference("ent3");
-    test.notEqual(entReference, null, 'createdEntRefNotNull');
-    appendedNode = genderNode.appendChild(entReference);
-    entText = entReference.firstChild;
-
-    test.notEqual(entText, null, 'entTextNotNull');
-
-    {
-      success = false;
-      try {
-        entText.replaceData(1,3,"newArg");
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   The "setData(data)" method raises a NO_MODIFICATION_ALLOWED_ERR
-   DOMException if the node is readonly.
-   Obtain the children of the THIRD "gender" element.  The elements
-   content is an entity reference.  Get the FIRST item
-   from the entity reference and execute the "setData(data)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-72AB8359')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
-   */
-  characterdatasetdatanomodificationallowederr: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var genderNode;
-    var entElement;
-    var entElementContent;
-    var entReference;
-    var nodeType;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    genderNode = genderList.item(2);
-    entReference = genderNode.firstChild;
-
-    test.notEqual(entReference, null, 'entReferenceNotNull');
-    nodeType = entReference.nodeType;
-
-
-    if(
-      (1 == nodeType)
-    ) {
-      entReference = doc.createEntityReference("ent4");
-      test.notEqual(entReference, null, 'createdEntRefNotNull');
-
-    }
-    entElement = entReference.firstChild;
-
-    test.notEqual(entElement, null, 'entElementNotNull');
-    entElementContent = entElement.firstChild;
-
-    test.notEqual(entElementContent, null, 'entElementContentNotNull');
-
-    {
-      success = false;
-      try {
-        entElementContent.data = "newData";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   Create an ent3 entity reference and call setData on a text child, should thrown a NO_MODIFICATION_ALLOWED_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-72AB8359')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-72AB8359
-   * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/characterdatasetdatanomodificationallowederr.xml
-   */
-  characterdatasetdatanomodificationallowederrEE: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var genderNode;
-    var entText;
-    var entReference;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    genderNode = genderList.item(4);
-    entReference = doc.createEntityReference("ent3");
-    test.notEqual(entReference, null, 'createdEntRefNotNull');
-    entText = entReference.firstChild;
-
-    test.notEqual(entText, null, 'entTextNotNull');
-
-    {
-      success = false;
-      try {
-        entText.data = "newData";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
    The "setNodeValue()" method changes the character data
    currently stored in the node.
    Retrieve the character data from the second child
@@ -2671,49 +1708,12 @@ exports.tests = {
     attrValue = newAttrNode.nodeValue;
 
     test.equal(attrValue, "", 'value');
-    attrName = newAttrNode.nodeName;
+    attrName = newAttrNode.name;
 
     test.equal(attrName, "district", 'name');
     attrType = newAttrNode.nodeType;
 
     test.equal(attrType, 2, 'type');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "createCDATASection(data)" method creates a new
-   CDATASection node whose value is the specified string.
-   Retrieve the entire DOM document and invoke its
-   "createCDATASection(data)" method.  It should create a
-   new CDATASection node whose "data" is the specified
-   string.  The content, name and type are retrieved and
-   output.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D26C0AF8
-   */
-  documentcreatecdatasection: function(test) {
-    var success;
-    var doc;
-    var newCDATASectionNode;
-    var newCDATASectionValue;
-    var newCDATASectionName;
-    var newCDATASectionType;
-
-    doc = staff.staff();
-    newCDATASectionNode = doc.createCDATASection("This is a new CDATASection node");
-    newCDATASectionValue = newCDATASectionNode.nodeValue;
-
-    test.equal(newCDATASectionValue, "This is a new CDATASection node", 'nodeValue');
-    newCDATASectionName = newCDATASectionNode.nodeName;
-
-    test.equal(newCDATASectionName, "#cdata-section", 'nodeName');
-    newCDATASectionType = newCDATASectionNode.nodeType;
-
-    test.equal(newCDATASectionType, 4, 'nodeType');
 
     test.done();
   },
@@ -2822,7 +1822,7 @@ exports.tests = {
     newElement = doc.createElement("address");
     newElementName = newElement.nodeName;
 
-    test.equal(newElementName, "ADDRESS", 'name');
+    test.equal(newElementName, "address", 'name');
     newElementType = newElement.nodeType;
 
     test.equal(newElementType, 1, 'type');
@@ -2866,92 +1866,6 @@ exports.tests = {
     attribute2 = newElement2.getAttribute("county");
     test.equal(attribute1, "Fort Worth", 'attrib1');
     test.equal(attribute2, "Dallas", 'attrib2');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "createEntityReference(name)" method creates an
-   EntityReferrence node.
-
-   Retrieve the entire DOM document and invoke its
-   "createEntityReference(name)" method.  It should create
-   a new EntityReference node for the Entity with the
-   given name.  The name, value and type are retrieved and
-   output.
-
-   * @author NIST
-   * @author Mary Brady
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-392B75AE
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
-   */
-  documentcreateentityreference: function(test) {
-    var success;
-    var doc;
-    var newEntRefNode;
-    var entRefValue;
-    var entRefName;
-    var entRefType;
-
-    doc = staff.staff();
-    newEntRefNode = doc.createEntityReference("ent1");
-    test.notEqual(newEntRefNode, null, 'createdEntRefNotNull');
-    entRefValue = newEntRefNode.nodeValue;
-
-    test.equal(entRefValue, null, 'value');
-    entRefName = newEntRefNode.nodeName;
-
-    test.equal(entRefName, "ent1", 'name');
-    entRefType = newEntRefNode.nodeType;
-
-    test.equal(entRefType, 5, 'type');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "createEntityReference(name)" method creates an
-   EntityReference node.  In addition, if the referenced entity
-   is known, the child list of the "EntityReference" node
-   is the same as the corresponding "Entity" node.
-
-   Retrieve the entire DOM document and invoke its
-   "createEntityReference(name)" method.  It should create
-   a new EntityReference node for the Entity with the
-   given name.  The referenced entity is known, therefore the child
-   list of the "EntityReference" node is the same as the corresponding
-   "Entity" node.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-392B75AE
-   */
-  documentcreateentityreferenceknown: function(test) {
-    var success;
-    var doc;
-    var newEntRefNode;
-    var newEntRefList;
-    var child;
-    var name;
-    var value;
-
-    doc = staff.staff();
-    newEntRefNode = doc.createEntityReference("ent3");
-    test.notEqual(newEntRefNode, null, 'createdEntRefNotNull');
-    newEntRefList = newEntRefNode.childNodes;
-
-    test.equal(newEntRefList.length, 1, 'size');
-    child = newEntRefNode.firstChild;
-
-    name = child.nodeName;
-
-    test.equal(name, "#text", 'name');
-    value = child.nodeValue;
-
-    test.equal(value, "Texas", 'value');
 
     test.done();
   },
@@ -3140,7 +2054,8 @@ exports.tests = {
     doc = staff.staff();
     nameList = doc.getElementsByTagName("*");
 
-    test.equal(nameList.length, 37, 'documentGetElementsByTagNameTotalLengthAssert');
+    // NB: 37 if entity expansion is supported (jsdom does not)
+    test.equal(nameList.length, 36, 'documentGetElementsByTagNameTotalLengthAssert');
 
     test.done();
   },
@@ -3233,7 +2148,7 @@ exports.tests = {
     rootName = root.nodeName;
 
 
-    test.equal(rootName, "STAFF", 'documentGetRootNodeAssert');
+    test.equal(rootName, "staff", 'documentGetRootNodeAssert');
 
     test.done();
   },
@@ -3315,63 +2230,6 @@ exports.tests = {
       test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
 
-    test.done();
-  },
-
-  /**
-   *
-   The "createEntityReference(tagName)" method raises an
-   INVALID_CHARACTER_ERR DOMException if the specified
-   tagName contains an invalid character.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='INVALID_CHARACTER_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-392B75AE
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-392B75AE')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
-   */
-  documentinvalidcharacterexceptioncreateentref: function(test) {
-    var success;
-    var doc;
-    var badEntityRef;
-
-    doc = hc_staff.hc_staff();
-    success = false;
-    try {
-      badEntityRef = doc.createEntityReference("invalid^Name");
-    }
-    catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 5);
-    }
-    test.ok(success, 'throw_INVALID_CHARACTER_ERR');
-    test.done();
-  },
-
-  /**
-   *
-   Creating an entity reference with an empty name should cause an INVALID_CHARACTER_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='INVALID_CHARACTER_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-392B75AE
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-392B75AE')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='INVALID_CHARACTER_ERR'])
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=525
-   */
-  documentinvalidcharacterexceptioncreateentref1: function(test) {
-    var success;
-    var doc;
-    var badEntityRef;
-
-    doc = hc_staff.hc_staff();
-    success = false;
-    try {
-      badEntityRef = doc.createEntityReference("");
-    }
-    catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 5);
-    }
-    test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     test.done();
   },
 
@@ -3459,223 +2317,6 @@ exports.tests = {
 
 
     test.equal(name, "staff", 'documenttypeGetDocTypeAssert');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "getEntities()" method is a NamedNodeMap that contains
-   the general entities for this document.
-
-   Retrieve the Document Type for this document and create
-   a NamedNodeMap of all its entities.  The entire map is
-   traversed and the names of the entities are retrieved.
-   There should be 5 entities.  Duplicates should be ignored.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1788794630
-   */
-  documenttypegetentities: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var entityList;
-    var name;
-    expectedResult = new Array();
-    expectedResult[0] = "ent1";
-    expectedResult[1] = "ent2";
-    expectedResult[2] = "ent3";
-    expectedResult[3] = "ent4";
-    expectedResult[4] = "ent5";
-
-    expectedResultSVG = new Array();
-    expectedResultSVG[0] = "ent1";
-    expectedResultSVG[1] = "ent2";
-    expectedResultSVG[2] = "ent3";
-    expectedResultSVG[3] = "ent4";
-    expectedResultSVG[4] = "ent5";
-    expectedResultSVG[5] = "svgunit";
-    expectedResultSVG[6] = "svgtest";
-
-    var nameList = new Array();
-
-    var entity;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    entityList = docType.entities;
-
-    test.notEqual(entityList, null, 'entitiesNotNull');
-    for(var indexN1007B = 0;indexN1007B < entityList.length; indexN1007B++) {
-      entity = entityList.item(indexN1007B);
-      name = entity.nodeName;
-
-      nameList[nameList.length] = name;
-
-    }
-
-    test.deepEqual(nameList, expectedResult, 'entityNames');
-
-    test.done();
-  },
-
-  /**
-   *
-   Duplicate entities are to be discarded.
-   Retrieve the Document Type for this document and create
-   a NamedNodeMap of all its entities.  The entity named
-   "ent1" is defined twice and therefore that last
-   occurrance should be discarded.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1788794630
-   */
-  documenttypegetentitieslength: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var entityList;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    entityList = docType.entities;
-
-    test.notEqual(entityList, null, 'entitiesNotNull');
-
-    test.equal(entityList.length, 5, 'entitySize');
-
-    test.done();
-  },
-
-  /**
-   *
-   Every node in the map returned by the "getEntities()"
-   method implements the Entity interface.
-
-   Retrieve the Document Type for this document and create
-   a NamedNodeMap of all its entities.  Traverse the
-   entire list and examine the NodeType of each node
-   in the list.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1788794630
-   */
-  documenttypegetentitiestype: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var entityList;
-    var entity;
-    var entityType;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    entityList = docType.entities;
-
-    test.notEqual(entityList, null, 'entitiesNotNull');
-    for(var indexN10049 = 0;indexN10049 < entityList.length; indexN10049++) {
-      entity = entityList.item(indexN10049);
-      entityType = entity.nodeType;
-
-      test.equal(entityType, 6, 'documenttypeGetEntitiesTypeAssert');
-
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   The "getNotations()" method creates a NamedNodeMap that
-   contains all the notations declared in the DTD.
-
-   Retrieve the Document Type for this document and create
-   a NamedNodeMap object of all the notations.  There
-   should be two items in the list (notation1 and notation2).
-
-   * @author NIST
-   * @author Mary Brady
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D46829EF
-   */
-  documenttypegetnotations: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var notationList;
-    var notation;
-    var notationName;
-    var actual = new Array();
-
-    expected = new Array();
-    expected[0] = "notation1";
-    expected[1] = "notation2";
-
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    notationList = docType.notations;
-
-    test.notEqual(notationList, null, 'notationsNotNull');
-    for(var indexN1005B = 0;indexN1005B < notationList.length; indexN1005B++) {
-      notation = notationList.item(indexN1005B);
-      notationName = notation.nodeName;
-
-      actual[actual.length] = notationName;
-
-    }
-    test.deepEqual(actual, expected, 'names');
-
-    test.done();
-  },
-
-  /**
-   *
-   Every node in the map returned by the "getNotations()"
-   method implements the Notation interface.
-
-   Retrieve the Document Type for this document and create
-   a NamedNodeMap object of all the notations.  Traverse
-   the entire list and examine the NodeType of each node.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D46829EF
-   */
-  documenttypegetnotationstype: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var notationList;
-    var notation;
-    var notationType;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    notationList = docType.notations;
-
-    test.notEqual(notationList, null, 'notationsNotNull');
-    for(var indexN10049 = 0;indexN10049 < notationList.length; indexN10049++) {
-      notation = notationList.item(indexN10049);
-      notationType = notation.nodeType;
-
-      test.equal(notationType, 12, 'documenttypeGetNotationsTypeAssert');
-
-    }
 
     test.done();
   },
@@ -3919,7 +2560,7 @@ exports.tests = {
     elementList = doc.getElementsByTagName("address");
     testEmployee = elementList.item(0);
     domesticAttr = testEmployee.getAttributeNode("domestic");
-    name = domesticAttr.nodeName;
+    name = domesticAttr.name;
 
     test.equal(name, "domestic", 'elementGetAttributeNodeAssert');
 
@@ -3953,44 +2594,6 @@ exports.tests = {
     testEmployee = elementList.item(0);
     domesticAttr = testEmployee.getAttributeNode("invalidAttribute");
     test.equal(domesticAttr, null, 'elementGetAttributeNodeNullAssert');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "getAttribute(name)" method returns an empty
-   string if no value was assigned to an attribute and
-   no default value was given in the DTD file.
-
-   Retrieve the last child of the last employee, then
-   invoke "getAttribute(name)" method, where "name" is an
-   attribute without a specified or DTD default value.
-   The "getAttribute(name)" method should return the empty
-   string.  This method makes use of the
-   "createAttribute(newAttr)" method from the Document
-   interface.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-666EE0F9
-   */
-  elementgetelementempty: function(test) {
-    var success;
-    var doc;
-    var newAttribute;
-    var elementList;
-    var testEmployee;
-    var domesticAttr;
-    var attrValue;
-
-    doc = staff.staff();
-    newAttribute = doc.createAttribute("district");
-    elementList = doc.getElementsByTagName("address");
-    testEmployee = elementList.item(3);
-    domesticAttr = testEmployee.setAttributeNode(newAttribute);
-    attrValue = testEmployee.getAttribute("district");
-    test.equal(attrValue, "", 'elementGetElementEmptyAssert');
 
     test.done();
   },
@@ -4059,7 +2662,7 @@ exports.tests = {
     }
     childName = child.nodeName;
 
-    test.equal(childName, "EMPLOYEEID", 'nodename');
+    test.equal(childName, "employeeId", 'nodename');
     child = child.firstChild;
 
     childValue = child.nodeValue;
@@ -4121,12 +2724,12 @@ exports.tests = {
     var result = new Array();
 
     expectedResult = new Array();
-    expectedResult[0] = "EMPLOYEEID";
-    expectedResult[1] = "NAME";
-    expectedResult[2] = "POSITION";
-    expectedResult[3] = "SALARY";
-    expectedResult[4] = "GENDER";
-    expectedResult[5] = "ADDRESS";
+    expectedResult[0] = "employeeId";
+    expectedResult[1] = "name";
+    expectedResult[2] = "position";
+    expectedResult[3] = "salary";
+    expectedResult[4] = "gender";
+    expectedResult[5] = "address";
 
 
     doc = staff.staff();
@@ -4176,7 +2779,7 @@ exports.tests = {
     tagname = root.tagName;
 
 
-    test.equal(tagname, "STAFF", 'elementGetTagNameAssert');
+    test.equal(tagname, "staff", 'elementGetTagNameAssert');
 
     test.done();
   },
@@ -4371,41 +2974,6 @@ exports.tests = {
 
   /**
    *
-   The "removeAttribute(name)" removes an attribute by name.
-   If the attribute has a default value, it is immediately
-   replaced.
-
-   Retrieve the attribute named "street" from the last child
-   of the fourth employee, then remove the "street"
-   attribute by invoking the "removeAttribute(name)" method.
-   The "street" attribute has a default value defined in the
-   DTD file, that value should immediately replace the old
-   value.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D6AC0F9
-   * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
-   */
-  elementremoveattribute: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var testEmployee;
-    var attrValue;
-
-    doc = staff.staff();
-    elementList = doc.getElementsByTagName("address");
-    testEmployee = elementList.item(3);
-    testEmployee.removeAttribute("street");
-    attrValue = testEmployee.getAttribute("street");
-    test.equal(attrValue, "Yes", 'streetYes');
-
-    test.done();
-  },
-
-  /**
-   *
    The "removeAttributeNode(oldAttr)" method removes the
    specified attribute.
 
@@ -4473,286 +3041,6 @@ exports.tests = {
     removedValue = removedAttr.value;
 
     test.equal(removedValue, "No", 'elementRemoveAttributeNodeAssert');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "removeAttributeNode(oldAttr)" method for an attribute causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Obtain the children of the THIRD "gender" element.  The elements
-   content is an entity reference.  Try to remove the "domestic" attribute
-   from the entity reference by executing the "removeAttributeNode(oldAttr)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D589198
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-D589198')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D589198
-   */
-  elementremoveattributenodenomodificationallowederr: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var gender;
-    var genList;
-    var gen;
-    var nodeType;
-    var gList;
-    var genElement;
-    var attrList;
-    var attrNode;
-    var removedAttr;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    gender = genderList.item(2);
-    genList = gender.childNodes;
-
-    gen = genList.item(0);
-    test.notEqual(gen, null, 'genNotNull');
-    nodeType = gen.nodeType;
-
-
-    if(
-      (1 == nodeType)
-    ) {
-      gen = doc.createEntityReference("ent4");
-      test.notEqual(gen, null, 'createdEntRefNotNull');
-
-    }
-    gList = gen.childNodes;
-
-    genElement = gList.item(0);
-    test.notEqual(genElement, null, 'genElementNotNull');
-    attrList = genElement.attributes;
-
-    attrNode = attrList.getNamedItem("domestic");
-
-    {
-      success = false;
-      try {
-        removedAttr = genElement.removeAttributeNode(attrNode);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   The "removeAttributeNode(oldAttr)" method for an attribute causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Create an entity reference and add it to the children of the THIRD "gender" element.
-   Try to remove the "domestic" attribute from the entity
-   reference by executing the "removeAttributeNode(oldAttr)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D589198
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-D589198')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D589198
-   * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/elementremoveattributenodenomodificationallowederr.xml
-   */
-  elementremoveattributenodenomodificationallowederrEE: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var gender;
-    var entRef;
-    var entElement;
-    var attrList;
-    var attrNode;
-    var nodeType;
-    var removedAttr;
-    var appendedChild;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    gender = genderList.item(2);
-    entRef = doc.createEntityReference("ent4");
-    test.notEqual(entRef, null, 'createdEntRefNotNull');
-    appendedChild = gender.appendChild(entRef);
-    entElement = entRef.firstChild;
-
-    test.notEqual(entElement, null, 'entElementNotNull');
-    attrList = entElement.attributes;
-
-    attrNode = attrList.getNamedItem("domestic");
-    test.notEqual(attrNode, null, 'attrNodeNotNull');
-
-    {
-      success = false;
-      try {
-        removedAttr = entElement.removeAttributeNode(attrNode);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   The "removeAttribute(name)" method for an attribute causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Obtain the children of the THIRD "gender" element.  The elements
-   content is an entity reference.  Try to remove the "domestic" attribute
-   from the entity reference by executing the "removeAttribute(name)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D6AC0F9
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6D6AC0F9')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D6AC0F9
-   */
-  elementremoveattributenomodificationallowederr: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var gender;
-    var genList;
-    var gen;
-    var gList;
-    var nodeType;
-    var genElement;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    gender = genderList.item(2);
-    genList = gender.childNodes;
-
-    gen = genList.item(0);
-    test.notEqual(gen, null, 'genNotNull');
-    nodeType = gen.nodeType;
-
-
-    if(
-      (1 == nodeType)
-    ) {
-      gen = doc.createEntityReference("ent4");
-      test.notEqual(gen, null, 'createdEntRefNotNull');
-
-    }
-    gList = gen.childNodes;
-
-    genElement = gList.item(0);
-    test.notEqual(genElement, null, 'genElementNotNull');
-
-    {
-      success = false;
-      try {
-        genElement.removeAttribute("domestic");
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   The "removeAttribute(name)" method for an attribute causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Create an reference the entity ent4 and add it to the THIRD "gender" element.
-   Try to remove the "domestic" attribute from the entity reference by executing the "removeAttribute(name)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D6AC0F9
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-6D6AC0F9')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6D6AC0F9
-   * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/elementremoveattributenomodificationallowederr.xml
-   */
-  elementremoveattributenomodificationallowederrEE: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var gender;
-    var entRef;
-    var entElement;
-    var appendedChild;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    gender = genderList.item(2);
-    entRef = doc.createEntityReference("ent4");
-    test.notEqual(entRef, null, 'createdEntRefNotNull');
-    appendedChild = gender.appendChild(entRef);
-    entElement = entRef.firstChild;
-
-    test.notEqual(entElement, null, 'entElementNotNull');
-
-    {
-      success = false;
-      try {
-        entElement.removeAttribute("domestic");
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   The "removeAttributeNode(oldAttr)" method removes the
-   specified attribute node and restores any default values.
-
-   Retrieve the last child of the third employeed and
-   remove its "street" Attr node.  Since this node has a
-   default value defined in the DTD file, that default
-   should immediately be the new value.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D589198
-   * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
-   */
-  elementremoveattributerestoredefaultvalue: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var testEmployee;
-    var streetAttr;
-    var attribute;
-    var removedAttr;
-
-    doc = staff.staff();
-    elementList = doc.getElementsByTagName("address");
-    testEmployee = elementList.item(2);
-    streetAttr = testEmployee.getAttributeNode("street");
-    removedAttr = testEmployee.removeAttributeNode(streetAttr);
-    attribute = testEmployee.getAttribute("street");
-    test.equal(attribute, "Yes", 'streetYes');
 
     test.done();
   },
@@ -4910,128 +3198,10 @@ exports.tests = {
     testEmployee = elementList.item(1);
     name = testEmployee.nodeName;
 
-    test.equal(name, "POSITION", 'nodename');
+    test.equal(name, "position", 'nodename');
     name = testEmployee.tagName;
 
-    test.equal(name, "POSITION", 'tagname');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "setAttributeNode(newAttr)" method for an attribute causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Obtain the children of the THIRD "gender" element.  The elements
-   content is an entity reference.  Try to remove the "domestic" attribute
-   from the entity reference by executing the "setAttributeNode(newAttr)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-887236154')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
-   */
-  elementsetattributenodenomodificationallowederr: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var gender;
-    var entRef;
-    var entElement;
-    var newAttr;
-    var nodeType;
-    var badAttr;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    gender = genderList.item(2);
-    entRef = gender.firstChild;
-
-    test.notEqual(entRef, null, 'entRefNotNull');
-    nodeType = entRef.nodeType;
-
-
-    if(
-      (1 == nodeType)
-    ) {
-      entRef = doc.createEntityReference("ent4");
-      test.notEqual(entRef, null, 'createdEntRefNotNull');
-
-    }
-    entElement = entRef.firstChild;
-
-    test.notEqual(entElement, null, 'entElementNotNull');
-    newAttr = doc.createAttribute("newAttr");
-
-    {
-      success = false;
-      try {
-        badAttr = entElement.setAttributeNode(newAttr);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   The "setAttributeNode(newAttr)" method for an attribute causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Create an entity reference and add to the THIRD "gender" element.  The elements
-   content is an entity reference.  Try to remove the "domestic" attribute
-   from the entity reference by executing the "setAttributeNode(newAttr)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-887236154')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
-   * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/elementsetattributenodenomodificationallowederr.xml
-   */
-  elementsetattributenodenomodificationallowederrEE: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var gender;
-    var entRef;
-    var entElement;
-    var newAttr;
-    var badAttr;
-    var appendedChild;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    gender = genderList.item(2);
-    entRef = doc.createEntityReference("ent4");
-    test.notEqual(entRef, null, 'createdEntRefNotNull');
-    appendedChild = gender.appendChild(entRef);
-    entElement = entRef.firstChild;
-
-    test.notEqual(entElement, null, 'entElementNotNull');
-    newAttr = doc.createAttribute("newAttr");
-
-    {
-      success = false;
-      try {
-        badAttr = entElement.setAttributeNode(newAttr);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
+    test.equal(name, "position", 'tagname');
 
     test.done();
   },
@@ -5067,106 +3237,6 @@ exports.tests = {
     newAttribute = doc.createAttribute("district");
     districtAttr = testEmployee.setAttributeNode(newAttribute);
     test.equal(districtAttr, null, 'elementSetAttributeNodeNullAssert');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "setAttribute(name,value)" method for an attribute causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Obtain the children of the THIRD "gender" element.  The elements
-   content is an entity reference.  Try to remove the "domestic" attribute
-   from the entity reference by executing the "setAttribute(name,value)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68F082
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-F68F082')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68F082
-   */
-  elementsetattributenomodificationallowederr: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var gender;
-    var entRef;
-    var entElement;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    gender = genderList.item(2);
-    entRef = gender.firstChild;
-
-    test.notEqual(entRef, null, 'entRefNotNull');
-    entElement = entRef.firstChild;
-
-    test.notEqual(entElement, null, 'entElementNotNull');
-
-    {
-      success = false;
-      try {
-        entElement.setAttribute("newAttr","newValue");
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   The "setAttribute(name,value)" method for an attribute causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Add an ent4 reference to the children of the THIRD "gender" element.
-   Try to remove the "domestic" attribute
-   from the entity reference by executing the "setAttribute(name,value)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68F082
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-F68F082')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68F082
-   * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/elementsetattributenomodificationallowederr.xml
-   */
-  elementsetattributenomodificationallowederrEE: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var gender;
-    var entRef;
-    var entElement;
-    var appendedChild;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    gender = genderList.item(2);
-    entRef = doc.createEntityReference("ent4");
-    appendedChild = gender.appendChild(entRef);
-    entElement = entRef.firstChild;
-
-    test.notEqual(entElement, null, 'entElementNotNull');
-
-    {
-      success = false;
-      try {
-        entElement.setAttribute("newAttr","newValue");
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
 
     test.done();
   },
@@ -5230,128 +3300,6 @@ exports.tests = {
       }
       test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
-
-    test.done();
-  },
-
-  /**
-   *
-   The nodeName attribute that is inherited from Node
-   contains the name of the entity.
-
-   Retrieve the entity named "ent1" and access its name by
-   invoking the "getNodeName()" method inherited from
-   the Node interface.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-527DCFF2
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
-   */
-  entitygetentityname: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var entityList;
-    var entityNode;
-    var entityName;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    entityList = docType.entities;
-
-    test.notEqual(entityList, null, 'entitiesNotNull');
-    entityNode = entityList.getNamedItem("ent1");
-    entityName = entityNode.nodeName;
-
-    test.equal(entityName, "ent1", 'entityGetEntityNameAssert');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "getPublicId()" method of an Entity node contains
-   the public identifier associated with the entity, if
-   one was specified.
-
-   Retrieve the entity named "ent5" and access its
-   public identifier.  The string "entityURI" should be
-   returned.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D7303025
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-6ABAEB38
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D7C29F3E
-   */
-  entitygetpublicid: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var entityList;
-    var entityNode;
-    var publicId;
-    var systemId;
-    var notation;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    entityList = docType.entities;
-
-    test.notEqual(entityList, null, 'entitiesNotNull');
-    entityNode = entityList.getNamedItem("ent5");
-    publicId = entityNode.publicId;
-
-    test.equal(publicId, "entityURI", 'publicId');
-    systemId = entityNode.systemId;
-
-    test.equal(systemId, 'entityFile');
-    notation = entityNode.notationName;
-
-    test.equal(notation, "notation1", 'notation');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "getPublicId()" method of an Entity node contains
-   the public identifier associated with the entity, if
-   one was not specified a null value should be returned.
-
-   Retrieve the entity named "ent1" and access its
-   public identifier.  Since a public identifier was not
-   specified for this entity, the "getPublicId()" method
-   should return null.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D7303025
-   */
-  entitygetpublicidnull: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var entityList;
-    var entityNode;
-    var publicId;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    entityList = docType.entities;
-
-    test.notEqual(entityList, null, 'entitiesNotNull');
-    entityNode = entityList.getNamedItem("ent1");
-    publicId = entityNode.publicId;
-
-    test.equal(publicId, null, 'entityGetPublicIdNullAssert');
 
     test.done();
   },
@@ -5495,45 +3443,6 @@ exports.tests = {
 
     test.equal(value, "day", 'lastChildValue');
 
-    test.done();
-  },
-
-  /**
-   *
-   Attempt to append a CDATASection to an attribute which should result
-   in a HIERARCHY_REQUEST_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
-   */
-  hc_attrappendchild4: function(test) {
-    var success;
-    var doc;
-    var acronymList;
-    var testNode;
-    var attributes;
-    var titleAttr;
-    var value;
-    var textNode;
-    var retval;
-    var lastChild;
-
-    doc = hc_staff.hc_staff();
-    acronymList = doc.getElementsByTagName("acronym");
-    testNode = acronymList.item(3);
-    attributes = testNode.attributes;
-
-    titleAttr = attributes.getNamedItem("title");
-    textNode = doc.createCDATASection("terday");
-    success = false;
-    try {
-      retval = titleAttr.appendChild(textNode);
-    }
-    catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 3);
-    }
-    test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     test.done();
   },
 
@@ -5797,7 +3706,7 @@ exports.tests = {
 
     for(var indexN10078 = 0;indexN10078 < attributes.length; indexN10078++) {
       attribute = attributes.item(indexN10078);
-      attrName = attribute.nodeName;
+      attrName = attribute.name;
       if(attrName == 'lang') {
         langAttrCount += 1;
       }
@@ -5962,74 +3871,6 @@ exports.tests = {
 
     test.equal(otherChild, null, 'previousSiblingIsNull');
 
-    test.done();
-  },
-
-  /**
-   *
-   Checks the value of an attribute that contains entity references.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
-   */
-  hc_attrgetvalue1: function(test) {
-    var success;
-    var doc;
-    var acronymList;
-    var testNode;
-    var attributes;
-    var titleAttr;
-    var value;
-    var textNode;
-    var retval;
-    var lastChild;
-
-    doc = hc_staff.hc_staff();
-    acronymList = doc.getElementsByTagName("acronym");
-    testNode = acronymList.item(3);
-    attributes = testNode.attributes;
-
-    titleAttr = attributes.getNamedItem("class");
-    value = titleAttr.value;
-
-    test.equal(value, "Yα", 'attrValue1');
-
-    test.done();
-  },
-
-  /**
-   *
-   Checks the value of an attribute that contains entity references.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-221662474
-   */
-  hc_attrgetvalue2: function(test) {
-    var success;
-    var doc;
-    var acronymList;
-    var testNode;
-    var attributes;
-    var titleAttr;
-    var value;
-    var textNode;
-    var retval;
-    var firstChild;
-    var alphaRef;
-
-    doc = hc_staff.hc_staff();
-    acronymList = doc.getElementsByTagName("acronym");
-    testNode = acronymList.item(3);
-    attributes = testNode.attributes;
-
-    titleAttr = attributes.getNamedItem("class");
-    alphaRef = doc.createEntityReference("alpha");
-    firstChild = titleAttr.firstChild;
-
-    retval = titleAttr.insertBefore(alphaRef,firstChild);
-    value = titleAttr.value;
-
-    test.equal(value, "αYα", 'attrValue1');
     test.done();
   },
 
@@ -6301,46 +4142,6 @@ exports.tests = {
 
   /**
    *
-   Attempt to append a CDATASection to an attribute which should result
-   in a HIERARCHY_REQUEST_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
-   */
-  hc_attrinsertbefore5: function(test) {
-    var success;
-    var doc;
-    var acronymList;
-    var testNode;
-    var attributes;
-    var titleAttr;
-    var value;
-    var textNode;
-    var retval;
-    var refChild = null;
-
-
-    doc = hc_staff.hc_staff();
-    acronymList = doc.getElementsByTagName("acronym");
-    testNode = acronymList.item(3);
-    attributes = testNode.attributes;
-
-    titleAttr = attributes.getNamedItem("title");
-    textNode = doc.createCDATASection("terday");
-    success = false;
-    try {
-      retval = titleAttr.insertBefore(textNode,refChild);
-    }
-    catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 3);
-    }
-    test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
-    test.done();
-  },
-
-  /**
-   *
    Attempt to append a text node from another document to an attribute which should result
    in a WRONG_DOCUMENT_ERR.
 
@@ -6382,53 +4183,6 @@ exports.tests = {
       test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     }
 
-    test.done();
-  },
-
-  /**
-   *
-   Appends a document fragment containing a CDATASection to an attribute.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
-   */
-  hc_attrinsertbefore7: function(test) {
-    var success;
-    var doc;
-    var acronymList;
-    var testNode;
-    var attributes;
-    var titleAttr;
-    var value;
-    var terNode;
-    var dayNode;
-    var docFrag;
-    var retval;
-    var firstChild;
-    var lastChild;
-    var refChild = null;
-
-
-    doc = hc_staff.hc_staff();
-    acronymList = doc.getElementsByTagName("acronym");
-    testNode = acronymList.item(3);
-    attributes = testNode.attributes;
-
-    titleAttr = attributes.getNamedItem("title");
-    terNode = doc.createTextNode("ter");
-    dayNode = doc.createCDATASection("day");
-    docFrag = doc.createDocumentFragment();
-    retval = docFrag.appendChild(terNode);
-    retval = docFrag.appendChild(dayNode);
-    success = false;
-    try {
-      retval = titleAttr.insertBefore(docFrag,refChild);
-    }
-    catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 3);
-    }
-    test.ok(success, 'throw_HIERARCHY_REQUEST_ERR');
     test.done();
   },
 
@@ -6502,7 +4256,7 @@ exports.tests = {
     attributes = testNode.attributes;
 
     streetAttr = attributes.getNamedItem("class");
-    strong1 = streetAttr.nodeName;
+    strong1 = streetAttr.name;
 
     strong2 = streetAttr.name;
 
@@ -7382,14 +5136,12 @@ exports.tests = {
 
   /**
    *
-   The "deleteData(offset,count)" method raises an
-   INDEX_SIZE_ERR DOMException if the specified count
+   The "deleteData(offset,count)" method works if the specified count
    is negative.
 
    Retrieve the character data of the last child of the
    first employee and invoke its "deleteData(offset,count)"
-   method with offset=10 and count=-3.  It should raise the
-   desired exception since the count is negative.
+   method with offset=10 and count=-3.
 
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='INDEX_SIZE_ERR'])
@@ -7409,18 +5161,9 @@ exports.tests = {
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
 
+    childSubstring = child.substringData(10,-3);
 
-    {
-      success = false;
-      try {
-        childSubstring = child.substringData(10,-3);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-      }
-      test.ok(success, 'throws_INDEX_SIZE_ERR');
-    }
-
+    test.equal(childSubstring, " Ave. Dallas, Texas 98551");
     test.done();
   },
 
@@ -7604,15 +5347,13 @@ exports.tests = {
 
   /**
    *
-   The "replaceData(offset,count,arg)" method raises an
-   INDEX_SIZE_ERR DOMException if the specified count
+   The "replaceData(offset,count,arg)" method works if the specified count
    is negative.
 
    Retrieve the character data of the last child of the
    first employee and invoke its
    "replaceData(offset,count,arg) method with offset=10
-   and count=-3 and arg="ABC".  It should raise the
-   desired exception since the count is negative.
+   and count=-3 and arg="ABC".
 
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='INDEX_SIZE_ERR'])
@@ -7632,18 +5373,9 @@ exports.tests = {
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
 
+    badString = child.substringData(10,-3);
 
-    {
-      success = false;
-      try {
-        badString = child.substringData(10,-3);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-      }
-      test.ok(success, 'throws_INDEX_SIZE_ERR');
-    }
-
+    test.equal(badString, " Ave. Dallas, Texas 98551");
     test.done();
   },
 
@@ -7740,14 +5472,12 @@ exports.tests = {
 
   /**
    *
-   The "substringData(offset,count)" method raises an
-   INDEX_SIZE_ERR DOMException if the specified count
+   The "substringData(offset,count)" method works if the specified count
    is negative.
 
    Retrieve the character data of the last child of the
    first employee and invoke its "substringData(offset,count)
-   method with offset=10 and count=-3.  It should raise the
-   desired exception since the count is negative.
+   method with offset=10 and count=-3.
 
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='INDEX_SIZE_ERR'])
@@ -7767,18 +5497,9 @@ exports.tests = {
     nameNode = elementList.item(0);
     child = nameNode.firstChild;
 
+    badSubstring = child.substringData(10,-3);
 
-    {
-      success = false;
-      try {
-        badSubstring = child.substringData(10,-3);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 1);
-      }
-      test.ok(success, 'throws_INDEX_SIZE_ERR');
-    }
-
+    test.equals(badSubstring, " Ave. Dallas, Texas 98551");
     test.done();
   },
 
@@ -8338,7 +6059,7 @@ exports.tests = {
     attrValue = newAttrNode.nodeValue;
 
     test.equal(attrValue, "", 'value');
-    attrName = newAttrNode.nodeName;
+    attrName = newAttrNode.name;
 
     test.equal(attrName, "title", 'attribute name');
     attrType = newAttrNode.nodeType;
@@ -8449,7 +6170,7 @@ exports.tests = {
     newElement = doc.createElement("acronym");
     newElementName = newElement.nodeName;
 
-    test.equal(newElementName, "ACRONYM", 'element strong');
+    test.equal(newElementName, "acronym", 'element strong');
     newElementType = newElement.nodeType;
 
     test.equal(newElementType, 1, 'type');
@@ -8502,7 +6223,7 @@ exports.tests = {
     nodeName2 = newElement2.nodeName;
 
     test.equal(nodeName1, "ACRONYM", 'element nodeName1');
-    test.equal(nodeName2, "ACRONYM", 'element nodeName2');
+    test.equal(nodeName2, "acronym", 'element nodeName2');
 
     test.done();
   },
@@ -8612,93 +6333,93 @@ exports.tests = {
     var doc;
     var nameList;
     expectedNames = new Array();
-    expectedNames[0] = "HTML";
-    expectedNames[1] = "HEAD";
-    expectedNames[2] = "META";
-    expectedNames[3] = "TITLE";
-    expectedNames[4] = "SCRIPT";
-    expectedNames[5] = "SCRIPT";
-    expectedNames[6] = "SCRIPT";
-    expectedNames[7] = "BODY";
-    expectedNames[8] = "P";
-    expectedNames[9] = "EM";
-    expectedNames[10] = "STRONG";
-    expectedNames[11] = "CODE";
-    expectedNames[12] = "SUP";
-    expectedNames[13] = "VAR";
-    expectedNames[14] = "ACRONYM";
-    expectedNames[15] = "P";
-    expectedNames[16] = "EM";
-    expectedNames[17] = "STRONG";
-    expectedNames[18] = "CODE";
-    expectedNames[19] = "SUP";
-    expectedNames[20] = "VAR";
-    expectedNames[21] = "ACRONYM";
-    expectedNames[22] = "P";
-    expectedNames[23] = "EM";
-    expectedNames[24] = "STRONG";
-    expectedNames[25] = "CODE";
-    expectedNames[26] = "SUP";
-    expectedNames[27] = "VAR";
-    expectedNames[28] = "ACRONYM";
-    expectedNames[29] = "P";
-    expectedNames[30] = "EM";
-    expectedNames[31] = "STRONG";
-    expectedNames[32] = "CODE";
-    expectedNames[33] = "SUP";
-    expectedNames[34] = "VAR";
-    expectedNames[35] = "ACRONYM";
-    expectedNames[36] = "P";
-    expectedNames[37] = "EM";
-    expectedNames[38] = "STRONG";
-    expectedNames[39] = "CODE";
-    expectedNames[40] = "SUP";
-    expectedNames[41] = "VAR";
-    expectedNames[42] = "ACRONYM";
+    expectedNames[0] = "html";
+    expectedNames[1] = "head";
+    expectedNames[2] = "meta";
+    expectedNames[3] = "title";
+    expectedNames[4] = "script";
+    expectedNames[5] = "script";
+    expectedNames[6] = "script";
+    expectedNames[7] = "body";
+    expectedNames[8] = "p";
+    expectedNames[9] = "em";
+    expectedNames[10] = "strong";
+    expectedNames[11] = "code";
+    expectedNames[12] = "sup";
+    expectedNames[13] = "var";
+    expectedNames[14] = "acronym";
+    expectedNames[15] = "p";
+    expectedNames[16] = "em";
+    expectedNames[17] = "strong";
+    expectedNames[18] = "code";
+    expectedNames[19] = "sup";
+    expectedNames[20] = "var";
+    expectedNames[21] = "acronym";
+    expectedNames[22] = "p";
+    expectedNames[23] = "em";
+    expectedNames[24] = "strong";
+    expectedNames[25] = "code";
+    expectedNames[26] = "sup";
+    expectedNames[27] = "var";
+    expectedNames[28] = "acronym";
+    expectedNames[29] = "p";
+    expectedNames[30] = "em";
+    expectedNames[31] = "strong";
+    expectedNames[32] = "code";
+    expectedNames[33] = "sup";
+    expectedNames[34] = "var";
+    expectedNames[35] = "acronym";
+    expectedNames[36] = "p";
+    expectedNames[37] = "em";
+    expectedNames[38] = "strong";
+    expectedNames[39] = "code";
+    expectedNames[40] = "sup";
+    expectedNames[41] = "var";
+    expectedNames[42] = "acronym";
 
     svgExpectedNames = new Array();
-    svgExpectedNames[0] = "SVG";
-    svgExpectedNames[1] = "RECT";
-    svgExpectedNames[2] = "SCRIPT";
-    svgExpectedNames[3] = "HEAD";
-    svgExpectedNames[4] = "META";
-    svgExpectedNames[5] = "TITLE";
-    svgExpectedNames[6] = "BODY";
-    svgExpectedNames[7] = "P";
-    svgExpectedNames[8] = "EM";
-    svgExpectedNames[9] = "STRONG";
-    svgExpectedNames[10] = "CODE";
-    svgExpectedNames[11] = "SUP";
-    svgExpectedNames[12] = "VAR";
-    svgExpectedNames[13] = "ACRONYM";
-    svgExpectedNames[14] = "P";
-    svgExpectedNames[15] = "EM";
-    svgExpectedNames[16] = "STRONG";
-    svgExpectedNames[17] = "CODE";
-    svgExpectedNames[18] = "SUP";
-    svgExpectedNames[19] = "VAR";
-    svgExpectedNames[20] = "ACRONYM";
-    svgExpectedNames[21] = "P";
-    svgExpectedNames[22] = "EM";
-    svgExpectedNames[23] = "STRONG";
-    svgExpectedNames[24] = "CODE";
-    svgExpectedNames[25] = "SUP";
-    svgExpectedNames[26] = "VAR";
-    svgExpectedNames[27] = "ACRONYM";
-    svgExpectedNames[28] = "P";
-    svgExpectedNames[29] = "EM";
-    svgExpectedNames[30] = "STRONG";
-    svgExpectedNames[31] = "CODE";
-    svgExpectedNames[32] = "SUP";
-    svgExpectedNames[33] = "VAR";
-    svgExpectedNames[34] = "ACRONYM";
-    svgExpectedNames[35] = "P";
-    svgExpectedNames[36] = "EM";
-    svgExpectedNames[37] = "STRONG";
-    svgExpectedNames[38] = "CODE";
-    svgExpectedNames[39] = "SUP";
-    svgExpectedNames[40] = "VAR";
-    svgExpectedNames[41] = "ACRONYM";
+    svgExpectedNames[0] = "svg";
+    svgExpectedNames[1] = "rect";
+    svgExpectedNames[2] = "script";
+    svgExpectedNames[3] = "head";
+    svgExpectedNames[4] = "meta";
+    svgExpectedNames[5] = "title";
+    svgExpectedNames[6] = "body";
+    svgExpectedNames[7] = "p";
+    svgExpectedNames[8] = "em";
+    svgExpectedNames[9] = "strong";
+    svgExpectedNames[10] = "code";
+    svgExpectedNames[11] = "sup";
+    svgExpectedNames[12] = "var";
+    svgExpectedNames[13] = "acronym";
+    svgExpectedNames[14] = "p";
+    svgExpectedNames[15] = "em";
+    svgExpectedNames[16] = "strong";
+    svgExpectedNames[17] = "code";
+    svgExpectedNames[18] = "sup";
+    svgExpectedNames[19] = "var";
+    svgExpectedNames[20] = "acronym";
+    svgExpectedNames[21] = "p";
+    svgExpectedNames[22] = "em";
+    svgExpectedNames[23] = "strong";
+    svgExpectedNames[24] = "code";
+    svgExpectedNames[25] = "sup";
+    svgExpectedNames[26] = "var";
+    svgExpectedNames[27] = "acronym";
+    svgExpectedNames[28] = "p";
+    svgExpectedNames[29] = "em";
+    svgExpectedNames[30] = "strong";
+    svgExpectedNames[31] = "code";
+    svgExpectedNames[32] = "sup";
+    svgExpectedNames[33] = "var";
+    svgExpectedNames[34] = "acronym";
+    svgExpectedNames[35] = "p";
+    svgExpectedNames[36] = "em";
+    svgExpectedNames[37] = "strong";
+    svgExpectedNames[38] = "code";
+    svgExpectedNames[39] = "sup";
+    svgExpectedNames[40] = "var";
+    svgExpectedNames[41] = "acronym";
 
     var actualNames = new Array();
 
@@ -8805,7 +6526,7 @@ exports.tests = {
     rootName = root.nodeName;
 
 
-    test.equal(rootName, "HTML", 'element docElemName');
+    test.equal(rootName, "html", 'element docElemName');
 
     test.done();
   },
@@ -9193,7 +6914,7 @@ exports.tests = {
     elementList = doc.getElementsByTagName("acronym");
     testEmployee = elementList.item(0);
     domesticAttr = testEmployee.getAttributeNode("title");
-    nodeName = domesticAttr.nodeName;
+    nodeName = domesticAttr.name;
 
     test.equal(nodeName, "title", 'attribute nodeName');
 
@@ -9344,7 +7065,7 @@ exports.tests = {
     }
     childName = firstC.nodeName;
 
-    test.equal(childName, "EM", 'element childName');
+    test.equal(childName, "em", 'element childName');
     employeeIDNode = firstC.firstChild;
 
     employeeID = employeeIDNode.nodeValue;
@@ -9404,12 +7125,12 @@ exports.tests = {
     var result = new Array();
 
     expectedResult = new Array();
-    expectedResult[0] = "EM";
-    expectedResult[1] = "STRONG";
-    expectedResult[2] = "CODE";
-    expectedResult[3] = "SUP";
-    expectedResult[4] = "VAR";
-    expectedResult[5] = "ACRONYM";
+    expectedResult[0] = "em";
+    expectedResult[1] = "strong";
+    expectedResult[2] = "code";
+    expectedResult[3] = "sup";
+    expectedResult[4] = "var";
+    expectedResult[5] = "acronym";
 
 
     doc = hc_staff.hc_staff();
@@ -9449,7 +7170,7 @@ exports.tests = {
     tagname = root.tagName;
 
 
-    test.equal(tagname, "HTML", 'element tagname');
+    test.equal(tagname, "html", 'element tagname');
 
     test.done();
   },
@@ -9958,10 +7679,10 @@ exports.tests = {
     testEmployee = elementList.item(1);
     strong = testEmployee.nodeName;
 
-    test.equal(strong, "CODE", 'element nodename');
+    test.equal(strong, "code", 'element nodename');
     strong = testEmployee.tagName;
 
-    test.equal(strong, "CODE", 'element tagname');
+    test.equal(strong, "code", 'element tagname');
 
     test.done();
   },
@@ -10053,80 +7774,6 @@ exports.tests = {
 
   /**
    *
-   An attempt to add remove an entity should result in a NO_MODIFICATION_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1788794630
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D58B193
-   */
-  hc_entitiesremovenameditem1: function(test) {
-    var success;
-    var doc;
-    var entities;
-    var docType;
-    var retval;
-
-    doc = hc_staff.hc_staff();
-    docType = doc.doctype;
-    test.notEqual(docType, null, 'docTypeNotNull');
-    entities = docType.entities;
-    test.notEqual(entities, null, 'entitiesNotNull');
-    success = false;
-    try {
-      retval = entities.removeNamedItem("alpha");
-    }
-    catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-    }
-    test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    test.done();
-  },
-
-  /**
-   *
-   An attempt to add an element to the named node map returned by entities should
-   result in a NO_MODIFICATION_ERR or HIERARCHY_REQUEST_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1788794630
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
-   */
-  hc_entitiessetnameditem1: function(test) {
-    var success;
-    var doc;
-    var entities;
-    var docType;
-    var retval;
-    var elem;
-
-    doc = hc_staff.hc_staff();
-    docType = doc.doctype;
-    test.notEqual(docType, null, 'docTypeNotNull');
-    entities = docType.entities;
-    test.notEqual(entities, null, 'entitiesNotNull');
-    elem = doc.createElement("br");
-    try {
-      retval = entities.setNamedItem(elem);
-      fail("throw_HIER_OR_NO_MOD_ERR");
-    } catch (ex) {
-      if (typeof(ex.code) != 'undefined') {
-        switch(ex.code) {
-        case /* HIERARCHY_REQUEST_ERR */ 3 :
-          break;
-        case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
-          break;
-        default:
-          throw ex;
-        }
-      } else {
-        throw ex;
-      }
-    }
-    test.done();
-  },
-
-  /**
-   *
    Retrieve the second "p" element and create a NamedNodeMap
    listing of the attributes of the last child.  Once the
    list is created an invocation of the "getNamedItem(name)"
@@ -10154,7 +7801,7 @@ exports.tests = {
     attributes = testEmployee.attributes;
 
     domesticAttr = attributes.getNamedItem("title");
-    attrName = domesticAttr.nodeName;
+    attrName = domesticAttr.name;
 
     test.equal(attrName, "title", 'attribute nodeName');
 
@@ -10193,7 +7840,7 @@ exports.tests = {
     elementList = doc.getElementsByTagName("acronym");
     firstNode = elementList.item(0);
     domesticAttr = doc.createAttribute("title");
-    domesticAttr.value = "Yα";
+    domesticAttr.value = "YÎ?";
 
     setAttr = firstNode.setAttributeNode(domesticAttr);
     elementList = doc.getElementsByTagName("acronym");
@@ -10331,7 +7978,7 @@ exports.tests = {
 
     streetAttr = attributes.getNamedItem("class");
     test.equal(streetAttr.nodeType, 2, 'typeAssert');
-    attrName = streetAttr.nodeName;
+    attrName = streetAttr.name;
 
     test.equal(attrName, "class", 'attribute nodeName');
     attrName = streetAttr.name;
@@ -10416,7 +8063,7 @@ exports.tests = {
 
     setNode = attributes.setNamedItem(newAttribute);
     districtNode = attributes.getNamedItem("lang");
-    attrName = districtNode.nodeName;
+    attrName = districtNode.name;
 
     test.equal(attrName, "lang", 'attribute nodeName');
 
@@ -10645,7 +8292,7 @@ exports.tests = {
 
     childName = lchild.nodeName;
 
-    test.equal(childName, "BR", 'element nodeName');
+    test.equal(childName, "br", 'element nodeName');
 
     test.done();
   },
@@ -10680,12 +8327,12 @@ exports.tests = {
 
     var nodeType;
     expected = new Array();
-    expected[0] = "STRONG";
-    expected[1] = "CODE";
-    expected[2] = "SUP";
-    expected[3] = "VAR";
-    expected[4] = "ACRONYM";
-    expected[5] = "EM";
+    expected[0] = "strong";
+    expected[1] = "code";
+    expected[2] = "sup";
+    expected[3] = "var";
+    expected[4] = "acronym";
+    expected[5] = "em";
 
     var appendedChild;
 
@@ -10757,14 +8404,14 @@ exports.tests = {
     var appendedChild;
     var nodeType;
     expected = new Array();
-    expected[0] = "EM";
-    expected[1] = "STRONG";
-    expected[2] = "CODE";
-    expected[3] = "SUP";
-    expected[4] = "VAR";
-    expected[5] = "ACRONYM";
-    expected[6] = "BR";
-    expected[7] = "B";
+    expected[0] = "em";
+    expected[1] = "strong";
+    expected[2] = "code";
+    expected[3] = "sup";
+    expected[4] = "var";
+    expected[5] = "acronym";
+    expected[6] = "br";
+    expected[7] = "b";
 
 
     doc = hc_staff.hc_staff();
@@ -10832,7 +8479,7 @@ exports.tests = {
     appendNode = employeeNode.appendChild(newChild);
     childName = appendNode.nodeName;
 
-    test.equal(childName, "BR", 'element nodeName');
+    test.equal(childName, "br", 'element nodeName');
 
     test.done();
   },
@@ -11034,7 +8681,7 @@ exports.tests = {
     elementList = doc.getElementsByTagName("acronym");
     testAddr = elementList.item(0);
     addrAttr = testAddr.getAttributeNode("title");
-    attrName = addrAttr.nodeName;
+    attrName = addrAttr.name;
 
     test.equal(attrName, "title", 'attribute nodeName');
 
@@ -11138,12 +8785,12 @@ exports.tests = {
     var actual = new Array();
 
     expected = new Array();
-    expected[0] = "EM";
-    expected[1] = "STRONG";
-    expected[2] = "CODE";
-    expected[3] = "SUP";
-    expected[4] = "VAR";
-    expected[5] = "ACRONYM";
+    expected[0] = "em";
+    expected[1] = "strong";
+    expected[2] = "code";
+    expected[3] = "sup";
+    expected[4] = "var";
+    expected[5] = "acronym";
 
 
     doc = hc_staff.hc_staff();
@@ -11209,13 +8856,13 @@ exports.tests = {
     var actual = new Array();
 
     expected = new Array();
-    expected[0] = "EM";
-    expected[1] = "STRONG";
-    expected[2] = "CODE";
-    expected[3] = "SUP";
-    expected[4] = "VAR";
-    expected[5] = "ACRONYM";
-    expected[6] = "BR";
+    expected[0] = "em";
+    expected[1] = "strong";
+    expected[2] = "code";
+    expected[3] = "sup";
+    expected[4] = "var";
+    expected[5] = "acronym";
+    expected[6] = "br";
 
 
     doc = hc_staff.hc_staff();
@@ -11305,9 +8952,9 @@ exports.tests = {
     var attributes = doc.getElementsByTagName("acronym").item(1).cloneNode(false).attributes;
     var actual = [];
     for(var i=0;i<attributes.length;i++) {
-      actual.push(attributes.item(i).nodeName);
+      actual.push(attributes.item(i).name);
     }
-    test.deepEqual(actual, ['dir', 'title', 'class'], 'nodeNames');
+    test.deepEqual(actual, ['title', 'class'], 'names');
     test.done();
   },
 
@@ -11411,7 +9058,7 @@ exports.tests = {
     clonedNode = employeeNode.cloneNode(false);
     cloneName = clonedNode.nodeName;
 
-    test.equal(cloneName, "P", 'element strong');
+    test.equal(cloneName, "p", 'element strong');
     cloneChildren = clonedNode.childNodes;
 
     length = cloneChildren.length;
@@ -11925,7 +9572,7 @@ exports.tests = {
     elementName = elementNode.nodeName;
 
 
-    test.equal(elementName, "HTML", 'element nodeName');
+    test.equal(elementName, "html", 'element nodeName');
 
     test.done();
   },
@@ -12019,7 +9666,7 @@ exports.tests = {
     }
 
     else {
-      test.equal(childName, "EM", 'element firstChild_wo_whitespace');
+      test.equal(childName, "em", 'element firstChild_wo_whitespace');
 
     }
 
@@ -12221,7 +9868,7 @@ exports.tests = {
     elementName = docElement.nodeName;
 
 
-    test.equal(elementName, "HTML", 'element ownerDocElemTagName');
+    test.equal(elementName, "html", 'element ownerDocElemTagName');
 
     test.done();
   },
@@ -12416,13 +10063,13 @@ exports.tests = {
     var actual = new Array();
 
     expected = new Array();
-    expected[0] = "EM";
-    expected[1] = "STRONG";
-    expected[2] = "CODE";
-    expected[3] = "BR";
-    expected[4] = "SUP";
-    expected[5] = "VAR";
-    expected[6] = "ACRONYM";
+    expected[0] = "em";
+    expected[1] = "strong";
+    expected[2] = "code";
+    expected[3] = "br";
+    expected[4] = "sup";
+    expected[5] = "var";
+    expected[6] = "acronym";
 
     var nodeType;
 
@@ -12502,11 +10149,11 @@ exports.tests = {
     child = childList.item(3);
     childName = child.nodeName;
 
-    test.equal(childName, "BR", 'element childName3');
+    test.equal(childName, "br", 'element childName3');
     child = childList.item(4);
     childName = child.nodeName;
 
-    test.equal(childName, "B", 'element childName4');
+    test.equal(childName, "b", 'element childName4');
 
     test.done();
   },
@@ -12640,12 +10287,12 @@ exports.tests = {
     var childName;
     var insertedNode;
     expected = new Array();
-    expected[0] = "STRONG";
-    expected[1] = "CODE";
-    expected[2] = "SUP";
-    expected[3] = "VAR";
-    expected[4] = "EM";
-    expected[5] = "ACRONYM";
+    expected[0] = "strong";
+    expected[1] = "code";
+    expected[2] = "sup";
+    expected[3] = "var";
+    expected[4] = "em";
+    expected[5] = "acronym";
 
     var result = new Array();
 
@@ -12764,7 +10411,7 @@ exports.tests = {
     insertedNode = employeeNode.insertBefore(newChild,refChild);
     childName = insertedNode.nodeName;
 
-    test.equal(childName, "BR", 'element nodeName');
+    test.equal(childName, "br", 'element nodeName');
 
     test.done();
   },
@@ -12874,7 +10521,7 @@ exports.tests = {
 
     childName = child.nodeName;
 
-    test.equal(childName, "BR", 'element nodeName');
+    test.equal(childName, "br", 'element nodeName');
 
     test.done();
   },
@@ -12922,7 +10569,7 @@ exports.tests = {
     }
 
     else {
-      test.equal(childName, "EM", 'element childName_wo_whitespace');
+      test.equal(childName, "em", 'element childName_wo_whitespace');
 
     }
 
@@ -13051,7 +10698,7 @@ exports.tests = {
     }
 
     else {
-      test.equal(childName, "STRONG", 'element childName_strong');
+      test.equal(childName, "strong", 'element childName_strong');
 
     }
 
@@ -13095,7 +10742,7 @@ exports.tests = {
     }
 
     else {
-      test.equal(childName, "EM", 'element nodeName_wo_space');
+      test.equal(childName, "em", 'element nodeName_wo_space');
 
     }
 
@@ -13175,12 +10822,12 @@ exports.tests = {
     var result = new Array();
 
     expected = new Array();
-    expected[0] = "EM";
-    expected[1] = "STRONG";
-    expected[2] = "CODE";
-    expected[3] = "SUP";
-    expected[4] = "VAR";
-    expected[5] = "ACRONYM";
+    expected[0] = "em";
+    expected[1] = "strong";
+    expected[2] = "code";
+    expected[3] = "sup";
+    expected[4] = "var";
+    expected[5] = "acronym";
 
 
     doc = hc_staff.hc_staff();
@@ -13241,7 +10888,7 @@ exports.tests = {
 
     parentName = parentNode.nodeName;
 
-    test.equal(parentName, "BODY", 'element parentNodeName');
+    test.equal(parentName, "body", 'element parentNodeName');
 
     test.done();
   },
@@ -13385,11 +11032,11 @@ exports.tests = {
     var removedName;
     var nodeType;
     expected = new Array();
-    expected[0] = "STRONG";
-    expected[1] = "CODE";
-    expected[2] = "SUP";
-    expected[3] = "VAR";
-    expected[4] = "ACRONYM";
+    expected[0] = "strong";
+    expected[1] = "code";
+    expected[2] = "sup";
+    expected[3] = "var";
+    expected[4] = "acronym";
 
     var actual = new Array();
 
@@ -13404,7 +11051,7 @@ exports.tests = {
     removedChild = employeeNode.removeChild(oldChild);
     removedName = removedChild.nodeName;
 
-    test.equal(removedName, "EM", 'element removedName');
+    test.equal(removedName, "em", 'element removedName');
     for(var indexN10098 = 0;indexN10098 < childList.length; indexN10098++) {
       child = childList.item(indexN10098);
       nodeType = child.nodeType;
@@ -13512,7 +11159,7 @@ exports.tests = {
     child = childList.item(0);
     childName = child.nodeName;
 
-    test.equal(childName, "BR", 'element nodeName');
+    test.equal(childName, "br", 'element nodeName');
 
     test.done();
   },
@@ -13645,11 +11292,11 @@ exports.tests = {
     var actual = new Array();
 
     expected = new Array();
-    expected[0] = "STRONG";
-    expected[1] = "CODE";
-    expected[2] = "SUP";
-    expected[3] = "VAR";
-    expected[4] = "EM";
+    expected[0] = "strong";
+    expected[1] = "code";
+    expected[2] = "sup";
+    expected[3] = "var";
+    expected[4] = "em";
 
     var replacedChild;
     var nodeType;
@@ -13775,7 +11422,7 @@ exports.tests = {
     replacedNode = employeeNode.replaceChild(newChild,oldChild);
     childName = replacedNode.nodeName;
 
-    test.equal(childName, "EM", 'element replacedNodeName');
+    test.equal(childName, "em", 'element replacedNodeName');
 
     test.done();
   },
@@ -14019,42 +11666,6 @@ exports.tests = {
 
   /**
    *
-   An entity reference is created, setNodeValue is called with a non-null argument, but getNodeValue
-   should still return null.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-11C98490
-   */
-  hc_nodevalue03: function(test) {
-    var success;
-    var doc;
-    var newNode;
-    var newValue;
-
-    doc = hc_staff.hc_staff();
-
-
-    // this code path is invalid... hc_staff is always html and doesn't
-    // include an entity=ent1
-    newNode = doc.createEntityReference("ent1");
-
-    test.notEqual(newNode, null, 'createdEntRefNotNull');
-
-    newValue = newNode.nodeValue;
-
-    test.equal(newValue, null, 'initiallyNull');
-    newNode.nodeValue = "This should have no effect";
-
-    newValue = newNode.nodeValue;
-
-    test.equal(newValue, null, 'nullAfterAttemptedChange');
-
-    test.done();
-  },
-
-  /**
-   *
    An document type accessed, setNodeValue is called with a non-null argument, but getNodeValue
    should still return null.
 
@@ -14132,144 +11743,6 @@ exports.tests = {
 
     test.equal(newValue, null, 'nullAfterAttemptedChange');
 
-    test.done();
-  },
-
-  /**
-   *
-   An Entity is accessed, setNodeValue is called with a non-null argument, but getNodeValue
-   should still return null.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-527DCFF2
-   */
-  hc_nodevalue07: function(test) {
-    var success;
-    var doc;
-    var newNode;
-    var newValue;
-    var nodeMap;
-    var docType;
-
-    doc = hc_staff.hc_staff();
-    docType = doc.doctype;
-    test.notEqual(docType, null, 'docTypeNotNull');
-    nodeMap = docType.entities;
-    test.notEqual(nodeMap, null, 'entitiesNotNull');
-    newNode = nodeMap.getNamedItem("alpha");
-    test.notEqual(newNode, null, 'entityNotNull');
-    newValue = newNode.nodeValue;
-    test.equal(newValue, null, 'initiallyNull');
-    newNode.nodeValue = "This should have no effect";
-    newValue = newNode.nodeValue;
-    test.equal(newValue, null, 'nullAfterAttemptedChange');
-    test.done();
-  },
-
-  /**
-   *
-   An notation is accessed, setNodeValue is called with a non-null argument, but getNodeValue
-   should still return null.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-5431D1B9
-   */
-  hc_nodevalue08: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var newNode;
-    var newValue;
-    var nodeMap;
-
-    doc = hc_staff.hc_staff();
-    docType = doc.doctype;
-    test.notEqual(docType, null, 'docTypeNotNull');
-    nodeMap = docType.notations;
-    test.notEqual(nodeMap, null, 'notationsNotNull');
-    newNode = nodeMap.getNamedItem("notation1");
-    test.notEqual(newNode, null, 'notationNotNull');
-    newValue = newNode.nodeValue;
-    test.equal(newValue, null, 'initiallyNull');
-    newNode.nodeValue = "This should have no effect";
-    newValue = newNode.nodeValue;
-    test.equal(newValue, null, 'nullAfterAttemptedChange');
-    test.done();
-  },
-
-  /**
-   *
-   An attempt to add remove an notation should result in a NO_MODIFICATION_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D46829EF
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D58B193
-   */
-  hc_notationsremovenameditem1: function(test) {
-    var success;
-    var doc;
-    var notations;
-    var docType;
-    var retval;
-
-    doc = hc_staff.hc_staff();
-    docType = doc.doctype;
-    test.notEqual(docType, null, 'docTypeNotNull');
-    notations = docType.notations;
-    test.notEqual(notations, null, 'notationsNotNull');
-    success = false;
-    try {
-      retval = notations.removeNamedItem("notation1");
-    }
-    catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-    }
-    test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    test.done();
-  },
-
-  /**
-   *
-   An attempt to add an element to the named node map returned by notations should
-   result in a NO_MODIFICATION_ERR or HIERARCHY_REQUEST_ERR.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D46829EF
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
-   */
-  hc_notationssetnameditem1: function(test) {
-    var success;
-    var doc;
-    var notations;
-    var docType;
-    var retval;
-    var elem;
-
-    doc = hc_staff.hc_staff();
-    docType = doc.doctype;
-    test.notEqual(docType, null, 'docTypeNotNull');
-    notations = docType.notations;
-    test.notEqual(notations, null, 'notationsNotNull');
-    elem = doc.createElement("br");
-    try {
-      retval = notations.setNamedItem(elem);
-      fail("throw_HIER_OR_NO_MOD_ERR");
-    } catch (ex) {
-      if (typeof(ex.code) != 'undefined') {
-        switch(ex.code) {
-        case /* HIERARCHY_REQUEST_ERR */ 3 :
-          break;
-        case /* NO_MODIFICATION_ALLOWED_ERR */ 7 :
-          break;
-        default:
-          throw ex;
-        }
-      } else {
-        throw ex;
-      }
-    }
     test.done();
   },
 
@@ -14358,90 +11831,6 @@ exports.tests = {
         success = (typeof(ex.code) != 'undefined' && ex.code == 1);
       }
       test.ok(success, 'throw_INDEX_SIZE_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   Retrieve the textual data from the last child of the
-   second employee.   That node is composed of two
-   EntityReference nodes and two Text nodes.   After
-   the content node is parsed, the "acronym" Element
-   should contain four children with each one of the
-   EntityReferences containing one child.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-11C98490
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-745549614
-   */
-  hc_textparseintolistofelements: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var addressNode;
-    var childList;
-    var child;
-    var value;
-    var grandChild;
-    var length;
-    var result = new Array();
-
-    expectedNormal = new Array();
-    expectedNormal[0] = "β";
-    expectedNormal[1] = " Dallas, ";
-    expectedNormal[2] = "γ";
-    expectedNormal[3] = "\n 98554";
-
-    expectedExpanded = new Array();
-    expectedExpanded[0] = "β Dallas, γ\n 98554";
-
-
-    doc = hc_staff.hc_staff();
-    elementList = doc.getElementsByTagName("acronym");
-    addressNode = elementList.item(1);
-    childList = addressNode.childNodes;
-
-    length = childList.length;
-
-    for(var indexN1007C = 0;indexN1007C < childList.length; indexN1007C++) {
-      child = childList.item(indexN1007C);
-      value = child.nodeValue;
-
-
-      if(
-
-        (value == null)
-
-      ) {
-        grandChild = child.firstChild;
-
-        test.notEqual(grandChild, null, 'grandChildNotNull');
-        value = grandChild.nodeValue;
-
-        result[result.length] = value;
-
-      }
-
-      else {
-        result[result.length] = value;
-
-      }
-
-    }
-
-    if(
-      (1 == length)
-    ) {
-      test.deepEqual(result, expectedExpanded, 'assertEqCoalescing');
-
-    }
-
-    else {
-      test.deepEqual(result, expectedNormal, 'assertEqNormal');
-
     }
 
     test.done();
@@ -14708,7 +12097,7 @@ exports.tests = {
     attributes = testEmployee.attributes;
 
     domesticAttr = attributes.getNamedItem("domestic");
-    attrName = domesticAttr.nodeName;
+    attrName = domesticAttr.name;
 
     test.equal(attrName, "domestic", 'namednodemapGetNamedItemAssert');
 
@@ -14853,97 +12242,6 @@ exports.tests = {
 
   /**
    *
-   The "removeNamedItem(name)" method removes a node
-   specified by name.
-
-   Retrieve the third employee and create a NamedNodeMap
-   object of the attributes of the last child.  Once the
-   list is created invoke the "removeNamedItem(name)"
-   method with name="street".  This should result
-   in the removal of the specified attribute and
-   the "getSpecified()" method should return false.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D58B193
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
-   * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
-   */
-  namednodemapremovenameditem: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var testAddress;
-    var attributes;
-    var streetAttr;
-    var specified;
-    var removedNode;
-
-    doc = staff.staff();
-    elementList = doc.getElementsByTagName("address");
-    testAddress = elementList.item(2);
-    attributes = testAddress.attributes;
-
-    test.notEqual(attributes, null, 'attributesNotNull');
-    removedNode = attributes.removeNamedItem("street");
-    streetAttr = attributes.getNamedItem("street");
-    test.notEqual(streetAttr, null, 'streetAttrNotNull');
-    specified = streetAttr.specified;
-
-    test.equal(specified, false, 'attrNotSpecified');
-
-    test.done();
-  },
-
-  /**
-   *
-   If the node removed by the "removeNamedItem(name)" method
-   is an Attr node with a default value it is immediately
-   replaced.
-
-   Retrieve the third employee and create a NamedNodeMap
-   object of the attributes of the last child.  Once the
-   list is created invoke the "removeNamedItem(name)"
-   method with name="street".  The "removeNamedItem(name)"
-   method should remove the "street" attribute and since
-   it has a default value of "Yes", that value should
-   immediately be the attributes value.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-D58B193
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
-   * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Mar/0002.html
-   */
-  namednodemapremovenameditemgetvalue: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var testEmployee;
-    var attributes;
-    var streetAttr;
-    var value;
-    var removedNode;
-
-    doc = staff.staff();
-    elementList = doc.getElementsByTagName("address");
-    testEmployee = elementList.item(2);
-    attributes = testEmployee.attributes;
-
-    test.notEqual(attributes, null, 'attributesNotNull');
-    removedNode = attributes.removeNamedItem("street");
-    streetAttr = attributes.getNamedItem("street");
-
-    test.notEqual(streetAttr, null, 'streetAttrNotNull');
-    value = streetAttr.value;
-
-    test.equal(value, "Yes", 'namednodemapRemoveNamedItemGetValueAssert');
-
-    test.done();
-  },
-
-  /**
-   *
    The "removeNamedItem(name)" method returns the node
    removed from the map.
 
@@ -15015,7 +12313,7 @@ exports.tests = {
 
     streetAttr = attributes.getNamedItem("street");
     test.equal(streetAttr.nodeType, 2, 'typeAssert');
-    attrName = streetAttr.nodeName;
+    attrName = streetAttr.name;
 
     test.equal(attrName, "street", 'nodeName');
     attrName = streetAttr.name;
@@ -15026,50 +12324,23 @@ exports.tests = {
   },
 
   /**
-   *
-   The "item(index)" method returns the indexth item in
-   the map(test for first item).
-
-   Retrieve the second employee and create a NamedNodeMap
-   listing of the attributes of the last child. Since the
-   DOM does not specify an order of these nodes the contents
-   of the FIRST node can contain either "domestic" or "street".
-   The test should return "true" if the FIRST node is either
-   of these values.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
+   * Correct value for first attribute of second employee
    */
   namednodemapreturnfirstitem: function(test) {
     var doc = staff.staff();
     var child = doc.getElementsByTagName("address").item(1).attributes.item(0);
-    var name = child.nodeName;
-    test.ok((("domestic" == name) || ("street" == name)), 'namednodemapReturnFirstItemAssert')
+    test.equal(child.name, "domestic");
     test.done();
   },
 
   /**
    *
-   The "item(index)" method returns the indexth item in
-   the map(test for last item).
-
-   Retrieve the second employee and create a NamedNodeMap
-   listing of the attributes of the last child. Since the
-   DOM does not specify an order of these nodes the contents
-   of the LAST node can contain either "domestic" or "street".
-   The test should return "true" if the LAST node is either
-   of these values.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-349467F9
+   * Correct value for second attribute of second employee
    */
   namednodemapreturnlastitem: function(test) {
     var doc = staff.staff();
     var child = doc.getElementsByTagName("address").item(1).attributes.item(1);
-    var name = child.nodeName;
-    test.ok((("domestic" == name) || ("street" == name)), 'namednodemapReturnFirstItemAssert')
+    test.equal(child.name, "street");
     test.done();
   },
 
@@ -15149,7 +12420,7 @@ exports.tests = {
 
     setNode = attributes.setNamedItem(newAttribute);
     districtNode = attributes.getNamedItem("district");
-    attrName = districtNode.nodeName;
+    attrName = districtNode.name;
 
     test.equal(attrName, "district", 'namednodemapSetNamedItemAssert');
 
@@ -15383,7 +12654,7 @@ exports.tests = {
 
     childName = lchild.nodeName;
 
-    test.equal(childName, "NEWCHILD", 'nodeAppendChildAssert1');
+    test.equal(childName, "newChild", 'nodeAppendChildAssert1');
 
     test.done();
   },
@@ -15434,15 +12705,15 @@ exports.tests = {
 
 
     if(
-      ("EMPLOYEEID" == initialName)
+      ("employeeId" == initialName)
     ) {
-      test.equal(fchildName, "NAME", 'assert1_nowhitespace');
-      test.equal(lchildName, "EMPLOYEEID", 'assert2_nowhitespace');
+      test.equal(fchildName, "name", 'assert1_nowhitespace');
+      test.equal(lchildName, "employeeId", 'assert2_nowhitespace');
 
     }
 
     else {
-      test.equal(fchildName, "EMPLOYEEID", 'assert1');
+      test.equal(fchildName, "employeeId", 'assert1');
       test.equal(lchildName, "#text", 'assert2');
 
     }
@@ -15481,15 +12752,15 @@ exports.tests = {
     var nodeType;
     var appendedChild;
     expected = new Array();
-    expected[0] = "EMPLOYEEID";
-    expected[1] = "NAME";
-    expected[2] = "POSITION";
-    expected[3] = "SALARY";
-    expected[4] = "GENDER";
-    expected[5] = "ADDRESS";
-    expected[6] = "NEWCHILD1";
-    expected[7] = "NEWCHILD2";
-    expected[8] = "NEWCHILD3";
+    expected[0] = "employeeId";
+    expected[1] = "name";
+    expected[2] = "position";
+    expected[3] = "salary";
+    expected[4] = "gender";
+    expected[5] = "address";
+    expected[6] = "newChild1";
+    expected[7] = "newChild2";
+    expected[8] = "newChild3";
 
 
     doc = staff.staff();
@@ -15561,7 +12832,7 @@ exports.tests = {
     appendNode = employeeNode.appendChild(newChild);
     childName = appendNode.nodeName;
 
-    test.equal(childName, "NEWCHILD", 'nodeAppendChildGetNodeNameAssert1');
+    test.equal(childName, "newChild", 'nodeAppendChildGetNodeNameAssert1');
 
     test.done();
   },
@@ -15709,112 +12980,6 @@ exports.tests = {
 
   /**
    *
-   The "appendChild(newChild)" method causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Obtain the children of the THIRD "gender" element.   The elements
-   content is an entity reference.   Get the FIRST item
-   from the entity reference and execute the "appendChild(newChild)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-184E7107')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
-   */
-  nodeappendchildnomodificationallowederr: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var genderNode;
-    var entRef;
-    var entElement;
-    var createdNode;
-    var appendedNode;
-    var nodeType;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    genderNode = genderList.item(2);
-    entRef = genderNode.firstChild;
-
-    test.notEqual(entRef, null, 'entRefNotNull');
-    nodeType = entRef.nodeType;
-
-
-    if(
-      (1 == nodeType)
-    ) {
-      entRef = doc.createEntityReference("ent4");
-      test.notEqual(entRef, null, 'createdEntRefNotNull');
-
-    }
-    entElement = entRef.firstChild;
-
-    test.notEqual(entElement, null, 'entElementNotNull');
-    createdNode = doc.createElement("text3");
-
-    {
-      success = false;
-      try {
-        appendedNode = entElement.appendChild(createdNode);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   The "appendChild(newChild)" method causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Create an ent4 entity reference and  the "appendChild(newChild)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-184E7107')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
-   * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/nodeappendchildnomodificationallowederr.xml
-   */
-  nodeappendchildnomodificationallowederrEE: function(test) {
-    var success;
-    var doc;
-    var entRef;
-    var createdNode;
-    var appendedNode;
-
-    doc = staff.staff();
-    entRef = doc.createEntityReference("ent4");
-    test.notEqual(entRef, null, 'createdEntRefNotNull');
-    createdNode = doc.createElement("text3");
-
-    {
-      success = false;
-      try {
-        appendedNode = entRef.appendChild(createdNode);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
    The "getAttributes()" method invoked on an Attribute
    Node returns null.
 
@@ -15883,7 +13048,7 @@ exports.tests = {
     elementList = doc.getElementsByTagName("address");
     testAddr = elementList.item(0);
     addrAttr = testAddr.getAttributeNode("domestic");
-    attrName = addrAttr.nodeName;
+    attrName = addrAttr.name;
 
     test.equal(attrName, "domestic", 'nodeAttributeNodeNameAssert1');
 
@@ -15972,186 +13137,6 @@ exports.tests = {
 
   /**
    *
-   The "getAttributes()" method invoked on a CDATASection
-   Node returns null.
-
-   Retrieve the CDATASection node contained inside the
-   second child of the second employee and invoke the
-   "getAttributes()" method on the CDATASection node.
-   It should return null.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-667469212
-   */
-  nodecdatasectionnodeattribute: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var cdataName;
-    var cdataNode;
-    var attrList;
-    var nodeType;
-
-    doc = staff.staff();
-    elementList = doc.getElementsByTagName("name");
-    cdataName = elementList.item(1);
-    cdataNode = cdataName.lastChild;
-
-    nodeType = cdataNode.nodeType;
-
-
-    if(
-      !(4 == nodeType)
-    ) {
-      cdataNode = doc.createCDATASection("");
-
-    }
-    attrList = cdataNode.attributes;
-
-    test.equal(attrList, null, 'cdataSection');
-
-    test.done();
-  },
-
-  /**
-   *
-   The string returned by the "getNodeName()" method for a
-   CDATASection Node is #cdata-section".
-
-   Retrieve the CDATASection node inside the second child
-   of the second employee and check the string returned
-   by the "getNodeName()" method.   It should be equal to
-   "#cdata-section".
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-667469212
-   */
-  nodecdatasectionnodename: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var cdataName;
-    var cdataNode;
-    var nodeType;
-    var cdataNodeName;
-
-    doc = staff.staff();
-    elementList = doc.getElementsByTagName("name");
-    cdataName = elementList.item(1);
-    cdataNode = cdataName.lastChild;
-
-    nodeType = cdataNode.nodeType;
-
-
-    if(
-      !(4 == nodeType)
-    ) {
-      cdataNode = doc.createCDATASection("");
-
-    }
-    cdataNodeName = cdataNode.nodeName;
-
-    test.equal(cdataNodeName, "#cdata-section", 'cdataNodeName');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "getNodeType()" method for a CDATASection Node
-   returns the constant value 4.
-
-   Retrieve the CDATASection node contained inside the
-   second child of the second employee and invoke the
-   "getNodeType()" method.   The method should return 4.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-667469212
-   */
-  nodecdatasectionnodetype: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var testName;
-    var cdataNode;
-    var nodeType;
-
-    doc = staff.staff();
-    elementList = doc.getElementsByTagName("name");
-    testName = elementList.item(1);
-    cdataNode = testName.lastChild;
-
-    nodeType = cdataNode.nodeType;
-
-
-    if(
-      (3 == nodeType)
-    ) {
-      cdataNode = doc.createCDATASection("");
-      nodeType = cdataNode.nodeType;
-
-
-    }
-    test.equal(nodeType, 4, 'nodeTypeCDATA');
-
-    test.done();
-  },
-
-  /**
-   *
-   The string returned by the "getNodeValue()" method for a
-   CDATASection Node is the content of the CDATASection.
-
-   Retrieve the CDATASection node inside the second child
-   of the second employee and check the string returned
-   by the "getNodeValue()" method.   It should be equal to
-   "This is a CDATA Section with EntityReference number 2
-   &ent2;".
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-667469212
-   */
-  nodecdatasectionnodevalue: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var cdataName;
-    var childList;
-    var child;
-    var cdataNodeValue;
-
-    doc = staff.staff();
-    elementList = doc.getElementsByTagName("name");
-    cdataName = elementList.item(1);
-    childList = cdataName.childNodes;
-
-    child = childList.item(1);
-
-    if(
-
-      (child == null)
-
-    ) {
-      child = doc.createCDATASection("This is a CDATASection with EntityReference number 2 &ent2;");
-
-    }
-    cdataNodeValue = child.nodeValue;
-
-    test.equal(cdataNodeValue, "This is a CDATASection with EntityReference number 2 &ent2;", 'value');
-
-    test.done();
-  },
-
-  /**
-   *
    Collect the element names from Node.childNodes and check against expectations.
 
    * @author NIST
@@ -16170,12 +13155,12 @@ exports.tests = {
     var elementNames = new Array();
 
     expectedElementNames = new Array();
-    expectedElementNames[0] = "EMPLOYEEID";
-    expectedElementNames[1] = "NAME";
-    expectedElementNames[2] = "POSITION";
-    expectedElementNames[3] = "SALARY";
-    expectedElementNames[4] = "GENDER";
-    expectedElementNames[5] = "ADDRESS";
+    expectedElementNames[0] = "employeeId";
+    expectedElementNames[1] = "name";
+    expectedElementNames[2] = "position";
+    expectedElementNames[3] = "salary";
+    expectedElementNames[4] = "gender";
+    expectedElementNames[5] = "address";
 
 
     doc = staff.staff();
@@ -16319,7 +13304,7 @@ exports.tests = {
 
     for(var indexN10065 = 0;indexN10065 < attributes.length; indexN10065++) {
       attributeNode = attributes.item(indexN10065);
-      attributeName = attributeNode.nodeName;
+      attributeName = attributeNode.name;
 
       result[result.length] = attributeName;
 
@@ -16431,7 +13416,7 @@ exports.tests = {
     clonedNode = employeeNode.cloneNode(false);
     cloneName = clonedNode.nodeName;
 
-    test.equal(cloneName, "EMPLOYEE", 'name');
+    test.equal(cloneName, "employee", 'name');
     cloneChildren = clonedNode.childNodes;
 
     length = cloneChildren.length;
@@ -16472,26 +13457,26 @@ exports.tests = {
 
     expectedWhitespace = new Array();
     expectedWhitespace[0] = "#text";
-    expectedWhitespace[1] = "EMPLOYEEID";
+    expectedWhitespace[1] = "employeeId";
     expectedWhitespace[2] = "#text";
-    expectedWhitespace[3] = "NAME";
+    expectedWhitespace[3] = "name";
     expectedWhitespace[4] = "#text";
-    expectedWhitespace[5] = "POSITION";
+    expectedWhitespace[5] = "position";
     expectedWhitespace[6] = "#text";
-    expectedWhitespace[7] = "SALARY";
+    expectedWhitespace[7] = "salary";
     expectedWhitespace[8] = "#text";
-    expectedWhitespace[9] = "GENDER";
+    expectedWhitespace[9] = "gender";
     expectedWhitespace[10] = "#text";
-    expectedWhitespace[11] = "ADDRESS";
+    expectedWhitespace[11] = "address";
     expectedWhitespace[12] = "#text";
 
     expectedNoWhitespace = new Array();
-    expectedNoWhitespace[0] = "EMPLOYEEID";
-    expectedNoWhitespace[1] = "NAME";
-    expectedNoWhitespace[2] = "POSITION";
-    expectedNoWhitespace[3] = "SALARY";
-    expectedNoWhitespace[4] = "GENDER";
-    expectedNoWhitespace[5] = "ADDRESS";
+    expectedNoWhitespace[0] = "employeeId";
+    expectedNoWhitespace[1] = "name";
+    expectedNoWhitespace[2] = "position";
+    expectedNoWhitespace[3] = "salary";
+    expectedNoWhitespace[4] = "gender";
+    expectedNoWhitespace[5] = "address";
 
 
     doc = staff.staff();
@@ -16563,10 +13548,10 @@ exports.tests = {
   /**
    *
    The "getAttributes()" method invoked on a Comment
-   Node returns null.
+   Node returns undefined.
 
    Find any comment that is an immediate child of the root
-   and assert that Node.attributes is null.  Then create
+   and assert that Node.attributes is undefined.  Then create
    a new comment node (in case they had been omitted) and
    make the assertion.
 
@@ -16597,7 +13582,7 @@ exports.tests = {
       ) {
         attrList = childNode.attributes;
 
-        test.equal(attrList, null, 'attributesNull');
+        test.equal(attrList, undefined, 'attributesUndefined');
 
       }
 
@@ -16605,7 +13590,7 @@ exports.tests = {
     childNode = doc.createComment("This is a comment");
     attrList = childNode.attributes;
 
-    test.equal(attrList, null, 'createdAttributesNull');
+    test.equal(attrList, undefined, 'createdAttributesUndefined');
 
     test.done();
   },
@@ -17058,7 +14043,7 @@ exports.tests = {
 
     for(var indexN1005C = 0;indexN1005C < addrAttr.length; indexN1005C++) {
       attrNode = addrAttr.item(indexN1005C);
-      attrName = attrNode.nodeName;
+      attrName = attrNode.name;
 
       attrList[attrList.length] = attrName;
 
@@ -17102,7 +14087,7 @@ exports.tests = {
     elementName = elementNode.nodeName;
 
 
-    test.equal(elementName, "STAFF", 'nodeElementNodeNameAssert1');
+    test.equal(elementName, "staff", 'nodeElementNodeNameAssert1');
 
     test.done();
   },
@@ -17162,345 +14147,6 @@ exports.tests = {
 
   /**
    *
-   The "getAttributes()" method invoked on an Entity
-   Node returns null.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
-   */
-  nodeentitynodeattributes: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var entities;
-    var entityNode;
-    var attrList;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    entities = docType.entities;
-
-    test.notEqual(entities, null, 'entitiesNotNull');
-    entityNode = entities.getNamedItem("ent1");
-    test.notEqual(entityNode, null, 'ent1NotNull');
-    attrList = entityNode.attributes;
-
-    test.equal(attrList, null, 'entityAttributesNull');
-
-    test.done();
-  },
-
-  /**
-   *
-   Check the nodeName of the entity returned by DocumentType.entities.getNamedItem("ent1").
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
-   */
-  nodeentitynodename: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var entities;
-    var entityNode;
-    var entityName;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    entities = docType.entities;
-
-    test.notEqual(entities, null, 'entitiesNotNull');
-    entityNode = entities.getNamedItem("ent1");
-    test.notEqual(entityNode, null, 'entityNodeNotNull');
-    entityName = entityNode.nodeName;
-
-    test.equal(entityName, "ent1", 'entityNodeName');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "getNodeType()" method for an Entity Node
-   returns the constant value 6.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
-   */
-  nodeentitynodetype: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var entities;
-    var entityNode;
-    var nodeType;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    entities = docType.entities;
-
-    test.notEqual(entities, null, 'entitiesNotNull');
-    entityNode = entities.getNamedItem("ent1");
-    test.notEqual(entityNode, null, 'ent1NotNull');
-    nodeType = entityNode.nodeType;
-
-    test.equal(nodeType, 6, 'entityNodeType');
-
-    test.done();
-  },
-
-  /**
-   *
-   The string returned by the "getNodeValue()" method for an
-   Entity Node is null.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
-   */
-  nodeentitynodevalue: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var entities;
-    var entityNode;
-    var entityValue;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    entities = docType.entities;
-
-    test.notEqual(entities, null, 'entitiesNotNull');
-    entityNode = entities.getNamedItem("ent1");
-    test.notEqual(entityNode, null, 'ent1NotNull');
-    entityValue = entityNode.nodeValue;
-
-    test.equal(entityValue, null, 'entityNodeValue');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "getAttributes()" method invoked on an EntityReference
-   Node returns null.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
-   */
-  nodeentityreferencenodeattributes: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var entRefAddr;
-    var entRefNode;
-    var attrList;
-    var nodeType;
-
-    doc = staff.staff();
-    elementList = doc.getElementsByTagName("address");
-    entRefAddr = elementList.item(1);
-    entRefNode = entRefAddr.firstChild;
-
-    nodeType = entRefNode.nodeType;
-
-
-    if(
-      !(5 == nodeType)
-    ) {
-      entRefNode = doc.createEntityReference("ent2");
-      test.notEqual(entRefNode, null, 'createdEntRefNotNull');
-
-    }
-    attrList = entRefNode.attributes;
-
-    test.equal(attrList, null, 'attrList');
-
-    test.done();
-  },
-
-  /**
-   *
-   The string returned by the "getNodeName()" method for an
-   EntityReference Node is the name of the entity referenced.
-
-   Retrieve the first Entity Reference node from the last
-   child of the second employee and check the string
-   returned by the "getNodeName()" method.   It should be
-   equal to "ent2".
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
-   */
-  nodeentityreferencenodename: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var entRefAddr;
-    var entRefNode;
-    var entRefName;
-    var nodeType;
-
-    doc = staff.staff();
-    elementList = doc.getElementsByTagName("address");
-    entRefAddr = elementList.item(1);
-    entRefNode = entRefAddr.firstChild;
-
-    nodeType = entRefNode.nodeType;
-
-
-    if(
-      !(5 == nodeType)
-    ) {
-      entRefNode = doc.createEntityReference("ent2");
-      test.notEqual(entRefNode, null, 'createdEntRefNotNull');
-
-    }
-    entRefName = entRefNode.nodeName;
-
-    test.equal(entRefName, "ent2", 'nodeEntityReferenceNodeNameAssert1');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "getNodeType()" method for an EntityReference Node
-   returns the constant value 5.
-
-   Retrieve the EntityReference node from the last child
-   of the second employee and invoke the "getNodeType()"
-   method.   The method should return 5.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
-   */
-  nodeentityreferencenodetype: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var entRefAddr;
-    var entRefNode;
-    var nodeType;
-
-    doc = staff.staff();
-    elementList = doc.getElementsByTagName("address");
-    entRefAddr = elementList.item(1);
-    entRefNode = entRefAddr.firstChild;
-
-    nodeType = entRefNode.nodeType;
-
-
-    if(
-      (3 == nodeType)
-    ) {
-      entRefNode = doc.createEntityReference("ent2");
-      test.notEqual(entRefNode, null, 'createdEntRefNotNull');
-      nodeType = entRefNode.nodeType;
-
-
-    }
-    test.equal(nodeType, 5, 'entityNodeType');
-
-    test.done();
-  },
-
-  /**
-   *
-   The string returned by the "getNodeValue()" method for an
-   EntityReference Node is null.
-
-   Retrieve the first Entity Reference node from the last
-   child of the second employee and check the string
-   returned by the "getNodeValue()" method.   It should be
-   equal to null.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
-   */
-  nodeentityreferencenodevalue: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var entRefAddr;
-    var entRefNode;
-    var entRefValue;
-    var nodeType;
-
-    doc = staff.staff();
-    elementList = doc.getElementsByTagName("address");
-    entRefAddr = elementList.item(1);
-    entRefNode = entRefAddr.firstChild;
-
-    nodeType = entRefNode.nodeType;
-
-
-    if(
-      (3 == nodeType)
-    ) {
-      entRefNode = doc.createEntityReference("ent2");
-      test.notEqual(entRefNode, null, 'createdEntRefNotNull');
-
-    }
-    entRefValue = entRefNode.nodeValue;
-
-    test.equal(entRefValue, null, 'entRefNodeValue');
-
-    test.done();
-  },
-
-  /**
-   *
-   The string returned by the "getNodeValue()" method for an
-   Entity Node is always null and "setNodeValue" should have no effect.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-527DCFF2
-   */
-  nodeentitysetnodevalue: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var entities;
-    var entityNode;
-    var entityValue;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    entities = docType.entities;
-
-    test.notEqual(entities, null, 'entitiesNotNull');
-    entityNode = entities.getNamedItem("ent1");
-    test.notEqual(entityNode, null, 'ent1NotNull');
-    entityNode.nodeValue = "This should have no effect";
-
-    entityValue = entityNode.nodeValue;
-
-    test.equal(entityValue, null, 'nodeValueNull');
-
-    test.done();
-  },
-
-  /**
-   *
    The "getFirstChild()" method returns the first child
    of this node.
 
@@ -17533,7 +14179,7 @@ exports.tests = {
 
 
     }
-    test.equal(childName, "EMPLOYEEID", 'nodeName');
+    test.equal(childName, "employeeId", 'nodeName');
 
     test.done();
   },
@@ -17617,7 +14263,7 @@ exports.tests = {
 
 
     }
-    test.equal(childName, "ADDRESS", 'nodeName');
+    test.equal(childName, "address", 'nodeName');
 
     test.done();
   },
@@ -17701,7 +14347,7 @@ exports.tests = {
 
 
     }
-    test.equal(nsName, "NAME", 'nodeName');
+    test.equal(nsName, "name", 'nodeName');
 
     test.done();
   },
@@ -17780,7 +14426,7 @@ exports.tests = {
     elementName = docElement.nodeName;
 
 
-    test.equal(elementName, "STAFF", 'nodeGetOwnerDocumentAssert1');
+    test.equal(elementName, "staff", 'nodeGetOwnerDocumentAssert1');
 
     test.done();
   },
@@ -17841,7 +14487,7 @@ exports.tests = {
 
 
     }
-    test.equal(psName, "EMPLOYEEID", 'nodeName');
+    test.equal(psName, "employeeId", 'nodeName');
 
     test.done();
   },
@@ -17982,28 +14628,28 @@ exports.tests = {
 
     expectedWithWhitespace = new Array();
     expectedWithWhitespace[0] = "#text";
-    expectedWithWhitespace[1] = "EMPLOYEEID";
+    expectedWithWhitespace[1] = "employeeId";
     expectedWithWhitespace[2] = "#text";
-    expectedWithWhitespace[3] = "NAME";
+    expectedWithWhitespace[3] = "name";
     expectedWithWhitespace[4] = "#text";
-    expectedWithWhitespace[5] = "POSITION";
+    expectedWithWhitespace[5] = "position";
     expectedWithWhitespace[6] = "#text";
-    expectedWithWhitespace[7] = "NEWCHILD";
-    expectedWithWhitespace[8] = "SALARY";
+    expectedWithWhitespace[7] = "newChild";
+    expectedWithWhitespace[8] = "salary";
     expectedWithWhitespace[9] = "#text";
-    expectedWithWhitespace[10] = "GENDER";
+    expectedWithWhitespace[10] = "gender";
     expectedWithWhitespace[11] = "#text";
-    expectedWithWhitespace[12] = "ADDRESS";
+    expectedWithWhitespace[12] = "address";
     expectedWithWhitespace[13] = "#text";
 
     expectedWithoutWhitespace = new Array();
-    expectedWithoutWhitespace[0] = "EMPLOYEEID";
-    expectedWithoutWhitespace[1] = "NAME";
-    expectedWithoutWhitespace[2] = "POSITION";
-    expectedWithoutWhitespace[3] = "NEWCHILD";
-    expectedWithoutWhitespace[4] = "SALARY";
-    expectedWithoutWhitespace[5] = "GENDER";
-    expectedWithoutWhitespace[6] = "ADDRESS";
+    expectedWithoutWhitespace[0] = "employeeId";
+    expectedWithoutWhitespace[1] = "name";
+    expectedWithoutWhitespace[2] = "position";
+    expectedWithoutWhitespace[3] = "newChild";
+    expectedWithoutWhitespace[4] = "salary";
+    expectedWithoutWhitespace[5] = "gender";
+    expectedWithoutWhitespace[6] = "address";
 
     var expected = new Array();
 
@@ -18090,11 +14736,11 @@ exports.tests = {
     child = childList.item(3);
     childName = child.nodeName;
 
-    test.equal(childName, "NEWCHILD1", 'childName3');
+    test.equal(childName, "newChild1", 'childName3');
     child = childList.item(4);
     childName = child.nodeName;
 
-    test.equal(childName, "NEWCHILD2", 'childName4');
+    test.equal(childName, "newChild2", 'childName4');
 
     test.done();
   },
@@ -18230,25 +14876,25 @@ exports.tests = {
     expectedWhitespace = new Array();
     expectedWhitespace[0] = "#text";
     expectedWhitespace[1] = "#text";
-    expectedWhitespace[2] = "NAME";
+    expectedWhitespace[2] = "name";
     expectedWhitespace[3] = "#text";
-    expectedWhitespace[4] = "POSITION";
+    expectedWhitespace[4] = "position";
     expectedWhitespace[5] = "#text";
-    expectedWhitespace[6] = "SALARY";
+    expectedWhitespace[6] = "salary";
     expectedWhitespace[7] = "#text";
-    expectedWhitespace[8] = "GENDER";
+    expectedWhitespace[8] = "gender";
     expectedWhitespace[9] = "#text";
-    expectedWhitespace[10] = "EMPLOYEEID";
-    expectedWhitespace[11] = "ADDRESS";
+    expectedWhitespace[10] = "employeeId";
+    expectedWhitespace[11] = "address";
     expectedWhitespace[12] = "#text";
 
     expectedNoWhitespace = new Array();
-    expectedNoWhitespace[0] = "NAME";
-    expectedNoWhitespace[1] = "POSITION";
-    expectedNoWhitespace[2] = "SALARY";
-    expectedNoWhitespace[3] = "GENDER";
-    expectedNoWhitespace[4] = "EMPLOYEEID";
-    expectedNoWhitespace[5] = "ADDRESS";
+    expectedNoWhitespace[0] = "name";
+    expectedNoWhitespace[1] = "position";
+    expectedNoWhitespace[2] = "salary";
+    expectedNoWhitespace[3] = "gender";
+    expectedNoWhitespace[4] = "employeeId";
+    expectedNoWhitespace[5] = "address";
 
     var expected = new Array();
 
@@ -18379,117 +15025,7 @@ exports.tests = {
     insertedNode = employeeNode.insertBefore(newChild,refChild);
     childName = insertedNode.nodeName;
 
-    test.equal(childName, "NEWCHILD", 'nodeInsertBeforeNodeNameAssert1');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "insertBefore(newChild,refChild)" method causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Obtain the children of the THIRD "gender" element.   The elements
-   content is an entity reference.   Get the FIRST item
-   from the entity reference and execute the "insertBefore(newChild,refChild)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-952280727')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
-   */
-  nodeinsertbeforenomodificationallowederr: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var genderNode;
-    var entRef;
-    var entElement;
-    var createdNode;
-    var insertedNode;
-    var refChild = null;
-
-    var nodeType;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    genderNode = genderList.item(2);
-    entRef = genderNode.firstChild;
-
-    test.notEqual(entRef, null, 'entRefNotNull');
-    nodeType = entRef.nodeType;
-
-
-    if(
-      (1 == nodeType)
-    ) {
-      entRef = doc.createEntityReference("ent4");
-      test.notEqual(entRef, null, 'createdEntRefNotNull');
-
-    }
-    entElement = entRef.firstChild;
-
-    test.notEqual(entElement, null, 'entElementNotNull');
-    createdNode = doc.createElement("text3");
-
-    {
-      success = false;
-      try {
-        insertedNode = entElement.insertBefore(createdNode,refChild);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NOT_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   The "insertBefore(newChild,refChild)" method causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Create an ent4 entity reference and and execute the "insertBefore(newChild,refChild)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-952280727')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
-   * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/nodeinsertbeforenomodificationallowederr.xml
-   */
-  nodeinsertbeforenomodificationallowederrEE: function(test) {
-    var success;
-    var doc;
-    var entRef;
-    var createdNode;
-    var insertedNode;
-    var refChild = null;
-
-
-    doc = staff.staff();
-    entRef = doc.createEntityReference("ent4");
-    test.notEqual(entRef, null, 'createdEntRefNotNull');
-    createdNode = doc.createElement("text3");
-
-    {
-      success = false;
-      try {
-        insertedNode = entRef.insertBefore(createdNode,refChild);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
+    test.equal(childName, "newChild", 'nodeInsertBeforeNodeNameAssert1');
 
     test.done();
   },
@@ -18583,7 +15119,7 @@ exports.tests = {
 
     childName = child.nodeName;
 
-    test.equal(childName, "NEWCHILD", 'nodeInsertBeforeRefChildNullAssert1');
+    test.equal(childName, "newChild", 'nodeInsertBeforeRefChildNullAssert1');
 
     test.done();
   },
@@ -18619,7 +15155,7 @@ exports.tests = {
     if(
       !("#text" == childName)
     ) {
-      test.equal(childName, "EMPLOYEEID", 'childName');
+      test.equal(childName, "employeeId", 'childName');
 
     }
 
@@ -18629,7 +15165,7 @@ exports.tests = {
   /**
    *
    The "getLength()" method returns the number of nodes
-   in the list should be 6 (no whitespace) or 13.
+   in the list should be 13.
 
    * @author NIST
    * @author Mary Brady
@@ -18638,7 +15174,7 @@ exports.tests = {
   nodelistindexgetlength: function(test) {
     var doc = staff.staff();
     var employeeList = doc.getElementsByTagName("employee").item(2).childNodes;
-    test.equal(employeeList.length, 6)
+    test.equal(employeeList.length, 13);
     test.done();
   },
 
@@ -18725,7 +15261,7 @@ exports.tests = {
     }
     childName = child.nodeName;
 
-    test.equal(childName, "NAME", 'nodeName');
+    test.equal(childName, "name", 'nodeName');
 
     test.done();
   },
@@ -18763,7 +15299,7 @@ exports.tests = {
     if(
       (6 == length)
     ) {
-      test.equal(childName, "EMPLOYEEID", 'firstChildNoWhitespace');
+      test.equal(childName, "employeeId", 'firstChildNoWhitespace');
 
     }
 
@@ -18808,7 +15344,7 @@ exports.tests = {
       child = employeeList.item(5);
       childName = child.nodeName;
 
-      test.equal(childName, "ADDRESS", 'nodeName1');
+      test.equal(childName, "address", 'nodeName1');
 
     }
 
@@ -18849,26 +15385,26 @@ exports.tests = {
     var length;
     expectedWhitespace = new Array();
     expectedWhitespace[0] = "#text";
-    expectedWhitespace[1] = "EMPLOYEEID";
+    expectedWhitespace[1] = "employeeId";
     expectedWhitespace[2] = "#text";
-    expectedWhitespace[3] = "NAME";
+    expectedWhitespace[3] = "name";
     expectedWhitespace[4] = "#text";
-    expectedWhitespace[5] = "POSITION";
+    expectedWhitespace[5] = "position";
     expectedWhitespace[6] = "#text";
-    expectedWhitespace[7] = "SALARY";
+    expectedWhitespace[7] = "salary";
     expectedWhitespace[8] = "#text";
-    expectedWhitespace[9] = "GENDER";
+    expectedWhitespace[9] = "gender";
     expectedWhitespace[10] = "#text";
-    expectedWhitespace[11] = "ADDRESS";
+    expectedWhitespace[11] = "address";
     expectedWhitespace[12] = "#text";
 
     expectedNoWhitespace = new Array();
-    expectedNoWhitespace[0] = "EMPLOYEEID";
-    expectedNoWhitespace[1] = "NAME";
-    expectedNoWhitespace[2] = "POSITION";
-    expectedNoWhitespace[3] = "SALARY";
-    expectedNoWhitespace[4] = "GENDER";
-    expectedNoWhitespace[5] = "ADDRESS";
+    expectedNoWhitespace[0] = "employeeId";
+    expectedNoWhitespace[1] = "name";
+    expectedNoWhitespace[2] = "position";
+    expectedNoWhitespace[3] = "salary";
+    expectedNoWhitespace[4] = "gender";
+    expectedNoWhitespace[5] = "address";
 
 
     doc = staff.staff();
@@ -18903,156 +15439,6 @@ exports.tests = {
 
   /**
    *
-   The "getAttributes()" method invoked on a Notation
-   Node returns null.
-
-   Retrieve the Notation declaration inside the DocumentType
-   node and invoke the "getAttributes()" method on the
-   Notation Node.   It should return null.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-84CF096
-   */
-  nodenotationnodeattributes: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var notations;
-    var notationNode;
-    var attrList;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    notations = docType.notations;
-
-    test.notEqual(notations, null, 'notationsNotNull');
-    notationNode = notations.getNamedItem("notation1");
-    test.notEqual(notationNode, null, 'notationNotNull');
-    attrList = notationNode.attributes;
-
-    test.equal(attrList, null, 'nodeNotationNodeAttributesAssert1');
-
-    test.done();
-  },
-
-  /**
-   *
-   The string returned by the "getNodeName()" method for a
-   Notation Node is the name of the notation.
-
-   Retrieve the Notation declaration inside the
-   DocumentType node and check the string returned
-   by the "getNodeName()" method.   It should be equal to
-   "notation1".
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
-   */
-  nodenotationnodename: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var notations;
-    var notationNode;
-    var notationName;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    notations = docType.notations;
-
-    test.notEqual(notations, null, 'notationsNotNull');
-    notationNode = notations.getNamedItem("notation1");
-    test.notEqual(notationNode, null, 'notationNotNull');
-    notationName = notationNode.nodeName;
-
-    test.equal(notationName, "notation1", 'nodeName');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "getNodeType()" method for an Notation Node
-   returns the constant value 12.
-
-   Retrieve the Notation declaration in the DocumentType
-   node and invoke the "getNodeType()" method.   The method
-   should return 12.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-111237558
-   */
-  nodenotationnodetype: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var notations;
-    var notationNode;
-    var nodeType;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    notations = docType.notations;
-
-    test.notEqual(notations, null, 'notationsNotNull');
-    notationNode = notations.getNamedItem("notation1");
-    test.notEqual(notationNode, null, 'notationNotNull');
-    nodeType = notationNode.nodeType;
-
-    test.equal(nodeType, 12, 'nodeNotationNodeTypeAssert1');
-
-    test.done();
-  },
-
-  /**
-   *
-   The string returned by the "getNodeValue()" method for a
-   Notation Node is null.
-
-   Retrieve the Notation declaration inside the
-   DocumentType node and check the string returned
-   by the "getNodeValue()" method.   It should be equal to
-   null.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
-   */
-  nodenotationnodevalue: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var notations;
-    var notationNode;
-    var notationValue;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    notations = docType.notations;
-
-    test.notEqual(notations, null, 'notationsNotNull');
-    notationNode = notations.getNamedItem("notation1");
-    test.notEqual(notationNode, null, 'notationNotNull');
-    notationValue = notationNode.nodeValue;
-
-    test.equal(notationValue, null, 'nodeValue');
-
-    test.done();
-  },
-
-  /**
-   *
    The "getParentNode()" method returns the parent
    of this node.
 
@@ -19081,7 +15467,7 @@ exports.tests = {
     parentName = parentNode.nodeName;
 
 
-    test.equal(parentName, "STAFF", 'nodeParentNodeAssert1');
+    test.equal(parentName, "staff", 'nodeParentNodeAssert1');
 
     test.done();
   },
@@ -19369,7 +15755,7 @@ exports.tests = {
     if(
       (6 == length)
     ) {
-      test.equal(childName, "EMPLOYEEID", 'nowhitespace');
+      test.equal(childName, "employeeId", 'nowhitespace');
 
     }
 
@@ -19423,122 +15809,16 @@ exports.tests = {
     if(
       (5 == length)
     ) {
-      test.equal(removedName, "EMPLOYEEID", 'removedNameNoWhitespace');
-      test.equal(childName, "NAME", 'childNameNoWhitespace');
+      test.equal(removedName, "employeeId", 'removedNameNoWhitespace');
+      test.equal(childName, "name", 'childNameNoWhitespace');
 
     }
 
     else {
       test.equal(removedName, "#text", 'removedName');
-      test.equal(childName, "EMPLOYEEID", 'childName');
+      test.equal(childName, "employeeId", 'childName');
       test.equal(length, 12, 'length');
 
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   The "removeChild(oldChild)" method causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Obtain the children of the THIRD "gender" element.   The elements
-   content is an entity reference.   Get the FIRST item
-   from the entity reference and execute the "removeChild(oldChild)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-1734834066')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
-   */
-  noderemovechildnomodificationallowederr: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var genderNode;
-    var entRef;
-    var entElement;
-    var removedNode;
-    var nodeType;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    genderNode = genderList.item(2);
-    entRef = genderNode.firstChild;
-
-    test.notEqual(entRef, null, 'entRefNotNull');
-    nodeType = entRef.nodeType;
-
-
-    if(
-      (1 == nodeType)
-    ) {
-      entRef = doc.createEntityReference("ent4");
-      test.notEqual(entRef, null, 'createdEntRefNotNull');
-
-    }
-    entElement = entRef.firstChild;
-
-    test.notEqual(entElement, null, 'entElementNotNull');
-
-    {
-      success = false;
-      try {
-        removedNode = entRef.removeChild(entElement);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   The "removeChild(oldChild)" method causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Create an entity reference and execute the "removeChild(oldChild)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-1734834066')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1734834066
-   * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/noderemovechildnomodificationallowederr.xml
-   */
-  noderemovechildnomodificationallowederrEE: function(test) {
-    var success;
-    var doc;
-    var entRef;
-    var entText;
-    var removedNode;
-
-    doc = staff.staff();
-    entRef = doc.createEntityReference("ent4");
-    test.notEqual(entRef, null, 'createdEntRefNotNull');
-    entText = entRef.firstChild;
-
-    test.notEqual(entText, null, 'entTextNotNull');
-
-    {
-      success = false;
-      try {
-        removedNode = entRef.removeChild(entText);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -19626,7 +15906,7 @@ exports.tests = {
     child = childList.item(0);
     childName = child.nodeName;
 
-    test.equal(childName, "NEWCHILD", 'nodeReplaceChildAssert1');
+    test.equal(childName, "newChild", 'nodeReplaceChildAssert1');
 
     test.done();
   },
@@ -19761,24 +16041,24 @@ exports.tests = {
     var expected = new Array();
 
     expectedWithoutWhitespace = new Array();
-    expectedWithoutWhitespace[0] = "NAME";
-    expectedWithoutWhitespace[1] = "POSITION";
-    expectedWithoutWhitespace[2] = "SALARY";
-    expectedWithoutWhitespace[3] = "GENDER";
-    expectedWithoutWhitespace[4] = "EMPLOYEEID";
+    expectedWithoutWhitespace[0] = "name";
+    expectedWithoutWhitespace[1] = "position";
+    expectedWithoutWhitespace[2] = "salary";
+    expectedWithoutWhitespace[3] = "gender";
+    expectedWithoutWhitespace[4] = "employeeId";
 
     expectedWithWhitespace = new Array();
     expectedWithWhitespace[0] = "#text";
     expectedWithWhitespace[1] = "#text";
-    expectedWithWhitespace[2] = "NAME";
+    expectedWithWhitespace[2] = "name";
     expectedWithWhitespace[3] = "#text";
-    expectedWithWhitespace[4] = "POSITION";
+    expectedWithWhitespace[4] = "position";
     expectedWithWhitespace[5] = "#text";
-    expectedWithWhitespace[6] = "SALARY";
+    expectedWithWhitespace[6] = "salary";
     expectedWithWhitespace[7] = "#text";
-    expectedWithWhitespace[8] = "GENDER";
+    expectedWithWhitespace[8] = "gender";
     expectedWithWhitespace[9] = "#text";
-    expectedWithWhitespace[10] = "EMPLOYEEID";
+    expectedWithWhitespace[10] = "employeeId";
     expectedWithWhitespace[11] = "#text";
 
     var replacedChild;
@@ -19916,121 +16196,13 @@ exports.tests = {
     if(
       (6 == length)
     ) {
-      test.equal(childName, "NAME", 'nowhitespace');
+      test.equal(childName, "name", 'nowhitespace');
 
     }
 
     else {
-      test.equal(childName, "EMPLOYEEID", 'whitespace');
+      test.equal(childName, "employeeId", 'whitespace');
 
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   The "replaceChild(newChild,oldChild)" method causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Obtain the children of the THIRD "gender" element.   The elements
-   content is an entity reference.   Get the FIRST item
-   from the entity reference and execute the "replaceChild(newChild,oldChild)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author NIST
-   * @author Mary Brady
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-785887307')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
-   */
-  nodereplacechildnomodificationallowederr: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var genderNode;
-    var entRef;
-    var entElement;
-    var createdNode;
-    var replacedChild;
-    var nodeType;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    genderNode = genderList.item(2);
-    entRef = genderNode.firstChild;
-
-    nodeType = entRef.nodeType;
-
-
-    if(
-      (1 == nodeType)
-    ) {
-      entRef = doc.createEntityReference("ent4");
-      test.notEqual(entRef, null, 'createdEntRefNotNull');
-
-    }
-    entElement = entRef.firstChild;
-
-    createdNode = doc.createElement("newChild");
-
-    {
-      success = false;
-      try {
-        replacedChild = entRef.replaceChild(createdNode,entElement);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   The "replaceChild(newChild,oldChild)" method causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Create an entity reference execute the "replaceChild(newChild,oldChild)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-785887307')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
-   * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/nodereplacechildnomodificationallowederr.xml
-   */
-  nodereplacechildnomodificationallowederrEE: function(test) {
-    var success;
-    var doc;
-    var entRef;
-    var entText;
-    var createdNode;
-    var replacedChild;
-
-    doc = staff.staff();
-    entRef = doc.createEntityReference("ent4");
-    test.notEqual(entRef, null, 'createdEntRefNotNull');
-    entText = entRef.firstChild;
-
-    createdNode = doc.createElement("newChild");
-
-    {
-      success = false;
-      try {
-        replacedChild = entRef.replaceChild(createdNode,entText);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -20078,113 +16250,6 @@ exports.tests = {
         success = (typeof(ex.code) != 'undefined' && ex.code == 8);
       }
       test.ok(success, 'throw_NOT_FOUND_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   The "setNodeValue(nodeValue)" method causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Obtain the children of the THIRD "gender" element.   The elements
-   content is an entity reference.   Get the SECOND item
-   from the entity reference and execute the "setNodeValue(nodeValue)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author NIST
-   * @author Mary Brady
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-F68D080')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
-   */
-  nodesetnodevaluenomodificationallowederr: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var genderNode;
-    var entRef;
-    var entElement;
-    var entElementText;
-    var nodeType;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    genderNode = genderList.item(2);
-    entRef = genderNode.firstChild;
-
-    test.notEqual(entRef, null, 'entRefNotNull');
-    nodeType = entRef.nodeType;
-
-
-    if(
-      (1 == nodeType)
-    ) {
-      entRef = doc.createEntityReference("ent4");
-      test.notEqual(entRef, null, 'createdEntRefNotNull');
-
-    }
-    entElement = entRef.firstChild;
-
-    test.notEqual(entElement, null, 'entElementNotNull');
-    entElementText = entElement.firstChild;
-
-    test.notEqual(entElementText, null, 'entElementTextNotNull');
-
-    {
-      success = false;
-      try {
-        entElementText.nodeValue = "newValue";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   Create an entity reference and execute the "setNodeValue(nodeValue)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-F68D080')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
-   * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/nodesetnodevaluenomodificationallowederr.xml
-   */
-  nodesetnodevaluenomodificationallowederrEE: function(test) {
-    var success;
-    var doc;
-    var entRef;
-    var entText;
-
-    doc = staff.staff();
-    entRef = doc.createEntityReference("ent3");
-    test.notEqual(entRef, null, 'createdEntRefNotNull');
-    entText = entRef.firstChild;
-
-    test.notEqual(entText, null, 'entTextNotNull');
-
-    {
-      success = false;
-      try {
-        entText.nodeValue = "newValue";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
     }
 
     test.done();
@@ -20400,36 +16465,6 @@ exports.tests = {
 
   /**
    *
-   An entity reference is created, setNodeValue is called with a non-null argument, but getNodeValue
-   should still return null.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-11C98490
-   */
-  nodevalue03: function(test) {
-    var success;
-    var doc;
-    var newNode;
-    var newValue;
-
-    doc = staff.staff();
-    newNode = doc.createEntityReference("ent1");
-    test.notEqual(newNode, null, 'createdEntRefNotNull');
-    newValue = newNode.nodeValue;
-
-    test.equal(newValue, null, 'initiallyNull');
-    newNode.nodeValue = "This should have no effect";
-
-    newValue = newNode.nodeValue;
-
-    test.equal(newValue, null, 'nullAfterAttemptedChange');
-
-    test.done();
-  },
-
-  /**
-   *
    An document type accessed, setNodeValue is called with a non-null argument, but getNodeValue
    should still return null.
 
@@ -20516,82 +16551,6 @@ exports.tests = {
 
   /**
    *
-   An Entity is accessed, setNodeValue is called with a non-null argument, but getNodeValue
-   should still return null.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-527DCFF2
-   */
-  nodevalue07: function(test) {
-    var success;
-    var doc;
-    var newNode;
-    var newValue;
-    var nodeMap;
-    var docType;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    nodeMap = docType.entities;
-
-    test.notEqual(nodeMap, null, 'entitiesNotNull');
-    newNode = nodeMap.getNamedItem("ent1");
-    test.notEqual(newNode, null, 'entityNotNull');
-    newValue = newNode.nodeValue;
-
-    test.equal(newValue, null, 'initiallyNull');
-    newNode.nodeValue = "This should have no effect";
-
-    newValue = newNode.nodeValue;
-
-    test.equal(newValue, null, 'nullAfterAttemptedChange');
-
-    test.done();
-  },
-
-  /**
-   *
-   An notation is accessed, setNodeValue is called with a non-null argument, but getNodeValue
-   should still return null.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D080
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-5431D1B9
-   */
-  nodevalue08: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var newNode;
-    var newValue;
-    var nodeMap;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    nodeMap = docType.notations;
-
-    test.notEqual(nodeMap, null, 'notationsNotNull');
-    newNode = nodeMap.getNamedItem("notation1");
-    test.notEqual(newNode, null, 'notationNotNull');
-    newValue = newNode.nodeValue;
-
-    test.equal(newValue, null, 'initiallyNull');
-    newNode.nodeValue = "This should have no effect";
-
-    newValue = newNode.nodeValue;
-
-    test.equal(newValue, null, 'nullAfterAttemptedChange');
-
-    test.done();
-  },
-
-  /**
-   *
    An processing instruction is created, setNodeValue is called with a non-null argument, but getNodeValue
    should still return null.
 
@@ -20615,181 +16574,6 @@ exports.tests = {
     newValue = newNode.nodeValue;
 
     test.equal(newValue, "This should have an effect", 'after');
-
-    test.done();
-  },
-
-  /**
-   *
-   Retrieve the notation named "notation1" and access its
-   name by invoking the "getNodeName()" method inherited
-   from the Node interface.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-F68D095
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-5431D1B9
-   */
-  notationgetnotationname: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var notations;
-    var notationNode;
-    var notationName;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    notations = docType.notations;
-
-    test.notEqual(notations, null, 'notationsNotNull');
-    notationNode = notations.getNamedItem("notation1");
-    notationName = notationNode.nodeName;
-
-    test.equal(notationName, "notation1", 'notationGetNotationNameAssert');
-
-    test.done();
-  },
-
-  /**
-   *
-   Retrieve the notation named "notation1" and access its
-   public identifier.  The string "notation1File" should be
-   returned.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-54F2B4D0
-   */
-  notationgetpublicid: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var notations;
-    var notationNode;
-    var publicId;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    notations = docType.notations;
-
-    test.notEqual(notations, null, 'notationsNotNull');
-    notationNode = notations.getNamedItem("notation1");
-    publicId = notationNode.publicId;
-
-    test.equal(publicId, "notation1File", 'publicId');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "getPublicId()" method of a Notation node contains
-   the public identifier associated with the notation, if
-   one was not specified a null value should be returned.
-
-   Retrieve the notation named "notation2" and access its
-   public identifier.  Since a public identifier was not
-   specified for this notation, the "getPublicId()" method
-   should return null.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-54F2B4D0
-   */
-  notationgetpublicidnull: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var notations;
-    var notationNode;
-    var publicId;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    notations = docType.notations;
-
-    test.notEqual(notations, null, 'notationsNotNull');
-    notationNode = notations.getNamedItem("notation2");
-    publicId = notationNode.publicId;
-
-    test.equal(publicId, null, 'publicId');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "getSystemId()" method of a Notation node contains
-   the system identifier associated with the notation, if
-   one was specified.
-
-   Retrieve the notation named "notation2" and access its
-   system identifier.  The string "notation2File" should be
-   returned.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E8AAB1D0
-   */
-  notationgetsystemid: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var notations;
-    var notationNode;
-    var systemId;
-    var index;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    notations = docType.notations;
-
-    test.notEqual(notations, null, 'notationsNotNull');
-    notationNode = notations.getNamedItem("notation2");
-    systemId = notationNode.systemId;
-    test.equal(systemId, 'notation2File');
-    test.done();
-  },
-
-  /**
-   *
-   Retrieve the notation named "notation1" and access its
-   system identifier.  Since a system identifier was not
-   specified for this notation, the "getSystemId()" method
-   should return null.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-E8AAB1D0
-   */
-  notationgetsystemidnull: function(test) {
-    var success;
-    var doc;
-    var docType;
-    var notations;
-    var notationNode;
-    var systemId;
-
-    doc = staff.staff();
-    docType = doc.doctype;
-
-    test.notEqual(docType, null, 'docTypeNotNull');
-    notations = docType.notations;
-
-    test.notEqual(notations, null, 'notationsNotNull');
-    notationNode = notations.getNamedItem("notation1");
-    systemId = notationNode.systemId;
-
-    test.equal(systemId, null, 'systemId');
 
     test.done();
   },
@@ -20859,112 +16643,6 @@ exports.tests = {
     target = piNode.target;
 
     test.equal(target, "TEST-STYLE", 'processinginstructionGetTargetAssert');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "setData(data)" method for a processing instruction causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Obtain the children of the THIRD "gender" element.  The elements
-   content is an entity reference.  Try to remove the "domestic" attribute
-   from the entity reference by executing the "setData(data)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-837822393
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-837822393')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-837822393
-   */
-  processinginstructionsetdatanomodificationallowederr: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var gender;
-    var entRef;
-    var piNode;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    gender = genderList.item(2);
-    entRef = gender.firstChild;
-
-    test.notEqual(entRef, null, 'entRefNotNull');
-    piNode = entRef.lastChild;
-
-    test.notEqual(piNode, null, 'piNodeNotNull');
-
-    {
-      success = false;
-      try {
-        piNode.data = "newData";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   The "setData(data)" method for a processing instruction causes the
-   DOMException NO_MODIFICATION_ALLOWED_ERR to be raised
-   if the node is readonly.
-
-   Create an ent4 entity reference and add to document of the THIRD "gender" element.  The elements
-   content is an entity reference.  Try to remove the "domestic" attribute
-   from the entity reference by executing the "setData(data)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-837822393
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-837822393')/setraises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-837822393
-   * @see http://lists.w3.org/Archives/Public/www-dom-ts/2002Apr/0053.html
-   * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/processinginstructionsetdatanomodificationallowederr.xml
-   */
-  processinginstructionsetdatanomodificationallowederrEE: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var gender;
-    var entRef;
-    var piNode;
-    var appendedChild;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    gender = genderList.item(2);
-    entRef = doc.createEntityReference("ent4");
-    appendedChild = gender.appendChild(entRef);
-    entRef = gender.lastChild;
-
-    test.notEqual(entRef, null, 'entRefNotNull');
-    piNode = entRef.lastChild;
-
-    test.notEqual(piNode, null, 'piNodeNotNull');
-
-    {
-      success = false;
-      try {
-        piNode.data = "newData";
-
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
 
     test.done();
   },
@@ -21063,91 +16741,6 @@ exports.tests = {
 
   /**
    *
-   Retrieve the textual data from the last child of the
-   second employee.   That node is composed of two
-   EntityReference nodes and two Text nodes.   After
-   the content node is parsed, the "address" Element
-   should contain four children with each one of the
-   EntityReferences containing one child.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1451460987
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-11C98490
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-745549614
-   */
-  textparseintolistofelements: function(test) {
-    var success;
-    var doc;
-    var elementList;
-    var addressNode;
-    var childList;
-    var child;
-    var length;
-    var value;
-    var grandChild;
-    var result = new Array();
-
-    expectedNormal = new Array();
-    expectedNormal[0] = "1900 Dallas Road";
-    expectedNormal[1] = " Dallas, ";
-    expectedNormal[2] = "Texas";
-    expectedNormal[3] = "\n 98554";
-
-    expectedExpanded = new Array();
-    expectedExpanded[0] = "1900 Dallas Road Dallas, Texas\n 98554";
-
-
-    doc = staff.staff();
-    elementList = doc.getElementsByTagName("address");
-    addressNode = elementList.item(1);
-    childList = addressNode.childNodes;
-
-    length = childList.length;
-
-    for(var indexN1007F = 0;indexN1007F < childList.length; indexN1007F++) {
-      child = childList.item(indexN1007F);
-      value = child.nodeValue;
-
-
-      if(
-
-        (value == null)
-
-      ) {
-        grandChild = child.firstChild;
-
-        test.notEqual(grandChild, null, 'grandChildNotNull');
-        value = grandChild.nodeValue;
-
-        result[result.length] = value;
-
-      }
-
-      else {
-        result[result.length] = value;
-
-      }
-
-    }
-
-    if(
-      (4 == length)
-    ) {
-      test.deepEqual(result, expectedNormal, 'assertEqNormal');
-
-    }
-
-    else {
-      test.deepEqual(result, expectedExpanded, 'assertEqCoalescing');
-
-    }
-
-    test.done();
-  },
-
-  /**
-   *
    The "splitText(offset)" method returns the new Text node.
 
    Retrieve the textual data from the last child of the
@@ -21180,112 +16773,6 @@ exports.tests = {
     value = splitNode.nodeValue;
 
     test.equal(value, "98551", 'textSplitTextFourAssert');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "splitText(offset)" method raises a
-   NO_MODIFICATION_ALLOWED_ERR DOMException if the
-   node is readonly.
-
-   Obtain the children of the THIRD "gender" element.   The elements
-   content is an entity reference.   Get the element content of the FIRST
-   Text Node of the entity reference and execute the "splitText(offset)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-38853C1D')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
-   */
-  textsplittextnomodificationallowederr: function(test) {
-    var success;
-    var doc;
-    var genderList;
-    var gender;
-    var entRef;
-    var entElement;
-    var entElementText;
-    var splitNode;
-    var nodeType;
-
-    doc = staff.staff();
-    genderList = doc.getElementsByTagName("gender");
-    gender = genderList.item(2);
-    entRef = gender.firstChild;
-
-    test.notEqual(entRef, null, 'entRefNotNull');
-    nodeType = entRef.nodeType;
-
-
-    if(
-      (1 == nodeType)
-    ) {
-      entRef = doc.createEntityReference("ent4");
-      test.notEqual(entRef, null, 'createdEntRefNotNull');
-
-    }
-    entElement = entRef.firstChild;
-
-    test.notEqual(entElement, null, 'entElementNotNull');
-    entElementText = entElement.firstChild;
-
-    test.notEqual(entElementText, null, 'entElementTextNotNull');
-
-    {
-      success = false;
-      try {
-        splitNode = entElementText.splitText(2);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   Create an ent3 reference and execute the "splitText(offset)" method.
-   This causes a NO_MODIFICATION_ALLOWED_ERR DOMException to be thrown.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-38853C1D')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NO_MODIFICATION_ALLOWED_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-38853C1D
-   * @see http://www.w3.org/2001/DOM-Test-Suite/level1/core/textsplittextnomodificationallowederr.xml
-   */
-  textsplittextnomodificationallowederrEE: function(test) {
-    var success;
-    var doc;
-    var entRef;
-    var entText;
-    var splitNode;
-
-    doc = staff.staff();
-    entRef = doc.createEntityReference("ent3");
-    test.notEqual(entRef, null, 'createdEntRefNotNull');
-    entText = entRef.firstChild;
-
-    test.notEqual(entText, null, 'entTextNotNull');
-
-    {
-      success = false;
-      try {
-        splitNode = entText.splitText(2);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 7);
-      }
-      test.ok(success, 'throw_NO_MODIFICATION_ALLOWED_ERR');
-    }
 
     test.done();
   },
@@ -21452,16 +16939,16 @@ exports.tests = {
 
   maintainfeatures: function(test) {
     var doc = staff.staff();
-    doc.implementation.addFeature("TestingFeature", 1);
-    doc.implementation.addFeature("TestingFeature", 2);
-    doc.implementation.addFeature("TestingFeature", 3);
-    test.ok(doc.implementation.hasFeature('TestingFeature'), 'document has \'TestingFeature\'');
-    doc.implementation.removeFeature("TestingFeature", 2);
-    test.equal(doc.implementation.hasFeature('TestingFeature', 2), false, 'document no longer has \'TestingFeature v2\'');
-    test.ok(doc.implementation.hasFeature('TestingFeature', 1), 'document has \'TestingFeature\' v1');
-    test.ok(doc.implementation.hasFeature('TestingFeature', 3), 'document has \'TestingFeature\' v3');
-    doc.implementation.removeFeature("TestingFeature");
-    test.equal(doc.implementation.hasFeature('TestingFeature'), false, 'document no longer has \'TestingFeature\'');
+    doc.implementation._addFeature("TestingFeature", 1);
+    doc.implementation._addFeature("TestingFeature", 2);
+    doc.implementation._addFeature("TestingFeature", 3);
+    test.ok(doc.implementation._hasFeature('TestingFeature'), 'document has \'TestingFeature\'');
+    doc.implementation._removeFeature("TestingFeature", 2);
+    test.equal(doc.implementation._hasFeature('TestingFeature', 2), false, 'document no longer has \'TestingFeature v2\'');
+    test.ok(doc.implementation._hasFeature('TestingFeature', 1), 'document has \'TestingFeature\' v1');
+    test.ok(doc.implementation._hasFeature('TestingFeature', 3), 'document has \'TestingFeature\' v3');
+    doc.implementation._removeFeature("TestingFeature");
+    test.equal(doc.implementation._hasFeature('TestingFeature'), false, 'document no longer has \'TestingFeature\'');
     test.done();
   },
 
@@ -21530,8 +17017,7 @@ exports.tests = {
   },
 
   onevent_properties_are_set_on_setAttribute: function(test) {
-    var dom = require("../../lib/jsdom/living");
-    var doc = new dom.Document('');
+    var doc = jsdom.jsdom();
     var elem = doc.createElement('test');
     elem.setAttribute('onclick', 'test');
     test.ok(elem.onclick, 'elem.onclick is set');
@@ -21539,8 +17025,7 @@ exports.tests = {
   },
 
   onevent_properties_are_set_on_setAttributeNode: function(test) {
-    var dom = require("../../lib/jsdom/living");
-    var doc = new dom.Document('');
+    var doc = jsdom.jsdom();
     var elem = doc.createElement('test');
     var attr = doc.createAttribute('onclick');
 
@@ -21551,8 +17036,7 @@ exports.tests = {
   },
 
   onevent_properties_are_set_on_attr_set_value: function(test) {
-    var dom = require("../../lib/jsdom/living");
-    var doc = new dom.Document('');
+    var doc = jsdom.jsdom();
     var elem = doc.createElement('test');
     var attr = doc.createAttribute('onclick');
 
@@ -21583,8 +17067,7 @@ exports.tests = {
   },
 
   restrict_text_data_type: function(test) {
-    var dom = require("../../lib/jsdom/living");
-    var doc = new dom.Document('');
+    var doc = jsdom.jsdom();
     var testObj = {
       valueOf: function () { return 34; },
       toString: function () { return 'str' }

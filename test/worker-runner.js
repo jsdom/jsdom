@@ -34,9 +34,9 @@ self.onmessage = function (e) {
     "living-dom/compare-document-position.js": require("../test/living-dom/compare-document-position.js"), // 0/20
     "living-dom/node-contains.js": require("../test/living-dom/node-contains.js"), // 0/20
     "living-dom/node-parent-element.js": require("../test/living-dom/node-parent-element.js"), // 0/11
+    "living-html/location.js": require("../test/living-html/location.js"), // ok
     "living-html/navigator.js": require("../test/living-html/navigator.js"), // 0/2
 
-    "window/index": require("../test/window/index"), // ok
     "window/history": require("../test/window/history"), // 0/5
     "window/script": require("../test/window/script"), // 0/10
     "window/console": require("../test/window/console"), // 0/2

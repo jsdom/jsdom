@@ -1,3 +1,4 @@
+var jsdom = require("../..");
 var barfoo = require("./core/files/barfoo.xml");
 // var barfoo_base = require("./core/files/barfoo_base.xml");
 var barfoo_nodefaultns = require("./core/files/barfoo_nodefaultns.xml");
@@ -28,10 +29,9 @@ DOMErrorMonitor.prototype.assertLowerSeverity = function(id, severity) {
   });
 }
 var core = require("../../lib/jsdom/living");
-var getImplementation = function() {
-  var doc = new core.Document();
-  return doc.implementation;
-};
+function getImplementation() {
+  return jsdom.jsdom().implementation;
+}
 
 exports.tests = {
   /**

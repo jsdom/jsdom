@@ -191,23 +191,6 @@ exports.tests = {
     test.done();
   },
 
-  // TODO: break into two tests
-  apply_jsdom_features_at_build_time: function(test) {
-    var dom = jsdom.jsdom().parentWindow;
-
-    var doc = new (dom.Document)(),
-        doc2 = new (dom.Document)(),
-        defaults = jsdom.defaultDocumentFeatures;
-    jsdom.applyDocumentFeatures(doc);
-    for (var i=0; i<defaults.length; i++) {
-      test.ok(doc.implementation.hasFeature(defaults[i]), 'Document has all of the default features');
-    }
-    jsdom.applyDocumentFeatures(doc2, {'FetchExternalResources': false});
-    test.ok(doc2.implementation.hasFeature('ProcessExternalResources'), 'Document has ProcessExternalResources');
-    test.equal(doc2.implementation.hasFeature('FetchExternalResources'), false, 'Document does not have \'FetchExternalResources\'');
-    test.done();
-  },
-
   ensure_scripts_can_be_disabled_via_options_features: function(test) {
     var html = '<html><head><script src="./files/hello.js"></script></head>' +
                '<body><span id="test">hello from html</span></body></html>';
@@ -658,7 +641,7 @@ exports.tests = {
 
   mutation_events : function(test) {
     var document = jsdom.jsdom();
-    document.implementation.addFeature('MutationEvents', '2.0');
+    document.implementation._addFeature('MutationEvents', '2.0');
     var created = '';
     var removed = '';
     document.addEventListener('DOMNodeInserted', function(ev) {
@@ -1388,6 +1371,17 @@ exports.tests = {
     test.done();
   },
 
+  iframe_contents: function (test) {
+    var document = jsdom.jsdom("<iframe></iframe>");
+    var iframeDocument = document.querySelector("iframe").contentWindow.document;
+
+    test.equal(serializeDocument(iframeDocument), "<html><head></head><body></body></html>");
+    test.ok(iframeDocument.documentElement);
+    test.ok(iframeDocument.head);
+    test.ok(iframeDocument.body);
+    test.done();
+  },
+
   jquery_val_on_selects : function(test) {
     var window = jsdom.jsdom().parentWindow;
 
@@ -1589,5 +1583,16 @@ exports.tests = {
         }
       });
     });
+  },
+
+  addmetatohead: function(test) {
+    var window = jsdom.jsdom().parentWindow;
+    var meta = window.document.createElement("meta");
+    window.document.getElementsByTagName("head").item(0).appendChild(meta);
+    var elements = window.document.getElementsByTagName("head").item(0).childNodes;
+    test.strictEqual(elements.item(elements.length-1), meta, "last element should be the new meta tag");
+    test.ok(serializeDocument(window.document).indexOf("<meta>") > -1, "meta should have open tag");
+    test.strictEqual(serializeDocument(window.document).indexOf("</meta>"), -1, "meta should not be stringified with a closing tag");
+    test.done();
   }
 };

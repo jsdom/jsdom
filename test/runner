@@ -47,9 +47,9 @@ var files = [
   "living-html/htmloptionelement.js",
   "living-html/htmltextareaelement.js",
   "living-html/htmlformelement.js",
+  "living-html/location.js",
   "living-html/navigator.js",
 
-  "window/index.js",
   "window/history.js",
   "window/script.js",
   "window/console.js",
