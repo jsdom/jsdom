@@ -1,4 +1,5 @@
 var AssertionError = require('assert').AssertionError;
+var nodeunit = require('nodeunit');
 
 var totalTests = 0;
 var failedTests = 0;
@@ -47,13 +48,19 @@ var runnerHandlers = {
       console.log('✖ ' + currentModule + '/' + test);
       assertions.forEach(function (a) {
         if (a.failed()) {
-          if (a.error instanceof AssertionError) {
+          if (a.error) {
+            if (!a.error.stack) {
+              a.error.stack = ''; // if no stack is available nodeunit crashes
+            }
             a = nodeunit.utils.betterErrors(a);
-            if (a.message) {
-                console.log(
-                    'Assertion Message: ' + assertion_message(a.message) + '\n' +
-                    'expected:', a.error.expected, 'got:', a.error.actual
-                 );
+
+            if (a.error.stack) {
+              console.log(a.error.stack);
+            } else if (a.error.name === 'AssertionError') {
+              console.log(a.method + ': ' +
+                JSON.stringify(a.error.actual) + ' ' + a.error.operator + ' ' + JSON.stringify(a.error.expected));
+            } else { // last resort, just dump it
+              console.log(a);
             }
           } else {
             if (a.method) {
@@ -61,10 +68,10 @@ var runnerHandlers = {
             } else {
               console.log(a.message);
             }
-           }
-         } else {
-           console.log(a.message);
-         }
+          }
+        } else {
+          console.log(a.message);
+        }
       });
 
       if (argv['fail-fast']) {
