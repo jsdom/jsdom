@@ -66,6 +66,7 @@ var files = [
   "jsonp/jsonp.js",
   "browser/css.js",
   "browser/index.js",
+  "browser/Window.js",
   "w3c/index.js"
 ];
 
