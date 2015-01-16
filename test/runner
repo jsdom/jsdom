@@ -47,6 +47,7 @@ var files = [
   "living-html/htmloptionelement.js",
   "living-html/htmltextareaelement.js",
   "living-html/htmlformelement.js",
+  "living-html/htmlimageelement.js",
   "living-html/navigator.js",
 
   "window/index.js",
@@ -66,7 +67,6 @@ var files = [
   "jsonp/jsonp.js",
   "browser/css.js",
   "browser/index.js",
-  "browser/Window.js",
   "w3c/index.js"
 ];
 
