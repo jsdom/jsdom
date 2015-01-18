@@ -1,3 +1,24 @@
+## 3.0.0
+
+This release updates large swathes of the DOM APIs to conform to the standard, mostly by removing old stuff. It also fixes a few bugs, introduces a couple new features, and changes some defaults.
+
+* By default documents now use `about:blank` as their URL, instead of trying to infer some type of file URL from the call site (in Node.js) or using `location.href` (in browsers).
+* Introduced a new "virtual console" abstraction for capturing console output from inside the page. [See the readme for more information.](https://github.com/tmpvar/jsdom#capturing-console-output) Note that `console.error` will no longer contribute to the (non-standard, and likely dying in the future) `window.errors` array. (jeffcarp)
+* Added the named `new Image(width, height)` constructor. (vinothkr)
+* Fixed an exception when using `querySelector` with selectors like `div:last-child > span[title]`.
+* Removed all traces of entities, entity types, notations, default attributes, and CDATA sections.
+* Differentiated between XML and HTML documents better, for example in how they handle the casing of tag names and attributes.
+* Updated `DOMImplementation` to mostly work per-spec, including removing `addFeature` and `removeFeature` methods, the `ownerDocument` property, and making `hasFeature` always return `true`.
+* Re-did the `CharacterData` implementation to follow the algorithms in the DOM Standard; this notably removes a few exceptions that were previously thrown.
+* Re-did `Comment`, `Text`, and `ProcessingInstruction` to follow the DOM Standard and derive from `CharacterData`.
+* Re-did `DocumentType` to follow the DOM Standard and be much simpler, notably removing notations, entities, and default attributes.
+* Fixed a variety of accessors on `Node`, `Element`, `Attr`, and `Document`; some were removed that were nonstandard (especially setters); others were updated to reflect the spec; etc.
+* Re-did name/qname validation, which is done by various APIs, to work with the xml-name-validator package and some centralized algorithms.
+* Made the XML parser at least somewhat aware of processing instructions.
+* Cleaned up doctype parsing and association between doctypes and documents. More exotic doctypes should parse better now.
+* `document.contentType` now is generally inferred from the parsing mode of the document.
+* Moved some properties to `Document.prototype` and `Window.prototype` instead of setting them as own properties during the document/window creation. This should improve memory usage (as well as spec compliance).
+
 ## 2.0.0
 
 This release is largely a refactoring release to remove the defunct concept of "levels" from jsdom, in favor of the [living standard model](https://wiki.whatwg.org/wiki/FAQ#What_does_.22Living_Standard.22_mean.3F) that browsers follow. Although the code is still organized that way, that's now [noted as a historical artifact](https://github.com/tmpvar/jsdom/blob/2ff5747488ad4b518fcef97a026c82eab42a0a14/lib/README.md). The public API changes while doing so were fairly minimal, but this sets the stage for a cleaner jsdom code structure going forward.
