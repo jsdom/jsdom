@@ -2,6 +2,8 @@
 
 This release updates large swathes of the DOM APIs to conform to the standard, mostly by removing old stuff. It also fixes a few bugs, introduces a couple new features, and changes some defaults.
 
+3.0.x will be the last release of jsdom to support Node.js. All future releases (starting with 4.0.0) will require [io.js](https://iojs.org/), whose [new `vm` module](https://github.com/iojs/io.js/blob/v1.x/CHANGELOG.md#vm) will allow us to remove our contextify native-module dependency. (Given that I submitted the relevant patch to joyent/node [1.5 years ago](https://github.com/joyent/node/commit/7afdba6e0bc3b69c2bf5fdbd59f938ac8f7a64c5), I'm very excited that we can finally use it!)
+
 * By default documents now use `about:blank` as their URL, instead of trying to infer some type of file URL from the call site (in Node.js) or using `location.href` (in browsers).
 * Introduced a new "virtual console" abstraction for capturing console output from inside the page. [See the readme for more information.](https://github.com/tmpvar/jsdom#capturing-console-output) Note that `console.error` will no longer contribute to the (non-standard, and likely dying in the future) `window.errors` array. (jeffcarp)
 * Added the named `new Image(width, height)` constructor. (vinothkr)
