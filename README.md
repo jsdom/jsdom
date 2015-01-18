@@ -8,8 +8,6 @@ A JavaScript implementation of the WHATWG DOM and HTML standards.
 $ npm install jsdom
 ```
 
-If this gives you trouble with errors about installing Contextify, especially on Windows, see [below](#contextify).
-
 ## Human contact
 
 see: [mailing list](http://groups.google.com/group/jsdom)
@@ -401,35 +399,3 @@ virtualConsole.on("log", function (message) {
 Our mission is to get something very close to a headless browser, with emphasis more on the DOM/HTML side of things than the CSS side. As such, our primary goals are supporting [The DOM Standard](http://dom.spec.whatwg.org/) and [The HTML Standard](http://www.whatwg.org/specs/web-apps/current-work/multipage/). We only support some subset of these so far; in particular we have the subset covered by the outdated DOM 2 spec family down pretty well. We're slowly including more and more from the modern DOM and HTML specs, including some `Node` APIs, `querySelector(All)`, attribute semantics, the history and URL APIs, and the HTML parsing algorithm.
 
 We also support some subset of the [CSSOM](http://dev.w3.org/csswg/cssom/), largely via [@chad3814](https://github.com/chad3814)'s excellent [cssstyle](https://www.npmjs.org/package/cssstyle) package. In general we want to make webpages run headlessly as best we can, and if there are other specs we should be incorporating, let us know.
-
-## Contextify
-
-[Contextify](https://npmjs.org/package/contextify) is a dependency of jsdom, used for running `<script>` tags within the page. In other words, it allows jsdom, which is run in Node.js, to run strings of JavaScript in an isolated environment that pretends to be a browser environment instead of a server. You can see how this is an important feature.
-
-Unfortunately, doing this kind of magic requires C++. And in Node.js, using C++ from JavaScript means using "native modules." Native modules are compiled at installation time so that they work precisely for your machine; that is, you don't download a contextify binary from npm, but instead build one locally after downloading the source from npm.
-
-Getting C++ compiled within npm's installation system can be tricky, especially for Windows users. Thus, one of the most common problems with jsdom is trying to use it without the proper compilation tools installed. Here's what you need to compile Contextify, and thus to install jsdom:
-
-### Windows
-
-- The latest version of [Node.js for Windows](http://nodejs.org/download/)
-- A copy of [Visual Studio Express 2013 for Windows Desktop](http://www.visualstudio.com/downloads/download-visual-studio-vs#d-express-windows-desktop)
-- A copy of [Python 2.7](http://www.python.org/download/), installed in the default location of `C:\Python27`
-- Set your system environment variable GYP_MSVS_VERSION like so (assuming you have Visual Studio 2013 installed):
-  ```shell
-  setx GYP_MSVS_VERSION 2013
-  ```
-
-- Restart your command prompt window to ensure required path variables are present.
-
-There are some slight modifications to this that can work; for example other Visual Studio versions often work too. But it's tricky, so start with the basics!
-
-### Mac
-
-- XCode needs to be installed
-- "Command line tools for XCode" need to be installed
-- Launch XCode once to accept the license, etc. and ensure it's properly installed
-
-### Linux
-
-You'll need various build tools installed, like `make`, Python 2.7, and a compiler toolchain. How to install these will be specific to your distro, if you don't already have them.

@@ -10,7 +10,7 @@ var um = require('urlmaster');
 var serializeDocument = require('../../lib/jsdom').serializeDocument;
 
 function tmpWindow() {
-  return jsdom.jsdom(null, { documentRoot: __dirname }).parentWindow;
+  return jsdom.jsdom().parentWindow;
 }
 
 function testFunction(test, window, jQuery, checkVersion) {
@@ -368,7 +368,6 @@ exports.tests = {
   window_is_augmented_with_dom_features: function(test) {
     var document = jsdom.jsdom(),
         window   = document.parentWindow;
-    test.ok(window._augmented, 'window must be augmented');
     test.notEqual(window.Element, null, 'window.Element should not be null');
     test.done();
   },

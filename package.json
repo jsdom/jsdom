@@ -57,7 +57,6 @@
   "repository": "tmpvar/jsdom",
   "dependencies": {
     "browser-request": ">= 0.3.1 < 0.4.0",
-    "contextify": ">= 0.1.9 < 0.2.0",
     "cssom": ">= 0.3.0 < 0.4.0",
     "cssstyle": ">= 0.2.21 < 0.3.0",
     "htmlparser2": ">= 3.7.3 < 4.0.0",
@@ -91,8 +90,8 @@
   },
   "scripts": {
     "pretest": "git submodule update --init --recursive",
-    "test": "node ./test/runner",
-    "test-browser": "node ./test/browser-runner",
+    "test": "iojs ./test/runner",
+    "test-browser": "iojs ./test/browser-runner",
     "lint": "jshint lib/ && jshint test/"
   },
   "main": "./lib/jsdom",

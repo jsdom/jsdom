@@ -64,15 +64,15 @@ exports.tests = {
         var results=[window===this,\
                      window===this.window,\
                      window.window===this,\
-                     document.parentWindow===this];\
+                     document.defaultView===this];\
       </script>\
-      </head><body></body></html>').parentWindow;
+      </head><body></body></html>').defaultView;
 
     test.strictEqual(window.results[0], true, "window should equal global this");
     test.strictEqual(window.results[1], true, "window should equal this.window");
     test.strictEqual(window.results[2], true, "this should equal window.window");
-    test.strictEqual(window.results[3], true, "this should equal document.parentWindow");
-    test.strictEqual(window.document.parentWindow, window, "outside window context, document.parentWindow should be window as well");
+    test.strictEqual(window.results[3], true, "this should equal document.defaultView");
+    test.strictEqual(window.document.defaultView, window, "outside window context, document.defaultView should be window as well");
     test.done();
   },
 
