@@ -321,13 +321,13 @@ exports["void tags set by innerHTML from createElement (GH-863/872)"] = function
 exports["empty html input"] = function (t) {
 	t.expect(1);
 	var tm = setTimeout(function(){
-		t.ok(false, 'we did not receive a callback');
+		t.ok(false, "we did not receive a callback");
 		// the ok isnt working...
-		throw 'we did not receive a callback';
+		throw "we did not receive a callback";
 	},1000);
 	jsdom.env({
-		html: ''
-		,created: function(){
+		html: "",
+		created: function(){
 			t.ok(true);
 			clearTimeout(tm);
 		}
