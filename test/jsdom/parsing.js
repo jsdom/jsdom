@@ -327,7 +327,7 @@ exports["empty html input"] = function (t) {
 	},1000);
 	jsdom.env({
 		html: ''
-		,created: function(error, window){
+		,created: function(){
 			t.ok(true);
 			clearTimeout(tm);
 		}
