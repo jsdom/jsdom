@@ -292,6 +292,17 @@ exports["string, full HTML document"] = function (t) {
   );
 };
 
+exports["string, HTML content with a null byte"] = function (t) {
+  env(
+    "<div>\0</div>",
+    function (errors, window) {
+      t.ifError(errors);
+      t.ok(window.document.querySelector("div") !== null, "div was parsed");
+      t.done();
+    }
+  );
+};
+
 exports["with a nonexistant script"] = function (t) {
   env({
     html: "<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>",
