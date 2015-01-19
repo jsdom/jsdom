@@ -120,6 +120,15 @@ exports["explicit config.html, a string that is also a valid file"] = function (
   });
 };
 
+exports["explicit config.html, an empty string"] = function (t) {
+  env({
+    html: "",
+    created: function () {
+      t.done();
+    }
+  });
+};
+
 exports["explicit config.url, valid"] = function (t) {
   var html = "<html><head><title>Example URL</title></head><body>Example!</body></html>";
   var responseText = "<!DOCTYPE html>" + html;
