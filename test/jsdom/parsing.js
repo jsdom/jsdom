@@ -317,3 +317,13 @@ exports["void tags set by innerHTML from createElement (GH-863/872)"] = function
 
   t.done();
 };
+
+exports["handle null bytes in html"] = function (t) {
+	t.expect(2);
+	jsdom.env(
+		"<div>\0</div>",
+		function(errors, window) {
+			t.ifError(errors);
+			t.ok(window.document.querySelector("div") !== null, "div was parsed");
+		});
+};
