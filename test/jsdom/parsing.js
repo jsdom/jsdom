@@ -317,3 +317,10 @@ exports["void tags set by innerHTML from createElement (GH-863/872)"] = function
 
   t.done();
 };
+
+exports["<template> with whitespace inside (GH-1004)"] = function (t) {
+  var doc = jsdom("<template>    <div></div>    </template>");
+
+  t.equal(doc.documentElement.innerHTML, "<head><template>    <div></div>    </template></head><body></body>");
+  t.done();
+};
