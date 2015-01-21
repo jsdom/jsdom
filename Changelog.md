@@ -1,3 +1,9 @@
+## 3.0.1
+
+* Fixed errors when serializing text nodes (possibly only occurred when inside `<template>`).
+* Handle null bytes being passed to `jsdom.env`'s autodetecting capabilities. (fluffybunnies)
+* Handle empty HTML strings being passed to `jsdom.env`'s `html` option. (fluffybunnies)
+
 ## 3.0.0
 
 This release updates large swathes of the DOM APIs to conform to the standard, mostly by removing old stuff. It also fixes a few bugs, introduces a couple new features, and changes some defaults.
