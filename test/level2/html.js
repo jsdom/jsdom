@@ -19832,6 +19832,31 @@ exports.tests = {
     });
   },
 
+  radio_group_with_same_name_outside_form: function(test) {
+    // NOTE: this is virtually the same as the radio_group_with_same_name_in_several_forms_work test,
+    // however this test moves the first radio group outside of a form so they are siblings
+    // of the form containing the other radio group.
+    var html = '<div>' +
+        '<input type="radio" name="group1" value="3" checked="checked" id="form1-input1" />' +
+        '<input type="radio" name="group1" value="2" id="form1-input2" />' +
+        '<form>' +
+        '<input type="radio" name="group1" value="1" checked="checked" id="form2-input1" />' +
+        '<input type="radio" name="group1" value="5" id="form2-input2" /></form>' +
+        '</div>';
+    jsdom.env(html, function (err, window) {
+        var input1 = window.document.getElementById('form1-input1');
+        var input2 = window.document.getElementById('form1-input2');
+        var input3 = window.document.getElementById('form2-input1');
+
+        input2.checked = true;
+
+        test.equal(input1.checked, false, 'Radio input in the same group should be unchecked');
+        test.ok(input2.checked, 'The radio input should be checked');
+        test.ok(input3.checked, 'Radio input in a sibling form should still be checked');
+        test.done();
+    });
+  },
+
   htmlcollection_allows_index_access_for_name_and_id: function(test) {
     jsdom.env(
       '<form><input name="test"><input id="test2"></form>', function (err, window) {
