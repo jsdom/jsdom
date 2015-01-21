@@ -1,3 +1,7 @@
+## 3.0.2
+
+* Fixed another edge case where unchecking a radio button would incorrectly uncheck radio buttons outside the containing form. (zpao)
+
 ## 3.0.1
 
 * Fixed errors when serializing text nodes (possibly only occurred when inside `<template>`).
