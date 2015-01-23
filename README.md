@@ -269,7 +269,7 @@ Filters resource downloading and processing to disallow those matching the given
 
 #### Custom External Resource Loader
 
-jsdom lets you intercept subresource requests using `config.resourceLoader`. `config.resourceLoader` expects a function which which will be called for each subresource request with the `resourceLoader` object as `this` object and the following arguments: `url` (URL object), `cookie` (string), `cookieDomain` (string), `referrer` (string), and callback (function). You're expected to fulfill the callback with an error object or null as first argument and a string representing the body of the subresource request as second argument. Since this function will be called with the `resourceLoader` object as `this` object, you still have access to all the convenience methods to fetch the data online.
+jsdom lets you intercept subresource requests using `config.resourceLoader`. `config.resourceLoader` expects a function which will be called for each subresource request with the `resourceLoader` object as `this` object and the following arguments: `url` (URL object), `cookie` (string), `cookieDomain` (string), `referrer` (string), and `callback` (function). You're expected to fulfill the callback with an error object or null as first argument and a string representing the body of the subresource request as second argument. Since this function will be called with the `resourceLoader` object as `this` object, you still have access to all the convenience methods to fetch the data online.
 
 For example, running all JS files in strict mode:
 
