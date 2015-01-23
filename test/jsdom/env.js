@@ -432,3 +432,24 @@ exports["should call callbacks correctly"] = function (t) {
     }
   });
 };
+
+exports["with configurable resource loader"] = function (t) {
+  t.expect(2);
+
+  env({
+    html: "<!DOCTYPE html><html><head><script src='foo.js'></script></head><body></body></html>",
+    resourceLoader: function(url, cookie, cookieDomain, referrer, callback) {
+      callback(null, "window.resourceLoaderWasOverriden = true;")
+    },
+    features: {
+      FetchExternalResources: ["script"],
+      ProcessExternalResources: ["script"],
+      SkipExternalResources: false
+    },
+    done: function (err, window) {
+      t.ifError(err);
+      t.strictEqual(window.resourceLoaderWasOverriden, true);
+      t.done();
+    }
+  });
+};
