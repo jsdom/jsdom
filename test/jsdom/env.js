@@ -439,7 +439,7 @@ exports["with configurable resource loader"] = function (t) {
   env({
     html: "<!DOCTYPE html><html><head><script src='foo.js'></script></head><body></body></html>",
     resourceLoader: function(url, cookie, cookieDomain, referrer, callback) {
-      callback(null, "window.resourceLoaderWasOverriden = true;")
+      callback(null, "window.resourceLoaderWasOverriden = true;");
     },
     features: {
       FetchExternalResources: ["script"],
