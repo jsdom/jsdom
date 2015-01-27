@@ -352,17 +352,34 @@ exports["with document referrer"] = function (t) {
 };
 
 exports["with document cookie"] = function (t) {
+  t.expect(3);
+  var cookie = "key=value";
   var time = new Date(Date.now() + 24 * 60 * 60 * 1000);
-  var cookie = "key=value; expires=" + time.toGMTString() + "; path=/";
+  var setcookie = cookie + "; expires=" + time.toGMTString() + "; path=/";
+  var routes = {
+    "/js": "",
+    "/html": "<!DOCTYPE html><html><head><script src=\"/js\"></script></head><body></body></html>"
+  };
+  var server = http.createServer(function (req, res) {
+    if (req.url === "/js") { t.equal(req.headers.cookie, cookie); }
+    res.writeHead(200, { "Content-Length": routes[req.url].length });
+    res.end(routes[req.url]);
+  });
 
-  env({
-    html: "<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>",
-    document: { cookie: cookie },
-    done: function (err, window) {
-      t.ifError(err);
-      t.equal(window.document.cookie, "key=value");
-      t.done();
-    }
+  server.listen(63999, "127.0.0.1", function () {
+    env({
+      url: "http://127.0.0.1:63999/html",
+      document: { cookie: setcookie },
+      done: function (err, window) {
+        server.close();
+        t.ifError(err);
+        t.equal(window.document.cookie, cookie);
+        t.done();
+      },
+      features: {
+        FetchExternalResources: ["script"]
+      }
+    });
   });
 };
 
@@ -430,5 +447,83 @@ exports["should call callbacks correctly"] = function (t) {
 
       t.done();
     }
+  });
+};
+
+exports["with configurable resource loader"] = function (t) {
+  t.expect(2);
+
+  env({
+    html: "<!DOCTYPE html><html><head><script src='foo.js'></script></head><body></body></html>",
+    resourceLoader: function(resource, callback) {
+      callback(null, "window.resourceLoaderWasOverriden = true;");
+    },
+    features: {
+      FetchExternalResources: ["script"],
+      ProcessExternalResources: ["script"],
+      SkipExternalResources: false
+    },
+    done: function (err, window) {
+      t.ifError(err);
+      t.strictEqual(window.resourceLoaderWasOverriden, true);
+      t.done();
+    }
+  });
+};
+
+exports["with configurable resource loader modifying routes and content"] = function (t) {
+  var routes = {
+    "/js/dir/test.js": "window.modifiedRoute = true;",
+    "/html": "<!DOCTYPE html><html><head><script src='./test.js'></script></head><body></body></html>"
+  };
+
+  var server = http.createServer(function (req, res) {
+    res.writeHead(200, { "Content-Length": routes[req.url].length });
+    res.end(routes[req.url]);
+  });
+  
+  var time = new Date(Date.now() + 24 * 60 * 60 * 1000);
+  var cookie = "key=value; expires=" + time.toGMTString() + "; path=/";
+
+  server.listen(64001, "127.0.0.1", function () {
+    env({
+      document: {
+        cookie: cookie
+      },
+      url: "http://127.0.0.1:64001/html",
+      resourceLoader: function(resource, callback) {
+        t.ok(typeof resource === "object");
+        t.ok(typeof resource.url === "object");
+        t.equal(resource.cookie, "key=value");
+        t.equal(resource.cookieDomain, "127.0.0.1");
+        t.equal(resource.baseUrl, "http://127.0.0.1:64001/html");
+        t.ok(typeof resource.defaultFetch === "function");
+        t.ok(typeof callback === "function");
+        if (/\.js$/.test(resource.url.pathname)) {
+          resource.url.pathname = "/js/dir" + resource.url.pathname;
+          resource.defaultFetch(function(err, body) {
+            if (err) {
+              callback(err);
+            } else {
+              callback(null, body + "\nwindow.modifiedContent = true;");
+            }
+          });
+        } else {
+          resource.defaultFetch(callback);
+        }
+      },
+      done: function (err, window) {
+        server.close();
+        t.ifError(err);
+        t.ok(window.modifiedRoute);
+        t.ok(window.modifiedContent);
+        t.done();
+      },
+      features: {
+        FetchExternalResources: ["script"],
+        ProcessExternalResources: ["script"],
+        SkipExternalResources: false
+      }
+    });
   });
 };

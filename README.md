@@ -131,6 +131,7 @@ jsdom.env(config);
   - `cookieDomain`: a cookie domain for the manually set cookie; defaults to `127.0.0.1`.
 - `config.headers`: an object giving any headers that will be used while loading the HTML from `config.url`, if applicable
 - `config.features`: see Flexibility section below. **Note**: the default feature set for `jsdom.env` does _not_ include fetching remote JavaScript and executing it. This is something that you will need to _carefully_ enable yourself.
+- `config.resourceLoader`: a function that intercepts subresource requests and allows you to re-route them, modify, or outright replace them with your own content. More below.
 - `config.done`, `config.loaded`, `config.created`: see below.
 
 Note that at least one of the callbacks (`done`, `loaded`, or `created`) is required, as is one of `html`, `file`, or `url`.
@@ -265,6 +266,47 @@ Enables/disables JavaScript execution
 - _Example_: `/http:\/\/example.org/js/bad\.js/`
 
 Filters resource downloading and processing to disallow those matching the given regular expression
+
+#### Custom External Resource Loader
+
+jsdom lets you intercept subresource requests using `config.resourceLoader`. `config.resourceLoader` expects a function which is called for each subresource request with the following arguments:
+
+- `resource`: a vanilla JavaScript object with the following properties
+  - `url`: an URL object.
+  - `cookie`: the content of the HTTP cookie header (`key=value` pairs separated by semicolons).
+  - `cookieDomain`: the cookie domain as set in `config`, defaults to `127.0.0.1`.
+  - `baseUrl: the base URL used to resolve relative URLs.
+  - `defaultFetch(callback)`: a convenience method to fetch the resource online.
+- `callback`: takes two arguments
+  - `errors`: either `null`, if nothing goes wrong, or an error object.
+  - `body`: a string representing the body of the resource.
+
+For example, fetching all JS files from a different directory and running them in strict mode:
+
+```js
+var jsdom = require("jsdom");
+
+jsdom.env({
+  url: "http://example.com/",
+  resourceLoader: function(resource, callback) {
+    var pathname = resource.url.pathname;
+    if (/\.js$/.test(pathname)) {
+      resource.url.pathname = pathname.replace("/js/", "/js/raw/");
+      resource.defaultFetch(function(err, body) {
+        if (err) return callback(err);
+        callback(null, '"use strict";\n' + body;)
+      });
+    } else {
+        resource.defaultFetch(callback);
+    }
+  },
+  features: {
+    FetchExternalResources: ["script"],
+    ProcessExternalResources: ["script"],
+    SkipExternalResources: false
+  }
+});
+```
 
 ### Canvas
 
