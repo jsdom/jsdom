@@ -1,3 +1,7 @@
+## 3.0.3
+
+* Fixed some stray byte-order marks in a couple files, which incidentally [break Browserify](https://github.com/substack/node-browserify/issues/1095). (sterpe)
+
 ## 3.0.2
 
 * Fixed another edge case where unchecking a radio button would incorrectly uncheck radio buttons outside the containing form. (zpao)
