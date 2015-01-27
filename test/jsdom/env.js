@@ -352,17 +352,34 @@ exports["with document referrer"] = function (t) {
 };
 
 exports["with document cookie"] = function (t) {
+  t.expect(3);
+  var cookie = "key=value";
   var time = new Date(Date.now() + 24 * 60 * 60 * 1000);
-  var cookie = "key=value; expires=" + time.toGMTString() + "; path=/";
+  var setcookie = cookie + "; expires=" + time.toGMTString() + "; path=/";
+  var routes = {
+    "/js": "",
+    "/html": "<!DOCTYPE html><html><head><script src=\"/js\"></script></head><body></body></html>"
+  };
+  var server = http.createServer(function (req, res) {
+    if (req.url === "/js") { t.equal(req.headers.cookie, cookie); }
+    res.writeHead(200, { "Content-Length": routes[req.url].length });
+    res.end(routes[req.url]);
+  });
 
-  env({
-    html: "<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>",
-    document: { cookie: cookie },
-    done: function (err, window) {
-      t.ifError(err);
-      t.equal(window.document.cookie, "key=value");
-      t.done();
-    }
+  server.listen(63999, "127.0.0.1", function () {
+    env({
+      url: "http://127.0.0.1:63999/html",
+      document: { cookie: setcookie },
+      done: function (err, window) {
+        server.close();
+        t.ifError(err);
+        t.equal(window.document.cookie, cookie);
+        t.done();
+      },
+      features: {
+        FetchExternalResources: ["script"]
+      }
+    });
   });
 };
 
