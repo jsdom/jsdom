@@ -10,6 +10,7 @@ matrix:
   include:
     - env: TEST_SUITE=node
       node_js: "0.10"
+      sudo: false
     - env: TEST_SUITE=browser
       node_js: "0.10"
       addons:
