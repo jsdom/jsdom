@@ -1,3 +1,7 @@
+## 3.1.0
+
+* Added support for [custom external resource loading](https://github.com/tmpvar/jsdom#custom-external-resource-loader). (tobie)
+
 ## 3.0.3
 
 * Fixed some stray byte-order marks in a couple files, which incidentally [break Browserify](https://github.com/substack/node-browserify/issues/1095). (sterpe)
