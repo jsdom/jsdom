@@ -199,7 +199,7 @@ By default, `jsdom.env` will not process and run external JavaScript, since our 
 
 ## For the hardcore: `jsdom.jsdom`
 
-The `jsdom.jsdom` method does fewer things automatically; it takes in only HTML source, and it does not allow you to separately supply a script that it will inject and execute. It just gives you back a `document` object, with usable `document.parentWindow`, and starts asynchronously executing any `<script>`s included in the HTML source. You can listen for the `'load'` event to wait until scripts are done loading and executing, just like you would in a normal HTML page.
+The `jsdom.jsdom` method does fewer things automatically; it takes in only HTML source, and it does not allow you to separately supply scripts that it will inject and execute. It just gives you back a `document` object, with usable `document.parentWindow`, and starts asynchronously executing any `<script>`s included in the HTML source. You can listen for the `'load'` event to wait until scripts are done loading and executing, just like you would in a normal HTML page.
 
 Usage of the API generally looks like this:
 
