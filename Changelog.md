@@ -1,3 +1,9 @@
+## 3.1.1
+
+* Updated `Node.prototype.isEqualNode` to the algorithm of the DOM Standard, fixing a bug where it would throw an error along the way.
+* Removed `Node.prototype.isSameNode`, which is not present in the DOM Standard (and was just a verbose `===` check anyway).
+* Fixed a couple small issues while browserifying, mainly around `jsdom.env`. However, while doing so discovered that `<script>`s in general don't work too well in a browserified jsdom; see [#1023](https://github.com/tmpvar/jsdom/issues/1023).
+
 ## 3.1.0
 
 * Added support for [custom external resource loading](https://github.com/tmpvar/jsdom#custom-external-resource-loader). (tobie)
