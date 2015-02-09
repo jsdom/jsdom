@@ -147,7 +147,7 @@ browserify('./test/worker.js').
 
         // start web server
         console.log('starting http server on port', httpPort);
-        var webServer = httpServer.createServer().listen(httpPort);
+        httpServer.createServer().listen(httpPort);
 
         return wdPort || Q.ninvoke(portfinder, 'getPort');
       }).
