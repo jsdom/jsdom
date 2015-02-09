@@ -136,7 +136,6 @@ function run() {
 
 // browserify and run the tests
 browserify('./test/worker.js').
-  require('./test/browser-fs.js', { expose: 'fs' }).
   bundle().
   pipe(fs.createWriteStream('./test/worker-bundle.js')).
   on('finish', function () {
@@ -190,7 +189,7 @@ browserify('./test/worker.js').
             console[detail.level].apply(console, detail.message);
           });
         }
-        
+
         if (process.env['TEST_SUITE'] !== 'browser') {
           // start selenium
           console.log('starting selenium server on port', wdPort);

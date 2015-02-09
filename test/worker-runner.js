@@ -46,6 +46,7 @@ self.onmessage = function (e) {
     "jsdom/parsing": require("../test/jsdom/parsing"), // 0/11
     "jsdom/env": require("../test/jsdom/env"), // 9/25
     "jsdom/utils": require("../test/jsdom/utils"), // ok
+    "jsdom/inside-worker-smoke-tests": require("../test/jsdom/inside-worker-smoke-tests"),
     "jsonp/jsonp": require("../test/jsonp/jsonp"), // 0/1
     "browser/css": require("../test/browser/css"), // 0/1
     "browser/index": require("../test/browser/index"), // 30/34
@@ -68,6 +69,7 @@ self.onmessage = function (e) {
     "level3/textContent.js",
     "window/index",
     "jsdom/utils",
+    "jsdom/inside-worker-smoke-tests"
   ];
 
   if (options.tests) {

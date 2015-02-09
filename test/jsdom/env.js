@@ -5,7 +5,7 @@ var path = require("path");
 var http = require("http");
 var toFileUrl = require("../util").toFileUrl(__dirname);
 
-var serializeDocument = require("../../lib/jsdom").serializeDocument;
+var serializeDocument = require("../..").serializeDocument;
 
 exports["with invalid arguments"] = function (t) {
   t.throws(function () { env(); });
@@ -481,7 +481,7 @@ exports["with configurable resource loader modifying routes and content"] = func
     res.writeHead(200, { "Content-Length": routes[req.url].length });
     res.end(routes[req.url]);
   });
-  
+
   var time = new Date(Date.now() + 24 * 60 * 60 * 1000);
   var cookie = "key=value; expires=" + time.toGMTString() + "; path=/";
 
