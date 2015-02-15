@@ -9,10 +9,10 @@ before_install:
 matrix:
   include:
     - env: TEST_SUITE=node
-      node_js: "0.10"
+      node_js: iojs
       sudo: false
     - env: TEST_SUITE=browser
-      node_js: "0.10"
+      node_js: iojs
       addons:
         sauce_connect:
           username: "jsdom"
