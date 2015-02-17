@@ -1,5 +1,5 @@
 {
-    "name": "jsdom-daily",
+    "name": "jsdom",
     "version": "0.9.3",
     "description": "A JavaScript implementation of the W3C DOM",
     "keywords": ["dom", "w3c", "html"],
