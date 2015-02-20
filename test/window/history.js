@@ -13,7 +13,9 @@ exports["a default window should have a history object with correct default valu
 };
 
 exports["the history object should update correctly when calling pushState/replaceState"] = function (t) {
-  var window = jsdom().parentWindow;
+  var window = jsdom("", {
+    url: "http://www.example.org/"
+  }).parentWindow;
 
   window.addEventListener("popstate", function () {
     t.fail("popstate should not fire as a result of a pushState() or replaceState() call");
