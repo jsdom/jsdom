@@ -85,7 +85,7 @@
   },
   "browser": {
     "canvas": false,
-    "contextify": "./lib/jsdom/contextify-shim.js",
+    "vm": "./lib/jsdom/vm-shim.js",
     "request": "browser-request"
   },
   "scripts": {
