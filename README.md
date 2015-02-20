@@ -1,6 +1,6 @@
 # jsdom
 
-A JavaScript implementation of the WHATWG DOM and HTML standards.
+A JavaScript implementation of the WHATWG DOM and HTML standards, for use with [io.js](https://iojs.org/).
 
 ## Install
 
@@ -8,9 +8,12 @@ A JavaScript implementation of the WHATWG DOM and HTML standards.
 $ npm install jsdom
 ```
 
+Note that as of our 4.0.0 release, jsdom no longer works with Node.js™, and instead requires io.js. You are still welcome to install a release in [the 3.x series](https://github.com/tmpvar/jsdom/tree/3.x) if you are stuck on legacy technology like Node.js™.
+
 ## Human contact
 
-see: [mailing list](http://groups.google.com/group/jsdom)
+- [Mailing list](http://groups.google.com/group/jsdom)
+- IRC channel: [#jsdom on freenode](irc://irc.freenode.net/jsdom)
 
 ## Easymode: `jsdom.env`
 
@@ -19,14 +22,14 @@ see: [mailing list](http://groups.google.com/group/jsdom)
 You can use it with a URL
 
 ```js
-// Count all of the links from the Node.js build page
+// Count all of the links from the io.js build page
 var jsdom = require("jsdom");
 
 jsdom.env(
-  "http://nodejs.org/dist/",
+  "https://iojs.org/dist/",
   ["http://code.jquery.com/jquery.js"],
   function (errors, window) {
-    console.log("there have been", window.$("a").length, "nodejs releases!");
+    console.log("there have been", window.$("a").length - 4, "io.js releases!");
   }
 );
 ```
@@ -164,16 +167,12 @@ Now that you know about `created` and `loaded`, you can see that `done` is essen
 - If window creation succeeds but there are script errors, then `errors` will be an array containing those errors, but `window` will still be usable.
 - If window creation fails, then `errors` will be an array containing the creation error, and `window` will not be passed.
 
-#### Migrating from before v1.0.0
-
-If you used jsdom before v1.0.0, it only had a `done` callback, and it was kind of buggy, sometimes behaving one way, and sometimes another. Due to some excellent work by [@Sebmaster](https://github.com/Sebmaster) in [#792](https://github.com/tmpvar/jsdom/pull/792), we fixed it up into the above lifecycle. For more information on the migration, see [the wiki](https://github.com/tmpvar/jsdom/wiki/PR-792).
-
 #### Dealing with asynchronous script loading
 
 If you load scripts asynchronously, e.g. with a module loader like RequireJS, none of the above hooks will really give you what you want. There's nothing, either in jsdom or in browsers, to say "notify me after all asynchronous loads have completed." The solution is to use the mechanisms of the framework you are using to notify about this finishing up. E.g., with RequireJS, you could do
 
 ```js
-// On the Node side:
+// On the io.js side:
 var window = jsdom.jsdom(...).defaultView;
 window.onModulesLoaded = function () {
   console.log("ready to roll!");
@@ -355,7 +354,7 @@ scriptEl.src = "anotherScript.js";
 window.document.body.appendChild(scriptEl);
 
 // anotherScript.js will have the ability to read `window.__myObject`, even
-// though it originated in Node!
+// though it originated in io.js!
 ```
 
 ### Serializing a document
@@ -372,7 +371,7 @@ doc.documentElement.outerHTML === "<html><head></head><body>hello</body></html>"
 
 ### Capturing Console Output
 
-#### Forward a window's console output to the Node.js console
+#### Forward a window's console output to the io.js console
 
 ```js
 var jsdom = require("jsdom");
