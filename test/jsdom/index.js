@@ -1594,5 +1594,14 @@ exports.tests = {
     test.ok(serializeDocument(window.document).indexOf("<meta>") > -1, "meta should have open tag");
     test.strictEqual(serializeDocument(window.document).indexOf("</meta>"), -1, "meta should not be stringified with a closing tag");
     test.done();
+  },
+
+  "no global leak when using window.location.reload": function (t) {
+    // https://github.com/tmpvar/jsdom/pull/1032
+    t.equal("errors" in global, false, "there should be no errors global before the call");
+    var window = jsdom.jsdom().parentWindow;
+    window.location.reload();
+    t.equal("errors" in global, false, "there should be no errors global after the call");
+    t.done();
   }
 };
