@@ -3,7 +3,7 @@
 var jsdom = require("../..");
 
 exports["cookieEnabled should be true on the navigator object"] = function (t) {
-  var window = jsdom.jsdom().parentWindow;
+  var window = jsdom.jsdom().defaultView;
   t.strictEqual(window.navigator.cookieEnabled, true, "cookie enabled");
   t.done();
 };

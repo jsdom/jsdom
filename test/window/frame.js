@@ -18,7 +18,7 @@ exports.tests = {
           FetchExternalResources: ['script','iframe'],
           ProcessExternalResources: ['script','iframe']
         }
-      }).parentWindow;
+      }).defaultView;
     window.iframe.onload = function() {
       test.strictEqual(window.DONE, 1);
       test.strictEqual(window.PARENT_IS_TOP, true);
@@ -48,7 +48,7 @@ exports.tests = {
           FetchExternalResources: ['script','iframe'],
           ProcessExternalResources: ['script','iframe']
         }
-      }).parentWindow;
+      }).defaultView;
     window.document.onload = function(){
       test.strictEqual(window.LOADED_FRAME, 1);
       test.strictEqual(window.PARENT_IS_TOP, true);
@@ -138,8 +138,8 @@ exports.tests = {
       var iframeDoc = iframeElem.contentDocument;
       test.notEqual(iframeDoc, null);
       var iframeWindow = iframeElem.contentWindow;
-      test.notStrictEqual(iframeWindow, doc.parentWindow);
-      test.equal(iframeWindow, iframeDoc.parentWindow);
+      test.notStrictEqual(iframeWindow, doc.defaultView);
+      test.equal(iframeWindow, iframeDoc.defaultView);
       test.done();
     });
   },
@@ -154,7 +154,7 @@ exports.tests = {
       url : toFileUrl(__filename)
     });
     doc.addEventListener('load', function () {
-      var window = doc.parentWindow;
+      var window = doc.defaultView;
       var iframeWindow = window.frames[0];
       test.notEqual(iframeWindow, null);
       test.notStrictEqual(iframeWindow, window);
@@ -180,7 +180,7 @@ exports.tests = {
     iframe.setAttributeNode(attr);
 
     iframe.addEventListener('load', function () {
-      var window = doc.parentWindow;
+      var window = doc.defaultView;
       var iframeWindow = window.frames[0];
       test.notEqual(iframeWindow, null);
       test.notStrictEqual(iframeWindow, window);
@@ -202,7 +202,7 @@ exports.tests = {
       url : toFileUrl(__filename)
     });
     doc.addEventListener('load', function () {
-      var window = doc.parentWindow;
+      var window = doc.defaultView;
       var iframeWindow = window.frames['simpleIFrame'];
       test.notEqual(iframeWindow, null);
       test.notStrictEqual(iframeWindow, window);
@@ -225,7 +225,7 @@ exports.tests = {
       url : toFileUrl(__filename)
     });
     doc.addEventListener('load', function () {
-      var window = doc.parentWindow;
+      var window = doc.defaultView;
       test.strictEqual(window.frames, window);
       test.done();
     });
@@ -240,7 +240,7 @@ exports.tests = {
       },
       url : toFileUrl(__filename)
     });
-    var window = doc.parentWindow;
+    var window = doc.defaultView;
     doc.addEventListener('load', function () {
       var topIFrameElem = doc.getElementById('simpleIFrameID');
       var topIFrameDoc = topIFrameElem.contentDocument;
@@ -249,7 +249,7 @@ exports.tests = {
       bottomIFrameElem.addEventListener('load', function () {
         var bottomIFrameDoc = bottomIFrameElem.contentDocument;
         test.notEqual(bottomIFrameDoc, null);
-        var bottomIFrameWindow = bottomIFrameDoc.parentWindow;
+        var bottomIFrameWindow = bottomIFrameDoc.defaultView;
         test.notEqual(bottomIFrameWindow, null);
 
         // The real tests
@@ -275,7 +275,7 @@ exports.tests = {
       },
       url : toFileUrl(__filename)
     });
-    var window = doc.parentWindow;
+    var window = doc.defaultView;
     doc.addEventListener('load', function () {
       var iframe1 = doc.getElementById('frame1ID');
       var iframe2 = doc.getElementById('frame2ID');
@@ -302,7 +302,7 @@ exports.tests = {
       },
       url : toFileUrl(__filename)
     });
-    var window = doc.parentWindow;
+    var window = doc.defaultView;
     doc.addEventListener('load', function () {
       var iframe1 = doc.getElementById('frame1ID');
       var iframe2 = doc.getElementById('frame2ID');
@@ -323,7 +323,7 @@ exports.tests = {
       },
       url : toFileUrl(__filename)
     });
-    var window = doc.parentWindow;
+    var window = doc.defaultView;
     window.loaded = function () {
       test.equal(window.testVal, 3);
       test.done();
@@ -366,7 +366,7 @@ exports.tests = {
       },
       url : toFileUrl(__filename)
     });
-    var window = doc.parentWindow;
+    var window = doc.defaultView;
     doc.addEventListener('load', function () {
       var frame1 = doc.getElementById('frame1ID');
       var frame2 = doc.getElementById('frame2ID');
@@ -378,8 +378,8 @@ exports.tests = {
       test.notEqual(frame1doc, null);
       test.notEqual(frame2doc, null);
 
-      test.strictEqual(frame1.contentWindow, frame1doc.parentWindow);
-      test.strictEqual(frame2.contentWindow, frame2doc.parentWindow);
+      test.strictEqual(frame1.contentWindow, frame1doc.defaultView);
+      test.strictEqual(frame2.contentWindow, frame2doc.defaultView);
       test.strictEqual(window.frames[0], frame1.contentWindow);
       test.strictEqual(window.frames[1], frame2.contentWindow);
       test.strictEqual(window.frames['frame1'], frame1.contentWindow);

@@ -174,7 +174,7 @@ If you load scripts asynchronously, e.g. with a module loader like RequireJS, no
 
 ```js
 // On the Node side:
-var window = jsdom.jsdom(...).parentWindow;
+var window = jsdom.jsdom(...).defaultView;
 window.onModulesLoaded = function () {
   console.log("ready to roll!");
 };
@@ -197,14 +197,14 @@ By default, `jsdom.env` will not process and run external JavaScript, since our 
 
 ## For the hardcore: `jsdom.jsdom`
 
-The `jsdom.jsdom` method does fewer things automatically; it takes in only HTML source, and it does not allow you to separately supply scripts that it will inject and execute. It just gives you back a `document` object, with usable `document.parentWindow`, and starts asynchronously executing any `<script>`s included in the HTML source. You can listen for the `'load'` event to wait until scripts are done loading and executing, just like you would in a normal HTML page.
+The `jsdom.jsdom` method does fewer things automatically; it takes in only HTML source, and it does not allow you to separately supply scripts that it will inject and execute. It just gives you back a `document` object, with usable `document.defaultView`, and starts asynchronously executing any `<script>`s included in the HTML source. You can listen for the `'load'` event to wait until scripts are done loading and executing, just like you would in a normal HTML page.
 
 Usage of the API generally looks like this:
 
 ```js
 var jsdom = require("jsdom").jsdom;
 var doc = jsdom(markup, options);
-var window = doc.parentWindow;
+var window = doc.defaultView;
 ```
 
 - `markup` is a HTML document to be parsed. You can also pass `undefined` to get the basic document, equivalent to what a browser will give if you open up an empty `.html` file.
@@ -317,7 +317,7 @@ jsdom includes support for using the [canvas](https://npmjs.org/package/canvas) 
 ```js
 var jsdom = require("jsdom").jsdom;
 var document = jsdom("hello world");
-var window = document.parentWindow;
+var window = document.defaultView;
 
 console.log(window.document.documentElement.outerHTML);
 // output: "<html><head></head><body>hello world</body></html>"
@@ -333,7 +333,7 @@ console.log(typeof window.document.getElementsByClassName);
 
 ```js
 var jsdom = require("jsdom");
-var window = jsdom.jsdom().parentWindow;
+var window = jsdom.jsdom().defaultView;
 
 jsdom.jQueryify(window, "http://code.jquery.com/jquery-2.1.1.js", function () {
   window.$("body").append('<div class="testing">Hello World, It works</div>');
@@ -346,7 +346,7 @@ jsdom.jQueryify(window, "http://code.jquery.com/jquery-2.1.1.js", function () {
 
 ```js
 var jsdom = require("jsdom").jsdom;
-var window = jsdom().parentWindow;
+var window = jsdom().defaultView;
 
 window.__myObject = { foo: "bar" };
 
@@ -376,7 +376,7 @@ doc.documentElement.outerHTML === "<html><head></head><body>hello</body></html>"
 
 ```js
 var jsdom = require("jsdom");
-var window = jsdom.jsdom().parentWindow;
+var window = jsdom.jsdom().defaultView;
 
 jsdom.getVirtualConsole(window).sendTo(console);
 ```
@@ -385,7 +385,7 @@ jsdom.getVirtualConsole(window).sendTo(console);
 
 ```js
 var jsdom = require("jsdom");
-var window = jsdom.jsdom().parentWindow;
+var window = jsdom.jsdom().defaultView;
 
 var virtualConsole = jsdom.getVirtualConsole(window);
 

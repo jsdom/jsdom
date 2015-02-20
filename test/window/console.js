@@ -6,7 +6,7 @@ var jsdom = require("../..").jsdom;
 // Spec: https://terinjokes.github.io/console-spec/
 
 exports["console has all methods in spec"] = function (t) {
-  var window = jsdom().parentWindow;
+  var window = jsdom().defaultView;
 
   var methods = [
     'assert',

@@ -28,7 +28,7 @@ exports.tests = {
         })();\
       </script>\
       </head><body></body></html>'
-    ).parentWindow;
+    ).defaultView;
 
     test.equal(window.confirmTheLocalIsOnTheWindow, window.localOnWindow, 'local variables should be attached to the window');
     test.equal(window.hello, "hello world", 'window should be the global context');
@@ -42,7 +42,7 @@ exports.tests = {
   },
 
   scripts_jquerify_have_jsdom_class: function(test) {
-    var window = jsdom.jsdom().parentWindow;
+    var window = jsdom.jsdom().defaultView;
     jsdom.jQueryify(window, jQueryPath, function (dom) {
       test.ok(dom.window.$('script').hasClass("jsdom"));
       test.done();
@@ -84,7 +84,7 @@ exports.tests = {
       <script>\
         appVersion = aGlobal.win.navigator.appVersion\
       </script>\
-      </head><body></body></html>').parentWindow;
+      </head><body></body></html>').defaultView;
 
     test.strictEqual(window.appVersion, process.version);
     test.done();
@@ -101,7 +101,7 @@ exports.tests = {
         window.dispatchEvent(ev);\
         window.DONE=1;\
       </script>\
-      </head><body></body></html>').parentWindow;
+      </head><body></body></html>').defaultView;
     test.strictEqual(window.DONE, 1);
     test.done();
   },
@@ -113,7 +113,7 @@ exports.tests = {
         document.body.innerHTML = "monkey"\
       </script></body></html>';
     test.doesNotThrow(function() {
-      jsdom.jsdom(html).parentWindow;
+      jsdom.jsdom(html).defaultView;
     })
     test.done();
   },

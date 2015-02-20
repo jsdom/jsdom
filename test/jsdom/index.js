@@ -10,7 +10,7 @@ var um = require('urlmaster');
 var serializeDocument = require('../../lib/jsdom').serializeDocument;
 
 function tmpWindow() {
-  return jsdom.jsdom().parentWindow;
+  return jsdom.jsdom().defaultView;
 }
 
 function testFunction(test, window, jQuery, checkVersion) {
@@ -31,7 +31,7 @@ function testFunction(test, window, jQuery, checkVersion) {
 
 exports.tests = {
   build_window: function(test) {
-    var window = jsdom.jsdom().parentWindow;
+    var window = jsdom.jsdom().defaultView;
     test.notEqual(window, null, 'window should not be null');
     test.notEqual(window.document, null, 'window.document should not be null');
     test.done();
@@ -86,7 +86,7 @@ exports.tests = {
   },
 
   jquerify_attribute_selector_gh_400: function(test) {
-    var window = jsdom.jsdom().parentWindow;
+    var window = jsdom.jsdom().defaultView;
 
     jsdom.jQueryify(window, path.resolve(__dirname, '../jquery-fixtures/jquery-1.11.0.js'), function () {
       try {
@@ -220,7 +220,7 @@ exports.tests = {
       }
     });
 
-    doc.parentWindow.doCheck = function () {
+    doc.defaultView.doCheck = function () {
       t.equal(doc.getElementById("test").innerHTML, "hello from javascript");
       t.done();
     };
@@ -239,7 +239,7 @@ exports.tests = {
       }
     });
 
-    doc.parentWindow.doCheck = function () {
+    doc.defaultView.doCheck = function () {
       t.equal(doc.getElementById("test").innerHTML, "hello from javascript");
       t.done();
     };
@@ -259,7 +259,7 @@ exports.tests = {
         SkipExternalResources: new RegExp('.*/files/h')
       }
     });
-    doc2.parentWindow.onload = function () {
+    doc2.defaultView.onload = function () {
       test.equal(doc2.getElementById("test").innerHTML, 'hello from html', 'js should not be executed (doc2)');
       test.equal(doc2.getElementById("cat").innerHTML, 'hello from nyan cat', 'js should be executed (doc2)');
       test.done();
@@ -283,7 +283,7 @@ exports.tests = {
         deferClose: true
       });
     // iframe.html sets onload handler to call loadComplete, so we mock it.
-    var window = doc.parentWindow;
+    var window = doc.defaultView;
     doc.parent = window;
     window.loadComplete = function () {};
 
@@ -292,7 +292,7 @@ exports.tests = {
     var check_handle;
     var timeout_handle = setTimeout(function() {
       doc.onload = null;
-      doc.parentWindow.close();
+      doc.defaultView.close();
       if (check_handle) {
         clearTimeout(check_handle);
       }
@@ -367,7 +367,7 @@ exports.tests = {
 
   window_is_augmented_with_dom_features: function(test) {
     var document = jsdom.jsdom(),
-        window   = document.parentWindow;
+        window   = document.defaultView;
     test.notEqual(window.Element, null, 'window.Element should not be null');
     test.done();
   },
@@ -632,7 +632,7 @@ exports.tests = {
   },
 
   document_should_expose_location: function(test) {
-    var window = jsdom.jsdom("").parentWindow;
+    var window = jsdom.jsdom("").defaultView;
     test.strictEqual(window.document.location, window.location, 'document.location and window.location');
     test.done();
   },
@@ -723,7 +723,7 @@ exports.tests = {
   },
 
   childNodes_updates_on_insertChild : function(test) {
-    var window = jsdom.jsdom("").parentWindow;
+    var window = jsdom.jsdom("").defaultView;
     var div = window.document.createElement("div");
     var text = window.document.createTextNode("bar");
     div.appendChild(text);
@@ -738,7 +738,7 @@ exports.tests = {
   },
 
   option_set_selected : function(test) {
-    var window = jsdom.jsdom("").parentWindow;
+    var window = jsdom.jsdom("").defaultView;
     var select = window.document.createElement("select");
 
     var option0 = window.document.createElement('option');
@@ -804,7 +804,7 @@ exports.tests = {
       "</script>" +
     "</body></html>";
 
-    var window = jsdom.jsdom(html).parentWindow;
+    var window = jsdom.jsdom(html).defaultView;
     test.ok(!!window.myNode.nodeType);
     test.done();
   },
@@ -1001,7 +1001,7 @@ exports.tests = {
         <body onload='loader()'></body>\
       </html>";
     var doc = jsdom.jsdom(html, { deferClose : true });
-    var window = doc.parentWindow;
+    var window = doc.defaultView;
     // In JSDOM, listeners registered with addEventListener are called before
     // "traditional" listeners, so listening for 'load' will fire before our
     // inline listener.  This means we have to check the value on the next
@@ -1021,7 +1021,7 @@ exports.tests = {
     test.expect(2);
     var doc = jsdom.jsdom("<html><head></head><body></body></html>",
                           {deferClose : true});
-    var window = doc.parentWindow;
+    var window = doc.defaultView;
     test.equal(window.onload, undefined);
     doc.body.onload = function () {
       test.done();
@@ -1044,7 +1044,7 @@ exports.tests = {
         "</body>" +
       "</html>");
 
-    var window = doc.parentWindow;
+    var window = doc.defaultView;
     var div    = doc.getElementsByTagName('div')[0];
 
     test.equal(window.divClicked,    undefined);
@@ -1220,7 +1220,7 @@ exports.tests = {
         "</body>" +
       "</html>");
 
-    var window = doc.parentWindow;
+    var window = doc.defaultView;
     var div    = doc.getElementsByTagName('div')[0];
     var a      = doc.getElementsByTagName('a')[0];
 
@@ -1240,7 +1240,7 @@ exports.tests = {
   },
 
   css_classes_should_be_attached_to_dom: function (test) {
-    var dom = jsdom.jsdom().parentWindow;
+    var dom = jsdom.jsdom().defaultView;
 
     test.notEqual(dom.StyleSheet, undefined);
     test.notEqual(dom.MediaList, undefined);
@@ -1256,7 +1256,7 @@ exports.tests = {
 
   lookup_namednodemap_by_property : function (test) {
     var doc = jsdom.jsdom();
-    var core = doc.parentWindow;
+    var core = doc.defaultView;
     var map = new core.NamedNodeMap(doc);
     test.equal(map.length, 0);
     var attr1 = doc.createAttribute('attr1');
@@ -1278,7 +1278,7 @@ exports.tests = {
 
   issue_723_namednodemap_property_names_that_collide_with_method_names : function (test) {
     var doc = jsdom.jsdom();
-    var core = doc.parentWindow;
+    var core = doc.defaultView;
     var map = new core.NamedNodeMap(doc);
     var fooAttribute = doc.createAttribute('foo');
     map.setNamedItem(fooAttribute);
@@ -1325,7 +1325,7 @@ exports.tests = {
     test.expect(1);
 
     var doc = jsdom.jsdom('<html><head></head><body></body></html>');
-    var window = doc.parentWindow;
+    var window = doc.defaultView;
 
     // Add the load event after the document is already created; it shouldn't
     // fire until nextTick. The test will fail (with a timeout) if it has
@@ -1382,7 +1382,7 @@ exports.tests = {
   },
 
   jquery_val_on_selects : function(test) {
-    var window = jsdom.jsdom().parentWindow;
+    var window = jsdom.jsdom().defaultView;
 
     jsdom.jQueryify(window, path.resolve(__dirname, '../jquery-fixtures/jquery-1.11.0.js'), function () {
       window.$("body").append('<html><body><select id="foo"><option value="first">f</option><option value="last">l</option></select></body></html>');
@@ -1406,7 +1406,7 @@ exports.tests = {
   },
 
   jquery_attr_mixed_case : function(test) {
-    var window = jsdom.jsdom().parentWindow;
+    var window = jsdom.jsdom().defaultView;
 
     jsdom.jQueryify(window, path.resolve(__dirname, '../jquery-fixtures/jquery-1.11.0.js'), function () {
       var $el = window.$('<div mixedcase="blah"></div>');
@@ -1418,7 +1418,7 @@ exports.tests = {
   },
 
   "Calling show() method in jQuery 1.11.0 (GH-709)": function (t) {
-    var window = jsdom.jsdom("<!DOCTYPE html><html><head></head><body></body></html>").parentWindow;
+    var window = jsdom.jsdom("<!DOCTYPE html><html><head></head><body></body></html>").defaultView;
 
     jsdom.jQueryify(window, path.resolve(__dirname, "../jquery-fixtures/jquery-1.11.0.js"), function () {
       var $el = window.$("<div></div>");
@@ -1432,7 +1432,7 @@ exports.tests = {
   },
 
   "Calling show() method in jQuery 1.11.0, second case (GH-709)": function (t) {
-    var window = jsdom.jsdom("<!DOCTYPE html><html><head></head><body></body></html>").parentWindow;
+    var window = jsdom.jsdom("<!DOCTYPE html><html><head></head><body></body></html>").defaultView;
 
     jsdom.jQueryify(window, path.resolve(__dirname, "../jquery-fixtures/jquery-1.11.0.js"), function () {
       var $el1 = window.$("<div></div>");
@@ -1585,7 +1585,7 @@ exports.tests = {
   },
 
   addmetatohead: function(test) {
-    var window = jsdom.jsdom().parentWindow;
+    var window = jsdom.jsdom().defaultView;
     var meta = window.document.createElement("meta");
     window.document.getElementsByTagName("head").item(0).appendChild(meta);
     var elements = window.document.getElementsByTagName("head").item(0).childNodes;
@@ -1598,7 +1598,7 @@ exports.tests = {
   "no global leak when using window.location.reload": function (t) {
     // https://github.com/tmpvar/jsdom/pull/1032
     t.equal("errors" in global, false, "there should be no errors global before the call");
-    var window = jsdom.jsdom().parentWindow;
+    var window = jsdom.jsdom().defaultView;
     window.location.reload();
     t.equal("errors" in global, false, "there should be no errors global after the call");
     t.done();

@@ -24,7 +24,7 @@ exports["should not throw if invalid html document is given"] = function (t) {
 exports["should ignore self-closing of tags in html docs"] = function (t) {
   var document = jsdom.jsdom(xmlString, { parsingMode: "html" });
 
-  var window = document.parentWindow;
+  var window = document.defaultView;
   t.ok(!isParsedAsXml(window.document));
 
   t.done();
@@ -33,7 +33,7 @@ exports["should ignore self-closing of tags in html docs"] = function (t) {
 exports["should handle self-closing tags properly in xml docs (in .jsdom)"] = function (t) {
   var document = jsdom.jsdom(xmlString, { parsingMode: "xml" });
 
-  var window = document.parentWindow;
+  var window = document.defaultView;
   t.ok(isParsedAsXml(window.document));
 
   t.done();

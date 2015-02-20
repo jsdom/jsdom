@@ -3,7 +3,7 @@
 var jsdom = require("../..").jsdom;
 
 exports["a default window should have a history object with correct default values"] = function (t) {
-  var window = jsdom().parentWindow;
+  var window = jsdom().defaultView;
 
   t.ok(window.history);
   t.strictEqual(window.history.state, null);
@@ -15,7 +15,7 @@ exports["a default window should have a history object with correct default valu
 exports["the history object should update correctly when calling pushState/replaceState"] = function (t) {
   var window = jsdom("", {
     url: "http://www.example.org/"
-  }).parentWindow;
+  }).defaultView;
 
   window.addEventListener("popstate", function () {
     t.fail("popstate should not fire as a result of a pushState() or replaceState() call");
@@ -50,7 +50,7 @@ exports["the history object should update correctly when calling pushState/repla
 };
 
 exports["the history object should update correctly when calling forward/back/go"] = function (t) {
-  var window = jsdom().parentWindow;
+  var window = jsdom().defaultView;
   var initialPath = window.location.pathname;
 
   [
@@ -102,7 +102,7 @@ exports["the history object should update correctly when calling forward/back/go
 };
 
 exports["the history object should update correctly when calling pushState with index behind length"] = function (t) {
-  var window = jsdom().parentWindow;
+  var window = jsdom().defaultView;
 
   [
     [{ foo: "bar" }, "title 1", "/bar"],
@@ -133,7 +133,7 @@ exports["the history object should update correctly when calling pushState with 
 };
 
 exports["the history object should fire popstate on the window while navigating the history"] = function (t) {
-  var window = jsdom().parentWindow;
+  var window = jsdom().defaultView;
 
   var eventFired = false;
   var state = { foo: "bar" };

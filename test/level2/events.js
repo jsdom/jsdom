@@ -26,7 +26,7 @@ var EventMonitor = function() {
 var _setUp = function() {
   var doc = require('../level1/core/files/hc_staff.xml').hc_staff();
   var monitor = this.monitor = new EventMonitor();
-  this.win = doc.parentWindow;
+  this.win = doc.defaultView;
   this.title = doc.getElementsByTagName("title").item(0);
   this.body = doc.getElementsByTagName("body").item(0);
   this.plist = doc.getElementsByTagName("p").item(0);
