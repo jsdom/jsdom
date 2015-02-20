@@ -1,3 +1,10 @@
+## 3.1.2
+
+* Some fixes to the `NOT_IMPLEMENTED` internal helper, which should eliminate the cases where calling e.g. `window.alert` crashes your application.
+* Fixed a global variable leak when triggering `NOT_IMPLEMENTED` methods, like `window.location.reload`.
+* Fixed the URL resolution algorithm to handle `about:blank` properly on all systems (previously it only worked on Windows). This is especially important since as of 3.0.0 the default URL is `about:blank`.
+* Fixed, at least partially, the ability to run `<script>`s inside a browserified jsdom instance. This is done by dynamically rewriting the source code so that global variable references become explicit references to `window.variableName`, so it is not foolproof.
+
 ## 3.1.1
 
 * Updated `Node.prototype.isEqualNode` to the algorithm of the DOM Standard, fixing a bug where it would throw an error along the way.
