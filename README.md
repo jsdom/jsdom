@@ -1,4 +1,6 @@
-# jsdom
+# jsdom 3.x branch
+
+**The jsdom 3.x series is the last release of jsdom that works with Node.js, instead of requiring [io.js](https://iojs.org/). It is no longer maintained by the maintainers, but you are welcome to use it as the starting point for your own fork which you publish under another name. If you do so, we'll be happy to link to your fork here.**
 
 A JavaScript implementation of the WHATWG DOM and HTML standards.
 
