@@ -207,3 +207,15 @@ exports["An unattached element should not contain another unattached element"] =
   t.ok(!e2.contains(e1), "Second Element does not contain Element");
   t.done();
 };
+
+exports["Should return a boolean value"] = function (t) {
+  var doc = load("test"),
+      elem = doc.getElementsByTagName("p").item(0),
+      newElem = doc.createElementNS("http://www.w3.org/1999/xhtml","br");
+
+  elem.appendChild(newElem);
+
+  t.strictEqual(true, elem.contains(newElem), "Return value must be 'true' (strictly)");
+  t.strictEqual(false, newElem.contains(elem), "Return value must be 'false' (strictly)");
+  t.done();
+};
