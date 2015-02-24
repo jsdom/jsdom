@@ -1,6 +1,6 @@
 {
   "name": "jsdom",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "A JavaScript implementation of the DOM and HTML standards",
   "keywords": [
     "dom",
@@ -20,7 +20,7 @@
     "Charlie Robbins <charlie.robbins@gmail.com>",
     "Aria Stewart <aredridel@nbtsc.org>",
     "Matthew (http://github.com/matthewpflueger/)",
-    "Olivier El Mekki <unknown> (http://blog.olivier-elmekki.com/)",
+    "Olivier El Mekki (http://blog.olivier-elmekki.com/)",
     "Shimon Dookdin <helpmepro1@gmail.com>",
     "Daniel Cassidy <mail@danielcassidy.me.uk> (http://www.danielcassidy.me.uk/)",
     "Sam Ruby (http://intertwingly.net/blog/)",
