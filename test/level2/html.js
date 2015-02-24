@@ -1680,6 +1680,33 @@ exports.tests = {
 
   /**
    *
+   * HTMLCanvasElement
+   * @author Robert Jones
+   */
+  HTMLCanvasElement01: function(test) {
+    var doc = load("canvas");
+    var nodeList = doc.getElementsByTagName("canvas");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).width, 99, 'A.width');
+    test.equal(nodeList.item(0).height, 101, 'A.height');
+    test.done();
+  },
+
+  /**
+   *
+   * HTMLCanvasElement
+   * @author Robert Jones
+   */
+  HTMLCanvasElement02: function(test) {
+    var doc = load("canvas");
+    var nodeList = doc.getElementsByTagName("canvas");
+    test.equal(nodeList.length, 1, 'A size');
+    test.equal(nodeList.item(0).toDataURL().substr(0,22), 'data:image/png;base64,', 'A.toDataUrl');
+    test.done();
+  },
+
+  /**
+   *
    An individual node may be accessed by either ordinal index, the node's
    name or id attributes.  (Test ordinal index).
    Retrieve the first TABLE element and create a HTMLCollection by invoking
