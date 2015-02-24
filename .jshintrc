@@ -2,6 +2,7 @@
     "camelcase": true,
     "curly": true,
     "eqeqeq": true,
+    "esnext": true,
     "node": true,
     "immed": true,
     "indent": 2,
