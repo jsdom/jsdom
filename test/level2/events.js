@@ -105,8 +105,7 @@ exports['dispatch event'] = testcase({
         event_types = ['Events', 'MutationEvents', 'UIEvents', 'MouseEvents', 'HTMLEvents'];
     test.expect(event_types.length);
     event_types.forEach(function(type){
-// TODO correct type doc.defaultView.DOMException
-      test.throws(function(){ doc.dispatchEvent(doc.createEvent(type)) }, TypeError, 'should throw an exception for ' + type);
+      test.throws(function(){ doc.dispatchEvent(doc.createEvent(type)) }, doc.defaultView.DOMException, 'should throw an exception for ' + type);
     })
     test.done();
   },
@@ -115,8 +114,7 @@ exports['dispatch event'] = testcase({
     var doc = this.doc,
         event = doc.createEvent("Events");
     event.initEvent("",false,false);
-// TODO correct type doc.defaultView.DOMException
-    test.throws(function(){ doc.dispatchEvent(event) }, TypeError, 'should throw an exception');
+    test.throws(function(){ doc.dispatchEvent(event) }, doc.defaultView.DOMException, 'should throw an exception');
     test.done();
   },
 
