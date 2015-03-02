@@ -8,7 +8,7 @@ A JavaScript implementation of the WHATWG DOM and HTML standards, for use with [
 $ npm install jsdom
 ```
 
-Note that as of our 4.0.0 release, jsdom no longer works with Node.js™, and instead requires io.js. You are still welcome to install a release in [the 3.x series](https://github.com/tmpvar/jsdom/tree/3.x) if you are stuck on legacy technology like Node.js™.
+Note that as of our 4.0.0 release, jsdom no longer works with Node.js™, and instead requires io.js. Node.js users are still welcome to install a release in [the 3.x series](https://github.com/tmpvar/jsdom/tree/3.x).
 
 ## Human contact
 
