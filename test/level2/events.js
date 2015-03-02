@@ -19,7 +19,7 @@ var EventMonitor = function() {
       self.bubbledEvents.push(event);
       break;
     default:
-      throw new events.EventException(0, "Unspecified event phase");
+      throw new Error("Unspecified event phase");
     }
   };
 };
@@ -82,7 +82,6 @@ exports['create event with each event type'] = function(test){
 // @author Curt Arnold
 // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-EventTarget-dispatchEvent
 // @see http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-17189187
-// @see http://www.w3.org/TR/DOM-Level-2-Events/events#xpointer(id('Events-EventTarget-dispatchEvent')/raises/exception[@name='EventException']/descr/p[substring-before(.,':')='UNSPECIFIED_EVENT_TYPE_ERR'])
 exports['dispatch event'] = testcase({
   setUp: function(cb){
     this.doc = require('../level1/core/files/hc_staff.xml').hc_staff();
@@ -96,7 +95,7 @@ exports['dispatch event'] = testcase({
 
   'a null reference passed to dispatchEvent': function (test) {
     var doc = this.doc;
-    test.throws(function(){ doc.dispatchEvent(null) }, events.EventException, 'should throw an exception');
+    test.throws(function(){ doc.dispatchEvent(null) }, TypeError, 'should throw an exception');
     // TODO: figure out the best way to test (exception.code == 0) and (exception.message == 'Null event')
     test.done();
   },
@@ -106,9 +105,8 @@ exports['dispatch event'] = testcase({
         event_types = ['Events', 'MutationEvents', 'UIEvents', 'MouseEvents', 'HTMLEvents'];
     test.expect(event_types.length);
     event_types.forEach(function(type){
-      test.throws(function(){ doc.dispatchEvent(doc.createEvent(type)) }, events.EventException, 'should throw an exception for ' + type);
-      // Should raise UNSPECIFIED_EVENT_TYPE_ERR EventException.
-      // TODO: figure out the best way to test (exception.code == 0) and (exception.message == 'Uninitialized event')
+// TODO correct type doc.defaultView.DOMException
+      test.throws(function(){ doc.dispatchEvent(doc.createEvent(type)) }, TypeError, 'should throw an exception for ' + type);
     })
     test.done();
   },
@@ -117,9 +115,8 @@ exports['dispatch event'] = testcase({
     var doc = this.doc,
         event = doc.createEvent("Events");
     event.initEvent("",false,false);
-    test.throws(function(){ doc.dispatchEvent(event) }, events.EventException, 'should throw an exception');
-    // Should raise UNSPECIFIED_EVENT_TYPE_ERR EventException.
-    // TODO: figure out the best way to test (exception.code == 0) and (exception.message == 'Uninitialized event')
+// TODO correct type doc.defaultView.DOMException
+    test.throws(function(){ doc.dispatchEvent(event) }, TypeError, 'should throw an exception');
     test.done();
   },
 
