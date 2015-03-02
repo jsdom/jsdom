@@ -1,3 +1,24 @@
+## 4.0.1
+
+* Fixed: `Node.prototype.contains` to always return a boolean. This was a regression in 3.1.1. (Joris-van-der-Wel)
+* Fixed: `Document.prototype` no longer contains its own `ownerDocument` getter, instead correctly delegating to `Node.prototype`.
+* Fixed: some edge cases regarding running `<script>`s in browserified jsdom.
+* A couple fixes from updated dependencies (although you would have gotten these anyway with a fresh install, due to floating version specifiers):
+    - csstyle minimum version bumped from 0.2.21 to 0.2.23, fixing handling of `0` when setting numeric CSS properties and parsing of shorthand `font` declarations.
+    - parse5 minimum version bumped from 1.3.1 to 1.3.2 to, fixing the parsing of `<form>` elements inside `<template>` elements.
+
+## 4.0.0
+
+This release relies on the newly-overhauled `vm` module of io.js to eliminate the Contextify native module dependency. jsdom should now be much easier to use and install, without requiring a C++ compiler toolchain!
+
+Note that as of this release, jsdom no longer works with Node.js™, and instead requires io.js. You are still welcome to install a release in [the 3.x series](https://github.com/tmpvar/jsdom/tree/3.x) if you are stuck on legacy technology like Node.js™.
+
+In the process of rewriting parts of jsdom to use `vm`, a number of related fixes were made regarding the `Window` object:
+
+* In some cases, state was implicitly shared between `Window` instances—especially parser- and serializer-related state. This is no longer the case, thankfully.
+* A number of properties of `Window` were updated for spec compliance: some data properties became accessors, and all methods moved from the prototype to the instance.
+* The non-standard `document.parentWindow` was removed, in favor of the standard `document.defaultView`. Our apologies for encouraging use of `parentWindow` in our README, tests, and examples.
+
 ## 3.1.2
 
 * Some fixes to the `NOT_IMPLEMENTED` internal helper, which should eliminate the cases where calling e.g. `window.alert` crashes your application.
