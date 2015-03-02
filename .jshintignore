@@ -16,9 +16,6 @@ lib/jsdom/level3/index.js
 lib/jsdom/level3/ls.js
 lib/jsdom/level3/xpath.js
 
-# JSHint doesn't support for-of yet @_@
-lib/jsdom/web-idl/DOMException.js
-
 test/browser
 test/jquery-fixtures
 test/jsonp
