@@ -1,3 +1,12 @@
+## 4.0.2
+
+* `EventTarget` is now correctly in the prototype chain of `Window`.
+* `EventTarget` argument validation is now correct according to the DOM Standard.
+* `DOMException` now behaves more like it should per Web IDL. In particular it has a more comprehensive set of constants, and instances now have `name` properties.
+* `new Event("click")` can now be dispatched. (lovebear)
+* `document.createEvent` now behaves more like it should according to the DOM Standard: it accepts a wider range of arguments, but will throw if an invalid one is given. (lovebear)
+* Fixed a regression in our browser support that required Chrome 41 as of 4.0.1; now Chrome 40 will work, as well as (in theory, although less well-tested) the latest stable versions of Firefox and IE.
+
 ## 4.0.1
 
 * Fixed: `Node.prototype.contains` to always return a boolean. This was a regression in 3.1.1. (Joris-van-der-Wel)
