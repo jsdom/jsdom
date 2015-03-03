@@ -16,7 +16,6 @@ lib/jsdom/level3/index.js
 lib/jsdom/level3/ls.js
 lib/jsdom/level3/xpath.js
 
-
 test/browser
 test/jquery-fixtures
 test/jsonp
