@@ -75,7 +75,7 @@
     "http-server": "0.7.5",
     "jshint": "^2.6.3",
     "multiline": "^1.0.1",
-    "nodeunit": "0.9.0",
+    "nodeunit": "0.9.1",
     "optimist": "0.6.1",
     "portfinder": "0.4.0",
     "q": "^1.2.0",

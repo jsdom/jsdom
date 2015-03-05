@@ -13,7 +13,6 @@ w3cTest("dom/nodes/Document-createComment.html");
 w3cTest("dom/nodes/Document-createProcessingInstruction.html");
 w3cTest("dom/nodes/Document-createProcessingInstruction.xhtml");
 w3cTest("dom/nodes/Document-createTextNode.html");
-w3cTest("dom/nodes/Document-createTextNode.html");
 w3cTest("dom/nodes/Document-implementation.html");
 w3cTest("dom/nodes/Document-contentType/contentType/createHTMLDocument.html");
 w3cTest("dom/nodes/DocumentType-literal.html");

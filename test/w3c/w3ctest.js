@@ -23,6 +23,11 @@ function createJsdom(source, url, t) {
       ProcessExternalResources: ["script"]
     },
     created: function (err, window) {
+      if (err) {
+        t.ifError(err, 'window should be created without error');
+        t.done();
+      }
+
       window.shimTest = function () {
         window.add_result_callback(function (test) {
           if (test.status === 1) {
