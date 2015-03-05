@@ -48,8 +48,6 @@ function createJsdom(source, url, t) {
 
     loaded: function (err, window) {
       t.ifError(err && err[0].data.error);
-      t.done();
-      window.close();
     }
   });
 }
