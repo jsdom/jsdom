@@ -18,5 +18,4 @@ w3cTest("dom/nodes/Document-contentType/contentType/createHTMLDocument.html");
 w3cTest("dom/nodes/DocumentType-literal.html");
 w3cTest("dom/nodes/DocumentType-literal.xhtml");
 w3cTest("dom/nodes/Node-cloneNode.html");
-w3cTest("dom/nodes/Node-isEqualNode.xhtml");
 w3cTest("dom/traversal/NodeFilter-constants.html");
