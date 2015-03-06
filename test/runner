@@ -38,11 +38,13 @@ var files = [
 
   "living-dom/attributes.js",
   "living-dom/compare-document-position.js",
+  "living-dom/event-target.js",
   "living-dom/node-contains.js",
   "living-dom/node-owner-document.js",
   "living-dom/node-parent-element.js",
   "living-dom/query-selector.js",
   "living-dom/query-selector-all.js",
+
   "living-html/focus.js",
   "living-html/htmlinputelement.js",
   "living-html/htmloptionelement.js",
