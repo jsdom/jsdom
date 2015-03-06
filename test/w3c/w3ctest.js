@@ -39,7 +39,8 @@ function createJsdom(source, url, t) {
           }
         });
 
-        window.add_completion_callback(function () {
+        window.add_completion_callback(function (tests, harness_status) {
+          t.ok(harness_status.status !== 2, "test harness should not timeout");
           window.close();
           t.done();
         });
