@@ -17079,6 +17079,15 @@ exports.tests = {
     test.done();
   },
 
+  child_nodes_state: function(test) {
+    var doc = jsdom.jsdom();
+    var element = doc.createElement('div');
+    var childNodes = element.childNodes;
+    var newElement = element.appendChild(doc.createElement('div'));
+    test.equal(childNodes[0], newElement);
+    test.done();
+  },
+
   hc_docclonenodetrue: function(test) {
     var doc;
     var docClone;
