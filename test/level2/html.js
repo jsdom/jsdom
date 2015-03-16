@@ -588,10 +588,6 @@ exports.tests = {
     var nodeList = doc.getElementsByTagName("a");
     test.equal(nodeList.length, 1, 'A size');
     test.equal(nodeList.item(0).origin, 'http://www.github.com:3020', 'a.origin');
-    var doc = load("anchor6");
-    var nodeList = doc.getElementsByTagName("a");
-    test.equal(nodeList.length, 1, 'A size');
-    test.equal(nodeList.item(0).origin, 'special://www.github.com', 'a.origin');
     var doc = load("anchor7");
     var nodeList = doc.getElementsByTagName("a");
     test.equal(nodeList.length, 1, 'A size');

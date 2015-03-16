@@ -78,7 +78,7 @@ exports.tests = {
 
   jquerify_invalid: function (test) {
     test.expect(2);
-    jsdom.jQueryify(tmpWindow(), 1, function (window, jQuery) {
+    jsdom.jQueryify(jsdom.jsdom("", { url: "http://www.example.org" }).defaultView, 1, function (window, jQuery) {
       test.strictEqual(window.jQuery, undefined);
       test.strictEqual(jQuery, undefined);
       test.done();
@@ -564,13 +564,13 @@ exports.tests = {
   </html>';
 
     function testLocal() {
-      var url = '/path/to/docroot/index.html';
+      var url = 'file:///path/to/docroot/index.html';
       var doc = jsdom.jsdom(html, {url: url});
       test.equal(um.addPathEmpty(doc.getElementById("link1").href), 'http://example.com/', 'Absolute URL should be left alone except for possible trailing slash');
-      test.equal(doc.getElementById("link2").href, '/local.html', 'Relative URL should be resolved');
-      test.equal(doc.getElementById("link3").href, '/path/to/docroot/local.html', 'Relative URL should be resolved');
-      test.equal(doc.getElementById("link4").href, '/path/local.html', 'Relative URL should be resolved');
-      test.equal(doc.getElementById("link5").href, '/path/to/docroot/index.html#here', 'Relative URL should be resolved');
+      test.equal(doc.getElementById("link2").href, 'file:///local.html', 'Relative URL should be resolved');
+      test.equal(doc.getElementById("link3").href, 'file:///path/to/docroot/local.html', 'Relative URL should be resolved');
+      test.equal(doc.getElementById("link4").href, 'file:///path/local.html', 'Relative URL should be resolved');
+      test.equal(doc.getElementById("link5").href, 'file:///path/to/docroot/index.html#here', 'Relative URL should be resolved');
       //test.equal(doc.getElementById("link6").href, '//prototol/avoidance.html', 'Protocol-less URL should be resolved');
     }
 
@@ -586,7 +586,7 @@ exports.tests = {
     }
 
     function testBase() {
-      var url  = 'blahblahblah-invalid',
+      var url  = 'about:blank',
       doc  = jsdom.jsdom(html, {url: url}),
       base = doc.createElement("base");
       base.href = 'http://example.com/path/to/docroot/index.html';
