@@ -1,3 +1,9 @@
+## 4.0.3
+
+* Fix events fired from `EventTarget`s to execute their handlers in FIFO order, as per the spec.
+* Fix a case where `childNodes` would not be correctly up to date in some cases. (medikoo)
+* Sped up window creation with `jsdom.env` by ~600%, for the special case when no scripts are to be executed.
+
 ## 4.0.2
 
 * `EventTarget` is now correctly in the prototype chain of `Window`.
