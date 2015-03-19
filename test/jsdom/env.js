@@ -489,7 +489,6 @@ exports["with configurable resource loader modifying routes and content"] = func
         t.ok(typeof resource === "object");
         t.ok(typeof resource.url === "object");
         t.equal(resource.cookie, "key=value");
-        t.equal(resource.cookieDomain, "127.0.0.1");
         t.equal(resource.baseUrl, "http://127.0.0.1:64001/html");
         t.ok(typeof resource.defaultFetch === "function");
         t.ok(typeof callback === "function");
