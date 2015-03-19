@@ -117,6 +117,7 @@ exports.tests = {
 
     // Mock response object
     var res = Object.create(EventEmitter.prototype);
+    res.setEncoding = function () {};
     res.headers = {};
 
     // Monkey patch https.request so it emits 'close' instead of 'end.

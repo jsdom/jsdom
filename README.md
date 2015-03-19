@@ -124,11 +124,11 @@ jsdom.env(config);
 - `config.url`: sets the resulting window's `location.href`; if `config.html` and `config.file` are not provided, jsdom will load HTML from this URL.
 - `config.scripts`: see `scripts` above.
 - `config.src`: an array of JavaScript strings that will be evaluated against the resulting document. Similar to `scripts`, but it accepts JavaScript instead of paths/URLs.
-- `config.jar`: a custom cookie jar, if desired; see [mikeal/request](https://github.com/mikeal/request) documentation.
+- `config.cookieJar`: cookie jar which will be used by document and related resource requests. Can be created by `jsdom.createCookieJar()` method. Useful to share cookie state among different documents as browsers does.
 - `config.parsingMode`: either `"auto"`, `"html"`, or `"xml"`. The default is `"auto"`, which uses HTML behavior unless `config.url` responds with an XML `Content-Type`, or `config.file` contains a filename ending in `.xml` or `.xhtml`. Setting to `"xml"` will attempt to parse the document as an XHTML document. (jsdom is [currently only OK at doing that](https://github.com/tmpvar/jsdom/issues/885).)
 - `config.document`:
   - `referrer`: the new document will have this referrer.
-  - `cookie`: manually set a cookie value, e.g. `'key=value; expires=Wed, Sep 21 2011 12:00:00 GMT; path=/'`.
+  - `cookie`: manually set a cookie value, e.g. `'key=value; expires=Wed, Sep 21 2011 12:00:00 GMT; path=/'`. Accepts cookie string or array of cookie strings.
   - `cookieDomain`: a cookie domain for the manually set cookie; defaults to `127.0.0.1`.
 - `config.headers`: an object giving any headers that will be used while loading the HTML from `config.url`, if applicable
 - `config.features`: see Flexibility section below. **Note**: the default feature set for `jsdom.env` does _not_ include fetching remote JavaScript and executing it. This is something that you will need to _carefully_ enable yourself.
@@ -367,6 +367,29 @@ var doc = jsdom("<!DOCTYPE html>hello");
 
 serializeDocument(doc) === "<!DOCTYPE html><html><head></head><body>hello</body></html>";
 doc.documentElement.outerHTML === "<html><head></head><body>hello</body></html>";
+```
+
+### Sharing cookie state among pages
+
+```js
+var jsdom = require("jsdom");
+var cookieJar = jsdom.createCookieJar();
+
+jsdom.env({
+    url: 'http://google.com',
+    cookieJar: cookieJar,
+    done: function (err1, window1) {
+        //...
+
+        jsdom.env({
+            url: 'http://code.google.com',
+            cookieJar: cookieJar,
+            done: function (err2, window2) {
+                //...
+            }
+        });
+    }
+});
 ```
 
 ### Capturing Console Output
