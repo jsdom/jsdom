@@ -1,3 +1,7 @@
+## 4.0.4
+
+* Fix parsing of doctypes by relying on the information provided by the html parser if possible.
+
 ## 4.0.3
 
 * Fix events fired from `EventTarget`s to execute their handlers in FIFO order, as per the spec.
