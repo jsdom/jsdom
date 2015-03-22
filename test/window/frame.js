@@ -389,5 +389,115 @@ exports.tests = {
 
       test.done();
     });
+  },
+
+  'test frame references': function (test) {
+    var document = jsdom.jsdom("<!doctype html><iframe name='foo'></iframe>");
+    var window = document.defaultView;
+
+    test.strictEqual(window.length, 1, "frame should exist (.length)");
+    test.notEqual(window[0], undefined, "frame should exist (undefined check)");
+    test.strictEqual(window[0], window.foo, "index access and name access should return same reference");
+
+    test.done();
+  },
+
+  'remove frame': function (test) {
+    var document = jsdom.jsdom("<!doctype html><iframe id='myFrame' name='foo'></iframe>");
+    var window = document.defaultView;
+
+    test.strictEqual(window.length, 1, "frame should exist (.length)");
+    test.notEqual(window[0], undefined, "frame should exist (undefined check)");
+    document.body.removeChild(document.getElementById("myFrame"));
+
+    test.strictEqual(window.length, 0, "frame shouldn't exist (.length)");
+    test.strictEqual(window[0], undefined, "frame shouldn't exist anymore (idx accessor)");
+    test.strictEqual(window.foo, undefined, "frame shouldn't exist anymore (name accessor)");
+    test.ok(!('0' in window), "'0' should not be in window anymore");
+
+    test.done();
+  },
+
+  'remove middle frame': function (test) {
+    var document = jsdom.jsdom("<!doctype html><iframe id='myFrame1' name='foo1'></iframe>"+
+      "<iframe id='myFrame2' name='foo2'></iframe><iframe id='myFrame3' name='foo3'></iframe>");
+    var window = document.defaultView;
+
+    test.strictEqual(window.length, 3, "frames should exist (.length)");
+    test.notEqual(window[0], undefined, "frame1 should exist (undefined check)");
+    test.notEqual(window[1], undefined, "frame2 should exist (undefined check)");
+    test.notEqual(window[2], undefined, "frame3 should exist (undefined check)");
+
+    document.body.removeChild(document.getElementById("myFrame2"));
+    test.strictEqual(window.length, 2, "frame shouldn't exist (.length)");
+    test.strictEqual(window[2], undefined, "frame shouldn't exist anymore (idx accessor)");
+    test.strictEqual(window.foo2, undefined, "frame shouldn't exist anymore (name accessor)");
+
+    test.strictEqual(window.foo3, window[1], "frame index accessor should be moved down");
+    
+    document.body.removeChild(document.getElementById("myFrame1"));
+    test.strictEqual(window.length, 1, "frame shouldn't exist (.length)");
+    test.strictEqual(window[1], undefined, "frame shouldn't exist anymore (idx accessor)");
+    test.strictEqual(window.foo1, undefined, "frame shouldn't exist anymore (name accessor)");
+
+    test.strictEqual(window.foo3, window[0], "frame index accessor should be moved down");
+    
+    test.done();
+  },
+
+  'accessor should not exist before append': function(test) {
+    var document = jsdom.jsdom();
+    var el = document.createElement("iframe");
+    el.setAttribute("name", "foo");
+
+    test.strictEqual(document.defaultView.length, 0, "no frames should exist yet");
+    test.strictEqual(document.defaultView[0], undefined, "indexed access should fail");
+    test.strictEqual(document.defaultView.foo, undefined, "named access should fail");
+
+    document.body.appendChild(el);
+
+    test.strictEqual(document.defaultView.length, 1,
+      "appended frame should increase window.length");
+    test.notEqual(document.defaultView[0], undefined,
+      "indexed access should succeed");
+    test.notEqual(document.defaultView.foo, undefined,
+      "named access should succeed");
+    test.strictEqual(document.defaultView.foo, document.defaultView[0],
+      "named and indexed access should return same object");
+
+    document.body.removeChild(el);
+
+    test.strictEqual(document.defaultView.length, 0, "no frames should exist yet");
+    test.strictEqual(document.defaultView[0], undefined, "indexed access should fail");
+    test.strictEqual(document.defaultView.foo, undefined, "named access should fail");
+
+    document.body.appendChild(el);
+
+    test.strictEqual(document.defaultView.length, 1,
+      "appended frame should increase window.length");
+    test.notEqual(document.defaultView[0], undefined,
+      "indexed access should succeed");
+    test.notEqual(document.defaultView.foo, undefined,
+      "named access should succeed");
+    test.strictEqual(document.defaultView.foo, document.defaultView[0],
+      "named and indexed access should return same object");
+
+    test.done();
+  },
+
+  'move frame': function (test) {
+    var document = jsdom.jsdom("<!doctype html><iframe name='foo'></iframe>");
+    var window = document.defaultView;
+
+    var frame = document.querySelector("iframe");
+    var beforeFrame = document.createElement("iframe");
+    beforeFrame.setAttribute("name", "bar");
+    document.body.insertBefore(beforeFrame, frame);
+
+    test.strictEqual(window.length, 2, "should load 2 iframes");
+    test.strictEqual(window.bar, window[0], "bar should be first frame");
+    test.strictEqual(window.foo, window[1], "foo should be second frame");
+
+    test.done();
   }
 };
