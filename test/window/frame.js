@@ -499,5 +499,28 @@ exports.tests = {
     test.strictEqual(window.foo, window[1], "foo should be second frame");
 
     test.done();
+  },
+
+  'frame should not be loaded and accessor should not exist until in document, even with a parent node': function (t) {
+    var document = jsdom.jsdom("<!doctype html>", { url: toFileUrl(__filename) });
+    var window = document.defaultView;
+
+    var frame = document.createElement("iframe");
+    frame.onload = function () {
+      t.ok(false, "onload should not be called");
+    };
+    var parentNode = document.createElement("div");
+    parentNode.appendChild(frame);
+
+    frame.src = "files/simple_iframe.html";
+    frame.setAttribute("name", "foo");
+
+    t.strictEqual(window.length, 0, "window length should be zero (no frames)");
+    t.strictEqual(window[0], undefined, "window should not have a 0 property");
+    t.strictEqual(window.foo, undefined, "window should not have a property for the iframe name");
+
+    setTimeout(function () {
+      t.done();
+    }, 1000);
   }
 };
