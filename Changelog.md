@@ -1,3 +1,8 @@
+## 4.0.5
+
+* Add `HTMLUnknownElement` and fix the parser/`document.createElement` to create those instead of `HTMLElement` for unknown elements.
+* Fix issues with named and indexed properties on `window`, as well as `window.length`, with regard to `<frame>`s/`<iframe>`s being added and removed from the document.
+
 ## 4.0.4
 
 * Fix parsing of doctypes by relying on the information provided by the html parser if possible.
