@@ -8956,6 +8956,31 @@ exports.tests = {
     test.done();
   },
 
+  HTMLInputElementCheckboxClickTogglesCheckedState: function(test) {
+    var doc = load("input");
+    var element = doc.querySelector("input[name='Check1']");
+    test.equal(element.checked, true);
+    element.click();
+    test.equal(element.checked, false);
+    element.click();
+    test.equal(element.checked, true);
+    test.done();
+  },
+
+  HTMLInputElementDefaultEventClickForCheckboxTogglesCheckedState: function(test) {
+    var doc = load("input");
+    var element = doc.querySelector("input[name='Check1']");
+    var clickevent = doc.createEvent("Event");
+    clickevent.initEvent("click", true, true);
+    element.dispatchEvent(clickevent);
+    test.equal(element.checked, false);
+    element.dispatchEvent(clickevent);
+    test.equal(element.checked, true);
+    element.dispatchEvent(clickevent);
+    test.equal(element.checked, false);
+    test.done();
+  },
+
   // <isindex> tests removed because it's replaced by <label> and <input> in the parser stage now
 
   /**
