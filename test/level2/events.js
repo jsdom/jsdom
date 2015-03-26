@@ -79,6 +79,32 @@ exports['create event with each event type'] = function(test){
   test.done();
 }
 
+// @see http://www.w3.org/TR/dom/#event
+exports['event interface eventInit parameter'] = function(test){
+
+    var event = new events.Event('myevent');
+    test.equal(event.bubbles, null);
+    test.equal(event.cancelable, null);
+
+    event = new events.Event('myevent', {bubbles: true});
+    test.equal(event.bubbles, true);
+    test.equal(event.cancelable, false);
+
+    event = new events.Event('myevent', {cancelable: true});
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, true);
+
+    event = new events.Event('myevent', {bubbles: true, cancelable: true});
+    test.equal(event.bubbles, true);
+    test.equal(event.cancelable, true);
+
+    event = new events.Event('myevent', {});
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, false);
+
+    test.done();
+}
+
 // @author Curt Arnold
 // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-EventTarget-dispatchEvent
 // @see http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-17189187
