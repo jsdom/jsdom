@@ -79,6 +79,77 @@ exports['create event with each event type'] = function(test){
   test.done();
 }
 
+// @see http://www.w3.org/TR/dom/#event
+exports['event interface eventInit parameter'] = function(test){
+
+    try{
+      var event = new events.Event('myevent', "exception");
+      test.fail("only a dictionary should be passed as the second parameter");
+    }
+    catch(e){
+      test.ok((e instanceof TypeError), "should be instanceof TypeError");
+    }
+
+    var event = new events.Event('myevent');
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, false);
+
+    event = new events.Event('myevent', null);
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, false);
+
+    event = new events.Event('myevent', {bubbles: true});
+    test.equal(event.bubbles, true);
+    test.equal(event.cancelable, false);
+
+    event = new events.Event('myevent', {cancelable: true});
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, true);
+
+    event = new events.Event('myevent', {bubbles: true, cancelable: true});
+    test.equal(event.bubbles, true);
+    test.equal(event.cancelable, true);
+
+    event = new events.Event('myevent', {});
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, false);
+
+    event = new events.Event('myevent', {bubbles: null, cancelable: null});
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, false);
+
+    event = new events.Event('myevent', {bubbles: 0, cancelable: 0});
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, false);
+
+    // values > 0 are considered true;
+    event = new events.Event('myevent', {bubbles: 1, cancelable: 1});
+    test.equal(event.bubbles, true);
+    test.equal(event.cancelable, true);
+
+    // values > 0 are considered true;
+    event = new events.Event('myevent', {bubbles: 10, cancelable: 10});
+    test.equal(event.bubbles, true);
+    test.equal(event.cancelable, true);
+
+    // empty string is considered false;
+    event = new events.Event('myevent', {bubbles: "", cancelable: ""});
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, false);
+
+    // non empty string is considered true;
+    event = new events.Event('myevent', {bubbles: "false", cancelable: "false"});
+    test.equal(event.bubbles, true);
+    test.equal(event.cancelable, true);
+
+    // non empty string is considered true;
+    event = new events.Event('myevent', {bubbles: "true", cancelable: "true"});
+    test.equal(event.bubbles, true);
+    test.equal(event.cancelable, true);
+
+    test.done();
+}
+
 // @author Curt Arnold
 // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-EventTarget-dispatchEvent
 // @see http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-17189187
