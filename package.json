@@ -94,6 +94,9 @@
     "test-browser": "iojs ./test/browser-runner",
     "lint": "jshint lib/ && jshint test/"
   },
+  "engines": { 
+    "node": "^1.2.0"
+  },
   "main": "./lib/jsdom",
   "files": [
     "lib/"
