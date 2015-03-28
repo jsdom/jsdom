@@ -1,16 +1,22 @@
+## 4.1.0
+
+* Added a second parameter to the `Event` constructor, which allows you to set the `bubbles` and `cancelable` properties. (brandon-bethke-neudesic)
+
 ## 4.0.5
 
-* Add `HTMLUnknownElement` and fix the parser/`document.createElement` to create those instead of `HTMLElement` for unknown elements.
-* Fix issues with named and indexed properties on `window`, as well as `window.length`, with regard to `<frame>`s/`<iframe>`s being added and removed from the document.
+* Added `HTMLUnknownElement` and fix the parser/`document.createElement` to create those instead of `HTMLElement` for unknown elements.
+* Fixed issues with named and indexed properties on `window`, as well as `window.length`, with regard to `<frame>`s/`<iframe>`s being added and removed from the document.
+
+_Note:_ this probably should have been a minor version number increment (i.e. 4.1.0 instead of 4.0.5), since it added `HTMLUnknownElement`. We apologize for the deviation from semver.
 
 ## 4.0.4
 
-* Fix parsing of doctypes by relying on the information provided by the html parser if possible.
+* Fixed parsing of doctypes by relying on the information provided by the html parser if possible.
 
 ## 4.0.3
 
-* Fix events fired from `EventTarget`s to execute their handlers in FIFO order, as per the spec.
-* Fix a case where `childNodes` would not be correctly up to date in some cases. (medikoo)
+* Fixed events fired from `EventTarget`s to execute their handlers in FIFO order, as per the spec.
+* Fixed a case where `childNodes` would not be correctly up to date in some cases. (medikoo)
 * Sped up window creation with `jsdom.env` by ~600%, for the special case when no scripts are to be executed.
 
 ## 4.0.2
