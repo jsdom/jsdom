@@ -1,3 +1,7 @@
+## 4.2.0
+
+* Added a second parameter to `UIEvent`, `MouseEvent`, and `MutationEvent`, which for now just behaves the same as that for `Event`. (Rich-Harris)
+
 ## 4.1.0
 
 * Added a second parameter to the `Event` constructor, which allows you to set the `bubbles` and `cancelable` properties. (brandon-bethke-neudesic)
