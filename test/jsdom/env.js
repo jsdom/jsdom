@@ -499,8 +499,8 @@ exports["with configurable resource loader modifying routes and content"] = func
         t.equal(resource.baseUrl, "http://127.0.0.1:64001/html");
         t.ok(typeof resource.defaultFetch === "function");
         t.ok(typeof callback === "function");
-        if (/\.js$/.test(resource.url.pathname)) {
-          resource.url.pathname = "/js/dir" + resource.url.pathname;
+        if (/\.js$/.test(resource.url.path)) {
+          resource.url.path = "/js/dir" + resource.url.path;
           resource.defaultFetch(function(err, body) {
             if (err) {
               callback(err);

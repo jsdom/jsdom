@@ -117,7 +117,7 @@ exports.tests = {
 
     // Mock response object
     var res = Object.create(EventEmitter.prototype);
-    res.setEncoding = function () {};
+    res.headers = {};
 
     // Monkey patch https.request so it emits 'close' instead of 'end.
     https.request = function () {
@@ -151,6 +151,42 @@ exports.tests = {
         https.request = oldRequest;
         test.done();
       }
+    });
+  },
+
+  env_with_compression : function (test) {
+    var zlib = require('zlib');
+
+    var server = http.createServer(function (req, res) {
+      switch (req.url) {
+        case "/":
+          var text = 'window.attachedHere = 123';
+          var buf = new Buffer(text, 'utf-8');
+          zlib.gzip(buf, function (_, result) {
+            res.writeHead(200, { "Content-Length": result.length, 'Content-Encoding':'gzip' });
+            res.emit('data', result);
+            res.end(result);
+          });
+          break;
+      }
+    });
+
+    server.listen(8001, "127.0.0.1", function () {
+      jsdom.env({
+        html: "<a href='/path/to/hello'>World</a>",
+        scripts: 'http://127.0.0.1:8001',
+        done: function(errors, window) {
+          server.close();
+          if (errors) {
+            test.ok(false, errors.message);
+          } else {
+            test.notEqual(window.location, null, 'window.location should not be null');
+            test.equal(window.attachedHere, 123, 'script should execute on our window');
+            test.equal(window.document.getElementsByTagName("a").item(0).innerHTML, 'World', 'anchor text');
+          }
+          test.done();
+        }
+      });
     });
   },
 
