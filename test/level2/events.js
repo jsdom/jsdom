@@ -80,81 +80,76 @@ exports['create event with each event type'] = function(test){
 }
 
 // @see https://dom.spec.whatwg.org/#interface-event
-exports['event interface eventInit parameter'] = function(test){
-
-  function testEventConstructor(Event) {
-    try{
-      var event = new Event('myevent', "exception");
-      test.fail("only a dictionary should be passed as the second parameter");
-    }
-    catch(e){
-      test.ok((e instanceof TypeError), "should be instanceof TypeError");
-    }
-
-    var event = new Event('myevent');
-    test.equal(event.bubbles, false);
-    test.equal(event.cancelable, false);
-
-    event = new Event('myevent', null);
-    test.equal(event.bubbles, false);
-    test.equal(event.cancelable, false);
-
-    event = new Event('myevent', {bubbles: true});
-    test.equal(event.bubbles, true);
-    test.equal(event.cancelable, false);
-
-    event = new Event('myevent', {cancelable: true});
-    test.equal(event.bubbles, false);
-    test.equal(event.cancelable, true);
-
-    event = new Event('myevent', {bubbles: true, cancelable: true});
-    test.equal(event.bubbles, true);
-    test.equal(event.cancelable, true);
-
-    event = new Event('myevent', {});
-    test.equal(event.bubbles, false);
-    test.equal(event.cancelable, false);
-
-    event = new Event('myevent', {bubbles: null, cancelable: null});
-    test.equal(event.bubbles, false);
-    test.equal(event.cancelable, false);
-
-    event = new Event('myevent', {bubbles: 0, cancelable: 0});
-    test.equal(event.bubbles, false);
-    test.equal(event.cancelable, false);
-
-    // values > 0 are considered true;
-    event = new Event('myevent', {bubbles: 1, cancelable: 1});
-    test.equal(event.bubbles, true);
-    test.equal(event.cancelable, true);
-
-    // values > 0 are considered true;
-    event = new Event('myevent', {bubbles: 10, cancelable: 10});
-    test.equal(event.bubbles, true);
-    test.equal(event.cancelable, true);
-
-    // empty string is considered false;
-    event = new Event('myevent', {bubbles: "", cancelable: ""});
-    test.equal(event.bubbles, false);
-    test.equal(event.cancelable, false);
-
-    // non empty string is considered true;
-    event = new Event('myevent', {bubbles: "false", cancelable: "false"});
-    test.equal(event.bubbles, true);
-    test.equal(event.cancelable, true);
-
-    // non empty string is considered true;
-    event = new Event('myevent', {bubbles: "true", cancelable: "true"});
-    test.equal(event.bubbles, true);
-    test.equal(event.cancelable, true);
-  }
-
+exports['event interface eventInit parameter'] = function (test) {
   testEventConstructor(events.Event);
   testEventConstructor(events.UIEvent);
   testEventConstructor(events.MouseEvent);
   testEventConstructor(events.MutationEvent);
 
   test.done();
+
+  function testEventConstructor(Constructor) {
+    test.throws(function () {
+      new Constructor('myevent', 'not a dictionary');
+    }, TypeError);
+
+    var event = new Constructor('myevent');
+    test.equal(event.bubbles, false);{}
+    test.equal(event.cancelable, false);
+
+    event = new Constructor('myevent', null);
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, false);
+
+    event = new Constructor('myevent', { bubbles: true });
+    test.equal(event.bubbles, true);
+    test.equal(event.cancelable, false);
+
+    event = new Constructor('myevent', { cancelable: true });
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, true);
+
+    event = new Constructor('myevent', { bubbles: true, cancelable: true });
+    test.equal(event.bubbles, true);
+    test.equal(event.cancelable, true);
+
+    event = new Constructor('myevent', {});
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, false);
+
+    event = new Constructor('myevent', { bubbles: null, cancelable: null });
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, false);
+
+    event = new Constructor('myevent', { bubbles: 0, cancelable: 0 });
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, false);
+
+    // values > 0 are considered true
+    event = new Constructor('myevent', { bubbles: 1, cancelable: 1 });
+    test.equal(event.bubbles, true);
+    test.equal(event.cancelable, true);
+
+    // values > 0 are considered true
+    event = new Constructor('myevent', { bubbles: 10, cancelable: 10 });
+    test.equal(event.bubbles, true);
+    test.equal(event.cancelable, true);
+
+    // empty string is considered false
+    event = new Constructor('myevent', { bubbles: "", cancelable: "" });
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, false);
+
+    // non empty string is considered true
+    event = new Constructor('myevent', { bubbles: "false", cancelable: "false" });
+    test.equal(event.bubbles, true);
+    test.equal(event.cancelable, true);
+
+    // non empty string is considered true
+    event = new Constructor('myevent', { bubbles: "true", cancelable: "true" });
+    test.equal(event.bubbles, true);
+    test.equal(event.cancelable, true);
+  }
 }
 
 // @author Curt Arnold
