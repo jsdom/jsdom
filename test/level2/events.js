@@ -94,7 +94,7 @@ exports['event interface eventInit parameter'] = function (test) {
     }, TypeError);
 
     var event = new Constructor('myevent');
-    test.equal(event.bubbles, false);{}
+    test.equal(event.bubbles, false);
     test.equal(event.cancelable, false);
 
     event = new Constructor('myevent', null);
@@ -513,6 +513,20 @@ exports['prevent default'] = testcase({
   tearDown: function(cb){
     _tearDown.call(this);
     cb();
+  },
+
+  'the defaultPrevented flag is set when the event is prevented': function(test) {
+    this.title.addEventListener("foo", function(event) { event.preventDefault();}, false);
+    var return_val = this.title.dispatchEvent(this.event);
+    test.equal(this.event.defaultPrevented, true, 'the defaultPrevented flag should be true when the event is prevented');
+    test.done();
+  },
+
+  'the defaultPrevented flag is not set when the event is not prevented': function(test) {
+    this.title.addEventListener("foo", this.monitor.handleEvent, false);
+    var return_val = this.title.dispatchEvent(this.event);
+    test.equal(this.event.defaultPrevented, false, 'the defaultPrevented flag should be false when the event is not prevented');
+    test.done();
   },
 
   'a cancelable event can have its default event disabled': function(test) {
