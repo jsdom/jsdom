@@ -1,3 +1,10 @@
+## 4.3.0
+
+* Made the click behavior for radio buttons and checkboxes work when doing `el.dispatchEvent(clickEvent)`, not just when doing `el.click()`. (brandon-bethke-neudesic)
+* Added `defaultPrevented` property to `Event` instances, reflecting whether `ev.preventDefault()` has been called. (brandon-bethke-neudesic)
+* Moved the `click()` method from `HTMLInputElement.prototype` to `HTMLElement.prototype`, per the latest spec.
+* Made the `click()` method trigger a `MouseEvent` instead of just an `Event`.
+
 ## 4.2.0
 
 * Added a second parameter to `UIEvent`, `MouseEvent`, and `MutationEvent`, which for now just behaves the same as that for `Event`. (Rich-Harris)
