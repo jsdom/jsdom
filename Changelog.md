@@ -1,3 +1,7 @@
+## 4.4.0
+
+* All resources are now loaded with the [request](https://www.npmjs.com/package/request) package, which means that e.g. GZIPped resources will be properly uncompressed, redirects will be followed, and more. This was previously the case only for URLs passed directly to `jsdom.env`, and not for sub-resources inside the resulting page. (ssesha)
+
 ## 4.3.0
 
 * Made the click behavior for radio buttons and checkboxes work when doing `el.dispatchEvent(clickEvent)`, not just when doing `el.click()`. (brandon-bethke-neudesic)
