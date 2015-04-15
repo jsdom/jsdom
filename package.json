@@ -74,6 +74,7 @@
     "browserify": "^9.0.3",
     "colors": "^1.0.3",
     "http-server": "^0.8.0",
+    "jscs": "^1.12.0",
     "jshint": "^2.7.0",
     "multiline": "^1.0.1",
     "nodeunit": "0.9.1",
@@ -93,7 +94,7 @@
     "pretest": "git submodule update --init --recursive",
     "test": "iojs ./test/runner",
     "test-browser": "iojs ./test/browser-runner",
-    "lint": "jshint lib/ && jshint test/"
+    "lint": "jscs lib/ && jscs test/ && jshint lib/ && jshint test/"
   },
   "main": "./lib/jsdom",
   "files": [

@@ -169,13 +169,10 @@ exports["explicit config.file, valid"] = function (t) {
     file: fileName,
     done: function (err, window) {
       t.ifError(err);
-      t.equal(serializeDocument(window.document), "<!DOCTYPE html><html><head>\n\
-    <title>hello, Node.js!</title>\n\
-  </head>\n\
-  <body>\n\
-  \n\
-\n\
-</body></html>");
+      t.equal(serializeDocument(window.document), `<!DOCTYPE html><html><head>
+    <title>hello, Node.js!</title>
+  </head>
+  <body>` + "\n  \n\n</body></html>");
       t.equal(window.location.href, toFileUrl(fileName));
       t.done();
     }
@@ -263,13 +260,10 @@ exports["string, for an existing filename"] = function (t) {
     fileName,
     function (err, window) {
       t.ifError(err);
-      t.equal(serializeDocument(window.document), "<!DOCTYPE html><html><head>\n\
-    <title>hello, Node.js!</title>\n\
-  </head>\n\
-  <body>\n\
-  \n\
-\n\
-</body></html>");
+      t.equal(serializeDocument(window.document), `<!DOCTYPE html><html><head>
+    <title>hello, Node.js!</title>
+  </head>
+  <body>` + "\n  \n\n</body></html>");
       t.equal(window.location.href, toFileUrl(fileName));
       t.done();
     }
@@ -455,7 +449,7 @@ exports["with configurable resource loader"] = function (t) {
 
   env({
     html: "<!DOCTYPE html><html><head><script src='foo.js'></script></head><body></body></html>",
-    resourceLoader: function(resource, callback) {
+    resourceLoader: function (resource, callback) {
       callback(null, "window.resourceLoaderWasOverriden = true;");
     },
     features: {
@@ -491,7 +485,7 @@ exports["with configurable resource loader modifying routes and content"] = func
         cookie: cookie
       },
       url: "http://127.0.0.1:64001/html",
-      resourceLoader: function(resource, callback) {
+      resourceLoader: function (resource, callback) {
         t.ok(typeof resource === "object");
         t.ok(typeof resource.url === "object");
         t.equal(resource.cookie, "key=value");
@@ -501,7 +495,7 @@ exports["with configurable resource loader modifying routes and content"] = func
         t.ok(typeof callback === "function");
         if (/\.js$/.test(resource.url.path)) {
           resource.url.path = "/js/dir" + resource.url.path;
-          resource.defaultFetch(function(err, body) {
+          resource.defaultFetch(function (err, body) {
             if (err) {
               callback(err);
             } else {

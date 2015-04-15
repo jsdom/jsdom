@@ -163,8 +163,8 @@ exports["createFrom returns an object extended with the given properties"] = fun
 };
 
 exports["inheritFrom sets Subclass.prototype to an object w/ [[Prototype]] Superclass.prototype"] = function (t) {
-  function Subclass(){}
-  function Superclass(){}
+  function Subclass() {}
+  function Superclass() {}
 
   utils.inheritFrom(Superclass, Subclass);
 
@@ -175,8 +175,8 @@ exports["inheritFrom sets Subclass.prototype to an object w/ [[Prototype]] Super
 };
 
 exports["inheritFrom sets Subclass.prototype.constructor to Subclass"] = function (t) {
-  function Subclass(){}
-  function Superclass(){}
+  function Subclass() {}
+  function Superclass() {}
 
   utils.inheritFrom(Superclass, Subclass);
 
@@ -186,8 +186,8 @@ exports["inheritFrom sets Subclass.prototype.constructor to Subclass"] = functio
 };
 
 exports["inheritFrom extends Subclass.prototype with the given properties"] = function (t) {
-  function Subclass(){}
-  function Superclass(){}
+  function Subclass() {}
+  function Superclass() {}
   var properties = {
     get accessor() {},
     set accessor(value) { /*jshint unused: false */ },

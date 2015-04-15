@@ -37,7 +37,7 @@ exports["html input should handle value/defaultValue correctly"] = function (t) 
   t.done();
 };
 
-exports["html input should handle checked/defaultChecked correctly"] = function(t) {
+exports["html input should handle checked/defaultChecked correctly"] = function (t) {
   var doc = jsdom.jsdom();
   var checked = doc.createElement("input");
 

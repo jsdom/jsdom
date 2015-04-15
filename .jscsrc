@@ -1,0 +1,61 @@
+{
+  "esnext": true,
+  "preset": "crockford",
+  "requireMultipleVarDecl": null,
+  "disallowDanglingUnderscores": null,
+  "disallowKeywords": [
+    "with"
+  ],
+
+
+  "disallowMultipleVarDecl": "strict",
+  "validateQuoteMarks": "\"",
+  "validateIndentation": 2,
+  "disallowSpaceAfterObjectKeys": true,
+  "disallowSpacesInCallExpression": true,
+  "disallowYodaConditions": true,
+  "maximumLineLength": {
+    "value": 120,
+    "allowUrlComments": true
+  },
+  "requireFunctionDeclarations": true,
+  "requireSemicolons": true,
+  "validateLineBreaks": "LF",
+  "validateParameterSeparator": ", ",
+  "requireBlocksOnNewline": 1,
+
+
+  "excludeFiles": [
+    "node_modules/**",
+    "lib/jsdom.js",
+    "lib/jsdom/browser/documentAdapter.js",
+    "lib/jsdom/browser/documentfeatures.js",
+    "lib/jsdom/browser/domtohtml.js",
+    "lib/jsdom/browser/htmltodom.js",
+    "lib/jsdom/level1/core.js",
+    "lib/jsdom/level2/core.js",
+    "lib/jsdom/level2/events.js",
+    "lib/jsdom/level2/html.js",
+    "lib/jsdom/level2/index.js",
+    "lib/jsdom/level2/style.js",
+    "lib/jsdom/level3/core.js",
+    "lib/jsdom/level3/events.js",
+    "lib/jsdom/level3/html.js",
+    "lib/jsdom/level3/index.js",
+    "lib/jsdom/level3/ls.js",
+    "lib/jsdom/level3/xpath.js",
+    "test/browser",
+    "test/jquery-fixtures",
+    "test/jsonp",
+    "test/level1",
+    "test/level2",
+    "test/level3",
+    "test/sizzle",
+    "test/w3c",
+    "test/window",
+    "test/*.js",
+    "test/jsdom/index.js",
+    "test/jsdom/leak.js",
+    "test/jsdom/files"
+  ]
+}

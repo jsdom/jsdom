@@ -112,17 +112,17 @@ exports["an attribute set by setAttributeNS should be accessible as a field on t
 
 exports["an attribute with a null namespace should be accessible as a field on the `attributes` field of an " +
         "Element"] = function (t) {
-    var doc = load("minimal");
-    var body = doc.getElementsByTagName("body")[0];
-    t.ok(body, "body is not null");
+  var doc = load("minimal");
+  var body = doc.getElementsByTagName("body")[0];
+  t.ok(body, "body is not null");
 
-    // This attribute should be available as body.attribute.x.
-    body.setAttributeNS(null, "x", "first");
+  // This attribute should be available as body.attribute.x.
+  body.setAttributeNS(null, "x", "first");
 
-    t.equal(body.attributes.length, 1, "one attribute");
-    t.equal(body.attributes.x.value, "first");
+  t.equal(body.attributes.length, 1, "one attribute");
+  t.equal(body.attributes.x.value, "first");
 
-    t.done();
+  t.done();
 };
 
 exports["an attribute with a set namespace should be accessible as a field on the `attributes` field of an " +

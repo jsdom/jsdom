@@ -1,4 +1,4 @@
-﻿"use strict";
+"use strict";
 
 var jsdom = require("../..");
 
@@ -25,7 +25,7 @@ exports["navigator properties should be read-only from the site"] = function (t)
     },
     features: {
       FetchExternalResources: ["script"],
-      ProcessExternalResources:["script"]
+      ProcessExternalResources: ["script"]
     }
   });
 };
