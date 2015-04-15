@@ -1,11 +1,10 @@
+"use strict";
 var jsdom = require("../../../..");
-var multiline = require("multiline");
 
 exports.staff = function () {
   // NB: removed "<?PItarget PIdata?>" from ent4 because it breaks htmlparser2     https://github.com/fb55/htmlparser2/issues/117
   // NB: removed newline after <?TEST-STYLE PIDATA?> because it breaks htmlparser2 https://github.com/fb55/htmlparser2/issues/118
-  return jsdom.jsdom(multiline(function () {/*
-<?xml version="1.0"?><?TEST-STYLE PIDATA?><!DOCTYPE staff SYSTEM "staff.dtd" [
+  return jsdom.jsdom(`<?xml version="1.0"?><?TEST-STYLE PIDATA?><!DOCTYPE staff SYSTEM "staff.dtd" [
    <!ENTITY ent1 "es">
    <!ENTITY ent2 "1900 Dallas Road">
    <!ENTITY ent3 "Texas">
@@ -61,5 +60,5 @@ exports.staff = function () {
   <address street="Yes">1821 Nordic. Road, Irving Texas 98558</address>
  </employee>
  </staff>
-*/}), { parsingMode: "xml" });
+`, { parsingMode: "xml" });
 };

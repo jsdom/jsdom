@@ -1,8 +1,8 @@
+"use strict";
 var jsdom = require("../../../..");
-var multiline = require("multiline");
 
 exports.hc_nodtdstaff = function () {
-  return jsdom.jsdom(multiline(function () {/*
+  return jsdom.jsdom(`
 <html><head><title>hc_nodtdstaff</title></head><body onload="parent.loadComplete()">
  <p>
   <em>EMP0001</em>
@@ -13,5 +13,5 @@ exports.hc_nodtdstaff = function () {
   <acronym title="Yes">1230 North Ave. Dallas, Texas 98551</acronym>
  </p>
 </body></html>
-*/}));
+`);
 };

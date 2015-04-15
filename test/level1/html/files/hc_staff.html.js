@@ -1,8 +1,8 @@
+"use strict";
 var jsdom = require("../../../..");
-var multiline = require("multiline");
 
 exports.hc_staff = function () {
-  return jsdom.jsdom(multiline(function () {/*
+  return jsdom.jsdom(`
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
     "http://www.w3.org/TR/html4/strict.dtd" >
@@ -52,5 +52,5 @@ This is an adjacent CDATASection with a reference to a tab &amp;tab;</strong>
   <acronym title="Yes">1821 Nordic. Road, Irving Texas 98558</acronym>
  </p>
 </body></html>
-*/}));
+`);
 };

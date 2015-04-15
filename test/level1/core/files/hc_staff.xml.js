@@ -1,8 +1,8 @@
+"use strict";
 var jsdom = require("../../../..");
-var multiline = require("multiline");
 
 exports.hc_staff = function () {
-  return jsdom.jsdom(multiline(function () {/*
+  return jsdom.jsdom(`
 <?xml version="1.0"?>
 <?TEST-STYLE PIDATA?>
 <!DOCTYPE html
@@ -79,5 +79,5 @@ This is an adjacent CDATASection with a reference to a tab &amp;tab;</strong>
   <acronym title="Yes">1821 Nordic. Road, Irving Texas 98558</acronym>
  </p>
 </body></html>
-*/}), { parsingMode: "xml" });
+`, { parsingMode: "xml" });
 };

@@ -76,7 +76,6 @@
     "http-server": "^0.8.0",
     "jscs": "^1.12.0",
     "jshint": "^2.7.0",
-    "multiline": "^1.0.1",
     "nodeunit": "0.9.1",
     "optimist": "0.6.1",
     "portfinder": "0.4.0",
