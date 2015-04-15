@@ -2471,17 +2471,20 @@ exports.tests = {
     future = new Date();
     future.setTime( future.getTime() + (24 * 60 * 60 * 1000) );
     cookie = 'key=value; expires='+future.toGMTString()+'; path=/';
-    doc = load("document", { cookie:cookie });
+    doc = load("document", {
+      url: "http://example.com",
+      cookie: cookie
+    });
     vcookie = doc.cookie;
     test.equal(vcookie, "key=value", "cookieLink");
 
-    doc = load("document");
+    doc = load("document", { url: 'http://example.com' });
     doc.cookie = "key1=value1";
     doc.cookie = "key2=value2";
     vcookie = doc.cookie;
     test.equal(vcookie, "key1=value1; key2=value2", "cookieLink");
 
-    doc = load("document");
+    doc = load("document", { url: 'http://example.com' });
     doc.cookie = "key3=value3; max-age=300";
     doc.cookie = "key4=value4; path=/";
     vcookie = doc.cookie;
