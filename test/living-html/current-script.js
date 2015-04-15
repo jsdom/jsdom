@@ -1,13 +1,13 @@
 "use strict";
 
 var jsdom = require("../..");
-var toFileUrl = require('../util').toFileUrl(__dirname);
+var toFileUrl = require("../util").toFileUrl(__dirname);
 
 exports["document.currentScript is null when not executing <script>"] = function (t) {
   var window = jsdom.jsdom().defaultView;
   t.strictEqual(window.document.currentScript, null);
   t.done();
-},
+};
 
 exports["document.currentScript is currently executing <script> element"] = function (t) {
   t.expect(2);
@@ -22,8 +22,9 @@ exports["document.currentScript is currently executing <script> element"] = func
     }
   });
 
-  document.onload = function() {
-    t.strictEqual(document.getElementById("test").innerHTML, "true", "currentScript is the currently executing script element");
+  document.onload = function () {
+    var msg = "currentScript is the currently executing script element";
+    t.strictEqual(document.getElementById("test").innerHTML, "true", msg);
     t.strictEqual(document.currentScript, null, "currentScript is still null at top-level");
     t.done();
   };

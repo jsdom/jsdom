@@ -1,3 +1,4 @@
+// jshint ignore: start
 document.getElementById("test").innerHTML = String(
   document.currentScript &&
   document.currentScript instanceof HTMLScriptElement &&
