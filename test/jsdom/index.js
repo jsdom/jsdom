@@ -1638,5 +1638,32 @@ exports.tests = {
     window.location.reload();
     t.equal("errors" in global, false, "there should be no errors global after the call");
     t.done();
+  },
+
+  'document.currentScript is undefined when not executing <script>': function(test) {
+    var window = jsdom.jsdom().defaultView;
+    test.equal(window.document.currentScript, undefined);
+    test.done();
+  }, 
+
+  'document.currentScript is filename when executing <script>': function(test) {
+    var html = '<html><head><script src="./files/current-script.js"></script></head>' +
+               '<body><span id="test">hello from html</span></body></html>';
+
+    var doc = jsdom.jsdom(html, {
+      url: toFileUrl(__filename),
+      features: {
+        FetchExternalResources: ['script'],
+        ProcessExternalResources: ['script']
+      }
+    });
+
+    setTimeout(function() {
+      test.equal(doc.getElementById("test").innerHTML, 'true', 'currentScript is the currently executing script element');
+      test.equal(doc.currentScript, undefined, 'currentScript is still undefined at top-level');
+      test.done();
+    }, 100);
   }
+
+
 };
