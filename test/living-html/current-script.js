@@ -3,9 +3,9 @@
 var jsdom = require("../..");
 var toFileUrl = require('../util').toFileUrl(__dirname);
 
-exports["document.currentScript is undefined when not executing <script>"] = function (t) {
+exports["document.currentScript is null when not executing <script>"] = function (t) {
   var window = jsdom.jsdom().defaultView;
-  t.equal(window.document.currentScript, undefined);
+  t.strictEqual(window.document.currentScript, null);
   t.done();
 },
 
@@ -23,8 +23,8 @@ exports["document.currentScript is currently executing <script> element"] = func
   });
 
   document.onload = function() {
-    t.equal(document.getElementById("test").innerHTML, "true", "currentScript is the currently executing script element");
-    t.equal(document.currentScript, undefined, "currentScript is still undefined at top-level");
+    t.strictEqual(document.getElementById("test").innerHTML, "true", "currentScript is the currently executing script element");
+    t.strictEqual(document.currentScript, null, "currentScript is still null at top-level");
     t.done();
   };
 };
