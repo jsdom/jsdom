@@ -27,10 +27,6 @@
 
   "excludeFiles": [
     "node_modules/**",
-    "lib/jsdom.js",
-    "lib/jsdom/browser/documentAdapter.js",
-    "lib/jsdom/browser/documentfeatures.js",
-    "lib/jsdom/browser/domtohtml.js",
     "lib/jsdom/browser/htmltodom.js",
     "lib/jsdom/level1/core.js",
     "lib/jsdom/level2/core.js",
