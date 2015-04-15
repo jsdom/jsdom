@@ -1638,6 +1638,5 @@ exports.tests = {
     window.location.reload();
     t.equal("errors" in global, false, "there should be no errors global after the call");
     t.done();
-  },
-
+  }
 };
