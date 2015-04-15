@@ -23,8 +23,8 @@ exports["document.currentScript is currently executing <script> element"] = func
   });
 
   document.onload = function () {
-    var msg = "currentScript is the currently executing script element";
-    t.strictEqual(document.getElementById("test").innerHTML, "true", msg);
+    t.strictEqual(document.getElementById("test").innerHTML, "true",
+                  "currentScript is the currently executing script element");
     t.strictEqual(document.currentScript, null, "currentScript is still null at top-level");
     t.done();
   };
