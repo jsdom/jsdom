@@ -23,7 +23,6 @@ self.onmessage = function (e) {
     "level2/core": require("../test/level2/core"), // ok
     "level2/html": require("../test/level2/html"), // 6/708
     "level2/style": require("../test/level2/style"), // 13/15
-    "level2/extra": require("../test/level2/extra"), // ok
     "level2/events": require("../test/level2/events"), // ok
     //"level3/core": require("../test/level3/core"),
     //"level3/ls": require("../test/level3/ls"),
@@ -32,6 +31,7 @@ self.onmessage = function (e) {
 
     "living-dom/attributes.js": require("../test/living-dom/attributes.js"), // 1/11
     "living-dom/compare-document-position.js": require("../test/living-dom/compare-document-position.js"), // 0/20
+    "living-dom/dom-implementation.js": require("../test/living-dom/dom-implementation.js"), // ok
     "living-dom/event-target.js": require("../test/living-dom/event-target.js"), // ok
     "living-dom/node-contains.js": require("../test/living-dom/node-contains.js"), // 0/20
     "living-dom/node-parent-element.js": require("../test/living-dom/node-parent-element.js"), // 0/11
