@@ -22,7 +22,6 @@
     "acorn": "^1.0.3",
     "acorn-globals": "^1.0.4",
     "browser-request": ">= 0.3.1 < 0.4.0",
-    "browserify": "^9.0.8",
     "cssom": ">= 0.3.0 < 0.4.0",
     "cssstyle": ">= 0.2.23 < 0.3.0",
     "escodegen": "^1.6.1",
@@ -34,7 +33,7 @@
     "xmlhttprequest": ">= 1.6.0 < 2.0.0"
   },
   "devDependencies": {
-    "browserify": "^9.0.3",
+    "browserify": "^9.0.8",
     "colors": "^1.0.3",
     "http-server": "^0.8.0",
     "jscs": "^1.12.0",
