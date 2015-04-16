@@ -1,4 +1,3 @@
-var dom = require("../../lib/jsdom/living");
 var jsdom = require('../../lib/jsdom');
 var serializeDocument = require('../../lib/jsdom').serializeDocument;
 

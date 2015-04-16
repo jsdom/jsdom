@@ -1,6 +1,6 @@
-﻿"use strict";
+"use strict";
 
-var jsdom = require("../..").jsdom;
+var jsdom = require("../..");
 
 exports["should fire events properly"] = function (t) {
   t.expect(2);

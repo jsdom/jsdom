@@ -1,5 +1,5 @@
 var testcase = require('nodeunit').testCase;
-var events = require("../../lib/jsdom/living");
+var jsdom = require("../..");
 var EventMonitor = function() {
   self = this;
   self.atEvents = [];
@@ -56,7 +56,7 @@ exports['DocumentEvent interface'] = function (test) {
 // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-EventTarget
 exports['EventTarget interface'] = function (test) {
   var doc = require('../level1/core/files/hc_staff.xml').hc_staff();
-  test.ok((doc instanceof events.EventTarget), 'should be an instance of EventTarget');
+  test.ok((doc instanceof doc.defaultView.EventTarget), 'should be an instance of EventTarget');
   test.done();
 }
 
@@ -65,11 +65,11 @@ exports['EventTarget interface'] = function (test) {
 // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-DocumentEvent-createEvent
 exports['create event with each event type'] = function(test){
   var doc = require('../level1/core/files/hc_staff.xml').hc_staff(),
-      event_types = {'Events': events.Event,
-                     'MutationEvents': events.MutationEvent,
-                     'UIEvents': events.UIEvent,
-                     'MouseEvents': events.MouseEvent ,
-                     'HTMLEvents': events.Event};
+      event_types = {'Events': doc.defaultView.Event,
+                     'MutationEvents': doc.defaultView.MutationEvent,
+                     'UIEvents': doc.defaultView.UIEvent,
+                     'MouseEvents': doc.defaultView.MouseEvent ,
+                     'HTMLEvents': doc.defaultView.Event};
   test.expect(10);
   for (var type in event_types) {
     var event = doc.createEvent(type);
@@ -81,10 +81,12 @@ exports['create event with each event type'] = function(test){
 
 // @see https://dom.spec.whatwg.org/#interface-event
 exports['event interface eventInit parameter'] = function (test) {
-  testEventConstructor(events.Event);
-  testEventConstructor(events.UIEvent);
-  testEventConstructor(events.MouseEvent);
-  testEventConstructor(events.MutationEvent);
+  var doc = jsdom.jsdom();
+
+  testEventConstructor(doc.defaultView.Event);
+  testEventConstructor(doc.defaultView.UIEvent);
+  testEventConstructor(doc.defaultView.MouseEvent);
+  testEventConstructor(doc.defaultView.MutationEvent);
 
   test.done();
 
