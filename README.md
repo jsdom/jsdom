@@ -129,7 +129,6 @@ jsdom.env(config);
 - `config.document`:
   - `referrer`: the new document will have this referrer.
   - `cookie`: manually set a cookie value, e.g. `'key=value; expires=Wed, Sep 21 2011 12:00:00 GMT; path=/'`. Accepts cookie string or array of cookie strings.
-  - `cookieDomain`: a cookie domain for the manually set cookie; defaults to `127.0.0.1`.
 - `config.headers`: an object giving any headers that will be used while loading the HTML from `config.url`, if applicable
 - `config.features`: see Flexibility section below. **Note**: the default feature set for `jsdom.env` does _not_ include fetching remote JavaScript and executing it. This is something that you will need to _carefully_ enable yourself.
 - `config.resourceLoader`: a function that intercepts subresource requests and allows you to re-route them, modify, or outright replace them with your own content. More below.
@@ -271,7 +270,6 @@ jsdom lets you intercept subresource requests using `config.resourceLoader`. `co
 - `resource`: a vanilla JavaScript object with the following properties
   - `url`: a parsed URL object.
   - `cookie`: the content of the HTTP cookie header (`key=value` pairs separated by semicolons).
-  - `cookieDomain`: the cookie domain as set in `config`, defaults to `127.0.0.1`.
   - `baseUrl`: the base URL used to resolve relative URLs.
   - `defaultFetch(callback)`: a convenience method to fetch the resource online.
 - `callback`: a function to be called with two arguments
