@@ -1,3 +1,7 @@
+## 4.5.0
+
+* Add `document.currentScript`. (jeffcarp)
+
 ## 4.4.0
 
 * All resources are now loaded with the [request](https://www.npmjs.com/package/request) package, which means that e.g. GZIPped resources will be properly uncompressed, redirects will be followed, and more. This was previously the case only for URLs passed directly to `jsdom.env`, and not for sub-resources inside the resulting page. (ssesha)
