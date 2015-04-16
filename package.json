@@ -13,43 +13,6 @@
     "Domenic Denicola <d@domenic.me> (https://domenic.me/)",
     "Sebastian Mayr <sebmaster16@gmail.com> (http://blog.smayr.name/)"
   ],
-  "contributors": [
-    "Vincent Greene <ulteriorlife@gmail.com>",
-    "Dav Glass <davglass@gmail.com>",
-    "Felix Gnass <fgnass@gmail.com>",
-    "Charlie Robbins <charlie.robbins@gmail.com>",
-    "Aria Stewart <aredridel@nbtsc.org>",
-    "Matthew (http://github.com/matthewpflueger/)",
-    "Olivier El Mekki (http://blog.olivier-elmekki.com/)",
-    "Shimon Dookdin <helpmepro1@gmail.com>",
-    "Daniel Cassidy <mail@danielcassidy.me.uk> (http://www.danielcassidy.me.uk/)",
-    "Sam Ruby (http://intertwingly.net/blog/)",
-    "hij1nx (http://github.com/hij1nx)",
-    "Yonathan Randolph (http://github.com/yonran)",
-    "Martin Davis (http://github.com/waslogic)",
-    "Andreas Lind Petersen <andreas@one.com>",
-    "d-ash (http://github.com/d-ash)",
-    "Robin Zhong <fbzhong@gmail.com>",
-    "Alexander Flatter <flatter@gmail.com>",
-    "Heng Liu <liucougar@gmail.com>",
-    "Brian McDaniel (http://github.com/brianmcd)",
-    "John Hurliman <jhurliman@jhurliman.org>",
-    "Jimmy Mabey",
-    "Gregory Tomlinson",
-    "Jason Davies (http://www.jasondavies.com/)",
-    "Josh Marshall (http://www.ponderingtheobvious.com/)",
-    "Jason Priestley (https://github.com/jhp)",
-    "Derek Lindahl (https://github.com/dlindahl)",
-    "Chris Roebuck <chris@quillu.com> (http://www.quillu.com)",
-    "Avi Deitcher (https://github.com/deitch)",
-    "Nao Iizuka <iizuka@kyu-mu.net> (https://github.com/iizukanao)",
-    "Peter Perenyi (https://github.com/sinegar)",
-    "Tiago Rodrigues <tmcrodrigues@gmail.com> (http://trodrigues.net)",
-    "Samori Gorse <samorigorse@gmail.com> (http://github.com/shinuza)",
-    "John Roberts <jroberts@logitech.com>",
-    "Chad Walker <chad@chad-cat-lore-eddie.com> (https://github.com/chad3814)",
-    "Zach Smith <x.coder.zach@gmail.com> (https://github.com/xcoderzach)"
-  ],
   "license": {
     "type": "MIT",
     "url": "http://github.com/tmpvar/jsdom/blob/master/LICENSE.txt"
@@ -93,7 +56,8 @@
     "pretest": "git submodule update --init --recursive",
     "test": "iojs ./test/runner",
     "test-browser": "iojs ./test/browser-runner",
-    "lint": "jscs lib/ && jscs test/ && jshint lib/ && jshint test/"
+    "lint": "jscs lib/ && jscs test/ && jshint lib/ && jshint test/",
+    "update-authors": "git log --format=\"%aN <%aE>\" | sort -f | uniq > AUTHORS.txt"
   },
   "main": "./lib/jsdom",
   "files": [
