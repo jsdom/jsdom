@@ -1,3 +1,12 @@
+## 5.0.1
+
+* Fixed `document.cookie` setter to no longer ignore `null`; instead it correctly sets a cookie of `"null"`. (Chrome is not compliant to the spec in this regard.)
+- Fixed documents created with `parsingMode: "xml"` to no longer get `"<html><head></head><body></body></html>"` automatically inserted when calling `jsdom.jsdom()` with no arguments.
+- Fixed the `innerHTML` setter to no longer ignore `undefined`; instead it correctly sets the innerHTML to `"undefined"`.
+- Fixed `document.write` to throw for XML documents as per the spec.
+- Fixed `document.write` to accept more than one argument (they get concatenated).
+- Fixed `document.write("")` to no longer try to write `"<html><head></head><body></body></html>"`.
+
 ## 5.0.0
 
 This release overhauls how cookies are handled in jsdom to be less fiddly and more like-a-browser. The work for this was done by [@inikulin](https://github.com/inikulin), who is also our beloved parse5 maintainer.
