@@ -1,6 +1,10 @@
+## 4.5.1
+
+* Removed unnecessary browserify dependency that was erroneously included in 4.5.0.
+
 ## 4.5.0
 
-* Add `document.currentScript`. (jeffcarp)
+* Added `document.currentScript`. (jeffcarp)
 
 ## 4.4.0
 
