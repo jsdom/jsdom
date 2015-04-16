@@ -56,8 +56,8 @@ gregory80 <gregory.tomlinson@gmail.com>
 hij1nx <fernmicro@gmail.com>
 Ian Young <ian.greenleaf@gmail.com>
 indexzero <charlie.robbins@gmail.com>
-inikulin <ifaaan@gmail.com>
 isaacs <i@izs.me>
+Ivan Nikulin <ifaaan@gmail.com>
 James Broad <jb@kulor.com>
 James Kyle <me@thejameskyle.com>
 James McMath <mcmathja@mediant.co>

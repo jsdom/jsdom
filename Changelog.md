@@ -1,3 +1,20 @@
+## 5.0.0
+
+This release overhauls how cookies are handled in jsdom to be less fiddly and more like-a-browser. The work for this was done by [@inikulin](https://github.com/inikulin), who is also our beloved parse5 maintainer.
+
+You should only need to worry about upgrading to this release if you use jsdom's cookie handling capabilities beyond the basics of reading and writing to `document.cookie`. If that describes you, here's what changed:
+
+* Removed `options.jar` and `options.document.cookieDomain` from the configuration for creating jsdom documents.
+* Instead, there is now a new option, `options.cookieJar`, which accepts cookie jars created by the new `jsdom.createCookieJar()` API. You should use this if you intend to share cookie jars among multiple jsdom documents.
+* Within a given cookie jar, cookie access is now automatically handled on a domain basis, as the browser does, with the domain calculated from the document's URL (supplied as `options.url` when creating a document). This supplants the former `options.document.cookieDomain`.
+
+In addition to these changes to the public API, the following new cookie-related features came along for the ride:
+
+* Implemented automatic cookie-jar sharing with descendant `<iframe>`s. (So, if the iframe is same-domain, it can automatically access the appropriate cookies.)
+* Let `options.document.cookie` accept arrays, instead of just strings, for if you want to set multiple cookies at once.
+
+Finally, it's worth noting that we now delegate our cookie handling in general to the [tough-cookie](https://www.npmjs.com/package/tough-cookie) package, which should hopefully mean that it now captures many of the behaviors that were previously missing (for example [#1027](https://github.com/tmpvar/jsdom/issues/1027)). @inikulin is working on [a large pull request to fix tough-cookie to be more spec compliant](https://github.com/goinstant/tough-cookie/pull/30), which should automatically be picked up by jsdom installs once it is merged.
+
 ## 4.5.1
 
 * Removed unnecessary browserify dependency that was erroneously included in 4.5.0.
