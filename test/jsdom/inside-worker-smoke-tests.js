@@ -32,3 +32,44 @@ exports["jsdom.env: string, full HTML document"] = function (t) {
     }
   );
 };
+
+exports["execute scripts with global variables / window scope reference"] = function (t) {
+  t.expect(3);
+
+  env({
+    html: "<!doctype html><html><head><script>test = 'true'; navigator.foo = 'bar'</script></head><body></body></html>",
+    done: function (err, window) {
+      t.ifError(err);
+
+      t.strictEqual(window.test, "true", "global variables should be on window");
+      t.strictEqual(window.navigator.foo, "bar", "nested reference should work");
+
+      t.done();
+    },
+    features: {
+      ProcessExternalResources: ["script"]
+    }
+  });
+};
+
+exports["test async global variable context"] = function (t) {
+  t.expect(3);
+
+  env({
+    html: "<!doctype html><html><head><script>test = 'true'; setTimeout(function(){test = 'baz'}, 100);</script>" +
+      "</head><body></body></html>",
+    done: function (err, window) {
+      t.ifError(err);
+
+      t.strictEqual(window.test, "true", "global variables should be on window");
+
+      setTimeout(function () {
+        t.strictEqual(window.test, "baz", "async write should be reflected");
+        t.done();
+      }, 1000);
+    },
+    features: {
+      ProcessExternalResources: ["script"]
+    }
+  });
+};

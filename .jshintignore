@@ -1,24 +1,16 @@
-lib/jsdom.js
-lib/jsdom/contextify-shim.js
-lib/jsdom/browser/documentAdapter.js
-lib/jsdom/browser/documentfeatures.js
-lib/jsdom/browser/domtohtml.js
 lib/jsdom/browser/htmltodom.js
-lib/jsdom/browser/index.js
 lib/jsdom/level1/core.js
 lib/jsdom/level2/core.js
 lib/jsdom/level2/events.js
 lib/jsdom/level2/html.js
 lib/jsdom/level2/index.js
 lib/jsdom/level2/style.js
-lib/jsdom/level2/languages/javascript.js
 lib/jsdom/level3/core.js
 lib/jsdom/level3/events.js
 lib/jsdom/level3/html.js
 lib/jsdom/level3/index.js
 lib/jsdom/level3/ls.js
 lib/jsdom/level3/xpath.js
-
 
 test/browser
 test/jquery-fixtures

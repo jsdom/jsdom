@@ -214,7 +214,7 @@ exports.tests = {
 
     var html = fs.readFileSync(path.resolve(__dirname, 'style/getComputedStyleExternal.html'), 'utf8');
     var doc = jsdom.jsdom(html);
-    var win = doc.parentWindow;
+    var win = doc.defaultView;
     doc.onload = function () {
       var div = doc.getElementsByTagName("div")[0];
       var style = win.getComputedStyle(div);

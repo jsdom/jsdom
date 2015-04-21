@@ -1,5 +1,5 @@
 var testcase = require('nodeunit').testCase;
-var events = require("../../lib/jsdom/living");
+var jsdom = require("../..");
 var EventMonitor = function() {
   self = this;
   self.atEvents = [];
@@ -19,14 +19,14 @@ var EventMonitor = function() {
       self.bubbledEvents.push(event);
       break;
     default:
-      throw new events.EventException(0, "Unspecified event phase");
+      throw new Error("Unspecified event phase");
     }
   };
 };
 var _setUp = function() {
   var doc = require('../level1/core/files/hc_staff.xml').hc_staff();
   var monitor = this.monitor = new EventMonitor();
-  this.win = doc.parentWindow;
+  this.win = doc.defaultView;
   this.title = doc.getElementsByTagName("title").item(0);
   this.body = doc.getElementsByTagName("body").item(0);
   this.plist = doc.getElementsByTagName("p").item(0);
@@ -56,7 +56,7 @@ exports['DocumentEvent interface'] = function (test) {
 // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-EventTarget
 exports['EventTarget interface'] = function (test) {
   var doc = require('../level1/core/files/hc_staff.xml').hc_staff();
-  test.ok((doc instanceof events.EventTarget), 'should be an instance of EventTarget');
+  test.ok((doc instanceof doc.defaultView.EventTarget), 'should be an instance of EventTarget');
   test.done();
 }
 
@@ -65,11 +65,11 @@ exports['EventTarget interface'] = function (test) {
 // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-DocumentEvent-createEvent
 exports['create event with each event type'] = function(test){
   var doc = require('../level1/core/files/hc_staff.xml').hc_staff(),
-      event_types = {'Events': events.Event,
-                     'MutationEvents': events.MutationEvent,
-                     'UIEvents': events.UIEvent,
-                     'MouseEvents': events.MouseEvent ,
-                     'HTMLEvents': events.Event};
+      event_types = {'Events': doc.defaultView.Event,
+                     'MutationEvents': doc.defaultView.MutationEvent,
+                     'UIEvents': doc.defaultView.UIEvent,
+                     'MouseEvents': doc.defaultView.MouseEvent ,
+                     'HTMLEvents': doc.defaultView.Event};
   test.expect(10);
   for (var type in event_types) {
     var event = doc.createEvent(type);
@@ -79,10 +79,84 @@ exports['create event with each event type'] = function(test){
   test.done();
 }
 
+// @see https://dom.spec.whatwg.org/#interface-event
+exports['event interface eventInit parameter'] = function (test) {
+  var doc = jsdom.jsdom();
+
+  testEventConstructor(doc.defaultView.Event);
+  testEventConstructor(doc.defaultView.UIEvent);
+  testEventConstructor(doc.defaultView.MouseEvent);
+  testEventConstructor(doc.defaultView.MutationEvent);
+
+  test.done();
+
+  function testEventConstructor(Constructor) {
+    test.throws(function () {
+      new Constructor('myevent', 'not a dictionary');
+    }, TypeError);
+
+    var event = new Constructor('myevent');
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, false);
+
+    event = new Constructor('myevent', null);
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, false);
+
+    event = new Constructor('myevent', { bubbles: true });
+    test.equal(event.bubbles, true);
+    test.equal(event.cancelable, false);
+
+    event = new Constructor('myevent', { cancelable: true });
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, true);
+
+    event = new Constructor('myevent', { bubbles: true, cancelable: true });
+    test.equal(event.bubbles, true);
+    test.equal(event.cancelable, true);
+
+    event = new Constructor('myevent', {});
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, false);
+
+    event = new Constructor('myevent', { bubbles: null, cancelable: null });
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, false);
+
+    event = new Constructor('myevent', { bubbles: 0, cancelable: 0 });
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, false);
+
+    // values > 0 are considered true
+    event = new Constructor('myevent', { bubbles: 1, cancelable: 1 });
+    test.equal(event.bubbles, true);
+    test.equal(event.cancelable, true);
+
+    // values > 0 are considered true
+    event = new Constructor('myevent', { bubbles: 10, cancelable: 10 });
+    test.equal(event.bubbles, true);
+    test.equal(event.cancelable, true);
+
+    // empty string is considered false
+    event = new Constructor('myevent', { bubbles: "", cancelable: "" });
+    test.equal(event.bubbles, false);
+    test.equal(event.cancelable, false);
+
+    // non empty string is considered true
+    event = new Constructor('myevent', { bubbles: "false", cancelable: "false" });
+    test.equal(event.bubbles, true);
+    test.equal(event.cancelable, true);
+
+    // non empty string is considered true
+    event = new Constructor('myevent', { bubbles: "true", cancelable: "true" });
+    test.equal(event.bubbles, true);
+    test.equal(event.cancelable, true);
+  }
+}
+
 // @author Curt Arnold
 // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-EventTarget-dispatchEvent
 // @see http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-17189187
-// @see http://www.w3.org/TR/DOM-Level-2-Events/events#xpointer(id('Events-EventTarget-dispatchEvent')/raises/exception[@name='EventException']/descr/p[substring-before(.,':')='UNSPECIFIED_EVENT_TYPE_ERR'])
 exports['dispatch event'] = testcase({
   setUp: function(cb){
     this.doc = require('../level1/core/files/hc_staff.xml').hc_staff();
@@ -96,7 +170,7 @@ exports['dispatch event'] = testcase({
 
   'a null reference passed to dispatchEvent': function (test) {
     var doc = this.doc;
-    test.throws(function(){ doc.dispatchEvent(null) }, events.EventException, 'should throw an exception');
+    test.throws(function(){ doc.dispatchEvent(null) }, TypeError, 'should throw an exception');
     // TODO: figure out the best way to test (exception.code == 0) and (exception.message == 'Null event')
     test.done();
   },
@@ -106,9 +180,7 @@ exports['dispatch event'] = testcase({
         event_types = ['Events', 'MutationEvents', 'UIEvents', 'MouseEvents', 'HTMLEvents'];
     test.expect(event_types.length);
     event_types.forEach(function(type){
-      test.throws(function(){ doc.dispatchEvent(doc.createEvent(type)) }, events.EventException, 'should throw an exception for ' + type);
-      // Should raise UNSPECIFIED_EVENT_TYPE_ERR EventException.
-      // TODO: figure out the best way to test (exception.code == 0) and (exception.message == 'Uninitialized event')
+      test.throws(function(){ doc.dispatchEvent(doc.createEvent(type)) }, doc.defaultView.DOMException, 'should throw an exception for ' + type);
     })
     test.done();
   },
@@ -117,9 +189,7 @@ exports['dispatch event'] = testcase({
     var doc = this.doc,
         event = doc.createEvent("Events");
     event.initEvent("",false,false);
-    test.throws(function(){ doc.dispatchEvent(event) }, events.EventException, 'should throw an exception');
-    // Should raise UNSPECIFIED_EVENT_TYPE_ERR EventException.
-    // TODO: figure out the best way to test (exception.code == 0) and (exception.message == 'Uninitialized event')
+    test.throws(function(){ doc.dispatchEvent(event) }, doc.defaultView.DOMException, 'should throw an exception');
     test.done();
   },
 
@@ -445,6 +515,20 @@ exports['prevent default'] = testcase({
   tearDown: function(cb){
     _tearDown.call(this);
     cb();
+  },
+
+  'the defaultPrevented flag is set when the event is prevented': function(test) {
+    this.title.addEventListener("foo", function(event) { event.preventDefault();}, false);
+    var return_val = this.title.dispatchEvent(this.event);
+    test.equal(this.event.defaultPrevented, true, 'the defaultPrevented flag should be true when the event is prevented');
+    test.done();
+  },
+
+  'the defaultPrevented flag is not set when the event is not prevented': function(test) {
+    this.title.addEventListener("foo", this.monitor.handleEvent, false);
+    var return_val = this.title.dispatchEvent(this.event);
+    test.equal(this.event.defaultPrevented, false, 'the defaultPrevented flag should be false when the event is not prevented');
+    test.done();
   },
 
   'a cancelable event can have its default event disabled': function(test) {

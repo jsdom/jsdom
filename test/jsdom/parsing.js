@@ -324,3 +324,12 @@ exports["<template> with whitespace inside (GH-1004)"] = function (t) {
   t.equal(doc.documentElement.innerHTML, "<head><template>    <div></div>    </template></head><body></body>");
   t.done();
 };
+
+exports["doctype parsing should work for simple cases (GH-1066)"] = function (t) {
+  var doc = jsdom("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+
+  t.strictEqual(doc.doctype.name, "html");
+  t.strictEqual(doc.doctype.systemId, "");
+  t.strictEqual(doc.doctype.publicId, "-//W3C//DTD HTML 4.01 Transitional//EN");
+  t.done();
+};

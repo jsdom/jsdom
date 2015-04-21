@@ -1,9 +1,10 @@
-var dom = require("../../../../lib/jsdom/living");
+"use strict";
+var jsdom = require("../../../..");
+
 exports.extra = function() {
+  var doc = jsdom.jsdom(undefined, { parsingMode: "xml" });
 
-  var doc = new dom.Document({ parsingMode: "xml" });
-
-  var splitTextTest     = doc.createElement("splitTextTest");
+  var splitTextTest = doc.createElement("splitTextTest");
   splitTextTest.appendChild(doc.createTextNode("Split me"));
   splitTextTest.appendChild(doc.createElement("last"));
   doc.appendChild(splitTextTest);

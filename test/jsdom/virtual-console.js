@@ -18,18 +18,18 @@ var consoleMethods = [
   "time",
   "timeEnd",
   "trace",
-  "warn",
+  "warn"
 ];
 
-exports["jsdom.getVirtualConsole returns an instance of EventEmitter"] = function(t) {
-  var window = jsdom.jsdom().parentWindow;
+exports["jsdom.getVirtualConsole returns an instance of EventEmitter"] = function (t) {
+  var window = jsdom.jsdom().defaultView;
   var vc = jsdom.getVirtualConsole(window);
   t.ok(vc instanceof EventEmitter, "getVirtualConsole returns an instance of EventEmitter");
   t.done();
 };
 
-exports["virtualConsole passes through any arguments"] = function(t) {
-  var window = jsdom.jsdom().parentWindow;
+exports["virtualConsole passes through any arguments"] = function (t) {
+  var window = jsdom.jsdom().defaultView;
   var vc = jsdom.getVirtualConsole(window);
 
   consoleMethods.forEach(function (method) {
@@ -37,12 +37,12 @@ exports["virtualConsole passes through any arguments"] = function(t) {
 
     vc.on(method, function (arg1, arg2) {
       called = true;
-      t.ok(arg1 === "yay", "virtualConsole.on '"+method+"' passes through any arguments (1)");
-      t.ok(arg2 === "woo", "virtualConsole.on '"+method+"' passes through any arguments (2)");
+      t.ok(arg1 === "yay", "virtualConsole.on '" + method + "' passes through any arguments (1)");
+      t.ok(arg2 === "woo", "virtualConsole.on '" + method + "' passes through any arguments (2)");
     });
     window.console[method]("yay", "woo");
 
-    t.ok(called, "virtualConsole emits '"+method+"' event");
+    t.ok(called, "virtualConsole emits '" + method + "' event");
 
     vc.removeAllListeners();
   });
@@ -50,9 +50,9 @@ exports["virtualConsole passes through any arguments"] = function(t) {
   t.done();
 };
 
-exports["virtualConsole separates output by window"] = function(t) {
-  var window1 = jsdom.jsdom().parentWindow;
-  var window2 = jsdom.jsdom().parentWindow;
+exports["virtualConsole separates output by window"] = function (t) {
+  var window1 = jsdom.jsdom().defaultView;
+  var window2 = jsdom.jsdom().defaultView;
   var vc1Called = false;
   var vc2Called = false;
   var virtualConsole1 = jsdom.getVirtualConsole(window1);
@@ -73,12 +73,15 @@ exports["virtualConsole separates output by window"] = function(t) {
   t.done();
 };
 
-exports["virtualConsole.sendTo proxies console methods"] = function(t) {
-  var window = jsdom.jsdom().parentWindow;
+exports["virtualConsole.sendTo proxies console methods"] = function (t) {
+  var window = jsdom.jsdom().defaultView;
   var virtualConsole = jsdom.getVirtualConsole(window);
-  var counter = 0;
-  var inc = function () { counter += 1; };
   var fakeConsole = {};
+
+  var counter = 0;
+  function inc() {
+    ++counter;
+  }
 
   consoleMethods.forEach(function (method) {
     fakeConsole[method] = inc;

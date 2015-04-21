@@ -1,9 +1,9 @@
-﻿"use strict";
+"use strict";
 
 var jsdom = require("../..");
 
 exports["cookieEnabled should be true on the navigator object"] = function (t) {
-  var window = jsdom.jsdom().parentWindow;
+  var window = jsdom.jsdom().defaultView;
   t.strictEqual(window.navigator.cookieEnabled, true, "cookie enabled");
   t.done();
 };
@@ -25,7 +25,7 @@ exports["navigator properties should be read-only from the site"] = function (t)
     },
     features: {
       FetchExternalResources: ["script"],
-      ProcessExternalResources:["script"]
+      ProcessExternalResources: ["script"]
     }
   });
 };

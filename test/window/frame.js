@@ -18,7 +18,7 @@ exports.tests = {
           FetchExternalResources: ['script','iframe'],
           ProcessExternalResources: ['script','iframe']
         }
-      }).parentWindow;
+      }).defaultView;
     window.iframe.onload = function() {
       test.strictEqual(window.DONE, 1);
       test.strictEqual(window.PARENT_IS_TOP, true);
@@ -48,7 +48,7 @@ exports.tests = {
           FetchExternalResources: ['script','iframe'],
           ProcessExternalResources: ['script','iframe']
         }
-      }).parentWindow;
+      }).defaultView;
     window.document.onload = function(){
       test.strictEqual(window.LOADED_FRAME, 1);
       test.strictEqual(window.PARENT_IS_TOP, true);
@@ -138,8 +138,8 @@ exports.tests = {
       var iframeDoc = iframeElem.contentDocument;
       test.notEqual(iframeDoc, null);
       var iframeWindow = iframeElem.contentWindow;
-      test.notStrictEqual(iframeWindow, doc.parentWindow);
-      test.equal(iframeWindow, iframeDoc.parentWindow);
+      test.notStrictEqual(iframeWindow, doc.defaultView);
+      test.equal(iframeWindow, iframeDoc.defaultView);
       test.done();
     });
   },
@@ -154,7 +154,7 @@ exports.tests = {
       url : toFileUrl(__filename)
     });
     doc.addEventListener('load', function () {
-      var window = doc.parentWindow;
+      var window = doc.defaultView;
       var iframeWindow = window.frames[0];
       test.notEqual(iframeWindow, null);
       test.notStrictEqual(iframeWindow, window);
@@ -180,7 +180,7 @@ exports.tests = {
     iframe.setAttributeNode(attr);
 
     iframe.addEventListener('load', function () {
-      var window = doc.parentWindow;
+      var window = doc.defaultView;
       var iframeWindow = window.frames[0];
       test.notEqual(iframeWindow, null);
       test.notStrictEqual(iframeWindow, window);
@@ -202,7 +202,7 @@ exports.tests = {
       url : toFileUrl(__filename)
     });
     doc.addEventListener('load', function () {
-      var window = doc.parentWindow;
+      var window = doc.defaultView;
       var iframeWindow = window.frames['simpleIFrame'];
       test.notEqual(iframeWindow, null);
       test.notStrictEqual(iframeWindow, window);
@@ -225,7 +225,7 @@ exports.tests = {
       url : toFileUrl(__filename)
     });
     doc.addEventListener('load', function () {
-      var window = doc.parentWindow;
+      var window = doc.defaultView;
       test.strictEqual(window.frames, window);
       test.done();
     });
@@ -240,7 +240,7 @@ exports.tests = {
       },
       url : toFileUrl(__filename)
     });
-    var window = doc.parentWindow;
+    var window = doc.defaultView;
     doc.addEventListener('load', function () {
       var topIFrameElem = doc.getElementById('simpleIFrameID');
       var topIFrameDoc = topIFrameElem.contentDocument;
@@ -249,7 +249,7 @@ exports.tests = {
       bottomIFrameElem.addEventListener('load', function () {
         var bottomIFrameDoc = bottomIFrameElem.contentDocument;
         test.notEqual(bottomIFrameDoc, null);
-        var bottomIFrameWindow = bottomIFrameDoc.parentWindow;
+        var bottomIFrameWindow = bottomIFrameDoc.defaultView;
         test.notEqual(bottomIFrameWindow, null);
 
         // The real tests
@@ -275,7 +275,7 @@ exports.tests = {
       },
       url : toFileUrl(__filename)
     });
-    var window = doc.parentWindow;
+    var window = doc.defaultView;
     doc.addEventListener('load', function () {
       var iframe1 = doc.getElementById('frame1ID');
       var iframe2 = doc.getElementById('frame2ID');
@@ -302,7 +302,7 @@ exports.tests = {
       },
       url : toFileUrl(__filename)
     });
-    var window = doc.parentWindow;
+    var window = doc.defaultView;
     doc.addEventListener('load', function () {
       var iframe1 = doc.getElementById('frame1ID');
       var iframe2 = doc.getElementById('frame2ID');
@@ -323,7 +323,7 @@ exports.tests = {
       },
       url : toFileUrl(__filename)
     });
-    var window = doc.parentWindow;
+    var window = doc.defaultView;
     window.loaded = function () {
       test.equal(window.testVal, 3);
       test.done();
@@ -366,7 +366,7 @@ exports.tests = {
       },
       url : toFileUrl(__filename)
     });
-    var window = doc.parentWindow;
+    var window = doc.defaultView;
     doc.addEventListener('load', function () {
       var frame1 = doc.getElementById('frame1ID');
       var frame2 = doc.getElementById('frame2ID');
@@ -378,8 +378,8 @@ exports.tests = {
       test.notEqual(frame1doc, null);
       test.notEqual(frame2doc, null);
 
-      test.strictEqual(frame1.contentWindow, frame1doc.parentWindow);
-      test.strictEqual(frame2.contentWindow, frame2doc.parentWindow);
+      test.strictEqual(frame1.contentWindow, frame1doc.defaultView);
+      test.strictEqual(frame2.contentWindow, frame2doc.defaultView);
       test.strictEqual(window.frames[0], frame1.contentWindow);
       test.strictEqual(window.frames[1], frame2.contentWindow);
       test.strictEqual(window.frames['frame1'], frame1.contentWindow);
@@ -389,5 +389,138 @@ exports.tests = {
 
       test.done();
     });
+  },
+
+  'test frame references': function (test) {
+    var document = jsdom.jsdom("<!doctype html><iframe name='foo'></iframe>");
+    var window = document.defaultView;
+
+    test.strictEqual(window.length, 1, "frame should exist (.length)");
+    test.notEqual(window[0], undefined, "frame should exist (undefined check)");
+    test.strictEqual(window[0], window.foo, "index access and name access should return same reference");
+
+    test.done();
+  },
+
+  'remove frame': function (test) {
+    var document = jsdom.jsdom("<!doctype html><iframe id='myFrame' name='foo'></iframe>");
+    var window = document.defaultView;
+
+    test.strictEqual(window.length, 1, "frame should exist (.length)");
+    test.notEqual(window[0], undefined, "frame should exist (undefined check)");
+    document.body.removeChild(document.getElementById("myFrame"));
+
+    test.strictEqual(window.length, 0, "frame shouldn't exist (.length)");
+    test.strictEqual(window[0], undefined, "frame shouldn't exist anymore (idx accessor)");
+    test.strictEqual(window.foo, undefined, "frame shouldn't exist anymore (name accessor)");
+    test.ok(!('0' in window), "'0' should not be in window anymore");
+
+    test.done();
+  },
+
+  'remove middle frame': function (test) {
+    var document = jsdom.jsdom("<!doctype html><iframe id='myFrame1' name='foo1'></iframe>"+
+      "<iframe id='myFrame2' name='foo2'></iframe><iframe id='myFrame3' name='foo3'></iframe>");
+    var window = document.defaultView;
+
+    test.strictEqual(window.length, 3, "frames should exist (.length)");
+    test.notEqual(window[0], undefined, "frame1 should exist (undefined check)");
+    test.notEqual(window[1], undefined, "frame2 should exist (undefined check)");
+    test.notEqual(window[2], undefined, "frame3 should exist (undefined check)");
+
+    document.body.removeChild(document.getElementById("myFrame2"));
+    test.strictEqual(window.length, 2, "frame shouldn't exist (.length)");
+    test.strictEqual(window[2], undefined, "frame shouldn't exist anymore (idx accessor)");
+    test.strictEqual(window.foo2, undefined, "frame shouldn't exist anymore (name accessor)");
+
+    test.strictEqual(window.foo3, window[1], "frame index accessor should be moved down");
+    
+    document.body.removeChild(document.getElementById("myFrame1"));
+    test.strictEqual(window.length, 1, "frame shouldn't exist (.length)");
+    test.strictEqual(window[1], undefined, "frame shouldn't exist anymore (idx accessor)");
+    test.strictEqual(window.foo1, undefined, "frame shouldn't exist anymore (name accessor)");
+
+    test.strictEqual(window.foo3, window[0], "frame index accessor should be moved down");
+    
+    test.done();
+  },
+
+  'accessor should not exist before append': function(test) {
+    var document = jsdom.jsdom();
+    var el = document.createElement("iframe");
+    el.setAttribute("name", "foo");
+
+    test.strictEqual(document.defaultView.length, 0, "no frames should exist yet");
+    test.strictEqual(document.defaultView[0], undefined, "indexed access should fail");
+    test.strictEqual(document.defaultView.foo, undefined, "named access should fail");
+
+    document.body.appendChild(el);
+
+    test.strictEqual(document.defaultView.length, 1,
+      "appended frame should increase window.length");
+    test.notEqual(document.defaultView[0], undefined,
+      "indexed access should succeed");
+    test.notEqual(document.defaultView.foo, undefined,
+      "named access should succeed");
+    test.strictEqual(document.defaultView.foo, document.defaultView[0],
+      "named and indexed access should return same object");
+
+    document.body.removeChild(el);
+
+    test.strictEqual(document.defaultView.length, 0, "no frames should exist yet");
+    test.strictEqual(document.defaultView[0], undefined, "indexed access should fail");
+    test.strictEqual(document.defaultView.foo, undefined, "named access should fail");
+
+    document.body.appendChild(el);
+
+    test.strictEqual(document.defaultView.length, 1,
+      "appended frame should increase window.length");
+    test.notEqual(document.defaultView[0], undefined,
+      "indexed access should succeed");
+    test.notEqual(document.defaultView.foo, undefined,
+      "named access should succeed");
+    test.strictEqual(document.defaultView.foo, document.defaultView[0],
+      "named and indexed access should return same object");
+
+    test.done();
+  },
+
+  'move frame': function (test) {
+    var document = jsdom.jsdom("<!doctype html><iframe name='foo'></iframe>");
+    var window = document.defaultView;
+
+    var frame = document.querySelector("iframe");
+    var beforeFrame = document.createElement("iframe");
+    beforeFrame.setAttribute("name", "bar");
+    document.body.insertBefore(beforeFrame, frame);
+
+    test.strictEqual(window.length, 2, "should load 2 iframes");
+    test.strictEqual(window.bar, window[0], "bar should be first frame");
+    test.strictEqual(window.foo, window[1], "foo should be second frame");
+
+    test.done();
+  },
+
+  'frame should not be loaded and accessor should not exist until in document, even with a parent node': function (t) {
+    var document = jsdom.jsdom("<!doctype html>", { url: toFileUrl(__filename) });
+    var window = document.defaultView;
+
+    var frame = document.createElement("iframe");
+    frame.onload = function () {
+      t.ok(false, "onload should not be called");
+    };
+    var parentNode = document.createElement("div");
+    parentNode.appendChild(frame);
+
+    frame.src = "files/simple_iframe.html";
+    frame.setAttribute("name", "foo");
+
+    t.strictEqual(window.length, 0, "window length should be zero (no frames)");
+    t.strictEqual(window[0], undefined, "window should not have a 0 property");
+    t.strictEqual(window.foo, undefined, "window should not have a property for the iframe name");
+
+    setTimeout(function () {
+      t.done();
+    }, 1000);
   }
 };

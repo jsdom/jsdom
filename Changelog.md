@@ -1,3 +1,110 @@
+## 5.0.1
+
+* Fixed `document.cookie` setter to no longer ignore `null`; instead it correctly sets a cookie of `"null"`. (Chrome is not compliant to the spec in this regard.)
+- Fixed documents created with `parsingMode: "xml"` to no longer get `"<html><head></head><body></body></html>"` automatically inserted when calling `jsdom.jsdom()` with no arguments.
+- Fixed the `innerHTML` setter to no longer ignore `undefined`; instead it correctly sets the innerHTML to `"undefined"`.
+- Fixed `document.write` to throw for XML documents as per the spec.
+- Fixed `document.write` to accept more than one argument (they get concatenated).
+- Fixed `document.write("")` to no longer try to write `"<html><head></head><body></body></html>"`.
+
+## 5.0.0
+
+This release overhauls how cookies are handled in jsdom to be less fiddly and more like-a-browser. The work for this was done by [@inikulin](https://github.com/inikulin), who is also our beloved parse5 maintainer.
+
+You should only need to worry about upgrading to this release if you use jsdom's cookie handling capabilities beyond the basics of reading and writing to `document.cookie`. If that describes you, here's what changed:
+
+* Removed `options.jar` and `options.document.cookieDomain` from the configuration for creating jsdom documents.
+* Instead, there is now a new option, `options.cookieJar`, which accepts cookie jars created by the new `jsdom.createCookieJar()` API. You should use this if you intend to share cookie jars among multiple jsdom documents.
+* Within a given cookie jar, cookie access is now automatically handled on a domain basis, as the browser does, with the domain calculated from the document's URL (supplied as `options.url` when creating a document). This supplants the former `options.document.cookieDomain`.
+
+In addition to these changes to the public API, the following new cookie-related features came along for the ride:
+
+* Implemented automatic cookie-jar sharing with descendant `<iframe>`s. (So, if the iframe is same-domain, it can automatically access the appropriate cookies.)
+* Let `options.document.cookie` accept arrays, instead of just strings, for if you want to set multiple cookies at once.
+
+Finally, it's worth noting that we now delegate our cookie handling in general to the [tough-cookie](https://www.npmjs.com/package/tough-cookie) package, which should hopefully mean that it now captures many of the behaviors that were previously missing (for example [#1027](https://github.com/tmpvar/jsdom/issues/1027)). @inikulin is working on [a large pull request to fix tough-cookie to be more spec compliant](https://github.com/goinstant/tough-cookie/pull/30), which should automatically be picked up by jsdom installs once it is merged.
+
+## 4.5.1
+
+* Removed unnecessary browserify dependency that was erroneously included in 4.5.0.
+
+## 4.5.0
+
+* Added `document.currentScript`. (jeffcarp)
+
+## 4.4.0
+
+* All resources are now loaded with the [request](https://www.npmjs.com/package/request) package, which means that e.g. GZIPped resources will be properly uncompressed, redirects will be followed, and more. This was previously the case only for URLs passed directly to `jsdom.env`, and not for sub-resources inside the resulting page. (ssesha)
+
+## 4.3.0
+
+* Made the click behavior for radio buttons and checkboxes work when doing `el.dispatchEvent(clickEvent)`, not just when doing `el.click()`. (brandon-bethke-neudesic)
+* Added `defaultPrevented` property to `Event` instances, reflecting whether `ev.preventDefault()` has been called. (brandon-bethke-neudesic)
+* Moved the `click()` method from `HTMLInputElement.prototype` to `HTMLElement.prototype`, per the latest spec.
+* Made the `click()` method trigger a `MouseEvent` instead of just an `Event`.
+
+## 4.2.0
+
+* Added a second parameter to `UIEvent`, `MouseEvent`, and `MutationEvent`, which for now just behaves the same as that for `Event`. (Rich-Harris)
+
+## 4.1.0
+
+* Added a second parameter to the `Event` constructor, which allows you to set the `bubbles` and `cancelable` properties. (brandon-bethke-neudesic)
+
+## 4.0.5
+
+* Added `HTMLUnknownElement` and fix the parser/`document.createElement` to create those instead of `HTMLElement` for unknown elements.
+* Fixed issues with named and indexed properties on `window`, as well as `window.length`, with regard to `<frame>`s/`<iframe>`s being added and removed from the document.
+
+_Note:_ this probably should have been a minor version number increment (i.e. 4.1.0 instead of 4.0.5), since it added `HTMLUnknownElement`. We apologize for the deviation from semver.
+
+## 4.0.4
+
+* Fixed parsing of doctypes by relying on the information provided by the html parser if possible.
+
+## 4.0.3
+
+* Fixed events fired from `EventTarget`s to execute their handlers in FIFO order, as per the spec.
+* Fixed a case where `childNodes` would not be correctly up to date in some cases. (medikoo)
+* Sped up window creation with `jsdom.env` by ~600%, for the special case when no scripts are to be executed.
+
+## 4.0.2
+
+* `EventTarget` is now correctly in the prototype chain of `Window`.
+* `EventTarget` argument validation is now correct according to the DOM Standard.
+* `DOMException` now behaves more like it should per Web IDL. In particular it has a more comprehensive set of constants, and instances now have `name` properties.
+* `new Event("click")` can now be dispatched. (lovebear)
+* `document.createEvent` now behaves more like it should according to the DOM Standard: it accepts a wider range of arguments, but will throw if an invalid one is given. (lovebear)
+* Fixed a regression in our browser support that required Chrome 41 as of 4.0.1; now Chrome 40 will work, as well as (in theory, although less well-tested) the latest stable versions of Firefox and IE.
+
+## 4.0.1
+
+* Fixed: `Node.prototype.contains` to always return a boolean. This was a regression in 3.1.1. (Joris-van-der-Wel)
+* Fixed: `Document.prototype` no longer contains its own `ownerDocument` getter, instead correctly delegating to `Node.prototype`.
+* Fixed: some edge cases regarding running `<script>`s in browserified jsdom.
+* A couple fixes from updated dependencies (although you would have gotten these anyway with a fresh install, due to floating version specifiers):
+    - csstyle minimum version bumped from 0.2.21 to 0.2.23, fixing handling of `0` when setting numeric CSS properties and parsing of shorthand `font` declarations.
+    - parse5 minimum version bumped from 1.3.1 to 1.3.2 to, fixing the parsing of `<form>` elements inside `<template>` elements.
+
+## 4.0.0
+
+This release relies on the newly-overhauled `vm` module of io.js to eliminate the Contextify native module dependency. jsdom should now be much easier to use and install, without requiring a C++ compiler toolchain!
+
+Note that as of this release, jsdom no longer works with Node.js™, and instead requires io.js. You are still welcome to install a release in [the 3.x series](https://github.com/tmpvar/jsdom/tree/3.x) if you are stuck on legacy technology like Node.js™.
+
+In the process of rewriting parts of jsdom to use `vm`, a number of related fixes were made regarding the `Window` object:
+
+* In some cases, state was implicitly shared between `Window` instances—especially parser- and serializer-related state. This is no longer the case, thankfully.
+* A number of properties of `Window` were updated for spec compliance: some data properties became accessors, and all methods moved from the prototype to the instance.
+* The non-standard `document.parentWindow` was removed, in favor of the standard `document.defaultView`. Our apologies for encouraging use of `parentWindow` in our README, tests, and examples.
+
+## 3.1.2
+
+* Some fixes to the `NOT_IMPLEMENTED` internal helper, which should eliminate the cases where calling e.g. `window.alert` crashes your application.
+* Fixed a global variable leak when triggering `NOT_IMPLEMENTED` methods, like `window.location.reload`.
+* Fixed the URL resolution algorithm to handle `about:blank` properly on all systems (previously it only worked on Windows). This is especially important since as of 3.0.0 the default URL is `about:blank`.
+* Fixed, at least partially, the ability to run `<script>`s inside a browserified jsdom instance. This is done by dynamically rewriting the source code so that global variable references become explicit references to `window.variableName`, so it is not foolproof.
+
 ## 3.1.1
 
 * Updated `Node.prototype.isEqualNode` to the algorithm of the DOM Standard, fixing a bug where it would throw an error along the way.

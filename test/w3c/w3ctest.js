@@ -23,6 +23,11 @@ function createJsdom(source, url, t) {
       ProcessExternalResources: ["script"]
     },
     created: function (err, window) {
+      if (err) {
+        t.ifError(err, 'window should be created without error');
+        t.done();
+      }
+
       window.shimTest = function () {
         window.add_result_callback(function (test) {
           if (test.status === 1) {
@@ -34,7 +39,8 @@ function createJsdom(source, url, t) {
           }
         });
 
-        window.add_completion_callback(function () {
+        window.add_completion_callback(function (tests, harness_status) {
+          t.ok(harness_status.status !== 2, "test harness should not timeout");
           window.close();
           t.done();
         });
@@ -43,8 +49,6 @@ function createJsdom(source, url, t) {
 
     loaded: function (err, window) {
       t.ifError(err && err[0].data.error);
-      t.done();
-      window.close();
     }
   });
 }
