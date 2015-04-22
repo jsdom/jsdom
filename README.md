@@ -133,6 +133,7 @@ jsdom.env(config);
 - `config.features`: see Flexibility section below. **Note**: the default feature set for `jsdom.env` does _not_ include fetching remote JavaScript and executing it. This is something that you will need to _carefully_ enable yourself.
 - `config.resourceLoader`: a function that intercepts subresource requests and allows you to re-route them, modify, or outright replace them with your own content. More below.
 - `config.done`, `config.loaded`, `config.created`: see below.
+- `config.concurrentNodeIterators`: the maximum amount of `NodeIterator`s that you can use at the same time. The default is `10`; setting this to a high value will hurt performance.
 
 Note that at least one of the callbacks (`done`, `loaded`, or `created`) is required, as is one of `html`, `file`, or `url`.
 
