@@ -42,6 +42,25 @@ exports.setUp = function (done) {
           res.end("<body></body>");
           break;
 
+        case "/TestPath/set-cookie-redirect-chain":
+          res.statusCode = 302;
+          res.setHeader("set-cookie", "Test1=Redirect1; expires=Wed, 13-Jan-2051 22:23:01 GMT");
+          res.setHeader("location", testHost + "/TestPath/set-cookie-redirect-chain-part2");
+          res.end();
+          break;
+
+        case "/TestPath/set-cookie-redirect-chain-part2":
+          res.statusCode = 302;
+          res.setHeader("set-cookie", "Test2=Redirect2; expires=Wed, 13-Jan-2051 22:23:01 GMT");
+          res.setHeader("location", testHost + "/TestPath/set-cookie-redirect-chain-part3");
+          res.end();
+          break;
+
+        case "/TestPath/set-cookie-redirect-chain-part3":
+          res.setHeader("set-cookie", "Test3=Redirect3; expires=Wed, 13-Jan-2051 22:23:01 GMT");
+          res.end("<body></body>");
+          break;
+
         case "/TestPath/get-cookie-header":
           res.end(req.headers.cookie);
           break;
@@ -307,3 +326,16 @@ exports["Regression: Expired cookie is still present in document.cookie(GH-1027)
   });
 };
 
+exports["Regression: Cookies are not stored between redirects(GH-1089)"] = function (t) {
+  jsdom.env({
+    url: testHost + "/TestPath/set-cookie-redirect-chain",
+    done: function (err, window) {
+      assertCookies(t, window.document.cookie, [
+        "Test1=Redirect1",
+        "Test2=Redirect2",
+        "Test3=Redirect3"
+      ]);
+      t.done();
+    }
+  });
+};
