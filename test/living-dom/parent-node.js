@@ -58,3 +58,29 @@ exports["DocumentFragment should implement ParentNode:children"] = function (t) 
   t.ok(parent.children instanceof doc.defaultView.HTMLCollection, "children should be a HTMLCollection");
   t.done();
 };
+exports["Document should implement ParentNode:firstElementChild"] = function (t) {
+  const doc = load("parent-node");
+  t.strictEqual(nodeName(doc.firstElementChild), "HTML");
+  t.done();
+};
+
+exports["Element should implement ParentNode:firstElementChild"] = function (t) {
+  const doc = load("parent-node");
+  t.strictEqual(nodeName(doc.body.firstElementChild), "A");
+  t.strictEqual(doc.createElement("div").firstElementChild, null);
+  t.done();
+};
+
+exports["DocumentFragment should implement ParentNode:firstElementChild"] = function (t) {
+  const doc = load("parent-node");
+  const fragment = doc.createDocumentFragment();
+
+  t.strictEqual(fragment.firstElementChild, null);
+
+  while (doc.body.firstChild) {
+    fragment.appendChild(doc.body.firstChild);
+  }
+
+  t.strictEqual(nodeName(fragment.firstElementChild), "A");
+  t.done();
+};
