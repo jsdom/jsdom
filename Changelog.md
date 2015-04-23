@@ -1,11 +1,18 @@
+## 5.1.0
+
+* Added support for the `NodeIterator` class from the DOM Standard. (Joris-van-der-Wel)
+* Fixed an issue with the initial request where it was not sharing its cookie jar with the subsequent requests, sometimes leading to a "possible EventEmitter memory leak detected" warning. (inikulin)
+* Updated tough-cookie to 0.13.0, bringing along many spec compliance fixes. (inikulin)
+* Added a fast failure in Node.js™ with a clear error message, so that people don't get confused by syntax errors.
+
 ## 5.0.1
 
 * Fixed `document.cookie` setter to no longer ignore `null`; instead it correctly sets a cookie of `"null"`. (Chrome is not compliant to the spec in this regard.)
-- Fixed documents created with `parsingMode: "xml"` to no longer get `"<html><head></head><body></body></html>"` automatically inserted when calling `jsdom.jsdom()` with no arguments.
-- Fixed the `innerHTML` setter to no longer ignore `undefined`; instead it correctly sets the innerHTML to `"undefined"`.
-- Fixed `document.write` to throw for XML documents as per the spec.
-- Fixed `document.write` to accept more than one argument (they get concatenated).
-- Fixed `document.write("")` to no longer try to write `"<html><head></head><body></body></html>"`.
+* Fixed documents created with `parsingMode: "xml"` to no longer get `"<html><head></head><body></body></html>"` automatically inserted when calling `jsdom.jsdom()` with no arguments.
+* Fixed the `innerHTML` setter to no longer ignore `undefined`; instead it correctly sets the innerHTML to `"undefined"`.
+* Fixed `document.write` to throw for XML documents as per the spec.
+* Fixed `document.write` to accept more than one argument (they get concatenated).
+* Fixed `document.write("")` to no longer try to write `"<html><head></head><body></body></html>"`.
 
 ## 5.0.0
 
