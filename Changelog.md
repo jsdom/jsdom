@@ -1,3 +1,7 @@
+## 4.5.2
+
+* Added a fast-failure for Node.js™ users with a clear error message.
+
 ## 4.5.1
 
 * Removed unnecessary browserify dependency that was erroneously included in 4.5.0.
