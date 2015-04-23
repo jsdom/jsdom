@@ -59,6 +59,9 @@
     "lint": "jscs lib/ && jscs test/ && jshint lib/ && jshint test/",
     "update-authors": "git log --format=\"%aN <%aE>\" | sort -f | uniq > AUTHORS.txt"
   },
+  "engines": { 
+    "node": "^1.2.0"
+  },
   "main": "./lib/jsdom",
   "files": [
     "lib/"
