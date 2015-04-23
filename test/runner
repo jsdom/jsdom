@@ -45,6 +45,7 @@ var files = [
   "living-dom/query-selector.js",
   "living-dom/query-selector-all.js",
   "living-dom/node-iterator.js",
+  "living-dom/parent-node.js",
   "living-html/cookie.js",
   "living-html/current-script.js",
   "living-html/focus.js",
