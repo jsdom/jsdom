@@ -84,3 +84,31 @@ exports["DocumentFragment should implement ParentNode:firstElementChild"] = func
   t.strictEqual(nodeName(fragment.firstElementChild), "A");
   t.done();
 };
+
+
+exports["Document should implement ParentNode:lastElementChild"] = function (t) {
+  const doc = load("parent-node");
+  t.strictEqual(nodeName(doc.lastElementChild), "HTML");
+  t.done();
+};
+
+exports["Element should implement ParentNode:lastElementChild"] = function (t) {
+  const doc = load("parent-node");
+  t.strictEqual(nodeName(doc.body.lastElementChild), "DIV");
+  t.strictEqual(doc.createElement("div").lastElementChild, null);
+  t.done();
+};
+
+exports["DocumentFragment should implement ParentNode:lastElementChild"] = function (t) {
+  const doc = load("parent-node");
+  const fragment = doc.createDocumentFragment();
+
+  t.strictEqual(fragment.lastElementChild, null);
+
+  while (doc.body.firstChild) {
+    fragment.appendChild(doc.body.firstChild);
+  }
+
+  t.strictEqual(nodeName(fragment.lastElementChild), "DIV");
+  t.done();
+};
