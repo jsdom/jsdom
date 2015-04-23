@@ -112,3 +112,27 @@ exports["DocumentFragment should implement ParentNode:lastElementChild"] = funct
   t.strictEqual(nodeName(fragment.lastElementChild), "DIV");
   t.done();
 };
+
+exports["Document should implement ParentNode:childElementCount"] = function (t) {
+  const doc = load("parent-node");
+  t.strictEqual(doc.childElementCount, 1);
+  t.done();
+};
+
+exports["Element should implement ParentNode:childElementCount"] = function (t) {
+  const doc = load("parent-node");
+  t.strictEqual(doc.body.childElementCount, 2);
+  t.done();
+};
+
+exports["DocumentFragment should implement ParentNode:childElementCount"] = function (t) {
+  const doc = load("parent-node");
+  const fragment = doc.createDocumentFragment();
+
+  while (doc.body.firstChild) {
+    fragment.appendChild(doc.body.firstChild);
+  }
+
+  t.strictEqual(fragment.childElementCount, 2);
+  t.done();
+};
