@@ -54,6 +54,7 @@ self.onmessage = function (e) {
     "browser/css": require("../test/browser/css"), // ok
     "browser/index": require("../test/browser/index"), // ok
     "w3c/index.js": require("../test/w3c/index"), // 0/2
+    "w3c/domparsing.js": require("../test/w3c/domparsing")
   };
 
   var modulesToRun = {};
@@ -81,7 +82,9 @@ self.onmessage = function (e) {
     "jsdom/utils",
     "jsdom/inside-worker-smoke-tests",
     "browser/css",
-    "browser/index"
+    "browser/index",
+
+    "w3c/domparsing.js"
   ];
 
   if (options.tests) {

@@ -1,6 +1,8 @@
+"use strict";
 var path = require('path');
 var jsdom = require('../lib/jsdom');
 var fs = require('fs');
+const exceptionTable = require("../lib/jsdom/web-idl/dom-exception-table.json");
 
 function toPathname(dirname, relativePath) {
   var pathname = path.resolve(dirname, relativePath).replace(/\\/g, '/');
@@ -50,5 +52,23 @@ exports.load = function (dirname) {
 
     fileCache[file] = contents;
     return doc;
+  };
+};
+
+/**
+ * @param {Document} document
+ * @param {String} name
+ * @return {Function} A function that tests if the given
+ *         exception is a `DOMException` of the specified `code`
+ *
+ * @example t.throws(function () {
+ *   // ...
+ * }, domExceptionPredicate(doc, "NoModificationAllowedError"));
+ */
+exports.domExceptionPredicate = function (document, name) {
+  return function (error) {
+    return error instanceof document.defaultView.DOMException &&
+           error.name === name &&
+           error.code === exceptionTable[name].legacyCodeValue;
   };
 };
