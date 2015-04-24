@@ -74,7 +74,8 @@ var files = [
   "jsonp/jsonp.js",
   "browser/css.js",
   "browser/index.js",
-  "w3c/index.js"
+  "w3c/index.js",
+  "w3c/domparsing.js"
 ];
 
 if (fileFilter.length > 0) {
