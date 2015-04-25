@@ -97,3 +97,29 @@ exports["virtualConsole.sendTo proxies console methods"] = function (t) {
 
   t.done();
 };
+
+exports["createVirtualConsole returns a new virtual console"] = function (t) {
+  var window = jsdom.jsdom().defaultView;
+  var virtualConsole = jsdom.createVirtualConsole();
+
+  t.ok(virtualConsole instanceof EventEmitter,
+    "createVirtualConsole returns an instance of EventEmitter");
+
+  t.done();
+};
+
+exports["jsdom setup accepts a virtual console"] = function (t) {
+  var initialVirtualConsole = jsdom.createVirtualConsole();
+
+  initialVirtualConsole.foo = "bar";
+
+  var window = jsdom.jsdom("", {
+    virtualConsole: initialVirtualConsole
+  }).defaultView;
+
+  var actualVirtualConsole = jsdom.getVirtualConsole(window); 
+  t.ok(initialVirtualConsole === actualVirtualConsole,
+    "getVirtualConsole returns the console given in options");
+
+  t.done();
+};
