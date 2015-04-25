@@ -49,3 +49,17 @@ exports["location should be null"] = function (t) {
   t.strictEqual(newDocument.location, null, "location should be null");
   t.done();
 };
+
+exports["setting proxied event handlers on the body should have no effect"] = function (t) {
+  const document = jsdom.jsdom();
+  const newDocument = document.implementation.createHTMLDocument();
+
+  ["onafterprint", "onbeforeprint", "onbeforeunload", "onblur", "onerror",
+   "onfocus", "onhashchange", "onload", "onmessage", "onoffline", "ononline",
+   "onpagehide", "onpageshow", "onpopstate", "onresize", "onscroll",
+   "onstorage", "onunload"].forEach(function (name) {
+    newDocument.body[name] = "1 + 2";
+    t.strictEqual(newDocument.body[name], null, name + " should always be null because there is no window");
+  });
+  t.done();
+};
