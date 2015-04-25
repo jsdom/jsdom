@@ -42,3 +42,10 @@ exports["defaultView should be null"] = function (t) {
   t.strictEqual(newDocument.defaultView, null, "defaultView should be null");
   t.done();
 };
+
+exports["location should be null"] = function (t) {
+  const document = jsdom.jsdom();
+  const newDocument = document.implementation.createHTMLDocument();
+  t.strictEqual(newDocument.location, null, "location should be null");
+  t.done();
+};
