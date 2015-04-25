@@ -35,5 +35,10 @@ exports["doctype child of ownerDocument"] = function (t) {
   t.ok(newDocument.firstChild === doctype, "doctype should be a child of the document");
   t.done();
 };
+
+exports["defaultView should be null"] = function (t) {
+  const document = jsdom.jsdom();
+  const newDocument = document.implementation.createDocument(null, null, null);
+  t.strictEqual(newDocument.defaultView, null, "defaultView should be null");
   t.done();
 };
