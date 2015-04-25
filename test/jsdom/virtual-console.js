@@ -74,17 +74,16 @@ exports["virtualConsole separates output by window"] = function (t) {
 };
 
 exports["virtualConsole.sendTo proxies console methods"] = function (t) {
+  t.expect(consoleMethods.length);
+
   var window = jsdom.jsdom().defaultView;
   var virtualConsole = jsdom.getVirtualConsole(window);
   var fakeConsole = {};
 
-  var counter = 0;
-  function inc() {
-    ++counter;
-  }
-
   consoleMethods.forEach(function (method) {
-    fakeConsole[method] = inc;
+    fakeConsole[method] = function () {
+      t.ok(true, "sendTo works on all console methods");
+    };
   });
 
   virtualConsole.sendTo(fakeConsole);
@@ -93,7 +92,45 @@ exports["virtualConsole.sendTo proxies console methods"] = function (t) {
     window.console[method]();
   });
 
-  t.ok(counter === consoleMethods.length, "sendTo works on console methods");
+  t.done();
+};
+
+exports["createVirtualConsole returns a new virtual console"] = function (t) {
+  var virtualConsole = jsdom.createVirtualConsole();
+
+  t.ok(virtualConsole instanceof EventEmitter,
+    "createVirtualConsole returns an instance of EventEmitter");
+
+  t.done();
+};
+
+exports["jsdom setup accepts a virtual console"] = function (t) {
+  t.expect(2);
+  var initialVirtualConsole = jsdom.createVirtualConsole();
+
+  initialVirtualConsole.on("log", function (message) {
+    t.ok(message === "yes",
+      "supplied virtual console emits messages");
+    t.done();
+  });
+
+  var window = jsdom.jsdom(null, {
+    virtualConsole: initialVirtualConsole
+  }).defaultView;
+
+  var actualVirtualConsole = jsdom.getVirtualConsole(window);
+  t.ok(initialVirtualConsole === actualVirtualConsole,
+    "getVirtualConsole returns the console given in options");
+
+  window.console.log("yes");
+};
+
+exports["virtualConsole option throws on bad input"] = function (t) {
+  t.throws(function () {
+    jsdom.jsdom(null, {
+      virtualConsole: {}
+    });
+  });
 
   t.done();
 };

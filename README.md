@@ -397,21 +397,29 @@ jsdom.env({
 
 ```js
 var jsdom = require("jsdom");
-var window = jsdom.jsdom().defaultView;
 
-jsdom.getVirtualConsole(window).sendTo(console);
+var virtualConsole = jsdom.createVirtualConsole();
+
+virtualConsole.sendTo(console);
+
+var document = jsdom.jsdom(undefined, {
+  virtualConsole: virtualConsole
+});
 ```
 
 #### Get an event emitter for a window's console
 
 ```js
 var jsdom = require("jsdom");
-var window = jsdom.jsdom().defaultView;
 
-var virtualConsole = jsdom.getVirtualConsole(window);
+var virtualConsole = jsdom.createVirtualConsole();
 
 virtualConsole.on("log", function (message) {
   console.log("console.log called ->", message);
+});
+
+var document = jsdom.jsdom(undefined, {
+  virtualConsole: virtualConsole
 });
 ```
 
