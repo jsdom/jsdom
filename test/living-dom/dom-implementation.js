@@ -63,3 +63,21 @@ exports["setting proxied event handlers on the body should have no effect"] = fu
   });
   t.done();
 };
+
+exports["iframe added to a created Document should not load"] = function (t) {
+  const document = jsdom.jsdom();
+  const newDocument = document.implementation.createHTMLDocument();
+
+  const iframe = newDocument.createElement("iframe");
+  // iframe's with a name are added as a property to the window, this line is added to see if things crash
+  iframe.setAttribute("name", "foobar");
+  newDocument.body.appendChild(iframe);
+  t.strictEqual(iframe.contentWindow, null, "contentWindow should be null, the iframe should never load");
+  t.strictEqual(iframe.contentDocument, null, "contentDocument should be null, the iframe should never load");
+
+  iframe.src = "http://example.com/"; // try to trigger a load action
+  t.strictEqual(iframe.contentWindow, null, "contentWindow should be null, the iframe should never load");
+  t.strictEqual(iframe.contentDocument, null, "contentDocument should be null, the iframe should never load");
+
+  t.done();
+};
