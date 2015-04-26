@@ -109,9 +109,14 @@ exports["createVirtualConsole returns a new virtual console"] = function (t) {
 };
 
 exports["jsdom setup accepts a virtual console"] = function (t) {
+  t.expect(2);
   var initialVirtualConsole = jsdom.createVirtualConsole();
 
-  initialVirtualConsole.foo = "bar";
+  initialVirtualConsole.on("log", function (message) {
+    t.ok(message === "yes", 
+      "supplied virtual console emits messages");
+    t.done();
+  }); 
 
   var window = jsdom.jsdom("", {
     virtualConsole: initialVirtualConsole
@@ -121,5 +126,5 @@ exports["jsdom setup accepts a virtual console"] = function (t) {
   t.ok(initialVirtualConsole === actualVirtualConsole,
     "getVirtualConsole returns the console given in options");
 
-  t.done();
+  window.console.log("yes");
 };
