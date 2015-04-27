@@ -181,6 +181,46 @@ exports.tests = {
     });
   },
 
+  ensureRelativeStylesheetFilesAreLoaded: function(test) {
+    var server = http.createServer(function(req, res) {
+      try {
+        var content = String(fs.readFileSync(path.resolve(__dirname, "style", req.url.substring(1))));
+        res.writeHead(200, {
+          "Content-type" : req.url.endsWith(".css") ? "text/css" : "text/html",
+          "Content-length" : content.length
+        });
+        res.end(content);
+      } catch (exc) {
+        res.writeHead(404, "not found");
+        res.end();
+      }
+    });
+
+    server.listen(10100);
+
+    jsdom.env({
+      url: "http://127.0.0.1:10100/relative_import.html",
+      features: {
+          FetchExternalResources: ["link", "css"]
+      },
+      created: function(error, win) {
+        jsdom.getVirtualConsole(win).on("error", function(message) {
+          console.error(message);
+          test.ok(false, message);
+        });
+      },
+      done: function(error, win) {
+        setTimeout(function() { // HACK: style imports haven't been processed yet, different bug
+          var doc = win.document;
+          var style = win.getComputedStyle(doc.body);
+          test.equal(style.color, "red", "computed color of body is red");
+          server.close();
+          test.done();
+        }, 100);
+      }
+    });
+  },
+
   ensureExternalStylesheetsAreLoadable : function(test) {
     var css = "body { border: 1px solid #f0f; }";
     var server = http.createServer(function(req, res) {
