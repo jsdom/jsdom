@@ -7,7 +7,7 @@ A JavaScript implementation of the WHATWG DOM and HTML standards.
 ## Install
 
 ```bash
-$ npm install jsdom
+$ npm install git://github.com/tmpvar/jsdom#3.x
 ```
 
 If this gives you trouble with errors about installing Contextify, especially on Windows, see [below](#contextify).
