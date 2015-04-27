@@ -30,6 +30,7 @@ d-ash <andrey.shubin@gmail.com>
 daishi <daishi@axlight.com>
 Damian Janowski <damian.janowski@gmail.com>
 Dan Lidral-Porter <dan@luckysort.com>
+Daniel Boelzle [:dbo] <dbo@numberfour.eu>
 Daniel Cassidy <mail@danielcassidy.me.uk>
 Daniël van de Burgt <daniel.vandeburgt@serialssolutions.com>
 Dav Glass <davglass@gmail.com>

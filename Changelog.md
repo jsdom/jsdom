@@ -1,3 +1,14 @@
+## 5.2.0
+
+* Implemented much of the [`ParentNode`](https://dom.spec.whatwg.org/#interface-parentnode) mixin (Joris-van-der-Wel):
+  - Moved `children` from `Node` to `ParentNode`, i.e., made it available on `Document`, `DocumentFragment`, and `Element`, but not other types of nodes.
+  - Made `children` a `HTMLCollection` instead of a `NodeList`.
+  - Implemented `firstElementChild`, `lastElementChild`, and `childElementCount`.
+* Implemented the `outerHTML` setter. (Joris-van-der-Wel)
+* Fixed the `outerHTML` getter for `<select>` and `<form>`. (Joris-van-der-Wel)
+* Fixed various issues with window-less documents, so that they no longer give incorrect results or blow up in strange ways. You can create such documents with e.g. `document.implementation.createHTMLDocument()`. (Joris-van-der-Wel)
+* Fixed relative stylesheet resolution when using `@import`. (dbo)
+
 ## 5.1.0
 
 * Added support for the `NodeIterator` class from the DOM Standard. (Joris-van-der-Wel)
