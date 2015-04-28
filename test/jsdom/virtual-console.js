@@ -128,17 +128,17 @@ exports["jsdom setup accepts a virtual console"] = function (t) {
 
 exports["sendConsoleTo in config proxies console methods"] = function (t) {
   t.expect(consoleMethods.length);
-  var initialVirtualConsole = jsdom.createVirtualConsole();
+  var fakeConsole = {};
 
   consoleMethods.forEach(function (method) {
-    initialVirtualConsole[method] = function () {
+    fakeConsole[method] = function () {
       t.ok(true,
         "all console methods are passed through sendConsoleTo config");
     };
   });
 
   var window = jsdom.jsdom(null, {
-    sendConsoleTo: initialVirtualConsole
+    sendConsoleTo: fakeConsole
   }).defaultView;
 
   consoleMethods.forEach(function (method) {
