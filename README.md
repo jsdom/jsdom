@@ -397,22 +397,25 @@ jsdom.env({
 
 ```js
 var jsdom = require("jsdom");
-var window = jsdom.jsdom().defaultView;
-
-jsdom.getVirtualConsole(window).sendTo(console);
+var window = jsdom.jsdom(null, {
+  sendConsoleTo: console
+}).defaultView;
 ```
 
 #### Get an event emitter for a window's console
 
 ```js
 var jsdom = require("jsdom");
-var window = jsdom.jsdom().defaultView;
 
-var virtualConsole = jsdom.getVirtualConsole(window);
+var virtualConsole = jsdom.createVirtualConsole();
 
 virtualConsole.on("log", function (message) {
   console.log("console.log called ->", message);
 });
+
+var window = jsdom.jsdom(null, {
+  virtualConsole: virtualConsole
+}).defaultView;
 ```
 
 ## What Standards Does jsdom Support, Exactly?
