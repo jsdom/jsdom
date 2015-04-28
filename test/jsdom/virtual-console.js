@@ -74,17 +74,16 @@ exports["virtualConsole separates output by window"] = function (t) {
 };
 
 exports["virtualConsole.sendTo proxies console methods"] = function (t) {
+  t.expect(consoleMethods.length);
+
   var window = jsdom.jsdom().defaultView;
   var virtualConsole = jsdom.getVirtualConsole(window);
   var fakeConsole = {};
 
-  var counter = 0;
-  function inc() {
-    ++counter;
-  }
-
   consoleMethods.forEach(function (method) {
-    fakeConsole[method] = inc;
+    fakeConsole[method] = function () {
+      t.ok(true, "sendTo works on all console methods");
+    };
   });
 
   virtualConsole.sendTo(fakeConsole);
@@ -92,8 +91,6 @@ exports["virtualConsole.sendTo proxies console methods"] = function (t) {
   consoleMethods.forEach(function (method) {
     window.console[method]();
   });
-
-  t.ok(counter === consoleMethods.length, "sendTo works on console methods");
 
   t.done();
 };
