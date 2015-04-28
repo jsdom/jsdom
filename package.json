@@ -56,7 +56,7 @@
     "pretest": "git submodule update --init --recursive",
     "test": "iojs ./test/runner",
     "test-browser": "iojs ./test/browser-runner",
-    "lint": "jscs lib/ && jscs test/ && jshint lib/ && jshint test/",
+    "lint": "jscs lib/ && jscs test/ && jshint --verbose lib/ && jshint --verbose test/",
     "update-authors": "git log --format=\"%aN <%aE>\" | sort -f | uniq > AUTHORS.txt"
   },
   "main": "./lib/jsdom",

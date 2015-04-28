@@ -71,6 +71,7 @@ var files = [
   "jsdom/virtual-console.js",
   "jsdom/xml.js",
   "jsdom/selectors.js",
+  "jsdom/serialization.js",
 
   "jsonp/jsonp.js",
   "browser/css.js",
