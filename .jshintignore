@@ -12,6 +12,9 @@ lib/jsdom/level3/index.js
 lib/jsdom/level3/ls.js
 lib/jsdom/level3/xpath.js
 
+# because JSHint can't handle for-of
+lib/jsdom/living/attributes.js
+
 test/browser
 test/jquery-fixtures
 test/jsonp

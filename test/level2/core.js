@@ -3174,43 +3174,6 @@ exports['elementsetattributenodens'] = testcase({
       test.ok(success, 'elementsetattributenodens04');
     }
     test.done();
-  },
-  /**
-   *
-   The method setAttributeNodeNS Adds a new attribute and raises
-   an WRONG_DOCUMENT_ERR if newAttr was created from a different document
-   than the one that created the element.
-   Create new element and attribute nodes in different documents.
-   Attempt to add the attribute node to the element node.
-   Check if an WRONG_DOCUMENT_ERR is thrown.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
-   */
-  elementsetattributenodens05: function(test) {
-    var success;
-    var element;
-    var attribute;
-    var newAttribute;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    var docAlt = require('./core/files/staffNS.xml').staffNS();
-    element = doc.createElementNS("http://www.w3.org/DOM/Test","elem1");
-    attribute = docAlt.createAttributeNS("http://www.w3.org/DOM/Test","attr");
-
-    {
-      success = false;
-      try {
-        newAttribute = element.setAttributeNodeNS(attribute);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 4);
-      }
-      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
-    }
-    test.done();
   }
 })
 
@@ -5630,113 +5593,6 @@ exports['namednodemapsetnameditemns'] = testcase({
   },
   /**
    *
-   The method setNamedItemNS adds a node using its namespaceURI and localName and
-   raises a WRONG_DOCUMENT_ERR if arg was created from a different document than the
-   one that created this map.
-
-   Retreieve the second element whose local name is address and its attribute into a named node map.
-   Do the same for another document and retreive its street attribute.  Call the setNamedItemNS
-   using the first namedNodeMap and the retreive street attribute of the second.  This should
-   raise a WRONG_DOCUMENT_ERR.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=408
-   */
-  namednodemapsetnameditemns03: function(test) {
-    var success;
-    var attributes;
-    var attributesAlt;
-    var elementList;
-    var elementListAlt;
-    var element;
-    var elementAlt;
-    var attr;
-    var newNode;
-    var nullNS = null;
-
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    elementList = doc.getElementsByTagNameNS("*","address");
-    element = elementList.item(1);
-    attributes = element.attributes;
-    var docAlt = require('./core/files/staffNS.xml').staffNS();
-    elementListAlt = docAlt.getElementsByTagNameNS("*","address");
-    elementAlt = elementListAlt.item(1);
-    attributesAlt = elementAlt.attributes;
-
-    attr = attributesAlt.getNamedItemNS(nullNS,"street");
-    newNode = attributesAlt.removeNamedItemNS(nullNS,"street");
-
-    {
-      success = false;
-      try {
-        newNode = attributes.setNamedItemNS(attr);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 4);
-      }
-      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
-   The method setNamedItemNS adds a node using its namespaceURI and localName and
-   raises a WRONG_DOCUMENT_ERR if arg was created from a different document than the
-   one that created this map.
-
-   Retreieve the second element whose local name is address and its attribute into a named node map.
-   Create a new document and a new attribute node in it.  Call the setNamedItemNS using the first
-   namedNodeMap and the new attribute node attribute of the new document.  This should
-   raise a WRONG_DOCUMENT_ERR.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
-   */
-  namednodemapsetnameditemns04: function(test) {
-    var success;
-    var domImpl;
-    var docAlt;
-    var docType = null;
-
-    var attributes;
-    var elementList;
-    var element;
-    var attrAlt;
-    var newNode;
-    var nullNS = null;
-
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    elementList = doc.getElementsByTagNameNS("*","address");
-    element = elementList.item(1);
-    attributes = element.attributes;
-
-    domImpl = doc.implementation;
-    docAlt = domImpl.createDocument(nullNS,"newDoc",docType);
-    attrAlt = docAlt.createAttributeNS(nullNS,"street");
-
-    {
-      success = false;
-      try {
-        newNode = attributes.setNamedItemNS(attrAlt);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 4);
-      }
-      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
    Retreieve the first element whose localName is address and its attributes into a named node map.
    Retreiving the domestic attribute from the namednodemap.
    Retreieve the second element whose localName is address and its attributes into a named node map.
@@ -6733,11 +6589,14 @@ exports['setAttributeNS'] = testcase({
    The prefix will be changed to the prefix part of the "qualifiedName"
    and its value changed to the "value" parameter.
 
+   THE ABOVE IS INVALID. THE DOM STANDARD OVERRIDES THIS BEHAVIOR:
+   now, the value is overridden, but the prefix is left alone.
+
    * @author NIST
    * @author Mary Brady
    * @see http://www.w3.org/TR/DOM-Level-2-Core/core#
    */
-  setAttributeNS04: function(test) {
+  setAttributeNS04_modified: function(test) {
     var doc = require('./core/files/staffNS.xml').staffNS();
     var resultNamespaceURI;
     var resultLocalName;
@@ -6750,7 +6609,7 @@ exports['setAttributeNS'] = testcase({
     test.equal(resultAttr, 'newValue');
     test.equal(addrAttr.namespaceURI, 'http://www.nist.gov')
     test.equal(addrAttr.localName, 'zone');
-    test.equal(addrAttr.prefix, 'newprefix')
+    test.equal(addrAttr.prefix, 'emp')
     test.done()
   },
   /**
@@ -7038,52 +6897,6 @@ exports['setAttributeNodeNS'] = testcase({
     var newAddrAttr = testAddr.setAttributeNodeNS(newAttr);
     test.equal(newAddrAttr.name, 'emp:domestic')
     test.done();
-  },
-  /**
-   *
-   The "setAttributeNodeNS(newAttr)" method raises an
-   "WRONG_DOCUMENT_ERR DOMException if the "newAttr"
-   was created from a different document than the one that
-   created this document.
-
-   Retrieve the first emp:address and attempt to set a new
-   attribute node.  The new
-   attribute was created from a document other than the
-   one that created this element, therefore a
-   WRONG_DOCUMENT_ERR DOMException should be raised.
-   This test uses the "createAttributeNS(newAttr)" method
-   from the Document interface.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='WRONG_DOCUMENT_ERR'])
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-ElSetAtNodeNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='WRONG_DOCUMENT_ERR'])
-   */
-  setAttributeNodeNS05: function(test) {
-    var doc1 = require('./core/files/staffNS.xml').staffNS();
-    var doc2 = require('./core/files/staffNS.xml').staffNS();
-    var success;
-    var namespaceURI = "http://www.newattr.com";
-    var qualifiedName = "emp:newAttr";
-    var newAttr;
-    var elementList;
-    var testAddr;
-    var setAttr1;
-    newAttr = doc2.createAttributeNS(namespaceURI,qualifiedName);
-    elementList = doc1.getElementsByTagName("emp:address");
-    testAddr = elementList.item(0);
-    {
-      success = false;
-      try {
-        setAttr1 = testAddr.setAttributeNodeNS(newAttr);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 4);
-      }
-      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
-      test.done();
-    }
   }
 })
 
@@ -7128,54 +6941,6 @@ exports['setNamedItemNS'] = testcase({
         success = (typeof(ex.code) != 'undefined' && ex.code == 10);
       }
       test.ok(success, 'throw_INUSE_ATTRIBUTE_ERR');
-      test.done();
-    }
-  },
-
-  /**
-   *
-   The "setNamedItemNS(arg)" method for a
-   NamedNodeMap should raise WRONG_DOCUMENT_ERR DOMException if arg was
-   created from a different document than the one that created this map.
-
-   Create an attr node in a different document with qualifiedName equals
-   "dmstc:domestic" and namespaceURI is "http://www.usa.com".
-   Access the namednodemap of the first "address" element in this document.
-   Invoke method setNamedItemNS(arg) with arg being the attr node from above.
-   Method should raise WRONG_DOCUMENT_ERR DOMException.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='WRONG_DOCUMENT_ERR'])
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-setNamedItemNS
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-setNamedItemNS')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='WRONG_DOCUMENT_ERR'])
-   */
-  setNamedItemNS02: function(test) {
-    var success;
-    var namespaceURI = "http://www.usa.com";
-    var qualifiedName = "dmstc:domestic";
-    var arg;
-    var elementList;
-    var testAddress;
-    var attributes;
-    var setNode;
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    var anotherDoc = require('./core/files/staffNS.xml').staffNS();
-    arg = anotherDoc.createAttributeNS(namespaceURI,qualifiedName);
-    arg.nodeValue = "Maybe";
-
-    elementList = doc.getElementsByTagName("address");
-    testAddress = elementList.item(0);
-    attributes = testAddress.attributes;
-    {
-      success = false;
-      try {
-        setNode = attributes.setNamedItemNS(arg);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 4);
-      }
-      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
       test.done();
     }
   },

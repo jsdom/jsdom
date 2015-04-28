@@ -47,6 +47,7 @@ self.onmessage = function (e) {
     //"sizzle/index": require("../test/sizzle/index"), // fail
     //"jsdom/index": require("../test/jsdom/index"), // fail
     "jsdom/parsing": require("../test/jsdom/parsing"), // 0/11
+    "jsdom/serialization": require("../test/jsdom/serialization"),
     "jsdom/env": require("../test/jsdom/env"), // 9/25
     "jsdom/utils": require("../test/jsdom/utils"), // ok
     "jsdom/inside-worker-smoke-tests": require("../test/jsdom/inside-worker-smoke-tests"),
@@ -81,6 +82,7 @@ self.onmessage = function (e) {
     "window/console",
     "jsdom/utils",
     "jsdom/inside-worker-smoke-tests",
+    "jsdom/serialization",
     "browser/css",
     "browser/index",
 

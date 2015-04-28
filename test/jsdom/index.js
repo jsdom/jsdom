@@ -1291,43 +1291,6 @@ exports.tests = {
     test.done();
   },
 
-  lookup_namednodemap_by_property : function (test) {
-    var doc = jsdom.jsdom();
-    var core = doc.defaultView;
-    var map = new core.NamedNodeMap(doc);
-    test.equal(map.length, 0);
-    var attr1 = doc.createAttribute('attr1');
-    map.setNamedItem(attr1);
-    test.equal(map['attr1'], attr1);
-    test.equal(map.length, 1);
-    var attr2 = doc.createAttribute('attr2');
-    map.setNamedItem(attr2);
-    test.equal(map['attr2'], attr2);
-    test.equal(map.length, 2);
-    var rm1 = map.removeNamedItem('attr1');
-    test.equal(rm1, attr1);
-    test.equal(map.length, 1);
-    var rm2 = map.removeNamedItem('attr2');
-    test.equal(rm2, attr2);
-    test.equal(map.length, 0);
-    test.done();
-  },
-
-  issue_723_namednodemap_property_names_that_collide_with_method_names : function (test) {
-    var doc = jsdom.jsdom();
-    var core = doc.defaultView;
-    var map = new core.NamedNodeMap(doc);
-    var fooAttribute = doc.createAttribute('foo');
-    map.setNamedItem(fooAttribute);
-    var itemAttribute = doc.createAttribute('item');
-    map.setNamedItem(itemAttribute);
-    test.equal(map.foo, fooAttribute);
-    test.equal(map.item, core.NamedNodeMap.prototype.item);
-    map.removeNamedItem('item');
-    test.equal(map.item, core.NamedNodeMap.prototype.item);
-    test.done();
-  },
-
   issue_319_HIERARCHY_REQUEST_ERR : function(test){
    jsdom.env({
       html: '<!DOCTYPE html><html><head><title>Title</title></head><body>My body</body></html><div></div>',

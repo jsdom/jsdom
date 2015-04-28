@@ -3845,43 +3845,6 @@ exports.tests = {
 
   /**
    *
-   The "setAttributeNode(newAttr)" method raises an
-   "WRONG_DOCUMENT_ERR DOMException if the "newAttr"
-   was created from a different document than the one that
-   created this document.
-
-   Retrieve the last employee and attempt to set a new
-   attribute node for its "employee" element.  The new
-   attribute was created from a document other than the
-   one that created this element, therefore a
-   WRONG_DOCUMENT_ERR DOMException should be raised.
-
-   This test uses the "createAttribute(newAttr)" method
-   from the Document interface.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='WRONG_DOCUMENT_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-887236154
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-887236154')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='WRONG_DOCUMENT_ERR'])
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
-   */
-  hc_elementwrongdocumenterr: function(test) {
-    var doc1 = hc_staff.hc_staff();
-    var doc2 = hc_staff.hc_staff();
-    var newAttribute = doc2.createAttribute("newAttribute");
-    var testAddress = doc1.getElementsByTagName("acronym").item(4);
-    var success = false;
-    try {
-      testAddress.setAttributeNode(newAttribute);
-    } catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 4);
-    }
-    test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
-    test.done();
-  },
-
-  /**
-   *
    An attempt to add remove an entity should result in a NO_MODIFICATION_ERR.
 
    * @author Curt Arnold
@@ -4350,41 +4313,6 @@ exports.tests = {
     newNode = attributes.setNamedItem(newAttribute);
     test.equal(newNode, null, 'prevValueNull');
 
-    test.done();
-  },
-
-  /**
-   *
-   The "setNamedItem(arg)" method raises a
-   WRONG_DOCUMENT_ERR DOMException if "arg" was created
-   from a different document than the one that created
-   the NamedNodeMap.
-
-   Create a NamedNodeMap object from the attributes of the
-   last child of the third employee and attempt to add
-   another Attr node to it that was created from a
-   different DOM document.  This should raise the desired
-   exception.  This method uses the "createAttribute(name)"
-   method from the Document interface.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='WRONG_DOCUMENT_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-1025163788
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-1025163788')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='WRONG_DOCUMENT_ERR'])
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
-   */
-  hc_namednodemapwrongdocumenterr: function(test) {
-    var doc1 = hc_staff.hc_staff();
-    var doc2 = hc_staff.hc_staff();
-    var attributes = doc1.getElementsByTagName("acronym").item(2).attributes;
-    var newAttribute = doc2.createAttribute("newAttribute");
-    var success = false;
-    try {
-      attributes.setNamedItem(newAttribute);
-    } catch(ex) {
-      success = (typeof(ex.code) != 'undefined' && ex.code == 4);
-    }
-    test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
     test.done();
   },
 
