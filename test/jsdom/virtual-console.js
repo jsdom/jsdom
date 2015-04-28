@@ -115,7 +115,7 @@ exports["jsdom setup accepts a virtual console"] = function (t) {
     t.done();
   });
 
-  var window = jsdom.jsdom("", {
+  var window = jsdom.jsdom(null, {
     virtualConsole: initialVirtualConsole
   }).defaultView;
 
@@ -124,4 +124,14 @@ exports["jsdom setup accepts a virtual console"] = function (t) {
     "getVirtualConsole returns the console given in options");
 
   window.console.log("yes");
+};
+
+exports["virtualConsole option throws on bad input"] = function (t) {
+  t.throws(function () {
+    jsdom.jsdom(null, {
+      virtualConsole: {}
+    });
+  });
+
+  t.done();
 };
