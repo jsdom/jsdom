@@ -96,7 +96,6 @@ exports["virtualConsole.sendTo proxies console methods"] = function (t) {
 };
 
 exports["createVirtualConsole returns a new virtual console"] = function (t) {
-  var window = jsdom.jsdom().defaultView;
   var virtualConsole = jsdom.createVirtualConsole();
 
   t.ok(virtualConsole instanceof EventEmitter,
