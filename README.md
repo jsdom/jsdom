@@ -402,9 +402,9 @@ var virtualConsole = jsdom.createVirtualConsole();
 
 virtualConsole.sendTo(console);
 
-var window = jsdom.jsdom(null, {
+var document = jsdom.jsdom(undefined, {
   virtualConsole: virtualConsole
-}).defaultView;
+});
 ```
 
 #### Get an event emitter for a window's console
@@ -418,9 +418,9 @@ virtualConsole.on("log", function (message) {
   console.log("console.log called ->", message);
 });
 
-var window = jsdom.jsdom(null, {
+var document = jsdom.jsdom(undefined, {
   virtualConsole: virtualConsole
-}).defaultView;
+});
 ```
 
 ## What Standards Does jsdom Support, Exactly?

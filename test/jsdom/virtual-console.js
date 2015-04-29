@@ -2,7 +2,6 @@
 
 var jsdom = require("../..");
 var EventEmitter = require("events").EventEmitter;
-var VirtualConsole = require("../../lib/jsdom/virtual-console");
 
 var consoleMethods = [
   "assert",
@@ -22,16 +21,10 @@ var consoleMethods = [
   "warn"
 ];
 
-exports["VirtualConsole inherits from EventEmitter"] = function (t) {
-  var vc = new VirtualConsole();
-  t.ok(vc instanceof EventEmitter, "VirtualConsole inherits from EventEmitter");
-  t.done();
-};
-
-exports["jsdom.getVirtualConsole returns an instance of VirtualConsole"] = function (t) {
+exports["jsdom.getVirtualConsole returns an instance of EventEmitter"] = function (t) {
   var window = jsdom.jsdom().defaultView;
   var vc = jsdom.getVirtualConsole(window);
-  t.ok(vc instanceof VirtualConsole, "getVirtualConsole returns an instance of VirtualConsole");
+  t.ok(vc instanceof EventEmitter, "getVirtualConsole returns an instance of EventEmitter");
   t.done();
 };
 
@@ -103,10 +96,11 @@ exports["virtualConsole.sendTo proxies console methods"] = function (t) {
 };
 
 exports["createVirtualConsole returns a new virtual console"] = function (t) {
+  var window = jsdom.jsdom().defaultView;
   var virtualConsole = jsdom.createVirtualConsole();
 
-  t.ok(virtualConsole instanceof VirtualConsole,
-    "createVirtualConsole returns an instance of VirtualConsole");
+  t.ok(virtualConsole instanceof EventEmitter,
+    "createVirtualConsole returns an instance of EventEmitter");
 
   t.done();
 };
