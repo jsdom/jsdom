@@ -1,3 +1,7 @@
+## 5.3.0
+
+* Added a `virtualConsole` option to the document creation methods, along with the `jsdom.createVirtualConsole` factory. (See [examples in the readme](https://github.com/tmpvar/jsdom/blob/dbf88666d1152576237ed1c741263f5516bb4005/README.md#capturing-console-output).) With this option you can install a virtual console before the document is even created, thus allowing you to catch any virtual console events that occur during initialization. (jeffcarp)
+
 ## 5.2.0
 
 * Implemented much of the [`ParentNode`](https://dom.spec.whatwg.org/#interface-parentnode) mixin (Joris-van-der-Wel):
