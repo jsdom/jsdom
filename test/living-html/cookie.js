@@ -12,7 +12,7 @@ var testCookies = [
   "Test1=Basic; expires=Wed, 13-Jan-2051 22:23:01 GMT",
   "Test2=PathMatch; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/TestPath",
   "Test3=PathNotMatch; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/SomePath/",
-  "Test4=DomainMatchButPubSuffixRejected; expires=Wed, 13-Jan-2051 22:23:01 GMT; domain=127.0.0.1",
+  "Test4=DomainMatchButPubSuffixRejected; expires=Wed, 13-Jan-2051 22:23:01 GMT; domain=.com",
   "Test5=DomainNotMatch; expires=Wed, 13-Jan-2051 22:23:01 GMT; domain=.example.com",
   "Test6=HttpOnly; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/; HttpOnly",
   "Test7=Secure; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/; Secure",
