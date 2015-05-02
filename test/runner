@@ -72,6 +72,7 @@ var files = [
   "jsdom/xml.js",
   "jsdom/selectors.js",
   "jsdom/serialization.js",
+  "jsdom/named-properties-tracker.js",
 
   "jsonp/jsonp.js",
   "browser/css.js",
