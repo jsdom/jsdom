@@ -17097,5 +17097,14 @@ exports.tests = {
     test.notDeepEqual(doc, docClone, 'clone');
 
     test.done();
+  },
+
+  "getElementById() should work after changing the id atribute of an <img> element": function (test) {
+    var doc = jsdom.jsdom();
+    var img = doc.createElement("img");
+    doc.body.appendChild(img);
+    img.setAttribute("id", "foo");
+    test.ok(doc.getElementById("foo") === img);
+    test.done();
   }
 };
