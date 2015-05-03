@@ -19,7 +19,7 @@ test/level1
 test/level2
 test/level3
 test/sizzle
-test/w3c
+test/w3c/tests
 test/window
 test/*.js
 
