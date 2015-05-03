@@ -1,4 +1,4 @@
-﻿"use strict";
+"use strict";
 
 var w3cTest = require("./w3ctest")(exports);
 
@@ -19,4 +19,5 @@ w3cTest("dom/nodes/DocumentType-literal.html");
 w3cTest("dom/nodes/DocumentType-literal.xhtml");
 w3cTest("dom/nodes/Node-cloneNode.html");
 w3cTest("dom/traversal/NodeFilter-constants.html");
+w3cTest("dom/traversal/NodeIterator.html");
 w3cTest("html/syntax/serializing-html-fragments/outerHTML.html");

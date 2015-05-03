@@ -1,26 +1,27 @@
-﻿"use strict";
+"use strict";
 
 var fs = require('fs');
 var path = require('path');
 var request = require("request");
 var jsdom = require("../..");
+var resolveHref = require("../../lib/jsdom/utils").resolveHref;
 
 function createJsdom(source, url, t) {
-  var input = source.replace(
-      /<script src=["']?([^"']*?)\/resources\/testharnessreport.js["']?><\/script>/,
-      "<script>window.shimTest();</script>");
-
-  if (input === source) {
-    t.ok(false, "Couldn't replace test reporter!");
-    t.done();
-  }
+  const reporterHref = resolveHref(__dirname, 'w3c/tests/resources/testharnessreport.js');
 
   jsdom.env({
-    html: input,
+    html: source,
     url: url,
     features: {
       FetchExternalResources: ["script", "img", "css", "frame", "iframe", "link"],
       ProcessExternalResources: ["script"]
+    },
+    resourceLoader: function (resource, callback) {
+      if (resource.url.href === reporterHref) {
+        callback(null, 'window.shimTest();');
+      } else {
+        resource.defaultFetch(callback);
+      }
     },
     created: function (err, window) {
       if (err) {
