@@ -71,6 +71,8 @@ var files = [
   "jsdom/virtual-console.js",
   "jsdom/xml.js",
   "jsdom/selectors.js",
+  "jsdom/named-properties-tracker.js",
+  "living-html/named-properties-window.js",
 
   "jsonp/jsonp.js",
   "browser/css.js",

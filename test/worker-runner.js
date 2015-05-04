@@ -50,6 +50,7 @@ self.onmessage = function (e) {
     "jsdom/env": require("../test/jsdom/env"), // 9/25
     "jsdom/utils": require("../test/jsdom/utils"), // ok
     "jsdom/inside-worker-smoke-tests": require("../test/jsdom/inside-worker-smoke-tests"),
+    "jsdom/named-properties-tracker.js": require("../test/jsdom/named-properties-tracker"),
     "jsonp/jsonp": require("../test/jsonp/jsonp"), // 0/1
     "browser/css": require("../test/browser/css"), // ok
     "browser/index": require("../test/browser/index"), // ok
@@ -81,6 +82,7 @@ self.onmessage = function (e) {
     "window/console",
     "jsdom/utils",
     "jsdom/inside-worker-smoke-tests",
+    "jsdom/named-properties-tracker.js",
     "browser/css",
     "browser/index",
 
