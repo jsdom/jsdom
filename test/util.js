@@ -72,3 +72,12 @@ exports.domExceptionPredicate = function (document, name) {
            error.code === exceptionTable[name].legacyCodeValue;
   };
 };
+
+exports.todo = function (test, fn) {
+  fn({
+    ok: function (value, message) {
+      test.ok(!value, "Marked as TODO: " + message);
+    }
+    // add more as needed
+  });
+};

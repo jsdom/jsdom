@@ -73,6 +73,7 @@ var files = [
   "jsdom/selectors.js",
   "jsdom/serialization.js",
   "jsdom/named-properties-tracker.js",
+  "living-html/named-properties-window.js",
 
   "jsonp/jsonp.js",
   "browser/css.js",
