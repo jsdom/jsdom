@@ -35,6 +35,7 @@ self.onmessage = function (e) {
     "living-dom/event-target.js": require("../test/living-dom/event-target.js"), // ok
     "living-dom/node-contains.js": require("../test/living-dom/node-contains.js"), // 0/20
     "living-dom/node-parent-element.js": require("../test/living-dom/node-parent-element.js"), // 0/11
+    "living-dom/non-document-type-child-node.js": require("../test/living-dom/non-document-type-child-node.js"),
 
     "living-html/htmlelement.js": require("../test/living-html/htmlelement.js"), // ok
     "living-html/location.js": require("../test/living-html/location.js"), // ok
@@ -73,7 +74,7 @@ self.onmessage = function (e) {
     "level3/textContent.js",
 
     "living-dom/event-target.js",
-
+    "living-dom/non-document-type-child-node.js",
     "living-html/location.js",
     "living-html/navigator.js",
 
