@@ -109,76 +109,104 @@ exports.tests = {
      );
   },
 
-  getComputedStyleInline: function(test) {
-    jsdom.env(
-        '',
-        function(err, win) {
-          var doc = win.document;
-          var style = doc.createElement("style");
-          style.innerHTML = "p { display: none; }";
-          doc.getElementsByTagName('head')[0].appendChild(style);
-          var p = doc.createElement("p");
-          doc.body.appendChild(p);
-          p = doc.getElementsByTagName("p")[0];
-          var cs = win.getComputedStyle(p);
-          test.equal(cs.display, "none", "computed display of p is none");
-          test.done();
+  getComputedStyleFromDefaultStylesheet1: function(test) {
+    // browsers have default stylesheets, see https://github.com/tmpvar/jsdom/issues/994
+    var doc = jsdom.jsdom('<html><head></head><body><div></div></body></html>');
+    var win = doc.defaultView;
+    var div = doc.getElementsByTagName("div")[0];
+    var cs = win.getComputedStyle(div);
+    test.equal(cs.display, "block", "computed display of div is block by default");
+    test.done();
+  },
+
+  getComputedStyleFromDefaultStylesheet2: function(test) {
+    // browsers have default stylesheets, see https://github.com/tmpvar/jsdom/issues/994
+    var doc = jsdom.jsdom('<html><head></head><body><ul></ul></body></html>');
+    var win = doc.defaultView;
+    var ul = doc.getElementsByTagName("ul")[0];
+    var cs = win.getComputedStyle(ul);
+    test.equal(cs.display, "block", "computed display of ul is block by default");
+    test.done();
+  },
+
+  getComputedStyleFromDefaultStylesheet3: function(test) {
+    // browsers have default stylesheets, see https://github.com/tmpvar/jsdom/issues/994
+    var doc = jsdom.jsdom('<html><head><style>div{display:none}</style></head>'
+                          + '<body><div></div></body></html>');
+    var win = doc.defaultView;
+    jsdom.jQueryify(win, path.resolve(__dirname, "../jquery-fixtures/jquery-1.11.0.js"),
+                    function (window, jQuery) {
+      var div = jQuery('div');
+      var cs = win.getComputedStyle(div.get(0));
+      test.equal(cs.display, "none", "computed display of hidden should is none");
+      div.show();
+      cs = win.getComputedStyle(div.get(0));
+      test.equal(cs.display, "block", "computed display of shown div is block");
+      test.done();
     });
   },
 
+  getComputedStyleInline: function(test) {
+    var doc = jsdom.jsdom();
+    var win = doc.defaultView;
+    var style = doc.createElement("style");
+    style.innerHTML = "p { display: none; }";
+    doc.getElementsByTagName('head')[0].appendChild(style);
+    var p = doc.createElement("p");
+    doc.body.appendChild(p);
+    p = doc.getElementsByTagName("p")[0];
+    var cs = win.getComputedStyle(p);
+    test.equal(cs.display, "none", "computed display of p is none");
+    test.done();
+  },
+
   getComputedStyleFromEmbeddedSheet1: function(test) {
-    jsdom.env(
-        '<html><head><style>#id1 .clazz { margin-left: 100px; }</style></head><body>'
-            + '<div id="id1"><p class="clazz"></p></div>'
-            + '</body></html>',
-        function(err, win) {
-          var doc = win.document;
-          p = doc.getElementsByTagName("p")[0];
-          var cs = win.getComputedStyle(p);
-          test.equal(cs.marginLeft, "100px", "computed marginLeft of p[0] is 100px");
-          test.done();
-    });
+    var doc = jsdom.jsdom(
+      '<html><head><style>#id1 .clazz { margin-left: 100px; }</style></head><body>'
+          + '<div id="id1"><p class="clazz"></p></div>'
+          + '</body></html>');
+    var win = doc.defaultView;
+    p = doc.getElementsByTagName("p")[0];
+    var cs = win.getComputedStyle(p);
+    test.equal(cs.marginLeft, "100px", "computed marginLeft of p[0] is 100px");
+    test.done();
   },
 
   getComputedStyleFromEmbeddedSheet2: function(test) {
     // use grouping, see http://www.w3.org/TR/CSS2/selector.html#grouping
-    jsdom.env(
+    var doc = jsdom.jsdom(
         '<html><head><style>#id1 .clazz, #id2 .clazz { margin-left: 100px; }</style></head><body>'
             + '<div id="id1"><p class="clazz"></p></div>'
             + '<div id="id2"><p class="clazz"></p></div>'
-            + '</body></html>',
-        function(err, win) {
-          var doc = win.document;
-          p = doc.getElementsByTagName("p")[0];
-          var cs = win.getComputedStyle(p);
-          test.equal(cs.marginLeft, "100px", "computed marginLeft of p[0] is 100px");
+            + '</body></html>');
+    var win = doc.defaultView;
+    var p = doc.getElementsByTagName("p")[0];
+    var cs = win.getComputedStyle(p);
+    test.equal(cs.marginLeft, "100px", "computed marginLeft of p[0] is 100px");
 
-          p = doc.getElementsByTagName("p")[1];
-          var cs = win.getComputedStyle(p);
-          test.equal(cs.marginLeft, "100px", "computed marginLeft of p[1] is 100px");
-          test.done();
-    });
+    p = doc.getElementsByTagName("p")[1];
+    var cs = win.getComputedStyle(p);
+    test.equal(cs.marginLeft, "100px", "computed marginLeft of p[1] is 100px");
+    test.done();
   },
 
   getComputedStyleFromEmbeddedSheet3: function(test) {
     // use grouping with embedded quotes and commas, see https://github.com/tmpvar/jsdom/pull/541#issuecomment-18114747
-    jsdom.env(
+    var doc = jsdom.jsdom(
         '<html><head><style>#id1 .clazz, button[onclick="ga(this, event)"], #id2 .clazz { margin-left: 100px; }</style></head><body>'
             + '<div id="id1"><p class="clazz"></p></div>'
             + '<div id="id2"><p class="clazz"></p></div>'
             + '<button onclick="ga(this, event)">analytics button</button>'
-            + '</body></html>',
-        function(err, win) {
-          var doc = win.document;
-          var p = doc.getElementsByTagName("p")[1];
-          var cs = win.getComputedStyle(p);
-          test.equal(cs.marginLeft, "100px", "computed marginLeft of p[1] is 100px");
+            + '</body></html>');
+    var win = doc.defaultView
+    var p = doc.getElementsByTagName("p")[1];
+    var cs = win.getComputedStyle(p);
+    test.equal(cs.marginLeft, "100px", "computed marginLeft of p[1] is 100px");
 
-          var button = doc.getElementsByTagName("button")[0];
-          cs = win.getComputedStyle(button);
-          test.equal(cs.marginLeft, "100px", "computed marginLeft of button[0] is 100px");
-          test.done();
-    });
+    var button = doc.getElementsByTagName("button")[0];
+    cs = win.getComputedStyle(button);
+    test.equal(cs.marginLeft, "100px", "computed marginLeft of button[0] is 100px");
+    test.done();
   },
 
   ensureRelativeStylesheetFilesAreLoaded: function(test) {
