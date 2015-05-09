@@ -407,7 +407,7 @@ var document = jsdom.jsdom(undefined, {
 });
 ```
 
-#### Get an event emitter for a window's console
+#### Create an event emitter for a window's console
 
 ```js
 var jsdom = require("jsdom");
@@ -421,6 +421,12 @@ virtualConsole.on("log", function (message) {
 var document = jsdom.jsdom(undefined, {
   virtualConsole: virtualConsole
 });
+```
+
+Post-initialization, if you didn't pass in a `virtualConsole` or no longer have a reference to it, you can retreive the `virtualConsole` by using:
+
+```js
+var virtualConsole = jsdom.getVirtualConsole(window);
 ```
 
 ## What Standards Does jsdom Support, Exactly?
