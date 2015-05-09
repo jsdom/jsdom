@@ -423,7 +423,7 @@ var document = jsdom.jsdom(undefined, {
 });
 ```
 
-After initialization, you can retreive the `virtualConsole` by using:
+Post-initialization, if you didn't pass in a `virtualConsole` or no longer have a reference to it, you can retreive the `virtualConsole` by using:
 
 ```js
 var virtualConsole = jsdom.getVirtualConsole(window);
