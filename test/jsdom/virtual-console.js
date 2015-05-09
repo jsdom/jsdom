@@ -104,7 +104,7 @@ exports["createVirtualConsole returns a new virtual console"] = function (t) {
   t.done();
 };
 
-exports["jsdom setup accepts a virtual console"] = function (t) {
+exports["jsdom.jsdom accepts a virtual console"] = function (t) {
   t.expect(2);
   var initialVirtualConsole = jsdom.createVirtualConsole();
 
@@ -123,6 +123,29 @@ exports["jsdom setup accepts a virtual console"] = function (t) {
     "getVirtualConsole returns the console given in options");
 
   window.console.log("yes");
+};
+
+exports["jsdom.env accepts a virtual console"] = function (t) {
+  t.expect(2);
+  var initialVirtualConsole = jsdom.createVirtualConsole();
+
+  initialVirtualConsole.on("log", function (message) {
+    t.ok(message === "yes",
+      "supplied virtual console emits messages");
+    t.done();
+  });
+
+  jsdom.env({
+    html: "",
+    virtualConsole: initialVirtualConsole,
+    done: function (errors, window) {
+      var actualVirtualConsole = jsdom.getVirtualConsole(window);
+      t.ok(initialVirtualConsole === actualVirtualConsole,
+        "getVirtualConsole returns the console given in options");
+
+      window.console.log("yes");
+    }
+  });
 };
 
 exports["virtualConsole option throws on bad input"] = function (t) {
