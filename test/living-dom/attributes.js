@@ -238,3 +238,18 @@ exports["hasAttribute should work with all attribute casings"] = function (t) {
 
   t.done();
 };
+
+exports["setAttribute should lowercase before setting"] = function (t) {
+  // https://github.com/whatwg/dom/issues/31
+
+  var document = jsdom.jsdom();
+
+  document.body.setAttribute("FOO", "bar");
+
+  t.equal(document.body.getAttribute("foo"), "bar");
+  t.equal(document.body.getAttribute("FOO"), "bar");
+  t.equal(document.body.getAttributeNS("", "foo"), "bar");
+  t.equal(document.body.getAttributeNS("", "FOO"), null);
+
+  t.done();
+};
