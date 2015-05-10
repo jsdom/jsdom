@@ -56,8 +56,10 @@ var files = [
   "living-html/htmltextareaelement.js",
   "living-html/htmlformelement.js",
   "living-html/location.js",
+  "living-html/message-event.js",
   "living-html/htmlimageelement.js",
   "living-html/navigator.js",
+  "living-html/post-message.js",
 
   "window/history.js",
   "window/script.js",
