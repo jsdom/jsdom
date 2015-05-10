@@ -1,3 +1,26 @@
+## 5.4.0
+
+This is a pretty exciting release! It includes a couple features I never really anticipated jsdom being awesome enough to have, but our wonderful contributors powered through and made them happen anyway:
+
+* Added support for the default HTML stylesheet when using `window.getComputedStyle`! (akhaku)
+  - Notably, this makes jQuery's `show()` and `hide()` methods now work correctly; see [#994](https://github.com/tmpvar/jsdom/issues/994).
+* Added support for named properties on `window`: any elements with an `id` attribute, or certain elements with a `name` attribute, will cause properties to show up on the `window`, and thus as global variables within the jsdom. (Joris-van-der-Wel)
+  - Although this is fairly unfortunate browser behavior, it's standardized and supported everywhere, so the fact that jsdom now supports this too means we can run a lot of scripts that would previously fail.
+  - Previously, we only supported this for `<iframe>`s, and our implementation was quite buggy: e.g., `<iframe name="addEventListener">` would override `window.addEventListener`.
+  - Now that we have the infrastructure in place, we anticipate expanding our support so that this works on e.g. `HTMLFormElement`s as well in the future.
+
+We also have a bunch more fixes and additions:
+
+* Implemented the [`NonDocumentTypeChildNode`](https://dom.spec.whatwg.org/#nondocumenttypechildnode) mixin. Practically, this means adding `nextElementSibling` and `previousElementSibling` to `Element` and the various types of `CharacterData`. (brandon-bethke-neudesic)
+* Updated `StyleSheetList` to inherit from `Array`, as per the latest CSSOM spec.
+* Overhauled the handling of attributes throughout the DOM, to follow the spec more exactly.
+  - Our `NamedNodeMap` implementation is up to date, as are the various `Element` methods; other places in the code that deal with attributes now all go through a spec-compliant set of helpers.
+  - Some weirdnesses around the `style` attribute were fixed along the way; see e.g. [#1109](https://github.com/tmpvar/jsdom/issues/1109).
+  - However, `Attr` objects themselves are not yet spec-compliant (e.g., they still inherit from `Node`). That's coming soon.
+* Fixed an unfortunate bug where `getElementById` would fail to work correctly on `<img>` elements whose `id` attributes were modified. (Joris-van-der-Wel)
+* Fixed the `virtualConsole` option to work with `jsdom.env`, not just `jsdom.jsdom`. (jeffcarp)
+* Removed a few functions that were erroneously added to `window`: `mapper`, `mapDOMNodes`, and `visitTree`. (Joris-van-der-Wel)
+
 ## 5.3.0
 
 * Added a `virtualConsole` option to the document creation methods, along with the `jsdom.createVirtualConsole` factory. (See [examples in the readme](https://github.com/tmpvar/jsdom/blob/dbf88666d1152576237ed1c741263f5516bb4005/README.md#capturing-console-output).) With this option you can install a virtual console before the document is even created, thus allowing you to catch any virtual console events that occur during initialization. (jeffcarp)
