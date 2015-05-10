@@ -135,7 +135,7 @@ exports["jsdom.env accepts a virtual console"] = function (t) {
     t.done();
   });
 
-  var window = jsdom.env({
+  jsdom.env({
     html: "",
     virtualConsole: initialVirtualConsole,
     done: function (errors, window) {
