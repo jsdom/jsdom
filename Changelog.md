@@ -1,3 +1,7 @@
+## 5.4.1
+
+* Fixed to work with browserify again (regression introduced in 5.4.0).
+
 ## 5.4.0
 
 This is a pretty exciting release! It includes a couple features I never really anticipated jsdom being awesome enough to have, but our wonderful contributors powered through and made them happen anyway:
