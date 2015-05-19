@@ -1,3 +1,7 @@
+## 5.4.2
+
+* Fixed license metadata to conform to latest npm standards.
+
 ## 5.4.1
 
 * Fixed to work with browserify again (regression introduced in 5.4.0).
