@@ -13,10 +13,7 @@
     "Domenic Denicola <d@domenic.me> (https://domenic.me/)",
     "Sebastian Mayr <sebmaster16@gmail.com> (http://blog.smayr.name/)"
   ],
-  "license": {
-    "type": "MIT",
-    "url": "http://github.com/tmpvar/jsdom/blob/master/LICENSE.txt"
-  },
+  "license": "MIT",
   "repository": "tmpvar/jsdom",
   "dependencies": {
     "acorn": "^1.0.3",
