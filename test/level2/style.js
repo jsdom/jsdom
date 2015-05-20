@@ -1,117 +1,118 @@
-var jsdom = require('../../lib/jsdom');
-var assert = require('assert');
-var http = require('http');
-var fs = require('fs');
-var path = require('path');
+"use strict";
+
+var jsdom = require("../../lib/jsdom");
+var http = require("http");
+var fs = require("fs");
+var path = require("path");
 
 exports.tests = {
 
-  HTMLStyleElement01 : function (test) {
+  HTMLStyleElement01: function (test) {
     jsdom.env(
-        '<html><head><style>p{color:red}</style></head><body>',
-        function(err, win) {
+        "<html><head><style>p{color:red}</style></head><body>",
+        function (err, win) {
       var style = win.document.head.lastChild;
       test.equal(1, style.sheet.cssRules.length);
-      test.equal('p', style.sheet.cssRules[0].selectorText);
-      test.equal('red', style.sheet.cssRules[0].style.color);
+      test.equal("p", style.sheet.cssRules[0].selectorText);
+      test.equal("red", style.sheet.cssRules[0].style.color);
       test.done();
     });
   },
 
-  HTMLStyleAttribute01 : function (test) {
+  HTMLStyleAttribute01: function (test) {
     jsdom.env(
-        '<html><body><p style="color:red; background-color: blue">',
-        function(err, win) {
+        "<html><body><p style=\"color:red; background-color: blue\">",
+        function (err, win) {
       var p = win.document.body.lastChild;
       test.equal(2, p.style.length);
-      test.equal('color', p.style[0]);
-      test.equal('red', p.style.color);
-      test.equal('background-color', p.style[1]);
-      test.equal('blue', p.style.backgroundColor);
+      test.equal("color", p.style[0]);
+      test.equal("red", p.style.color);
+      test.equal("background-color", p.style[1]);
+      test.equal("blue", p.style.backgroundColor);
       test.done();
     });
   },
 
-  HTMLCanvasStyleAttribute01 : function (test) {
+  HTMLCanvasStyleAttribute01: function (test) {
     jsdom.env(
-        '<html><body><canvas style="background-color: blue; z-index:1">',
-        function(err, win) {
+        "<html><body><canvas style=\"background-color: blue; z-index:1\">",
+        function (err, win) {
       var c = win.document.body.lastChild;
       test.equal(2, c.style.length);
-      test.equal('background-color', c.style[0]);
-      test.equal('blue', c.style.backgroundColor);
-      test.equal('z-index', c.style[1]);
+      test.equal("background-color", c.style[0]);
+      test.equal("blue", c.style.backgroundColor);
+      test.equal("z-index", c.style[1]);
       test.equal(1, c.style.zIndex);
       test.done();
     });
   },
 
-  StylePropertyReflectsStyleAttribute : function (test) {
+  StylePropertyReflectsStyleAttribute: function (test) {
     jsdom.env(
-        '',
-        function(err, win) {
-      var p = win.document.createElement('p');
-      p.setAttribute('style', 'color:red');
+        "",
+        function (err, win) {
+      var p = win.document.createElement("p");
+      p.setAttribute("style", "color:red");
       test.equal(1, p.style.length);
-      test.equal('color', p.style[0]);
-      test.equal('red', p.style.color);
-      p.setAttribute('style', '');
+      test.equal("color", p.style[0]);
+      test.equal("red", p.style.color);
+      p.setAttribute("style", "");
       test.equal(0, p.style.length);
-      test.equal('', p.style.color);
-      p.setAttribute('style', 'color:blue');
-      test.equal('color', p.style[0]);
-      test.equal('blue', p.style.color);
+      test.equal("", p.style.color);
+      p.setAttribute("style", "color:blue");
+      test.equal("color", p.style[0]);
+      test.equal("blue", p.style.color);
       test.done();
     });
   },
 
-  StyleAttributeReflectsStyleProperty : function (test) {
+  StyleAttributeReflectsStyleProperty: function (test) {
     jsdom.env(
-        '',
-        function(err, win) {
-      var p = win.document.createElement('p');
-      p.style.setProperty('color', 'red');
-      test.equal(p.getAttribute('style'), 'color: red;');
-      p.style.setProperty('width', '20px');
-      test.equal(p.getAttribute('style'), 'color: red; width: 20px;');
-      p.style.removeProperty('color');
-      test.equal(p.getAttribute('style'), 'width: 20px;');
-      p.style.removeProperty('width');
-      test.equal(p.getAttribute('style'), '');
-      p.style.cssText = 'background-color: blue; z-index: 12;';
+        "",
+        function (err, win) {
+      var p = win.document.createElement("p");
+      p.style.setProperty("color", "red");
+      test.equal(p.getAttribute("style"), "color: red;");
+      p.style.setProperty("width", "20px");
+      test.equal(p.getAttribute("style"), "color: red; width: 20px;");
+      p.style.removeProperty("color");
+      test.equal(p.getAttribute("style"), "width: 20px;");
+      p.style.removeProperty("width");
+      test.equal(p.getAttribute("style"), "");
+      p.style.cssText = "background-color: blue; z-index: 12;";
       test.equal(2, p.style.length);
-      test.equal('blue', p.style.backgroundColor);
-      test.equal('12', p.style.zIndex);
-      p.style.removeProperty('z-index');
+      test.equal("blue", p.style.backgroundColor);
+      test.equal("12", p.style.zIndex);
+      p.style.removeProperty("z-index");
       test.equal(1, p.style.length);
-      p.style.backgroundColor = 'green';
-      test.equal('background-color: green;', p.style.cssText);
-      test.equal('background-color', p.style.item(0));
+      p.style.backgroundColor = "green";
+      test.equal("background-color: green;", p.style.cssText);
+      test.equal("background-color", p.style.item(0));
       test.done();
     });
   },
 
   retainOriginalStyleAttributeUntilStyleGetter: function (test) {
     jsdom.env(
-        '',
+        "",
         function (err, win) {
           var document = win.document;
-          var div = document.createElement('div');
-          div.setAttribute('style', 'font-weight: bold; font-weight: normal;');
-          test.equal(div.getAttribute('style'), 'font-weight: bold; font-weight: normal;');
-          div.innerHTML = '<div style="color: red; color: blue;"></div>';
-          test.equal(div.innerHTML, '<div style="color: red; color: blue;"></div>');
-          test.equal(div.firstChild.getAttribute('style'), 'color: red; color: blue;');
-          div.firstChild.style.color = 'maroon';
-          test.equal(div.firstChild.getAttribute('style'), 'color: maroon;');
+          var div = document.createElement("div");
+          div.setAttribute("style", "font-weight: bold; font-weight: normal;");
+          test.equal(div.getAttribute("style"), "font-weight: bold; font-weight: normal;");
+          div.innerHTML = "<div style=\"color: red; color: blue;\"></div>";
+          test.equal(div.innerHTML, "<div style=\"color: red; color: blue;\"></div>");
+          test.equal(div.firstChild.getAttribute("style"), "color: red; color: blue;");
+          div.firstChild.style.color = "maroon";
+          test.equal(div.firstChild.getAttribute("style"), "color: maroon;");
           test.done();
         }
      );
   },
 
-  getComputedStyleFromDefaultStylesheet1: function(test) {
+  getComputedStyleFromDefaultStylesheet1: function (test) {
     // browsers have default stylesheets, see https://github.com/tmpvar/jsdom/issues/994
-    var doc = jsdom.jsdom('<html><head></head><body><div></div></body></html>');
+    var doc = jsdom.jsdom("<html><head></head><body><div></div></body></html>");
     var win = doc.defaultView;
     var div = doc.getElementsByTagName("div")[0];
     var cs = win.getComputedStyle(div);
@@ -119,9 +120,9 @@ exports.tests = {
     test.done();
   },
 
-  getComputedStyleFromDefaultStylesheet2: function(test) {
+  getComputedStyleFromDefaultStylesheet2: function (test) {
     // browsers have default stylesheets, see https://github.com/tmpvar/jsdom/issues/994
-    var doc = jsdom.jsdom('<html><head></head><body><ul></ul></body></html>');
+    var doc = jsdom.jsdom("<html><head></head><body><ul></ul></body></html>");
     var win = doc.defaultView;
     var ul = doc.getElementsByTagName("ul")[0];
     var cs = win.getComputedStyle(ul);
@@ -129,14 +130,14 @@ exports.tests = {
     test.done();
   },
 
-  getComputedStyleFromDefaultStylesheet3: function(test) {
+  getComputedStyleFromDefaultStylesheet3: function (test) {
     // browsers have default stylesheets, see https://github.com/tmpvar/jsdom/issues/994
-    var doc = jsdom.jsdom('<html><head><style>div{display:none}</style></head>'
-                          + '<body><div></div></body></html>');
+    var doc = jsdom.jsdom("<html><head><style>div{display:none}</style></head>" +
+                          "<body><div></div></body></html>");
     var win = doc.defaultView;
     jsdom.jQueryify(win, path.resolve(__dirname, "../jquery-fixtures/jquery-1.11.0.js"),
                     function (window, jQuery) {
-      var div = jQuery('div');
+      var div = jQuery("div");
       var cs = win.getComputedStyle(div.get(0));
       test.equal(cs.display, "none", "computed display of hidden should is none");
       div.show();
@@ -146,12 +147,12 @@ exports.tests = {
     });
   },
 
-  getComputedStyleInline: function(test) {
+  getComputedStyleInline: function (test) {
     var doc = jsdom.jsdom();
     var win = doc.defaultView;
     var style = doc.createElement("style");
     style.innerHTML = "p { display: none; }";
-    doc.getElementsByTagName('head')[0].appendChild(style);
+    doc.getElementsByTagName("head")[0].appendChild(style);
     var p = doc.createElement("p");
     doc.body.appendChild(p);
     p = doc.getElementsByTagName("p")[0];
@@ -160,45 +161,46 @@ exports.tests = {
     test.done();
   },
 
-  getComputedStyleFromEmbeddedSheet1: function(test) {
+  getComputedStyleFromEmbeddedSheet1: function (test) {
     var doc = jsdom.jsdom(
-      '<html><head><style>#id1 .clazz { margin-left: 100px; }</style></head><body>'
-          + '<div id="id1"><p class="clazz"></p></div>'
-          + '</body></html>');
+      "<html><head><style>#id1 .clazz { margin-left: 100px; }</style></head><body>" +
+      "<div id=\"id1\"><p class=\"clazz\"></p></div>" +
+      "</body></html>");
     var win = doc.defaultView;
-    p = doc.getElementsByTagName("p")[0];
+    var p = doc.getElementsByTagName("p")[0];
     var cs = win.getComputedStyle(p);
     test.equal(cs.marginLeft, "100px", "computed marginLeft of p[0] is 100px");
     test.done();
   },
 
-  getComputedStyleFromEmbeddedSheet2: function(test) {
+  getComputedStyleFromEmbeddedSheet2: function (test) {
     // use grouping, see http://www.w3.org/TR/CSS2/selector.html#grouping
     var doc = jsdom.jsdom(
-        '<html><head><style>#id1 .clazz, #id2 .clazz { margin-left: 100px; }</style></head><body>'
-            + '<div id="id1"><p class="clazz"></p></div>'
-            + '<div id="id2"><p class="clazz"></p></div>'
-            + '</body></html>');
+        "<html><head><style>#id1 .clazz, #id2 .clazz { margin-left: 100px; }</style></head><body>" +
+        "<div id=\"id1\"><p class=\"clazz\"></p></div>" +
+        "<div id=\"id2\"><p class=\"clazz\"></p></div>" +
+        "</body></html>");
     var win = doc.defaultView;
     var p = doc.getElementsByTagName("p")[0];
     var cs = win.getComputedStyle(p);
     test.equal(cs.marginLeft, "100px", "computed marginLeft of p[0] is 100px");
 
     p = doc.getElementsByTagName("p")[1];
-    var cs = win.getComputedStyle(p);
+    cs = win.getComputedStyle(p);
     test.equal(cs.marginLeft, "100px", "computed marginLeft of p[1] is 100px");
     test.done();
   },
 
-  getComputedStyleFromEmbeddedSheet3: function(test) {
+  getComputedStyleFromEmbeddedSheet3: function (test) {
     // use grouping with embedded quotes and commas, see https://github.com/tmpvar/jsdom/pull/541#issuecomment-18114747
     var doc = jsdom.jsdom(
-        '<html><head><style>#id1 .clazz, button[onclick="ga(this, event)"], #id2 .clazz { margin-left: 100px; }</style></head><body>'
-            + '<div id="id1"><p class="clazz"></p></div>'
-            + '<div id="id2"><p class="clazz"></p></div>'
-            + '<button onclick="ga(this, event)">analytics button</button>'
-            + '</body></html>');
-    var win = doc.defaultView
+        "<html><head><style>#id1 .clazz, button[onclick=\"ga(this, event)\"], " +
+        "#id2 .clazz { margin-left: 100px; }</style></head><body>" +
+        "<div id=\"id1\"><p class=\"clazz\"></p></div>" +
+        "<div id=\"id2\"><p class=\"clazz\"></p></div>" +
+        "<button onclick=\"ga(this, event)\">analytics button</button>" +
+        "</body></html>");
+    var win = doc.defaultView;
     var p = doc.getElementsByTagName("p")[1];
     var cs = win.getComputedStyle(p);
     test.equal(cs.marginLeft, "100px", "computed marginLeft of p[1] is 100px");
@@ -209,13 +211,13 @@ exports.tests = {
     test.done();
   },
 
-  ensureRelativeStylesheetFilesAreLoaded: function(test) {
-    var server = http.createServer(function(req, res) {
+  ensureRelativeStylesheetFilesAreLoaded: function (test) {
+    var server = http.createServer(function (req, res) {
       try {
         var content = String(fs.readFileSync(path.resolve(__dirname, "style", req.url.substring(1))));
         res.writeHead(200, {
-          "Content-type" : req.url.endsWith(".css") ? "text/css" : "text/html",
-          "Content-length" : content.length
+          "Content-type": req.url.endsWith(".css") ? "text/css" : "text/html",
+          "Content-length": content.length
         });
         res.end(content);
       } catch (exc) {
@@ -229,16 +231,16 @@ exports.tests = {
     jsdom.env({
       url: "http://127.0.0.1:10100/relative_import.html",
       features: {
-          FetchExternalResources: ["link", "css"]
+        FetchExternalResources: ["link", "css"]
       },
-      created: function(error, win) {
-        jsdom.getVirtualConsole(win).on("error", function(message) {
+      created: function (error, win) {
+        jsdom.getVirtualConsole(win).on("error", function (message) {
           console.error(message);
           test.ok(false, message);
         });
       },
-      done: function(error, win) {
-        setTimeout(function() { // HACK: style imports haven't been processed yet, different bug
+      done: function (error, win) {
+        setTimeout(function () { // HACK: style imports haven"t been processed yet, different bug
           var doc = win.document;
           var style = win.getComputedStyle(doc.body);
           test.equal(style.color, "red", "computed color of body is red");
@@ -249,38 +251,38 @@ exports.tests = {
     });
   },
 
-  ensureExternalStylesheetsAreLoadable : function(test) {
+  ensureExternalStylesheetsAreLoadable: function (test) {
     var css = "body { border: 1px solid #f0f; }";
-    var server = http.createServer(function(req, res) {
+    var server = http.createServer(function (req, res) {
       res.writeHead(200, {
-        'Content-type' : 'text/css',
-        'Content-length' : css.length
+        "Content-type": "text/css",
+        "Content-length": css.length
       });
       res.end(css);
     });
 
     server.listen(10099);
 
-    jsdom.env(path.resolve(__dirname, 'style/external_css.html'), function(errors, win) {
+    jsdom.env(path.resolve(__dirname, "style/external_css.html"), function (errors, win) {
       test.equal(win.document.errors, null);
       server.close();
       test.done();
     });
   },
 
-  getComputedStyleExternal: function(test) {
+  getComputedStyleExternal: function (test) {
     var css = "div { color: red; }";
-    var server = http.createServer(function(req, res) {
+    var server = http.createServer(function (req, res) {
       res.writeHead(200, {
-        'Content-type' : 'text/css',
-        'Content-length' : css.length
+        "Content-type": "text/css",
+        "Content-length": css.length
       });
       res.end(css);
     });
 
     server.listen(10099);
 
-    var html = fs.readFileSync(path.resolve(__dirname, 'style/getComputedStyleExternal.html'), 'utf8');
+    var html = fs.readFileSync(path.resolve(__dirname, "style/getComputedStyleExternal.html"), "utf8");
     var doc = jsdom.jsdom(html);
     var win = doc.defaultView;
     doc.onload = function () {
@@ -292,14 +294,14 @@ exports.tests = {
     };
   },
 
-  getComputedStyleWithBadSelectors: function(test) {
+  getComputedStyleWithBadSelectors: function (test) {
     jsdom.env(
-        '',
-        function(err, win) {
+        "",
+        function (err, win) {
           var doc = win.document;
           var style = doc.createElement("style");
           style.innerHTML = ";p { display: none; }";
-          doc.getElementsByTagName('head')[0].appendChild(style);
+          doc.getElementsByTagName("head")[0].appendChild(style);
           var p = doc.createElement("p");
           doc.body.appendChild(p);
           p = doc.getElementsByTagName("p")[0];
@@ -307,29 +309,33 @@ exports.tests = {
             win.getComputedStyle(p);
           });
           test.done();
-    });
+        }
+    );
   },
 
-  getComputedStyleWithMediaRules: function(test) {
+  getComputedStyleWithMediaRules: function (test) {
     jsdom.env(
-        '<html><head><style>@media screen,handheld { .citation { color: blue; } } @media print { .citation { color: red; } }</style></head>' +
-        '<body><p class="citation">Hello</p></body></html>',
-        function(err, win) {
-          var style = win.getComputedStyle(win.document.querySelector('.citation'));
-          test.equal(style.color, 'blue', 'computed color of p is blue');
+        "<html><head><style>@media screen,handheld { .citation { color: blue; } } " +
+        "@media print { .citation { color: red; } }</style></head>" +
+        "<body><p class=\"citation\">Hello</p></body></html>",
+        function (err, win) {
+          var style = win.getComputedStyle(win.document.querySelector(".citation"));
+          test.equal(style.color, "blue", "computed color of p is blue");
           test.done();
-    });
+        }
+    );
   },
 
-  getComputedStyleWithKeyframeRules: function(test) {
+  getComputedStyleWithKeyframeRules: function (test) {
     jsdom.env(
-        '<html><head><style>@-webkit-keyframes breaking {}</style></head>' +
-        '<body><p>Hello</p></body></html>',
-        function(err, win) {
+        "<html><head><style>@-webkit-keyframes breaking {}</style></head>" +
+        "<body><p>Hello</p></body></html>",
+        function (err, win) {
           test.doesNotThrow(function () {
-            var style = win.getComputedStyle(win.document.querySelector('p'));
+            win.getComputedStyle(win.document.querySelector("p"));
           });
           test.done();
-    });
+        }
+    );
   }
 };
