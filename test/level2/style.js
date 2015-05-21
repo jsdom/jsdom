@@ -337,5 +337,38 @@ exports.tests = {
           test.done();
         }
     );
+  },
+
+  setStyleToInvalidCSSSyntax: function (test) {
+    const node = jsdom.jsdom().createElement("div");
+
+    const invalidStyles = [
+      "color: red; }",
+      "color: \"red",
+      "color: red;' ",
+      "color: red; /*",
+      "color: attr(",
+      "color: ",
+      "color: /*red"
+    ];
+
+    invalidStyles.forEach(function (style) {
+      node.setAttribute("style", "color: red");
+      test.doesNotThrow(function () {
+        node.setAttribute("style", style);
+      });
+      test.strictEqual(node.getAttribute("style"), style);
+      test.strictEqual(node.style.color, "");
+      test.strictEqual(node.style.cssText, "");
+
+      node.style.cssText = "color: red";
+      test.doesNotThrow(function () {
+        node.style.cssText = style;
+      });
+      test.strictEqual(node.style.color, "");
+      test.strictEqual(node.style.cssText, "");
+    });
+
+    test.done();
   }
 };
