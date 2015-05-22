@@ -10,7 +10,8 @@ var querystring = require('querystring');
 var runnerDisplay = require('./browser-display');
 var portfinder = Q.denodeify(require('portfinder').getPort);
 var installSelenium = Q.denodeify(require('selenium-standalone').install);
-var startSelenium = Q.denodeify(require('selenium-standalone').start);
+var startSeleniumCb = require('selenium-standalone').start;
+var xtend = require('xtend/mutable');
 var wd = require('wd');
 
 var browser;
@@ -135,6 +136,17 @@ function run() {
       process.exit(passed ? 0 : 1);
     })
     .done();
+}
+
+function startSelenium(options) {
+  return Q.promise(function (resolve) {
+    var newOptions = xtend({ spawnCb: resolve }, options);
+    startSeleniumCb(newOptions, function (err) {
+      if (err) {
+        reject(err);
+      }
+    });
+  });
 }
 
 // browserify and run the tests

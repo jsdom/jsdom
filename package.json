@@ -41,7 +41,7 @@
     "optimist": "0.6.1",
     "portfinder": "0.4.0",
     "q": "^1.2.0",
-    "selenium-standalone": "^4.2.2",
+    "selenium-standalone": "^4.4.0",
     "urlmaster": "0.2.15",
     "wd": "0.3.11"
   },
