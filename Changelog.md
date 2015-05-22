@@ -1,3 +1,7 @@
+## 5.4.3
+
+* Incorporated upstream fix for setting `el.style.cssText` to an invalid value, which should be ignored instead of causing an error to be thrown. This same bug has also caused an error while setting the style attribute to an invalid value, ever since 5.4.0. (Joris-van-der-Wel; chad3814 upstream)
+
 ## 5.4.2
 
 * Fixed license metadata to conform to latest npm standards.
