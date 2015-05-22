@@ -16,7 +16,7 @@
   "license": "MIT",
   "repository": "tmpvar/jsdom",
   "dependencies": {
-    "acorn": "^1.0.3",
+    "acorn": "^1.2.1",
     "acorn-globals": "^1.0.4",
     "browser-request": ">= 0.3.1 < 0.4.0",
     "cssom": ">= 0.3.0 < 0.4.0",
