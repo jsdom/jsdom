@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "browserify": "^9.0.8",
+    "canvas": "^1.2.2",
     "colors": "^1.0.3",
     "http-server": "^0.8.0",
     "jscs": "^1.12.0",
