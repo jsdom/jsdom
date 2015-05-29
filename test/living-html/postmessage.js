@@ -17,14 +17,10 @@ function wrapScriptInHtmlDocumentString(js) {
   `;
 }
 
-// Idea: run framebus tests on jsdom to get a reasonable idea that most features are working
-
 // Tests for window.postMessage
-// TODO: Spec: https://html.spec.whatwg.org/(?)
+// Spec: https://html.spec.whatwg.org/#crossDocumentMessages
 
-// TODO: Change data from event.data to whatever spec dictates
 exports["postMessage from iframe to parent"] = function (test) {
-
   var html = wrapScriptInHtmlDocumentString(`
     window.iframe = document.createElement("iframe");
     window.iframe.src = "${toFileUrl("files/iframe.html")}";
@@ -59,7 +55,7 @@ exports["postMessage from parent to iframe"] = function (test) {
     window.iframe.src = "${toFileUrl("files/iframe-receiver.html")}";
     document.body.appendChild(window.iframe);
     window.iframe.onload = function () {
-      window.iframe.postMessage("yeah");
+      window.iframe.postMessage("ack");
       window.testCallback();
     };
   `);
@@ -76,8 +72,7 @@ exports["postMessage from parent to iframe"] = function (test) {
 
   window.testCallback = function () {
     var event = window.postMessageEvent;
-    // TODO: Make test strings consistent
-    test.ok(event.data === "yeah");
+    test.ok(event.data === "ack");
     test.done();
   };
 };
@@ -98,9 +93,6 @@ exports["postMessage from iframe to iframe"] = function (test) {
     };
   `);
 
-  // TODO: Make an option for virtualConsole to proxy every frame's console?
-    // Right now it just proxies the root frame's console
-  // TODO: should sendTo() return the instance?
   var virtualConsole = jsdom.createVirtualConsole();
   virtualConsole.sendTo(console);
   var options = {
@@ -116,12 +108,7 @@ exports["postMessage from iframe to iframe"] = function (test) {
 
   window.testCallback = function () {
     var event = window.postMessageEvent;
-    // TODO: Test origin
-    test.ok(event.data === "yeah");
+    test.ok(event.data === "ack");
     test.done();
   };
 };
-
-// x: Test parent to iframe
-// x: Test iframe to iframe
-// TODO: Test origin preference
