@@ -3,6 +3,8 @@
 // Tests for window.postMessage(message, targetOrigin, transfer)
 // Spec: https://html.spec.whatwg.org/#crossDocumentMessages
 
+// TODO: Test that it clones the message
+
 var jsdom = require("../..");
 var toFileUrl = require("../util").toFileUrl(__dirname);
 
@@ -27,170 +29,144 @@ const baseOptions = {
   }
 };
 
-exports["throws SyntaxError on invalid targetOrigin"] = function (test) {
-  var document = jsdom.jsdom(wrapScriptInHtmlDocumentString(`
-    window.iframe = document.createElement("iframe");
-    window.iframe.src = "${toFileUrl("files/blank.html")}";
-    document.body.appendChild(window.iframe);
-  `), baseOptions);
-  var window = document.defaultView;
+function injectIFrameWithScript(document, scriptStr) {
+  scriptStr = scriptStr || "";
+  let iframe = document.createElement('iframe');
+  document.body.appendChild(iframe);
 
-  window.iframe.onload = function () {
+  let scriptTag = iframe.contentWindow.document.createElement('script');
+  scriptTag.innerHTML = scriptStr;
+  iframe.contentWindow.document.body.appendChild(scriptTag);
+
+  return iframe;
+}
+
+exports["fugeddaboutit"] = function (t) {
+  let document = jsdom.jsdom();
+  let window = document.defaultView;
+  let iframe = injectIFrameWithScript(document, `
+    window.parent.foo = "bar";
+  `);
+
+  t.ok(window.foo === "bar");
+  t.done();
+};
+
+exports["throws SyntaxError on invalid targetOrigin"] = function (test) {
+  let document = jsdom.jsdom();
+  let window = document.defaultView;
+  let iframe = injectIFrameWithScript(document);
+
+  window.onload = function () {
     test.throws(function () {
-      window.iframe.postMessage("testMessage", "bogus targetOrigin");
+      iframe.contentWindow.postMessage("testMessage", "bogus targetOrigin");
     }, SyntaxError, "an invalid targetOrigin throws a SyntaxError");
 
     test.throws(function () {
-      window.iframe.postMessage("testMessage");
+      iframe.contentWindow.postMessage("testMessage");
     }, TypeError, "an missing targetOrigin throws a TypeError");
 
     test.done();
   };
 };
 
-// TODO: Test that it clones the message
-
 exports["postMessage from iframe to parent"] = function (test) {
-  var window = jsdom.jsdomwrapScriptInHtmlDocumentString(`
-    window.iframe = document.createElement("iframe");
-    window.iframe.src = "${toFileUrl("files/iframe.html")}";
-    document.body.appendChild(window.iframe);
+  let document = jsdom.jsdom(wrapScriptInHtmlDocumentString(`
     window.addEventListener("message", function (event) {
       window.postMessageReceived = event;
     });
-  `).defaultView;
+  `), baseOptions);
+  let window = document.defaultView;
 
-  window.iframe.onload = function() {
-    var event = window.postMessageReceived;
-    test.ok(event.data === "ack");
+  injectIFrameWithScript(document, `
+    window.parent.postMessage("ack", "*");
+  `);
+
+  window.onload = function() {
+    test.ok(window.postMessageReceived.data === "ack");
     test.done();
   };
 };
 
 exports["postMessage an object from iframe to parent"] = function (test) {
-  var html = wrapScriptInHtmlDocumentString(`
-    window.iframe = document.createElement("iframe");
-    // TODO: make html file names consistent:
-    // iframe-sender sends to a sibling iframe, but
-    // iframe-sender-object sends to parent
-    // Ideally we could specify the src here
-    window.iframe.src = "${toFileUrl("files/iframe-sender-object.html")}";
-    document.body.appendChild(window.iframe);
+  let document = jsdom.jsdom(wrapScriptInHtmlDocumentString(`
     window.addEventListener("message", function (event) {
       window.postMessageReceived = event;
     });
+  `), baseOptions);
+  let window = document.defaultView;
+
+  injectIFrameWithScript(document, `
+    window.parent.postMessage({foo: "bar"}, "*");
   `);
 
-  var document = jsdom.jsdom(html, baseOptions);
-  var window = document.defaultView;
-
-//  window.iframe.onload = function() {
-  setTimeout(function () {
-    var event = window.postMessageReceived;
+  window.onload = function() {
+    let event = window.postMessageReceived;
     test.ok(typeof event.data === "object");
     test.ok(event.data.foo === "bar");
+    test.done();
+  };
+};
+
+exports["postMessage from parent to iframe"] = function (test) {
+  let document = jsdom.jsdom();
+  let window = document.defaultView;
+
+  let iframe = injectIFrameWithScript(document, `
+    window.addEventListener("message", function (event) {
+      window.parent.postMessageEvent = event;
+    });
+  `);
+
+  window.onload = function () {
+    iframe.contentWindow.postMessage("ack", "*");
+  };
+
+  setTimeout( function () {
+    test.ok(window.postMessageEvent.data === "ack");
     test.done();
   }, 1e3);
 };
 
-exports["postMessage from parent to iframe"] = function (test) {
-  var window = jsdom.jsdom(wrapScriptInHtmlDocumentString(`
-    window.iframe = document.createElement("iframe");
-    window.iframe.src = "${toFileUrl("files/iframe-receiver.html")}";
-    document.body.appendChild(window.iframe);
-    window.iframe.onload = function () {
-      window.iframe.postMessage("ack", "*");
-      window.testCallback();
-    };
-  `).defaultView;
+exports["postMessage from iframe to iframe"] = function (test) {
+  let document = jsdom.jsdom();
+  let window = document.defaultView;
 
-  window.testCallback = function () {
-    var event = window.postMessageEvent;
-    test.ok(event.data === "ack");
-    test.done();
-  };
-};
-
-exports["postMessage from iframe to iframe ficus"] = function (test) {
-  var window = jsdom.jsdom(wrapScriptInHtmlDocumentString(`
-    window.iframeReceiver = document.createElement("iframe");
-    window.iframeReceiver.src = "${toFileUrl("files/iframe-receiver.html")}";
-    document.body.appendChild(window.iframeReceiver);
-
-    window.iframeSender = document.createElement("iframe");
-    window.iframeSender.src = "${toFileUrl("files/iframe-sender.html")}";
-    document.body.appendChild(window.iframeSender);
-
-    window.onload = function () {
-      window.testCallback();
-    };
-  `), baseOptions).defaultView;
-
-  window.testCallback = function () {
-    var event = window.postMessageEvent;
-    test.ok(event.data === "ack");
-    test.done();
-  };
-};
-
-exports["postMessage only distributes to specified targetOrigin  dingus"] = function (test) {
-
-jsdom.env({
-  file: __dirname+"/files/test-root.html",
-  features: {
-    FetchExternalResources: ["script", "iframe"],
-    ProcessExternalResources: ["script", "iframe"]
-  },
-  done: function (errors, window) {
-    if (errors) {
-      return console.error(errors);
-    }
-    var document = window.document;
-
-    window.iframeReceiver = document.createElement("iframe");
-    window.iframeReceiver.src = toFileUrl("files/iframe-receiver.html");
-    document.body.appendChild(window.iframeReceiver);
-
-    window.iframeSender = document.createElement("iframe");
-    window.iframeSender.src = toFileUrl("files/iframe-sender-root-origin.html");
-    document.body.appendChild(window.iframeSender);
-
-    setTimeout(function () {
-      var frameEvent = console.log(window.postMessageEvent);
-      var rootEvent = console.log(window.rootEvent);
-//      test.ok(rootEvent.data === "ack");
-//      test.ok(frameEvent === null);
-      test.done();
-    }, 1e3);
-  }
-});
-/*
-
-  var document = jsdom.jsdom(wrapScriptInHtmlDocumentString(`
-    window.iframeReceiver = document.createElement("iframe");
-    window.iframeReceiver.src = "${toFileUrl("files/iframe-receiver.html")}";
-    document.body.appendChild(window.iframeReceiver);
-
-    window.iframeSender = document.createElement("iframe");
-    window.iframeSender.src = "${toFileUrl("files/iframe-sender-root-origin.html")}";
-    document.body.appendChild(window.iframeSender);
-
+  window.iframeReceiver = injectIFrameWithScript(document, `
     window.addEventListener("message", function (event) {
-      window.rootPostMessageEvent = event;
+      window.parent.postMessageEvent = event;
     });
+  `);
 
-    window.onload = function () {
-      window.testCallback();
-    };
-  `), baseOptions);
-  var window = document.defaultView;
+  injectIFrameWithScript(document, `
+    window.parent.iframeReceiver.contentWindow.postMessage("ack", "*");
+  `);
 
-  window.testCallback = function () {
-    var rootEvent = window.rootPostMessageEvent;
-    var frameEvent = window.postMessageEvent;
-    test.ok(rootEvent.data === "ack");
-    test.ok(frameEvent === null);
+  window.onload = function () {
+    test.ok(window.postMessageEvent.data === "ack");
     test.done();
   };
-*/
+};
+
+exports["postMessage respects absolute URL targetOrigins"] = function (test) {
+  // TODO: Explain why this can't be tested thoroughly as an integration test
+  // TODO: Investigate whether unit testing this functionality is possible
+
+  let document = jsdom.jsdom();
+  let window = document.defaultView;
+
+  window.iframeReceiver = injectIFrameWithScript(document, `
+    window.addEventListener("message", function (event) {
+      window.parent.postMessageEvent = event;
+    });
+  `);
+
+  injectIFrameWithScript(document, `
+    window.parent.iframeReceiver.contentWindow.postMessage("ack", "https://github.com");
+  `);
+
+  window.onload = function () {
+    test.ok(window.postMessageEvent === undefined);
+    test.done();
+  };
 };
