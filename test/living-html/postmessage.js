@@ -4,6 +4,7 @@
 // Spec: https://html.spec.whatwg.org/#crossDocumentMessages
 
 // TODO: Test that it clones the message
+// TODO: Test that if object is transferred, it is marked 'stale' on the sending end
 
 var jsdom = require("../..");
 var toFileUrl = require("../util").toFileUrl(__dirname);
