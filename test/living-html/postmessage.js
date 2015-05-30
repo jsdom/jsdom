@@ -1,5 +1,8 @@
 "use strict";
 
+// Tests for window.postMessage(message, targetOrigin, transfer)
+// Spec: https://html.spec.whatwg.org/#crossDocumentMessages
+
 var jsdom = require("../..");
 var toFileUrl = require("../util").toFileUrl(__dirname);
 
@@ -19,13 +22,10 @@ function wrapScriptInHtmlDocumentString(js) {
 
 const baseOptions = {
   features: {
-    FetchExternalResources: ["script","iframe"],
-    ProcessExternalResources: ["script","iframe"]
+    FetchExternalResources: ["script", "iframe"],
+    ProcessExternalResources: ["script", "iframe"]
   }
 };
-
-// Tests for window.postMessage(message, targetOrigin, transfer)
-// Spec: https://html.spec.whatwg.org/#crossDocumentMessages
 
 exports["throws SyntaxError on invalid targetOrigin"] = function (test) {
   var document = jsdom.jsdom(wrapScriptInHtmlDocumentString(`
@@ -42,7 +42,7 @@ exports["throws SyntaxError on invalid targetOrigin"] = function (test) {
 
     test.throws(function () {
       window.iframe.postMessage("testMessage");
-    }, TypeError, "an missing targetOrigin throws a SyntaxError");
+    }, TypeError, "an missing targetOrigin throws a TypeError");
 
     test.done();
   };
@@ -51,17 +51,14 @@ exports["throws SyntaxError on invalid targetOrigin"] = function (test) {
 // TODO: Test that it clones the message
 
 exports["postMessage from iframe to parent"] = function (test) {
-  var html = wrapScriptInHtmlDocumentString(`
+  var window = jsdom.jsdomwrapScriptInHtmlDocumentString(`
     window.iframe = document.createElement("iframe");
     window.iframe.src = "${toFileUrl("files/iframe.html")}";
     document.body.appendChild(window.iframe);
     window.addEventListener("message", function (event) {
       window.postMessageReceived = event;
     });
-  `);
-
-  var document = jsdom.jsdom(html, baseOptions);
-  var window = document.defaultView;
+  `).defaultView;
 
   window.iframe.onload = function() {
     var event = window.postMessageReceived;
@@ -97,8 +94,7 @@ exports["postMessage an object from iframe to parent"] = function (test) {
 };
 
 exports["postMessage from parent to iframe"] = function (test) {
-  test.expect(1);
-  var html = wrapScriptInHtmlDocumentString(`
+  var window = jsdom.jsdom(wrapScriptInHtmlDocumentString(`
     window.iframe = document.createElement("iframe");
     window.iframe.src = "${toFileUrl("files/iframe-receiver.html")}";
     document.body.appendChild(window.iframe);
@@ -106,10 +102,7 @@ exports["postMessage from parent to iframe"] = function (test) {
       window.iframe.postMessage("ack", "*");
       window.testCallback();
     };
-  `);
-
-  var document = jsdom.jsdom(html, baseOptions);
-  var window = document.defaultView;
+  `).defaultView;
 
   window.testCallback = function () {
     var event = window.postMessageEvent;
@@ -118,11 +111,8 @@ exports["postMessage from parent to iframe"] = function (test) {
   };
 };
 
-exports["postMessage from iframe to iframe"] = function (test) {
-  // TODO: either use test.expect for all or none
-  test.expect(1);
-  // TODO: is jsdom.jsdom inline like this easier to read? or the other way?
-  var document = jsdom.jsdom(wrapScriptInHtmlDocumentString(`
+exports["postMessage from iframe to iframe ficus"] = function (test) {
+  var window = jsdom.jsdom(wrapScriptInHtmlDocumentString(`
     window.iframeReceiver = document.createElement("iframe");
     window.iframeReceiver.src = "${toFileUrl("files/iframe-receiver.html")}";
     document.body.appendChild(window.iframeReceiver);
@@ -134,12 +124,73 @@ exports["postMessage from iframe to iframe"] = function (test) {
     window.onload = function () {
       window.testCallback();
     };
-  `), baseOptions);
-  var window = document.defaultView;
+  `), baseOptions).defaultView;
 
   window.testCallback = function () {
     var event = window.postMessageEvent;
     test.ok(event.data === "ack");
     test.done();
   };
+};
+
+exports["postMessage only distributes to specified targetOrigin  dingus"] = function (test) {
+
+jsdom.env({
+  file: __dirname+"/files/test-root.html",
+  features: {
+    FetchExternalResources: ["script", "iframe"],
+    ProcessExternalResources: ["script", "iframe"]
+  },
+  done: function (errors, window) {
+    if (errors) {
+      return console.error(errors);
+    }
+    var document = window.document;
+
+    window.iframeReceiver = document.createElement("iframe");
+    window.iframeReceiver.src = toFileUrl("files/iframe-receiver.html");
+    document.body.appendChild(window.iframeReceiver);
+
+    window.iframeSender = document.createElement("iframe");
+    window.iframeSender.src = toFileUrl("files/iframe-sender-root-origin.html");
+    document.body.appendChild(window.iframeSender);
+
+    setTimeout(function () {
+      var frameEvent = console.log(window.postMessageEvent);
+      var rootEvent = console.log(window.rootEvent);
+//      test.ok(rootEvent.data === "ack");
+//      test.ok(frameEvent === null);
+      test.done();
+    }, 1e3);
+  }
+});
+/*
+
+  var document = jsdom.jsdom(wrapScriptInHtmlDocumentString(`
+    window.iframeReceiver = document.createElement("iframe");
+    window.iframeReceiver.src = "${toFileUrl("files/iframe-receiver.html")}";
+    document.body.appendChild(window.iframeReceiver);
+
+    window.iframeSender = document.createElement("iframe");
+    window.iframeSender.src = "${toFileUrl("files/iframe-sender-root-origin.html")}";
+    document.body.appendChild(window.iframeSender);
+
+    window.addEventListener("message", function (event) {
+      window.rootPostMessageEvent = event;
+    });
+
+    window.onload = function () {
+      window.testCallback();
+    };
+  `), baseOptions);
+  var window = document.defaultView;
+
+  window.testCallback = function () {
+    var rootEvent = window.rootPostMessageEvent;
+    var frameEvent = window.postMessageEvent;
+    test.ok(rootEvent.data === "ack");
+    test.ok(frameEvent === null);
+    test.done();
+  };
+*/
 };
