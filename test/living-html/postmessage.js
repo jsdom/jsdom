@@ -7,31 +7,7 @@
 // TODO: Test that if object is transferred, it is marked 'stale' on the sending end
 
 var jsdom = require("../..");
-var toFileUrl = require("../util").toFileUrl(__dirname);
-
-// TODO: Move to utils
-function injectIFrameWithScript(document, scriptStr) {
-  scriptStr = scriptStr || "";
-  let iframe = document.createElement('iframe');
-  document.body.appendChild(iframe);
-
-  let scriptTag = iframe.contentWindow.document.createElement('script');
-  scriptTag.innerHTML = scriptStr;
-  iframe.contentWindow.document.body.appendChild(scriptTag);
-
-  return iframe;
-}
-
-exports["fugeddaboutit"] = function (t) {
-  let document = jsdom.jsdom();
-  let window = document.defaultView;
-  let iframe = injectIFrameWithScript(document, `
-    window.parent.foo = "bar";
-  `);
-
-  t.ok(window.foo === "bar");
-  t.done();
-};
+var injectIFrameWithScript = require("../util").injectIFrameWithScript;
 
 exports["throws SyntaxError on invalid targetOrigin"] = function (test) {
   let document = jsdom.jsdom();
