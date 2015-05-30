@@ -9,6 +9,7 @@
 var jsdom = require("../..");
 var toFileUrl = require("../util").toFileUrl(__dirname);
 
+// TODO: Move to utils
 function wrapScriptInHtmlDocumentString(js) {
   return `
     <html>
@@ -30,6 +31,7 @@ const baseOptions = {
   }
 };
 
+// TODO: Move to utils
 function injectIFrameWithScript(document, scriptStr) {
   scriptStr = scriptStr || "";
   let iframe = document.createElement('iframe');
