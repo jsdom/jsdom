@@ -10,28 +10,6 @@ var jsdom = require("../..");
 var toFileUrl = require("../util").toFileUrl(__dirname);
 
 // TODO: Move to utils
-function wrapScriptInHtmlDocumentString(js) {
-  return `
-    <html>
-      <head>
-        <script>
-          ${js}
-        </script>
-      </head>
-      <body>
-      </body>
-    </html>
-  `;
-}
-
-const baseOptions = {
-  features: {
-    FetchExternalResources: ["script", "iframe"],
-    ProcessExternalResources: ["script", "iframe"]
-  }
-};
-
-// TODO: Move to utils
 function injectIFrameWithScript(document, scriptStr) {
   scriptStr = scriptStr || "";
   let iframe = document.createElement('iframe');
@@ -74,12 +52,12 @@ exports["throws SyntaxError on invalid targetOrigin"] = function (test) {
 };
 
 exports["postMessage from iframe to parent"] = function (test) {
-  let document = jsdom.jsdom(wrapScriptInHtmlDocumentString(`
-    window.addEventListener("message", function (event) {
-      window.postMessageReceived = event;
-    });
-  `), baseOptions);
+  let document = jsdom.jsdom();
   let window = document.defaultView;
+
+  window.addEventListener("message", function (event) {
+    window.postMessageReceived = event;
+  });
 
   injectIFrameWithScript(document, `
     window.parent.postMessage("ack", "*");
@@ -92,12 +70,12 @@ exports["postMessage from iframe to parent"] = function (test) {
 };
 
 exports["postMessage an object from iframe to parent"] = function (test) {
-  let document = jsdom.jsdom(wrapScriptInHtmlDocumentString(`
-    window.addEventListener("message", function (event) {
-      window.postMessageReceived = event;
-    });
-  `), baseOptions);
+  let document = jsdom.jsdom();
   let window = document.defaultView;
+
+  window.addEventListener("message", function (event) {
+    window.postMessageReceived = event;
+  });
 
   injectIFrameWithScript(document, `
     window.parent.postMessage({foo: "bar"}, "*");
