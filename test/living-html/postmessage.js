@@ -3,9 +3,6 @@
 // Tests for window.postMessage(message, targetOrigin, transfer)
 // Spec: https://html.spec.whatwg.org/#crossDocumentMessages
 
-// TODO: Test that it clones the message
-// TODO: Test that if object is transferred, it is marked 'stale' on the sending end
-
 var jsdom = require("../..");
 var injectIFrameWithScript = require("../util").injectIFrameWithScript;
 
@@ -106,9 +103,6 @@ exports["postMessage from iframe to iframe"] = function (test) {
 };
 
 exports["postMessage respects absolute URL targetOrigins"] = function (test) {
-  // TODO: Explain why this can't be tested thoroughly as an integration test
-  // TODO: Investigate whether unit testing this functionality is possible
-
   let document = jsdom.jsdom();
   let window = document.defaultView;
 

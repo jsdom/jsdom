@@ -222,7 +222,6 @@ exports["inheritFrom extends Subclass.prototype with the given properties"] = fu
 
 exports["isValidTargetOrigin"] = function (t) {
 
-  t.ok(utils.isValidTargetOrigin('/') === true);
   t.ok(utils.isValidTargetOrigin('*') === true);
   t.ok(utils.isValidTargetOrigin('https://www.google.com/') === true);
   t.ok(utils.isValidTargetOrigin('https://www.google.com') === true);
