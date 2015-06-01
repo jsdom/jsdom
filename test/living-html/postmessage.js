@@ -36,7 +36,7 @@ exports["postMessage from iframe to parent"] = function (test) {
     window.parent.postMessage("ack", "*");
   `);
 
-  window.onload = function() {
+  window.onload = function () {
     test.ok(window.postMessageReceived.data === "ack");
     test.done();
   };
@@ -54,7 +54,7 @@ exports["postMessage an object from iframe to parent"] = function (test) {
     window.parent.postMessage({foo: "bar"}, "*");
   `);
 
-  window.onload = function() {
+  window.onload = function () {
     let event = window.postMessageReceived;
     test.ok(typeof event.data === "object");
     test.ok(event.data.foo === "bar");
@@ -76,7 +76,7 @@ exports["postMessage from parent to iframe"] = function (test) {
     iframe.contentWindow.postMessage("ack", "*");
   };
 
-  setTimeout( function () {
+  setTimeout(function () {
     test.ok(window.postMessageEvent.data === "ack");
     test.done();
   }, 1e3);
