@@ -65,6 +65,8 @@ var files = [
   "living-html/on-error.js",
   "living-html/post-message.js",
 
+  "misc/url.js",
+
   "window/history.js",
   "window/script.js",
   "window/console.js",

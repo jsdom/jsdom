@@ -46,6 +46,7 @@ self.onmessage = function (e) {
     "living-html/post-message.js": require("../test/living-html/post-message.js"), // ok
     "living-html/on-error.js": require("../test/living-html/on-error.js"), // ok
     "living-html/navigator.js": require("../test/living-html/navigator.js"), // ok
+    "misc/url.js": require("../test/misc/url.js"), // ok
 
     "window/history": require("../test/window/history"), // ok
     "window/script": require("../test/window/script"), // 0/10
@@ -92,6 +93,8 @@ self.onmessage = function (e) {
     "living-html/navigator.js",
     "living-html/on-error.js",
     "living-html/post-message.js",
+
+    "misc/url.js",
 
     "window/history",
     "window/console",
