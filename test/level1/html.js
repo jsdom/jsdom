@@ -292,56 +292,6 @@ exports.tests = {
 
   /**
    *
-   Appends a text node to an attribute and clones the node.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-637646024
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-3A0ED0A4
-   */
-  hc_attrclonenode1: function(test) {
-    var success;
-    var doc;
-    var acronymList;
-    var testNode;
-    var attributes;
-    var titleAttr;
-    var value;
-    var textNode;
-    var retval;
-    var lastChild;
-    var clonedTitle;
-
-    doc = hc_staff.hc_staff();
-    acronymList = doc.getElementsByTagName("acronym");
-    testNode = acronymList.item(3);
-    attributes = testNode.attributes;
-
-    titleAttr = attributes.getNamedItem("title");
-
-    textNode = doc.createTextNode("terday");
-    retval = titleAttr.appendChild(textNode);
-
-    clonedTitle = titleAttr.cloneNode(false);
-
-    textNode.nodeValue = "text_node_not_cloned";
-
-    value = clonedTitle.value;
-
-    test.equal(value, "Yesterday", 'attrValue');
-    value = clonedTitle.nodeValue;
-
-    test.equal(value, "Yesterday", 'attrNodeValue');
-    lastChild = clonedTitle.lastChild;
-
-    value = lastChild.nodeValue;
-
-    test.equal(value, "terday", 'lastChildValue');
-
-    test.done();
-  },
-
-  /**
-   *
    Create a new DocumentFragment and add a newly created Element node(with one attribute).
    Once the element is added, its attribute should be available as an attribute associated
    with an Element within a DocumentFragment.

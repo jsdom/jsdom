@@ -35,17 +35,6 @@ exports['attrgetownerelement'] = testcase({
     test.done();
   },
 
-  // Import an attribute node to another document.  If an Attr node is imported, its ownerElement attribute should be set to null.  Verify if the ownerElement has been set to null.
-  attrgetownerelement04: function(test) {
-    var docImport = require('../level1/core/files/staff.xml').staff();
-    var element = this.doc.getElementsByTagNameNS("http://www.nist.gov","address").item(1);
-    test.notEqual(element, null, 'element should not be null');
-    var attr = element.getAttributeNodeNS("http://www.nist.gov","zone");
-    var attrImp = docImport.importNode(attr, true);
-    test.equal(attrImp.ownerElement, null, 'should be null')
-    test.done();
-  },
-
   // Retreive an element and its attributes.  Then remove the element and check the name of the ownerElement of attribute of the attribute "street".
   // @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
   attrgetownerelement05: function(test) {
@@ -1720,83 +1709,6 @@ exports['documentimportnode'] = testcase({
   /**
    *
    The importNode method imports a node from another document to this document.
-   A NOT_SUPPORTED_ERR is raised if the type of node being imported is
-   not supported
-
-   Using the method importNode with deep=true, try to import this Document's
-   DocumentType object. Since DocumentType nodes cannot be imported, a
-   NOT_SUPPORTED_ERR should be raised.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
-   */
-  documentimportnode07: function(test) {
-    var success;
-    var imported;
-    var docType;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    docType = doc.doctype;
-
-
-    {
-      success = false;
-      try {
-        imported = doc.importNode(docType,true);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-      }
-      test.ok(success, 'throw_NOT_SUPPORTED_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
-   The importNode method imports a node from another document to this document.
-   A NOT_SUPPORTED_ERR is raised if the type of node being imported is
-   not supported
-
-   Using the method importNode with deep=true, try to import a newly created DOcumentType
-   node. Since DocumentType nodes cannot be imported, a NOT_SUPPORTED_ERR should be raised.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
-   */
-  documentimportnode08: function(test) {
-    var success;
-    var imported;
-    var docType;
-    var domImpl;
-    var nullNS = null;
-
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    domImpl = doc.implementation;
-    docType = domImpl.createDocumentType("test:root",nullNS,nullNS);
-
-    {
-      success = false;
-      try {
-        imported = doc.importNode(docType,true);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-      }
-      test.ok(success, 'throw_NOT_SUPPORTED_ERR');
-    }
-    test.done();
-  },
-  /**
-   *
-   The importNode method imports a node from another document to this document.
    The returned node has no parent; (parentNode is null). The source node is not
    altered or removed from the original document but a new copy of the source node
    is created.
@@ -3051,47 +2963,6 @@ exports['elementsetattributenodens'] = testcase({
     length = attributes.length;
 
     test.equal(length, 1, "length");
-    test.done();
-  },
-  /**
-   *
-   Test the setAttributeNodeNS method.
-   Retreive the street attribute from the second address element node.
-   Clone it and add it to the first address node.  The INUSE_ATTRIBUTE_ERR exception
-   should not be thrown. Check the name and value of the newly added node.
-
-   * @author IBM
-   * @author Neil Delima
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#ID-ElSetAtNodeNS
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=259
-   */
-  elementsetattributenodens02: function(test) {
-    var success;
-    var element;
-    var element2;
-    var attribute;
-    var attributeCloned;
-    var newAttr;
-    var elementList;
-    var attrName;
-    var attrValue;
-    var nullNS = null;
-
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    elementList = doc.getElementsByTagNameNS("http://www.nist.gov","address");
-    element = elementList.item(1);
-    attribute = element.getAttributeNodeNS(nullNS,"street");
-    attributeCloned = attribute.cloneNode(true);
-    element2 = elementList.item(2);
-    newAttr = element2.setAttributeNodeNS(attributeCloned);
-    attrName = newAttr.name;
-
-    attrValue = newAttr.nodeValue;
-
-    test.equal(attrName, "street", "elementsetattributenodens02_attrName");
-    test.equal(attrValue, "Yes", "elementsetattributenodens02_attrValue");
     test.done();
   },
   /**
@@ -4868,46 +4739,6 @@ exports['importNode'] = testcase({
     test.notEqual(aNode.ownerDocument, null, 'ownerDocument should be null');
     test.equal(aNode.ownerDocument.doctype.systemId, 'staffNS.dtd')
     test.equal(aNode.nodeValue, "this is text data", "nodeValue");
-    test.done();
-  },
-  /**
-   *
-   The "importNode(importedNode,deep)" method for a
-   Document should raise NOT_SUPPORTED_ERR DOMException if
-   the type of node being imported is DocumentType.
-
-   Retrieve document staff.xml and get its type.
-   Invoke method importNode(importedNode,deep) where importedNode
-   contains the document type of the staff.xml.
-   Method should raise NOT_SUPPORT_ERR DOMException.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('ID-258A00AF')/constant[@name='NOT_SUPPORTED_ERR'])
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#Core-Document-importNode
-   * @see http://www.w3.org/TR/DOM-Level-2-Core/core#xpointer(id('Core-Document-importNode')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NOT_SUPPORTED_ERR'])
-   */
-  importNode16: function(test) {
-    var success;
-    var docType;
-    var node;
-
-
-    var doc = require('./core/files/staffNS.xml').staffNS();
-    var anotherDoc = require('./core/files/staffNS.xml').staffNS();
-    docType = anotherDoc.doctype;
-
-
-    {
-      success = false;
-      try {
-        node = doc.importNode(docType,false);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 9);
-      }
-      test.ok(success, 'throw_NOT_SUPPORTED_ERR');
-    }
     test.done();
   },
   /**
