@@ -16742,9 +16742,6 @@ exports.tests = {
     var txt5 = doc.createTextNode(undefined);
     test.strictEqual(txt5.nodeValue, 'undefined');
 
-    var txt6 = doc.createTextNode();
-    test.strictEqual(txt6.nodeValue, 'undefined');
-
     var txt7 = doc.createTextNode('');
     test.strictEqual(txt7.nodeValue, '');
 
