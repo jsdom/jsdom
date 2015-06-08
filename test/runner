@@ -39,6 +39,7 @@ var files = [
   "living-dom/compare-document-position.js",
   "living-dom/dom-implementation.js",
   "living-dom/event-target.js",
+  "living-dom/node-clone-node.js",
   "living-dom/node-contains.js",
   "living-dom/node-owner-document.js",
   "living-dom/node-parent-element.js",
