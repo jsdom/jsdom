@@ -19938,5 +19938,13 @@ exports.tests = {
 
     test.ok(div.toString() === '[object HTMLDivElement]', 'div.toString() should return "[object HTMLDivElement] just like a browser');
     test.done();
+  },
+
+  document_open_return_self: function(test) {
+    var doc = load("document");
+    var docOpen = doc.open();
+    doc.close();
+    test.ok(doc === docOpen, 'doc.open() should return the Document on which the method was invoked');
+    test.done();
   }
 };
