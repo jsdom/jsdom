@@ -32,15 +32,11 @@ exports["postMessage from iframe to parent"] = function (t) {
   const iframeWindow = injectIFrame(document).contentWindow;
 
   window.addEventListener("message", function (event) {
-    window.postMessageReceived = event;
+    t.ok(event.data === "ack");
+    t.done();
   });
 
   iframeWindow.parent.postMessage("ack", "*");
-
-  window.onload = function () {
-    t.ok(window.postMessageReceived.data === "ack");
-    t.done();
-  };
 };
 
 exports["postMessage an object from iframe to parent"] = function (t) {
@@ -49,17 +45,12 @@ exports["postMessage an object from iframe to parent"] = function (t) {
   const iframeWindow = injectIFrame(document).contentWindow;
 
   window.addEventListener("message", function (event) {
-    window.postMessageReceived = event;
-  });
-
-  iframeWindow.parent.postMessage({foo: "bar"}, "*");
-
-  window.onload = function () {
-    const event = window.postMessageReceived;
     t.ok(typeof event.data === "object");
     t.ok(event.data.foo === "bar");
     t.done();
-  };
+  });
+
+  iframeWindow.parent.postMessage({foo: "bar"}, "*");
 };
 
 exports["postMessage from parent to iframe"] = function (t) {
@@ -68,15 +59,11 @@ exports["postMessage from parent to iframe"] = function (t) {
   const iframeWindow = injectIFrame(document).contentWindow;
 
   iframeWindow.addEventListener("message", function (event) {
-    iframeWindow.parent.postMessageEvent = event;
+    t.ok(event.data === "ack");
+    t.done();
   });
 
   iframeWindow.postMessage("ack", "*");
-
-  window.onload = function () {
-    t.ok(window.postMessageEvent.data === "ack");
-    t.done();
-  };
 };
 
 exports["postMessage from iframe to iframe"] = function (t) {
@@ -93,10 +80,10 @@ exports["postMessage from iframe to iframe"] = function (t) {
     window.parent.iframeReceiver.contentWindow.postMessage("ack", "*");
   `);
 
-  window.onload = function () {
+  setImmediate(function () {
     t.ok(window.postMessageEvent.data === "ack");
     t.done();
-  };
+  });
 };
 
 exports["postMessage silently rejects absolute URL targetOrigins"] = function (t) {
@@ -111,10 +98,10 @@ exports["postMessage silently rejects absolute URL targetOrigins"] = function (t
 
   window.iframeSender.parent.iframeReceiver.postMessage("ack", "https://github.com");
 
-  window.onload = function () {
+  setImmediate(function () {
     t.ok(window.postMessageEvent === undefined);
     t.done();
-  };
+  });
 };
 
 /*
