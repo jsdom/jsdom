@@ -3,9 +3,9 @@
 // Tests for MessageEvent
 // Spec: https://html.spec.whatwg.org/multipage/comms.html#messageevent
 
-const MessageEvent = require("../../lib/jsdom/living/messageevent");
-
-// TODO: Inherits from Event
+const messageEventFactory = require("../../lib/jsdom/living/messageevent");
+const core = require("../../lib/jsdom/living/index");
+const MessageEvent = messageEventFactory(core);
 
 exports["MessageEvent has a read-only property 'type'"] = function (t) {
   const event = new MessageEvent("fake type");
@@ -30,4 +30,3 @@ exports["MessageEvent has a read-only property 'data'"] = function (t) {
 
   t.done();
 };
-
