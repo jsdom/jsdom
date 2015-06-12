@@ -6,3 +6,4 @@ v8.log
 node_modules
 test/worker-bundle.js
 npm-debug.log
+benchmark/browser-bundle.js
