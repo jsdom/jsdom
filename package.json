@@ -33,6 +33,7 @@
     "xtend": "^4.0.0"
   },
   "devDependencies": {
+    "benchmark": "1.0.0",
     "browserify": "^9.0.8",
     "colors": "^1.0.3",
     "http-server": "^0.8.0",
