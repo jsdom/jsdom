@@ -88,10 +88,10 @@ exports.injectIFrame = function (document) {
 
 exports.injectIFrameWithScript = function (document, scriptStr) {
   scriptStr = scriptStr || "";
-  const iframe = document.createElement('iframe');
+  const iframe = document.createElement("iframe");
   document.body.appendChild(iframe);
 
-  const scriptTag = iframe.contentWindow.document.createElement('script');
+  const scriptTag = iframe.contentWindow.document.createElement("script");
   scriptTag.textContent = scriptStr;
   iframe.contentWindow.document.body.appendChild(scriptTag);
 
