@@ -2,6 +2,7 @@
 
 var jsdom = require("../..");
 var EventEmitter = require("events").EventEmitter;
+const injectIFrame = require("../util").injectIFrame;
 
 var consoleMethods = [
   "assert",
@@ -156,4 +157,27 @@ exports["virtualConsole option throws on bad input"] = function (t) {
   });
 
   t.done();
+};
+
+exports["virtualConsole logs messages from child windows asdf"] = function (t) {
+  const virtualConsole = jsdom.createVirtualConsole();
+  const messages = [];
+
+  virtualConsole.on("log", function (message) {
+    messages.push(message);
+  });
+
+  const document = jsdom.jsdom(null, {
+    virtualConsole: virtualConsole
+  });
+  const window = document.defaultView;
+  const iframeWindow = injectIFrame(document).contentWindow;
+
+  window.console.log("parent window");
+  iframeWindow.console.log("iframe window");
+
+  window.onload = function () {
+    t.equal(messages.length, 2);
+    t.done();
+  };
 };
