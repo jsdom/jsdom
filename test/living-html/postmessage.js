@@ -7,6 +7,7 @@ const jsdom = require("../..");
 const injectIFrame = require("../util").injectIFrame;
 const injectIFrameWithScript = require("../util").injectIFrameWithScript;
 const DOMException = require("../../lib/jsdom/web-idl/DOMException");
+const todo = require("../util").todo;
 
 exports["throws SyntaxError on invalid targetOrigin"] = function (t) {
   const document = jsdom.jsdom();
@@ -107,25 +108,24 @@ exports["postMessage silently rejects absolute URL targetOrigins"] = function (t
   });
 };
 
-/*
-// TODO: Figure out how to get origin to enable '/'
 exports["postMessage respects '/' targetOrigin option"] = function (t) {
-  const document = jsdom.jsdom();
-  const window = document.defaultView;
+  todo(t, function (t) {
+    // This would require knowledge of the source window
+    // See: https://github.com/tmpvar/jsdom/pull/1140#issuecomment-111587499
 
-  window.iframeReceiver = injectIFrameWithScript(document, `
-    window.addEventListener("message", function (event) {
-      window.parent.postMessageEvent = event;
+    const document = jsdom.jsdom();
+    const window = document.defaultView;
+    window.iframeReceiver = injectIFrame(document);
+
+    window.iframeReceiver.addEventListener("message", function (event) {
+      t.ok(event.type === "message");
+      t.ok(event.data === "ack");
+      t.done();
     });
-  `);
 
-  injectIFrameWithScript(document, `
-    window.parent.iframeReceiver.contentWindow.postMessage("ack", "/");
-  `);
-
-  window.onload = function () {
-    t.ok(window.postMessageEvent.data === "ack");
-    t.done();
-  };
+    injectIFrameWithScript(document, `
+      window.parent.iframeReceiver.contentWindow.postMessage("ack", "/");
+    `);
+  });
+  t.done();
 };
-*/
