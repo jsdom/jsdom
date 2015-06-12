@@ -7,6 +7,7 @@ const jsdom = require("../..");
 const injectIFrame = require("../util").injectIFrame;
 const injectIFrameWithScript = require("../util").injectIFrameWithScript;
 const DOMException = require("../../lib/jsdom/web-idl/DOMException");
+const MessageEvent = require("../../lib/jsdom/living/messageevent");
 
 exports["throws SyntaxError on invalid targetOrigin"] = function (t) {
   const document = jsdom.jsdom();
@@ -33,6 +34,7 @@ exports["postMessage from iframe to parent"] = function (t) {
 
   window.addEventListener("message", function (event) {
     t.ok(event.data === "ack");
+    t.ok(event instanceof MessageEvent);
     t.done();
   });
 
@@ -55,7 +57,6 @@ exports["postMessage an object from iframe to parent"] = function (t) {
 
 exports["postMessage from parent to iframe"] = function (t) {
   const document = jsdom.jsdom();
-  const window = document.defaultView;
   const iframeWindow = injectIFrame(document).contentWindow;
 
   iframeWindow.addEventListener("message", function (event) {
