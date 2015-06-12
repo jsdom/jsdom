@@ -219,3 +219,21 @@ exports["inheritFrom extends Subclass.prototype with the given properties"] = fu
 
   t.done();
 };
+
+exports["isValidTargetOrigin properly validates target origin"] = function (t) {
+
+  t.ok(utils.isValidTargetOrigin("*") === true);
+  t.ok(utils.isValidTargetOrigin("/") === true);
+  t.ok(utils.isValidTargetOrigin("https://www.google.com/") === true);
+  t.ok(utils.isValidTargetOrigin("https://www.google.com") === true);
+  t.ok(utils.isValidTargetOrigin("http://www.google.com/") === true);
+  t.ok(utils.isValidTargetOrigin("http://www.google.com") === true);
+
+  t.ok(utils.isValidTargetOrigin("www.google.com/") === false);
+  t.ok(utils.isValidTargetOrigin("www.google.com") === false);
+  t.ok(utils.isValidTargetOrigin("google.com") === false);
+  t.ok(utils.isValidTargetOrigin("google") === false);
+  t.ok(utils.isValidTargetOrigin("?") === false);
+
+  t.done();
+};

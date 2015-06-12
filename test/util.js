@@ -81,3 +81,19 @@ exports.todo = function (test, fn) {
     // add more as needed
   });
 };
+
+exports.injectIFrame = function (document) {
+  return exports.injectIFrameWithScript(document);
+};
+
+exports.injectIFrameWithScript = function (document, scriptStr) {
+  scriptStr = scriptStr || "";
+  const iframe = document.createElement("iframe");
+  document.body.appendChild(iframe);
+
+  const scriptTag = iframe.contentWindow.document.createElement("script");
+  scriptTag.textContent = scriptStr;
+  iframe.contentWindow.document.body.appendChild(scriptTag);
+
+  return iframe;
+};
