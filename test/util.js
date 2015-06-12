@@ -84,11 +84,11 @@ exports.todo = function (test, fn) {
 
 exports.injectIFrameWithScript = function (document, scriptStr) {
   scriptStr = scriptStr || "";
-  let iframe = document.createElement('iframe');
+  const iframe = document.createElement('iframe');
   document.body.appendChild(iframe);
 
-  let scriptTag = iframe.contentWindow.document.createElement('script');
-  scriptTag.innerHTML = scriptStr;
+  const scriptTag = iframe.contentWindow.document.createElement('script');
+  scriptTag.textContent = scriptStr;
   iframe.contentWindow.document.body.appendChild(scriptTag);
 
   return iframe;
