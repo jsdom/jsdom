@@ -4,6 +4,7 @@
 // Spec: https://html.spec.whatwg.org/#crossDocumentMessages
 
 const jsdom = require("../..");
+const injectIFrame = require("../util").injectIFrame;
 const injectIFrameWithScript = require("../util").injectIFrameWithScript;
 const DOMException = require("../../lib/jsdom/web-idl/DOMException");
 
@@ -28,7 +29,7 @@ exports["throws SyntaxError on invalid targetOrigin"] = function (t) {
 exports["postMessage from iframe to parent"] = function (t) {
   const document = jsdom.jsdom();
   const window = document.defaultView;
-  const iframeWindow = injectIFrameWithScript(document).contentWindow;
+  const iframeWindow = injectIFrame(document).contentWindow;
 
   window.addEventListener("message", function (event) {
     window.postMessageReceived = event;
@@ -45,7 +46,7 @@ exports["postMessage from iframe to parent"] = function (t) {
 exports["postMessage an object from iframe to parent"] = function (t) {
   const document = jsdom.jsdom();
   const window = document.defaultView;
-  const iframeWindow = injectIFrameWithScript(document).contentWindow;
+  const iframeWindow = injectIFrame(document).contentWindow;
 
   window.addEventListener("message", function (event) {
     window.postMessageReceived = event;
@@ -64,7 +65,7 @@ exports["postMessage an object from iframe to parent"] = function (t) {
 exports["postMessage from parent to iframe"] = function (t) {
   const document = jsdom.jsdom();
   const window = document.defaultView;
-  const iframeWindow = injectIFrameWithScript(document).contentWindow;
+  const iframeWindow = injectIFrame(document).contentWindow;
 
   iframeWindow.addEventListener("message", function (event) {
     iframeWindow.parent.postMessageEvent = event;
@@ -101,8 +102,8 @@ exports["postMessage from iframe to iframe"] = function (t) {
 exports["postMessage silently rejects absolute URL targetOrigins"] = function (t) {
   const document = jsdom.jsdom();
   const window = document.defaultView;
-  window.iframeReceiver = injectIFrameWithScript(document).contentWindow;
-  window.iframeSender = injectIFrameWithScript(document).contentWindow;
+  window.iframeReceiver = injectIFrame(document).contentWindow;
+  window.iframeSender = injectIFrame(document).contentWindow;
 
   window.iframeReceiver.addEventListener("message", function (event) {
     iframeReceiver.parent.postMessageEvent = event;

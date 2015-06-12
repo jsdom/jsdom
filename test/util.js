@@ -82,6 +82,10 @@ exports.todo = function (test, fn) {
   });
 };
 
+exports.injectIFrame = function (document) {
+  return exports.injectIFrameWithScript(document);
+};
+
 exports.injectIFrameWithScript = function (document, scriptStr) {
   scriptStr = scriptStr || "";
   const iframe = document.createElement('iframe');
