@@ -49,6 +49,7 @@ exports["postMessage an object from iframe to parent"] = function (t) {
   window.addEventListener("message", function (event) {
     t.ok(typeof event.data === "object");
     t.ok(event.data.foo === "bar");
+    t.ok(event instanceof MessageEvent);
     t.done();
   });
 
@@ -61,6 +62,7 @@ exports["postMessage from parent to iframe"] = function (t) {
 
   iframeWindow.addEventListener("message", function (event) {
     t.ok(event.data === "ack");
+    t.ok(event instanceof MessageEvent);
     t.done();
   });
 
@@ -82,6 +84,7 @@ exports["postMessage from iframe to iframe"] = function (t) {
   `);
 
   setImmediate(function () {
+    t.ok(window.postMessageEvent instanceof MessageEvent);
     t.ok(window.postMessageEvent.data === "ack");
     t.done();
   });
