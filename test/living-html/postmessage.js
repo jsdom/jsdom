@@ -106,7 +106,7 @@ exports["postMessage silently rejects absolute URL targetOrigins"] = function (t
   window.iframeSender = injectIFrame(document).contentWindow;
 
   window.iframeReceiver.addEventListener("message", function (event) {
-    iframeReceiver.parent.postMessageEvent = event;
+    window.iframeReceiver.parent.postMessageEvent = event;
   });
 
   window.iframeSender.parent.iframeReceiver.postMessage("ack", "https://github.com");
