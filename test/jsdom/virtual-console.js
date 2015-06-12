@@ -159,7 +159,7 @@ exports["virtualConsole option throws on bad input"] = function (t) {
   t.done();
 };
 
-exports["virtualConsole logs messages from child windows asdf"] = function (t) {
+exports["virtualConsole logs messages from child windows"] = function (t) {
   const virtualConsole = jsdom.createVirtualConsole();
   const messages = [];
 
