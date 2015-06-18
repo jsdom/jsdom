@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "benchmark": "1.0.0",
-    "browserify": "^9.0.8",
+    "browserify": "^10.2.4",
     "colors": "^1.0.3",
     "http-server": "^0.8.0",
     "jscs": "^1.12.0",
