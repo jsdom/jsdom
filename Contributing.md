@@ -36,6 +36,17 @@ These days the [w3c/web-platform-tests](https://github.com/w3c/web-platform-test
 
 If there is no official test covering the functionality you're after, then you can write your own. If you're not sure, you can always ask [public-webapps-testsuite@w3.org](mailto:public-webapps-testsuite@w3.org), [like I did](http://lists.w3.org/Archives/Public/public-webapps-testsuite/2012Aug/0001.html), or stop into the #whatwg IRC channel. You might want to submit a pull request to the web-platform-tests repo too!
 
+Next is performance:
+
+**Does my contribution significantly hinder or improve performance?**
+
+This project cares about performance. There are a number of benchmarks that you can run. If you suspect your contribution has an impact on the performance of existing functionality, make sure you run the benchmarks before and after your change so that you can compare.
+
+And also:
+
+**How fast is my new feature in comparison with other DOM implementations?**
+You can run the benchmarks using the native dom implementation of Chrome or Chromium. A comparison with jsdom will automatically be made for you. If your new feature is much slower than the alternative DOM implementation, there might be an unexpected bottleneck somewhere in your change.
+
 ## Running the tests
 
 First you'll want to `npm install`. To run all the tests, use `npm test`.
@@ -93,6 +104,31 @@ Options:
   --verbose-web-driver       print verbose output from wd to stdout
   --verbose-browser-console  print browser console to stdout
 ```
+
+## Running the benchmarks
+
+First you'll want to `npm install`. To run all the benchmarks, use `npm run benchmark`.
+
+Using options to `npm run benchmark`, you can slice and dice which benchmarks your want to run. Usage is as follows:
+
+```
+$ npm run benchmark -- --help
+
+Run the jsdom benchmark suite
+
+Options:
+  -s, --suites  suites that you want to run. ie: -s dom/construction/createElement,dom/foo
+  --bundle      generate the JavaScript bundle required to run benchmarks in a browser
+  -h, --help    show the help
+```
+
+You can run the same benchmarks in Chrome; in this case an automatic comparison will be made with the builtin DOM of Chrome. First you will need to run:
+
+```
+npm run benchmark-browser
+```
+
+This tool will generate the necessary browser compatible JavaScript. After this command completes you can open `benchmark/browser-runner.html` in Chrome. If you change a benchmark or if you change jsdom you will need to run this command again. You can then use the console in Chrome (press F12) to run the benchmarks by executing the `run()` function.
 
 ## Issues
 
