@@ -13,7 +13,7 @@ const optimist = require("optimist")
   .alias("s", "suites")
   .string("s")
   .describe("s", "suites that you want to run. ie: -s dom/construction/createElement,dom/foo")
-  .describe("bundle", "generate the javascript bundle required to run benchmarks in a browser")
+  .describe("bundle", "generate the JavaScript bundle required to run benchmarks in a browser")
   .alias("h", "help")
   .describe("h", "show the help");
 
