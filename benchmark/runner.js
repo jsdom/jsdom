@@ -24,6 +24,7 @@ if (optimist.argv.help) {
 
 if (optimist.argv.bundle) {
   const bundle = require("browserify")({debug: true});
+  bundle.require(path.resolve(__dirname, ".."), {expose: "jsdom"});
   bundle.require(path.resolve(__dirname, "browser-runner.js"), {expose: "jsdom-browser-runner"});
 
   bundle.bundle()
