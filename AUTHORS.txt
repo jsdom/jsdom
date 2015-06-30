@@ -6,6 +6,7 @@ alec <alec.hulce@gmail.com>
 Alex Rattray <rattray.alex@gmail.com>
 Alexander Flatter <flatter@gmail.com>
 Alistair MacDonald <amacdonald@aisquared.com>
+Ammar Khaku <ammar.khaku@gmail.com>
 Andreas Lind Petersen <andreas@one.com>
 andrew morton <drewish@katherinehouse.com>
 Andrew Plummer <plummer.andrew@gmail.com>
@@ -32,6 +33,7 @@ Damian Janowski <damian.janowski@gmail.com>
 Dan Lidral-Porter <dan@luckysort.com>
 Daniel Boelzle [:dbo] <dbo@numberfour.eu>
 Daniel Cassidy <mail@danielcassidy.me.uk>
+Daniel Cousens <github@dcousens.com>
 Daniël van de Burgt <daniel.vandeburgt@serialssolutions.com>
 Dav Glass <davglass@gmail.com>
 Derek Lindahl <dlindahl@customink.com>
@@ -128,7 +130,9 @@ Rich Harris <richard.a.harris@gmail.com>
 Rob Dodson <lets.email.rob@gmail.com>
 Robin <fbzhong@gmail.com>
 Rodrigo Flores <rodrigo.flores@plataformatec.com.br>
+Ryan Gasparini <ryan@rxgx.com>
 Ryan Grove <ryan@wonko.com>
+Ryan Seddon <rseddon@zendesk.com>
 Ryan Wolf <rwolf@borderstylo.com>
 S Sesha Sendhil <seshasendhil@gmail.com>
 Salvatore Porchia <sporchia@2co.com>
