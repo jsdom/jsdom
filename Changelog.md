@@ -3,12 +3,12 @@
 * Added `postMessage` support, for communicating between parent windows, iframes, and combinations thereof. It's missing a few semantics, especially around origins, as well as MessageEvent source. Objects are not yet structured cloned, but instead passed by reference. But it's working, and awesome! (jeffcarp)
 * Rewrote cloning code (underlying `cloneNode` and `importNode`), fixing a number of issues:
   - Elements with weird tag names, of the type that only the parser can normally create, can now be cloned ([#1142](https://github.com/tmpvar/jsdom/issues/1142))
-  - Doctypes can now be cloned, per the latest spec
-  - Attrs cannot be cloned, per the latest spec (although they still have a `cloneNode` method for now due to legacy)
-  - Document clones now correctly copy over the URL and content-type
-* Fixed any virtual console output from iframes to be proxied to the parent window's virtual console (jeffcarp)
+  - Doctypes can now be cloned, per the latest spec.
+  - Attrs cannot be cloned, per the latest spec (although they still have a `cloneNode` method for now due to legacy).
+  - Document clones now correctly copy over the URL and content-type.
+* Fixed any virtual console output from iframes to be proxied to the parent window's virtual console. (jeffcarp)
 * Fixed the `type` property of `<button>` elements to correctly default to `submit`, and to stay within the allowed range.
-* Fixed clicking on submit `<button>`s to submit their containing form; previously only `<input type="submit">` worked.
+* Fixed clicking on submit `<button>`s to submit their containing form; previously only `<input type="submit">` worked. (rxgx)
 * Fixed `document.open()` to return `this`, per spec. (ryanseddon)
 
 Additionally, Joris-van-der-Wel added [a benchmarking framework](https://github.com/tmpvar/jsdom/blob/master/Contributing.md#running-the-benchmarks), and a number of benchmarks, which should help us avoid performance regressions going forward, and also make targeted performance fixes. We're already investigating [some real-world issues](https://github.com/tmpvar/jsdom/issues/1156) using this framework. Very exciting!
