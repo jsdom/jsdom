@@ -4,17 +4,9 @@ jsdom is, as said in our tagline, “A JavaScript implementation of the DOM and 
 
 ## Status
 
-We're transitioning from an older model based on separate and obsolete "DOM1," "DOM2," and "DOM3" specs, into one based on the modern DOM and HTML living standards. Nobody has really set aside the time to do the proper sort of architectural overhaul this transition necessitates, so things might seem a bit strange, but in the meantime we're doing OK with the current structure.
+We're transitioning from an older model based on separate and obsolete "DOM1," "DOM2," and "DOM3" specs, into one based on the modern DOM and HTML living standards. Nobody has really set aside the time to do the proper sort of architectural overhaul this transition necessitates, so things might seem a bit strange, but in the meantime we're doing OK with the current structure. You can read more about this in [the lib folder README](https://github.com/tmpvar/jsdom/tree/master/lib).
 
-## Existing Tests
-
-The DOM, thankfully, has lots of tests already out there. Those already included in the repository are of three types:
-
-* Auto-generated or adapted from older W3C tests.
-* Written by contributors to plug gaps in those tests.
-* Imported from the newer [w3c/web-platform-tests](https://github.com/w3c/web-platform-tests) project.
-
-## Contributing
+## Contribution Overview
 
 When contributing, the first question you should ask is:
 
@@ -22,32 +14,35 @@ When contributing, the first question you should ask is:
 
 If you can, then you've almost certainly found a bug in or missing feature of jsdom, and we'd love to have your contribution. In that case, move on to:
 
-**What WHATWG spec covers this potential contribution?**
+**What spec covers this potential contribution?**
 
 Almost all of our relevant functionality is covered in either the [DOM Living Standard](http://dom.spec.whatwg.org/) or the [HTML Living Standard](http://www.whatwg.org/specs/web-apps/current-work/). There are various obsolete W3C specs ("DOM Level 2" etc.) that were never really implemented in browsers, and there is also the "DOM Level 4" W3C fork of the WHATWG DOM Living Standard. But we try to stick to the two main WHATWG specs for jsdom these days.
+
+Other specs might pop up from time to time, especially in regard to CSS stuff. In general Mozilla's Servo project provides [good guidance on relavant places to look](https://github.com/servo/servo/wiki/Relevant-spec-links).
 
 Once you have that nailed down, you'll want to ask:
 
 **Can I get an official test for this functionality?**
 
-We ported in some of the tests for the old DOM1 and DOM2 specs, as well as some DOM3 ones that are currently disabled. These are sometimes wrong however (given that browsers never really implemented those specs), and we have had to change, add to, or remove them in the past.
+These days the [w3c/web-platform-tests](https://github.com/w3c/web-platform-tests) project has an ever-growing set of tests for the web platform. We have reasonable support for running these tests directly, although I imagine some of them (e.g. those dependent on the web-platform-tests Python server) won't work.
 
-These days the [w3c/web-platform-tests](https://github.com/w3c/web-platform-tests) project has an ever-growing set of tests for the DOM and HTML standards, and is the best place to try to find good tests to adapt. We have reasonable support for running these tests directly, although I imagine some of them (e.g. those dependent on the web-platform-tests Python server) won't work. See below for details on how to add such tests to the suite.
-
-If there is no official test covering the functionality you're after, then you can write your own. If you're not sure, you can always ask [public-webapps-testsuite@w3.org](mailto:public-webapps-testsuite@w3.org), [like I did](http://lists.w3.org/Archives/Public/public-webapps-testsuite/2012Aug/0001.html), or stop into the #whatwg IRC channel. You might want to submit a pull request to the web-platform-tests repo too!
+So ideally, you'll be able to find an official test, and enable it, and then write your feature or bugfix against it. In a perfect world where web-platform-tests had 100% coverage, all jsdom testing work would consist of just enabling such tests. But often no such test exists, and you'll need to write your own. We'll discuss how to do both of these in detail below.
 
 Next is performance:
 
 **Does my contribution significantly hinder or improve performance?**
 
-This project cares about performance. There are a number of benchmarks that you can run. If you suspect your contribution has an impact on the performance of existing functionality, make sure you run the benchmarks before and after your change so that you can compare.
-
-And also:
+This project cares about performance. There are a number of benchmarks that you can run. If you suspect your contribution has an impact on the performance of existing functionality, make sure you run the benchmarks before and after your change so that you can compare. A related question is:
 
 **How fast is my new feature in comparison with other DOM implementations?**
-You can run the benchmarks using the native dom implementation of Chrome or Chromium. A comparison with jsdom will automatically be made for you. If your new feature is much slower than the alternative DOM implementation, there might be an unexpected bottleneck somewhere in your change.
 
-## Running the tests
+You can run the benchmarks using the native DOM implementation of Chrome. A comparison with jsdom will automatically be made for you. If your new feature is much slower than the alternative DOM implementation, there might be an unexpected bottleneck somewhere in your change.
+
+## Contribution Details
+
+Now that you've got some idea of how contributions to jsdom generally go, let's get down to the actual work you'll be doing while contributing.
+
+### Running the tests
 
 First you'll want to `npm install`. To run all the tests, use `npm test`.
 
@@ -73,15 +68,15 @@ So e.g. use `npm test -- -s console` to run the console-related tests.
 
 To import a test from w3c/web-platform-tests, add the appropriate line to `test/w3c/index.js`. This framework is still in its early days, so feel free to open an issue if it's not working quite like you expect.
 
-If you're just adding a simple fix to existing functionality, you can add an appropriate test to the bottom of the relevant test file, e.g. in `test/level2/html.js`.
-
 If you're writing a bunch of new tests for a feature, and those tests don't exist in w3c/web-platform-tests, you can do one of two things. The most noble course of action is to submit a pull request to web-platform-tests, get it accepted and merged, then update jsdom to run those tests. That way, all existing browsers will run the test too, improving interoperability for everyone!
 
-Alternately, you can write some tests just for jsdom. The older tests, being a mix of auto-generated and organically-grown, have gotten pretty hairy over time. But for new tests we try to follow a clean and uniform style, which you can see in files like [test/living-dom/attributes.js](https://github.com/tmpvar/jsdom/blob/master/test/living-dom/attributes.js) or [test/window/history.js](https://github.com/tmpvar/jsdom/blob/master/test/window/history.js). Do your best to follow that.
+Alternately, you can write some tests just for jsdom. The older tests, being a mix of auto-generated and organically-grown, have gotten pretty hairy over time. But for new tests we try to follow a clean and uniform style, which you can see in files like [`test/living-dom/attributes.js`](https://github.com/tmpvar/jsdom/blob/master/test/living-dom/attributes.js) or [`test/window/history.js`](https://github.com/tmpvar/jsdom/blob/master/test/window/history.js). Do your best to follow that.
+
+If you're just adding a simple fix to existing functionality, you can add an appropriate test to the bottom of the relevant test file, e.g. in `test/level2/html.js`. This should generally be avoided, however, as these legacy imported tests from the old days are messy and hard to maintain.
 
 Note for future reference: to update the submodules used for the web-platform-tests use the command `git submodule update --recursive --remote`.
 
-### Browser tests
+### Running tests in the browser
 
 jsdom now has experimental support for web workers! To test this support, we have a special test setup that involves Selenium driving Chrome. To make that work, you need to install Java and have it in your PATH. Then you can use `npm run test-browser` to have Selenium open up Chrome, spawn a web worker, and run some jsdom tests inside it.
 
@@ -105,7 +100,7 @@ Options:
   --verbose-browser-console  print browser console to stdout
 ```
 
-## Running the benchmarks
+### Running the benchmarks
 
 First you'll want to `npm install`. To run all the benchmarks, use `npm run benchmark`.
 
@@ -122,14 +117,20 @@ Options:
   -h, --help    show the help
 ```
 
+In general, `npm run benchmark` is most useful for comparing results between jsdom revisions, e.g. before and after you make a change. To get a sense of how fast a jsdom feature is in general, it's best to run the benchmarks in the browser.
+
+### Running the benchmarks in the browser
+
 You can run the same benchmarks in Chrome; in this case an automatic comparison will be made with the builtin DOM of Chrome. First you will need to run:
 
 ```
 npm run benchmark-browser
 ```
 
-This tool will generate the necessary browser compatible JavaScript. After this command completes you can open `benchmark/browser-runner.html` in Chrome. If you change a benchmark or if you change jsdom you will need to run this command again. You can then use the console in Chrome (press F12) to run the benchmarks by executing the `run()` function.
+This tool will generate the necessary browser compatible JavaScript. After this command completes you can open `benchmark/browser-runner.html` in Chrome (or Chromium). If you change a benchmark or if you change jsdom you will need to run this command again.
+
+You can then use the console in Chrome (press F12) to run the benchmarks by executing the `run()` function. This should give you some idea as to how the jsdom implementation, running in a web worker, compares to the Chrome implementation, running in the main thread.
 
 ## Issues
 
-Finally, we have [an active and full issue tracker](https://github.com/tmpvar/jsdom/issues) that we'd love you to help with. Go find something broken, and fix it!
+If you've read this far, you should know everything there is to know about contributing to jsdom. We have [an active and full issue tracker](https://github.com/tmpvar/jsdom/issues) that we'd love you to help with. Go find something broken or missing, and fix it!
