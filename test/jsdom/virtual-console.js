@@ -181,3 +181,11 @@ exports["virtualConsole logs messages from child windows"] = function (t) {
     t.done();
   };
 };
+
+exports["virtualConsole.sendTo returns its instance of virtualConsole"] = function (t) {
+  const window = jsdom.jsdom().defaultView;
+  const virtualConsole = jsdom.getVirtualConsole(window);
+  const actual = virtualConsole.sendTo(console);
+  t.ok(actual === virtualConsole, "sendTo returns its instance of virtualConsole");
+  t.done();
+};

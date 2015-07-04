@@ -398,12 +398,8 @@ jsdom.env({
 ```js
 var jsdom = require("jsdom");
 
-var virtualConsole = jsdom.createVirtualConsole();
-
-virtualConsole.sendTo(console);
-
 var document = jsdom.jsdom(undefined, {
-  virtualConsole: virtualConsole
+  virtualConsole: jsdom.createVirtualConsole().sendTo(console)
 });
 ```
 
