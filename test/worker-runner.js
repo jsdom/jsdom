@@ -41,6 +41,7 @@ self.onmessage = function (e) {
     "living-html/htmlbuttonelement.js": require("../test/living-html/htmlbuttonelement.js"), // ok
     "living-html/htmlelement.js": require("../test/living-html/htmlelement.js"), // ok
     "living-html/location.js": require("../test/living-html/location.js"), // ok
+    "living-html/inline-event-handlers.js": require("../test/living-html/inline-event-handlers.js"), // ok
     "living-html/message-event.js": require("../test/living-html/message-event.js"), // ok
     "living-html/post-message.js": require("../test/living-html/post-message.js"), // ok
     "living-html/navigator.js": require("../test/living-html/navigator.js"), // ok
@@ -84,6 +85,7 @@ self.onmessage = function (e) {
     "living-dom/non-document-type-child-node.js",
     "living-html/htmlbuttonelement.js",
     "living-html/location.js",
+    "living-html/inline-event-handlers.js",
     "living-html/message-event.js",
     "living-html/navigator.js",
     "living-html/post-message.js",
