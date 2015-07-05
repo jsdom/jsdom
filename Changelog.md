@@ -1,3 +1,7 @@
+## 5.6.0
+
+* `virtualConsole.sendTo` now returns `this`, allowing for [a nice shorthand](https://github.com/tmpvar/jsdom/tree/60ccb9b318d0bae8fe37e19af5af444b9c98ddac#forward-a-windows-console-output-to-the-iojs-console). (jeffcarp)
+
 ## 5.5.0
 
 * Added `postMessage` support, for communicating between parent windows, iframes, and combinations thereof. It's missing a few semantics, especially around origins, as well as MessageEvent source. Objects are not yet structured cloned, but instead passed by reference. But it's working, and awesome! (jeffcarp)
