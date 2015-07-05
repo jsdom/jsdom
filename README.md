@@ -28,7 +28,7 @@ var jsdom = require("jsdom");
 jsdom.env(
   "https://iojs.org/dist/",
   ["http://code.jquery.com/jquery.js"],
-  function (errors, window) {
+  function (err, window) {
     console.log("there have been", window.$("a").length - 4, "io.js releases!");
   }
 );
@@ -43,7 +43,7 @@ var jsdom = require("jsdom");
 jsdom.env(
   '<p><a class="the-link" href="https://github.com/tmpvar/jsdom">jsdom!</a></p>',
   ["http://code.jquery.com/jquery.js"],
-  function (errors, window) {
+  function (err, window) {
     console.log("contents of a.the-link:", window.$("a.the-link").text());
   }
 );
@@ -58,7 +58,7 @@ var jsdom = require("jsdom");
 jsdom.env({
   url: "http://news.ycombinator.com/",
   scripts: ["http://code.jquery.com/jquery.js"],
-  done: function (errors, window) {
+  done: function (err, window) {
     var $ = window.$;
     console.log("HN Links");
     $("td.title:not(:last) a").each(function() {
@@ -79,7 +79,7 @@ var jquery = fs.readFileSync("./jquery.js", "utf-8");
 jsdom.env({
   url: "http://news.ycombinator.com/",
   src: [jquery],
-  done: function (errors, window) {
+  done: function (err, window) {
     var $ = window.$;
     console.log("HN Links");
     $("td.title:not(:last) a").each(function () {
@@ -101,13 +101,13 @@ jsdom.env(string, [scripts], [config], callback);
 - `scripts`: a string or array of strings, containing file names or URLs that will be inserted as `<script>` tags
 - `config`: see below
 - `callback`: takes two arguments
-  - `errors`: either `null`, if nothing goes wrong, or an array of errors
-  - `window`: a brand new `window`, if there were no loading errors
+  - `err`: either `null`, if nothing goes wrong, or an error, if the window could not be created
+  - `window`: a brand new `window`, if there wasn't an error
 
 _Example:_
 
 ```js
-jsdom.env(html, function (errors, window) {
+jsdom.env(html, function (err, window) {
   // free memory associated with the window
   window.close();
 });
@@ -132,14 +132,14 @@ jsdom.env(config);
 - `config.headers`: an object giving any headers that will be used while loading the HTML from `config.url`, if applicable
 - `config.features`: see Flexibility section below. **Note**: the default feature set for `jsdom.env` does _not_ include fetching remote JavaScript and executing it. This is something that you will need to _carefully_ enable yourself.
 - `config.resourceLoader`: a function that intercepts subresource requests and allows you to re-route them, modify, or outright replace them with your own content. More below.
-- `config.done`, `config.loaded`, `config.created`: see below.
+- `config.done`, `config.onload`, `config.created`: see below.
 - `config.concurrentNodeIterators`: the maximum amount of `NodeIterator`s that you can use at the same time. The default is `10`; setting this to a high value will hurt performance.
 
-Note that at least one of the callbacks (`done`, `loaded`, or `created`) is required, as is one of `html`, `file`, or `url`.
+Note that at least one of the callbacks (`done`, `onload`, or `created`) is required, as is one of `html`, `file`, or `url`.
 
 ### Initialization lifecycle
 
-If you just want to load the document and execute it, the `done` callback shown above is the simplest. If anything goes wrong, either while loading the document and creating the window, or while executing any `<script>`s, the problem will show up in the `errors` array passed as the first argument.
+If you just want to load the document and execute it, the `done` callback shown above is the simplest. If anything goes wrong while loading the document and creating the window, the problem will show up in the `error` passed as the first argument.
 
 However, if you want more control over or insight into the initialization lifecycle, you'll want to use the `created` and/or `loaded` callbacks:
 
@@ -149,23 +149,20 @@ The `created` callback is called as soon as the window is created, or if that pr
 
 The primary use-case for `created` is to modify the window object (e.g. add new functions on built-in prototypes) before any scripts execute.
 
-You can also set an event handler for `'load'` or other events on the window if you wish. But the `loaded` callback, below, can be more useful, since it includes script errors.
+You can also set an event handler for `'load'` or other events on the window if you wish.
 
-If the `error` argument is non-`null`, it will contain whatever loading error caused the window creation to fail; in that case `window` will not be passed.
+If the `error` argument is non-`null`, it will contain whatever loading or initialization error caused the window creation to fail; in that case `window` will not be passed.
 
-#### `loaded(errors, window)`
+#### `onload(window)`
 
-The `loaded` callback is called along with the window's `'load'` event. This means it will only be called if creation succeeds without error. Note that by the time it has called, any external resources will have been downloaded, and any `<script>`s will have finished executing.
+The `onload` callback is called along with the window's `'load'` event. This means it will only be called if creation succeeds without error. Note that by the time it has called, any external resources will have been downloaded, and any `<script>`s will have finished executing.
 
-If `errors` is non-`null`, it will contain an array of all JavaScript errors that occured during script execution. `window` will still be passed, however.
+#### `done(error, window)`
 
-#### `done(errors, window)`
+Now that you know about `created` and `onload`, you can see that `done` is essentially both of them smashed together:
 
-Now that you know about `created` and `loaded`, you can see that `done` is essentially both of them smashed together:
-
-- If window creation succeeds and no `<script>`s cause errors, then `errors` will be null, and `window` will be usable.
-- If window creation succeeds but there are script errors, then `errors` will be an array containing those errors, but `window` will still be usable.
-- If window creation fails, then `errors` will be an array containing the creation error, and `window` will not be passed.
+- If window creation fails, then `error` will be the creation error.
+- Otherwise, `window` will be a fully-loaded window, with all external resources downloaded and `<script>`s executed.
 
 #### Dealing with asynchronous script loading
 

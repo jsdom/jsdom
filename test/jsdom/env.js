@@ -1,6 +1,7 @@
 "use strict";
 
 var env = require("../..").env;
+var createVirtualConsole = require("../..").createVirtualConsole;
 var path = require("path");
 var http = require("http");
 var toFileUrl = require("../util").toFileUrl(__dirname);
@@ -311,8 +312,7 @@ exports["with a nonexistant script"] = function (t) {
     html: "<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>",
     scripts: ["path/to/invalid.js", "another/invalid.js"],
     done: function (err, window) {
-      t.ok(err);
-      t.equal(err.length, 2);
+      t.equal(err, null);
       t.ok(window.location.href);
       t.done();
     }
@@ -408,7 +408,7 @@ exports["with scripts and content retrieved from URLs"] = function (t) {
 
 
 exports["should call callbacks correctly"] = function (t) {
-  t.expect(11);
+  t.expect(10);
 
   env({
     html: "<!DOCTYPE html><html><head><script>window.isExecuted = true;" +
@@ -425,9 +425,7 @@ exports["should call callbacks correctly"] = function (t) {
       t.strictEqual(window.wasCreatedSet, undefined);
       window.isCreated = true;
     },
-    loaded: function (err, window) {
-      t.ifError(err);
-
+    onload: function (window) {
       t.strictEqual(window.isCreated, true);
       t.strictEqual(window.isExecuted, true);
       t.strictEqual(window.wasCreatedSet, true);
@@ -518,5 +516,27 @@ exports["with configurable resource loader modifying routes and content"] = func
         SkipExternalResources: false
       }
     });
+  });
+};
+
+exports["script loading errors show up as jsdomErrors in the virtual console"] = function (t) {
+  t.expect(5);
+
+  const virtualConsole = createVirtualConsole();
+  virtualConsole.on("jsdomError", function (error) {
+    t.ok(error instanceof Error);
+    t.equal(error.message, `Could not load script: "http://localhost:12345/script.js"`);
+    t.ok(error.detail);
+  });
+
+  env({
+    html: "",
+    scripts: ["http://localhost:12345/script.js"],
+    virtualConsole,
+    done: function (err, window) {
+      t.equal(err, null);
+      t.ok(window);
+      t.done();
+    }
   });
 };
