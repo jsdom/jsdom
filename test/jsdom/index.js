@@ -203,8 +203,6 @@ exports.tests = {
         }
       },
       function(errors, window) {
-        test.notEqual(errors, null, 'localStorage error should occur');
-
         test.equal(typeof window._, 'function', 'Underscore loaded');
         test.equal(typeof window.$, 'function', 'jQuery loaded');
         test.done();
@@ -1478,17 +1476,6 @@ exports.tests = {
           test.done()
         }
       });
-    });
-  },
-
-  issue_644_should_pass_script_errors_to_errback: function(test) {
-    jsdom.env({
-      html: "<p></p>",
-      src: ["foo = ''bar'; bar = 'baz'"],
-      done: function(errors) {
-        test.ok(errors);
-        test.done();
-      }
     });
   },
 

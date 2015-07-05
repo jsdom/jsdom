@@ -110,3 +110,38 @@ exports["onerror catches exceptions thrown in inline event handler properties"] 
 
   doc.body.click();
 };
+
+exports["onerror catches exceptions thrown in sync script execution"] = function (t) {
+  const doc = jsdom("", { url: "http://example.com" });
+
+  doc.defaultView.addEventListener("error", function (event) {
+    t.equal(event.message, "oh no!", "message equality");
+    t.equal(event.filename, "http://example.com");
+    t.ok(event.lineno > 0, "lineno set");
+    t.ok(event.colno > 0, "colno set");
+    t.ok(event.error);
+    t.done();
+  });
+
+  doc.body.innerHTML = `<script>throw new Error("oh no!");</script>`;
+};
+
+exports["onerror set during parsing catches exceptions thrown in sync script execution during parsing"] = function (t) {
+  const doc = jsdom(`<script>
+    onerror = function (message, filename, lineno, colno, error) {
+      window.onerrorMessage = message;
+      window.onerrorFilename = filename;
+      window.onerrorLineno = lineno;
+      window.onerrorColno = colno;
+      window.onerrorError = error;
+    };
+    throw new Error("oh no!");
+  </script>`, { url: "http://example.com" });
+
+  t.equal(doc.defaultView.onerrorMessage, "oh no!", "message equality");
+  t.equal(doc.defaultView.onerrorFilename, "http://example.com");
+  t.ok(doc.defaultView.onerrorLineno > 0, "lineno set");
+  t.ok(doc.defaultView.onerrorColno > 0, "colno set");
+  t.ok(doc.defaultView.onerrorError);
+  t.done();
+};
