@@ -44,6 +44,7 @@ self.onmessage = function (e) {
     "living-html/inline-event-handlers.js": require("../test/living-html/inline-event-handlers.js"), // ok
     "living-html/message-event.js": require("../test/living-html/message-event.js"), // ok
     "living-html/post-message.js": require("../test/living-html/post-message.js"), // ok
+    "living-html/on-error.js": require("../test/living-html/on-error.js"), // ok
     "living-html/navigator.js": require("../test/living-html/navigator.js"), // ok
 
     "window/history": require("../test/window/history"), // ok
@@ -88,6 +89,7 @@ self.onmessage = function (e) {
     "living-html/inline-event-handlers.js",
     "living-html/message-event.js",
     "living-html/navigator.js",
+    "living-html/on-error.js",
     "living-html/post-message.js",
 
     "window/history",
