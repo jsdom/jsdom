@@ -1,5 +1,6 @@
 "use strict";
 const jsdom = require("../..").jsdom;
+const createVirtualConsole = require("../..").createVirtualConsole;
 const toFileUrl = require("../util").toFileUrl;
 const todo = require("../util").todo;
 
@@ -144,4 +145,78 @@ exports["onerror set during parsing catches exceptions thrown in sync script exe
   t.ok(doc.defaultView.onerrorColno > 0, "colno set");
   t.ok(doc.defaultView.onerrorError);
   t.done();
+};
+
+exports["unhandled Errors thrown in sync script excecution during parsing go to the virtual console"] = function (t) {
+  const virtualConsole = createVirtualConsole();
+  virtualConsole.on("jsdomError", function (error) {
+    t.ok(error instanceof Error);
+    t.ok(error.message === "Uncaught [TypeError: oh no!]");
+    t.equal(error.detail.constructor.name, "TypeError");
+    t.done();
+  });
+
+  jsdom(`<script>throw new TypeError("oh no!")</script>`, { virtualConsole });
+};
+
+exports["unhandled non-Error exceptions thrown in sync script excecution during parsing go to the virtual console"] =
+    function (t) {
+  const virtualConsole = createVirtualConsole();
+  virtualConsole.on("jsdomError", function (error) {
+    t.ok(error instanceof Error);
+    t.equal(error.message, "Uncaught {}");
+    t.equal(typeof error.detail, "object");
+    t.notEqual(error.detail, null);
+    t.done();
+  });
+
+  jsdom(`<script>throw {}</script>`, { virtualConsole });
+};
+
+exports["unhandled exceptions thrown in inline event handlers go to the virtual console"] = function (t) {
+  const virtualConsole = createVirtualConsole();
+  virtualConsole.on("jsdomError", function (error) {
+    t.ok(error instanceof Error);
+    t.equal(error.message, "Uncaught [Error: oh no!]");
+    t.equal(error.detail.constructor.name, "Error");
+    t.done();
+  });
+
+  const doc = jsdom(`<body onclick="throw new Error('oh no!')"></body>`, { virtualConsole });
+
+  doc.body.click();
+};
+
+exports["adding an onerror handler does not prevent errors from going to the virtual console"] = function (t) {
+  const virtualConsole = createVirtualConsole();
+  virtualConsole.on("jsdomError", function (error) {
+    t.ok(error instanceof Error);
+    t.equal(error.message, "Uncaught [Error: oh no!]");
+    t.equal(error.detail.constructor.name, "Error");
+    t.done();
+  });
+
+  const doc = jsdom(`<body onclick="throw new Error('oh no!')"></body>`, { virtualConsole });
+
+  doc.defaultView.onerror = function () { };
+
+  doc.body.click();
+};
+
+exports["adding an onerror handler that returns true *does* prevent errors from going to the virtual console"] =
+    function (t) {
+  const virtualConsole = createVirtualConsole();
+  virtualConsole.on("jsdomError", function () {
+    t.fail("should not get here");
+  });
+
+  const doc = jsdom(`<body onclick="throw new Error('oh no!')"></body>`, { virtualConsole });
+
+  doc.defaultView.onerror = function () { return true; };
+
+  doc.body.click();
+
+  setTimeout(function () {
+    t.done();
+  }, 30);
 };
