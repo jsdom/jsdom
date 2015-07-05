@@ -187,6 +187,28 @@ requirejs(["entry-module"], function () {
 
 For more details, see the discussion in [#640](https://github.com/tmpvar/jsdom/issues/640), especially [@matthewkastor](https://github.com/matthewkastor)'s [insightful comment](https://github.com/tmpvar/jsdom/issues/640#issuecomment-22216965).
 
+#### Listening for script errors during initialization
+
+Although it is easy to listen for script errors after initialization, via code like
+
+```js
+var window = jsdom.jsdom(...).defaultView;
+window.addEventListener("error", function (event) {
+  console.error("script error!!", event.error);
+});
+```
+
+it is often also desirable to listen for any script errors during initialization, or errors loading scripts passed to `jsdom.env`. To do this, use the virtual console feature, described in more detail later:
+
+```js
+var virtualConsole = jsdom.createVirtualConsole();
+virtualConsole.on("jsdomError", function (error) {
+  console.error(error.message, error.detail);
+});
+
+var window = jsdom.jsdom(..., { virtualConsole }).defaultView;
+```
+
 ### On running scripts and being safe
 
 By default, `jsdom.env` will not process and run external JavaScript, since our sandbox is not foolproof. That is, code running inside the DOM's `<script>`s can, if it tries hard enough, get access to the Node environment, and thus to your machine. If you want to (carefully!) enable running JavaScript, you can use `jsdom.jsdom`, `jsdom.jQueryify`, or modify the defaults passed to `jsdom.env`.
@@ -421,6 +443,14 @@ Post-initialization, if you didn't pass in a `virtualConsole` or no longer have 
 ```js
 var virtualConsole = jsdom.getVirtualConsole(window);
 ```
+
+#### Virtual console `jsdomError` error reporting
+
+Besides the usual events, corresponding to `console` methods, the virtual console is also used for reporting errors from jsdom itself. This is similar to how error messages often show up in web browser consoles, even if they are not initiated by `console.error`. So far, the following errors are output this way:
+
+- Errors loading scripts when using `jsdom.env`'s `scripts` array
+- Script execution errors that are not handled by a window `onerror` event handler that returns `true` or calls `event.preventDefault()`
+- Calls to methods, like `window.alert`, which jsdom does not implement, but installs anyway for web compatibility.
 
 ## What Standards Does jsdom Support, Exactly?
 
