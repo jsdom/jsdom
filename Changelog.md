@@ -1,3 +1,10 @@
+## 5.6.1
+
+* Fixed an accidentally-created global `attribute` variable if you ever called `createAttributeNS`.
+* Dependency upgrades fixed a couple of bugs, although you would have gotten these anyway with a clean jsdom 5.6.0 install:
+  - Parsing of CSS properties that use `url("quoted string")` now works correctly, as of cssstyle 0.2.29.
+  - Selectors for the empty string, like `div[title=""]`, now work correctly, as of nwmatcher 1.3.6.
+
 ## 5.6.0
 
 * `virtualConsole.sendTo` now returns `this`, allowing for [a nice shorthand](https://github.com/tmpvar/jsdom/tree/60ccb9b318d0bae8fe37e19af5af444b9c98ddac#forward-a-windows-console-output-to-the-iojs-console). (jeffcarp)
