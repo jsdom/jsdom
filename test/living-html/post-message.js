@@ -20,7 +20,7 @@ exports["throws SyntaxError on invalid targetOrigin"] = function (t) {
 
     t.throws(function () {
       iframe.contentWindow.postMessage("testMessage");
-    }, TypeError, "an missing targetOrigin throws a TypeError");
+    }, TypeError, "a missing targetOrigin throws a TypeError");
 
     t.done();
   };
