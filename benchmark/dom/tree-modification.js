@@ -26,6 +26,7 @@ exports["appendChild: no siblings"] = function () {
 };
 
 exports["appendChild: many siblings"] = function () {
+  const MIN_SIBLINGS = 10000;
   let parent;
   let children;
   let it;
@@ -34,6 +35,10 @@ exports["appendChild: many siblings"] = function () {
     setup: function (document) {
       parent = document.createElement("div");
       children = [];
+
+      for (let i = 0; i < MIN_SIBLINGS; ++i) {
+        parent.appendChild(document.createElement("span"));
+      }
 
       for (let i = 0; i < this.count; ++i) {
         children.push(document.createElement("div"));
@@ -81,6 +86,37 @@ exports["appendChild: many parents"] = function () {
   });
 };
 
+exports["insertBefore: many siblings"] = function () {
+  const MIN_SIBLINGS = 10000;
+  let parent;
+  let children;
+  let it;
+  let first;
+
+  return suite({
+    setup: function (document) {
+      parent = document.createElement("div");
+      children = [];
+
+      for (let i = 0; i < MIN_SIBLINGS; ++i) {
+        parent.appendChild(document.createElement("span"));
+      }
+
+      for (let i = 0; i < this.count; ++i) {
+        children.push(document.createElement("div"));
+      }
+
+      it = 0;
+      first = parent.firstChild;
+    },
+    fn: function () {
+      const newChild = children[it];
+      parent.insertBefore(newChild, parent.firstChild);
+      first = newChild;
+      ++it;
+    }
+  });
+};
 
 exports["removeChild: no siblings"] = function () {
   let parent;
