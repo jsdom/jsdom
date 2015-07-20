@@ -370,5 +370,19 @@ exports.tests = {
     });
 
     test.done();
+  },
+
+  getStyleSheetByItem: function (test) {
+    jsdom.env(
+        "<html><head><style>p{color:red}</style><style>div{color:green}</style></head><body>",
+        function (err, win) {
+          var sheets = win.document.styleSheets;
+          test.equal(2, sheets.length);
+          test.equal(sheets[0], sheets.item(0));
+          test.equal(sheets[1], sheets.item(1));
+          test.equal("red", sheets.item(0).cssRules[0].style.color);
+          test.equal("green", sheets.item(1).cssRules[0].style.color);
+          test.done();
+        });
   }
 };
