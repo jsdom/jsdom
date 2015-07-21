@@ -19796,7 +19796,7 @@ exports.tests = {
   filename_with_spaces_in_script_tag_can_be_read: function(test) {
     jsdom.env(
       '<html><head></head><body></body></html>',
-      [path.resolve(__dirname, './html/files/js/script with spaces.js')],
+      ['file:' + path.resolve(__dirname, './html/files/js/script with spaces.js')],
       function(err, window){
         test.strictEqual(err, null, "There should be no errors when using scripts with spaces in their filenames");
         test.done();

@@ -10,8 +10,8 @@ function test(fn) {
     jsdom.env({
       html: testFile,
       scripts: [
-        path.resolve(__dirname, '../jquery-fixtures/jquery-1.8.3.js'),
-        path.resolve(__dirname, 'files/sizzle.js')
+        'file:' + path.resolve(__dirname, '../jquery-fixtures/jquery-1.8.3.js'),
+        'file:' + path.resolve(__dirname, 'files/sizzle.js')
       ],
       done: function(e, window) {
 

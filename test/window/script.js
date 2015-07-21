@@ -2,7 +2,7 @@ var jsdom = require('../../lib/jsdom'),
     path = require('path'),
     fs = require('fs'),
     http = require('http'),
-    jQueryPath = path.resolve(__dirname, '../jquery-fixtures/jquery-1.4.2.js');
+    jQueryPath = 'file:' + path.resolve(__dirname, '../jquery-fixtures/jquery-1.4.2.js');
 
 exports.tests = {
   scripts_share_a_global_context: function(test) {
@@ -120,7 +120,7 @@ exports.tests = {
 
   // see: https://github.com/tmpvar/jsdom/issues/163
   issue_163 : function(test) {
-    jsdom.env('<a />', [__dirname + '/files/163.js'], function(errors, window) {
+    jsdom.env('<a />', ['file:' + __dirname + '/files/163.js'], function(errors, window) {
       test.ok(!errors, 'no errors');
       test.ok(window.hasNativeObjects === true, 'window has the expected properties');
       test.done();
@@ -129,7 +129,7 @@ exports.tests = {
 
   // see: https://github.com/tmpvar/jsdom/issues/179
   issue_179 : function(test) {
-    jsdom.env('<a />', [__dirname + '/files/179.js'], function(errors, window) {
+    jsdom.env('<a />', ['file:' + __dirname + '/files/179.js'], function(errors, window) {
       test.ok(!errors, 'no errors');
       test.ok(window.b === 42, 'local var gets hung off of the window');
       test.ok(window.exposed === 42, 'read local var from window and exposed it');
@@ -185,7 +185,7 @@ exports.tests = {
   },
 
   timer_executes_in_context : function (test) {
-    jsdom.env('<a />', [__dirname + '/files/timer_in_context.js'], function (errors, window) {
+    jsdom.env('<a />', ['file:' + __dirname + '/files/timer_in_context.js'], function (errors, window) {
       setTimeout(function () {
         test.ok(window.x == 1);
         test.done();

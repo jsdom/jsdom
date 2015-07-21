@@ -135,7 +135,7 @@ exports.tests = {
     var doc = jsdom.jsdom("<html><head><style>div{display:none}</style></head>" +
                           "<body><div></div></body></html>");
     var win = doc.defaultView;
-    jsdom.jQueryify(win, path.resolve(__dirname, "../jquery-fixtures/jquery-1.11.0.js"),
+    jsdom.jQueryify(win, "file:" + path.resolve(__dirname, "../jquery-fixtures/jquery-1.11.0.js"),
                     function (window, jQuery) {
       var div = jQuery("div");
       var cs = win.getComputedStyle(div.get(0));
