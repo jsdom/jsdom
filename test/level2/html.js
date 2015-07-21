@@ -19762,6 +19762,7 @@ exports.tests = {
   },
 
   normalize_method_defined_on_string_prototype_should_not_affect_getting_attribute_properties: function (test) {
+    var oldNormalize = String.prototype.normalize;
     String.prototype.normalize = function () {
       return "masked alt";
     };
@@ -19771,12 +19772,13 @@ exports.tests = {
     test.strictEqual(img.alt, "alt", "<img> elements should not have their attribute properties masked by defining " +
       "a normalize method on string instances");
 
-    delete String.prototype.normalize;
+    String.prototype.normalize = oldNormalize;
     test.done();
   },
 
 
   normalize_method_defined_on_string_prototype_should_not_affect_setting_attribute_properties: function (test) {
+    var oldNormalize = String.prototype.normalize;
     String.prototype.normalize = function () {
       return "masked action";
     };
@@ -19787,7 +19789,7 @@ exports.tests = {
     test.strictEqual(form.action, "test.html", "<form> elements should not have their attribute properties masked " +
       "by defining a normalize method on string instances when removing empty attributes");
 
-    delete String.prototype.normalize;
+    String.prototype.normalize = oldNormalize;
     test.done();
   },
 
