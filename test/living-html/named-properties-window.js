@@ -102,6 +102,61 @@ exports["Changing an attribute should update the named properties (name)"] = fun
   t.done();
 };
 
+exports["An element with identical name and id attributes should occur in the value once, not twice"] = function (t) {
+  const doc = jsdom.jsdom();
+  const window = doc.defaultView;
+
+  const img = doc.createElement("img");
+  doc.body.appendChild(img);
+  img.setAttribute("name", "foo");
+  img.setAttribute("id", "foo");
+  t.ok(window.foo === img);
+
+  const img2 = doc.createElement("img");
+  doc.body.appendChild(img2);
+  img2.setAttribute("name", "foo");
+  img2.setAttribute("id", "foo");
+  t.strictEqual(window.foo.length, 2);
+  t.ok(window.foo[0] === img);
+  t.ok(window.foo[1] === img2);
+
+  t.done();
+};
+
+exports["Changing an attribute should not remove the named properties " +
+        "if a different attribute still matches (id)"] = function (t) {
+  const doc = jsdom.jsdom();
+  const window = doc.defaultView;
+
+  const img = doc.createElement("img");
+  doc.body.appendChild(img);
+  img.setAttribute("name", "foo");
+  img.setAttribute("id", "foo");
+  t.ok(window.foo === img);
+
+  img.setAttribute("id", "bar");
+  t.ok(window.foo === img);
+
+  t.done();
+};
+
+exports["Changing an attribute should not remove the named properties " +
+        "if a different attribute still matches (name)"] = function (t) {
+  const doc = jsdom.jsdom();
+  const window = doc.defaultView;
+
+  const img = doc.createElement("img");
+  doc.body.appendChild(img);
+  img.setAttribute("name", "foo");
+  img.setAttribute("id", "foo");
+  t.ok(window.foo === img);
+
+  img.setAttribute("name", "bar");
+  t.ok(window.foo === img);
+
+  t.done();
+};
+
 exports["Changing an attribute that is not id or name should not cause errors"] = function (t) {
   const doc = jsdom.jsdom();
   const window = doc.defaultView;
