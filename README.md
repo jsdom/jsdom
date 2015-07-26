@@ -239,7 +239,7 @@ One of the goals of jsdom is to be as minimal and light as possible. This sectio
   var jsdom = require("jsdom").jsdom;
   var doc = jsdom("<html><body></body></html>", {
       features: {
-        FetchExternalResources : ["img"]
+        FetchExternalResources : ["link"]
       }
   });
   ```
@@ -262,7 +262,7 @@ Default features are extremely important for jsdom as they lower the configurati
 `FetchExternalResources`
 
 - _Default_: `["script"]`
-- _Allowed_: `["script", "img", "css", "frame", "iframe", "link"]` or `false`
+- _Allowed_: `["script", "frame", "iframe", "link"]` or `false`
 - _Default for `jsdom.env`_: `false`
 
 Enables/disables fetching files over the file system/HTTP
@@ -448,9 +448,9 @@ var virtualConsole = jsdom.getVirtualConsole(window);
 
 Besides the usual events, corresponding to `console` methods, the virtual console is also used for reporting errors from jsdom itself. This is similar to how error messages often show up in web browser consoles, even if they are not initiated by `console.error`. So far, the following errors are output this way:
 
-- Errors loading scripts when using `jsdom.env`'s `scripts` array
+- Errors loading external resources (scripts, stylesheets, frames, and iframes)
 - Script execution errors that are not handled by a window `onerror` event handler that returns `true` or calls `event.preventDefault()`
-- Calls to methods, like `window.alert`, which jsdom does not implement, but installs anyway for web compatibility.
+- Calls to methods, like `window.alert`, which jsdom does not implement, but installs anyway for web compatibility
 
 ## What Standards Does jsdom Support, Exactly?
 

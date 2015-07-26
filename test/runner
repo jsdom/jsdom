@@ -80,6 +80,7 @@ var files = [
   "jsdom/selectors.js",
   "jsdom/serialization.js",
   "jsdom/named-properties-tracker.js",
+  "jsdom/resource-loading.js",
   "living-html/named-properties-window.js",
 
   "jsonp/jsonp.js",

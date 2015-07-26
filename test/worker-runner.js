@@ -59,6 +59,7 @@ self.onmessage = function (e) {
     "jsdom/utils": require("../test/jsdom/utils"), // ok
     "jsdom/inside-worker-smoke-tests": require("../test/jsdom/inside-worker-smoke-tests"),
     "jsdom/named-properties-tracker.js": require("../test/jsdom/named-properties-tracker"),
+    "jsdom/resource-loading.js": require("../test/jsdom/resource-loading"), // 0/4
     "jsonp/jsonp": require("../test/jsonp/jsonp"), // 0/1
     "browser/css": require("../test/browser/css"), // ok
     "browser/index": require("../test/browser/index"), // ok
