@@ -1,28 +1,34 @@
+"use strict";
 var testcase = require('nodeunit').testCase;
 var jsdom = require("../..");
-var EventMonitor = function() {
-  self = this;
-  self.atEvents = [];
-  self.bubbledEvents = [];
-  self.capturedEvents = [];
-  self.allEvents = [];
-  self.handleEvent = function(event) {
-    self.allEvents.push(event);
-    switch(event.eventPhase) {
-    case event.CAPTURING_PHASE:
-      self.capturedEvents.push(event);
-      break;
-    case event.AT_TARGET:
-      self.atEvents.push(event);
-      break;
-    case event.BUBBLING_PHASE:
-      self.bubbledEvents.push(event);
-      break;
-    default:
-      throw new Error("Unspecified event phase");
-    }
-  };
-};
+
+class EventMonitor {
+  constructor() {
+    this.atEvents = [];
+    this.bubbledEvents = [];
+    this.capturedEvents = [];
+    this.allEvents = [];
+
+    this.handleEvent = function (event) {
+      this.allEvents.push(event);
+
+      switch (event.eventPhase) {
+        case event.CAPTURING_PHASE:
+          this.capturedEvents.push(event);
+          break;
+        case event.AT_TARGET:
+          this.atEvents.push(event);
+          break;
+        case event.BUBBLING_PHASE:
+          this.bubbledEvents.push(event);
+          break;
+        default:
+          throw new Error("Unspecified event phase");
+      }
+    }.bind(this);
+  }
+}
+
 var _setUp = function() {
   var doc = require('../level1/core/files/hc_staff.xml').hc_staff();
   var monitor = this.monitor = new EventMonitor();
