@@ -82,11 +82,11 @@ exports["postMessage from iframe to iframe"] = function (t) {
     window.parent.iframeReceiver.contentWindow.postMessage("ack", "*");
   `);
 
-  setImmediate(function () {
+  setTimeout(function () {
     t.ok(window.postMessageEvent.type === "message");
     t.ok(window.postMessageEvent.data === "ack");
     t.done();
-  });
+  }, 0);
 };
 
 exports["postMessage silently rejects absolute URL targetOrigins"] = function (t) {
@@ -101,10 +101,10 @@ exports["postMessage silently rejects absolute URL targetOrigins"] = function (t
 
   window.iframeSender.parent.iframeReceiver.postMessage("ack", "https://github.com");
 
-  setImmediate(function () {
+  setTimeout(function () {
     t.ok(window.postMessageEvent === undefined);
     t.done();
-  });
+  }, 0);
 };
 
 exports["postMessage respects '/' targetOrigin option"] = function (t) {
