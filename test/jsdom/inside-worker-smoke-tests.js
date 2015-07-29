@@ -1,5 +1,5 @@
 "use strict";
-
+var jsdom = require("../..").jsdom;
 var env = require("../..").env;
 var serializeDocument = require("../..").serializeDocument;
 
@@ -50,6 +50,15 @@ exports["execute scripts with global variables / window scope reference"] = func
       ProcessExternalResources: ["script"]
     }
   });
+};
+
+exports["execute scripts referring to global built-ins (GH-1175)"] = function (t) {
+  const document = jsdom(`<!DOCTYPE html><script>
+    document.body.textContent = Error.name + window.Object.name + NaN + window.undefined;
+  </script>`);
+
+  t.strictEqual(document.body.textContent, "ErrorObjectNaNundefined");
+  t.done();
 };
 
 exports["test async global variable context"] = function (t) {
