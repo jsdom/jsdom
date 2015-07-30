@@ -54,10 +54,10 @@ exports["execute scripts with global variables / window scope reference"] = func
 
 exports["execute scripts referring to global built-ins (GH-1175)"] = function (t) {
   const document = jsdom(`<!DOCTYPE html><script>
-    document.body.textContent = Error.name + window.Object.name + NaN + window.undefined;
+    document.body.textContent = Error.name + window.Object.name + NaN + ("undefined" in window);
   </script>`);
 
-  t.strictEqual(document.body.textContent, "ErrorObjectNaNundefined");
+  t.strictEqual(document.body.textContent, "ErrorObjectNaNtrue");
   t.done();
 };
 
