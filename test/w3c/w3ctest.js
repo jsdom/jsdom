@@ -73,8 +73,8 @@ function testUrl(url, t) {
         createJsdom(respBody, "http://w3c-test.org/" + url, t);
       });
     } else {
-      file = file.replace(/\/resources\//gi, __dirname + "/tests/resources/");
-      createJsdom(file, "file:" + path.resolve(__dirname, "tests", url), t);
+      file = file.replace(/\/resources\//gi, toFileUrl(__dirname + "/tests/resources") + "/");
+      createJsdom(file, toFileUrl(path.resolve(__dirname, "tests", url)), t);
     }
   });
 }
