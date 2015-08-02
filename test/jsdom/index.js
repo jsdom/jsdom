@@ -59,7 +59,7 @@ exports.tests = {
     var jQueryFile = path.resolve(__dirname, '../jquery-fixtures/jquery-1.4.4.js');
 
     test.expect(6);
-    jsdom.jQueryify(tmpWindow(), 'file:' + jQueryFile, function(window, jQuery) {
+    jsdom.jQueryify(tmpWindow(), toFileUrl(jQueryFile), function(window, jQuery) {
       testFunction(test, window, jQuery, true);
       test.done();
     });
@@ -195,13 +195,14 @@ exports.tests = {
       'http://documentcloud.github.com/backbone/examples/todos/index.html',
       {
         features: {
-          FetchExternalResources   : ['script', 'img', 'css', 'frame', 'link'],
-          ProcessExternalResources : ['script', 'img', 'css', 'frame', 'link'],
+          FetchExternalResources   : ['script', 'frame', 'link'],
+          ProcessExternalResources : ['script', 'frame', 'link'],
           MutationEvents           : '2.0',
           QuerySelector            : false
         }
       },
-      function(errors, window) {
+      function(error, window) {
+        test.ifError(error);
         test.equal(typeof window._, 'function', 'Underscore loaded');
         test.equal(typeof window.$, 'function', 'jQuery loaded');
         test.done();

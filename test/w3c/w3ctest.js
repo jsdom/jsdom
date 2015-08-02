@@ -13,7 +13,7 @@ function createJsdom(source, url, t) {
     html: source,
     url: url,
     features: {
-      FetchExternalResources: ["script", "img", "css", "frame", "iframe", "link"],
+      FetchExternalResources: ["script", "frame", "iframe", "link"],
       ProcessExternalResources: ["script"]
     },
     resourceLoader: function (resource, callback) {

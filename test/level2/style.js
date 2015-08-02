@@ -231,7 +231,7 @@ exports.tests = {
     jsdom.env({
       url: "http://127.0.0.1:10100/relative_import.html",
       features: {
-        FetchExternalResources: ["link", "css"]
+        FetchExternalResources: ["link"]
       },
       created: function (error, win) {
         jsdom.getVirtualConsole(win).on("error", function (message) {
@@ -263,8 +263,8 @@ exports.tests = {
 
     server.listen(10099);
 
-    jsdom.env(path.resolve(__dirname, "style/external_css.html"), function (errors, win) {
-      test.equal(win.document.errors, null);
+    jsdom.env(path.resolve(__dirname, "style/external_css.html"), function (err, win) {
+      test.ifError(err);
       server.close();
       test.done();
     });
