@@ -24,6 +24,7 @@ This release also welcomes [long-time contributer](https://github.com/tmpvar/jsd
 * Added the `XMLHttpRequest.prototype.response` getter.
 * Fixed `StyleSheetList.prototype.item` to actually work. (chad3814)
 * Fixed the browser `vm` shim to properly add the built-in global properties (`Object`, `Array`, etc.) to the sandbox. If you were running jsdom inside a web worker and most of your scripts were broken, this should fix that.
+* Fixed the `"hashchange"` event to correctly fire `HashChangeEvent` instances, with correct properties `newURL` and `oldURL` (instead of the incorrect `newUrl` and `oldUrl` used previously).
 * Removed usage of the setimmediate library, as it required `eval` and thus did not work in CSP scenarios.
 
 Finally, if you're a loyal jsdom fan whose made it this far into the changelog, I'd urge you to come join us in [#1139](https://github.com/tmpvar/jsdom/issues/1139), where we are brainstorming a modernized jsdom API that could get rid of many of the warts in the current one.
