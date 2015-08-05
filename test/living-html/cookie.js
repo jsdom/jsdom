@@ -170,6 +170,24 @@ exports["Set cookie by XHR"] = function (t) {
   });
 };
 
+exports["Do not set cookies by XHR for local files"] = function (t) {
+  var fileUrl = "file://" + URL.resolve(__dirname + "/", "cookie.js");
+  jsdom.env({
+    url: testHost + "/TestPath/test-page",
+    done: function (err, window) {
+      var xhr = new window.XMLHttpRequest();
+
+      xhr.onload = function () {
+        t.strictEqual(window.document.cookie, '');
+        t.done();
+      };
+
+      xhr.open("GET", fileUrl, true);
+      xhr.send();
+    }
+  });
+};
+
 exports["Send Cookies header via resource request"] = function (t) {
   jsdom.env({
     url: testHost + "/TestPath/set-cookie-from-server",
