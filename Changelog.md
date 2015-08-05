@@ -1,3 +1,33 @@
+## 6.0.0
+
+This major release is focused on massive improvements in speed, URL parsing, and error handling. The potential breaking changes are highlighted in bold below; the largest ones are around the `jsdom.env` error-handling paradigm.
+
+This release also welcomes [long-time contributer](https://github.com/tmpvar/jsdom/commits/master?author=Joris-van-der-Wel) [@Joris-van-der-Wel](https://github.com/Joris-van-der-Wel/) to the core team. You may recognize him from earlier changelogs. We're very happy to have his help in making jsdom awesome!
+
+* **io.js 2.0 onward is now required**, as we have begun using ES2015 features only present there.
+* Improved performance dramatically, by ~10000x in some cases, due to the following changes:
+  - Overhauled the named properties tracker to not walk the entire tree, thus greatly speeding up the setting of `id` and `name` attributes (including during parsing).
+  - Overhauled everything dealing with tree traversal to use a new library, [symbol-tree](https://github.com/jsdom/js-symbol-tree), to turn many operations that were previously O(n^2) or O(n) into O(n) or O(1).
+  - Sped up `node.compareDocumentPosition` and anything that used it (like `node.contains`) by doing more intelligent tree traversal instead of directly implementing the specced algorithm.
+* Overhauled how error handling works in jsdom:
+  - `window.onerror` (or `window.addEventListener("error", ...)`) now work, and will catch all script errors, similar to in browsers. This also introduces the `ErrorEvent` class, incidentally.
+  - The virtual console is now the destination for several types of errors from jsdom, using [the new event `"jsdomError"`](https://github.com/tmpvar/jsdom#virtual-console-jsdomerror-error-reporting). This includes: errors loading external resources; script execution errors unhandled by `window.onerror`; and not-implemented warnings resulting from calling methods like `window.alert` which jsdom explicitly does not support.
+  - Since script errors are now handled by `window.onerror` and the virtual console, they are no longer included in the initialization process. This results in two changes to `jsdom.env` and the initialization lifecycle:
+    + **The `load(errors, window)` callback was changed to `onload(window)`**, to reflect that it is now just sugar for setting a `window.onload` handler.
+    + **The `done(errors, window)` callback (i.e., the default callback for `jsdom.env`) has become `done(error, window)`**, and like every other io.js callback now simply gives you a single error object, instead of an array of them.
+  - Nodes no longer have a nonstandard `errors` array, or a `raise` method used to put things in that array.
+* URL parsing and resolution was entirely overhauled to follow [the URL standard](http://url.spec.whatwg.org/)!
+  - This fixes several long-standing bugs and hacks in the jsdom URL parser, which already had a mess of gross patches on top of the built-in io.js parser to be more web-compatible.
+  - The new [`URL` class](https://url.spec.whatwg.org/#url) has been added to `window`
+  - The interfaces for `HTMLAnchorElement.prototype` and `document.location` (as well as `URL`, of course) are now uniformized to follow the [`URLUtils` API](https://url.spec.whatwg.org/#api) (minus `searchParams` for now).
+  - **As part of this change, you may need to start passing in `file:` URLs to `jsdom.env` where previously you were able to get away with passing in filenames.**
+* Added the `XMLHttpRequest.prototype.response` getter.
+* Fixed `StyleSheetList.prototype.item` to actually work. (chad3814)
+* Fixed the browser `vm` shim to properly add the built-in global properties (`Object`, `Array`, etc.) to the sandbox. If you were running jsdom inside a web worker and most of your scripts were broken, this should fix that.
+* Removed usage of the setimmediate library, as it required `eval` and thus did not work in CSP scenarios.
+
+Finally, if you're a loyal jsdom fan whose made it this far into the changelog, I'd urge you to come join us in [#1139](https://github.com/tmpvar/jsdom/issues/1139), where we are brainstorming a modernized jsdom API that could get rid of many of the warts in the current one.
+
 ## 5.6.1
 
 * Fixed an accidentally-created global `attribute` variable if you ever called `createAttributeNS`.
