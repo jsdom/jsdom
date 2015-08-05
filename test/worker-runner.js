@@ -47,6 +47,7 @@ self.onmessage = function (e) {
     "living-html/on-error.js": require("../test/living-html/on-error.js"), // ok
     "living-html/navigator.js": require("../test/living-html/navigator.js"), // ok
     "misc/url.js": require("../test/misc/url.js"), // ok
+    "misc/xhr-file-urls.js": require("../test/misc/xhr-file-urls.js"), // 0/2; file I/O does not work in browsers
 
     "window/history": require("../test/window/history"), // ok
     "window/script": require("../test/window/script"), // 0/10

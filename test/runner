@@ -66,6 +66,7 @@ var files = [
   "living-html/post-message.js",
 
   "misc/url.js",
+  "misc/xhr-file-urls.js",
 
   "window/history.js",
   "window/script.js",

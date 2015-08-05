@@ -4,6 +4,7 @@ var http = require("http");
 var URL = require("url");
 var portfinder = require("portfinder");
 var jsdom = require("../..");
+var toFileUrl = require("../util").toFileUrl(__dirname);
 
 var server = [];
 var testHost = null;
@@ -168,6 +169,20 @@ exports["Set cookie by XHR"] = function (t) {
       xhr.send();
     }
   });
+};
+
+exports["Getting a file URL should not set any cookies"] = function (t) {
+  // From https://github.com/tmpvar/jsdom/pull/1180
+  const window = jsdom.jsdom(undefined, { url: "http://example.com/" }).defaultView;
+
+  const xhr = new window.XMLHttpRequest();
+  xhr.onload = function () {
+    t.strictEqual(window.document.cookie, "");
+    t.done();
+  };
+
+  xhr.open("GET", toFileUrl(__filename), true);
+  xhr.send();
 };
 
 exports["Send Cookies header via resource request"] = function (t) {
