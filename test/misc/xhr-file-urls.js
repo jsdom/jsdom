@@ -17,6 +17,20 @@ exports["Getting a file URL should work (from the same file URL)"] = function (t
   xhr.send();
 };
 
+exports["Getting a file URL should have valid response"] = function (t) {
+  // From https://github.com/tmpvar/jsdom/pull/1180
+  const window = jsdom.jsdom(undefined, { url: toFileUrl(__filename) }).defaultView;
+
+  const xhr = new window.XMLHttpRequest();
+  xhr.onload = function () {
+    t.equal(xhr.response, fs.readFileSync(__filename));
+    t.done();
+  };
+
+  xhr.open("GET", toFileUrl(__filename), true);
+  xhr.send();
+};
+
 exports["Getting a file URL should not throw for getResponseHeader"] = function (t) {
   // From https://github.com/tmpvar/jsdom/pull/1180
   const window = jsdom.jsdom(undefined, { url: toFileUrl(__filename) }).defaultView;
@@ -25,6 +39,22 @@ exports["Getting a file URL should not throw for getResponseHeader"] = function 
   xhr.onload = function () {
     t.doesNotThrow(function () {
       t.strictEqual(xhr.getResponseHeader("Blahblahblah"), null);
+    });
+    t.done();
+  };
+
+  xhr.open("GET", toFileUrl(__filename), true);
+  xhr.send();
+};
+
+exports["Getting a file URL should not throw for getAllResponseHeaders"] = function (t) {
+  // From https://github.com/tmpvar/jsdom/pull/1180
+  const window = jsdom.jsdom(undefined, { url: toFileUrl(__filename) }).defaultView;
+
+  const xhr = new window.XMLHttpRequest();
+  xhr.onload = function () {
+    t.doesNotThrow(function () {
+      t.strictEqual(xhr.getAllResponseHeaders(), null);
     });
     t.done();
   };
