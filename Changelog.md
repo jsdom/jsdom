@@ -1,3 +1,8 @@
+## 6.0.1
+
+* Fixed `XMLHttpRequest.prototype.getAllResponseHeaders` to not crash when used with `file:` URLs. (justinmchase)
+* Fixed `XMLHttpRequest.prototype.response` to correctly return the response text even when `responseType` was unset. (justinmchase)
+
 ## 6.0.0
 
 This major release is focused on massive improvements in speed, URL parsing, and error handling. The potential breaking changes are highlighted in bold below; the largest ones are around the `jsdom.env` error-handling paradigm.
