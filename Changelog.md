@@ -1,3 +1,7 @@
+## 6.1.0
+
+* Added basic implementations of `HTMLMediaElement` and `HTMLVideoElement`, back-ported from Facebook's Jest project. (cpojer)
+
 ## 6.0.1
 
 * Fixed `XMLHttpRequest.prototype.getAllResponseHeaders` to not crash when used with `file:` URLs. (justinmchase)
