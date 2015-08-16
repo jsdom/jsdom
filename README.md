@@ -134,6 +134,7 @@ jsdom.env(config);
 - `config.resourceLoader`: a function that intercepts subresource requests and allows you to re-route them, modify, or outright replace them with your own content. More below.
 - `config.done`, `config.onload`, `config.created`: see below.
 - `config.concurrentNodeIterators`: the maximum amount of `NodeIterator`s that you can use at the same time. The default is `10`; setting this to a high value will hurt performance.
+- `config.virtualConsole`: a virtual console instance that can capture the window’s console output.
 
 Note that at least one of the callbacks (`done`, `onload`, or `created`) is required, as is one of `html`, `file`, or `url`.
 
