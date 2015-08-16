@@ -16,6 +16,7 @@ function createJsdom(source, url, t) {
       FetchExternalResources: ["script", "frame", "iframe", "link"],
       ProcessExternalResources: ["script"]
     },
+    virtualConsole: jsdom.createVirtualConsole().sendTo(console),
     resourceLoader: function (resource, callback) {
       if (resource.url.href === reporterHref) {
         callback(null, "window.shimTest();");
@@ -33,9 +34,9 @@ function createJsdom(source, url, t) {
         /* jshint -W106 */
         window.add_result_callback(function (test) {
           if (test.status === 1) {
-            t.ok(false, "Failed in \"" + test.name + "\": \n" + test.message);
+            t.ok(false, "Failed in \"" + test.name + "\": \n" + test.message + "\n\n" + test.stack);
           } else if (test.status === 2) {
-            t.ok(false, "Timout in \"" + test.name + "\": \n" + test.message);
+            t.ok(false, "Timout in \"" + test.name + "\": \n" + test.message + "\n\n" + test.stack);
           } else {
             t.ok(true, test.name);
           }
@@ -56,9 +57,11 @@ function createJsdom(source, url, t) {
 }
 
 function testUrl(url, t) {
+  const internetUrl = "http://w3c-test.org/" + url;
+
   fs.readFile(path.resolve(__dirname, "tests", url), "utf8", function (err, file) {
     if (err) {
-      request.get("http://w3c-test.org/" + url, function (err, resp, respBody) {
+      request.get(internetUrl, function (err, resp, respBody) {
         if (err) {
           t.ifError(err, "request should go through without error");
           t.done();
@@ -74,7 +77,7 @@ function testUrl(url, t) {
       });
     } else {
       file = file.replace(/\/resources\//gi, toFileUrl(__dirname + "/tests/resources") + "/");
-      createJsdom(file, toFileUrl(path.resolve(__dirname, "tests", url)), t);
+      createJsdom(file, internetUrl, t);
     }
   });
 }
