@@ -718,6 +718,56 @@ exports.tests = {
     test.done();
   },
 
+  DomSubtreeModifiedEvents : function(test){
+    var document = jsdom.jsdom()
+    var firedAfterAddedChild = false;
+    var firedAfterAddedTextNode = false;
+    var firedAfterAddingAttr = false;
+    var firedAfterChangingAttr = false;
+    var firedAfterRemovedAttr = false;
+
+    document.addEventListener("DOMSubtreeModified", function(ev){
+       firedAfterAddedChild = true;
+    });
+    var div = document.createElement("div");
+    document.body.appendChild(div);
+    test.ok(firedAfterAddedChild, "DOMSubtreeModified event should be fired for each created element");
+
+    document.addEventListener("DOMSubtreeModified", function(){
+      firedAfterAddedTextNode = true;
+    });
+    var textNode = document.createTextNode("text node test");
+    document.getElementsByTagName("div")[0].appendChild(textNode);
+    test.ok(firedAfterAddedTextNode, "DOMSubtreeModified event should be fired when texnode value changed");
+    document.addEventListener("DOMSubtreeModified", function(){
+      firedAfterAddingAttr = true;
+    });
+    document.getElementsByTagName("div")[0].setAttribute("class", "test-class");
+    test.ok(firedAfterAddingAttr, "DOMSubtreeModified event should be fired when attribute added");
+
+    document.addEventListener("DOMSubtreeModified", function(){
+      firedAfterChangingAttr = true;
+    });
+    document.getElementsByTagName("div")[0].setAttribute("class", "test-class-2");
+    test.ok(firedAfterChangingAttr, "DOMSubtreeModified event should be fired when attribute value changed");
+
+    firedAfterChangingAttr = false;
+    document.getElementsByTagName("div")[0].setAttribute("class", "test-class-2");
+    test.ok(firedAfterChangingAttr == false, "DOMSubtreeModified not be fired when new attribute value same as old one");
+
+    document.addEventListener("DOMSubtreeModified", function(){
+      firedAfterRemovedAttr = true;
+    });
+    document.getElementsByTagName("div")[0].removeAttribute("class");
+    test.ok(firedAfterRemovedAttr, "DOMSubtreeModified event should be fired when attribute removed");
+
+    firedAfterRemovedAttr = false;
+    document.getElementsByTagName("div")[0].removeAttribute("class");
+    test.ok(firedAfterRemovedAttr == false, "DOMSubtreeModified not be fired when try to remove attribute doesn't exists");
+
+    test.done();
+  },
+
   childNodes_updates_on_insertChild : function(test) {
     var window = jsdom.jsdom("").defaultView;
     var div = window.document.createElement("div");
