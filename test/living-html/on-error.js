@@ -79,7 +79,7 @@ exports["onerror catches exceptions thrown in inline event handlers"] = function
 
   doc.defaultView.addEventListener("error", function (event) {
     t.equal(event.message, "oh no!");
-    t.equal(event.filename, "http://example.com");
+    t.equal(event.filename, "http://example.com/");
     t.ok(event.lineno > 0, "lineno set");
     t.ok(event.colno > 0, "colno set");
     t.ok(event.error);
@@ -117,7 +117,7 @@ exports["onerror catches exceptions thrown in sync script execution"] = function
 
   doc.defaultView.addEventListener("error", function (event) {
     t.equal(event.message, "oh no!", "message equality");
-    t.equal(event.filename, "http://example.com");
+    t.equal(event.filename, "http://example.com/");
     t.ok(event.lineno > 0, "lineno set");
     t.ok(event.colno > 0, "colno set");
     t.ok(event.error);
@@ -140,7 +140,7 @@ exports["onerror set during parsing catches exceptions thrown in sync script exe
   </script>`, { url: "http://example.com" });
 
   t.equal(doc.defaultView.onerrorMessage, "oh no!", "message equality");
-  t.equal(doc.defaultView.onerrorFilename, "http://example.com");
+  t.equal(doc.defaultView.onerrorFilename, "http://example.com/");
   t.ok(doc.defaultView.onerrorLineno > 0, "lineno set");
   t.ok(doc.defaultView.onerrorColno > 0, "colno set");
   t.ok(doc.defaultView.onerrorError);

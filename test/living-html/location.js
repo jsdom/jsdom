@@ -90,3 +90,20 @@ exports["when changing window.location.hash directly, should fire a hashchange e
 
   window.location.hash = "#foo";
 };
+
+exports["window.location components are correct"] = function (t) {
+  var window = jsdom.jsdom("", {
+    url: "http://www.example.com:1234/path/to/foo.txt?blahblah#hash"
+  }).defaultView;
+
+  t.strictEqual(window.location.href, "http://www.example.com:1234/path/to/foo.txt?blahblah#hash");
+  t.strictEqual(window.location.origin, "http://www.example.com:1234");
+  t.strictEqual(window.location.protocol, "http:");
+  t.strictEqual(window.location.host, "www.example.com:1234");
+  t.strictEqual(window.location.hostname, "www.example.com");
+  t.strictEqual(window.location.port, "1234");
+  t.strictEqual(window.location.pathname, "/path/to/foo.txt");
+  t.strictEqual(window.location.search, "?blahblah");
+  t.strictEqual(window.location.hash, "#hash");
+  t.done();
+};
