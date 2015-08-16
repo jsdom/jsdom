@@ -204,9 +204,16 @@ it is often also desirable to listen for any script errors during initialization
 ```js
 var virtualConsole = jsdom.createVirtualConsole();
 virtualConsole.on("jsdomError", function (error) {
-  console.error(error.message, error.detail);
+  console.error(error.stack, error.detail);
 });
 
+var window = jsdom.jsdom(..., { virtualConsole }).defaultView;
+```
+
+You also get this functionality for free by default if you use `virtualConsole.sendTo`; again, see more below:
+
+```js
+var virtualConsole = jsdom.createVirtualConsole().sendTo(console);
 var window = jsdom.jsdom(..., { virtualConsole }).defaultView;
 ```
 
@@ -422,6 +429,8 @@ var document = jsdom.jsdom(undefined, {
   virtualConsole: jsdom.createVirtualConsole().sendTo(console)
 });
 ```
+
+By default this will forward all `"jsdomError"` events to `console.error`. If you want to maintain only a strict one-to-one mapping of events to method calls, and perhaps handle `"jsdomErrors"` yourself, then you can do `jsdom.createVirtualConsole({ omitJsdomErrors: true })`.
 
 #### Create an event emitter for a window's console
 

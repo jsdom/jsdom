@@ -201,3 +201,51 @@ exports["not implemented messages show up as jsdomErrors in the virtual console"
   const doc = jsdom.jsdom("", { virtualConsole });
   doc.defaultView.alert();
 };
+
+exports["virtualConsole.sendTo forwards jsdomErrors to error by default"] = function (t) {
+  t.expect(2);
+
+  const e = new Error("Test message");
+  e.detail = { foo: "bar" };
+
+  const virtualConsole = jsdom.createVirtualConsole().sendTo({
+    error(arg1, arg2) {
+      t.strictEqual(arg1, e.stack);
+      t.strictEqual(arg2, e.detail);
+      t.done();
+    }
+  });
+
+  virtualConsole.emit("jsdomError", e);
+};
+
+exports["virtualConsole.sendTo does not forward jsdomErrors when asked not to during construction"] = function (t) {
+  const e = new Error("Test message");
+  e.detail = { foo: "bar" };
+
+  const virtualConsole = jsdom.createVirtualConsole({ omitJsdomErrors: true }).sendTo({
+    error() {
+      t.fail("should not call error");
+    }
+  });
+
+  virtualConsole.emit("jsdomError", e);
+  t.done();
+};
+
+exports["virtualConsole.sendTo does not forward jsdomErrors when asked not to after construction"] = function (t) {
+  const e = new Error("Test message");
+  e.detail = { foo: "bar" };
+
+  const virtualConsole = jsdom.createVirtualConsole().sendTo({
+    error() {
+      t.fail("should not call error");
+    }
+  });
+
+  t.strictEqual(virtualConsole.omitJsdomErrors, false);
+  virtualConsole.omitJsdomErrors = true;
+
+  virtualConsole.emit("jsdomError", e);
+  t.done();
+};
