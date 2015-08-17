@@ -57,11 +57,9 @@ function createJsdom(source, url, t) {
 }
 
 function testUrl(url, t) {
-  const internetUrl = "http://w3c-test.org/" + url;
-
   fs.readFile(path.resolve(__dirname, "tests", url), "utf8", function (err, file) {
     if (err) {
-      request.get(internetUrl, function (err, resp, respBody) {
+      request.get("http://w3c-test.org/" + url, function (err, resp, respBody) {
         if (err) {
           t.ifError(err, "request should go through without error");
           t.done();
@@ -77,7 +75,7 @@ function testUrl(url, t) {
       });
     } else {
       file = file.replace(/\/resources\//gi, toFileUrl(__dirname + "/tests/resources") + "/");
-      createJsdom(file, internetUrl, t);
+      createJsdom(file, toFileUrl(path.resolve(__dirname, "tests", url)), t);
     }
   });
 }
