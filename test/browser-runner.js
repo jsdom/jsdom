@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 require('colors');
 var browserify = require('browserify');
 var EventEmitter = require('events').EventEmitter;

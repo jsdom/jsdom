@@ -1,23 +1,23 @@
 language: node_js
+node_js: iojs
 
 git:
   submodules: false
 
-before_install:
-  - git submodule update --init --recursive
-
 matrix:
   include:
-    - env: TEST_SUITE=node
-      node_js: iojs
-      sudo: false
-    - env: TEST_SUITE=browser
-      node_js: iojs
+    - script:
+      - sudo apt-get update
+      - sudo apt-get install libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev build-essential g++
+      - npm i canvas
+      - npm test
+      env: TEST_SUITE=node-canvas
+      node_js: iojs-v2.5.0 # TODO update when canvas package works with latest io.js
+    - script: "npm run pretest && npm run test-browser"
+      env: TEST_SUITE=browser
       addons:
         sauce_connect:
           username: "jsdom"
           access_key: "7d402b1d-0388-467c-8d99-edf195456eee"
 
-
-script:
-  - '([ "${TRAVIS_PULL_REQUEST}" != "false" ] && [ "${TEST_SUITE}" = "browser" ]) || (npm run lint && node test/ci.js)'
+script: "npm run lint && npm test"
