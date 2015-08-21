@@ -192,7 +192,7 @@ exports.tests = {
 
   env_with_features_and_external_resources: function(test) {
     jsdom.env(
-      'http://documentcloud.github.com/backbone/examples/todos/index.html',
+      'http://backbonejs.org/examples/todos/index.html',
       {
         features: {
           FetchExternalResources   : ['script', 'frame', 'link'],
