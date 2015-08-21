@@ -54,6 +54,7 @@ self.onmessage = function (e) {
     "misc/xhr-requires-server.js": require("../test/misc/xhr-requires-server.js"), // 0; could work if we figured
       // out a way to say that the server parts happen in io.js, and the browser parts happen in the browser.
 
+    "window/base64": require("../test/window/base64"), // ok
     "window/history": require("../test/window/history"), // ok
     "window/script": require("../test/window/script"), // 0/10
     "window/console": require("../test/window/console"), // ok
@@ -105,6 +106,7 @@ self.onmessage = function (e) {
 
     "misc/url.js",
 
+    "window/base64",
     "window/history",
     "window/console",
     "jsdom/utils",
