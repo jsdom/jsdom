@@ -333,3 +333,12 @@ exports["doctype parsing should work for simple cases (GH-1066)"] = function (t)
   t.strictEqual(doc.doctype.publicId, "-//W3C//DTD HTML 4.01 Transitional//EN");
   t.done();
 };
+
+exports["completely empty <!DOCTYPE> (GH-1204)"] = function (t) {
+  var doc = jsdom("<!DOCTYPE>");
+
+  t.strictEqual(doc.doctype.name, "");
+  t.strictEqual(doc.doctype.systemId, "");
+  t.strictEqual(doc.doctype.publicId, "");
+  t.done();
+};
