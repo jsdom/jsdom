@@ -302,3 +302,13 @@ exports[".toString() should return empty string when empty"] = function (t) {
 
   t.done();
 };
+
+exports["classList should return same object"] = function (t) {
+  var classList = this.el.classList;
+  t.equal(classList, this.el.classList);
+
+  this.el.className = "foo foo";
+  t.equal(classList, this.el.classList);
+
+  t.done();
+};
