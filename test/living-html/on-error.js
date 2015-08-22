@@ -164,7 +164,7 @@ exports["unhandled non-Error exceptions thrown in sync script excecution during 
   const virtualConsole = createVirtualConsole();
   virtualConsole.on("jsdomError", function (error) {
     t.ok(error instanceof Error);
-    t.equal(error.message, "Uncaught {}");
+    t.ok(error.message === "Uncaught Object {}" || error.message === "Uncaught {}"); // io.js v3 introduces the prefix
     t.equal(typeof error.detail, "object");
     t.notEqual(error.detail, null);
     t.done();
