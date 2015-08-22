@@ -291,7 +291,7 @@ exports["accessing classList should remove duplicates"] = function (t) {
   this.el.className = "a a";
   this.el.classList;// jshint ignore:line
 
-  t.equal(this.el.className, "a");
+  t.equal(this.el.className, "a a");
   t.equal(this.el.classList.toString(), "a");
 
   t.done();
