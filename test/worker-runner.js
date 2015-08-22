@@ -30,6 +30,7 @@ self.onmessage = function (e) {
     "level3/xpath": require("../test/level3/xpath"), // 0/93
 
     "living-dom/attributes.js": require("../test/living-dom/attributes.js"), // 1/11
+    "living-dom/class-list.js": require("../test/living-dom/class-list.js"), // ok
     "living-dom/compare-document-position.js": require("../test/living-dom/compare-document-position.js"), // 0/20
     "living-dom/dom-implementation.js": require("../test/living-dom/dom-implementation.js"), // ok
     "living-dom/event-target.js": require("../test/living-dom/event-target.js"), // ok
@@ -86,6 +87,7 @@ self.onmessage = function (e) {
     "level2/events",
     "level3/textContent.js",
 
+    "living-dom/class-list.js",
     "living-dom/event-target.js",
     "living-dom/node-clone-node.js",
     "living-dom/non-document-type-child-node.js",
