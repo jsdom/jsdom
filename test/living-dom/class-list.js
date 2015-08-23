@@ -44,6 +44,10 @@ exports[".item(index) returns expected token"] = function (t) {
   // when provided index equal to or greater than length, return null
   t.equal(this.el.classList.item(2), null);
 
+  // when provided index negative, return null
+  t.equal(this.el.classList.item(-1), null);
+  t.equal(this.el.classList.item(-2), null);
+
   t.done();
 };
 
