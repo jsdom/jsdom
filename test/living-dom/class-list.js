@@ -316,3 +316,13 @@ exports["classList should return same object"] = function (t) {
 
   t.done();
 };
+
+exports["length is readonly"] = function (t) {
+  const classList = this.el.classList;
+  const length = classList.length;
+
+  classList.length = "an apple";
+  t.equals(length, classList.length);
+
+  t.done();
+};
