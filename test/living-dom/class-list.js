@@ -1,11 +1,11 @@
 "use strict";
 
-var load = require("../util").load(__dirname);
-var DOMTokenList = require("../../lib/jsdom/living/dom-token-list").DOMTokenList;
-var DOMException = require("../../lib/jsdom/web-idl/DOMException");
+const load = require("../util").load(__dirname);
+const DOMTokenList = require("../../lib/jsdom/living/dom-token-list").DOMTokenList;
+const DOMException = require("../../lib/jsdom/web-idl/DOMException");
 
 exports.setUp = function (callback) {
-  var doc = load("test");
+  const doc = load("test");
   this.el = doc.getElementsByTagName("p")[0];
   callback();
 };
@@ -72,7 +72,7 @@ exports[".contains(token) returns whether token exists"] = function (t) {
 };
 
 exports[".contains() throws if token empty"] = function (t) {
-  var el = this.el;
+  const el = this.el;
   function block() {
     el.classList.contains("");
   }
@@ -84,7 +84,7 @@ exports[".contains() throws if token empty"] = function (t) {
 };
 
 exports[".contains() throws if token contains whitespace"] = function (t) {
-  var el = this.el;
+  const el = this.el;
   function block() {
     el.classList.contains(" ");
   }
@@ -122,7 +122,7 @@ exports[".add(tokens...) adds provided tokens"] = function (t) {
 };
 
 exports[".add() throws if a token is empty"] = function (t) {
-  var el = this.el;
+  const el = this.el;
   function block() {
     el.classList.add("foo", "");
   }
@@ -134,7 +134,7 @@ exports[".add() throws if a token is empty"] = function (t) {
 };
 
 exports[".add() throws if a token contains whitespace"] = function (t) {
-  var el = this.el;
+  const el = this.el;
   function block() {
     el.classList.add("  foo", "bar");
   }
@@ -180,7 +180,7 @@ exports[".remove(tokens...) removes provided tokens"] = function (t) {
 };
 
 exports[".remove() throws if a token is empty"] = function (t) {
-  var el = this.el;
+  const el = this.el;
   function block() {
     el.classList.remove("foo", "");
   }
@@ -192,7 +192,7 @@ exports[".remove() throws if a token is empty"] = function (t) {
 };
 
 exports[".remove() throws if a token contains whitespace"] = function (t) {
-  var el = this.el;
+  const el = this.el;
   function block() {
     el.classList.remove("  foo", "bar");
   }
@@ -264,7 +264,7 @@ exports[".toggle(token) returns whether token exists"] = function (t) {
 };
 
 exports[".toggle() throws if a token is empty"] = function (t) {
-  var el = this.el;
+  const el = this.el;
   function block() {
     el.classList.toggle("");
   }
@@ -276,7 +276,7 @@ exports[".toggle() throws if a token is empty"] = function (t) {
 };
 
 exports[".toggle() throws if a token contains whitespace"] = function (t) {
-  var el = this.el;
+  const el = this.el;
   function block() {
     el.classList.toggle("  foo");
   }
@@ -304,7 +304,7 @@ exports[".toString() should return empty string when empty"] = function (t) {
 };
 
 exports["classList should return same object"] = function (t) {
-  var classList = this.el.classList;
+  const classList = this.el.classList;
   t.equal(classList, this.el.classList);
 
   this.el.className = "foo foo";
