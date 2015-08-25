@@ -22,3 +22,4 @@ w3cTest("dom/nodes/Node-cloneNode.html");
 w3cTest("dom/traversal/NodeFilter-constants.html");
 w3cTest("dom/traversal/NodeIterator.html");
 w3cTest("html/syntax/serializing-html-fragments/outerHTML.html");
+w3cTest("html/dom/elements/global-attributes/classlist-nonstring.html");
