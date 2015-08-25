@@ -1,3 +1,11 @@
+## 6.2.0
+
+* Added a full-featured, spec-compliant `Element.prototype.classList`, closing out a three-year old issue! (wacii)
+* Made `virtualConsole.sendTo(console)` forward `"jsdomError"`s to `console` by calling `console.error`. This can be turned off by doing `virtualConsole.sendTo(console, { omitJsdomErrors: true })`.
+* Fixed errors when trying to parse invalid doctype declarations, like `<!DOCTYPE>`.
+* Fixed spurious `"jsdomError"`s that were emitted after calling `window.close()`.
+* Fixed the `"DOMSubtreeModified"` event to fire in more cases. Note that our mutation events implementation remains incomplete, and will eventually be removed (in a major release) once we implement mutation observers. (selam)
+
 ## 6.1.0
 
 * Added basic implementations of `HTMLMediaElement` and `HTMLVideoElement`, back-ported from Facebook's Jest project. (cpojer)
