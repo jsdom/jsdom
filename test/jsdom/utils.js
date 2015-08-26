@@ -236,3 +236,9 @@ exports["isValidTargetOrigin properly validates target origin"] = function (t) {
 
   t.done();
 };
+
+exports["stringContainsUTF8Chars detects UTF8 strings"] = function (t) {
+  t.strictEqual(utils.stringContainsUTF8Chars("\u03BB"), true);
+  t.strictEqual(utils.stringContainsUTF8Chars("Hello, world!"), false);
+  t.done();
+};
