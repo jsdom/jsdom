@@ -1,30 +1,30 @@
 "use strict";
 
-var fs = require("fs");
-var path = require("path");
-var request = require("request");
-var jsdom = require("../..");
-var toFileUrl = require("../../lib/jsdom/utils").toFileUrl;
+const http = require("http");
+const path = require("path");
+const request = require("request");
+const st = require("st");
+const jsdom = require("../..");
+const URL = require("../../lib/jsdom/utils").URL;
 
-function createJsdom(source, url, t) {
-  const reporterHref = toFileUrl(__dirname + "/tests/resources/testharnessreport.js");
+function createJsdom(urlPrefix, testPath, t) {
+  const reporterHref = urlPrefix + "resources/testharnessreport.js";
 
   jsdom.env({
-    html: source,
-    url: url,
+    url: urlPrefix + testPath,
     features: {
       FetchExternalResources: ["script", "frame", "iframe", "link"],
       ProcessExternalResources: ["script"]
     },
     virtualConsole: jsdom.createVirtualConsole().sendTo(console),
-    resourceLoader: function (resource, callback) {
+    resourceLoader(resource, callback) {
       if (resource.url.href === reporterHref) {
         callback(null, "window.shimTest();");
       } else {
         resource.defaultFetch(callback);
       }
     },
-    created: function (err, window) {
+    created(err, window) {
       if (err) {
         t.ifError(err, "window should be created without error");
         t.done();
@@ -50,40 +50,37 @@ function createJsdom(source, url, t) {
       };
     },
 
-    loaded: function (err) {
-      t.ifError(err && err[0].data.error);
-    }
-  });
-}
-
-function testUrl(url, t) {
-  fs.readFile(path.resolve(__dirname, "tests", url), "utf8", function (err, file) {
-    if (err) {
-      request.get("http://w3c-test.org/" + url, function (err, resp, respBody) {
-        if (err) {
-          t.ifError(err, "request should go through without error");
-          t.done();
-          return;
-        }
-        if (resp.statusCode < 200 || resp.statusCode >= 300) {
-          t.ok(false, "request should return OK status code");
-          t.done();
-          return;
-        }
-
-        createJsdom(respBody, "http://w3c-test.org/" + url, t);
-      });
-    } else {
-      file = file.replace(/\/resources\//gi, toFileUrl(__dirname + "/tests/resources") + "/");
-      createJsdom(file, toFileUrl(path.resolve(__dirname, "tests", url)), t);
+    loaded(err) {
+      t.ifError(err);
     }
   });
 }
 
 module.exports = function (exports) {
-  return function (url) {
-    exports[url] = function (t) {
-      testUrl(url, t);
+  const staticFileServer = st({ path: path.resolve(__dirname, "tests"), url: "/", passthrough: true });
+  const server = http.createServer(function (req, res) {
+    staticFileServer(req, res, function () {
+      fallbackToHostedVersion(req, res);
+    });
+  }).listen();
+  const urlPrefix = `http://127.0.0.1:${server.address().port}/`;
+
+  process.on("exit", function () {
+    server.close();
+  });
+
+  return function (testPath) {
+    exports[testPath] = function (t) {
+      createJsdom(urlPrefix, testPath, t);
     };
   };
+
+  function fallbackToHostedVersion(req, res) {
+    // Problem getting it from disk. Let's try the online version!
+
+    const url = new URL(req.url, urlPrefix);
+    url.protocol = "https";
+    url.host = "w3c-test.org:443";
+    request.get(url.href, { strictSSL: false }).pipe(res);
+  }
 };

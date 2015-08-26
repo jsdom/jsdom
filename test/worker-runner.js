@@ -69,7 +69,7 @@ self.onmessage = function (e) {
     "jsonp/jsonp": require("../test/jsonp/jsonp"), // 0/1
     "browser/css": require("../test/browser/css"), // ok
     "browser/index": require("../test/browser/index"), // ok
-    "w3c/index.js": require("../test/w3c/index"), // 0/2
+    //"w3c/index.js": require("../test/w3c/index"), // cannot browserify
     "w3c/domparsing.js": require("../test/w3c/domparsing")
   };
 
