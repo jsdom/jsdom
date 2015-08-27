@@ -1,6 +1,7 @@
 "use strict";
 
 var jsdom = require("../..").jsdom;
+var DOMException = require("../../lib/jsdom/web-idl/DOMException");
 
 // Tests for window.atob and window.btoa
 // Spec: https://html.spec.whatwg.org/multipage/webappapis.html#atob
@@ -18,10 +19,12 @@ exports["window.btoa throws an error if given non-ASCII characters"] = function 
   const window = jsdom().defaultView;
   t.throws(function () {
     window.btoa(plaintext + "\u03BB");
-  }, "String contains an invalid character");
+    // TODO: Test it actually throws InvalidCharacterError
+  }, DOMException);
   t.done();
 };
 
+// TODO: Add tests for atob InvalidCharacterError
 exports["window.atob decodes a base64 string"] = function (t) {
   const window = jsdom().defaultView;
   t.strictEqual(window.atob(base64text), plaintext);

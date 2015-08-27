@@ -21,3 +21,4 @@ w3cTest("dom/nodes/Node-cloneNode.html");
 w3cTest("dom/traversal/NodeFilter-constants.html");
 w3cTest("dom/traversal/NodeIterator.html");
 w3cTest("html/syntax/serializing-html-fragments/outerHTML.html");
+w3cTest("html/webappapis/atob/base64.html");
