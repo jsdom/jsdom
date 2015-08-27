@@ -15,18 +15,36 @@ exports["window.btoa encodes a string to base64"] = function (t) {
   t.done();
 };
 
-exports["window.btoa throws an error if given non-ASCII characters"] = function (t) {
+exports["btoa throws an InvalidCharacterError if any char's code point is above U+00FF"] = function (t) {
+  t.expect(2);
   const window = jsdom().defaultView;
-  t.throws(function () {
+
+  try {
     window.btoa(plaintext + "\u03BB");
-    // TODO: Test it actually throws InvalidCharacterError
-  }, DOMException);
+  } catch (err) {
+    t.strictEqual(err instanceof DOMException, true);
+    t.strictEqual(err.name, "InvalidCharacterError");
+  }
+
   t.done();
 };
 
-// TODO: Add tests for atob InvalidCharacterError
 exports["window.atob decodes a base64 string"] = function (t) {
   const window = jsdom().defaultView;
   t.strictEqual(window.atob(base64text), plaintext);
+  t.done();
+};
+
+exports["atob throws an InvalidCharacterError if any char's code point is above U+00FF"] = function (t) {
+  t.expect(2);
+  const window = jsdom().defaultView;
+
+  try {
+    window.atob(plaintext + "\u03BB");
+  } catch (err) {
+    t.strictEqual(err instanceof DOMException, true);
+    t.strictEqual(err.name, "InvalidCharacterError");
+  }
+
   t.done();
 };
