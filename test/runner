@@ -54,6 +54,7 @@ var files = [
   "living-html/focus.js",
   "living-html/htmlbuttonelement.js",
   "living-html/htmlelement.js",
+  "living-html/htmlcanvaselement.js",
   "living-html/htmlimageelement.js",
   "living-html/htmlinputelement.js",
   "living-html/htmloptionelement.js",
