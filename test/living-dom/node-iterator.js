@@ -186,6 +186,7 @@ exports["NodeIterator instances should not expose any extra properties"] = funct
       case "pointerBeforeReferenceNode":
       case "whatToShow":
       case "filter":
+      case "toString":
         t.ok(!it.hasOwnProperty(key), key + " should not be an 'own' property");
         break;
       default:

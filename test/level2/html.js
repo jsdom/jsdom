@@ -13008,34 +13008,6 @@ exports.tests = {
 
   /**
    *
-   The scope attribute specifies the scope covered by data cells.
-   Retrieve the scope attribute from the second TD element and examine
-   its value.
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-36139952
-   */
-  HTMLTableCellElement26: function(test) {
-    var success;
-    var nodeList;
-    var testNode;
-    var vscope;
-    var doc;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("tablecell");
-    nodeList = doc.getElementsByTagName("td");
-    test.equal(nodeList.length, 4, 'Asize');
-    testNode = nodeList.item(1);
-    vscope = testNode.scope;
-    test.equal(vscope, "col", "scopeLink");
-    test.done();
-  },
-
-  /**
-   *
    The vAlign attribute specifies the vertical alignment of data in cell.
    Retrieve the vAlign attribute from the second TH element and examine
    its value.
@@ -18962,33 +18934,6 @@ exports.tests = {
     testNode = nodeList.item(1);
     vrowspan = testNode.rowSpan;
     test.equal(vrowspan, 1, "rowSpanLink");
-    test.done();
-  },
-
-  /**
-   *
-   Scope covered by header cells.
-   The value of attribute scope of the tablecell element is read and checked against the expected value.
-   * @author Netscape
-   * @author Sivakiran Tummala
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-36139952
-   */
-  table29: function(test) {
-    var success;
-    var nodeList;
-    var testNode;
-    var vscope;
-    var doc;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("tablecell");
-    nodeList = doc.getElementsByTagName("td");
-    test.equal(nodeList.length, 4, 'Asize');
-    testNode = nodeList.item(1);
-    vscope = testNode.scope;
-    test.equal(vscope, "col", "scopeLink");
     test.done();
   },
 
