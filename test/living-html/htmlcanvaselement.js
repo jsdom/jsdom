@@ -57,3 +57,31 @@ exports["canvas elements width and height must default to 300x150"] = function (
 
   t.done();
 };
+
+exports["canvas width and height must parse correctly initially (GH-1025)"] = function (t) {
+  const document = jsdom.jsdom("<canvas width='99' height='101'></canvas>");
+  const canvas = document.querySelector("canvas");
+
+  t.strictEqual(canvas.width, 99);
+  t.strictEqual(canvas.height, 101);
+  t.done();
+};
+
+exports["toDataURL should work (when the canvas npm package is provided) (GH-1025)"] = function (t) {
+  let Canvas;
+  try {
+    Canvas = require("canvas");
+  } catch (e) {}
+
+  if (typeof Canvas !== "function") { // browserify will give back an empty object
+    t.ok(true, "test ignored; not running with the canvas npm package installed");
+    t.done();
+    return;
+  }
+
+  const document = jsdom.jsdom("<canvas width='99' height='101'></canvas>");
+  const canvas = document.querySelector("canvas");
+
+  t.strictEqual(canvas.toDataURL().substring(0, 22), "data:image/png;base64,");
+  t.done();
+};
