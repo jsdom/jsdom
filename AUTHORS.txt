@@ -27,6 +27,7 @@ Chris Buckley <chris@cmbuckley.co.uk>
 Chris Carpita <ccarpita@gmail.com>
 Christophe Coevoet <stof@notk.org>
 cjroebuck <tophtfc@gmail.com>
+cpojer <christoph.pojer@gmail.com>
 d-ash <andrey.shubin@gmail.com>
 daishi <daishi@axlight.com>
 Damian Janowski <damian.janowski@gmail.com>
@@ -83,7 +84,9 @@ Josh Marshall <catchjosh@gmail.com>
 Joshua Peek <josh@joshpeek.com>
 José Valim <jose.valim@gmail.com>
 Julien Guimont <julien@porkepic.com>
+justinmchase <justin.m.chase@gmail.com>
 Jérémy Lal <kapouer@melix.org>
+Jörn Hees <joernhees@users.noreply.github.com>
 kangax <kangax@gmail.com>
 Karuna Sagar <karunasagark@gmail.com>
 kblomquist <kblomquist@groupon.com>
@@ -99,6 +102,7 @@ liucougar <liucougar@gmail.com>
 Lon Ingram <lawnsea@gmail.com>
 Louis-Dominique Dubeau <ldd@lddubeau.com>
 lovebear <hheennrryy@gmail.com>
+Ludovico Fischer <livrerie@gmail.com>
 Lukas Bünger <lukas.buenger@fixxpunkt.ch>
 Marak Squires <marak.squires@gmail.com>
 Mariusz Nowak <mariusz@medikoo.com>
@@ -152,6 +156,7 @@ steve <steve@goddamnbugs.com>
 Steve Conover <sconover@gmail.com>
 Swizec Teller <swizec@swizec.com>
 Tiago Rodrigues <tmcrodrigues@gmail.com>
+timu <selamtux@gmail.com>
 Tobie <tobie.langel@gmail.com>
 Tom Hudson <mail@tomnomnom.com>
 Tom Taylor <tom@tomtaylor.co.uk>
@@ -163,6 +168,7 @@ VinothKumar Raman <vinoth@indix.com>
 Vytautas Jakutis <vytautas@jakutis.lt>
 waslogic <waslogic@gmail.com>
 Wei Dai <x@wei23.net>
+William Cunningham <w.a.cunningham.ii@gmail.com>
 Xavi <xavi.rmz@gmail.com>
 Yonathan <yonathan@gmail.com>
 Zach Smith <zach@amicushq.com>

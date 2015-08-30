@@ -1,3 +1,26 @@
+## 6.3.0
+
+* Added a fully spec-compliant implementation of `window.atob` and `window.btoa`. (jeffcarp)
+* Fixed many issues with our `<canvas>` implementation:
+  - With the `canvas` npm package installed, `<canvas>` elements are now properly `instanceof HTMLCanvasElement` and `instanceof HTMLElement`.
+  - `<canvas>` elements now present the same uniform spec-compliant API both with and without the `canvas` npm package installed. If the package is not installed, some of the methods will cause not-implemented `"jsdomError"` events to be emitted on the virtual console.
+  - The `width` and `height` properties now correctly reflect the `width` and `height` attributes, and have the appropriate default values of `300` and `150`.
+  - With the `canvas` npm package installed, `<canvas>` elements now generally play better with other parts of jsdom, e.g., `document.getElementById` actually works with them.
+* Introduced and upated many of our element classes, so that at least every tag name/element class pair is now correct, even if some of the classes are stubs. In particular:
+  - Complete implementations were added for `HTMLDataElement`, `HTMLSpanElement`, and `HTMLTimeElement`.
+  - Stubs were added for `HTMLDataListElement`, `HTMLDialogElement`, `HTMLEmbedElement`, `HTMLMeterElement`, `HTMLOutputElement`, `HTMLProgressElement`, `HTMLSourceElement`, `HTMLTemplateElement`, and `HTMLTrackElement`.
+  - `HTMLAudioElement` was implemented in full, although its `HTMLMediaElement` base, where most of its functionality is, is still largely a stub.
+  - `HTMLTableSectionElement`, `HTMLTableRowElement`, `HTMLTableCellElement`, `HTMLTableDataCellElement`, and `HTMLTableHeaderCellElement` were updated to the latest spec.
+  - `HTMLIsIndexElement` was removed; it has never been produced by the parser since 1.0.0-pre.1, and so it has been just a vestigial global property.
+  - Appropriate constants were added to `HTMLMediaElement`.
+* Updated everything having to do with base URLs to be per-spec:
+  - Added `Node.prototype.baseURI` property to get the node's owner document's base URL.
+  - `HTMLBaseElement`'s `href` getter now contains appropriate fallbacks and always returns an absolute URL, per spec.
+  - If there are no `base` elements in an `"about:blank"` iframe document, the base URL correctly falls back to the parent window's base URL.
+* When you provide a `url: ...` option to `jsdom.jsom()` or `jsdom.env()`, the given string is now attempted to be resolved as a URL before it is installed as `document.URL`.
+  - So for example, providing `url: "http://example.com"` will mean `document.URL` returns `"http://example.com/"`, with a trailing slash.
+  - In a future major release, we will start throwing if strings that cannot be parsed as valid absolute URL are provided for this option.
+
 ## 6.2.0
 
 * Added a full-featured, spec-compliant `Element.prototype.classList`, closing out a three-year old issue! (wacii)
