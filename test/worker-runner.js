@@ -39,6 +39,7 @@ self.onmessage = function (e) {
     "living-dom/node-parent-element.js": require("../test/living-dom/node-parent-element.js"), // 0/11
     "living-dom/non-document-type-child-node.js": require("../test/living-dom/non-document-type-child-node.js"),
 
+    "living-html/htmlanchorelement.js": require("../test/living-html/htmlanchorelement.js"), // ok
     "living-html/htmlbuttonelement.js": require("../test/living-html/htmlbuttonelement.js"), // ok
     "living-html/htmlcanvaselement.js": require("../test/living-html/htmlcanvaselement.js"), // ok
     "living-html/htmlelement.js": require("../test/living-html/htmlelement.js"), // ok
@@ -92,6 +93,7 @@ self.onmessage = function (e) {
     "living-dom/event-target.js",
     "living-dom/node-clone-node.js",
     "living-dom/non-document-type-child-node.js",
+    "living-html/htmlanchorelement.js",
     "living-html/htmlbuttonelement.js",
     "living-html/htmlcanvaselement.js",
     "living-html/location.js",
