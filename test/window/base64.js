@@ -1,6 +1,5 @@
 "use strict";
 const jsdom = require("../..").jsdom;
-const DOMException = require("../../lib/jsdom/web-idl/DOMException");
 
 // Tests for window.atob and window.btoa
 // Spec: https://html.spec.whatwg.org/multipage/webappapis.html#atob
@@ -21,7 +20,7 @@ exports["btoa throws an InvalidCharacterError if any char's code point is above 
   try {
     window.btoa(plaintext + "\u03BB");
   } catch (err) {
-    t.strictEqual(err instanceof DOMException, true);
+    t.strictEqual(err instanceof window.DOMException, true);
     t.strictEqual(err.name, "InvalidCharacterError");
   }
 
@@ -41,7 +40,7 @@ exports["atob throws an InvalidCharacterError if any char's code point is above 
   try {
     window.atob(plaintext + "\u03BB");
   } catch (err) {
-    t.strictEqual(err instanceof DOMException, true);
+    t.strictEqual(err instanceof window.DOMException, true);
     t.strictEqual(err.name, "InvalidCharacterError");
   }
 
