@@ -1,6 +1,6 @@
 # jsdom
 
-A JavaScript implementation of the WHATWG DOM and HTML standards, for use with [io.js](https://iojs.org/).
+A JavaScript implementation of the WHATWG DOM and HTML standards, for use with [Node.js](https://nodejs.org/) or [io.js](https://iojs.org/).
 
 ## Install
 
@@ -8,7 +8,7 @@ A JavaScript implementation of the WHATWG DOM and HTML standards, for use with [
 $ npm install jsdom
 ```
 
-Note that as of our 4.0.0 release, jsdom no longer works with Node.js™ ([why?](https://github.com/tmpvar/jsdom/blob/master/Changelog.md#400)), and instead requires io.js (which is planned to replace Node.js™). In the meantime you are still welcome to install a release in [the 3.x series](https://github.com/tmpvar/jsdom/tree/3.x) if you use Node.js™.
+Note that as of our 4.0.0 release, jsdom requires io.js or Node.js 4 or newer ([why?](https://github.com/tmpvar/jsdom/blob/master/Changelog.md#400)). In the meantime you are still welcome to install a release in [the 3.x series](https://github.com/tmpvar/jsdom/tree/3.x) if you use legacy Node.js versions like 0.10 or 0.12.
 
 ## Human contact
 
@@ -170,7 +170,7 @@ Now that you know about `created` and `onload`, you can see that `done` is essen
 If you load scripts asynchronously, e.g. with a module loader like RequireJS, none of the above hooks will really give you what you want. There's nothing, either in jsdom or in browsers, to say "notify me after all asynchronous loads have completed." The solution is to use the mechanisms of the framework you are using to notify about this finishing up. E.g., with RequireJS, you could do
 
 ```js
-// On the io.js side:
+// On the Node.js/io.js side:
 var window = jsdom.jsdom(...).defaultView;
 window.onModulesLoaded = function () {
   console.log("ready to roll!");
@@ -381,7 +381,7 @@ scriptEl.src = "anotherScript.js";
 window.document.body.appendChild(scriptEl);
 
 // anotherScript.js will have the ability to read `window.__myObject`, even
-// though it originated in io.js!
+// though it originated in Node.js/io.js!
 ```
 
 ### Serializing a document
@@ -421,7 +421,7 @@ jsdom.env({
 
 ### Capturing Console Output
 
-#### Forward a window's console output to the io.js console
+#### Forward a window's console output to the Node.js/io.js console
 
 ```js
 var jsdom = require("jsdom");
