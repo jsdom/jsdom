@@ -12,7 +12,7 @@ matrix:
       - npm i canvas
       - npm test
       env: TEST_SUITE=node-canvas
-      node_js: iojs-v2.5.0 # TODO update when canvas package works with latest io.js
+      node_js: iojs-v2.5.0 # TODO update when canvas package works with latest Node.js
     - script: "npm run pretest && npm run test-browser"
       env: TEST_SUITE=browser
       addons:
