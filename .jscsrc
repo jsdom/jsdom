@@ -45,6 +45,8 @@
     "lib/jsdom/level3/index.js",
     "lib/jsdom/level3/ls.js",
     "lib/jsdom/level3/xpath.js",
+    "lib/jsdom/living/generated/**/*.js",
+    "!lib/jsdom/living/generated/**/*-impl.js",
     "test/browser",
     "test/jquery-fixtures",
     "test/jsonp",

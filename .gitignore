@@ -7,3 +7,6 @@ node_modules
 test/worker-bundle.js
 npm-debug.log
 benchmark/browser-bundle.js
+
+lib/jsdom/living/generated/**/*.js
+!lib/jsdom/living/generated/**/*-impl.js

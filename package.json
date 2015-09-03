@@ -28,6 +28,7 @@
     "request": "^2.55.0",
     "symbol-tree": ">= 3.1.0 < 4.0.0",
     "tough-cookie": "^2.0.0",
+    "webidl-conversions": "^2.0.0",
     "whatwg-url-compat": "~0.6.5",
     "xml-name-validator": ">= 2.0.1 < 3.0.0",
     "xmlhttprequest": ">= 1.6.0 < 2.0.0",
@@ -44,9 +45,11 @@
     "optimist": "0.6.1",
     "portfinder": "0.4.0",
     "q": "^1.2.0",
+    "recursive-readdir": "^1.2.1",
     "selenium-standalone": "^4.6.1",
     "st": "^0.5.5",
-    "wd": "0.3.12"
+    "wd": "0.3.12",
+    "webidl2js": "^1.0.0"
   },
   "browser": {
     "canvas": false,
@@ -54,16 +57,15 @@
     "request": "browser-request"
   },
   "scripts": {
-    "pretest": "git submodule update --init --recursive",
+    "prepublish": "npm run convert-idl",
+    "pretest": "npm run convert-idl && git submodule update --init --recursive",
     "test": "node ./test/runner",
     "test-browser": "node ./test/browser-runner",
     "lint": "jscs lib/ && jscs test/ && jshint --verbose lib/ && jshint --verbose test/",
     "update-authors": "git log --format=\"%aN <%aE>\" | sort -f | uniq > AUTHORS.txt",
     "benchmark": "node ./benchmark/runner",
-    "benchmark-browser": "node ./benchmark/runner --bundle"
+    "benchmark-browser": "node ./benchmark/runner --bundle",
+    "convert-idl": "node ./scripts/webidl/convert"
   },
-  "main": "./lib/jsdom",
-  "files": [
-    "lib/"
-  ]
+  "main": "./lib/jsdom"
 }

@@ -19,6 +19,9 @@ lib/jsdom/level3/xpath.js
 # because JSHint can't handle for-of
 lib/jsdom/living/attributes.js
 
+lib/jsdom/living/generated
+!lib/jsdom/living/generated/**/*-impl.js
+
 test/browser
 test/jquery-fixtures
 test/jsonp
