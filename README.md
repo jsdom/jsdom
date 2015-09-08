@@ -332,7 +332,7 @@ jsdom.env({
 });
 ```
 
-### Canvas
+## Canvas
 
 jsdom includes support for using the [canvas](https://npmjs.org/package/canvas) package to extend any `<canvas>` elements with the canvas API. To make this work, you need to include canvas as a dependency in your project, as a peer of jsdom. If jsdom can find the canvas package, it will use it, but if it's not present, then `<canvas>` elements will behave like `<div>`s.
 
@@ -462,6 +462,30 @@ Besides the usual events, corresponding to `console` methods, the virtual consol
 - Errors loading external resources (scripts, stylesheets, frames, and iframes)
 - Script execution errors that are not handled by a window `onerror` event handler that returns `true` or calls `event.preventDefault()`
 - Calls to methods, like `window.alert`, which jsdom does not implement, but installs anyway for web compatibility
+
+### Getting a node's location within the source
+
+To find where a DOM node is within the source document, we provide the `jsdom.nodeLocation` function:
+
+```js
+var jsdom = require("jsdom");
+
+var document = jsdom.jsdom(`<p>Hello
+    <img src="foo.jpg">
+  </p>`);
+
+var bodyEl = document.body; // implicitly created
+var pEl = document.querySelector("p");
+var textNode = pEl.firstChild;
+var imgEl = document.querySelector("img");
+
+console.log(jsdom.nodeLocation(bodyEl));   // null; it's not in the source
+console.log(jsdom.nodeLocation(pEl));      // { start: 0, end: 39, startTag: ..., endTag: ... }
+console.log(jsdom.nodeLocation(textNode)); // { start: 3, end: 13 }
+console.log(jsdom.nodeLocation(imgEl));    // { start: 13, end: 32 }
+```
+
+This returns the [parse5 location info](https://www.npmjs.com/package/parse5#options-locationinfo) for the node.
 
 ## What Standards Does jsdom Support, Exactly?
 
