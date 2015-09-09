@@ -296,6 +296,7 @@ Filters resource downloading and processing to disallow those matching the given
 jsdom lets you intercept subresource requests using `config.resourceLoader`. `config.resourceLoader` expects a function which is called for each subresource request with the following arguments:
 
 - `resource`: a vanilla JavaScript object with the following properties
+  - `element`: the element that requested the resource.
   - `url`: a parsed URL object.
   - `cookie`: the content of the HTTP cookie header (`key=value` pairs separated by semicolons).
   - `baseUrl`: the base URL used to resolve relative URLs.
