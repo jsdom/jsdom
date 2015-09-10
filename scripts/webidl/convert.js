@@ -42,3 +42,5 @@ function doConversion(inputPath) {
     generateClasses(src, folder, ".", UTIL_PATH);
   });
 }
+
+doConversion("lib/jsdom/living/generated/events").done();

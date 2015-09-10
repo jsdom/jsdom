@@ -1,0 +1,6 @@
+[Exposed=(Window,Worker)]
+interface EventTarget {
+  void addEventListener(DOMString type, EventListener? callback, optional boolean capture = false);
+  void removeEventListener(DOMString type, EventListener? callback, optional boolean capture = false);
+  boolean dispatchEvent(Event event);
+};
