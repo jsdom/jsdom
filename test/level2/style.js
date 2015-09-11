@@ -402,5 +402,16 @@ exports.tests = {
           test.equal("green", sheets.item(1).cssRules[0].style.color);
           test.done();
         });
+  },
+
+  parseStyleWithBogusComment(t) {
+    // https://github.com/tmpvar/jsdom/issues/1214
+    const document = jsdom.jsdom(`<style>.block-title .block-title-inner a:visited { color: #48484d; } // MAIN MENU - (used to keep mobile menu options hidden and keep weather/search and menu on one line) // #tncms-region-nav-main-nav-right-nav { float:left; }</style>`);
+    const window = document.defaultView;
+
+    // Should not hang forever
+    window.getComputedStyle(document.body);
+
+    t.done();
   }
 };

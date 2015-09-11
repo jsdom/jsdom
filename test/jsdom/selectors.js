@@ -1,5 +1,6 @@
 "use strict";
 const jsdom = require("../..");
+const domExceptionPredicate = require("../util").domExceptionPredicate;
 
 // These tests are mostly random regression tests, not systematic parsing tests. They are compiled from the bug tracker.
 exports["div:last-child > span[title] (GH-972)"] = t => {
@@ -188,6 +189,19 @@ exports["querySelectorAll smoke test on a document fragment"] = t => {
   t.equal(elements7.item(0), div.children.item(0), "p and first-p");
   t.equal(elements7.item(1), div.children.item(1), "p and second-p");
   t.equal(elements7.item(2), nextChildDiv.children.item(0), "child of div#next-child");
+
+  t.done();
+};
+
+exports["invalid selector //MAIN MENU... (GH-1214)"] = function (t) {
+  const document = jsdom.jsdom();
+
+  const selector = " //MAIN MENU - (used to keep mobile menu options hidden and keep weather/search and menu " +
+                   "on one line) // #tncms-region-nav-main-nav-right-nav";
+
+  t.throws(() => document.querySelector(selector), domExceptionPredicate(document, "SyntaxError"));
+  t.throws(() => document.querySelectorAll(selector), domExceptionPredicate(document, "SyntaxError"));
+  t.throws(() => document.body.matches(selector), domExceptionPredicate(document, "SyntaxError"));
 
   t.done();
 };
