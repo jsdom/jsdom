@@ -70,6 +70,7 @@ self.onmessage = function (e) {
     "jsdom/named-properties-tracker.js": require("../test/jsdom/named-properties-tracker"),
     "jsdom/node-location.js": require("../test/jsdom/node-location"),
     "jsdom/resource-loading.js": require("../test/jsdom/resource-loading"), // 0/4
+    "jsdom/reconfigure-window.js": require("../test/jsdom/reconfigure-window"),
     "jsonp/jsonp": require("../test/jsonp/jsonp"), // 0/1
     "browser/css": require("../test/browser/css"), // ok
     "browser/index": require("../test/browser/index"), // ok
@@ -117,6 +118,7 @@ self.onmessage = function (e) {
     "jsdom/serialization",
     "jsdom/named-properties-tracker",
     "jsdom/node-location",
+    "jsdom/reconfigure-window",
     "browser/css",
     "browser/index",
 

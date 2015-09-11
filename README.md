@@ -487,6 +487,16 @@ console.log(jsdom.nodeLocation(imgEl));    // { start: 13, end: 32 }
 
 This returns the [parse5 location info](https://www.npmjs.com/package/parse5#options-locationinfo) for the node.
 
+#### Overriding `window.top`
+
+The `top` property on `window` is marked `[Unforgeable]` in the spec, meaning it is a non-configurable own property and thus cannot be overridden or shadowed by normal code running inside the jsdom window, even using `Object.defineProperty`. However, if you're acting from outside the window, e.g. in some test framework that creates jsdom instances, you can override it using the special `jsdom.reconfigureWindow` function:
+
+```js
+jsdom.reconfigureWindow(window, { top: myFakeTopForTesting });
+```
+
+In the future we may expand `reconfigureWindow` to allow overriding other `[Unforgeable]` properties. Let us know if you need this capability.
+
 ## What Standards Does jsdom Support, Exactly?
 
 Our mission is to get something very close to a headless browser, with emphasis more on the DOM/HTML side of things than the CSS side. As such, our primary goals are supporting [The DOM Standard](http://dom.spec.whatwg.org/) and [The HTML Standard](http://www.whatwg.org/specs/web-apps/current-work/multipage/). We only support some subset of these so far; in particular we have the subset covered by the outdated DOM 2 spec family down pretty well. We're slowly including more and more from the modern DOM and HTML specs, including some `Node` APIs, `querySelector(All)`, attribute semantics, the history and URL APIs, and the HTML parsing algorithm.
