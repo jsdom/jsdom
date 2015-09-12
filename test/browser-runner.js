@@ -229,13 +229,13 @@ browserify('./test/worker.js').
 
             // Wait for selenium server to start.
             wdServer.stdout.on('data', function (output) {
-              if (output.toString().indexOf('Started org.openqa.jetty.jetty.Server') >= 0) {
+              if (output.toString().indexOf('Selenium Server is up and running') >= 0) {
                 clearTimeout(h);
                 run();
               }
             });
             wdServer.stderr.on('data', function (output) {
-              if (output.toString().indexOf('Started org.openqa.jetty.jetty.Server') >= 0) {
+              if (output.toString().indexOf('Selenium Server is up and running') >= 0) {
                 clearTimeout(h);
                 run();
               }
