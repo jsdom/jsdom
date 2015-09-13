@@ -36,6 +36,7 @@ self.onmessage = function (e) {
     "living-dom/event-target.js": require("../test/living-dom/event-target.js"), // ok
     "living-dom/node-clone-node.js": require("../test/living-dom/node-clone-node.js"), // ok
     "living-dom/node-contains.js": require("../test/living-dom/node-contains.js"), // 0/20
+    "living-dom/node-list.js": require("../test/living-dom/node-list.js"), // ok
     "living-dom/node-parent-element.js": require("../test/living-dom/node-parent-element.js"), // 0/11
     "living-dom/non-document-type-child-node.js": require("../test/living-dom/non-document-type-child-node.js"),
 
@@ -52,7 +53,7 @@ self.onmessage = function (e) {
     "misc/url.js": require("../test/misc/url.js"), // ok
     "misc/xhr-file-urls.js": require("../test/misc/xhr-file-urls.js"), // 0; file I/O does not work in browsers
     "misc/xhr-requires-server.js": require("../test/misc/xhr-requires-server.js"), // 0; could work if we figured
-      // out a way to say that the server parts happen in io.js, and the browser parts happen in the browser.
+      // out a way to say that the server parts happen in Node.js/io.js, and the browser parts happen in the browser.
 
     "window/base64": require("../test/window/base64"), // ok
     "window/history": require("../test/window/history"), // ok
@@ -67,7 +68,9 @@ self.onmessage = function (e) {
     "jsdom/utils": require("../test/jsdom/utils"), // ok
     "jsdom/inside-worker-smoke-tests": require("../test/jsdom/inside-worker-smoke-tests"),
     "jsdom/named-properties-tracker.js": require("../test/jsdom/named-properties-tracker"),
+    "jsdom/node-location.js": require("../test/jsdom/node-location"),
     "jsdom/resource-loading.js": require("../test/jsdom/resource-loading"), // 0/4
+    "jsdom/reconfigure-window.js": require("../test/jsdom/reconfigure-window"),
     "jsonp/jsonp": require("../test/jsonp/jsonp"), // 0/1
     "browser/css": require("../test/browser/css"), // ok
     "browser/index": require("../test/browser/index"), // ok
@@ -93,6 +96,7 @@ self.onmessage = function (e) {
     "living-dom/class-list.js",
     "living-dom/event-target.js",
     "living-dom/node-clone-node.js",
+    "living-dom/node-list.js",
     "living-dom/non-document-type-child-node.js",
     "living-html/htmlanchorelement.js",
     "living-html/htmlbuttonelement.js",
@@ -113,6 +117,8 @@ self.onmessage = function (e) {
     "jsdom/inside-worker-smoke-tests",
     "jsdom/serialization",
     "jsdom/named-properties-tracker",
+    "jsdom/node-location",
+    "jsdom/reconfigure-window",
     "browser/css",
     "browser/index",
 

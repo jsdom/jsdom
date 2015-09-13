@@ -1,6 +1,6 @@
 # jsdom
 
-A JavaScript implementation of the WHATWG DOM and HTML standards, for use with [io.js](https://iojs.org/).
+A JavaScript implementation of the WHATWG DOM and HTML standards, for use with [Node.js](https://nodejs.org/) or [io.js](https://iojs.org/).
 
 ## Install
 
@@ -8,7 +8,7 @@ A JavaScript implementation of the WHATWG DOM and HTML standards, for use with [
 $ npm install jsdom
 ```
 
-Note that as of our 4.0.0 release, jsdom no longer works with Node.js™ ([why?](https://github.com/tmpvar/jsdom/blob/master/Changelog.md#400)), and instead requires io.js (which is planned to replace Node.js™). In the meantime you are still welcome to install a release in [the 3.x series](https://github.com/tmpvar/jsdom/tree/3.x) if you use Node.js™.
+Note that as of our 4.0.0 release, jsdom requires io.js or Node.js 4 or newer ([why?](https://github.com/tmpvar/jsdom/blob/master/Changelog.md#400)). In the meantime you are still welcome to install a release in [the 3.x series](https://github.com/tmpvar/jsdom/tree/3.x) if you use legacy Node.js versions like 0.10 or 0.12.
 
 ## Human contact
 
@@ -170,7 +170,7 @@ Now that you know about `created` and `onload`, you can see that `done` is essen
 If you load scripts asynchronously, e.g. with a module loader like RequireJS, none of the above hooks will really give you what you want. There's nothing, either in jsdom or in browsers, to say "notify me after all asynchronous loads have completed." The solution is to use the mechanisms of the framework you are using to notify about this finishing up. E.g., with RequireJS, you could do
 
 ```js
-// On the io.js side:
+// On the Node.js/io.js side:
 var window = jsdom.jsdom(...).defaultView;
 window.onModulesLoaded = function () {
   console.log("ready to roll!");
@@ -296,7 +296,11 @@ Filters resource downloading and processing to disallow those matching the given
 jsdom lets you intercept subresource requests using `config.resourceLoader`. `config.resourceLoader` expects a function which is called for each subresource request with the following arguments:
 
 - `resource`: a vanilla JavaScript object with the following properties
+<<<<<<< HEAD
   - `element`: the element that requested resource.
+=======
+  - `element`: the element that requested the resource.
+>>>>>>> upstream/master
   - `url`: a parsed URL object.
   - `cookie`: the content of the HTTP cookie header (`key=value` pairs separated by semicolons).
   - `baseUrl`: the base URL used to resolve relative URLs.
@@ -332,7 +336,7 @@ jsdom.env({
 });
 ```
 
-### Canvas
+## Canvas
 
 jsdom includes support for using the [canvas](https://npmjs.org/package/canvas) package to extend any `<canvas>` elements with the canvas API. To make this work, you need to include canvas as a dependency in your project, as a peer of jsdom. If jsdom can find the canvas package, it will use it, but if it's not present, then `<canvas>` elements will behave like `<div>`s.
 
@@ -381,7 +385,7 @@ scriptEl.src = "anotherScript.js";
 window.document.body.appendChild(scriptEl);
 
 // anotherScript.js will have the ability to read `window.__myObject`, even
-// though it originated in io.js!
+// though it originated in Node.js/io.js!
 ```
 
 ### Serializing a document
@@ -421,7 +425,7 @@ jsdom.env({
 
 ### Capturing Console Output
 
-#### Forward a window's console output to the io.js console
+#### Forward a window's console output to the Node.js/io.js console
 
 ```js
 var jsdom = require("jsdom");
@@ -462,6 +466,40 @@ Besides the usual events, corresponding to `console` methods, the virtual consol
 - Errors loading external resources (scripts, stylesheets, frames, and iframes)
 - Script execution errors that are not handled by a window `onerror` event handler that returns `true` or calls `event.preventDefault()`
 - Calls to methods, like `window.alert`, which jsdom does not implement, but installs anyway for web compatibility
+
+### Getting a node's location within the source
+
+To find where a DOM node is within the source document, we provide the `jsdom.nodeLocation` function:
+
+```js
+var jsdom = require("jsdom");
+
+var document = jsdom.jsdom(`<p>Hello
+    <img src="foo.jpg">
+  </p>`);
+
+var bodyEl = document.body; // implicitly created
+var pEl = document.querySelector("p");
+var textNode = pEl.firstChild;
+var imgEl = document.querySelector("img");
+
+console.log(jsdom.nodeLocation(bodyEl));   // null; it's not in the source
+console.log(jsdom.nodeLocation(pEl));      // { start: 0, end: 39, startTag: ..., endTag: ... }
+console.log(jsdom.nodeLocation(textNode)); // { start: 3, end: 13 }
+console.log(jsdom.nodeLocation(imgEl));    // { start: 13, end: 32 }
+```
+
+This returns the [parse5 location info](https://www.npmjs.com/package/parse5#options-locationinfo) for the node.
+
+#### Overriding `window.top`
+
+The `top` property on `window` is marked `[Unforgeable]` in the spec, meaning it is a non-configurable own property and thus cannot be overridden or shadowed by normal code running inside the jsdom window, even using `Object.defineProperty`. However, if you're acting from outside the window, e.g. in some test framework that creates jsdom instances, you can override it using the special `jsdom.reconfigureWindow` function:
+
+```js
+jsdom.reconfigureWindow(window, { top: myFakeTopForTesting });
+```
+
+In the future we may expand `reconfigureWindow` to allow overriding other `[Unforgeable]` properties. Let us know if you need this capability.
 
 ## What Standards Does jsdom Support, Exactly?
 

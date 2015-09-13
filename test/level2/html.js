@@ -10788,7 +10788,7 @@ exports.tests = {
     var doc;
     doc = load("option");
     var select = doc.getElementsByName('select2').item(0);
-    select.options._toArray().forEach(function(option, idx) {
+    Array.prototype.forEach.call(select.options, function(option, idx) {
       if (idx === 0) {
         test.ok(option.selected);
       } else {
@@ -10810,7 +10810,7 @@ exports.tests = {
 
     select.options.item(3).selected = true;
 
-    select.options._toArray().forEach(function(option, idx) {
+    Array.prototype.forEach.call(select.options, function(option, idx) {
       if (idx === 3) {
         test.ok(option.selected);
       } else {

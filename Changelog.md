@@ -1,3 +1,11 @@
+## 6.4.0
+
+* Added `jsdom.nodeLocation(node)` to get the location within the source text of a given node.
+* Added `jsdom.reconfigureWindow(window, { top })` to allow changing the value of a window's `top` property.
+* Added the `element` argument to the custom resource loader, so you can customize resource loads depending on which element loaded them.
+* Updated `getElementsByClassName` to match the spec. It now correctly splits on whitespace to try to find elements with all the given classes; it returns a `HTMLCollection` instead of a `NodeList`; and it memoizes the result.
+* Updated `NodeList` and `HTMLCollection` to match the spec. The most noticable change is that `HTMLCollection` no longer inherits from `NodeList`.
+
 ## 6.3.0
 
 * Added a fully spec-compliant implementation of `window.atob` and `window.btoa`. (jeffcarp)
