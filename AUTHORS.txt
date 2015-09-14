@@ -134,6 +134,7 @@ Remy Loubradou <remyloubradou@gmail.com>
 Rich Harris <richard.a.harris@gmail.com>
 Rob Dodson <lets.email.rob@gmail.com>
 Robin <fbzhong@gmail.com>
+Robin Berjon <robin@berjon.com>
 Rodrigo Flores <rodrigo.flores@plataformatec.com.br>
 Ryan Gasparini <ryan@rxgx.com>
 Ryan Grove <ryan@wonko.com>

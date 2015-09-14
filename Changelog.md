@@ -1,3 +1,7 @@
+## 6.5.0
+
+* Added `NodeList.prototype[Symbol.iterator]`, so you can now use `for`-`of` loops with `NodeList`s.
+
 ## 6.4.0
 
 * Added `jsdom.nodeLocation(node)` to get the location within the source text of a given node.
