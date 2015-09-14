@@ -30,7 +30,9 @@ exports["NodeList is for..of iterable on live content"] = function (t) {
   for (let p of nodeList) {
     total++;
     t.equal(p.tagName, "P");
-    if (total < 3) document.body.appendChild(document.createElement("p"));
+    if (total < 3) {
+      document.body.appendChild(document.createElement("p"));
+    }
   }
   t.equal(total, 5);
   t.done();
