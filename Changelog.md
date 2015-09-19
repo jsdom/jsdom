@@ -1,3 +1,7 @@
+## 6.5.1
+
+* Fixed an issue where with `jsdom.jsdom`, you had to pass `referrer` and `cookie` options as top-level, whereas with `jsdom.env`, you had to nest them under a `document` option. This was unnecessarily confusing. Now both possibilities are allowed for both functions. (The readme only documents the top-level version, though.)
+
 ## 6.5.0
 
 * Added `NodeList.prototype[Symbol.iterator]`, so you can now use `for`-`of` loops with `NodeList`s.

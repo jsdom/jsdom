@@ -28,7 +28,6 @@ Chris Carpita <ccarpita@gmail.com>
 Christophe Coevoet <stof@notk.org>
 cjroebuck <tophtfc@gmail.com>
 cpojer <christoph.pojer@gmail.com>
-d-ash <andrey.shubin@gmail.com>
 daishi <daishi@axlight.com>
 Damian Janowski <damian.janowski@gmail.com>
 Dan Lidral-Porter <dan@luckysort.com>
@@ -36,6 +35,7 @@ Daniel Boelzle [:dbo] <dbo@numberfour.eu>
 Daniel Cassidy <mail@danielcassidy.me.uk>
 Daniel Cousens <github@dcousens.com>
 Daniël van de Burgt <daniel.vandeburgt@serialssolutions.com>
+d-ash <andrey.shubin@gmail.com>
 Dav Glass <davglass@gmail.com>
 Derek Lindahl <dlindahl@customink.com>
 Domenic Denicola <d@domenic.me>
@@ -43,10 +43,10 @@ dxgriffiths <dxgriffiths@gmail.com>
 Edward O'Connor <hober0@gmail.com>
 eleith <online@eleith.com>
 Elijah Insua <tmpvar@gmail.com>
+E̵̘̳̘̝ṃ̟͈͙̗̹͘i͖͇ḷ͚͔̱̰̠y͜ ̩̲͕R̮̜͓̫o͉̣̦̘̖̖ͅs̫̣͜e̼͖̹̩͉͉͠ <nexxy@symphonysubconscious.com>
 Eugene Ware <eugene@noblesamurai.com>
 Evan Haas <evan@fictivekin.com>
 Evan Jones <evan.q.jones@gmail.com>
-E̵̘̳̘̝ṃ̟͈͙̗̹͘i͖͇ḷ͚͔̱̰̠y͜ ̩̲͕R̮̜͓̫o͉̣̦̘̖̖ͅs̫̣͜e̼͖̹̩͉͉͠ <nexxy@symphonysubconscious.com>
 Federico Galassi <federico.galassi@gmail.com>
 fegs <ang0123dev@gmail.com>
 Felix Böhm <me@feedic.com>
@@ -71,6 +71,7 @@ Jason Orendorff <jason.orendorff@gmail.com>
 Jason Priestley <jason@teampatent.com>
 jden <jason@denizac.org>
 Jeff Carpenter <gcarpenterv@gmail.com>
+Jérémy Lal <kapouer@melix.org>
 Jerry Sievert <github@legitimatesounding.com>
 Jimmy Mabey <jimmy@velsoft.com>
 Johan Sköld <johan@pingdom.com>
@@ -79,14 +80,13 @@ John Roberts <jroberts@logitech.com>
 Jonathan Commins <joncom@gmail.com>
 Jonathan Ong <jonathanrichardong@gmail.com>
 Joris van der Wel <joris@jorisvanderwel.com>
+Jörn Hees <joernhees@users.noreply.github.com>
 Jos Shepherd <jos@hipsnip.com>
+José Valim <jose.valim@gmail.com>
 Josh Marshall <catchjosh@gmail.com>
 Joshua Peek <josh@joshpeek.com>
-José Valim <jose.valim@gmail.com>
 Julien Guimont <julien@porkepic.com>
 justinmchase <justin.m.chase@gmail.com>
-Jérémy Lal <kapouer@melix.org>
-Jörn Hees <joernhees@users.noreply.github.com>
 kangax <kangax@gmail.com>
 Karuna Sagar <karunasagark@gmail.com>
 kblomquist <kblomquist@groupon.com>
@@ -126,9 +126,9 @@ Paul O’Shannessy <paul@oshannessy.com>
 peller <github@peller.org>
 Pepijn Verlaan <pepijnverlaan@yahoo.com>
 Pete Bevin <pete@petebevin.com>
+Péter <peter.perenyi@gmail.com>
 Peter Lyons <pete@peterlyons.com>
 Phil Dokas <pdokas@organic.com>
-Péter <peter.perenyi@gmail.com>
 Ralph Holzmann <ralphholzmann@gmail.com>
 Remy Loubradou <remyloubradou@gmail.com>
 Rich Harris <richard.a.harris@gmail.com>
