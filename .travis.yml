@@ -5,7 +5,9 @@ sudo: false
 git:
   submodules: false
 
-script: "npm run lint && npm test"
+script:
+  - npm run lint
+  - npm test
 
 matrix:
   include:
