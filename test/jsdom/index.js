@@ -55,6 +55,17 @@ exports.tests = {
     test.done();
   },
 
+  jsdom_method_works_with_referrer_under_document(t) {
+    var doc = jsdom.jsdom(undefined, {
+      document: {
+        referrer: "http://example.com"
+      }
+    });
+
+    t.equal(doc.referrer, "http://example.com");
+    t.done();
+  },
+
   jquerify_file: function(test) {
     var jQueryFile = path.resolve(__dirname, '../jquery-fixtures/jquery-1.4.4.js');
 
