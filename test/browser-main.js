@@ -1,3 +1,4 @@
+// For: nodeunit
 window._browserRunner = {
   events: []
 };

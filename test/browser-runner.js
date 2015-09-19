@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// For: nodeunit
 "use strict";
 
 require('colors');

@@ -1,3 +1,4 @@
+// For: nodeunit
 var EventEmitter = require('events').EventEmitter;
 var nodeunit = require('nodeunit');
 

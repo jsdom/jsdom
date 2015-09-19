@@ -1,12 +1,12 @@
 "use strict";
+// For: Mocha and nodeunit
 const path = require("path");
-const jsdom = require("../lib/jsdom");
 const fs = require("fs");
 const http = require("http");
 const https = require("https");
 const enableDestroy = require("server-destroy");
 const request = require("request");
-const exceptionTable = require("../lib/jsdom/web-idl/dom-exception-table.json");
+const jsdom = require("../lib/old-api.js");
 const Canvas = require("../lib/jsdom/utils").Canvas;
 
 function toPathname(dirname, relativePath) {
@@ -59,24 +59,6 @@ exports.load = dirname => {
 
     fileCache[file] = contents;
     return doc;
-  };
-};
-
-/**
- * @param {Document} document
- * @param {String} name
- * @return {Function} A function that tests if the given
- *         exception is a `DOMException` of the specified `code`
- *
- * @example t.throws(function () {
- *   // ...
- * }, domExceptionPredicate(doc, "NoModificationAllowedError"));
- */
-exports.domExceptionPredicate = (document, name) => {
-  return function (error) {
-    return error instanceof document.defaultView.DOMException &&
-           error.name === name &&
-           error.code === exceptionTable[name].legacyCodeValue;
   };
 };
 
@@ -215,8 +197,8 @@ exports.createServer = handler => {
 exports.createHTTPSServer = handler => {
   return new Promise(resolve => {
     const options = {
-      key: fs.readFileSync(path.resolve(__dirname, "jsdom/files/key.pem")),
-      cert: fs.readFileSync(path.resolve(__dirname, "jsdom/files/cert.pem"))
+      key: fs.readFileSync(path.resolve(__dirname, "api/fixtures/key.pem")),
+      cert: fs.readFileSync(path.resolve(__dirname, "api/fixtures/cert.pem"))
     };
 
     const server = https.createServer(options, handler);

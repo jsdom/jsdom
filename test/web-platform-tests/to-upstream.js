@@ -1,9 +1,9 @@
 "use strict";
 const path = require("path");
-const describe = require("mocha-sugar-free").describe;
+const { describe } = require("mocha-sugar-free");
 
 const testsPath = path.resolve(__dirname, "to-upstream");
-const runWebPlatformTest = require("./run-to-upstream-web-platform-test")(testsPath);
+const runWebPlatformTest = require("./run-to-upstream-web-platform-test.js")(testsPath);
 
 describe("Local tests in Web Platform Test format (to-upstream)", () => {
   [

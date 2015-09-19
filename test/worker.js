@@ -1,3 +1,4 @@
+// For: nodeunit
 global.window = global;
 
 function postConsole(level) {

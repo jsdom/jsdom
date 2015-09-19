@@ -1,13 +1,12 @@
 "use strict";
 const q = require("q");
 const childProcess = require("child_process");
-const EventEmitter = require("events");
+const { EventEmitter } = require("events");
 const dns = require("dns");
-const specify = require("mocha-sugar-free").specify;
-
-const inBrowserContext = require("../util").inBrowserContext;
+const { specify } = require("mocha-sugar-free");
+const { inBrowserContext } = require("../util.js");
 const requestHead = q.denodeify(require("request").head);
-const createJsdom = require("./create-jsdom");
+const createJsdom = require("./create-jsdom.js");
 
 /* eslint-disable no-console */
 

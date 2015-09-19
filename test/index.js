@@ -1,31 +1,38 @@
 "use strict";
+// For: Mocha
+// This includes all tests that are run using Mocha, including web-platform-tests.
+// Whether a test runs in Node, the browser, or both is determined using annotations inside each test.
 
-require("./jsdom/cancel-requests.js");
-require("./jsdom/cookie.js");
-require("./jsdom/encoding.js");
-require("./jsdom/env.js");
-require("./jsdom/inside-worker-smoke-tests.js");
-require("./jsdom/keep-alive-connections.js");
-require("./jsdom/misc.js");
-require("./jsdom/named-properties-tracker.js");
-require("./jsdom/namespaces.js");
-require("./jsdom/node-location.js");
-require("./jsdom/parsing.js");
-require("./jsdom/reconfigure-window.js");
-require("./jsdom/resource-loading.js");
-require("./jsdom/selectors.js");
-require("./jsdom/serialization.js");
-require("./jsdom/utils.js");
-require("./jsdom/virtual-console.js");
-require("./jsdom/xml.js");
+require("./api/basics.js");
+require("./api/encoding.js");
+require("./api/fragment.js");
+require("./api/from-file.js");
+require("./api/from-url.js");
+require("./api/methods.js");
+require("./api/options.js");
+require("./api/virtual-console.js");
 
-require("./browser/css.js");
-require("./browser/index.js");
+require("./old-api/cancel-requests.js");
+require("./old-api/cookie.js");
+require("./old-api/env.js");
+require("./old-api/inside-worker-smoke-tests.js");
+require("./old-api/keep-alive-connections.js");
+require("./old-api/named-properties-tracker.js");
+require("./old-api/resource-loading.js");
+require("./old-api/utils.js");
 
-require("./jsonp/jsonp.js");
+require("./to-port-to-wpts/css.js");
+require("./to-port-to-wpts/jsonp.js");
+require("./to-port-to-wpts/misc.js");
+require("./to-port-to-wpts/misc2.js");
+require("./to-port-to-wpts/namespaces.js");
+require("./to-port-to-wpts/parsing.js");
+require("./to-port-to-wpts/selectors.js");
+require("./to-port-to-wpts/serialization.js");
+require("./to-port-to-wpts/xml.js");
 
-require("./level1/core.js");
-require("./level1/html.js");
+require("./to-port-to-wpts/level1/core.js");
+require("./to-port-to-wpts/level1/html.js");
 
 require("./web-platform-tests/to-upstream.js");
 // keep this one last so that you can cancel the test run early
