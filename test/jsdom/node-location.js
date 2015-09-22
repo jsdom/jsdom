@@ -5,12 +5,13 @@ exports["jsdom.nodeLocation on an element"] = t => {
   const document = jsdom.jsdom("<p>Hello</p>");
   const el = document.querySelector("p");
 
-  t.deepEqual(jsdom.nodeLocation(el), {
-    start: 0,
-    end: 12,
-    startTag: { start: 0, end: 3 },
-    endTag: { start: 8, end: 12 }
-  });
+  const location = jsdom.nodeLocation(el);
+  t.strictEqual(location.start, 0);
+  t.strictEqual(location.end, 12);
+  t.strictEqual(location.startTag.start, 0);
+  t.strictEqual(location.startTag.end, 3);
+  t.strictEqual(location.endTag.start, 8);
+  t.strictEqual(location.endTag.end, 12);
   t.done();
 };
 
@@ -18,7 +19,9 @@ exports["jsdom.nodeLocation on a text node"] = t => {
   const document = jsdom.jsdom("<p>Hello</p>");
   const el = document.querySelector("p");
 
-  t.deepEqual(jsdom.nodeLocation(el.firstChild), { start: 3, end: 8 });
+  const location = jsdom.nodeLocation(el.firstChild);
+  t.strictEqual(location.start, 3);
+  t.strictEqual(location.end, 8);
   t.done();
 };
 
@@ -28,6 +31,8 @@ exports["jsdom.nodeLocation on a void element"] = t => {
   </p>`);
   const el = document.querySelector("img");
 
-  t.deepEqual(jsdom.nodeLocation(el), { start: 13, end: 32 });
+  const location = jsdom.nodeLocation(el);
+  t.strictEqual(location.start, 13);
+  t.strictEqual(location.end, 32);
   t.done();
 };
