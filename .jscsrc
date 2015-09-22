@@ -35,7 +35,6 @@
     "node_modules",
     "benchmark/browser-bundle.js",
     "test/worker-bundle.js",
-    "lib/jsdom/browser/htmltodom.js",
     "lib/jsdom/browser/default-stylesheet.js",
     "lib/jsdom/level2/style.js",
     "lib/jsdom/level3/xpath.js",
