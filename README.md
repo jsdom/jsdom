@@ -134,6 +134,8 @@ jsdom.env(config);
 - `config.done`, `config.onload`, `config.created`: see below.
 - `config.concurrentNodeIterators`: the maximum amount of `NodeIterator`s that you can use at the same time. The default is `10`; setting this to a high value will hurt performance.
 - `config.virtualConsole`: a virtual console instance that can capture the window’s console output; see the "Capturing Console Output" examples.
+- `config.pool`: an object describing which agents to use for the requests, defaults to {maxSockets: 6}, see [request module](https://github.com/request/request#requestoptions-callback) for more details.
+- `config.agentOptions`: the agent options, defaults to {keepAlive: true, keepAliveMsecs: 115000}, see [http api](https://nodejs.org/api/http.html) for more details.
 
 Note that at least one of the callbacks (`done`, `onload`, or `created`) is required, as is one of `html`, `file`, or `url`.
 
@@ -304,6 +306,9 @@ jsdom lets you intercept subresource requests using `config.resourceLoader`. `co
   - `error`: either `null`, if nothing goes wrong, or an `Error` object.
   - `body`: a string representing the body of the resource.
 
+You can return an object containing an `abort(emitEvent)` function which will be called if the window is closed or stopped before the request ends.
+The emitEvent argument is false when the window is closed and true when the window is stopped (the function should trigger an abort error if emitEvent is true).
+
 For example, fetching all JS files from a different directory and running them in strict mode:
 
 ```js
@@ -315,12 +320,12 @@ jsdom.env({
     var pathname = resource.url.pathname;
     if (/\.js$/.test(pathname)) {
       resource.url.pathname = pathname.replace("/js/", "/js/raw/");
-      resource.defaultFetch(function (err, body) {
+      return resource.defaultFetch(function (err, body) {
         if (err) return callback(err);
         callback(null, '"use strict";\n' + body);
       });
     } else {
-      resource.defaultFetch(callback);
+      return resource.defaultFetch(callback);
     }
   },
   features: {

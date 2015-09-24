@@ -1,17 +1,15 @@
 "use strict";
 
-const http = require("http");
-const path = require("path");
-const request = require("request");
-const st = require("st");
 const jsdom = require("../..");
-const URL = require("../../lib/jsdom/utils").URL;
+
+var globalPool = {maxSockets: 6};
 
 function createJsdom(urlPrefix, testPath, t) {
   const reporterHref = urlPrefix + "resources/testharnessreport.js";
 
   jsdom.env({
     url: urlPrefix + testPath,
+    pool: globalPool,
     features: {
       FetchExternalResources: ["script", "frame", "iframe", "link"],
       ProcessExternalResources: ["script"]
@@ -28,6 +26,7 @@ function createJsdom(urlPrefix, testPath, t) {
       if (err) {
         t.ifError(err, "window should be created without error");
         t.done();
+        return;
       }
 
       window.shimTest = function () {
@@ -56,31 +55,76 @@ function createJsdom(urlPrefix, testPath, t) {
   });
 }
 
-module.exports = function (exports) {
-  const staticFileServer = st({ path: path.resolve(__dirname, "tests"), url: "/", passthrough: true });
-  const server = http.createServer(function (req, res) {
-    staticFileServer(req, res, function () {
-      fallbackToHostedVersion(req, res);
-    });
-  }).listen();
-  const urlPrefix = `http://127.0.0.1:${server.address().port}/`;
+var childProcess = require("child_process");
+var EventEmitter = require("events");
+var dns = require("dns");
 
-  process.on("exit", function () {
-    server.close();
+module.exports = function (exports) {
+  var server = new EventEmitter();
+  server.started = false;
+
+  dns.lookup("web-platform.test", function (err) {
+    if (err) {
+      console.log("Error : you should add these lines to you hosts file :");
+      console.log("127.0.0.1   web-platform.test");
+      console.log("127.0.0.1   www.web-platform.test");
+      console.log("127.0.0.1   www1.web-platform.test");
+      console.log("127.0.0.1   www2.web-platform.test");
+      console.log("127.0.0.1   xn--n8j6ds53lwwkrqhv28a.web-platform.test");
+      console.log("127.0.0.1   xn--lve-6lad.web-platform.test");
+      process.exit(1);
+    }
+
+    var python = childProcess.spawn("python", ["./serve", "--config", "../config.jsdom.json"], {
+      cwd: __dirname + "/tests"
+    });
+
+    var current = "";
+
+    var lines = [];
+
+    function readLine(line) {
+      lines.push(line);
+      if (line === "INFO:web-platform-tests:Starting http server on web-platform.test:9000") {
+        server.started = true;
+        server.emit("start");
+      }
+    }
+
+    function readData(data) {
+      current += data.toString();
+      var lines = current.split(/(\r?\n)/g);
+      for (var i = 0; i < lines.length - 1; i++) {
+        readLine(lines[i]);
+      }
+      current = lines[lines.length - 1];
+    }
+
+    python.stderr.on("data", readData);
+
+    python.stderr.on("end", function () {
+      readLine(current);
+      if (!server.started) {
+        console.error(lines.join(""));
+      }
+    });
+
+    process.on("exit", function () {
+      python.kill();
+    });
   });
+
+  const urlPrefix = "http://web-platform.test:9000/";
 
   return function (testPath) {
     exports[testPath] = function (t) {
-      createJsdom(urlPrefix, testPath, t);
+      if (server.started) {
+        createJsdom(urlPrefix, testPath, t);
+      } else {
+        server.on("start", function () {
+          createJsdom(urlPrefix, testPath, t);
+        });
+      }
     };
   };
-
-  function fallbackToHostedVersion(req, res) {
-    // Problem getting it from disk. Let's try the online version!
-
-    const url = new URL(req.url, urlPrefix);
-    url.protocol = "https";
-    url.host = "w3c-test.org:443";
-    request.get(url.href, { strictSSL: false }).pipe(res);
-  }
 };

@@ -54,7 +54,7 @@ exports["Getting a file URL should not throw for getAllResponseHeaders"] = funct
   const xhr = new window.XMLHttpRequest();
   xhr.onload = function () {
     t.doesNotThrow(function () {
-      t.strictEqual(xhr.getAllResponseHeaders(), null);
+      t.strictEqual(xhr.getAllResponseHeaders(), "");
     });
     t.done();
   };
