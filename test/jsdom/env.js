@@ -1,26 +1,25 @@
 "use strict";
 
-var env = require("../..").env;
-var createVirtualConsole = require("../..").createVirtualConsole;
-var path = require("path");
-var http = require("http");
-var toFileUrl = require("../util").toFileUrl(__dirname);
+const env = require("../..").env;
+const createVirtualConsole = require("../..").createVirtualConsole;
+const serializeDocument = require("../..").serializeDocument;
+const path = require("path");
+const http = require("http");
+const toFileUrl = require("../util").toFileUrl(__dirname);
 
-var serializeDocument = require("../..").serializeDocument;
-
-exports["with invalid arguments"] = function (t) {
-  t.throws(function () { env(); });
-  t.throws(function () { env({}); });
-  t.throws(function () { env({ html: "abc123" }); });
-  t.throws(function () { env({ done: function () {} }); });
+exports["with invalid arguments"] = t => {
+  t.throws(() => env());
+  t.throws(() => env({}));
+  t.throws(() => env({ html: "abc123" }));
+  t.throws(() => env({ done() {} }));
   t.done();
 };
 
-exports["explicit config.html, full document"] = function (t) {
+exports["explicit config.html, full document"] = t => {
   env({
     html: "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>",
     url: "http://example.com/",
-    done: function (err, window) {
+    done(err, window) {
       t.ifError(err);
       t.equal(serializeDocument(window.document),
         "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>");
@@ -31,11 +30,11 @@ exports["explicit config.html, full document"] = function (t) {
   });
 };
 
-exports["explicit config.html, with overriden config.url"] = function (t) {
+exports["explicit config.html, with overriden config.url"] = t => {
   env({
     html: "Hello",
     url: "http://example.com/",
-    done: function (err, window) {
+    done(err, window) {
       t.ifError(err);
       t.equal(serializeDocument(window.document), "<html><head></head><body>Hello</body></html>");
       t.equal(window.location.href, "http://example.com/");
@@ -47,11 +46,11 @@ exports["explicit config.html, with overriden config.url"] = function (t) {
   });
 };
 
-exports["explicit config.html, with overriden config.url including hash"] = function (t) {
+exports["explicit config.html, with overriden config.url including hash"] = t => {
   env({
     html: "Hello",
     url: "http://example.com/#foo",
-    done: function (err, window) {
+    done(err, window) {
       t.ifError(err);
       t.equal(window.location.hash, "#foo");
       t.done();
@@ -59,11 +58,11 @@ exports["explicit config.html, with overriden config.url including hash"] = func
   });
 };
 
-exports["explicit config.html, with overriden config.url including search and hash"] = function (t) {
+exports["explicit config.html, with overriden config.url including search and hash"] = t => {
   env({
     html: "Hello",
     url: "http://example.com/?foo=bar#baz",
-    done: function (err, window) {
+    done(err, window) {
       t.ifError(err);
       t.equal(window.location.search, "?foo=bar");
       t.equal(window.location.hash, "#baz");
@@ -72,10 +71,10 @@ exports["explicit config.html, with overriden config.url including search and ha
   });
 };
 
-exports["explicit config.html, without a config.url"] = function (t) {
+exports["explicit config.html, without a config.url"] = t => {
   env({
     html: "<html><head></head><body><p>hello world!</p></body></html>",
-    done: function (err, window) {
+    done(err, window) {
       t.ifError(err);
       t.notEqual(window.location.href, null);
       t.done();
@@ -83,10 +82,10 @@ exports["explicit config.html, without a config.url"] = function (t) {
   });
 };
 
-exports["explicit config.html, with poorly formatted HTML"] = function (t) {
+exports["explicit config.html, with poorly formatted HTML"] = t => {
   env({
     html: "some poorly<div>formed<b>html</div> fragment",
-    done: function (err, window) {
+    done(err, window) {
       t.ifError(err);
       t.notEqual(window.location.href, null);
       t.done();
@@ -94,11 +93,11 @@ exports["explicit config.html, with poorly formatted HTML"] = function (t) {
   });
 };
 
-exports["explicit config.html, a string that is also a valid URL"] = function (t) {
+exports["explicit config.html, a string that is also a valid URL"] = t => {
   env({
     html: "http://example.com/",
     url: "http://example.com/",
-    done: function (err, window) {
+    done(err, window) {
       t.ifError(err);
       t.equal(serializeDocument(window.document), "<html><head></head><body>http://example.com/</body></html>");
       t.equal(window.location.href, "http://example.com/");
@@ -107,12 +106,12 @@ exports["explicit config.html, a string that is also a valid URL"] = function (t
   });
 };
 
-exports["explicit config.html, a string that is also a valid file"] = function (t) {
-  var body = path.resolve(__dirname, "files/env.html");
+exports["explicit config.html, a string that is also a valid file"] = t => {
+  const body = path.resolve(__dirname, "files/env.html");
   env({
     html: body,
     url: "http://example.com/",
-    done: function (err, window) {
+    done(err, window) {
       t.ifError(err);
       t.equal(serializeDocument(window.document), "<html><head></head><body>" + body + "</body></html>");
       t.equal(window.location.href, "http://example.com/");
@@ -121,20 +120,20 @@ exports["explicit config.html, a string that is also a valid file"] = function (
   });
 };
 
-exports["explicit config.html, an empty string"] = function (t) {
+exports["explicit config.html, an empty string"] = t => {
   env({
     html: "",
-    created: function () {
+    created() {
       t.done();
     }
   });
 };
 
-exports["explicit config.url, valid"] = function (t) {
-  var html = "<html><head><title>Example URL</title></head><body>Example!</body></html>";
-  var responseText = "<!DOCTYPE html>" + html;
+exports["explicit config.url, valid"] = t => {
+  const html = "<html><head><title>Example URL</title></head><body>Example!</body></html>";
+  const responseText = "<!DOCTYPE html>" + html;
 
-  var server = http.createServer(function (req, res) {
+  const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-Length": responseText.length });
     res.end(responseText);
     server.close();
@@ -142,7 +141,7 @@ exports["explicit config.url, valid"] = function (t) {
 
   env({
     url: "http://localhost:8976/",
-    done: function (err, window) {
+    done(err, window) {
       t.ifError(err);
       t.equal(serializeDocument(window.document), responseText);
       t.equal(window.location.href, "http://localhost:8976/");
@@ -152,10 +151,10 @@ exports["explicit config.url, valid"] = function (t) {
   });
 };
 
-exports["explicit config.url, invalid"] = function (t) {
+exports["explicit config.url, invalid"] = t => {
   env({
     url: "http://localhost:8976",
-    done: function (err, window) {
+    done(err, window) {
       t.ok(err, "an error should exist");
       t.strictEqual(window, undefined, "window should not exist");
       t.done();
@@ -163,12 +162,12 @@ exports["explicit config.url, invalid"] = function (t) {
   });
 };
 
-exports["explicit config.file, valid"] = function (t) {
-  var fileName = path.resolve(__dirname, "files/env.html");
+exports["explicit config.file, valid"] = t => {
+  const fileName = path.resolve(__dirname, "files/env.html");
 
   env({
     file: fileName,
-    done: function (err, window) {
+    done(err, window) {
       t.ifError(err);
       t.equal(serializeDocument(window.document), `<!DOCTYPE html><html><head>
     <title>hello, Node.js!</title>
@@ -180,10 +179,10 @@ exports["explicit config.file, valid"] = function (t) {
   });
 };
 
-exports["explicit config.file, invalid"] = function (t) {
+exports["explicit config.file, invalid"] = t => {
   env({
     file: "__DOES_NOT_EXIST__",
-    done: function (err, window) {
+    done(err, window) {
       t.ok(err, "an error should exist");
       t.strictEqual(window, undefined, "window should not exist");
       t.done();
@@ -191,15 +190,15 @@ exports["explicit config.file, invalid"] = function (t) {
   });
 };
 
-exports["explicit config.file, with a script"] = function (t) {
+exports["explicit config.file, with a script"] = t => {
   env({
     file: path.resolve(__dirname, "files/env.html"),
     scripts: [path.resolve(__dirname, "../jquery-fixtures/jquery-1.6.2.js")],
-    done: function (err, window) {
+    done(err, window) {
       t.ifError(err);
 
-      var $ = window.jQuery;
-      var text = "Let's Rock!";
+      const $ = window.jQuery;
+      const text = "Let's Rock!";
 
       $("body").text(text);
 
@@ -209,23 +208,23 @@ exports["explicit config.file, with a script"] = function (t) {
   });
 };
 
-exports["explicit config.file, with spaces in the file name"] = function (t) {
-  var fileName = path.resolve(__dirname, "files/folder space/space.html");
+exports["explicit config.file, with spaces in the file name"] = t => {
+  const fileName = path.resolve(__dirname, "files/folder space/space.html");
 
   env({
     file: fileName,
-    done: function (err) {
+    done(err) {
       t.ifError(err);
       t.done();
     }
   });
 };
 
-exports["string, parseable as a URL, valid"] = function (t) {
-  var html = "<html><head><title>Example URL</title></head><body>Example!</body></html>";
-  var responseText = "<!DOCTYPE html>" + html;
+exports["string, parseable as a URL, valid"] = t => {
+  const html = "<html><head><title>Example URL</title></head><body>Example!</body></html>";
+  const responseText = "<!DOCTYPE html>" + html;
 
-  var server = http.createServer(function (req, res) {
+  const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-Length": responseText.length });
     res.end(responseText);
     server.close();
@@ -233,7 +232,7 @@ exports["string, parseable as a URL, valid"] = function (t) {
 
   env(
     "http://localhost:8976/",
-    function (err, window) {
+    (err, window) => {
       t.ifError(err);
       t.equal(serializeDocument(window.document), responseText);
       t.equal(window.location.href, "http://localhost:8976/");
@@ -243,10 +242,10 @@ exports["string, parseable as a URL, valid"] = function (t) {
   );
 };
 
-exports["string, parseable as a URL, invalid"] = function (t) {
+exports["string, parseable as a URL, invalid"] = t => {
   env(
     "http://localhost:8976",
-    function (err, window) {
+    (err, window) => {
       t.ok(err, "an error should exist");
       t.strictEqual(window, undefined, "window should not exist");
       t.done();
@@ -254,12 +253,12 @@ exports["string, parseable as a URL, invalid"] = function (t) {
   );
 };
 
-exports["string, for an existing filename"] = function (t) {
-  var fileName = path.resolve(__dirname, "files/env.html");
+exports["string, for an existing filename"] = t => {
+  const fileName = path.resolve(__dirname, "files/env.html");
 
   env(
     fileName,
-    function (err, window) {
+    (err, window) => {
       t.ifError(err);
       t.equal(serializeDocument(window.document), `<!DOCTYPE html><html><head>
     <title>hello, Node.js!</title>
@@ -271,12 +270,12 @@ exports["string, for an existing filename"] = function (t) {
   );
 };
 
-exports["string, does not exist as a file"] = function (t) {
-  var body = "__DOES_NOT_EXIST__";
+exports["string, does not exist as a file"] = t => {
+  const body = "__DOES_NOT_EXIST__";
 
   env(
     body,
-    function (err, window) {
+    (err, window) => {
       t.ifError(err);
       t.equal(serializeDocument(window.document), "<html><head></head><body>" + body + "</body></html>");
       t.done();
@@ -284,10 +283,10 @@ exports["string, does not exist as a file"] = function (t) {
   );
 };
 
-exports["string, full HTML document"] = function (t) {
+exports["string, full HTML document"] = t => {
   env(
     "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>",
-    function (err, window) {
+    (err, window) => {
       t.ifError(err);
       t.equal(serializeDocument(window.document),
         "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>");
@@ -296,22 +295,22 @@ exports["string, full HTML document"] = function (t) {
   );
 };
 
-exports["string, HTML content with a null byte"] = function (t) {
+exports["string, HTML content with a null byte"] = t => {
   env(
     "<div>\0</div>",
-    function (errors, window) {
-      t.ifError(errors);
+    (err, window) => {
+      t.ifError(err);
       t.ok(window.document.querySelector("div") !== null, "div was parsed");
       t.done();
     }
   );
 };
 
-exports["with a nonexistant script"] = function (t) {
+exports["with a nonexistant script"] = t => {
   env({
     html: "<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>",
     scripts: ["path/to/invalid.js", "another/invalid.js"],
-    done: function (err, window) {
+    done(err, window) {
       t.equal(err, null);
       t.ok(window.location.href);
       t.done();
@@ -319,11 +318,11 @@ exports["with a nonexistant script"] = function (t) {
   });
 };
 
-exports["with src"] = function (t) {
+exports["with src"] = t => {
   env({
     html: "<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>",
     src: "window.attachedHere = 123;",
-    done: function (err, window) {
+    done(err, window) {
       t.ifError(err);
       t.ok(window.location.href);
       t.equal(window.attachedHere, 123);
@@ -333,11 +332,11 @@ exports["with src"] = function (t) {
   });
 };
 
-exports["with document referrer"] = function (t) {
+exports["with document referrer"] = t => {
   env({
     html: "<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>",
     document: { referrer: "https://github.com/tmpvar/jsdom" },
-    done: function (err, window) {
+    done(err, window) {
       t.ifError(err);
       t.equal(window.document.referrer, "https://github.com/tmpvar/jsdom");
       t.done();
@@ -345,26 +344,26 @@ exports["with document referrer"] = function (t) {
   });
 };
 
-exports["with document cookie"] = function (t) {
+exports["with document cookie"] = t => {
   t.expect(3);
-  var cookie = "key=value";
-  var time = new Date(Date.now() + 24 * 60 * 60 * 1000);
-  var setcookie = cookie + "; expires=" + time.toGMTString() + "; path=/";
-  var routes = {
+  const cookie = "key=value";
+  const time = new Date(Date.now() + 24 * 60 * 60 * 1000);
+  const setcookie = cookie + "; expires=" + time.toGMTString() + "; path=/";
+  const routes = {
     "/js": "",
     "/html": "<!DOCTYPE html><html><head><script src=\"/js\"></script></head><body></body></html>"
   };
-  var server = http.createServer(function (req, res) {
+  const server = http.createServer((req, res) => {
     if (req.url === "/js") { t.equal(req.headers.cookie, cookie); }
     res.writeHead(200, { "Content-Length": routes[req.url].length });
     res.end(routes[req.url]);
   });
 
-  server.listen(63999, "127.0.0.1", function () {
+  server.listen(63999, "127.0.0.1", () => {
     env({
       url: "http://127.0.0.1:63999/html",
       document: { cookie: setcookie },
-      done: function (err, window) {
+      done(err, window) {
         server.close();
         t.ifError(err);
         t.equal(window.document.cookie, cookie);
@@ -377,22 +376,22 @@ exports["with document cookie"] = function (t) {
   });
 };
 
-exports["with scripts and content retrieved from URLs"] = function (t) {
-  var routes = {
+exports["with scripts and content retrieved from URLs"] = t => {
+  const routes = {
     "/js": "window.attachedHere = 123;",
     "/html": "<a href='/path/to/hello'>World</a>"
   };
 
-  var server = http.createServer(function (req, res) {
+  const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-Length": routes[req.url].length });
     res.end(routes[req.url]);
   });
 
-  server.listen(64000, "127.0.0.1", function () {
+  server.listen(64000, "127.0.0.1", () => {
     env({
       url: "http://127.0.0.1:64000/html",
       scripts: "http://127.0.0.1:64000/js",
-      done: function (err, window) {
+      done(err, window) {
         server.close();
 
         t.ifError(err);
@@ -407,7 +406,7 @@ exports["with scripts and content retrieved from URLs"] = function (t) {
 };
 
 
-exports["should call callbacks correctly"] = function (t) {
+exports["should call callbacks correctly"] = t => {
   t.expect(10);
 
   env({
@@ -418,19 +417,19 @@ exports["should call callbacks correctly"] = function (t) {
       ProcessExternalResources: ["script"],
       SkipExternalResources: false
     },
-    created: function (err, window) {
+    created(err, window) {
       t.ifError(err);
 
       t.notEqual(window.isExecuted, true);
       t.strictEqual(window.wasCreatedSet, undefined);
       window.isCreated = true;
     },
-    onload: function (window) {
+    onload(window) {
       t.strictEqual(window.isCreated, true);
       t.strictEqual(window.isExecuted, true);
       t.strictEqual(window.wasCreatedSet, true);
     },
-    done: function (err, window) {
+    done(err, window) {
       t.ifError(err);
 
       t.strictEqual(window.isCreated, true);
@@ -442,12 +441,12 @@ exports["should call callbacks correctly"] = function (t) {
   });
 };
 
-exports["with configurable resource loader"] = function (t) {
+exports["with configurable resource loader"] = t => {
   t.expect(2);
 
   env({
     html: "<!DOCTYPE html><html><head><script src='foo.js'></script></head><body></body></html>",
-    resourceLoader: function (resource, callback) {
+    resourceLoader(resource, callback) {
       callback(null, "window.resourceLoaderWasOverriden = true;");
     },
     features: {
@@ -455,7 +454,7 @@ exports["with configurable resource loader"] = function (t) {
       ProcessExternalResources: ["script"],
       SkipExternalResources: false
     },
-    done: function (err, window) {
+    done(err, window) {
       t.ifError(err);
       t.strictEqual(window.resourceLoaderWasOverriden, true);
       t.done();
@@ -463,27 +462,27 @@ exports["with configurable resource loader"] = function (t) {
   });
 };
 
-exports["with configurable resource loader modifying routes and content"] = function (t) {
-  var routes = {
+exports["with configurable resource loader modifying routes and content"] = t => {
+  const routes = {
     "/js/dir/test.js": "window.modifiedRoute = true;",
     "/html": "<!DOCTYPE html><html><head><script src='./test.js'></script></head><body></body></html>"
   };
 
-  var server = http.createServer(function (req, res) {
+  const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-Length": routes[req.url].length });
     res.end(routes[req.url]);
   });
 
-  var time = new Date(Date.now() + 24 * 60 * 60 * 1000);
-  var cookie = "key=value; expires=" + time.toGMTString() + "; path=/";
+  const time = new Date(Date.now() + 24 * 60 * 60 * 1000);
+  const cookie = "key=value; expires=" + time.toGMTString() + "; path=/";
 
-  server.listen(64001, "127.0.0.1", function () {
+  server.listen(64001, "127.0.0.1", () => {
     env({
       document: {
         cookie: cookie
       },
       url: "http://127.0.0.1:64001/html",
-      resourceLoader: function (resource, callback) {
+      resourceLoader(resource, callback) {
         t.ok(typeof resource === "object");
         t.ok(typeof resource.url === "object");
         t.equal(resource.cookie, "key=value");
@@ -492,7 +491,7 @@ exports["with configurable resource loader modifying routes and content"] = func
         t.ok(typeof callback === "function");
         if (/\.js$/.test(resource.url.path)) {
           resource.url.path = "/js/dir" + resource.url.path;
-          resource.defaultFetch(function (err, body) {
+          resource.defaultFetch((err, body) => {
             if (err) {
               callback(err);
             } else {
@@ -503,7 +502,7 @@ exports["with configurable resource loader modifying routes and content"] = func
           resource.defaultFetch(callback);
         }
       },
-      done: function (err, window) {
+      done(err, window) {
         server.close();
         t.ifError(err);
         t.ok(window.modifiedRoute);
@@ -519,11 +518,11 @@ exports["with configurable resource loader modifying routes and content"] = func
   });
 };
 
-exports["script loading errors show up as jsdomErrors in the virtual console"] = function (t) {
+exports["script loading errors show up as jsdomErrors in the virtual console"] = t => {
   t.expect(5);
 
   const virtualConsole = createVirtualConsole();
-  virtualConsole.on("jsdomError", function (error) {
+  virtualConsole.on("jsdomError", error => {
     t.ok(error instanceof Error);
     t.equal(error.message, `Could not load script: "http://localhost:12345/script.js"`);
     t.ok(error.detail);
@@ -533,9 +532,29 @@ exports["script loading errors show up as jsdomErrors in the virtual console"] =
     html: "",
     scripts: ["http://localhost:12345/script.js"],
     virtualConsole,
-    done: function (err, window) {
+    done(err, window) {
       t.equal(err, null);
       t.ok(window);
+      t.done();
+    }
+  });
+};
+
+exports["done should be called only once, after all src scripts have executed"] = t => {
+  const script = "window.a = (typeof window.a !== 'undefined') ? window.a + 1 : 0;";
+  let doneCounter = 0;
+
+  env({
+    html: "<div></div>",
+    src: [script, script, script],
+    ProcessExternalResources: ["script"],
+    done(err, window) {
+      t.ifError(err);
+
+      ++doneCounter;
+
+      t.strictEqual(window.a, 2);
+      t.strictEqual(doneCounter, 1);
       t.done();
     }
   });
