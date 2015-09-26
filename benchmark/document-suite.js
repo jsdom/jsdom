@@ -1,7 +1,5 @@
 "use strict";
 const Benchmark = require("benchmark");
-const extend = require("xtend");
-const shallowClone = extend;
 const jsdomBenchmark = require("./jsdom-benchmark");
 
 // jsdom might be an empty object if omitted by browserify
@@ -57,14 +55,15 @@ function benchmarkFunctions(document, options) {
 module.exports = function documentSuite(optionsArg) {
   const options = typeof optionsArg === "function" ?
                   { fn: optionsArg } :
-                  shallowClone(optionsArg);
+                  Object.assign({}, optionsArg);
 
   // default to async because that is required for defer:true
   const suite = options.suite || new Benchmark.Suite({ async: true });
   delete options.suite; // do not pass to `Benchmark`
 
   if (nativeDoc) {
-    const newOptions = extend(
+    const newOptions = Object.assign(
+      {},
       options,
       benchmarkFunctions(nativeDoc, options),
       { jsdomDocumentImplementation: "native" }
@@ -75,7 +74,8 @@ module.exports = function documentSuite(optionsArg) {
   }
 
   if (jsdomDoc) {
-    const newOptions = extend(
+    const newOptions = Object.assign(
+      {},
       options,
       benchmarkFunctions(jsdomDoc, options),
       { jsdomDocumentImplementation: "jsdom" }
