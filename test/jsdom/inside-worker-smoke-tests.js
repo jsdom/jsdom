@@ -1,16 +1,16 @@
 "use strict";
-var jsdom = require("../..").jsdom;
-var env = require("../..").env;
-var serializeDocument = require("../..").serializeDocument;
+const jsdom = require("../..").jsdom;
+const env = require("../..").env;
+const serializeDocument = require("../..").serializeDocument;
 
 // These are tests specifically designed to showcase possible issues when run inside a worker (browserified), where we
 // can't run the full test suite.
 
-exports["jsdom.env: explicit config.html, full document"] = function (t) {
+exports["jsdom.env: explicit config.html, full document"] = t => {
   env({
     html: "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>",
     url: "http://example.com/",
-    done: function (err, window) {
+    done(err, window) {
       t.ifError(err);
       t.equal(serializeDocument(window.document),
         "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>");
@@ -21,10 +21,10 @@ exports["jsdom.env: explicit config.html, full document"] = function (t) {
   });
 };
 
-exports["jsdom.env: string, full HTML document"] = function (t) {
+exports["jsdom.env: string, full HTML document"] = t => {
   env(
     "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>",
-    function (err, window) {
+    (err, window) => {
       t.ifError(err);
       t.equal(serializeDocument(window.document),
         "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>");
@@ -33,12 +33,12 @@ exports["jsdom.env: string, full HTML document"] = function (t) {
   );
 };
 
-exports["execute scripts with global variables / window scope reference"] = function (t) {
+exports["execute scripts with global variables / window scope reference"] = t => {
   t.expect(3);
 
   env({
     html: "<!doctype html><html><head><script>test = 'true'; navigator.foo = 'bar'</script></head><body></body></html>",
-    done: function (err, window) {
+    done(err, window) {
       t.ifError(err);
 
       t.strictEqual(window.test, "true", "global variables should be on window");
@@ -52,7 +52,7 @@ exports["execute scripts with global variables / window scope reference"] = func
   });
 };
 
-exports["execute scripts referring to global built-ins (GH-1175)"] = function (t) {
+exports["execute scripts referring to global built-ins (GH-1175)"] = t => {
   const document = jsdom(`<!DOCTYPE html><script>
     document.body.textContent = Error.name + window.Object.name + NaN + ("undefined" in window);
   </script>`);
@@ -61,18 +61,18 @@ exports["execute scripts referring to global built-ins (GH-1175)"] = function (t
   t.done();
 };
 
-exports["test async global variable context"] = function (t) {
+exports["test async global variable context"] = t => {
   t.expect(3);
 
   env({
     html: "<!doctype html><html><head><script>test = 'true'; setTimeout(function(){test = 'baz'}, 100);</script>" +
-      "</head><body></body></html>",
-    done: function (err, window) {
+          "</head><body></body></html>",
+    done(err, window) {
       t.ifError(err);
 
       t.strictEqual(window.test, "true", "global variables should be on window");
 
-      setTimeout(function () {
+      setTimeout(() => {
         t.strictEqual(window.test, "baz", "async write should be reflected");
         t.done();
       }, 1000);

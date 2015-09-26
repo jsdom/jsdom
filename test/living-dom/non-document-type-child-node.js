@@ -2,7 +2,7 @@
 
 const jsdom = require("../..").jsdom;
 
-exports["TextNode should implement NonDocumentTypeChildNode:nextElementSibling"] = function (t) {
+exports["TextNode should implement NonDocumentTypeChildNode:nextElementSibling"] = t => {
   const doc = jsdom("<div id='1'>1</div> <div id='2'>2</div>");
   const newCommentNode1 = doc.createComment("comment1");
   const textnode1 = doc.createTextNode("Text1");
@@ -13,7 +13,7 @@ exports["TextNode should implement NonDocumentTypeChildNode:nextElementSibling"]
   t.done();
 };
 
-exports["TextNode should implement NonDocumentTypeChildNode:previousElementSibling"] = function (t) {
+exports["TextNode should implement NonDocumentTypeChildNode:previousElementSibling"] = t => {
   const doc = jsdom("<div id='1'>1</div> <div id='2'>2</div>");
   const newCommentNode1 = doc.createComment("comment1");
   const textnode1 = doc.createTextNode("Text1");
@@ -23,7 +23,7 @@ exports["TextNode should implement NonDocumentTypeChildNode:previousElementSibli
   t.done();
 };
 
-exports["CommentNode should implement NonDocumentTypeChildNode:nextElementSibling"] = function (t) {
+exports["CommentNode should implement NonDocumentTypeChildNode:nextElementSibling"] = t => {
   const doc = jsdom("<div id='1'>1</div> <div id='2'>2</div>");
 
   const newCommentNode1 = doc.createComment("comment1");
@@ -35,7 +35,7 @@ exports["CommentNode should implement NonDocumentTypeChildNode:nextElementSiblin
   t.done();
 };
 
-exports["CommentNode should implement NonDocumentTypeChildNode:previousElementSibling"] = function (t) {
+exports["CommentNode should implement NonDocumentTypeChildNode:previousElementSibling"] = t => {
   const doc = jsdom("<div id='1'>1</div> <div id='2'>2</div>");
 
   const newCommentNode1 = doc.createComment("comment1");
@@ -46,7 +46,7 @@ exports["CommentNode should implement NonDocumentTypeChildNode:previousElementSi
   t.done();
 };
 
-exports["Element should implement NonDocumentTypeChildNode:nextElementSibling"] = function (t) {
+exports["Element should implement NonDocumentTypeChildNode:nextElementSibling"] = t => {
   const doc = jsdom(`<!DOCTYPE html>
 <?foo bar?>
 <html id="html_id">
@@ -71,7 +71,7 @@ exports["Element should implement NonDocumentTypeChildNode:nextElementSibling"] 
   t.done();
 };
 
-exports["Element should implement NonDocumentTypeChildNode:previousElementSibling"] = function (t) {
+exports["Element should implement NonDocumentTypeChildNode:previousElementSibling"] = t => {
   const doc = jsdom(`<!DOCTYPE html>
 <?foo bar?>
 <html id="html_id">

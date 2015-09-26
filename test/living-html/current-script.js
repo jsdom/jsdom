@@ -1,20 +1,19 @@
 "use strict";
+const jsdom = require("../..");
+const toFileUrl = require("../util").toFileUrl(__dirname);
 
-var jsdom = require("../..");
-var toFileUrl = require("../util").toFileUrl(__dirname);
-
-exports["document.currentScript is null when not executing <script>"] = function (t) {
-  var window = jsdom.jsdom().defaultView;
+exports["document.currentScript is null when not executing <script>"] = t => {
+  const window = jsdom.jsdom().defaultView;
   t.strictEqual(window.document.currentScript, null);
   t.done();
 };
 
-exports["document.currentScript is currently executing <script> element"] = function (t) {
+exports["document.currentScript is currently executing <script> element"] = t => {
   t.expect(2);
-  var html = "<html><head><script src='./files/current-script.js'></script></head>" +
-             "<body><span id='test'>hello from html</span></body></html>";
+  const html = "<html><head><script src='./files/current-script.js'></script></head>" +
+               "<body><span id='test'>hello from html</span></body></html>";
 
-  var document = jsdom.jsdom(html, {
+  const document = jsdom.jsdom(html, {
     url: toFileUrl(__filename),
     features: {
       FetchExternalResources: ["script"],

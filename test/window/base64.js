@@ -7,13 +7,13 @@ const jsdom = require("../..").jsdom;
 const plaintext = "Hello, world!";
 const base64text = "SGVsbG8sIHdvcmxkIQ==";
 
-exports["window.btoa encodes a string to base64"] = function (t) {
+exports["window.btoa encodes a string to base64"] = t => {
   const window = jsdom().defaultView;
   t.strictEqual(window.btoa(plaintext), base64text);
   t.done();
 };
 
-exports["btoa throws an InvalidCharacterError if any char's code point is above U+00FF"] = function (t) {
+exports["btoa throws an InvalidCharacterError if any char's code point is above U+00FF"] = t => {
   t.expect(2);
   const window = jsdom().defaultView;
 
@@ -27,13 +27,13 @@ exports["btoa throws an InvalidCharacterError if any char's code point is above 
   t.done();
 };
 
-exports["window.atob decodes a base64 string"] = function (t) {
+exports["window.atob decodes a base64 string"] = t => {
   const window = jsdom().defaultView;
   t.strictEqual(window.atob(base64text), plaintext);
   t.done();
 };
 
-exports["atob throws an InvalidCharacterError if any char's code point is above U+00FF"] = function (t) {
+exports["atob throws an InvalidCharacterError if any char's code point is above U+00FF"] = t => {
   t.expect(2);
   const window = jsdom().defaultView;
 

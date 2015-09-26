@@ -363,9 +363,7 @@ exports["<%= stuff %> inside <script> tags (GH-58)"] = t => {
   const html = `<html><head>${script}</head><body><p>hello world!</p></body></html>`;
   const document = jsdom.jsdom(html);
 
-  /* jshint -W060 */
   document.write(html);
-  /* jshint +W060 */
   document.close();
 
   t.strictEqual(document.head.childNodes[0].innerHTML, content);

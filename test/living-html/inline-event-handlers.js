@@ -1,7 +1,7 @@
 "use strict";
 const jsdom = require("../..").jsdom;
 
-exports["inline event handlers have the correct global scope"] = function (t) {
+exports["inline event handlers have the correct global scope"] = t => {
   const doc = jsdom(`<div onclick="document.foo = 'clicked'"></div>`);
   const div = doc.body.firstElementChild;
 
@@ -11,7 +11,7 @@ exports["inline event handlers have the correct global scope"] = function (t) {
   t.done();
 };
 
-exports["inline error event handlers have the correct global scope"] = function (t) {
+exports["inline error event handlers have the correct global scope"] = t => {
   const doc = jsdom(`<body onerror="document.foo = 'errored'"></div>`);
 
   const e = new doc.defaultView.ErrorEvent("error");
@@ -21,7 +21,7 @@ exports["inline error event handlers have the correct global scope"] = function 
   t.done();
 };
 
-exports["inline event handlers have their return values reflected in the corresponding property"] = function (t) {
+exports["inline event handlers have their return values reflected in the corresponding property"] = t => {
   const doc = jsdom(`<div onclick="return 10"></div>`);
   const div = doc.body.firstElementChild;
 
@@ -29,14 +29,14 @@ exports["inline event handlers have their return values reflected in the corresp
   t.done();
 };
 
-exports["inline event handlers have their return values reflected in the corresponding property"] = function (t) {
+exports["inline event handlers have their return values reflected in the corresponding property"] = t => {
   const doc = jsdom(`<body onerror="return 10"></div>`);
 
   t.equal(doc.defaultView.onerror(), 10);
   t.done();
 };
 
-exports["inline event handlers have access to an event argument"] = function (t) {
+exports["inline event handlers have access to an event argument"] = t => {
   const doc = jsdom(`<div onclick="document.bubbles = event.bubbles"></div>`);
   const div = doc.body.firstElementChild;
 
@@ -46,7 +46,7 @@ exports["inline event handlers have access to an event argument"] = function (t)
   t.done();
 };
 
-exports["inline error event handlers have access to a lot of arguments"] = function (t) {
+exports["inline error event handlers have access to a lot of arguments"] = t => {
   const doc = jsdom(`<body onerror="document.onerrorEvent = event; document.onerrorSource = source;
     document.onerrorLineno = lineno; document.onerrorColno = colno; document.onerrorError = error;"></div>`);
 
@@ -68,7 +68,7 @@ exports["inline error event handlers have access to a lot of arguments"] = funct
   t.done();
 };
 
-exports["inline event handlers set via properties have access to an event argument"] = function (t) {
+exports["inline event handlers set via properties have access to an event argument"] = t => {
   const doc = jsdom(`<div></div>`);
   const div = doc.body.firstElementChild;
 
@@ -80,7 +80,7 @@ exports["inline event handlers set via properties have access to an event argume
   div.click();
 };
 
-exports["inline error event handlers set via properties have access to lots of arguments"] = function (t) {
+exports["inline error event handlers set via properties have access to lots of arguments"] = t => {
   const doc = jsdom();
 
   const errorObj = { should: "be this object" };
@@ -104,7 +104,7 @@ exports["inline error event handlers set via properties have access to lots of a
   doc.defaultView.dispatchEvent(e);
 };
 
-exports["returning false from a click inline event handler cancels the event"] = function (t) {
+exports["returning false from a click inline event handler cancels the event"] = t => {
   const doc = jsdom(`<div onclick="return false"></div>`);
   const div = doc.body.firstElementChild;
 
@@ -117,10 +117,10 @@ exports["returning false from a click inline event handler cancels the event"] =
   t.done();
 };
 
-exports["returning false from a click inline event handler property cancels the event"] = function (t) {
+exports["returning false from a click inline event handler property cancels the event"] = t => {
   const doc = jsdom(`<div></div>`);
   const div = doc.body.firstElementChild;
-  div.onclick = function () { return false; };
+  div.onclick = () => false;
 
   const e = new doc.defaultView.MouseEvent("click", { bubbles: true, cancelable: true });
   t.equals(e.defaultPrevented, false);
@@ -131,7 +131,7 @@ exports["returning false from a click inline event handler property cancels the 
   t.done();
 };
 
-exports["returning true from a click inline event handler does nothing to the event"] = function (t) {
+exports["returning true from a click inline event handler does nothing to the event"] = t => {
   const doc = jsdom(`<div onclick="return true"></div>`);
   const div = doc.body.firstElementChild;
 
@@ -144,10 +144,10 @@ exports["returning true from a click inline event handler does nothing to the ev
   t.done();
 };
 
-exports["returning true from a click inline event handler property does nothing to the event"] = function (t) {
+exports["returning true from a click inline event handler property does nothing to the event"] = t => {
   const doc = jsdom(`<div></div>`);
   const div = doc.body.firstElementChild;
-  div.onclick = function () { return true; };
+  div.onclick = () => true;
 
   const e = new doc.defaultView.MouseEvent("click", { bubbles: true, cancelable: true });
   t.equals(e.defaultPrevented, false);
@@ -158,7 +158,7 @@ exports["returning true from a click inline event handler property does nothing 
   t.done();
 };
 
-exports["returning false from a mouseover inline event handler does nothing to the event"] = function (t) {
+exports["returning false from a mouseover inline event handler does nothing to the event"] = t => {
   const doc = jsdom(`<div onmouseover="return false"></div>`);
   const div = doc.body.firstElementChild;
 
@@ -171,10 +171,10 @@ exports["returning false from a mouseover inline event handler does nothing to t
   t.done();
 };
 
-exports["returning false from a mouseover inline event handler property does nothing to the event"] = function (t) {
+exports["returning false from a mouseover inline event handler property does nothing to the event"] = t => {
   const doc = jsdom(`<div></div>`);
   const div = doc.body.firstElementChild;
-  div.onmouseover = function () { return false; };
+  div.onmouseover = () => false;
 
   const e = new doc.defaultView.MouseEvent("mouseover", { bubbles: true, cancelable: true });
   t.equals(e.defaultPrevented, false);
@@ -185,7 +185,7 @@ exports["returning false from a mouseover inline event handler property does not
   t.done();
 };
 
-exports["returning true from a mouseover inline event handler cancels the event"] = function (t) {
+exports["returning true from a mouseover inline event handler cancels the event"] = t => {
   const doc = jsdom(`<div onmouseover="return true"></div>`);
   const div = doc.body.firstElementChild;
 
@@ -198,10 +198,10 @@ exports["returning true from a mouseover inline event handler cancels the event"
   t.done();
 };
 
-exports["returning true from a mouseover inline event handler property cancels the event"] = function (t) {
+exports["returning true from a mouseover inline event handler property cancels the event"] = t => {
   const doc = jsdom(`<div></div>`);
   const div = doc.body.firstElementChild;
-  div.onmouseover = function () { return true; };
+  div.onmouseover = () => true;
 
   const e = new doc.defaultView.MouseEvent("mouseover", { bubbles: true, cancelable: true });
   t.equals(e.defaultPrevented, false);
@@ -212,7 +212,7 @@ exports["returning true from a mouseover inline event handler property cancels t
   t.done();
 };
 
-exports["returning false from an error inline event handler does nothing to the event"] = function (t) {
+exports["returning false from an error inline event handler does nothing to the event"] = t => {
   const doc = jsdom(`<body onerror="return false"></div>`);
 
   const e = new doc.defaultView.ErrorEvent("error", { bubbles: true, cancelable: true });
@@ -224,9 +224,9 @@ exports["returning false from an error inline event handler does nothing to the 
   t.done();
 };
 
-exports["returning false from an error inline event handler property does nothing to the event"] = function (t) {
+exports["returning false from an error inline event handler property does nothing to the event"] = t => {
   const doc = jsdom();
-  doc.defaultView.onerror = function () { return false; };
+  doc.defaultView.onerror = () => false;
 
   const e = new doc.defaultView.ErrorEvent("error", { bubbles: true, cancelable: true });
   t.equals(e.defaultPrevented, false);
@@ -237,7 +237,7 @@ exports["returning false from an error inline event handler property does nothin
   t.done();
 };
 
-exports["returning true from an error inline event handler cancels the event"] = function (t) {
+exports["returning true from an error inline event handler cancels the event"] = t => {
   const doc = jsdom(`<body onerror="return true"></div>`);
 
   const e = new doc.defaultView.ErrorEvent("error", { bubbles: true, cancelable: true });
@@ -249,9 +249,9 @@ exports["returning true from an error inline event handler cancels the event"] =
   t.done();
 };
 
-exports["returning true from an error inline event handler property cancels the event"] = function (t) {
+exports["returning true from an error inline event handler property cancels the event"] = t => {
   const doc = jsdom();
-  doc.defaultView.onerror = function () { return true; };
+  doc.defaultView.onerror = () => true;
 
   const e = new doc.defaultView.ErrorEvent("error", { bubbles: true, cancelable: true });
   t.equals(e.defaultPrevented, false);
@@ -266,14 +266,11 @@ const proxied = ["onblur", "onerror", "onfocus", "onload", "onresize", "onscroll
   "onbeforeprint", "onbeforeunload", "onhashchange", "onlanguagechange", "onmessage", "onoffline", "ononline",
   "onpagehide", "onpageshow", "onpopstate", "onstorage", "onunload"];
 
-exports["proxied body/window event handlers: setting on body as properties reflects on window"] = function (t) {
+exports["proxied body/window event handlers: setting on body as properties reflects on window"] = t => {
   const doc = jsdom();
 
   for (const name of proxied) {
-    // TODO: switch away from JSHint; this is bullshit
-    /*jshint -W082 */
     function handler() { }
-    /*jshint +W082 */
 
     doc.body[name] = handler;
     t.equal(doc.body[name], handler, `${name} should be set on the body correctly`);
@@ -287,7 +284,7 @@ exports["proxied body/window event handlers: setting on body as properties refle
   t.done();
 };
 
-exports["proxied body/window event handlers: setting on body as attributes reflects on window"] = function (t) {
+exports["proxied body/window event handlers: setting on body as attributes reflects on window"] = t => {
   const doc = jsdom();
 
   for (const name of proxied) {

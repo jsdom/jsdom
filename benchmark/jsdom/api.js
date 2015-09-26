@@ -4,11 +4,11 @@ const jsdomBenchmark = require("../jsdom-benchmark");
 const jsdom = require("../..");
 
 exports["env() defaults"] = function () {
-  const suite = new Benchmark.Suite({async: true});
+  const suite = new Benchmark.Suite({ async: true });
 
   suite.push(jsdomBenchmark({
     defer: true,
-    fn: function (deferred) {
+    fn(deferred) {
       jsdom.env({
         html: "",
         done: deferred.resolve.bind(deferred)
@@ -23,7 +23,7 @@ exports["jsdom() defaults"] = function () {
   const suite = new Benchmark.Suite();
 
   suite.push(jsdomBenchmark({
-    fn: function () {
+    fn() {
       jsdom.jsdom();
     }
   }));
@@ -35,7 +35,7 @@ exports["jsdom() no resources"] = function () {
   const suite = new Benchmark.Suite();
 
   suite.push(jsdomBenchmark({
-    fn: function () {
+    fn() {
       jsdom.jsdom("", {
         features: {
           FetchExternalResources: false,

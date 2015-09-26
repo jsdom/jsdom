@@ -1,13 +1,12 @@
 "use strict";
-
-var load = require("../util").load(__dirname);
+const load = require("../util").load(__dirname);
 
 // Tests for the Living Standard implementation of compareDocumentPosition
 // Spec: http://dom.spec.whatwg.org/#dom-node-comparedocumentposition
 
-exports["A document contains and precedes its document type"] = function (t) {
-  var doc = load("test");
-  var doctype = doc.doctype;
+exports["A document contains and precedes its document type"] = t => {
+  const doc = load("test");
+  const doctype = doc.doctype;
 
   t.ok(doc.compareDocumentPosition(doctype) & doc.defaultView.Node.DOCUMENT_POSITION_CONTAINED_BY,
     "Doctype contained");
@@ -15,10 +14,10 @@ exports["A document contains and precedes its document type"] = function (t) {
   t.done();
 };
 
-exports["A document contains and precedes its newly attached document type"] = function (t) {
-  var doc = load("test");
-  var doctype = doc.doctype;
-  var newDoctype = doc.implementation.createDocumentType(doctype.name, null, null);
+exports["A document contains and precedes its newly attached document type"] = t => {
+  const doc = load("test");
+  const doctype = doc.doctype;
+  const newDoctype = doc.implementation.createDocumentType(doctype.name, null, null);
 
   doc.replaceChild(newDoctype, doctype);
 
@@ -28,10 +27,9 @@ exports["A document contains and precedes its newly attached document type"] = f
   t.done();
 };
 
-exports["Two document nodes obtained from the same document are disconnected and implementation specific"] =
-    function (t) {
-  var docA = load("test");
-  var docB = load("test");
+exports["Two document nodes obtained from the same document are disconnected and implementation specific"] = t => {
+  const docA = load("test");
+  const docB = load("test");
 
   t.ok(docA.compareDocumentPosition(docB) & docA.defaultView.Node.DOCUMENT_POSITION_DISCONNECTED, "Disconnected");
   t.ok(docA.compareDocumentPosition(docB) & docA.defaultView.Node.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC,
@@ -39,9 +37,9 @@ exports["Two document nodes obtained from the same document are disconnected and
   t.done();
 };
 
-exports["A document is disconnected from and precedes a DocumentFragment"] = function (t) {
-  var doc = load("test");
-  var fragment = doc.createDocumentFragment();
+exports["A document is disconnected from and precedes a DocumentFragment"] = t => {
+  const doc = load("test");
+  const fragment = doc.createDocumentFragment();
   fragment.innerHTML = "<span>I AM SPAN</span>";
 
   t.ok(doc.compareDocumentPosition(fragment) & doc.defaultView.Node.DOCUMENT_POSITION_DISCONNECTED,
@@ -52,16 +50,16 @@ exports["A document is disconnected from and precedes a DocumentFragment"] = fun
   t.done();
 };
 
-exports["A document node compared to itself returns nothing"] = function (t) {
-  var doc = load("test");
+exports["A document node compared to itself returns nothing"] = t => {
+  const doc = load("test");
 
   t.equal(doc.compareDocumentPosition(doc), 0, "No Bitmask");
   t.done();
 };
 
-exports["A document and a newly created document are disconnected and implementation specific"] = function (t) {
-  var doc = load("test");
-  var newDoc = doc.implementation.createDocument();
+exports["A document and a newly created document are disconnected and implementation specific"] = t => {
+  const doc = load("test");
+  const newDoc = doc.implementation.createDocument();
 
   t.ok(doc.compareDocumentPosition(newDoc) & doc.defaultView.Node.DOCUMENT_POSITION_DISCONNECTED,
     "Fragment disconnected");
@@ -71,9 +69,9 @@ exports["A document and a newly created document are disconnected and implementa
   t.done();
 };
 
-exports["A document contains and precedes its document element and vice versa"] = function (t) {
-  var doc = load("test");
-  var documentElement = doc.documentElement;
+exports["A document contains and precedes its document element and vice versa"] = t => {
+  const doc = load("test");
+  const documentElement = doc.documentElement;
 
   t.ok(doc.compareDocumentPosition(documentElement) & doc.defaultView.Node.DOCUMENT_POSITION_CONTAINED_BY,
     "DocumentElement contained");
@@ -86,9 +84,9 @@ exports["A document contains and precedes its document element and vice versa"] 
   t.done();
 };
 
-exports["Document contains and precedes a newly attached element and vice versa"] = function (t) {
-  var doc = load("test");
-  var newElement = doc.createElement("p");
+exports["Document contains and precedes a newly attached element and vice versa"] = t => {
+  const doc = load("test");
+  const newElement = doc.createElement("p");
   doc.documentElement.appendChild(newElement);
 
   t.ok(doc.compareDocumentPosition(newElement) & doc.defaultView.Node.DOCUMENT_POSITION_CONTAINED_BY,
@@ -100,9 +98,9 @@ exports["Document contains and precedes a newly attached element and vice versa"
   t.done();
 };
 
-exports["Document contains and precedes an existing element and vice versa"] = function (t) {
-  var doc = load("test");
-  var element = doc.querySelectorAll("span").item(0);
+exports["Document contains and precedes an existing element and vice versa"] = t => {
+  const doc = load("test");
+  const element = doc.querySelectorAll("span").item(0);
 
   t.ok(doc.compareDocumentPosition(element) & doc.defaultView.Node.DOCUMENT_POSITION_CONTAINED_BY,
     "Document contains");
@@ -112,9 +110,9 @@ exports["Document contains and precedes an existing element and vice versa"] = f
   t.done();
 };
 
-exports["Document contains and precedes a newly attached processing instruction and vice versa"] = function (t) {
-  var doc = load("test");
-  var pi = doc.createProcessingInstruction("PITARGET", "PIDATA");
+exports["Document contains and precedes a newly attached processing instruction and vice versa"] = t => {
+  const doc = load("test");
+  const pi = doc.createProcessingInstruction("PITARGET", "PIDATA");
 
   doc.appendChild(pi);
 
@@ -126,10 +124,10 @@ exports["Document contains and precedes a newly attached processing instruction 
   t.done();
 };
 
-exports["Document contains and precedes a newly attached comment and vice versa"] = function (t) {
-  var doc = load("test");
-  var comment = doc.createComment("I AM COMMENT");
-  var span = doc.querySelectorAll("span").item(0);
+exports["Document contains and precedes a newly attached comment and vice versa"] = t => {
+  const doc = load("test");
+  const comment = doc.createComment("I AM COMMENT");
+  const span = doc.querySelectorAll("span").item(0);
 
   span.appendChild(comment);
 
@@ -141,10 +139,10 @@ exports["Document contains and precedes a newly attached comment and vice versa"
   t.done();
 };
 
-exports["Document fragment contains and precedes a newly attached nide and vice versa"] = function (t) {
-  var doc = load("test");
-  var fragment = doc.createDocumentFragment();
-  var span = doc.createElement("span");
+exports["Document fragment contains and precedes a newly attached nide and vice versa"] = t => {
+  const doc = load("test");
+  const fragment = doc.createDocumentFragment();
+  const span = doc.createElement("span");
 
   fragment.appendChild(span);
 
@@ -156,10 +154,10 @@ exports["Document fragment contains and precedes a newly attached nide and vice 
   t.done();
 };
 
-exports["Newly appended ProcessingInstruction node follows older appended ProcessingInstruction Node"] = function (t) {
-  var doc = load("test");
-  var pi1 = doc.createProcessingInstruction("PI1", "Processing Instruction 1");
-  var pi2 = doc.createProcessingInstruction("PI2", "Processing Instruction 2");
+exports["Newly appended ProcessingInstruction node follows older appended ProcessingInstruction Node"] = t => {
+  const doc = load("test");
+  const pi1 = doc.createProcessingInstruction("PI1", "Processing Instruction 1");
+  const pi2 = doc.createProcessingInstruction("PI2", "Processing Instruction 2");
 
   doc.documentElement.appendChild(pi1);
   doc.documentElement.appendChild(pi2);
@@ -169,10 +167,10 @@ exports["Newly appended ProcessingInstruction node follows older appended Proces
   t.done();
 };
 
-exports["Newly appended Text node follows older appended Text Node"] = function (t) {
-  var doc = load("test");
-  var t1 = doc.createTextNode("Hello,");
-  var t2 = doc.createTextNode("World!");
+exports["Newly appended Text node follows older appended Text Node"] = t => {
+  const doc = load("test");
+  const t1 = doc.createTextNode("Hello,");
+  const t2 = doc.createTextNode("World!");
 
   doc.documentElement.appendChild(t1);
   doc.documentElement.appendChild(t2);
@@ -182,20 +180,20 @@ exports["Newly appended Text node follows older appended Text Node"] = function 
   t.done();
 };
 
-exports["Existing element precedes one later in the markup and vice versa"] = function (t) {
-  var doc = load("test");
-  var el1 = doc.getElementsByTagName("strong").item(0);
-  var el2 = doc.getElementsByTagName("strong").item(1);
+exports["Existing element precedes one later in the markup and vice versa"] = t => {
+  const doc = load("test");
+  const el1 = doc.getElementsByTagName("strong").item(0);
+  const el2 = doc.getElementsByTagName("strong").item(1);
 
   t.ok(el1.compareDocumentPosition(el2) & doc.defaultView.Node.DOCUMENT_POSITION_FOLLOWING, "Second Element Follows");
   t.ok(el2.compareDocumentPosition(el1) & doc.defaultView.Node.DOCUMENT_POSITION_PRECEDING, "First Element Precedes");
   t.done();
 };
 
-exports["Element contains and precedes a decendant node and vice versa"] = function (t) {
-  var doc = load("test");
-  var span = doc.getElementsByTagName("span").item(0);
-  var strong = doc.getElementsByTagName("strong").item(0);
+exports["Element contains and precedes a decendant node and vice versa"] = t => {
+  const doc = load("test");
+  const span = doc.getElementsByTagName("span").item(0);
+  const strong = doc.getElementsByTagName("strong").item(0);
 
   t.ok(span.compareDocumentPosition(strong) & doc.defaultView.Node.DOCUMENT_POSITION_CONTAINED_BY, "Span contains");
   t.ok(span.compareDocumentPosition(strong) & doc.defaultView.Node.DOCUMENT_POSITION_FOLLOWING, "Span precedes");
@@ -204,10 +202,10 @@ exports["Element contains and precedes a decendant node and vice versa"] = funct
   t.done();
 };
 
-exports["A Child node precedes a child of a node later in the markup"] = function (t) {
-  var doc = load("test");
-  var strong = doc.getElementsByTagName("strong").item(0);
-  var em = doc.getElementsByTagName("em").item(0);
+exports["A Child node precedes a child of a node later in the markup"] = t => {
+  const doc = load("test");
+  const strong = doc.getElementsByTagName("strong").item(0);
+  const em = doc.getElementsByTagName("em").item(0);
 
   t.ok(strong.compareDocumentPosition(em) & doc.defaultView.Node.DOCUMENT_POSITION_FOLLOWING,
     "Second Element Follows");
@@ -216,11 +214,11 @@ exports["A Child node precedes a child of a node later in the markup"] = functio
   t.done();
 };
 
-exports["A newly attached child node precedes a child node later in the markup"] = function (t) {
-  var doc = load("test");
-  var span = doc.getElementsByTagName("strong").item(0);
-  var newEl = doc.createElement("i");
-  var em = doc.getElementsByTagName("em").item(0);
+exports["A newly attached child node precedes a child node later in the markup"] = t => {
+  const doc = load("test");
+  const span = doc.getElementsByTagName("strong").item(0);
+  const newEl = doc.createElement("i");
+  const em = doc.getElementsByTagName("em").item(0);
 
   span.appendChild(newEl);
 
@@ -231,11 +229,11 @@ exports["A newly attached child node precedes a child node later in the markup"]
   t.done();
 };
 
-exports["A newly attached child node follows a child node earlier in the markup"] = function (t) {
-  var doc = load("test");
-  var strong = doc.getElementsByTagName("strong").item(0);
-  var p = doc.getElementsByTagName("p").item(0);
-  var newEl = doc.createElement("i");
+exports["A newly attached child node follows a child node earlier in the markup"] = t => {
+  const doc = load("test");
+  const strong = doc.getElementsByTagName("strong").item(0);
+  const p = doc.getElementsByTagName("p").item(0);
+  const newEl = doc.createElement("i");
 
   p.appendChild(newEl);
 
@@ -246,8 +244,8 @@ exports["A newly attached child node follows a child node earlier in the markup"
   t.done();
 };
 
-exports["Testing a node against a non node type throws an error"] = function (t) {
-  var doc = load("test");
+exports["Testing a node against a non node type throws an error"] = t => {
+  const doc = load("test");
 
   t.throws(doc.compareDocumentPosition.bind(this, {}), "Throws");
   t.done();

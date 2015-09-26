@@ -6,7 +6,7 @@ function nodeName(node) {
   return node && node.nodeName ? node.nodeName : node;
 }
 
-exports["Document should implement ParentNode:children"] = function (t) {
+exports["Document should implement ParentNode:children"] = t => {
   const doc = load("parent-node");
 
   const parent = doc;
@@ -21,7 +21,7 @@ exports["Document should implement ParentNode:children"] = function (t) {
   t.done();
 };
 
-exports["Element should implement ParentNode:children"] = function (t) {
+exports["Element should implement ParentNode:children"] = t => {
   const doc = load("parent-node");
 
   const parent = doc.body;
@@ -38,7 +38,7 @@ exports["Element should implement ParentNode:children"] = function (t) {
   t.done();
 };
 
-exports["DocumentFragment should implement ParentNode:children"] = function (t) {
+exports["DocumentFragment should implement ParentNode:children"] = t => {
   const doc = load("parent-node");
   const parent = doc.createDocumentFragment();
 
@@ -58,20 +58,20 @@ exports["DocumentFragment should implement ParentNode:children"] = function (t) 
   t.ok(parent.children instanceof doc.defaultView.HTMLCollection, "children should be a HTMLCollection");
   t.done();
 };
-exports["Document should implement ParentNode:firstElementChild"] = function (t) {
+exports["Document should implement ParentNode:firstElementChild"] = t => {
   const doc = load("parent-node");
   t.strictEqual(nodeName(doc.firstElementChild), "HTML");
   t.done();
 };
 
-exports["Element should implement ParentNode:firstElementChild"] = function (t) {
+exports["Element should implement ParentNode:firstElementChild"] = t => {
   const doc = load("parent-node");
   t.strictEqual(nodeName(doc.body.firstElementChild), "A");
   t.strictEqual(doc.createElement("div").firstElementChild, null);
   t.done();
 };
 
-exports["DocumentFragment should implement ParentNode:firstElementChild"] = function (t) {
+exports["DocumentFragment should implement ParentNode:firstElementChild"] = t => {
   const doc = load("parent-node");
   const fragment = doc.createDocumentFragment();
 
@@ -86,20 +86,20 @@ exports["DocumentFragment should implement ParentNode:firstElementChild"] = func
 };
 
 
-exports["Document should implement ParentNode:lastElementChild"] = function (t) {
+exports["Document should implement ParentNode:lastElementChild"] = t => {
   const doc = load("parent-node");
   t.strictEqual(nodeName(doc.lastElementChild), "HTML");
   t.done();
 };
 
-exports["Element should implement ParentNode:lastElementChild"] = function (t) {
+exports["Element should implement ParentNode:lastElementChild"] = t => {
   const doc = load("parent-node");
   t.strictEqual(nodeName(doc.body.lastElementChild), "DIV");
   t.strictEqual(doc.createElement("div").lastElementChild, null);
   t.done();
 };
 
-exports["DocumentFragment should implement ParentNode:lastElementChild"] = function (t) {
+exports["DocumentFragment should implement ParentNode:lastElementChild"] = t => {
   const doc = load("parent-node");
   const fragment = doc.createDocumentFragment();
 
@@ -113,19 +113,19 @@ exports["DocumentFragment should implement ParentNode:lastElementChild"] = funct
   t.done();
 };
 
-exports["Document should implement ParentNode:childElementCount"] = function (t) {
+exports["Document should implement ParentNode:childElementCount"] = t => {
   const doc = load("parent-node");
   t.strictEqual(doc.childElementCount, 1);
   t.done();
 };
 
-exports["Element should implement ParentNode:childElementCount"] = function (t) {
+exports["Element should implement ParentNode:childElementCount"] = t => {
   const doc = load("parent-node");
   t.strictEqual(doc.body.childElementCount, 2);
   t.done();
 };
 
-exports["DocumentFragment should implement ParentNode:childElementCount"] = function (t) {
+exports["DocumentFragment should implement ParentNode:childElementCount"] = t => {
   const doc = load("parent-node");
   const fragment = doc.createDocumentFragment();
 

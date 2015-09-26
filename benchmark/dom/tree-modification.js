@@ -7,7 +7,7 @@ exports["appendChild: no siblings"] = function () {
   let it;
 
   return suite({
-    setup: function (document) {
+    setup(document) {
       parent = [];
       children = [];
 
@@ -18,7 +18,7 @@ exports["appendChild: no siblings"] = function () {
 
       it = 0;
     },
-    fn: function () {
+    fn() {
       parent[it].appendChild(children[it]);
       ++it;
     }
@@ -32,7 +32,7 @@ exports["appendChild: many siblings"] = function () {
   let it;
 
   return suite({
-    setup: function (document) {
+    setup(document) {
       parent = document.createElement("div");
       children = [];
 
@@ -46,7 +46,7 @@ exports["appendChild: many siblings"] = function () {
 
       it = 0;
     },
-    fn: function () {
+    fn() {
       parent.appendChild(children[it]);
       ++it;
     }
@@ -59,11 +59,11 @@ exports["appendChild: many parents"] = function () {
   let it;
 
   return suite({
-    setup: function (document) {
+    setup(document) {
       itData = new Array(this.count);
 
       for (let i = 0; i < this.count; ++i) {
-        let nodes = new Array(DEPTH);
+        const nodes = new Array(DEPTH);
 
         for (let n = 0; n < DEPTH; ++n) {
           nodes[n] = document.createElement("div");
@@ -74,8 +74,8 @@ exports["appendChild: many parents"] = function () {
 
       it = 0;
     },
-    fn: function () {
-      let nodes = itData[it];
+    fn() {
+      const nodes = itData[it];
 
       for (let n = 1; n < DEPTH; ++n) {
         nodes[n - 1].appendChild(nodes[n]);
@@ -91,10 +91,9 @@ exports["insertBefore: many siblings"] = function () {
   let parent;
   let children;
   let it;
-  let first;
 
   return suite({
-    setup: function (document) {
+    setup(document) {
       parent = document.createElement("div");
       children = [];
 
@@ -107,12 +106,10 @@ exports["insertBefore: many siblings"] = function () {
       }
 
       it = 0;
-      first = parent.firstChild;
     },
-    fn: function () {
+    fn() {
       const newChild = children[it];
       parent.insertBefore(newChild, parent.firstChild);
-      first = newChild;
       ++it;
     }
   });
@@ -124,7 +121,7 @@ exports["removeChild: no siblings"] = function () {
   let it;
 
   return suite({
-    setup: function (document) {
+    setup(document) {
       parent = [];
       children = [];
 
@@ -136,7 +133,7 @@ exports["removeChild: no siblings"] = function () {
 
       it = 0;
     },
-    fn: function () {
+    fn() {
       parent[it].removeChild(children[it]);
       ++it;
     }
@@ -149,7 +146,7 @@ exports["removeChild: many siblings"] = function () {
   let it;
 
   return suite({
-    setup: function (document) {
+    setup(document) {
       parent = document.createElement("div");
       children = [];
 
@@ -160,7 +157,7 @@ exports["removeChild: many siblings"] = function () {
 
       it = 0;
     },
-    fn: function () {
+    fn() {
       parent.removeChild(children[it]);
       ++it;
     }
@@ -173,11 +170,11 @@ exports["removeChild: many parents"] = function () {
   let it;
 
   return suite({
-    setup: function (document) {
+    setup(document) {
       itData = new Array(this.count);
 
       for (let i = 0; i < this.count; ++i) {
-        let nodes = new Array(DEPTH + 1);
+        const nodes = new Array(DEPTH + 1);
         nodes[0] = document.createElement("div");
 
         for (let n = 0; n < DEPTH; ++n) {
@@ -190,8 +187,8 @@ exports["removeChild: many parents"] = function () {
 
       it = 0;
     },
-    fn: function () {
-      let nodes = itData[it];
+    fn() {
+      const nodes = itData[it];
 
       for (let n = 0; n < DEPTH; ++n) {
         nodes[n].removeChild(nodes[n + 1]);

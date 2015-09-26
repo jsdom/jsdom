@@ -4,19 +4,19 @@ const createVirtualConsole = require("../..").createVirtualConsole;
 const toFileUrl = require("../util").toFileUrl;
 const todo = require("../util").todo;
 
-exports["onerror catches exceptions thrown in addEventListener event handlers"] = function (t) {
+exports["onerror catches exceptions thrown in addEventListener event handlers"] = t => {
   const doc = jsdom("", { url: "http://example.com" });
 
   const error = new Error("oh no!");
-  doc.body.addEventListener("click", function () {
+  doc.body.addEventListener("click", () => {
     throw error;
   });
 
-  doc.defaultView.addEventListener("error", function (event) {
+  doc.defaultView.addEventListener("error", event => {
     t.equal(event.message, "oh no!");
 
-    todo(t, function (t) { // TODO url parser
-      t.ok(event.filename === toFileUrl(__filename), "filename equality");
+    todo(t, tt => { // TODO url parser
+      tt.ok(event.filename === toFileUrl(__filename), "filename equality");
     });
 
     t.ok(event.lineno > 0);
@@ -28,41 +28,41 @@ exports["onerror catches exceptions thrown in addEventListener event handlers"] 
   doc.body.click();
 };
 
-exports["onerror property catches exceptions thrown in addEventListener event handlers"] = function (t) {
+exports["onerror property catches exceptions thrown in addEventListener event handlers"] = t => {
   const doc = jsdom("", { url: "http://example.com" });
 
-  const error = new Error("oh no!");
-  doc.body.addEventListener("click", function () {
-    throw error;
+  const errorThrown = new Error("oh no!");
+  doc.body.addEventListener("click", () => {
+    throw errorThrown;
   });
 
-  doc.defaultView.onerror = function (message, filename, lineno, colno, error) {
+  doc.defaultView.onerror = (message, filename, lineno, colno, error) => {
     t.equal(message, "oh no!");
 
-    todo(t, function (t) { // TODO url parser
-      t.ok(filename === toFileUrl(__filename), "filename equality");
+    todo(t, tt => { // TODO url parser
+      tt.ok(filename === toFileUrl(__filename), "filename equality");
     });
 
     t.ok(lineno > 0);
     t.ok(colno > 0);
-    t.equal(error, error);
+    t.equal(error, errorThrown);
     t.done();
   };
 
   doc.body.click();
 };
 
-exports["onerror catches exceptions thrown in addEventListener event handlers (multiline message)"] = function (t) {
+exports["onerror catches exceptions thrown in addEventListener event handlers (multiline message)"] = t => {
   const doc = jsdom("", { url: "http://example.com" });
 
   const error = new Error("oh\nno\n!");
-  doc.body.addEventListener("click", function () {
+  doc.body.addEventListener("click", () => {
     throw error;
   });
 
-  doc.defaultView.addEventListener("error", function (event) {
-    todo(t, function (t) { // TODO url parser
-      t.ok(event.filename === toFileUrl(__filename), "filename equality");
+  doc.defaultView.addEventListener("error", event => {
+    todo(t, tt => { // TODO url parser
+      tt.ok(event.filename === toFileUrl(__filename), "filename equality");
     });
 
     t.ok(event.lineno > 0);
@@ -74,10 +74,10 @@ exports["onerror catches exceptions thrown in addEventListener event handlers (m
   doc.body.click();
 };
 
-exports["onerror catches exceptions thrown in inline event handlers"] = function (t) {
+exports["onerror catches exceptions thrown in inline event handlers"] = t => {
   const doc = jsdom(`<body onclick="throw new Error('oh no!')"></body>`, { url: "http://example.com" });
 
-  doc.defaultView.addEventListener("error", function (event) {
+  doc.defaultView.addEventListener("error", event => {
     t.equal(event.message, "oh no!");
     t.equal(event.filename, "http://example.com/");
     t.ok(event.lineno > 0, "lineno set");
@@ -89,18 +89,18 @@ exports["onerror catches exceptions thrown in inline event handlers"] = function
   doc.body.click();
 };
 
-exports["onerror catches exceptions thrown in inline event handler properties"] = function (t) {
+exports["onerror catches exceptions thrown in inline event handler properties"] = t => {
   const doc = jsdom("", { url: "http://example.com" });
 
-  doc.body.onclick = function () {
+  doc.body.onclick = () => {
     throw new Error("oh no!");
   };
 
-  doc.defaultView.addEventListener("error", function (event) {
+  doc.defaultView.addEventListener("error", event => {
     t.equal(event.message, "oh no!", "message equality");
 
-    todo(t, function (t) { // TODO url parser
-      t.ok(event.filename === toFileUrl(__filename), "filename equality");
+    todo(t, tt => { // TODO url parser
+      tt.ok(event.filename === toFileUrl(__filename), "filename equality");
     });
 
     t.ok(event.lineno > 0, "lineno set");
@@ -112,10 +112,10 @@ exports["onerror catches exceptions thrown in inline event handler properties"] 
   doc.body.click();
 };
 
-exports["onerror catches exceptions thrown in sync script execution"] = function (t) {
+exports["onerror catches exceptions thrown in sync script execution"] = t => {
   const doc = jsdom("", { url: "http://example.com" });
 
-  doc.defaultView.addEventListener("error", function (event) {
+  doc.defaultView.addEventListener("error", event => {
     t.equal(event.message, "oh no!", "message equality");
     t.equal(event.filename, "http://example.com/");
     t.ok(event.lineno > 0, "lineno set");
@@ -127,9 +127,9 @@ exports["onerror catches exceptions thrown in sync script execution"] = function
   doc.body.innerHTML = `<script>throw new Error("oh no!");</script>`;
 };
 
-exports["onerror set during parsing catches exceptions thrown in sync script execution during parsing"] = function (t) {
+exports["onerror set during parsing catches exceptions thrown in sync script execution during parsing"] = t => {
   const doc = jsdom(`<script>
-    onerror = function (message, filename, lineno, colno, error) {
+    onerror = (message, filename, lineno, colno, error) => {
       window.onerrorMessage = message;
       window.onerrorFilename = filename;
       window.onerrorLineno = lineno;
@@ -147,9 +147,9 @@ exports["onerror set during parsing catches exceptions thrown in sync script exe
   t.done();
 };
 
-exports["unhandled Errors thrown in sync script excecution during parsing go to the virtual console"] = function (t) {
+exports["unhandled Errors thrown in sync script excecution during parsing go to the virtual console"] = t => {
   const virtualConsole = createVirtualConsole();
-  virtualConsole.on("jsdomError", function (error) {
+  virtualConsole.on("jsdomError", error => {
     t.ok(error instanceof Error);
     t.ok(error.message === "Uncaught [TypeError: oh no!]");
     t.equal(error.detail.constructor.name, "TypeError");
@@ -160,9 +160,9 @@ exports["unhandled Errors thrown in sync script excecution during parsing go to 
 };
 
 exports["unhandled non-Error exceptions thrown in sync script excecution during parsing go to the virtual console"] =
-    function (t) {
+t => {
   const virtualConsole = createVirtualConsole();
-  virtualConsole.on("jsdomError", function (error) {
+  virtualConsole.on("jsdomError", error => {
     t.ok(error instanceof Error);
     t.ok(error.message === "Uncaught Object {}" || error.message === "Uncaught {}"); // io.js v3 introduces the prefix
     t.equal(typeof error.detail, "object");
@@ -173,9 +173,9 @@ exports["unhandled non-Error exceptions thrown in sync script excecution during 
   jsdom(`<script>throw {}</script>`, { virtualConsole });
 };
 
-exports["unhandled exceptions thrown in inline event handlers go to the virtual console"] = function (t) {
+exports["unhandled exceptions thrown in inline event handlers go to the virtual console"] = t => {
   const virtualConsole = createVirtualConsole();
-  virtualConsole.on("jsdomError", function (error) {
+  virtualConsole.on("jsdomError", error => {
     t.ok(error instanceof Error);
     t.equal(error.message, "Uncaught [Error: oh no!]");
     t.equal(error.detail.constructor.name, "Error");
@@ -187,9 +187,9 @@ exports["unhandled exceptions thrown in inline event handlers go to the virtual 
   doc.body.click();
 };
 
-exports["adding an onerror handler does not prevent errors from going to the virtual console"] = function (t) {
+exports["adding an onerror handler does not prevent errors from going to the virtual console"] = t => {
   const virtualConsole = createVirtualConsole();
-  virtualConsole.on("jsdomError", function (error) {
+  virtualConsole.on("jsdomError", error => {
     t.ok(error instanceof Error);
     t.equal(error.message, "Uncaught [Error: oh no!]");
     t.equal(error.detail.constructor.name, "Error");
@@ -198,25 +198,24 @@ exports["adding an onerror handler does not prevent errors from going to the vir
 
   const doc = jsdom(`<body onclick="throw new Error('oh no!')"></body>`, { virtualConsole });
 
-  doc.defaultView.onerror = function () { };
+  doc.defaultView.onerror = () => { };
 
   doc.body.click();
 };
 
-exports["adding an onerror handler that returns true *does* prevent errors from going to the virtual console"] =
-    function (t) {
+exports["adding an onerror handler that returns true *does* prevent errors from going to the virtual console"] = t => {
   const virtualConsole = createVirtualConsole();
-  virtualConsole.on("jsdomError", function () {
+  virtualConsole.on("jsdomError", () => {
     t.fail("should not get here");
   });
 
   const doc = jsdom(`<body onclick="throw new Error('oh no!')"></body>`, { virtualConsole });
 
-  doc.defaultView.onerror = function () { return true; };
+  doc.defaultView.onerror = () => true;
 
   doc.body.click();
 
-  setTimeout(function () {
+  setTimeout(() => {
     t.done();
   }, 30);
 };

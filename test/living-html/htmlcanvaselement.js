@@ -4,7 +4,7 @@ const jsdom = require("../..");
 // Spec: https://html.spec.whatwg.org/multipage/scripting.html#the-canvas-element
 
 
-exports["canvas element is an instance of HTMLElement and HTMLCanvasElement (GH-649)"] = function (t) {
+exports["canvas element is an instance of HTMLElement and HTMLCanvasElement (GH-649)"] = t => {
   const document = jsdom.jsdom();
   const window = document.defaultView;
   const canvas = document.createElement("canvas");
@@ -14,7 +14,7 @@ exports["canvas element is an instance of HTMLElement and HTMLCanvasElement (GH-
   t.done();
 };
 
-exports["canvas elements work with getElementById (GH-737)"] = function (t) {
+exports["canvas elements work with getElementById (GH-737)"] = t => {
   const document = jsdom.jsdom("<canvas id='foo'></canvas>");
   const canvas = document.getElementById("foo");
 
@@ -22,7 +22,7 @@ exports["canvas elements work with getElementById (GH-737)"] = function (t) {
   t.done();
 };
 
-exports["canvas elements width and height must default to 300x150"] = function (t) {
+exports["canvas elements width and height must default to 300x150"] = t => {
   const document = jsdom.jsdom();
   const canvas = document.createElement("canvas");
 
@@ -58,7 +58,7 @@ exports["canvas elements width and height must default to 300x150"] = function (
   t.done();
 };
 
-exports["canvas width and height must parse correctly initially (GH-1025)"] = function (t) {
+exports["canvas width and height must parse correctly initially (GH-1025)"] = t => {
   const document = jsdom.jsdom("<canvas width='99' height='101'></canvas>");
   const canvas = document.querySelector("canvas");
 
@@ -67,11 +67,13 @@ exports["canvas width and height must parse correctly initially (GH-1025)"] = fu
   t.done();
 };
 
-exports["toDataURL should work (when the canvas npm package is provided) (GH-1025)"] = function (t) {
+exports["toDataURL should work (when the canvas npm package is provided) (GH-1025)"] = t => {
+  /* eslint-disable global-require */
   let Canvas;
   try {
     Canvas = require("canvas");
-  } catch (e) {}
+  } catch (e) { /* intentionally ignored */ }
+  /* eslint-enable global-require */
 
   if (typeof Canvas !== "function") { // browserify will give back an empty object
     t.ok(true, "test ignored; not running with the canvas npm package installed");

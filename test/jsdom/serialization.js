@@ -9,9 +9,9 @@ exports["style attribute should not appear when accessing style property (GH-110
 
   t.equal(p.outerHTML, "<p>hello</p>", "style attribute should not appear before");
 
-  /* jshint -W030 */
+  /* eslint-disable no-unused-expressions */
   p.style;
-  /* jshint +W030 */
+  /* eslint-enable no-unused-expressions */
 
   t.equal(p.outerHTML, "<p>hello</p>", "style attribute should not appear after");
 

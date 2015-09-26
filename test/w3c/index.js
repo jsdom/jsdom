@@ -1,6 +1,5 @@
 "use strict";
-
-var w3cTest = require("./w3ctest")(exports);
+const w3cTest = require("./w3ctest")(exports);
 
 w3cTest("dom/nodes/CharacterData-appendData.html");
 w3cTest("dom/nodes/CharacterData-deleteData.html");
@@ -28,8 +27,8 @@ w3cTest("dom/nodes/getElementsByClassName-06.htm");
 w3cTest("dom/nodes/getElementsByClassName-07.htm");
 w3cTest("dom/nodes/getElementsByClassName-08.htm");
 w3cTest("dom/nodes/getElementsByClassName-09.htm");
-//w3cTest("dom/nodes/getElementsByClassName-10.xml"); XML class attribute and localName and namespaces don't work well
-//w3cTest("dom/nodes/getElementsByClassName-11.xml"); XML class attribute and localName and namespaces don't work well
+// w3cTest("dom/nodes/getElementsByClassName-10.xml"); XML class attribute and localName and namespaces don't work well
+// w3cTest("dom/nodes/getElementsByClassName-11.xml"); XML class attribute and localName and namespaces don't work well
 w3cTest("dom/nodes/getElementsByClassName-12.htm");
 w3cTest("dom/nodes/getElementsByClassName-13.htm");
 w3cTest("dom/nodes/getElementsByClassName-14.htm");

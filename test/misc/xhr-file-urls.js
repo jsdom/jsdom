@@ -3,12 +3,12 @@ const fs = require("fs");
 const jsdom = require("../..");
 const toFileUrl = require("../util").toFileUrl(__dirname);
 
-exports["Getting a file URL should work (from the same file URL)"] = function (t) {
+exports["Getting a file URL should work (from the same file URL)"] = t => {
   // From https://github.com/tmpvar/jsdom/pull/1180
   const window = jsdom.jsdom(undefined, { url: toFileUrl(__filename) }).defaultView;
 
   const xhr = new window.XMLHttpRequest();
-  xhr.onload = function () {
+  xhr.onload = () => {
     t.strictEqual(xhr.responseText, fs.readFileSync(__filename, { encoding: "utf-8" }));
     t.done();
   };
@@ -17,12 +17,12 @@ exports["Getting a file URL should work (from the same file URL)"] = function (t
   xhr.send();
 };
 
-exports["Getting a file URL should have valid default response without setting responseType"] = function (t) {
+exports["Getting a file URL should have valid default response without setting responseType"] = t => {
   // From https://github.com/tmpvar/jsdom/pull/1183
   const window = jsdom.jsdom(undefined, { url: toFileUrl(__filename) }).defaultView;
 
   const xhr = new window.XMLHttpRequest();
-  xhr.onload = function () {
+  xhr.onload = () => {
     t.strictEqual(xhr.response, fs.readFileSync(__filename, { encoding: "utf-8" }));
     t.done();
   };
@@ -31,13 +31,13 @@ exports["Getting a file URL should have valid default response without setting r
   xhr.send();
 };
 
-exports["Getting a file URL should not throw for getResponseHeader"] = function (t) {
+exports["Getting a file URL should not throw for getResponseHeader"] = t => {
   // From https://github.com/tmpvar/jsdom/pull/1180
   const window = jsdom.jsdom(undefined, { url: toFileUrl(__filename) }).defaultView;
 
   const xhr = new window.XMLHttpRequest();
-  xhr.onload = function () {
-    t.doesNotThrow(function () {
+  xhr.onload = () => {
+    t.doesNotThrow(() => {
       t.strictEqual(xhr.getResponseHeader("Blahblahblah"), null);
     });
     t.done();
@@ -47,13 +47,13 @@ exports["Getting a file URL should not throw for getResponseHeader"] = function 
   xhr.send();
 };
 
-exports["Getting a file URL should not throw for getAllResponseHeaders"] = function (t) {
+exports["Getting a file URL should not throw for getAllResponseHeaders"] = t => {
   // From https://github.com/tmpvar/jsdom/pull/1183
   const window = jsdom.jsdom(undefined, { url: toFileUrl(__filename) }).defaultView;
 
   const xhr = new window.XMLHttpRequest();
-  xhr.onload = function () {
-    t.doesNotThrow(function () {
+  xhr.onload = () => {
+    t.doesNotThrow(() => {
       t.strictEqual(xhr.getAllResponseHeaders(), null);
     });
     t.done();

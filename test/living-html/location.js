@@ -30,7 +30,7 @@ exports["window.location.hash is manipulable"] = t => {
 
   t.equals(window.location.hash, "");
 
-  window.location.href = window.location.href + "#foobar";
+  window.location.href += "#foobar";
   t.equals(window.location.hash, "#foobar");
 
   window.location.hash = "#baz";
@@ -48,7 +48,7 @@ exports["window.location.search is manipulable"] = t => {
 
   t.equals(window.location.search, "");
 
-  window.location.search = window.location.search + "?foo=bar";
+  window.location.search += "?foo=bar";
   t.equals(window.location.search, "?foo=bar");
 
   window.location.search = "?baz=qux";
@@ -63,7 +63,7 @@ exports["window.location.search can be set without messing up the location's has
     url: "http://www.example.com"
   }).defaultView;
 
-  window.location.href = window.location.href + "#foo";
+  window.location.href += "#foo";
   window.location.search = "?foo=bar";
   t.equals(window.location.href.split("?")[1], "foo=bar#foo");
 
@@ -77,7 +77,7 @@ exports["when changing window.location.href by adding a hash, should fire a hash
   const window = jsdom.jsdom("", {
     url: "http://www.example.com"
   }).defaultView;
-  window.addEventListener("hashchange", function () {
+  window.addEventListener("hashchange", () => {
     t.ok(true, "hashchange event was fired");
     t.done();
   });
@@ -89,7 +89,7 @@ exports["when changing window.location.hash directly, should fire a hashchange e
   const window = jsdom.jsdom("", {
     url: "http://www.example.com"
   }).defaultView;
-  window.addEventListener("hashchange", function () {
+  window.addEventListener("hashchange", () => {
     t.ok(true, "hashchange event was fired");
     t.done();
   });

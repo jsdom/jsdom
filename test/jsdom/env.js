@@ -172,7 +172,7 @@ exports["explicit config.file, valid"] = t => {
       t.equal(serializeDocument(window.document), `<!DOCTYPE html><html><head>
     <title>hello, Node.js!</title>
   </head>
-  <body>` + "\n  \n\n</body></html>");
+  <body>\n  \n\n</body></html>`);
       t.equal(window.location.href, toFileUrl(fileName));
       t.done();
     }
@@ -263,7 +263,7 @@ exports["string, for an existing filename"] = t => {
       t.equal(serializeDocument(window.document), `<!DOCTYPE html><html><head>
     <title>hello, Node.js!</title>
   </head>
-  <body>` + "\n  \n\n</body></html>");
+  <body>\n  \n\n</body></html>`);
       t.equal(window.location.href, toFileUrl(fileName));
       t.done();
     }
@@ -354,7 +354,10 @@ exports["with document cookie"] = t => {
     "/html": "<!DOCTYPE html><html><head><script src=\"/js\"></script></head><body></body></html>"
   };
   const server = http.createServer((req, res) => {
-    if (req.url === "/js") { t.equal(req.headers.cookie, cookie); }
+    if (req.url === "/js") {
+      t.equal(req.headers.cookie, cookie);
+    }
+
     res.writeHead(200, { "Content-Length": routes[req.url].length });
     res.end(routes[req.url]);
   });
@@ -478,9 +481,7 @@ exports["with configurable resource loader modifying routes and content"] = t =>
 
   server.listen(64001, "127.0.0.1", () => {
     env({
-      document: {
-        cookie: cookie
-      },
+      document: { cookie },
       url: "http://127.0.0.1:64001/html",
       resourceLoader(resource, callback) {
         t.ok(typeof resource === "object");

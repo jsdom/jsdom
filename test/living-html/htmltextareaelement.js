@@ -1,10 +1,9 @@
 "use strict";
+const jsdom = require("../..");
 
-var jsdom = require("../..");
-
-exports["html textarea should handle value correctly"] = function (t) {
-  var doc = jsdom.jsdom();
-  var textarea = doc.createElement("textarea");
+exports["html textarea should handle value correctly"] = t => {
+  const doc = jsdom.jsdom();
+  const textarea = doc.createElement("textarea");
 
   t.strictEqual(textarea.defaultValue, "", "defaultValue is empty string when it has no content");
   t.strictEqual(textarea.value, "", "value is empty string when it has no content");

@@ -1,10 +1,9 @@
 "use strict";
+const jsdom = require("../..");
 
-var jsdom = require("../..");
-
-exports["html option should handle selected/defaultSelected correctly"] = function (t) {
-  var doc = jsdom.jsdom();
-  var option = doc.createElement("option");
+exports["html option should handle selected/defaultSelected correctly"] = t => {
+  const doc = jsdom.jsdom();
+  const option = doc.createElement("option");
 
   t.strictEqual(option.selected, false, "selectedness is false by default");
 
@@ -24,18 +23,18 @@ exports["html option should handle selected/defaultSelected correctly"] = functi
   t.done();
 };
 
-exports["html option should ask-for-a-reset correctly"] = function (t) {
-  var doc = jsdom.jsdom();
-  var select = doc.createElement("select");
+exports["html option should ask-for-a-reset correctly"] = t => {
+  const doc = jsdom.jsdom();
+  const select = doc.createElement("select");
   select.multiple = false;
   select.size = 1;
-  var optionA = doc.createElement("option");
-  var optionB = doc.createElement("option");
-  var optionC = doc.createElement("option");
-  var optgroupA = doc.createElement("optgroup");
-  var optionAA = doc.createElement("option");
-  var optionAB = doc.createElement("option");
-  var optionAC = doc.createElement("option");
+  const optionA = doc.createElement("option");
+  const optionB = doc.createElement("option");
+  const optionC = doc.createElement("option");
+  const optgroupA = doc.createElement("optgroup");
+  const optionAA = doc.createElement("option");
+  const optionAB = doc.createElement("option");
+  const optionAC = doc.createElement("option");
   select.appendChild(optionA);
   select.appendChild(optionB);
   select.appendChild(optionC);

@@ -5,7 +5,7 @@ const path = require("path");
 const request = require("request");
 const st = require("st");
 const jsdom = require("../..");
-const URL = require("../../lib/jsdom/utils").URL;
+const URL = require("whatwg-url-compat").createURLConstructor();
 
 function createJsdom(urlPrefix, testPath, t) {
   const reporterHref = urlPrefix + "resources/testharnessreport.js";
@@ -30,9 +30,8 @@ function createJsdom(urlPrefix, testPath, t) {
         t.done();
       }
 
-      window.shimTest = function () {
-        /* jshint -W106 */
-        window.add_result_callback(function (test) {
+      window.shimTest = () => {
+        window.add_result_callback(test => {
           if (test.status === 1) {
             t.ok(false, "Failed in \"" + test.name + "\": \n" + test.message + "\n\n" + test.stack);
           } else if (test.status === 2) {
@@ -42,7 +41,7 @@ function createJsdom(urlPrefix, testPath, t) {
           }
         });
 
-        window.add_completion_callback(function (tests, harnessStatus) {
+        window.add_completion_callback((tests, harnessStatus) => {
           t.ok(harnessStatus.status !== 2, "test harness should not timeout");
           window.close();
           t.done();
@@ -58,21 +57,15 @@ function createJsdom(urlPrefix, testPath, t) {
 
 module.exports = function (exports) {
   const staticFileServer = st({ path: path.resolve(__dirname, "tests"), url: "/", passthrough: true });
-  const server = http.createServer(function (req, res) {
-    staticFileServer(req, res, function () {
-      fallbackToHostedVersion(req, res);
-    });
+  const server = http.createServer((req, res) => {
+    staticFileServer(req, res, () => fallbackToHostedVersion(req, res));
   }).listen();
   const urlPrefix = `http://127.0.0.1:${server.address().port}/`;
 
-  process.on("exit", function () {
-    server.close();
-  });
+  process.on("exit", () => server.close());
 
-  return function (testPath) {
-    exports[testPath] = function (t) {
-      createJsdom(urlPrefix, testPath, t);
-    };
+  return testPath => {
+    exports[testPath] = t => createJsdom(urlPrefix, testPath, t);
   };
 
   function fallbackToHostedVersion(req, res) {

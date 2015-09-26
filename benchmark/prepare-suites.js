@@ -10,7 +10,7 @@ module.exports = function prepareSuites(path, obj) {
     return;
   }
 
-  Object.keys(obj).forEach(function (name) {
+  for (const name of Object.keys(obj)) {
     const currentPath = (path ? path + "/" : "") + name;
     // If an entry in a manifest file (e.g. dom/index.js) is a function,
     // assume that function will generate the suite (or another manifest)
@@ -19,5 +19,5 @@ module.exports = function prepareSuites(path, obj) {
     }
 
     module.exports(currentPath, obj[name]);
-  });
+  }
 };

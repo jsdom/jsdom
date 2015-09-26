@@ -13,7 +13,7 @@ const jsdomDoc = jsdom.jsdom && jsdom.jsdom();
 function noop() {}
 
 function addBenchmark(suite, benchmark) {
-  const event = new Benchmark.Event({type: "add", target: benchmark});
+  const event = new Benchmark.Event({ type: "add", target: benchmark });
   suite.emit(event);
   if (!event.cancelled) {
     suite.push(benchmark);
@@ -26,11 +26,19 @@ function benchmarkFunctions(document, options) {
   const teardown = options.teardown || noop;
 
   return {
-    setup: function () { setup.call(this, document); },
+    setup() {
+      setup.call(this, document);
+    },
     fn: options.defer ?
-        function (deferred) { fn.call(this, deferred, document); } :
-        function () { fn.call(this, document); },
-    teardown: function () { teardown.call(this, document); }
+        function (deferred) {
+          fn.call(this, deferred, document);
+        } :
+        function () {
+          fn.call(this, document);
+        },
+    teardown() {
+      teardown.call(this, document);
+    }
   };
 }
 
@@ -47,20 +55,19 @@ function benchmarkFunctions(document, options) {
  * @returns {Benchmark.Suite}
  */
 module.exports = function documentSuite(optionsArg) {
-
   const options = typeof optionsArg === "function" ?
                   { fn: optionsArg } :
                   shallowClone(optionsArg);
 
   // default to async because that is required for defer:true
-  const suite = options.suite || new Benchmark.Suite({async: true});
+  const suite = options.suite || new Benchmark.Suite({ async: true });
   delete options.suite; // do not pass to `Benchmark`
 
   if (nativeDoc) {
     const newOptions = extend(
       options,
       benchmarkFunctions(nativeDoc, options),
-      {jsdomDocumentImplementation: "native"}
+      { jsdomDocumentImplementation: "native" }
     );
     const benchmark = jsdomBenchmark(newOptions);
     benchmark.name = benchmark.name ? benchmark.name + " :: native" : "native";
@@ -71,7 +78,7 @@ module.exports = function documentSuite(optionsArg) {
     const newOptions = extend(
       options,
       benchmarkFunctions(jsdomDoc, options),
-      {jsdomDocumentImplementation: "jsdom"}
+      { jsdomDocumentImplementation: "jsdom" }
     );
     const benchmark = jsdomBenchmark(newOptions);
 

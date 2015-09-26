@@ -7,7 +7,7 @@ exports["setAttribute(): Remove a named property from window"] = function () {
   let parent;
 
   return suite({
-    setup: function (document) {
+    setup(document) {
       parent = document.createElement("div");
 
       nodes = new Array(NODES);
@@ -20,12 +20,12 @@ exports["setAttribute(): Remove a named property from window"] = function () {
 
       document.body.appendChild(parent);
     },
-    tearDown: function(document) {
+    tearDown(document) {
       document.body.removeChild(parent);
       nodes = null;
       parent = null;
     },
-    fn: function () {
+    fn() {
       for (let i = 0; i < NODES; ++i) {
         nodes[i].removeAttribute("id");
       }

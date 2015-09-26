@@ -1,19 +1,18 @@
 "use strict";
+const jsdom = require("../..");
 
-var jsdom = require("../..");
-
-exports["html form should implement the reset() method"] = function (t) {
-  var doc = jsdom.jsdom();
-  var form = doc.createElement("form");
-  var text = doc.createElement("input");
+exports["html form should implement the reset() method"] = t => {
+  const doc = jsdom.jsdom();
+  const form = doc.createElement("form");
+  const text = doc.createElement("input");
   text.type = "text";
-  var checkbox = doc.createElement("input");
+  const checkbox = doc.createElement("input");
   checkbox.type = "checkbox";
-  var select = doc.createElement("select");
+  const select = doc.createElement("select");
   select.multiple = true;
-  var option = doc.createElement("option");
+  const option = doc.createElement("option");
   option.value = "option";
-  var textarea = doc.createElement("textarea");
+  const textarea = doc.createElement("textarea");
 
   form.appendChild(text);
   form.appendChild(checkbox);
