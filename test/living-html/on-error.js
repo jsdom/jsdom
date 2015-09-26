@@ -164,7 +164,7 @@ t => {
   const virtualConsole = createVirtualConsole();
   virtualConsole.on("jsdomError", error => {
     t.ok(error instanceof Error);
-    t.ok(error.message === "Uncaught Object {}" || error.message === "Uncaught {}"); // io.js v3 introduces the prefix
+    t.ok(error.message === "Uncaught Object {}" || error.message === "Uncaught {}"); // Browserify hasn't caught up yet
     t.equal(typeof error.detail, "object");
     t.notEqual(error.detail, null);
     t.done();
