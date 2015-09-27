@@ -98,6 +98,7 @@ var files = [
   "browser/css.js",
   "browser/index.js",
   "web-platform-tests/index.js",
+  "web-platform-tests/to-upstream.js",
   "misc/domparsing.js"
 ];
 

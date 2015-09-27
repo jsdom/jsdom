@@ -1,5 +1,6 @@
 "use strict";
-const runWebPlatformTest = require("./run-web-platform-test")(exports);
+const path = require("path");
+const runWebPlatformTest = require("./run-web-platform-test")(exports, path.resolve(__dirname, "tests"));
 
 [
   "dom/nodes/CharacterData-appendData.html",
@@ -19,6 +20,7 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports);
   "dom/nodes/DOMImplementation-hasFeature.html",
   "dom/nodes/Element-classlist.html",
   "dom/nodes/Element-getElementsByClassName.html",
+  // "dom/nodes/attributes.html", // TODO Attr: once we fix Attr from scratch, this can be enabled
   "dom/nodes/getElementsByClassName-01.htm",
   "dom/nodes/getElementsByClassName-02.htm",
   "dom/nodes/getElementsByClassName-03.htm",

@@ -18,7 +18,7 @@ If you can, then you've almost certainly found a bug in or missing feature of js
 
 Almost all of our relevant functionality is covered in either the [DOM Living Standard](http://dom.spec.whatwg.org/) or the [HTML Living Standard](http://www.whatwg.org/specs/web-apps/current-work/). There are various obsolete W3C specs ("DOM Level 2" etc.) that were never really implemented in browsers, and there is also the "DOM Level 4" W3C fork of the WHATWG DOM Living Standard. But we try to stick to the two main WHATWG specs for jsdom these days.
 
-Other specs might pop up from time to time, especially in regard to CSS stuff. In general Mozilla's Servo project provides [good guidance on relavant places to look](https://github.com/servo/servo/wiki/Relevant-spec-links).
+Other specs might pop up from time to time, especially in regard to CSS stuff. In general Mozilla's Servo project provides [good guidance on relavant places to look](https://github.com/servo/servo/wiki/Relevant-spec-links). [platform.html5.org](https://platform.html5.org/) is also pretty comprehensive.
 
 Once you have that nailed down, you'll want to ask:
 
@@ -68,13 +68,11 @@ So e.g. use `npm test -- -s console` to run the console-related tests.
 
 To import a test from w3c/web-platform-tests, add the appropriate line to `test/web-platform-tests/index.js`. This framework is still in its early days, so feel free to open an issue if it's not working quite like you expect.
 
-If you're writing a bunch of new tests for a feature, and those tests don't exist in w3c/web-platform-tests, you can do one of two things. The most noble course of action is to submit a pull request to web-platform-tests, get it accepted and merged, then update jsdom to run those tests. That way, all existing browsers will run the test too, improving interoperability for everyone!
+If you're writing a bunch of new tests for a feature, and those tests don't exist in w3c/web-platform-tests, you'll need to write your own. The best way to do this is to add new web platform tests into the `test/web-platform-tests/to-upstream` directory. Follow the [web platform test contribution guidelines](http://testthewebforward.org/docs/writing-tests.html) for the format, or just try to match what you see nearby.
 
-Alternately, you can write some tests just for jsdom. The older tests, being a mix of auto-generated and organically-grown, have gotten pretty hairy over time. But for new tests we try to follow a clean and uniform style, which you can see in files like [`test/living-dom/attributes.js`](https://github.com/tmpvar/jsdom/blob/master/test/living-dom/attributes.js) or [`test/window/history.js`](https://github.com/tmpvar/jsdom/blob/master/test/window/history.js). Do your best to follow that.
+Alternately, you can write some tests just for jsdom. This should be avoided when possible, but is necessary for cases where e.g. you are testing a jsdom specific API. Try to follow the style from newer files, like [`test/jsdom/node-location.js`](https://github.com/tmpvar/jsdom/blob/master/test/jsdom/node-location.js).
 
-If you're just adding a simple fix to existing functionality, you can add an appropriate test to the bottom of the relevant test file, e.g. in `test/level2/html.js`. This should generally be avoided, however, as these legacy imported tests from the old days are messy and hard to maintain.
-
-Note for future reference: to update the submodules used for the web-platform-tests use the command `git submodule update --recursive --remote`.
+(Note for future reference for the maintainers: to update the submodules used for the web-platform-tests use the command `git submodule update --recursive --remote`.)
 
 ### Running tests in the browser
 

@@ -2,6 +2,7 @@
 
 const http = require("http");
 const path = require("path");
+const fs = require("fs");
 const request = require("request");
 const st = require("st");
 const jsdom = require("../..");
@@ -55,8 +56,8 @@ function createJsdom(urlPrefix, testPath, t) {
   });
 }
 
-module.exports = function (exports) {
-  const staticFileServer = st({ path: path.resolve(__dirname, "tests"), url: "/", passthrough: true });
+module.exports = function (exports, testDir) {
+  const staticFileServer = st({ path: testDir, url: "/", passthrough: true });
   const server = http.createServer((req, res) => {
     staticFileServer(req, res, () => fallbackToHostedVersion(req, res));
   }).listen();
@@ -69,7 +70,13 @@ module.exports = function (exports) {
   };
 
   function fallbackToHostedVersion(req, res) {
-    // Problem getting it from disk. Let's try the online version!
+    // If testDir does not contain resources/, we should get the one from web-platform-tests.
+    if (req.url.startsWith("/resources")) {
+      fs.createReadStream(path.resolve(__dirname, "tests", req.url.substring(1))).pipe(res);
+      return;
+    }
+
+    // Otherwise, this is a problem getting it from the disk. Let's try the online version!
 
     const url = new URL(req.url, urlPrefix);
     url.protocol = "https";
