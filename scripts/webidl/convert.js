@@ -47,3 +47,4 @@ function onlyIDL(filePath) {
 }
 
 doConversion(path.resolve(__dirname, "../../lib/jsdom/living/events")).done();
+doConversion(path.resolve(__dirname, "../../lib/jsdom/living/attributes")).done();

@@ -1,5 +1,5 @@
-var xpath = require('../../lib/jsdom/level3/xpath');
 var jsdom = require("../..");
+var xpath = require('../../lib/jsdom/level3/xpath');
 var domTestHelper = require('../DOMTestCase');
 
 exports.tests = {};
