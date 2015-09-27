@@ -34,7 +34,7 @@ test/level1
 test/level2
 test/level3
 test/sizzle
-test/w3c/tests
+test/web-platform-tests/tests
 test/window/files
 test/window/frame.js
 test/window/script.js

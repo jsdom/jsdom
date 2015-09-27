@@ -97,8 +97,8 @@ var files = [
   "jsonp/jsonp.js",
   "browser/css.js",
   "browser/index.js",
-  "w3c/index.js",
-  "w3c/domparsing.js"
+  "web-platform-tests/index.js",
+  "misc/domparsing.js"
 ];
 
 if (fileFilter.length > 0) {
