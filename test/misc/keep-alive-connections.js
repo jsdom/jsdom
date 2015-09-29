@@ -10,20 +10,20 @@ const routes = {
   "/xhr": "test"
 };
 
-exports["only one connection should be opened on sequenced calls"] = function (t) {
+exports["only one connection should be opened on sequenced calls"] = t => {
   t.expect(1);
-  http.createServer(function (req, res) {
+  http.createServer((req, res) => {
     res.writeHead(200, { "Content-Length": routes[req.url].length });
     res.end(routes[req.url]);
   })
-  .on("connection", function () {
+  .on("connection", () => {
     t.ok(true);
     t.done();
   })
-  .listen(33336, function () {
+  .listen(33336, () => {
     env({
       url: "http://127.0.0.1:33336/html",
-      created: function () {},
+      created: () => {},
       features: {
         FetchExternalResources: ["script"],
         ProcessExternalResources: ["script"]
@@ -32,25 +32,25 @@ exports["only one connection should be opened on sequenced calls"] = function (t
   });
 };
 
-exports["each call should open a new connection if keepAlive is disabled"] = function (t) {
+exports["each call should open a new connection if keepAlive is disabled"] = t => {
   t.expect(3);
   let i = 0;
-  http.createServer(function (req, res) {
+  http.createServer((req, res) => {
     res.writeHead(200, { "Content-Length": routes[req.url].length });
     res.end(routes[req.url]);
   })
-  .on("connection", function () {
+  .on("connection", () => {
     t.ok(true);
     i++;
     if (i === 3) {
       t.done();
     }
   })
-  .listen(33337, function () {
+  .listen(33337, () => {
     env({
       url: "http://127.0.0.1:33337/html",
-      agentOptions: {keepAlive: false},
-      created: function () {},
+      agentOptions: { keepAlive: false },
+      created: () => {},
       features: {
         FetchExternalResources: ["script"],
         ProcessExternalResources: ["script"]
@@ -59,25 +59,25 @@ exports["each call should open a new connection if keepAlive is disabled"] = fun
   });
 };
 
-exports["each calls should open a new connection if pool is disabled"] = function (t) {
+exports["each calls should open a new connection if pool is disabled"] = t => {
   t.expect(3);
   let i = 0;
-  http.createServer(function (req, res) {
+  http.createServer((req, res) => {
     res.writeHead(200, { "Content-Length": routes[req.url].length });
     res.end(routes[req.url]);
   })
-  .on("connection", function () {
+  .on("connection", () => {
     t.ok(true);
     i++;
     if (i === 3) {
       t.done();
     }
   })
-  .listen(33338, function () {
+  .listen(33338, () => {
     env({
       url: "http://127.0.0.1:33338/html",
       pool: false,
-      created: function () {},
+      created: () => {},
       features: {
         FetchExternalResources: ["script"],
         ProcessExternalResources: ["script"]

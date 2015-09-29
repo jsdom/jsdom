@@ -8,9 +8,9 @@ module.exports = function getSuites(obj) {
 
   let ret = [];
   // sort() to ensure consistent order in which benchmarks execute
-  Object.keys(obj).sort().forEach(function (name) {
+  for (const name of Object.keys(obj).sort()) {
     ret = ret.concat(module.exports(obj[name]));
-  });
+  }
 
   return ret;
 };

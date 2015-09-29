@@ -13,7 +13,6 @@ var runnerDisplay = require('./browser-display');
 var portfinder = Q.denodeify(require('portfinder').getPort);
 var installSelenium = Q.denodeify(require('selenium-standalone').install);
 var startSeleniumCb = require('selenium-standalone').start;
-var xtend = require('xtend/mutable');
 var wd = require('wd');
 
 var browser;
@@ -142,7 +141,7 @@ function run() {
 
 function startSelenium(options) {
   return Q.promise(function (resolve) {
-    var newOptions = xtend({ spawnCb: resolve }, options);
+    var newOptions = Object.assign({ spawnCb: resolve }, options);
     startSeleniumCb(newOptions, function (err) {
       if (err) {
         reject(err);

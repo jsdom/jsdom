@@ -1,14 +1,13 @@
 "use strict";
+const utils = require("../../lib/jsdom/utils");
 
-var utils = require("../../lib/jsdom/utils");
+exports["defineSetter defines a setter"] = t => {
+  const o = {};
+  let called = false;
+  const expected = "bar";
+  let actual;
 
-exports["defineSetter defines a setter"] = function (t) {
-  var o = {};
-  var called = false;
-  var expected = "bar";
-  var actual;
-
-  utils.defineSetter(o, "foo", function (val) {
+  utils.defineSetter(o, "foo", val => {
     called = true;
     actual = val;
   });
@@ -20,18 +19,13 @@ exports["defineSetter defines a setter"] = function (t) {
   t.done();
 };
 
-exports["defineSetter replaces existing setters"] = function (t) {
-  var o = {};
-  var originalCalled = false;
-  var newCalled = false;
+exports["defineSetter replaces existing setters"] = t => {
+  const o = {};
+  let originalCalled = false;
+  let newCalled = false;
 
-  utils.defineSetter(o, "foo", function () {
-    originalCalled = true;
-  });
-
-  utils.defineSetter(o, "foo", function () {
-    newCalled = true;
-  });
+  utils.defineSetter(o, "foo", () => originalCalled = true);
+  utils.defineSetter(o, "foo", () => newCalled = true);
 
   o.foo = true;
   t.equal(originalCalled, false);
@@ -40,18 +34,18 @@ exports["defineSetter replaces existing setters"] = function (t) {
   t.done();
 };
 
-exports["defineSetter does not remove existing getters"] = function (t) {
-  var o = {};
-  var called = false;
-  var expected = "bar";
-  var actual;
+exports["defineSetter does not remove existing getters"] = t => {
+  const o = {};
+  let called = false;
+  const expected = "bar";
+  let actual;
 
-  utils.defineGetter(o, "foo", function () {
+  utils.defineGetter(o, "foo", () => {
     called = true;
     return expected;
   });
 
-  utils.defineSetter(o, "foo", function () { /* NOP */ });
+  utils.defineSetter(o, "foo", () => { });
 
   actual = o.foo;
   t.equal(called, true);
@@ -60,13 +54,13 @@ exports["defineSetter does not remove existing getters"] = function (t) {
   t.done();
 };
 
-exports["defineGetter defines a getter"] = function (t) {
-  var o = {};
-  var called = false;
-  var expected = "bar";
-  var actual;
+exports["defineGetter defines a getter"] = t => {
+  const o = {};
+  let called = false;
+  const expected = "bar";
+  let actual;
 
-  utils.defineGetter(o, "foo", function () {
+  utils.defineGetter(o, "foo", () => {
     called = true;
     return expected;
   });
@@ -78,21 +72,17 @@ exports["defineGetter defines a getter"] = function (t) {
   t.done();
 };
 
-exports["defineGetter replaces existing getters"] = function (t) {
-  var o = {};
-  var originalCalled = false;
-  var newCalled = false;
+exports["defineGetter replaces existing getters"] = t => {
+  const o = {};
+  let originalCalled = false;
+  let newCalled = false;
 
-  utils.defineGetter(o, "foo", function () {
-    originalCalled = true;
-  });
+  utils.defineGetter(o, "foo", () => originalCalled = true);
+  utils.defineGetter(o, "foo", () => newCalled = true);
 
-  utils.defineGetter(o, "foo", function () {
-    newCalled = true;
-  });
-
-  /*jshint -W030 */
+  /* eslint-disable no-unused-expressions */
   o.foo;
+  /* eslint-enable no-unused-expressions */
 
   t.equal(originalCalled, false);
   t.equal(newCalled, true);
@@ -100,18 +90,18 @@ exports["defineGetter replaces existing getters"] = function (t) {
   t.done();
 };
 
-exports["defineGetter does not remove existing setters"] = function (t) {
-  var o = {};
-  var called = false;
-  var expected = "bar";
-  var actual;
+exports["defineGetter does not remove existing setters"] = t => {
+  const o = {};
+  let called = false;
+  const expected = "bar";
+  let actual;
 
-  utils.defineSetter(o, "foo", function (val) {
+  utils.defineSetter(o, "foo", val => {
     called = true;
     actual = val;
   });
 
-  utils.defineGetter(o, "foo", function () { /* NOP */ });
+  utils.defineGetter(o, "foo", () => { });
 
   o.foo = expected;
   t.equal(called, true);
@@ -120,20 +110,20 @@ exports["defineGetter does not remove existing setters"] = function (t) {
   t.done();
 };
 
-exports["createFrom returns an object with the given [[Prototype]]"] = function (t) {
-  var proto = {};
+exports["createFrom returns an object with the given [[Prototype]]"] = t => {
+  const proto = {};
 
-  var o = utils.createFrom(proto);
+  const o = utils.createFrom(proto);
   t.strictEqual(Object.getPrototypeOf(o), proto);
 
   t.done();
 };
 
 
-exports["createFrom returns an object extended with the given properties"] = function (t) {
-  var properties = {
+exports["createFrom returns an object extended with the given properties"] = t => {
+  const properties = {
     get accessor() {},
-    set accessor(value) { /*jshint unused: false */  },
+    set accessor(value) {},
     foo: "bar"
   };
 
@@ -149,20 +139,19 @@ exports["createFrom returns an object extended with the given properties"] = fun
     }
   });
 
-  var o = utils.createFrom({}, properties);
+  const o = utils.createFrom({}, properties);
 
-  Object.getOwnPropertyNames(o).
-    forEach(function (name) {
-      t.deepEqual(Object.getOwnPropertyDescriptor(o, name),
-        Object.getOwnPropertyDescriptor(properties, name),
-        name + " descriptors should be deeply equal"
-      );
-    });
+  for (const name of Object.getOwnPropertyNames(o)) {
+    t.deepEqual(Object.getOwnPropertyDescriptor(o, name),
+      Object.getOwnPropertyDescriptor(properties, name),
+      name + " descriptors should be deeply equal"
+    );
+  }
 
   t.done();
 };
 
-exports["inheritFrom sets Subclass.prototype to an object w/ [[Prototype]] Superclass.prototype"] = function (t) {
+exports["inheritFrom sets Subclass.prototype to an object w/ [[Prototype]] Superclass.prototype"] = t => {
   function Subclass() {}
   function Superclass() {}
 
@@ -174,7 +163,7 @@ exports["inheritFrom sets Subclass.prototype to an object w/ [[Prototype]] Super
   t.done();
 };
 
-exports["inheritFrom sets Subclass.prototype.constructor to Subclass"] = function (t) {
+exports["inheritFrom sets Subclass.prototype.constructor to Subclass"] = t => {
   function Subclass() {}
   function Superclass() {}
 
@@ -185,12 +174,12 @@ exports["inheritFrom sets Subclass.prototype.constructor to Subclass"] = functio
   t.done();
 };
 
-exports["inheritFrom extends Subclass.prototype with the given properties"] = function (t) {
+exports["inheritFrom extends Subclass.prototype with the given properties"] = t => {
   function Subclass() {}
   function Superclass() {}
-  var properties = {
+  const properties = {
     get accessor() {},
-    set accessor(value) { /*jshint unused: false */ },
+    set accessor(value) {},
     foo: "bar"
   };
 
@@ -208,19 +197,18 @@ exports["inheritFrom extends Subclass.prototype with the given properties"] = fu
 
   utils.inheritFrom(Superclass, Subclass, properties);
 
-  Object.getOwnPropertyNames(Subclass.prototype).
-    forEach(function (name) {
-      t.deepEqual(
-        Object.getOwnPropertyDescriptor(Subclass.prototype, name),
-        Object.getOwnPropertyDescriptor(properties, name),
-        name + " descriptors should be deeply equal"
-      );
-    });
+  for (const name of Object.getOwnPropertyNames(Subclass.prototype)) {
+    t.deepEqual(
+      Object.getOwnPropertyDescriptor(Subclass.prototype, name),
+      Object.getOwnPropertyDescriptor(properties, name),
+      name + " descriptors should be deeply equal"
+    );
+  }
 
   t.done();
 };
 
-exports["isValidTargetOrigin properly validates target origin"] = function (t) {
+exports["isValidTargetOrigin properly validates target origin"] = t => {
   t.strictEqual(utils.isValidTargetOrigin("*"), true);
   t.strictEqual(utils.isValidTargetOrigin("/"), true);
   t.strictEqual(utils.isValidTargetOrigin("https://www.google.com/"), true);

@@ -53,7 +53,7 @@ self.onmessage = function (e) {
     "misc/url.js": require("../test/misc/url.js"), // ok
     "misc/xhr-file-urls.js": require("../test/misc/xhr-file-urls.js"), // 0; file I/O does not work in browsers
     "misc/xhr-requires-server.js": require("../test/misc/xhr-requires-server.js"), // 0; could work if we figured
-      // out a way to say that the server parts happen in Node.js/io.js, and the browser parts happen in the browser.
+      // out a way to say that the server parts happen in Node.js, and the browser parts happen in the browser.
 
     "window/base64": require("../test/window/base64"), // ok
     "window/history": require("../test/window/history"), // ok
@@ -74,8 +74,8 @@ self.onmessage = function (e) {
     "jsonp/jsonp": require("../test/jsonp/jsonp"), // 0/1
     "browser/css": require("../test/browser/css"), // ok
     "browser/index": require("../test/browser/index"), // ok
-    //"w3c/index.js": require("../test/w3c/index"), // cannot browserify
-    "w3c/domparsing.js": require("../test/w3c/domparsing")
+    //"web-platform-tests/index.js": require("../test/web-platform-tests/index"), // cannot browserify
+    "misc/domparsing.js": require("../test/misc/domparsing")
   };
 
   var modulesToRun = {};
@@ -122,7 +122,7 @@ self.onmessage = function (e) {
     "browser/css",
     "browser/index",
 
-    "w3c/domparsing.js"
+    "misc/domparsing.js"
   ];
 
   if (options.tests) {

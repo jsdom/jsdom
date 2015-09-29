@@ -6,6 +6,8 @@
   "disallowKeywords": [
     "with"
   ],
+  "requireSpaceAfterKeywords": null, // ESLint handles this better
+  "disallowEmptyBlocks": null, // ESLint handles this better
 
 
   "disallowMultipleVarDecl": "strict",
@@ -26,11 +28,9 @@
 
 
   "excludeFiles": [
-    "node_modules/**",
-
+    "node_modules",
     "benchmark/browser-bundle.js",
     "test/worker-bundle.js",
-
     "lib/jsdom/browser/htmltodom.js",
     "lib/jsdom/browser/default-stylesheet.js",
     "lib/jsdom/level1/core.js",
@@ -45,25 +45,22 @@
     "lib/jsdom/level3/index.js",
     "lib/jsdom/level3/ls.js",
     "lib/jsdom/level3/xpath.js",
-    "lib/jsdom/living/generated/**/*.js",
+    "lib/jsdom/living/generated/**",
     "!lib/jsdom/living/generated/**/*-impl.js",
-    "test/browser",
+    "test/browser/files",
+    "test/browser/index.js",
     "test/jquery-fixtures",
-    "test/jsonp",
-    "test/level1",
-    "test/level2/core",
-    "test/level2/html",
-    "test/level2/html.js",
-    "test/level2/core.js",
-    "test/level2/events.js",
-    "test/level2/html.js",
-    "test/level3",
-    "test/sizzle",
-    "test/w3c/tests",
-    "test/window",
-    "test/*.js",
+    "test/jsdom/files",
     "test/jsdom/index.js",
     "test/jsdom/leak.js",
-    "test/jsdom/files"
+    "test/level1",
+    "test/level2",
+    "test/level3",
+    "test/sizzle",
+    "test/web-platform-tests/tests",
+    "test/window/files",
+    "test/window/frame.js",
+    "test/window/script.js",
+    "test/*.js"
   ]
 }

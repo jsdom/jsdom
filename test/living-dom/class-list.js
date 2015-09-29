@@ -1,326 +1,324 @@
 "use strict";
-const jsdom = require("../..").jsdom;
+const jsdom = require("../..");
 
-exports.setUp = function (callback) {
-  const doc = jsdom();
-  this.el = doc.createElement("p");
-  this.window = doc.defaultView;
+let el;
+let window;
 
-  callback();
+exports.setUp = done => {
+  const doc = jsdom.jsdom();
+  el = doc.createElement("p");
+  window = doc.defaultView;
+
+  done();
 };
 
-exports["classList is a DOMTokenList"] = function (t) {
+exports["classList is a DOMTokenList"] = t => {
   // when element has no class
-  t.equal(this.el.classList.constructor, this.window.DOMTokenList);
+  t.equal(el.classList.constructor, window.DOMTokenList);
 
   // when element has a class
-  this.el.className = "foo";
-  t.equal(this.el.classList.constructor, this.window.DOMTokenList);
+  el.className = "foo";
+  t.equal(el.classList.constructor, window.DOMTokenList);
 
   t.done();
 };
 
-exports[".length returns number of tokens"] = function (t) {
-  t.equal(this.el.classList.length, 0);
+exports[".length returns number of tokens"] = t => {
+  t.equal(el.classList.length, 0);
 
-  this.el.className = "foo";
-  t.equal(this.el.classList.length, 1);
+  el.className = "foo";
+  t.equal(el.classList.length, 1);
 
-  this.el.className = "foo foo";
-  t.equal(this.el.classList.length, 1);
+  el.className = "foo foo";
+  t.equal(el.classList.length, 1);
 
-  this.el.className = "foo foo bar";
-  t.equal(this.el.classList.length, 2);
+  el.className = "foo foo bar";
+  t.equal(el.classList.length, 2);
 
   t.done();
 };
 
-exports[".item(index) returns expected token"] = function (t) {
-  this.el.className = "foo bar";
-  t.equal(this.el.classList.item(0), "foo");
-  t.equal(this.el.classList.item(1), "bar");
+exports[".item(index) returns expected token"] = t => {
+  el.className = "foo bar";
+  t.equal(el.classList.item(0), "foo");
+  t.equal(el.classList.item(1), "bar");
 
   // when provided index equal to or greater than length, return null
-  t.equal(this.el.classList.item(2), null);
+  t.equal(el.classList.item(2), null);
 
   // when provided index negative, return null
-  t.equal(this.el.classList.item(-1), null);
-  t.equal(this.el.classList.item(-2), null);
+  t.equal(el.classList.item(-1), null);
+  t.equal(el.classList.item(-2), null);
 
   t.done();
 };
 
-exports["[index] returns expected token"] = function (t) {
-  this.el.className = "foo bar";
-  t.equal(this.el.classList[0], "foo");
-  t.equal(this.el.classList[1], "bar");
+exports["[index] returns expected token"] = t => {
+  el.className = "foo bar";
+  t.equal(el.classList[0], "foo");
+  t.equal(el.classList[1], "bar");
 
   // when provided index equal to or greater than length, return undefined
-  t.equal(this.el.classList[2], undefined);
+  t.equal(el.classList[2], undefined);
 
   t.done();
 };
 
-exports[".contains(token) returns whether token exists"] = function (t) {
-  this.el.className = "foo bar";
+exports[".contains(token) returns whether token exists"] = t => {
+  el.className = "foo bar";
 
   // token exists
-  t.ok(this.el.classList.contains("foo"));
-  t.ok(this.el.classList.contains("bar"));
+  t.ok(el.classList.contains("foo"));
+  t.ok(el.classList.contains("bar"));
 
   // token does not exist
-  t.equals(this.el.classList.contains("baz"), false);
+  t.equals(el.classList.contains("baz"), false);
 
   t.done();
 };
 
-exports[".contains() throws if token empty"] = function (t) {
-  const el = this.el;
+exports[".contains() throws if token empty"] = t => {
   function block() {
     el.classList.contains("");
   }
 
   // TODO: should be SyntaxError
-  t.throws(block, this.window.DOMException);
+  t.throws(block, window.DOMException);
 
   t.done();
 };
 
-exports[".contains() throws if token contains whitespace"] = function (t) {
-  const el = this.el;
+exports[".contains() throws if token contains whitespace"] = t => {
   function block() {
     el.classList.contains(" ");
   }
 
   // TODO: should be InvalidCharacterError
-  t.throws(block, this.window.DOMException);
+  t.throws(block, window.DOMException);
 
   t.done();
 };
 
-exports[".add(tokens...) adds provided tokens"] = function (t) {
+exports[".add(tokens...) adds provided tokens"] = t => {
   // add zero tokens
-  this.el.classList.add();
-  t.equals(this.el.className, "");
-  t.equals(this.el.classList.length, 0);
+  el.classList.add();
+  t.equals(el.className, "");
+  t.equals(el.classList.length, 0);
 
   // add one token
-  this.el.classList.add("foo");
-  t.equals(this.el.className, "foo");
-  t.equals(this.el.classList[0], "foo");
+  el.classList.add("foo");
+  t.equals(el.className, "foo");
+  t.equals(el.classList[0], "foo");
 
   // add one token twice
-  this.el.classList.add("foo", "foo");
-  t.equals(this.el.className, "foo");
-  t.equals(this.el.classList[0], "foo");
+  el.classList.add("foo", "foo");
+  t.equals(el.className, "foo");
+  t.equals(el.classList[0], "foo");
 
   // add two distinct tokens
-  this.el.className = "";
-  this.el.classList.add("foo", "bar");
-  t.equals(this.el.className, "foo bar");
-  t.equals(this.el.classList[0], "foo");
-  t.equals(this.el.classList[1], "bar");
+  el.className = "";
+  el.classList.add("foo", "bar");
+  t.equals(el.className, "foo bar");
+  t.equals(el.classList[0], "foo");
+  t.equals(el.classList[1], "bar");
 
   t.done();
 };
 
-exports[".add() throws if a token is empty"] = function (t) {
-  const el = this.el;
+exports[".add() throws if a token is empty"] = t => {
   function block() {
     el.classList.add("foo", "");
   }
 
   // TODO: should be SyntaxError
-  t.throws(block, this.window.DOMException);
+  t.throws(block, window.DOMException);
 
   t.done();
 };
 
-exports[".add() throws if a token contains whitespace"] = function (t) {
-  const el = this.el;
+exports[".add() throws if a token contains whitespace"] = t => {
   function block() {
     el.classList.add("  foo", "bar");
   }
 
   // TODO: should be InvalidCharacterError
-  t.throws(block, this.window.DOMException);
+  t.throws(block, window.DOMException);
 
   t.done();
 };
 
-exports[".remove(tokens...) removes provided tokens"] = function (t) {
+exports[".remove(tokens...) removes provided tokens"] = t => {
   // remove exactly all tokens
-  this.el.className = "foo bar";
-  this.el.classList.remove("bar", "foo");
-  t.equals(this.el.className, "");
-  t.equals(this.el.classList.length, 0);
+  el.className = "foo bar";
+  el.classList.remove("bar", "foo");
+  t.equals(el.className, "");
+  t.equals(el.classList.length, 0);
 
   // remove more tokens than exist
-  this.el.className = "foo bar";
-  this.el.classList.remove("bar");
-  t.equals(this.el.className, "foo");
-  t.equals(this.el.classList[0], "foo");
+  el.className = "foo bar";
+  el.classList.remove("bar");
+  t.equals(el.className, "foo");
+  t.equals(el.classList[0], "foo");
 
   // remove some of the tokens
-  this.el.className = "foo";
-  this.el.classList.remove("foo", "bar");
-  t.equals(this.el.className, "");
-  t.equals(this.el.classList.length, 0);
+  el.className = "foo";
+  el.classList.remove("foo", "bar");
+  t.equals(el.className, "");
+  t.equals(el.classList.length, 0);
 
   // remove one token twice
-  this.el.className = "foo bar";
-  this.el.classList.remove("bar", "bar");
-  t.equals(this.el.className, "foo");
-  t.equals(this.el.classList[0], "foo");
+  el.className = "foo bar";
+  el.classList.remove("bar", "bar");
+  t.equals(el.className, "foo");
+  t.equals(el.classList[0], "foo");
 
   // remove repeated token
-  this.el.className = "foo foo";
-  this.el.classList.remove("foo");
-  t.equals(this.el.className, "");
-  t.equals(this.el.classList.length, 0);
+  el.className = "foo foo";
+  el.classList.remove("foo");
+  t.equals(el.className, "");
+  t.equals(el.classList.length, 0);
 
   t.done();
 };
 
-exports[".remove() throws if a token is empty"] = function (t) {
-  const el = this.el;
+exports[".remove() throws if a token is empty"] = t => {
   function block() {
     el.classList.remove("foo", "");
   }
 
   // TODO: should be SyntaxError
-  t.throws(block, this.window.DOMException);
+  t.throws(block, window.DOMException);
 
   t.done();
 };
 
-exports[".remove() throws if a token contains whitespace"] = function (t) {
-  const el = this.el;
+exports[".remove() throws if a token contains whitespace"] = t => {
   function block() {
     el.classList.remove("  foo", "bar");
   }
 
   // TODO: should be InvalidCharacterError
-  t.throws(block, this.window.DOMException);
+  t.throws(block, window.DOMException);
 
   t.done();
 };
 
-exports[".toggle(token) toggles specified token"] = function (t) {
+exports[".toggle(token) toggles specified token"] = t => {
   // toggle existing token
-  this.el.className = "foo";
-  this.el.classList.toggle("foo");
-  t.equals(this.el.className, "");
-  t.equals(this.el.classList.length, 0);
+  el.className = "foo";
+  el.classList.toggle("foo");
+  t.equals(el.className, "");
+  t.equals(el.classList.length, 0);
 
   // toggle token not present
-  this.el.className = "";
-  this.el.classList.toggle("foo");
-  t.equals(this.el.className, "foo");
-  t.equals(this.el.classList[0], "foo");
+  el.className = "";
+  el.classList.toggle("foo");
+  t.equals(el.className, "foo");
+  t.equals(el.classList[0], "foo");
 
   t.done();
 };
 
-exports[".toggle(token, true) adds token"] = function (t) {
+exports[".toggle(token, true) adds token"] = t => {
   // add token already present
-  this.el.className = "foo";
-  this.el.classList.toggle("foo", true);
-  t.equals(this.el.className, "foo");
-  t.equals(this.el.classList[0], "foo");
+  el.className = "foo";
+  el.classList.toggle("foo", true);
+  t.equals(el.className, "foo");
+  t.equals(el.classList[0], "foo");
 
   // add token not present
-  this.el.className = "";
-  this.el.classList.toggle("foo", true);
-  t.equals(this.el.className, "foo");
-  t.equals(this.el.classList[0], "foo");
+  el.className = "";
+  el.classList.toggle("foo", true);
+  t.equals(el.className, "foo");
+  t.equals(el.classList[0], "foo");
 
   t.done();
 };
 
-exports[".toggle(token, false) removes token"] = function (t) {
+exports[".toggle(token, false) removes token"] = t => {
   // remove existing token
-  this.el.className = "foo";
-  this.el.classList.toggle("foo", false);
-  t.equals(this.el.className, "");
-  t.equals(this.el.classList.length, 0);
+  el.className = "foo";
+  el.classList.toggle("foo", false);
+  t.equals(el.className, "");
+  t.equals(el.classList.length, 0);
 
   // remove a token that does not exist
-  this.el.className = "";
-  this.el.classList.toggle("foo", false);
-  t.equals(this.el.className, "");
-  t.equals(this.el.classList.length, 0);
+  el.className = "";
+  el.classList.toggle("foo", false);
+  t.equals(el.className, "");
+  t.equals(el.classList.length, 0);
 
   t.done();
 };
 
-exports[".toggle(token) returns whether token exists"] = function (t) {
+exports[".toggle(token) returns whether token exists"] = t => {
   // token toggled off
-  this.el.className = "foo";
-  t.equals(this.el.classList.toggle("foo"), false);
+  el.className = "foo";
+  t.equals(el.classList.toggle("foo"), false);
 
   // token toggled on
-  this.el.className = "";
-  t.equals(this.el.classList.toggle("foo"), true);
+  el.className = "";
+  t.equals(el.classList.toggle("foo"), true);
 
   t.done();
 };
 
-exports[".toggle() throws if a token is empty"] = function (t) {
-  const el = this.el;
+exports[".toggle() throws if a token is empty"] = t => {
   function block() {
     el.classList.toggle("");
   }
 
   // TODO: should be SyntaxError
-  t.throws(block, this.window.DOMException);
+  t.throws(block, window.DOMException);
 
   t.done();
 };
 
-exports[".toggle() throws if a token contains whitespace"] = function (t) {
-  const el = this.el;
+exports[".toggle() throws if a token contains whitespace"] = t => {
   function block() {
     el.classList.toggle("  foo");
   }
 
   // TODO: should be InvalidCharacterError
-  t.throws(block, this.window.DOMException);
+  t.throws(block, window.DOMException);
 
   t.done();
 };
 
-exports["accessing classList should remove duplicates"] = function (t) {
-  this.el.className = "a a";
-  this.el.classList; // jshint ignore:line
+exports["accessing classList should remove duplicates"] = t => {
+  el.className = "a a";
 
-  t.equal(this.el.className, "a a");
-  t.equal(this.el.classList.toString(), "a");
+  /* eslint-disable no-unused-expressions */
+  el.classList;
+  /* eslint-enable no-unused-expressions */
 
-  t.done();
-};
-
-exports[".toString() should return empty string when empty"] = function (t) {
-  t.equal(this.el.classList.toString(), "");
+  t.equal(el.className, "a a");
+  t.equal(el.classList.toString(), "a");
 
   t.done();
 };
 
-exports["classList should return same object"] = function (t) {
-  const classList = this.el.classList;
-  t.equal(classList, this.el.classList);
-
-  this.el.className = "foo foo";
-  t.equal(classList, this.el.classList);
+exports[".toString() should return empty string when empty"] = t => {
+  t.equal(el.classList.toString(), "");
 
   t.done();
 };
 
-exports["length should be readonly"] = function (t) {
-  const classList = this.el.classList;
+exports["classList should return same object"] = t => {
+  const classList = el.classList;
+  t.equal(classList, el.classList);
+
+  el.className = "foo foo";
+  t.equal(classList, el.classList);
+
+  t.done();
+};
+
+exports["length should be readonly"] = t => {
+  const classList = el.classList;
   t.equal(classList.length, 0);
 
-  t.throws(function () {
+  t.throws(() => {
     classList.length = "an apple";
   }, TypeError);
 

@@ -1,9 +1,8 @@
 "use strict";
+const jsdom = require("../..");
 
-var jsdom = require("../..").jsdom;
-
-exports["a default window should have a history object with correct default values"] = function (t) {
-  var window = jsdom().defaultView;
+exports["a default window should have a history object with correct default values"] = t => {
+  const window = jsdom.jsdom().defaultView;
 
   t.ok(window.history);
   t.strictEqual(window.history.state, null);
@@ -12,10 +11,10 @@ exports["a default window should have a history object with correct default valu
   t.done();
 };
 
-exports["the history object should update correctly when calling pushState/replaceState"] = function (t) {
-  var window = jsdom("", { url: "http://www.example.org/" }).defaultView;
+exports["the history object should update correctly when calling pushState/replaceState"] = t => {
+  const window = jsdom.jsdom("", { url: "http://www.example.org/" }).defaultView;
 
-  window.addEventListener("popstate", function () {
+  window.addEventListener("popstate", () => {
     t.fail("popstate should not fire as a result of a pushState() or replaceState() call");
   });
 
@@ -47,15 +46,15 @@ exports["the history object should update correctly when calling pushState/repla
   t.done();
 };
 
-exports["the history object should update correctly when calling forward/back/go"] = function (t) {
-  var window = jsdom("", { url: "http://www.example.org/" }).defaultView;
-  var initialPath = window.location.pathname;
+exports["the history object should update correctly when calling forward/back/go"] = t => {
+  const window = jsdom.jsdom("", { url: "http://www.example.org/" }).defaultView;
+  const initialPath = window.location.pathname;
 
   [
     [{ foo: "bar" }, "title 1", "/bar"],
     [{ foo: "baz" }, "title 2", "/baz"],
     [{ foo: "buzz" }, "title 3", "/buzz"]
-  ].forEach(function (args) {
+  ].forEach(args => {
     window.history.pushState.apply(window.history, args);
   });
 
@@ -99,14 +98,14 @@ exports["the history object should update correctly when calling forward/back/go
   t.done();
 };
 
-exports["the history object should update correctly when calling pushState with index behind length"] = function (t) {
-  var window = jsdom("", { url: "http://www.example.org/" }).defaultView;
+exports["the history object should update correctly when calling pushState with index behind length"] = t => {
+  const window = jsdom.jsdom("", { url: "http://www.example.org/" }).defaultView;
 
   [
     [{ foo: "bar" }, "title 1", "/bar"],
     [{ foo: "baz" }, "title 2", "/baz"],
     [{ foo: "buzz" }, "title 3", "/buzz"]
-  ].forEach(function (args) {
+  ].forEach(args => {
     window.history.pushState.apply(window.history, args);
   });
 
@@ -130,14 +129,14 @@ exports["the history object should update correctly when calling pushState with 
   t.done();
 };
 
-exports["the history object should fire popstate on the window while navigating the history"] = function (t) {
-  var window = jsdom("", { url: "http://www.example.org/" }).defaultView;
+exports["the history object should fire popstate on the window while navigating the history"] = t => {
+  const window = jsdom.jsdom("", { url: "http://www.example.org/" }).defaultView;
 
-  var eventFired = false;
-  var state = { foo: "bar" };
-  var eventState;
+  const state = { foo: "bar" };
+  let eventFired = false;
+  let eventState;
 
-  window.addEventListener("popstate", function (event) {
+  window.addEventListener("popstate", event => {
     eventFired = true;
     eventState = event.state;
   });
@@ -146,7 +145,7 @@ exports["the history object should fire popstate on the window while navigating 
   window.history.pushState(null, "", "baz");
   window.history.back();
 
-  setTimeout(function () {
+  setTimeout(() => {
     t.ok(eventFired, "popstate event should be fired.");
     t.strictEqual(state, eventState);
     t.done();

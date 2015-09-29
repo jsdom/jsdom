@@ -1,9 +1,8 @@
 "use strict";
+const jsdom = require("../..");
 
-var jsdom = require("../..");
-
-exports["html input should handle value/defaultValue correctly"] = function (t) {
-  var input = jsdom.jsdom("<input>").querySelector("input");
+exports["html input should handle value/defaultValue correctly"] = t => {
+  const input = jsdom.jsdom("<input>").querySelector("input");
 
   t.strictEqual(input.value, "", "value should equal empty string if uninitialized");
   t.strictEqual(input.defaultValue, "", "defaultValue should equal empty string if uninitialized");
@@ -37,9 +36,9 @@ exports["html input should handle value/defaultValue correctly"] = function (t) 
   t.done();
 };
 
-exports["html input should handle checked/defaultChecked correctly"] = function (t) {
-  var doc = jsdom.jsdom();
-  var checked = doc.createElement("input");
+exports["html input should handle checked/defaultChecked correctly"] = t => {
+  const doc = jsdom.jsdom();
+  const checked = doc.createElement("input");
 
   t.strictEqual(checked.checked, false, "checkedness is false by default");
 
@@ -60,14 +59,14 @@ exports["html input should handle checked/defaultChecked correctly"] = function 
   t.done();
 };
 
-exports["uncheck other radio buttons in the same group"] = function (t) {
-  var doc = jsdom.jsdom();
-  var form = doc.createElement("form");
-  var div = doc.createElement("div");
-  var radioA = doc.createElement("input");
-  var radioB = doc.createElement("input");
-  var radioC = doc.createElement("input");
-  var checkD = doc.createElement("input");
+exports["uncheck other radio buttons in the same group"] = t => {
+  const doc = jsdom.jsdom();
+  const form = doc.createElement("form");
+  const div = doc.createElement("div");
+  const radioA = doc.createElement("input");
+  const radioB = doc.createElement("input");
+  const radioC = doc.createElement("input");
+  const checkD = doc.createElement("input");
   radioA.type = "radio";
   radioB.type = "radio";
   radioC.type = "radio";
@@ -115,6 +114,37 @@ exports["uncheck other radio buttons in the same group"] = function (t) {
   checkD.type = "radio";
   t.strictEqual(radioC.checked, false, "Changing the type should uncheck others");
   t.strictEqual(checkD.checked, true, "Changing the name not uncheck itself");
+
+  t.done();
+};
+
+exports["inputs should default to type text on the property, despite having no attribute"] = t => {
+  const doc = jsdom.jsdom(`<html><head></head><body><input id="input" /></body></html>`);
+  const inputEl = doc.getElementById("input");
+
+  t.equal(inputEl.hasAttribute("type"), false);
+  t.equal(inputEl.getAttribute("type"), null);
+  t.equal(inputEl.type, "text");
+
+  t.done();
+};
+
+exports["setting an input's type property should set its type attribute"] = t => {
+  const doc = jsdom.jsdom(`<html><head></head><body><input id="input" /></body></html>`);
+  const inputEl = doc.getElementById("input");
+  inputEl.type = "checkbox";
+
+  t.equal(inputEl.getAttribute("type"), "checkbox");
+
+  t.done();
+};
+
+exports["an input's parsed type attribute should be reflected in both its property and attribute"] = t => {
+  const doc = jsdom.jsdom(`<html><head></head><body><input id="input" type="checkbox" /></body></html>`);
+  const inputEl = doc.getElementById("input");
+
+  t.equal(inputEl.type, "checkbox");
+  t.equal(inputEl.getAttribute("type"), "checkbox");
 
   t.done();
 };

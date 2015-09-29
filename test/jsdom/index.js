@@ -418,148 +418,6 @@ exports.tests = {
     test.done();
   },
 
-  queryselector: function(test) {
-    var html = '<html><body><div id="main"><p class="foo">Foo</p><p>Bar</p></div></body></html>',
-        document = jsdom.jsdom(html),
-        div = document.body.children.item(0);
-    var element = document.querySelector("#main p");
-    test.equal(element, div.children.item(0), 'p and first-p');
-    var element2 = div.querySelector("p");
-    test.equal(element2, div.children.item(0), 'p and first-p');
-    var element3 = document.querySelector("#main p:not(.foo)");
-    test.equal(element3, div.children.item(1), 'p and second-p');
-    var element3 = document.querySelector("#asdf");
-    test.strictEqual(element3, null, 'nonexistent becomes null');
-    test.done();
-  },
-
-  queryselector_documentfragment: function(test) {
-    var html = '<html><body><div id="main"><p class="foo">Foo</p><p>Bar</p></div></body></html>',
-        document = jsdom.jsdom(html),
-        div = document.body.children.item(0),
-        fragment = document.createDocumentFragment();
-
-    fragment.appendChild(document.body.firstChild);
-    test.strictEqual(document.body.firstChild, null);
-    var element = fragment.querySelector("#main p");
-    test.equal(element, div.children.item(0), 'p and first-p');
-    var element2 = div.querySelector("p");
-    test.equal(element2, div.children.item(0), 'p and first-p');
-    var element3 = fragment.querySelector("#main p:not(.foo)");
-    test.equal(element3, div.children.item(1), 'p and second-p');
-    var element3 = fragment.querySelector("#asdf");
-    test.strictEqual(element3, null, 'nonexistent becomes null');
-    test.done();
-  },
-
-  // TODO: look into breaking into a testcase
-  queryselectorall: function(test) {
-    var html = '<html><body><div id="main"><p>Foo</p><p>Bar</p></div><div id="next"><div id="next-child"><p>Baz</p></div></div></body></html>',
-        document = jsdom.jsdom(html),
-        div = document.body.children.item(0),
-        elements = document.querySelectorAll("#main p");
-    test.equal(elements.length, 2, 'two results');
-    test.equal(elements.item(0), div.children.item(0), 'p and first-p');
-    test.equal(elements.item(1), div.children.item(1), 'p and second-p');
-    var elements2 = div.querySelectorAll("p");
-    test.equal(elements2.length, 2, 'two results');
-    test.equal(elements2.item(0), div.children.item(0), 'p and first-p');
-    test.equal(elements2.item(1), div.children.item(1), 'p and second-p');
-    test.equal(div.querySelectorAll("#main").length, 0, 'It should not return the base element');
-    test.equal(div.querySelectorAll("div").length, 0, 'There are no div elements under div#main');
-    var elements3 = div.querySelectorAll("#main p");
-    test.equal(elements3.length, 2, 'two results');
-    test.equal(elements3.item(0), div.children.item(0), 'p and first-p');
-    test.equal(elements3.item(1), div.children.item(1), 'p and second-p');
-    var topNode = document.createElement('p'),
-        newNode = document.createElement('p');
-    topNode.id = "fuz";
-    newNode.id = "buz";
-    topNode.appendChild(newNode);
-    test.equal(topNode.querySelectorAll("#fuz").length, 0, "It should not return the base element that is orphaned");
-    var elements4 = topNode.querySelectorAll("#fuz #buz");
-    test.equal(elements4.length, 1, 'one result');
-    test.equal(elements4.item(0), newNode, 'newNode and first-p');
-    var elements5 = div.querySelectorAll('p');
-    test.equal(elements5.length, 2, "It should not return elements that are not within the base element's subtrees");
-    test.equal(elements5.item(0), div.children.item(0), 'p and first-p');
-    test.equal(elements5.item(1), div.children.item(1), 'p and second-p');
-    test.strictEqual(topNode.parentNode, null, 'topNode.parentNode is null');
-    var nextChildDiv = document.getElementById('next-child');
-    var elements6 = nextChildDiv.querySelectorAll('p');
-    test.equal(elements6.length, 1, 'p under div#next-child');
-    test.equal(elements6.item(0), nextChildDiv.children.item(0), 'child of div#next-child');
-    test.done();
-  },
-
-  queryselectorall__documentfragment: function(test) {
-    var html = '<html><body><div id="main"><p>Foo</p><p>Bar</p></div><div id="next"><div id="next-child"><p>Baz</p></div></div></body></html>',
-        document = jsdom.jsdom(html),
-        fragment = document.createDocumentFragment();
-    fragment.appendChild(document.body.firstChild);
-    fragment.appendChild(document.body.firstChild);
-    test.strictEqual(document.body.firstChild, null, 'The body should now be empty');
-    var div = fragment.firstChild;
-    var elements = fragment.querySelectorAll("#main p");
-    test.equal(elements.length, 2, 'two results');
-    test.equal(elements.item(0), div.children.item(0), 'p and first-p');
-    test.equal(elements.item(1), div.children.item(1), 'p and second-p');
-    var elements2 = div.querySelectorAll("p");
-    test.equal(elements2.length, 2, 'two results');
-    test.equal(elements2.item(0), div.children.item(0), 'p and first-p');
-    test.equal(elements2.item(1), div.children.item(1), 'p and second-p');
-    test.equal(div.querySelectorAll("#main").length, 0, 'It should not return the base element');
-    test.equal(div.querySelectorAll("div").length, 0, 'There are no div elements under div#main');
-    var elements3 = div.querySelectorAll("#main p");
-    test.equal(elements3.length, 2, 'two results');
-    test.equal(elements3.item(0), div.children.item(0), 'p and first-p');
-    test.equal(elements3.item(1), div.children.item(1), 'p and second-p');
-    var topNode = document.createElement('p'),
-        newNode = document.createElement('p');
-    topNode.id = "fuz";
-    newNode.id = "buz";
-    topNode.appendChild(newNode);
-    test.equal(topNode.querySelectorAll("#fuz").length, 0, "It should not return the base element that is orphaned");
-    var elements4 = topNode.querySelectorAll("#fuz #buz");
-    test.equal(elements4.length, 1, 'one result');
-    test.equal(elements4.item(0), newNode, 'newNode and first-p');
-    var elements5 = div.querySelectorAll('p');
-    test.equal(elements5.length, 2, "It should not return elements that are not within the base element's subtrees");
-    test.equal(elements5.item(0), div.children.item(0), 'p and first-p');
-    test.equal(elements5.item(1), div.children.item(1), 'p and second-p');
-    test.equal(topNode.parentNode, null, 'topNode.parentNode is null');
-    var nextChildDiv = fragment.querySelectorAll('#next-child').item(0);
-    test.notStrictEqual(nextChildDiv, null, 'id selector on fragment not null');
-    var elements6 = nextChildDiv.querySelectorAll('p');
-    test.equal(elements6.length, 1, 'p under div#next-child');
-    test.equal(elements6.item(0), nextChildDiv.children.item(0), 'child of div#next-child');
-    var elements7 = fragment.querySelectorAll('p');
-    test.equal(elements7.length, 3, 'all p');
-    test.equal(elements7.item(0), div.children.item(0), 'p and first-p');
-    test.equal(elements7.item(1), div.children.item(1), 'p and second-p');
-    test.equal(elements7.item(2), nextChildDiv.children.item(0), 'child of div#next-child');
-    test.done();
-  },
-
-  matches: function(test) {
-    var html = '<html><body><div id="main"><p class="foo">Foo</p><p>Bar</p></div></body></html>';
-    var document = jsdom.jsdom(html);
-    var div = document.body.children.item(0);
-
-    var element = document.querySelector("#main p");
-    test.equal(element.matches("#main p"), true, 'p and first-p');
-    var element2 = div.querySelector("p");
-    test.equal(element2.matches("p"), true, 'p and first-p');
-    var element3 = document.querySelector("#main p:not(.foo)");
-    test.equal(element3.matches("#main p:not(.foo)"), true, 'p and second-p');
-
-    test.equal(element.matches("#asdf"), false, "doesn't match wrong selector");
-    test.equal(element2.matches("#asdf"), false, "doesn't match wrong selector");
-    test.equal(element3.matches("#asdf"), false, "doesn't match wrong selector");
-
-    test.done();
-  },
-
   url_resolution: function(test) {
     var html = '\
   <html>\
@@ -638,13 +496,6 @@ exports.tests = {
     test.done();
   },
 
-  document_should_expose_location: function(test) {
-    var window = jsdom.jsdom("").defaultView;
-    test.strictEqual(window.document.location, window.location, 'document.location and window.location');
-    test.done();
-  },
-
-
   mutation_events : function(test) {
     var document = jsdom.jsdom();
     document.implementation._addFeature('MutationEvents', '2.0');
@@ -696,36 +547,6 @@ exports.tests = {
     test.equal(event.attrName, 'class', 'attrName should be class');
     test.equal(event.prevValue, 'bar', 'prevValue should be bar');
 
-    test.done();
-  },
-
-  remove_listener_in_handler: function(test) {
-    var document = jsdom.jsdom();
-    var h1 = 0, h2 = 0;
-
-    // Event handler that removes itself
-    function handler1() {
-      h1++;
-      document.removeEventListener('click', handler1);
-    }
-
-    function handler2() {
-      h2++;
-    }
-
-    document.addEventListener('click', handler1);
-    document.addEventListener('click', handler2);
-
-    var ev = document.createEvent('MouseEvents');
-    ev.initEvent('click', true, true);
-
-    document.dispatchEvent(ev);
-    test.equal(1, h1, "handler1 must be called once");
-    test.equal(1, h2, "handler2 must be called once");
-
-    document.dispatchEvent(ev);
-    test.equal(1, h1, "handler1 must be called once");
-    test.equal(2, h2, "handler2 must be called twice");
     test.done();
   },
 
@@ -823,26 +644,6 @@ exports.tests = {
     test.strictEqual(false, option0.defaultSelected, 'selected does not set default');
     test.strictEqual(false, option1.selected, 'should deselect others');
     test.strictEqual(true, option1.defaultSelected, 'unchanged');
-    test.done();
-  },
-
-  case_sensitivity_of_markup_missing_html_and_body : function(test){
-    var spaces = /[ \n]*/g,
-        doc1 = serializeDocument(jsdom.jsdom("<HTML><BODY></BODY></HTML>")).replace(spaces, ''),
-        doc2 = serializeDocument(jsdom.jsdom("<html><BODY></Body></HTML>")).replace(spaces, ''),
-        doc3 = serializeDocument(jsdom.jsdom("<html><body></body></html>")).replace(spaces, ''),
-        doc4 = serializeDocument(jsdom.jsdom("<body></body>")).replace(spaces, ''),
-        doc5 = serializeDocument(jsdom.jsdom("")).replace(spaces, '');
-
-    test.ok(doc1 === doc2 && doc2 == doc3 && doc3 === doc4 && doc4 == doc5,
-            'they should all serialize the same');
-    test.done();
-  },
-
-  serialization_of_void_elements : function(test){
-    var html = '<html><head></head><body><div><br><hr><audio><source></audio></div></body></html>',
-        doc = jsdom.jsdom(html);
-    test.strictEqual(serializeDocument(doc), html)
     test.done();
   },
 
@@ -1005,17 +806,6 @@ exports.tests = {
       test.ok(w.$, 'window contains $');
       test.done();
     });
-  },
-
-  // see: https://github.com/tmpvar/jsdom/issues/259
-  issue_259 : function(test) {
-    try {
-      jsdom.jsdom('<!DOCTYPE svg>\n<svg version="1.1"></svg>');
-    } catch (e) {
-      console.log(e);
-      test.ok(false, 'Incomplete doctype should not throw an error');
-    }
-    test.done();
   },
 
   issues_230_259 : function(test) {
@@ -1194,22 +984,6 @@ exports.tests = {
     test.done();
   },
 
-  multiple_done_calls_with_src : function(test) {
-    var script = "window.a = (typeof window.a !== 'undefined') ? window.a + 1 : 0;";
-    var doneCounter = 0;
-    jsdom.env({
-      html : '<div />',
-      src : [script, script, script],
-      done: function(errors, window) {
-        doneCounter++;
-        if (window.a === 2) {
-          test.equal(doneCounter, 1);
-          test.done();
-        }
-      }
-    });
-  },
-
   setting_and_getting_script_element_text : function (test) {
     var doc = jsdom.jsdom("<script></script>");
     var script = doc.getElementsByTagName('script')[0];
@@ -1218,21 +992,6 @@ exports.tests = {
     test.equal(script.text, 'var x = 3;');
     script.text = 'var y = 2;';
     test.equal(script.text, 'var y = 2;');
-    test.done();
-  },
-
-  issue_58_parse_templatedtags: function(test) {
-    /* There is a unit of whitespace at the front of the script tag
-       content as a workaround for
-       https://github.com/tautologistics/node-htmlparser/issues/29
-    */
-    var content = ' <%= cid %>'
-    var script = '<script type="text/x-underscore-tmpl">' + content + '</script>'
-    var html = '<html><head>' + script + '</head><body><p>hello world!</p></body></html>'
-    var doc = jsdom.jsdom(html)
-    doc.write(html);
-    doc.close();
-    test.equal(doc.head.childNodes[0].innerHTML, content);
     test.done();
   },
 
@@ -1311,27 +1070,6 @@ exports.tests = {
     test.done();
   },
 
-  issue_319_HIERARCHY_REQUEST_ERR : function(test){
-   jsdom.env({
-      html: '<!DOCTYPE html><html><head><title>Title</title></head><body>My body</body></html><div></div>',
-      done : function(errors,window){
-        // TODO: ensure errors is not null, and contains the error message
-        // test.ok(errors);
-        test.ok(window);
-        test.done();
-      }
-   });
-  },
-
-  issue_371_outerhtml_noformat : function(test) {
-    var originalHTML = '<li><span>A</span><span>B</span></li>';
-    var dom = jsdom.jsdom(originalHTML);
-    var outerHTML = serializeDocument(dom);
-
-    test.equal(outerHTML, '<html><head></head><body>' + originalHTML + '</body></html>');
-    test.done();
-  },
-
   issue_509_out_of_memory : function(test) {
     var fs = require("fs");
 
@@ -1354,40 +1092,6 @@ exports.tests = {
       test.ok(true);
       test.done();
     });
-  },
-
-  inputs_should_default_to_type_text : function(test) {
-    test.expect(3);
-
-    var doc = jsdom.jsdom('<html><head></head><body><input id="input" /></body></html>');
-    var inputEl = doc.getElementById('input');
-    test.equal(inputEl.hasAttribute('type'), false);
-    test.equal(inputEl.getAttribute('type'), null);
-    test.equal(inputEl.type, 'text');
-
-    test.done();
-  },
-
-  input_type_should_set_attribute : function(test) {
-    test.expect(1);
-
-    var doc = jsdom.jsdom('<html><head></head><body><input id="input" /></body></html>');
-    var inputEl = doc.getElementById('input');
-    inputEl.type = 'checkbox';
-    test.equal(inputEl.getAttribute('type'), 'checkbox');
-
-    test.done();
-  },
-
-  input_type_should_reflect_in_property : function(test) {
-    test.expect(2);
-
-    var doc = jsdom.jsdom('<html><head></head><body><input id="input" type="checkbox" /></body></html>');
-    var inputEl = doc.getElementById('input');
-    test.equal(inputEl.type, 'checkbox');
-    test.equal(inputEl.getAttribute('type'), 'checkbox');
-
-    test.done();
   },
 
   iframe_contents: function (test) {

@@ -1,30 +1,36 @@
 "use strict";
+const jsdom = require("../..");
 
-var jsdom = require("../..");
+exports["window.location and document.location should be equal"] = t => {
+  const window = jsdom.jsdom().defaultView;
 
-exports["window.location.href for a default window is about:blank"] = function (t) {
-  var window = jsdom.jsdom().defaultView;
+  t.strictEqual(window.document.location, window.location);
+  t.done();
+};
+
+exports["window.location.href for a default window is about:blank"] = t => {
+  const window = jsdom.jsdom().defaultView;
 
   t.equal(window.location.href, "about:blank");
   t.done();
 };
 
-exports["window.location.port for an about:blank window"] = function (t) {
-  var window = jsdom.jsdom().defaultView;
+exports["window.location.port for an about:blank window"] = t => {
+  const window = jsdom.jsdom().defaultView;
 
   t.equal(window.location.port, "");
   t.done();
 };
 
-exports["window.location.hash is manipulable"] = function (t) {
-  var window = jsdom.jsdom("", {
+exports["window.location.hash is manipulable"] = t => {
+  const window = jsdom.jsdom("", {
     url: "http://www.example.com"
   }).defaultView;
-  var defaultHref = window.location.href;
+  const defaultHref = window.location.href;
 
   t.equals(window.location.hash, "");
 
-  window.location.href = window.location.href + "#foobar";
+  window.location.href += "#foobar";
   t.equals(window.location.hash, "#foobar");
 
   window.location.hash = "#baz";
@@ -34,15 +40,15 @@ exports["window.location.hash is manipulable"] = function (t) {
   t.done();
 };
 
-exports["window.location.search is manipulable"] = function (t) {
-  var window = jsdom.jsdom("", {
+exports["window.location.search is manipulable"] = t => {
+  const window = jsdom.jsdom("", {
     url: "http://www.example.com"
   }).defaultView;
-  var defaultSearch = window.location.search;
+  const defaultSearch = window.location.search;
 
   t.equals(window.location.search, "");
 
-  window.location.search = window.location.search + "?foo=bar";
+  window.location.search += "?foo=bar";
   t.equals(window.location.search, "?foo=bar");
 
   window.location.search = "?baz=qux";
@@ -52,12 +58,12 @@ exports["window.location.search is manipulable"] = function (t) {
   t.done();
 };
 
-exports["window.location.search can be set without messing up the location's hash"] = function (t) {
-  var window = jsdom.jsdom("", {
+exports["window.location.search can be set without messing up the location's hash"] = t => {
+  const window = jsdom.jsdom("", {
     url: "http://www.example.com"
   }).defaultView;
 
-  window.location.href = window.location.href + "#foo";
+  window.location.href += "#foo";
   window.location.search = "?foo=bar";
   t.equals(window.location.href.split("?")[1], "foo=bar#foo");
 
@@ -67,11 +73,11 @@ exports["window.location.search can be set without messing up the location's has
   t.done();
 };
 
-exports["when changing window.location.href by adding a hash, should fire a hashchange event"] = function (t) {
-  var window = jsdom.jsdom("", {
+exports["when changing window.location.href by adding a hash, should fire a hashchange event"] = t => {
+  const window = jsdom.jsdom("", {
     url: "http://www.example.com"
   }).defaultView;
-  window.addEventListener("hashchange", function () {
+  window.addEventListener("hashchange", () => {
     t.ok(true, "hashchange event was fired");
     t.done();
   });
@@ -79,11 +85,11 @@ exports["when changing window.location.href by adding a hash, should fire a hash
   window.location.href += "#foo";
 };
 
-exports["when changing window.location.hash directly, should fire a hashchange event"] = function (t) {
-  var window = jsdom.jsdom("", {
+exports["when changing window.location.hash directly, should fire a hashchange event"] = t => {
+  const window = jsdom.jsdom("", {
     url: "http://www.example.com"
   }).defaultView;
-  window.addEventListener("hashchange", function () {
+  window.addEventListener("hashchange", () => {
     t.ok(true, "hashchange event was fired");
     t.done();
   });
@@ -91,8 +97,8 @@ exports["when changing window.location.hash directly, should fire a hashchange e
   window.location.hash = "#foo";
 };
 
-exports["window.location components are correct"] = function (t) {
-  var window = jsdom.jsdom("", {
+exports["window.location components are correct"] = t => {
+  const window = jsdom.jsdom("", {
     url: "http://www.example.com:1234/path/to/foo.txt?blahblah#hash"
   }).defaultView;
 

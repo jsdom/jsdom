@@ -1,4 +1,5 @@
 "use strict";
+/* eslint no-console: 0 */
 
 const consoleReporter = require("./console-reporter");
 const pathToSuites = require("./path-to-suites");
@@ -12,12 +13,10 @@ module.exports = function (suites, documentImplementation) {
   let suitesToRun = pathToSuites(benchmarks, suites);
   suitesToRun.forEach(consoleReporter);
 
-  suitesToRun = suitesToRun.map(function (suite) {
+  suitesToRun = suitesToRun.map(suite => {
     let runSuite = suite;
     if (documentImplementation) {
-      runSuite = suite.filter(function (benchmark) {
-        return benchmark.jsdomDocumentImplementation === documentImplementation;
-      });
+      runSuite = suite.filter(benchmark => benchmark.jsdomDocumentImplementation === documentImplementation);
       runSuite.name = suite.name;
       consoleReporter(runSuite);
     }
@@ -26,11 +25,12 @@ module.exports = function (suites, documentImplementation) {
   });
 
   function runNext() {
-    /* jshint -W040 */
+    /* eslint-disable no-invalid-this */
     if (this && this.off) {
       // there is no .once()
       this.off("complete", runNext);
     }
+    /* eslint-enable no-invalid-this */
 
     const suite = suitesToRun.shift();
     if (!suite) {
@@ -40,9 +40,8 @@ module.exports = function (suites, documentImplementation) {
 
     suite.off("complete", runNext);
     suite.on("complete", runNext);
-    suite.run({async: true});
+    suite.run({ async: true });
   }
 
   runNext();
-
 };

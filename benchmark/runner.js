@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 "use strict";
+/* eslint-disable no-console */
 
 const consoleReporter = require("./console-reporter");
 const pathToSuites = require("./path-to-suites");
@@ -23,13 +24,13 @@ if (optimist.argv.help) {
 }
 
 if (optimist.argv.bundle) {
-  const bundle = require("browserify")({debug: true});
-  bundle.require(path.resolve(__dirname, ".."), {expose: "jsdom"});
-  bundle.require(path.resolve(__dirname, "browser-runner.js"), {expose: "jsdom-browser-runner"});
+  const bundle = require("browserify")({ debug: true });
+  bundle.require(path.resolve(__dirname, ".."), { expose: "jsdom" });
+  bundle.require(path.resolve(__dirname, "browser-runner.js"), { expose: "jsdom-browser-runner" });
 
   bundle.bundle()
-    .pipe(fs.createWriteStream(__dirname + "/browser-bundle.js"))
-    .on("finish", function () {
+    .pipe(fs.createWriteStream(path.resolve(__dirname, "browser-bundle.js")))
+    .on("finish", () => {
       console.info("Open the following page in Chrome to begin benchmarking:",
                    toFileUrl(path.resolve(__dirname, "browser-runner.html")));
     });
@@ -46,11 +47,12 @@ if (optimist.argv.suites) {
 suitesToRun.forEach(consoleReporter);
 
 function runNext() {
-  /* jshint -W040 */
+  /* eslint-disable no-invalid-this */
   if (this && this.off) {
     // there is no .once()
     this.off("complete", runNext);
   }
+  /* eslint-enable no-invalid-this */
 
   const suite = suitesToRun.shift();
   if (!suite) {
@@ -60,7 +62,7 @@ function runNext() {
 
   suite.off("complete", runNext);
   suite.on("complete", runNext);
-  suite.run({async: true});
+  suite.run({ async: true });
 }
 
 runNext();

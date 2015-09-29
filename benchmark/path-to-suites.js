@@ -5,22 +5,20 @@ const getSuites = require("./get-suites");
 module.exports = function pathToSuites(benchmarks, paths) {
   let ret = [];
   if (paths && paths.length) {
-
     // dom/construction/createElement => benchmarks.dom.construction.createElement
-    paths.forEach(function (path) {
+    for (const path of paths) {
       const parts = path.split(/[\/\\]/);
       let suites = benchmarks;
 
-      parts.forEach(function (part) {
+      for (const part of parts) {
         suites = suites.hasOwnProperty(part) && suites[part];
         if (!suites) {
           throw Error("Invalid suite: '" + path + "'");
         }
-      });
+      }
 
       ret = ret.concat(getSuites(suites));
-    });
-
+    }
   } else {
     ret = ret.concat(getSuites(benchmarks));
   }

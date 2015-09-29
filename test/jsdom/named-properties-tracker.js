@@ -9,18 +9,18 @@ function joinIterator(values) {
   return joinedValue;
 }
 
-exports["get() should return the tracker previously created by create()"] = function (t) {
+exports["get() should return the tracker previously created by create()"] = t => {
   const obj = {};
 
   t.ok(NamedPropertiesTracker.get(obj) === null);
-  const tracker = NamedPropertiesTracker.create(obj, function () {});
+  const tracker = NamedPropertiesTracker.create(obj, () => { });
   t.ok(NamedPropertiesTracker.get(obj) === tracker);
   t.done();
 };
 
-exports["track() and untrack() should do nothing for empty names"] = function (t) {
+exports["track() and untrack() should do nothing for empty names"] = t => {
   const obj = {};
-  const tracker = NamedPropertiesTracker.create(obj, function () {});
+  const tracker = NamedPropertiesTracker.create(obj, () => { });
 
   tracker.track(undefined, "foo");
   tracker.track(null, "foo");
@@ -31,10 +31,10 @@ exports["track() and untrack() should do nothing for empty names"] = function (t
   t.done();
 };
 
-exports["should define a getter which calls the resolver each time"] = function (t) {
+exports["should define a getter which calls the resolver each time"] = t => {
   let state = "bar";
   const obj = {};
-  const tracker = NamedPropertiesTracker.create(obj, function (object, name, values) {
+  const tracker = NamedPropertiesTracker.create(obj, (object, name, values) => {
     t.ok(object === obj);
     t.strictEqual(typeof values, "function");
     t.ok(values() instanceof Set);
@@ -52,10 +52,10 @@ exports["should define a getter which calls the resolver each time"] = function 
   t.done();
 };
 
-exports["the resolver should receive a `values` argument that is 'live'"] = function (t) {
+exports["the resolver should receive a `values` argument that is 'live'"] = t => {
   const obj = {};
   let liveValues;
-  const tracker = NamedPropertiesTracker.create(obj, function (object, name, values) {
+  const tracker = NamedPropertiesTracker.create(obj, (object, name, values) => {
     liveValues = values;
     return "foo";
   });
@@ -76,13 +76,13 @@ exports["the resolver should receive a `values` argument that is 'live'"] = func
   t.done();
 };
 
-exports["named properties should be enumerable"] = function (t) {
+exports["named properties should be enumerable"] = t => {
   const obj = {};
-  const tracker = NamedPropertiesTracker.create(obj, function () { return "bar"; });
+  const tracker = NamedPropertiesTracker.create(obj, () => "bar");
 
   tracker.track("foo", 123);
   let found = false;
-  for (let key in obj) {
+  for (const key in obj) {
     if (key === "foo") {
       found = true;
     }
@@ -92,9 +92,9 @@ exports["named properties should be enumerable"] = function (t) {
   t.done();
 };
 
-exports["named properties should be configurable"] = function (t) {
+exports["named properties should be configurable"] = t => {
   const obj = {};
-  const tracker = NamedPropertiesTracker.create(obj, function () { return "bar"; });
+  const tracker = NamedPropertiesTracker.create(obj, () => "bar");
 
   tracker.track("foo", 123);
   tracker.track("dog", 456);
@@ -110,9 +110,9 @@ exports["named properties should be configurable"] = function (t) {
   t.done();
 };
 
-exports["named properties should be settable"] = function (t) {
+exports["named properties should be settable"] = t => {
   const obj = {};
-  const tracker = NamedPropertiesTracker.create(obj, function () { return "bar"; });
+  const tracker = NamedPropertiesTracker.create(obj, () => "bar");
 
   tracker.track("foo", 123);
   obj.foo = 10;
@@ -121,9 +121,9 @@ exports["named properties should be settable"] = function (t) {
   t.done();
 };
 
-exports["a named property should not override an existing property"] = function (t) {
+exports["a named property should not override an existing property"] = t => {
   const obj = {};
-  const tracker = NamedPropertiesTracker.create(obj, function () { return "bar"; });
+  const tracker = NamedPropertiesTracker.create(obj, () => "bar");
 
   obj.foo = 10;
   tracker.track("foo", 123);
@@ -135,9 +135,9 @@ exports["a named property should not override an existing property"] = function 
   t.done();
 };
 
-exports["a named property should not override an existing property, even if undefined"] = function (t) {
+exports["a named property should not override an existing property, even if undefined"] = t => {
   const obj = {};
-  const tracker = NamedPropertiesTracker.create(obj, function () { return "bar"; });
+  const tracker = NamedPropertiesTracker.create(obj, () => "bar");
 
   obj.foo = undefined;
   tracker.track("foo", 123);
@@ -152,11 +152,11 @@ exports["a named property should not override an existing property, even if unde
   t.done();
 };
 
-exports["a named property should not override properties from the prototype"] = function (t) {
+exports["a named property should not override properties from the prototype"] = t => {
   function Abc() {}
   Abc.prototype.foo = 12345;
   const obj = new Abc();
-  const tracker = NamedPropertiesTracker.create(obj, function () { return "bar"; });
+  const tracker = NamedPropertiesTracker.create(obj, () => "bar");
 
   tracker.track("foo", 123);
   t.strictEqual(obj.foo, 12345);
@@ -167,23 +167,23 @@ exports["a named property should not override properties from the prototype"] = 
   t.done();
 };
 
-exports["a named property should not override Object properties"] = function (t) {
+exports["a named property should not override Object properties"] = t => {
   const obj = {};
-  const tracker = NamedPropertiesTracker.create(obj, function () { return "bar"; });
+  const tracker = NamedPropertiesTracker.create(obj, () => "bar");
   const props = ["__proto__", "toString", "constructor", "hasOwnProperty", "isPrototypeOf"];
 
-  props.forEach(function (prop) {
+  for (const prop of props) {
     const value = obj[prop];
     tracker.track(prop, 123);
     t.strictEqual(obj[prop], value, prop + " should not have been overridden");
-  });
+  }
 
   t.done();
 };
 
-exports["a named property that has been untracked should not be 'in' the object"] = function (t) {
+exports["a named property that has been untracked should not be 'in' the object"] = t => {
   const obj = {};
-  const tracker = NamedPropertiesTracker.create(obj, function () { return "bla"; });
+  const tracker = NamedPropertiesTracker.create(obj, () => "bla");
 
   tracker.track("foo", 123);
   tracker.untrack("foo", 123);

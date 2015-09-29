@@ -564,3 +564,27 @@ exports['prevent default'] = testcase({
     test.done();
   }
 })
+
+exports["remove listener in handler"] = t => {
+  const document = jsdom.jsdom();
+  let h1 = 0, h2 = 0;
+
+  document.addEventListener("click", function handler1() {
+    // Event handler that removes itself
+    h1++;
+    document.removeEventListener("click", handler1);
+  });
+  document.addEventListener("click", () => h2++);
+
+  const ev = document.createEvent("MouseEvents");
+  ev.initEvent("click", true, true);
+
+  document.dispatchEvent(ev);
+  t.strictEqual(h1, 1, "handler1 must be called once");
+  t.strictEqual(h2, 1, "handler2 must be called once");
+
+  document.dispatchEvent(ev);
+  t.strictEqual(h1, 1, "handler1 must be called once");
+  t.strictEqual(h2, 2, "handler2 must be called twice");
+  t.done();
+};

@@ -1,7 +1,7 @@
 "use strict";
 const jsdom = require("../..");
 
-exports["Can reconfigure top"] = function (t) {
+exports["Can reconfigure top"] = t => {
   const window = jsdom.jsdom().defaultView;
 
   const targetTop = { is: "top" };
@@ -21,7 +21,7 @@ exports["Can reconfigure top"] = function (t) {
   t.done();
 };
 
-exports["Passing no top option does nothing"] = function (t) {
+exports["Passing no top option does nothing"] = t => {
   const window = jsdom.jsdom().defaultView;
 
   jsdom.reconfigureWindow(window, { });

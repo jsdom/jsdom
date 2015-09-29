@@ -1,7 +1,7 @@
 "use strict";
 const jsdom = require("../..");
 
-exports["jsdom.nodeLocation on an element"] = function (t) {
+exports["jsdom.nodeLocation on an element"] = t => {
   const document = jsdom.jsdom("<p>Hello</p>");
   const el = document.querySelector("p");
 
@@ -14,7 +14,7 @@ exports["jsdom.nodeLocation on an element"] = function (t) {
   t.done();
 };
 
-exports["jsdom.nodeLocation on a text node"] = function (t) {
+exports["jsdom.nodeLocation on a text node"] = t => {
   const document = jsdom.jsdom("<p>Hello</p>");
   const el = document.querySelector("p");
 
@@ -22,7 +22,7 @@ exports["jsdom.nodeLocation on a text node"] = function (t) {
   t.done();
 };
 
-exports["jsdom.nodeLocation on a void element"] = function (t) {
+exports["jsdom.nodeLocation on a void element"] = t => {
   const document = jsdom.jsdom(`<p>Hello
     <img src="foo.jpg">
   </p>`);

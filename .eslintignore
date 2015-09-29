@@ -1,3 +1,5 @@
+node_modules
+
 benchmark/browser-bundle.js
 test/worker-bundle.js
 
@@ -16,23 +18,24 @@ lib/jsdom/level3/index.js
 lib/jsdom/level3/ls.js
 lib/jsdom/level3/xpath.js
 
-# because JSHint can't handle for-of
-lib/jsdom/living/attributes.js
+lib/jsdom/living/generated/**
 
-lib/jsdom/living/generated
-!lib/jsdom/living/generated/**/*-impl.js
+# Buggy: https://github.com/eslint/eslint/issues/3707
+#!lib/jsdom/living/generated/**/*-impl.js
+# Compensated in package.json
 
-test/browser
+test/browser/files
+test/browser/index.js
 test/jquery-fixtures
-test/jsonp
+test/jsdom/files
+test/jsdom/index.js
+test/jsdom/leak.js
 test/level1
 test/level2
 test/level3
 test/sizzle
-test/w3c/tests
-test/window
+test/web-platform-tests/tests
+test/window/files
+test/window/frame.js
+test/window/script.js
 test/*.js
-
-test/jsdom/index.js
-test/jsdom/leak.js
-test/jsdom/files

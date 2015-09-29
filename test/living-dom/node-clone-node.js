@@ -4,14 +4,14 @@ const jsdom = require("../..").jsdom;
 // Tests for node.cloneNode
 // Spec: https://dom.spec.whatwg.org/#dom-node-clonenodedeep
 
-exports["Should be able to clone elements with strange names containing colons"] = function (t) {
+exports["Should be able to clone elements with strange names containing colons"] = t => {
   // https://github.com/tmpvar/jsdom/issues/1142#issuecomment-108122608
   const doc = jsdom("KSL.com <http://KSL.com> has not verified the accuracy of the information provided with");
 
   // Parses as <http: ksl.com=""> has not verified ...</http:>
 
   let clone;
-  t.doesNotThrow(function () {
+  t.doesNotThrow(() => {
     clone = doc.body.cloneNode(true);
   });
 
@@ -20,14 +20,14 @@ exports["Should be able to clone elements with strange names containing colons"]
   t.done();
 };
 
-exports["Should be able to clone elements with strange names containing angle brackets"] = function (t) {
+exports["Should be able to clone elements with strange names containing angle brackets"] = t => {
   // https://github.com/tmpvar/jsdom/issues/1142#issuecomment-108122608
   const doc = jsdom("<p>Blah blah blah<p><Home-Schooling</b><p><p>In talking with parents who home-school");
 
   // Parses as <home-schooling< b=""></home-schooling>
 
   let clone;
-  t.doesNotThrow(function () {
+  t.doesNotThrow(() => {
     clone = doc.body.cloneNode(true);
   });
 
@@ -36,7 +36,7 @@ exports["Should be able to clone elements with strange names containing angle br
   t.done();
 };
 
-exports["Cloning a text node"] = function (t) {
+exports["Cloning a text node"] = t => {
   const doc = jsdom("<p>Some text</p>");
 
   const original = doc.querySelector("p").firstChild;
@@ -48,7 +48,7 @@ exports["Cloning a text node"] = function (t) {
   t.done();
 };
 
-exports["Cloning a comment node"] = function (t) {
+exports["Cloning a comment node"] = t => {
   const doc = jsdom("<body><!-- Some text --></body>");
 
   const original = doc.body.firstChild;
@@ -60,7 +60,7 @@ exports["Cloning a comment node"] = function (t) {
   t.done();
 };
 
-exports["Cloning a comment node"] = function (t) {
+exports["Cloning a comment node"] = t => {
   const doc = jsdom("<body><!-- Some text --></body>");
 
   const original = doc.body.firstChild;
@@ -72,7 +72,7 @@ exports["Cloning a comment node"] = function (t) {
   t.done();
 };
 
-exports["Cloning a doctype node"] = function (t) {
+exports["Cloning a doctype node"] = t => {
   const doc = jsdom("<!DOCTYPE html><title>stuff</title>");
 
   const original = doc.doctype;
@@ -86,7 +86,7 @@ exports["Cloning a doctype node"] = function (t) {
   t.done();
 };
 
-exports["Cloning a document fragment node, shallowly"] = function (t) {
+exports["Cloning a document fragment node, shallowly"] = t => {
   const doc = jsdom();
 
   const original = doc.createDocumentFragment();
@@ -102,7 +102,7 @@ exports["Cloning a document fragment node, shallowly"] = function (t) {
   t.done();
 };
 
-exports["Cloning a document fragment node, deeply"] = function (t) {
+exports["Cloning a document fragment node, deeply"] = t => {
   const doc = jsdom();
 
   const original = doc.createDocumentFragment();
@@ -120,7 +120,7 @@ exports["Cloning a document fragment node, deeply"] = function (t) {
   t.done();
 };
 
-exports["Deep heterogenous clone of a document"] = function (t) {
+exports["Deep heterogenous clone of a document"] = t => {
   const doc = jsdom("<body><!-- comment -->text<p attr='stuff'>element</p>");
 
   const clone = doc.cloneNode(true);

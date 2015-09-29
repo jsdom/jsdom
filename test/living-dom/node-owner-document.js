@@ -1,21 +1,20 @@
 "use strict";
-
-var jsdom = require("../..").jsdom;
+const jsdom = require("../..").jsdom;
 
 // Spec: https://dom.spec.whatwg.org/#dom-node-ownerdocument
 
-exports["ownerDocument returns null for document nodes"] = function (t) {
-  var doc = jsdom();
+exports["ownerDocument returns null for document nodes"] = t => {
+  const doc = jsdom();
   t.equal(doc.ownerDocument, null);
   t.done();
 };
 
-exports["ownerDocument returns the appropriate document for in-document nodes"] = function (t) {
-  var doc = jsdom("<!DOCTYPE html><p>Text</p><!-- comment -->");
-  var el = doc.querySelector("p");
-  var text = el.firstChild;
-  var comment = el.nextSibling;
-  var doctype = doc.doctype;
+exports["ownerDocument returns the appropriate document for in-document nodes"] = t => {
+  const doc = jsdom("<!DOCTYPE html><p>Text</p><!-- comment -->");
+  const el = doc.querySelector("p");
+  const text = el.firstChild;
+  const comment = el.nextSibling;
+  const doctype = doc.doctype;
 
   t.equal(el.nodeType, doc.ELEMENT_NODE);
   t.equal(el.ownerDocument, doc, "element node");
@@ -34,14 +33,14 @@ exports["ownerDocument returns the appropriate document for in-document nodes"] 
   t.done();
 };
 
-exports["ownerDocument returns the appropriate document for detached nodes"] = function (t) {
-  var doc = jsdom();
-  var el = doc.createElement("p");
-  var text = doc.createTextNode("text");
-  var comment = doc.createComment("comment");
-  var doctype = doc.implementation.createDocumentType("blah", "blah", "blah");
-  var fragment = doc.createDocumentFragment();
-  var pi = doc.createProcessingInstruction("blah", "blah");
+exports["ownerDocument returns the appropriate document for detached nodes"] = t => {
+  const doc = jsdom();
+  const el = doc.createElement("p");
+  const text = doc.createTextNode("text");
+  const comment = doc.createComment("comment");
+  const doctype = doc.implementation.createDocumentType("blah", "blah", "blah");
+  const fragment = doc.createDocumentFragment();
+  const pi = doc.createProcessingInstruction("blah", "blah");
 
   t.equal(el.nodeType, doc.ELEMENT_NODE);
   t.equal(el.ownerDocument, doc, "element node");

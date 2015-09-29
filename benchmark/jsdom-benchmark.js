@@ -1,11 +1,11 @@
 "use strict";
 const Benchmark = require("benchmark");
-const extend = require("xtend");
 
 function noop() {}
 
 module.exports = function jsdomBenchmark(optionsArg) {
-  const options = extend(
+  const options = Object.assign(
+    {},
     typeof optionsArg === "function" ? { fn: optionsArg } : optionsArg,
     {
       jsdomSetup: optionsArg.setup || noop,

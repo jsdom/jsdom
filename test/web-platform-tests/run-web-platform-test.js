@@ -1,5 +1,8 @@
 "use strict";
 
+const path = require("path");
+const logger = console;
+
 const jsdom = require("../..");
 
 const globalPool = { maxSockets: 6 };
@@ -14,7 +17,7 @@ function createJsdom(urlPrefix, testPath, t) {
       FetchExternalResources: ["script", "frame", "iframe", "link"],
       ProcessExternalResources: ["script"]
     },
-    virtualConsole: jsdom.createVirtualConsole().sendTo(console),
+    virtualConsole: jsdom.createVirtualConsole().sendTo(logger),
     resourceLoader(resource, callback) {
       if (resource.url.href === reporterHref) {
         callback(null, "window.shimTest();");
@@ -29,9 +32,8 @@ function createJsdom(urlPrefix, testPath, t) {
         return;
       }
 
-      window.shimTest = function () {
-        /* jshint -W106 */
-        window.add_result_callback(function (test) {
+      window.shimTest = () => {
+        window.add_result_callback(test => {
           if (test.status === 1) {
             t.ok(false, "Failed in \"" + test.name + "\": \n" + test.message + "\n\n" + test.stack);
           } else if (test.status === 2) {
@@ -41,7 +43,7 @@ function createJsdom(urlPrefix, testPath, t) {
           }
         });
 
-        window.add_completion_callback(function (tests, harnessStatus) {
+        window.add_completion_callback((tests, harnessStatus) => {
           t.ok(harnessStatus.status !== 2, "test harness should not timeout");
           window.close();
           t.done();
@@ -63,20 +65,20 @@ module.exports = function (exports) {
   const server = new EventEmitter();
   server.started = false;
 
-  dns.lookup("web-platform.test", function (err) {
+  dns.lookup("web-platform.test", err => {
     if (err) {
-      console.log("Error : you should add these lines to you hosts file :");
-      console.log("127.0.0.1   web-platform.test");
-      console.log("127.0.0.1   www.web-platform.test");
-      console.log("127.0.0.1   www1.web-platform.test");
-      console.log("127.0.0.1   www2.web-platform.test");
-      console.log("127.0.0.1   xn--n8j6ds53lwwkrqhv28a.web-platform.test");
-      console.log("127.0.0.1   xn--lve-6lad.web-platform.test");
+      logger.error("Error : you should add these lines to you hosts file :");
+      logger.error("127.0.0.1   web-platform.test");
+      logger.error("127.0.0.1   www.web-platform.test");
+      logger.error("127.0.0.1   www1.web-platform.test");
+      logger.error("127.0.0.1   www2.web-platform.test");
+      logger.error("127.0.0.1   xn--n8j6ds53lwwkrqhv28a.web-platform.test");
+      logger.error("127.0.0.1   xn--lve-6lad.web-platform.test");
       process.exit(1);
     }
 
     const python = childProcess.spawn("python", ["./serve", "--config", "../config.jsdom.json"], {
-      cwd: __dirname + "/tests"
+      cwd: path.join(__dirname, "tests")
     });
 
     let current = "";
@@ -92,43 +94,43 @@ module.exports = function (exports) {
         server.error = true;
       }
       if (server.error) {
-        console.error(line);
+        logger.error(line);
       }
     }
 
     function readData(data) {
       current += data.toString();
-      const lines = current.split(/(?:\r?\n)/g);
-      for (var i = 0; i < lines.length - 1; i++) {
-        if (lines[i]) {
-          readLine(lines[i]);
+      const newlines = current.split(/(?:\r?\n)/g);
+      for (let i = 0; i < newlines.length - 1; i++) {
+        if (newlines[i]) {
+          readLine(newlines[i]);
         }
       }
-      current = lines[lines.length - 1];
+      current = newlines[newlines.length - 1];
     }
 
     python.stderr.on("data", readData);
 
-    python.stderr.on("end", function () {
+    python.stderr.on("end", () => {
       readLine(current);
       if (!server.started) {
-        console.error(lines.join("\n"));
+        logger.error(lines.join("\n"));
       }
     });
 
-    process.on("exit", function () {
+    process.on("exit", () => {
       python.kill();
     });
   });
 
   const urlPrefix = "http://web-platform.test:9000/";
 
-  return function (testPath) {
-    exports[testPath] = function (t) {
+  return testPath => {
+    exports[testPath] = t => {
       if (server.started) {
         createJsdom(urlPrefix, testPath, t);
       } else {
-        server.on("start", function () {
+        server.on("start", () => {
           createJsdom(urlPrefix, testPath, t);
         });
       }

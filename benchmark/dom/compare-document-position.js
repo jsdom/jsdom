@@ -8,7 +8,7 @@ exports["compare siblings"] = function () {
   let it;
 
   return suite({
-    setup: function (document) {
+    setup(document) {
       parent = document.createElement("div");
       children = new Array(Math.max(SIBLINGS, this.count));
       if (children.length % 2 === 1) {
@@ -22,7 +22,7 @@ exports["compare siblings"] = function () {
 
       it = 0;
     },
-    fn: function () {
+    fn() {
       children[it].compareDocumentPosition(children[(it + children.length / 2) % children.length]);
       ++it;
     }
@@ -36,7 +36,7 @@ exports["compare descendant"] = function () {
   let deepest;
 
   return suite({
-    setup: function (document) {
+    setup(document) {
       parent = document.createElement("div");
       deepest = parent;
 
@@ -50,7 +50,7 @@ exports["compare descendant"] = function () {
         deepest = newNode;
       }
     },
-    fn: function () {
+    fn() {
       parent.compareDocumentPosition(deepest);
     }
   });
@@ -63,7 +63,7 @@ exports["compare ancestor"] = function () {
   let deepest;
 
   return suite({
-    setup: function (document) {
+    setup(document) {
       parent = document.createElement("div");
       deepest = parent;
 
@@ -77,7 +77,7 @@ exports["compare ancestor"] = function () {
         deepest = newNode;
       }
     },
-    fn: function () {
+    fn() {
       deepest.compareDocumentPosition(parent);
     }
   });

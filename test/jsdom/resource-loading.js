@@ -1,11 +1,11 @@
 "use strict";
 const jsdom = require("../..");
 
-exports["<script> loading errors show up as jsdomErrors in the virtual console"] = function (t) {
+exports["<script> loading errors show up as jsdomErrors in the virtual console"] = t => {
   t.expect(3);
 
   const virtualConsole = jsdom.createVirtualConsole();
-  virtualConsole.on("jsdomError", function (error) {
+  virtualConsole.on("jsdomError", error => {
     t.ok(error instanceof Error);
     t.equal(error.message, `Could not load script: "http://localhost:12345/script.js"`);
     t.ok(error.detail);
@@ -20,11 +20,11 @@ exports["<script> loading errors show up as jsdomErrors in the virtual console"]
   doc.body.appendChild(el);
 };
 
-exports["<link rel=\"stylesheet\"> loading errors show up as jsdomErrors in the virtual console"] = function (t) {
+exports["<link rel=\"stylesheet\"> loading errors show up as jsdomErrors in the virtual console"] = t => {
   t.expect(3);
 
   const virtualConsole = jsdom.createVirtualConsole();
-  virtualConsole.on("jsdomError", function (error) {
+  virtualConsole.on("jsdomError", error => {
     t.ok(error instanceof Error);
     t.equal(error.message, `Could not load link: "http://localhost:12345/style.css"`);
     t.ok(error.detail);
@@ -40,11 +40,11 @@ exports["<link rel=\"stylesheet\"> loading errors show up as jsdomErrors in the 
   doc.head.appendChild(el);
 };
 
-exports["<iframe> loading errors show up as jsdomErrors in the virtual console"] = function (t) {
+exports["<iframe> loading errors show up as jsdomErrors in the virtual console"] = t => {
   t.expect(3);
 
   const virtualConsole = jsdom.createVirtualConsole();
-  virtualConsole.on("jsdomError", function (error) {
+  virtualConsole.on("jsdomError", error => {
     t.ok(error instanceof Error);
     t.equal(error.message, `Could not load iframe: "http://localhost:12345/foo.html"`);
     t.ok(error.detail);
@@ -56,11 +56,11 @@ exports["<iframe> loading errors show up as jsdomErrors in the virtual console"]
     { virtualConsole, features: { FetchExternalResources: ["iframe"] } });
 };
 
-exports["<frame> loading errors show up as jsdomErrors in the virtual console"] = function (t) {
+exports["<frame> loading errors show up as jsdomErrors in the virtual console"] = t => {
   t.expect(3);
 
   const virtualConsole = jsdom.createVirtualConsole();
-  virtualConsole.on("jsdomError", function (error) {
+  virtualConsole.on("jsdomError", error => {
     t.ok(error instanceof Error);
     t.equal(error.message, `Could not load frame: "http://localhost:12345/foo.html"`);
     t.ok(error.detail);

@@ -1,31 +1,31 @@
 "use strict";
 const suite = require("../document-suite");
 
-exports.createElement = suite(function (document) {
+exports.createElement = suite(document => {
   document.createElement("div");
 });
 
-exports.createTextNode = suite(function (document) {
+exports.createTextNode = suite(document => {
   document.createTextNode("foo");
 });
 
-exports.createComment = suite(function (document) {
+exports.createComment = suite(document => {
   document.createComment("foo");
 });
 
-exports.createDocumentFragment = suite(function (document) {
+exports.createDocumentFragment = suite(document => {
   document.createDocumentFragment("foo");
 });
 
-exports.createNodeIterator = suite(function (document) {
+exports.createNodeIterator = suite(document => {
   document.createNodeIterator(document.documentElement);
 });
 
-exports.createEvent = suite(function (document) {
+exports.createEvent = suite(document => {
   document.createEvent("Event");
 });
 
-exports.createProcessingInstruction = suite(function (document) {
+exports.createProcessingInstruction = suite(document => {
   document.createProcessingInstruction("php", "echo 123; ?");
 });
 

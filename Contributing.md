@@ -66,7 +66,7 @@ So e.g. use `npm test -- -s console` to run the console-related tests.
 
 ### Writing or importing tests
 
-To import a test from w3c/web-platform-tests, add the appropriate line to `test/w3c/index.js`. This framework is still in its early days, so feel free to open an issue if it's not working quite like you expect.
+To import a test from w3c/web-platform-tests, add the appropriate line to `test/web-platform-tests/index.js`. This framework is still in its early days, so feel free to open an issue if it's not working quite like you expect.
 
 If you're writing a bunch of new tests for a feature, and those tests don't exist in w3c/web-platform-tests, you can do one of two things. The most noble course of action is to submit a pull request to web-platform-tests, get it accepted and merged, then update jsdom to run those tests. That way, all existing browsers will run the test too, improving interoperability for everyone!
 

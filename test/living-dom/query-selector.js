@@ -1,13 +1,12 @@
 "use strict";
-
-var jsdom = require("../..").jsdom;
-var load = require("../util").load(__dirname);
+const jsdom = require("../..").jsdom;
+const load = require("../util").load(__dirname);
 
 // Tests for ParentNode's querySelector
 // Spec: https://dom.spec.whatwg.org/#dom-parentnode-queryselector
 
-exports["querySelector exists on documents"] = function (t) {
-  var doc = load("test");
+exports["querySelector exists on documents"] = t => {
+  const doc = load("test");
 
   t.ok(doc.querySelector, "document.querySelector exists");
   t.ok(typeof doc.querySelector === "function", "document.querySelector is a function");
@@ -17,8 +16,8 @@ exports["querySelector exists on documents"] = function (t) {
   t.done();
 };
 
-exports["querySelector exists on elements"] = function (t) {
-  var doc = load("test");
+exports["querySelector exists on elements"] = t => {
+  const doc = load("test");
 
   t.ok(doc.body.querySelector, "document.body.querySelector exists");
   t.ok(typeof doc.body.querySelector === "function", "document.body.querySelector is a function");
@@ -27,11 +26,11 @@ exports["querySelector exists on elements"] = function (t) {
   t.done();
 };
 
-exports["querySelector exists on document fragments"] = function (t) {
-  var doc = jsdom();
-  var docFrag = doc.createDocumentFragment();
+exports["querySelector exists on document fragments"] = t => {
+  const doc = jsdom();
+  const docFrag = doc.createDocumentFragment();
 
-  var div = doc.createElement("div");
+  const div = doc.createElement("div");
   div.innerHTML = "<p>Hello</p>";
   docFrag.appendChild(div);
 
@@ -43,13 +42,18 @@ exports["querySelector exists on document fragments"] = function (t) {
   t.done();
 };
 
-exports["querySelector converts its argument to a string before processing"] = function (t) {
-  var doc = load("test");
+exports["querySelector converts its argument to a string before processing"] = t => {
+  const doc = load("test");
 
-  var element = doc.querySelector(["strong"]);
+  const element = doc.querySelector(["strong"]);
   t.ok(element, "document.querySelector returns the <strong> element");
 
-  var expectedP = doc.querySelector({ toString: function () { return "p"; } });
+  const stringifiableObj = {
+    toString() {
+      return "p";
+    }
+  };
+  const expectedP = doc.querySelector(stringifiableObj);
   t.ok(expectedP, "document.querySelector calls toString on any given object");
 
   t.done();

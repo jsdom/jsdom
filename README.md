@@ -1,6 +1,6 @@
 # jsdom
 
-A JavaScript implementation of the WHATWG DOM and HTML standards, for use with [Node.js](https://nodejs.org/) or [io.js](https://iojs.org/).
+A JavaScript implementation of the WHATWG DOM and HTML standards, for use with [Node.js](https://nodejs.org/).
 
 ## Install
 
@@ -8,7 +8,7 @@ A JavaScript implementation of the WHATWG DOM and HTML standards, for use with [
 $ npm install jsdom
 ```
 
-Note that as of our 4.0.0 release, jsdom requires io.js or Node.js 4 or newer ([why?](https://github.com/tmpvar/jsdom/blob/master/Changelog.md#400)). In the meantime you are still welcome to install a release in [the 3.x series](https://github.com/tmpvar/jsdom/tree/3.x) if you use legacy Node.js versions like 0.10 or 0.12.
+Note that as of our 7.0.0 release, jsdom requires Node.js 4 or newer ([why?](https://github.com/tmpvar/jsdom/blob/master/Changelog.md#400)). In the meantime you are still welcome to install a release in [the 3.x series](https://github.com/tmpvar/jsdom/tree/3.x) if you use legacy Node.js versions like 0.10 or 0.12. There are also various releases between 3.x and 7.0.0 that work with various io.js versions.
 
 ## Human contact
 
@@ -436,7 +436,7 @@ var document = jsdom.jsdom(undefined, {
 });
 ```
 
-By default this will forward all `"jsdomError"` events to `console.error`. If you want to maintain only a strict one-to-one mapping of events to method calls, and perhaps handle `"jsdomErrors"` yourself, then you can do `jsdom.createVirtualConsole({ omitJsdomErrors: true })`.
+By default this will forward all `"jsdomError"` events to `console.error`. If you want to maintain only a strict one-to-one mapping of events to method calls, and perhaps handle `"jsdomErrors"` yourself, then you can do `sendTo(console, { omitJsdomErrors: true })`.
 
 #### Create an event emitter for a window's console
 

@@ -1,21 +1,21 @@
 "use strict";
+const jsdom = require("../..");
+const domExceptionPredicate = require("../util").domExceptionPredicate;
+
 // http://www.w3.org/TR/DOM-Parsing/
 // (which is referenced by http://html.spec.whatwg.org/ )
 
-const jsdom = require("../../");
-const domExceptionPredicate = require("../util").domExceptionPredicate;
-
-exports["Setting outerHTML on the documentElement is not allowed"] = function (t) {
+exports["Setting outerHTML on the documentElement is not allowed"] = t => {
   const doc = jsdom.jsdom("<html/>");
 
-  t.throws(function () {
+  t.throws(() => {
     doc.documentElement.outerHTML = "<html><head><title></title></head><body></body></html>";
   }, domExceptionPredicate(doc, "NoModificationAllowedError"));
 
   t.done();
 };
 
-exports["Setting outerHTML on an Element without a parent should have no effect"] = function (t) {
+exports["Setting outerHTML on an Element without a parent should have no effect"] = t => {
   const doc = jsdom.jsdom("<html/>");
 
   const element = doc.createElement("div");
@@ -27,7 +27,7 @@ exports["Setting outerHTML on an Element without a parent should have no effect"
   t.done();
 };
 
-exports["Setting outerHTML on an Element"] = function (t) {
+exports["Setting outerHTML on an Element"] = t => {
   const doc = jsdom.jsdom("<html><head></head><body>foo<p>bar</p></body></html>");
 
   const newHtml = "<b>az</b>";
@@ -40,7 +40,7 @@ exports["Setting outerHTML on an Element"] = function (t) {
   t.done();
 };
 
-exports["Setting outerHTML on <body>"] = function (t) {
+exports["Setting outerHTML on <body>"] = t => {
   const doc = jsdom.jsdom("<html><head></head><body>foo<p>bar</p></body></html>");
 
   const newHtml = "<body><h1>Hysterocrates crassipes</h1>" +
@@ -54,7 +54,7 @@ exports["Setting outerHTML on <body>"] = function (t) {
   t.done();
 };
 
-exports["Setting outerHTML on an Element with a DocumentFragment as parent"] = function (t) {
+exports["Setting outerHTML on an Element with a DocumentFragment as parent"] = t => {
   const doc = jsdom.jsdom();
 
   const fragment = doc.createDocumentFragment();

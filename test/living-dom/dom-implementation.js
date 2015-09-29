@@ -1,25 +1,22 @@
 "use strict";
 const jsdom = require("../..");
 
-exports["new DOMImplementation() is not allowed"] = function (t) {
+exports["new DOMImplementation() is not allowed"] = t => {
   const DOMImplementation = jsdom.jsdom().defaultView.DOMImplementation;
 
-  let foo;
-  t.throws(function () {
-    foo = new DOMImplementation();
-  }, /Illegal constructor/i);
+  t.throws(() => new DOMImplementation(), /Illegal constructor/i);
 
   t.done();
 };
 
-exports["create an empty document"] = function (t) {
+exports["create an empty document"] = t => {
   const implementation = jsdom.jsdom().implementation;
   const document = implementation.createDocument(null, null, null);
   t.equal(document.childNodes.length, 0, "document should not contain any nodes");
   t.done();
 };
 
-exports["doctype ownerDocument"] = function (t) {
+exports["doctype ownerDocument"] = t => {
   const document = jsdom.jsdom();
   const doctype = document.implementation.createDocumentType("bananas");
   t.ok(doctype.ownerDocument === document, "doctype should belong to the document the implementation belongs to");
@@ -28,7 +25,7 @@ exports["doctype ownerDocument"] = function (t) {
   t.done();
 };
 
-exports["doctype child of ownerDocument"] = function (t) {
+exports["doctype child of ownerDocument"] = t => {
   const document = jsdom.jsdom();
   const doctype = document.implementation.createDocumentType("hatstand");
   const newDocument = document.implementation.createDocument(null, null, doctype);
@@ -36,35 +33,36 @@ exports["doctype child of ownerDocument"] = function (t) {
   t.done();
 };
 
-exports["defaultView should be null"] = function (t) {
+exports["defaultView should be null"] = t => {
   const document = jsdom.jsdom();
   const newDocument = document.implementation.createDocument(null, null, null);
   t.strictEqual(newDocument.defaultView, null, "defaultView should be null");
   t.done();
 };
 
-exports["location should be null"] = function (t) {
+exports["location should be null"] = t => {
   const document = jsdom.jsdom();
   const newDocument = document.implementation.createHTMLDocument();
   t.strictEqual(newDocument.location, null, "location should be null");
   t.done();
 };
 
-exports["setting proxied event handlers on the body should have no effect"] = function (t) {
+exports["setting proxied event handlers on the body should have no effect"] = t => {
   const document = jsdom.jsdom();
   const newDocument = document.implementation.createHTMLDocument();
 
-  ["onafterprint", "onbeforeprint", "onbeforeunload", "onblur", "onerror",
-   "onfocus", "onhashchange", "onload", "onmessage", "onoffline", "ononline",
-   "onpagehide", "onpageshow", "onpopstate", "onresize", "onscroll",
-   "onstorage", "onunload"].forEach(function (name) {
+  const proxiedEventHandlers = ["onafterprint", "onbeforeprint", "onbeforeunload", "onblur", "onerror", "onfocus",
+    "onhashchange", "onload", "onmessage", "onoffline", "ononline", "onpagehide", "onpageshow", "onpopstate",
+    "onresize", "onscroll", "onstorage", "onunload"];
+
+  for (const name of proxiedEventHandlers) {
     newDocument.body[name] = "1 + 2";
     t.strictEqual(newDocument.body[name], null, name + " should always be null because there is no window");
-  });
+  }
   t.done();
 };
 
-exports["iframe added to a created Document should not load"] = function (t) {
+exports["iframe added to a created Document should not load"] = t => {
   const document = jsdom.jsdom();
   const newDocument = document.implementation.createHTMLDocument();
 
