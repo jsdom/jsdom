@@ -2,7 +2,7 @@
 
 const jsdom = require("../..");
 
-var globalPool = {maxSockets: 6};
+const globalPool = { maxSockets: 6 };
 
 function createJsdom(urlPrefix, testPath, t) {
   const reporterHref = urlPrefix + "resources/testharnessreport.js";
@@ -55,12 +55,12 @@ function createJsdom(urlPrefix, testPath, t) {
   });
 }
 
-var childProcess = require("child_process");
-var EventEmitter = require("events");
-var dns = require("dns");
+const childProcess = require("child_process");
+const EventEmitter = require("events");
+const dns = require("dns");
 
 module.exports = function (exports) {
-  var server = new EventEmitter();
+  const server = new EventEmitter();
   server.started = false;
 
   dns.lookup("web-platform.test", function (err) {
@@ -75,27 +75,34 @@ module.exports = function (exports) {
       process.exit(1);
     }
 
-    var python = childProcess.spawn("python", ["./serve", "--config", "../config.jsdom.json"], {
+    const python = childProcess.spawn("python", ["./serve", "--config", "../config.jsdom.json"], {
       cwd: __dirname + "/tests"
     });
 
-    var current = "";
+    let current = "";
 
-    var lines = [];
+    const lines = [];
 
     function readLine(line) {
       lines.push(line);
       if (line === "INFO:web-platform-tests:Starting http server on web-platform.test:9000") {
         server.started = true;
         server.emit("start");
+      } else if (!server.error && /^err/i.test(line)) {
+        server.error = true;
+      }
+      if (server.error) {
+        console.error(line);
       }
     }
 
     function readData(data) {
       current += data.toString();
-      var lines = current.split(/(\r?\n)/g);
+      const lines = current.split(/(?:\r?\n)/g);
       for (var i = 0; i < lines.length - 1; i++) {
-        readLine(lines[i]);
+        if (lines[i]) {
+          readLine(lines[i]);
+        }
       }
       current = lines[lines.length - 1];
     }
@@ -105,7 +112,7 @@ module.exports = function (exports) {
     python.stderr.on("end", function () {
       readLine(current);
       if (!server.started) {
-        console.error(lines.join(""));
+        console.error(lines.join("\n"));
       }
     });
 
