@@ -17,7 +17,7 @@ function createJsdom(urlPrefix, testPath, t) {
       FetchExternalResources: ["script", "frame", "iframe", "link"],
       ProcessExternalResources: ["script"]
     },
-    virtualConsole: jsdom.createVirtualConsole().sendTo(logger),
+    virtualConsole: jsdom.createVirtualConsole().sendTo(logger, { omitJsdomErrors: true }),
     resourceLoader(resource, callback) {
       if (resource.url.href === reporterHref) {
         callback(null, "window.shimTest();");

@@ -23,8 +23,9 @@ exports["aborting env request should stop window creation"] = t => {
     const req = env({
       url: "http://127.0.0.1:33333/html",
       created(err, window) {
-        t.strictEqual(err, null, "There should be no errors");
-        win = window;
+        t.ok(err, "There should be an error");
+        t.ok(!window, "the window should not have been created");
+        t.done();
       },
       features: {
         FetchExternalResources: ["script"],
@@ -32,10 +33,6 @@ exports["aborting env request should stop window creation"] = t => {
       }
     });
     req.abort();
-    setTimeout(() => {
-      t.ok(!win, "the window should not have been created");
-      t.done();
-    }, 1000);
   });
 };
 

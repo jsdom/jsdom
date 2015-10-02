@@ -307,9 +307,6 @@ jsdom lets you intercept subresource requests using `config.resourceLoader`. `co
   - `error`: either `null`, if nothing goes wrong, or an `Error` object.
   - `body`: a string representing the body of the resource.
 
-You can return an object containing an `abort(emitEvent)` function which will be called if the window is closed or stopped before the request ends.
-The `emitEvent` argument is `false` when the window is closed and `true` when the window is stopped (the function should trigger an abort error if `emitEvent` is `true`).
-
 For example, fetching all JS files from a different directory and running them in strict mode:
 
 ```js
@@ -325,6 +322,39 @@ jsdom.env({
         if (err) return callback(err);
         callback(null, '"use strict";\n' + body);
       });
+    } else {
+      return resource.defaultFetch(callback);
+    }
+  },
+  features: {
+    FetchExternalResources: ["script"],
+    ProcessExternalResources: ["script"],
+    SkipExternalResources: false
+  }
+});
+```
+
+You can return an object containing an `abort()` function which will be called if the window is closed or stopped before the request ends.
+The `abort()` function should stop the request and call the callback with an error.
+
+For example, simulating a long request:
+
+```js
+var jsdom = require("jsdom");
+
+jsdom.env({
+  url: "http://example.com/",
+  resourceLoader: function (resource, callback) {
+    if (/\.json$/.test(pathname)) {
+      var timeout = setTimeout(function() {
+        callback(null, "{\"test\":\"test\"}");
+      }, 10000);
+      return {
+        abort: function() {
+          clearTimeout(timeout);
+          callback(new Error("request canceled by user"));
+        }
+      };
     } else {
       return resource.defaultFetch(callback);
     }
