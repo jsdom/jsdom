@@ -19,6 +19,23 @@ exports.tests = {
     });
   },
 
+  HTMLStyleElement02: function(test) {
+    var pageHTML = '<!doctype html><html><head>' +
+        '<style>p { color: green; }</style><style>div { color: red; }</style>' +
+        '</head><body></body></html>';
+    var removeScript = "var style2 = document.getElementsByTagName('style')[1]; " +
+        "style2.parentNode.removeChild(style2);";
+    jsdom.env({
+      html: pageHTML,
+      src: removeScript,
+      done: function(err, window) {
+        test.equal(1, window.document.getElementsByTagName("style").length);
+        test.equal(1, window.document.styleSheets.length);
+        test.done();
+      }
+    });
+  },
+
   HTMLStyleAttribute01: function (test) {
     jsdom.env(
         "<html><body><p style=\"color:red; background-color: blue\">",
