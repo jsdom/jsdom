@@ -19,7 +19,6 @@ exports["aborting env request should stop window creation"] = t => {
     }, 200);
   })
   .listen(33333, () => {
-    let win = null;
     const req = env({
       url: "http://127.0.0.1:33333/html",
       created(err, window) {

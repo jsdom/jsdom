@@ -58,7 +58,7 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports);
   "html/infrastructure/urls/terminology-0/document-base-url.html",
   "html/syntax/serializing-html-fragments/outerHTML.html",
   "html/webappapis/atob/base64.html",
-  
+
   "dom/events/Event-constants.html",
   "dom/events/Event-defaultPrevented.html",
   "dom/events/Event-dispatch-bubbles-false.html",
@@ -74,7 +74,7 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports);
   "dom/events/EventTarget-dispatchEvent-returnvalue.html",
   "dom/events/EventTarget-dispatchEvent.html",
   "dom/events/EventTarget-removeEventListener.html",
-  
+
   "FileAPI/fileReader.html",
   "FileAPI/blob/Blob-slice.html",
   "FileAPI/file/File-constructor.html",
