@@ -17,7 +17,8 @@ const testCookies = [
   "Test7=Secure; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/; Secure",
   "Test8=Expired; expires=Wed, 13-Jan-1977 22:23:01 GMT; path=/",
   "Test9=Duplicate; One=More; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/",
-  "Test10={\"prop1\":5,\"prop2\":\"value\"}; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/"
+  "Test10={\"prop1\":5,\"prop2\":\"value\"}; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/",
+  "Malformed; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/"
 ];
 
 function assertCookies(t, actualCookieStr, expectedCookies) {
@@ -104,7 +105,8 @@ exports["Set cookie by client"] = t => {
         "Test1=Basic",
         "Test2=PathMatch",
         "Test9=Duplicate",
-        "Test10={\"prop1\":5,\"prop2\":\"value\"}"
+        "Test10={\"prop1\":5,\"prop2\":\"value\"}",
+        "Malformed"
       ]);
       t.done();
     }
@@ -121,7 +123,8 @@ exports["Set cookie by page request"] = t => {
         "Test1=Basic",
         "Test2=PathMatch",
         "Test9=Duplicate",
-        "Test10={\"prop1\":5,\"prop2\":\"value\"}"
+        "Test10={\"prop1\":5,\"prop2\":\"value\"}",
+        "Malformed"
       ]);
       t.done();
     }
@@ -145,7 +148,8 @@ exports["Set cookie by resource request"] = t => {
           "Test1=Basic",
           "Test2=PathMatch",
           "Test9=Duplicate",
-          "Test10={\"prop1\":5,\"prop2\":\"value\"}"
+          "Test10={\"prop1\":5,\"prop2\":\"value\"}",
+          "Malformed"
         ]);
         t.done();
       };
@@ -168,7 +172,8 @@ exports["Set cookie by XHR"] = t => {
           "Test1=Basic",
           "Test2=PathMatch",
           "Test9=Duplicate",
-          "Test10={\"prop1\":5,\"prop2\":\"value\"}"
+          "Test10={\"prop1\":5,\"prop2\":\"value\"}",
+          "Malformed"
         ]);
         t.done();
       };
@@ -212,7 +217,8 @@ exports["Send Cookies header via resource request"] = t => {
           "Test2=PathMatch",
           "Test6=HttpOnly",
           "Test9=Duplicate",
-          "Test10={\"prop1\":5,\"prop2\":\"value\"}"
+          "Test10={\"prop1\":5,\"prop2\":\"value\"}",
+          "Malformed"
         ]);
         t.done();
       };
@@ -236,7 +242,8 @@ exports["Send Cookies header via XHR"] = t => {
           "Test2=PathMatch",
           "Test6=HttpOnly",
           "Test9=Duplicate",
-          "Test10={\"prop1\":5,\"prop2\":\"value\"}"
+          "Test10={\"prop1\":5,\"prop2\":\"value\"}",
+          "Malformed"
         ]);
         t.done();
       };
@@ -265,7 +272,8 @@ exports["Share cookies with <iframe>"] = t => {
           "Test1=Basic",
           "Test2=PathMatch",
           "Test9=Duplicate",
-          "Test10={\"prop1\":5,\"prop2\":\"value\"}"
+          "Test10={\"prop1\":5,\"prop2\":\"value\"}",
+          "Malformed"
         ]);
         t.done();
       };
@@ -326,14 +334,16 @@ exports["options.cookieJar"] = t => {
             "Test2=PathMatch",
             "Test6=HttpOnly",
             "Test9=Duplicate",
-            "Test10={\"prop1\":5,\"prop2\":\"value\"}"
+            "Test10={\"prop1\":5,\"prop2\":\"value\"}",
+            "Malformed"
           ]);
 
           assertCookies(t, window.document.cookie, [
             "Test1=Basic",
             "Test2=PathMatch",
             "Test9=Duplicate",
-            "Test10={\"prop1\":5,\"prop2\":\"value\"}"
+            "Test10={\"prop1\":5,\"prop2\":\"value\"}",
+            "Malformed"
           ]);
 
           t.done();

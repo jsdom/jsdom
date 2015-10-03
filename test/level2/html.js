@@ -2488,7 +2488,7 @@ exports.tests = {
 
     var ret = doc.cookie = null;
     test.equal(ret, null, "cookieLink");
-    test.equal(doc.cookie, vcookie, "cookieLink");
+    test.equal(doc.cookie, vcookie + "; null", "cookieLink"); // yes, this is actually how this should behave
 
 
     test.done();

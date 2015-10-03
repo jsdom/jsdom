@@ -28,7 +28,7 @@
     "parse5": "^1.4.2",
     "request": "^2.55.0",
     "symbol-tree": ">= 3.1.0 < 4.0.0",
-    "tough-cookie": "^2.0.0",
+    "tough-cookie": "^2.2.0",
     "webidl-conversions": "^2.0.0",
     "whatwg-url-compat": "~0.6.5",
     "xml-name-validator": ">= 2.0.1 < 3.0.0",
