@@ -25,8 +25,9 @@ matrix:
             - libgif-dev
             - build-essential
     - script: "npm run pretest && npm run test-browser"
-      env: TEST_SUITE=browser
+      env:
+        - TEST_SUITE=browser
+        - SAUCE_USERNAME=jsdom
+        - SAUCE_ACCESS_KEY=7d402b1d-0388-467c-8d99-edf195456eee
       addons:
-        sauce_connect:
-          username: "jsdom"
-          access_key: "7d402b1d-0388-467c-8d99-edf195456eee"
+        sauce_connect: true
