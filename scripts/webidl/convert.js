@@ -2,7 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 const Q = require("q");
-const recursive = require("recursive-readdir");
+const readdirRecursive = require("fs-readdir-recursive");
 const webidl2js = require("webidl2js");
 
 const UTIL_PATH = "lib/jsdom/living/generated/util.js";
@@ -30,7 +30,7 @@ function doConversion(inputPath) {
   .then(inputStat => {
     isDir = inputStat.isDirectory();
     if (isDir) {
-      return Q.nfcall(recursive, inputPath, ["*.js"]);
+      return readdirRecursive(inputPath, onlyIDL).map(relativePath => path.resolve(inputPath, relativePath));
     }
 
     return [inputPath]; // get dir name
@@ -40,6 +40,10 @@ function doConversion(inputPath) {
     const folder = isDir ? inputPath : path.dirname(inputPath);
     generateClasses(src, folder, ".", UTIL_PATH);
   });
+}
+
+function onlyIDL(filePath) {
+  return path.extname(filePath) === ".idl";
 }
 
 doConversion("lib/jsdom/living/generated/events").done();

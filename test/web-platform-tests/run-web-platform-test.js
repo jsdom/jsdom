@@ -1,6 +1,5 @@
 "use strict";
 
-const path = require("path");
 const logger = console;
 
 const jsdom = require("../..");
@@ -61,7 +60,7 @@ const childProcess = require("child_process");
 const EventEmitter = require("events");
 const dns = require("dns");
 
-module.exports = function (exports) {
+module.exports = function (exports, testDir) {
   const server = new EventEmitter();
   server.started = false;
 
@@ -78,7 +77,7 @@ module.exports = function (exports) {
     }
 
     const python = childProcess.spawn("python", ["./serve", "--config", "../config.jsdom.json"], {
-      cwd: path.join(__dirname, "tests")
+      cwd: testDir
     });
 
     let current = "";
