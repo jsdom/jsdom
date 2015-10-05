@@ -50,8 +50,11 @@ exports["closing window should close requests"] = t => {
         process.nextTick(() => {
           const script = window.document.getElementsByTagName("script")[1];
           script.onerror = () => {
-            t.ok(false, "the external script onerror should not be executed");
+            t.ok(false, "the external script onerror should not be executed (old)");
           };
+          script.addEventListener("error", () => {
+            t.ok(false, "the external script onerror should not be executed");
+          }, false);
           window.close();
           setTimeout(() => {
             t.ok(!window.testJs, "the external script should not execute");
@@ -83,17 +86,26 @@ exports["closing window should close xhr"] = t => {
           const xhr = new window.XMLHttpRequest();
           xhr.open("GET", "/xhr", true);
           xhr.onreadystatechange = () => {
+            t.ok(false, "xhr should not change state (old)");
+            t.done();
+          };
+          xhr.addEventListener("readystatechange", () => {
             t.ok(false, "xhr should not change state");
-            t.done();
-          };
+          }, false);
           xhr.onerror = () => {
+            t.ok(false, "xhr should not trigger error (old)");
+            t.done();
+          };
+          xhr.addEventListener("error", () => {
             t.ok(false, "xhr should not trigger error");
-            t.done();
-          };
+          }, false);
           xhr.onabort = () => {
-            t.ok(false, "xhr should not trigger abort");
+            t.ok(false, "xhr should not trigger abort (old)");
             t.done();
           };
+          xhr.addEventListener("abort", () => {
+            t.ok(false, "xhr should not trigger abort");
+          }, false);
           xhr.send();
           window.close();
           setTimeout(() => {
@@ -117,13 +129,16 @@ exports["stopping window should close requests but error event should be trigger
     env({
       url: "http://127.0.0.1:33339/html",
       created(err, window) {
-        t.expect(3);
+        t.expect(4);
         t.strictEqual(err, null, "There should be no errors");
         process.nextTick(() => {
           const script = window.document.getElementsByTagName("script")[1];
           script.onerror = () => {
-            t.ok(true, "the external script onerror should be executed");
+            t.ok(true, "the external script onerror should be executed (old)");
           };
+          script.addEventListener("error", () => {
+            t.ok(true, "the external script onerror should be executed");
+          }, false);
           window.stop();
           setTimeout(() => {
             t.ok(!window.testJs, "the external script should not execute");
@@ -151,21 +166,31 @@ exports["stopping window should close xhr but abort event should be triggered"] 
     env({
       url: "http://127.0.0.1:33340/html",
       created(err, window) {
-        t.expect(3);
+        t.expect(5);
         t.strictEqual(err, null, "There should be no errors");
         process.nextTick(() => {
           const xhr = new window.XMLHttpRequest();
           xhr.open("GET", "/xhr", true);
           xhr.onreadystatechange = () => {
-            t.ok(true, "xhr should trigger change state");
+            t.ok(true, "xhr should trigger change state (old)");
           };
+          xhr.addEventListener("readystatechange", () => {
+            t.ok(true, "xhr should trigger change state");
+          }, false);
           xhr.onerror = () => {
-            t.ok(false, "xhr should not trigger error");
+            t.ok(false, "xhr should not trigger error (old)");
             t.done();
           };
+          xhr.addEventListener("error", () => {
+            t.ok(false, "xhr should not trigger error");
+            t.done();
+          }, false);
           xhr.onabort = () => {
-            t.ok(true, "xhr should trigger abort");
+            t.ok(true, "xhr should trigger abort (old)");
           };
+          xhr.addEventListener("abort", () => {
+            t.ok(true, "xhr should trigger abort");
+          }, false);
           xhr.send();
           window.stop();
           setTimeout(() => {
