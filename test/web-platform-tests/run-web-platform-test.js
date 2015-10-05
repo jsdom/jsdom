@@ -1,23 +1,22 @@
 "use strict";
 
-const http = require("http");
-const path = require("path");
-const fs = require("fs");
-const request = require("request");
-const st = require("st");
+const logger = console;
+
 const jsdom = require("../..");
-const URL = require("whatwg-url-compat").createURLConstructor();
+
+const globalPool = { maxSockets: 6 };
 
 function createJsdom(urlPrefix, testPath, t) {
   const reporterHref = urlPrefix + "resources/testharnessreport.js";
 
   jsdom.env({
     url: urlPrefix + testPath,
+    pool: globalPool,
     features: {
       FetchExternalResources: ["script", "frame", "iframe", "link"],
       ProcessExternalResources: ["script"]
     },
-    virtualConsole: jsdom.createVirtualConsole().sendTo(console),
+    virtualConsole: jsdom.createVirtualConsole().sendTo(logger, { omitJsdomErrors: true }),
     resourceLoader(resource, callback) {
       if (resource.url.href === reporterHref) {
         callback(null, "window.shimTest();");
@@ -29,6 +28,7 @@ function createJsdom(urlPrefix, testPath, t) {
       if (err) {
         t.ifError(err, "window should be created without error");
         t.done();
+        return;
       }
 
       window.shimTest = () => {
@@ -56,31 +56,83 @@ function createJsdom(urlPrefix, testPath, t) {
   });
 }
 
+const childProcess = require("child_process");
+const EventEmitter = require("events");
+const dns = require("dns");
+
 module.exports = function (exports, testDir) {
-  const staticFileServer = st({ path: testDir, url: "/", passthrough: true });
-  const server = http.createServer((req, res) => {
-    staticFileServer(req, res, () => fallbackToHostedVersion(req, res));
-  }).listen();
-  const urlPrefix = `http://127.0.0.1:${server.address().port}/`;
+  const server = new EventEmitter();
+  server.started = false;
 
-  process.on("exit", () => server.close());
-
-  return testPath => {
-    exports[testPath] = t => createJsdom(urlPrefix, testPath, t);
-  };
-
-  function fallbackToHostedVersion(req, res) {
-    // If testDir does not contain resources/, we should get the one from web-platform-tests.
-    if (req.url.startsWith("/resources")) {
-      fs.createReadStream(path.resolve(__dirname, "tests", req.url.substring(1))).pipe(res);
-      return;
+  dns.lookup("web-platform.test", err => {
+    if (err) {
+      logger.error("Error : you should add these lines to you hosts file :");
+      logger.error("127.0.0.1   web-platform.test");
+      logger.error("127.0.0.1   www.web-platform.test");
+      logger.error("127.0.0.1   www1.web-platform.test");
+      logger.error("127.0.0.1   www2.web-platform.test");
+      logger.error("127.0.0.1   xn--n8j6ds53lwwkrqhv28a.web-platform.test");
+      logger.error("127.0.0.1   xn--lve-6lad.web-platform.test");
+      process.exit(1);
     }
 
-    // Otherwise, this is a problem getting it from the disk. Let's try the online version!
+    const python = childProcess.spawn("python", ["./serve", "--config", "../config.jsdom.json"], {
+      cwd: testDir
+    });
 
-    const url = new URL(req.url, urlPrefix);
-    url.protocol = "https";
-    url.host = "w3c-test.org:443";
-    request.get(url.href, { strictSSL: false }).pipe(res);
-  }
+    let current = "";
+
+    const lines = [];
+
+    function readLine(line) {
+      lines.push(line);
+      if (line === "INFO:web-platform-tests:Starting http server on web-platform.test:9000") {
+        server.started = true;
+        server.emit("start");
+      } else if (!server.error && /^err/i.test(line)) {
+        server.error = true;
+      }
+      if (server.error) {
+        logger.error(line);
+      }
+    }
+
+    function readData(data) {
+      current += data.toString();
+      const newlines = current.split(/(?:\r?\n)/g);
+      for (let i = 0; i < newlines.length - 1; i++) {
+        if (newlines[i]) {
+          readLine(newlines[i]);
+        }
+      }
+      current = newlines[newlines.length - 1];
+    }
+
+    python.stderr.on("data", readData);
+
+    python.stderr.on("end", () => {
+      readLine(current);
+      if (!server.started) {
+        logger.error(lines.join("\n"));
+      }
+    });
+
+    process.on("exit", () => {
+      python.kill();
+    });
+  });
+
+  const urlPrefix = "http://web-platform.test:9000/";
+
+  return testPath => {
+    exports[testPath] = t => {
+      if (server.started) {
+        createJsdom(urlPrefix, testPath, t);
+      } else {
+        server.on("start", () => {
+          createJsdom(urlPrefix, testPath, t);
+        });
+      }
+    };
+  };
 };

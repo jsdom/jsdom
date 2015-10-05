@@ -129,11 +129,14 @@ jsdom.env(config);
 - `config.referrer`: the new document will have this referrer.
 - `config.cookie`: manually set a cookie value, e.g. `'key=value; expires=Wed, Sep 21 2011 12:00:00 GMT; path=/'`. Accepts cookie string or array of cookie strings.
 - `config.headers`: an object giving any headers that will be used while loading the HTML from `config.url`, if applicable.
+- `config.userAgent`: the user agent string used in requests; defaults to `Node.js (#process.platform#; U; rv:#process.version#)`
 - `config.features`: see Flexibility section below. **Note**: the default feature set for `jsdom.env` does _not_ include fetching remote JavaScript and executing it. This is something that you will need to _carefully_ enable yourself.
 - `config.resourceLoader`: a function that intercepts subresource requests and allows you to re-route them, modify, or outright replace them with your own content. More below.
 - `config.done`, `config.onload`, `config.created`: see below.
 - `config.concurrentNodeIterators`: the maximum amount of `NodeIterator`s that you can use at the same time. The default is `10`; setting this to a high value will hurt performance.
 - `config.virtualConsole`: a virtual console instance that can capture the window’s console output; see the "Capturing Console Output" examples.
+- `config.pool`: an object describing which agents to use for the requests; defaults to `{ maxSockets: 6 }`, see [request module](https://github.com/request/request#requestoptions-callback) for more details.
+- `config.agentOptions`: the agent options; defaults to `{ keepAlive: true, keepAliveMsecs: 115000 }`, see [http api](https://nodejs.org/api/http.html) for more details.
 
 Note that at least one of the callbacks (`done`, `onload`, or `created`) is required, as is one of `html`, `file`, or `url`.
 
@@ -315,12 +318,45 @@ jsdom.env({
     var pathname = resource.url.pathname;
     if (/\.js$/.test(pathname)) {
       resource.url.pathname = pathname.replace("/js/", "/js/raw/");
-      resource.defaultFetch(function (err, body) {
+      return resource.defaultFetch(function (err, body) {
         if (err) return callback(err);
         callback(null, '"use strict";\n' + body);
       });
     } else {
-      resource.defaultFetch(callback);
+      return resource.defaultFetch(callback);
+    }
+  },
+  features: {
+    FetchExternalResources: ["script"],
+    ProcessExternalResources: ["script"],
+    SkipExternalResources: false
+  }
+});
+```
+
+You can return an object containing an `abort()` function which will be called if the window is closed or stopped before the request ends.
+The `abort()` function should stop the request and call the callback with an error.
+
+For example, simulating a long request:
+
+```js
+var jsdom = require("jsdom");
+
+jsdom.env({
+  url: "http://example.com/",
+  resourceLoader: function (resource, callback) {
+    if (/\.json$/.test(pathname)) {
+      var timeout = setTimeout(function() {
+        callback(null, "{\"test\":\"test\"}");
+      }, 10000);
+      return {
+        abort: function() {
+          clearTimeout(timeout);
+          callback(new Error("request canceled by user"));
+        }
+      };
+    } else {
+      return resource.defaultFetch(callback);
     }
   },
   features: {
