@@ -46,7 +46,6 @@
     "lib/jsdom/level3/ls.js",
     "lib/jsdom/level3/xpath.js",
     "lib/jsdom/living/generated/**",
-    "!lib/jsdom/living/generated/**/*-impl.js",
     "test/browser/files",
     "test/browser/index.js",
     "test/jquery-fixtures",
