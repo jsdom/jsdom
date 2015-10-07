@@ -59,6 +59,13 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports, path.reso
   "html/dom/elements/global-attributes/classlist-nonstring.html",
   "html/infrastructure/urls/terminology-0/document-base-url.html",
   "html/syntax/serializing-html-fragments/outerHTML.html",
+  "html/semantics/scripting-1/the-template-element/additions-to-the-steps-to-clone-a-node/template-clone-children.html",
+  "html/semantics/scripting-1/the-template-element/additions-to-the-steps-to-clone-a-node/templates-copy-document-owner.html",
+  "html/semantics/scripting-1/the-template-element/template-element/template-content-node-document.html",
+  "html/semantics/scripting-1/the-template-element/template-element/template-content.html",
+  "html/semantics/scripting-1/the-template-element/template-element/template-descendant-body.html",
+  "html/semantics/scripting-1/the-template-element/template-element/template-descendant-frameset.html",
+  "html/semantics/scripting-1/the-template-element/template-element/template-descendant-head.html",
   "html/webappapis/atob/base64.html"
 ]
 .forEach(runWebPlatformTest);

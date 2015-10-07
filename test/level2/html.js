@@ -16670,6 +16670,33 @@ exports.tests = {
     test.done();
   },
 
+  HTMLTemplateElement01: function(test) {
+    var doc = jsdom.jsdom('<template><p>TEST</p></template>');
+    var template = doc.getElementsByTagName('template').item(0);
+    var p = doc.getElementsByTagName('p').item(0);
+    var tmplFirstElement = template.content.querySelector('p');
+
+    test.equal(tmplFirstElement.nodeName, p.nodeName, 'nodeName');
+    test.equal(tmplFirstElement.textContent, p.textContent, 'textContent');
+    test.done();
+  },
+
+  HTMLTemplateElement02: function(test) {
+    var doc = jsdom.jsdom();
+    var template = doc.createElement('template');
+    var el1 = doc.createElement('p');
+    var el2 = doc.createElement('div');
+    template.content.appendChild(el1);
+    template.content.appendChild(el2);
+
+    var tmplElement1 = template.content.querySelector('p');
+    var tmplElement2 = template.content.querySelector('div');
+
+    test.equal(tmplElement1.nodeName, el1.nodeName, 'First element exist');
+    test.equal(tmplElement2.nodeName, el2.nodeName, 'Second element exist');
+    test.done();
+  },
+
   /**
    *
    The defaultValue attribute represents the HTML value of the attribute
