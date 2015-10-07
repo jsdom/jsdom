@@ -5,7 +5,7 @@ const Q = require("q");
 const readdirRecursive = require("fs-readdir-recursive");
 const webidl2js = require("webidl2js");
 
-const outputDir = "lib/jsdom/living/generated/";
+const outputDir = path.resolve(__dirname, "../../lib/jsdom/living/generated/");
 
 function readConcatenatedSource(files) {
   return Q.all(files.map(f => {
@@ -38,7 +38,7 @@ function doConversion(inputPath) {
   .then(readConcatenatedSource)
   .then(src => {
     const folder = isDir ? inputPath : path.dirname(inputPath);
-    generateClasses(src, path.relative(outputDir, folder));
+    generateClasses(src, folder);
   });
 }
 
@@ -46,4 +46,4 @@ function onlyIDL(filePath) {
   return path.extname(filePath) === ".idl";
 }
 
-doConversion("lib/jsdom/living/generated/events").done();
+doConversion(path.resolve(__dirname, "../../lib/jsdom/living/events")).done();

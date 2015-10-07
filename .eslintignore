@@ -20,10 +20,6 @@ lib/jsdom/level3/xpath.js
 
 lib/jsdom/living/generated/**
 
-# Buggy: https://github.com/eslint/eslint/issues/3707
-#!lib/jsdom/living/generated/**/*-impl.js
-# Compensated in package.json
-
 test/browser/files
 test/browser/index.js
 test/jquery-fixtures
