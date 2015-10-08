@@ -560,3 +560,60 @@ exports["done should be called only once, after all src scripts have executed"] 
     }
   });
 };
+
+exports["window instances should be initialized when provided to callbacks"] = t => {
+  t.expect(5);
+
+  env({
+    html: "<div></div>",
+    features: {
+      ProcessExternalResources: ["script"]
+    },
+    created(err, window) {
+      t.ifError(err);
+      t.notEqual(window.Array, undefined);
+    },
+    onload(window) {
+      t.notEqual(window.Array, undefined);
+    },
+    done(err, window) {
+      t.ifError(err);
+      t.notEqual(window.Array, undefined);
+      t.done();
+    }
+  });
+};
+
+exports["window instances provided to callbacks always refer to the same object"] = t => {
+  t.expect(3 + 2);
+
+  const instances = [];
+
+  function finish() {
+    for (let i = 0; i < instances.length; ++i) {
+      for (let j = 0; j < i; ++j) {
+        t.strictEqual(instances[i], instances[j], `instances ${i} and ${j} should be equal`);
+      }
+    }
+    t.done();
+  }
+
+  env({
+    html: "<div></div>",
+    features: {
+      ProcessExternalResources: ["script"]
+    },
+    created(err, window) {
+      t.ifError(err);
+      instances.push(window);
+    },
+    onload(window) {
+      instances.push(window);
+    },
+    done(err, window) {
+      t.ifError(err);
+      instances.push(window);
+      finish();
+    }
+  });
+};
