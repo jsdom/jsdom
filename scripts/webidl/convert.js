@@ -7,6 +7,8 @@ const webidl2js = require("webidl2js");
 
 const outputDir = "lib/jsdom/living/generated/";
 
+const utilSymbols = [];
+
 function readConcatenatedSource(files) {
   return Q.all(files.map(f => {
     return Q.nfcall(fs.readFile, f, { encoding: "utf8" });
@@ -20,7 +22,7 @@ function readConcatenatedSource(files) {
 }
 
 function generateClasses(src, implDir) {
-  webidl2js.generate(src, outputDir, implDir, { suppressErrors: true, implSuffix: "-impl" });
+  webidl2js.generate(src, outputDir, implDir, { suppressErrors: true, implSuffix: "-impl", utilSymbols });
 }
 
 function doConversion(inputPath) {
