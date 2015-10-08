@@ -50,7 +50,7 @@
     "selenium-standalone": "^4.6.1",
     "st": "^0.5.5",
     "wd": "0.3.12",
-    "webidl2js": "^1.0.0"
+    "webidl2js": "^2.0.0"
   },
   "browser": {
     "canvas": false,
