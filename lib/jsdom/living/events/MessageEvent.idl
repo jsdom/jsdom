@@ -1,0 +1,18 @@
+[Constructor(DOMString type, optional MessageEventInit eventInitDict), Exposed=(Window,Worker)]
+interface MessageEvent : Event {
+  readonly attribute any data;
+  readonly attribute DOMString origin;
+  readonly attribute DOMString lastEventId;
+  readonly attribute (WindowProxy or MessagePort)? source;
+  readonly attribute MessagePort[]? ports;
+
+  void initMessageEvent(DOMString type, boolean bubbles, boolean cancelable, any data, DOMString origin, DOMString lastEventId, (WindowProxy or MessagePort)? source, sequence<MessagePort>? ports);
+};
+
+dictionary MessageEventInit : EventInit {
+  any data;
+  DOMString origin;
+  DOMString lastEventId;
+  (WindowProxy or MessagePort)? source;
+  sequence<MessagePort>? ports;
+};

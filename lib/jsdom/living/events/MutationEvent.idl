@@ -1,0 +1,12 @@
+interface MutationEvent : Event {
+    // attrChangeType
+    const unsigned short MODIFICATION = 1;
+    const unsigned short ADDITION = 2;
+    const unsigned short REMOVAL = 3;
+    readonly    attribute Node?          relatedNode;
+    readonly    attribute DOMString      prevValue;
+    readonly    attribute DOMString      newValue;
+    readonly    attribute DOMString      attrName;
+    readonly    attribute unsigned short attrChange;
+    void initMutationEvent (DOMString typeArg, boolean bubblesArg, boolean cancelableArg, Node? relatedNodeArg, DOMString prevValueArg, DOMString newValueArg, DOMString attrNameArg, unsigned short attrChangeArg);
+};
