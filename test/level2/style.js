@@ -29,6 +29,7 @@ exports.tests = {
       html: pageHTML,
       src: removeScript,
       done: function(err, window) {
+        test.ifError(err);
         test.equal(1, window.document.getElementsByTagName("style").length);
         test.equal(1, window.document.styleSheets.length);
         test.done();
