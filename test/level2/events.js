@@ -92,7 +92,9 @@ exports['event interface eventInit parameter'] = function (test) {
   testEventConstructor(doc.defaultView.Event);
   testEventConstructor(doc.defaultView.UIEvent);
   testEventConstructor(doc.defaultView.MouseEvent);
-  testEventConstructor(doc.defaultView.MutationEvent);
+  test.throws(function () {
+    new doc.defaultView.MutationEvent('myevent');
+  }, TypeError);
 
   test.done();
 
