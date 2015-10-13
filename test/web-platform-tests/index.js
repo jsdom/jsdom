@@ -1,3 +1,4 @@
+// jscs:disable maximumLineLength
 "use strict";
 const path = require("path");
 const runWebPlatformTest = require("./run-web-platform-test")(exports, path.resolve(__dirname, "tests"));
