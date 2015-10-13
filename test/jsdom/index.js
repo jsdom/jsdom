@@ -898,17 +898,17 @@ exports.tests = {
     test.equal(window.divMousedOver, undefined);
 
     var click = doc.createEvent('MouseEvents');
-    click.initMouseEvent('click', false, false);
+    click.initEvent('click', false, false);
     div.dispatchEvent(click);
     test.equal(window.divClicked, true);
 
     var mouseOver = doc.createEvent('MouseEvents');
-    mouseOver.initMouseEvent('mouseover', false, false);
+    mouseOver.initEvent('mouseover', false, false);
     div.dispatchEvent(mouseOver);
     test.equal(window.divMousedOver, true);
 
     var mouseOut = doc.createEvent('MouseEvents');
-    mouseOut.initMouseEvent('mouseout', false, false);
+    mouseOut.initEvent('mouseout', false, false);
     div.dispatchEvent(mouseOut);
     test.equal(window.divCalledFrom, "DIV");
 
@@ -1044,12 +1044,12 @@ exports.tests = {
     test.equal(window.divMousedOver, undefined);
 
     var click = doc.createEvent('MouseEvents');
-    click.initMouseEvent('click', true, false);
+    click.initEvent('click', true, false);
     a.dispatchEvent(click);
     test.equal(window.divClicked, true);
 
     var mouseOver = doc.createEvent('MouseEvents');
-    mouseOver.initMouseEvent('mouseover', true, false);
+    mouseOver.initEvent('mouseover', true, false);
     a.dispatchEvent(mouseOver);
     test.equal(window.divMousedOver, true);
     test.done();
