@@ -16670,6 +16670,13 @@ exports.tests = {
     test.done();
   },
 
+  /**
+   *
+   HTMLTemplateElement.content should contain elements which are nested inside
+   <template> tag
+   * @author Ricky Chien
+   * @see https://html.spec.whatwg.org/multipage/scripting.html#the-template-element
+   */
   HTMLTemplateElement01: function(test) {
     var doc = jsdom.jsdom('<template><p>TEST</p></template>');
     var template = doc.getElementsByTagName('template').item(0);
@@ -16681,6 +16688,12 @@ exports.tests = {
     test.done();
   },
 
+  /**
+   *
+   HTMLTemplateElement.content is a DOCUMENT_FRAGMENT_NODE (value = 11)
+   * @author Ricky Chien
+   * @see https://html.spec.whatwg.org/multipage/scripting.html#the-template-element
+   */
   HTMLTemplateElement02: function(test) {
     var doc = jsdom.jsdom();
     var template = doc.createElement('template');
@@ -16688,6 +16701,8 @@ exports.tests = {
     var el2 = doc.createElement('div');
     template.content.appendChild(el1);
     template.content.appendChild(el2);
+
+    test.equal(template.content.nodeType, 11, 'nodeType');
 
     var tmplElement1 = template.content.querySelector('p');
     var tmplElement2 = template.content.querySelector('div');
