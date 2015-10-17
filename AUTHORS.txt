@@ -119,6 +119,7 @@ Mike Bostock <mbostock@gmail.com>
 Mitar <mitar.git@tnode.com>
 Nao Iizuka <iizuka@kyu-mu.net>
 Nick Stenning <nick@whiteink.com>
+Nicolas HENRY <icewil@gmail.com>
 Nicolas LaCasse <nicolas.lacasse@gmail.com>
 Nik Nyby <niknyby@gmail.com>
 Olivier El Mekki <olivier@el-mekki.com>
@@ -132,6 +133,7 @@ Phil Dokas <pdokas@organic.com>
 Ralph Holzmann <ralphholzmann@gmail.com>
 Remy Loubradou <remyloubradou@gmail.com>
 Rich Harris <richard.a.harris@gmail.com>
+Ricky Chien <ricky060709@gmail.com>
 Rob Dodson <lets.email.rob@gmail.com>
 Robin <fbzhong@gmail.com>
 Robin Berjon <robin@berjon.com>

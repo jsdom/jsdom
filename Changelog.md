@@ -1,3 +1,22 @@
+## 7.0.0
+
+This major release has as its headlining feature a completely re-written `XMLHttpRequest` implementation, in a heroic effort by [@nicolashenry](https://github.com/nicolashenry). It includes a number of other smaller improvements and fixes. The breaking changes are highlighted in bold below.
+
+* **Node.js 4.0 onward is now required**, as we have begun using ES2015 features only present there.
+* Completely re-implemented `XMLHttpRequest` and related classes (nicolashenry):
+  - Includes support for `Blob`, `File`, `FileList`, `FileReader`, `FormData`, `ProgressEvent`, and the supporting `XMLHttpRequestUpload`, and `XMLHttpRequestEventTarget` interfaces.
+  - Includes support for synchronous XHRs.
+  - Adds some new request-management abilities, documented in the readme. In short, the `pool`, `agentOptions`, and `userAgent` options are new, and resource loads can now be aborted.
+  - These implementations are extremely complete and standards-compliant, passing 136 newly-introduced web platform tests.
+* Added `document.charset`, an alias for `document.characterSet`.
+* Added `HTMLTemplateElement.prototype.content`, for getting the contents of a `<template>` element as a document fragment. (rickychien)
+* Implemented "loose" cookie parsing, giving correct execution of code like `document.cookie = "foo"`.
+* Several fixes related to event dispatching and creation, including the addition of `Event.prototype.stopImmediatePropagation` and the constants `NONE`, `CAPTURING_PHASE`, `AT_TARGET`, and `BUBBLING_PHASE`. This accounted for another 15 newly-passing web platform tests. (nicolashenry)
+* Fixed `document.styleSheets` to correctly track the removal of stylesheets from the document. (AVGP)
+* Fixed the `created` jsdom lifecycle callback receiving a different `window` object than the `loaded` or `done` callbacks when scripting was enabled.
+* **Invalid URLs are no longer allowed when creating a jsdom document**; the URL must be parseable, or an error will be thrown.
+* **The `{ omitJsdomErrors }` option of the virtual console has moved**; it is no longer provided when creating the virtual console, but instead when calling `sendTo`.
+
 ## 6.5.1
 
 * Fixed an issue where with `jsdom.jsdom`, you had to pass `referrer` and `cookie` options as top-level, whereas with `jsdom.env`, you had to nest them under a `document` option. This was unnecessarily confusing. Now both possibilities are allowed for both functions. (The readme only documents the top-level version, though.)
