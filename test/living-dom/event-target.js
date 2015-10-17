@@ -19,7 +19,7 @@ exports["should fire events properly"] = t => {
         t.done();
       });
 
-      const event = new window.Event();
+      const event = new window.Event("");
       event.initEvent("click", null, null);
       window.dispatchEvent(event);
     }

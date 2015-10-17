@@ -29,7 +29,7 @@ exports["Getting a non-file URL should not fail for getAllResponseHeaders"] = t 
   const xhr = new window.XMLHttpRequest();
   xhr.onload = () => {
     t.doesNotThrow(() => {
-      t.strictEqual(xhr.getAllResponseHeaders(), "date: 0\r\nconnection: close\r\ntransfer-encoding: chunked");
+      t.strictEqual(xhr.getAllResponseHeaders(), "date: 0\r\nConnection: keep-alive\r\nTransfer-Encoding: chunked");
     });
     t.done();
   };
