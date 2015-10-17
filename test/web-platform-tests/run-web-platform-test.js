@@ -1,5 +1,6 @@
 "use strict";
 const jsdom = require("../..");
+/* eslint-disable no-console */
 
 const globalPool = { maxSockets: 6 };
 
@@ -59,18 +60,23 @@ const dns = require("dns");
 
 module.exports = function (exports, testDir) {
   const server = new EventEmitter();
-  server.started = false;
+
+  let serverHasStarted;
+  server.started = new Promise(resolve => serverHasStarted = resolve);
+  server.isStarted = false;
+
+  let urlPrefix = "http://web-platform.test:9000/";
 
   dns.lookup("web-platform.test", err => {
     if (err) {
-      console.error("Error : you should add these lines to you hosts file :");
-      console.error("127.0.0.1   web-platform.test");
-      console.error("127.0.0.1   www.web-platform.test");
-      console.error("127.0.0.1   www1.web-platform.test");
-      console.error("127.0.0.1   www2.web-platform.test");
-      console.error("127.0.0.1   xn--n8j6ds53lwwkrqhv28a.web-platform.test");
-      console.error("127.0.0.1   xn--lve-6lad.web-platform.test");
-      process.exit(1);
+      console.warn();
+      console.warn("Host entries not present for web platform tests.");
+      console.warn("See https://github.com/w3c/web-platform-tests#running-the-tests");
+      console.warn("Falling back to hosted versions at w3c-test.org");
+
+      urlPrefix = "http://w3c-test.org/";
+      serverHasStarted();
+      return;
     }
 
     const python = childProcess.spawn("python", ["./serve", "--config", "../config.jsdom.json"], {
@@ -84,11 +90,12 @@ module.exports = function (exports, testDir) {
     function readLine(line) {
       lines.push(line);
       if (line === "INFO:web-platform-tests:Starting http server on web-platform.test:9000") {
-        server.started = true;
-        server.emit("start");
+        server.isStarted = true;
+        serverHasStarted();
       } else if (!server.error && /^err/i.test(line)) {
         server.error = true;
       }
+
       if (server.error) {
         console.error(line);
       }
@@ -109,7 +116,7 @@ module.exports = function (exports, testDir) {
 
     python.stderr.on("end", () => {
       readLine(current);
-      if (!server.started) {
+      if (!server.isStarted) {
         console.error(lines.join("\n"));
       }
     });
@@ -119,17 +126,9 @@ module.exports = function (exports, testDir) {
     });
   });
 
-  const urlPrefix = "http://web-platform.test:9000/";
-
   return testPath => {
     exports[testPath] = t => {
-      if (server.started) {
-        createJsdom(urlPrefix, testPath, t);
-      } else {
-        server.on("start", () => {
-          createJsdom(urlPrefix, testPath, t);
-        });
-      }
+      server.started.then(() => createJsdom(urlPrefix, testPath, t));
     };
   };
 };

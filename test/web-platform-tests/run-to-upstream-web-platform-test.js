@@ -3,10 +3,8 @@
 const http = require("http");
 const path = require("path");
 const fs = require("fs");
-const request = require("request");
 const st = require("st");
 const jsdom = require("../..");
-const URL = require("whatwg-url-compat").createURLConstructor();
 
 function createJsdom(urlPrefix, testPath, t) {
   const reporterHref = urlPrefix + "resources/testharnessreport.js";
@@ -59,7 +57,7 @@ function createJsdom(urlPrefix, testPath, t) {
 module.exports = function (exports, testDir) {
   const staticFileServer = st({ path: testDir, url: "/", passthrough: true });
   const server = http.createServer((req, res) => {
-    staticFileServer(req, res, () => fallbackToHostedVersion(req, res));
+    staticFileServer(req, res, () => fallbackToWPT(req, res));
   }).listen();
   const urlPrefix = `http://127.0.0.1:${server.address().port}/`;
 
@@ -69,18 +67,11 @@ module.exports = function (exports, testDir) {
     exports[testPath] = t => createJsdom(urlPrefix, testPath, t);
   };
 
-  function fallbackToHostedVersion(req, res) {
-    // If testDir does not contain resources/, we should get the one from web-platform-tests.
+  function fallbackToWPT(req, res) {
+    // Since to-upstream/ tests do not contain resources/, we should get the one from the tests/ dir.
     if (req.url.startsWith("/resources")) {
       fs.createReadStream(path.resolve(__dirname, "tests", req.url.substring(1))).pipe(res);
       return;
     }
-
-    // Otherwise, this is a problem getting it from the disk. Let's try the online version!
-
-    const url = new URL(req.url, urlPrefix);
-    url.protocol = "https";
-    url.host = "w3c-test.org:443";
-    request.get(url.href, { strictSSL: false }).pipe(res);
   }
 };
