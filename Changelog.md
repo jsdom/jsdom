@@ -1,3 +1,10 @@
+## 7.0.1
+
+* Fixed two bugs with `Node.prototype.isEqualNode`:
+  - It would previously always return `true` for comparing any two doctypes.
+  - It would throw an error when trying to compare two elements that had attributes.
+* Enforced that `document.implementation.createDocumentType` requires all three of its arguments.
+
 ## 7.0.0
 
 This major release has as its headlining feature a completely re-written `XMLHttpRequest` implementation, in a heroic effort by [@nicolashenry](https://github.com/nicolashenry). It includes a number of other smaller improvements and fixes. The breaking changes are highlighted in bold below.
