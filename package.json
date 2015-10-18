@@ -11,7 +11,8 @@
   "maintainers": [
     "Elijah Insua <tmpvar@gmail.com> (http://tmpvar.com)",
     "Domenic Denicola <d@domenic.me> (https://domenic.me/)",
-    "Sebastian Mayr <sebmaster16@gmail.com> (http://blog.smayr.name/)"
+    "Sebastian Mayr <sebmaster16@gmail.com> (http://blog.smayr.name/)",
+    "Joris van der Wel <joris@jorisvanderwel.com>"
   ],
   "license": "MIT",
   "repository": "tmpvar/jsdom",
