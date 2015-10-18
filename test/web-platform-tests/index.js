@@ -85,6 +85,10 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports, path.reso
   "dom/events/EventTarget-dispatchEvent.html",
   "dom/events/EventTarget-removeEventListener.html",
 
+  "DOMEvents/ClickFakeEvent.nondocument.html",
+  "DOMEvents/event-phases-order.html",
+  "DOMEvents/throwing-in-listener-and-window-error-event.html",
+
   "FileAPI/fileReader.html",
   "FileAPI/blob/Blob-slice.html",
   "FileAPI/file/File-constructor.html",
