@@ -18,7 +18,7 @@ exports["create an empty document"] = t => {
 
 exports["doctype ownerDocument"] = t => {
   const document = jsdom.jsdom();
-  const doctype = document.implementation.createDocumentType("bananas");
+  const doctype = document.implementation.createDocumentType("bananas", "");
   t.ok(doctype.ownerDocument === document, "doctype should belong to the document the implementation belongs to");
   const newDocument = document.implementation.createDocument(null, null, doctype);
   t.ok(doctype.ownerDocument === newDocument, "doctype should belong to the new document");
@@ -27,7 +27,7 @@ exports["doctype ownerDocument"] = t => {
 
 exports["doctype child of ownerDocument"] = t => {
   const document = jsdom.jsdom();
-  const doctype = document.implementation.createDocumentType("hatstand");
+  const doctype = document.implementation.createDocumentType("hatstand", "");
   const newDocument = document.implementation.createDocument(null, null, doctype);
   t.ok(newDocument.firstChild === doctype, "doctype should be a child of the document");
   t.done();
