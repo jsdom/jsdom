@@ -561,7 +561,7 @@ exports.tests = {
     var doc = load("anchor7");
     var nodeList = doc.getElementsByTagName("a");
     test.equal(nodeList.length, 1, 'A size');
-    test.equal(nodeList.item(0).password, 'pa:ss', 'A.password');
+    test.equal(nodeList.item(0).password, 'pa%3Ass', 'A.password');
     test.done();
   },
 

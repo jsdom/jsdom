@@ -1,6 +1,6 @@
 "use strict";
 const jsdom = require("../..");
-const URL = require("whatwg-url-compat").createURLConstructor();
+const URL = require("whatwg-url").URL;
 const path = require("path");
 const http = require("http");
 const querystring = require("querystring");

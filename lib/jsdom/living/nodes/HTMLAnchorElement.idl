@@ -7,7 +7,7 @@ interface HTMLAnchorElement : HTMLElement {
   [Reflect] attribute DOMString hreflang;
   [Reflect] attribute DOMString type;
 
-//  attribute DOMString text;
+  attribute DOMString text;
 
   // also has obsolete members
 };
