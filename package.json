@@ -42,7 +42,7 @@
     "eslint-plugin-html": "^1.0.4",
     "fs-readdir-recursive": "^1.0.0",
     "http-server": "^0.8.0",
-    "jscs": "^1.12.0",
+    "jscs": "^2.5.0",
     "nodeunit": "0.9.1",
     "optimist": "0.6.1",
     "portfinder": "0.4.0",
