@@ -201,5 +201,3 @@ exports["stopping window should close xhr but abort event should be triggered"] 
     });
   });
 };
-
-
