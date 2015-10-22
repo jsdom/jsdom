@@ -1,3 +1,7 @@
+## 7.0.2
+
+* Fixed an issue where inside jsdom `<script>` code, `/regexpliteral/ instanceof RegExp` would be `false`.
+
 ## 7.0.1
 
 * Fixed two bugs with `Node.prototype.isEqualNode`:
