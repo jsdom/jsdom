@@ -33,7 +33,7 @@ matrix:
             - libpango1.0-dev
             - libgif-dev
             - build-essential
-    - script: '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && npm run pretest && npm run test-browser'
+    - script: '[ "${TRAVIS_PULL_REQUEST}" != "false" ] || (npm run pretest && npm run test-browser)'
       env: TEST_SUITE=browser
       addons:
         sauce_connect:
