@@ -65,6 +65,7 @@ self.onmessage = function (e) {
     "jsdom/parsing": require("../test/jsdom/parsing"), // 0/11
     "jsdom/serialization": require("../test/jsdom/serialization"),
     "jsdom/env": require("../test/jsdom/env"), // 9/25
+    "jsdom/env-browser": require("../test/jsdom/env-browser"),
     "jsdom/utils": require("../test/jsdom/utils"), // ok
     "jsdom/inside-worker-smoke-tests": require("../test/jsdom/inside-worker-smoke-tests"),
     "jsdom/named-properties-tracker.js": require("../test/jsdom/named-properties-tracker"),
@@ -113,6 +114,7 @@ self.onmessage = function (e) {
     "window/base64",
     "window/history",
     "window/console",
+    "jsdom/env-browser",
     "jsdom/utils",
     "jsdom/inside-worker-smoke-tests",
     "jsdom/serialization",
