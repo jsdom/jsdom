@@ -19931,5 +19931,17 @@ exports.tests = {
     doc.close();
     test.ok(doc === docOpen, 'doc.open() should return the Document on which the method was invoked');
     test.done();
+  },
+
+  getNodeByName: function (test) {
+    jsdom.env(
+      {
+      html: '<html><head lang="en"></head><body><form name="name"></form></body></html>',
+      done: function (err, window) {
+            test.equal(typeof window.document.forms['name'], 'object');
+            test.equal(window.document.forms.length, 1);
+            test.done();
+        }
+      });
   }
 };
