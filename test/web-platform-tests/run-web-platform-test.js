@@ -83,6 +83,15 @@ module.exports = function (exports, testDir) {
       cwd: testDir
     });
 
+    python.on("error", e => {
+      console.warn();
+      console.warn("Error starting python server process:", e.message);
+      console.warn("Falling back to hosted versions at w3ctest.org");
+
+      urlPrefix = "http://w3c-test.org/";
+      serverHasStarted();
+    });
+
     let current = "";
 
     const lines = [];
