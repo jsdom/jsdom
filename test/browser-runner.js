@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+"use strict";
 
 require('colors');
 var browserify = require('browserify');
@@ -47,7 +48,7 @@ function getFnBody(fn) {
 function run() {
   var passed = false;
 
-    browser.init({
+  return browser.init({
       browserName: 'chrome',
       name: 'Travis tmpvar/jsdom #' + process.env['TRAVIS_JOB_NUMBER'],
       'tunnel-identifier': process.env['TRAVIS_JOB_NUMBER'],
@@ -133,21 +134,13 @@ function run() {
     .finally(function () {
       return browser.quit();
     })
-    .finally(function () {
-      process.exit(passed ? 0 : 1);
-    })
-    .done();
+    .then(function() {
+      return passed;
+    });
 }
 
 function startSelenium(options) {
-  return Q.promise(function (resolve) {
-    var newOptions = Object.assign({ spawnCb: resolve }, options);
-    startSeleniumCb(newOptions, function (err) {
-      if (err) {
-        reject(err);
-      }
-    });
-  });
+  return Q.nfcall(startSeleniumCb, options);
 }
 
 // browserify and run the tests
@@ -210,7 +203,7 @@ browserify('./test/worker.js').
         console.log('installing selenium');
 
         return installSelenium()
-          .then(function () {
+          .then(() => {
             console.log('starting selenium server on port', wdPort);
 
             return startSelenium({
@@ -218,33 +211,21 @@ browserify('./test/worker.js').
               seleniumArgs: ['-port', wdPort]
             });
           })
-          .then(function (wdServer) {
-            // time out after a default of 30 seconds
-            var h = setTimeout(function () {
-              console.log('Timed out waiting for selenium server to start');
-              wdServer.kill();
-              process.exit(1);
-            }, argv.wdTimeout || 30 * 1000);
-
-            // Wait for selenium server to start.
-            wdServer.stdout.on('data', function (output) {
-              if (output.toString().indexOf('Selenium Server is up and running') >= 0) {
-                clearTimeout(h);
-                run();
-              }
-            });
-            wdServer.stderr.on('data', function (output) {
-              if (output.toString().indexOf('Selenium Server is up and running') >= 0) {
-                clearTimeout(h);
-                run();
-              }
-            });
+          .then(child => {
+            return run()
+              .finally(() => {
+                console.log('stopping selenium server');
+                child.kill();
+              });
           });
       } else {
-        run();
+        return run();
       }
     })
-    .catch(function (err) {
+    .then(passed => {
+      process.exit(passed ? 0 : 1);
+    })
+    .catch(err => {
       console.error('Failed to run browser tests', err);
       process.exit(1);
     })
