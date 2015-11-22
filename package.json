@@ -66,5 +66,6 @@
     "benchmark-browser": "node ./benchmark/runner --bundle",
     "convert-idl": "node ./scripts/webidl/convert"
   },
+  "files": ["scripts/webidl"],
   "main": "./lib/jsdom"
 }
