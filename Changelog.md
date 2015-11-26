@@ -1,3 +1,19 @@
+## 7.1.0
+
+This is a rather large release bringing with it several important re-implementations of DOM and HTML APIs.
+
+* Our `EventTarget` implementation has been rewritten from scratch to follow the spec exactly. This should improve any edge case misbehaviors.
+* Our `Event` class hierarchy has been rewritten and fleshed out, fixing many gaps in functionality.
+  - Previously missing classes `KeyboardEvent` and `TouchEvent` are now implemented.
+  - Almost all supported `Event` subclasses now have constructors. (`TouchEvent` does not yet, and `MutationEvent` is specified to not have one.)
+  - All classes now have correct public APIs, e.g. getters instead of data properties, missing properties added, and constructors that correctly allow setting all the supported properties.
+  - `document.createEvent("customevent", ...)` now correctly creates a `CustomEvent` instead of an `Event`, and `CustomEvent.prototype.initProgressEvent` has been replaced with `CustomEvent.prototype.initCustomEvent`.
+* The `Attr` class and related attribute-manipulating methods has been rewritten to follow the latest specification. In particular, `Attr` is no longer a subclass of `Node`, and no longer has child text nodes.
+* The `<template>` element implementation has been greatly improved, now passing most web platform tests. Its `.content` property no longer has an extra intermediate document fragment; it no longer has child nodes; and related parts of the parser and serializer have been fixed, including `innerHTML` and `outerHTML`, to now work as specified.
+* `querySelector`, `querySelectorAll`, and `matches` now correctly throw `"SyntaxError"` `DOMException`s for invalid selectors, instead of just `Error` instances.
+* `Node.prototype`'s `insertBefore`, `replaceChild`, and `appendChild` methods now check their arguments more correctly.
+* The browser builds now have regained the ability to fetch URLs for content and the like; this had been broken due to an issue with the browser-request package, which is no longer necessary anyway.
+
 ## 7.0.2
 
 * Fixed an issue where inside jsdom `<script>` code, `/regexpliteral/ instanceof RegExp` would be `false`.
