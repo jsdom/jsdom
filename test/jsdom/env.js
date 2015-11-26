@@ -93,6 +93,23 @@ exports["explicit config.html, with poorly formatted HTML"] = t => {
   });
 };
 
+exports["explicit config.html, with a relative frame URL but no document URL (GH-1277)"] = t => {
+  t.expect(3);
+
+  env({
+    html: `<iframe src="/ads/728x90.html"></iframe>`,
+    done(err, window) {
+      t.ifError(err);
+
+      // Unresolvable URLs (in this case a relative URL against about:blank) should create windows for about:blank.
+      t.equal(window.document.querySelector("iframe").src, "/ads/728x90.html");
+      t.equal(window.document.querySelector("iframe").contentWindow.document.URL, "about:blank");
+
+      t.done();
+    }
+  });
+};
+
 exports["explicit config.html, a string that is also a valid URL"] = t => {
   env({
     html: "http://example.com/",
