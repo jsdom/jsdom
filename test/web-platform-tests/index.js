@@ -59,14 +59,46 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports, path.reso
   "dom/traversal/NodeIterator.html",
   "html/dom/elements/global-attributes/classlist-nonstring.html",
   "html/infrastructure/urls/terminology-0/document-base-url.html",
-  "html/syntax/serializing-html-fragments/outerHTML.html",
+  // "html/semantics/scripting-1/the-template-element/additions-to-parsing-xhtml-documents/node-document.html", // templates in XHTML are totally messed up
+  // "html/semantics/scripting-1/the-template-element/additions-to-parsing-xhtml-documents/template-child-nodes.html", // templates in XHTML are totally messed up
+  // "html/semantics/scripting-1/the-template-element/additions-to-serializing-xhtml-documents/outerhtml.html", // templates in XHTML are totally messed up
   "html/semantics/scripting-1/the-template-element/additions-to-the-steps-to-clone-a-node/template-clone-children.html",
   "html/semantics/scripting-1/the-template-element/additions-to-the-steps-to-clone-a-node/templates-copy-document-owner.html",
+  // "html/semantics/scripting-1/the-template-element/definitions/template-contents-owner-document-type.html", // requires @@toStringTag
+  // "html/semantics/scripting-1/the-template-element/definitions/template-contents-owner-test-001.html", // template content owner document semantics not yet implemented
+  // "html/semantics/scripting-1/the-template-element/definitions/template-contents-owner-test-002.html", // template content owner document semantics not yet implemented
+  // "html/semantics/scripting-1/the-template-element/definitions/template-contents.html", // requires @@toStringTag
+  "html/semantics/scripting-1/the-template-element/innerhtml-on-templates/innerhtml.html",
+  "html/semantics/scripting-1/the-template-element/serializing-html-templates/outerhtml.html",
+  "html/semantics/scripting-1/the-template-element/template-element/content-attribute.html",
+  // "html/semantics/scripting-1/the-template-element/template-element/node-document-changes.html", // template content owner document semantics not yet implemented
+  // "html/semantics/scripting-1/the-template-element/template-element/template-as-a-descendant.html", // template parsing not quite perfect yet
   "html/semantics/scripting-1/the-template-element/template-element/template-content-node-document.html",
   "html/semantics/scripting-1/the-template-element/template-element/template-content.html",
   "html/semantics/scripting-1/the-template-element/template-element/template-descendant-body.html",
   "html/semantics/scripting-1/the-template-element/template-element/template-descendant-frameset.html",
   "html/semantics/scripting-1/the-template-element/template-element/template-descendant-head.html",
+  "html/syntax/serializing-html-fragments/outerHTML.html",
+  // "html/syntax/parsing/html5lib_template.html", // no idea what's going on here
+  "html/syntax/parsing/template/additions-to-foster-parenting/template-is-a-foster-parent-element.html",
+  "html/syntax/parsing/template/additions-to-foster-parenting/template-is-not-a-foster-parent-element.html",
+  "html/syntax/parsing/template/additions-to-the-in-body-insertion-mode/generating-of-implied-end-tags.html",
+  "html/syntax/parsing/template/additions-to-the-in-body-insertion-mode/ignore-body-token.html",
+  "html/syntax/parsing/template/additions-to-the-in-body-insertion-mode/ignore-frameset-token.html",
+  "html/syntax/parsing/template/additions-to-the-in-body-insertion-mode/ignore-head-token.html",
+  "html/syntax/parsing/template/additions-to-the-in-body-insertion-mode/ignore-html-token.html",
+  "html/syntax/parsing/template/additions-to-the-in-body-insertion-mode/start-tag-body.html",
+  "html/syntax/parsing/template/additions-to-the-in-body-insertion-mode/start-tag-html.html",
+  "html/syntax/parsing/template/additions-to-the-in-body-insertion-mode/template-end-tag-without-start-one.html",
+  // "html/syntax/parsing/template/additions-to-the-in-frameset-insertion-mode/end-tag-frameset.html", // template parsing not quite perfect yet
+  "html/syntax/parsing/template/additions-to-the-in-head-insertion-mode/generating-of-implied-end-tags.html",
+  "html/syntax/parsing/template/additions-to-the-in-head-insertion-mode/template-end-tag-without-start-one.html",
+  "html/syntax/parsing/template/additions-to-the-in-table-insertion-mode/end-tag-table.html",
+  "html/syntax/parsing/template/appending-to-a-template/template-child-nodes.html",
+  "html/syntax/parsing/template/clearing-the-stack-back-to-a-given-context/clearing-stack-back-to-a-table-body-context.html",
+  "html/syntax/parsing/template/clearing-the-stack-back-to-a-given-context/clearing-stack-back-to-a-table-context.html",
+  "html/syntax/parsing/template/clearing-the-stack-back-to-a-given-context/clearing-stack-back-to-a-table-row-context.html",
+  // "html/syntax/parsing/template/creating-an-element-for-the-token/template-owner-document.html", // template content owner document semantics not yet implemented
   "html/webappapis/atob/base64.html",
 
   "dom/events/Event-constants.html",

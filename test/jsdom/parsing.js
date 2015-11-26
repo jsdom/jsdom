@@ -8,7 +8,7 @@ exports["<template> content document fragment (GH-942)"] = t => {
 
   const tmpl = document.getElementsByTagName("template");
 
-  t.equal(tmpl[0].childNodes[0].nodeType, 11);
+  t.equal(tmpl[0].content.nodeType, 11);
   t.equal(tmpl[0].innerHTML, "<div>Hello world!</div>");
 
   t.done();
