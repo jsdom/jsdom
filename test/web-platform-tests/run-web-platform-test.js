@@ -1,5 +1,7 @@
 "use strict";
 const jsdom = require("../..");
+const q = require("q");
+const requestHead = q.denodeify(require("request").head);
 /* eslint-disable no-console */
 
 const globalPool = { maxSockets: 6 };
@@ -80,7 +82,8 @@ module.exports = function (exports, testDir) {
     }
 
     const python = childProcess.spawn("python", ["./serve", "--config", "../config.jsdom.json"], {
-      cwd: testDir
+      cwd: testDir,
+      stdio: "inherit"
     });
 
     python.on("error", e => {
@@ -92,43 +95,7 @@ module.exports = function (exports, testDir) {
       serverHasStarted();
     });
 
-    let current = "";
-
-    const lines = [];
-
-    function readLine(line) {
-      lines.push(line);
-      if (line === "INFO:web-platform-tests:Starting http server on web-platform.test:9000") {
-        server.isStarted = true;
-        serverHasStarted();
-      } else if (!server.error && /^err/i.test(line)) {
-        server.error = true;
-      }
-
-      if (server.error) {
-        console.error(line);
-      }
-    }
-
-    function readData(data) {
-      current += data.toString();
-      const newlines = current.split(/(?:\r?\n)/g);
-      for (let i = 0; i < newlines.length - 1; i++) {
-        if (newlines[i]) {
-          readLine(newlines[i]);
-        }
-      }
-      current = newlines[newlines.length - 1];
-    }
-
-    python.stderr.on("data", readData);
-
-    python.stderr.on("end", () => {
-      readLine(current);
-      if (!server.isStarted) {
-        console.error(lines.join("\n"));
-      }
-    });
+    pollForServer(urlPrefix).then(serverHasStarted);
 
     process.on("exit", () => {
       python.kill();
@@ -141,3 +108,13 @@ module.exports = function (exports, testDir) {
     };
   };
 };
+
+function pollForServer(url) {
+  console.log("Checking if the web platform tests server is up");
+  return requestHead(url)
+    .then(() => console.log("Server is up!"))
+    .catch(err => {
+      console.log(`Server is not up yet (${err.message}); trying again`);
+      return q.delay(500).then(() => pollForServer(url));
+    });
+}
