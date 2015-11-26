@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Element.prototype.tagName</title>
+<link rel=help href="https://dom.spec.whatwg.org/#dom-element-tagname">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+test(() => {
+
+  const el = document.createElementNS("http://www.w3.org/2000/svg", "textPath");
+  assert_equals(el.tagName, "textPath");
+
+  const el2 = document.createElementNS("http://example.com/", "mixedCase");
+  assert_equals(el2.tagName, "mixedCase");
+
+  const el3 = document.createElementNS("http://www.w3.org/1999/xhtml", "mixedCase");
+  assert_equals(el3.tagName, "MIXEDCASE");
+
+}, "tagName uppercase if and only if the element is in the HTML namespace");
+</script>
