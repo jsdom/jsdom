@@ -173,3 +173,70 @@ exports["parsingMode option should take precendence over .xml extension detectio
     }
   });
 };
+
+exports["parsing XML keeps tag casing (GH-393)"] = t => {
+  jsdom.env({
+    html: "<foo><bar/></foo>",
+    parsingMode: "xml",
+    done(err, window) {
+      t.ifError(err);
+      const elem = window.document.getElementsByTagName("foo")[0];
+      t.strictEqual(elem.tagName, "foo");
+
+      t.done();
+    }
+  });
+};
+
+exports["attributes are case-sensitive in XML mode (GH-651)"] = t => {
+  jsdom.env({
+    html: "<foo caseSensitive='abc' casesensitive='def'><bar/></foo>",
+    parsingMode: "xml",
+    done(err, window) {
+      t.ifError(err);
+      const elem = window.document.getElementsByTagName("foo")[0];
+      t.strictEqual(elem.getAttribute("caseSensitive"), "abc");
+      t.strictEqual(elem.getAttribute("casesensitive"), "def");
+
+      t.done();
+    }
+  });
+};
+
+exports["XML mode makes directives accessible (GH-415)"] = t => {
+  jsdom.env({
+    html: "<?xml-stylesheet version='1.0'?><foo caseSensitive='abc' casesensitive='def'><bar/></foo>",
+    parsingMode: "xml",
+    done(err, window) {
+      t.ifError(err);
+      t.strictEqual(window.document.firstChild.nodeName, "xml-stylesheet");
+      t.strictEqual(window.document.firstChild.data, "version='1.0'");
+
+      t.done();
+    }
+  });
+};
+
+exports["parse5 can somewhat serialize XML docs"] = t => {
+  const source = `<foo xmlns:foo="http://example.org/bar"><foo:bar></foo:bar></foo>`;
+  jsdom.env({
+    html: source,
+    parsingMode: "xml",
+    done(err, window) {
+      t.ifError(err);
+      t.strictEqual(jsdom.serializeDocument(window.document), source);
+      t.done();
+    }
+  });
+};
+
+exports["xml parser recognizes built-in schemas (GH-1276)"] = t => {
+  const doc = jsdom.jsdom("<element xml:lang='uk'></element>", {
+    parsingMode: "xml"
+  });
+
+  const xmlns = "http://www.w3.org/XML/1998/namespace";
+  const lang = doc.documentElement.getAttributeNS(xmlns, "lang");
+  t.strictEqual(lang, "uk");
+  t.done();
+};
