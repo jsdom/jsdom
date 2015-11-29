@@ -137,6 +137,7 @@ jsdom.env(config);
 - `config.virtualConsole`: a virtual console instance that can capture the window’s console output; see the "Capturing Console Output" examples.
 - `config.pool`: an object describing which agents to use for the requests; defaults to `{ maxSockets: 6 }`, see [request module](https://github.com/request/request#requestoptions-callback) for more details.
 - `config.agentOptions`: the agent options; defaults to `{ keepAlive: true, keepAliveMsecs: 115000 }`, see [http api](https://nodejs.org/api/http.html) for more details.
+- `config.request`: When loading HTML over the network (with `configu.url`) this option allows you to specify additional parameters for the [request](https://www.npmjs.com/package/request) module. This allows you to send POST and other more complicated requests. See all available addition parameters [here](https://www.npmjs.com/package/request#request-options-callback).
 
 Note that at least one of the callbacks (`done`, `onload`, or `created`) is required, as is one of `html`, `file`, or `url`.
 
