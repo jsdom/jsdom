@@ -1970,15 +1970,15 @@ exports.tests = {
 
     doc = staff.staff();
     docType = doc.doctype;
-
     test.notEqual(docType, null, 'docTypeNotNull');
+
     docTypeName = docType.name;
-
-
     test.equal(docTypeName, "staff", 'doctypeName');
-    nodeValue = docType.nodeValue;
 
+    nodeValue = docType.nodeValue;
     test.equal(nodeValue, null, 'initiallyNull');
+
+    test.equal(docType.systemId, "staff.dtd");
 
     test.done();
   },
