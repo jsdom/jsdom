@@ -179,6 +179,38 @@ exports["explicit config.url, invalid"] = t => {
   });
 };
 
+exports["explicit config.url with extra request options valid"] = t => {
+  const formData = "key1=value1&key2=value2&key3=value3";
+
+  const server = http.createServer((req, res) => {
+    t.equal(req.method, "POST");
+    t.equal(req.headers["content-type"], "application/x-www-form-urlencoded");
+    let reqBody = "";
+    req.on("data", data => reqBody += data.toString());
+    req.on("end", () => {
+      t.equal(reqBody, formData);
+      res.writeHead(200);
+      res.end();
+      server.close();
+    });
+  }).listen(8976);
+
+  env({
+    url: "http://localhost:8976/",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    request: {
+      method: "POST",
+      body: formData
+    },
+    done(err) {
+      t.ifError(err);
+      t.done();
+    }
+  });
+};
+
 exports["explicit config.file, valid"] = t => {
   const fileName = path.resolve(__dirname, "files/env.html");
 
