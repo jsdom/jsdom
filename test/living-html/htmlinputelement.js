@@ -148,3 +148,167 @@ exports["an input's parsed type attribute should be reflected in both its proper
 
   t.done();
 };
+
+/*
+  specific input types supporting selection are handled in the web platform test:
+  https://github.com/w3c/web-platform-tests/blob/master/html/semantics/forms/the-input-element/input-textselection-01.html
+ */
+
+exports["select() should select the entire contents"] = test => {
+  const doc = jsdom.jsdom(`<html><body><input id="input" type="text" /></body></html>`);
+  const element = doc.getElementById("input");
+
+  element.value = "foo";
+  element.select();
+
+  test.strictEqual(element.selectionStart, 0);
+  test.strictEqual(element.selectionEnd, 3);
+  test.strictEqual(element.selectionDirection, "none");
+  test.done();
+};
+
+exports["select() should emit a select event"] = test => {
+  const doc = jsdom.jsdom(`<html><body><input id="input" type="text" /></body></html>`);
+  const element = doc.getElementById("input");
+
+  test.expect(1);
+
+  element.value = "foo";
+
+  element.addEventListener("select", event => {
+    test.strictEqual(event.target, element);
+    test.done();
+  });
+
+  element.select();
+};
+
+exports["setSelectionRange(start, end) should select a specific character range"] = test => {
+  const doc = jsdom.jsdom(`<html><body><input id="input" type="text" /></body></html>`);
+  const element = doc.getElementById("input");
+
+  element.value = "foo";
+  element.setSelectionRange(0, 2);
+
+  test.strictEqual(element.selectionStart, 0);
+  test.strictEqual(element.selectionEnd, 2);
+  test.strictEqual(element.selectionDirection, "none");
+  test.done();
+};
+
+exports["setSelectionRange() should emit a select event"] = test => {
+  const doc = jsdom.jsdom(`<html><body><input id="input" type="text" /></body></html>`);
+  const element = doc.getElementById("input");
+
+  test.expect(1);
+
+  element.value = "foo";
+
+  element.addEventListener("select", event => {
+    test.strictEqual(event.target, element);
+    test.done();
+  });
+
+  element.setSelectionRange(0, 2);
+};
+
+exports["setRangeText(text) should replace the currently selected text"] = test => {
+  const doc = jsdom.jsdom(`<html><body><input id="input" type="text" /></body></html>`);
+  const element = doc.getElementById("input");
+
+  element.value = "foo";
+  element.setSelectionRange(0, 2);
+  element.setRangeText("tw");
+
+  test.strictEqual(element.value, "two");
+  test.done();
+};
+
+exports["setRangeText(text, start, end) should replace text in the given range"] = test => {
+  const doc = jsdom.jsdom(`<html><body><input id="input" type="text" /></body></html>`);
+  const element = doc.getElementById("input");
+
+  element.value = "foobarbaz";
+  element.setRangeText("baz", 0, 6);
+
+  test.strictEqual(element.value, "bazbaz");
+  test.done();
+};
+
+exports["setRangeText(text, start, end, 'select') should create a new selection using" +
+"start and end as bounds"] = test => {
+  const doc = jsdom.jsdom(`<html><body><input id="input" type="text" /></body></html>`);
+  const element = doc.getElementById("input");
+
+  element.value = "foobarbaz";
+  element.setRangeText("baz", 0, 6, "select");
+
+  test.strictEqual(element.value, "bazbaz");
+  test.strictEqual(element.selectionStart, 0);
+  test.strictEqual(element.selectionEnd, 6);
+  test.done();
+};
+
+exports["setRangeText(text, start, end, 'start') should create a new selection, collapsed" +
+" to start"] = test => {
+  const doc = jsdom.jsdom(`<html><body><input id="input" type="text" /></body></html>`);
+  const element = doc.getElementById("input");
+
+  element.value = "foobarbaz";
+  element.setRangeText("baz", 0, 6, "start");
+
+  test.strictEqual(element.value, "bazbaz");
+  test.strictEqual(element.selectionStart, 0);
+  test.strictEqual(element.selectionEnd, 0);
+  test.done();
+};
+
+exports["setRangeText(text, start, end, 'end') should create a new selection, collapsed to" +
+" end"] = test => {
+  const doc = jsdom.jsdom(`<html><body><input id="input" type="text" /></body></html>`);
+  const element = doc.getElementById("input");
+
+  element.value = "foobarbaz";
+  element.setRangeText("baz", 0, 6, "end");
+
+  test.strictEqual(element.value, "bazbaz");
+  test.strictEqual(element.selectionStart, 6);
+  test.strictEqual(element.selectionEnd, 6);
+  test.done();
+};
+
+exports["setRangeText() should emit a select event"] = test => {
+  const doc = jsdom.jsdom(`<html><body><input id="input" type="text" /></body></html>`);
+  const element = doc.getElementById("input");
+
+  test.expect(1);
+
+  element.value = "foo";
+
+  element.addEventListener("select", event => {
+    test.strictEqual(event.target, element);
+    test.done();
+  });
+
+  element.setRangeText("tw", 0, 2);
+};
+
+exports["setting value should reset selection indexes back to defaults"] = test => {
+  const doc = jsdom.jsdom(`<html><body><input id="input" type="text" /></body></html>`);
+  const element = doc.getElementById("input");
+
+  element.value = "foo";
+  element.select();
+
+  test.strictEqual(element.selectionStart, 0);
+  test.strictEqual(element.selectionEnd, 3);
+  test.strictEqual(element.selectionDirection, "none");
+
+  element.value = "bar";
+
+  test.strictEqual(element.selectionStart, 0);
+  test.strictEqual(element.selectionEnd, 0);
+  test.strictEqual(element.selectionDirection, "none");
+
+  test.done();
+};
