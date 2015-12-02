@@ -1,3 +1,9 @@
+## 7.1.1
+
+* When `<iframe>`s have unresolvable URLs, jsdom will no longer crash, but will instead just load `about:blank` into them. (This is the spec behavior.)
+* Fixed `document.writeln` to correctly handle multiple arguments; previously it ignored all after the first.
+* Fixed `FileList` objects to no longer have a property named `"undefined"`. (jfremy)
+
 ## 7.1.0
 
 This is a rather large release bringing with it several important re-implementations of DOM and HTML APIs.

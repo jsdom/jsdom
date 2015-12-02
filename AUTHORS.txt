@@ -57,6 +57,7 @@ FrozenCow <frozencow@gmail.com>
 Godmar Back <godmar@gmail.com>
 Gord Tanner <gtanner@gmail.com>
 gregory80 <gregory.tomlinson@gmail.com>
+Henry Zhu <hi@henryzoo.com>
 hij1nx <fernmicro@gmail.com>
 Ian Young <ian.greenleaf@gmail.com>
 indexzero <charlie.robbins@gmail.com>
@@ -70,6 +71,7 @@ Jason Davies <jason@jasondavies.com>
 Jason Orendorff <jason.orendorff@gmail.com>
 Jason Priestley <jason@teampatent.com>
 jden <jason@denizac.org>
+Jean-Francois Remy <jfremy@users.noreply.github.com>
 Jeff Carpenter <gcarpenterv@gmail.com>
 Jérémy Lal <kapouer@melix.org>
 Jerry Sievert <github@legitimatesounding.com>
@@ -134,6 +136,7 @@ Ralph Holzmann <ralphholzmann@gmail.com>
 Remy Loubradou <remyloubradou@gmail.com>
 Rich Harris <richard.a.harris@gmail.com>
 Ricky Chien <ricky060709@gmail.com>
+Ricordisamoa <ricordisamoa@openmailbox.org>
 Rob Dodson <lets.email.rob@gmail.com>
 Robin <fbzhong@gmail.com>
 Robin Berjon <robin@berjon.com>
