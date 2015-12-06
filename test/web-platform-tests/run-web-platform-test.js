@@ -95,7 +95,7 @@ module.exports = function (exports, testDir) {
       serverHasStarted();
     });
 
-    pollForServer(urlPrefix).then(serverHasStarted);
+    pollForServer(() => urlPrefix).then(serverHasStarted);
 
     process.on("exit", () => {
       python.kill();
@@ -109,12 +109,12 @@ module.exports = function (exports, testDir) {
   };
 };
 
-function pollForServer(url) {
+function pollForServer(urlGetter) {
   console.log("Checking if the web platform tests server is up");
-  return requestHead(url)
+  return requestHead(urlGetter())
     .then(() => console.log("Server is up!"))
     .catch(err => {
       console.log(`Server is not up yet (${err.message}); trying again`);
-      return q.delay(500).then(() => pollForServer(url));
+      return q.delay(500).then(() => pollForServer(urlGetter));
     });
 }
