@@ -71,6 +71,10 @@ exports["canvas width and height must parse correctly initially (GH-1025)"] = t 
 };
 
 exports["canvas must resize correctly when given a non-default width/height (GH-1025)"] = t => {
+  if (!isCanvasInstalled(t)) {
+    return;
+  }
+
   const document = jsdom.jsdom("<canvas width='400' height='400'></canvas>");
   const canvas = document.querySelector("canvas");
   const ctx = canvas.getContext("2d");
@@ -102,6 +106,18 @@ exports["canvas width and height properties must reflect their attributes after 
 };
 
 exports["toDataURL should work (when the canvas npm package is provided) (GH-1025)"] = t => {
+  if (!isCanvasInstalled(t)) {
+    return;
+  }
+
+  const document = jsdom.jsdom("<canvas width='99' height='101'></canvas>");
+  const canvas = document.querySelector("canvas");
+
+  t.strictEqual(canvas.toDataURL().substring(0, 22), "data:image/png;base64,");
+  t.done();
+};
+
+function isCanvasInstalled(t) {
   /* eslint-disable global-require */
   let Canvas;
   try {
@@ -112,12 +128,8 @@ exports["toDataURL should work (when the canvas npm package is provided) (GH-102
   if (typeof Canvas !== "function") { // browserify will give back an empty object
     t.ok(true, "test ignored; not running with the canvas npm package installed");
     t.done();
-    return;
+    return false;
   }
 
-  const document = jsdom.jsdom("<canvas width='99' height='101'></canvas>");
-  const canvas = document.querySelector("canvas");
-
-  t.strictEqual(canvas.toDataURL().substring(0, 22), "data:image/png;base64,");
-  t.done();
-};
+  return true;
+}
