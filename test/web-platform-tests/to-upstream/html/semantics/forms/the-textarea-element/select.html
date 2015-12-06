@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<title>textarea element select() functionality</title>
+<link rel="author" title="yaycmyk" href="mailto:evan@yaycmyk.com">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/#textFieldSelection">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="log"></div>
+<script>
+  "use strict";
+
+  test(() => {
+    const element = document.createElement("textarea");
+
+    element.value = "foo";
+    element.select();
+
+    assert_equals(element.selectionStart, 0);
+    assert_equals(element.selectionEnd, 3);
+    assert_equals(element.selectionDirection, "none");
+
+  }, "textarea select() should select the entire contents");
+
+  async_test(t => {
+    const element = document.createElement("textarea");
+
+    element.value = "foo";
+
+    element.addEventListener("select", () => {
+      t.step(() => {
+        assert_true(true);
+        t.done();
+      });
+    });
+
+    element.select();
+
+  }, "textarea select() should emit a select event");
+</script>

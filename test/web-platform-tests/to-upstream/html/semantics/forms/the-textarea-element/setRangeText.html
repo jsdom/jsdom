@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<title>textarea element setSelectionRange() functionality</title>
+<link rel="author" title="yaycmyk" href="mailto:evan@yaycmyk.com">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/#textFieldSelection">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="log"></div>
+<script>
+  "use strict";
+
+  test(() => {
+    const element = document.createElement("textarea");
+
+    element.value = "foo";
+    element.setSelectionRange(0, 2);
+    element.setRangeText("tw");
+
+    assert_equals(element.value, "two");
+
+  }, "textarea setRangeText(text) should replace the currently selected text");
+
+  test(() => {
+    const element = document.createElement("textarea");
+
+    element.value = "foobarbaz";
+    element.setRangeText("baz", 0, 6);
+
+    assert_equals(element.value, "bazbaz");
+
+  }, "textarea setRangeText(text, start, end) should replace text in the given range");
+
+  test(() => {
+    const element = document.createElement("textarea");
+
+    element.value = "foobarbaz";
+    element.setRangeText("baz", 0, 6, "select");
+
+    assert_equals(element.value, "bazbaz");
+    assert_equals(element.selectionStart, 0);
+    assert_equals(element.selectionEnd, 6);
+
+  }, "textarea setRangeText(text, start, end, 'select') should create a new selection using start and end as bounds");
+
+  test(() => {
+    const element = document.createElement("textarea");
+
+    element.value = "foobarbaz";
+    element.setRangeText("baz", 0, 6, "start");
+
+    assert_equals(element.value, "bazbaz");
+    assert_equals(element.selectionStart, 0);
+    assert_equals(element.selectionEnd, 0);
+
+  }, "textarea setRangeText(text, start, end, 'start') should create a new selection, collapsed to start");
+
+  test(() => {
+    const element = document.createElement("textarea");
+
+    element.value = "foobarbaz";
+    element.setRangeText("baz", 0, 6, "end");
+
+    assert_equals(element.value, "bazbaz");
+    assert_equals(element.selectionStart, 6);
+    assert_equals(element.selectionEnd, 6);
+
+  }, "textarea setRangeText(text, start, end, 'end') should create a new selection, collapsed to end");
+
+  async_test(t => {
+    const element = document.createElement("textarea");
+
+    element.value = "foo";
+
+    element.addEventListener("select", () => {
+      t.step(() => {
+        assert_true(true);
+        t.done();
+      });
+    });
+
+    element.setRangeText("tw", 0, 2);
+
+  }, "textarea setRangeText() should emit a select event");
+</script>
