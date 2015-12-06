@@ -1,3 +1,12 @@
+## 7.2.0
+
+* Added support for text selection APIs on `<input>` and `<textarea>`! (sjelin and yaycmyk)
+* Replaced our default XML parser with [sax](https://www.npmjs.com/package/sax), thus fixing many (but not all) issues with XML and XHTML parsing. To get a flavor of the issues fixed, check out these now-closed bugs: [#393](https://github.com/tmpvar/jsdom/issues/393), [#651](https://github.com/tmpvar/jsdom/issues/651), [#415](https://github.com/tmpvar/jsdom/issues/415), [#1276](https://github.com/tmpvar/jsdom/issues/1276).
+* Fixed the `<canvas>` tag to reset its contents when its width or height changed, including the change from the default 300 × 150 canvas. (Applies only when using the `canvas` npm package.)
+* Fixed an issue where `HTMLCollection`s would get confused when they contained elements with numeric `id`s or `name`s.
+* Fixed an issue with doctype parsing confusing the system ID and public ID.
+* Made the task posted by `postMessage` use the inside-jsdom timer queue, instead of the Node.js one. This allows easier mocking. (cpojer)
+
 ## 7.1.1
 
 * When `<iframe>`s have unresolvable URLs, jsdom will no longer crash, but will instead just load `about:blank` into them. (This is the spec behavior.)

@@ -25,9 +25,9 @@ Brian Peacock <bpeacock@fastfig.com>
 Chad Walker <chad@chad-cat-lore-eddie.com>
 Chris Buckley <chris@cmbuckley.co.uk>
 Chris Carpita <ccarpita@gmail.com>
+Christoph Pojer <christoph.pojer@gmail.com>
 Christophe Coevoet <stof@notk.org>
 cjroebuck <tophtfc@gmail.com>
-cpojer <christoph.pojer@gmail.com>
 daishi <daishi@axlight.com>
 Damian Janowski <damian.janowski@gmail.com>
 Dan Lidral-Porter <dan@luckysort.com>
@@ -46,6 +46,7 @@ Elijah Insua <tmpvar@gmail.com>
 E̵̘̳̘̝ṃ̟͈͙̗̹͘i͖͇ḷ͚͔̱̰̠y͜ ̩̲͕R̮̜͓̫o͉̣̦̘̖̖ͅs̫̣͜e̼͖̹̩͉͉͠ <nexxy@symphonysubconscious.com>
 Eugene Ware <eugene@noblesamurai.com>
 Evan Haas <evan@fictivekin.com>
+Evan Jacobs <evan.jacobs@enigma.io>
 Evan Jones <evan.q.jones@gmail.com>
 Federico Galassi <federico.galassi@gmail.com>
 fegs <ang0123dev@gmail.com>
@@ -148,6 +149,7 @@ Ryan Wolf <rwolf@borderstylo.com>
 S Sesha Sendhil <seshasendhil@gmail.com>
 Salvatore Porchia <sporchia@2co.com>
 Sam Ruby <rubys@intertwingly.net>
+Sammy Jelin <sjelin@gmail.com>
 Samori Gorse <samorigorse@gmail.com>
 saucy <zekewarren@gmail.com>
 Scott Ashton <scottmortonashton@gmail.com>
