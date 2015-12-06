@@ -74,7 +74,7 @@ or with raw JavaScript source
 // Print all of the news items on Hacker News
 var jsdom = require("jsdom");
 var fs = require("fs");
-var jquery = fs.readFileSync("./jquery.js", "utf-8");
+var jquery = fs.readFileSync(__dirname + "/jquery.js", "utf-8");
 
 jsdom.env({
   url: "http://news.ycombinator.com/",
