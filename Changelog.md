@@ -1,3 +1,7 @@
+## 7.2.1
+
+* Fixed a regression in XML parsing of attributes with a namespace URL but no prefix (e.g. `<math xmlns="http://www.w3.org/1998/Math/MathML">`).
+
 ## 7.2.0
 
 * Added support for text selection APIs on `<input>` and `<textarea>`! (sjelin and yaycmyk)
