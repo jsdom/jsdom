@@ -369,3 +369,14 @@ exports["<%= stuff %> inside <script> tags (GH-58)"] = t => {
   t.strictEqual(document.head.childNodes[0].innerHTML, content);
   t.done();
 };
+
+exports["xmlns doesn't cause empty prefix"] = t => {
+  const html = "<!DOCTYPE html><math xmlns=\"http://www.w3.org/1998/Math/MathML\"></math>";
+  const expected = "<!DOCTYPE html><html><head></head>" +
+    "<body><math xmlns=\"http://www.w3.org/1998/Math/MathML\"></math></body></html>";
+  jsdom.env(html, (err, window) => {
+    t.ifError(err);
+    t.strictEqual(jsdom.serializeDocument(window.document), expected);
+    t.done();
+  });
+};
