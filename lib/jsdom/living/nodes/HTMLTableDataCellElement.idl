@@ -1,0 +1,7 @@
+interface HTMLTableDataCellElement : HTMLTableCellElement {
+  // also has obsolete members
+};
+
+partial interface HTMLTableDataCellElement {
+  [Reflect] attribute DOMString abbr;
+};

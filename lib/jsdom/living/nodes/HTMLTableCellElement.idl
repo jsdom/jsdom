@@ -1,0 +1,22 @@
+interface HTMLTableCellElement : HTMLElement {
+  attribute unsigned long colSpan;
+  attribute unsigned long rowSpan;
+  [PutForwards=value] readonly attribute DOMSettableTokenList headers;
+  readonly attribute long cellIndex;
+
+  // also has obsolete members
+};
+
+partial interface HTMLTableCellElement {
+  [Reflect] attribute DOMString align;
+  [Reflect] attribute DOMString axis;
+  [Reflect] attribute DOMString height;
+  [Reflect] attribute DOMString width;
+
+  [Reflect=char] attribute DOMString ch;
+  [Reflect=charoff] attribute DOMString chOff;
+  [Reflect] attribute boolean noWrap;
+  [Reflect] attribute DOMString vAlign;
+
+  [Reflect, TreatNullAs=EmptyString] attribute DOMString bgColor;
+};

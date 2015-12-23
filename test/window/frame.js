@@ -349,7 +349,7 @@ exports.tests = {
     });
     var iframe = doc.createElement('iframe');
     iframe.addEventListener('load', function () {
-      test.equal(iframe.src, 'files/simple_iframe.html');
+      test.equal(iframe.src, toFileUrl('files/simple_iframe.html'));
       test.done();
     });
     iframe.src = 'garbage';
@@ -434,14 +434,14 @@ exports.tests = {
     test.strictEqual(window.foo2, undefined, "frame shouldn't exist anymore (name accessor)");
 
     test.strictEqual(window.foo3, window[1], "frame index accessor should be moved down");
-    
+
     document.body.removeChild(document.getElementById("myFrame1"));
     test.strictEqual(window.length, 1, "frame shouldn't exist (.length)");
     test.strictEqual(window[1], undefined, "frame shouldn't exist anymore (idx accessor)");
     test.strictEqual(window.foo1, undefined, "frame shouldn't exist anymore (name accessor)");
 
     test.strictEqual(window.foo3, window[0], "frame index accessor should be moved down");
-    
+
     test.done();
   },
 

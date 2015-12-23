@@ -1,0 +1,12 @@
+interface HTMLOListElement : HTMLElement {
+  [Reflect] attribute boolean reversed;
+  /* incorrect */ [Reflect]
+  attribute long start;
+  [Reflect] attribute DOMString type;
+
+  // also has obsolete members
+};
+
+partial interface HTMLOListElement {
+  [Reflect] attribute boolean compact;
+};

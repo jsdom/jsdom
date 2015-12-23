@@ -1,0 +1,1 @@
+interface HTMLSpanElement : HTMLElement {};

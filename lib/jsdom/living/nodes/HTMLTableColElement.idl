@@ -1,0 +1,14 @@
+interface HTMLTableColElement : HTMLElement {
+  /* incorrect */ [Reflect]
+  attribute unsigned long span;
+
+  // also has obsolete members
+};
+
+partial interface HTMLTableColElement {
+  [Reflect] attribute DOMString align;
+  [Reflect=char] attribute DOMString ch;
+  [Reflect=charoff] attribute DOMString chOff;
+  [Reflect] attribute DOMString vAlign;
+  [Reflect] attribute DOMString width;
+};

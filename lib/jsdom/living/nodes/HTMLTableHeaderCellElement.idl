@@ -1,0 +1,6 @@
+interface HTMLTableHeaderCellElement : HTMLTableCellElement {
+  [Reflect] attribute DOMString scope;
+  [Reflect] attribute DOMString abbr;
+  [Reflect] attribute DOMString sorted;
+  void sort();
+};

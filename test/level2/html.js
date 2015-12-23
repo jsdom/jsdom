@@ -7199,7 +7199,7 @@ exports.tests = {
     test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vsrc = testNode.src;
-    test.equal(vsrc, './img/right.png', 'srcLink');
+    test.equal(vsrc, toFileUrl('html/files/img/right.png'), 'srcLink');
     test.done();
   },
 
@@ -7841,7 +7841,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vsrc = testNode.src;
-    test.equal(vsrc, './img/right.png', 'srcLink');
+    test.equal(vsrc, toFileUrl('html/files/img/right.png'), 'srcLink');
     test.done();
   },
 
@@ -9206,7 +9206,7 @@ exports.tests = {
     test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vhref = testNode.href;
-    test.equal(vhref, './files/glossary.html', 'hrefLink');
+    test.equal(vhref, toFileUrl('html/files/files/glossary.html'), 'hrefLink');
     test.done();
   },
 
@@ -9982,7 +9982,7 @@ exports.tests = {
     test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vdata = testNode.data;
-    test.equal(vdata, './pix/logo.gif', 'dataLink');
+    test.equal(vdata, toFileUrl('html/files/pix/logo.gif'), 'dataLink');
     test.done();
   },
 
@@ -11307,7 +11307,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vsrc = testNode.src;
-    test.equal(vsrc, './js/script1.js', 'srcLink');
+    test.equal(vsrc, toFileUrl('html/files/js/script1.js'), 'srcLink');
     test.done();
   },
 
@@ -17858,7 +17858,7 @@ exports.tests = {
     test.equal(nodeList.length, 2, 'Asize');
     testNode = nodeList.item(0);
     vdata = testNode.data;
-    test.equal(vdata, "./pix/logo.gif", "dataLink");
+    test.equal(vdata, toFileUrl("html/files/pix/logo.gif"), "dataLink");
     test.done();
   },
 
