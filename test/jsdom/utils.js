@@ -224,3 +224,8 @@ exports["isValidTargetOrigin properly validates target origin"] = t => {
 
   t.done();
 };
+
+exports["parseDataUrl should handle empty base64 data urls"] = t => {
+  t.strictEqual(utils.parseDataUrl("data:text/css;base64,").buffer.toString(), "");
+  t.done();
+};

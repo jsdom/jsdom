@@ -71,3 +71,8 @@ exports["<frame> loading errors show up as jsdomErrors in the virtual console"] 
   jsdom.jsdom(`<frameset><frame src="http://localhost:12345/foo.html"></frameset>`,
     { virtualConsole, features: { FetchExternalResources: ["frame"] } });
 };
+
+exports["empty base64 data urls should be blank"] = t => {
+  jsdom.jsdom(`<link rel="stylesheet" href="data:text/css;base64,">`);
+  t.done();
+};
