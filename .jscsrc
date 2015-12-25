@@ -47,7 +47,6 @@
     "lib/jsdom/level3/events.js",
     "lib/jsdom/level3/html.js",
     "lib/jsdom/level3/index.js",
-    "lib/jsdom/level3/ls.js",
     "lib/jsdom/level3/xpath.js",
     "lib/jsdom/living/generated/**",
     "test/browser/files",
