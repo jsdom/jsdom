@@ -1,0 +1,37 @@
+[Exposed=Window]
+interface Element : Node {
+  readonly attribute DOMString? namespaceURI;
+  readonly attribute DOMString? prefix;
+  readonly attribute DOMString localName;
+  readonly attribute DOMString tagName;
+
+           attribute DOMString id;
+           attribute DOMString className;
+  [SameObject] readonly attribute DOMTokenList classList;
+
+  boolean hasAttributes();
+  [SameObject] readonly attribute NamedNodeMap attributes;
+  sequence<DOMString> getAttributeNames();
+  DOMString? getAttribute(DOMString qualifiedName);
+  DOMString? getAttributeNS(DOMString? namespace, DOMString localName);
+  void setAttribute(DOMString qualifiedName, DOMString value);
+  void setAttributeNS(DOMString? namespace, DOMString qualifiedName, DOMString value);
+  void removeAttribute(DOMString qualifiedName);
+  void removeAttributeNS(DOMString? namespace, DOMString localName);
+  boolean hasAttribute(DOMString qualifiedName);
+  boolean hasAttributeNS(DOMString? namespace, DOMString localName);
+
+  Attr? getAttributeNode(DOMString qualifiedName);
+  Attr? getAttributeNodeNS(DOMString? namespace, DOMString localName);
+  Attr? setAttributeNode(Attr attr);
+  Attr? setAttributeNodeNS(Attr attr);
+  Attr removeAttributeNode(Attr attr);
+
+  Element? closest(DOMString selectors);
+  boolean matches(DOMString selectors);
+  boolean webkitMatchesSelector(DOMString selectors); // historical alias of .matches
+
+  HTMLCollection getElementsByTagName(DOMString localName);
+  HTMLCollection getElementsByTagNameNS(DOMString? namespace, DOMString localName);
+  HTMLCollection getElementsByClassName(DOMString classNames);
+};

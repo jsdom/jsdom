@@ -1,0 +1,17 @@
+interface HTMLScriptElement : HTMLElement {
+  attribute DOMString src;
+  attribute DOMString type;
+  attribute DOMString charset;
+  attribute boolean async;
+  attribute boolean defer;
+  attribute DOMString? crossOrigin;
+  attribute DOMString text;
+  attribute DOMString nonce;
+
+  // also has obsolete members
+};
+
+partial interface HTMLScriptElement {
+  attribute DOMString event;
+  attribute DOMString htmlFor;
+};

@@ -1,0 +1,24 @@
+interface HTMLElement : Element {
+  // metadata attributes
+  attribute DOMString title;
+  attribute DOMString lang;
+  attribute boolean translate;
+  attribute DOMString dir;
+  [SameObject] readonly attribute DOMStringMap dataset;
+
+  // user interaction
+  attribute boolean hidden;
+  void click();
+  attribute long tabIndex;
+  void focus();
+  void blur();
+  attribute DOMString accessKey;
+  readonly attribute DOMString accessKeyLabel;
+  attribute boolean draggable;
+  [PutForwards=value] readonly attribute DOMSettableTokenList dropzone;
+  attribute HTMLMenuElement? contextMenu;
+  attribute boolean spellcheck;
+  void forceSpellCheck();
+};
+HTMLElement implements GlobalEventHandlers;
+HTMLElement implements ElementContentEditable;

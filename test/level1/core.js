@@ -15094,22 +15094,6 @@ exports.tests = {
     test.done();
   },
 
-
-  maintainfeatures: function(test) {
-    var doc = staff.staff();
-    doc.implementation._addFeature("TestingFeature", 1);
-    doc.implementation._addFeature("TestingFeature", 2);
-    doc.implementation._addFeature("TestingFeature", 3);
-    test.ok(doc.implementation._hasFeature('TestingFeature'), 'document has \'TestingFeature\'');
-    doc.implementation._removeFeature("TestingFeature", 2);
-    test.equal(doc.implementation._hasFeature('TestingFeature', 2), false, 'document no longer has \'TestingFeature v2\'');
-    test.ok(doc.implementation._hasFeature('TestingFeature', 1), 'document has \'TestingFeature\' v1');
-    test.ok(doc.implementation._hasFeature('TestingFeature', 3), 'document has \'TestingFeature\' v3');
-    doc.implementation._removeFeature("TestingFeature");
-    test.equal(doc.implementation._hasFeature('TestingFeature'), false, 'document no longer has \'TestingFeature\'');
-    test.done();
-  },
-
   /*
     splitText
 
