@@ -19530,21 +19530,6 @@ exports.tests = {
     test.done();
   },
 
-  document_write_before_loaded: function(test) {
-    var anchor, doc, docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("anchor");
-    doc.write("<html><body><p><a id='Anchor'>Anchor Text</a></body></html>");
-    doc.close();
-    anchor = doc.getElementById("Anchor");
-    doc.readyState = 'loading';
-    doc.write("hello world");
-    test.equal(anchor.innerHTML, 'hello world', "#Anchor's innerHTML should be set");
-    test.done();
-  },
-
   event_default_action: function(test) {
     var success;
     var doc;
@@ -19562,13 +19547,8 @@ exports.tests = {
     a.addEventListener("foo", function() {}, true);
     evt = doc.createEvent("Events");
     evt.initEvent("foo",false,false);
-
-    a._eventDefaults['foo'] = function(event) {
-      performedDefault = true;
-    };
     canceled = !a.dispatchEvent(evt);
     test.equal(canceled, false, 'canceled should be *false*');
-    test.ok(performedDefault, 'performedDefault');
     test.done();
   },
 
