@@ -59,7 +59,7 @@ exports["A document node compared to itself returns nothing"] = t => {
 
 exports["A document and a newly created document are disconnected and implementation specific"] = t => {
   const doc = load("test");
-  const newDoc = doc.implementation.createDocument();
+  const newDoc = doc.implementation.createHTMLDocument();
 
   t.ok(doc.compareDocumentPosition(newDoc) & doc.defaultView.Node.DOCUMENT_POSITION_DISCONNECTED,
     "Fragment disconnected");
