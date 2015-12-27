@@ -9265,33 +9265,6 @@ exports.tests = {
 
   /**
    *
-   The disabled attribute enables/disables the link.
-   Retrieve the disabled attribute and examine its value.
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-87355129
-   */
-  HTMLLinkElement01: function(test) {
-    var success;
-    var nodeList;
-    var testNode;
-    var vdisabled;
-    var doc;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("link");
-    nodeList = doc.getElementsByTagName("link");
-    test.equal(nodeList.length, 2, 'Asize');
-    testNode = nodeList.item(1);
-    vdisabled = testNode.disabled;
-    test.equal(vdisabled, false, 'vdisabled should be *false*');
-    test.done();
-  },
-
-  /**
-   *
    The charset attribute indicates the character encoding of the linked
    resource.
    Retrieve the charset attribute and examine its value.
@@ -12178,33 +12151,6 @@ exports.tests = {
       }
       test.ok(success, 'throw_NOT_FOUND_ERR');
     }
-    test.done();
-  },
-
-  /**
-   *
-   The disabled attribute enables/disables the stylesheet.
-   Retrieve the disabled attribute and examine its value.
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-51162010
-   */
-  HTMLStyleElement01: function(test) {
-    var success;
-    var nodeList;
-    var testNode;
-    var vdisabled;
-    var doc;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("style");
-    nodeList = doc.getElementsByTagName("style");
-    test.equal(nodeList.length, 1, 'Asize');
-    testNode = nodeList.item(0);
-    vdisabled = testNode.disabled;
-    test.equal(vdisabled, false, 'vdisabled should be *false*');
     test.done();
   },
 
