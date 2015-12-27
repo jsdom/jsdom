@@ -154,7 +154,8 @@ Samori Gorse <samorigorse@gmail.com>
 saucy <zekewarren@gmail.com>
 Scott Ashton <scottmortonashton@gmail.com>
 Sean Jacke <seanineurope@gmail.com>
-Sebastian Mayr <sebmaster16@gmail.com>
+Sebastian Mayr <github@smayr.name>
+Sebastian McKenzie <sebmck@gmail.com>
 Sergei Ianovich <s@asutp.io>
 Shimon Doodkin <helpmepro1@gmail.com>
 sonnym <michaud.sonny@gmail.com>

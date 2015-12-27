@@ -1,3 +1,8 @@
+## 7.2.2
+
+* Fixed `canvasEl.toDataURL()`, with the `canvas` npm package installed; a recent update to the `canvas` package broke how we were passing arguments to do.
+* Fixed `data:` URL parsing to allow empty contents, e.g. `data:text/css;base64,`. (sebmck)
+
 ## 7.2.1
 
 * Fixed a regression in XML parsing of attributes with a namespace URL but no prefix (e.g. `<math xmlns="http://www.w3.org/1998/Math/MathML">`).
