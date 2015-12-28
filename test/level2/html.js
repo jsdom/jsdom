@@ -1207,87 +1207,6 @@ exports.tests = {
 
   /**
    *
-   The color attribute specifies the base font's color.
-   Retrieve the color attribute and examine its value.
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-87502302
-   */
-  HTMLBaseFontElement01: function(test) {
-    var success;
-    var nodeList;
-    var testNode;
-    var vcolor;
-    var doc;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("basefont");
-    nodeList = doc.getElementsByTagName("basefont");
-    test.equal(nodeList.length, 1, 'Asize');
-    testNode = nodeList.item(0);
-    vcolor = testNode.color;
-    test.equal(vcolor, "#000000", "colorLink");
-    test.done();
-  },
-
-  /**
-   *
-   The face attribute specifies the base font's face identifier.
-   Retrieve the face attribute and examine its value.
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-88128969
-   */
-  HTMLBaseFontElement02: function(test) {
-    var success;
-    var nodeList;
-    var testNode;
-    var vface;
-    var doc;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("basefont");
-    nodeList = doc.getElementsByTagName("basefont");
-    test.equal(nodeList.length, 1, 'Asize');
-    testNode = nodeList.item(0);
-    vface = testNode.face;
-    test.equal(vface, "arial,helvitica", "faceLink");
-    test.done();
-  },
-
-  /**
-   *
-   The size attribute specifies the base font's size.
-   Retrieve the size attribute and examine it's value.
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-38930424
-   */
-  HTMLBaseFontElement03: function(test) {
-    var success;
-    var nodeList;
-    var testNode;
-    var vsize;
-    var doc;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("basefont");
-    nodeList = doc.getElementsByTagName("basefont");
-    test.equal(nodeList.length, 1, 'Asize');
-    testNode = nodeList.item(0);
-    vsize = testNode.size;
-    test.equal(vsize, 4, "sizeLink");
-    test.done();
-  },
-
-  /**
-   *
    The aLink attribute specifies the color of active links.
    Retrieve the aLink attribute and examine its value.
    * @author NIST
@@ -17345,32 +17264,6 @@ exports.tests = {
     testNode = nodeList.item(0);
     vaccesskey = testNode.accessKey;
     test.equal(vaccesskey, "a", "accessKeyLink");
-    test.done();
-  },
-
-  /**
-   *
-   The value of attribute color of the basefont element is read and checked against the expected value.
-   * @author Netscape
-   * @author Sivakiran Tummala
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-87502302
-   */
-  basefont01: function(test) {
-    var success;
-    var nodeList;
-    var testNode;
-    var vcolor;
-    var doc;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("basefont");
-    nodeList = doc.getElementsByTagName("basefont");
-    test.equal(nodeList.length, 1, 'Asize');
-    testNode = nodeList.item(0);
-    vcolor = testNode.color;
-    test.equal(vcolor, "#000000", "colorLink");
     test.done();
   },
 
