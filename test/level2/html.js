@@ -7484,33 +7484,6 @@ exports.tests = {
 
   /**
    *
-   The profile attribute specifies a URI designating a metadata profile.
-   Retrieve the profile attribute and examine its value.
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-96921909
-   */
-  HTMLHeadElement01: function(test) {
-    var success;
-    var nodeList;
-    var testNode;
-    var vprofile;
-    var doc;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("head");
-    nodeList = doc.getElementsByTagName("head");
-    test.equal(nodeList.length, 1, 'Asize');
-    testNode = nodeList.item(0);
-    vprofile = testNode.profile;
-    test.equal(vprofile, 'http://www.w3.org/2004/07/profile', 'profileLink');
-    test.done();
-  },
-
-  /**
-   *
    The align attribute specifies the horizontal text alignment(H1).
    Retrieve the align attribute and examine its value.
    * @author NIST
