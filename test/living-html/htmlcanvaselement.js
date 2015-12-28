@@ -36,8 +36,8 @@ exports["canvas elements width and height must default to 300x150"] = t => {
   t.strictEqual(canvas.width, 400);
   t.strictEqual(canvas.getAttribute("width"), "400");
   canvas.width = "blasdfhdf";
-  t.strictEqual(canvas.width, 300);
-  t.strictEqual(canvas.getAttribute("width"), "300");
+  t.strictEqual(canvas.width, 0);
+  t.strictEqual(canvas.getAttribute("width"), "0");
   canvas.width = 500;
   t.strictEqual(canvas.width, 500);
   t.strictEqual(canvas.getAttribute("width"), "500");
@@ -49,8 +49,8 @@ exports["canvas elements width and height must default to 300x150"] = t => {
   t.strictEqual(canvas.height, 400);
   t.strictEqual(canvas.getAttribute("height"), "400");
   canvas.height = "blasdfhdf";
-  t.strictEqual(canvas.height, 150);
-  t.strictEqual(canvas.getAttribute("height"), "150");
+  t.strictEqual(canvas.height, 0);
+  t.strictEqual(canvas.getAttribute("height"), "0");
   canvas.height = 500;
   t.strictEqual(canvas.height, 500);
   t.strictEqual(canvas.getAttribute("height"), "500");
