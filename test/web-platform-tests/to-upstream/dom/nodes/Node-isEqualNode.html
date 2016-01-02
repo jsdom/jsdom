@@ -123,8 +123,8 @@ test(() => {
 
 test(() => {
 
-  const document1 = document.implementation.createDocument();
-  const document2 = document.implementation.createDocument();
+  const document1 = document.implementation.createDocument("http://example.org", "example");
+  const document2 = document.implementation.createDocument("http://example.org", "example");
 
   assert_true(document1.isEqualNode(document1), "self-comparison");
   assert_true(document1.isEqualNode(document2), "another empty XML document");
@@ -142,7 +142,7 @@ test(() => {
 
   testDeepEquality(() => document.createElement("foo"));
   testDeepEquality(() => document.createDocumentFragment());
-  testDeepEquality(() => document.implementation.createDocument());
+  testDeepEquality(() => document.implementation.createDocument("http://example.org", "example"));
   testDeepEquality(() => document.implementation.createHTMLDocument());
   testDeepEquality(() => document.createComment("data"));
   testDeepEquality(() => document.createTextNode("data"));
