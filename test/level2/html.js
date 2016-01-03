@@ -1011,7 +1011,7 @@ exports.tests = {
     var doc = load("area");
     var nodeList = doc.getElementsByTagName("area");
     test.equal(nodeList.length, 1, 'Asize');
-    test.equal(nodeList.item(0).href, './files/dletter.html', 'hrefLink');
+    test.equal(nodeList.item(0).href, toFileUrl('html/files/files/dletter.html'), 'hrefLink');
     test.done();
   },
 
