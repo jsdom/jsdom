@@ -746,7 +746,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcodebase = testNode.codeBase;
-    test.equal(vcodebase, "applets", "codebase");
+    test.equal(vcodebase, toFileUrl("html/files/applets"), "codebase");
     test.done();
   },
 
@@ -911,7 +911,7 @@ exports.tests = {
     test.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vobject = testNode.object;
-    test.equal(vobject, "DOMTSApplet.dat", "object");
+    test.equal(vobject, toFileUrl("html/files/DOMTSApplet.dat"), "object");
     test.done();
   },
 
