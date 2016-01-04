@@ -193,14 +193,6 @@ exports['dispatch event'] = testcase({
     test.done();
   },
 
-  'an Event initialized with a empty name passed to dispatchEvent': function (test) {
-    var doc = this.doc,
-        event = doc.createEvent("Events");
-    event.initEvent("",false,false);
-    test.throws(function(){ doc.dispatchEvent(event) }, doc.defaultView.DOMException, 'should throw an exception');
-    test.done();
-  },
-
   // An EventListener registered on the target node with capture false, should receive any event fired on that node.
   'EventListener with capture false': function (test) {
     var monitor = new EventMonitor();
