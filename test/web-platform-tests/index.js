@@ -31,7 +31,7 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports, path.reso
   "dom/nodes/getElementsByClassName-07.htm",
   "dom/nodes/getElementsByClassName-08.htm",
   "dom/nodes/getElementsByClassName-09.htm",
-  // "dom/nodes/getElementsByClassName-10.xml", // XML class attribute and localName and namespaces don't work well
+  "dom/nodes/getElementsByClassName-10.xml",
   // "dom/nodes/getElementsByClassName-11.xml", // XML class attribute and localName and namespaces don't work well
   "dom/nodes/getElementsByClassName-12.htm",
   "dom/nodes/getElementsByClassName-13.htm",
