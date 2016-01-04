@@ -1,13 +1,13 @@
 interface HTMLAnchorElement : HTMLElement {
   [Reflect] attribute DOMString target;
   [Reflect] attribute DOMString download;
-  [PutForwards=value] readonly attribute DOMSettableTokenList ping;
+//  [PutForwards=value] readonly attribute DOMSettableTokenList ping;
   [Reflect] attribute DOMString rel;
-  readonly attribute DOMTokenList relList;
+//  readonly attribute DOMTokenList relList;
   [Reflect] attribute DOMString hreflang;
   [Reflect] attribute DOMString type;
 
-  attribute DOMString text;
+//  attribute DOMString text;
 
   // also has obsolete members
 };

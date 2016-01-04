@@ -4,7 +4,7 @@ interface Document : Node {
   [SameObject] readonly attribute DOMImplementation implementation;
   readonly attribute DOMString URL;
   readonly attribute DOMString documentURI;
-  readonly attribute DOMString origin;
+//  readonly attribute DOMString origin;
   readonly attribute DOMString compatMode;
   readonly attribute DOMString characterSet;
   readonly attribute DOMString charset; // historical alias of .characterSet
@@ -25,48 +25,48 @@ interface Document : Node {
   [NewObject] ProcessingInstruction createProcessingInstruction(DOMString target, DOMString data);
 
   [NewObject] Node importNode(Node node, optional boolean deep = false);
-  Node adoptNode(Node node);
+//  Node adoptNode(Node node);
 
   [NewObject] Attr createAttribute(DOMString localName);
   [NewObject] Attr createAttributeNS(DOMString? namespace, DOMString qualifiedName);
 
   [NewObject] Event createEvent(DOMString interface);
 
-  [NewObject] Range createRange();
+//  [NewObject] Range createRange();
 
   // NodeFilter.SHOW_ALL = 0xFFFFFFFF
-  [NewObject] NodeIterator createNodeIterator(Node root, optional unsigned long whatToShow = 0xFFFFFFFF, optional NodeFilter? filter = null);
-  [NewObject] TreeWalker createTreeWalker(Node root, optional unsigned long whatToShow = 0xFFFFFFFF, optional NodeFilter? filter = null);
+//  [NewObject] NodeIterator createNodeIterator(Node root, optional unsigned long whatToShow = 0xFFFFFFFF, optional NodeFilter? filter = null); // implemented in node-iterator.js; TODO move to Document-impl.js
+//  [NewObject] TreeWalker createTreeWalker(Node root, optional unsigned long whatToShow = 0xFFFFFFFF, optional NodeFilter? filter = null);
 };
 
 [OverrideBuiltins]
 partial /*sealed*/ interface Document {
   // resource metadata management
   [PutForwards=href, Unforgeable] readonly attribute Location? location;
-  attribute DOMString domain;
+//  attribute DOMString domain;
   readonly attribute DOMString referrer;
   attribute DOMString cookie;
-  readonly attribute DOMString lastModified;
+//  readonly attribute DOMString lastModified;
   readonly attribute DocumentReadyState readyState;
 
   // DOM tree accessors
-  getter object (DOMString name);
+//  getter object (DOMString name);
   attribute DOMString title;
-  attribute DOMString dir;
+//  attribute DOMString dir;
   attribute HTMLElement? body;
   readonly attribute HTMLHeadElement? head;
   [SameObject] readonly attribute HTMLCollection images;
-  [SameObject] readonly attribute HTMLCollection embeds;
-  [SameObject] readonly attribute HTMLCollection plugins;
+//  [SameObject] readonly attribute HTMLCollection embeds;
+//  [SameObject] readonly attribute HTMLCollection plugins;
   [SameObject] readonly attribute HTMLCollection links;
   [SameObject] readonly attribute HTMLCollection forms;
-  [SameObject] readonly attribute HTMLCollection scripts;
+//  [SameObject] readonly attribute HTMLCollection scripts;
   NodeList getElementsByName(DOMString elementName);
   readonly attribute HTMLScriptElement? currentScript;
 
   // dynamic markup insertion
   Document open(optional DOMString type = "text/html", optional DOMString replace = "");
-  WindowProxy open(DOMString url, DOMString name, DOMString features, optional boolean replace = false);
+//  WindowProxy open(DOMString url, DOMString name, DOMString features, optional boolean replace = false);
   void close();
   void write(DOMString... text);
   void writeln(DOMString... text);
@@ -74,14 +74,14 @@ partial /*sealed*/ interface Document {
   // user interaction
   readonly attribute WindowProxy? defaultView;
   readonly attribute Element? activeElement;
-  // unimplemented: boolean hasFocus();
-  attribute DOMString designMode;
-  boolean execCommand(DOMString commandId, optional boolean showUI = false, optional DOMString value = "");
-  boolean queryCommandEnabled(DOMString commandId);
-  boolean queryCommandIndeterm(DOMString commandId);
-  boolean queryCommandState(DOMString commandId);
-  boolean queryCommandSupported(DOMString commandId);
-  DOMString queryCommandValue(DOMString commandId);
+//  boolean hasFocus();
+//  attribute DOMString designMode;
+//  boolean execCommand(DOMString commandId, optional boolean showUI = false, optional DOMString value = "");
+//  boolean queryCommandEnabled(DOMString commandId);
+//  boolean queryCommandIndeterm(DOMString commandId);
+//  boolean queryCommandState(DOMString commandId);
+//  boolean queryCommandSupported(DOMString commandId);
+//  DOMString queryCommandValue(DOMString commandId);
 
   // special event handler IDL attributes that only apply to Document objects
   [LenientThis] attribute EventHandler onreadystatechange;
@@ -91,27 +91,27 @@ partial /*sealed*/ interface Document {
 Document implements GlobalEventHandlers;
 
 partial interface Document {
-  [TreatNullAs=EmptyString] attribute DOMString fgColor;
-  [TreatNullAs=EmptyString] attribute DOMString linkColor;
-  [TreatNullAs=EmptyString] attribute DOMString vlinkColor;
-  [TreatNullAs=EmptyString] attribute DOMString alinkColor;
-  [TreatNullAs=EmptyString] attribute DOMString bgColor;
+//  [TreatNullAs=EmptyString] attribute DOMString fgColor;
+//  [TreatNullAs=EmptyString] attribute DOMString linkColor;
+//  [TreatNullAs=EmptyString] attribute DOMString vlinkColor;
+//  [TreatNullAs=EmptyString] attribute DOMString alinkColor;
+//  [TreatNullAs=EmptyString] attribute DOMString bgColor;
 
   [SameObject] readonly attribute HTMLCollection anchors;
   [SameObject] readonly attribute HTMLCollection applets;
 
-  void clear();
-  void captureEvents();
-  void releaseEvents();
+//  void clear();
+//  void captureEvents();
+//  void releaseEvents();
 
-  [SameObject] readonly attribute HTMLAllCollection all;
+//  [SameObject] readonly attribute HTMLAllCollection all;
 };
 
 partial interface Document {
   [SameObject] readonly attribute StyleSheetList styleSheets;
-  attribute DOMString? selectedStyleSheetSet;
-  readonly attribute DOMString? lastStyleSheetSet;
-  readonly attribute DOMString? preferredStyleSheetSet;
-  readonly attribute FrozenArray<DOMString> styleSheetSets;
-  void enableStyleSheetsForSet(DOMString? name);
+//  attribute DOMString? selectedStyleSheetSet;
+//  readonly attribute DOMString? lastStyleSheetSet;
+//  readonly attribute DOMString? preferredStyleSheetSet;
+//  readonly attribute FrozenArray<DOMString> styleSheetSets;
+//  void enableStyleSheetsForSet(DOMString? name);
 };

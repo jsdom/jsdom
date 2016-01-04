@@ -1,10 +1,9 @@
 interface HTMLSelectElement : HTMLElement {
-  attribute DOMString autocomplete;
+//  attribute DOMString autocomplete;
   [Reflect] attribute boolean autofocus;
   [Reflect] attribute boolean disabled;
   readonly attribute HTMLFormElement? form;
-  /* incorrect */ [Reflect]
-  attribute boolean multiple;
+  [Reflect] attribute boolean multiple;
   [Reflect] attribute DOMString name;
   [Reflect] attribute boolean required;
   attribute unsigned long size;
@@ -13,23 +12,23 @@ interface HTMLSelectElement : HTMLElement {
 
   [SameObject] readonly attribute HTMLOptionsCollection options;
   attribute unsigned long length;
-  getter Element? item(unsigned long index);
-  HTMLOptionElement? namedItem(DOMString name);
+//  getter Element? item(unsigned long index);
+//  HTMLOptionElement? namedItem(DOMString name);
   void add((HTMLOptionElement or HTMLOptGroupElement) element, optional (HTMLElement or long)? before = null);
   void remove(); // ChildNode overload
   void remove(long index);
-  setter void (unsigned long index, HTMLOptionElement? option);
+//  setter void (unsigned long index, HTMLOptionElement? option);
 
-  [SameObject] readonly attribute HTMLCollection selectedOptions;
+//  [SameObject] readonly attribute HTMLCollection selectedOptions;
   attribute long selectedIndex;
   attribute DOMString value;
 
-  readonly attribute boolean willValidate;
-  readonly attribute ValidityState validity;
-  readonly attribute DOMString validationMessage;
-  boolean checkValidity();
-  boolean reportValidity();
-  void setCustomValidity(DOMString error);
+//  readonly attribute boolean willValidate;
+//  readonly attribute ValidityState validity;
+//  readonly attribute DOMString validationMessage;
+//  boolean checkValidity();
+//  boolean reportValidity();
+//  void setCustomValidity(DOMString error);
 
-  [SameObject] readonly attribute NodeList labels;
+//  [SameObject] readonly attribute NodeList labels;
 };

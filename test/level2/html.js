@@ -2150,31 +2150,6 @@ exports.tests = {
 
   /**
    *
-   The domain attribute specifies the domain name of the server that served
-   the document, or null if the server cannot be identified by a domain name.
-   Retrieve the domain attribute and examine its value.
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-2250147
-   */
-  HTMLDocument03: function(test) {
-    var success;
-    var nodeList;
-    var testNode;
-    var vdomain;
-    var doc;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("document");
-    vdomain = doc.domain;
-    test.equal(vdomain, "", "domainLink");
-    test.done();
-  },
-
-  /**
-   *
    The URL attribute specifies the absolute URI of the document.
    Retrieve the URL attribute and examine its value.
    * @author NIST

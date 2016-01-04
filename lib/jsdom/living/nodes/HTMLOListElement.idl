@@ -1,7 +1,6 @@
 interface HTMLOListElement : HTMLElement {
   [Reflect] attribute boolean reversed;
-  /* incorrect */ [Reflect]
-  attribute long start;
+  [Reflect] attribute long start; // TODO this needs the default value
   [Reflect] attribute DOMString type;
 
   // also has obsolete members

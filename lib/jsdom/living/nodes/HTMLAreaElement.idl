@@ -3,10 +3,10 @@ interface HTMLAreaElement : HTMLElement {
   [Reflect] attribute DOMString coords;
   [Reflect] attribute DOMString shape;
   [Reflect] attribute DOMString target;
-  attribute DOMString download;
-  [PutForwards=value] readonly attribute DOMSettableTokenList ping;
+//  attribute DOMString download;
+//  [PutForwards=value] readonly attribute DOMSettableTokenList ping;
   [Reflect] attribute DOMString rel;
-  readonly attribute DOMTokenList relList;
+//  readonly attribute DOMTokenList relList;
 
   // also has obsolete members
 };

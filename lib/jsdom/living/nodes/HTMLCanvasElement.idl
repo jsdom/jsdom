@@ -6,8 +6,8 @@ interface HTMLCanvasElement : HTMLElement {
   boolean probablySupportsContext(DOMString contextId, any... arguments);
 
   void setContext(RenderingContext context);
-  CanvasProxy transferControlToProxy();
+//  CanvasProxy transferControlToProxy();
 
   DOMString toDataURL(optional DOMString type, any... arguments);
-  void toBlob(BlobCallback _callback, optional DOMString type, any... arguments);
+//  void toBlob(BlobCallback _callback, optional DOMString type, any... arguments);
 };

@@ -1,6 +1,6 @@
 interface HTMLSourceElement : HTMLElement {
   attribute DOMString src;
-  attribute DOMString type;
+  [Reflect] attribute DOMString type;
 
   // also has obsolete members
 };

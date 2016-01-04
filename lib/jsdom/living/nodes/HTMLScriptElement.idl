@@ -2,7 +2,7 @@ interface HTMLScriptElement : HTMLElement {
   attribute DOMString src;
   [Reflect] attribute DOMString type;
   [Reflect] attribute DOMString charset;
-  attribute boolean async;
+//  attribute boolean async;
   [Reflect] attribute boolean defer;
   [Reflect] attribute DOMString? crossOrigin;
   attribute DOMString text;

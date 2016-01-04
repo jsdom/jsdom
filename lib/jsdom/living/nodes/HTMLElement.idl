@@ -2,10 +2,9 @@ interface HTMLElement : Element {
   // metadata attributes
   [Reflect] attribute DOMString title;
   [Reflect] attribute DOMString lang;
-  attribute boolean translate;
-  /* incorrect */ [Reflect]
-  attribute DOMString dir;
-  [SameObject] readonly attribute DOMStringMap dataset;
+//  attribute boolean translate;
+  [Reflect] attribute DOMString dir; // TODO this should be limited to known values only; [Reflect] by itself is incorrect
+//  [SameObject] readonly attribute DOMStringMap dataset;
 
   // user interaction
   [Reflect] attribute boolean hidden;
@@ -14,12 +13,12 @@ interface HTMLElement : Element {
   void focus();
   void blur();
   [Reflect] attribute DOMString accessKey;
-  readonly attribute DOMString accessKeyLabel;
-  attribute boolean draggable;
-  [PutForwards=value] readonly attribute DOMSettableTokenList dropzone;
-  attribute HTMLMenuElement? contextMenu;
-  attribute boolean spellcheck;
-  void forceSpellCheck();
+//  readonly attribute DOMString accessKeyLabel;
+//  attribute boolean draggable;
+//  [PutForwards=value] readonly attribute DOMSettableTokenList dropzone;
+//  attribute HTMLMenuElement? contextMenu;
+//  attribute boolean spellcheck;
+//  void forceSpellCheck();
 };
 HTMLElement implements GlobalEventHandlers;
 HTMLElement implements ElementContentEditable;

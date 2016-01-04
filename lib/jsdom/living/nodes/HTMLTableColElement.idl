@@ -1,6 +1,5 @@
 interface HTMLTableColElement : HTMLElement {
-  /* incorrect */ [Reflect]
-  attribute unsigned long span;
+  [Reflect] attribute unsigned long span; // TODO: limited to only non-negative numbers greater than zero
 
   // also has obsolete members
 };

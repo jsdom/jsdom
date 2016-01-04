@@ -3,8 +3,8 @@ interface HTMLEmbedElement : HTMLElement {
   [Reflect] attribute DOMString type;
   [Reflect] attribute DOMString width;
   [Reflect] attribute DOMString height;
-  Document? getSVGDocument();
-  legacycaller any (any... arguments);
+//  Document? getSVGDocument();
+//  legacycaller any (any... arguments);
 
   // also has obsolete members
 };

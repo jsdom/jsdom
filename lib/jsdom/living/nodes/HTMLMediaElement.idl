@@ -1,11 +1,11 @@
 interface HTMLMediaElement : HTMLElement {
 
   // error state
-  readonly attribute MediaError? error;
+//  readonly attribute MediaError? error;
 
   // network state
   attribute DOMString src;
-  attribute MediaProvider? srcObject;
+//  attribute MediaProvider? srcObject;
   readonly attribute DOMString currentSrc;
   [Reflect] attribute DOMString? crossOrigin;
   const unsigned short NETWORK_EMPTY = 0;
@@ -13,7 +13,7 @@ interface HTMLMediaElement : HTMLElement {
   const unsigned short NETWORK_LOADING = 2;
   const unsigned short NETWORK_NO_SOURCE = 3;
   readonly attribute unsigned short networkState;
-  attribute DOMString preload;
+  [Reflect] attribute DOMString preload; // TODO limited only to known values
   readonly attribute TimeRanges buffered;
   void load();
   CanPlayTypeResult canPlayType(DOMString type);
@@ -29,9 +29,9 @@ interface HTMLMediaElement : HTMLElement {
 
   // playback state
   attribute double currentTime;
-  void fastSeek(double time);
+//  void fastSeek(double time);
   readonly attribute unrestricted double duration;
-  object getStartDate();
+//  object getStartDate();
   readonly attribute boolean paused;
   attribute double defaultPlaybackRate;
   attribute double playbackRate;
@@ -44,8 +44,8 @@ interface HTMLMediaElement : HTMLElement {
   void pause();
 
   // media controller
-  attribute DOMString mediaGroup;
-  attribute MediaController? controller;
+//  attribute DOMString mediaGroup;
+//  attribute MediaController? controller;
 
   // controls
   [Reflect] attribute boolean controls;

@@ -9,12 +9,12 @@ interface HTMLTableElement : HTMLElement {
   HTMLTableSectionElement createTFoot();
   void deleteTFoot();
   [SameObject] readonly attribute HTMLCollection tBodies;
-  HTMLTableSectionElement createTBody();
+//  HTMLTableSectionElement createTBody();
   [SameObject] readonly attribute HTMLCollection rows;
   HTMLTableRowElement insertRow(optional long index = -1);
   void deleteRow(long index);
-  attribute boolean sortable;
-  void stopSorting();
+//  attribute boolean sortable;
+//  void stopSorting();
 
   // also has obsolete members
 };
