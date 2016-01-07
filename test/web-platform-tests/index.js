@@ -103,6 +103,7 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports, path.reso
   "html/syntax/parsing/template/clearing-the-stack-back-to-a-given-context/clearing-stack-back-to-a-table-row-context.html",
   // "html/syntax/parsing/template/creating-an-element-for-the-token/template-owner-document.html", // template content owner document semantics not yet implemented
   "html/webappapis/atob/base64.html",
+  "html/webappapis/timers/evil-spec-example.html",
 
   "dom/events/Event-constants.html",
   "dom/events/Event-defaultPrevented.html",
