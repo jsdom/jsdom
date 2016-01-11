@@ -110,6 +110,23 @@ exports.tests = {
     });
   },
 
+  StyleShorthandProperties: function (test) {
+    jsdom.env(
+        "",
+        function (err, win) {
+      var p = win.document.createElement("p");
+      p.style.border = "1px solid black";
+      test.equal(1, p.style.length);
+      test.equal("1px solid black", p.style.border);
+      test.equal("1px", p.style.borderWidth);
+      test.equal("solid", p.style.borderStyle);
+      test.equal("black", p.style.borderColor);
+      test.equal("border: 1px solid black;", p.style.cssText);
+      test.equal('<p style="border: 1px solid black;"></p>', p.outerHTML);
+      test.done();
+    });
+  },
+
   retainOriginalStyleAttributeUntilStyleGetter: function (test) {
     jsdom.env(
         "",
