@@ -9,21 +9,32 @@
 <script>
 "use strict";
 
-test(() => {
-  const a = setTimeout(() => {}, 1000);
+async_test(t => {
+  const a = setTimeout(() => {
+    // shouldn't execute since we clear immediately
+    assert_true(false);
+  }, 50);
+  clearTimeout(a);
 
-  const b = setTimeout(() => {}, 1000);
+  let c;
+
+  const b = setTimeout(() => {
+    // this callback should execute since we haven't cleared the timeout
+    const d = setInterval(() => {
+      clearInterval(d);
+      t.done();
+    }, 50);
+
+    assert_equals(d, c + 1); // since we created the interval after the handle c
+  }, 50);
   assert_equals(b, a + 1);
 
-  const c = setInterval(() => {}, 1000);
+  c = setInterval(() => {
+    // shouldn't execute since we clear immediately
+    assert_true(false);
+  }, 50);
+  clearInterval(c);
   assert_equals(c, b + 1);
 
-  const d = setInterval(() => {}, 1000);
-  assert_equals(d, c + 1);
-
-  clearTimeout(a);
-  clearTimeout(b);
-  clearInterval(c);
-  clearInterval(d);
-});
+}, "setTimeout and setInterval should return numeric handles which increment");
 </script>
