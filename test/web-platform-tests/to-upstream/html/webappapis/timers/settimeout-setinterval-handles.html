@@ -1,0 +1,29 @@
+<!doctype html>
+<title>Handles returned by setTimeout and setInterval</title>
+<link rel="author" title="Alvaro Dias" href="mailto:alvarorahul@gmail.com">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/#dom-windowtimers-settimeout">
+<link rel="help" href="https://heycam.github.io/webidl/#es-operations">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="log"></div>
+<script>
+"use strict";
+
+test(() => {
+  const a = setTimeout(() => {}, 1000);
+
+  const b = setTimeout(() => {}, 1000);
+  assert_equals(b, a + 1);
+
+  const c = setInterval(() => {}, 1000);
+  assert_equals(c, b + 1);
+
+  const d = setInterval(() => {}, 1000);
+  assert_equals(d, c + 1);
+
+  clearTimeout(a);
+  clearTimeout(b);
+  clearInterval(c);
+  clearInterval(d);
+});
+</script>
