@@ -41,7 +41,7 @@ partial interface Element {
                     attribute DOMString innerHTML;
     [TreatNullAs=EmptyString]
                     attribute DOMString outerHTML;
-//    void insertAdjacentHTML (DOMString position, DOMString text);
+    void insertAdjacentHTML (DOMString position, DOMString text);
 };
 
 enum ScrollLogicalPosition { "start", "center", "end", "nearest" };
