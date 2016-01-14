@@ -37,6 +37,8 @@ function createJsdom(urlPrefix, testPath, t) {
             t.ok(false, "Failed in \"" + test.name + "\": \n" + test.message + "\n\n" + test.stack);
           } else if (test.status === 2) {
             t.ok(false, "Timout in \"" + test.name + "\": \n" + test.message + "\n\n" + test.stack);
+          } else if (test.status === 3) {
+            t.ok(false, "Uncompleted test in \"" + test.name + "\": \n" + test.message + "\n\n" + test.stack);
           } else {
             t.ok(true, test.name);
           }
