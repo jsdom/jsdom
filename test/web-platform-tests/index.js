@@ -57,6 +57,7 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports, path.reso
   "dom/nodes/Node-cloneNode.html",
   "dom/traversal/NodeFilter-constants.html",
   "dom/traversal/NodeIterator.html",
+  "domparsing/insert-adjacent.html",
   "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-02.html",
   "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-03.html",
   "html/dom/elements/global-attributes/classlist-nonstring.html",
