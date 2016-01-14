@@ -12,7 +12,7 @@ test(() => {
 
   const el = document.createElement("p");
   el.innerHTML = "<span>test</span>";
-  const foo = el.getElementsByTagName('span')[0];
+  const foo = el.getElementsByTagName("span")[0];
 
   foo.insertAdjacentHTML("beforebegin", "1");
   foo.insertAdjacentHTML("afterbegin", "2");
