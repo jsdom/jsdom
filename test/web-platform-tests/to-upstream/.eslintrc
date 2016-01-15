@@ -8,7 +8,8 @@
   },
   "rules": {
     "padded-blocks": 0, // we like to add spaces around the main test block
-    "no-multiple-empty-lines": 0 // some bug with the eslint-plugin-html package makes this spuriously trigger
+    "no-multiple-empty-lines": 0, // some bug with the eslint-plugin-html package makes this spuriously trigger
+    "camelcase": 0 // setting options like allow_uncaught_exception requires this
   },
   "globals": {
     "EventWatcher": false,

@@ -9,8 +9,10 @@
 "use strict";
 setup({ allow_uncaught_exception: true });
 
-promise_test(t => {
+promise_test(() => {
   return new Promise(resolve => {
+    setTimeout("throw new Error('test1')", 10);
+
     window.onerror = message => {
       window.onerror = null;
 
@@ -19,13 +21,15 @@ promise_test(t => {
       resolve();
       return true;
     };
-
-    setTimeout("throw new Error('test1')", 100);
   });
 }, "setTimeout, string argument");
 
-promise_test(t => {
+promise_test(() => {
   return new Promise(resolve => {
+    setTimeout(() => {
+      throw new Error("test2");
+    }, 10);
+
     window.onerror = message => {
       window.onerror = null;
 
@@ -34,13 +38,13 @@ promise_test(t => {
       resolve();
       return true;
     };
-
-    setTimeout(() => { throw new Error('test2'); }, 100);
   });
 }, "setTimeout, function argument");
 
-promise_test(t => {
+promise_test(() => {
   return new Promise(resolve => {
+    const i = setInterval("throw new Error('test3')", 10);
+
     window.onerror = message => {
       window.onerror = null;
       clearInterval(i);
@@ -50,13 +54,15 @@ promise_test(t => {
       resolve();
       return true;
     };
-
-    const i = setInterval("throw new Error('test3')", 100);
   });
 }, "setInterval, string argument");
 
-promise_test(t => {
+promise_test(() => {
   return new Promise(resolve => {
+    const i = setInterval(() => {
+      throw new Error("test4");
+    }, 10);
+
     window.onerror = message => {
       window.onerror = null;
       clearInterval(i);
@@ -66,8 +72,6 @@ promise_test(t => {
       resolve();
       return true;
     };
-
-    const i = setInterval(() => { throw new Error('test4'); }, 100);
   });
 }, "setInterval, function argument");
 </script>
