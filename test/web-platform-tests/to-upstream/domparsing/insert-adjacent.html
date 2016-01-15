@@ -1,0 +1,34 @@
+<!doctype html>
+<title>insertAdjacentHTML</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<div id="element"></div>
+
+<script>
+test(function() {
+  var el = document.querySelector("#element");
+
+  assert_throws("SYNTAX_ERR", function () {
+    el.insertAdjacentHTML("invalid", "test");
+  });
+}, "Throws when given an invalid position");
+
+test(function() {
+  // A detached element does not have a parent node.
+  var el = document.createElement("span");
+
+  assert_throws("NO_MODIFICATION_ALLOWED_ERR", function () {
+    el.insertAdjacentHTML("beforebegin", "test");
+  });
+}, "Throws when inserting into an element whose parent is null");
+
+test(function() {
+  // The parent node of the html element is a document.
+  var el = document.querySelector("html");
+
+  assert_throws("NO_MODIFICATION_ALLOWED_ERR", function () {
+    el.insertAdjacentHTML("beforebegin", "test");
+  });
+}, "Throws when inserting into an element whose parent is a document");
+</script>
