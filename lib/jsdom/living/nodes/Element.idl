@@ -43,3 +43,30 @@ partial interface Element {
                     attribute DOMString outerHTML;
 //    void insertAdjacentHTML (DOMString position, DOMString text);
 };
+
+enum ScrollLogicalPosition { "start", "center", "end", "nearest" };
+dictionary ScrollIntoViewOptions : ScrollOptions {
+  ScrollLogicalPosition block = "center";
+  ScrollLogicalPosition inline = "center";
+};
+
+partial interface Element {
+  [NewObject] sequence<DOMRect> getClientRects();
+  [NewObject] DOMRect getBoundingClientRect();
+//  void scrollIntoView();
+//  void scrollIntoView((boolean or object) arg);
+//  void scroll(optional ScrollToOptions options);
+//  void scroll(unrestricted double x, unrestricted double y);
+//  void scrollTo(optional ScrollToOptions options);
+//  void scrollTo(unrestricted double x, unrestricted double y);
+//  void scrollBy(optional ScrollToOptions options);
+//  void scrollBy(unrestricted double x, unrestricted double y);
+//  attribute unrestricted double scrollTop;
+//  attribute unrestricted double scrollLeft;
+//  readonly attribute long scrollWidth;
+//  readonly attribute long scrollHeight;
+//  readonly attribute long clientTop;
+//  readonly attribute long clientLeft;
+//  readonly attribute long clientWidth;
+//  readonly attribute long clientHeight;
+};
