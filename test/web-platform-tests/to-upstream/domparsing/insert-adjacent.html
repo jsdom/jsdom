@@ -6,28 +6,30 @@
 <div id="element"></div>
 
 <script>
-test(function() {
-  var el = document.querySelector("#element");
+"use strict";
 
-  assert_throws("SYNTAX_ERR", function () {
+test(() => {
+  const el = document.querySelector("#element");
+
+  assert_throws("SYNTAX_ERR", () => {
     el.insertAdjacentHTML("invalid", "test");
   });
 }, "Throws when given an invalid position");
 
-test(function() {
+test(() => {
   // A detached element does not have a parent node.
-  var el = document.createElement("span");
+  const el = document.createElement("span");
 
-  assert_throws("NO_MODIFICATION_ALLOWED_ERR", function () {
+  assert_throws("NO_MODIFICATION_ALLOWED_ERR", () => {
     el.insertAdjacentHTML("beforebegin", "test");
   });
 }, "Throws when inserting into an element whose parent is null");
 
-test(function() {
+test(() => {
   // The parent node of the html element is a document.
-  var el = document.querySelector("html");
+  const el = document.querySelector("html");
 
-  assert_throws("NO_MODIFICATION_ALLOWED_ERR", function () {
+  assert_throws("NO_MODIFICATION_ALLOWED_ERR", () => {
     el.insertAdjacentHTML("beforebegin", "test");
   });
 }, "Throws when inserting into an element whose parent is a document");
