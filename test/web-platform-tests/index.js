@@ -8,6 +8,7 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports, path.reso
   "dom/nodes/CharacterData-deleteData.html",
   "dom/nodes/CharacterData-insertData.html",
   "dom/nodes/CharacterData-replaceData.html",
+  "dom/nodes/Document-adoptNode.html",
   "dom/nodes/Document-contentType/contentType/createHTMLDocument.html",
   "dom/nodes/Document-createComment.html",
   "dom/nodes/Document-createProcessingInstruction.html",

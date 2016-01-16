@@ -7066,53 +7066,6 @@ exports.tests = {
   /**
    *
    The "appendChild(newChild)" method raises a
-   WRONG_DOCUMENT_ERR DOMException if the "newChild" was
-   created from a different document than the one that
-   created this node.
-
-   Retrieve the second employee and attempt to append
-   a node created from a different document.   An attempt
-   to make such a replacement should raise the desired
-   exception.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NOT_FOUND_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-184E7107')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NOT_FOUND_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
-   */
-  hc_nodeappendchildnewchilddiffdocument: function(test) {
-    var success;
-    var doc1;
-    var doc2;
-    var newChild;
-    var elementList;
-    var elementNode;
-    var appendedChild;
-    doc1 = hc_staff.hc_staff();
-    doc2 = hc_staff.hc_staff();
-    newChild = doc1.createElement("br");
-    elementList = doc2.getElementsByTagName("p");
-    elementNode = elementList.item(1);
-
-    {
-      success = false;
-      try {
-        appendedChild = elementNode.appendChild(newChild);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 4);
-      }
-      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
-   The "appendChild(newChild)" method raises a
    HIERARCHY_REQUEST_ERR DOMException if the node to
    append is one of this node's ancestors.
 
@@ -8656,56 +8609,6 @@ exports.tests = {
 
   /**
    *
-   The "insertBefore(newChild,refChild)" method raises a
-   WRONG_DOCUMENT_ERR DOMException if the "newChild" was
-   created from a different document than the one that
-   created this node.
-
-   Retrieve the second employee and attempt to insert a new
-   child that was created from a different document than the
-   one that created the second employee.   An attempt to
-   insert such a child should raise the desired exception.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='WRONG_DOCUMENT_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-952280727')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='WRONG_DOCUMENT_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
-   */
-  hc_nodeinsertbeforenewchilddiffdocument: function(test) {
-    var success;
-    var doc1;
-    var doc2;
-    var refChild;
-    var newChild;
-    var elementList;
-    var elementNode;
-    var insertedNode;
-    doc1 = hc_staff.hc_staff();
-    doc2 = hc_staff.hc_staff();
-    newChild = doc1.createElement("br");
-    elementList = doc2.getElementsByTagName("p");
-    elementNode = elementList.item(1);
-    refChild = elementNode.firstChild;
-
-
-    {
-      success = false;
-      try {
-        insertedNode = elementNode.insertBefore(newChild,refChild);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 4);
-      }
-      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
    If the "newChild" is already in the tree, the
    "insertBefore(newChild,refChild)" method must first
    remove it before the insertion takes place.
@@ -9605,56 +9508,6 @@ exports.tests = {
     childName = child.nodeName;
 
     test.equal(childName, "br", 'element nodeName');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "replaceChild(newChild,oldChild)" method raises a
-   WRONG_DOCUMENT_ERR DOMException if the "newChild" was
-   created from a different document than the one that
-   created this node.
-
-   Retrieve the second employee and attempt to replace one
-   of its children with a node created from a different
-   document.   An attempt to make such a replacement
-   should raise the desired exception.
-
-   * @author Curt Arnold
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NOT_FOUND_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-785887307')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NOT_FOUND_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=247
-   */
-  hc_nodereplacechildnewchilddiffdocument: function(test) {
-    var success;
-    var doc1;
-    var doc2;
-    var oldChild;
-    var newChild;
-    var elementList;
-    var elementNode;
-    var replacedChild;
-    doc1 = hc_staff.hc_staff();
-    doc2 = hc_staff.hc_staff();
-    newChild = doc1.createElement("br");
-    elementList = doc2.getElementsByTagName("p");
-    elementNode = elementList.item(1);
-    oldChild = elementNode.firstChild;
-
-
-    {
-      success = false;
-      try {
-        replacedChild = elementNode.replaceChild(newChild,oldChild);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 4);
-      }
-      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
-    }
 
     test.done();
   },
@@ -11175,54 +11028,6 @@ exports.tests = {
     childName = appendNode.nodeName;
 
     test.equal(childName, "newChild", 'nodeAppendChildGetNodeNameAssert1');
-
-    test.done();
-  },
-
-  /**
-   *
-   The "appendChild(newChild)" method raises a
-   WRONG_DOCUMENT_ERR DOMException if the "newChild" was
-   created from a different document than the one that
-   created this node.
-
-   Retrieve the second employee and attempt to append
-   a node created from a different document.   An attempt
-   to make such a replacement should raise the desired
-   exception.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NOT_FOUND_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-184E7107')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NOT_FOUND_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-184E7107
-   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
-   */
-  nodeappendchildnewchilddiffdocument: function(test) {
-    var success;
-    var doc1;
-    var doc2;
-    var newChild;
-    var elementList;
-    var elementNode;
-    var appendedChild;
-    doc1 = staff.staff();
-    doc2 = staff.staff();
-    newChild = doc1.createElement("newChild");
-    elementList = doc2.getElementsByTagName("employee");
-    elementNode = elementList.item(1);
-
-    {
-      success = false;
-      try {
-        appendedChild = elementNode.appendChild(newChild);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 4);
-      }
-      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
-    }
 
     test.done();
   },
@@ -13004,56 +12809,6 @@ exports.tests = {
 
   /**
    *
-   The "insertBefore(newChild,refChild)" method raises a
-   WRONG_DOCUMENT_ERR DOMException if the "newChild" was
-   created from a different document than the one that
-   created this node.
-
-   Retrieve the second employee and attempt to insert a new
-   child that was created from a different document than the
-   one that created the second employee.   An attempt to
-   insert such a child should raise the desired exception.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='WRONG_DOCUMENT_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-952280727')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='WRONG_DOCUMENT_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-952280727
-   */
-  nodeinsertbeforenewchilddiffdocument: function(test) {
-    var success;
-    var doc1;
-    var doc2;
-    var refChild;
-    var newChild;
-    var elementList;
-    var elementNode;
-    var insertedNode;
-    doc1 = staff.staff();
-    doc2 = staff.staff();
-    newChild = doc1.createElement("newChild");
-    elementList = doc2.getElementsByTagName("employee");
-    elementNode = elementList.item(1);
-    refChild = elementNode.firstChild;
-
-
-    {
-      success = false;
-      try {
-        insertedNode = elementNode.insertBefore(newChild,refChild);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 4);
-      }
-      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
-    }
-
-    test.done();
-  },
-
-  /**
-   *
    If the "newChild" is already in the tree, the
    "insertBefore(newChild,refChild)" method must first
    remove it before the insertion takes place.
@@ -14114,57 +13869,6 @@ exports.tests = {
     childName = child.nodeName;
 
     test.equal(childName, "newChild", 'nodeReplaceChildAssert1');
-
-    test.done();
-  },
-
-
-  /**
-   *
-   The "replaceChild(newChild,oldChild)" method raises a
-   WRONG_DOCUMENT_ERR DOMException if the "newChild" was
-   created from a different document than the one that
-   created this node.
-
-   Retrieve the second employee and attempt to replace one
-   of its children with a node created from a different
-   document.   An attempt to make such a replacement
-   should raise the desired exception.
-
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-258A00AF')/constant[@name='NOT_FOUND_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#xpointer(id('ID-785887307')/raises/exception[@name='DOMException']/descr/p[substring-before(.,':')='NOT_FOUND_ERR'])
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-785887307
-   */
-  nodereplacechildnewchilddiffdocument: function(test) {
-    var success;
-    var doc1;
-    var doc2;
-    var oldChild;
-    var newChild;
-    var elementList;
-    var elementNode;
-    var replacedChild;
-    doc1 = staff.staff();
-    doc2 = staff.staff();
-    newChild = doc1.createElement("newChild");
-    elementList = doc2.getElementsByTagName("employee");
-    elementNode = elementList.item(1);
-    oldChild = elementNode.firstChild;
-
-
-    {
-      success = false;
-      try {
-        replacedChild = elementNode.replaceChild(newChild,oldChild);
-      }
-      catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 4);
-      }
-      test.ok(success, 'throw_WRONG_DOCUMENT_ERR');
-    }
 
     test.done();
   },
