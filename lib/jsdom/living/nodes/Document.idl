@@ -25,7 +25,7 @@ interface Document : Node {
   [NewObject] ProcessingInstruction createProcessingInstruction(DOMString target, DOMString data);
 
   [NewObject] Node importNode(Node node, optional boolean deep = false);
-//  Node adoptNode(Node node);
+  Node adoptNode(Node node);
 
   [NewObject] Attr createAttribute(DOMString localName);
   [NewObject] Attr createAttributeNS(DOMString? namespace, DOMString qualifiedName);
