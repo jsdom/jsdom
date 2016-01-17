@@ -40,6 +40,20 @@ exports["window.location.hash is manipulable"] = t => {
   t.done();
 };
 
+exports["window.location.hash is manipulable even for about:blank (GH-1289)"] = t => {
+  const window = jsdom.jsdom("", {
+    url: "about:blank"
+  }).defaultView;
+
+  t.equals(window.location.hash, "");
+
+  window.location.hash = "#baz";
+  t.equals(window.location.hash, "#baz");
+  t.equals(window.location.href, "about:blank#baz");
+
+  t.done();
+};
+
 exports["when changing window.location.href by adding a hash, should fire a hashchange event"] = t => {
   const window = jsdom.jsdom("", {
     url: "http://www.example.com"
