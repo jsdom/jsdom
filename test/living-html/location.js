@@ -44,7 +44,12 @@ exports["when changing window.location.href by adding a hash, should fire a hash
   const window = jsdom.jsdom("", {
     url: "http://www.example.com"
   }).defaultView;
-  window.addEventListener("hashchange", () => {
+  window.addEventListener("hashchange", event => {
+    t.strictEqual(event.bubbles, true);
+    t.strictEqual(event.cancelable, false);
+    t.strictEqual(event.oldURL, "http://www.example.com/");
+    t.strictEqual(event.newURL, "http://www.example.com/#foo");
+
     t.ok(true, "hashchange event was fired");
     t.done();
   });
@@ -56,7 +61,12 @@ exports["when changing window.location.hash directly, should fire a hashchange e
   const window = jsdom.jsdom("", {
     url: "http://www.example.com"
   }).defaultView;
-  window.addEventListener("hashchange", () => {
+  window.addEventListener("hashchange", event => {
+    t.strictEqual(event.bubbles, true);
+    t.strictEqual(event.cancelable, false);
+    t.strictEqual(event.oldURL, "http://www.example.com/");
+    t.strictEqual(event.newURL, "http://www.example.com/#foo");
+
     t.ok(true, "hashchange event was fired");
     t.done();
   });

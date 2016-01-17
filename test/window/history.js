@@ -71,31 +71,58 @@ exports["the history object should update correctly when calling forward/back/go
 
   window.history.back();
   t.strictEqual(window.history.length, 4);
-  t.strictEqual(window.history.state.foo, "baz");
-  t.strictEqual(window.location.pathname, "/baz");
 
-  window.history.back();
-  t.strictEqual(window.history.length, 4);
-  t.strictEqual(window.history.state.foo, "bar");
-  t.strictEqual(window.location.pathname, "/bar");
+  // Should not change immediately.
+  t.strictEqual(window.history.state.foo, "buzz");
+  t.strictEqual(window.location.pathname, "/buzz");
 
-  window.history.back();
-  t.strictEqual(window.history.length, 4);
-  t.strictEqual(window.history.state, null);
-  t.strictEqual(window.location.pathname, initialPath);
+  setTimeout(() => {
+    // Should not even change after one task!
+    t.strictEqual(window.history.state.foo, "buzz");
+    t.strictEqual(window.location.pathname, "/buzz");
 
-  // Test backward boundary
-  window.history.back();
-  t.strictEqual(window.history.length, 4);
-  t.strictEqual(window.history.state, null);
-  t.strictEqual(window.location.pathname, initialPath);
+    setTimeout(() => {
+      // It takes two tasks to change!
+      t.strictEqual(window.history.state.foo, "baz");
+      t.strictEqual(window.location.pathname, "/baz");
 
-  window.history.go(2);
-  t.strictEqual(window.history.length, 4);
-  t.strictEqual(window.history.state.foo, "baz");
-  t.strictEqual(window.location.pathname, "/baz");
+      // From hereon out we just assume this is correct and wait for it.
 
-  t.done();
+      window.history.back();
+      waitForHistoryChange(() => {
+        t.strictEqual(window.history.length, 4);
+        t.strictEqual(window.history.state.foo, "bar");
+        t.strictEqual(window.location.pathname, "/bar");
+
+        window.history.back();
+
+        waitForHistoryChange(() => {
+          t.strictEqual(window.history.length, 4);
+          t.strictEqual(window.history.state, null);
+          t.strictEqual(window.location.pathname, initialPath);
+
+          // Test backward boundary
+          window.history.back();
+
+          waitForHistoryChange(() => {
+            t.strictEqual(window.history.length, 4);
+            t.strictEqual(window.history.state, null);
+            t.strictEqual(window.location.pathname, initialPath);
+
+            window.history.go(2);
+
+            waitForHistoryChange(() => {
+              t.strictEqual(window.history.length, 4);
+              t.strictEqual(window.history.state.foo, "baz");
+              t.strictEqual(window.location.pathname, "/baz");
+
+              t.done();
+            });
+          });
+        });
+      });
+    }, 0);
+  }, 0);
 };
 
 exports["the history object should update correctly when calling pushState with index behind length"] = t => {
@@ -115,39 +142,41 @@ exports["the history object should update correctly when calling pushState with 
   t.strictEqual(window.location.pathname, "/buzz");
   window.history.go(-2);
 
-  t.strictEqual(window.history.length, 4);
-  t.strictEqual(window.history.state.foo, "bar");
-  t.strictEqual(window.location.pathname, "/bar");
+  waitForHistoryChange(() => {
+    t.strictEqual(window.history.length, 4);
+    t.strictEqual(window.history.state.foo, "bar");
+    t.strictEqual(window.location.pathname, "/bar");
 
-  // Call pushState when index is behind length
-  window.history.pushState({ foo: "bar-b" }, "title 2b", "/bar/b");
+    // Call pushState when index is behind length
+    window.history.pushState({ foo: "bar-b" }, "title 2b", "/bar/b");
 
-  t.strictEqual(window.history.length, 3);
-  t.strictEqual(window.history.state.foo, "bar-b");
-  t.strictEqual(window.location.pathname, "/bar/b");
+    t.strictEqual(window.history.length, 3);
+    t.strictEqual(window.history.state.foo, "bar-b");
+    t.strictEqual(window.location.pathname, "/bar/b");
 
-  t.done();
+    t.done();
+  });
 };
 
 exports["the history object should fire popstate on the window while navigating the history"] = t => {
   const window = jsdom.jsdom("", { url: "http://www.example.org/" }).defaultView;
 
   const state = { foo: "bar" };
-  let eventFired = false;
-  let eventState;
 
   window.addEventListener("popstate", event => {
-    eventFired = true;
-    eventState = event.state;
+    t.strictEqual(event.bubbles, true);
+    t.strictEqual(event.cancelable, false);
+    t.strictEqual(event.state, state);
+
+    t.done();
   });
 
   window.history.pushState(state, "title", "bar");
   window.history.pushState(null, "", "baz");
   window.history.back();
-
-  setTimeout(() => {
-    t.ok(eventFired, "popstate event should be fired.");
-    t.strictEqual(state, eventState);
-    t.done();
-  }, 10);
 };
+
+function waitForHistoryChange(fn) {
+  // See notes above.
+  setTimeout(() => setTimeout(fn, 0), 0);
+}
