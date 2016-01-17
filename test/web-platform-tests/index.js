@@ -62,6 +62,27 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports, path.reso
   "html/browsers/browsing-the-web/history-traversal/PopStateEvent.html",
   "html/browsers/browsing-the-web/history-traversal/hashchange_event.html",
   "html/browsers/browsing-the-web/history-traversal/popstate_event.html",
+  // "html/browsers/history/the-history-interface/001.html", // complicated navigation stuff and structured cloning
+  // "html/browsers/history/the-history-interface/002.html", // complicated navigation stuff and structured cloning
+  // "html/browsers/history/the-history-interface/004.html", // subtle timing issues that I can't quite figure out; see comment in History-impl.js
+  "html/browsers/history/the-history-interface/005.html",
+  "html/browsers/history/the-history-interface/006.html",
+  // "html/browsers/history/the-history-interface/007.html", // depends on the load event being delayed properly
+  "html/browsers/history/the-history-interface/008.html",
+  // "html/browsers/history/the-history-interface/009.html", // complicated navigation stuff for iframes
+  // "html/browsers/history/the-history-interface/010.html", // complicated navigation stuff for iframes
+  "html/browsers/history/the-history-interface/011.html",
+  "html/browsers/history/the-history-interface/012.html",
+  "html/browsers/history/the-location-interface/document_location.html",
+  "html/browsers/history/the-location-interface/location-stringifier.html",
+  "html/browsers/history/the-location-interface/location_hash.html",
+  "html/browsers/history/the-location-interface/location_host.html",
+  "html/browsers/history/the-location-interface/location_hostname.html",
+  "html/browsers/history/the-location-interface/location_href.html",
+  "html/browsers/history/the-location-interface/location_pathname.html",
+  "html/browsers/history/the-location-interface/location_port.html",
+  "html/browsers/history/the-location-interface/location_protocol.html",
+  "html/browsers/history/the-location-interface/location_search.html",
   "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-02.html",
   "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-03.html",
   "html/dom/elements/global-attributes/classlist-nonstring.html",
