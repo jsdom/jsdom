@@ -18,7 +18,7 @@ If you can, then you've almost certainly found a bug in or missing feature of js
 
 Almost all of our relevant functionality is covered in either the [DOM Living Standard](http://dom.spec.whatwg.org/) or the [HTML Living Standard](http://www.whatwg.org/specs/web-apps/current-work/). There are various obsolete W3C specs ("DOM Level 2" etc.) that were never really implemented in browsers, and there is also the "DOM Level 4" W3C fork of the WHATWG DOM Living Standard. But we try to stick to the two main WHATWG specs for jsdom these days.
 
-Other specs might pop up from time to time, especially in regard to CSS stuff. In general Mozilla's Servo project provides [good guidance on relavant places to look](https://github.com/servo/servo/wiki/Relevant-spec-links). [platform.html5.org](https://platform.html5.org/) is also pretty comprehensive.
+Other specs might pop up from time to time, especially in regard to CSS stuff. In general Mozilla's Servo project provides [good guidance on relevant places to look](https://github.com/servo/servo/wiki/Relevant-spec-links). [platform.html5.org](https://platform.html5.org/) is also pretty comprehensive.
 
 Once you have that nailed down, you'll want to ask:
 
@@ -44,7 +44,7 @@ Now that you've got some idea of how contributions to jsdom generally go, let's 
 
 ### Running the tests
 
-First you'll want to `npm install`. To run all the tests, use `npm test`.
+First you'll want to `npm install`. Then configure your system to run the web platform tests as described in [w3c/web-platform-tests](https://github.com/w3c/web-platform-tests). To run all the tests, use `npm test`.
 
 Using options to `npm test`, you can slice and dice which tests your want to run. Usage is as follows:
 
