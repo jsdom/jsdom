@@ -482,6 +482,34 @@ exports["with configurable resource loader"] = t => {
   });
 };
 
+exports["with configurable resource loader and iframe"] = t => {
+  t.expect(4);
+
+  const routes = {
+    "/iframe.html": "<html><head><script src='foo.js'></script></head><body></body></html>",
+    "/foo.js": "window.resourceLoaderWasOverriden = true;"
+  };
+
+  env({
+    html: "<html><head></head><body><iframe id='bar' src='http://localhost/iframe.html'></iframe></body></html>",
+    resourceLoader(resource, callback) {
+      const response = routes[resource.url.path];
+      t.ok(response, `Not found: ${resource.url.path}`);
+      callback(null, response);
+    },
+    features: {
+      FetchExternalResources: ["script", "iframe"],
+      ProcessExternalResources: ["script"],
+      SkipExternalResources: false
+    },
+    done(err, window) {
+      t.ifError(err);
+      t.strictEqual(window.frames.bar.resourceLoaderWasOverriden, true);
+      t.done();
+    }
+  });
+};
+
 exports["with configurable resource loader modifying routes and content"] = t => {
   const routes = {
     "/js/dir/test.js": "window.modifiedRoute = true;",
