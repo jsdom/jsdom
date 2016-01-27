@@ -6,6 +6,7 @@ alec <alec.hulce@gmail.com>
 Alex Rattray <rattray.alex@gmail.com>
 Alexander Flatter <flatter@gmail.com>
 Alistair MacDonald <amacdonald@aisquared.com>
+Alvaro Dias <alvarod@microsoft.com>
 Ammar Khaku <ammar.khaku@gmail.com>
 Andreas Lind Petersen <andreas@one.com>
 andrew morton <drewish@katherinehouse.com>
@@ -25,6 +26,7 @@ Brian Peacock <bpeacock@fastfig.com>
 Chad Walker <chad@chad-cat-lore-eddie.com>
 Chris Buckley <chris@cmbuckley.co.uk>
 Chris Carpita <ccarpita@gmail.com>
+Christof Marti <chrmarti@microsoft.com>
 Christoph Pojer <christoph.pojer@gmail.com>
 Christophe Coevoet <stof@notk.org>
 cjroebuck <tophtfc@gmail.com>
@@ -37,6 +39,8 @@ Daniel Cousens <github@dcousens.com>
 Daniël van de Burgt <daniel.vandeburgt@serialssolutions.com>
 d-ash <andrey.shubin@gmail.com>
 Dav Glass <davglass@gmail.com>
+Dave Methvin <dave.methvin@gmail.com>
+Davide P. Cervone <dpvc@union.edu>
 Derek Lindahl <dlindahl@customink.com>
 Domenic Denicola <d@domenic.me>
 dxgriffiths <dxgriffiths@gmail.com>
@@ -92,6 +96,7 @@ Julien Guimont <julien@porkepic.com>
 justinmchase <justin.m.chase@gmail.com>
 kangax <kangax@gmail.com>
 Karuna Sagar <karunasagark@gmail.com>
+Kasper Isager <kasperisager@gmail.com>
 kblomquist <kblomquist@groupon.com>
 Ken "Elf" Mathieu Sternberg <elf@pendorwright.com>
 Kenneth Powers <ken@kenpowers.net>

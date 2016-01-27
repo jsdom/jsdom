@@ -1,3 +1,21 @@
+## 8.0.0
+
+This major release includes a large rewrite of most of the DOM and HTML classes exposed in jsdom. A lot of their behavior is generated from their specs' IDL syntax, taking care of many type conversions, attribute/property reflections, and much more. Many properties that were previously not present are now available, and almost everything behaves in a more spec-compliant way. Additionally, for these classes all of their implementation details are no longer available as underscore-prefixed properties, but instead are hidden behind a single symbol.
+
+Although normally jsdom does not mark a new major release for changes that simply update us to the latest specs or hide internal implementation details better, the magnitude of the changes is so extensive that we want to bump the major version in order to ensure that consumers perform adequate testing before upgrading. But, you should definitely upgrade! The new stuff is really awesome!
+
+* Reimplemented `Location`, `History`, and `HTMLHyperlinkElementUtils` (used by both `HTMLAnchorElement` and `HTMLAreaElement`) according to the latest specs, and using the latest [whatwg-url](https://github.com/jsdom/whatwg-url) package. This greatly improves our correctness on URL resolution and navigation (to the extent we support navigation, i.e. `pushState` and changing the hash). It should also improve parsing speed as we no longer parse and resolve URLs during parsing.
+* Added `Element.prototype.insertAdjacentHTML`. (kasperisager)
+* Added `Node.prototype.adoptNode`, and adopt nodes during insertion instead of throwing `"WrongDocumentError"`s`. (dmethvin)
+* Added a stub `Element.prototype.getClientRects` to match our stub `getBoundingClientRect`.
+* Fixed `setTimeout` and `setInterval` to return numeric IDs, instead of objects. (alvarorahul)
+* Fixed `setTimeout` and `setInterval` to accept string arguments to eval, and to pass along extra arguments after the first two.
+* Fixed certain style shorthand properties not updating their component properties or parsing correctly. (dpvc)
+* Fixed `Event` object creation to always initialize the event objects, unless using `document.createEvent`, even for events with name `""`.
+* Fixed iframes to go through the custom resource loader. (chrmarti)
+* Removed ["DOM Load and Save"](http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save.html) stub implementation. That spec was never implemented in browsers, and jsdom only contained stubs.
+* Removed other minor unimplemented, stub, or no-longer-standard APIs from "DOM Level 3", like the user-data API, `DOMException`, `DOMConfiguration`, and `DOMStringList`.
+
 ## 7.2.2
 
 * Fixed `canvasEl.toDataURL()`, with the `canvas` npm package installed; a recent update to the `canvas` package broke how we were passing arguments to do.
