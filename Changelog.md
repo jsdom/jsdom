@@ -1,3 +1,7 @@
+## 8.0.1
+
+* Fixed an issue where the `this` inside event handler callbacks was not equal to the event's current target. (Surprisingly there were no tests for this!)
+
 ## 8.0.0
 
 This major release includes a large rewrite of most of the DOM and HTML classes exposed in jsdom. A lot of their behavior is generated from their specs' IDL syntax, taking care of many type conversions, attribute/property reflections, and much more. Many properties that were previously not present are now available, and almost everything behaves in a more spec-compliant way. Additionally, for these classes all of their implementation details are no longer available as underscore-prefixed properties, but instead are hidden behind a single symbol.
