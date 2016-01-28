@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>EventTarget listeners this value</title>
+<link rel="author" title="Domenic Denicola" href="mailto:d@domenic.me">
+<link rel="help" href="https://dom.spec.whatwg.org/#concept-event-listener-invoke">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+test(() => {
+
+  const nodes = [
+    document.createElement("p"),
+    document.createTextNode("some text"),
+    document.createDocumentFragment(),
+    document.createComment("a comment"),
+    document.createProcessingInstruction("target", "data")
+  ];
+
+  let callCount = 0;
+  for (const node of nodes) {
+    node.addEventListener("someevent", function () {
+      ++callCount;
+      assert_equals(this, node);
+    });
+
+    node.dispatchEvent(new CustomEvent("someevent"));
+  }
+
+  assert_equals(callCount, nodes.length);
+
+}, "the this value inside the event listener callback should be the node");
+
+</script>
