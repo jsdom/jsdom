@@ -13,7 +13,7 @@ test/browser/files
 test/browser/index.js
 test/jquery-fixtures
 test/jsdom/files
-test/jsdom/index.js
+test/jsdom/misc.js
 test/jsdom/leak.js
 test/level1
 test/level2
