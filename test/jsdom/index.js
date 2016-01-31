@@ -1243,5 +1243,15 @@ exports.tests = {
     window.location.reload();
     t.equal("errors" in global, false, "there should be no errors global after the call");
     t.done();
+  },
+
+  "custom userAgent inherits to iframes": function (t) {
+    // https://github.com/tmpvar/jsdom/issues/1344#issuecomment-175272389
+
+    var window = jsdom.jsdom("<!DOCTYPE html><iframe></iframe>", { userAgent: "custom user agent" }).defaultView;
+
+    t.strictEqual(window.navigator.userAgent, "custom user agent");
+    t.strictEqual(window.frames[0].navigator.userAgent, "custom user agent");
+    t.done();
   }
 };
