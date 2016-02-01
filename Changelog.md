@@ -1,3 +1,8 @@
+## 8.0.2
+
+* Fixed an issue where custom user agents would not propagate to `navigator.userAgent` in frames and iframes.
+* Improved our `document.activeElement` implementation to be a bit smarter; we still don't have full focus/blur/active element semantics, but at least now it falls back to the `<body>` element when the active element is removed from the document or when no element has been focused yet.
+
 ## 8.0.1
 
 * Fixed an issue where the `this` inside event handler callbacks was not equal to the event's current target. (Surprisingly there were no tests for this!)
