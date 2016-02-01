@@ -35,12 +35,14 @@ exports["virtualConsole passes through any arguments"] = t => {
   for (const method of consoleMethods) {
     let called = false;
 
-    vc.on(method, (arg1, arg2) => {
+    vc.on(method, (arg1, arg2, arg3, arg4) => {
       called = true;
       t.ok(arg1 === "yay", "virtualConsole.on '" + method + "' passes through any arguments (1)");
       t.ok(arg2 === "woo", "virtualConsole.on '" + method + "' passes through any arguments (2)");
+      t.ok(arg3 === "wee", "virtualConsole.on '" + method + "' passes through any arguments (3)");
+      t.ok(arg4 === "!!!", "virtualConsole.on '" + method + "' passes through any arguments (4)");
     });
-    window.console[method]("yay", "woo");
+    window.console[method]("yay", "woo", "wee", "!!!");
 
     t.ok(called, "virtualConsole emits '" + method + "' event");
 
@@ -77,15 +79,15 @@ exports["virtualConsole.sendTo proxies console methods"] = t => {
   const fakeConsole = {};
 
   for (const method of consoleMethods) {
-    fakeConsole[method] = () => {
-      t.ok(true, "sendTo works on all console methods");
+    fakeConsole[method] = (a, b, c) => {
+      t.deepEqual([a, b, c], ["a", "b", "c"], `sendTo forwards arguments for ${method}`);
     };
   }
 
   virtualConsole.sendTo(fakeConsole);
 
   for (const method of consoleMethods) {
-    window.console[method]();
+    window.console[method]("a", "b", "c");
   }
 
   t.done();
