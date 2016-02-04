@@ -83,7 +83,6 @@ var files = [
   "sizzle/index.js",
   "jsdom/misc.js",
   "jsdom/parsing.js",
-  "jsdom/env.js",
   "jsdom/utils.js",
   "jsdom/namespaces.js",
   "jsdom/virtual-console.js",
