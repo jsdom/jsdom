@@ -24,3 +24,4 @@ test/window/files
 test/window/frame.js
 test/window/script.js
 test/*.js
+!test/karma*
