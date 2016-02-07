@@ -656,4 +656,21 @@ describe("jsdom/env", () => {
         });
       });
   });
+
+  describe("browser specific tests", { skipUnlessBrowser: true }, () => {
+    /* global location */
+    // location is a Location or WorkerLocation
+    const testServerLocation = typeof location !== "undefined" && location.origin;
+
+    specify("should be able to fetch a html document", { async: true }, t => {
+      env({
+        url: testServerLocation + "/base/test/jsdom/files/reddit.html",
+        done(err, window) {
+          assert.ifError(err);
+          assert.strictEqual(window.document.getElementById("header-bottom-left").nodeName, "DIV");
+          t.done();
+        }
+      });
+    });
+  });
 });
