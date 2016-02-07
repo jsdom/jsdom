@@ -81,7 +81,6 @@ var files = [
   "window/frame.js",
   "window/base64.js",
   "sizzle/index.js",
-  "jsdom/misc.js",
   "jsdom/parsing.js",
   "jsdom/utils.js",
   "jsdom/namespaces.js",
