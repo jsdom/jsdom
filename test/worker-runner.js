@@ -61,7 +61,6 @@ self.onmessage = function (e) {
     "window/console": require("../test/window/console"), // ok
     //"window/frame": require("../test/window/frame"), // fail
     //"sizzle/index": require("../test/sizzle/index"), // fail
-    //"jsdom/misc": require("../test/jsdom/misc"), // fail
     "jsdom/parsing": require("../test/jsdom/parsing"), // 0/11
     "jsdom/serialization": require("../test/jsdom/serialization"),
     "jsdom/utils": require("../test/jsdom/utils"), // ok
