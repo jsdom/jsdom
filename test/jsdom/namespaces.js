@@ -4,9 +4,8 @@ const assert = require("chai").assert;
 const describe = require("mocha-sugar-free").describe;
 const specify = require("mocha-sugar-free").specify;
 
-const fs = require("fs");
-const path = require("path");
 const jsdom = require("../..");
+const readTestFixture = require("../util").readTestFixture;
 
 function testHTMLDocument(document) {
   assert.strictEqual(document.getElementsByTagName("body").length, 1);
@@ -44,18 +43,20 @@ function testHTMLDocument(document) {
     "it shouldn't be possible to create custom namespaces");
 }
 
-describe("jsdom/namespaces", { skipIfBrowser: true }, () => {
+describe("jsdom/namespaces", () => {
   specify("should set namespaces in HTML documents created by jsdom.env()", () => {
-    const doc = jsdom.jsdom(fs.readFileSync(path.resolve(__dirname, "files/ns-html.html")));
-
-    testHTMLDocument(doc);
+    return readTestFixture("jsdom/files/ns-html.html").then(content => {
+      const doc = jsdom.jsdom(content);
+      testHTMLDocument(doc);
+    });
   });
 
   specify("should set namespace-related properties in HTML documents created by innerHTML", () => {
-    const doc = jsdom.jsdom();
-
-    doc.body.innerHTML = fs.readFileSync(path.resolve(__dirname, "files/ns-html.html"));
-    testHTMLDocument(doc);
+    return readTestFixture("jsdom/files/ns-html.html").then(content => {
+      const doc = jsdom.jsdom();
+      doc.body.innerHTML = content;
+      testHTMLDocument(doc);
+    });
   });
 
   function testDocumentWithSVG(document) {
@@ -95,15 +96,17 @@ describe("jsdom/namespaces", { skipIfBrowser: true }, () => {
   }
 
   specify("should set namespace-related properties in HTML-SVG documents created by jsdom.env()", () => {
-    const doc = jsdom.jsdom(fs.readFileSync(path.resolve(__dirname, "files/ns-svg.html")));
-
-    testDocumentWithSVG(doc);
+    return readTestFixture("jsdom/files/ns-svg.html").then(content => {
+      const doc = jsdom.jsdom(content);
+      testDocumentWithSVG(doc);
+    });
   });
 
   specify("should set namespace-related properties in HTML-SVG documents created by innerHTML", () => {
-    const doc = jsdom.jsdom();
-
-    doc.body.innerHTML = fs.readFileSync(path.resolve(__dirname, "files/ns-svg.html"));
-    testDocumentWithSVG(doc);
+    return readTestFixture("jsdom/files/ns-svg.html").then(content => {
+      const doc = jsdom.jsdom();
+      doc.body.innerHTML = content;
+      testDocumentWithSVG(doc);
+    });
   });
 });
