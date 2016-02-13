@@ -5,3 +5,4 @@ require("./jsdom/inside-worker-smoke-tests.js");
 require("./jsdom/misc.js");
 require("./jsdom/named-properties-tracker.js");
 require("./jsdom/namespaces.js");
+require("./jsdom/node-location.js");

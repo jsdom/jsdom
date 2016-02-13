@@ -114,7 +114,6 @@ self.onmessage = function (e) {
     "jsdom/inside-worker-smoke-tests",
     "jsdom/serialization",
     "jsdom/named-properties-tracker",
-    "jsdom/node-location",
     "jsdom/reconfigure-window",
     "browser/css",
     "browser/index",

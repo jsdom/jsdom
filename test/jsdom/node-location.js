@@ -1,33 +1,37 @@
 "use strict";
+
+const assert = require("chai").assert;
+const describe = require("mocha-sugar-free").describe;
+const specify = require("mocha-sugar-free").specify;
+
 const jsdom = require("../..");
 
-exports["jsdom.nodeLocation on an element"] = t => {
-  const document = jsdom.jsdom("<p>Hello</p>");
-  const el = document.querySelector("p");
+describe("jsdom/node-location", () => {
+  specify("jsdom.nodeLocation on an element", () => {
+    const document = jsdom.jsdom("<p>Hello</p>");
+    const el = document.querySelector("p");
 
-  t.deepEqual(jsdom.nodeLocation(el), {
-    start: 0,
-    end: 12,
-    startTag: { start: 0, end: 3 },
-    endTag: { start: 8, end: 12 }
+    assert.deepEqual(jsdom.nodeLocation(el), {
+      start: 0,
+      end: 12,
+      startTag: { start: 0, end: 3 },
+      endTag: { start: 8, end: 12 }
+    });
   });
-  t.done();
-};
 
-exports["jsdom.nodeLocation on a text node"] = t => {
-  const document = jsdom.jsdom("<p>Hello</p>");
-  const el = document.querySelector("p");
+  specify("jsdom.nodeLocation on a text node", () => {
+    const document = jsdom.jsdom("<p>Hello</p>");
+    const el = document.querySelector("p");
 
-  t.deepEqual(jsdom.nodeLocation(el.firstChild), { start: 3, end: 8 });
-  t.done();
-};
+    assert.deepEqual(jsdom.nodeLocation(el.firstChild), { start: 3, end: 8 });
+  });
 
-exports["jsdom.nodeLocation on a void element"] = t => {
-  const document = jsdom.jsdom(`<p>Hello
-    <img src="foo.jpg">
-  </p>`);
-  const el = document.querySelector("img");
+  specify("jsdom.nodeLocation on a void element", () => {
+    const document = jsdom.jsdom(`<p>Hello
+      <img src="foo.jpg">
+    </p>`);
+    const el = document.querySelector("img");
 
-  t.deepEqual(jsdom.nodeLocation(el), { start: 13, end: 32 });
-  t.done();
-};
+    assert.deepEqual(jsdom.nodeLocation(el), { start: 15, end: 34 });
+  });
+});
