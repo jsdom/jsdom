@@ -334,6 +334,50 @@ describe("jsdom/env", () => {
     });
   });
 
+  specify("explicit config.url, invalid", { async: true }, t => {
+    env({
+      // Use 0.0.0.0 because it will always fail, and without a timeout
+      // (which would slow down the test suite)
+      url: "http://0.0.0.0:8976",
+      done(err, window) {
+        assert.ok(err, "an error should exist");
+        assert.strictEqual(window, undefined, "window should not exist");
+        t.done();
+      }
+    });
+  });
+
+  specify("string, parseable as a URL, invalid", { async: true }, t => {
+    env(
+      "http://0.0.0.0:8976",
+      (err, window) => {
+        assert.ok(err, "an error should exist");
+        assert.strictEqual(window, undefined, "window should not exist");
+        t.done();
+      }
+    );
+  });
+
+  specify("script loading errors show up as jsdomErrors in the virtual console", { async: true }, t => {
+    const virtualConsole = createVirtualConsole();
+    virtualConsole.on("jsdomError", error => {
+      assert.ok(error instanceof Error);
+      assert.equal(error.message, `Could not load script: "http://0.0.0.0:12345/script.js"`);
+      assert.ok(error.detail);
+    });
+
+    env({
+      html: "",
+      scripts: ["http://0.0.0.0:12345/script.js"],
+      virtualConsole,
+      done(err, window) {
+        assert.equal(err, null);
+        assert.ok(window);
+        t.done();
+      }
+    });
+  });
+
   describe("node specific tests", { skipIfBrowser: true }, () => {
     specify("explicit config.html, a string that is also a valid file", { async: true }, t => {
       const body = path.resolve(__dirname, "files/env.html");
@@ -366,17 +410,6 @@ describe("jsdom/env", () => {
           assert.equal(serializeDocument(window.document), responseText);
           assert.equal(window.location.href, "http://localhost:8976/");
           assert.equal(window.location.origin, "http://localhost:8976");
-          t.done();
-        }
-      });
-    });
-
-    specify("explicit config.url, invalid", { async: true }, t => {
-      env({
-        url: "http://localhost:8976",
-        done(err, window) {
-          assert.ok(err, "an error should exist");
-          assert.strictEqual(window, undefined, "window should not exist");
           t.done();
         }
       });
@@ -462,17 +495,6 @@ describe("jsdom/env", () => {
       );
     });
 
-    specify("string, parseable as a URL, invalid", { async: true }, t => {
-      env(
-        "http://localhost:8976",
-        (err, window) => {
-          assert.ok(err, "an error should exist");
-          assert.strictEqual(window, undefined, "window should not exist");
-          t.done();
-        }
-      );
-    });
-
     specify("string, for an existing filename", { async: true }, t => {
       const fileName = path.resolve(__dirname, "files/env.html");
 
@@ -503,7 +525,7 @@ describe("jsdom/env", () => {
       );
     });
 
-    specify("with a nonexistant script", { async: true }, t => {
+    specify("with a nonexistent script", { async: true }, t => {
       env({
         html: "<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>",
         scripts: ["path/to/invalid.js", "another/invalid.js"],
@@ -631,28 +653,6 @@ describe("jsdom/env", () => {
               SkipExternalResources: false
             }
           });
-        });
-      });
-
-    specify("script loading errors show up as jsdomErrors in the virtual console",
-      { async: true },
-      t => {
-        const virtualConsole = createVirtualConsole();
-        virtualConsole.on("jsdomError", error => {
-          assert.ok(error instanceof Error);
-          assert.equal(error.message, `Could not load script: "http://localhost:12345/script.js"`);
-          assert.ok(error.detail);
-        });
-
-        env({
-          html: "",
-          scripts: ["http://localhost:12345/script.js"],
-          virtualConsole,
-          done(err, window) {
-            assert.equal(err, null);
-            assert.ok(window);
-            t.done();
-          }
         });
       });
   });
