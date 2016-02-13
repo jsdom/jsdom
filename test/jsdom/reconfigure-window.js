@@ -1,31 +1,35 @@
 "use strict";
+
+const assert = require("chai").assert;
+const describe = require("mocha-sugar-free").describe;
+const specify = require("mocha-sugar-free").specify;
+
 const jsdom = require("../..");
 
-exports["Can reconfigure top"] = t => {
-  const window = jsdom.jsdom().defaultView;
+describe("jsdom/reconfigure-window", () => {
+  specify("Can reconfigure top", () => {
+    const window = jsdom.jsdom().defaultView;
 
-  const targetTop = { is: "top" };
+    const targetTop = { is: "top" };
 
-  jsdom.reconfigureWindow(window, {
-    top: targetTop
+    jsdom.reconfigureWindow(window, {
+      top: targetTop
+    });
+
+    assert.strictEqual(window.top, targetTop, "top should be changed (from the outside)");
+
+    window.document.body.innerHTML = `<script>
+      window.topResult = top.is;
+    </script>`;
+
+    assert.strictEqual(window.topResult, "top", "top should be changed (from the inside)");
   });
 
-  t.strictEqual(window.top, targetTop, "top should be changed (from the outside)");
+  specify("Passing no top option does nothing", () => {
+    const window = jsdom.jsdom().defaultView;
 
-  window.document.body.innerHTML = `<script>
-    window.topResult = top.is;
-  </script>`;
+    jsdom.reconfigureWindow(window, { });
 
-  t.strictEqual(window.topResult, "top", "top should be changed (from the inside)");
-
-  t.done();
-};
-
-exports["Passing no top option does nothing"] = t => {
-  const window = jsdom.jsdom().defaultView;
-
-  jsdom.reconfigureWindow(window, { });
-
-  t.strictEqual(window.top, window, "top should stay the same");
-  t.done();
-};
+    assert.strictEqual(window.top, window, "top should stay the same");
+  });
+});
