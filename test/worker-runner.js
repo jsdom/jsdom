@@ -111,7 +111,6 @@ self.onmessage = function (e) {
     "window/console",
     "jsdom/utils",
     "jsdom/serialization",
-    "jsdom/node-location",
     "jsdom/reconfigure-window",
     "browser/css",
     "browser/index",
