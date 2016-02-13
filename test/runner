@@ -87,7 +87,6 @@ var files = [
   "jsdom/selectors.js",
   "jsdom/serialization.js",
   "jsdom/resource-loading.js",
-  "jsdom/reconfigure-window.js",
   "living-html/named-properties-window.js",
 
   "jsonp/jsonp.js",

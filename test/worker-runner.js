@@ -65,7 +65,6 @@ self.onmessage = function (e) {
     "jsdom/utils": require("../test/jsdom/utils"), // ok
     "jsdom/node-location.js": require("../test/jsdom/node-location"),
     "jsdom/resource-loading.js": require("../test/jsdom/resource-loading"), // 0/4
-    "jsdom/reconfigure-window.js": require("../test/jsdom/reconfigure-window"),
     "jsonp/jsonp": require("../test/jsonp/jsonp"), // 0/1
     "browser/css": require("../test/browser/css"), // ok
     "browser/index": require("../test/browser/index"), // ok
@@ -110,7 +109,6 @@ self.onmessage = function (e) {
     "window/console",
     "jsdom/utils",
     "jsdom/serialization",
-    "jsdom/reconfigure-window",
     "browser/css",
     "browser/index",
 
