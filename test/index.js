@@ -10,3 +10,4 @@ require("./jsdom/parsing.js");
 require("./jsdom/reconfigure-window.js");
 require("./jsdom/resource-loading.js");
 require("./jsdom/selectors.js");
+require("./jsdom/serialization.js");
