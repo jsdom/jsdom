@@ -46,10 +46,14 @@ Now that you've got some idea of how contributions to jsdom generally go, let's 
 
 First you'll want to `npm install`. Then configure your system to run the web platform tests as described in [w3c/web-platform-tests](https://github.com/w3c/web-platform-tests). To run all the tests, use `npm test`.
 
-Using options to `npm test`, you can slice and dice which tests your want to run. Usage is as follows:
+Our own test suites are currently being transitioned from nodeunit to [mocha](https://mochajs.org/) and [chai](http://chaijs.com/). Some of the test suites are run using nodeunit, while others are run using mocha. So if you would like to run a specific test, you will have to first figure out which kind it is. A test file containing `describe("foo", ...)` and `specify("foo", ...)` calls is for mocha. A test file containing `exports[foo] = ...` definitions is for nodeunit. After the transitions there will be no nodeunit tests remaining.
+
+To run a specific mocha test, you can just pass the test file you want to the mocha cli. To access the mocha cli you can either first install mocha globally (`npm install -g mocha`), or you can access the mocha cli that is installed alongside jsdom (e.g. `./node_modules/.bin/mocha test/jsdom/xml.js`). You can use all the [options that mocha offers](http://mochajs.org/#usage), e.g. `mocha --grep=schema test/jsdom/xml.js`. If you want to run _all_ the mocha tests, you will need to run mocha on our test manifest: `mocha test/index.js`.
+
+To run a specific nodeunit test, you will have to pass options to our custom nodeunit runner (`./test/runner`). Note that the web-platform-tests are also executed using this runner. Usage is as follows:
 
 ```
-$ npm test -- --help
+$ node ./test/runner --help
 
 Run the jsdom test suite
 
@@ -62,7 +66,7 @@ Options:
   -v, --verbose    show all tests that are being run
 ```
 
-So e.g. use `npm test -- -s console` to run the console-related tests.
+So e.g. use `node ./test/runner -s console` to run the console-related tests.
 
 ### Writing or importing tests
 
@@ -76,12 +80,16 @@ Alternately, you can write some tests just for jsdom. This should be avoided whe
 
 ### Running tests in the browser
 
-jsdom now has experimental support for web workers! To test this support, we have a special test setup that involves Selenium driving Chrome. To make that work, you need to install Java and have it in your PATH. Then you can use `npm run test-browser` to have Selenium open up Chrome, spawn a web worker, and run some jsdom tests inside it.
+jsdom has experimental support to run in directly in a browser, or in a web worker! So we try run as much tests as possible in browsers too.
 
-The browser runner supports the same options as `npm test`, as well as a few more specific to running browser tests via WebDriver. Many tests fail at present, so by default `npm run test-browser` only runs the suites that pass.
+As noted in [Running the tests](#running-the-tests), our own test suites are currently being transitioned from nodeunit to mocha. The nodeunit test cases are executed in Chrome using Selenium. The mocha test cases are executed in Chrome using [karma](https://karma-runner.github.io/).
+
+To run the karma tests, you will have to make sure that Chrome installed on your machine. To access the karma cli you can either first install karma globally (`npm install -g karma`), or you can access the karma cli that is installed alongside jsdom (e.g. `./node_modules/.bin/karma --help`). You can then start a test run using `karma start test/karma.conf.js` and/or `karma start test/karma-webworker.conf.js`, the first config runs the tests within an iframe, the second config runs the tests within an web worker. You can use all the [options that karma offers](https://karma-runner.github.io/latest/config/configuration-file.html), e.g. `karma start test/karma.conf.js --no-single-run`.
+
+The nodeunit tests are run using a custom runner and selenium. To make this work, you need to install Java and have it in your PATH. Then you can use `node ./test/browser-runner` to have Selenium open up Chrome, spawn a web worker, and run the nodeunit tests inside it. This browser runner supports the same options as `./test/runner`, as well as a few more specific to running browser tests via WebDriver.
 
 ```
-$ npm run test-browser -- --help
+$ node ./test/browser-runner --help
 
 Run the jsdom test suite in a browser via WebDriver
 
@@ -97,6 +105,8 @@ Options:
   --verbose-web-driver       print verbose output from wd to stdout
   --verbose-browser-console  print browser console to stdout
 ```
+
+To run all the tests (karma and selenium tests combined), you can use `npm run test-browser`
 
 ### Running the benchmarks
 
