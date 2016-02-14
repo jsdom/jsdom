@@ -9,3 +9,4 @@ require("./jsdom/node-location.js");
 require("./jsdom/parsing.js");
 require("./jsdom/reconfigure-window.js");
 require("./jsdom/resource-loading.js");
+require("./jsdom/selectors.js");
