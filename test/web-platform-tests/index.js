@@ -196,14 +196,14 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports, path.reso
   "XMLHttpRequest/event-upload-progress.htm",
   "XMLHttpRequest/formdata-blob.htm",
   "XMLHttpRequest/formdata.htm",
-  "XMLHttpRequest/getallresponseheaders-cookies.htm",
+  // "XMLHttpRequest/getallresponseheaders-cookies.htm", // https://github.com/nodejs/http-parser/issues/281
   "XMLHttpRequest/getallresponseheaders-status.htm",
-  "XMLHttpRequest/getresponseheader-case-insensitive.htm",
+  // "XMLHttpRequest/getresponseheader-case-insensitive.htm", // https://github.com/nodejs/http-parser/issues/281
   "XMLHttpRequest/getresponseheader-chunked-trailer.htm",
-  "XMLHttpRequest/getresponseheader-cookies-and-more.htm",
+  // "XMLHttpRequest/getresponseheader-cookies-and-more.htm", // https://github.com/nodejs/http-parser/issues/281
   "XMLHttpRequest/getresponseheader-error-state.htm",
-  "XMLHttpRequest/getresponseheader-server-date.htm",
-  "XMLHttpRequest/getresponseheader-special-characters.htm",
+  // "XMLHttpRequest/getresponseheader-server-date.htm", // https://github.com/nodejs/http-parser/issues/281
+  // "XMLHttpRequest/getresponseheader-special-characters.htm", // https://github.com/nodejs/http-parser/issues/281
   "XMLHttpRequest/getresponseheader-unsent-opened-state.htm",
   "XMLHttpRequest/open-after-abort.htm",
   "XMLHttpRequest/open-after-setrequestheader.htm",
@@ -235,7 +235,7 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports, path.reso
   "XMLHttpRequest/response-invalid-responsetype.htm",
   "XMLHttpRequest/response-json.htm",
   "XMLHttpRequest/response-method.htm",
-  "XMLHttpRequest/responseText-status.html",
+  // "XMLHttpRequest/responseText-status.html", // https://github.com/nodejs/http-parser/issues/281
   "XMLHttpRequest/responsetype.html",
   "XMLHttpRequest/responsexml-non-document-types.htm",
   "XMLHttpRequest/send-accept-language.htm",

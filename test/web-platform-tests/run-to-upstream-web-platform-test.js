@@ -43,8 +43,13 @@ function createJsdom(urlPrefix, testPath, t) {
         });
 
         window.add_completion_callback((tests, harnessStatus) => {
-          t.ok(harnessStatus.status !== 2, "test harness should not timeout");
-          window.close();
+          t.ok(harnessStatus.status !== 2, "test harness should not timeout: " + testPath);
+
+          // This needs to be delayed since some tests do things even after calling done().
+          process.nextTick(() => {
+            window.close();
+          });
+
           t.done();
         });
       };
