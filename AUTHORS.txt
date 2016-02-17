@@ -95,6 +95,7 @@ Joshua Peek <josh@joshpeek.com>
 Julien Guimont <julien@porkepic.com>
 justinmchase <justin.m.chase@gmail.com>
 kangax <kangax@gmail.com>
+Karl Horky <karl.horky@gmail.com>
 Karuna Sagar <karunasagark@gmail.com>
 Kasper Isager <kasperisager@gmail.com>
 kblomquist <kblomquist@groupon.com>

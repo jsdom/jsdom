@@ -1,3 +1,8 @@
+## 8.0.3
+
+* Fixed `HTMLOptionElement.prototype.label`; a typo was causing it to not work at all. (karlhorky)
+* Updated `cssstyle` minimum version to ensure all jsdom installs (not just fresh ones) get the benefit of `cssstyle`'s recently-better `padding` and `margin` parsing/CSSOM.
+
 ## 8.0.2
 
 * Fixed an issue where custom user agents would not propagate to `navigator.userAgent` in frames and iframes.
@@ -186,8 +191,8 @@ Finally, if you're a loyal jsdom fan whose made it this far into the changelog, 
 
 * Fixed an accidentally-created global `attribute` variable if you ever called `createAttributeNS`.
 * Dependency upgrades fixed a couple of bugs, although you would have gotten these anyway with a clean jsdom 5.6.0 install:
-  - Parsing of CSS properties that use `url("quoted string")` now works correctly, as of cssstyle 0.2.29.
-  - Selectors for the empty string, like `div[title=""]`, now work correctly, as of nwmatcher 1.3.6.
+  - Parsing of CSS properties that use `url("quoted string")` now works correctly, as of `cssstyle` 0.2.29.
+  - Selectors for the empty string, like `div[title=""]`, now work correctly, as of `nwmatcher` 1.3.6.
 
 ## 5.6.0
 
