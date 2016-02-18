@@ -1,3 +1,7 @@
+## 8.0.4
+
+* Fixed the `this` value when you pass a `{ handleEvent() { ... } }` object to `addEventListener`. (thetalecrafter)
+
 ## 8.0.3
 
 * Fixed `HTMLOptionElement.prototype.label`; a typo was causing it to not work at all. (karlhorky)
