@@ -61,17 +61,7 @@ self.onmessage = function (e) {
     "window/console": require("../test/window/console"), // ok
     //"window/frame": require("../test/window/frame"), // fail
     //"sizzle/index": require("../test/sizzle/index"), // fail
-    //"jsdom/index": require("../test/jsdom/index"), // fail
-    "jsdom/parsing": require("../test/jsdom/parsing"), // 0/11
-    "jsdom/serialization": require("../test/jsdom/serialization"),
-    "jsdom/env": require("../test/jsdom/env"), // 9/25
-    "jsdom/env-browser": require("../test/jsdom/env-browser"),
-    "jsdom/utils": require("../test/jsdom/utils"), // ok
-    "jsdom/inside-worker-smoke-tests": require("../test/jsdom/inside-worker-smoke-tests"),
-    "jsdom/named-properties-tracker.js": require("../test/jsdom/named-properties-tracker"),
     "jsdom/node-location.js": require("../test/jsdom/node-location"),
-    "jsdom/resource-loading.js": require("../test/jsdom/resource-loading"), // 0/4
-    "jsdom/reconfigure-window.js": require("../test/jsdom/reconfigure-window"),
     "jsonp/jsonp": require("../test/jsonp/jsonp"), // 0/1
     "browser/css": require("../test/browser/css"), // ok
     "browser/index": require("../test/browser/index"), // ok
@@ -114,13 +104,6 @@ self.onmessage = function (e) {
     "window/base64",
     "window/history",
     "window/console",
-    "jsdom/env-browser",
-    "jsdom/utils",
-    "jsdom/inside-worker-smoke-tests",
-    "jsdom/serialization",
-    "jsdom/named-properties-tracker",
-    "jsdom/node-location",
-    "jsdom/reconfigure-window",
     "browser/css",
     "browser/index",
 
