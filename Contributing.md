@@ -2,11 +2,20 @@
 
 jsdom is, as said in our tagline, “A JavaScript implementation of the DOM and HTML standards.” Anything that helps us be better at that is welcome.
 
-## Status
+## Architecture
 
-We're transitioning from an older model based on separate and obsolete "DOM1," "DOM2," and "DOM3" specs, into one based on the modern DOM and HTML living standards. Nobody has really set aside the time to do the proper sort of architectural overhaul this transition necessitates, so things might seem a bit strange, but in the meantime we're doing OK with the current structure. You can read more about this in [the lib folder README](https://github.com/tmpvar/jsdom/tree/master/lib).
+jsdom is a blend of old and new code. Some of its older and less-touched corners may look different from newer work. Here we'll describe the modern setup, but you might encounter parts of the codebase that don't fit this model, or that seem unnecessarily baroque (like the directory structure in `lib/`).
 
-## Contribution Overview
+In general, a web platform class (like `Window`, or `Node`, or `Location`, or `CSSStyleSheet`) is specified using a language called [Web IDL](https://heycam.github.io/webidl/). Web IDL abstracts away a lot of the boilerplate involved in creating such classes, like type conversions, argument validation, and [attribute/property reflection](https://html.spec.whatwg.org/multipage/infrastructure.html#reflect).
+
+As such, most web platform classes present in jsdom are implemented in two parts:
+
+- An IDL file, such as [`Attr.idl`](https://github.com/tmpvar/jsdom/blob/master/lib/jsdom/living/attributes/Attr.idl), drawn more or less straight from the spec
+- An implementation file, such as [`Attr-impl.js`](https://github.com/tmpvar/jsdom/blob/master/lib/jsdom/living/attributes/Attr-impl.js), containing the relevant implementation logic
+
+Our build step (`npm run prepublish`) then generates a public API file (e.g. `Attr.js`) which takes care of all the Web IDL-derived boilerplate, delegating to the implementation file for the important stuff. We then wire it together with a line in `lib/jsdom/living/index.js` that exposes the generated class on all jsdom windows.
+
+## Contribution overview
 
 When contributing, the first question you should ask is:
 
@@ -20,124 +29,65 @@ Almost all of our relevant functionality is covered in either the [DOM Living St
 
 Other specs might pop up from time to time, especially in regard to CSS stuff. In general Mozilla's Servo project provides [good guidance on relevant places to look](https://github.com/servo/servo/wiki/Relevant-spec-links). [platform.html5.org](https://platform.html5.org/) is also pretty comprehensive.
 
-Once you have that nailed down, you'll want to ask:
-
-**Can I get an official test for this functionality?**
-
-These days the [w3c/web-platform-tests](https://github.com/w3c/web-platform-tests) project has an ever-growing set of tests for the web platform. We have reasonable support for running these tests directly, although I imagine some of them (e.g. those dependent on the web-platform-tests Python server) won't work.
-
-So ideally, you'll be able to find an official test, and enable it, and then write your feature or bugfix against it. In a perfect world where web-platform-tests had 100% coverage, all jsdom testing work would consist of just enabling such tests. But often no such test exists, and you'll need to write your own. We'll discuss how to do both of these in detail below.
-
-Next is performance:
-
-**Does my contribution significantly hinder or improve performance?**
-
-This project cares about performance. There are a number of benchmarks that you can run. If you suspect your contribution has an impact on the performance of existing functionality, make sure you run the benchmarks before and after your change so that you can compare. A related question is:
-
-**How fast is my new feature in comparison with other DOM implementations?**
-
-You can run the benchmarks using the native DOM implementation of Chrome. A comparison with jsdom will automatically be made for you. If your new feature is much slower than the alternative DOM implementation, there might be an unexpected bottleneck somewhere in your change.
-
-## Contribution Details
-
-Now that you've got some idea of how contributions to jsdom generally go, let's get down to the actual work you'll be doing while contributing.
+## Tests
 
 ### Running the tests
 
-First you'll want to `npm install`. Then configure your system to run the web platform tests as described in [w3c/web-platform-tests](https://github.com/w3c/web-platform-tests). To run all the tests, use `npm test`.
+First you'll want to `npm install`. Then, configure your system to run the web platform tests as described in [their README](https://github.com/w3c/web-platform-tests/blob/master/README.md). If you can't get that set up correctly, the test runner will make a best-faith effort to run the tests hosted on http://w3c-test.org/, but this is pretty slow and fragile.
 
-Our own test suites are currently being transitioned from nodeunit to [mocha](https://mochajs.org/) and [chai](http://chaijs.com/). Some of the test suites are run using nodeunit, while others are run using mocha. So if you would like to run a specific test, you will have to first figure out which kind it is. A test file containing `describe("foo", ...)` and `specify("foo", ...)` calls is for mocha. A test file containing `exports[foo] = ...` definitions is for nodeunit. After the transitions there will be no nodeunit tests remaining.
+**To run all the tests:** `npm test`
 
-To run a specific mocha test, you can just pass the test file you want to the mocha cli. To access the mocha cli you can either first install mocha globally (`npm install -g mocha`), or you can access the mocha cli that is installed alongside jsdom (e.g. `./node_modules/.bin/mocha test/jsdom/xml.js`). You can use all the [options that mocha offers](http://mochajs.org/#usage), e.g. `mocha --grep=schema test/jsdom/xml.js`. If you want to run _all_ the mocha tests, you will need to run mocha on our test manifest: `mocha test/index.js`.
+### Web platform feature tests
 
-To run a specific nodeunit test, you will have to pass options to our custom nodeunit runner (`./test/runner`). Note that the web-platform-tests are also executed using this runner. Usage is as follows:
+All tests for web platform features (as opposed to features of jsdom itself, such as the `jsdom.*` APIs) should be in [web-platform-tests](https://github.com/w3c/web-platform-tests) format. We have some infrastructure for running these directly against jsdom documents. So ideally, when contributing a bugfix or new feature, you can browser the web-platform-tests repository and find the test covering your work, and then just enable it in [the manifest file](https://github.com/tmpvar/jsdom/blob/master/test/web-platform-tests/index.js). These tests are HTML files which use a special library called [testharness.js](http://testthewebforward.org/docs/testharness-library.html) to report their results.
 
-```
-$ node ./test/runner --help
+However, the web-platform-tests project is not fully comprehensive. If you need to write your own test for a web platform feature, place it in our [to-upstream](https://github.com/tmpvar/jsdom/tree/master/test/web-platform-tests/to-upstream) directory. (It's so named because, over time, we hope to upstream these tests back to the web-platform-tests repository, so all browsers can benefit from them.) Note that you may need to create new directory structure, paralleling that of the main [web-platform-tests](https://github.com/w3c/web-platform-tests) repository.
 
-Run the jsdom test suite
+**To run all web-platform-tests:** `npm run test-wpt`
 
-Options:
-  -s, --suites     suites that you want to run. ie: -s level1/core,1/html,html
-  -f, --fail-fast  stop on the first failed test
-  -h, --help       show the help
-  -t, --tests      choose the test cases to run. ie: -t jquery
-  -d, --debug      run in node's interactive debugger mode
-  -v, --verbose    show all tests that are being run
-```
-
-So e.g. use `node ./test/runner -s console` to run the console-related tests.
-
-### Writing or importing tests
-
-To import a test from w3c/web-platform-tests, add the appropriate line to `test/web-platform-tests/index.js`. This framework is still in its early days, so feel free to open an issue if it's not working quite like you expect.
-
-If you're writing a bunch of new tests for a feature, and those tests don't exist in w3c/web-platform-tests, you'll need to write your own. The best way to do this is to add new web platform tests into the `test/web-platform-tests/to-upstream` directory. Follow the [web platform test contribution guidelines](http://testthewebforward.org/docs/writing-tests.html) for the format, or just try to match what you see nearby.
-
-Alternately, you can write some tests just for jsdom. This should be avoided when possible, but is necessary for cases where e.g. you are testing a jsdom specific API. Try to follow the style from newer files, like [`test/jsdom/node-location.js`](https://github.com/tmpvar/jsdom/blob/master/test/jsdom/node-location.js).
+**To run the to-upstream web-platform-tests:** `npm run test-tuwpt`
 
 (Note for future reference for the maintainers: to update the submodules used for the web-platform-tests use the command `git submodule update --recursive --remote`.)
 
-### Running tests in the browser
+### jsdom API tests
 
-jsdom has experimental support to run in directly in a browser, or in a web worker! So we try run as much tests as possible in browsers too.
+If you are testing something that can only be accomplished through the jsdom API, and not inside a normal web browser, you'll want to write a different kind of test.
 
-As noted in [Running the tests](#running-the-tests), our own test suites are currently being transitioned from nodeunit to mocha. The nodeunit test cases are executed in Chrome using Selenium. The mocha test cases are executed in Chrome using [karma](https://karma-runner.github.io/).
+Our own test suites are currently being transitioned from nodeunit to [mocha](https://mochajs.org/) and [chai](http://chaijs.com/). Some of the test suites are run using nodeunit, while others are run using mocha. So if you would like to run a specific test, you will have to first figure out which kind it is. A test file containing `describe("foo", ...)` and `specify("foo", ...)` calls is for mocha. A test file containing `exports[foo] = ...` definitions is for nodeunit. After the transition finishes, there will be no nodeunit tests remaining.
 
-To run the karma tests, you will have to make sure that Chrome installed on your machine. To access the karma cli you can either first install karma globally (`npm install -g karma`), or you can access the karma cli that is installed alongside jsdom (e.g. `./node_modules/.bin/karma --help`). You can then start a test run using `karma start test/karma.conf.js` and/or `karma start test/karma-webworker.conf.js`, the first config runs the tests within an iframe, the second config runs the tests within an web worker. You can use all the [options that karma offers](https://karma-runner.github.io/latest/config/configuration-file.html), e.g. `karma start test/karma.conf.js --no-single-run`.
+All new tests should be written in the mocha format. To do that, simply add a file in the appropriate place (usually `test/jsdom`) following the surrounding conventions. Then, add it to the manifest at `test/index.js`.
 
-The nodeunit tests are run using a custom runner and selenium. To make this work, you need to install Java and have it in your PATH. Then you can use `node ./test/browser-runner` to have Selenium open up Chrome, spawn a web worker, and run the nodeunit tests inside it. This browser runner supports the same options as `./test/runner`, as well as a few more specific to running browser tests via WebDriver.
+**To run all mocha tests:** `npm run test-mocha-all`
 
-```
-$ node ./test/browser-runner --help
+**To run a specific mocha test:** `npm run test-mocha -- test/jsdom/env.js`
 
-Run the jsdom test suite in a browser via WebDriver
+**To run older tests (and also web-platform-tests):** see `npm run test-old`
 
-Options:
-  -s, --suites               suites that you want to run. ie: -s level1/core,1/html,html
-  -f, --fail-fast            stop on the first failed test
-  -h, --help                 show the help
-  -t, --tests                choose the test cases to run. ie: -t jquery
-  -d, --debug                run in node's interactive debugger mode
-  -v, --verbose              show all tests that are being run
-  --http-port                port to run test server on
-  --web-driver-port          port to run Selenium on
-  --verbose-web-driver       print verbose output from wd to stdout
-  --verbose-browser-console  print browser console to stdout
-```
+(The older tests also include a lot of web platform feature tests that are stuck in nodeunit format for now. We'd like to eventually move them to web-platform-tests format.)
 
-To run all the tests (karma and selenium tests combined), you can use `npm run test-browser`
+### Testing against the browser
 
-### Running the benchmarks
+jsdom has experimental support to run in directly in a browser, in both the main document and in a web worker! So we try run as many tests as possible in browsers too. Currently we only test in Chrome, since it has the same JavaScript features as the Node.js environment we usually develop in. So you'll need Chrome installed on your machine.
 
-First you'll want to `npm install`. To run all the benchmarks, use `npm run benchmark`.
+As noted above, our own test suites are currently being transitioned from nodeunit to mocha. The nodeunit test cases are executed in Chrome using Selenium. The mocha test cases are executed in Chrome using [karma](https://karma-runner.github.io/).
 
-Using options to `npm run benchmark`, you can slice and dice which benchmarks your want to run. Usage is as follows:
+**To run all browser tests:** `npm run test-browser`
 
-```
-$ npm run benchmark -- --help
+**To run the karma tests in an iframe:** `npm run test-karma`
 
-Run the jsdom benchmark suite
+**To run the karma tests in a web worker:** `npm run test-karma-worker`
 
-Options:
-  -s, --suites  suites that you want to run. ie: -s dom/construction/createElement,dom/foo
-  --bundle      generate the JavaScript bundle required to run benchmarks in a browser
-  -h, --help    show the help
-```
+**To run the older tests:** `npm run test-browser-old` (requires Java installed and in your PATH)
 
-In general, `npm run benchmark` is most useful for comparing results between jsdom revisions, e.g. before and after you make a change. To get a sense of how fast a jsdom feature is in general, it's best to run the benchmarks in the browser.
+## Benchmarks
 
-### Running the benchmarks in the browser
+This project cares about performance. There are a number of benchmarks that you can run. If you suspect your contribution has an impact on the performance of existing functionality, make sure you run the benchmarks before and after your change so that you can compare.
 
-You can run the same benchmarks in Chrome; in this case an automatic comparison will be made with the builtin DOM of Chrome. First you will need to run:
+You can also run the benchmarks using the native DOM implementation of Chrome. A comparison with jsdom will automatically be made for you. If your new feature is much slower than the alternative DOM implementation, there might be an unexpected bottleneck somewhere in your change.
 
-```
-npm run benchmark-browser
-```
+**To run benchmarks in Node.js:** `npm run benchmark`
 
-This tool will generate the necessary browser compatible JavaScript. After this command completes you can open `benchmark/browser-runner.html` in Chrome (or Chromium). If you change a benchmark or if you change jsdom you will need to run this command again.
-
-You can then use the console in Chrome (press F12) to run the benchmarks by executing the `run()` function. This should give you some idea as to how the jsdom implementation, running in a web worker, compares to the Chrome implementation, running in the main thread.
+**To run benchmarks in the browser:** `npm run benchmark-browser`, then open `benchmark/browser-runner.html` in Chrome (or Chromium) and use the developer console to execute the `run()` function.
 
 ## Issues
 
