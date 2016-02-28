@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<title>label element click proxying via "for" attribute or nested labelable element</title>
+<link rel="author" title="yaycmyk" href="mailto:evan@yaycmyk.com">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/forms.html#the-label-element:the-label-element-10">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="log"></div>
+<form id="test">
+    <input id="foo" type="checkbox" />
+    <label id="foo-label" for="foo">foo</label>
+
+    <label id="bar-label">
+        <input id="bar" type="checkbox" /> bar
+        <input id="baz" type="checkbox" /> baz
+    </label>
+</form>
+<script>
+  "use strict";
+
+  async_test(t => {
+    const label = document.getElementById('foo-label');
+    const input = document.getElementById('foo');
+
+    input.addEventListener("click", () => {
+      t.step(() => {
+        assert_true(true);
+        t.done();
+      });
+    });
+
+    label.click();
+
+  }, "label with for attribute should proxy click events to the associated element");
+
+  async_test(t => {
+    const label = document.getElementById('bar-label');
+    const input = document.getElementById('bar');
+
+    input.addEventListener("click", () => {
+      t.step(() => {
+        assert_true(true);
+        t.done();
+      });
+    });
+
+    label.click();
+
+  }, "label without for attribute should proxy click events to the first labelable child");
+
+</script>
