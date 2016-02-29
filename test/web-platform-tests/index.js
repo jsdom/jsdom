@@ -175,7 +175,7 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports, path.reso
   "FileAPI/reading-data-section/filereader_readAsText.html",
   "FileAPI/reading-data-section/filereader_readystate.html",
   "FileAPI/reading-data-section/filereader_result.html",
-  // "XMLHttpRequest/FormData-append.html", // lots of recent spec changes I guess? https://github.com/w3c/web-platform-tests/commit/eabff3d65053e4ad4034396b07d6b44196b11ed7
+  "XMLHttpRequest/FormData-append.html",
   "XMLHttpRequest/abort-after-receive.htm",
   "XMLHttpRequest/abort-after-send.htm",
   "XMLHttpRequest/abort-after-stop.htm",
@@ -193,29 +193,37 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports, path.reso
   "XMLHttpRequest/anonymous-mode-unsupported.htm",
   "XMLHttpRequest/data-uri.htm",
   "XMLHttpRequest/event-abort.htm",
-  // "XMLHttpRequest/event-error.html", // broken on Windows; works on Travis
+  "XMLHttpRequest/event-error.html",
   "XMLHttpRequest/event-load.htm",
   "XMLHttpRequest/event-loadend.htm",
   "XMLHttpRequest/event-loadstart.htm",
   "XMLHttpRequest/event-progress.htm",
+  "XMLHttpRequest/event-readystate-sync-open.htm",
   "XMLHttpRequest/event-readystatechange-loaded.htm",
   "XMLHttpRequest/event-timeout.htm",
   "XMLHttpRequest/event-upload-progress-crossorigin.sub.htm",
   "XMLHttpRequest/event-upload-progress.htm",
   "XMLHttpRequest/formdata-blob.htm",
+  "XMLHttpRequest/formdata-delete.htm",
+  "XMLHttpRequest/formdata-get.htm",
+  "XMLHttpRequest/formdata-has.htm",
+  "XMLHttpRequest/formdata-set.htm",
   "XMLHttpRequest/formdata.htm",
-  // "XMLHttpRequest/getallresponseheaders-cookies.htm", // https://github.com/nodejs/http-parser/issues/281
+  "XMLHttpRequest/getallresponseheaders-cookies.htm",
   "XMLHttpRequest/getallresponseheaders-status.htm",
-  // "XMLHttpRequest/getresponseheader-case-insensitive.htm", // https://github.com/nodejs/http-parser/issues/281
+  "XMLHttpRequest/getresponseheader-case-insensitive.htm",
   "XMLHttpRequest/getresponseheader-chunked-trailer.htm",
-  // "XMLHttpRequest/getresponseheader-cookies-and-more.htm", // https://github.com/nodejs/http-parser/issues/281
+  "XMLHttpRequest/getresponseheader-cookies-and-more.htm",
   "XMLHttpRequest/getresponseheader-error-state.htm",
-  // "XMLHttpRequest/getresponseheader-server-date.htm", // https://github.com/nodejs/http-parser/issues/281
-  // "XMLHttpRequest/getresponseheader-special-characters.htm", // https://github.com/nodejs/http-parser/issues/281
+  "XMLHttpRequest/getresponseheader-server-date.htm",
+  "XMLHttpRequest/getresponseheader-special-characters.htm",
   "XMLHttpRequest/getresponseheader-unsent-opened-state.htm",
+  // "XMLHttpRequest/interface.html", // todo
   "XMLHttpRequest/open-after-abort.htm",
   "XMLHttpRequest/open-after-setrequestheader.htm",
   "XMLHttpRequest/open-during-abort.htm",
+  "XMLHttpRequest/open-method-case-insensitive.htm",
+  // "XMLHttpRequest/open-method-case-sensitive.htm", // request module forces upper case
   "XMLHttpRequest/open-method-bogus.htm",
   "XMLHttpRequest/open-method-insecure.htm",
   "XMLHttpRequest/open-method-responsetype-set-sync.htm",
@@ -228,48 +236,84 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports, path.reso
   "XMLHttpRequest/open-url-base.htm",
   "XMLHttpRequest/open-url-base-inserted.htm",
   "XMLHttpRequest/open-url-base-inserted-after-open.htm",
+  // "XMLHttpRequest/open-url-bogus.htm", // todo
+  // "XMLHttpRequest/open-url-encoding.htm", // todo
   "XMLHttpRequest/open-url-fragment.htm",
   "XMLHttpRequest/open-url-javascript-window-2.htm",
   "XMLHttpRequest/open-url-javascript-window.htm",
+  "XMLHttpRequest/open-url-multi-window.htm",
+  "XMLHttpRequest/open-url-multi-window-2.htm",
+  "XMLHttpRequest/open-url-multi-window-3.htm",
+  // "XMLHttpRequest/open-url-multi-window-4.htm", // todo
+  // "XMLHttpRequest/open-url-multi-window-5.htm", // todo
+  // "XMLHttpRequest/open-url-worker-origin.htm", // todo
+  // "XMLHttpRequest/open-url-worker-simple.htm", // todo
   "XMLHttpRequest/open-user-password-non-same-origin.htm",
   "XMLHttpRequest/overridemimetype-done-state.htm",
+  // "XMLHttpRequest/overridemimetype-headers-received-state-force-shiftjis.htm", // todo
+  // "XMLHttpRequest/overridemimetype-invalid-mime-type.htm", // todo
   "XMLHttpRequest/overridemimetype-loading-state.htm",
+  // "XMLHttpRequest/overridemimetype-open-state-force-utf-8.htm", // todo
   "XMLHttpRequest/overridemimetype-open-state-force-xml.htm",
+  // "XMLHttpRequest/overridemimetype-unsent-state-force-shiftjis.htm", // todo
+  "XMLHttpRequest/preserve-ua-header-on-redirect.htm",
   "XMLHttpRequest/progress-events-response-data-gzip.htm",
   "XMLHttpRequest/response-data-arraybuffer.htm",
   "XMLHttpRequest/response-data-blob.htm",
+  // "XMLHttpRequest/response-data-deflate.htm", // request module does not support deflate
   "XMLHttpRequest/response-data-gzip.htm",
   "XMLHttpRequest/response-data-progress.htm",
   "XMLHttpRequest/response-invalid-responsetype.htm",
   "XMLHttpRequest/response-json.htm",
   "XMLHttpRequest/response-method.htm",
-  // "XMLHttpRequest/responseText-status.html", // https://github.com/nodejs/http-parser/issues/281
+  "XMLHttpRequest/responseText-status.html",
   "XMLHttpRequest/responsetype.html",
+  // "XMLHttpRequest/responsexml-basic.htm", // todo
+  // "XMLHttpRequest/responsexml-document-properties.htm", // todo
+  // "XMLHttpRequest/responsexml-media-type.htm", // todo
   "XMLHttpRequest/responsexml-non-document-types.htm",
+  // "XMLHttpRequest/responsexml-non-well-formed.htm", // todo
+  "XMLHttpRequest/security-consideration.sub.html",
   "XMLHttpRequest/send-accept-language.htm",
   "XMLHttpRequest/send-accept.htm",
+  "XMLHttpRequest/send-authentication-basic-cors-not-enabled.htm",
+  "XMLHttpRequest/send-authentication-basic-cors.htm",
   "XMLHttpRequest/send-authentication-basic-repeat-no-args.htm",
   "XMLHttpRequest/send-authentication-basic-setrequestheader-existing-session.htm",
   "XMLHttpRequest/send-authentication-basic-setrequestheader.htm",
   "XMLHttpRequest/send-authentication-basic.htm",
+  "XMLHttpRequest/send-authentication-competing-names-passwords.htm",
+  // "XMLHttpRequest/send-authentication-cors-basic-setrequestheader.htm", // seems wrong
   "XMLHttpRequest/send-conditional.htm",
+  // "XMLHttpRequest/send-content-type-charset.htm", // todo
+  // "XMLHttpRequest/send-content-type-string.htm", // todo
   "XMLHttpRequest/send-data-arraybuffer.htm",
   "XMLHttpRequest/send-data-blob.htm",
   "XMLHttpRequest/send-data-es-object.htm",
   "XMLHttpRequest/send-data-formdata.htm",
+  "XMLHttpRequest/send-data-unexpected-tostring.htm",
   "XMLHttpRequest/send-entity-body-basic.htm",
+  // "XMLHttpRequest/send-entity-body-document-bogus.htm", // todo
+  // "XMLHttpRequest/send-entity-body-document.htm", // todo
   "XMLHttpRequest/send-entity-body-empty.htm",
   "XMLHttpRequest/send-entity-body-get-head-async.htm",
   "XMLHttpRequest/send-entity-body-get-head.htm",
   "XMLHttpRequest/send-entity-body-none.htm",
-  // "XMLHttpRequest/send-network-error-async-events.sub.htm", // broken on Windows; works on Travis
-  // "XMLHttpRequest/send-network-error-sync-events.sub.htm", // broken on Windows; works on Travis
+  "XMLHttpRequest/send-network-error-async-events.sub.htm",
+  "XMLHttpRequest/send-network-error-sync-events.sub.htm",
   "XMLHttpRequest/send-no-response-event-loadend.htm",
   "XMLHttpRequest/send-no-response-event-loadstart.htm",
   "XMLHttpRequest/send-no-response-event-order.htm",
+  "XMLHttpRequest/send-non-same-origin.sub.htm",
+  // "XMLHttpRequest/send-receive-utf16.htm", // todo
   "XMLHttpRequest/send-redirect-bogus-sync.htm",
-  //  "XMLHttpRequest/send-redirect-bogus.htm", // broken on Windows; works on Travis
+  "XMLHttpRequest/send-redirect-bogus.htm",
+  // "XMLHttpRequest/send-redirect-infinite-sync.htm", // the test seems broken locally
+  // "XMLHttpRequest/send-redirect-infinite.htm", // the test seems broken locally
   "XMLHttpRequest/send-redirect-no-location.htm",
+  // "XMLHttpRequest/send-redirect-to-cors.htm", // todo
+  "XMLHttpRequest/send-redirect-to-non-cors.htm",
+  // "XMLHttpRequest/send-redirect.htm", // todo
   "XMLHttpRequest/send-response-event-order.htm",
   "XMLHttpRequest/send-response-upload-event-loadend.htm",
   "XMLHttpRequest/send-response-upload-event-loadstart.htm",
@@ -282,6 +326,7 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports, path.reso
   "XMLHttpRequest/send-sync-response-event-order.htm",
   "XMLHttpRequest/send-sync-timeout.htm",
   "XMLHttpRequest/send-timeout-events.htm",
+  // "XMLHttpRequest/send-usp.html", // todo
   "XMLHttpRequest/setrequestheader-after-send.htm",
   "XMLHttpRequest/setrequestheader-allow-empty-value.htm",
   "XMLHttpRequest/setrequestheader-allow-whitespace-in-value.htm",
@@ -290,14 +335,49 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports, path.reso
   "XMLHttpRequest/setrequestheader-bogus-value.htm",
   "XMLHttpRequest/setrequestheader-case-insensitive.htm",
   "XMLHttpRequest/setrequestheader-content-type.htm",
+  "XMLHttpRequest/setrequestheader-header-allowed.htm",
   "XMLHttpRequest/setrequestheader-header-forbidden.htm",
   "XMLHttpRequest/setrequestheader-open-setrequestheader.htm",
   "XMLHttpRequest/status-async.htm",
   "XMLHttpRequest/status-basic.htm",
   "XMLHttpRequest/status-error.htm",
+  "XMLHttpRequest/timeout-cors-async.htm",
   "XMLHttpRequest/timeout-sync.htm",
   "XMLHttpRequest/xmlhttprequest-basic.htm",
   "XMLHttpRequest/xmlhttprequest-eventtarget.htm",
-  "XMLHttpRequest/xmlhttprequest-unsent.htm"
+  // "XMLHttpRequest/xmlhttprequest-network-error-sync.htm", // the test seems broken locally
+  // "XMLHttpRequest/xmlhttprequest-network-error.htm", // the test seems broken locally
+  // "XMLHttpRequest/xmlhttprequest-timeout-aborted.html", // self instanceof Window fails
+  // "XMLHttpRequest/xmlhttprequest-timeout-abortedonmain.html", // self instanceof Window fails
+  // "XMLHttpRequest/xmlhttprequest-timeout-overrides.html", // self instanceof Window fails
+  // "XMLHttpRequest/xmlhttprequest-timeout-overridesexpires.html", // self instanceof Window fails
+  // "XMLHttpRequest/xmlhttprequest-timeout-simple.html", // self instanceof Window fails
+  // "XMLHttpRequest/xmlhttprequest-timeout-synconmain.html", // self instanceof Window fails
+  // "XMLHttpRequest/xmlhttprequest-timeout-twice.html", // self instanceof Window fails
+  // "XMLHttpRequest/xmlhttprequest-timeout-worker-aborted.html", // todo
+  // "XMLHttpRequest/xmlhttprequest-timeout-worker-overrides.html", // todo
+  // "XMLHttpRequest/xmlhttprequest-timeout-worker-overridesexpires.html", // todo
+  // "XMLHttpRequest/xmlhttprequest-timeout-worker-simple.html", // todo
+  // "XMLHttpRequest/xmlhttprequest-timeout-worker-synconworker.html", // todo
+  // "XMLHttpRequest/xmlhttprequest-timeout-worker-twice.html", // todo
+  "XMLHttpRequest/xmlhttprequest-unsent.htm",
+  "XMLHttpRequest/XMLHttpRequest-withCredentials.html",
+  "cors/allow-headers.htm",
+  "cors/basic.htm",
+  "cors/credentials-flag.htm",
+  // "cors/late-upload-events.htm", // todo
+  "cors/origin.htm",
+  // "cors/preflight-cache.htm", // todo
+  "cors/redirect-origin.htm",
+  "cors/redirect-preflight.htm",
+  // "cors/redirect-preflight-2.htm", // todo
+  "cors/redirect-userinfo.htm",
+  // "cors/remote-origin.htm", // postMessage event does not contain source
+  "cors/request-headers.htm",
+  // "cors/response-headers.htm", // todo
+  // "cors/simple-requests.htm", // todo
+  "cors/status-async.htm",
+  "cors/status-preflight.htm",
+  "cors/status.htm"
 ]
 .forEach(runWebPlatformTest);

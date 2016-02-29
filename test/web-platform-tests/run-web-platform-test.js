@@ -7,18 +7,19 @@ const requestHead = q.denodeify(require("request").head);
 const globalPool = { maxSockets: 6 };
 
 function createJsdom(urlPrefix, testPath, t) {
-  const reporterHref = urlPrefix + "resources/testharnessreport.js";
+  const reporterPathname = "/resources/testharnessreport.js";
 
   jsdom.env({
     url: urlPrefix + testPath,
     pool: globalPool,
+    strictSSL: false,
     features: {
       FetchExternalResources: ["script", "frame", "iframe", "link"],
       ProcessExternalResources: ["script"]
     },
     virtualConsole: jsdom.createVirtualConsole().sendTo(console, { omitJsdomErrors: true }),
     resourceLoader(resource, callback) {
-      if (resource.url.href === reporterHref) {
+      if (resource.url.pathname === reporterPathname) {
         callback(null, "window.shimTest();");
       } else {
         resource.defaultFetch(callback);
