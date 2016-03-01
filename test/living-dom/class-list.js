@@ -285,7 +285,7 @@ exports[".toggle() throws if a token contains whitespace"] = t => {
   t.done();
 };
 
-exports["accessing classList should remove duplicates"] = t => {
+exports["accessing classList should not remove duplicates"] = t => {
   el.className = "a a";
 
   /* eslint-disable no-unused-expressions */
@@ -293,7 +293,7 @@ exports["accessing classList should remove duplicates"] = t => {
   /* eslint-enable no-unused-expressions */
 
   t.equal(el.className, "a a");
-  t.equal(el.classList.toString(), "a");
+  t.equal(el.classList.toString(), "a a");
 
   t.done();
 };
