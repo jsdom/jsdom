@@ -20,7 +20,7 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports, path.reso
   "dom/nodes/DOMImplementation-createDocumentType.html",
   "dom/nodes/DOMImplementation-createHTMLDocument.html",
   "dom/nodes/DOMImplementation-hasFeature.html",
-  "dom/nodes/Element-classlist.html", // we don't support PutForwards yet
+  "dom/nodes/Element-classlist.html",
   "dom/nodes/Element-getElementsByClassName.html",
   "dom/nodes/attributes.html",
   "dom/nodes/getElementsByClassName-01.htm",
