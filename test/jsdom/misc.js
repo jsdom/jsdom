@@ -981,7 +981,7 @@ describe("jsdom/miscellaneous", () => {
     });
   });
 
-  specify("script tags should be interpreted when type is not set (ECMA262)", { async: true }, t => {
+  specify("script tags should be interpreted when type is not set", { async: true }, t => {
     jsdom.env({
       html: `<!DOCTYPE html><script>window.interpreted = true</script></html>`,
       features: {
