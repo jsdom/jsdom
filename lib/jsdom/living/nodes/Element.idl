@@ -11,7 +11,7 @@ interface Element : Node {
 
   boolean hasAttributes();
   [SameObject] readonly attribute NamedNodeMap attributes;
-//  sequence<DOMString> getAttributeNames();
+  sequence<DOMString> getAttributeNames();
   DOMString? getAttribute(DOMString qualifiedName);
   DOMString? getAttributeNS(DOMString? namespace, DOMString localName);
   void setAttribute(DOMString qualifiedName, DOMString value);
