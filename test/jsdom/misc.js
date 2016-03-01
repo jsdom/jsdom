@@ -909,6 +909,96 @@ describe("jsdom/miscellaneous", () => {
     assert.strictEqual(window.frames[0].navigator.userAgent, "custom user agent");
   });
 
+  specify("script tags should be interpreted when type is in spec [ECMA262]", { async: true }, t => {
+    const types = [
+      "application/ecmascript",
+      "application/javascript",
+      "application/x-ecmascript",
+      "application/x-javascript",
+      "text/ecmascript",
+      "text/javascript",
+      "text/javascript1.0",
+      "text/javascript1.1",
+      "text/javascript1.2",
+      "text/javascript1.3",
+      "text/javascript1.4",
+      "text/javascript1.5",
+      "text/jscript",
+      "text/livescript",
+      "text/x-ecmascript",
+      "text/x-javascript"
+    ];
+
+    types.forEach((type, i) => {
+      jsdom.env({
+        html: `<!DOCTYPE html><script type="${type}">window.interpreted = true</script></html>`,
+        features: {
+          FetchExternalResources: ["script"],
+          ProcessExternalResources: ["script"]
+        },
+        done: (err, window) => {
+          if (err) {
+            throw err;
+          }
+
+          assert.strictEqual(window.interpreted, true);
+
+          if (i === types.length - 1) {
+            t.done();
+          }
+        }
+      });
+    });
+  });
+
+  specify("script tags should not be interpreted when type is not in spec [ECMA262]", { async: true }, t => {
+    const types = [
+      "text/plain",
+      "text/xml",
+      "application/octet-stream",
+      "application/xml"
+    ];
+
+    types.forEach((type, i) => {
+      jsdom.env({
+        html: `<!DOCTYPE html><script type="${type}">window.interpreted = true</script></html>`,
+        features: {
+          FetchExternalResources: ["script"],
+          ProcessExternalResources: ["script"]
+        },
+        done: (err, window) => {
+          if (err) {
+            throw err;
+          }
+
+          assert.strictEqual(window.interpreted, undefined);
+
+          if (i === types.length - 1) {
+            t.done();
+          }
+        }
+      });
+    });
+  });
+
+  specify("script tags should be interpreted when type is not set (ECMA262)", { async: true }, t => {
+    jsdom.env({
+      html: `<!DOCTYPE html><script>window.interpreted = true</script></html>`,
+      features: {
+        FetchExternalResources: ["script"],
+        ProcessExternalResources: ["script"]
+      },
+      done: (err, window) => {
+        if (err) {
+          throw err;
+        }
+
+        assert.strictEqual(window.interpreted, true);
+        t.done();
+      }
+    });
+  });
+
   // these tests require file system access or they start a http server
   describe("node specific tests", { skipIfBrowser: true }, () => {
     specify("jquerify_file", { async: true }, t => {
