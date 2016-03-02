@@ -345,6 +345,7 @@ var jsdom = require("jsdom");
 jsdom.env({
   url: "http://example.com/",
   resourceLoader: function (resource, callback) {
+    var pathname = resource.url.pathname;
     if (/\.json$/.test(pathname)) {
       var timeout = setTimeout(function() {
         callback(null, "{\"test\":\"test\"}");
