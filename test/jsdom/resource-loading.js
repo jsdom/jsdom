@@ -1,5 +1,6 @@
 "use strict";
 
+const http = require("http");
 const assert = require("chai").assert;
 const describe = require("mocha-sugar-free").describe;
 const specify = require("mocha-sugar-free").specify;
@@ -44,6 +45,41 @@ describe("jsdom/resource-loading", () => {
       el.href = "http://0.0.0.0:12345/style.css";
 
       doc.head.appendChild(el);
+    }
+  );
+
+  specify("<link rel=\"stylesheet\"> loads relative to the document base URL",
+    { skipIfBrowser: true, async: true },
+    testCase => {
+      let port;
+      const server = http.createServer((req, res) => {
+        switch(req.url) {
+          case "/s.css": {
+            const css = "p { font-weight: bold; }";
+            res.writeHead(200, { "Content-Length": css.length });
+            res.end(css);
+            break;
+          }
+        }
+      });
+
+      server.listen(0, "127.0.0.1", () => {
+        port = server.address().port;
+
+        const virtualConsole = jsdom.createVirtualConsole();
+        virtualConsole.on("jsdomError", assert.ifError);
+
+        const html = `<!DOCTYPE html><base href="http://localhost:${port}">` +
+                     `<link rel="stylesheet" href="s.css"><p>x</p>`;
+        const window = jsdom.jsdom(html, { virtualConsole }).defaultView;
+
+        window.addEventListener("load", () => {
+          const el = window.document.querySelector("p");
+          assert.equal(window.getComputedStyle(el).fontWeight, "bold");
+
+          testCase.done();
+        });
+      });
     }
   );
 

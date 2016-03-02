@@ -7,11 +7,11 @@ interface Element : Node {
 
   [Reflect] attribute DOMString id;
   [Reflect=class] attribute DOMString className;
-  [SameObject] readonly attribute DOMTokenList classList;
+  [SameObject, PutForwards=value] readonly attribute DOMTokenList classList;
 
   boolean hasAttributes();
   [SameObject] readonly attribute NamedNodeMap attributes;
-//  sequence<DOMString> getAttributeNames();
+  sequence<DOMString> getAttributeNames();
   DOMString? getAttribute(DOMString qualifiedName);
   DOMString? getAttributeNS(DOMString? namespace, DOMString localName);
   void setAttribute(DOMString qualifiedName, DOMString value);

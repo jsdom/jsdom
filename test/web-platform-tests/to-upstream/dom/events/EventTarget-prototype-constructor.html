@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>EventTarget.prototype.constructor</title>
+<link rel="author" title="Domenic Denicola" href="mailto:d@domenic.me">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+
+test(() => {
+  assert_equals(EventTarget.prototype.constructor, EventTarget);
+}, "The EventTarget prototype should have the correct .constructor property");
+</script>

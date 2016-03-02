@@ -1,3 +1,23 @@
+## 8.1.0
+
+* Added `attr.nodeName`, which was [recently re-added to the spec](https://github.com/whatwg/dom/issues/171).
+* Added click-proxying behavior from `<label>`s to their labeled form elements. (yaycmyk)
+* Added a setter for `element.classList` per recent spec changes (it forwards to `element.classList.value`).
+* Updated our attributes implementation in a few ways for recent spec changes and to fix discovered bugs:
+  - Added `element.getAttributeNames()`. ([spec addition](https://github.com/whatwg/dom/issues/115))
+  - `setAttributeNode` and `setAttributeNodeNS` can now replace an attribute node, instead of removing the old one and adding a new one; this avoids changing the order in the attribute list. ([spec change](https://github.com/whatwg/dom/issues/116))
+  - `NamedNodeMap` named properties are now lowercase (except in edge cases involving XML documents or non-HTML elements). ([spec change](https://github.com/whatwg/dom/issues/141))
+  - `NamedNodeMap` named properties are now non-enumerable.
+  - The `"DOMAttrModified"` mutation event's `relatedNode` is now the new `Attr` object, not the `Node`, as per spec.
+* Updated `DOMTokenList` to have a `value` property per [recent spec changes](https://github.com/whatwg/dom/issues/119); its `toString` serialization also changed slightly.
+* Updated `tc.headers` to be a `DOMTokenList` that simply reflects the `headers` attribute; previously it was a string, with its computation doing some weird stuff.
+* Fixed `document.implementation.createDocument()` to create a document with its parsing mode set to XML, which affects a variety of DOM APIs in small ways.
+* Fixed `EventTarget.prototype.constructor` to be correct; it was previously `Window`.
+* Fixed `option.index` for `<option>`s not inside a `<select>` to no longer error.
+* Fixed `tc.cellIndex` for `<td>`s and `<th>`s not inside a `<tr>` to no longer error.
+* Fixed `tr.sectionRowIndex` for `<tr>`s not inside a `<table>`, `<tbody>`, `<thead>`, or `<tfoot>` to no longer error.
+* Removed the `"keyevents"` alias for `"keyboardevent"` when using `document.createEvent`, [per recent spec changes](https://github.com/whatwg/dom/issues/148).
+
 ## 8.0.4
 
 * Fixed the `this` value when you pass a `{ handleEvent() { ... } }` object to `addEventListener`. (thetalecrafter)
