@@ -107,6 +107,8 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports, path.reso
   "html/semantics/scripting-1/the-template-element/template-element/template-descendant-body.html",
   "html/semantics/scripting-1/the-template-element/template-element/template-descendant-frameset.html",
   "html/semantics/scripting-1/the-template-element/template-element/template-descendant-head.html",
+  "html/semantics/scripting-1/the-script-element/script-language-type.html",
+  "html/semantics/scripting-1/the-script-element/script-languages-01.html",
   "html/syntax/serializing-html-fragments/outerHTML.html",
   // "html/syntax/parsing/html5lib_template.html", // no idea what's going on here
   "html/syntax/parsing/template/additions-to-foster-parenting/template-is-a-foster-parent-element.html",
