@@ -107,6 +107,8 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports, path.reso
   "html/semantics/scripting-1/the-template-element/template-element/template-descendant-body.html",
   "html/semantics/scripting-1/the-template-element/template-element/template-descendant-frameset.html",
   "html/semantics/scripting-1/the-template-element/template-element/template-descendant-head.html",
+  "html/semantics/scripting-1/the-script-element/script-language-type.html",
+  "html/semantics/scripting-1/the-script-element/script-languages-01.html",
   // "html/semantics/tabular-data/the-table-element/caption-methods.html",
   // "html/semantics/tabular-data/the-table-element/createTBody.html",
   "html/semantics/tabular-data/the-table-element/delete-caption.html",
