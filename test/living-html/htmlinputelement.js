@@ -148,3 +148,35 @@ exports["an input's parsed type attribute should be reflected in both its proper
 
   t.done();
 };
+
+exports["a checkbox input emits 'change' event after being clicked"] = t => {
+  const document = jsdom.jsdom(`<html><head></head><body><input id="input" type="checkbox" /></body></html>`);
+
+  const input = document.querySelector("input");
+  let changeCalled = false;
+
+  input.addEventListener("change", () => { 
+    console.log("--- change! ---")
+    changeCalled = true; 
+  });
+
+  input.addEventListener("click", () => { 
+    console.log("--- click! ---")
+  });
+
+  t.ok(!input.checked, "checkbox not checked");
+
+  input.click();
+
+  t.ok(input.checked, "checkbox checked");
+  t.ok(changeCalled, "change event called");
+
+  t.done();
+
+  /*
+  Further testing via the issue (1079)
+  var event = new MouseEvent('click');
+  input.dispatchEvent(event);
+  console.log( 'after input.dispatchEvent():', input.checked );
+  */
+};
