@@ -12,12 +12,12 @@ describe("jsdom/node-location", () => {
     const el = document.querySelector("p");
 
     const location = jsdom.nodeLocation(el);
-    assert.strictEqual(location.start, 0);
-    assert.strictEqual(location.end, 12);
-    assert.strictEqual(location.startTag.start, 0);
-    assert.strictEqual(location.startTag.end, 3);
-    assert.strictEqual(location.endTag.start, 8);
-    assert.strictEqual(location.endTag.end, 12);
+    assert.strictEqual(location.startOffset, 0);
+    assert.strictEqual(location.endOffset, 12);
+    assert.strictEqual(location.startTag.startOffset, 0);
+    assert.strictEqual(location.startTag.endOffset, 3);
+    assert.strictEqual(location.endTag.startOffset, 8);
+    assert.strictEqual(location.endTag.endOffset, 12);
   });
 
   specify("jsdom.nodeLocation on a text node", () => {
@@ -25,8 +25,8 @@ describe("jsdom/node-location", () => {
     const el = document.querySelector("p");
 
     const location = jsdom.nodeLocation(el.firstChild);
-    assert.strictEqual(location.start, 3);
-    assert.strictEqual(location.end, 8);
+    assert.strictEqual(location.startOffset, 3);
+    assert.strictEqual(location.endOffset, 8);
   });
 
   specify("jsdom.nodeLocation on a void element", () => {
@@ -36,7 +36,7 @@ describe("jsdom/node-location", () => {
     const el = document.querySelector("img");
 
     const location = jsdom.nodeLocation(el);
-    assert.strictEqual(location.start, 13);
-    assert.strictEqual(location.end, 32);
+    assert.strictEqual(location.startOffset, 15);
+    assert.strictEqual(location.endOffset, 34);
   });
 });
