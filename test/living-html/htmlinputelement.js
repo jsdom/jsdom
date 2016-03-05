@@ -32,7 +32,6 @@ exports["html input should handle value/defaultValue correctly"] = t => {
   t.strictEqual(input.value, "", "setting value to null should result in an empty string");
   t.strictEqual(input.getAttribute("value"), "abc2", "value attribute should not change");
 
-
   t.done();
 };
 
@@ -149,34 +148,44 @@ exports["an input's parsed type attribute should be reflected in both its proper
   t.done();
 };
 
-exports["a checkbox input emits 'change' event after being clicked"] = t => {
+exports["a checkbox input emits click, input, change events in order after synthetic click"] = t => {
   const document = jsdom.jsdom(`<html><head></head><body><input id="input" type="checkbox" /></body></html>`);
 
   const input = document.querySelector("input");
-  let changeCalled = false;
+  const events = [];
 
-  input.addEventListener("change", () => { 
-    console.log("--- change! ---")
-    changeCalled = true; 
-  });
-
-  input.addEventListener("click", () => { 
-    console.log("--- click! ---")
-  });
+  input.addEventListener("change", () => { events.push("change"); });
+  input.addEventListener("click", () => { events.push("click"); });
+  input.addEventListener("input", () => { events.push("input"); });
 
   t.ok(!input.checked, "checkbox not checked");
 
   input.click();
 
   t.ok(input.checked, "checkbox checked");
-  t.ok(changeCalled, "change event called");
+  t.deepEqual(events, ["click", "input", "change"], "click, input, and change events called in order");
 
   t.done();
+};
 
-  /*
-  Further testing via the issue (1079)
-  var event = new MouseEvent('click');
+exports["a checkbox input emits click, input, change events in order after dispatching click event"] = t => {
+  const document = jsdom.jsdom(`<html><head></head><body><input id="input" type="checkbox" /></body></html>`);
+  const MouseEvent = document.defaultView.MouseEvent;
+
+  const input = document.querySelector("input");
+  const events = [];
+
+  input.addEventListener("change", () => { events.push("change"); });
+  input.addEventListener("click", () => { events.push("click"); });
+  input.addEventListener("input", () => { events.push("input"); });
+
+  t.ok(!input.checked, "checkbox not checked");
+
+  const event = new MouseEvent('click');
   input.dispatchEvent(event);
-  console.log( 'after input.dispatchEvent():', input.checked );
-  */
+
+  t.ok(input.checked, "checkbox checked");
+  t.deepEqual(events, ["click", "input", "change"], "click, input, and change events called in order");
+
+  t.done();
 };
