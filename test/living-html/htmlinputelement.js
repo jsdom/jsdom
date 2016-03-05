@@ -181,7 +181,7 @@ exports["a checkbox input emits click, input, change events in order after dispa
 
   t.ok(!input.checked, "checkbox not checked");
 
-  const event = new MouseEvent('click');
+  const event = new MouseEvent("click");
   input.dispatchEvent(event);
 
   t.ok(input.checked, "checkbox checked");
