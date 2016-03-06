@@ -1,5 +1,6 @@
 "use strict";
 const jsdom = require("../..");
+const MouseEvent = require("../../lib/jsdom/living/generated/MouseEvent");
 
 exports["html input should handle value/defaultValue correctly"] = t => {
   const input = jsdom.jsdom("<input>").querySelector("input");
@@ -149,9 +150,10 @@ exports["an input's parsed type attribute should be reflected in both its proper
 };
 
 exports["a checkbox input emits click, input, change events in order after synthetic click"] = t => {
-  const document = jsdom.jsdom(`<html><head></head><body><input id="input" type="checkbox" /></body></html>`);
-
-  const input = document.querySelector("input");
+  const document = jsdom.jsdom();
+  const input = document.createElement("input");
+  input.type = "checkbox";
+  document.body.appendChild(input);
   const events = [];
 
   input.addEventListener("change", () => { events.push("change"); });
@@ -169,10 +171,10 @@ exports["a checkbox input emits click, input, change events in order after synth
 };
 
 exports["a checkbox input emits click, input, change events in order after dispatching click event"] = t => {
-  const document = jsdom.jsdom(`<html><head></head><body><input id="input" type="checkbox" /></body></html>`);
-  const MouseEvent = document.defaultView.MouseEvent;
-
-  const input = document.querySelector("input");
+  const document = jsdom.jsdom();
+  const input = document.createElement("input");
+  input.type = "checkbox";
+  document.body.appendChild(input);
   const events = [];
 
   input.addEventListener("change", () => { events.push("change"); });
@@ -181,11 +183,53 @@ exports["a checkbox input emits click, input, change events in order after dispa
 
   t.ok(!input.checked, "checkbox not checked");
 
-  const event = new MouseEvent("click");
+  const event = MouseEvent.createImpl(["click", { bubbles: true, cancelable: true }], {});
   input.dispatchEvent(event);
 
   t.ok(input.checked, "checkbox checked");
   t.deepEqual(events, ["click", "input", "change"], "click, input, and change events called in order");
+
+  t.done();
+};
+
+exports["checkbox input respects cancel behavior on synthetic clicks"] = t => {
+  const document = jsdom.jsdom();
+  const input = document.createElement("input");
+  input.type = "checkbox";
+  document.body.appendChild(input);
+  const events = [];
+
+  input.addEventListener("change", () => { events.push("change"); });
+  input.addEventListener("click", (e) => { e.preventDefault(); events.push("click"); });
+  input.addEventListener("input", () => { events.push("input"); });
+
+  t.ok(!input.checked, "checkbox not checked");
+
+  input.click();
+
+  t.ok(!input.checked, "checkbox not checked");
+  t.deepEqual(events, ["click"], "only click event called");
+
+  t.done();
+};
+
+exports["radio input cancel behavior reverts state"] = t => {
+  const document = jsdom.jsdom();
+  const input = document.createElement("input");
+  input.type = "radio";
+  document.body.appendChild(input);
+  const events = [];
+
+  input.addEventListener("change", () => { events.push("change"); });
+  input.addEventListener("click", (e) => { e.preventDefault(); events.push("click"); });
+  input.addEventListener("input", () => { events.push("input"); });
+
+  t.ok(!input.checked, "radio not checked");
+
+  input.click();
+
+  t.ok(!input.checked, "radio not checked");
+  t.deepEqual(events, ["click"], "only click event called");
 
   t.done();
 };
