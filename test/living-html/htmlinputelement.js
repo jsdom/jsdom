@@ -200,7 +200,10 @@ exports["checkbox input respects cancel behavior on synthetic clicks"] = t => {
   const events = [];
 
   input.addEventListener("change", () => { events.push("change"); });
-  input.addEventListener("click", (e) => { e.preventDefault(); events.push("click"); });
+  input.addEventListener("click", (e) => {
+    e.preventDefault();
+    events.push("click");
+  });
   input.addEventListener("input", () => { events.push("input"); });
 
   t.ok(!input.checked, "checkbox not checked");
@@ -221,7 +224,10 @@ exports["radio input cancel behavior reverts state"] = t => {
   const events = [];
 
   input.addEventListener("change", () => { events.push("change"); });
-  input.addEventListener("click", (e) => { e.preventDefault(); events.push("click"); });
+  input.addEventListener("click", (e) => {
+    e.preventDefault();
+    events.push("click");
+  });
   input.addEventListener("input", () => { events.push("input"); });
 
   t.ok(!input.checked, "radio not checked");
