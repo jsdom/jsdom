@@ -233,3 +233,31 @@ exports["radio input cancel behavior reverts state"] = t => {
 
   t.done();
 };
+
+exports["checkbox input respects disabled attribute for synthetic events but not for dispatchEvent"] = t => {
+  const document = jsdom.jsdom();
+  const input = document.createElement("input");
+  input.type = "checkbox";
+  input.disabled = true;
+  document.body.appendChild(input);
+  const events = [];
+
+  input.addEventListener("change", () => { events.push("change"); });
+  input.addEventListener("click", () => { events.push("click"); });
+  input.addEventListener("input", () => { events.push("input"); });
+
+  t.ok(!input.checked, "disabled checkbox not checked");
+
+  input.click();
+
+  t.ok(!input.checked, "disabled checkbox not checked after .click()");
+  t.deepEqual(events, [], "disabled checkbox emits no events after .click()");
+
+  const event = MouseEvent.createImpl(["click", { bubbles: true, cancelable: true }], {});
+  input.dispatchEvent(event);
+
+  t.ok(input.checked, "disabled checkbox checked after dispatching click event");
+  t.deepEqual(events, ["click", "input", "change"], "disabled checkbox emits events after dispatchEvent");
+
+  t.done();
+};
