@@ -1,3 +1,7 @@
+## 8.1.1
+
+* Fixed input selection methods and properties to properly differentiate between inputs that can be selected outright vs. textual inputs which allow variable-length selection. (yaycmyk)
+
 ## 8.1.0
 
 * Added `attr.nodeName`, which was [recently re-added to the spec](https://github.com/whatwg/dom/issues/171).
