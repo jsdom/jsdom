@@ -63,11 +63,11 @@ exports["closing window should close requests"] = t => {
           t.strictEqual(err, null, "There should be no errors");
           process.nextTick(() => {
             const script = window.document.getElementsByTagName("script")[1];
-            script.onerror = () => {
-              t.ok(false, "the external script onerror should not be executed (old)");
+            script.onload = () => {
+              t.ok(false, "the external script onload should not be executed (old)");
             };
-            script.addEventListener("error", () => {
-              t.ok(false, "the external script onerror should not be executed");
+            script.addEventListener("load", () => {
+              t.ok(false, "the external script onload should not be executed");
             }, false);
             window.close();
             setTimeout(() => {
@@ -106,26 +106,12 @@ exports["closing window should close xhr"] = t => {
           process.nextTick(() => {
             const xhr = new window.XMLHttpRequest();
             xhr.open("GET", "/xhr", true);
-            xhr.onreadystatechange = () => {
-              t.ok(false, "xhr should not change state (old)");
+            xhr.onload = () => {
+              t.ok(false, "xhr should not trigger load (old)");
               t.done();
             };
-            xhr.addEventListener("readystatechange", () => {
-              t.ok(false, "xhr should not change state");
-            }, false);
-            xhr.onerror = () => {
-              t.ok(false, "xhr should not trigger error (old)");
-              t.done();
-            };
-            xhr.addEventListener("error", () => {
-              t.ok(false, "xhr should not trigger error");
-            }, false);
-            xhr.onabort = () => {
-              t.ok(false, "xhr should not trigger abort (old)");
-              t.done();
-            };
-            xhr.addEventListener("abort", () => {
-              t.ok(false, "xhr should not trigger abort");
+            xhr.addEventListener("load", () => {
+              t.ok(false, "xhr should not trigger load");
             }, false);
             xhr.send();
             window.close();
@@ -140,7 +126,7 @@ exports["closing window should close xhr"] = t => {
 };
 
 
-exports["stopping window should close requests but error event should be triggered"] = t => {
+exports["stopping window should close requests and error event should be triggered"] = t => {
   portfinder.getPort((e, port) => {
     if (e) {
       t.ok(false);
@@ -184,7 +170,7 @@ exports["stopping window should close requests but error event should be trigger
 };
 
 
-exports["stopping window should close xhr but abort event should be triggered"] = t => {
+exports["stopping window should close xhr and abort event should be triggered"] = t => {
   portfinder.getPort((e, port) => {
     if (e) {
       t.ok(false);
@@ -212,12 +198,12 @@ exports["stopping window should close xhr but abort event should be triggered"] 
             xhr.addEventListener("readystatechange", () => {
               t.ok(true, "xhr should trigger change state");
             }, false);
-            xhr.onerror = () => {
-              t.ok(false, "xhr should not trigger error (old)");
+            xhr.onload = () => {
+              t.ok(false, "xhr should not trigger load (old)");
               t.done();
             };
-            xhr.addEventListener("error", () => {
-              t.ok(false, "xhr should not trigger error");
+            xhr.addEventListener("load", () => {
+              t.ok(false, "xhr should not trigger load");
               t.done();
             }, false);
             xhr.onabort = () => {
