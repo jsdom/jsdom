@@ -267,3 +267,26 @@ exports["checkbox input respects disabled attribute for synthetic events but not
 
   t.done();
 };
+
+// https://html.spec.whatwg.org/#run-synthetic-click-activation-steps
+exports["elements respect 'click in progress' flag"] = t => {
+  const document = jsdom.jsdom();
+  const div = document.createElement("div");
+  document.body.appendChild(div);
+  const events = [];
+  let depth = 0;
+
+  div.addEventListener("click", (e) => {
+    events.push("click");
+    // This prevents an infinite loop if not implemented
+    if (depth++ === 0) {
+      e.target.click();
+    }
+  });
+
+  div.click();
+
+  t.deepEqual(events, ["click"], "elements do not allow recursive synthetic clicks");
+
+  t.done();
+};
