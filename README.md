@@ -136,6 +136,8 @@ jsdom.env(config);
 - `config.concurrentNodeIterators`: the maximum amount of `NodeIterator`s that you can use at the same time. The default is `10`; setting this to a high value will hurt performance.
 - `config.virtualConsole`: a virtual console instance that can capture the window’s console output; see the "Capturing Console Output" examples.
 - `config.pool`: an object describing which agents to use for the requests; defaults to `{ maxSockets: 6 }`, see [request module](https://github.com/request/request#requestoptions-callback) for more details.
+- `config.agent`: `http(s).Agent` instance to use
+- `config.agentClass`: alternatively specify your agent's class name
 - `config.agentOptions`: the agent options; defaults to `{ keepAlive: true, keepAliveMsecs: 115000 }`, see [http api](https://nodejs.org/api/http.html) for more details.
 - `config.strictSSL`: if `true`, requires SSL certificates be valid; defaults to `true`, see [request module](https://github.com/request/request#requestoptions-callback) for more details.
 - `config.proxy`: a URL for a HTTP proxy to use for the requests.

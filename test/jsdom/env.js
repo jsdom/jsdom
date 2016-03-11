@@ -415,6 +415,52 @@ describe("jsdom/env", () => {
       });
     });
 
+    specify("explicit config.url, custom agent, valid", { async: true }, t => {
+      const html = "<html><head><title>Example URL</title></head><body>Example!</body></html>";
+      const responseText = "<!DOCTYPE html>" + html;
+
+      const server = http.createServer((req, res) => {
+        res.writeHead(200, { "Content-Length": responseText.length });
+        res.end(responseText);
+        server.close();
+      }).listen(8976);
+
+      env({
+        url: "http://localhost:8976/",
+        agent: new http.Agent(),
+        done(err, window) {
+          assert.ifError(err);
+          assert.equal(serializeDocument(window.document), responseText);
+          assert.equal(window.location.href, "http://localhost:8976/");
+          assert.equal(window.location.origin, "http://localhost:8976");
+          t.done();
+        }
+      });
+    });
+
+    specify("explicit config.url, custom agentClass, valid", { async: true }, t => {
+      const html = "<html><head><title>Example URL</title></head><body>Example!</body></html>";
+      const responseText = "<!DOCTYPE html>" + html;
+
+      const server = http.createServer((req, res) => {
+        res.writeHead(200, { "Content-Length": responseText.length });
+        res.end(responseText);
+        server.close();
+      }).listen(8976);
+
+      env({
+        url: "http://localhost:8976/",
+        agentClass: http.Agent,
+        done(err, window) {
+          assert.ifError(err);
+          assert.equal(serializeDocument(window.document), responseText);
+          assert.equal(window.location.href, "http://localhost:8976/");
+          assert.equal(window.location.origin, "http://localhost:8976");
+          t.done();
+        }
+      });
+    });
+
     specify("explicit config.file, valid", { async: true }, t => {
       const fileName = path.resolve(__dirname, "files/env.html");
 
