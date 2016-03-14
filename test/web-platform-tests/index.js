@@ -269,7 +269,7 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports, path.reso
   "XMLHttpRequest/responseText-status.html",
   "XMLHttpRequest/responsetype.html",
   // "XMLHttpRequest/responsexml-basic.htm", // xml namespace issue with getElementById
-  "XMLHttpRequest/responsexml-document-properties.htm",
+  // "XMLHttpRequest/responsexml-document-properties.htm", see https://github.com/w3c/web-platform-tests/issues/2668
   "XMLHttpRequest/responsexml-media-type.htm",
   "XMLHttpRequest/responsexml-non-document-types.htm",
   // "XMLHttpRequest/responsexml-non-well-formed.htm", // xml parsing is not strict
