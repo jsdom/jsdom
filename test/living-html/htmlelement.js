@@ -65,29 +65,3 @@ exports["non-inherited elements should have the HTMLElement type"] = t => {
 
   t.done();
 };
-
-// https://html.spec.whatwg.org/#run-synthetic-click-activation-steps
-exports["input elements respect 'click in progress' flag"] = t => {
-  const document = jsdom.jsdom();
-  const input = document.createElement("input");
-  input.type = "checkbox";
-  document.body.appendChild(input);
-  const events = [];
-  let depth = 0;
-
-  input.addEventListener("change", () => { events.push("change"); });
-  input.addEventListener("click", (e) => {
-    events.push("click");
-    // This prevents an infinite loop if not implemented
-    if (depth++ === 0) {
-      e.target.click();
-    }
-  });
-  input.addEventListener("input", () => { events.push("input"); });
-
-  input.click();
-
-  t.deepEqual(events, ["click", "input", "change"], "input elements do not allow recursive synthetic clicks");
-
-  t.done();
-};
