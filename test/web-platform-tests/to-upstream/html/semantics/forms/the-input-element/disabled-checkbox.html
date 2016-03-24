@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<!-- TODO: fix below -->
-<title>not sure what to name this or where to put it</title>
-<!-- TODO: fix below -->
-<link rel=help href="https://dom.spec.whatwg.org/#dom-element-hasattribute">
+<title>Disabled checkbox event handling</title>
+<link rel="author" title="jeffcarp" href="mailto:gcarpenterv@gmail.com">
+<link rel=help href="https://html.spec.whatwg.org/#enabling-and-disabling-form-controls:-the-disabled-attribute">
+
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
-
-<!-- TODO: find out what this is -->
-<span data-e2="2" data-F2="3" id="t"></span>
 
 <script>
 "use strict";
 
 test(() => {
-
   const input = document.createElement("input");
   input.type = "checkbox";
   input.disabled = true;
@@ -26,18 +22,17 @@ test(() => {
   input.addEventListener("input", () => { events.push("input"); });
 
   // disabled checkbox begins unchecked
-  assert_true(!input.checked);
+  assert_false(input.checked);
 
   input.click();
 
   // disabled checkbox still unchecked after .click()
-  assert_true(!input.checked);
-
+  assert_false(input.checked);
   // disabled checkbox emits no events after synthetic .click()
   assert_array_equals(events, []);
 
-  const event = new MouseEvent("click", { bubbles: true, cancelable: true });
-  input.dispatchEvent(event);
+  input.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+
   // disabled checkbox is checked after dispatching direct click event
   assert_true(input.checked);
   // disabled checkbox runs click activation events after dispatchEvent

@@ -1,9 +1,7 @@
 <!DOCTYPE HTML>
-<title>radio input cancel behavior reverts state</title>
+<title>Radio input cancel behavior reverts state</title>
 <link rel="author" title="jeffcarp" href="mailto:gcarpenterv@gmail.com">
-
-<!-- TODO: update -->
-<link rel="help" href="https://html.spec.whatwg.org/#run-synthetic-click-activation-steps">
+<link rel="help" href="https://html.spec.whatwg.org/#radio-button-state-(type=radio)">
 
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
@@ -23,7 +21,6 @@ test(() => {
   input.addEventListener("click", (e) => {
     // cancel click event
     e.preventDefault();
-
     events.push("click");
   });
   input.addEventListener("input", () => { events.push("input"); });
