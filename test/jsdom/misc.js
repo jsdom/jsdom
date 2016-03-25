@@ -1004,8 +1004,9 @@ describe("jsdom/miscellaneous", () => {
     });
 
     specify("ensure_scripts_can_be_executed_via_options_features", { async: true }, t => {
-      const html = `<html><head><script src="./files/hello.js"></script></head>
-                    <body><span id="test">hello from html</span></body></html>`;
+      const html = `<html><head></head>
+                    <body><span id="test">hello from html</span>
+                    <script src="./files/hello.js"></script></body></html>`;
 
       const doc = jsdom.jsdom(html, {
         url: toFileUrl(__filename),
@@ -1022,9 +1023,9 @@ describe("jsdom/miscellaneous", () => {
     });
 
     specify("ensure_resolution_is_not_thrown_off_by_hrefless_base_tag", { async: true }, t => {
-      const html = `<html><head><base target="whatever">
-                 <script src="./files/hello.js"></script></head><body>
-                 <span id="test">hello from html</span></body></html>`;
+      const html = `<html><head><base target="whatever"></head><body>
+                 <span id="test">hello from html</span>
+                 <script src="./files/hello.js"></script></body></html>`;
 
       const doc = jsdom.jsdom(html, {
         url: toFileUrl(__filename),
@@ -1041,10 +1042,10 @@ describe("jsdom/miscellaneous", () => {
     });
 
     specify("ensure_resources_can_be_skipped_via_options_features", { async: true }, t => {
-      const html = `<html><head><script src="./files/hello.js"></script>
-                 <script src="./files/nyan.js"></script></head>
+      const html = `<html><head></head>
                  <body><span id="test">hello from html</span><span id="cat">
-                 hello from cat</body></html>`;
+                 hello from cat</body><script src="./files/hello.js"></script>
+                 <script src="./files/nyan.js"></script></html>`;
 
       const doc2 = jsdom.jsdom(html, {
         url: toFileUrl(__filename),
@@ -1065,10 +1066,10 @@ describe("jsdom/miscellaneous", () => {
       const html = `
         <html>
           <head>
-            <script type="text/javascript" src="` + toFileUrl("files/hello.js") + `"></script>
           </head>
           <body>
             <span id="test">hello from html</span>
+            <script type="text/javascript" src="` + toFileUrl("files/hello.js") + `"></script>
           </body>
         </html>`;
 

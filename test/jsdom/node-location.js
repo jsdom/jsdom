@@ -11,19 +11,22 @@ describe("jsdom/node-location", () => {
     const document = jsdom.jsdom("<p>Hello</p>");
     const el = document.querySelector("p");
 
-    assert.deepEqual(jsdom.nodeLocation(el), {
-      start: 0,
-      end: 12,
-      startTag: { start: 0, end: 3 },
-      endTag: { start: 8, end: 12 }
-    });
+    const location = jsdom.nodeLocation(el);
+    assert.strictEqual(location.startOffset, 0);
+    assert.strictEqual(location.endOffset, 12);
+    assert.strictEqual(location.startTag.startOffset, 0);
+    assert.strictEqual(location.startTag.endOffset, 3);
+    assert.strictEqual(location.endTag.startOffset, 8);
+    assert.strictEqual(location.endTag.endOffset, 12);
   });
 
   specify("jsdom.nodeLocation on a text node", () => {
     const document = jsdom.jsdom("<p>Hello</p>");
     const el = document.querySelector("p");
 
-    assert.deepEqual(jsdom.nodeLocation(el.firstChild), { start: 3, end: 8 });
+    const location = jsdom.nodeLocation(el.firstChild);
+    assert.strictEqual(location.startOffset, 3);
+    assert.strictEqual(location.endOffset, 8);
   });
 
   specify("jsdom.nodeLocation on a void element", () => {
@@ -32,6 +35,8 @@ describe("jsdom/node-location", () => {
     </p>`);
     const el = document.querySelector("img");
 
-    assert.deepEqual(jsdom.nodeLocation(el), { start: 15, end: 34 });
+    const location = jsdom.nodeLocation(el);
+    assert.strictEqual(location.startOffset, 15);
+    assert.strictEqual(location.endOffset, 34);
   });
 });
