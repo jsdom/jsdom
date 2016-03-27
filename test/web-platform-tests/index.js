@@ -91,6 +91,8 @@ const runWebPlatformTest = require("./run-web-platform-test")(exports, path.reso
   "html/dom/elements/global-attributes/classlist-nonstring.html",
   // "html/infrastructure/urls/terminology-0/document-base-url.html", // we don't support srcdoc <base> correctly
   "html/semantics/forms/the-input-element/selection.html",
+  // "html/semantics/scripting-1/the-script-element/script-text-xhtml.xhtml", // not sure; XHTML problems?
+  "html/semantics/scripting-1/the-script-element/script-text.html",
   // "html/semantics/scripting-1/the-template-element/additions-to-parsing-xhtml-documents/node-document.html", // templates in XHTML are totally messed up
   // "html/semantics/scripting-1/the-template-element/additions-to-parsing-xhtml-documents/template-child-nodes.html", // templates in XHTML are totally messed up
   // "html/semantics/scripting-1/the-template-element/additions-to-serializing-xhtml-documents/outerhtml.html", // templates in XHTML are totally messed up
