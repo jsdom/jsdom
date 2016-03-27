@@ -127,6 +127,7 @@ describe("jsdom/miscellaneous", () => {
       // The script url doesn"t matter as long as its https, since our mocked
       // request doens"t actually fetch anything.
       scripts: "https://doesntmatter.com/script.js",
+      strictSSL: false,
       done(errors, window) {
         if (errors) {
           assert.ok(false, errors.message);
