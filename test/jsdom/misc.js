@@ -91,7 +91,7 @@ describe("jsdom/miscellaneous", () => {
     });
   });
 
-  // This is in response to issue # 280 - scripts don"t load over https.
+  // This is in response to issue # 280 - scripts don't load over https.
   // See: https://github.com/tmpvar/jsdom/issues/280
   //
   // When a transfer is done, HTTPS servers in the wild might emit "close", or
@@ -476,14 +476,6 @@ describe("jsdom/miscellaneous", () => {
 
     const window = jsdom.jsdom(html).defaultView;
     assert.ok(window.myNode.nodeType);
-  });
-
-  specify("fix_for_issue_172", () => {
-    jsdom.env(`<html><body><script type="text/javascript"></script></body></html>`, [
-      "file:" + path.resolve(__dirname, "../jquery-fixtures/jquery-1.6.2.js")
-    ], () => {
-      // ensure the callback gets called!
-    });
   });
 
   specify("fix_for_issue_221", () => {
@@ -912,6 +904,14 @@ describe("jsdom/miscellaneous", () => {
 
   // these tests require file system access or they start a http server
   describe("node specific tests", { skipIfBrowser: true }, () => {
+    specify("fix_for_issue_172", () => {
+      jsdom.env(`<html><body><script type="text/javascript"></script></body></html>`, [
+        "file:" + path.resolve(__dirname, "../jquery-fixtures/jquery-1.6.2.js")
+      ], () => {
+        // ensure the callback gets called!
+      });
+    });
+
     specify("jquerify_file", { async: true }, t => {
       const jQueryFile = path.resolve(__dirname, "../jquery-fixtures/jquery-1.4.4.js");
       jsdom.jQueryify(tmpWindow(), toFileUrl(jQueryFile), (window, jQuery) => {
