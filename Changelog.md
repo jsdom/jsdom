@@ -1,3 +1,16 @@
+## 8.2.0
+
+* Added correct click behavior for inputs (jeffcarp):
+  - `change` and `input` events now fire appropriately
+  - The "click in progress" flag is implemented, so you cannot click while a click is in progress
+  - Canceling a click event appropriately resets radio buttons and checkboxes
+* Updated our XMLHttpRequest implementation with a variety of fixes and features, including preliminary CORS support. (nicolashenry)
+* Added a `strictSSL` top-level option to govern all requests jsdom makes. (nicolashenry)
+* XHTML frames and iframes are now parsed as XML instead of HTML. (nicolashenry)
+* Added `document.origin` and `document.lastModified`. (nicolashenry)
+* Fixed the `scriptEl.text` getter and setter to follow the spec.
+* Fixed script execution to check against the canonical list of JavaScript MIME types and only execute those scripts as JavaScript.
+
 ## 8.1.1
 
 * Fixed input selection methods and properties to properly differentiate between inputs that can be selected outright vs. textual inputs which allow variable-length selection. (yaycmyk)
