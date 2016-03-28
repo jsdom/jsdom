@@ -86,7 +86,6 @@ var files = [
   "jsonp/jsonp.js",
   "browser/css.js",
   "browser/index.js",
-  "web-platform-tests/to-upstream.js",
   "misc/domparsing.js"
 ];
 
