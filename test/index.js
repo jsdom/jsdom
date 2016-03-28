@@ -14,3 +14,6 @@ require("./jsdom/serialization.js");
 require("./jsdom/utils.js");
 require("./jsdom/virtual-console.js");
 require("./jsdom/xml.js");
+
+// keep this one last so that you can cancel the test run early
+require("./web-platform-tests/index.js");

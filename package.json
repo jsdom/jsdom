@@ -69,8 +69,8 @@
   "scripts": {
     "prepublish": "npm run convert-idl",
     "pretest": "npm run convert-idl && git submodule update --init --recursive",
-    "test-wpt": "node ./test/runner -s web-platform-tests",
     "test-tuwpt": "node ./test/runner -s web-platform-tests/to-upstream",
+    "test-wpt": "mocha test/web-platform-tests/index.js",
     "test-mocha": "mocha",
     "test-mocha-all": "mocha test/index.js",
     "test-old": "node ./test/runner",
