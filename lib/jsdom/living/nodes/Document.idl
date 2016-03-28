@@ -115,3 +115,12 @@ partial interface Document {
 //  readonly attribute FrozenArray<DOMString> styleSheetSets;
 //  void enableStyleSheetsForSet(DOMString? name);
 };
+
+// http://w3c.github.io/page-visibility/
+enum VisibilityState { "hidden", "visible", "prerender" };
+
+partial interface Document {
+  readonly attribute boolean hidden;
+  readonly attribute VisibilityState visibilityState;
+  attribute EventHandler onvisibilitychange;
+};
