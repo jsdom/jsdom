@@ -145,7 +145,7 @@ Note that at least one of the callbacks (`done`, `onload`, or `created`) is requ
 
 If you just want to load the document and execute it, the `done` callback shown above is the simplest. If anything goes wrong while loading the document and creating the window, the problem will show up in the `error` passed as the first argument.
 
-However, if you want more control over or insight into the initialization lifecycle, you'll want to use the `created` and/or `loaded` callbacks:
+However, if you want more control over or insight into the initialization lifecycle, you'll want to use the `created` and/or `onload` callbacks:
 
 #### `created(error, window)`
 
