@@ -4,6 +4,7 @@ const jsdom = require("../lib/jsdom");
 const fs = require("fs");
 const exceptionTable = require("../lib/jsdom/web-idl/dom-exception-table.json");
 const request = require("request");
+const Canvas = require("../lib/jsdom/utils").Canvas;
 
 function toPathname(dirname, relativePath) {
   let pathname = path.resolve(dirname, relativePath).replace(/\\/g, "/");
@@ -186,4 +187,14 @@ exports.readTestFixture = relativePath => {
   // request passes (error, response, content) to the callback
   // we are only interested in the `content`
   .then(result => useRequest ? result[1] : result);
+};
+
+exports.isCanvasInstalled = t => {
+  if (!Canvas) {
+    t.ok(true, "test ignored; not running with the canvas npm package installed");
+    t.done();
+    return false;
+  }
+
+  return true;
 };
