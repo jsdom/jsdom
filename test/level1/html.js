@@ -1619,7 +1619,7 @@ exports.tests = {
    * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=251
    */
   hc_documentgetelementsbytagnametotallength: function(test) {
-    var expectedNames = ["HTML", "HEAD", "META", "TITLE", "SCRIPT", "SCRIPT", "SCRIPT", "BODY",
+    var expectedNames = ["HTML", "HEAD", "META", "TITLE", "BODY",
                          "P", "EM", "STRONG", "CODE", "SUP", "VAR", "ACRONYM", "P", "EM", "STRONG",
                          "CODE", "SUP", "VAR", "ACRONYM", "P", "EM", "STRONG", "CODE", "SUP", "VAR",
                          "ACRONYM", "P", "EM", "STRONG", "CODE", "SUP", "VAR", "ACRONYM", "P", "EM",
