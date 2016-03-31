@@ -138,6 +138,8 @@ jsdom.env(config);
 - `config.pool`: an object describing which agents to use for the requests; defaults to `{ maxSockets: 6 }`, see [request module](https://github.com/request/request#requestoptions-callback) for more details.
 - `config.agentOptions`: the agent options; defaults to `{ keepAlive: true, keepAliveMsecs: 115000 }`, see [http api](https://nodejs.org/api/http.html) for more details.
 - `config.strictSSL`: if `true`, requires SSL certificates be valid; defaults to `true`, see [request module](https://github.com/request/request#requestoptions-callback) for more details.
+- `config.proxy`: a URL for a HTTP proxy to use for the requests.
+
 
 Note that at least one of the callbacks (`done`, `onload`, or `created`) is required, as is one of `html`, `file`, or `url`.
 
