@@ -9,5 +9,5 @@ interface HTMLCanvasElement : HTMLElement {
 //  CanvasProxy transferControlToProxy();
 
   DOMString toDataURL(optional DOMString type, any... arguments);
-//  void toBlob(BlobCallback _callback, optional DOMString type, any... arguments);
+  void toBlob(BlobCallback _callback, optional DOMString type, any... arguments);
 };

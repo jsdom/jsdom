@@ -117,6 +117,34 @@ exports["toDataURL should work (when the canvas npm package is provided) (GH-102
   t.done();
 };
 
+exports["loading an image and drawing it into the canvas should produce the expected result"] = t => {
+  if (!isCanvasInstalled(t)) {
+    return;
+  }
+
+  const document = jsdom.jsdom("<canvas width='168' height='168'></canvas>",
+      { features: { FetchExternalResources: ["img"] } });
+  const window = document.defaultView;
+  const canvas = document.querySelector("canvas");
+  const ctx = canvas.getContext("2d");
+  const image = new window.Image();
+  image.src = "file://" + path.resolve(__dirname, "files/image.png");
+  image.onload = (event) => {
+    ctx.drawImage(image, 0, 0);
+    const expected = fs.readFileSync(path.resolve(__dirname, "files/image.txt"), { encoding: "utf-8" }).trim();
+    t.strictEqual(canvas.toDataURL(), expected);
+    canvas.toBlob((blob) => {
+      t.strictEqual(blob.type, "image/png");
+      t.strictEqual(blob.size, 2614);
+      t.done();
+    }, "image/png");
+  };
+  image.onerror = (event) => {
+    t.ok(false, "onerror should not be triggered when loading from valid URL");
+    t.done();
+  };
+};
+
 function isCanvasInstalled(t) {
   /* eslint-disable global-require */
   let Canvas;
