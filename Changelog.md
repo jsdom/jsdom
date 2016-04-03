@@ -1,3 +1,12 @@
+## 8.3.0
+
+* Added image loading and decoding, when the `canvas` npm package is installed (lehni). In practice, this means that if you enable fetching `"img"` external resources, then:
+  * `img.naturalWidth`, `img.naturalHeight`, `img.width`, `img.height`, `img.complete`, and `img.currentSrc` will update themselves correctly as the image loads
+  * `load` and `error` events will fire on the `<img>` element, according to how well image decoding goes.
+  * You can draw images onto canvases, using the newly-enabled `canvasContext.drawImage` API.
+* Added `canvasContext.createPattern` and `canvasContext.toBlob`, when the `canvas` npm package is installed. (lehni)
+* Added a basic implementation of the [Page Visibility API](https://w3c.github.io/page-visibility/), in particular a `document.hidden` property that always returns `true`, and a `document.visibilityState` property that always returns `"prerender"`. This is a more standard alternative to our proprietary `navigator.noUI`, which will be removed whenever we release 9.0.0. (kapouer)
+
 ## 8.2.0
 
 * Added correct click behavior for inputs (jeffcarp):
