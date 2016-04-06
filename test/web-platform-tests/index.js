@@ -98,6 +98,7 @@ describe("Web Platform Tests", () => {
     "html/browsers/history/the-location-interface/location_port.html",
     "html/browsers/history/the-location-interface/location_protocol.html",
     "html/browsers/history/the-location-interface/location_search.html",
+    "html/browsers/windows/browsing-context-first-created.xhtml",
     "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-02.html",
     "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-03.html",
     "html/dom/elements/global-attributes/classlist-nonstring.html",
@@ -185,10 +186,25 @@ describe("Web Platform Tests", () => {
     "DOMEvents/throwing-in-listener-when-all-have-not-run-yet.html",
 
     "FileAPI/fileReader.html",
+    "FileAPI/historical.html",
+    // "FileAPI/idlharness.html", // idl should be used here
+    "FileAPI/blob/Blob-close.html",
+    // "FileAPI/blob/Blob-constructor.html", // - Blob is not a function
+                                             // - a date is not instanceof Date
+                                             // - a regexp is not instanceof Regexp
+                                             // - strange v8 behaviour when error triggered in overridden array length
+                                             // - HTMLSelectElement does not have indexed properties
+                                             // - MessageChannel not implemented
+                                             // - element attributes does not have  indexed properties
     "FileAPI/blob/Blob-slice.html",
+    "FileAPI/blob/Blob-slice-overflow.html",
+    // "FileAPI/blob/Blob-XHR-revoke.html", // URL.createObjectURL not implemented
     "FileAPI/file/File-constructor.html",
+    // "FileAPI/filelist-section/filelist.html", // function is not instanceof Function
     "FileAPI/FileReader/Progress_event_bubbles_cancelable.html",
+    "FileAPI/reading-data-section/Determining-Encoding.html",
     "FileAPI/reading-data-section/FileReader-event-handler-attributes.html",
+    // "FileAPI/reading-data-section/FileReader-multiple-reads.html", // last test seems wrong ?
     "FileAPI/reading-data-section/filereader_abort.html",
     "FileAPI/reading-data-section/filereader_error.html",
     "FileAPI/reading-data-section/filereader_readAsArrayBuffer.html",
@@ -196,6 +212,8 @@ describe("Web Platform Tests", () => {
     "FileAPI/reading-data-section/filereader_readAsText.html",
     "FileAPI/reading-data-section/filereader_readystate.html",
     "FileAPI/reading-data-section/filereader_result.html",
+    // "FileAPI/url/url_createobjecturl_blob.html", // URL.createObjectURL not implemented
+    // "FileAPI/url/url_xmlhttprequest.html", // URL.createObjectURL not implemented
     "XMLHttpRequest/FormData-append.html",
     "XMLHttpRequest/abort-after-receive.htm",
     "XMLHttpRequest/abort-after-send.htm",
@@ -271,12 +289,12 @@ describe("Web Platform Tests", () => {
     // "XMLHttpRequest/open-url-worker-simple.htm", // needs Worker implementation
     "XMLHttpRequest/open-user-password-non-same-origin.htm",
     "XMLHttpRequest/overridemimetype-done-state.htm",
-    // "XMLHttpRequest/overridemimetype-headers-received-state-force-shiftjis.htm", // needs proper encoding handling
+    "XMLHttpRequest/overridemimetype-headers-received-state-force-shiftjis.htm",
     "XMLHttpRequest/overridemimetype-invalid-mime-type.htm",
     "XMLHttpRequest/overridemimetype-loading-state.htm",
-    // "XMLHttpRequest/overridemimetype-open-state-force-utf-8.htm", // needs proper encoding handling
+    "XMLHttpRequest/overridemimetype-open-state-force-utf-8.htm",
     "XMLHttpRequest/overridemimetype-open-state-force-xml.htm",
-    // "XMLHttpRequest/overridemimetype-unsent-state-force-shiftjis.htm", // needs proper encoding handling
+    "XMLHttpRequest/overridemimetype-unsent-state-force-shiftjis.htm",
     "XMLHttpRequest/preserve-ua-header-on-redirect.htm",
     "XMLHttpRequest/progress-events-response-data-gzip.htm",
     "XMLHttpRequest/response-data-arraybuffer.htm",
@@ -315,7 +333,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/send-data-unexpected-tostring.htm",
     "XMLHttpRequest/send-entity-body-basic.htm",
     "XMLHttpRequest/send-entity-body-document-bogus.htm",
-    // "XMLHttpRequest/send-entity-body-document.htm", // needs proper encoding handling
+    "XMLHttpRequest/send-entity-body-document.htm",
     "XMLHttpRequest/send-entity-body-empty.htm",
     "XMLHttpRequest/send-entity-body-get-head-async.htm",
     "XMLHttpRequest/send-entity-body-get-head.htm",
@@ -326,7 +344,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/send-no-response-event-loadstart.htm",
     "XMLHttpRequest/send-no-response-event-order.htm",
     "XMLHttpRequest/send-non-same-origin.sub.htm",
-    // "XMLHttpRequest/send-receive-utf16.htm", // needs proper encoding handling
+    "XMLHttpRequest/send-receive-utf16.htm",
     "XMLHttpRequest/send-redirect-bogus-sync.htm",
     "XMLHttpRequest/send-redirect-bogus.htm",
     // "XMLHttpRequest/send-redirect-infinite-sync.htm", // the test seems broken locally

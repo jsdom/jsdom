@@ -37,7 +37,15 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "html/semantics/tabular-data/the-table-element/parentless-props.html",
     "html/webappapis/timers/arguments.html",
     "html/webappapis/timers/errors.html",
-    "html/webappapis/timers/settimeout-setinterval-handles.html"
+    "html/webappapis/timers/settimeout-setinterval-handles.html",
+    "encoding/meta/meta-charset.html",
+    "encoding/meta/meta-charset-simple-quotes.html",
+    "encoding/meta/meta-charset-no-quotes.html",
+    "encoding/meta/meta-http-equiv.html",
+    "encoding/meta/meta-http-equiv-reverse.html",
+    "encoding/meta/meta-http-equiv-simple-quotes.html",
+    "encoding/meta/meta-http-equiv-no-quotes.html",
+    "encoding/meta/no-meta.html"
   ]
   .forEach(runWebPlatformTest);
 });
