@@ -1,5 +1,6 @@
 "use strict";
 
+require("./jsdom/encoding.js");
 require("./jsdom/env.js");
 require("./jsdom/inside-worker-smoke-tests.js");
 require("./jsdom/misc.js");
