@@ -100,6 +100,33 @@ describe("jsdom/parsing", () => {
     assert.equal(els[0].outerHTML, "<element constructor=\"Hello\"></element>");
   });
 
+  specify("attribute inherited from Object (GH-1442)", () => {
+    Object.prototype.attribute = "value";
+
+    const document = jsdom.jsdom("<element></element>");
+
+    delete Object.prototype.attribute;
+    const els = document.getElementsByTagName("element");
+
+    assert.equal(els.length, 1);
+    assert.equal(els[0].getAttribute("attribute"), undefined);
+    assert.equal(els[0].attributes.length, 0);
+    assert.equal(els[0].outerHTML, "<element></element>");
+  });
+
+  specify("prefix on attribute named 'hasOwnProperty' (GH-1444)", () => {
+    const options = { parsingMode: "xml" };
+    const document = jsdom.jsdom("<element prefix:hasOwnProperty='value'></element>", options);
+
+    const els = document.getElementsByTagName("element");
+
+    assert.equal(els.length, 1);
+    assert.equal(els[0].attributes.length, 1);
+    assert.equal(els[0].attributes[0].prefix, "prefix");
+    assert.equal(els[0].getAttribute("prefix:hasOwnProperty"), "value");
+    assert.equal(els[0].outerHTML, "<element prefix:hasOwnProperty=\"value\"></element>");
+  });
+
   specify("CDATA should parse as bogus comments (GH-618)", () => {
     const document = jsdom.jsdom("<html><head></head><body><div><![CDATA[test]]></div></body></html>");
 
