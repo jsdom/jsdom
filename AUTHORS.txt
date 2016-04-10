@@ -74,6 +74,7 @@ James Broad <jb@kulor.com>
 James Kyle <me@thejameskyle.com>
 James McMath <mcmathja@mediant.co>
 Jameson Little <t.jameson.little@gmail.com>
+Jared Deckard <jared.deckard@gmail.com>
 Jason Davies <jason@jasondavies.com>
 Jason Orendorff <jason.orendorff@gmail.com>
 Jason Priestley <jason@teampatent.com>

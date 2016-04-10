@@ -1,3 +1,7 @@
+## 8.3.1
+
+* Fixed an issue where if you modified `Object.prototype`, spurious attributes would show up on your jsdom nodes. (deckar01)
+
 ## 8.3.0
 
 * Added image loading and decoding, when the `canvas` npm package is installed (lehni). In practice, this means that if you enable fetching `"img"` external resources, then:
