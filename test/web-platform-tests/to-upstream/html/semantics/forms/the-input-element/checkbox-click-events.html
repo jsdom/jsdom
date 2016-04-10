@@ -16,9 +16,15 @@ test(() => {
   document.body.appendChild(input);
   const events = [];
 
-  input.addEventListener("change", () => { events.push("change"); });
-  input.addEventListener("click", () => { events.push("click"); });
-  input.addEventListener("input", () => { events.push("input"); });
+  input.addEventListener("change", () => {
+    events.push("change");
+  });
+  input.addEventListener("click", () => {
+    events.push("click");
+  });
+  input.addEventListener("input", () => {
+    events.push("input");
+  });
 
   assert_false(input.checked);
 
@@ -35,9 +41,15 @@ test(() => {
   document.body.appendChild(input);
   const events = [];
 
-  input.addEventListener("change", () => { events.push("change"); });
-  input.addEventListener("click", () => { events.push("click"); });
-  input.addEventListener("input", () => { events.push("input"); });
+  input.addEventListener("change", () => {
+    events.push("change");
+  });
+  input.addEventListener("click", () => {
+    events.push("click");
+  });
+  input.addEventListener("input", () => {
+    events.push("input");
+  });
 
   assert_false(input.checked);
 
@@ -55,12 +67,16 @@ test(() => {
   document.body.appendChild(input);
   const events = [];
 
-  input.addEventListener("change", () => { events.push("change"); });
-  input.addEventListener("click", (e) => {
+  input.addEventListener("change", () => {
+    events.push("change");
+  });
+  input.addEventListener("click", e => {
     e.preventDefault();
     events.push("click");
   });
-  input.addEventListener("input", () => { events.push("input"); });
+  input.addEventListener("input", () => {
+    events.push("input");
+  });
 
   assert_false(input.checked);
 

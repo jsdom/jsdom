@@ -18,8 +18,8 @@
   "use strict";
 
   async_test(t => {
-    const label = document.getElementById('foo-label');
-    const input = document.getElementById('foo');
+    const label = document.getElementById("foo-label");
+    const input = document.getElementById("foo");
 
     input.addEventListener("click", () => {
       t.step(() => {
@@ -33,8 +33,8 @@
   }, "label with for attribute should proxy click events to the associated element");
 
   async_test(t => {
-    const label = document.getElementById('bar-label');
-    const input = document.getElementById('bar');
+    const label = document.getElementById("bar-label");
+    const input = document.getElementById("bar");
 
     input.addEventListener("click", () => {
       t.step(() => {

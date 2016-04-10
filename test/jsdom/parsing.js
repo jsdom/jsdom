@@ -101,6 +101,7 @@ describe("jsdom/parsing", () => {
   });
 
   specify("attribute inherited from Object (GH-1442)", () => {
+    // eslint-disable-next-line no-extend-native
     Object.prototype.attribute = "value";
 
     const document = jsdom.jsdom("<element></element>");

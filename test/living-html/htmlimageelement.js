@@ -29,7 +29,7 @@ exports["loading image from valid external URL"] = t => {
   t.strictEqual(image.src, "", "before loading, src should be an empty string");
   t.strictEqual(image.currentSrc, "", "before loading, currentSrc should be an empty string");
   image.src = src;
-  image.onload = (event) => {
+  image.onload = () => {
     t.ok(true, "onload should be triggered when loading from valid URL.");
     t.strictEqual(image.width, 168, "after loading, width should be 168");
     t.strictEqual(image.height, 168, "after loading, height should be 168");
@@ -40,7 +40,7 @@ exports["loading image from valid external URL"] = t => {
     t.strictEqual(image.currentSrc, src, "after loading, currentSrc should be the image's URL");
     t.done();
   };
-  image.onerror = (event) => {
+  image.onerror = () => {
     t.ok(false, "onerror should not be triggered when loading from valid URL");
     t.done();
   };
@@ -53,11 +53,11 @@ exports["loading image from data URL"] = t => {
   const window = jsdom.jsdom("", { features: { FetchExternalResources: ["img"] } }).defaultView;
   const image = new window.Image();
   const src = fs.readFileSync(path.resolve(__dirname, "files/image.txt"), { encoding: "utf-8" }).trim();
-  image.onload = (event) => {
+  image.onload = () => {
     t.ok(true, "onload should be triggered when loading from data URL.");
     t.done();
   };
-  image.onerror = (event) => {
+  image.onerror = () => {
     t.ok(false, "onerror should not be triggered when loading from valid URL");
     t.done();
   };

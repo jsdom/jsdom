@@ -15,7 +15,7 @@ test(() => {
   const events = [];
   let depth = 0;
 
-  div.addEventListener("click", (e) => {
+  div.addEventListener("click", e => {
     events.push("click");
     // This prevents an infinite loop if not implemented
     if (depth++ === 0) {

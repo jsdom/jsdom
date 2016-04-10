@@ -20,7 +20,9 @@ module.exports = function (testDir) {
   const server = new EventEmitter();
 
   let serverHasStarted;
-  server.started = new Promise(resolve => serverHasStarted = resolve);
+  server.started = new Promise(resolve => {
+    serverHasStarted = resolve;
+  });
   server.isStarted = false;
 
   let urlPrefix = "http://web-platform.test:9000/";

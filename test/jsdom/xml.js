@@ -35,7 +35,7 @@ describe("jsdom/xml", () => {
 
   specify("should handle self-closing tags properly in xml docs (in .jsdom)", () => {
     return xmlStringPromise.then(xmlString => {
-      const document = jsdom.jsdom(xmlString, {parsingMode: "xml"});
+      const document = jsdom.jsdom(xmlString, { parsingMode: "xml" });
 
       const window = document.defaultView;
       assert.ok(isParsedAsXml(window.document));

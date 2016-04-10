@@ -17,9 +17,15 @@ test(() => {
   document.body.appendChild(input);
   const events = [];
 
-  input.addEventListener("change", () => { events.push("change"); });
-  input.addEventListener("click", () => { events.push("click"); });
-  input.addEventListener("input", () => { events.push("input"); });
+  input.addEventListener("change", () => {
+    events.push("change");
+  });
+  input.addEventListener("click", () => {
+    events.push("click");
+  });
+  input.addEventListener("input", () => {
+    events.push("input");
+  });
 
   // disabled checkbox begins unchecked
   assert_false(input.checked);

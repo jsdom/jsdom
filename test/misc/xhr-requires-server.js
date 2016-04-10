@@ -8,7 +8,8 @@ let testHost = null;
 exports.setUp = done => {
   portfinder.getPort((err, port) => {
     if (err) {
-      return done(err);
+      done(err);
+      return;
     }
 
     http.createServer((req, res) => {

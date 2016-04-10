@@ -28,8 +28,12 @@ describe("jsdom/utils", () => {
     let originalCalled = false;
     let newCalled = false;
 
-    utils.defineSetter(o, "foo", () => originalCalled = true);
-    utils.defineSetter(o, "foo", () => newCalled = true);
+    utils.defineSetter(o, "foo", () => {
+      originalCalled = true;
+    });
+    utils.defineSetter(o, "foo", () => {
+      newCalled = true;
+    });
 
     o.foo = true;
     assert.equal(originalCalled, false);
@@ -40,7 +44,6 @@ describe("jsdom/utils", () => {
     const o = {};
     let called = false;
     const expected = "bar";
-    let actual;
 
     utils.defineGetter(o, "foo", () => {
       called = true;
@@ -49,7 +52,7 @@ describe("jsdom/utils", () => {
 
     utils.defineSetter(o, "foo", () => { });
 
-    actual = o.foo;
+    const actual = o.foo;
     assert.equal(called, true);
     assert.equal(actual, expected);
   });
@@ -58,14 +61,13 @@ describe("jsdom/utils", () => {
     const o = {};
     let called = false;
     const expected = "bar";
-    let actual;
 
     utils.defineGetter(o, "foo", () => {
       called = true;
       return expected;
     });
 
-    actual = o.foo;
+    const actual = o.foo;
     assert.equal(called, true);
     assert.equal(actual, expected);
   });
@@ -75,8 +77,12 @@ describe("jsdom/utils", () => {
     let originalCalled = false;
     let newCalled = false;
 
-    utils.defineGetter(o, "foo", () => originalCalled = true);
-    utils.defineGetter(o, "foo", () => newCalled = true);
+    utils.defineGetter(o, "foo", () => {
+      originalCalled = true;
+    });
+    utils.defineGetter(o, "foo", () => {
+      newCalled = true;
+    });
 
     /* eslint-disable no-unused-expressions */
     o.foo;

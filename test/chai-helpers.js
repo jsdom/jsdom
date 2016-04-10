@@ -41,7 +41,7 @@ module.exports = (chai, util) => {
       ,
       `expected #{this} to not throw a window.DOMException with name '${name}' and code '${expectedCode}'`,
       "window.DOMException",
-      (thrownError instanceof Error ? thrownError.toString() : thrownError)
+      thrownError instanceof Error ? thrownError.toString() : thrownError
     );
 
     // for chaining

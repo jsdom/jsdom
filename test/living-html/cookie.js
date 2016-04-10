@@ -38,7 +38,8 @@ function assertCookies(t, actualCookieStr, expectedCookies) {
 exports.setUp = done => {
   portfinder.getPort((err, port) => {
     if (err) {
-      return done(err);
+      done(err);
+      return;
     }
 
     server = http.createServer((req, res) => {
@@ -91,7 +92,8 @@ exports.setUp = done => {
 
     portfinder.getPort((err2, securedPort) => {
       if (err2) {
-        return done(err2);
+        done(err2);
+        return;
       }
 
       const options = {

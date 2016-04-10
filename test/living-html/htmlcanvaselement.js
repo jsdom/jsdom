@@ -130,17 +130,17 @@ exports["loading an image and drawing it into the canvas should produce the expe
   const ctx = canvas.getContext("2d");
   const image = new window.Image();
   image.src = "file://" + path.resolve(__dirname, "files/image.png");
-  image.onload = (event) => {
+  image.onload = () => {
     ctx.drawImage(image, 0, 0);
     const expected = fs.readFileSync(path.resolve(__dirname, "files/image.txt"), { encoding: "utf-8" }).trim();
     t.strictEqual(canvas.toDataURL(), expected);
-    canvas.toBlob((blob) => {
+    canvas.toBlob(blob => {
       t.strictEqual(blob.type, "image/png");
       t.strictEqual(blob.size, 2614);
       t.done();
     }, "image/png");
   };
-  image.onerror = (event) => {
+  image.onerror = () => {
     t.ok(false, "onerror should not be triggered when loading from valid URL");
     t.done();
   };

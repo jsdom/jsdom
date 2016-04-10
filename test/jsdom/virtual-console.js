@@ -63,8 +63,12 @@ describe("jsdom/virtual-console", () => {
     let vc1Called = false;
     let vc2Called = false;
 
-    virtualConsole1.on("log", () => vc1Called = true);
-    virtualConsole2.on("log", () => vc2Called = true);
+    virtualConsole1.on("log", () => {
+      vc1Called = true;
+    });
+    virtualConsole2.on("log", () => {
+      vc2Called = true;
+    });
 
     window1.console.log("yay");
 

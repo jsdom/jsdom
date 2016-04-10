@@ -14,17 +14,23 @@
 </select>
 <div id=log></div>
 <script>
-test(function() {
-  var select = document.getElementById("initial-selected");
+"use strict";
+
+test(() => {
+
+  const select = document.getElementById("initial-selected");
   assert_true(select.options[0].selected, "first option should be selected.");
   assert_true(select.options[1].selected, "second option should be selected.");
+
 }, "multiple selected options exist");
 
-test(function() {
-  var select = document.getElementById("initial-selected");
+test(() => {
+
+  const select = document.getElementById("initial-selected");
   select.options[1].selected = true;
 
   assert_true(select.options[0].selected, "first option should be selected.");
   assert_true(select.options[1].selected, "second option should be selected.");
+
 }, "multiple selected options exist");
 </script>

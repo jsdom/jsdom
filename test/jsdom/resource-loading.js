@@ -53,7 +53,7 @@ describe("jsdom/resource-loading", () => {
     testCase => {
       let port;
       const server = http.createServer((req, res) => {
-        switch(req.url) {
+        switch (req.url) {
           case "/s.css": {
             const css = "p { font-weight: bold; }";
             res.writeHead(200, { "Content-Length": css.length });

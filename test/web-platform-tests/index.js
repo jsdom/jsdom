@@ -4,7 +4,7 @@ const describe = require("mocha-sugar-free").describe;
 const runWebPlatformTest = require("./run-web-platform-test")(path.resolve(__dirname, "tests"));
 
 describe("Web Platform Tests", () => {
-  // jscs:disable maximumLineLength
+  /* eslint-disable max-len */
   [
     "dom/nodes/CharacterData-appendData.html",
     "dom/nodes/CharacterData-deleteData.html",
