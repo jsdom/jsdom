@@ -1,0 +1,6 @@
+interface SVGElement : Element {
+           attribute DOMString id;
+           attribute DOMString xmlbase;
+  readonly attribute SVGSVGElement ownerSVGElement;
+  readonly attribute SVGElement viewportElement;
+};
