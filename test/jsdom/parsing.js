@@ -114,6 +114,19 @@ describe("jsdom/parsing", () => {
     assert.equal(els[0].outerHTML, "<element></element>");
   });
 
+  specify("prefix on attribute named 'hasOwnProperty' (GH-1444)", () => {
+    const options = { parsingMode: "xml" };
+    const document = jsdom.jsdom("<element prefix:hasOwnProperty='value'></element>", options);
+
+    const els = document.getElementsByTagName("element");
+
+    assert.equal(els.length, 1);
+    assert.equal(els[0].attributes.length, 1);
+    assert.equal(els[0].attributes[0].prefix, "prefix");
+    assert.equal(els[0].getAttribute("prefix:hasOwnProperty"), "value");
+    assert.equal(els[0].outerHTML, "<element prefix:hasOwnProperty=\"value\"></element>");
+  });
+
   specify("CDATA should parse as bogus comments (GH-618)", () => {
     const document = jsdom.jsdom("<html><head></head><body><div><![CDATA[test]]></div></body></html>");
 
