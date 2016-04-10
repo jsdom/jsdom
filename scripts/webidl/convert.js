@@ -51,3 +51,4 @@ doConversion(path.resolve(__dirname, "../../lib/jsdom/living/events")).done();
 doConversion(path.resolve(__dirname, "../../lib/jsdom/living/attributes")).done();
 doConversion(path.resolve(__dirname, "../../lib/jsdom/living/window")).done();
 doConversion(path.resolve(__dirname, "../../lib/jsdom/living/nodes")).done();
+doConversion(path.resolve(__dirname, "../../lib/jsdom/living/traversal")).done();
