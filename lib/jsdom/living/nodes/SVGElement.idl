@@ -1,6 +1,15 @@
 interface SVGElement : Element {
-           attribute DOMString id;
-           attribute DOMString xmlbase;
-  readonly attribute SVGSVGElement ownerSVGElement;
-  readonly attribute SVGElement viewportElement;
+
+  //[SameObject] readonly attribute SVGAnimatedString className;
+
+  //[SameObject] readonly attribute DOMStringMap dataset;
+
+  readonly attribute SVGSVGElement? ownerSVGElement;
+  readonly attribute SVGElement? viewportElement;
+
+  //attribute long tabIndex;
+  //void focus();
+  //void blur();
 };
+
+SVGElement implements GlobalEventHandlers;
