@@ -207,7 +207,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
       done(err, window) {
         assert.ifError(err);
 
-        assert.equal(window.document.characterSet.toUpperCase(), "UTF-8", "document.characterSet");
+        assert.equal(window.document.characterSet, "UTF-8", "document.characterSet");
         assert.equal(window.document.body.textContent.trim(), "©");
         assert.equal(window.testutf8, "©");
         assert.equal(window.testiso88591, "©");
@@ -227,7 +227,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
       done(err, window) {
         assert.ifError(err);
 
-        assert.equal(window.document.characterSet.toUpperCase(), "ISO-8859-1", "document.characterSet");
+        assert.equal(window.document.characterSet, "windows-1252", "document.characterSet");
         assert.equal(window.document.body.textContent.trim(), "©");
         assert.equal(window.testutf8, "©");
         assert.equal(window.testiso88591, "©");
@@ -247,7 +247,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
       done(err, window) {
         assert.ifError(err);
 
-        assert.equal(window.document.characterSet.toUpperCase(), "UTF-16BE", "document.characterSet");
+        assert.equal(window.document.characterSet, "UTF-16BE", "document.characterSet");
         assert.equal(window.document.body.textContent.trim(), "©");
         assert.equal(window.testutf8, "©");
         assert.equal(window.testiso88591, "©");
@@ -267,7 +267,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
       done(err, window) {
         assert.ifError(err);
 
-        assert.equal(window.document.characterSet.toUpperCase(), "UTF-16LE", "document.characterSet");
+        assert.equal(window.document.characterSet, "UTF-16LE", "document.characterSet");
         assert.equal(window.document.body.textContent.trim(), "©");
         assert.equal(window.testutf8, "©");
         assert.equal(window.testiso88591, "©");
@@ -287,7 +287,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
       done(err, window) {
         assert.ifError(err);
 
-        assert.equal(window.document.characterSet.toUpperCase(), "UTF-8", "document.characterSet");
+        assert.equal(window.document.characterSet, "UTF-8", "document.characterSet");
         assert.equal(window.document.body.textContent.trim(), "©");
         assert.equal(window.testutf8, "©");
         assert.equal(window.testiso88591, "©");
@@ -307,7 +307,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
       done(err, window) {
         assert.ifError(err);
 
-        assert.equal(window.document.characterSet.toUpperCase(), "UTF-16BE", "document.characterSet");
+        assert.equal(window.document.characterSet, "UTF-16BE", "document.characterSet");
         assert.equal(window.document.body.textContent.trim(), "©");
         assert.equal(window.testutf8, "©");
         assert.equal(window.testiso88591, "©");
@@ -327,7 +327,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
       done(err, window) {
         assert.ifError(err);
 
-        assert.equal(window.document.characterSet.toUpperCase(), "UTF-16LE", "document.characterSet");
+        assert.equal(window.document.characterSet, "UTF-16LE", "document.characterSet");
         assert.equal(window.document.body.textContent.trim(), "©");
         assert.equal(window.testutf8, "©");
         assert.equal(window.testiso88591, "©");
@@ -346,7 +346,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
       url: testHost + "/meta1",
       done(err, window) {
         assert.ifError(err);
-        assert.equal(window.document.characterSet.toUpperCase(), "ISO-8859-5", "document.characterSet");
+        assert.equal(window.document.characterSet, "ISO-8859-5", "document.characterSet");
         t.done();
       }
     });
@@ -357,7 +357,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
       url: testHost + "/meta2",
       done(err, window) {
         assert.ifError(err);
-        assert.equal(window.document.characterSet.toUpperCase(), "ISO-8859-5", "document.characterSet");
+        assert.equal(window.document.characterSet, "ISO-8859-5", "document.characterSet");
         t.done();
       }
     });
@@ -368,7 +368,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
       url: testHost + "/meta3",
       done(err, window) {
         assert.ifError(err);
-        assert.equal(window.document.characterSet.toUpperCase(), "ISO-8859-5", "document.characterSet");
+        assert.equal(window.document.characterSet, "ISO-8859-5", "document.characterSet");
         t.done();
       }
     });
@@ -379,7 +379,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
       url: testHost + "/meta4",
       done(err, window) {
         assert.ifError(err);
-        assert.equal(window.document.characterSet.toUpperCase(), "ISO-8859-5", "document.characterSet");
+        assert.equal(window.document.characterSet, "ISO-8859-5", "document.characterSet");
         t.done();
       }
     });
@@ -390,7 +390,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
       url: testHost + "/meta5",
       done(err, window) {
         assert.ifError(err);
-        assert.equal(window.document.characterSet.toUpperCase(), "ISO-8859-5", "document.characterSet");
+        assert.equal(window.document.characterSet, "ISO-8859-5", "document.characterSet");
         t.done();
       }
     });
@@ -401,7 +401,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
       url: testHost + "/meta6",
       done(err, window) {
         assert.ifError(err);
-        assert.equal(window.document.characterSet.toUpperCase(), "ISO-8859-5", "document.characterSet");
+        assert.equal(window.document.characterSet, "ISO-8859-5", "document.characterSet");
         t.done();
       }
     });
@@ -412,7 +412,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
       url: testHost + "/meta7",
       done(err, window) {
         assert.ifError(err);
-        assert.equal(window.document.characterSet.toUpperCase(), "ISO-8859-5", "document.characterSet");
+        assert.equal(window.document.characterSet, "ISO-8859-5", "document.characterSet");
         t.done();
       }
     });
@@ -423,7 +423,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
       url: testHost + "/meta8",
       done(err, window) {
         assert.ifError(err);
-        assert.equal(window.document.characterSet.toUpperCase(), "UTF-8", "document.characterSet");
+        assert.equal(window.document.characterSet, "UTF-8", "document.characterSet");
         t.done();
       }
     });
@@ -434,7 +434,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
       url: testHost + "/meta9",
       done(err, window) {
         assert.ifError(err);
-        assert.equal(window.document.characterSet.toUpperCase(), "ISO-8859-5", "document.characterSet");
+        assert.equal(window.document.characterSet, "ISO-8859-5", "document.characterSet");
         t.done();
       }
     });
@@ -445,7 +445,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
       url: testHost + "/meta10",
       done(err, window) {
         assert.ifError(err);
-        assert.equal(window.document.characterSet.toUpperCase(), "ISO-8859-8", "document.characterSet");
+        assert.equal(window.document.characterSet, "ISO-8859-8", "document.characterSet");
         t.done();
       }
     });
@@ -456,7 +456,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
       url: testHost + "/meta11",
       done(err, window) {
         assert.ifError(err);
-        assert.equal(window.document.characterSet.toUpperCase(), "UTF-8", "document.characterSet");
+        assert.equal(window.document.characterSet, "UTF-8", "document.characterSet");
         t.done();
       }
     });
