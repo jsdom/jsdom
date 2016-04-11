@@ -1,0 +1,5 @@
+[NoInterfaceObject]
+interface SVGTests {
+  [SameObject] readonly attribute SVGStringList requiredExtensions;
+  //[SameObject] readonly attribute SVGStringList systemLanguage;
+};
