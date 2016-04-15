@@ -44,6 +44,10 @@ partial interface Element {
     void insertAdjacentHTML (DOMString position, DOMString text);
 };
 
+dictionary ScrollOptions {
+    ScrollBehavior behavior = "auto";
+};
+
 enum ScrollLogicalPosition { "start", "center", "end", "nearest" };
 dictionary ScrollIntoViewOptions : ScrollOptions {
   ScrollLogicalPosition block = "center";
