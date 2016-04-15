@@ -203,7 +203,6 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
   specify("UTF-8", { async: true }, t => {
     jsdom.env({
       url: testHost + "/utf8",
-      encoding: "ISO-8859-1",
       done(err, window) {
         assert.ifError(err);
 
@@ -423,7 +422,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
       url: testHost + "/meta8",
       done(err, window) {
         assert.ifError(err);
-        assert.equal(window.document.characterSet, "UTF-8", "document.characterSet");
+        assert.equal(window.document.characterSet, "windows-1252", "document.characterSet");
         t.done();
       }
     });

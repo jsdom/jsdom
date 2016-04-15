@@ -138,7 +138,6 @@ jsdom.env(config);
 - `config.pool`: an object describing which agents to use for the requests; defaults to `{ maxSockets: 6 }`, see [request module](https://github.com/request/request#requestoptions-callback) for more details.
 - `config.agentOptions`: the agent options; defaults to `{ keepAlive: true, keepAliveMsecs: 115000 }`, see [http api](https://nodejs.org/api/http.html) for more details.
 - `config.strictSSL`: if `true`, requires SSL certificates be valid; defaults to `true`, see [request module](https://github.com/request/request#requestoptions-callback) for more details.
-- `config.encoding`: the default encoding; defaults to `UTF-8`
 - `config.proxy`: a URL for a HTTP proxy to use for the requests.
 
 
@@ -542,3 +541,12 @@ In the future we may expand `reconfigureWindow` to allow overriding other `[Unfo
 Our mission is to get something very close to a headless browser, with emphasis more on the DOM/HTML side of things than the CSS side. As such, our primary goals are supporting [The DOM Standard](http://dom.spec.whatwg.org/) and [The HTML Standard](http://www.whatwg.org/specs/web-apps/current-work/multipage/). We only support some subset of these so far; in particular we have the subset covered by the outdated DOM 2 spec family down pretty well. We're slowly including more and more from the modern DOM and HTML specs, including some `Node` APIs, `querySelector(All)`, attribute semantics, the history and URL APIs, and the HTML parsing algorithm.
 
 We also support some subset of the [CSSOM](http://dev.w3.org/csswg/cssom/), largely via [@chad3814](https://github.com/chad3814)'s excellent [cssstyle](https://www.npmjs.org/package/cssstyle) package. In general we want to make webpages run headlessly as best we can, and if there are other specs we should be incorporating, let us know.
+
+### Supported encodings
+
+The supported encodings are the ones listed [here](https://encoding.spec.whatwg.org/#names-and-labels) excluding these names :
+- ISO-8859-8-I
+- x-mac-cyrillic
+- ISO-2022-JP
+- replacement
+- x-user-defined
