@@ -1,3 +1,9 @@
+## 8.4.0
+
+* Added an implementation of the `TreeWalker` class (and `document.createTreeWalker`). (garycourt)
+* Fixed a few minor bugs in URL parsing and the `URL` API, by upgrading to `whatwg-url` 2.0.1.
+* Fixed a few issues with generated files in the published package, which seem to have impacted webpack users.
+
 ## 8.3.1
 
 * Fixed an issue where if you modified `Object.prototype`, spurious attributes would show up on your jsdom nodes. (deckar01)
