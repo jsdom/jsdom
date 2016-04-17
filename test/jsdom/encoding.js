@@ -64,106 +64,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
               res.write(new Buffer([0xFF, 0xFE]));
               fs.createReadStream(__dirname + "/files/encoding/utf16le.html").pipe(res);
               break;
-            case "/meta1":
-              res.writeHead(200);
-              res.end(`<!DOCTYPE html>
-              <html>
-                  <head>
-                      <!--<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-8">-->
-                      <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-5">
-                  </head>
-                  <body></body>
-              </html>`);
-              break;
-            case "/meta2":
-              res.writeHead(200);
-              res.end(`<!DOCTYPE html>
-              <html>
-                  <head>
-                      <!--<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-8">-->
-                      <meta content="text/html;charset=ISO-8859-5" http-equiv="Content-Type">
-                  </head>
-                  <body></body>
-              </html>`);
-              break;
-            case "/meta3":
-              res.writeHead(200);
-              res.end(`<!DOCTYPE html>
-              <html>
-                  <head>
-                      <!--<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-8">-->
-                      <meta http-equiv='Content-Type' content='text/html;charset=ISO-8859-5'>
-                  </head>
-                  <body></body>
-              </html>`);
-              break;
-            case "/meta4":
-              res.writeHead(200);
-              res.end(`<!DOCTYPE html>
-              <html>
-                  <head>
-                      <!--<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-8">-->
-                      <meta http-equiv=Content-Type content=text/html;charset=ISO-8859-5>
-                  </head>
-                  <body></body>
-              </html>`);
-              break;
-            case "/meta5":
-              res.writeHead(200);
-              res.end(`<!DOCTYPE html>
-              <html>
-                  <head>
-                      <!--<meta charset="ISO-8859-8">-->
-                      <meta charset  =
-                      "ISO-8859-5">
-                  </head>
-                  <body></body>
-              </html>`);
-              break;
-            case "/meta6":
-              res.writeHead(200);
-              res.end(`<!DOCTYPE html>
-              <html>
-                  <head>
-                      <!--<meta charset="ISO-8859-8">-->
-                      <meta charset
-                      =  'ISO-8859-5'  >
-                  </head>
-                  <body></body>
-              </html>`);
-              break;
-            case "/meta7":
-              res.writeHead(200);
-              res.end(`<!DOCTYPE html>
-              <html>
-                  <head>
-                      <!--<meta charset="ISO-8859-8">-->
-                      <META CHARSET  =  ISO-8859-5  >
-                  </head>
-                  <body></body>
-              </html>`);
-              break;
-            case "/meta8":
-              res.writeHead(200);
-              res.end(`<!DOCTYPE html>
-              <html>
-                  <head>
-                      <!--<meta charset="ISO-8859-8">-->
-                  </head>
-                  <body></body>
-              </html>`);
-              break;
-            case "/meta9":
-              res.writeHead(200, { "Content-Type": "text/plain" });
-              res.end(`<!DOCTYPE html>
-              <html>
-                  <head>
-                      <meta charset="ISO-8859-5">
-                  </head>
-                  <body></body>
-              </html>`);
-              break;
-            case "/meta10":
+            case "/meta-content-type-charset":
               res.writeHead(200, { "Content-Type": "text/plain;charset=ISO-8859-8" });
               res.end(`<!DOCTYPE html>
               <html>
@@ -173,7 +74,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
                   <body></body>
               </html>`);
               break;
-            case "/meta11":
+            case "/meta-content-type-charset-bom":
               res.writeHead(200, { "Content-Type": "text/plain;charset=ISO-8859-8" });
               res.write(new Buffer([0xEF, 0xBB, 0xBF]));
               res.end(`<!DOCTYPE html>
@@ -340,108 +241,9 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
     });
   });
 
-  specify("meta http-equiv tag", { async: true }, t => {
-    jsdom.env({
-      url: testHost + "/meta1",
-      done(err, window) {
-        assert.ifError(err);
-        assert.equal(window.document.characterSet, "ISO-8859-5", "document.characterSet");
-        t.done();
-      }
-    });
-  });
-
-  specify("meta http-equiv tag reverse", { async: true }, t => {
-    jsdom.env({
-      url: testHost + "/meta2",
-      done(err, window) {
-        assert.ifError(err);
-        assert.equal(window.document.characterSet, "ISO-8859-5", "document.characterSet");
-        t.done();
-      }
-    });
-  });
-
-  specify("meta http-equiv tag simple quotes", { async: true }, t => {
-    jsdom.env({
-      url: testHost + "/meta3",
-      done(err, window) {
-        assert.ifError(err);
-        assert.equal(window.document.characterSet, "ISO-8859-5", "document.characterSet");
-        t.done();
-      }
-    });
-  });
-
-  specify("meta http-equiv tag no quotes", { async: true }, t => {
-    jsdom.env({
-      url: testHost + "/meta4",
-      done(err, window) {
-        assert.ifError(err);
-        assert.equal(window.document.characterSet, "ISO-8859-5", "document.characterSet");
-        t.done();
-      }
-    });
-  });
-
-  specify("meta charset tag", { async: true }, t => {
-    jsdom.env({
-      url: testHost + "/meta5",
-      done(err, window) {
-        assert.ifError(err);
-        assert.equal(window.document.characterSet, "ISO-8859-5", "document.characterSet");
-        t.done();
-      }
-    });
-  });
-
-  specify("meta charset tag simple quotes", { async: true }, t => {
-    jsdom.env({
-      url: testHost + "/meta6",
-      done(err, window) {
-        assert.ifError(err);
-        assert.equal(window.document.characterSet, "ISO-8859-5", "document.characterSet");
-        t.done();
-      }
-    });
-  });
-
-  specify("meta charset tag no quotes", { async: true }, t => {
-    jsdom.env({
-      url: testHost + "/meta7",
-      done(err, window) {
-        assert.ifError(err);
-        assert.equal(window.document.characterSet, "ISO-8859-5", "document.characterSet");
-        t.done();
-      }
-    });
-  });
-
-  specify("no meta", { async: true }, t => {
-    jsdom.env({
-      url: testHost + "/meta8",
-      done(err, window) {
-        assert.ifError(err);
-        assert.equal(window.document.characterSet, "windows-1252", "document.characterSet");
-        t.done();
-      }
-    });
-  });
-
-  specify("content-type + meta", { async: true }, t => {
-    jsdom.env({
-      url: testHost + "/meta9",
-      done(err, window) {
-        assert.ifError(err);
-        assert.equal(window.document.characterSet, "ISO-8859-5", "document.characterSet");
-        t.done();
-      }
-    });
-  });
-
   specify("content-type with charset + meta", { async: true }, t => {
     jsdom.env({
-      url: testHost + "/meta10",
+      url: testHost + "/meta-content-type-charset",
       done(err, window) {
         assert.ifError(err);
         assert.equal(window.document.characterSet, "ISO-8859-8", "document.characterSet");
@@ -452,7 +254,7 @@ describe("jsdom/encoding", { skipIfBrowser: true }, () => {
 
   specify("bom + content-type with charset + meta", { async: true }, t => {
     jsdom.env({
-      url: testHost + "/meta11",
+      url: testHost + "/meta-content-type-charset-bom",
       done(err, window) {
         assert.ifError(err);
         assert.equal(window.document.characterSet, "UTF-8", "document.characterSet");
