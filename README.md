@@ -120,8 +120,8 @@ jsdom.env(config);
 ```
 
 - `config.html`: a HTML fragment
-- `config.file`: a file which jsdom will load HTML from; the resulting window's `location.href` will be a `file://` URL.
-- `config.url`: sets the resulting window's `location.href`; if `config.html` and `config.file` are not provided, jsdom will load HTML from this URL.
+- `config.file`: a file which jsdom will load HTML from; the resulting document's URL will be a `file://` URL.
+- `config.url`: sets the resulting document's URL, which is reflected in various properties like `document.URL` and `location.href`, and is also used for cross-origin request restrictions. If `config.html` and `config.file` are not provided, jsdom will load HTML from this URL.
 - `config.scripts`: see `scripts` above.
 - `config.src`: an array of JavaScript strings that will be evaluated against the resulting document. Similar to `scripts`, but it accepts JavaScript instead of paths/URLs.
 - `config.cookieJar`: cookie jar which will be used by document and related resource requests. Can be created by `jsdom.createCookieJar()` method. Useful to share cookie state among different documents as browsers does.
