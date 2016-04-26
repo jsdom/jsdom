@@ -24,9 +24,6 @@ exports.hc_staff = function () {
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <title>hc_staff</title>
-  <script type="text/javascript" src="svgunit.js"/>
-  <script charset="UTF-8" type="text/javascript" src="svgtest.js"/>
-  <script type='text/javascript'>function loadComplete() { startTest(); }</script>
 </head>
 <body>
  <p>
@@ -79,5 +76,9 @@ This is an adjacent CDATASection with a reference to a tab &amp;tab;</strong>
   <acronym title="Yes">1821 Nordic. Road, Irving Texas 98558</acronym>
  </p>
 </body></html>
-`, { parsingMode: "xml" });
+`,
+  {
+    parsingMode: "xml",
+    virtualConsole: jsdom.createVirtualConsole().sendTo(console)
+  });
 };

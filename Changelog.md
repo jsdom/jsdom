@@ -1,3 +1,68 @@
+## 8.4.0
+
+* Added an implementation of the `TreeWalker` class (and `document.createTreeWalker`). (garycourt)
+* Fixed a few minor bugs in URL parsing and the `URL` API, by upgrading to `whatwg-url` 2.0.1.
+* Fixed a few issues with generated files in the published package, which seem to have impacted webpack users.
+
+## 8.3.1
+
+* Fixed an issue where if you modified `Object.prototype`, spurious attributes would show up on your jsdom nodes. (deckar01)
+
+## 8.3.0
+
+* Added image loading and decoding, when the `canvas` npm package is installed (lehni). In practice, this means that if you enable fetching `"img"` external resources, then:
+  * `img.naturalWidth`, `img.naturalHeight`, `img.width`, `img.height`, `img.complete`, and `img.currentSrc` will update themselves correctly as the image loads
+  * `load` and `error` events will fire on the `<img>` element, according to how well image decoding goes.
+  * You can draw images onto canvases, using the newly-enabled `canvasContext.drawImage` API.
+* Added `canvasContext.createPattern` and `canvasContext.toBlob`, when the `canvas` npm package is installed. (lehni)
+* Added a basic implementation of the [Page Visibility API](https://w3c.github.io/page-visibility/), in particular a `document.hidden` property that always returns `true`, and a `document.visibilityState` property that always returns `"prerender"`. This is a more standard alternative to our proprietary `navigator.noUI`, which will be removed whenever we release 9.0.0. (kapouer)
+
+## 8.2.0
+
+* Added correct click behavior for inputs (jeffcarp):
+  - `change` and `input` events now fire appropriately
+  - The "click in progress" flag is implemented, so you cannot click while a click is in progress
+  - Canceling a click event appropriately resets radio buttons and checkboxes
+* Updated our XMLHttpRequest implementation with a variety of fixes and features, including preliminary CORS support. (nicolashenry)
+* Added a `strictSSL` top-level option to govern all requests jsdom makes. (nicolashenry)
+* XHTML frames and iframes are now parsed as XML instead of HTML. (nicolashenry)
+* Added `document.origin` and `document.lastModified`. (nicolashenry)
+* Fixed the `scriptEl.text` getter and setter to follow the spec.
+* Fixed script execution to check against the canonical list of JavaScript MIME types and only execute those scripts as JavaScript.
+
+## 8.1.1
+
+* Fixed input selection methods and properties to properly differentiate between inputs that can be selected outright vs. textual inputs which allow variable-length selection. (yaycmyk)
+
+## 8.1.0
+
+* Added `attr.nodeName`, which was [recently re-added to the spec](https://github.com/whatwg/dom/issues/171).
+* Added click-proxying behavior from `<label>`s to their labeled form elements. (yaycmyk)
+* Added a setter for `element.classList` per recent spec changes (it forwards to `element.classList.value`).
+* Updated our attributes implementation in a few ways for recent spec changes and to fix discovered bugs:
+  - Added `element.getAttributeNames()`. ([spec addition](https://github.com/whatwg/dom/issues/115))
+  - `setAttributeNode` and `setAttributeNodeNS` can now replace an attribute node, instead of removing the old one and adding a new one; this avoids changing the order in the attribute list. ([spec change](https://github.com/whatwg/dom/issues/116))
+  - `NamedNodeMap` named properties are now lowercase (except in edge cases involving XML documents or non-HTML elements). ([spec change](https://github.com/whatwg/dom/issues/141))
+  - `NamedNodeMap` named properties are now non-enumerable.
+  - The `"DOMAttrModified"` mutation event's `relatedNode` is now the new `Attr` object, not the `Node`, as per spec.
+* Updated `DOMTokenList` to have a `value` property per [recent spec changes](https://github.com/whatwg/dom/issues/119); its `toString` serialization also changed slightly.
+* Updated `tc.headers` to be a `DOMTokenList` that simply reflects the `headers` attribute; previously it was a string, with its computation doing some weird stuff.
+* Fixed `document.implementation.createDocument()` to create a document with its parsing mode set to XML, which affects a variety of DOM APIs in small ways.
+* Fixed `EventTarget.prototype.constructor` to be correct; it was previously `Window`.
+* Fixed `option.index` for `<option>`s not inside a `<select>` to no longer error.
+* Fixed `tc.cellIndex` for `<td>`s and `<th>`s not inside a `<tr>` to no longer error.
+* Fixed `tr.sectionRowIndex` for `<tr>`s not inside a `<table>`, `<tbody>`, `<thead>`, or `<tfoot>` to no longer error.
+* Removed the `"keyevents"` alias for `"keyboardevent"` when using `document.createEvent`, [per recent spec changes](https://github.com/whatwg/dom/issues/148).
+
+## 8.0.4
+
+* Fixed the `this` value when you pass a `{ handleEvent() { ... } }` object to `addEventListener`. (thetalecrafter)
+
+## 8.0.3
+
+* Fixed `HTMLOptionElement.prototype.label`; a typo was causing it to not work at all. (karlhorky)
+* Updated `cssstyle` minimum version to ensure all jsdom installs (not just fresh ones) get the benefit of `cssstyle`'s recently-better `padding` and `margin` parsing/CSSOM.
+
 ## 8.0.2
 
 * Fixed an issue where custom user agents would not propagate to `navigator.userAgent` in frames and iframes.
@@ -186,8 +251,8 @@ Finally, if you're a loyal jsdom fan whose made it this far into the changelog, 
 
 * Fixed an accidentally-created global `attribute` variable if you ever called `createAttributeNS`.
 * Dependency upgrades fixed a couple of bugs, although you would have gotten these anyway with a clean jsdom 5.6.0 install:
-  - Parsing of CSS properties that use `url("quoted string")` now works correctly, as of cssstyle 0.2.29.
-  - Selectors for the empty string, like `div[title=""]`, now work correctly, as of nwmatcher 1.3.6.
+  - Parsing of CSS properties that use `url("quoted string")` now works correctly, as of `cssstyle` 0.2.29.
+  - Selectors for the empty string, like `div[title=""]`, now work correctly, as of `nwmatcher` 1.3.6.
 
 ## 5.6.0
 

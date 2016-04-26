@@ -120,8 +120,8 @@ jsdom.env(config);
 ```
 
 - `config.html`: a HTML fragment
-- `config.file`: a file which jsdom will load HTML from; the resulting window's `location.href` will be a `file://` URL.
-- `config.url`: sets the resulting window's `location.href`; if `config.html` and `config.file` are not provided, jsdom will load HTML from this URL.
+- `config.file`: a file which jsdom will load HTML from; the resulting document's URL will be a `file://` URL.
+- `config.url`: sets the resulting document's URL, which is reflected in various properties like `document.URL` and `location.href`, and is also used for cross-origin request restrictions. If `config.html` and `config.file` are not provided, jsdom will load HTML from this URL.
 - `config.scripts`: see `scripts` above.
 - `config.src`: an array of JavaScript strings that will be evaluated against the resulting document. Similar to `scripts`, but it accepts JavaScript instead of paths/URLs.
 - `config.cookieJar`: cookie jar which will be used by document and related resource requests. Can be created by `jsdom.createCookieJar()` method. Useful to share cookie state among different documents as browsers does.
@@ -137,6 +137,9 @@ jsdom.env(config);
 - `config.virtualConsole`: a virtual console instance that can capture the window’s console output; see the "Capturing Console Output" examples.
 - `config.pool`: an object describing which agents to use for the requests; defaults to `{ maxSockets: 6 }`, see [request module](https://github.com/request/request#requestoptions-callback) for more details.
 - `config.agentOptions`: the agent options; defaults to `{ keepAlive: true, keepAliveMsecs: 115000 }`, see [http api](https://nodejs.org/api/http.html) for more details.
+- `config.strictSSL`: if `true`, requires SSL certificates be valid; defaults to `true`, see [request module](https://github.com/request/request#requestoptions-callback) for more details.
+- `config.proxy`: a URL for a HTTP proxy to use for the requests.
+
 
 Note that at least one of the callbacks (`done`, `onload`, or `created`) is required, as is one of `html`, `file`, or `url`.
 
@@ -144,7 +147,7 @@ Note that at least one of the callbacks (`done`, `onload`, or `created`) is requ
 
 If you just want to load the document and execute it, the `done` callback shown above is the simplest. If anything goes wrong while loading the document and creating the window, the problem will show up in the `error` passed as the first argument.
 
-However, if you want more control over or insight into the initialization lifecycle, you'll want to use the `created` and/or `loaded` callbacks:
+However, if you want more control over or insight into the initialization lifecycle, you'll want to use the `created` and/or `onload` callbacks:
 
 #### `created(error, window)`
 
@@ -272,7 +275,7 @@ Default features are extremely important for jsdom as they lower the configurati
 `FetchExternalResources`
 
 - _Default_: `["script"]`
-- _Allowed_: `["script", "frame", "iframe", "link"]` or `false`
+- _Allowed_: `["script", "frame", "iframe", "link", "img"]` or `false`
 - _Default for `jsdom.env`_: `false`
 
 Enables/disables fetching files over the file system/HTTP
@@ -345,6 +348,7 @@ var jsdom = require("jsdom");
 jsdom.env({
   url: "http://example.com/",
   resourceLoader: function (resource, callback) {
+    var pathname = resource.url.pathname;
     if (/\.json$/.test(pathname)) {
       var timeout = setTimeout(function() {
         callback(null, "{\"test\":\"test\"}");

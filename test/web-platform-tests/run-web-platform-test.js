@@ -1,73 +1,22 @@
 "use strict";
-const jsdom = require("../..");
 const q = require("q");
-const requestHead = q.denodeify(require("request").head);
-/* eslint-disable no-console */
-
-const globalPool = { maxSockets: 6 };
-
-function createJsdom(urlPrefix, testPath, t) {
-  const reporterHref = urlPrefix + "resources/testharnessreport.js";
-
-  jsdom.env({
-    url: urlPrefix + testPath,
-    pool: globalPool,
-    features: {
-      FetchExternalResources: ["script", "frame", "iframe", "link"],
-      ProcessExternalResources: ["script"]
-    },
-    virtualConsole: jsdom.createVirtualConsole().sendTo(console, { omitJsdomErrors: true }),
-    resourceLoader(resource, callback) {
-      if (resource.url.href === reporterHref) {
-        callback(null, "window.shimTest();");
-      } else {
-        resource.defaultFetch(callback);
-      }
-    },
-    created(err, window) {
-      if (err) {
-        t.ifError(err, "window should be created without error");
-        t.done();
-        return;
-      }
-
-      window.shimTest = () => {
-        window.add_result_callback(test => {
-          if (test.status === 1) {
-            t.ok(false, "Failed in \"" + test.name + "\": \n" + test.message + "\n\n" + test.stack);
-          } else if (test.status === 2) {
-            t.ok(false, "Timout in \"" + test.name + "\": \n" + test.message + "\n\n" + test.stack);
-          } else if (test.status === 3) {
-            t.ok(false, "Uncompleted test in \"" + test.name + "\": \n" + test.message + "\n\n" + test.stack);
-          } else {
-            t.ok(true, test.name);
-          }
-        });
-
-        window.add_completion_callback((tests, harnessStatus) => {
-          t.ok(harnessStatus.status !== 2, "test harness should not timeout");
-
-          // This needs to be delayed since some tests do things even after calling done().
-          process.nextTick(() => {
-            window.close();
-          });
-
-          t.done();
-        });
-      };
-    },
-
-    loaded(err) {
-      t.ifError(err);
-    }
-  });
-}
-
 const childProcess = require("child_process");
 const EventEmitter = require("events");
 const dns = require("dns");
+const specify = require("mocha-sugar-free").specify;
 
-module.exports = function (exports, testDir) {
+const inBrowserContext = require("../util").inBrowserContext;
+const requestHead = q.denodeify(require("request").head);
+const createJsdom = require("./create-jsdom");
+
+/* eslint-disable no-console */
+
+module.exports = function (testDir) {
+  if (inBrowserContext()) {
+    // TODO: browser support for running WPT
+    return () => {};
+  }
+
   const server = new EventEmitter();
 
   let serverHasStarted;
@@ -110,9 +59,17 @@ module.exports = function (exports, testDir) {
   });
 
   return testPath => {
-    exports[testPath] = t => {
-      server.started.then(() => createJsdom(urlPrefix, testPath, t));
-    };
+    specify({
+      title: testPath,
+      expectPromise: true,
+      // WPT also takes care of timeouts, this is an extra failsafe:
+      timeout: 60000,
+      slow: 10000,
+      skipIfBrowser: true,
+      fn() {
+        return server.started.then(() => createJsdom(urlPrefix, testPath));
+      }
+    });
   };
 };
 

@@ -12,6 +12,7 @@ Andreas Lind Petersen <andreas@one.com>
 andrew morton <drewish@katherinehouse.com>
 Andrew Plummer <plummer.andrew@gmail.com>
 Andrew Smith <andy@robotlovesyou.com>
+Andy VanWagoner <andy@instructure.com>
 antonj <anton.johansson@gmail.com>
 Aria Stewart <aredridel@nbtsc.org>
 Arrix <arrixzhou@gmail.com>
@@ -48,6 +49,7 @@ Edward O'Connor <hober0@gmail.com>
 eleith <online@eleith.com>
 Elijah Insua <tmpvar@gmail.com>
 E̵̘̳̘̝ṃ̟͈͙̗̹͘i͖͇ḷ͚͔̱̰̠y͜ ̩̲͕R̮̜͓̫o͉̣̦̘̖̖ͅs̫̣͜e̼͖̹̩͉͉͠ <nexxy@symphonysubconscious.com>
+Erik Vold <erikvvold@gmail.com>
 Eugene Ware <eugene@noblesamurai.com>
 Evan Haas <evan@fictivekin.com>
 Evan Jacobs <evan.jacobs@enigma.io>
@@ -59,6 +61,7 @@ Felix Gnass <fgnass@gmail.com>
 fr0z3nk0 <peter.culak@ymail.com>
 Frederic Hemberger <mail@frederic-hemberger.de>
 FrozenCow <frozencow@gmail.com>
+Gary Court <gary.court@gmail.com>
 Godmar Back <godmar@gmail.com>
 Gord Tanner <gtanner@gmail.com>
 gregory80 <gregory.tomlinson@gmail.com>
@@ -72,6 +75,7 @@ James Broad <jb@kulor.com>
 James Kyle <me@thejameskyle.com>
 James McMath <mcmathja@mediant.co>
 Jameson Little <t.jameson.little@gmail.com>
+Jared Deckard <jared.deckard@gmail.com>
 Jason Davies <jason@jasondavies.com>
 Jason Orendorff <jason.orendorff@gmail.com>
 Jason Priestley <jason@teampatent.com>
@@ -93,8 +97,10 @@ José Valim <jose.valim@gmail.com>
 Josh Marshall <catchjosh@gmail.com>
 Joshua Peek <josh@joshpeek.com>
 Julien Guimont <julien@porkepic.com>
+Jürg Lehni <juerg@scratchdisk.com>
 justinmchase <justin.m.chase@gmail.com>
 kangax <kangax@gmail.com>
+Karl Horky <karl.horky@gmail.com>
 Karuna Sagar <karunasagark@gmail.com>
 Kasper Isager <kasperisager@gmail.com>
 kblomquist <kblomquist@groupon.com>
@@ -164,6 +170,7 @@ Sebastian McKenzie <sebmck@gmail.com>
 Sergei Ianovich <s@asutp.io>
 Shimon Doodkin <helpmepro1@gmail.com>
 sonnym <michaud.sonny@gmail.com>
+Soufiane Ghzal <sghzal@gmail.com>
 sporchia <print@blindchaos.net>
 Stefan Buck <stefanbuck@users.noreply.github.com>
 Stephen Bannasch <stephen.bannasch@gmail.com>

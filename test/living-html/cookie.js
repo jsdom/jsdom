@@ -1,11 +1,15 @@
 "use strict";
+const fs = require("fs");
+const path = require("path");
 const http = require("http");
+const https = require("https");
 const portfinder = require("portfinder");
 const jsdom = require("../..");
 const toFileUrl = require("../util").toFileUrl(__dirname);
 
 let server;
 let testHost;
+let testSecuredHost;
 
 const testCookies = [
   "Test1=Basic; expires=Wed, 13-Jan-2051 22:23:01 GMT",
@@ -64,6 +68,8 @@ exports.setUp = done => {
           break;
 
         case "/TestPath/get-cookie-header":
+          res.setHeader("access-control-allow-origin", testSecuredHost);
+          res.setHeader("access-control-allow-credentials", "true");
           res.end(req.headers.cookie);
           break;
 
@@ -82,7 +88,34 @@ exports.setUp = done => {
 
     server.listen(port);
     testHost = "http://127.0.0.1:" + port;
-    done();
+
+    portfinder.getPort((err2, securedPort) => {
+      if (err2) {
+        return done(err2);
+      }
+
+      const options = {
+        key: fs.readFileSync(path.join(__dirname, "files/key.pem")),
+        cert: fs.readFileSync(path.join(__dirname, "files/cert.pem"))
+      };
+
+      server = https.createServer(options, (req, res) => {
+        switch (req.url) {
+          case "/TestPath/set-cookie-from-server":
+            res.writeHead(200, testCookies.map(cookieStr => ["set-cookie", cookieStr]));
+            res.end("<body></body>");
+            break;
+
+          default:
+            res.end("<body></body>");
+        }
+      });
+
+      server.listen(securedPort);
+      testSecuredHost = "https://127.0.0.1:" + securedPort;
+
+      done();
+    });
   });
 };
 
@@ -189,7 +222,7 @@ exports["Getting a file URL should not set any cookies"] = t => {
   const window = jsdom.jsdom(undefined, { url: "http://example.com/" }).defaultView;
 
   const xhr = new window.XMLHttpRequest();
-  xhr.onload = () => {
+  xhr.onerror = () => {
     t.strictEqual(window.document.cookie, "");
     t.done();
   };
@@ -287,19 +320,22 @@ exports["Share cookies with <iframe>"] = t => {
 exports["options.document.cookie"] = t => {
   jsdom.env({
     html: "<body></body>",
-    url: "https://127.0.0.1/TestPath/set-cookie-from-server",
+    url: testSecuredHost + "/TestPath/set-cookie-from-server",
     document: {
       cookie: [
         "OptionsTest=FooBar; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/TestPath; HttpOnly",
         "SecureAliasUrlTest=Baz; Secure"
       ]
     },
+    strictSSL: false,
     done(err, window) {
       t.ifError(err);
 
       assertCookies(t, window.document.cookie, ["SecureAliasUrlTest=Baz"]);
 
       const xhr = new window.XMLHttpRequest();
+
+      xhr.withCredentials = true;
 
       xhr.onload = () => {
         assertCookies(t, xhr.responseText, ["OptionsTest=FooBar"]);

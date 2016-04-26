@@ -4,7 +4,7 @@ interface Document : Node {
   [SameObject] readonly attribute DOMImplementation implementation;
   readonly attribute DOMString URL;
   readonly attribute DOMString documentURI;
-//  readonly attribute DOMString origin;
+  readonly attribute DOMString origin;
   readonly attribute DOMString compatMode;
   readonly attribute DOMString characterSet;
   readonly attribute DOMString charset; // historical alias of .characterSet
@@ -36,7 +36,7 @@ interface Document : Node {
 
   // NodeFilter.SHOW_ALL = 0xFFFFFFFF
 //  [NewObject] NodeIterator createNodeIterator(Node root, optional unsigned long whatToShow = 0xFFFFFFFF, optional NodeFilter? filter = null); // implemented in node-iterator.js; TODO move to Document-impl.js
-//  [NewObject] TreeWalker createTreeWalker(Node root, optional unsigned long whatToShow = 0xFFFFFFFF, optional NodeFilter? filter = null);
+  [NewObject] TreeWalker createTreeWalker(Node root, optional unsigned long whatToShow = 0xFFFFFFFF, optional NodeFilter? filter = null);
 };
 
 [OverrideBuiltins]
@@ -46,7 +46,7 @@ partial /*sealed*/ interface Document {
 //  attribute DOMString domain;
   readonly attribute DOMString referrer;
   attribute DOMString cookie;
-//  readonly attribute DOMString lastModified;
+  readonly attribute DOMString lastModified;
   readonly attribute DocumentReadyState readyState;
 
   // DOM tree accessors
@@ -114,4 +114,13 @@ partial interface Document {
 //  readonly attribute DOMString? preferredStyleSheetSet;
 //  readonly attribute FrozenArray<DOMString> styleSheetSets;
 //  void enableStyleSheetsForSet(DOMString? name);
+};
+
+// http://w3c.github.io/page-visibility/
+enum VisibilityState { "hidden", "visible", "prerender" };
+
+partial interface Document {
+  readonly attribute boolean hidden;
+  readonly attribute VisibilityState visibilityState;
+  attribute EventHandler onvisibilitychange;
 };

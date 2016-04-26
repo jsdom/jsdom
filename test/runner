@@ -81,26 +81,11 @@ var files = [
   "window/frame.js",
   "window/base64.js",
   "sizzle/index.js",
-  "jsdom/index.js",
-  "jsdom/parsing.js",
-  "jsdom/env.js",
-  "jsdom/utils.js",
-  "jsdom/namespaces.js",
-  "jsdom/virtual-console.js",
-  "jsdom/xml.js",
-  "jsdom/selectors.js",
-  "jsdom/serialization.js",
-  "jsdom/named-properties-tracker.js",
-  "jsdom/resource-loading.js",
-  "jsdom/reconfigure-window.js",
-  "jsdom/node-location.js",
   "living-html/named-properties-window.js",
 
   "jsonp/jsonp.js",
   "browser/css.js",
   "browser/index.js",
-  "web-platform-tests/index.js",
-  "web-platform-tests/to-upstream.js",
   "misc/domparsing.js"
 ];
 

@@ -7,7 +7,7 @@ exports.hc_staff = function () {
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
     "http://www.w3.org/TR/html4/strict.dtd" >
 <!-- This is comment number 1.-->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>hc_staff</title><script type="text/javascript" src="svgunit.js"></script><script charset="UTF-8" type="text/javascript" src="svgtest.js"></script><script type='text/javascript'>function loadComplete() { startTest(); }</script></head><body onload="parent.loadComplete()">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>hc_staff</title></head><body>
  <p>
   <em>EMP0001</em>
   <strong>Margaret Martin</strong>

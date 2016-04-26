@@ -430,5 +430,48 @@ exports.tests = {
     window.getComputedStyle(document.body);
 
     t.done();
+  },
+
+  "padding and margin component properties work correctly (GH-1353)": t => {
+    const document = jsdom.jsdom();
+
+    for (const prop of ["padding", "margin"]) {
+      document.body.style[prop] = "1px 2px 3px 4px";
+
+      t.strictEqual(document.body.style[prop], "1px 2px 3px 4px");
+      t.strictEqual(document.body.style[prop + "Top"], "1px");
+      t.strictEqual(document.body.style[prop + "Right"], "2px");
+      t.strictEqual(document.body.style[prop + "Bottom"], "3px");
+      t.strictEqual(document.body.style[prop + "Left"], "4px");
+
+      document.body.style[prop + "Top"] = "1em";
+      document.body.style[prop + "Right"] = "2em";
+      document.body.style[prop + "Bottom"] = "3em";
+      document.body.style[prop + "Left"] = "4em";
+      t.strictEqual(document.body.style[prop], "1em 2em 3em 4em");
+
+      document.body.style[prop] = "1mm";
+      t.strictEqual(document.body.style[prop], "1mm");
+      t.strictEqual(document.body.style[prop + "Top"], "1mm");
+      t.strictEqual(document.body.style[prop + "Right"], "1mm");
+      t.strictEqual(document.body.style[prop + "Bottom"], "1mm");
+      t.strictEqual(document.body.style[prop + "Left"], "1mm");
+
+      document.body.style[prop] = "1% 2%";
+      t.strictEqual(document.body.style[prop], "1% 2%");
+      t.strictEqual(document.body.style[prop + "Top"], "1%");
+      t.strictEqual(document.body.style[prop + "Right"], "2%");
+      t.strictEqual(document.body.style[prop + "Bottom"], "1%");
+      t.strictEqual(document.body.style[prop + "Left"], "2%");
+
+      document.body.style[prop] = "3pc 2pc 1pc";
+      t.strictEqual(document.body.style[prop], "3pc 2pc 1pc");
+      t.strictEqual(document.body.style[prop + "Top"], "3pc");
+      t.strictEqual(document.body.style[prop + "Right"], "2pc");
+      t.strictEqual(document.body.style[prop + "Bottom"], "1pc");
+      t.strictEqual(document.body.style[prop + "Left"], "2pc");
+    }
+
+    t.done();
   }
 };

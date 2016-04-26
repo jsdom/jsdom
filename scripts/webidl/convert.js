@@ -47,7 +47,9 @@ function onlyIDL(filePath) {
   return path.extname(filePath) === ".idl";
 }
 
-doConversion(path.resolve(__dirname, "../../lib/jsdom/living/events")).done();
-doConversion(path.resolve(__dirname, "../../lib/jsdom/living/attributes")).done();
-doConversion(path.resolve(__dirname, "../../lib/jsdom/living/window")).done();
-doConversion(path.resolve(__dirname, "../../lib/jsdom/living/nodes")).done();
+doConversion(path.resolve(__dirname, "../../lib/jsdom/living/traversal"))
+  .then(() => doConversion(path.resolve(__dirname, "../../lib/jsdom/living/events")))
+  .then(() => doConversion(path.resolve(__dirname, "../../lib/jsdom/living/attributes")))
+  .then(() => doConversion(path.resolve(__dirname, "../../lib/jsdom/living/window")))
+  .then(() => doConversion(path.resolve(__dirname, "../../lib/jsdom/living/nodes")))
+  .done();
