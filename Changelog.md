@@ -1,3 +1,7 @@
+## 8.4.1
+
+* Fixed an issue where setting `selected` on an multi-select would clear all other selectedness.
+
 ## 8.4.0
 
 * Added an implementation of the `TreeWalker` class (and `document.createTreeWalker`). (garycourt)
