@@ -299,3 +299,15 @@ exports["proxied body/window event handlers: setting on body as attributes refle
 
   t.done();
 };
+
+exports["proxied body/window event handlers: setting on body as attributes should not throw without a window"] = t => {
+  const doc = jsdom().implementation.createHTMLDocument();
+
+  for (const name of proxied) {
+    doc.body.setAttribute(name, "return 5;");
+    t.equal(doc.body[name], null, `${name} should be be null`);
+    doc.body.removeAttribute(name);
+  }
+
+  t.done();
+};
