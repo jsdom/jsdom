@@ -47,7 +47,6 @@ self.onmessage = function (e) {
     "living-html/message-event.js": require("../test/living-html/message-event.js"), // ok
     "living-html/post-message.js": require("../test/living-html/post-message.js"), // ok
     "living-html/on-error.js": require("../test/living-html/on-error.js"), // ok
-    "living-html/navigator.js": require("../test/living-html/navigator.js"), // ok
     "misc/url.js": require("../test/misc/url.js"), // ok
     "misc/xhr-file-urls.js": require("../test/misc/xhr-file-urls.js"), // 0; file I/O does not work in browsers
     "misc/xhr-requires-server.js": require("../test/misc/xhr-requires-server.js"), // 0; could work if we figured
@@ -86,7 +85,6 @@ self.onmessage = function (e) {
     "living-html/location.js",
     "living-html/inline-event-handlers.js",
     "living-html/message-event.js",
-    "living-html/navigator.js",
     "living-html/on-error.js",
     "living-html/post-message.js",
 

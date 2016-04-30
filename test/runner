@@ -63,7 +63,6 @@ var files = [
   "living-html/inline-event-handlers.js",
   "living-html/location.js",
   "living-html/message-event.js",
-  "living-html/navigator.js",
   "living-html/on-error.js",
   "living-html/post-message.js",
 

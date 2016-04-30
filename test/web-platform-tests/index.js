@@ -98,6 +98,7 @@ describe("Web Platform Tests", () => {
     "html/browsers/history/the-location-interface/location_port.html",
     "html/browsers/history/the-location-interface/location_protocol.html",
     "html/browsers/history/the-location-interface/location_search.html",
+    "html/browsers/offline/browser-state/navigator_online_online.html",
     "html/browsers/windows/browsing-context-first-created.xhtml",
     "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-02.html",
     "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-03.html",
@@ -159,6 +160,9 @@ describe("Web Platform Tests", () => {
     "html/syntax/parsing/template/clearing-the-stack-back-to-a-given-context/clearing-stack-back-to-a-table-row-context.html",
     // "html/syntax/parsing/template/creating-an-element-for-the-token/template-owner-document.html", // template content owner document semantics not yet implemented
     "html/webappapis/atob/base64.html",
+    "html/webappapis/system-state-and-capabilities/the-navigator-object/NavigatorID.html",
+    "html/webappapis/system-state-and-capabilities/the-navigator-object/navigator-indexed.html",
+    "html/webappapis/system-state-and-capabilities/the-navigator-object/navigatorlanguage.html",
     "html/webappapis/timers/evil-spec-example.html",
 
     "dom/events/Event-constants.html",

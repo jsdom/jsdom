@@ -82,11 +82,11 @@ exports.tests = {
         aGlobal={win:this};\
       </script>\
       <script>\
-        appVersion = aGlobal.win.navigator.appVersion\
+        appVersion = aGlobal.win.navigator.product\
       </script>\
       </head><body></body></html>').defaultView;
 
-    test.strictEqual(window.appVersion, process.version);
+    test.strictEqual(window.appVersion, "Gecko");
     test.done();
   },
 
