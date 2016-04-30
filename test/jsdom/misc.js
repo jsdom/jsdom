@@ -115,7 +115,7 @@ describe("jsdom/miscellaneous", () => {
       process.nextTick(() => {
         req.emit("response", res);
         process.nextTick(() => {
-          res.emit("data", "window.attachedHere = 123");
+          res.emit("data", new Buffer("window.attachedHere = 123"));
           res.emit("close");
         });
       });

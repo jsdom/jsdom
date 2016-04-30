@@ -1,0 +1,1 @@
+window.testutf8 = '©';

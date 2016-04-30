@@ -1,0 +1,1 @@
+window.testiso88591 = '©';
