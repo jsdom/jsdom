@@ -18,7 +18,6 @@ self.onmessage = function (e) {
   var fileFilter, testFilter;
 
   var modules = {
-    "level1/core": require("../test/level1/core"), // ok
     "level1/html": require("../test/level1/html"), // ok
     "level2/core": require("../test/level2/core"), // ok
     "level2/html": require("../test/level2/html"), // 6/708
@@ -71,7 +70,6 @@ self.onmessage = function (e) {
   }
   // default to only those test modules that pass
   fileFilter = fileFilter || [
-    "level1/core",
     "level1/html",
     "level1/svg",
     "level2/core",
