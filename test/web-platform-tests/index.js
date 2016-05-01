@@ -307,6 +307,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/response-method.htm",
     "XMLHttpRequest/responseText-status.html",
     "XMLHttpRequest/responsetype.html",
+    "XMLHttpRequest/responseurl.html",
     // "XMLHttpRequest/responsexml-basic.htm", // xml namespace issue with getElementById
     // "XMLHttpRequest/responsexml-document-properties.htm", see https://github.com/w3c/web-platform-tests/issues/2668
     "XMLHttpRequest/responsexml-media-type.htm",
