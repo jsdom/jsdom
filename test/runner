@@ -83,7 +83,6 @@ var files = [
   "sizzle/index.js",
   "living-html/named-properties-window.js",
 
-  "jsonp/jsonp.js",
   "misc/domparsing.js"
 ];
 
