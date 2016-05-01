@@ -17,6 +17,7 @@ require("./jsdom/virtual-console.js");
 require("./jsdom/xml.js");
 
 require("./browser/css.js");
+require("./browser/index.js");
 
 require("./web-platform-tests/to-upstream.js");
 // keep this one last so that you can cancel the test run early

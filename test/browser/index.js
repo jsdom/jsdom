@@ -1,528 +1,486 @@
-var jsdom = require('../../lib/jsdom');
-var serializeDocument = require('../../lib/jsdom').serializeDocument;
+"use strict";
 
-exports.tests = {
-  notfound_getelementsbyclassname: function(test) {
-    var doc = jsdom.jsdom();
-    var html = doc.documentElement;
-    var body = doc.body;
+const assert = require("chai").assert;
+const describe = require("mocha-sugar-free").describe;
+const specify = require("mocha-sugar-free").specify;
 
-    var p = doc.createElement("p");
+const jsdom = require("../../lib/jsdom");
+const serializeDocument = require("../../lib/jsdom").serializeDocument;
+
+describe("browser/index", () => {
+  specify("notfound_getelementsbyclassname", () => {
+    const doc = jsdom.jsdom();
+    const body = doc.body;
+
+    const p = doc.createElement("p");
     p.className = "unknown";
     body.appendChild(p);
-    var elements = doc.getElementsByClassName("first-p");
-    test.equal(elements.length, 0, "no results");
-    test.done();
-  },
+    const elements = doc.getElementsByClassName("first-p");
+    assert.equal(elements.length, 0, "no results");
+  });
 
-  basic_getelementsbyclassname: function(test) {
-    var doc = jsdom.jsdom();
-    var html = doc.documentElement;
-    var body = doc.body;
+  specify("basic_getelementsbyclassname", () => {
+    const doc = jsdom.jsdom();
+    const body = doc.body;
 
-    var p = doc.createElement("p");
+    const p = doc.createElement("p");
     p.className = "first-p";
     body.appendChild(p);
-    var elements = doc.getElementsByClassName("first-p");
-    test.equal(elements.item(0), p, 'p and first-p');
-    test.done();
-  },
+    const elements = doc.getElementsByClassName("first-p");
+    assert.equal(elements.item(0), p, "p and first-p");
+  });
 
-  multiple_getelementsbyclassname: function(test) {
-    var doc = jsdom.jsdom();
-    var html = doc.documentElement;
-    var body = doc.body;
+  specify("multiple_getelementsbyclassname", () => {
+    const doc = jsdom.jsdom();
+    const body = doc.body;
 
-    var p = doc.createElement("p");
+    const p = doc.createElement("p");
     p.className = "first-p second third";
     body.appendChild(p);
-    var first = doc.getElementsByClassName("first-p").item(0);
-    var second = doc.getElementsByClassName("second").item(0);
-    var third = doc.getElementsByClassName("third").item(0);
-    test.equal(first, p, 'p and first-p');
-    test.equal(second, p, 'p and second');
-    test.equal(third, p, 'p and third');
-    test.done();
-  },
+    const first = doc.getElementsByClassName("first-p").item(0);
+    const second = doc.getElementsByClassName("second").item(0);
+    const third = doc.getElementsByClassName("third").item(0);
+    assert.equal(first, p, "p and first-p");
+    assert.equal(second, p, "p and second");
+    assert.equal(third, p, "p and third");
+  });
 
-  testclassnameworksasexpected: function(test) {
-    var doc = jsdom.jsdom();
-    var html = doc.documentElement;
-    var body = doc.body;
+  specify("testclassnameworksasexpected", () => {
+    const doc = jsdom.jsdom();
 
-    var p = doc.createElement("p");
+    const p = doc.createElement("p");
     p.setAttribute("class", "first-p");
-    test.equal(p.className, 'first-p', 'class attribute is same as className');
+    assert.equal(p.className, "first-p", "class attribute is same as className");
     p.className += " second";
-    test.equal(p.className, 'first-p second', 'className getter/setter');
-    test.done();
-  },
+    assert.equal(p.className, "first-p second", "className getter/setter");
+  });
 
-  basic_getelementbyid: function(test) {
-    var doc = jsdom.jsdom();
-    var html = doc.documentElement;
-    var body = doc.body;
+  specify("basic_getelementbyid", () => {
+    const doc = jsdom.jsdom();
+    const body = doc.body;
 
-    var p = doc.createElement("p");
+    const p = doc.createElement("p");
     p.id = "theid";
     body.appendChild(p);
-    var element = doc.getElementById("theid");
-    test.equal(element, p, "p and #theid");
-    test.done();
-  },
+    const element = doc.getElementById("theid");
+    assert.equal(element, p, "p and #theid");
+  });
 
-  nonexistant_getelementbyid: function(test) {
-    var doc = jsdom.jsdom();
-    var html = doc.documentElement;
-    var body = doc.body;
+  specify("nonexistant_getelementbyid", () => {
+    const doc = jsdom.jsdom();
+    const body = doc.body;
 
-    var p = doc.createElement("p");
+    const p = doc.createElement("p");
     p.id = "theid";
     body.appendChild(p);
-    var element = doc.getElementById("non-existant-id");
-    test.equal(element, null, "p and #theid");
-    test.done();
-  },
+    const element = doc.getElementById("non-existant-id");
+    assert.equal(element, null, "p and #theid");
+  });
 
-  remove_nonexistantattribute: function(test) {
-    var doc = jsdom.jsdom();
-    var html = doc.documentElement;
-    var body = doc.body;
+  specify("remove_nonexistantattribute", () => {
+    const doc = jsdom.jsdom();
+    const body = doc.body;
 
-    test.doesNotThrow(function(){ body.removeAttribute("non-existant"); }), 'setValue_throws_NO_MODIFICATION_ERR';
-    test.done();
-  },
+    assert.doesNotThrow(() => body.removeAttribute("non-existant"), "setValue_throws_NO_MODIFICATION_ERR");
+  });
 
-  render_singletag: function(test) {
-    var doc = jsdom.jsdom();
+  specify("render_singletag", () => {
+    const doc = jsdom.jsdom();
 
-    var p = doc.createElement("p");
-    var img = doc.createElement("img");
+    const p = doc.createElement("p");
+    const img = doc.createElement("img");
     p.appendChild(img);
-    var out = p.outerHTML;
-    test.equal(out.match(/<\/img>/), null, 'end tag not included in output')
-    test.done();
-  },
+    const out = p.outerHTML;
+    assert.equal(out.match(/<\/img>/), null, "end tag not included in output");
+  });
 
-  render_specialchars: function(test) {
-    var doc = jsdom.jsdom();
+  specify("render_specialchars", () => {
+    const doc = jsdom.jsdom();
 
-	  var p = doc.createElement("p");
-	  var specials = '"<>&\xA0';
-	  var escapedSpecials = '"&lt;&gt;&amp;&nbsp;';
-	  p.setAttribute("specials", specials);
-	  p.innerHTML = escapedSpecials;
-	  var pp = doc.createElement("p");
-	  pp.appendChild(p);
-	  test.equal(pp.innerHTML, '<p specials="&quot;<>&amp;&nbsp;">"&lt;&gt;&amp;&nbsp;</p>');
-	  test.done();
-  },
+    const p = doc.createElement("p");
+    const specials = "\"<>&\xA0";
+    const escapedSpecials = "\"&lt;&gt;&amp;&nbsp;";
+    p.setAttribute("specials", specials);
+    p.innerHTML = escapedSpecials;
+    const pp = doc.createElement("p");
+    pp.appendChild(p);
+    assert.equal(pp.innerHTML, `<p specials="&quot;<>&amp;&nbsp;">"&lt;&gt;&amp;&nbsp;</p>`);
+  });
 
-  parse_scripttags: function(test) {
-    var doc = jsdom.jsdom();
-    var head = doc.head;
+  specify("parse_scripttags", () => {
+    const doc = jsdom.jsdom();
+    const head = doc.head;
 
-    var scriptHtml = '<script>alert("hello world")</script>';
+    const scriptHtml = `<script>alert("hello world")</script>`;
     head.innerHTML = scriptHtml;
-    test.equal(scriptHtml, head.innerHTML, "original and processed");
-    test.done();
-  },
+    assert.equal(scriptHtml, head.innerHTML, "original and processed");
+  });
 
-  parse_styletags: function(test) {
-    var doc = jsdom.jsdom();
-    var head = doc.head;
-    var styleHtml = '<style>body: {color: #fff;}</style>';
+  specify("parse_styletags", () => {
+    const doc = jsdom.jsdom();
+    const head = doc.head;
+    const styleHtml = `<style>body: {color: #fff;}</style>`;
     head.innerHTML = styleHtml;
-    test.equal(styleHtml, head.innerHTML, "original and processed");
-    test.done();
-  },
+    assert.equal(styleHtml, head.innerHTML, "original and processed");
+  });
 
-  parse_doublespacetags: function(test) {
-    var doc = jsdom.jsdom();
-    var html = '<html><body  class="testing" /></html>';
-    test.doesNotThrow(function(){ doc.write(html); }), 'setValue_throws_INVALID_CHARACTER_ERR';
-    test.done();
-  },
+  specify("parse_doublespacetags", () => {
+    const doc = jsdom.jsdom();
+    const html = `<html><body  class="testing" /></html>`;
+    assert.doesNotThrow(() => doc.write(html), "setValue_throws_INVALID_CHARACTER_ERR");
+  });
 
-  serialize_styleattribute: function(test) {
-    var doc = jsdom.jsdom();
+  specify("serialize_styleattribute", () => {
+    const doc = jsdom.jsdom();
 
-    doc.documentElement.style.color = 'black';
-    doc.documentElement.style.backgroundColor = 'white';
-    test.equal(doc.documentElement.outerHTML,
-      '<html style="color: black; background-color: white;"><head></head><body></body></html>');
-    test.done();
-  },
+    doc.documentElement.style.color = "black";
+    doc.documentElement.style.backgroundColor = "white";
+    assert.equal(doc.documentElement.outerHTML,
+      `<html style="color: black; background-color: white;"><head></head><body></body></html>`);
+  });
 
-  innerhtml_removeallchildren: function(test) {
-    var doc = jsdom.jsdom();
-    var body = doc.body;
+  specify("innerhtml_removeallchildren", () => {
+    const doc = jsdom.jsdom();
+    const body = doc.body;
 
-    body.appendChild(doc.createElement('p'));
+    body.appendChild(doc.createElement("p"));
     body.innerHTML = "";
-    test.equal(body.childNodes.length, 0, 'still has children');
-    test.done();
-  },
+    assert.equal(body.childNodes.length, 0, "still has children");
+  });
 
-  innerhtml_null: function(test) {
-    var doc = jsdom.jsdom();
-    var body = doc.body;
+  specify("innerhtml_null", () => {
+    const doc = jsdom.jsdom();
+    const body = doc.body;
 
-    body.appendChild(doc.createElement('p'));
+    body.appendChild(doc.createElement("p"));
     body.innerHTML = null;
-    test.equal(body.childNodes.length, 0, 'still has children');
-    test.done();
-  },
+    assert.equal(body.childNodes.length, 0, "still has children");
+  });
 
-  serialize_html5_doctype: function(test) {
-    var doc = jsdom.jsdom();
-    var dom = doc.implementation;
+  specify("serialize_html5_doctype", () => {
+    const doc = jsdom.jsdom();
+    const dom = doc.implementation;
 
-    var doctype = dom.createDocumentType('html', '', '');
-    var document = dom.createDocument(null, null, doctype);
-    var regexp = /^\s*<!DOCTYPE html>/;
-    test.ok(regexp.test(serializeDocument(document)), 'HTML 5 doctype did not serialize correctly');
-    test.done();
-  },
+    const doctype = dom.createDocumentType("html", "", "");
+    const document = dom.createDocument(null, null, doctype);
+    const regexp = /^\s*<!DOCTYPE html>/;
+    assert.ok(regexp.test(serializeDocument(document)), "HTML 5 doctype did not serialize correctly");
+  });
 
-  serialize_html4_strict_doctype: function(test) {
-    var doc = jsdom.jsdom();
-    var dom = doc.implementation;
+  specify("serialize_html4_strict_doctype", () => {
+    const doc = jsdom.jsdom();
+    const dom = doc.implementation;
 
-    var doctype = dom.createDocumentType('html', '-//W3C//DTD HTML 4.01//EN', 'http://www.w3.org/TR/html4/strict.dtd');
-    var document = dom.createDocument(null, null, doctype);
-    var regexp = /^\s*<!DOCTYPE html PUBLIC "-\/\/W3C\/\/DTD HTML 4.01\/\/EN" "http:\/\/www.w3.org\/TR\/html4\/strict.dtd">/;
-    test.ok(regexp.test(serializeDocument(document)), 'HTML 4 strict doctype did not serialize correctly');
-    test.done();
-  },
+    const doctype = dom.createDocumentType(
+      "html",
+      "-//W3C//DTD HTML 4.01//EN",
+      "http://www.w3.org/TR/html4/strict.dtd"
+    );
+    const document = dom.createDocument(null, null, doctype);
+    const regexp =
+      /^\s*<!DOCTYPE html PUBLIC "-\/\/W3C\/\/DTD HTML 4.01\/\/EN" "http:\/\/www.w3.org\/TR\/html4\/strict.dtd">/;
+    assert.ok(regexp.test(serializeDocument(document)), "HTML 4 strict doctype did not serialize correctly");
+  });
 
-  serialize_system_doctype: function(test) {
-    var doc = jsdom.jsdom();
-    var dom = doc.implementation;
+  specify("serialize_system_doctype", () => {
+    const doc = jsdom.jsdom();
+    const dom = doc.implementation;
 
-    var doctype = dom.createDocumentType('foo', '', 'foo.dtd');
-    var document = dom.createDocument(null, null, doctype);
-    var regexp = /^\s*<!DOCTYPE foo SYSTEM "foo.dtd">/;
-    test.ok(regexp.test(serializeDocument(document)), 'Doctype did not serialize correctly');
-    test.done();
-  },
+    const doctype = dom.createDocumentType("foo", "", "foo.dtd");
+    const document = dom.createDocument(null, null, doctype);
+    const regexp = /^\s*<!DOCTYPE foo SYSTEM "foo.dtd">/;
+    assert.ok(regexp.test(serializeDocument(document)), "Doctype did not serialize correctly");
+  });
 
-  serialize_doctype_containing_quotes: function(test) {
-    var doc = jsdom.jsdom();
-    var dom = doc.implementation;
+  specify("serialize_doctype_containing_quotes", () => {
+    const doc = jsdom.jsdom();
+    const dom = doc.implementation;
 
-    var doctype = dom.createDocumentType('foo', '', 'foo "bar".dtd');
-    var document = dom.createDocument(null, null, doctype);
-    var regexp = /^\s*<!DOCTYPE foo SYSTEM \'foo "bar".dtd\'>/;
-    test.ok(regexp.test(serializeDocument(document)), 'Doctype did not serialize correctly');
-    test.done();
-  },
+    const doctype = dom.createDocumentType("foo", "", "foo \"bar\".dtd");
+    const document = dom.createDocument(null, null, doctype);
+    const regexp = /^\s*<!DOCTYPE foo SYSTEM \'foo "bar".dtd\'>/;
+    assert.ok(regexp.test(serializeDocument(document)), "Doctype did not serialize correctly");
+  });
 
-  parse_doctype_containing_newline : function(test) {
-    var html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"\n \
-             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n<html></html>';
+  specify("parse_doctype_containing_newline", () => {
+    const html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"\n
+             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n<html></html>`;
 
-    var doc = jsdom.jsdom();
+    const doc = jsdom.jsdom();
     doc.write(html);
-    test.ok(!!doc.doctype, 'doctype should not be falsy');
-    test.done();
-  },
+    assert.ok(doc.doctype, "doctype should not be falsy");
+  });
 
-  basic_nodelist_indexOf : function(test) {
-    var doc = jsdom.jsdom();
-    var html = doc.documentElement;
-    var body = doc.body;
+  specify("basic_nodelist_indexOf", () => {
+    const doc = jsdom.jsdom();
+    const body = doc.body;
 
-    var p = doc.createElement("p");
+    const p = doc.createElement("p");
     body.appendChild(p);
-    var div = doc.createElement("div");
+    const div = doc.createElement("div");
     body.appendChild(div);
-    var span = doc.createElement("span");
+    const span = doc.createElement("span");
     body.appendChild(span);
-    var index = Array.prototype.indexOf.call(body.childNodes, span);
-    test.equal(index, 2, "indexOf 'span' in childNodes")
-    test.done();
-  },
+    const index = Array.prototype.indexOf.call(body.childNodes, span);
+    assert.equal(index, 2, "indexOf 'span' in childNodes");
+  });
 
-  nonexistant_nodelist_indexOf : function(test) {
-    var doc = jsdom.jsdom();
-    var html = doc.documentElement;
-    var body = doc.body;
+  specify("nonexistant_nodelist_indexOf", () => {
+    const doc = jsdom.jsdom();
+    const body = doc.body;
 
-    var p = doc.createElement("p");
+    const p = doc.createElement("p");
     body.appendChild(p);
-    var div = doc.createElement("div");
+    const div = doc.createElement("div");
     p.appendChild(div);
-    var index = Array.prototype.indexOf.call(body.childNodes, div);
-    test.equal(index, -1, "indexOf 'div' in childNodes")
-    test.done();
-  },
+    const index = Array.prototype.indexOf.call(body.childNodes, div);
+    assert.equal(index, -1, "indexOf 'div' in childNodes");
+  });
 
-  input_fires_click_event : function(test) {
-    doc = jsdom.jsdom(
-      '<html><head></head><body>' +
-        '<input type="checkbox" id="check" value="check" />' +
-      '</body>')
+  specify("input_fires_click_event", () => {
+    const doc = jsdom.jsdom(`
+      <html><head></head><body>
+        <input type="checkbox" id="check" value="check" />
+      </body>
+    `);
 
-    var checkbox = doc.getElementById("check");
+    const checkbox = doc.getElementById("check");
 
-    checkbox.addEventListener("click", function(event) {
-      test.equal(event.type, "click", "event type");
-      test.equal(event.target, checkbox, "event type");
-      test.done();
-    })
+    checkbox.addEventListener("click", event => {
+      assert.equal(event.type, "click", "event type");
+      assert.equal(event.target, checkbox, "event type");
+    });
 
     checkbox.click();
-  },
+  });
 
-  basic_radio_selected : function(test) {
-    doc = jsdom.jsdom(
-      '<html><head></head><body>' +
-        '<input type="radio" id="rad0" value="rad0" name="radioGroup0" />' +
-        '<input type="radio" id="rad1" value="rad1" name="radioGroup0" checked="checked" />' +
-        '<input type="radio" id="rad2" value="rad2" name="radioGroup1" />' +
-      '</body>')
+  specify("basic_radio_selected", () => {
+    const doc = jsdom.jsdom(
+      `<html><head></head><body>
+        <input type="radio" id="rad0" value="rad0" name="radioGroup0" />
+        <input type="radio" id="rad1" value="rad1" name="radioGroup0" checked="checked" />
+        <input type="radio" id="rad2" value="rad2" name="radioGroup1" />
+      </body>
+    `);
 
-    var radio0 = doc.getElementById("rad0");
-    var radio1 = doc.getElementById("rad1");
-    var radio2 = doc.getElementById("rad2");
+    const radio0 = doc.getElementById("rad0");
+    const radio1 = doc.getElementById("rad1");
+    const radio2 = doc.getElementById("rad2");
 
-    test.ok(!radio0.checked, "radio not checked");
-    test.ok(radio1.checked, "radio checked");
-    test.ok(!radio2.checked, "radio not checked");
+    assert.ok(!radio0.checked, "radio not checked");
+    assert.ok(radio1.checked, "radio checked");
+    assert.ok(!radio2.checked, "radio not checked");
 
-    radio2.click()
+    radio2.click();
     radio0.click();
-    test.ok(radio0.checked, "radio checked");
-    test.ok(!radio1.checked, "radio not checked");
-    test.ok(radio2.checked, "radio checked");
+    assert.ok(radio0.checked, "radio checked");
+    assert.ok(!radio1.checked, "radio not checked");
+    assert.ok(radio2.checked, "radio checked");
 
     radio1.click();
-    test.ok(!radio0.checked, "radio not checked");
-    test.ok(radio1.checked, "radio checked");
-    test.ok(radio2.checked, "radio checked");
+    assert.ok(!radio0.checked, "radio not checked");
+    assert.ok(radio1.checked, "radio checked");
+    assert.ok(radio2.checked, "radio checked");
+  });
 
-    test.done();
-  },
+  specify("radio_no_click_deselected", () => {
+    const doc = jsdom.jsdom(`
+      <html><head></head><body>
+        <input type="radio" id="rad0" value="rad0" name="radioGroup0" />
+      </body>
+    `);
 
-  radio_no_click_deselected : function(test) {
-    doc = jsdom.jsdom(
-      '<html><head></head><body>' +
-        '<input type="radio" id="rad0" value="rad0" name="radioGroup0" />' +
-      '</body>')
-
-    var radio0 = doc.getElementById("rad0");
-
-    radio0.click();
-    test.ok(radio0.checked, "radio checked");
+    const radio0 = doc.getElementById("rad0");
 
     radio0.click();
-    test.ok(radio0.checked, "radio checked");
+    assert.ok(radio0.checked, "radio checked");
 
-    test.done();
-  },
+    radio0.click();
+    assert.ok(radio0.checked, "radio checked");
+  });
 
-  select_set_value_updates_value : function(test) {
-    var doc = jsdom.jsdom();
-    var html = doc.documentElement;
-    var body = doc.body;
+  specify("select_set_value_updates_value", () => {
+    const doc = jsdom.jsdom();
+    const body = doc.body;
 
-    body.innerHTML =
-      '<select id="selectElement">' +
-        '<option value="x">x</option><option value="y">y</option>' +
-      '</select>';
+    body.innerHTML = `
+      <select id="selectElement">
+        <option value="x">x</option><option value="y">y</option>
+      </select>
+    `;
 
-    var select = doc.getElementById("selectElement");
-
-    select.value = "x"
-    test.equal(select.value, "x", "select element value");
-
-    select.value = "y"
-    test.equal(select.value, "y", "select element selectedIndex");
-
-    test.done();
-  },
-
-  select_set_value_updates_selectedIndex : function(test) {
-    var doc = jsdom.jsdom();
-    var html = doc.documentElement;
-    var body = doc.body;
-
-    body.innerHTML =
-      '<select id="selectElement">' +
-        '<option value="x">x</option><option value="y">y</option>' +
-      '</select>';
-
-    var select = doc.getElementById("selectElement");
-
-    select.value = "x"
-    test.equal(select.selectedIndex, 0, "select element selectedIndex");
-
-    select.value = "y"
-    test.equal(select.selectedIndex, 1, "select element selectedIndex");
-
-    test.done();
-  },
-
-  select_set_value_updates_option_selected : function(test) {
-    var doc = jsdom.jsdom();
-    var html = doc.documentElement;
-    var body = doc.body;
-
-    body.innerHTML =
-      '<select id="selectElement">' +
-        '<option id="optX" value="x">x</option><option id="optY" value="y">y</option>' +
-      '</select>';
-
-    var select = doc.getElementById("selectElement");
-    var option0 = doc.getElementById("optX");
-    var option1 = doc.getElementById("optY");
+    const select = doc.getElementById("selectElement");
 
     select.value = "x";
-    test.ok(option0.selected, "option element selected");
+    assert.equal(select.value, "x", "select element value");
 
     select.value = "y";
-    test.ok(option1.selected, "option element selected");
+    assert.equal(select.value, "y", "select element selectedIndex");
+  });
 
-    test.done();
-  },
+  specify("select_set_value_updates_selectedIndex", () => {
+    const doc = jsdom.jsdom();
+    const body = doc.body;
 
-  select_set_selectedIndex_updates_value : function(test) {
-    var doc = jsdom.jsdom();
-    var html = doc.documentElement;
-    var body = doc.body;
+    body.innerHTML = `
+      <select id="selectElement"> +
+        <option value="x">x</option><option value="y">y</option>
+      </select>
+    `;
 
-    body.innerHTML =
-      '<select id="selectElement">' +
-        '<option value="x">x</option><option value="y">y</option>' +
-      '</select>';
+    const select = doc.getElementById("selectElement");
 
-    var select = doc.getElementById("selectElement");
+    select.value = "x";
+    assert.equal(select.selectedIndex, 0, "select element selectedIndex");
 
-    select.selectedIndex = 0
-    test.equal(select.value, "x", "select element selectedIndex");
+    select.value = "y";
+    assert.equal(select.selectedIndex, 1, "select element selectedIndex");
+  });
 
-    select.selectedIndex = 1
-    test.equal(select.value, "y", "select element selectedIndex");
+  specify("select_set_value_updates_option_selected", () => {
+    const doc = jsdom.jsdom();
+    const body = doc.body;
 
-    test.done();
-  },
+    body.innerHTML = `
+      <select id="selectElement">
+        <option id="optX" value="x">x</option><option id="optY" value="y">y</option>
+      </select>
+    `;
 
-  select_set_selectedIndex_updates_selectedIndex : function(test) {
-    var doc = jsdom.jsdom();
-    var html = doc.documentElement;
-    var body = doc.body;
+    const select = doc.getElementById("selectElement");
+    const option0 = doc.getElementById("optX");
+    const option1 = doc.getElementById("optY");
 
-    body.innerHTML =
-      '<select id="selectElement">' +
-        '<option value="x">x</option><option value="y">y</option>' +
-      '</select>';
+    select.value = "x";
+    assert.ok(option0.selected, "option element selected");
 
-    var select = doc.getElementById("selectElement");
+    select.value = "y";
+    assert.ok(option1.selected, "option element selected");
+  });
 
-    select.selectedIndex = 0
-    test.equal(select.selectedIndex, 0, "select element selectedIndex");
+  specify("select_set_selectedIndex_updates_value", () => {
+    const doc = jsdom.jsdom();
+    const body = doc.body;
 
-    select.selectedIndex = 1
-    test.equal(select.selectedIndex, 1, "select element selectedIndex");
+    body.innerHTML = `
+      <select id="selectElement">
+        <option value="x">x</option><option value="y">y</option>
+      </select>
+    `;
 
-    test.done();
-  },
-
-  select_set_selectedIndex_updates_option_selected : function(test) {
-    var doc = jsdom.jsdom();
-    var html = doc.documentElement;
-    var body = doc.body;
-
-    body.innerHTML =
-      '<select id="selectElement">' +
-        '<option id="optX" value="x">x</option><option id="optY" value="y">y</option>' +
-      '</select>';
-
-    var select = doc.getElementById("selectElement");
-    var option0 = doc.getElementById("optX");
-    var option1 = doc.getElementById("optY");
+    const select = doc.getElementById("selectElement");
 
     select.selectedIndex = 0;
-    test.ok(option0.selected, "option element selected");
-    test.ok(!option1.selected, "option element selected");
+    assert.equal(select.value, "x", "select element selectedIndex");
 
     select.selectedIndex = 1;
-    test.ok(option1.selected, "option element selected");
-    test.ok(!option0.selected, "option element selected");
+    assert.equal(select.value, "y", "select element selectedIndex");
+  });
 
-    test.done();
-  },
+  specify("select_set_selectedIndex_updates_selectedIndex", () => {
+    const doc = jsdom.jsdom();
+    const body = doc.body;
 
-  select_set_option_selected_updates_value : function(test) {
-    var doc = jsdom.jsdom();
-    var html = doc.documentElement;
-    var body = doc.body;
+    body.innerHTML = `
+      <select id="selectElement">
+        <option value="x">x</option><option value="y">y</option>
+      </select>
+    `;
 
-    body.innerHTML =
-      '<select id="selectElement">' +
-        '<option id="optX" value="x">x</option><option id="optY" value="y">y</option>' +
-      '</select>';
+    const select = doc.getElementById("selectElement");
 
-    var select = doc.getElementById("selectElement");
-    var option0 = doc.getElementById("optX");
-    var option1 = doc.getElementById("optY");
+    select.selectedIndex = 0;
+    assert.equal(select.selectedIndex, 0, "select element selectedIndex");
+
+    select.selectedIndex = 1;
+    assert.equal(select.selectedIndex, 1, "select element selectedIndex");
+  });
+
+  specify("select_set_selectedIndex_updates_option_selected", () => {
+    const doc = jsdom.jsdom();
+    const body = doc.body;
+
+    body.innerHTML = `
+      <select id="selectElement">
+        <option id="optX" value="x">x</option><option id="optY" value="y">y</option>
+      </select>
+    `;
+
+    const select = doc.getElementById("selectElement");
+    const option0 = doc.getElementById("optX");
+    const option1 = doc.getElementById("optY");
+
+    select.selectedIndex = 0;
+    assert.ok(option0.selected, "option element selected");
+    assert.ok(!option1.selected, "option element selected");
+
+    select.selectedIndex = 1;
+    assert.ok(option1.selected, "option element selected");
+    assert.ok(!option0.selected, "option element selected");
+  });
+
+  specify("select_set_option_selected_updates_value", () => {
+    const doc = jsdom.jsdom();
+    const body = doc.body;
+
+    body.innerHTML = `
+      <select id="selectElement">
+        <option id="optX" value="x">x</option><option id="optY" value="y">y</option>
+      </select>
+    `;
+
+    const select = doc.getElementById("selectElement");
+    const option0 = doc.getElementById("optX");
+    const option1 = doc.getElementById("optY");
 
     select.selectedIndex = 0;
     option0.selected = true;
-    test.equal(select.value, "x", "select element value");
+    assert.equal(select.value, "x", "select element value");
 
     option1.selected = true;
-    test.equal(select.value, "y", "select element value");
+    assert.equal(select.value, "y", "select element value");
+  });
 
-    test.done();
-  },
+  specify("select_set_option_selected_updates_selectedIndex", () => {
+    const doc = jsdom.jsdom();
+    const body = doc.body;
 
-  select_set_option_selected_updates_selectedIndex : function(test) {
-    var doc = jsdom.jsdom();
-    var html = doc.documentElement;
-    var body = doc.body;
+    body.innerHTML = `
+      <select id="selectElement">
+        <option id="optX" value="x">x</option><option id="optY" value="y">y</option>
+      </select>
+    `;
 
-    body.innerHTML =
-      '<select id="selectElement">' +
-        '<option id="optX" value="x">x</option><option id="optY" value="y">y</option>' +
-      '</select>';
-
-    var select = doc.getElementById("selectElement");
-    var option0 = doc.getElementById("optX");
-    var option1 = doc.getElementById("optY");
+    const select = doc.getElementById("selectElement");
+    const option0 = doc.getElementById("optX");
+    const option1 = doc.getElementById("optY");
 
     option0.selected = true;
-    test.equal(select.selectedIndex, 0, "select element selectedIndex");
+    assert.equal(select.selectedIndex, 0, "select element selectedIndex");
 
     option1.selected = true;
-    test.equal(select.selectedIndex, 1, "select element selectedIndex");
+    assert.equal(select.selectedIndex, 1, "select element selectedIndex");
+  });
 
-    test.done();
-  },
+  specify("select_set_option_selected_updates_option_selected", () => {
+    const doc = jsdom.jsdom();
+    const body = doc.body;
 
-  select_set_option_selected_updates_option_selected : function(test) {
-    var doc = jsdom.jsdom();
-    var html = doc.documentElement;
-    var body = doc.body;
+    body.innerHTML = `
+      <select id="selectElement">
+        <option id="optX" value="x">x</option><option id="optY" value="y">y</option>
+      </select>
+    `;
 
-    body.innerHTML =
-      '<select id="selectElement">' +
-        '<option id="optX" value="x">x</option><option id="optY" value="y">y</option>' +
-      '</select>';
-
-    var select = doc.getElementById("selectElement");
-    var option0 = doc.getElementById("optX");
-    var option1 = doc.getElementById("optY");
+    const option0 = doc.getElementById("optX");
+    const option1 = doc.getElementById("optY");
 
     option0.selected = true;
-    test.ok(option0.selected, "option element selected");
-    test.ok(!option1.selected, "option element selected");
+    assert.ok(option0.selected, "option element selected");
+    assert.ok(!option1.selected, "option element selected");
 
     option1.selected = true;
-    test.ok(option1.selected, "option element selected");
-    test.ok(!option0.selected, "option element selected");
-
-    test.done();
-  },
-};
+    assert.ok(option1.selected, "option element selected");
+    assert.ok(!option0.selected, "option element selected");
+  });
+});

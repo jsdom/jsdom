@@ -10,7 +10,6 @@ lib/jsdom/level3/xpath.js
 lib/jsdom/living/generated/**
 
 test/browser/files
-test/browser/index.js
 test/jquery-fixtures
 test/jsdom/files
 test/jsdom/leak.js
