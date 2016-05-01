@@ -22,6 +22,7 @@ require("./browser/index.js");
 require("./jsonp/jsonp.js");
 
 require("./level1/core.js");
+require("./level1/html.js");
 
 require("./web-platform-tests/to-upstream.js");
 // keep this one last so that you can cancel the test run early
