@@ -78,6 +78,7 @@ Jameson Little <t.jameson.little@gmail.com>
 Jared Deckard <jared.deckard@gmail.com>
 Jason Davies <jason@jasondavies.com>
 Jason Orendorff <jason.orendorff@gmail.com>
+Jason Palmer <palmerj3@gmail.com>
 Jason Priestley <jason@teampatent.com>
 jden <jason@denizac.org>
 Jean-Francois Remy <jfremy@users.noreply.github.com>

@@ -1,3 +1,13 @@
+## 8.5.0
+
+* Added encoding handling (nicolashenry)
+  - `jsdom.env`, when given a URL or file, will decode the resulting bytes using signals like the `Content-Type` header, `<meta charset>` declaration, or presence of a BOM, in the same manner as web browsers.
+  - Fetching external resources, via mechanisms such as XMLHttpRequest or `<script>`/`<link>`/`<iframe>` tags, will also account for such signals.
+  - `jsdom.jsdom()`, which takes a string, still sets a "UTF-8" encoding by default, since there are no bytes or headers for it to sniff an encoding from.
+* Removed `iframe.sandbox` property, since it was not implemented and simply crashed when used.
+* Removed `element.sourceIndex` property, since it was nonstandard (Internet Explorer only).
+* Fixed setting proxied inline event handlers, such as `doc.body`'s `onload=""` attribute, for documents that do not have a browsing context.
+
 ## 8.4.1
 
 * Fixed an issue where setting `selected` on an multi-select would clear all other selectedness.
