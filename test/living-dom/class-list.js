@@ -77,28 +77,6 @@ exports[".contains(token) returns whether token exists"] = t => {
   t.done();
 };
 
-exports[".contains() throws if token empty"] = t => {
-  function block() {
-    el.classList.contains("");
-  }
-
-  // TODO: should be SyntaxError
-  t.throws(block, window.DOMException);
-
-  t.done();
-};
-
-exports[".contains() throws if token contains whitespace"] = t => {
-  function block() {
-    el.classList.contains(" ");
-  }
-
-  // TODO: should be InvalidCharacterError
-  t.throws(block, window.DOMException);
-
-  t.done();
-};
-
 exports[".add(tokens...) adds provided tokens"] = t => {
   // add zero tokens
   el.classList.add();
