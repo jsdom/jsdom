@@ -62,7 +62,6 @@ self.onmessage = function (e) {
     //"window/frame": require("../test/window/frame"), // fail
     //"sizzle/index": require("../test/sizzle/index"), // fail
     "jsonp/jsonp": require("../test/jsonp/jsonp"), // 0/1
-    "browser/css": require("../test/browser/css"), // ok
     "browser/index": require("../test/browser/index"), // ok
     "misc/domparsing.js": require("../test/misc/domparsing")
   };
@@ -102,7 +101,6 @@ self.onmessage = function (e) {
     "window/base64",
     "window/history",
     "window/console",
-    "browser/css",
     "browser/index",
 
     "misc/domparsing.js"

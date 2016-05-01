@@ -84,7 +84,6 @@ var files = [
   "living-html/named-properties-window.js",
 
   "jsonp/jsonp.js",
-  "browser/css.js",
   "browser/index.js",
   "misc/domparsing.js"
 ];
