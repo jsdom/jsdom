@@ -74,7 +74,7 @@ describe("Web Platform Tests", () => {
     "dom/traversal/TreeWalker-walking-outside-a-tree.html",
     "dom/traversal/TreeWalker.html",
     "domparsing/insert-adjacent.html",
-    "html/browsers/browsing-the-web/history-traversal/PopStateEvent.html",
+    // "html/browsers/browsing-the-web/history-traversal/PopStateEvent.html", // https://github.com/w3c/web-platform-tests/pull/2964
     "html/browsers/browsing-the-web/history-traversal/hashchange_event.html",
     "html/browsers/browsing-the-web/history-traversal/popstate_event.html",
     // "html/browsers/history/the-history-interface/001.html", // complicated navigation stuff and structured cloning
