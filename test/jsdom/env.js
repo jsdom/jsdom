@@ -16,7 +16,7 @@ describe("jsdom/env", () => {
     assert.throws(() => env());
     assert.throws(() => env({}));
     assert.throws(() => env({ html: "abc123" }));
-    assert.throws(() => env({ done() {} }));
+    assert.throws(() => env({ done() { /* doesn't matter */ } }));
   });
 
   specify("explicit config.html, full document", { async: true }, t => {

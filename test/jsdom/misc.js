@@ -103,15 +103,21 @@ describe("jsdom/miscellaneous", () => {
 
     // Mock response object
     const res = Object.create(EventEmitter.prototype);
-    res.setEncoding = () => {};
+    res.setEncoding = () => {
+      // do nothing
+    };
     res.headers = {};
 
     // Monkey patch https.request so it emits "close" instead of "end.
     https.request = () => {
       // Mock the request object.
       const req = Object.create(EventEmitter.prototype);
-      req.setHeader = () => {};
-      req.end = () => {};
+      req.setHeader = () => {
+        // do nothing
+      };
+      req.end = () => {
+        // do nothing
+      };
       process.nextTick(() => {
         req.emit("response", res);
         process.nextTick(() => {
@@ -592,7 +598,7 @@ describe("jsdom/miscellaneous", () => {
     div.innerHTML = "&amp;lt;b&amp;gt;\nWorld&amp;lt;/b&amp;gt;<span></span><span>" +
                     "<span></span></span><span>&amp;lt;b&amp;gt;World&amp;lt;/b&amp;gt;</span>";
 
-    assert.strictEqual(div.textContent, "&lt;b&gt;\nWorld&lt;/b&gt;&lt;b&gt;W\orld&lt;/b&gt;",
+    assert.strictEqual(div.textContent, "&lt;b&gt;\nWorld&lt;/b&gt;&lt;b&gt;World&lt;/b&gt;",
       `textContent of complex programmatically created <div> should be the
       concatenation of the textContent values of its child nodes`
     );

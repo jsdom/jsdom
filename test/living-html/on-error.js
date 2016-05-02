@@ -198,7 +198,9 @@ exports["adding an onerror handler does not prevent errors from going to the vir
 
   const doc = jsdom(`<body onclick="throw new Error('oh no!')"></body>`, { virtualConsole });
 
-  doc.defaultView.onerror = () => { };
+  doc.defaultView.onerror = () => {
+    // just a no-op handler to trigger the setter logic
+  };
 
   doc.body.click();
 };

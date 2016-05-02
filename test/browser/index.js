@@ -198,7 +198,7 @@ describe("browser/index", () => {
 
     const doctype = dom.createDocumentType("foo", "", "foo \"bar\".dtd");
     const document = dom.createDocument(null, null, doctype);
-    const regexp = /^\s*<!DOCTYPE foo SYSTEM \'foo "bar".dtd\'>/;
+    const regexp = /^\s*<!DOCTYPE foo SYSTEM 'foo "bar"\.dtd'>/;
     assert.ok(regexp.test(serializeDocument(document)), "Doctype did not serialize correctly");
   });
 

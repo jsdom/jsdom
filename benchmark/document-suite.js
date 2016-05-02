@@ -8,7 +8,9 @@ const jsdom = require("..");
 const nativeDoc = global.document;
 const jsdomDoc = jsdom.jsdom && jsdom.jsdom();
 
-function noop() {}
+function noop() {
+  // intentional no-op function
+}
 
 function addBenchmark(suite, benchmark) {
   const event = new Benchmark.Event({ type: "add", target: benchmark });

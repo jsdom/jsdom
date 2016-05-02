@@ -47,7 +47,9 @@ exports.load = dirname => {
     const window = doc.defaultView;
 
     doc.parent = window;
-    window.loadComplete = function () {};
+    window.loadComplete = () => {
+      // some of the loaded files expect this to exist
+    };
 
     doc.write(contents);
     doc.close();

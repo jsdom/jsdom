@@ -30,7 +30,9 @@ exports["only one connection should be opened on sequenced calls"] = t => {
     .listen(port, () => {
       env({
         url: "http://127.0.0.1:" + port + "/html",
-        created: () => {},
+        created() {
+          // required by jsdom, but actually what we're testing is on the server side
+        },
         features: {
           FetchExternalResources: ["script"],
           ProcessExternalResources: ["script"]
@@ -64,7 +66,9 @@ exports["each call should open a new connection if keepAlive is disabled"] = t =
       env({
         url: "http://127.0.0.1:" + port + "/html",
         agentOptions: { keepAlive: false },
-        created: () => {},
+        created() {
+          // required by jsdom, but actually what we're testing is on the server side
+        },
         features: {
           FetchExternalResources: ["script"],
           ProcessExternalResources: ["script"]
@@ -98,7 +102,9 @@ exports["each calls should open a new connection if pool is disabled"] = t => {
       env({
         url: "http://127.0.0.1:" + port + "/html",
         pool: false,
-        created: () => {},
+        created() {
+          // required by jsdom, but actually what we're testing is on the server side
+        },
         features: {
           FetchExternalResources: ["script"],
           ProcessExternalResources: ["script"]

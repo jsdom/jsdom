@@ -1,7 +1,9 @@
 "use strict";
 const Benchmark = require("benchmark");
 
-function noop() {}
+function noop() {
+  // intentional no-op function
+}
 
 module.exports = function jsdomBenchmark(optionsArg) {
   const options = Object.assign(

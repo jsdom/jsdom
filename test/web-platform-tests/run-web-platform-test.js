@@ -13,8 +13,9 @@ const createJsdom = require("./create-jsdom");
 
 module.exports = function (testDir) {
   if (inBrowserContext()) {
-    // TODO: browser support for running WPT
-    return () => {};
+    return () => {
+      // TODO: browser support for running WPT
+    };
   }
 
   const server = new EventEmitter();

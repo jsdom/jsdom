@@ -50,7 +50,9 @@ describe("jsdom/utils", () => {
       return expected;
     });
 
-    utils.defineSetter(o, "foo", () => { });
+    utils.defineSetter(o, "foo", () => {
+      // doesn't matter for this test
+    });
 
     const actual = o.foo;
     assert.equal(called, true);
@@ -103,7 +105,9 @@ describe("jsdom/utils", () => {
       actual = val;
     });
 
-    utils.defineGetter(o, "foo", () => { });
+    utils.defineGetter(o, "foo", () => {
+      // doesn't matter for this test
+    });
 
     o.foo = expected;
     assert.equal(called, true);

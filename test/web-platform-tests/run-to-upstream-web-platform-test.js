@@ -11,8 +11,9 @@ const createJsdom = require("./create-jsdom");
 
 module.exports = function (testDir) {
   if (inBrowserContext()) {
-    // TODO: browser support for running to-upstream
-    return () => {};
+    return () => {
+      // TODO: browser support for running to-upstream
+    };
   }
 
   const staticFileServer = st({ path: testDir, url: "/", passthrough: true });

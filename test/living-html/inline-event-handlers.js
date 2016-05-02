@@ -270,7 +270,9 @@ exports["proxied body/window event handlers: setting on body as properties refle
   const doc = jsdom();
 
   for (const name of proxied) {
-    function handler() { }
+    function handler() {
+      // doesn't matter for this test
+    }
 
     doc.body[name] = handler;
     t.equal(doc.body[name], handler, `${name} should be set on the body correctly`);

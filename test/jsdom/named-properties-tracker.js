@@ -19,13 +19,17 @@ describe("jsdom/named-properties-tracker", () => {
     const obj = {};
 
     assert.ok(NamedPropertiesTracker.get(obj) === null);
-    const tracker = NamedPropertiesTracker.create(obj, () => {});
+    const tracker = NamedPropertiesTracker.create(obj, () => {
+      // doesn't matter this test
+    });
     assert.ok(NamedPropertiesTracker.get(obj) === tracker);
   });
 
   specify("track() and untrack() should do nothing for empty names", () => {
     const obj = {};
-    const tracker = NamedPropertiesTracker.create(obj, () => {});
+    const tracker = NamedPropertiesTracker.create(obj, () => {
+      // doesn't matter for this test
+    });
 
     tracker.track(undefined, "foo");
     tracker.track(null, "foo");
@@ -146,7 +150,9 @@ describe("jsdom/named-properties-tracker", () => {
   });
 
   specify("a named property should not override properties from the prototype", () => {
-    function Abc() {}
+    function Abc() {
+      // dummy constructor
+    }
     Abc.prototype.foo = 12345;
     const obj = new Abc();
     const tracker = NamedPropertiesTracker.create(obj, () => "bar");
