@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array>
+		<string></string>
+	</array>
+	<key>name</key>
+	<string>Bikeshed</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>comment</key>
+			<string>Syntax production.</string>
+			<key>match</key>
+			<string>&lt;&lt;[^&gt;]+&gt;&gt;</string>
+			<key>name</key>
+			<string>string.quoted.double.csswg</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>{{</string>
+			<key>comment</key>
+			<string>IDL link.</string>
+			<key>end</key>
+			<string>\}\}</string>
+			<key>name</key>
+			<string>string.quoted.double.csswg</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>Bibliography autolinks.</string>
+			<key>match</key>
+			<string>\[\[[^\]]+\]\]</string>
+			<key>name</key>
+			<string>constant.other.biblioLink.csswg</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>Text macro.</string>
+			<key>match</key>
+			<string>\[[^\]]+\]</string>
+			<key>name</key>
+			<string>constant.language.csswg</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>''</string>
+			<key>comment</key>
+			<string>Maybe autolinks, and literal CSS code.</string>
+			<key>end</key>
+			<string>''</string>
+			<key>name</key>
+			<string>string.quoted.double.csswg</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>Property name.</string>
+			<key>match</key>
+			<string>(?&lt;!\w)'[^']+'</string>
+			<key>name</key>
+			<string>string.quoted.single.csswg</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>&lt;h\d</string>
+			<key>comment</key>
+			<string>Section heading. Using illegal to make them super stand out.</string>
+			<key>end</key>
+			<string>&lt;/h\d&gt;</string>
+			<key>name</key>
+			<string>invalid.illegal.heading.csswg</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>&lt;dfn[^&gt;]*&gt;</string>
+			<key>comment</key>
+			<string>Production definition.</string>
+			<key>end</key>
+			<string>&lt;/dfn&gt;</string>
+			<key>name</key>
+			<string>variable.parameter.definition.csswg</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>&lt;a[ &gt;]</string>
+			<key>comment</key>
+			<string>Links</string>
+			<key>end</key>
+			<string>&lt;/a&gt;</string>
+			<key>name</key>
+			<string>string.quoted.double.csswg</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>&lt;pre\s+class=.*?prod.*?&gt;</string>
+			<key>comment</key>
+			<string>A &lt;pre class='prod'&gt;, which contains grammar things that look a lot like autolinks.</string>
+			<key>end</key>
+			<string>&lt;/pre&gt;</string>
+			<key>name</key>
+			<string>entity.production.csswg</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#production</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#definition</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>&lt;pre\s+class=.*?metadata.*?&gt;</string>
+			<key>comment</key>
+			<string>A metadata block.</string>
+			<key>end</key>
+			<string>&lt;/pre&gt;</string>
+			<key>name</key>
+			<string>entity.metadata.csswg</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.other.knownKeyName.csswg</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>string.unquoted.csswg</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>^\s*(?i)(Title|Status|ED|Shortname|Level|Editor|Abstract|TR|Former Editor|Warning|Previous Version|At Risk|Group|Status Text|Ignored Terms|Link Defaults|Date|Deadline|Test Suite|Mailing List|Mailing List Archives|Issue Tracking|Use &lt;i&gt; Autolinks|No Editor|Default Biblio Status)\s*:\s*(.*)$</string>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>variable.other.customKeyName.csswg</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>string.unquoted.csswg</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>^\s*(![\w -]+)\s*:\s*(.*)$</string>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>invalid.illegal.unknownKeyName.csswg</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>^\s*([\w -]+)\s*:\s*.*$</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>&lt;pre\s+class=.*?(propdef|descdef).*?&gt;</string>
+			<key>comment</key>
+			<string>A property definition block.</string>
+			<key>end</key>
+			<string>&lt;/pre&gt;</string>
+			<key>name</key>
+			<string>entity.propdef.csswg</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.other.keyName.csswg</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>string.unquoted.csswg</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>^\s*(?i)(Name|Value|For|Initial|Applies to|Inherited|Percentages|Media|Computed value|Animatable|Canonical order)\s*:\s*(.*)$</string>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>variable.other.unknownKeyName.csswg</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>string.unquoted.csswg</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>^\s*([\w -]+)\s*:\s*(.*)$</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>&lt;/?[a-z]</string>
+			<key>comment</key>
+			<string>HTML tags.</string>
+			<key>end</key>
+			<string>&gt;</string>
+			<key>name</key>
+			<string>entity.name.tag.csswg</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>All the other text.</string>
+			<key>match</key>
+			<string>.</string>
+			<key>name</key>
+			<string>markup.raw.csswg</string>
+		</dict>
+	</array>
+	<key>repository</key>
+	<dict>
+		<key>definition</key>
+		<dict>
+			<key>begin</key>
+			<string>&lt;dfn( |&gt;)</string>
+			<key>end</key>
+			<string>&lt;/dfn&gt;</string>
+			<key>name</key>
+			<string>variable.parameter.definition.csswg</string>
+		</dict>
+		<key>production</key>
+		<dict>
+			<key>match</key>
+			<string>&lt;&lt;[^&gt;]+&gt;&gt;</string>
+			<key>name</key>
+			<string>constant.other.production.csswg</string>
+		</dict>
+	</dict>
+	<key>scopeName</key>
+	<string>source.csswg</string>
+	<key>uuid</key>
+	<string>7c40ac90-bd9b-11e2-9e96-0800200c9a66</string>
+</dict>
+</plist>
