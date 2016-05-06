@@ -316,111 +316,6 @@ describe("jsdom/miscellaneous", () => {
     assert.strictEqual(a.getAttributeNode("id").nodeValue, "123", "Attribute stringify");
   });
 
-  specify("mutation_events", () => {
-    const document = jsdom.jsdom();
-    let created = "";
-    let removed = "";
-    document.addEventListener("DOMNodeInserted", ev => {
-      created += ev.target.tagName;
-    });
-    document.addEventListener("DOMNodeRemoved", ev => {
-      removed += ev.target.tagName;
-    });
-    const h1 = document.createElement("h1");
-    const h2 = document.createElement("h2");
-    const h3 = document.createElement("h3");
-
-    document.body.appendChild(h2);
-    document.body.insertBefore(h1, h2);
-    document.body.insertBefore(h3, null);
-    assert.strictEqual("H2H1H3", created, "an event should be dispatched for each created element");
-
-    document.body.removeChild(h1);
-    document.body.insertBefore(h3, h2);
-    assert.strictEqual("H1H3", removed, "an event should be dispatched for each removed element");
-
-    let text = h2.innerHTML = "foo";
-    h2.addEventListener("DOMCharacterDataModified", ev => {
-      text = ev.target.nodeValue;
-    });
-    h2.firstChild.nodeValue = "bar";
-    assert.equal(h2.innerHTML, text, "ChactaterData changes should be captured");
-
-    let event;
-    h2.setAttribute("class", "foo");
-    document.addEventListener("DOMAttrModified", ev => {
-      event = ev;
-    });
-    h2.setAttribute("class", "bar");
-    assert.ok(event, "Changing an attribute should trigger DOMAttrModified");
-    assert.equal(event.attrName, "class", "attrName should be class");
-    assert.equal(event.prevValue, "foo", "prevValue should be foo");
-    assert.equal(event.newValue, "bar", "newValue should be bar");
-
-    event = false;
-    h2.setAttribute("class", "bar");
-    assert.ok(!event, "Setting the same value again should not trigger an event");
-
-    h2.removeAttribute("class");
-    assert.ok(event, "Removing an attribute should trigger DOMAttrModified");
-    assert.equal(event.attrName, "class", "attrName should be class");
-    assert.equal(event.prevValue, "bar", "prevValue should be bar");
-  });
-
-  specify("DomSubtreeModifiedEvents", () => {
-    const document = jsdom.jsdom();
-    let firedAfterAddedChild = false;
-    let firedAfterAddedTextNode = false;
-    let firedAfterAddingAttr = false;
-    let firedAfterChangingAttr = false;
-    let firedAfterRemovedAttr = false;
-
-    document.addEventListener("DOMSubtreeModified", () => {
-      firedAfterAddedChild = true;
-    });
-    const div = document.createElement("div");
-    document.body.appendChild(div);
-    assert.ok(firedAfterAddedChild, "DOMSubtreeModified event should be fired for each created element");
-
-    document.addEventListener("DOMSubtreeModified", () => {
-      firedAfterAddedTextNode = true;
-    });
-    const textNode = document.createTextNode("text node test");
-    document.getElementsByTagName("div")[0].appendChild(textNode);
-    assert.ok(firedAfterAddedTextNode, "DOMSubtreeModified event should be fired when texnode value changed");
-    document.addEventListener("DOMSubtreeModified", () => {
-      firedAfterAddingAttr = true;
-    });
-    document.getElementsByTagName("div")[0].setAttribute("class", "test-class");
-    assert.ok(firedAfterAddingAttr, "DOMSubtreeModified event should be fired when attribute added");
-
-    document.addEventListener("DOMSubtreeModified", () => {
-      firedAfterChangingAttr = true;
-    });
-    document.getElementsByTagName("div")[0].setAttribute("class", "test-class-2");
-    assert.ok(firedAfterChangingAttr, "DOMSubtreeModified event should be fired when attribute value changed");
-
-    firedAfterChangingAttr = false;
-    document.getElementsByTagName("div")[0].setAttribute("class", "test-class-2");
-    assert.ok(
-      firedAfterChangingAttr === false,
-      "DOMSubtreeModified not be fired when new attribute value same as old one"
-    );
-
-    document.addEventListener("DOMSubtreeModified", () => {
-      firedAfterRemovedAttr = true;
-    });
-    document.getElementsByTagName("div")[0].removeAttribute("class");
-    assert.ok(firedAfterRemovedAttr, "DOMSubtreeModified event should be fired when attribute removed");
-
-    firedAfterRemovedAttr = false;
-    document.getElementsByTagName("div")[0].removeAttribute("class");
-    assert.ok(
-      firedAfterRemovedAttr === false,
-      "DOMSubtreeModified not be fired when try to remove attribute does not exists"
-    );
-  });
-
   specify("childNodes_updates_on_insertChild", () => {
     const window = jsdom.jsdom("").defaultView;
     const div = window.document.createElement("div");
@@ -981,7 +876,6 @@ describe("jsdom/miscellaneous", () => {
           features: {
             FetchExternalResources: ["script", "frame", "link"],
             ProcessExternalResources: ["script", "frame", "link"],
-            MutationEvents: "2.0",
             QuerySelector: false
           }
         },

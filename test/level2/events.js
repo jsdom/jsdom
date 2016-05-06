@@ -72,7 +72,6 @@ exports['EventTarget interface'] = function (test) {
 exports['create event with each event type'] = function(test){
   var doc = require('../level1/core/files/hc_staff.xml').hc_staff(),
       event_types = {'Events': doc.defaultView.Event,
-                     'MutationEvents': doc.defaultView.MutationEvent,
                      'UIEvents': doc.defaultView.UIEvent,
                      'MouseEvents': doc.defaultView.MouseEvent ,
                      'HTMLEvents': doc.defaultView.Event};
@@ -92,9 +91,6 @@ exports['event interface eventInit parameter'] = function (test) {
   testEventConstructor(doc.defaultView.Event);
   testEventConstructor(doc.defaultView.UIEvent);
   testEventConstructor(doc.defaultView.MouseEvent);
-  test.throws(function () {
-    new doc.defaultView.MutationEvent('myevent');
-  }, TypeError);
 
   test.done();
 
@@ -185,7 +181,7 @@ exports['dispatch event'] = testcase({
 
   'a created but not initialized event passed to dispatchEvent': function (test) {
     var doc = this.doc,
-        event_types = ['Events', 'MutationEvents', 'UIEvents', 'MouseEvents', 'HTMLEvents'];
+        event_types = ['Events', 'UIEvents', 'MouseEvents', 'HTMLEvents'];
     test.expect(event_types.length);
     event_types.forEach(function(type){
       test.throws(function(){ doc.dispatchEvent(doc.createEvent(type)) }, doc.defaultView.DOMException, 'should throw an exception for ' + type);
@@ -301,14 +297,14 @@ exports['dispatch event'] = testcase({
   }
 })
 
-// The Event.initEvent method is called for event returned by DocumentEvent.createEvent("Events") and DocumentEvent.createEvent("MutationEvents")
+// The Event.initEvent method is called for event returned by DocumentEvent.createEvent("Events")
 // The state is checked to see if it reflects the parameters.
 // @author Curt Arnold
 // @see http://www.w3.org/TR/DOM-Level-2-Events/events#Events-Event-initEvent
 exports['init event'] = testcase({
   setUp: function(cb){
     var doc = require('../level1/core/files/hc_staff.xml').hc_staff();
-    this._events = ['Events', 'MutationEvents'].map(function(t){ return(doc.createEvent(t)); })
+    this._events = ['Events'].map(function(t){ return(doc.createEvent(t)); })
     cb();
   },
 
@@ -318,7 +314,7 @@ exports['init event'] = testcase({
   },
 
   'set state from params, bubble no cancel': function (test) {
-    test.expect(8);
+    test.expect(4);
     this._events.forEach(function(event){
       test.notEqual(event, null, 'event should not be null for ' + event.eventType);
       event.initEvent('rotate', true, false);
@@ -330,7 +326,7 @@ exports['init event'] = testcase({
   },
 
   'set state from params, cancel no bubble': function (test) {
-    test.expect(8);
+    test.expect(4);
     this._events.forEach(function(event){
       test.notEqual(event, null, 'event should not be null for' + event.eventType);
       event.initEvent('rotate', false, true);
@@ -342,7 +338,7 @@ exports['init event'] = testcase({
   },
 
   'initEvent called multiple times, final time is definitive': function (test) {
-    test.expect(14);
+    test.expect(7);
     this._events.forEach(function(event){
       test.notEqual(event, null, 'event should not be null for ' + event.eventType);
       // rotate
