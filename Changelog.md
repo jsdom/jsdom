@@ -1,3 +1,22 @@
+## 9.0.0
+
+This major release removes jsdom's support for mutation events. Mutation events were never well-specified, and the modern DOM Standard omits them in the hopes that they can be removed from browsers (although this has not yet happened in major browser engines). We had hoped to implement their modern alternative, mutation observers, before performing this removal, to give jsdom users the same capabilities.
+
+However, recent performance investigations revealed that mutation events were the major bottleneck in most jsdom operations; tools like [ecmarkup](https://github.com/bterlson/ecmarkup) which make heavy use of jsdom had their running time halved by removing mutation events, which add serious overhead to every DOM mutation. As such, we are doing a major release with them removed, so that jsdom users can benefit from this massive performance gain.
+
+Mutation observer support is [in progress](https://github.com/tmpvar/jsdom/issues/639); please use the GitHub reactions feature to vote on that issue if you are impacted by this removal and are hoping for mutation observer support to replace it.
+
+Your normal change log follows:
+
+* **Removed mutation events**, as discussed above.
+* Added the `DOMTokenList.prototype.replace` method. (nicolashenry)
+* Updated `DOMTokenList.prototype.contains` to no longer validate its arguments, as per the latest spec. (nicolashenry)
+* Made various improvements to XMLHttpRequest (nicolashenry):
+  - Added the `responseURL` property.
+  - Updated methods, headers, and header values to use the `ByteString` algorithm.
+  - Fixed the default `statusText` to be `""` instead of `"OK"`.
+* Fixed the `Blob` constructor's `type` validation. (nicolashenry)
+
 ## 8.5.0
 
 * Added encoding handling (nicolashenry)
@@ -94,7 +113,7 @@ Although normally jsdom does not mark a new major release for changes that simpl
 
 * Reimplemented `Location`, `History`, and `HTMLHyperlinkElementUtils` (used by both `HTMLAnchorElement` and `HTMLAreaElement`) according to the latest specs, and using the latest [whatwg-url](https://github.com/jsdom/whatwg-url) package. This greatly improves our correctness on URL resolution and navigation (to the extent we support navigation, i.e. `pushState` and changing the hash). It should also improve parsing speed as we no longer parse and resolve URLs during parsing.
 * Added `Element.prototype.insertAdjacentHTML`. (kasperisager)
-* Added `Node.prototype.adoptNode`, and adopt nodes during insertion instead of throwing `"WrongDocumentError"`s`. (dmethvin)
+* Added `Node.prototype.adoptNode`, and adopt nodes during insertion instead of throwing `"WrongDocumentError"`s. (dmethvin)
 * Added a stub `Element.prototype.getClientRects` to match our stub `getBoundingClientRect`.
 * Fixed `setTimeout` and `setInterval` to return numeric IDs, instead of objects. (alvarorahul)
 * Fixed `setTimeout` and `setInterval` to accept string arguments to eval, and to pass along extra arguments after the first two.
