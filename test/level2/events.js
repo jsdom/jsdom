@@ -75,7 +75,7 @@ exports['create event with each event type'] = function(test){
                      'UIEvents': doc.defaultView.UIEvent,
                      'MouseEvents': doc.defaultView.MouseEvent ,
                      'HTMLEvents': doc.defaultView.Event};
-  test.expect(10);
+  test.expect(8);
   for (var type in event_types) {
     var event = doc.createEvent(type);
     test.notEqual(event, null, "should not be null for " + type);
