@@ -51,5 +51,6 @@ doConversion(path.resolve(__dirname, "../../lib/jsdom/living/traversal"))
   .then(() => doConversion(path.resolve(__dirname, "../../lib/jsdom/living/events")))
   .then(() => doConversion(path.resolve(__dirname, "../../lib/jsdom/living/attributes")))
   .then(() => doConversion(path.resolve(__dirname, "../../lib/jsdom/living/window")))
+  .then(() => doConversion(path.resolve(__dirname, "../../lib/jsdom/living/xpath")))
   .then(() => doConversion(path.resolve(__dirname, "../../lib/jsdom/living/nodes")))
   .done();
