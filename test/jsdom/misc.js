@@ -75,6 +75,19 @@ describe("jsdom/miscellaneous", () => {
     assert.equal(doc.referrer, "http://example.com");
   });
 
+  specify("DOMContentLoaded should not be fired after window.close() (GH-1479)", () => {
+    const doc = jsdom.jsdom(`<html><head>
+      <script>
+        window.a = 0;
+        document.addEventListener("DOMContentLoaded", () => window.a++, false);
+      </script>
+      </head><body></body></html>`);
+    const window = doc.defaultView;
+
+    window.close();
+    assert.equal(window.a, 1);
+  });
+
   specify("jquerify_url", { async: true }, t => {
     const jQueryUrl = "http://code.jquery.com/jquery-1.4.4.min.js";
     jsdom.jQueryify(tmpWindow(), jQueryUrl, (window, jQuery) => {
