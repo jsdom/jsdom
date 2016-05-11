@@ -179,6 +179,7 @@ describe("Web Platform Tests", () => {
     "html/webappapis/timers/evil-spec-example.html",
 
     "dom/events/Event-constants.html",
+    "dom/events/Event-constructors.html",
     "dom/events/Event-defaultPrevented.html",
     "dom/events/Event-dispatch-bubbles-false.html",
     "dom/events/Event-dispatch-bubbles-true.html",
