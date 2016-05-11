@@ -11,18 +11,6 @@
 test(() => {
   const div = document.createElement("div");
   document.body.appendChild(div);
-  const e = new MouseEvent("mouseover", { bubbles: true, cancelable: true });
-
-  assert_equals(e.defaultPrevented, false);
-  div.onmouseover = () => 42;
-  div.dispatchEvent(e);
-  assert_equals(e.defaultPrevented, false);
-
-}, "returning non-Boolean truthy from a mouseover inline event handler property does nothing");
-
-test(() => {
-  const div = document.createElement("div");
-  document.body.appendChild(div);
   const e = new MouseEvent("click", { bubbles: true, cancelable: true });
 
   assert_equals(e.defaultPrevented, false);
