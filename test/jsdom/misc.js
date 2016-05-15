@@ -88,6 +88,10 @@ describe("jsdom/miscellaneous", () => {
     assert.equal(window.a, 1);
   });
 
+  specify("bad <style> tag contents do not cause exceptions (GH-1477)", () => {
+    assert.doesNotThrow(() => jsdom.jsdom("<style>[}]</style>"));
+  });
+
   specify("jquerify_url", { async: true }, t => {
     const jQueryUrl = "http://code.jquery.com/jquery-1.4.4.min.js";
     jsdom.jQueryify(tmpWindow(), jQueryUrl, (window, jQuery) => {

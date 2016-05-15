@@ -498,7 +498,7 @@ var virtualConsole = jsdom.getVirtualConsole(window);
 
 Besides the usual events, corresponding to `console` methods, the virtual console is also used for reporting errors from jsdom itself. This is similar to how error messages often show up in web browser consoles, even if they are not initiated by `console.error`. So far, the following errors are output this way:
 
-- Errors loading external resources (scripts, stylesheets, frames, and iframes)
+- Errors loading or parsing external resources (scripts, stylesheets, frames, and iframes)
 - Script execution errors that are not handled by a window `onerror` event handler that returns `true` or calls `event.preventDefault()`
 - Calls to methods, like `window.alert`, which jsdom does not implement, but installs anyway for web compatibility
 
