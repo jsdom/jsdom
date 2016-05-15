@@ -22,6 +22,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "domparsing/insert-adjacent.html",
     "html/dom/elements/elements-in-the-dom/click-in-progress-flag.html",
     "html/editing/focus/focus-management/active-element.html",
+    "html/semantics/forms/the-form-element/form-action.html",
     "html/semantics/forms/the-input-element/checkbox-click-events.html",
     "html/semantics/forms/the-input-element/disabled-checkbox.html",
     "html/semantics/forms/the-input-element/radio-input-cancel.html",

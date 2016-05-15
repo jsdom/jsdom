@@ -6796,33 +6796,6 @@ exports.tests = {
 
   /**
    *
-   The action attribute specifies the server-side form handler.
-   Retrieve the action attribute and examine its value.
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-74049184
-   */
-  HTMLFormElement05: function(test) {
-    var success;
-    var nodeList;
-    var testNode;
-    var vaction;
-    var doc;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("form");
-    nodeList = doc.getElementsByTagName("form");
-    test.equal(nodeList.length, 1, 'Asize');
-    testNode = nodeList.item(0);
-    vaction = testNode.action;
-    test.equal(vaction, './files/getData.pl', 'actionLink');
-    test.done();
-  },
-
-  /**
-   *
    The enctype attribute specifies the content of the submitted form.
    Retrieve the enctype attribute and examine its value.
    * @author NIST
@@ -17321,35 +17294,6 @@ exports.tests = {
     formNode = testNode.form;
     vfname = formNode.id;
     test.equal(vfname, "form2", "formLink");
-    test.done();
-  },
-
-  /**
-   *
-   The value of attribute action of the form element which contains this button is read and checked against the expected value
-   * @author Netscape
-   * @author Sivakiran Tummala
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-71254493
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-74049184
-   */
-  button03: function(test) {
-    var success;
-    var nodeList;
-    var testNode;
-    var formNode;
-    var vfaction;
-    var doc;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("button");
-    nodeList = doc.getElementsByTagName("button");
-    test.equal(nodeList.length, 2, 'Asize');
-    testNode = nodeList.item(0);
-    formNode = testNode.form;
-    vfaction = formNode.action;
-    test.equal(vfaction, "...", "formLink");
     test.done();
   },
 

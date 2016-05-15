@@ -1,7 +1,7 @@
 [OverrideBuiltins]
 interface HTMLFormElement : HTMLElement {
   [Reflect=accept_charset] attribute DOMString acceptCharset;
-  [Reflect] attribute DOMString action;
+  attribute DOMString action;
 //  attribute DOMString autocomplete;
   attribute DOMString enctype;
 //  attribute DOMString encoding;
