@@ -22,7 +22,7 @@
     "no-empty-character-class": "error",
     "no-ex-assign": "error",
     "no-extra-boolean-cast": "error",
-    "no-extra-parens": "off", // ["error", "all", { "conditionalAssign": false, "nestedBinaryExpressions": false }], // https://github.com/eslint/eslint/issues/6036, https://github.com/eslint/eslint/issues/6028
+    "no-extra-parens": ["error", "all", { "conditionalAssign": false, "nestedBinaryExpressions": false, "returnAssign": false }],
     "no-extra-semi": "error",
     "no-func-assign": "error",
     "no-inner-declarations": "off",
@@ -186,6 +186,7 @@
     "no-unneeded-ternary": "error",
     "no-whitespace-before-property": "error",
     "object-curly-spacing": ["error", "always"],
+    "object-property-newline": "off",
     "one-var": ["error", "never"],
     "one-var-declaration-per-line": ["error", "initializations"],
     "operator-assignment": ["error", "always"],
@@ -224,7 +225,7 @@
     "no-var": "error",
     "object-shorthand": "error",
     "prefer-arrow-callback": "error",
-    "prefer-const": "error",
+    "prefer-const": ["error", { "ignoreReadBeforeAssign": true }],
     "prefer-reflect": "off",
     "prefer-rest-params": "off",
     "prefer-spread": "off", // TODO with new Node versions

@@ -40,7 +40,7 @@
     "browserify": "^13.0.0",
     "chai": "^3.5.0",
     "colors": "^1.0.3",
-    "eslint": "^2.9.0",
+    "eslint": "^2.10.1",
     "eslint-plugin-html": "^1.0.4",
     "fs-readdir-recursive": "^1.0.0",
     "http-server": "^0.8.0",
