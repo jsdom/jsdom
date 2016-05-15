@@ -34,6 +34,7 @@ test(() => {
 test(() => {
 
   const el = document.querySelector("#parent");
+  el.tabIndex = 0;
   el.focus();
   assert_equals(document.activeElement, el);
 

@@ -103,6 +103,9 @@ describe("Web Platform Tests", () => {
     "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-02.html",
     "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-03.html",
     "html/dom/elements/global-attributes/classlist-nonstring.html",
+    "html/editing/focus/focus-management/focus-events.html",
+    "html/editing/focus/focus-management/focus-event-targets-simple.html",
+    "html/editing/focus/sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-default-value.html",
     // "html/infrastructure/urls/terminology-0/document-base-url.html", // we don't support srcdoc <base> correctly
     "html/semantics/forms/the-input-element/selection.html",
     "html/semantics/scripting-1/the-script-element/script-language-type.html",
