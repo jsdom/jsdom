@@ -1,3 +1,20 @@
+## 9.1.0
+
+* Added a somewhat-reasonable implementation of focus and focus events. Although the full complexity of focus is not implemented, the following improvements have been made:
+  - Only elements which are focusable can be focused.
+  - Added the `FocusEvent` class, and now `focus` and `blur` events are fired appropriately.
+  - `tabIndex` now returns `0` by default for focusable elements.
+* Reimplemented `navigator` to be to-spec:
+  - Added `appCodeName`, `product`, `productSub`, `vendor`, and `vendorSub`; also changes `userAgent`, `appName`, `platform`, and `version` to be more browser-like instead of based on various Node.js information.
+  - Added `language` and `languages`.
+  - Added `onLine`.
+  - Added `javaEnabled()`.
+  - Removed `noUI`.
+* Fixed `formEl.action` to return a value resolved relative to the document URL, or to return the document URL if the corresponding attribute is missing or empty.
+* Sped up XPath execution. (vsemozhetbyt)
+* Fixed `window.close()` not correctly clearing event listeners on the document. (Ojek)
+* Fixed a regression introduced in 9.0.0 where invalid CSS would cause a crash while attempting to parse it. Instead, a `"jsdomError"` will now be emitted to the virtual console.
+
 ## 9.0.0
 
 This major release removes jsdom's support for mutation events. Mutation events were never well-specified, and the modern DOM Standard omits them in the hopes that they can be removed from browsers (although this has not yet happened in major browser engines). We had hoped to implement their modern alternative, mutation observers, before performing this removal, to give jsdom users the same capabilities.

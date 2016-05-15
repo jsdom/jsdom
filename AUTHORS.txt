@@ -137,6 +137,7 @@ Nick Stenning <nick@whiteink.com>
 Nicolas HENRY <icewil@gmail.com>
 Nicolas LaCasse <nicolas.lacasse@gmail.com>
 Nik Nyby <niknyby@gmail.com>
+Ojek <ojek25@gmail.com>
 Olivier El Mekki <olivier@el-mekki.com>
 Paul O’Shannessy <paul@oshannessy.com>
 peller <github@peller.org>
@@ -189,6 +190,7 @@ Vadim Baryshev <vadimbaryshev@gmail.com>
 Vincent Desjardins <vdesjardins@gmail.com>
 Vincent Siao <vincent@asana.com>
 VinothKumar Raman <vinoth@indix.com>
+vsemozhetbyt <vsemozhetbyt@gmail.com>
 Vytautas Jakutis <vytautas@jakutis.lt>
 waslogic <waslogic@gmail.com>
 Wei Dai <x@wei23.net>
