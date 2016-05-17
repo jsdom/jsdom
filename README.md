@@ -536,6 +536,14 @@ jsdom.reconfigureWindow(window, { top: myFakeTopForTesting });
 
 In the future we may expand `reconfigureWindow` to allow overriding other `[Unforgeable]` properties. Let us know if you need this capability.
 
+#### Changing the URL of an existing jsdom `Window` instance
+
+At present jsdom does not handle navigation (such as setting `window.location.href === "https://example.com/"`). However, if you'd like to change the URL of an existing `Window` instance (such as for testing purposes), you can use the `jsdom.changeURL` method:
+
+```js
+jsdom.changeURL(window, "https://example.com/");
+```
+
 ## What Standards Does jsdom Support, Exactly?
 
 Our mission is to get something very close to a headless browser, with emphasis more on the DOM/HTML side of things than the CSS side. As such, our primary goals are supporting [The DOM Standard](http://dom.spec.whatwg.org/) and [The HTML Standard](http://www.whatwg.org/specs/web-apps/current-work/multipage/). We only support some subset of these so far; in particular we have the subset covered by the outdated DOM 2 spec family down pretty well. We're slowly including more and more from the modern DOM and HTML specs, including some `Node` APIs, `querySelector(All)`, attribute semantics, the history and URL APIs, and the HTML parsing algorithm.

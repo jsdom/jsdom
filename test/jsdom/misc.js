@@ -321,6 +321,39 @@ describe("jsdom/miscellaneous", () => {
     testBase();
   });
 
+  specify("jsdom.changeURL()", () => {
+    const window = jsdom.jsdom("", { url: "http://example.com/" }).defaultView;
+    assert.strictEqual(window.document.URL, "http://example.com/");
+
+    function testPass(urlString) {
+      const suffix = urlString.slice(-1) === "/" ? "" : "/";
+
+      jsdom.changeURL(window, urlString);
+      assert.strictEqual(window.document.URL, urlString + suffix);
+    }
+
+    function testFail(urlString, expected) {
+      assert.throws(() => {
+        jsdom.changeURL(window, urlString);
+      });
+      assert.strictEqual(window.document.URL, expected);
+    }
+
+    testPass("http://localhost");
+    testPass("http://www.localhost");
+    testPass("http://www.localhost.com");
+    testPass("https://localhost/");
+    testPass("file://path/to/my/location/");
+    testPass("http://localhost.subdomain.subdomain/");
+    testPass("http://localhost:3000/");
+    testPass("http://localhost/");
+
+    // "Expected" based on current window.document.URL, so last successful changeURL()
+    testFail("fail", "http://localhost/");
+    testFail("/fail", "http://localhost/");
+    testFail("fail.com", "http://localhost/");
+  });
+
   specify("numeric_values", () => {
     const html = `<html><body><td data-year="2011" data-month="0" data-day="9">
                   <a href="#" class=" ">9</a>
