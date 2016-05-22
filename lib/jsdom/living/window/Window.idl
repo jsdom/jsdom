@@ -1,0 +1,63 @@
+[PrimaryGlobal, LegacyUnenumerableNamedProperties]
+/*sealed*/ interface Window : EventTarget {
+  // the current browsing context
+  [Unforgeable] readonly attribute WindowProxy window;
+  [Replaceable] readonly attribute WindowProxy self;
+  [Unforgeable] readonly attribute Document document;
+  attribute DOMString name;
+  [PutForwards=href, Unforgeable] readonly attribute Location location;
+  readonly attribute History history;
+  readonly attribute CustomElementsRegistry customElements;
+  [Replaceable] readonly attribute BarProp locationbar;
+  [Replaceable] readonly attribute BarProp menubar;
+  [Replaceable] readonly attribute BarProp personalbar;
+  [Replaceable] readonly attribute BarProp scrollbars;
+  [Replaceable] readonly attribute BarProp statusbar;
+  [Replaceable] readonly attribute BarProp toolbar;
+  attribute DOMString status;
+  void close();
+  readonly attribute boolean closed;
+  void stop();
+  void focus();
+  void blur();
+
+  // other browsing contexts
+  [Replaceable] readonly attribute WindowProxy frames;
+  [Replaceable] readonly attribute unsigned long length;
+  [Unforgeable] readonly attribute WindowProxy top;
+  attribute any opener;
+  [Replaceable] readonly attribute WindowProxy parent;
+  readonly attribute Element? frameElement;
+  WindowProxy? open(optional USVString url = "about:blank", optional DOMString target = "_blank", [TreatNullAs=EmptyString] optional DOMString features = "", optional boolean replace = false);
+  getter object (DOMString name);
+  // Since this is the global object, the IDL named getter adds a NamedPropertiesObject exotic
+  // object on the prototype chain. Indeed, this does not make the global object an exotic object.
+  // Indexed access is taken care of by the WindowProxy exotic object.
+
+  // the user agent
+  readonly attribute Navigator navigator;
+  readonly attribute ApplicationCache applicationCache;
+
+  // user prompts
+  void alert();
+  void alert(DOMString message);
+  boolean confirm(optional DOMString message = "");
+  DOMString? prompt(optional DOMString message = "", optional DOMString default = "");
+  void print();
+
+  unsigned long requestAnimationFrame(FrameRequestCallback callback);
+  void cancelAnimationFrame(unsigned long handle);
+
+  void postMessage(any message, USVString targetOrigin, optional sequence<object> transfer = []);
+
+  // also has obsolete members
+};
+Window implements GlobalEventHandlers;
+Window implements WindowEventHandlers;
+
+partial interface Window {
+  void captureEvents();
+  void releaseEvents();
+
+  [Replaceable, SameObject] readonly attribute External external;
+};
