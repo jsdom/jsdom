@@ -1224,5 +1224,51 @@ describe("jsdom/miscellaneous", () => {
         });
       });
     });
+
+    specify("xhr_progress_crossorigin", { async: true }, t => {
+      const html = "<!DOCTYPE html><html><body></body></html>";
+
+      const server = http.createServer((req, res) => {
+        switch (req.url) {
+          case "/": {
+            res.writeHead(200, { "Content-Length": html.length });
+            res.end(html);
+            break;
+          }
+          case "/foo.txt": {
+            const text = "Hello world";
+            res.writeHead(200, { "Content-Length": text.length, "Access-Control-Allow-Origin": "*" });
+            res.end(text);
+            break;
+          }
+        }
+      });
+
+      server.listen(8001, "127.0.0.1", () => {
+        jsdom.env({
+          url: "http://127.0.0.1:8001",
+          done(err, window) {
+            assert.ifError(err);
+
+            const xhr = new window.XMLHttpRequest();
+
+            xhr.onprogress = pe => {
+              assert.ok(pe.loaded >= 0, "loaded is initialize to the number of HTTP entity body bytes transferred.");
+              assert.ok(pe.lengthComputable, "lengthComputable is true.");
+              assert.notEqual(pe.total, 0, "total is not zero.");
+              assert.equal(xhr.getResponseHeader("Content-Length"), null, "Content-Length header should be null");
+            };
+
+            xhr.onloadend = () => {
+              server.close();
+              t.done();
+            };
+
+            xhr.open("GET", "http://localhost:8001/foo.txt", true);
+            xhr.send(null);
+          }
+        });
+      });
+    });
   }); // describe("node specific tests")
 });
