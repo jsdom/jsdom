@@ -427,7 +427,12 @@ describe("Web Platform Tests", () => {
     // "cors/simple-requests.htm", // slow synchronous requests cause a timeout on an asynchronous test too
     "cors/status-async.htm",
     "cors/status-preflight.htm",
-    "cors/status.htm"
+    "cors/status.htm",
+
+    "progress-events/constructor.html",
+    // "progress-events/interface.html", // delete ProgressEvent.length don't throw
+    "progress-events/tests/submissions/Samsung/firing-events-http-content-length.html",
+    "progress-events/tests/submissions/Samsung/firing-events-http-no-content-length.html"
   ]
   .forEach(runWebPlatformTest);
 });
