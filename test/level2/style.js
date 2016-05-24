@@ -475,6 +475,13 @@ exports.tests = {
     t.done();
   },
 
+  "StyleSheetList.prototype.item returns null on index out of bounds": t => {
+    const document = jsdom.jsdom();
+    t.strictEqual(document.styleSheets[0], undefined);
+    t.strictEqual(document.styleSheets.item(0), null);
+    t.done();
+  },
+
   "setting background to null works correctly (GH-1499)": t => {
     const document = jsdom.jsdom();
     document.body.innerHTML = `<div id="ctrl" style="background:#111;border:1px"></div>`;
