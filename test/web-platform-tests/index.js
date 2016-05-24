@@ -187,7 +187,7 @@ describe("Web Platform Tests", () => {
     "dom/events/Event-dispatch-reenter.html",
     "dom/events/Event-dispatch-target-moved.html",
     "dom/events/Event-dispatch-target-removed.html",
-    // "dom/events/Event-dispatch-throwing.html", // unclear why failing
+    "dom/events/Event-dispatch-throwing.html",
     "dom/events/Event-init-while-dispatching.html",
     "dom/events/Event-initEvent.html",
     "dom/events/Event-propagation.html",
