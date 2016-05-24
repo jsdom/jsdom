@@ -59,6 +59,7 @@ fegs <ang0123dev@gmail.com>
 Felix Böhm <me@feedic.com>
 Felix Gnass <fgnass@gmail.com>
 fr0z3nk0 <peter.culak@ymail.com>
+Francis Saul <francis@mummybot.com>
 Frederic Hemberger <mail@frederic-hemberger.de>
 FrozenCow <frozencow@gmail.com>
 Gary Court <gary.court@gmail.com>

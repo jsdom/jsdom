@@ -1,3 +1,9 @@
+## 9.2.0
+
+* Added `jsdom.changeURL(window, newURL)` for allowing you to override a window's existing URL. (mummybot)
+* Fixed the `proxy` option to be applied to all requests; previously it was not always passed through. (nicolashenry)
+* Fixed `XMLHttpRequest` response header filtering for cross-origin requests; this also fixes `ProgressEvent`s fired from such XHRs. (nicolashenry)
+
 ## 9.1.0
 
 * Added a somewhat-reasonable implementation of focus and focus events. Although the full complexity of focus is not implemented, the following improvements have been made:
