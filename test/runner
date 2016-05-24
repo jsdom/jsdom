@@ -57,7 +57,6 @@ var files = [
   "living-html/htmlimageelement.js",
   "living-html/htmlinputelement.js",
   "living-html/htmloptionelement.js",
-  "living-html/htmltextareaelement.js",
   "living-html/htmlformelement.js",
   "living-html/inline-event-handlers.js",
   "living-html/location.js",
