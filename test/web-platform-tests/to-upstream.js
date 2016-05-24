@@ -23,6 +23,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "html/dom/elements/elements-in-the-dom/click-in-progress-flag.html",
     "html/editing/focus/focus-management/active-element.html",
     "html/editing/focus/focus-management/focus-on-all-elements.html",
+    "html/semantics/forms/resetting-a-form/reset-form-2.html",
     "html/semantics/forms/the-form-element/form-action.html",
     "html/semantics/forms/the-input-element/checkbox-click-events.html",
     "html/semantics/forms/the-input-element/disabled-checkbox.html",
