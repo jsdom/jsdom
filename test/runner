@@ -50,7 +50,6 @@ var files = [
   "living-dom/non-document-type-child-node.js",
   "living-html/cookie.js",
   "living-html/current-script.js",
-  "living-html/focus.js",
   "living-html/htmlanchorelement.js",
   "living-html/htmlbuttonelement.js",
   "living-html/htmlelement.js",
