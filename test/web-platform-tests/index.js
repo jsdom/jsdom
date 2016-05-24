@@ -108,6 +108,12 @@ describe("Web Platform Tests", () => {
     "html/editing/focus/sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-default-value.html",
     // "html/infrastructure/urls/terminology-0/document-base-url.html", // we don't support srcdoc <base> correctly
     "html/semantics/forms/the-input-element/selection.html",
+    "html/semantics/document-metadata/the-base-element/base_about_blank.html",
+    "html/semantics/document-metadata/the-base-element/base_href_empty.html",
+    "html/semantics/document-metadata/the-base-element/base_href_invalid.html",
+    "html/semantics/document-metadata/the-base-element/base_href_unspecified.html",
+    // "html/semantics/document-metadata/the-base-element/base_multiple.html", // we don't support navigation via <a target>
+    // "html/semantics/document-metadata/the-base-element/base_srcdoc.html", // we don't support srcdoc yet
     "html/semantics/scripting-1/the-script-element/script-language-type.html",
     "html/semantics/scripting-1/the-script-element/script-languages-01.html",
     // "html/semantics/scripting-1/the-script-element/script-languages-02.html", // our script execution timing is off; see discussion in https://github.com/tmpvar/jsdom/pull/1406
