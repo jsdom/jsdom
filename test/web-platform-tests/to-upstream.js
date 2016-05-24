@@ -25,6 +25,8 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "html/editing/focus/focus-management/focus-on-all-elements.html",
     "html/semantics/forms/resetting-a-form/reset-form-2.html",
     "html/semantics/forms/the-form-element/form-action.html",
+    "html/semantics/forms/the-button-element/button-click-submits.html",
+    "html/semantics/forms/the-button-element/button-type.html",
     "html/semantics/forms/the-input-element/checkbox-click-events.html",
     "html/semantics/forms/the-input-element/disabled-checkbox.html",
     "html/semantics/forms/the-input-element/radio-input-cancel.html",

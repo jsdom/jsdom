@@ -51,7 +51,6 @@ var files = [
   "living-html/cookie.js",
   "living-html/current-script.js",
   "living-html/htmlanchorelement.js",
-  "living-html/htmlbuttonelement.js",
   "living-html/htmlelement.js",
   "living-html/htmlcanvaselement.js",
   "living-html/htmlimageelement.js",
