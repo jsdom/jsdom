@@ -473,5 +473,11 @@ exports.tests = {
     }
 
     t.done();
+  },
+  'StyleSheetList.prototype.item returns null on index out of bounds': t => {
+    const document = jsdom.jsdom();
+    t.strictEqual(document.styleSheets[0], undefined);
+    t.strictEqual(document.styleSheets.item(0), null);
+    t.done();
   }
 };
