@@ -485,5 +485,16 @@ exports.tests = {
     t.strictEqual(div.style.background, "");
 
     t.done();
+  },
+
+  "setting width to auto works correctly (GH-1458)": t => {
+    const document = jsdom.jsdom();
+
+    document.body.style.width = "auto";
+
+    t.strictEqual(document.body.style.width, "auto");
+    t.strictEqual(document.body.style.cssText, "width: auto;");
+
+    t.done();
   }
 };
