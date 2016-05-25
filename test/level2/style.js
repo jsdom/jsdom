@@ -473,5 +473,17 @@ exports.tests = {
     }
 
     t.done();
+  },
+
+  "setting background to null works correctly (GH-1499)": t => {
+    const document = jsdom.jsdom();
+    document.body.innerHTML = `<div id="ctrl" style="background:#111;border:1px"></div>`;
+
+    const div = document.body.firstChild;
+    div.style.background = null;
+
+    t.strictEqual(div.style.background, "");
+
+    t.done();
   }
 };
