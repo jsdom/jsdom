@@ -1,3 +1,13 @@
+## 9.2.1
+
+* Fixed `<input>`'s `selectionStart`, `selectionEnd`, and `selectionDirection` getters to return null, instead of throwing, for elements that do not allow selection, per [a recent spec change](https://github.com/whatwg/html/pull/1006).
+* Fixed `<base>`'s `href` getter logic to return the attribute value instead of the empty string for unparseable URLs, per [a recent spec change](https://github.com/whatwg/html/pull/1064).
+* Fixed the referrer sent when retrieving external resources to be the document's URL, not the document's base URL.
+* Fixed suppression of all `error` events on `window` beyond the first one.
+* Fixed `new URL` to correctly throw for unparseable URLs, and all of `URL`'s setters to correctly ignore invalid input instead of throwing.
+* Fixed `StyleSheetList.prototype.item` to return `null` instead of `undefined` for out-of-bounds indices. (Ginden)
+* Updated `cssstyle` minimum version to ensure all jsdom installs (not just fresh ones) get the benefit of `cssstyle`'s recently-better `background` and `width` setters.
+
 ## 9.2.0
 
 * Added `jsdom.changeURL(window, newURL)` for allowing you to override a window's existing URL. (mummybot)
