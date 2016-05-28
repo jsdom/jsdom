@@ -1,58 +1,32 @@
+/* eslint-disable no-console, no-process-exit */
+
 "use strict";
-const fs = require("fs");
+
 const path = require("path");
-const Q = require("q");
-const readdirRecursive = require("fs-readdir-recursive");
-const webidl2js = require("webidl2js");
 
-const outputDir = path.resolve(__dirname, "../../lib/jsdom/living/generated/");
-Q.longStackSupport = true;
+const Webidl2js = require("webidl2js");
 
-function readConcatenatedSource(files) {
-  return Q.all(files.map(f => {
-    return Q.nfcall(fs.readFile, f, { encoding: "utf8" });
-  })).then(sources => {
-    let src = "";
-    for (let i = 0; i < sources.length; ++i) {
-      src += sources[i];
-    }
-    return src;
+const transformer = new Webidl2js({
+  implSuffix: "-impl",
+  suppressErrors: true
+});
+
+function addDir(dir) {
+  const resolved = path.resolve(__dirname, dir);
+  transformer.addSource(resolved, resolved);
+}
+
+addDir("../../lib/jsdom/living/traversal");
+addDir("../../lib/jsdom/living/events");
+addDir("../../lib/jsdom/living/attributes");
+addDir("../../lib/jsdom/living/window");
+addDir("../../lib/jsdom/living/nodes");
+addDir("../../lib/jsdom/living/navigator");
+addDir("../../lib/jsdom/living/xhr");
+addDir("../../lib/jsdom/living/domparsing");
+
+transformer.generate(path.resolve(__dirname, "../../lib/jsdom/living/generated/"))
+  .catch(err => {
+    console.error(err);
+    process.exit(1);
   });
-}
-
-function generateClasses(src, implDir) {
-  webidl2js.generate(src, outputDir, implDir, { suppressErrors: true, implSuffix: "-impl" });
-}
-
-function doConversion(inputPath) {
-  let isDir;
-
-  return Q.nfcall(fs.stat, inputPath)
-  .then(inputStat => {
-    isDir = inputStat.isDirectory();
-    if (isDir) {
-      return readdirRecursive(inputPath, onlyIDL).map(relativePath => path.resolve(inputPath, relativePath));
-    }
-
-    return [inputPath]; // get dir name
-  })
-  .then(readConcatenatedSource)
-  .then(src => {
-    const folder = isDir ? inputPath : path.dirname(inputPath);
-    generateClasses(src, folder);
-  });
-}
-
-function onlyIDL(filePath) {
-  return path.extname(filePath) === ".idl";
-}
-
-doConversion(path.resolve(__dirname, "../../lib/jsdom/living/traversal"))
-  .then(() => doConversion(path.resolve(__dirname, "../../lib/jsdom/living/events")))
-  .then(() => doConversion(path.resolve(__dirname, "../../lib/jsdom/living/attributes")))
-  .then(() => doConversion(path.resolve(__dirname, "../../lib/jsdom/living/window")))
-  .then(() => doConversion(path.resolve(__dirname, "../../lib/jsdom/living/nodes")))
-  .then(() => doConversion(path.resolve(__dirname, "../../lib/jsdom/living/navigator")))
-  .then(() => doConversion(path.resolve(__dirname, "../../lib/jsdom/living/xhr")))
-  .then(() => doConversion(path.resolve(__dirname, "../../lib/jsdom/living/domparsing")))
-  .done();
