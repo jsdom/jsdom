@@ -1,0 +1,114 @@
+<!doctype html>
+<title>DOMParser tests that we pass so far, despite not passing any of the files</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+// |expected| should be an object indicating the expected type of node.
+function assert_node(actual, expected) {
+    assert_true(actual instanceof expected.type,
+                'Node type mismatch: actual = ' + actual.nodeType + ', expected = ' + expected.nodeType);
+    if (typeof(expected.id) !== 'undefined')
+        assert_equals(actual.id, expected.id, expected.idMessage);
+    if (typeof(expected.nodeValue) !== 'undefined')
+        assert_equals(actual.nodeValue, expected.nodeValue, expected.nodeValueMessage);
+}
+
+var doc;
+setup(function() {
+    var parser = new DOMParser();
+    var input = '<html id="root"><head></head><body></body></html>';
+    doc = parser.parseFromString(input, 'text/html');
+});
+
+test(function() {
+    var root = doc.documentElement;
+    assert_node(root, { type: HTMLHtmlElement, id: 'root',
+                        idMessage: 'documentElement id attribute should be root.' });
+}, 'Parsing of id attribute');
+
+test(function() {
+    assert_equals(doc.contentType, "text/html")
+}, 'contentType');
+
+test(function() {
+    assert_equals(doc.characterSet, "UTF-8")
+}, 'characterSet');
+
+test(function() {
+    assert_equals(doc.inputEncoding, "UTF-8")
+}, 'inputEncoding');
+
+test(function() {
+    assert_equals(doc.charset, "UTF-8")
+}, 'charset');
+
+// Fail due to our lack of multi-global setup
+// test(function() {
+//     var url = document.URL;
+//     assert_equals(doc.documentURI, url,
+//                   'The document must have a URL value equal to the URL of the active document.');
+//     assert_equals(doc.URL, url,
+//                   'The document must have a URL value equal to the URL of the active document.');
+// }, 'URL value');
+
+test(function() {
+    assert_equals(doc.location, null,
+                  'The document must have a location value of null.');
+}, 'Location value');
+
+test(function() {
+    var soup = "<!DOCTYPE foo></><foo></multiple></>";
+    var htmldoc = new DOMParser().parseFromString(soup, "text/html");
+    assert_equals(htmldoc.documentElement.localName, "html");
+    assert_equals(htmldoc.documentElement.namespaceURI, "http://www.w3.org/1999/xhtml");
+}, "DOMParser parses HTML tag soup with no problems");
+
+/////////////////////////////
+
+function checkMetadata(doc, contentType) {
+  assert_true(doc instanceof Document, "Should be Document");
+//  assert_equals(doc.URL, document.URL, "URL");
+//  assert_equals(doc.documentURI, document.URL, "documentURI");
+  assert_equals(doc.characterSet, "UTF-8", "characterSet");
+  assert_equals(doc.charset, "UTF-8", "charset");
+  assert_equals(doc.inputEncoding, "UTF-8", "inputEncoding");
+  assert_equals(doc.contentType, contentType, "contentType");
+  assert_equals(doc.location, null, "location");
+}
+
+var allowedTypes = ["text/xml", "application/xml", "application/xhtml+xml", "image/svg+xml"];
+
+allowedTypes.forEach(function(type) {
+  test(function() {
+    var p = new DOMParser();
+    var doc = p.parseFromString("<foo/>", type);
+    assert_true(doc instanceof Document, "Should be Document");
+    checkMetadata(doc, type);
+    assert_equals(doc.documentElement.namespaceURI, null);
+    assert_equals(doc.documentElement.localName, "foo");
+    assert_equals(doc.documentElement.tagName, "foo");
+  }, "Should parse correctly in type " + type);
+
+  test(function() {
+    var p = new DOMParser();
+    var doc = p.parseFromString("<foo/>", type);
+    assert_false(doc instanceof XMLDocument, "Should not be XMLDocument");
+  }, "XMLDocument interface for correctly parsed document with type " + type);
+
+  // Fail because we don't have a strict XML parser (?)
+  // test(function() {
+  //   var p = new DOMParser();
+  //   var doc = p.parseFromString("<foo>", type);
+  //   checkMetadata(doc, type);
+  //   assert_equals(doc.documentElement.namespaceURI, "http://www.mozilla.org/newlayout/xml/parsererror.xml");
+  //   assert_equals(doc.documentElement.localName, "parsererror");
+  //   assert_equals(doc.documentElement.tagName, "parsererror");
+  // }, "Should return an error document for XML wellformedness errors in type " + type);
+
+  test(function() {
+    var p = new DOMParser();
+    var doc = p.parseFromString("<foo>", type);
+    assert_false(doc instanceof XMLDocument, "Should not be XMLDocument");
+  }, "XMLDocument interface for incorrectly parsed document with type " + type);
+});
+</script>

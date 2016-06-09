@@ -18,6 +18,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "dom/nodes/getElementsByClassName-32.html",
     "dom/nodes/Node-isEqualNode.html",
     "dom/nodes/Node-mutation-adoptNode.html",
+    "domparsing/DOMParser-dont-upstream.html",
     "domparsing/insert-adjacent.html",
     "encoding/meta/meta-charset-no-quotes.html",
     "encoding/meta/meta-charset-simple-quotes.html",
