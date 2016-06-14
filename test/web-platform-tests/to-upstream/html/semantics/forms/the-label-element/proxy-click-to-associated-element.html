@@ -13,6 +13,12 @@
         <input id="bar" type="checkbox" /> bar
         <input id="baz" type="checkbox" /> baz
     </label>
+
+    <input id="baz" type="checkbox" />
+    <label id="baz-label" for="baz">baz</label>
+
+    <input id="parent-input" type="checkbox" />
+    <label id="parent-label" for="parent-input"><div id="child">x</div></label>
 </form>
 <script>
   "use strict";
@@ -46,5 +52,31 @@
     label.click();
 
   }, "label without for attribute should proxy click events to the first labelable child");
+
+  async_test(t => {
+
+    const label = document.getElementById("baz-label");
+    const input = document.getElementById("baz");
+
+    input.addEventListener("click", t.unreached_func('Input should not receive click'));
+    label.addEventListener("click", t.step_func(ev => {
+      ev.preventDefault();
+      t.step_timeout(function() { t.done(); }, 500);
+    }));
+
+    label.click();
+
+  }, "clicking a label that prevents the event's default should not proxy click events");
+
+async_test(t => {
+
+    const child = document.getElementById("child");
+    const input = document.getElementById("parent-input");
+
+    input.addEventListener("click", t.step_func_done());
+
+    child.click();
+
+  }, "clicking a label's child should proxy click events");
 
 </script>
