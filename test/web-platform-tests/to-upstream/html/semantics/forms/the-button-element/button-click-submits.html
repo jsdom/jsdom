@@ -38,4 +38,19 @@ async_test(t => {
 
 }, "clicking a button by dispatching an event should trigger a submit");
 
+async_test(t => {
+
+  const form = document.createElement("form");
+  const button = document.createElement("button");
+  form.appendChild(button);
+
+  form.addEventListener("submit", t.unreached_func('Form should not be submitted'));
+  button.addEventListener("click", t.step_func(ev => {
+    ev.preventDefault();
+    t.step_timeout(function() { t.done(); }, 500);
+  }));
+  button.click();
+
+}, "clicking a button that prevents the event's default should not trigger a submit");
+
 </script>
