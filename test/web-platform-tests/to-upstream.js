@@ -51,7 +51,15 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "encoding/meta/meta-http-equiv-reverse.html",
     "encoding/meta/meta-http-equiv-simple-quotes.html",
     "encoding/meta/meta-http-equiv-no-quotes.html",
-    "encoding/meta/no-meta.html"
+    "encoding/meta/no-meta.html",
+    "html/named-access-on-window/basics.html",
+    "html/named-access-on-window/changing.html",
+    "html/named-access-on-window/removing.html",
+    "html/named-access-on-window/doc-no-window.html",
+    "html/named-access-on-window/multi-match.html",
+    "html/named-access-on-window/existing-prop.html",
+    "html/named-access-on-window/only-name.html",
+    "html/named-access-on-window/nested-context.html"
   ]
   .forEach(runWebPlatformTest);
 });

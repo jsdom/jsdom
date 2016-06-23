@@ -74,7 +74,6 @@ var files = [
   "window/frame.js",
   "window/base64.js",
   "sizzle/index.js",
-  "living-html/named-properties-window.js",
 
   "misc/domparsing.js"
 ];
