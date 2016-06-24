@@ -242,7 +242,7 @@ describe("jsdom/env", () => {
     };
 
     env({
-      html: "<html><head></head><body><iframe id='bar' src='http://localhost/iframe.html'></iframe></body></html>",
+      html: "<html><head></head><body><iframe name='bar' src='http://localhost/iframe.html'></iframe></body></html>",
       resourceLoader(resource, callback) {
         const response = routes[resource.url.path];
         assert.ok(response, `Not found: ${resource.url.path}`);
