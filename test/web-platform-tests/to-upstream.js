@@ -6,7 +6,6 @@ const testsPath = path.resolve(__dirname, "to-upstream");
 const runWebPlatformTest = require("./run-to-upstream-web-platform-test")(testsPath);
 
 describe("Local tests in Web Platform Test format (to-upstream)", () => {
-  // jscs:disable maximumLineLength
   [
     "dom/attributes-are-not-nodes.html",
     "dom/events/EventTarget-add-remove-listener.html",
@@ -16,17 +15,33 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "dom/nodes/Element-removeAttribute.html",
     "dom/nodes/Element-setAttribute.html",
     "dom/nodes/Element-tagName.html",
+    "dom/nodes/getElementsByClassName-32.html",
     "dom/nodes/Node-isEqualNode.html",
     "dom/nodes/Node-mutation-adoptNode.html",
-    "dom/nodes/getElementsByClassName-32.html",
     "domparsing/insert-adjacent.html",
+    "encoding/meta/meta-charset-no-quotes.html",
+    "encoding/meta/meta-charset-simple-quotes.html",
+    "encoding/meta/meta-charset.html",
+    "encoding/meta/meta-http-equiv-no-quotes.html",
+    "encoding/meta/meta-http-equiv-reverse.html",
+    "encoding/meta/meta-http-equiv-simple-quotes.html",
+    "encoding/meta/meta-http-equiv.html",
+    "encoding/meta/no-meta.html",
     "html/dom/elements/elements-in-the-dom/click-in-progress-flag.html",
     "html/editing/focus/focus-management/active-element.html",
     "html/editing/focus/focus-management/focus-on-all-elements.html",
+    "html/named-access-on-window/basics.html",
+    "html/named-access-on-window/changing.html",
+    "html/named-access-on-window/doc-no-window.html",
+    "html/named-access-on-window/existing-prop.html",
+    "html/named-access-on-window/multi-match.html",
+    "html/named-access-on-window/nested-context.html",
+    "html/named-access-on-window/only-name.html",
+    "html/named-access-on-window/removing.html",
     "html/semantics/forms/resetting-a-form/reset-form-2.html",
-    "html/semantics/forms/the-form-element/form-action.html",
     "html/semantics/forms/the-button-element/button-click-submits.html",
     "html/semantics/forms/the-button-element/button-type.html",
+    "html/semantics/forms/the-form-element/form-action.html",
     "html/semantics/forms/the-input-element/checkbox-click-events.html",
     "html/semantics/forms/the-input-element/disabled-checkbox.html",
     "html/semantics/forms/the-input-element/radio-input-cancel.html",
@@ -43,23 +58,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "html/semantics/tabular-data/the-table-element/parentless-props.html",
     "html/webappapis/timers/arguments.html",
     "html/webappapis/timers/errors.html",
-    "html/webappapis/timers/settimeout-setinterval-handles.html",
-    "encoding/meta/meta-charset.html",
-    "encoding/meta/meta-charset-simple-quotes.html",
-    "encoding/meta/meta-charset-no-quotes.html",
-    "encoding/meta/meta-http-equiv.html",
-    "encoding/meta/meta-http-equiv-reverse.html",
-    "encoding/meta/meta-http-equiv-simple-quotes.html",
-    "encoding/meta/meta-http-equiv-no-quotes.html",
-    "encoding/meta/no-meta.html",
-    "html/named-access-on-window/basics.html",
-    "html/named-access-on-window/changing.html",
-    "html/named-access-on-window/removing.html",
-    "html/named-access-on-window/doc-no-window.html",
-    "html/named-access-on-window/multi-match.html",
-    "html/named-access-on-window/existing-prop.html",
-    "html/named-access-on-window/only-name.html",
-    "html/named-access-on-window/nested-context.html"
+    "html/webappapis/timers/settimeout-setinterval-handles.html"
   ]
   .forEach(runWebPlatformTest);
 });
