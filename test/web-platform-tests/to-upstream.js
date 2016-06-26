@@ -58,7 +58,8 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "html/semantics/tabular-data/the-table-element/parentless-props.html",
     "html/webappapis/timers/arguments.html",
     "html/webappapis/timers/errors.html",
-    "html/webappapis/timers/settimeout-setinterval-handles.html"
+    "html/webappapis/timers/settimeout-setinterval-handles.html",
+    "XMLHttpRequest/thrown-error-in-events.html"
   ]
   .forEach(runWebPlatformTest);
 });
