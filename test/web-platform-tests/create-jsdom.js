@@ -4,11 +4,24 @@ const nodeResolverPromise = require("../util").nodeResolverPromise;
 
 const globalPool = { maxSockets: 6 };
 
+/* eslint-disable no-console */
+
 module.exports = (urlPrefix, testPath) => {
   const reporterPathname = "/resources/testharnessreport.js";
-  let doneError = null;
+  const unhandledExceptions = [];
+  const doneErrors = [];
+
+  let allowUnhandledExceptions = false;
 
   const created = nodeResolverPromise(createdResolver => {
+    const virtualConsole = jsdom.createVirtualConsole().sendTo(console, { omitJsdomErrors: true });
+    virtualConsole.on("jsdomError", e => {
+      if (e.type === "unhandled exception" && !allowUnhandledExceptions) {
+        unhandledExceptions.push(e);
+        console.error(e.detail.stack);
+      }
+    });
+
     jsdom.env({
       url: urlPrefix + testPath,
       pool: globalPool,
@@ -17,7 +30,7 @@ module.exports = (urlPrefix, testPath) => {
         FetchExternalResources: ["script", "frame", "iframe", "link"],
         ProcessExternalResources: ["script"]
       },
-      virtualConsole: jsdom.createVirtualConsole().sendTo(console, { omitJsdomErrors: true }),
+      virtualConsole,
       resourceLoader(resource, callback) {
         if (resource.url.pathname === reporterPathname) {
           callback(null, "window.shimTest();");
@@ -27,7 +40,9 @@ module.exports = (urlPrefix, testPath) => {
       },
       created: createdResolver, // error, window
       done(error) { // error, window
-        doneError = error;
+        if (error) {
+          doneErrors.push(error);
+        }
       }
     });
   });
@@ -39,6 +54,14 @@ module.exports = (urlPrefix, testPath) => {
       const errors = [];
 
       window.shimTest = () => {
+        const oldSetup = window.setup;
+        window.setup = options => {
+          if (options.allow_uncaught_exception) {
+            allowUnhandledExceptions = true;
+          }
+          oldSetup(options);
+        };
+
         window.add_result_callback(test => {
           if (test.status === 1) {
             errors.push(`Failed in "${test.name}": \n${test.message}\n\n${test.stack}`);
@@ -59,9 +82,8 @@ module.exports = (urlPrefix, testPath) => {
             errors.push(new Error(`test harness should not timeout: ${testPath}`));
           }
 
-          if (doneError) {
-            errors.push(doneError);
-          }
+          errors.push(...doneErrors);
+          errors.push(...unhandledExceptions);
 
           if (errors.length === 1) {
             reject(new Error(errors[0]));

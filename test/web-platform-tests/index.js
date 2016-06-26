@@ -83,7 +83,7 @@ describe("Web Platform Tests", () => {
     "html/browsers/history/the-history-interface/005.html",
     "html/browsers/history/the-history-interface/006.html",
     // "html/browsers/history/the-history-interface/007.html", // depends on the load event being delayed properly
-    "html/browsers/history/the-history-interface/008.html",
+    // "html/browsers/history/the-history-interface/008.html", // invalid? https://github.com/w3c/web-platform-tests/issues/3234
     // "html/browsers/history/the-history-interface/009.html", // complicated navigation stuff for iframes
     // "html/browsers/history/the-history-interface/010.html", // complicated navigation stuff for iframes
     "html/browsers/history/the-history-interface/011.html",
@@ -99,7 +99,7 @@ describe("Web Platform Tests", () => {
     "html/browsers/history/the-location-interface/location_protocol.html",
     "html/browsers/history/the-location-interface/location_search.html",
     "html/browsers/offline/browser-state/navigator_online_online.html",
-    "html/browsers/windows/browsing-context-first-created.xhtml",
+    // "html/browsers/windows/browsing-context-first-created.xhtml", // jsdom will try to feed <![CDATA[ to the script parser, causing errors
     "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-02.html",
     "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-03.html",
     "html/dom/elements/global-attributes/classlist-nonstring.html",
@@ -196,7 +196,7 @@ describe("Web Platform Tests", () => {
     "dom/events/EventListener-handleEvent.html",
     "dom/events/EventTarget-addEventListener.html",
     "dom/events/EventTarget-dispatchEvent-returnvalue.html",
-    "dom/events/EventTarget-dispatchEvent.html",
+    // "dom/events/EventTarget-dispatchEvent.html", // invalid test: https://github.com/w3c/web-platform-tests/issues/3235
     "dom/events/EventTarget-removeEventListener.html",
     "dom/events/ProgressEvent.html",
 
@@ -257,7 +257,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/event-timeout.htm",
     "XMLHttpRequest/event-upload-progress-crossorigin.sub.htm",
     "XMLHttpRequest/event-upload-progress.htm",
-    "XMLHttpRequest/formdata-blob.htm",
+    // "XMLHttpRequest/formdata-blob.htm", // jsdom bug but also spec confusion: https://github.com/tmpvar/jsdom/issues/1533
     "XMLHttpRequest/formdata-delete.htm",
     "XMLHttpRequest/formdata-get.htm",
     "XMLHttpRequest/formdata-has.htm",
