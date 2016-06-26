@@ -121,11 +121,13 @@ lovebear <hheennrryy@gmail.com>
 Ludovico Fischer <livrerie@gmail.com>
 Lukas Bünger <lukas.buenger@fixxpunkt.ch>
 Marak Squires <marak.squires@gmail.com>
+Marc-Andre Lafortune <github@marc-andre.ca>
 Mariusz Nowak <mariusz@medikoo.com>
 Martin Naumann <mr.avgp@gmail.com>
 Matthew Crinklaw-Vogt <mlaw@fb.com>
 Matthew King <mking@borderstylo.com>
 Matthew Pflueger <matthew.pflueger@gmail.com>
+Matthew Phillips <matthew@matthewphillips.info>
 Max Walker <maxwell.a.walker@gmail.com>
 Michael Fleet <mofosho@fantasticmf.com>
 Michael Hayes <michael.hayes@urbanairship.com>

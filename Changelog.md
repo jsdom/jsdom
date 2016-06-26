@@ -1,3 +1,11 @@
+## 9.3.0
+
+* Added the `Audio` named constructor.
+* Fixed the `Image` named constructor to follow the spec more closely (e.g. `Image.prototype` is now equal to `HTMLImageElement.prototype`).
+* Fixed the `tabIndex` setter, which regressed in 9.1.0, to no longer cause errors.
+* Made submit buttons and labels respond to click event cancelation correctly, preventing form submission and re-dispatching to the relevant form control. (marcandre)
+* Fixed unhandled errors thrown in XHR event handlers being swallowed; they now properly are redirected to the virtual console.
+
 ## 9.2.1
 
 * Fixed `<input>`'s `selectionStart`, `selectionEnd`, and `selectionDirection` getters to return null, instead of throwing, for elements that do not allow selection, per [a recent spec change](https://github.com/whatwg/html/pull/1006).
