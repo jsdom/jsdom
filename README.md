@@ -226,6 +226,10 @@ var window = jsdom.jsdom(..., { virtualConsole }).defaultView;
 
 By default, `jsdom.env` will not process and run external JavaScript, since our sandbox is not foolproof. That is, code running inside the DOM's `<script>`s can, if it tries hard enough, get access to the Node environment, and thus to your machine. If you want to (carefully!) enable running JavaScript, you can use `jsdom.jsdom`, `jsdom.jQueryify`, or modify the defaults passed to `jsdom.env`.
 
+### On timers and process lifetime
+
+Timers in the page (set by `window.setTimeout` or `window.setInterval`) will, by definition, execute code in the future in the context of the `window`. Since there is no way to execute code in the future without keeping the process alive, note that outstanding jsdom timers will keep your Node.js process alive. Similarly, since there is no way to execute code in the context of an object without keeping that object alive, outstanding jsdom timers will prevent garbage collection of the `window` on which they are scheduled. If you want to be sure to shut down a jsdom window, use `window.close()`, which will terminate all running timers (and also remove any event listeners on the `window` and `document`).
+
 ## For the hardcore: `jsdom.jsdom`
 
 The `jsdom.jsdom` method does fewer things automatically; it takes in only HTML source, and it does not allow you to separately supply scripts that it will inject and execute. It just gives you back a `document` object, with usable `document.defaultView`, and starts asynchronously executing any `<script>`s included in the HTML source. You can listen for the `'load'` event to wait until scripts are done loading and executing, just like you would in a normal HTML page.
