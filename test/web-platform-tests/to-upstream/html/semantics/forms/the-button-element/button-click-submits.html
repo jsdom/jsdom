@@ -44,10 +44,10 @@ async_test(t => {
   const button = document.createElement("button");
   form.appendChild(button);
 
-  form.addEventListener("submit", t.unreached_func('Form should not be submitted'));
+  form.addEventListener("submit", t.unreached_func("Form should not be submitted"));
   button.addEventListener("click", t.step_func(ev => {
     ev.preventDefault();
-    t.step_timeout(function() { t.done(); }, 500);
+    t.step_timeout(() => t.done(), 500);
   }));
   button.click();
 

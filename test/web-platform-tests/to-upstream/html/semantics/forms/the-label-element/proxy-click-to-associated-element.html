@@ -24,12 +24,7 @@
     const label = document.getElementById("foo-label");
     const input = document.getElementById("foo");
 
-    input.addEventListener("click", () => {
-      t.step(() => {
-        assert_true(true);
-        t.done();
-      });
-    });
+    input.addEventListener("click", t.step_func_done());
 
     label.click();
 
@@ -39,12 +34,7 @@
     const label = document.getElementById("bar-label");
     const input = document.getElementById("bar");
 
-    input.addEventListener("click", () => {
-      t.step(() => {
-        assert_true(true);
-        t.done();
-      });
-    });
+    input.addEventListener("click", t.step_func_done());
 
     label.click();
 
@@ -55,10 +45,10 @@
     const label = document.getElementById("baz-label");
     const input = document.getElementById("baz");
 
-    input.addEventListener("click", t.unreached_func('Input should not receive click'));
+    input.addEventListener("click", t.unreached_func("Input should not receive click"));
     label.addEventListener("click", t.step_func(ev => {
       ev.preventDefault();
-      t.step_timeout(function() { t.done(); }, 500);
+      t.step_timeout(() => t.done(), 500);
     }));
 
     label.click();
