@@ -3,7 +3,7 @@ var jsdom = require("../../../..");
 
 exports.hc_nodtdstaff = function () {
   return jsdom.jsdom(`
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>hc_nodtdstaff</title></head><body>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><title>hc_nodtdstaff</title></head><body>
  <p>
   <em>EMP0001</em>
   <strong>Margaret Martin</strong>
