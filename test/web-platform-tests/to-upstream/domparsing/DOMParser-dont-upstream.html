@@ -95,15 +95,14 @@ allowedTypes.forEach(function(type) {
     assert_false(doc instanceof XMLDocument, "Should not be XMLDocument");
   }, "XMLDocument interface for correctly parsed document with type " + type);
 
-  // Fail because we don't have a strict XML parser (?)
-  // test(function() {
-  //   var p = new DOMParser();
-  //   var doc = p.parseFromString("<foo>", type);
-  //   checkMetadata(doc, type);
-  //   assert_equals(doc.documentElement.namespaceURI, "http://www.mozilla.org/newlayout/xml/parsererror.xml");
-  //   assert_equals(doc.documentElement.localName, "parsererror");
-  //   assert_equals(doc.documentElement.tagName, "parsererror");
-  // }, "Should return an error document for XML wellformedness errors in type " + type);
+  test(function() {
+    var p = new DOMParser();
+    var doc = p.parseFromString("<foo>", type);
+    checkMetadata(doc, type);
+    assert_equals(doc.documentElement.namespaceURI, "http://www.mozilla.org/newlayout/xml/parsererror.xml");
+    assert_equals(doc.documentElement.localName, "parsererror");
+    assert_equals(doc.documentElement.tagName, "parsererror");
+  }, "Should return an error document for XML wellformedness errors in type " + type);
 
   test(function() {
     var p = new DOMParser();

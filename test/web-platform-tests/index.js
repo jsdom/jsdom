@@ -74,7 +74,7 @@ describe("Web Platform Tests", () => {
     "dom/traversal/TreeWalker-walking-outside-a-tree.html",
     "dom/traversal/TreeWalker.html",
     // "domparsing/DOMParser-parseFromString-html.html", // needs to get "the active document's URL", which is not possible with one DOMParser shared across all windows
-    // "domparsing/DOMParser-parseFromString-xml.html", // needs a stricter XML parser, and XMLDocument
+    // "domparsing/DOMParser-parseFromString-xml.html", // same problem
     "domparsing/insert-adjacent.html",
     // "html/browsers/browsing-the-web/history-traversal/PopStateEvent.html", // https://github.com/w3c/web-platform-tests/pull/2964
     "html/browsers/browsing-the-web/history-traversal/hashchange_event.html",
