@@ -11,6 +11,26 @@
 "use strict";
 
 test(() => {
+
+  const input = document.createElement("input");
+  input.type = "checkbox";
+
+  const values = [];
+
+  input.addEventListener("click", e => {
+    values.push(input.checked);
+    e.preventDefault();
+    values.push(input.checked);
+  });
+
+  input.click();
+
+  values.push(input.checked);
+  assert_array_equals(values, [true, true, false]);
+
+}, "clicking and preventDefaulting a checkbox causes the checkbox to be checked during the click handler but reverted");
+
+test(() => {
   const input = document.createElement("input");
   input.type = "checkbox";
   document.body.appendChild(input);
