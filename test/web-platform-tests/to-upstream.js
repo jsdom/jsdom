@@ -57,7 +57,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "html/semantics/forms/the-textarea-element/setSelectionRange.html",
     "html/semantics/forms/the-textarea-element/value-defaultValue-textContent.html",
     "html/semantics/links/links-created-by-a-and-area-elements/html-hyperlink-element-utils-href.html",
-    "html/semantics/scripting-1/the-script-element/script-languages-02.html",
+    "html/semantics/scripting-1/the-script-element/script-languages-dont-upstream.html",
     "html/semantics/tabular-data/the-table-element/parentless-props.html",
     "html/webappapis/timers/arguments.html",
     "html/webappapis/timers/errors.html",
