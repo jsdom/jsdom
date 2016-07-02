@@ -1,6 +1,7 @@
 "use strict";
 const fs = require("fs");
 const path = require("path");
+const http = require("http");
 const jsdom = require("../..");
 const isCanvasInstalled = require("../util").isCanvasInstalled;
 const toFileUrl = require("../util").toFileUrl(__dirname);
@@ -44,6 +45,39 @@ exports["loading image from valid external URL"] = t => {
     t.ok(false, "onerror should not be triggered when loading from valid URL");
     t.done();
   };
+};
+
+exports["loading images should work with relative URLs (GH-1536)"] = t => {
+  if (!isCanvasInstalled(t)) {
+    return;
+  }
+
+  let requestsSoFar = 0;
+
+  const server = http.createServer((request, response) => {
+    if (requestsSoFar === 0) {
+      t.strictEqual(request.url, "/test.html");
+      response.end(`<img src="/test.jpg">`);
+    } else {
+      t.strictEqual(request.url, "/test.jpg");
+      response.end(``);
+      server.close();
+      t.done();
+    }
+
+    ++requestsSoFar;
+  })
+  .listen();
+
+  jsdom.env({
+    url: `http://127.0.0.1:${server.address().port}/test.html`,
+    features: {
+      FetchExternalResources: ["img"]
+    },
+    done(err) {
+      t.ifError(err);
+    }
+  });
 };
 
 exports["loading image from data URL"] = t => {
