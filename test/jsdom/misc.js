@@ -94,7 +94,7 @@ describe("jsdom/miscellaneous", () => {
     assert.doesNotThrow(() => jsdom.jsdom("<style>[}]</style>"));
   });
 
-  specify("jquerify_url", { async: true }, t => {
+  specify("jqueryify_url", { async: true }, t => {
     const jQueryUrl = "http://code.jquery.com/jquery-1.4.4.min.js";
     jsdom.jQueryify(tmpWindow(), jQueryUrl, (window, jQuery) => {
       testFunction(assert, window, jQuery, true);
@@ -102,7 +102,7 @@ describe("jsdom/miscellaneous", () => {
     });
   });
 
-  specify("jquerify_invalid", { async: true }, t => {
+  specify("jqueryify_invalid", { async: true }, t => {
     jsdom.jQueryify(jsdom.jsdom("", { url: "http://www.example.org" }).defaultView, 1, (window, jQuery) => {
       assert.strictEqual(window.jQuery, undefined);
       assert.strictEqual(jQuery, undefined);
