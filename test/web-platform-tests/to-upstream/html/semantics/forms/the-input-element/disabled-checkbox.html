@@ -7,6 +7,7 @@
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
 
+<body>
 <script>
 "use strict";
 
@@ -39,10 +40,11 @@ test(() => {
 
   input.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
 
-  // disabled checkbox is checked after dispatching direct click event
+  // disabled checkbox is checked after dispatching direct click event (spec violation; "default action" for events)
   assert_true(input.checked);
-  // disabled checkbox runs click activation events after dispatchEvent
-  assert_array_equals(events, ["click", "input", "change"]);
+  // disabled checkbox does not run click activation events after click happens
+  assert_array_equals(events, ["click"]);
 
 }, "checkbox input respects disabled attribute for synthetic events but not for dispatchEvent");
 </script>
+</body>

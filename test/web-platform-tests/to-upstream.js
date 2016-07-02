@@ -29,6 +29,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "encoding/meta/meta-http-equiv.html",
     "encoding/meta/no-meta.html",
     "html/dom/elements/elements-in-the-dom/click-in-progress-flag.html",
+    "html/editing/activation/click-bail-on-disabled.html",
     "html/editing/focus/focus-management/active-element.html",
     "html/editing/focus/focus-management/focus-on-all-elements.html",
     "html/named-access-on-window/basics.html",
