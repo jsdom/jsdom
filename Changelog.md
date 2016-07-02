@@ -1,3 +1,22 @@
+## 9.4.0
+
+* Added the `DOMParser` API. It is spec-compliant, including producing `<parsererror>` elements, except that the produced documents do not have the same URL as the creating document (they instead always have `"about:blank"`).
+* Added strict XML parsing when using `parsingMode: "xml"`. Creating documents will now fail, just like in a browser, when ill-formed XHTML markup is used.
+* Added some rudimentary application of XML `<!ENTITY` declarations.
+* Added `window.frameElement`, although without appropriate cross-origin security checks.
+* Added the `jsdom.evalVMScript` public API.
+* Added more custom request agent support: you can now pass `agent` and `agentClass` in addition to `agentOptions`. (frarees)
+* Updated our elements-being-disabled semantics to more closely match the spec, in particular with regard to being descendants of `<fieldset disabled>`.
+* Updated `FormData` for [recent spec fixes](https://github.com/whatwg/xhr/commit/1a75845e67792418a7721d516266ad01a90f2062): blobs, files, and filenames should now all work like you'd expect.
+* Updated the `FormData` constructor to use the proper, rather-complex, [constructing the form data set](https://html.spec.whatwg.org/multipage/forms.html#constructing-form-data-set) algorithm.
+* Fixed all constructors that appears as globals on the jsdom `window` object to be non-enumerable.
+* Fixed `<script>` elements to load when they gain a `src` attribute while in a document.
+* Fixed `<link rel="stylesheet">` elements to load when their `href` attributes change while in a document.
+* Fixed the loading of external `<img>`s (when the `canvas` npm package is installed) that were specified via relative URL; this regressed in 9.2.1.
+* Fixed `<iframe>` documents to have the correct `referrer` value (viz. the URL of their parent).
+* Fixed the value of `input.checked` inside `click` events on checkboxes.
+* Fixed the window object's named properties to correctly return the `<iframe>` element or the `<iframe>`'s window in appropriate scenarios involving `name` vs. `id` attributes on the `<iframe>`. (matthewp)
+
 ## 9.3.0
 
 * Added the `Audio` named constructor.
