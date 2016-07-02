@@ -41,6 +41,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "html/named-access-on-window/nested-context.html",
     "html/named-access-on-window/only-name.html",
     "html/named-access-on-window/removing.html",
+    "html/semantics/document-metadata/the-link-element/stylesheet-appropriate-time-to-obtain.html",
     "html/semantics/forms/resetting-a-form/reset-form-2.html",
     "html/semantics/forms/the-button-element/button-click-submits.html",
     "html/semantics/forms/the-button-element/button-type.html",
