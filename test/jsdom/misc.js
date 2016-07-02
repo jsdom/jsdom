@@ -13,6 +13,7 @@ const https = require("https");
 const EventEmitter = require("events").EventEmitter;
 const zlib = require("zlib");
 const parseURL = require("url").parse;
+const vm = require("vm");
 
 function tmpWindow() {
   return jsdom.jsdom().defaultView;
@@ -856,6 +857,15 @@ describe("jsdom/miscellaneous", () => {
 
   // these tests require file system access or they start a http server
   describe("node specific tests", { skipIfBrowser: true }, () => {
+    specify("evalVMScript", () => {
+      const window = jsdom.jsdom().defaultView;
+      const script = new vm.Script(`globalVariable = "value";`);
+
+      jsdom.evalVMScript(window, script);
+
+      assert.strictEqual(window.globalVariable, "value");
+    });
+
     specify("fix_for_issue_172", () => {
       jsdom.env(`<html><body><script type="text/javascript"></script></body></html>`, [
         "file:" + path.resolve(__dirname, "../jquery-fixtures/jquery-1.6.2.js")
