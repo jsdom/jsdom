@@ -33,7 +33,6 @@ var files = [
   "level3/textContent.js",
   "level3/xpath.js",
 
-  "living-dom/attributes.js",
   "living-dom/class-list.js",
   "living-dom/compare-document-position.js",
   "living-dom/dom-implementation.js",

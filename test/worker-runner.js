@@ -27,7 +27,6 @@ self.onmessage = function (e) {
     "level3/textContent.js": require("../test/level3/textContent.js"), // ok
     "level3/xpath": require("../test/level3/xpath"), // 0/93
 
-    "living-dom/attributes.js": require("../test/living-dom/attributes.js"), // 1/11
     "living-dom/class-list.js": require("../test/living-dom/class-list.js"), // ok
     "living-dom/compare-document-position.js": require("../test/living-dom/compare-document-position.js"), // 0/20
     "living-dom/dom-implementation.js": require("../test/living-dom/dom-implementation.js"), // ok
