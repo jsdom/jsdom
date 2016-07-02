@@ -274,7 +274,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/getresponseheader-server-date.htm",
     "XMLHttpRequest/getresponseheader-special-characters.htm",
     "XMLHttpRequest/getresponseheader-unsent-opened-state.htm",
-    // "XMLHttpRequest/interface.html", // needs this PR https://github.com/tmpvar/jsdom/pull/1406
+    // "XMLHttpRequest/interfaces.html", // really need to move XHR to Web IDL
     "XMLHttpRequest/open-after-abort.htm",
     "XMLHttpRequest/open-after-setrequestheader.htm",
     "XMLHttpRequest/open-during-abort.htm",
@@ -440,7 +440,7 @@ describe("Web Platform Tests", () => {
     "cors/status.htm",
 
     "progress-events/constructor.html",
-    // "progress-events/interface.html", // delete ProgressEvent.length don't throw
+    // "progress-events/interface.html", // https://github.com/jsdom/webidl2js/issues/27
     "progress-events/tests/submissions/Samsung/firing-events-http-content-length.html",
     "progress-events/tests/submissions/Samsung/firing-events-http-no-content-length.html"
   ]
