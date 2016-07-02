@@ -261,7 +261,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/event-timeout.htm",
     "XMLHttpRequest/event-upload-progress-crossorigin.sub.htm",
     "XMLHttpRequest/event-upload-progress.htm",
-    // "XMLHttpRequest/formdata-blob.htm", // jsdom bug but also spec confusion: https://github.com/tmpvar/jsdom/issues/1533
+    "XMLHttpRequest/formdata-blob.htm",
     "XMLHttpRequest/formdata-delete.htm",
     "XMLHttpRequest/formdata-get.htm",
     "XMLHttpRequest/formdata-has.htm",

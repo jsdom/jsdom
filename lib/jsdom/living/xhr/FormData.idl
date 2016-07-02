@@ -1,0 +1,15 @@
+typedef (File or USVString) FormDataEntryValue;
+
+[Constructor(optional HTMLFormElement form),
+ Exposed=(Window,Worker)]
+interface FormData {
+//  void append(USVString name, USVString value); // handle overloads manually; https://github.com/jsdom/webidl2js/issues/29
+  void append(USVString name, Blob value, optional USVString filename);
+  void delete(USVString name);
+  FormDataEntryValue? get(USVString name);
+  sequence<FormDataEntryValue> getAll(USVString name);
+  boolean has(USVString name);
+//  void set(USVString name, USVString value); // as above
+  void set(USVString name, Blob value, optional USVString filename);
+//  iterable<USVString, FormDataEntryValue>;
+};
