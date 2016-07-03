@@ -17,6 +17,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "dom/nodes/Element-tagName.html",
     "dom/nodes/attributes-namednodemap.html",
     "dom/nodes/getElementsByClassName-32.html",
+    "dom/nodes/Node-cloneNode-input.html",
     "dom/nodes/Node-isEqualNode.html",
     "dom/nodes/Node-mutation-adoptNode.html",
     "domparsing/DOMParser-dont-upstream.html",
