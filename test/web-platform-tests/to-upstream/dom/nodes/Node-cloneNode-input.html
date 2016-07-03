@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<title>Node.cloneNode</title>
+<link rel=help href="https://dom.spec.whatwg.org/#dom-node-clonenode">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id=log></div>
+<script>
+"use strict";
+
+test(() => {
+  const input = document.createElement("input");
+  input.value = "foo bar";
+
+  const copy = input.cloneNode();
+  assert_equals(copy.value, "foo bar");
+}, "input element 'value'");
+
+test(() => {
+  const input = document.createElement("input");
+  input.value = "foo bar";
+
+  const copy = input.cloneNode();
+  copy.setAttribute("value", "something else");
+
+  assert_equals(copy.value, "foo bar");
+}, "input element's dirty value is also cloned, so setAttribute doesn't affect the cloned input's value");
+
+test(() => {
+  const input = document.createElement("input");
+  input.setAttribute("type", "radio");
+  input.checked = true;
+
+  const copy = input.cloneNode();
+  assert_equals(copy.checked, true);
+}, "input element 'checkedness'");
+
+test(() => {
+  const input = document.createElement("input");
+  input.setAttribute("type", "radio");
+  input.checked = false;
+
+  const copy = input.cloneNode();
+  copy.setAttribute("checked", "checked");
+
+  assert_equals(copy.checked, false);
+}, "input element's dirty checkedness is also cloned, so setAttribute doesn't affect the cloned input's checkedness");
+
+</script>
