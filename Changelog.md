@@ -1,3 +1,7 @@
+## 9.4.1
+
+* Implemented the cloning steps for `<input>` elements, so that cloned inputs properly copy over their value, checkedness, dirty value flag, and dirty checkedness flag. (matthewp)
+
 ## 9.4.0
 
 * Added the `DOMParser` API. It is spec-compliant, including producing `<parsererror>` elements, except that the produced documents do not have the same URL as the creating document (they instead always have `"about:blank"`).

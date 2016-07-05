@@ -60,6 +60,7 @@ Felix Böhm <me@feedic.com>
 Felix Gnass <fgnass@gmail.com>
 fr0z3nk0 <peter.culak@ymail.com>
 Francis Saul <francis@mummybot.com>
+Francisco Requena <frarees@gmail.com>
 Frederic Hemberger <mail@frederic-hemberger.de>
 FrozenCow <frozencow@gmail.com>
 Gary Court <gary.court@gmail.com>
@@ -132,6 +133,7 @@ Max Walker <maxwell.a.walker@gmail.com>
 Michael Fleet <mofosho@fantasticmf.com>
 Michael Hayes <michael.hayes@urbanairship.com>
 Michael Mior <michael.mior@gmail.com>
+Michael Orchard <morchard@scottlogic.co.uk>
 Michał Gołębiowski <m.goleb@gmail.com>
 Michał Wadas <michalwadas@gmail.com>
 Mike Bostock <mbostock@gmail.com>
