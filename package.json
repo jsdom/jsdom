@@ -30,7 +30,7 @@
     "request": "^2.55.0",
     "sax": "^1.1.4",
     "symbol-tree": ">= 3.1.0 < 4.0.0",
-    "tough-cookie": "^2.2.0",
+    "tough-cookie": "^2.3.0",
     "webidl-conversions": "^3.0.1",
     "whatwg-url": "^3.0.0",
     "xml-name-validator": ">= 2.0.1 < 3.0.0"
