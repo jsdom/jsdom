@@ -148,3 +148,32 @@ exports["an input's parsed type attribute should be reflected in both its proper
 
   t.done();
 };
+
+exports["should fire focus event when focus method is called"] = t => {
+  t.expect(2);
+  jsdom.env("<input>", (err, window) => {
+    t.ifError(err);
+    const doc = window.document;
+
+    const input = doc.querySelector("input");
+    input.addEventListener("focus", e => {
+      t.ok(e instanceof window.Event, "Fired event has to be an instance of Event");
+      t.done();
+    });
+    input.focus();
+  });
+};
+
+exports["should not fire focus event when focus method is called on a disabled input"] = t => {
+  t.expect(1);
+  jsdom.env("<input>", (err, window) => {
+    t.ifError(err);
+    const doc = window.document;
+
+    const input = doc.querySelector("input");
+    input.setAttribute("disabled", true);
+    input.addEventListener("focus", () => t.ok(false, "Should not trigger focus event on disabled input"));
+    input.focus();
+    t.done();
+  });
+};
