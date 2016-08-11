@@ -43,5 +43,7 @@ module.exports = function (testDir) {
     if (req.url.startsWith("/resources")) {
       fs.createReadStream(path.resolve(__dirname, "tests", req.url.substring(1))).pipe(res);
     }
+    res.writeHead(404);
+    res.end();
   }
 };
