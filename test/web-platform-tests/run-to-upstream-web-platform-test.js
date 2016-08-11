@@ -42,8 +42,9 @@ module.exports = function (testDir) {
     // Since to-upstream/ tests do not contain resources/, we should get the one from the tests/ dir.
     if (req.url.startsWith("/resources")) {
       fs.createReadStream(path.resolve(__dirname, "tests", req.url.substring(1))).pipe(res);
+    } else {
+      res.writeHead(404);
+      res.end();
     }
-    res.writeHead(404);
-    res.end();
   }
 };
