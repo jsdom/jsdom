@@ -1,3 +1,8 @@
+## 9.4.2
+
+* Fixed what would happen when inline event handlers (such as `element.onclick`) would return non-boolean values (such as `undefined`); it would previously erroneously cancel the event, in many cases. (dmethvin)
+* Upgraded the minimum tough-cookie version to ensure all installations are protected against [a security advisory](https://nodesecurity.io/advisories/130).
+
 ## 9.4.1
 
 * Implemented the cloning steps for `<input>` elements, so that cloned inputs properly copy over their value, checkedness, dirty value flag, and dirty checkedness flag. (matthewp)
