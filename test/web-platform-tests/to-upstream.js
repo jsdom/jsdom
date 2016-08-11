@@ -63,7 +63,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "html/semantics/scripting-1/the-script-element/script-languages-dont-upstream.html",
     "html/semantics/scripting-1/the-script-element/changing-src.html",
     "html/semantics/tabular-data/the-table-element/parentless-props.html",
-    "html/webappapis/scripting/events/event-handler-processing-algorithm-non-booleans.html",
+    "html/webappapis/events/event-handler-processing-algorithm-non-booleans.html",
     "html/webappapis/timers/arguments.html",
     "html/webappapis/timers/errors.html",
     "html/webappapis/timers/settimeout-setinterval-handles.html",
