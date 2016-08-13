@@ -47,6 +47,7 @@ var files = [
   "living-dom/node-iterator.js",
   "living-dom/parent-node.js",
   "living-dom/non-document-type-child-node.js",
+  "living-dom/html-collection.js",
   "living-html/cookie.js",
   "living-html/current-script.js",
   "living-html/htmlanchorelement.js",
