@@ -57,7 +57,9 @@ module.exports = function (testDir) {
     pollForServer(() => urlPrefix).then(serverHasStarted);
 
     process.on("exit", () => {
-      python.kill();
+      // Python doesn't register a default handler for SIGTERM and it doesn't run __exit__() methods of context managers
+      // when it gets that signal. Using SIGINT avoids this problem
+      python.kill("SIGINT");
     });
   });
 
