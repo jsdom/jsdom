@@ -1,3 +1,7 @@
+## 9.4.4
+
+* Fixed a leftover `console.log` introduced in the error handling path in 9.4.3.
+
 ## 9.4.3
 
 * Fixed spurious `"jsdomError"`s occuring when closing a window, due to aborted resource loads.
