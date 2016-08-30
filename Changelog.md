@@ -1,3 +1,7 @@
+## 9.4.5
+
+* Fixed `"error"` events from failed resource loads going missing since 9.4.3. I really should have tested that release better.
+
 ## 9.4.4
 
 * Fixed a leftover `console.log` introduced in the error handling path in 9.4.3.
