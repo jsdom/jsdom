@@ -143,16 +143,16 @@ exports["stopping window should close requests and error event should be trigger
       env({
         url: "http://127.0.0.1:" + port + "/html",
         created(err, window) {
-          t.expect(4);
+          t.expect(2);
           t.strictEqual(err, null, "There should be no errors");
           process.nextTick(() => {
             const script = window.document.getElementsByTagName("script")[1];
             script.onerror = () => {
-              t.ok(true, "the external script onerror should be executed (old)");
+              t.ok(false, "the external script onerror should not be executed (old)");
             };
             script.addEventListener("error", () => {
-              t.ok(true, "the external script onerror should be executed");
-            }, false);
+              t.ok(false, "the external script onerror should not be executed");
+            });
             window.stop();
             setTimeout(() => {
               t.ok(!window.testJs, "the external script should not execute");
