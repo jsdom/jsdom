@@ -1,3 +1,7 @@
+## 9.4.3
+
+* Fixed spurious `"jsdomError"`s occuring when closing a window, due to aborted resource loads.
+
 ## 9.4.2
 
 * Fixed what would happen when inline event handlers (such as `element.onclick`) would return non-boolean values (such as `undefined`); it would previously erroneously cancel the event, in many cases. (dmethvin)
