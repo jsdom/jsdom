@@ -57,7 +57,7 @@ module.exports = function (testDir) {
     pollForServer(() => urlPrefix).then(serverHasStarted);
 
     process.on("exit", () => {
-      python.kill();
+      python.kill("SIGINT");
     });
   });
 
