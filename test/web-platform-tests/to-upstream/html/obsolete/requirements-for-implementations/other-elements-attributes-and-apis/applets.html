@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>document.applets</title>
+<link rel="author" title="Domenic Denicola" href="mailto:d@domenic.me">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/#dom-document-applets">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<OBJECT DATA="./pix/line.gif" CODETYPE="image/gif" HEIGHT="10">
+<APPLET ALT="Applet Number 1" CODE="applet1.class" id="applet1"></APPLET>
+</OBJECT>
+<OBJECT DATA="./pix/logo.gif" type="image/gif">
+<APPLET ALT="Applet Number 2" CODE="applet2.class" id="applet2"></APPLET>
+</OBJECT>
+
+<applet id="applet3" code="applet3.class"></applet>
+
+<script>
+"use strict";
+
+test(() => {
+
+  assert_equals(document.applets.constructor, HTMLCollection);
+
+}, "document.applets must be a HTMLCollection");
+
+test(() => {
+
+  assert_equals(document.applets.length, 3);
+  assert_equals(document.applets[0], document.querySelector("#applet1"));
+  assert_equals(document.applets[1], document.querySelector("#applet2"));
+  assert_equals(document.applets[2], document.querySelector("#applet3"));
+
+}, "Should contain exactly the applets in the document (ignoring <object>s)");
+
+</script>

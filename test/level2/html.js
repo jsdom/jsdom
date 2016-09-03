@@ -2227,33 +2227,6 @@ exports.tests = {
 
   /**
    *
-   The applets attribute returns a collection of all OBJECT elements that
-   include applets abd APPLET elements in a document.
-   Retrieve the applets attribute from the document and examine its value.
-   * @author NIST
-   * @author Rick Rivello
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-85113862
-   */
-  HTMLDocument08: function(test) {
-    var success;
-    var nodeList;
-    var testNode;
-    var vapplets;
-    var vlength;
-    var doc;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("document");
-    vapplets = doc.applets;
-    vlength = vapplets.length;
-    test.equal(vlength, 4, "length");
-    test.done();
-  },
-
-  /**
-   *
    The links attribute returns a collection of all AREA and A elements
    in a document with a value for the href attribute.
    Retrieve the links attribute from the document and examine its value.
@@ -14538,54 +14511,6 @@ exports.tests = {
       }
       test.ok(success, 'HTMLTableElement38');
     }
-    test.done();
-  },
-
-  /**
-   *
-   The insertRow() method inserts a new empty table row.
-   If index is -1 or equal to the number of rows, the new row
-   is appended.
-   Retrieve the second TABLE element and invoke the insertRow() method
-   with an index of negative one.
-   The number of rows in the TBODY section before insertion with an index
-   of negative one is two.  After the new row is inserted the number
-   of rows in the TBODY section is three.
-   * @author NIST
-   * @author Rick Rivello
-   * @see http://www.w3.org/TR/DOM-Level-2-HTML/html#ID-39872903
-   */
-  HTMLTableElement39: function(test) {
-    var success;
-    var nodeList;
-    var tbodiesnodeList;
-    var testNode;
-    var bodyNode;
-    var newRow;
-    var rowsnodeList;
-    var vsection1;
-    var vsection2;
-    var vrows;
-    var doc;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("table");
-    nodeList = doc.getElementsByTagName("table");
-    test.equal(nodeList.length, 3, 'Asize');
-    testNode = nodeList.item(1);
-    tbodiesnodeList = testNode.tBodies;
-    bodyNode = tbodiesnodeList.item(0);
-    rowsnodeList = bodyNode.rows;
-    vrows = rowsnodeList.length;
-    test.equal(vrows, 2, "rowsLink1");
-    newRow = testNode.insertRow(-1);
-    tbodiesnodeList = testNode.tBodies;
-    bodyNode = tbodiesnodeList.item(0);
-    rowsnodeList = bodyNode.rows;
-    vrows = rowsnodeList.length;
-    test.equal(vrows, 3, "rowsLink2");
     test.done();
   },
 
