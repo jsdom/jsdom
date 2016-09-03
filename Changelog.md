@@ -1,3 +1,11 @@
+## 9.5.0
+
+* Added `document.scripts`, `document.embeds`, and `document.plugins`.
+* Fixed `document.getElementsByTagName` and `document.getElementsByTagNameNS` to return `HTMLCollection`s instead of `NodeList`s, and to follow the spec algorithms more exactly.
+* Fixed various `HTMLCollection`-returning getters such as `document.applets` or `table.cells` to be more spec-compliant.
+* Fixed the resource loader to respect the `agent` and `agentClass` options, not just the `agentOptions` one.
+* Fixed `console.groupCollapse` to be `console.groupCollapsed` (and changed the virtual console accordingly).
+
 ## 9.4.5
 
 * Fixed `"error"` events from failed resource loads going missing since 9.4.3. I really should have tested that release better.
