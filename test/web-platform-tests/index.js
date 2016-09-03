@@ -6,6 +6,10 @@ const runWebPlatformTest = require("./run-web-platform-test")(path.resolve(__dir
 describe("Web Platform Tests", () => {
   /* eslint-disable max-len */
   [
+    // "dom/collections/HTMLCollection-as-proto-length-get-throws.html", // our brand checks can be evaded by this kind of clever code
+    "dom/collections/HTMLCollection-empty-name.html",
+    // "dom/collections/HTMLCollection-supported-property-indices.html", // we're apparently not doing named vs. indexed properties right
+    // "dom/collections/HTMLCollection-supported-property-names.html", // names vs. ids priority and effect on enumeration order
     "dom/nodes/CharacterData-appendData.html",
     "dom/nodes/CharacterData-deleteData.html",
     "dom/nodes/CharacterData-insertData.html",
