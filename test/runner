@@ -70,7 +70,6 @@ var files = [
   "window/history.js",
   "window/script.js",
   "window/frame.js",
-  "window/base64.js",
   "sizzle/index.js",
 
   "misc/domparsing.js"
