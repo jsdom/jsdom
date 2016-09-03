@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>console methods</title>
+<link rel="author" title="Domenic Denicola" href="mailto:d@domenic.me">
+<link rel="help" href="https://console.spec.whatwg.org/#console-interface">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+test(() => {
+
+  const methods = [
+    "assert",
+    "clear",
+    "count",
+    "debug",
+    "error",
+    "info",
+    "log",
+    "table",
+    "trace",
+    "warn",
+    "group",
+    "groupCollapsed", // https://github.com/whatwg/console/issues/64
+    "groupEnd",
+    "time",
+    "timeEnd"
+  ];
+
+  for (const method of methods) {
+    assert_true(typeof console[method] === "function", `${method} must be a function`);
+  }
+
+}, "Test that all methods are present and are functions");
+
+</script>

@@ -7,6 +7,7 @@ const runWebPlatformTest = require("./run-to-upstream-web-platform-test")(testsP
 
 describe("Local tests in Web Platform Test format (to-upstream)", () => {
   [
+    "console/methods.html",
     "dom/attributes-are-not-nodes.html",
     "dom/events/EventTarget-add-remove-listener.html",
     "dom/events/EventTarget-prototype-constructor.html",

@@ -15,7 +15,7 @@ const consoleMethods = [
   "debug",
   "error",
   "group",
-  "groupCollapse",
+  "groupCollapsed",
   "groupEnd",
   "info",
   "log",

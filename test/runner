@@ -69,7 +69,6 @@ var files = [
 
   "window/history.js",
   "window/script.js",
-  "window/console.js",
   "window/frame.js",
   "window/base64.js",
   "sizzle/index.js",
