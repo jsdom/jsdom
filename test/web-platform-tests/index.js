@@ -189,7 +189,7 @@ describe("Web Platform Tests", () => {
     "dom/events/Event-dispatch-bubbles-true.html",
     "dom/events/Event-dispatch-detached-click.html",
     "dom/events/Event-dispatch-handlers-changed.html",
-    // "dom/events/Event-dispatch-multiple-stopPropagation.html", // unclear why failing
+    "dom/events/Event-dispatch-multiple-stopPropagation.html",
     "dom/events/Event-dispatch-omitted-capture.html",
     "dom/events/Event-dispatch-order.html",
     "dom/events/Event-dispatch-propagation-stopped.html",
