@@ -13,7 +13,7 @@
     "no-cond-assign": ["error", "except-parens"],
     "no-console": "error",
     "no-constant-condition": "error",
-    "no-control-regex": "error",
+    "no-control-regex": "off",
     "no-debugger": "error",
     "no-dupe-args": "error",
     "no-dupe-keys": "error",
