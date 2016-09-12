@@ -89,7 +89,7 @@ describe("Web Platform Tests", () => {
     "html/browsers/history/the-history-interface/005.html",
     "html/browsers/history/the-history-interface/006.html",
     // "html/browsers/history/the-history-interface/007.html", // depends on the load event being delayed properly
-    // "html/browsers/history/the-history-interface/008.html", // invalid? https://github.com/w3c/web-platform-tests/issues/3234
+    "html/browsers/history/the-history-interface/008.html",
     // "html/browsers/history/the-history-interface/009.html", // complicated navigation stuff for iframes
     // "html/browsers/history/the-history-interface/010.html", // complicated navigation stuff for iframes
     "html/browsers/history/the-history-interface/011.html",
@@ -189,7 +189,7 @@ describe("Web Platform Tests", () => {
     "dom/events/Event-dispatch-bubbles-true.html",
     "dom/events/Event-dispatch-detached-click.html",
     "dom/events/Event-dispatch-handlers-changed.html",
-    // "dom/events/Event-dispatch-multiple-stopPropagation.html", // unclear why failing
+    "dom/events/Event-dispatch-multiple-stopPropagation.html",
     "dom/events/Event-dispatch-omitted-capture.html",
     "dom/events/Event-dispatch-order.html",
     "dom/events/Event-dispatch-propagation-stopped.html",
@@ -205,7 +205,7 @@ describe("Web Platform Tests", () => {
     "dom/events/EventListener-handleEvent.html",
     "dom/events/EventTarget-addEventListener.html",
     "dom/events/EventTarget-dispatchEvent-returnvalue.html",
-    // "dom/events/EventTarget-dispatchEvent.html", // invalid test: https://github.com/w3c/web-platform-tests/issues/3235
+    // "dom/events/EventTarget-dispatchEvent.html", // we don't support every event interface yet
     "dom/events/EventTarget-removeEventListener.html",
     "dom/events/ProgressEvent.html",
 
@@ -256,7 +256,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/anonymous-mode-unsupported.htm",
     "XMLHttpRequest/data-uri.htm",
     "XMLHttpRequest/event-abort.htm",
-    "XMLHttpRequest/event-error.html",
+    "XMLHttpRequest/event-error.sub.html",
     "XMLHttpRequest/event-load.htm",
     "XMLHttpRequest/event-loadend.htm",
     "XMLHttpRequest/event-loadstart.htm",
@@ -359,15 +359,15 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/send-entity-body-basic.htm",
     "XMLHttpRequest/send-entity-body-document-bogus.htm",
     "XMLHttpRequest/send-entity-body-document.htm",
-    "XMLHttpRequest/send-entity-body-empty.htm",
-    "XMLHttpRequest/send-entity-body-get-head-async.htm",
-    "XMLHttpRequest/send-entity-body-get-head.htm",
-    "XMLHttpRequest/send-entity-body-none.htm",
+    // "XMLHttpRequest/send-entity-body-empty.htm", // hard to get Node to not send Content-Length
+    // "XMLHttpRequest/send-entity-body-get-head-async.htm", // hard to get Node to not send Content-Length
+    // "XMLHttpRequest/send-entity-body-get-head.htm", // hard to get Node to not send Content-Length
+    // "XMLHttpRequest/send-entity-body-none.htm", // hard to get Node to not send Content-Length
     "XMLHttpRequest/send-network-error-async-events.sub.htm",
     "XMLHttpRequest/send-network-error-sync-events.sub.htm",
     "XMLHttpRequest/send-no-response-event-loadend.htm",
     "XMLHttpRequest/send-no-response-event-loadstart.htm",
-    "XMLHttpRequest/send-no-response-event-order.htm",
+    // "XMLHttpRequest/send-no-response-event-order.htm", // https://github.com/whatwg/xhr/issues/72
     "XMLHttpRequest/send-non-same-origin.sub.htm",
     "XMLHttpRequest/send-receive-utf16.htm",
     "XMLHttpRequest/send-redirect-bogus-sync.htm",
@@ -378,7 +378,7 @@ describe("Web Platform Tests", () => {
     // "XMLHttpRequest/send-redirect-to-cors.htm", // request module remove content-type header on redirect
     "XMLHttpRequest/send-redirect-to-non-cors.htm",
     // "XMLHttpRequest/send-redirect.htm", // request module remove content-type header on redirect
-    "XMLHttpRequest/send-response-event-order.htm",
+    // "XMLHttpRequest/send-response-event-order.htm", // https://github.com/whatwg/xhr/issues/72
     "XMLHttpRequest/send-response-upload-event-loadend.htm",
     "XMLHttpRequest/send-response-upload-event-loadstart.htm",
     "XMLHttpRequest/send-response-upload-event-progress.htm",
@@ -387,7 +387,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/send-sync-no-response-event-load.htm",
     "XMLHttpRequest/send-sync-no-response-event-loadend.htm",
     "XMLHttpRequest/send-sync-no-response-event-order.htm",
-    "XMLHttpRequest/send-sync-response-event-order.htm",
+    // "XMLHttpRequest/send-sync-response-event-order.htm", // https://github.com/whatwg/xhr/issues/72
     "XMLHttpRequest/send-sync-timeout.htm",
     "XMLHttpRequest/send-timeout-events.htm",
     // "XMLHttpRequest/send-usp.html", // needs URLSearchParams implementation
@@ -398,7 +398,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/setrequestheader-bogus-name.htm",
     "XMLHttpRequest/setrequestheader-bogus-value.htm",
     "XMLHttpRequest/setrequestheader-case-insensitive.htm",
-    "XMLHttpRequest/setrequestheader-content-type.htm",
+    // "XMLHttpRequest/setrequestheader-content-type.htm", // we don't implement URLSearchParams or ReadableStream; also unsure we can get request() to send no content-type for ArrayBuffer
     "XMLHttpRequest/setrequestheader-header-allowed.htm",
     "XMLHttpRequest/setrequestheader-header-forbidden.htm",
     "XMLHttpRequest/setrequestheader-open-setrequestheader.htm",
@@ -425,7 +425,7 @@ describe("Web Platform Tests", () => {
     // "XMLHttpRequest/xmlhttprequest-timeout-worker-synconworker.html", // needs worker implementation
     // "XMLHttpRequest/xmlhttprequest-timeout-worker-twice.html", // needs worker implementation
     "XMLHttpRequest/xmlhttprequest-unsent.htm",
-    "XMLHttpRequest/XMLHttpRequest-withCredentials.html",
+    "XMLHttpRequest/XMLHttpRequest-withCredentials.any.html",
     "cors/allow-headers.htm",
     "cors/basic.htm",
     "cors/credentials-flag.htm",
