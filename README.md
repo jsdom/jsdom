@@ -565,7 +565,7 @@ Some people wonder what the differences are between jsdom and [PhantomJS](http:/
 
 PhantomJS is a complete browser (although it uses a very old and rare rendering engine). It even performs layout and rendering, allowing you to query element positions or take a screenshot. jsdom is not a full browser: it does not perform layout or rendering, and it does not support navigation between pages. It _does_ support the DOM, HTML, canvas, many other web platform APIs, and running scripts.
 
-So you could use jsdom to fetch the HTML of your web application (while also executing the JavaScript code within that HTML). And then you could examine and modify the resulting DOM tree. Or you could trigger event listeners to test how the web application reacts. You could also use jsdom to build up your own DOM tree from scartch, and then serialize it to a HTML string.
+So you could use jsdom to fetch the HTML of your web application (while also executing the JavaScript code within that HTML). And then you could examine and modify the resulting DOM tree. Or you could trigger event listeners to test how the web application reacts. You could also use jsdom to build up your own DOM tree from scratch, and then serialize it to a HTML string.
 
 You need an executable to run PhantomJS. It is written in native code, and has to be compiled for each platform. jsdom is pure JavaScript, and runs wherever Node.js runs. It even has experimental support for running within browsers, giving you the ability to create a whole DOM Document inside a web worker.
 
