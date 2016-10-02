@@ -930,25 +930,6 @@ describe("jsdom/miscellaneous", () => {
       });
     });
 
-    specify("env_with_features_and_external_resources", { async: true }, t => {
-      jsdom.env(
-        "http://backbonejs.org/examples/todos/index.html",
-        {
-          features: {
-            FetchExternalResources: ["script", "frame", "link"],
-            ProcessExternalResources: ["script", "frame", "link"],
-            QuerySelector: false
-          }
-        },
-        (error, window) => {
-          assert.ifError(error);
-          assert.equal(typeof window._, "function", "Underscore loaded");
-          assert.equal(typeof window.$, "function", "jQuery loaded");
-          t.done();
-        }
-      );
-    });
-
     specify("ensure_scripts_can_be_disabled_via_options_features", { async: true }, t => {
       const html = `<html><head><script src="./files/hello.js"></script></head>
                  <body><span id="test">hello from html</span></body></html>`;
