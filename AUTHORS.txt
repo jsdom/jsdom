@@ -69,10 +69,12 @@ Gord Tanner <gtanner@gmail.com>
 gregory80 <gregory.tomlinson@gmail.com>
 Henry Zhu <hi@henryzoo.com>
 hij1nx <fernmicro@gmail.com>
+i8-pi <thomas@nomology.id.au>
 Ian Young <ian.greenleaf@gmail.com>
 indexzero <charlie.robbins@gmail.com>
 isaacs <i@izs.me>
 Ivan Nikulin <ifaaan@gmail.com>
+Jack <jack@jackmarchant.com>
 James Broad <jb@kulor.com>
 James Kyle <me@thejameskyle.com>
 James McMath <mcmathja@mediant.co>

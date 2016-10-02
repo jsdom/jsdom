@@ -1,3 +1,11 @@
+## 9.6.0
+
+* Added `HTMLCollection.prototype[Symbol.iterator]`, so you can use `for`-`of` loops over `HTMLCollection`s now. (i8-pi)
+* Fixed `file.lastModified` to return the current time as the default, instead of `0`.
+* Fixed cloning of `Attr`s to properly clone the namespace prefix.
+* Tweaked `XMLHttpRequest` progress event ordering slightly to better match the spec and browsers.
+* Tweaked the behavior of calling `event.stopPropagation` and `event.stopImmediatePropagation` on already-dispatched events, per [the latest changes to the DOM Standard](https://github.com/whatwg/dom/commit/806d4aab584f6fc38c21f8e088b51b8ba3e27e20).
+
 ## 9.5.0
 
 * Added `document.scripts`, `document.embeds`, and `document.plugins`.
