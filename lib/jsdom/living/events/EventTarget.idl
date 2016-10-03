@@ -1,6 +1,12 @@
 [Exposed=(Window,Worker)]
 interface EventTarget {
-  void addEventListener(DOMString type, EventListener? callback, optional boolean capture = false);
-  void removeEventListener(DOMString type, EventListener? callback, optional boolean capture = false);
+  void addEventListener(DOMString type, EventListener? callback, optional Options options);
+  void removeEventListener(DOMString type, EventListener? callback, optional Options options);
   boolean dispatchEvent(Event event);
+};
+
+callback interface Options {
+  readonly attribute boolean capture;
+  readonly attribute boolean once;
+  readonly attribute boolean passive;
 };
