@@ -6,7 +6,7 @@ const runWebPlatformTest = require("./run-web-platform-test")(path.resolve(__dir
 describe("Web Platform Tests", () => {
   /* eslint-disable max-len */
   [
-/*    // "dom/collections/HTMLCollection-as-proto-length-get-throws.html", // our brand checks can be evaded by this kind of clever code
+    // "dom/collections/HTMLCollection-as-proto-length-get-throws.html", // our brand checks can be evaded by this kind of clever code
     "dom/collections/HTMLCollection-empty-name.html",
     // "dom/collections/HTMLCollection-supported-property-indices.html", // we're apparently not doing named vs. indexed properties right
     // "dom/collections/HTMLCollection-supported-property-names.html", // names vs. ids priority and effect on enumeration order
@@ -202,15 +202,15 @@ describe("Web Platform Tests", () => {
     "dom/events/Event-propagation.html",
     "dom/events/Event-type.html",
     "dom/events/Event-type-empty.html",
-    "dom/events/EventListener-handleEvent.html",*/
+    "dom/events/EventListener-handleEvent.html",
     "dom/events/EventTarget-addEventListener.html",
 /*    "dom/events/EventListenerOptions-capture.html",*/
     "dom/events/AddEventListenerOptions-once.html",
 /*    "dom/events/AddEventListenerOptions-passive.html",*/
     "dom/events/EventTarget-dispatchEvent-returnvalue.html",
     // "dom/events/EventTarget-dispatchEvent.html", // we don't support every event interface yet
-    "dom/events/EventTarget-removeEventListener.html"
-    /*"dom/events/ProgressEvent.html",
+    "dom/events/EventTarget-removeEventListener.html",
+    "dom/events/ProgressEvent.html",
 
     "FileAPI/fileReader.html",
     "FileAPI/historical.html",
@@ -452,7 +452,7 @@ describe("Web Platform Tests", () => {
     "progress-events/constructor.html",
     // "progress-events/interface.html", // https://github.com/jsdom/webidl2js/issues/27
     "progress-events/tests/submissions/Samsung/firing-events-http-content-length.html",
-    "progress-events/tests/submissions/Samsung/firing-events-http-no-content-length.html"*/
+    "progress-events/tests/submissions/Samsung/firing-events-http-no-content-length.html"
   ]
   .forEach(runWebPlatformTest);
 });
