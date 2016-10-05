@@ -204,7 +204,7 @@ describe("Web Platform Tests", () => {
     "dom/events/Event-type-empty.html",
     "dom/events/EventListener-handleEvent.html",
     "dom/events/EventTarget-addEventListener.html",
-/*    "dom/events/EventListenerOptions-capture.html",*/
+    "dom/events/EventListenerOptions-capture.html",
     "dom/events/AddEventListenerOptions-once.html",
 /*    "dom/events/AddEventListenerOptions-passive.html",*/
     "dom/events/EventTarget-dispatchEvent-returnvalue.html",
