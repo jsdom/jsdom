@@ -111,6 +111,7 @@ describe("Web Platform Tests", () => {
     "html/dom/elements/global-attributes/classlist-nonstring.html",
     "html/editing/focus/focus-management/focus-events.html",
     "html/editing/focus/focus-management/focus-event-targets-simple.html",
+    "html/editing/focus/document-level-focus-apis/document-level-apis.html",
     "html/editing/focus/sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-default-value.html",
     // "html/infrastructure/urls/terminology-0/document-base-url.html", // we don't support srcdoc <base> correctly
     "html/semantics/forms/attributes-common-to-form-controls/disabled-elements-01.html",
