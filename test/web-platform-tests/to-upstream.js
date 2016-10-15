@@ -26,6 +26,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "domparsing/DOMParser-dont-upstream.html",
     "domparsing/insert-adjacent.html",
     "FileAPI/blob/Blob-close.html",
+    "FileAPI/file/File-constructor.html",
     "encoding/meta/meta-charset-no-quotes.html",
     "encoding/meta/meta-charset-simple-quotes.html",
     "encoding/meta/meta-charset.html",
