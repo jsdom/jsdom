@@ -1,3 +1,7 @@
+## 9.7.1
+
+* Fixes a performance regression introduced in 9.5.0 for modifying the DOM. It was particularly noticable during initial parsing of a document with many elements; for example, one test showed parsing ten thousand elements taking 36.4 seconds, whereas after this fix it is back to a more reasonable 0.4 seconds.
+
 ## 9.7.0
 
 * Added `EventListenerOptions` support to `addEventListener` and `removeEventListener`, including both the `once` and `capture` options. (GianlucaGuarini)
