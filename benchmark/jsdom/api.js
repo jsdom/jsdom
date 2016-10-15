@@ -47,3 +47,21 @@ exports["jsdom() no resources"] = function () {
 
   return suite;
 };
+
+exports["jsdom() with many elements"] = function () {
+  let html = `<!doctype html><html><head><meta charset="UTF-8"><title></title></head><body>\n\n`;
+  for (let i = 0; i < 1000; ++i) {
+    html += `<a href='${i}.html'>${i}</a>\n`;
+  }
+  html += `\n</body></html>\n`;
+
+  const suite = new Benchmark.Suite();
+
+  suite.push(jsdomBenchmark({
+    fn() {
+      jsdom.jsdom(html);
+    }
+  }));
+
+  return suite;
+};
