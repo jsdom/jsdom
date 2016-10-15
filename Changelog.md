@@ -1,3 +1,9 @@
+## 9.7.0
+
+* Added `EventListenerOptions` support to `addEventListener` and `removeEventListener`, including both the `once` and `capture` options. (GianlucaGuarini)
+* Added `document.hasFocus()` (acusti)
+* Fixed the focus management to ensure that focusing something inside an `iframe` will also focus the `iframe` itself (acusti)
+
 ## 9.6.0
 
 * Added `HTMLCollection.prototype[Symbol.iterator]`, so you can use `for`-`of` loops over `HTMLCollection`s now. (i8-pi)

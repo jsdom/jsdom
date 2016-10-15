@@ -10,6 +10,7 @@ Alvaro Dias <alvarod@microsoft.com>
 Ammar Khaku <ammar.khaku@gmail.com>
 Andreas Lind Petersen <andreas@one.com>
 andrew morton <drewish@katherinehouse.com>
+Andrew Patton <andrew@acusti.ca>
 Andrew Plummer <plummer.andrew@gmail.com>
 Andrew Smith <andy@robotlovesyou.com>
 Andy VanWagoner <andy@instructure.com>
@@ -64,6 +65,7 @@ Francisco Requena <frarees@gmail.com>
 Frederic Hemberger <mail@frederic-hemberger.de>
 FrozenCow <frozencow@gmail.com>
 Gary Court <gary.court@gmail.com>
+Gianluca Guarini <gianluca.guarini@gmail.com>
 Godmar Back <godmar@gmail.com>
 Gord Tanner <gtanner@gmail.com>
 gregory80 <gregory.tomlinson@gmail.com>
