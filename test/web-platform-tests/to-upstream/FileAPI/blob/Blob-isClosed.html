@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<title>Blob's isClosed</title>
+<link rel=help href="https://w3c.github.io/FileAPI/#dfn-isClosed">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+test(() => {
+  const blob = new Blob(["TEST"]);
+  assert_false(blob.isClosed, "Blob should not be closed right after construction");
+  blob.close();
+  assert_true(blob.isClosed, "Blob should be closed after being close()'d");
+});
+</script>
