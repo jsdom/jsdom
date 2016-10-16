@@ -77,6 +77,8 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "html/webappapis/timers/settimeout-setinterval-handles.html",
     "XMLHttpRequest/formdata-constructor.html",
     "XMLHttpRequest/thrown-error-in-events.html"
-  ]
+  ];
+
+  [    "html/editing/activation/click-event-properties.html"]
   .forEach(runWebPlatformTest);
 });

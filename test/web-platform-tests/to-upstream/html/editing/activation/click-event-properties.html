@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>click() should do nothing on disabled elements</title>
+<link rel="author" title="Domenic Denicola" href="mailto:d@domenic.me">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/#attr-button-type-submit-state">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<button>Click me</button>
+
+<script>
+"use strict";
+
+async_test(t => {
+
+  const element = document.querySelector("button");
+  element.addEventListener("click", t.step_func_done(e => {
+    assert_equals(e.bubbles, true);
+    assert_equals(e.cancelable, true);
+    assert_equals(e.isTrusted, false);
+    // TODO composed
+  }));
+
+  element.click();
+
+}, "clicking using click() should produce an event object with the correct basic Event values");
+
+async_test(t => {
+
+  const element = document.querySelector("button");
+  element.addEventListener("click", t.step_func_done(e => {
+    assert_equals(e.view, window);
+    assert_equals(e.detail, 0);
+    assert_equals(e.ctrlKey, false);
+    assert_equals(e.shiftKey, false);
+    assert_equals(e.altKey, false);
+    assert_equals(e.metaKey, false);
+    assert_equals(e.ctrlKey, false);
+    assert_equals(e.ctrlKey, false);
+    assert_equals(e.ctrlKey, false);
+    assert_equals(e.ctrlKey, false);
+    assert_equals(e.ctrlKey, false);
+  }));
+
+  element.click();
+
+}, "clicking using click() should produce an event object with the correct UIEventInit values");
+
+async_test(t => {
+
+  const element = document.querySelector("button");
+  element.addEventListener("click", t.step_func_done(e => {
+    assert_equals(e.ctrlKey, false);
+    assert_equals(e.shiftKey, false);
+    assert_equals(e.altKey, false);
+    assert_equals(e.metaKey, false);
+
+    assert_equals(e. modifierAltGraph, false);
+    assert_equals(e.modifierCapsLock, false);
+    assert_equals(e.modifierFn, false);
+    assert_equals(e.modifierFnLock, false);
+    assert_equals(e.modifierHyper, false);
+    assert_equals(e.modifierNumLock, false);
+    assert_equals(e.modifierScrollLock, false);
+    assert_equals(e.modifierSuper, false);
+    assert_equals(e.modifierSymbol, false);
+    assert_equals(e.modifierSymbolLock, false);
+  }));
+
+  element.click();
+
+}, "clicking using click() should produce an event object with the correct EventModifierInit values");
+
+async_test(t => {
+
+  const element = document.querySelector("button");
+  element.addEventListener("click", t.step_func_done(e => {
+    assert_equals(e.screenX, 0);
+    assert_equals(e.screenY, 0);
+    assert_equals(e.clientX, 0);
+    assert_equals(e.clientY, 0);
+
+    assert_equals(e.button, 0);
+    assert_equals(e.buttons, 0);
+    assert_equals(e.relatedTarget, null);
+  }));
+
+  element.click();
+
+}, "clicking using click() should produce an event object with the correct MouseEventInit values");
+
+</script>
