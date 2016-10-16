@@ -1,6 +1,13 @@
+## 9.8.0
+
+* Added the `blob.isClosed` property. (TimothyGu)
+* Fixed the `file.lastModified` property to be on `File` instead of on `Blob`. (TimothyGu)
+* Fixed the `file.lastModified` property to default to the time of the `File` object's creation, not the time that the property is accessed. (TimothyGu)
+* Fixed a minor edge-case regression where non-HTML elements with the name `"iframe"` became focusable in 9.7.0.
+
 ## 9.7.1
 
-* Fixes a performance regression introduced in 9.5.0 for modifying the DOM. It was particularly noticable during initial parsing of a document with many elements; for example, one test showed parsing ten thousand elements taking 36.4 seconds, whereas after this fix it is back to a more reasonable 0.4 seconds.
+* Fixed a performance regression introduced in 9.5.0 for modifying the DOM. It was particularly noticable during initial parsing of a document with many elements; for example, one test showed parsing ten thousand elements taking 36.4 seconds, whereas after this fix it is back to a more reasonable 0.4 seconds.
 
 ## 9.7.0
 

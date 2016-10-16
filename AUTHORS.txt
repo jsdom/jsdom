@@ -192,6 +192,7 @@ Steve Conover <sconover@gmail.com>
 Swizec Teller <swizec@swizec.com>
 Thomas Chung <thomas@nomology.id.au>
 Tiago Rodrigues <tmcrodrigues@gmail.com>
+Timothy Gu <timothygu99@gmail.com>
 timu <selamtux@gmail.com>
 Tobie <tobie.langel@gmail.com>
 Tom Hudson <mail@tomnomnom.com>
