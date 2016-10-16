@@ -1245,7 +1245,8 @@ describe("jsdom/miscellaneous", () => {
               assert.equal(window.document.body.innerHTML, "Hello world");
               t.done();
             };
-          }
+          },
+          virtualConsole: jsdom.createVirtualConsole().sendTo(console)
         });
       });
     });
