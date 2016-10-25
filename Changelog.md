@@ -1,3 +1,7 @@
+## 9.8.3
+
+* Fixed syntax errors in node v4.
+
 ## 9.8.2
 
 * Fixed `DOMTokenList` and `getElementsByClassName` to only split on ASCII whitespace, not all Unicode whitespace.
