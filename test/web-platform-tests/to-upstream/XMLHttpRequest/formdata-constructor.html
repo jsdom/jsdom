@@ -129,7 +129,9 @@ test(() => {
     ["submit-me-\r\n19\r\n", "value\r\n\r\n"]
   ];
 
-  for (const [field, valueOrValues] of expected) {
+  for (const t of expected) {
+    const field = t[0];
+    const valueOrValues = t[1];
     const values = Array.isArray(valueOrValues) ? valueOrValues : [valueOrValues];
     assert_array_equals(formData.getAll(field), values, field);
   }
