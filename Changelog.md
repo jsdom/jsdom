@@ -1,3 +1,7 @@
+## 9.8.2
+
+* Fixed `DOMTokenList` and `getElementsByClassName` to only split on ASCII whitespace, not all Unicode whitespace.
+
 ## 9.8.1
 
 * Fixed an error that occurred when passing no class names to `getElementsByClassName`, e.g. `getElementsByClassName("")` or `getElementsByClassName(" ")`.
