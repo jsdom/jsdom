@@ -1,3 +1,7 @@
+## 9.8.1
+
+* Fixed an error that occurred when passing no class names to `getElementsByClassName`, e.g. `getElementsByClassName("")` or `getElementsByClassName(" ")`.
+
 ## 9.8.0
 
 * Added the `blob.isClosed` property. (TimothyGu)
