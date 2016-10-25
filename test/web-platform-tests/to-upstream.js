@@ -20,6 +20,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "dom/nodes/attributes-namednodemap.html",
     "dom/nodes/getElementsByClassName-32.html",
     "dom/nodes/getElementsByClassName-empty-set.html",
+    "dom/nodes/getElementsByClassName-whitespace-class-names.html",
     "dom/nodes/Node-cloneNode-input.html",
     "dom/nodes/Node-cloneNode-svg.html",
     "dom/nodes/Node-isEqualNode.html",
