@@ -1828,6 +1828,49 @@ describe("level1/core", () => {
 
   /**
    *
+   The "createTextNode(data)" method
+   creates a CDATASection node
+   given the specfied string.
+   Retrieve the entire DOM document and invoke its
+   "createCDATASection(data)" method.
+   It should create a new CDATASection node
+   whos "data" is the specified string
+   The data and type are retrieved and output.
+   The NodeName and NodeType are also checked.
+
+   * @author NIST
+   * @author Mary Brady
+   * @author Curt Arnold
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#
+   * @see http://lists.w3.org/Archives/Public/www-dom-ts/2001Apr/0020.html
+   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core#ID-667469212
+   * @see http://www.w3.org/Bugs/Public/show_bug.cgi?id=249
+   */
+  specify("documentcreatecdatasectionnode", () => {
+    let doc;
+    let newCDATASection;
+    let newCDATASectionName;
+    let newCDATASectionValue;
+    let newCDATASectionType;
+
+    doc = staff.staff();
+
+    newCDATASection = doc.createCDATASection("This is a new CDATASection node");
+
+    assert.notEqual (newCDATASection, null, "createCDATASectionNotNull");
+    newCDATASectionName = newCDATASection.nodeName;
+
+    assert.equal(newCDATASectionName, "#cdata-section", "name");
+    newCDATASectionValue = newCDATASection.nodeValue;
+
+    assert.equal(newCDATASectionValue, "This is a new CDATASection node", "value");
+    newCDATASectionType = newCDATASection.nodeType;
+
+    assert.equal(newCDATASectionType, 4, "type");
+  });
+
+  /**
+   *
    The "createTextNode(data)" method creates a Text node
    given the specfied string.
    Retrieve the entire DOM document and invoke its

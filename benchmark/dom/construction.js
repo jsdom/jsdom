@@ -29,3 +29,6 @@ exports.createProcessingInstruction = suite(document => {
   document.createProcessingInstruction("php", "echo 123; ?");
 });
 
+exports.createCDATASection = suite(document => {
+  document.createCDATASection("foo");
+});
