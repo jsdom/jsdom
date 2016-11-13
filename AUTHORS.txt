@@ -89,6 +89,7 @@ Jason Priestley <jason@teampatent.com>
 jden <jason@denizac.org>
 Jean-Francois Remy <jfremy@users.noreply.github.com>
 Jeff Carpenter <gcarpenterv@gmail.com>
+Jeremy Danyow <jdanyow@gmail.com>
 Jérémy Lal <kapouer@melix.org>
 Jerry Sievert <github@legitimatesounding.com>
 Jimmy Mabey <jimmy@velsoft.com>
