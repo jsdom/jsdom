@@ -668,7 +668,9 @@ describe("jsdom/miscellaneous", () => {
 
     let error;
     const vc = jsdom.getVirtualConsole(doc.defaultView);
-    vc.on("jsdomError", e => {error = e});
+    vc.on("jsdomError", e => {
+      error = e;
+    });
 
     const form = doc.createElement("form");
     const bttn = doc.createElement("button");
@@ -684,7 +686,9 @@ describe("jsdom/miscellaneous", () => {
 
     let error;
     const vc = jsdom.getVirtualConsole(doc.defaultView);
-    vc.on("jsdomError", e => {error = e});
+    vc.on("jsdomError", e => {
+      error = e;
+    });
 
     const form = doc.createElement("form");
     form.addEventListener("submit", event => event.preventDefault());
