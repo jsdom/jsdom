@@ -668,23 +668,23 @@ describe("jsdom/miscellaneous", () => {
 
     let error;
     const vc = jsdom.getVirtualConsole(doc.defaultView);
-    vc.on("jsdomError", e => error = e);
+    vc.on("jsdomError", e => {error = e});
 
     const form = doc.createElement("form");
     const bttn = doc.createElement("button");
     form.appendChild(bttn);
     bttn.click();
 
-    assert(error, 'expected console to log not implemented error');
-    assert(error.message, 'Not implemented: HTMLFormElement.prototype.submit');
+    assert(error, "expected console to log not implemented error");
+    assert(error.message, "Not implemented: HTMLFormElement.prototype.submit");
   });
 
   specify("form_onsubmit_not_implemented_ignored_if_prevented", () => {
     const doc = jsdom.jsdom();
 
-    let error
+    let error;
     const vc = jsdom.getVirtualConsole(doc.defaultView);
-    vc.on("jsdomError", e => error = e);
+    vc.on("jsdomError", e => {error = e});
 
     const form = doc.createElement("form");
     form.addEventListener("submit", event => event.preventDefault());
@@ -692,7 +692,7 @@ describe("jsdom/miscellaneous", () => {
     form.appendChild(bttn);
     bttn.click();
 
-    assert(!error, 'expected console to not log any error');
+    assert(!error, "expected console to not log any error");
   });
 
   specify("get_element_by_id", () => {
