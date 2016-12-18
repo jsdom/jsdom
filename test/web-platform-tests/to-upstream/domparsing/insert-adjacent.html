@@ -19,20 +19,54 @@ test(() => {
 }, "Throws when given an invalid position");
 
 test(() => {
-  // A detached element does not have a parent node.
   const el = document.createElement("span");
 
   assert_throws("NO_MODIFICATION_ALLOWED_ERR", () => {
     el.insertAdjacentHTML("beforebegin", "test");
   });
-}, "Throws when inserting into an element whose parent is null");
+}, "Throws when inserting using \"beforebegin\" into an element whose parent is null");
 
 test(() => {
-  // The parent node of the html element is a document.
+  const el = document.createElement("span");
+
+  assert_throws("NO_MODIFICATION_ALLOWED_ERR", () => {
+    el.insertAdjacentHTML("afterend", "test");
+  });
+}, "Throws when inserting using \"afterend\" into an element whose parent is null");
+
+test(() => {
+  const el = document.createElement("span");
+
+  el.insertAdjacentHTML("afterbegin", "foo");
+  el.insertAdjacentHTML("beforeend", "bar");
+
+  assert_equals(el.textContent, "foobar");
+}, "Does not throw when inserting using \"afterbegin\" and \"beforeend\" into an element whose parent is null");
+
+test(() => {
   const el = document.querySelector("html");
 
   assert_throws("NO_MODIFICATION_ALLOWED_ERR", () => {
     el.insertAdjacentHTML("beforebegin", "test");
   });
-}, "Throws when inserting into an element whose parent is a document");
+}, "Throws when inserting using \"beforebegin\" into an element whose parent is a document");
+
+test(() => {
+  const el = document.querySelector("html");
+
+  assert_throws("NO_MODIFICATION_ALLOWED_ERR", () => {
+    el.insertAdjacentHTML("afterend", "test");
+  });
+}, "Throws when inserting using \"afterend\" into an element whose parent is a document");
+
+test(() => {
+  const el = document.querySelector("html");
+
+  el.insertAdjacentHTML("afterbegin", "foo");
+  el.insertAdjacentHTML("beforeend", "bar");
+
+  assert_true(el.textContent.startsWith("foo"));
+  assert_true(el.textContent.endsWith("bar"));
+}, "Does not throw when inserting using \"afterbegin\" and \"beforeend\" into an element whose parent is a document");
+
 </script>
