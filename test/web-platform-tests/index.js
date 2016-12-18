@@ -107,6 +107,15 @@ describe("Web Platform Tests", () => {
     "html/browsers/offline/browser-state/navigator_online_online.html",
     // "html/browsers/windows/browsing-context-first-created.xhtml", // jsdom will try to feed <![CDATA[ to the script parser, causing errors
     "html/dom/documents/dom-tree-accessors/Document.body.html",
+    "html/dom/documents/dom-tree-accessors/document.title-01.html",
+    "html/dom/documents/dom-tree-accessors/document.title-02.xhtml",
+    "html/dom/documents/dom-tree-accessors/document.title-03.html",
+    "html/dom/documents/dom-tree-accessors/document.title-04.xhtml",
+    "html/dom/documents/dom-tree-accessors/document.title-05.html",
+    "html/dom/documents/dom-tree-accessors/document.title-06.html",
+    "html/dom/documents/dom-tree-accessors/document.title-07.html",
+    "html/dom/documents/dom-tree-accessors/document.title-08.html",
+    // "html/dom/documents/dom-tree-accessors/document.title-09.html" // SVG stuff
     "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-02.html",
     "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-03.html",
     "html/dom/elements/global-attributes/classlist-nonstring.html",
