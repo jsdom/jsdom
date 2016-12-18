@@ -663,6 +663,42 @@ describe("jsdom/miscellaneous", () => {
     assert.equal(typeof elem.onsubmit, "function");
   });
 
+  specify("form_onsubmit_not_implemented", () => {
+    const doc = jsdom.jsdom();
+
+    let error;
+    const vc = jsdom.getVirtualConsole(doc.defaultView);
+    vc.on("jsdomError", e => {
+      error = e;
+    });
+
+    const form = doc.createElement("form");
+    const bttn = doc.createElement("button");
+    form.appendChild(bttn);
+    bttn.click();
+
+    assert(error, "expected console to log not implemented error");
+    assert(error.message, "Not implemented: HTMLFormElement.prototype.submit");
+  });
+
+  specify("form_onsubmit_not_implemented_ignored_if_prevented", () => {
+    const doc = jsdom.jsdom();
+
+    let error;
+    const vc = jsdom.getVirtualConsole(doc.defaultView);
+    vc.on("jsdomError", e => {
+      error = e;
+    });
+
+    const form = doc.createElement("form");
+    form.addEventListener("submit", event => event.preventDefault());
+    const bttn = doc.createElement("button");
+    form.appendChild(bttn);
+    bttn.click();
+
+    assert(!error, "expected console to not log any error");
+  });
+
   specify("get_element_by_id", () => {
     const doc = jsdom.jsdom();
     const el = doc.createElement("div");
