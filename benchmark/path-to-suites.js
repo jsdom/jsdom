@@ -7,7 +7,7 @@ module.exports = function pathToSuites(benchmarks, paths) {
   if (paths && paths.length) {
     // dom/construction/createElement => benchmarks.dom.construction.createElement
     for (const path of paths) {
-      const parts = path.split(/[\/\\]/);
+      const parts = path.split(/[/\\]/);
       let suites = benchmarks;
 
       for (const part of parts) {
