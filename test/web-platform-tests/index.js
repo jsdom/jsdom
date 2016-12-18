@@ -106,6 +106,7 @@ describe("Web Platform Tests", () => {
     "html/browsers/history/the-location-interface/location_search.html",
     "html/browsers/offline/browser-state/navigator_online_online.html",
     // "html/browsers/windows/browsing-context-first-created.xhtml", // jsdom will try to feed <![CDATA[ to the script parser, causing errors
+    "html/dom/documents/dom-tree-accessors/Document.body.html",
     "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-02.html",
     "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-03.html",
     "html/dom/elements/global-attributes/classlist-nonstring.html",
