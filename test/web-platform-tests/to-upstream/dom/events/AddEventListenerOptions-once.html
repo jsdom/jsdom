@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>AddEventListenerOptions.once</title>
+<link rel="help" href="https://dom.spec.whatwg.org/#dom-addeventlisteneroptions-once">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="log"></div>
+<script>
+"use strict";
+
+test(() => {
+  let invoked_once = false;
+  let invoked_once2 = false;
+  let invoked_normal = false;
+  function handler_once() {
+    invoked_once = true;
+  }
+  function handler_once2() {
+    invoked_once2 = true;
+  }
+  function handler_normal() {
+    invoked_normal = true;
+  }
+
+  document.addEventListener("test", handler_once, { once: true });
+  document.addEventListener("test", handler_once2, { once: true });
+  document.addEventListener("test", handler_normal);
+  document.dispatchEvent(new Event("test"));
+  assert_equals(invoked_once, true, "Once handler should be invoked");
+  assert_equals(invoked_once2, true, "Once2 handler should be invoked");
+  assert_equals(invoked_normal, true, "Normal handler should be invoked");
+
+  invoked_once = false;
+  invoked_once2 = false;
+  invoked_normal = false;
+  document.dispatchEvent(new Event("test"));
+  assert_equals(invoked_once, false, "Once handler shouldn't be invoked again");
+  assert_equals(invoked_once2, false, "Once2 handler shouldn't be invoked again");
+  assert_equals(invoked_normal, true, "Normal handler should be invoked again");
+  document.removeEventListener("test", handler_normal);
+}, "Once listener should be invoked only once");
+
+</script>
