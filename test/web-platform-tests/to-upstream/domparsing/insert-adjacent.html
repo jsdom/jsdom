@@ -28,6 +28,17 @@ test(() => {
 }, "Throws when inserting into an element whose parent is null");
 
 test(() => {
+  // `insertAdjacentHTML` should work when adding the content within the element,
+  // even when the element does not have a parent
+  const el = document.createEvent("span");
+
+  el.insertAdjacentHTML("afterbegin", "foo");
+  el.insertAdjacentHTML("beforeend", "bar");
+
+  assert_equals(el.innerHTML, "foobar");
+}, "Allows inserting without a parent element for `afterbegin` or `beforeend`");
+
+test(() => {
   // The parent node of the html element is a document.
   const el = document.querySelector("html");
 
