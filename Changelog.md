@@ -1,3 +1,7 @@
+## 9.9.1
+
+* Remove the use of .includes to fix a compatibility issue with node v4.
+
 ## 9.9.0
 
 * Added `CDATASection` nodes, including `document.createCDATASection`. (snuggs)
