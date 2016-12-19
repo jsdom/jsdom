@@ -18,6 +18,7 @@ test/level2
 test/level3
 test/sizzle
 test/web-platform-tests/tests
+test/web-platform-tests/to-upstream/dom/nodes/Document-createComment-createTextNode.js
 test/web-platform-tests/to-upstream/domparsing/DOMParser-dont-upstream.html
 test/window/files
 test/window/frame.js
