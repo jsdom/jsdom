@@ -1,3 +1,16 @@
+## 9.9.0
+
+* Added `CDATASection` nodes, including `document.createCDATASection`. (snuggs)
+* Added `node.wholeText`. (jdanyow)
+* Added a setter for `document.body`.
+* Added `document.embeds`, `document.plugsin`, and `document.scripts`. These were supposed to be added in 9.5.0 but were mistakenly omitted.
+* Fixed `element.insertAdjacentHTML` to work when the element has null or the document as its parent node, as long as the insertion position is `"afterbegin"` or `"beforeend"`.
+* Fixed form submission to only hit the "not implemented" virtual console message when form submission is _not_ canceled, instead of when it is.
+* Fixed an issue where the event listener was not being correctly removed when using the `{ once: true }` option to `addEventListener`. (i8-pi)
+* Fixed an error that was thrown when using `XHTMLHttpRequest` and POSTing JSON contents to an endpoint that requires CORS while using an `Authorization` header. (dunnock)
+* Fixed `document.body` and `document.title` to act more correctly in various edge cases.
+* Fixed `HTMLCollection` named access to return the first element encountered, not the last.
+
 ## 9.8.3
 
 * Fixed syntax errors in node v4.
@@ -25,7 +38,7 @@
 
 * Added `EventListenerOptions` support to `addEventListener` and `removeEventListener`, including both the `once` and `capture` options. (GianlucaGuarini)
 * Added `document.hasFocus()` (acusti)
-* Fixed the focus management to ensure that focusing something inside an `iframe` will also focus the `iframe` itself (acusti)
+* Fixed the focus management to ensure that focusing something inside an `iframe` will also focus the `iframe` itself. (acusti)
 
 ## 9.6.0
 

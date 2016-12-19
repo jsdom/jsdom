@@ -135,6 +135,7 @@ Matthew King <mking@borderstylo.com>
 Matthew Pflueger <matthew.pflueger@gmail.com>
 Matthew Phillips <matthew@matthewphillips.info>
 Max Walker <maxwell.a.walker@gmail.com>
+Maxim Vorobjov <maxim.vorobjov@gmail.com>
 Michael Fleet <mofosho@fantasticmf.com>
 Michael Hayes <michael.hayes@urbanairship.com>
 Michael Mior <michael.mior@gmail.com>
@@ -157,7 +158,9 @@ Pete Bevin <pete@petebevin.com>
 Péter <peter.perenyi@gmail.com>
 Peter Lyons <pete@peterlyons.com>
 Phil Dokas <pdokas@organic.com>
+Rainer Eli <claushellsing@gmail.com>
 Ralph Holzmann <ralphholzmann@gmail.com>
+Ra'Shaun Stovall <help@sneakyhead.com>
 Remy Loubradou <remyloubradou@gmail.com>
 Rich Harris <richard.a.harris@gmail.com>
 Ricky Chien <ricky060709@gmail.com>
@@ -166,6 +169,7 @@ Rob Dodson <lets.email.rob@gmail.com>
 Robin <fbzhong@gmail.com>
 Robin Berjon <robin@berjon.com>
 Rodrigo Flores <rodrigo.flores@plataformatec.com.br>
+Rolf Timmermans <rolftimmermans@voormedia.com>
 Ryan Gasparini <ryan@rxgx.com>
 Ryan Grove <ryan@wonko.com>
 Ryan Seddon <rseddon@zendesk.com>
