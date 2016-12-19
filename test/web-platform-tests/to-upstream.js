@@ -14,6 +14,8 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "dom/events/EventTarget-add-remove-listener.html",
     "dom/events/EventTarget-prototype-constructor.html",
     "dom/events/EventTarget-this-of-listener.html",
+    "dom/nodes/Document-createCDATASection.html",
+    "dom/nodes/Document-createCDATASection.xhtml",
     "dom/nodes/Element-hasAttribute.html",
     "dom/nodes/Element-removeAttribute.html",
     "dom/nodes/Element-setAttribute.html",
