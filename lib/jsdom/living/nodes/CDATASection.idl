@@ -1,4 +1,3 @@
-[Constructor(optional DOMString data = ""),
- Exposed=Window]
+[Exposed=Window]
 interface CDATASection : Text {
 };
