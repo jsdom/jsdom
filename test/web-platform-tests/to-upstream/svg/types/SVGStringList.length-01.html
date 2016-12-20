@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Element.prototype.hasAttribute</title>
+<link rel=help href="https://dom.spec.whatwg.org/#dom-element-hasattribute">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<span data-e2="2" data-F2="3" id="t"></span>
+
+<script>
+"use strict";
+
+test(() => {
+
+  const el1 = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+
+  console.log(el1.requiredExtensions);
+  
+  //assert_true(el1.requiredExtensions instanceof SVGStringList, "holds instanceof SVGStringList");
+  assert_equals(el1.requiredExtensions.length, 0, "length is 0 with when no attribute set");
+  assert_equals(el1.requiredExtensions.numberOfItems, 0, "numberOfItems is 0 with when no attribute set");
+  
+  el1.setAttribute("requiredExtensions", 'foo bar');
+  
+  assert_equals(el1.requiredExtensions.length, 2, "holds correct length");
+  assert_equals(el1.requiredExtensions.numberOfItems, 2, "holds correct numberOfItems");
+  
+  assert_equals(el1.requiredExtensions.appendItem("baz"), "baz", "appendItem returns the item");
+  assert_equals(el1.requiredExtensions.length, 3, "holds correct length");
+
+}, "viewportElement should hold the element which establishes the viewport for the current element");
+
+</script>

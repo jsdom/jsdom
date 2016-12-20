@@ -1,3 +1,4 @@
+// https://svgwg.org/svg2-draft/types.html#InterfaceSVGStringList
 interface SVGStringList {
 
   readonly attribute unsigned long length;

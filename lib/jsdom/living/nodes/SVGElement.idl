@@ -1,5 +1,7 @@
+// https://svgwg.org/svg2-draft/types.html#InterfaceSVGElement
 interface SVGElement : Element {
 
+  // Deprecated
   //[SameObject] readonly attribute SVGAnimatedString className;
 
   //[SameObject] readonly attribute DOMStringMap dataset;
@@ -13,3 +15,4 @@ interface SVGElement : Element {
 };
 
 // SVGElement implements GlobalEventHandlers;
+// SVGElement implements ElementCSSInlineStyle; // https://drafts.csswg.org/cssom/#the-elementcssinlinestyle-interface

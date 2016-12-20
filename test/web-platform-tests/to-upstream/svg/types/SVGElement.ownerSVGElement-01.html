@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Element.prototype.hasAttribute</title>
+<link rel=help href="https://dom.spec.whatwg.org/#dom-element-hasattribute">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<span data-e2="2" data-F2="3" id="t"></span>
+
+<script>
+"use strict";
+
+test(() => {
+
+  const el1 = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  const el2 = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+
+  el1.appendChild(el2);
+
+  assert_equals(el1.ownerSVGElement, null, 'outermost svg element has ownerSVGElement set to null');
+  assert_equals(el2.ownerSVGElement, el1);
+
+}, "ownerSVGElement should hold the outermost svg element");
+
+</script>
