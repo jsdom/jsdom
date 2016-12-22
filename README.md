@@ -177,7 +177,7 @@ Now that you know about `created` and `onload`, you can see that `done` is essen
 If you load scripts asynchronously, e.g. with a module loader like RequireJS, none of the above hooks will really give you what you want. There's nothing, either in jsdom or in browsers, to say "notify me after all asynchronous loads have completed." The solution is to use the mechanisms of the framework you are using to notify about this finishing up. E.g., with RequireJS, you could do
 
 ```js
-// On the Node.js/io.js side:
+// On the Node.js side:
 var window = jsdom.jsdom(...).defaultView;
 window.onModulesLoaded = function () {
   console.log("ready to roll!");
@@ -426,7 +426,7 @@ scriptEl.src = "anotherScript.js";
 window.document.body.appendChild(scriptEl);
 
 // anotherScript.js will have the ability to read `window.__myObject`, even
-// though it originated in Node.js/io.js!
+// though it originated in Node.js!
 ```
 
 ### Serializing a document
@@ -466,7 +466,7 @@ jsdom.env({
 
 ### Capturing Console Output
 
-#### Forward a window's console output to the Node.js/io.js console
+#### Forward a window's console output to the Node.js console
 
 ```js
 var jsdom = require("jsdom");
