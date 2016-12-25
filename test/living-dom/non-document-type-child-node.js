@@ -74,8 +74,8 @@ exports["CommentNode should implement NonDocumentTypeChildNode:previousElementSi
 };
 
 exports["Element should implement NonDocumentTypeChildNode:nextElementSibling"] = t => {
-  const doc = jsdom(`<!DOCTYPE html>
-<?foo bar?>
+  const doc = jsdom(`<?foo bar?>
+<!DOCTYPE html>
 <html id="html_id">
   <head>
       <title>NonDocumentTypeChildNode</title>
@@ -99,8 +99,8 @@ exports["Element should implement NonDocumentTypeChildNode:nextElementSibling"] 
 };
 
 exports["Element should implement NonDocumentTypeChildNode:previousElementSibling"] = t => {
-  const doc = jsdom(`<!DOCTYPE html>
-<?foo bar?>
+  const doc = jsdom(`<?foo bar?>
+<!DOCTYPE html>
 <html id="html_id">
   <head>
       <title>NonDocumentTypeChildNode</title>
