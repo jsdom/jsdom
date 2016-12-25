@@ -3,122 +3,105 @@
 const jsdom = require("../..").jsdom;
 
 exports["ProcessingInstruction should implement NonDocumentTypeChildNode:nextElementSibling"] = t => {
-  const doc = jsdom("<main></main>");
-  const processingInstruction = doc.createProcessingInstruction("xml", "version='1.0'")
+  const document = jsdom("<main></main>");
+  const processingInstruction = document.createProcessingInstruction("xml", "version='1.0'")
 
-  doc.insertBefore(processingInstruction, doc.firstChild)
-  t.strictEqual(processingInstruction.nextElementSibling.tagName, "HTML")
+  document.insertBefore(processingInstruction, document.documentElement)
+  t.strictEqual(processingInstruction.nextElementSibling, document.documentElement)
 
-  doc.insertBefore(doc.lastChild, processingInstruction)
+  document.insertBefore(document.lastChild, processingInstruction)
   t.strictEqual(processingInstruction.nextElementSibling, null)
 
   t.done();
 };
 
 exports["ProcessingInstruction should implement NonDocumentTypeChildNode:previousElementSibling"] = t => {
-  const doc = jsdom("<main></main>");
-  const processingInstruction = doc.createProcessingInstruction("xml", "version='Foo'")
-  doc.insertBefore(processingInstruction, doc.firstChild)
+  const document = jsdom("<main></main>");
+  const processingInstruction = document.createProcessingInstruction("xml", "version='Foo'")
 
-  doc.insertBefore(processingInstruction, doc.firstChild)
+  document.insertBefore(processingInstruction, document.documentElement)
   t.strictEqual(processingInstruction.previousElementSibling, null)
 
-  doc.insertBefore(doc.lastChild, processingInstruction)
-  t.strictEqual(processingInstruction.previousElementSibling.tagName, "HTML")
+  document.insertBefore(document.documentElement, processingInstruction)
+  t.strictEqual(processingInstruction.previousElementSibling, document.documentElement)
 
   t.done();
 };
 
 exports["TextNode should implement NonDocumentTypeChildNode:nextElementSibling"] = t => {
-  const doc = jsdom("<div id='1'>1</div> <div id='2'>2</div>");
-  const newCommentNode1 = doc.createComment("comment1");
-  const textnode1 = doc.createTextNode("Text1");
-  const element2 = doc.querySelector("div[id='2']");
-  doc.body.insertBefore(textnode1, element2);
-  doc.body.insertBefore(newCommentNode1, element2);
-  t.strictEqual(textnode1.nextElementSibling.id, "2");
+  const document = jsdom("<section></section>");
+  const textNode = document.createTextNode("Foo Text");
+  const element = document.querySelector("section");
+
+  document.body.insertBefore(textNode, element);
+  t.strictEqual(textNode.nextElementSibling, element);
+
+  document.body.appendChild(textNode);
+  t.strictEqual(textNode.nextElementSibling, null);
   t.done();
 };
 
 exports["TextNode should implement NonDocumentTypeChildNode:previousElementSibling"] = t => {
-  const doc = jsdom("<div id='1'>1</div> <div id='2'>2</div>");
-  const newCommentNode1 = doc.createComment("comment1");
-  const textnode1 = doc.createTextNode("Text1");
-  doc.body.appendChild(textnode1);
-  doc.body.insertBefore(newCommentNode1, textnode1);
-  t.strictEqual(textnode1.previousElementSibling.id, "2");
+  const document = jsdom("<section></section>");
+  const textNode = document.createTextNode("Foo Text");
+  const element = document.querySelector("section");
+
+  document.body.insertBefore(textNode, element);
+  t.strictEqual(textNode.previousElementSibling, null);
+
+  document.body.appendChild(textNode);
+  t.strictEqual(textNode.previousElementSibling, element);
   t.done();
 };
 
 exports["CommentNode should implement NonDocumentTypeChildNode:nextElementSibling"] = t => {
-  const doc = jsdom("<div id='1'>1</div> <div id='2'>2</div>");
+  const document = jsdom("<section></section>");
+  const comment = document.createComment("Foo Comment");
+  const element = document.querySelector("section");
 
-  const newCommentNode1 = doc.createComment("comment1");
-  const newCommentNode2 = doc.createComment("comment2");
-  const element1 = doc.querySelector("div[id='1']");
-  doc.body.insertBefore(newCommentNode1, element1);
-  doc.body.insertBefore(newCommentNode2, element1);
-  t.strictEqual(newCommentNode1.nextElementSibling.id, "1");
+  document.body.insertBefore(comment, element);
+  t.strictEqual(comment.nextElementSibling, element);
+
+  document.body.appendChild(comment);
+  t.strictEqual(comment.nextElementSibling, null);
   t.done();
 };
 
 exports["CommentNode should implement NonDocumentTypeChildNode:previousElementSibling"] = t => {
-  const doc = jsdom("<div id='1'>1</div> <div id='2'>2</div>");
+  const document = jsdom("<section></section>");
+  const comment = document.createComment("foo comment");
+  const element = document.querySelector("section");
 
-  const newCommentNode1 = doc.createComment("comment1");
-  const newCommentNode2 = doc.createComment("comment2");
-  doc.body.appendChild(newCommentNode1);
-  doc.body.appendChild(newCommentNode2);
-  t.strictEqual(newCommentNode2.previousElementSibling.id, "2");
+  document.body.appendChild(comment);
+  t.strictEqual(comment.previousElementSibling, element);
+
+  document.body.insertBefore(comment, element);
+  t.strictEqual(comment.previousElementSibling, null);
   t.done();
 };
 
 exports["Element should implement NonDocumentTypeChildNode:nextElementSibling"] = t => {
-  const doc = jsdom(`<?foo bar?>
-<!DOCTYPE html>
-<html id="html_id">
-  <head>
-      <title>NonDocumentTypeChildNode</title>
-  </head>
-  <body>
-    <!-- comment 1 -->
-    <div id='1'>1</div>
-    <!-- comment 2 -->
-    <div id='2'>2</div>
-    <!-- comment 3 -->
-    <div id='3'>3</div>
-    <!-- comment 4 -->
-  </body>
-</html>`);
+  const document = jsdom("<!-- comment --><section></section><!-- comment -->");
+  const aside = document.createElement("aside");
+  const element = document.querySelector("section");
 
-  const element1 = doc.querySelector("div[id='1']");
-  t.strictEqual(element1.nextElementSibling.id, "2");
-  t.strictEqual(element1.nextElementSibling.nextElementSibling.id, "3");
-  t.strictEqual(element1.nextElementSibling.nextElementSibling.nextElementSibling, null);
+  document.body.insertBefore(aside, document.body.firstChild);
+  t.strictEqual(aside.nextElementSibling, element);
+
+  document.body.appendChild(aside);
+  t.strictEqual(aside.nextElementSibling, null);
   t.done();
 };
 
 exports["Element should implement NonDocumentTypeChildNode:previousElementSibling"] = t => {
-  const doc = jsdom(`<?foo bar?>
-<!DOCTYPE html>
-<html id="html_id">
-  <head>
-      <title>NonDocumentTypeChildNode</title>
-  </head>
-  <body>
-    <!-- comment 1 -->
-    <div id='1'>1</div>
-    <!-- comment 2 -->
-    <div id='2'>2</div>
-    <!-- comment 3 -->
-    <div id='3'>3</div>
-    <!-- comment 4 -->
-  </body>
-</html>`);
+  const document = jsdom("<!-- comment --><section></section><!-- comment -->");
+  const aside = document.createElement("aside");
+  const element = document.querySelector("section");
 
-  const element3 = doc.querySelector("div[id='3']");
-  t.strictEqual(element3.previousElementSibling.id, "2");
-  t.strictEqual(element3.previousElementSibling.previousElementSibling.id, "1");
-  t.strictEqual(element3.previousElementSibling.previousElementSibling.previousElementSibling, null);
+  document.body.insertBefore(aside, document.body.firstChild);
+  t.strictEqual(aside.previousElementSibling, null);
+
+  document.body.appendChild(aside);
+  t.strictEqual(aside.previousElementSibling, element);
   t.done();
 };
