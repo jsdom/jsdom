@@ -2,6 +2,33 @@
 
 const jsdom = require("../..").jsdom;
 
+exports["ProcessingInstruction should implement NonDocumentTypeChildNode:nextElementSibling"] = t => {
+  const doc = jsdom("<main></main>");
+  const processingInstruction = doc.createProcessingInstruction("xml", "version='1.0'")
+
+  doc.insertBefore(processingInstruction, doc.firstChild)
+  t.strictEqual(processingInstruction.nextElementSibling.tagName, "HTML")
+
+  doc.insertBefore(doc.lastChild, processingInstruction)
+  t.strictEqual(processingInstruction.nextElementSibling, null)
+
+  t.done();
+};
+
+exports["ProcessingInstruction should implement NonDocumentTypeChildNode:previousElementSibling"] = t => {
+  const doc = jsdom("<main></main>");
+  const processingInstruction = doc.createProcessingInstruction("xml", "version='Foo'")
+  doc.insertBefore(processingInstruction, doc.firstChild)
+
+  doc.insertBefore(processingInstruction, doc.firstChild)
+  t.strictEqual(processingInstruction.previousElementSibling, null)
+
+  doc.insertBefore(doc.lastChild, processingInstruction)
+  t.strictEqual(processingInstruction.previousElementSibling.tagName, "HTML")
+
+  t.done();
+};
+
 exports["TextNode should implement NonDocumentTypeChildNode:nextElementSibling"] = t => {
   const doc = jsdom("<div id='1'>1</div> <div id='2'>2</div>");
   const newCommentNode1 = doc.createComment("comment1");
