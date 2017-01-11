@@ -125,7 +125,7 @@ jsdom.env(config);
 - `config.scripts`: see `scripts` above.
 - `config.src`: an array of JavaScript strings that will be evaluated against the resulting document. Similar to `scripts`, but it accepts JavaScript instead of paths/URLs.
 - `config.cookieJar`: cookie jar which will be used by document and related resource requests. Can be created by `jsdom.createCookieJar()` method. Useful to share cookie state among different documents as browsers does.
-- `config.parsingMode`: either `"auto"`, `"html"`, or `"xml"`. The default is `"auto"`, which uses HTML behavior unless `config.url` responds with an XML `Content-Type`, or `config.file` contains a filename ending in `.xml` or `.xhtml`. Setting to `"xml"` will attempt to parse the document as an XHTML document. (jsdom is [currently only OK at doing that](https://github.com/tmpvar/jsdom/issues/885).)
+- `config.parsingMode`: either `"auto"`, `"html"`, or `"xml"`. The default is `"auto"`, which uses HTML behavior unless `config.url` responds with an XML `Content-Type`, or `config.file` contains a filename ending in `.xml` or `.xhtml`. Setting to `"xml"` will attempt to parse the document as an XHTML document. (jsdom is [currently only OK at doing that](https://github.com/tmpvar/jsdom/labels/x%28ht%29ml).)
 - `config.referrer`: the new document will have this referrer.
 - `config.cookie`: manually set a cookie value, e.g. `'key=value; expires=Wed, Sep 21 2011 12:00:00 GMT; path=/'`. Accepts cookie string or array of cookie strings.
 - `config.headers`: an object giving any headers that will be used while loading the HTML from `config.url`, if applicable.
