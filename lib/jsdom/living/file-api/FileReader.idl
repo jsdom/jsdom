@@ -28,5 +28,4 @@ interface FileReader: EventTarget {
   attribute EventHandler onabort;
   attribute EventHandler onerror;
   attribute EventHandler onloadend;
-
 };
