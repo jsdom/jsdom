@@ -10,8 +10,8 @@ In general, a web platform class (like `Window`, or `Node`, or `Location`, or `C
 
 As such, most web platform classes present in jsdom are implemented in two parts:
 
-- An IDL file, such as [`Attr.idl`](https://github.com/tmpvar/jsdom/blob/master/lib/jsdom/living/attributes/Attr.idl), drawn more or less straight from the spec
-- An implementation file, such as [`Attr-impl.js`](https://github.com/tmpvar/jsdom/blob/master/lib/jsdom/living/attributes/Attr-impl.js), containing the relevant implementation logic
+- An IDL file, such as [`Attr.idl`](https://github.com/tmpvar/jsdom/blob/master/lib/jsdom/living/nodes/Attr.idl), drawn more or less straight from the spec
+- An implementation file, such as [`Attr-impl.js`](https://github.com/tmpvar/jsdom/blob/master/lib/jsdom/living/nodes/Attr-impl.js), containing the relevant implementation logic
 
 Our build step (`npm run prepublish`) then generates a public API file (e.g. `Attr.js`) which takes care of all the Web IDL-derived boilerplate, delegating to the implementation file for the important stuff. We then wire it together with a line in `lib/jsdom/living/index.js` that exposes the generated class on all jsdom windows.
 
