@@ -18,7 +18,6 @@ function addDir(dir) {
 
 addDir("../../lib/jsdom/living/traversal");
 addDir("../../lib/jsdom/living/events");
-addDir("../../lib/jsdom/living/attributes");
 addDir("../../lib/jsdom/living/window");
 addDir("../../lib/jsdom/living/nodes");
 addDir("../../lib/jsdom/living/navigator");
