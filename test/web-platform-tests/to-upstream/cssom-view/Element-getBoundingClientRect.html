@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Element.prototype.getBoundingClientRect</title>
+<link rel=help href="https://drafts.csswg.org/cssom-view/#dom-element-getboundingclientrect">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+test(() => {
+
+  const zeroDimensions = {
+    bottom: 0,
+    height: 0,
+    left: 0,
+    right: 0,
+    top: 0,
+    width: 0
+  };
+
+  const el = document.createElement("p");
+  assert_object_equals(el.getBoundingClientRect(), zeroDimensions);
+
+}, "getBoundingClientRect should return 0 value dimensions for an element with no associated CSS layout box");
+</script>

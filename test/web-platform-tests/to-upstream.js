@@ -8,6 +8,16 @@ const runWebPlatformTest = require("./run-to-upstream-web-platform-test")(testsP
 describe("Local tests in Web Platform Test format (to-upstream)", () => {
   [
     "console/methods.html",
+    "cssom-view/Element-clientHeight.html",
+    "cssom-view/Element-clientLeft.html",
+    "cssom-view/Element-clientTop.html",
+    "cssom-view/Element-clientWidth.html",
+    "cssom-view/Element-getBoundingClientRect.html",
+    "cssom-view/Element-getClientRects.html",
+    "cssom-view/Element-scrollHeight.html",
+    "cssom-view/Element-scrollLeft.html",
+    "cssom-view/Element-scrollTop.html",
+    "cssom-view/Element-scrollWidth.html",
     "dom/attributes-are-not-nodes.html",
     "dom/collections/HTMLCollection-iterator.html",
     "dom/events/AddEventListenerOptions-once.html",
