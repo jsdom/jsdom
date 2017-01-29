@@ -61,6 +61,7 @@
     "portfinder": "0.4.0",
     "q": "^1.2.0",
     "selenium-standalone": "^4.6.1",
+    "server-destroy": "^1.0.1",
     "st": "^0.5.5",
     "watchify": "^3.7.0",
     "wd": "0.3.12",
