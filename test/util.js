@@ -2,8 +2,11 @@
 const path = require("path");
 const jsdom = require("../lib/jsdom");
 const fs = require("fs");
-const exceptionTable = require("../lib/jsdom/web-idl/dom-exception-table.json");
+const http = require("http");
+const https = require("https");
+const enableDestroy = require("server-destroy");
 const request = require("request");
+const exceptionTable = require("../lib/jsdom/web-idl/dom-exception-table.json");
 const Canvas = require("../lib/jsdom/utils").Canvas;
 
 function toPathname(dirname, relativePath) {
@@ -200,3 +203,39 @@ exports.isCanvasInstalled = t => {
 
   return true;
 };
+
+exports.createServer = handler => {
+  return new Promise(resolve => {
+    const server = http.createServer(handler);
+    enablePromisifiedServerDestroy(server);
+    server.listen(() => resolve(server));
+  });
+};
+
+exports.createHTTPSServer = handler => {
+  return new Promise(resolve => {
+    const options = {
+      key: fs.readFileSync(path.resolve(__dirname, "jsdom/files/key.pem")),
+      cert: fs.readFileSync(path.resolve(__dirname, "jsdom/files/cert.pem"))
+    };
+
+    const server = https.createServer(options, handler);
+    enablePromisifiedServerDestroy(server);
+    server.listen(() => resolve(server));
+  });
+};
+
+function enablePromisifiedServerDestroy(server) {
+  enableDestroy(server);
+  const originalDestroy = server.destroy;
+  server.destroy = function () {
+    return new Promise((resolve, reject) => {
+      originalDestroy.call(this, err => {
+        if (err) {
+          reject(err);
+        }
+        resolve();
+      });
+    });
+  };
+}

@@ -5,6 +5,7 @@ require("./jsdom/cookie.js");
 require("./jsdom/encoding.js");
 require("./jsdom/env.js");
 require("./jsdom/inside-worker-smoke-tests.js");
+require("./jsdom/keep-alive-connections.js");
 require("./jsdom/misc.js");
 require("./jsdom/named-properties-tracker.js");
 require("./jsdom/namespaces.js");

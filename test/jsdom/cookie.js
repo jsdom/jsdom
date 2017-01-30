@@ -4,12 +4,9 @@ const describe = require("mocha-sugar-free").describe;
 const specify = require("mocha-sugar-free").specify;
 const before = require("mocha-sugar-free").before;
 const after = require("mocha-sugar-free").after;
+const createServer = require("../util.js").createServer;
+const createHTTPSServer = require("../util.js").createHTTPSServer;
 
-const fs = require("fs");
-const path = require("path");
-const http = require("http");
-const https = require("https");
-const enableDestroy = require("server-destroy");
 const jsdom = require("../..");
 const toFileUrl = require("../util").toFileUrl(__dirname);
 
@@ -49,8 +46,8 @@ describe("jsdom/cookie", { skipIfBrowser: true }, () => {
 
   after(() => {
     return Promise.all([
-      destroyServer(server),
-      destroyServer(securedServer)
+      server.destroy(),
+      securedServer.destroy()
     ]);
   });
 
@@ -358,101 +355,73 @@ describe("jsdom/cookie", { skipIfBrowser: true }, () => {
 });
 
 function setupServer() {
-  return new Promise(resolve => {
-    const server = http.createServer((req, res) => {
-      switch (req.url) {
-        case "/TestPath/set-cookie-from-server": {
-          res.writeHead(200, testCookies.map(cookieStr => ["set-cookie", cookieStr]));
-          res.end("<body></body>");
-          break;
-        }
-
-        case "/TestPath/set-cookie-redirect-chain": {
-          res.statusCode = 302;
-          res.setHeader("set-cookie", "Test1=Redirect1; expires=Wed, 13-Jan-2051 22:23:01 GMT");
-          res.setHeader("location", testHost + "/TestPath/set-cookie-redirect-chain-part2");
-          res.end();
-          break;
-        }
-
-        case "/TestPath/set-cookie-redirect-chain-part2": {
-          res.statusCode = 302;
-          res.setHeader("set-cookie", "Test2=Redirect2; expires=Wed, 13-Jan-2051 22:23:01 GMT");
-          res.setHeader("location", testHost + "/TestPath/set-cookie-redirect-chain-part3");
-          res.end();
-          break;
-        }
-
-        case "/TestPath/set-cookie-redirect-chain-part3": {
-          res.setHeader("set-cookie", "Test3=Redirect3; expires=Wed, 13-Jan-2051 22:23:01 GMT");
-          res.end("<body></body>");
-          break;
-        }
-
-        case "/TestPath/get-cookie-header": {
-          res.setHeader("access-control-allow-origin", testSecuredHost);
-          res.setHeader("access-control-allow-credentials", "true");
-          res.end(req.headers.cookie);
-          break;
-        }
-
-        case "/TestPath/html-get-cookie-header": {
-          res.end("<div class=\"cookie-header\">" + req.headers.cookie + "</div>");
-          break;
-        }
-
-        case "/TestPath/get-cookie-header-via-script": {
-          res.end("window.scriptCallback('" + req.headers.cookie + "');");
-          break;
-        }
-
-        default: {
-          res.end("<body></body>");
-        }
+  return createServer((req, res) => {
+    switch (req.url) {
+      case "/TestPath/set-cookie-from-server": {
+        res.writeHead(200, testCookies.map(cookieStr => ["set-cookie", cookieStr]));
+        res.end("<body></body>");
+        break;
       }
-    });
 
-    enableDestroy(server);
+      case "/TestPath/set-cookie-redirect-chain": {
+        res.statusCode = 302;
+        res.setHeader("set-cookie", "Test1=Redirect1; expires=Wed, 13-Jan-2051 22:23:01 GMT");
+        res.setHeader("location", testHost + "/TestPath/set-cookie-redirect-chain-part2");
+        res.end();
+        break;
+      }
 
-    server.listen(() => resolve(server));
+      case "/TestPath/set-cookie-redirect-chain-part2": {
+        res.statusCode = 302;
+        res.setHeader("set-cookie", "Test2=Redirect2; expires=Wed, 13-Jan-2051 22:23:01 GMT");
+        res.setHeader("location", testHost + "/TestPath/set-cookie-redirect-chain-part3");
+        res.end();
+        break;
+      }
+
+      case "/TestPath/set-cookie-redirect-chain-part3": {
+        res.setHeader("set-cookie", "Test3=Redirect3; expires=Wed, 13-Jan-2051 22:23:01 GMT");
+        res.end("<body></body>");
+        break;
+      }
+
+      case "/TestPath/get-cookie-header": {
+        res.setHeader("access-control-allow-origin", testSecuredHost);
+        res.setHeader("access-control-allow-credentials", "true");
+        res.end(req.headers.cookie);
+        break;
+      }
+
+      case "/TestPath/html-get-cookie-header": {
+        res.end("<div class=\"cookie-header\">" + req.headers.cookie + "</div>");
+        break;
+      }
+
+      case "/TestPath/get-cookie-header-via-script": {
+        res.end("window.scriptCallback('" + req.headers.cookie + "');");
+        break;
+      }
+
+      default: {
+        res.end("<body></body>");
+      }
+    }
   });
 }
 
 function setupSecuredServer() {
-  return new Promise(resolve => {
-    const options = {
-      key: fs.readFileSync(path.resolve(__dirname, "files/key.pem")),
-      cert: fs.readFileSync(path.resolve(__dirname, "files/cert.pem"))
-    };
-
-    const server = https.createServer(options, (req, res) => {
-      switch (req.url) {
-        case "/TestPath/set-cookie-from-server": {
-          res.writeHead(200, testCookies.map(cookieStr => ["set-cookie", cookieStr]));
-          res.end("<body></body>");
-          break;
-        }
-
-        default: {
-          res.end("<body></body>");
-        }
+  return createHTTPSServer((req, res) => {
+    switch (req.url) {
+      case "/TestPath/set-cookie-from-server": {
+        res.writeHead(200, testCookies.map(cookieStr => ["set-cookie", cookieStr]));
+        res.end("<body></body>");
+        break;
       }
-    });
 
-    enableDestroy(server);
-
-    server.listen(() => resolve(server));
-  });
-}
-
-function destroyServer(server) {
-  return new Promise((resolve, reject) => {
-    server.destroy(err => {
-      if (err) {
-        reject(err);
+      default: {
+        res.end("<body></body>");
       }
-      resolve();
-    });
+    }
   });
 }
 

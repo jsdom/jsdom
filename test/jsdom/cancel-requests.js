@@ -4,24 +4,38 @@ const describe = require("mocha-sugar-free").describe;
 const specify = require("mocha-sugar-free").specify;
 const before = require("mocha-sugar-free").before;
 const after = require("mocha-sugar-free").after;
+const createServer = require("../util.js").createServer;
 
-const http = require("http");
-const enableDestroy = require("server-destroy");
 const jsdom = require("../..");
+
+const routes = {
+  "/html": `<!DOCTYPE html><html>
+    <head><script>window.test = true;</script><script src="/js"></script></head>
+    <body></body>
+    </html>`,
+  "/js": "window.testJs = true;",
+  "/xhr": "test"
+};
 
 describe("jsdom/cancel-requests", { skipIfBrowser: true }, () => {
   let server;
   let host;
 
   before(() => {
-    return setupServer().then(s => {
+    return createServer((req, res) => {
+      setTimeout(() => {
+        res.writeHead(200, { "Content-Length": routes[req.url].length });
+        res.end(routes[req.url]);
+      }, 200);
+    })
+    .then(s => {
       server = s;
       host = `http://127.0.0.1:${s.address().port}`;
     });
   });
 
   after(() => {
-    return destroyServer(server);
+    return server.destroy();
   });
 
   specify("aborting env request should stop window creation", { async: true }, t => {
@@ -159,38 +173,3 @@ describe("jsdom/cancel-requests", { skipIfBrowser: true }, () => {
     });
   });
 });
-
-const routes = {
-  "/html": "<!DOCTYPE html><html>" +
-    "<head><script>window.test = true;</script><script src=\"/js\"></script></head>" +
-    "<body></body>" +
-    "</html>",
-  "/js": "window.testJs = true;",
-  "/xhr": "test"
-};
-
-function setupServer() {
-  return new Promise(resolve => {
-    const server = http.createServer((req, res) => {
-      setTimeout(() => {
-        res.writeHead(200, { "Content-Length": routes[req.url].length });
-        res.end(routes[req.url]);
-      }, 200);
-    });
-
-    enableDestroy(server);
-
-    server.listen(() => resolve(server));
-  });
-}
-
-function destroyServer(server) {
-  return new Promise((resolve, reject) => {
-    server.destroy(err => {
-      if (err) {
-        reject(err);
-      }
-      resolve();
-    });
-  });
-}
