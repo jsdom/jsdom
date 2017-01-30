@@ -448,7 +448,7 @@ describe("Web Platform Tests", () => {
     // "XMLHttpRequest/xmlhttprequest-timeout-worker-twice.html", // needs worker implementation
     "XMLHttpRequest/xmlhttprequest-unsent.htm",
     "XMLHttpRequest/XMLHttpRequest-withCredentials.any.html",
-    "cors/allow-headers.htm",
+    // "cors/allow-headers.htm",  // passes locally, and sometimes on Travis CI, but with a 60 second timeout often fails on CI
     "cors/basic.htm",
     "cors/credentials-flag.htm",
     // "cors/late-upload-events.htm", // I don't know how to fix this one
