@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   - 4
-  - stable
+  - "7.2.1" # https://github.com/nodejs/node/issues/10806 and related regressions. Also change below.
 sudo: false
 
 git:
@@ -43,7 +43,7 @@ matrix:
             - libpango1.0-dev
             - libgif-dev
             - build-essential
-    - node_js: stable
+    - node_js: "7.2.1"
       env: TEST_SUITE=node-canvas
       script: "export CXX=g++-4.8 && npm i canvas && npm test"
       addons:

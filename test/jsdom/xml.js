@@ -43,7 +43,7 @@ describe("jsdom/xml", () => {
   });
 
   specify("should handle self-closing tags properly in xml docs (in .env)", { async: true }, t => {
-    return xmlStringPromise.then(xmlString => {
+    xmlStringPromise.then(xmlString => {
       jsdom.env({
         html: xmlString,
         parsingMode: "xml",

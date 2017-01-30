@@ -1,6 +1,6 @@
 {
   "plugins": [
-    "eslint-plugin-html"
+    "html"
   ],
   "env": {
     "node": false,
