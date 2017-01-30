@@ -63,7 +63,6 @@ var files = [
   "misc/url.js",
   "misc/xhr-file-urls.js",
   "misc/xhr-requires-server.js",
-  "misc/cancel-requests.js",
   "misc/keep-alive-connections.js",
 
   "window/history.js",

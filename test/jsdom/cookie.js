@@ -27,10 +27,12 @@ const testCookies = [
   "Malformed; expires=Wed, 13-Jan-2051 22:23:01 GMT; path=/"
 ];
 
-let testHost, testSecuredHost;
+let testHost;
+let testSecuredHost;
 
 describe("jsdom/cookie", { skipIfBrowser: true }, () => {
-  let server, securedServer;
+  let server;
+  let securedServer;
 
   before(() => {
     return setupServer().then(s => {

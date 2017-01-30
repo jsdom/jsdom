@@ -1,5 +1,6 @@
 "use strict";
 
+require("./jsdom/cancel-requests.js");
 require("./jsdom/cookie.js");
 require("./jsdom/encoding.js");
 require("./jsdom/env.js");
