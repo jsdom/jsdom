@@ -18,8 +18,8 @@
   "repository": "tmpvar/jsdom",
   "dependencies": {
     "abab": "^1.0.3",
-    "acorn": "^3.1.0",
-    "acorn-globals": "^3.0.0",
+    "acorn": "^4.0.4",
+    "acorn-globals": "^3.1.0",
     "array-equal": "^1.0.0",
     "content-type-parser": "^1.0.1",
     "cssom": ">= 0.3.2 < 0.4.0",
