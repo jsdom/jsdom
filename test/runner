@@ -60,7 +60,6 @@ var files = [
   "living-html/on-error.js",
   "living-html/post-message.js",
 
-  "misc/url.js",
   "misc/xhr-file-urls.js",
   "misc/xhr-requires-server.js",
 
