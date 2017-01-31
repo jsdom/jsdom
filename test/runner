@@ -67,9 +67,7 @@ var files = [
   "window/history.js",
   "window/script.js",
   "window/frame.js",
-  "sizzle/index.js",
-
-  "misc/domparsing.js"
+  "sizzle/index.js"
 ];
 
 if (fileFilter.length > 0) {

@@ -54,7 +54,6 @@ self.onmessage = function (e) {
     "window/script": require("../test/window/script"), // 0/10
     //"window/frame": require("../test/window/frame"), // fail
     //"sizzle/index": require("../test/sizzle/index"), // fail
-    "misc/domparsing.js": require("../test/misc/domparsing")
   };
 
   var modulesToRun = {};
@@ -85,9 +84,7 @@ self.onmessage = function (e) {
 
     "misc/url.js",
 
-    "window/history",
-
-    "misc/domparsing.js"
+    "window/history"
   ];
 
   if (options.tests) {
