@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<title>option element ask-for-a-reset</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/#dom-option-index">
+<link rel="author" title="Domenic Denicola" href="mailto:d@domenic.me">
+<link rel="author" title="Joris van der Wel" href="mailto:joris@jorisvanderwel.com">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+const select = document.createElement("select");
+select.multiple = false;
+select.size = 1;
+const optionA = document.createElement("option");
+const optionB = document.createElement("option");
+const optionC = document.createElement("option");
+const optgroupA = document.createElement("optgroup");
+const optionAA = document.createElement("option");
+const optionAB = document.createElement("option");
+const optionAC = document.createElement("option");
+select.appendChild(optionA);
+select.appendChild(optionB);
+select.appendChild(optionC);
+optgroupA.appendChild(optionAA);
+optgroupA.appendChild(optionAB);
+optgroupA.appendChild(optionAC);
+// (optgroupA not yet appended)
+
+// (these assertion messages assume multiline=false and size=1)
+assert_equals(optionA.selected, true, "If 0 options are selected in an ask-for-a-reset, select the first option");
+assert_equals(optionB.selected, false, "If 0 options are selected in an ask-for-a-reset, select the first option");
+assert_equals(optionC.selected, false, "If 0 options are selected in an ask-for-a-reset, select the first option");
+
+optionB.defaultSelected = true;
+optionA.defaultSelected = true;
+assert_equals(optionA.selected, true, "Setting defaultSelected should reset others");
+assert_equals(optionB.selected, false, "Setting defaultSelected should reset others");
+assert_equals(optionC.selected, false, "Setting defaultSelected should reset others");
+
+optionB.defaultSelected = true;
+assert_equals(optionA.selected, false, "Setting defaultSelected should reset others without setting dirtyness");
+assert_equals(optionB.selected, true, "Setting defaultSelected should reset others without setting dirtyness");
+assert_equals(optionC.selected, false, "Setting defaultSelected should reset others without setting dirtyness");
+
+optionA.disabled = true;
+optionA.defaultSelected = false;
+optionB.defaultSelected = false;
+assert_equals(optionA.selected, false,
+  "If 0 options are selected in an ask-for-a-reset, select the first non disabled option");
+assert_equals(optionB.selected, true,
+  "If 0 options are selected in an ask-for-a-reset, select the first non disabled option");
+assert_equals(optionC.selected, false,
+  "If 0 options are selected in an ask-for-a-reset, select the first non disabled option");
+optionA.disabled = false;
+
+optionAA.selected = true;
+optionAB.selected = true;
+optionAC.selected = true;
+assert_equals(optionAA.selected, true, "options in a distached optgroup should not affect each other");
+assert_equals(optionAB.selected, true, "options in a distached optgroup should not affect each other");
+assert_equals(optionAC.selected, true, "options in a distached optgroup should not affect each other");
+
+select.appendChild(optgroupA);
+assert_equals(optionA.selected, false,
+  "If 2 or more options are selected in an ask-for-a-reset, select the last option");
+assert_equals(optionB.selected, false,
+  "If 2 or more options are selected in an ask-for-a-reset, select the last option");
+assert_equals(optionC.selected, false,
+  "If 2 or more options are selected in an ask-for-a-reset, select the last option");
+assert_equals(optionAA.selected, false,
+  "If 2 or more options are selected in an ask-for-a-reset, select the last option");
+assert_equals(optionAB.selected, false,
+  "If 2 or more options are selected in an ask-for-a-reset, select the last option");
+assert_equals(optionAC.selected, true,
+  "If 2 or more options are selected in an ask-for-a-reset, select the last option");
+
+select.removeChild(optgroupA);
+assert_equals(optionA.selected, true, "If 0 options are selected in an ask-for-a-reset, select the first option");
+assert_equals(optionB.selected, false, "If 0 options are selected in an ask-for-a-reset, select the first option");
+assert_equals(optionC.selected, false, "If 0 options are selected in an ask-for-a-reset, select the first option");
+
+optionA.disabled = true;
+assert_equals(optionA.selected, true, "setting disabled on an selected option should not change the selection");
+assert_equals(optionB.selected, false, "setting disabled on an selected option should not change the selection");
+assert_equals(optionC.selected, false, "setting disabled on an selected option should not change the selection");
+
+
+select.multiple = true;
+optionA.disabled = true;
+optionA.selected = true;
+optionB.selected = true;
+optionC.selected = true;
+select.multiple = false;
+assert_equals(optionA.selected, false,
+  "If 2 or more options are selected in an ask-for-a-reset, select the last option");
+assert_equals(optionB.selected, false,
+  "If 2 or more options are selected in an ask-for-a-reset, select the last option");
+assert_equals(optionC.selected, true,
+  "If 2 or more options are selected in an ask-for-a-reset, select the last option");
+
+select.size = 3;
+optionA.disabled = true;
+optionA.selected = false;
+optionB.selected = false;
+optionC.selected = false;
+select.size = 1;
+assert_equals(optionA.selected, false,
+  "If 0 options are selected in an ask-for-a-reset, select the first non disabled option");
+assert_equals(optionB.selected, true,
+  "If 0 options are selected in an ask-for-a-reset, select the first non disabled option");
+assert_equals(optionC.selected, false,
+  "If 0 options are selected in an ask-for-a-reset, select the first non disabled option");
+
+done();
+</script>

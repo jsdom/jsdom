@@ -45,7 +45,6 @@ self.onmessage = function (e) {
     "living-html/message-event.js": require("../test/living-html/message-event.js"), // ok
     "living-html/post-message.js": require("../test/living-html/post-message.js"), // ok
     "living-html/on-error.js": require("../test/living-html/on-error.js"), // ok
-    "misc/url.js": require("../test/misc/url.js"), // ok
     "misc/xhr-file-urls.js": require("../test/misc/xhr-file-urls.js"), // 0; file I/O does not work in browsers
     "misc/xhr-requires-server.js": require("../test/misc/xhr-requires-server.js"), // 0; could work if we figured
       // out a way to say that the server parts happen in Node.js, and the browser parts happen in the browser.
@@ -54,7 +53,6 @@ self.onmessage = function (e) {
     "window/script": require("../test/window/script"), // 0/10
     //"window/frame": require("../test/window/frame"), // fail
     //"sizzle/index": require("../test/sizzle/index"), // fail
-    "misc/domparsing.js": require("../test/misc/domparsing")
   };
 
   var modulesToRun = {};
@@ -83,11 +81,7 @@ self.onmessage = function (e) {
     "living-html/on-error.js",
     "living-html/post-message.js",
 
-    "misc/url.js",
-
-    "window/history",
-
-    "misc/domparsing.js"
+    "window/history"
   ];
 
   if (options.tests) {

@@ -53,23 +53,19 @@ var files = [
   "living-html/htmlcanvaselement.js",
   "living-html/htmlimageelement.js",
   "living-html/htmlinputelement.js",
-  "living-html/htmloptionelement.js",
   "living-html/inline-event-handlers.js",
   "living-html/location.js",
   "living-html/message-event.js",
   "living-html/on-error.js",
   "living-html/post-message.js",
 
-  "misc/url.js",
   "misc/xhr-file-urls.js",
   "misc/xhr-requires-server.js",
 
   "window/history.js",
   "window/script.js",
   "window/frame.js",
-  "sizzle/index.js",
-
-  "misc/domparsing.js"
+  "sizzle/index.js"
 ];
 
 if (fileFilter.length > 0) {

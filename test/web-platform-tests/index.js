@@ -134,6 +134,14 @@ describe("Web Platform Tests", () => {
     // "html/infrastructure/urls/terminology-0/document-base-url.html", // we don't support srcdoc <base> correctly
     "html/semantics/forms/attributes-common-to-form-controls/disabled-elements-01.html",
     "html/semantics/forms/the-input-element/selection.html",
+    "html/semantics/forms/the-option-element/option-form.html",
+    // "html/semantics/forms/the-option-element/option-label.html", // our impl is wrong; see comments in HTMLOptionElement-impl.js
+    "html/semantics/forms/the-option-element/option-selected.html",
+    "html/semantics/forms/the-option-element/option-text-backslash.html",
+    "html/semantics/forms/the-option-element/option-text-label.html",
+    // "html/semantics/forms/the-option-element/option-text-recurse.html", // our impl is wrong; see comments in HTMLOptionElement-impl.js
+    // "html/semantics/forms/the-option-element/option-text-spaces.html", // our impl is wrong; see comments in HTMLOptionElement-impl.js
+    // "html/semantics/forms/the-option-element/option-value.html" // our impl is wrong; see comments in HTMLOptionElement-impl.js
     "html/semantics/disabled-elements/disabledElement.html",
     "html/semantics/document-metadata/the-base-element/base_about_blank.html",
     "html/semantics/document-metadata/the-base-element/base_href_empty.html",
