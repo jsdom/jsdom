@@ -13,27 +13,27 @@
 <script>
 "use strict";
 
-const paragraphs = document.querySelectorAll("p");
+const paragraphs = document.getElementsByTagName("p");
 
 test(() => {
   assert_true("length" in paragraphs);
-}, "HtmlCollection has length method.");
+}, "HTMLCollection has length method.");
 
 test(() => {
   assert_false("values" in paragraphs);
-}, "HtmlCollection does not have iterable's values method.");
+}, "HTMLCollection does not have iterable's values method.");
 
 test(() => {
   assert_false("entries" in paragraphs);
-}, "HtmlCollection does not have iterable's entries method.");
+}, "HTMLCollection does not have iterable's entries method.");
 
 test(() => {
   assert_false("forEach" in paragraphs);
-}, "HtmlCollection does not have iterable's forEach method.");
+}, "HTMLCollection does not have iterable's forEach method.");
 
 test(() => {
   assert_true(Symbol.iterator in paragraphs);
-}, "HtmlCollection has Symbol.iterator.");
+}, "HTMLCollection has Symbol.iterator.");
 
 test(() => {
   const ids = "12345";
