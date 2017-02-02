@@ -96,7 +96,7 @@ describe("Web Platform Tests", () => {
     "html/browsers/history/the-history-interface/012.html",
     "html/browsers/history/the-location-interface/document_location.html",
     "html/browsers/history/the-location-interface/location-stringifier.html",
-    "html/browsers/history/the-location-interface/location_hash.html",
+    // "html/browsers/history/the-location-interface/location_hash.html", // needs <iframe srcdoc>
     "html/browsers/history/the-location-interface/location_host.html",
     "html/browsers/history/the-location-interface/location_hostname.html",
     "html/browsers/history/the-location-interface/location_href.html",
