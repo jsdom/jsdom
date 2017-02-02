@@ -65,6 +65,7 @@ describe("Web Platform Tests", () => {
     "dom/nodes/getElementsByClassName-31.htm",
     "dom/nodes/Node-baseURI.html",
     "dom/nodes/Node-cloneNode.html",
+    "dom/nodes/NodeList-Iterable.html",
     "dom/traversal/NodeFilter-constants.html",
     "dom/traversal/NodeIterator.html",
     "dom/traversal/TreeWalker-acceptNode-filter.html",
