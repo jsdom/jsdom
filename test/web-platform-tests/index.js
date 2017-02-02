@@ -237,7 +237,6 @@ describe("Web Platform Tests", () => {
     "dom/events/EventTarget-dispatchEvent-returnvalue.html",
     // "dom/events/EventTarget-dispatchEvent.html", // we don't support every event interface yet
     "dom/events/EventTarget-removeEventListener.html",
-    "dom/events/ProgressEvent.html",
 
     "FileAPI/fileReader.html",
     "FileAPI/historical.html",
