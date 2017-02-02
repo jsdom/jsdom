@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<title>Blob.size</title>
+<link rel=help href="https://w3c.github.io/FileAPI/#dfn-size">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+test(() => {
+  const blob = new Blob(["TEST"]);
+  assert_equals(blob.size, 4, "Initial blob should have a size of 4");
+  blob.close();
+  assert_equals(blob.size, 0, "Closed blobs should have a size of 0");
+});
+</script>
