@@ -293,7 +293,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/event-readystate-sync-open.htm",
     "XMLHttpRequest/event-readystatechange-loaded.htm",
     "XMLHttpRequest/event-timeout.htm",
-    "XMLHttpRequest/event-upload-progress-crossorigin.sub.htm",
+    "XMLHttpRequest/event-upload-progress-crossorigin.htm",
     "XMLHttpRequest/event-upload-progress.htm",
     "XMLHttpRequest/formdata-blob.htm",
     "XMLHttpRequest/formdata-delete.htm",
@@ -396,8 +396,8 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/send-network-error-sync-events.sub.htm",
     "XMLHttpRequest/send-no-response-event-loadend.htm",
     "XMLHttpRequest/send-no-response-event-loadstart.htm",
-    // "XMLHttpRequest/send-no-response-event-order.htm", // https://github.com/whatwg/xhr/issues/72
-    "XMLHttpRequest/send-non-same-origin.sub.htm",
+    "XMLHttpRequest/send-no-response-event-order.htm",
+    "XMLHttpRequest/send-non-same-origin.htm",
     "XMLHttpRequest/send-receive-utf16.htm",
     "XMLHttpRequest/send-redirect-bogus-sync.htm",
     "XMLHttpRequest/send-redirect-bogus.htm",
@@ -407,7 +407,7 @@ describe("Web Platform Tests", () => {
     // "XMLHttpRequest/send-redirect-to-cors.htm", // request module remove content-type header on redirect
     "XMLHttpRequest/send-redirect-to-non-cors.htm",
     // "XMLHttpRequest/send-redirect.htm", // request module remove content-type header on redirect
-    // "XMLHttpRequest/send-response-event-order.htm", // https://github.com/whatwg/xhr/issues/72
+    // "XMLHttpRequest/send-response-event-order.htm", // why no readystatechange for headers received? Test seems wrong maybe?
     "XMLHttpRequest/send-response-upload-event-loadend.htm",
     "XMLHttpRequest/send-response-upload-event-loadstart.htm",
     "XMLHttpRequest/send-response-upload-event-progress.htm",
@@ -416,7 +416,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/send-sync-no-response-event-load.htm",
     "XMLHttpRequest/send-sync-no-response-event-loadend.htm",
     "XMLHttpRequest/send-sync-no-response-event-order.htm",
-    // "XMLHttpRequest/send-sync-response-event-order.htm", // https://github.com/whatwg/xhr/issues/72
+    // "XMLHttpRequest/send-sync-response-event-order.htm", // not sure; sync is special
     "XMLHttpRequest/send-sync-timeout.htm",
     "XMLHttpRequest/send-timeout-events.htm",
     // "XMLHttpRequest/send-usp.html", // needs URLSearchParams implementation
