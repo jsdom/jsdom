@@ -39,7 +39,6 @@ var files = [
   "living-dom/event-target.js",
   "living-dom/node-clone-node.js",
   "living-dom/node-contains.js",
-  "living-dom/node-list.js",
   "living-dom/node-owner-document.js",
   "living-dom/node-parent-element.js",
   "living-dom/query-selector.js",
