@@ -65,7 +65,7 @@ describe("Web Platform Tests", () => {
     "dom/nodes/getElementsByClassName-31.htm",
     "dom/nodes/Node-baseURI.html",
     "dom/nodes/Node-cloneNode.html",
-    "dom/nodes/NodeList-Iterable.html",
+    // "dom/nodes/NodeList-Iterable.html", // Node v4 doesn't support the syntax
     "dom/traversal/NodeFilter-constants.html",
     "dom/traversal/NodeIterator.html",
     "dom/traversal/TreeWalker-acceptNode-filter.html",
