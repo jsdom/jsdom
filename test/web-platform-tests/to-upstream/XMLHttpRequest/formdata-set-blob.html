@@ -23,7 +23,7 @@ test(() => {
   }, "blob without type");
 
   test(() => {
-    formData.set("blob-2", new Blob([], {type: "text/plain"}));
+    formData.set("blob-2", new Blob([], { type: "text/plain" }));
     const blob2 = formData.get("blob-2");
     assert_equals(blob2.constructor.name, "File");
     assert_equals(blob2.name, "blob");
@@ -50,7 +50,7 @@ test(() => {
   }, "file without lastModified or custom name");
 
   test(() => {
-    formData.set("file-2", new File([], "name", {lastModified: 123}), "custom name");
+    formData.set("file-2", new File([], "name", { lastModified: 123 }), "custom name");
     const file2 = formData.get("file-2");
     assert_equals(file2.constructor.name, "File");
     assert_equals(file2.name, "custom name");
