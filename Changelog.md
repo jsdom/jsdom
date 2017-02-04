@@ -1,6 +1,16 @@
+## 9.10.0
+
+* Added `forEach`, `keys`, `values`, and `entries` methods to `NodeList`.
+* Added `event.cancelBubble`.
+* Added dummy properties `scrollWidth`, `scrollHeight`, `clientTop`, `clientLeft`, `clientWidth`, and `clientHeight` that always return `0` to all elements. (alistairjcbrown)
+* Updated many aspects of `Blob`, `File`, and `FileReader` to better match the File API specification. (TimothyGu)
+* Fixed the progress and readystatechange events fired by `XMLHttpRequest` to match recent specification changes and test updates.
+* Fixed `element.getClientRects()` to return an empty array, instead of an array containing a dummy bounding box. (alistairjcbrown)
+* Changed `navigator.vendor` to return `"Apple Computer, Inc."` instead of `"Google Inc."`, since we have chosen the WebKit [navigator compatibility mode](https://html.spec.whatwg.org/multipage/webappapis.html#concept-navigator-compatibility-mode).
+
 ## 9.9.1
 
-* Remove the use of .includes to fix a compatibility issue with node v4.
+* Removed the use of `array.includes` to fix a compatibility issue with Node.js v4.
 
 ## 9.9.0
 
@@ -17,7 +27,7 @@
 
 ## 9.8.3
 
-* Fixed syntax errors in node v4.
+* Fixed syntax errors in Node.js v4.
 
 ## 9.8.2
 

@@ -5,6 +5,7 @@ airportyh <airportyh@gmail.com>
 alec <alec.hulce@gmail.com>
 Alex Rattray <rattray.alex@gmail.com>
 Alexander Flatter <flatter@gmail.com>
+Alistair Brown <github@alistairjcbrown.com>
 Alistair MacDonald <amacdonald@aisquared.com>
 Alvaro Dias <alvarod@microsoft.com>
 Ammar Khaku <ammar.khaku@gmail.com>
@@ -75,6 +76,7 @@ i8-pi <thomas@nomology.id.au>
 Ian Young <ian.greenleaf@gmail.com>
 indexzero <charlie.robbins@gmail.com>
 isaacs <i@izs.me>
+isonmad <github2.nobled@spamgourmet.com>
 Ivan Nikulin <ifaaan@gmail.com>
 Jack <jack@jackmarchant.com>
 James Broad <jb@kulor.com>
@@ -145,6 +147,7 @@ Michał Wadas <michalwadas@gmail.com>
 Mike Bostock <mbostock@gmail.com>
 Mitar <mitar.git@tnode.com>
 Nao Iizuka <iizuka@kyu-mu.net>
+Nick Oliver <github@pixnbits.org>
 Nick Stenning <nick@whiteink.com>
 Nicolas HENRY <icewil@gmail.com>
 Nicolas LaCasse <nicolas.lacasse@gmail.com>
