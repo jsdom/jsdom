@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Element.prototype.scrollTop</title>
+<link rel=help href="https://drafts.csswg.org/cssom-view/#dom-element-scrolltop">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+test(() => {
+
+  const el = document.createElement("p");
+  assert_equals(el.scrollTop, 0);
+
+}, "scrollTop should return 0 for an element disconnected from a document");
+</script>
