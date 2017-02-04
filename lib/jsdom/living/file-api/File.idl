@@ -1,5 +1,4 @@
 [Constructor(sequence<BlobPart> fileBits,
-//          [EnsureUTF16] DOMString fileName,
             USVString fileName,
             optional FilePropertyBag options),
 Exposed=(Window,Worker)]
