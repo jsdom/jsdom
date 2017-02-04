@@ -34,6 +34,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "domparsing/insert-adjacent.html",
     "domparsing/outerhtml-03.html",
     "FileAPI/blob/Blob-isClosed.html",
+    "FileAPI/blob/Blob-size.html",
     "FileAPI/file/File-lastModified.html",
     "encoding/meta/meta-charset-no-quotes.html",
     "encoding/meta/meta-charset-simple-quotes.html",
@@ -85,6 +86,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "html/webappapis/timers/errors.html",
     "html/webappapis/timers/settimeout-setinterval-handles.html",
     "XMLHttpRequest/formdata-constructor.html",
+    "XMLHttpRequest/formdata-set-blob.html",
     "XMLHttpRequest/thrown-error-in-events.html",
     "XMLHttpRequest/send-authentication-cors-post.htm"
   ]
