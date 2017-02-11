@@ -15,6 +15,7 @@ Andrew Patton <andrew@acusti.ca>
 Andrew Plummer <plummer.andrew@gmail.com>
 Andrew Smith <andy@robotlovesyou.com>
 Andy VanWagoner <andy@instructure.com>
+Anton Yefremov <anton.yefremov@gmail.com>
 antonj <anton.johansson@gmail.com>
 Aria Stewart <aredridel@nbtsc.org>
 Arrix <arrixzhou@gmail.com>

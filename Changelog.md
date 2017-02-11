@@ -1,3 +1,8 @@
+## 9.11.0
+
+* Added dummy properties `offsetTop`, `offsetLeft`, `offsetWidth`, and `offsetHeight` that always return `0`, and `offsetParent` which always returns `null`, for all HTML elements. (yefremov)
+* Fixed various edge cases in our type conversions applied to method arguments and setters throughout the web platform APIs implemented by jsdom.
+
 ## 9.10.0
 
 * Added `forEach`, `keys`, `values`, and `entries` methods to `NodeList`.
