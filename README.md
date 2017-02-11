@@ -429,6 +429,25 @@ window.document.body.appendChild(scriptEl);
 // though it originated in Node.js!
 ```
 
+### Shimming unimplemented APIs
+
+```js
+var jsdom = require("jsdom");
+var document = jsdom("", {
+  created(err, window) {
+    window.alert = () => {
+      // Do something different than jsdom's default "not implemented" virtual console error
+    };
+
+    Object.defineProperty(window, "outerWidth", {
+      get() { return 400; },
+      enumerable: true,
+      configurable: true
+    });
+  }
+});
+```
+
 ### Serializing a document
 
 ```js
