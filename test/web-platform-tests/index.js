@@ -306,6 +306,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/event-upload-progress.htm",
     "XMLHttpRequest/formdata-blob.htm",
     "XMLHttpRequest/formdata-delete.htm",
+    "XMLHttpRequest/formdata-foreach.html",
     "XMLHttpRequest/formdata-get.htm",
     "XMLHttpRequest/formdata-has.htm",
     "XMLHttpRequest/formdata-set.htm",
