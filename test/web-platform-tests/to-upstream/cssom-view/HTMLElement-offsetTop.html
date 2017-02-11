@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>HTMLElement.prototype.offsetTop</title>
+<link rel=help href="https://drafts.csswg.org/cssom-view/#dom-htmlelement-offsettop">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+test(() => {
+
+  const el = document.createElement("p");
+  assert_equals(el.offsetTop, 0);
+
+}, "offsetTop should return 0 for an element disconnected from a document");
+</script>
