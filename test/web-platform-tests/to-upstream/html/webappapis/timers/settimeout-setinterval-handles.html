@@ -9,6 +9,24 @@
 <script>
 "use strict";
 
+test(() => {
+  const a = setTimeout(noop);
+  const b = setInterval(noop);
+
+  clearTimeout(a);
+  clearInterval(b);
+
+  assert_true(typeof a === "number");
+  assert_true(typeof b === "number");
+
+  assert_true(a > 0);
+  assert_true(b > 0);
+
+  function noop() {
+    // no-op
+  }
+}, "setTimeout and setInterval should return numeric handles integer that is greater than zero");
+
 async_test(t => {
   const a = setTimeout(() => {
     // shouldn't execute since we clear immediately
