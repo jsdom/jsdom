@@ -7,58 +7,6 @@ const specify = require("mocha-sugar-free").specify;
 const utils = require("../../lib/jsdom/utils");
 
 describe("jsdom/utils", () => {
-  specify("defineSetter defines a setter", () => {
-    const o = {};
-    let called = false;
-    const expected = "bar";
-    let actual;
-
-    utils.defineSetter(o, "foo", val => {
-      called = true;
-      actual = val;
-    });
-
-    o.foo = expected;
-    assert.equal(called, true);
-    assert.equal(actual, expected);
-  });
-
-  specify("defineSetter replaces existing setters", () => {
-    const o = {};
-    let originalCalled = false;
-    let newCalled = false;
-
-    utils.defineSetter(o, "foo", () => {
-      originalCalled = true;
-    });
-    utils.defineSetter(o, "foo", () => {
-      newCalled = true;
-    });
-
-    o.foo = true;
-    assert.equal(originalCalled, false);
-    assert.equal(newCalled, true);
-  });
-
-  specify("defineSetter does not remove existing getters", () => {
-    const o = {};
-    let called = false;
-    const expected = "bar";
-
-    utils.defineGetter(o, "foo", () => {
-      called = true;
-      return expected;
-    });
-
-    utils.defineSetter(o, "foo", () => {
-      // doesn't matter for this test
-    });
-
-    const actual = o.foo;
-    assert.equal(called, true);
-    assert.equal(actual, expected);
-  });
-
   specify("defineGetter defines a getter", () => {
     const o = {};
     let called = false;
@@ -100,10 +48,15 @@ describe("jsdom/utils", () => {
     const expected = "bar";
     let actual;
 
-    utils.defineSetter(o, "foo", val => {
-      called = true;
-      actual = val;
+    /* eslint-disable accessor-pairs */
+    Object.defineProperty(o, "foo", {
+      configurable: true,
+      set(val) {
+        called = true;
+        actual = val;
+      }
     });
+    /* eslint-enable accessor-pairs */
 
     utils.defineGetter(o, "foo", () => {
       // doesn't matter for this test
