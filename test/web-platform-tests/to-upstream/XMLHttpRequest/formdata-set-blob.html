@@ -41,6 +41,14 @@ test(() => {
 }, "blob with custom name");
 
 test(() => {
+  formData.set("blob-4", new Blob());
+  const blob4 = formData.get("blob-4");
+  assert_equals(blob4.constructor.name, "File");
+  assert_equals(Object.prototype.toString.call(blob4), "[object Blob]");
+  assert_less_than(Math.abs(blob4.lastModified - Date.now()), 200, "lastModified should be now");
+}, "Blob toString() should return '[object Blob]'");
+
+test(() => {
   formData.set("file-1", new File([], "name"));
   const file1 = formData.get("file-1");
   assert_equals(file1.constructor.name, "File");
