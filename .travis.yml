@@ -22,7 +22,7 @@ addons:
 
 matrix:
   include:
-  - node_js: 4
+    - node_js: 4
       env: TEST_SUITE=node-canvas-prebuilt
       script: "export CXX=g++-4.8 && npm i canvas-prebuilt && npm test"
       addons:
