@@ -12,7 +12,7 @@
 
 <body>
 <script>
-  "use strict"
+  "use strict";
 
   test(() => {
     const option = new Option("text", "value");
@@ -29,7 +29,7 @@
     assert_equals(selected.getAttribute("selected"), "");
     assert_equals(notSelected.selected, false);
     assert_equals(selected.selected, true);
-  }, "Option constructor creates HTMLOptionElement with appropriate selectedness when specified with defaultSelected values");
+  }, "Option constructor handles selectedness correctly when specified with defaultSelected only");
 
   test(() => {
     const notSelected = new Option("text", "value", true, false);
@@ -37,5 +37,5 @@
 
     assert_equals(notSelected.selected, false);
     assert_equals(selected.selected, true);
-  }, "Option constructor creates HTMLOptionElement with specified selectedness, even when incongruous with defaultSelected values");
+  }, "Option constructor handles selectedness correctly, even when incongruous with defaultSelected");
 </script>
