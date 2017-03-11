@@ -1180,14 +1180,14 @@ describe("jsdom/miscellaneous", () => {
 
       server.listen(8001, "127.0.0.1", () => {
         jsdom.env({
-          url: "http://127.0.0.1:8001",
+          url: "http://127.0.0.1:8001#hash",
           done(errors, window) {
             server.close();
             if (errors) {
               assert.ok(false, errors.message);
             } else {
               assert.equal(window.document.body.innerHTML, html, "root page should be redirected");
-              assert.equal(window.location.href, "http://127.0.0.1:8001/redir",
+              assert.equal(window.location.href, "http://127.0.0.1:8001/redir#hash",
                 "window.location.href should equal to redirected url");
             }
             t.done();
