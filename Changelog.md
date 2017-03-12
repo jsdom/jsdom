@@ -1,3 +1,13 @@
+## 9.12.0
+
+* Added the `Option` named constructor. (NAlexPear)
+* Added support for the `canvas-prebuilt` npm package as an alternative to `canvas`.
+* Fixed `setTimeout()` and `setInterval()` to always return a positive integer, instead of returning `0` the first time were called. (yefremov)
+* Fixed `jsdom.env()` to preserve URL fragments across redirects. (josephfrazier)
+* Fixed `optionEl.text` and `optionEl.value` to be more spec-compliant.
+* Fixed `event.stopImmediatePropagation()` to actually stop immediate propagation, not just propagation.
+* Fixed `clearTimeout()` and `clearInterval()` to work correctly when using jsdom browserified.
+
 ## 9.11.0
 
 * Added dummy properties `offsetTop`, `offsetLeft`, `offsetWidth`, and `offsetHeight` that always return `0`, and `offsetParent` which always returns `null`, for all HTML elements. (yefremov)

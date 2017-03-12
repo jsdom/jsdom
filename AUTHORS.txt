@@ -3,12 +3,14 @@ Adrian Lang <mail@adrianlang.de>
 Adrian Makowski <adrian.makowski@gmail.com>
 airportyh <airportyh@gmail.com>
 alec <alec.hulce@gmail.com>
+Alex Pearson <alex@alexpear.com>
 Alex Rattray <rattray.alex@gmail.com>
 Alexander Flatter <flatter@gmail.com>
 Alistair Brown <github@alistairjcbrown.com>
 Alistair MacDonald <amacdonald@aisquared.com>
 Alvaro Dias <alvarod@microsoft.com>
 Ammar Khaku <ammar.khaku@gmail.com>
+Andrea Bogazzi <andreabogazzi79@gmail.com>
 Andreas Lind Petersen <andreas@one.com>
 andrew morton <drewish@katherinehouse.com>
 Andrew Patton <andrew@acusti.ca>
@@ -105,6 +107,7 @@ Joris van der Wel <joris@jorisvanderwel.com>
 Jörn Hees <joernhees@users.noreply.github.com>
 Jos Shepherd <jos@hipsnip.com>
 José Valim <jose.valim@gmail.com>
+Joseph Frazier <1212jtraceur@gmail.com>
 Josh Marshall <catchjosh@gmail.com>
 Joshua Peek <josh@joshpeek.com>
 Julien Guimont <julien@porkepic.com>
