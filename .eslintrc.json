@@ -162,7 +162,7 @@
     "max-params": "off",
     "max-statements": "off",
     "max-statements-per-line": ["error", { "max": 1 }],
-    "new-cap": ["error", { "capIsNewExceptions": ["USVString"] }],
+    "new-cap": ["error", { "capIsNewExceptions": ["USVString", "DOMString"] }],
     "new-parens": "error",
     "newline-after-var": "off",
     "newline-before-return": "off",

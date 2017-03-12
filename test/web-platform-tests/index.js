@@ -141,8 +141,8 @@ describe("Web Platform Tests", () => {
     "html/semantics/forms/the-option-element/option-text-backslash.html",
     "html/semantics/forms/the-option-element/option-text-label.html",
     // "html/semantics/forms/the-option-element/option-text-recurse.html", // our impl is wrong; see comments in HTMLOptionElement-impl.js
-    // "html/semantics/forms/the-option-element/option-text-spaces.html", // our impl is wrong; see comments in HTMLOptionElement-impl.js
-    // "html/semantics/forms/the-option-element/option-value.html" // our impl is wrong; see comments in HTMLOptionElement-impl.js
+    "html/semantics/forms/the-option-element/option-text-spaces.html",
+    // "html/semantics/forms/the-option-element/option-value.html", // our impl is wrong; see comments in HTMLOptionElement-impl.js
     "html/semantics/disabled-elements/disabledElement.html",
     "html/semantics/document-metadata/the-base-element/base_about_blank.html",
     "html/semantics/document-metadata/the-base-element/base_href_empty.html",
