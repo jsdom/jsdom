@@ -84,4 +84,17 @@ describe("jsdom/inside-worker-smoke-tests", () => {
       }
     });
   });
+
+  specify("clearTimeout (GH-1732)", { async: true }, t => {
+    const document = jsdom.jsdom(`<script>const t = setTimeout(() => {
+      clearTimeout(t);
+      window.done();
+    }, 100);</script>`);
+
+    const window = document.defaultView;
+    window.addEventListener("error", e => {
+      assert.ifError(e.error);
+    });
+    window.done = () => t.done();
+  });
 });
