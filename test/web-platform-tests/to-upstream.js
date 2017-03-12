@@ -26,6 +26,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "dom/attributes-are-not-nodes.html",
     "dom/collections/HTMLCollection-iterator.html",
     "dom/events/AddEventListenerOptions-once.html",
+    "dom/events/Event-stopImmediatePropagation.html",
     "dom/events/EventTarget-add-remove-listener.html",
     "dom/events/EventTarget-prototype-constructor.html",
     "dom/events/EventTarget-this-of-listener.html",
