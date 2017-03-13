@@ -6,7 +6,7 @@ require('colors');
 var browserify = require('browserify');
 var EventEmitter = require('events').EventEmitter;
 var fs = require('fs');
-var httpServer = require('http-server');
+const ecstatic = require('ecstatic');
 var nodeunit = require('nodeunit');
 var optimist = require('./runner-options');
 var Q = require('q');
@@ -47,26 +47,25 @@ function getFnBody(fn) {
 
 function run() {
   var passed = false;
+  console.log('running tests');
 
   return browser.init({
       browserName: 'chrome',
+      version: '56',
       name: 'Travis tmpvar/jsdom #' + process.env['TRAVIS_JOB_NUMBER'],
       'tunnel-identifier': process.env['TRAVIS_JOB_NUMBER'],
       build: process.env['TRAVIS_BUILD_NUMBER'],
       tags: ['tmpvar/jsdom', 'CI']
     })
     .then(function () {
+      console.log('browser initialized');
       return browser.setAsyncScriptTimeout(5000);
     })
     .then(function () {
-      return browser.get([
-          'http://localhost:',
-          server.address().port,
-          '/test?',
-          querystring.stringify(argv)
-        ].join(''));
+      return browser.get(`http://localhost:${server.address().port}/index.html?${querystring.stringify(argv)}`);
     })
     .then(function (result) {
+      console.log('navigated');
       function browserPoll() {
         var events = window._browserRunner.events;
 
@@ -152,7 +151,7 @@ browserify('./test/worker.js').
   on('finish', function () {
     Q.fcall(function () {
       console.log('starting http server');
-      return createServer();
+      return createServer(ecstatic({ root: __dirname }));
     })
     .then(function (s) {
       server = s;
