@@ -105,6 +105,19 @@ exports.tests = {
     test.strictEqual(window.DONE, 1);
     test.done();
   },
+  
+  script_should_ignore_DOMContentLoaded_after_window_close: function(test){
+    var window = jsdom.jsdom('<html><head>\
+      <script>\
+        var a = 0;\
+        function handle(){ a++; };\
+        document.addEventListener("DOMContentLoaded", handle, false);\
+      </script>\
+      </head><body></body></html>').defaultView;
+    window.close();
+    test.strictEqual(window.a, 1);
+    test.done();
+  },
 
   script_execution_in_body : function(test) {
     var window, caught = false;
