@@ -176,6 +176,15 @@ describe("API: JSDOM.fromURL()", { skipIfBrowser: true }, () => {
         });
       });
 
+      it("should preserve fragments when processing redirects", () => {
+        const [requestURL, responseURL] = redirectServer("<p>Hello</p>", { "Content-Type": "text/html" });
+
+        return JSDOM.fromURL(requestURL + "#fragment").then(dom => {
+          assert.strictEqual(dom.window.document.URL, responseURL + "#fragment");
+          assert.strictEqual(dom.window.location.hash, "#fragment");
+        });
+      });
+
       it("should disallow passing a URL manually", () => {
         return assert.isRejected(JSDOM.fromURL("http://example.com/", { url: "https://example.org" }), TypeError);
       });
