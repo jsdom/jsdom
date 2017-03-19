@@ -186,6 +186,8 @@ exports.isCanvasInstalled = t => {
   return true;
 };
 
+exports.delay = ms => new Promise(r => setTimeout(r, ms));
+
 exports.createServer = handler => {
   return new Promise(resolve => {
     const server = http.createServer(handler);
