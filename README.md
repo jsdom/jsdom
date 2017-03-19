@@ -420,9 +420,9 @@ Beyond just features that we haven't gotten to yet, there are two major features
 - **Navigation**: the ability to change the global object, and all other objects, when clicking a link or assigning `location.href` or similar.
 - **Layout**: the ability to calculate where elements will be visually laid out as a result of CSS, which impacts methods like `getBoundingClientRects()` or properties like `offsetTop`.
 
-Currently jsdom has dummy behaviors for some aspects of these features, such as sending a "not implemented" `"jsdomError"` to the virtual console for navigation, or returning zeros for many layout-related properties.
+Currently jsdom has dummy behaviors for some aspects of these features, such as sending a "not implemented" `"jsdomError"` to the virtual console for navigation, or returning zeros for many layout-related properties. Often you can work around these limitations in your code, e.g. by creating new `JSDOM` instances for each page you "navigate" to during a crawl, or using `Object.defineProperty()` to change what various layout-related getters and methods return.
 
-Often you can work around these limitations in your code, e.g. by creating new `JSDOM` instances for each page you "navigate" to during a crawl, or using `Object.defineProperty()` to change what various layout-related getters and methods return.
+Note that other tools in the same space, such as PhantomJS, do support these features. On the wiki, we have a more complete writeup about [jsdom vs. PhantomJS](https://github.com/tmpvar/jsdom/wiki/jsdom-vs.-PhantomJS).
 
 ## Getting help
 
