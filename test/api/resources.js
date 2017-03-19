@@ -6,7 +6,7 @@ const { delay } = require("../util.js");
 
 const { JSDOM } = require("../..");
 
-describe("API: resources loading", () => {
+describe("API: resources loading", { skipIfBrowser: true }, () => {
   describe("defaults", () => {
     it("should not download images", { slow: 500 }, () => {
       const url = resourceServer({ "Content-Type": "image/png", "Content-Length": 0 });
