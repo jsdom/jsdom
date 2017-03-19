@@ -11,11 +11,18 @@ describe("API: JSDOM.fragment()", () => {
     assert.strictEqual(frag.constructor.name, "DocumentFragment");
   });
 
-  it("should return fragments with unique owner documents each time", () => {
+  it("should return fragments with shared owner documents each time", () => {
     const frag1 = JSDOM.fragment(``);
     const frag2 = JSDOM.fragment(``);
 
-    assert.notStrictEqual(frag1.ownerDocument, frag2.ownerDocument);
+    assert.strictEqual(frag1.ownerDocument, frag2.ownerDocument);
+  });
+
+  it("should return fragments with shared Windows each time", () => {
+    const frag1 = JSDOM.fragment(``);
+    const frag2 = JSDOM.fragment(``);
+
+    assert.strictEqual(frag1.ownerDocument.defaultView, frag2.ownerDocument.defaultView);
   });
 
   it("should allow basic DOM querying", () => {
@@ -38,7 +45,7 @@ describe("API: JSDOM.fragment()", () => {
     assert.strictEqual(frag.firstChild.textContent, "Hi");
   });
 
-  it("should respect basic options passed in", () => {
+  it("should respect ignore any options passed in", () => {
     const frag = JSDOM.fragment(``, {
       url: "https://example.org",
       referrer: "https://example.com",
@@ -46,9 +53,9 @@ describe("API: JSDOM.fragment()", () => {
       userAgent: "Mellblomenator/9000"
     });
 
-    assert.strictEqual(frag.ownerDocument.URL, "https://example.org/");
-    assert.strictEqual(frag.ownerDocument.referrer, "https://example.com/");
-    assert.strictEqual(frag.ownerDocument.contentType, "application/xhtml+xml");
-    assert.strictEqual(frag.ownerDocument.defaultView.navigator.userAgent, "Mellblomenator/9000");
+    assert.strictEqual(frag.ownerDocument.URL, "about:blank");
+    assert.strictEqual(frag.ownerDocument.referrer, "");
+    assert.strictEqual(frag.ownerDocument.contentType, "text/html");
+    assert.notStrictEqual(frag.ownerDocument.defaultView.navigator.userAgent, "Mellblomenator/9000");
   });
 });

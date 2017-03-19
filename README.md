@@ -312,7 +312,7 @@ The options provided to `fromFile()` are similar to those provided to the `JSDOM
 For the very simplest of cases, you might not need a whole `JSDOM` instance with all its associated power. You might not even need a `Window` or `Document`! Instead, you just need to parse some HTML, and get a DOM object you can manipulate. For that, we have `fragment()`, which creates a `DocumentFragment` from a given string:
 
 ```js
-const frag = JSDOM.fragment(`<p>Hello</p><p><strong>Hi!</strong>`, options);
+const frag = JSDOM.fragment(`<p>Hello</p><p><strong>Hi!</strong>`);
 
 frag.childNodes.length === 2;
 frag.querySelector("strong").textContent = "Why hello there!";
@@ -321,7 +321,7 @@ frag.querySelector("strong").textContent = "Why hello there!";
 
 Here `frag` is a [`DocumentFragment`](https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment) instance, whose contents are created by parsing the provided string. The parsing is done using a `<template>` element, so you can include any element there (including ones with weird parsing rules like `<td>`).
 
-You can pass in the same options to `fragment()` as you would to the `JSDOM` constructor.
+All invocations of the `framgment()` factory result in `DocumentFragment`s that share the same owner `Document` and `Window`. This allows many calls to `fragment()` with no extra overhead. But it also means that calls to `fragment()` cannot be customized with any options.
 
 Note that serialization is not as easy with `DocumentFragment`s as it is with full `JSDOM` objects. If you need to serialize your DOM, you should probably use the `JSDOM` constructor more directly. But for the special case of a fragment containing a single element, it's pretty easy to do through normal means:
 
