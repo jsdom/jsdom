@@ -1,5 +1,7 @@
 "use strict";
 const http = require("http");
+const path = require("path");
+const fs = require("fs");
 const { assert } = require("chai");
 const { describe, it } = require("mocha-sugar-free");
 const { delay } = require("../util.js");
@@ -7,10 +9,12 @@ const canvas = require("../../lib/jsdom/utils.js").Canvas;
 
 const { JSDOM } = require("../..");
 
+const pngBytes = fs.readFileSync(path.resolve(__dirname, "fixtures/resources/transparent.png"));
+
 describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
   describe("defaults", () => {
     it("should not download images", { slow: 500 }, () => {
-      const url = resourceServer({ "Content-Type": "image/png", "Content-Length": 0 });
+      const url = imageServer();
       const dom = new JSDOM(``);
 
       const element = dom.window.document.createElement("img");
@@ -97,7 +101,7 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
 
   describe("set to \"usable\"", () => {
     it("should download images if and only if canvas is installed", { slow: 500 }, () => {
-      const url = resourceServer({ "Content-Type": "image/png", "Content-Length": 0 });
+      const url = imageServer();
       const dom = new JSDOM(``, { resources: "usable" });
 
       const element = dom.window.document.createElement("img");
@@ -226,6 +230,10 @@ function resourceServer(headers, body) {
   }).listen();
 
   return `http://127.0.0.1:${server.address().port}/`;
+}
+
+function imageServer() {
+  return resourceServer({ "Content-Type": "image/png", "Content-Length": pngBytes.byteLength }, pngBytes);
 }
 
 function setUpLoadingAsserts(element) {
