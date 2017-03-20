@@ -9,9 +9,12 @@ const canvas = require("../../lib/jsdom/utils.js").Canvas;
 
 const { JSDOM } = require("../..");
 
-const pngBytes = fs.readFileSync(path.resolve(__dirname, "fixtures/resources/transparent.png"));
+let pngBytes;
 
 describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
+  // This has to be inside the { skipIfBrowser: true } block.
+  pngBytes = fs.readFileSync(path.resolve(__dirname, "fixtures/resources/transparent.png"));
+
   describe("defaults", () => {
     it("should not download images", { slow: 500 }, () => {
       const url = imageServer();
