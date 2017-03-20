@@ -95,9 +95,20 @@ window.document.body.children.length === 1;
 
 This is turned off by default for performance reasons, but is safe to enable.
 
-Note that we strongly advise against trying to "execute scripts" by mashing together the jsdom and Node global environments (e.g. by doing `global.window = dom.window`), and then executing scripts or test code inside the Node global environment. Instead, you should treat jsdom like you would a browser, and run all scripts and tests that need access to a DOM inside the jsdom environment, using `window.eval` or `{ runScripts: "dangerously" }`. This might require, for example, creating a browserify bundle to execute as a `<script>` element—just like you would in a browser.
+Note that we strongly advise against trying to "execute scripts" by mashing together the jsdom and Node global environments (e.g. by doing `global.window = dom.window`), and then executing scripts or test code inside the Node global environment. Instead, you should treat jsdom like you would a browser, and run all scripts and tests that need access to a DOM inside the jsdom environment, using `window.eval` or `runScripts: "dangerously"`. This might require, for example, creating a browserify bundle to execute as a `<script>` element—just like you would in a browser.
 
 Finally, for advanced use cases you can use the `dom.runVMScript(script)` method, documented below.
+
+### Loading subresources
+
+By default, jsdom will not load any subresources such as scripts, stylesheets, images, or iframes. If you'd like jsdom to load such resources, you can pass the `resources: "usable"` option, which will load all usable resources. Those are:
+
+* Frames and iframes, via `<frame>` and `<iframe>`
+* Stylesheets, via `<link rel="stylesheet">`
+* Scripts, via `<script>`, but only if `runScripts: "dangerously"` is also set
+* Images, via `<img>`, but only if the `canvas` (or `canvas-prebuilt`) npm package is also installed (see "Canvas Support" below)
+
+In the future we plan to offer more customization of resource loading via this option, but now the default and the `"usable"` option are the two modes offered.
 
 ### Virtual consoles
 
@@ -334,7 +345,7 @@ console.log(frag.firstChild.outerHTML); // logs "<p>Hello</p>"
 
 ### Canvas support
 
-jsdom includes support for using the [`canvas`](https://www.npmjs.com/package/canvas) or [canvas-prebuilt](https://npmjs.org/package/canvas-prebuilt) package to extend any `<canvas>` elements with the canvas API. To make this work, you need to include `canvas` as a dependency in your project, as a peer of `jsdom`. If jsdom can find the `canvas` package, it will use it, but if it's not present, then `<canvas>` elements will behave like `<div>`s.
+jsdom includes support for using the [`canvas`](https://www.npmjs.com/package/canvas) or [`canvas-prebuilt`](https://npmjs.org/package/canvas-prebuilt) package to extend any `<canvas>` elements with the canvas API. To make this work, you need to include `canvas` as a dependency in your project, as a peer of `jsdom`. If jsdom can find the `canvas` package, it will use it, but if it's not present, then `<canvas>` elements will behave like `<div>`s.
 
 ### Encoding sniffing
 
@@ -405,7 +416,7 @@ Nevertheless, we remain interested in one day providing an option to create an "
 
 ### Missing features in the new API
 
-Compared to the old JSDOM API from v9.x and before, the new API is noticably missing the ability to control resource loads. Previous versions of jsdom allowed you to set options that were used when making requests (both for the initial request, in the old equivalent of `JSDOM.fromURL()`, and for subresource requests). They also allowed you to control which subresources were requested and applied to the main document, so that you could e.g. download stylesheets but not scripts. Finally, they provided a customizable resource loader that let you intercept any outgoing request and fulfill it with a completely synthetic response.
+Compared to the old JSDOM API from v9.x and before, the new API is noticably missing fine-grained control of resource loads. Previous versions of jsdom allowed you to set options that were used when making requests (both for the initial request, in the old equivalent of `JSDOM.fromURL()`, and for subresource requests). They also allowed you to control which subresources were requested and applied to the main document, so that you could e.g. download stylesheets but not scripts. Finally, they provided a customizable resource loader that let you intercept any outgoing request and fulfill it with a completely synthetic response.
 
 None of these features are yet in the new jsdom API, although we are hoping to add them back soon! This requires a decent amount of behind-the-scenes work to implement in a reasonable way, unfortunately.
 

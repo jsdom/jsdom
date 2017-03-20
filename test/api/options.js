@@ -205,6 +205,13 @@ describe("API: constructor options", () => {
 
       assert.strictEqual(dom.window.document.body.children.length, 2);
     });
+
+    it("should disallow other values", () => {
+      assert.throws(() => new JSDOM(``, { runScripts: null }), RangeError);
+      assert.throws(() => new JSDOM(``, { runScripts: "asdf" }), RangeError);
+      assert.throws(() => new JSDOM(``, { runScripts: true }), RangeError);
+      assert.throws(() => new JSDOM(``, { runScripts: false }), RangeError);
+    });
   });
 
   describe("beforeParse", () => {
