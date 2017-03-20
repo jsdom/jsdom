@@ -9,12 +9,7 @@ const canvas = require("../../lib/jsdom/utils.js").Canvas;
 
 const { JSDOM } = require("../..");
 
-let pngBytes;
-
 describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
-  // This has to be inside the { skipIfBrowser: true } block.
-  pngBytes = fs.readFileSync(path.resolve(__dirname, "fixtures/resources/transparent.png"));
-
   describe("defaults", () => {
     it("should not download images", { slow: 500 }, () => {
       const url = imageServer();
@@ -236,6 +231,10 @@ function resourceServer(headers, body) {
 }
 
 function imageServer() {
+  // We can't do this at the top of the file since otherwise it won't be skipped when running these tests in the
+  // browser.
+  const pngBytes = fs.readFileSync(path.resolve(__dirname, "fixtures/resources/transparent.png"));
+
   return resourceServer({ "Content-Type": "image/png", "Content-Length": pngBytes.byteLength }, pngBytes);
 }
 
