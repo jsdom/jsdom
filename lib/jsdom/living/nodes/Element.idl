@@ -27,7 +27,7 @@ interface Element : Node {
   Attr? setAttributeNodeNS(Attr attr);
   Attr removeAttributeNode(Attr attr);
 
-//  Element? closest(DOMString selectors);
+  Element? closest(DOMString selectors);
   boolean matches(DOMString selectors);
   boolean webkitMatchesSelector(DOMString selectors); // historical alias of .matches
 

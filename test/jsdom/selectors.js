@@ -26,6 +26,19 @@ describe("jsdom/selectors", () => {
     assert.strictEqual(document.querySelectorAll("div[title][title='']").length, 1);
   });
 
+  specify("closest smoke test", () => {
+    const document = jsdom.jsdom(
+      `<html><body><div id="main"><p class="foo">Foo<span class="bar">test</span></p><p>Bar</p></div></body></html>`
+    );
+    const mainDiv = document.body.children.item(0);
+    const fooP = mainDiv.children.item(0);
+    const span = fooP.children.item(0);
+
+    assert.strictEqual(span.closest("span"), span, "returns self if matches");
+    assert.strictEqual(span.closest("p"), fooP, "find ancestor");
+    assert.strictEqual(span.closest("#asdf"), null, "returns null when nothing matches");
+  });
+
   specify("matches smoke test", () => {
     const document = jsdom.jsdom(`<html><body><div id="main"><p class="foo">Foo</p><p>Bar</p></div></body></html>`);
     const div = document.body.children.item(0);
