@@ -6,16 +6,15 @@
 <script src="/resources/testharnessreport.js"></script>
 
 <script>
-"use strict";
+  "use strict";
 
-test(t => {
+  test(() => {
+    const doc = document.createElement("html");
+    doc.innerHTML = "<head><title>foo</title></head><body></body>";
 
-  const doc = document.createElement("html");
-  doc.innerHTML = "<head><title>foo</title></head><body></body>";
+    doc.innerHTML = "";
 
-  doc.innerHTML = "";
+    assert_true(doc.getElementsByTagName("body")[0] instanceof HTMLBodyElement);
 
-  assert_true(doc.getElementsByTagName("body")[0] instanceof HTMLBodyElement);
-
-}, "Setting innerHTML to empty string");
+  }, "Setting innerHTML to empty string");
 </script>
