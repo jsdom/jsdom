@@ -47,6 +47,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "dom/nodes/ParentNode-querySelector-escapes.html",
     "dom/nodes/Text-wholeText.html",
     "domparsing/DOMParser-dont-upstream.html",
+    "domparsing/innerhtml-08.html",
     "domparsing/insert-adjacent.html",
     "domparsing/outerhtml-03.html",
     "FileAPI/blob/Blob-isClosed.html",
