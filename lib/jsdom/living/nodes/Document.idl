@@ -53,7 +53,7 @@ partial /*sealed*/ interface Document {
   // DOM tree accessors
 //  getter object (DOMString name);
   attribute DOMString title;
-//  attribute DOMString dir;
+  attribute DOMString dir;
   attribute HTMLElement? body;
   readonly attribute HTMLHeadElement? head;
   [SameObject] readonly attribute HTMLCollection images;
