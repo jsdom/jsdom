@@ -1,11 +1,13 @@
-# jsdom
+# jsdom 3.x branch
+
+**The jsdom 3.x series is the last release of jsdom that works with Node.js, instead of requiring [io.js](https://iojs.org/). It is no longer maintained by the maintainers, but you are welcome to use it as the starting point for your own fork which you publish under another name. If you do so, we'll be happy to link to your fork here.**
 
 A JavaScript implementation of the WHATWG DOM and HTML standards, for use with [Node.js](https://nodejs.org/).
 
 ## Install
 
 ```bash
-$ npm install jsdom
+$ npm install jsdom@3
 ```
 
 Note that as of our 7.0.0 release, jsdom requires Node.js 4 or newer ([why?](https://github.com/tmpvar/jsdom/blob/master/Changelog.md#700)). In the meantime you are still welcome to install a release in [the 3.x series](https://github.com/tmpvar/jsdom/tree/3.x) if you use legacy Node.js versions like 0.10 or 0.12. There are also various releases between 3.x and 7.0.0 that work with various io.js versions.
