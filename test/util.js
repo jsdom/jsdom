@@ -188,10 +188,16 @@ exports.isCanvasInstalled = t => {
 
 exports.delay = ms => new Promise(r => setTimeout(r, ms));
 
-exports.createServer = handler => {
+exports.createServer = (handler, options = {}) => {
+
   return new Promise(resolve => {
     const server = http.createServer(handler);
     enablePromisifiedServerDestroy(server);
+    if (options.host !== undefined && options.port !== undefined) {
+      server.listen(options.port, options.host, () => resolve(server));
+      return;
+    }
+
     server.listen(() => resolve(server));
   });
 };
