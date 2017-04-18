@@ -85,4 +85,14 @@ describe("jsdom/utils", () => {
   specify("parseDataUrl should handle empty base64 data urls", () => {
     assert.strictEqual(utils.parseDataUrl("data:text/css;base64,").buffer.toString(), "");
   });
+
+  specify("Canvas is defined when installed", () => {
+    const testSuite = process.env['TEST_SUITE'];
+
+    if (testSuite === 'node-canvas' || testSuite === 'node-canvas-prebuilt') {
+      assert.isNotNull(utils.Canvas);
+    } else {
+      assert.isNull(utils.Canvas);
+    }
+  });
 });
