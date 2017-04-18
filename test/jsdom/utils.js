@@ -87,9 +87,9 @@ describe("jsdom/utils", () => {
   });
 
   specify("Canvas is defined when installed", () => {
-    const testSuite = process.env['TEST_SUITE'];
+    const testSuite = process.env.TEST_SUITE; // eslint-disable-line no-process-env
 
-    if (testSuite === 'node-canvas' || testSuite === 'node-canvas-prebuilt') {
+    if (testSuite === "node-canvas" || testSuite === "node-canvas-prebuilt") {
       assert.isNotNull(utils.Canvas);
     } else {
       assert.isNull(utils.Canvas);
