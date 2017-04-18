@@ -86,13 +86,17 @@ describe("jsdom/utils", () => {
     assert.strictEqual(utils.parseDataUrl("data:text/css;base64,").buffer.toString(), "");
   });
 
-  specify("Canvas is defined when installed", () => {
+  describe("Canvas", () => {
     const testSuite = process.env.TEST_SUITE; // eslint-disable-line no-process-env
 
     if (testSuite === "node-canvas" || testSuite === "node-canvas-prebuilt") {
-      assert.isNotNull(utils.Canvas);
+      specify("Canvas should be defined", () => {
+        assert.isNotNull(utils.Canvas);
+      });
     } else {
-      assert.isNull(utils.Canvas);
+      specify("Canvas should be null", () => {
+        assert.isNull(utils.Canvas);
+      });
     }
   });
 });
