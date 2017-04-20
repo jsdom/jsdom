@@ -3,6 +3,7 @@ node_js:
   - 4
   - "7.2.1" # https://github.com/nodejs/node/issues/10806 and related regressions. Also change below.
 sudo: false
+dist: trusty
 
 git:
   submodules: false
@@ -54,6 +55,17 @@ matrix:
             - libpango1.0-dev
             - libgif-dev
             - build-essential
+    - node_js: "7.2.1"
+      env: TEST_SUITE=node-canvas-prebuilt
+      script: "export CXX=g++-4.8 && npm i canvas-prebuilt && npm test"
+      addons:
+        hosts:
+          - web-platform.test
+          - www.web-platform.test
+          - www1.web-platform.test
+          - www2.web-platform.test
+          - xn--n8j6ds53lwwkrqhv28a.web-platform.test
+          - xn--lve-6lad.web-platform.test
     - node_js: "7.2.1"
       env: TEST_SUITE=node-canvas
       script: "export CXX=g++-4.8 && npm i canvas && npm test"
