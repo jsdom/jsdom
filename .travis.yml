@@ -65,6 +65,16 @@ matrix:
           - www2.web-platform.test
           - xn--n8j6ds53lwwkrqhv28a.web-platform.test
           - xn--lve-6lad.web-platform.test
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-4.8
+            - libcairo2-dev
+            - libjpeg8-dev
+            - libpango1.0-dev
+            - libgif-dev
+            - build-essential
     - node_js: "7.2.1"
       env: TEST_SUITE=node-canvas
       script: "export CXX=g++-4.8 && npm i canvas && npm test"
