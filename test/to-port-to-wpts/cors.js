@@ -1,12 +1,9 @@
 "use strict";
-const assert = require("chai").assert;
-const describe = require("mocha-sugar-free").describe;
-const specify = require("mocha-sugar-free").specify;
-const before = require("mocha-sugar-free").before;
-const after = require("mocha-sugar-free").after;
-const createServer = require("../util.js").createServer;
+const { assert } = require("chai");
+const { describe, specify, before, after } = require("mocha-sugar-free");
+const { createServer } = require("../util.js");
 
-const jsdom = require("../..");
+const { JSDOM } = require("../..");
 
 const routes = {
   "/html": `<!DOCTYPE html><html>
@@ -65,27 +62,21 @@ describe("jsdom/cors", { skipIfBrowser: true }, () => {
     return Promise.all([server.destroy(), corsServer.destroy()]);
   });
 
-  specify("preflight response headers should be forwarded", { async: true }, t => {
-    jsdom.env({
-      url: host + "/html",
-      created(err, window) {
-        assert.ifError(err, "There should be no errors");
-        process.nextTick(() => {
-          const xhr = new window.XMLHttpRequest();
-          xhr.onload = () => assert.equal(xhr.response, "test");
-          xhr.onerror = () => t.done(new TypeError("Network request failed (error)"));
-          xhr.ontimeout = () => t.done(new TypeError("Network request failed (timeout)"));
+  specify("preflight response headers should be forwarded", () => {
+    return JSDOM.fromURL(host + "/html").then(({ window }) => {
+      return new Promise((resolve, reject) => {
+        const xhr = new window.XMLHttpRequest();
+        xhr.onload = () => {
+          assert.equal(xhr.response, "test");
+          resolve();
+        };
+        xhr.onerror = () => reject(new Error("Network request failed (error)"));
+        xhr.ontimeout = () => reject(new Error("Network request failed (timeout)"));
 
-          xhr.open("GET", `${corsHost}/cors`, true);
-          xhr.setRequestHeader("Authorization", "Basic dGVzdGluZzpwYXNzd29yZA==");
-          xhr.send();
-
-          setTimeout(() => {
-            window.stop();
-            t.done();
-          }, 1000);
-        });
-      }
+        xhr.open("GET", `${corsHost}/cors`, true);
+        xhr.setRequestHeader("Authorization", "Basic dGVzdGluZzpwYXNzd29yZA==");
+        xhr.send();
+      });
     });
   });
 });
