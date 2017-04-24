@@ -55,7 +55,7 @@ exports["the history object should update correctly when calling forward/back/go
     [{ foo: "baz" }, "title 2", "/baz"],
     [{ foo: "buzz" }, "title 3", "/buzz"]
   ].forEach(args => {
-    window.history.pushState.apply(window.history, args);
+    window.history.pushState(...args);
   });
 
   // Sanity check
@@ -133,7 +133,7 @@ exports["the history object should update correctly when calling pushState with 
     [{ foo: "baz" }, "title 2", "/baz"],
     [{ foo: "buzz" }, "title 3", "/buzz"]
   ].forEach(args => {
-    window.history.pushState.apply(window.history, args);
+    window.history.pushState(...args);
   });
 
   // Sanity check

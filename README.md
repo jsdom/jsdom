@@ -4,7 +4,7 @@ jsdom is a pure-JavaScript implementation of many web standards, notably the WHA
 
 The latest versions of jsdom require Node.js v6 or newer. (Versions of jsdom below v10 still work with Node.js v4, but are unsupported.)
 
-As of v10, jsdom has a new API (docmented below). The old API is still supported for now; [see its documentation](./lib/old-api.md) for details.
+As of v10, jsdom has a new API (documented below). The old API is still supported for now; [see its documentation](./lib/old-api.md) for details.
 
 ## Basic usage
 
@@ -25,9 +25,9 @@ console.log(dom.window.document.querySelector("p").textContent); // "Hello world
 The resulting object is an instance of the `JSDOM` class, which contains a number of useful properties and methods besides `window`. In general it can be used to act on the jsdom from the "outside," doing things that are not possible with the normal DOM APIs. For simple cases, where you don't need any of this functionality, we recommend a coding pattern like
 
 ```js
-const window = (new JSDOM(`...`)).window;
+const { window } = new JSDOM(`...`);
 // or even
-const document = (new JSDOM(`...`)).window.document;
+const { document } = (new JSDOM(`...`)).window;
 ```
 
 Full documentation on everything you can do with the `JSDOM` class is below, in the section "`JSDOM` Object API".
@@ -108,7 +108,7 @@ By default, jsdom will not load any subresources such as scripts, stylesheets, i
 * Scripts, via `<script>`, but only if `runScripts: "dangerously"` is also set
 * Images, via `<img>`, but only if the `canvas` (or `canvas-prebuilt`) npm package is also installed (see "Canvas Support" below)
 
-In the future we plan to offer more customization of resource loading via this option, but now the default and the `"usable"` option are the two modes offered.
+In the future we plan to offer more customization of resource loading via this option, but for now the default and the `"usable"` option are the two modes offered.
 
 ### Virtual consoles
 
@@ -232,7 +232,7 @@ Note that this feature only works if you have set the `includeNodeLocations` opt
 
 ### Running vm-created scripts with `runVMScript(script)`
 
-The built-in `vm` module of Node.js allows you to create `Script` instances, which can be compiled ahead of time and then run mutliple times on a given "VM context". Behind the scenes, a jsdom `Window` is indeed a VM context. To get access to this ability, use the `runVMScript()` method:
+The built-in `vm` module of Node.js allows you to create `Script` instances, which can be compiled ahead of time and then run multiple times on a given "VM context". Behind the scenes, a jsdom `Window` is indeed a VM context. To get access to this ability, use the `runVMScript()` method:
 
 ```js
 const { Script } = require("vm");
@@ -294,7 +294,7 @@ The returned promise will fulfill with a `JSDOM` instance if the URL is valid an
 The options provided to `fromURL()` are similar to those provided to the `JSDOM` constructor, with the following additional restrictions and consequences:
 
 - The `url` and `contentType` options cannot be provided.
-- The `referrer` option is used as the HTTP `Referer` request header of the initial request, in addition to subresource requests.
+- The `referrer` option is used as the HTTP `Referer` request header of the initial request.
 - The `userAgent` option is used as the HTTP `User-Agent` request header of any requests.
 - The resulting jsdom's URL, content type, and referrer are determined from the response.
 - Any cookies set via HTTP `Set-Cookie` response headers are stored in the jsdom's cookie jar. Similarly, any cookies already in a supplied cookie jar are sent as HTTP `Cookie` request headers.

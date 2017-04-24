@@ -228,7 +228,7 @@
     "prefer-const": ["error", { "ignoreReadBeforeAssign": true }],
     "prefer-reflect": "off",
     "prefer-rest-params": "off",
-    "prefer-spread": "off", // TODO with new Node versions
+    "prefer-spread": "error",
     "prefer-template": "off",
     "require-yield": "error",
     "template-curly-spacing": ["error", "never"],
