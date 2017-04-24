@@ -32,7 +32,7 @@ function createCORSServer() {
         res.end(routes[req.url]);
       }
     }, 200);
-  }, { host: "localhost", port: 0 });
+  });
 }
 
 function createBaseServer() {
@@ -57,7 +57,7 @@ describe("jsdom/cors", { skipIfBrowser: true }, () => {
         server = servers[0];
         corsServer = servers[1];
         host = `http://127.0.0.1:${server.address().port}`;
-        corsHost = `http://localhost:${corsServer.address().port}`;
+        corsHost = `http://127.0.0.1:${corsServer.address().port}`;
       });
   });
 
