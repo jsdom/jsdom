@@ -3,7 +3,7 @@ interface HTMLElement : Element {
   [Reflect] attribute DOMString title;
   [Reflect] attribute DOMString lang;
 //  attribute boolean translate;
-  [Reflect] attribute DOMString dir; // TODO this should be limited to known values only; [Reflect] by itself is incorrect
+  attribute DOMString dir;
 //  [SameObject] readonly attribute DOMStringMap dataset;
 
   // user interaction

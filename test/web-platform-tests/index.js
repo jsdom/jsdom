@@ -128,6 +128,7 @@ describe("Web Platform Tests", () => {
     "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-02.html",
     "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-03.html",
     "html/dom/elements/global-attributes/classlist-nonstring.html",
+    "html/dom/elements/global-attributes/document-dir.html",
     "html/editing/focus/focus-management/focus-events.html",
     "html/editing/focus/focus-management/focus-event-targets-simple.html",
     "html/editing/focus/document-level-focus-apis/document-level-apis.html",
