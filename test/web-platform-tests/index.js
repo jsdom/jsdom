@@ -239,6 +239,8 @@ describe("Web Platform Tests", () => {
     // "dom/events/EventTarget-dispatchEvent.html", // we don't support every event interface yet
     "dom/events/EventTarget-removeEventListener.html",
 
+    "url/url-setters.html",
+
     "FileAPI/fileReader.html",
     "FileAPI/historical.html",
     // "FileAPI/idlharness.html", // idl should be used here
