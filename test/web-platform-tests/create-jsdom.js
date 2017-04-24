@@ -82,8 +82,8 @@ module.exports = (urlPrefix, testPath) => {
             errors.push(new Error(`test harness should not timeout: ${testPath}`));
           }
 
-          errors.push.apply(errors, doneErrors);
-          errors.push.apply(errors, unhandledExceptions);
+          errors.push(...doneErrors);
+          errors.push(...unhandledExceptions);
 
           if (errors.length === 1) {
             reject(new Error(errors[0]));
