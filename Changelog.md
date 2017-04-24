@@ -10,6 +10,7 @@ Apart from the new API, the following changes were made, with breaking changes b
 * **Changed the `omitJsdomErrors` option to `omitJSDOMErrors`**, for consistency [with web platform APIs](https://w3ctag.github.io/design-principles/#casing-rules).
 * Added `document.dir`. (Zirro)
 * Updated the `<a>` and `<area>` APIs to the latest specification, and fixed a few bugs with them. (makana)
+* Fixed `<img>` elements to no longer fire `"load"` events unless their image data is actually loaded (which generally only occurs when the `canvas` package is installed).
 * Fixed `XMLHttpRequest` preflights to forward approved preflight headers to the actual request. (mbroadst)
 * Fixed `htmlElement.dir` to properly restrict its values to `"ltr"`, `"rtl"`, or `"auto"`. (Zirro)
 * Fixed setting `innerHTML` to the empty string to no longer be a no-op. (Zirro)
