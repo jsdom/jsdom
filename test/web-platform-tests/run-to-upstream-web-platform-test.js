@@ -1,13 +1,11 @@
 "use strict";
-
 const http = require("http");
 const path = require("path");
 const fs = require("fs");
 const st = require("st");
-const specify = require("mocha-sugar-free").specify;
-
-const inBrowserContext = require("../util").inBrowserContext;
-const createJsdom = require("./create-jsdom");
+const { specify } = require("mocha-sugar-free");
+const { inBrowserContext } = require("../util.js");
+const createJsdom = require("./create-jsdom.js");
 
 module.exports = function (testDir) {
   if (inBrowserContext()) {

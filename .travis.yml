@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-  - 4
-  - "7.2.1" # https://github.com/nodejs/node/issues/10806 and related regressions. Also change below.
+  - 6
+  - stable
 sudo: false
 
 git:
@@ -22,7 +22,7 @@ addons:
 
 matrix:
   include:
-    - node_js: 4
+    - node_js: 6
       env: TEST_SUITE=node-canvas-prebuilt
       script: "export CXX=g++-4.8 && npm i canvas-prebuilt && npm test"
       addons:
@@ -33,7 +33,7 @@ matrix:
           - www2.web-platform.test
           - xn--n8j6ds53lwwkrqhv28a.web-platform.test
           - xn--lve-6lad.web-platform.test
-    - node_js: 4
+    - node_js: 6
       env: TEST_SUITE=node-canvas
       script: "export CXX=g++-4.8 && npm i canvas && npm test"
       addons:
@@ -54,7 +54,7 @@ matrix:
             - libpango1.0-dev
             - libgif-dev
             - build-essential
-    - node_js: "7.2.1"
+    - node_js: stable
       env: TEST_SUITE=node-canvas
       script: "export CXX=g++-4.8 && npm i canvas && npm test"
       addons:

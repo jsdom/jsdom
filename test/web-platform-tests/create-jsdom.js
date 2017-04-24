@@ -1,6 +1,6 @@
 "use strict";
-const jsdom = require("../..");
-const nodeResolverPromise = require("../util").nodeResolverPromise;
+const jsdom = require("../../lib/old-api.js");
+const nodeResolverPromise = require("../util.js").nodeResolverPromise;
 
 const globalPool = { maxSockets: 6 };
 
@@ -14,7 +14,7 @@ module.exports = (urlPrefix, testPath) => {
   let allowUnhandledExceptions = false;
 
   const created = nodeResolverPromise(createdResolver => {
-    const virtualConsole = jsdom.createVirtualConsole().sendTo(console, { omitJsdomErrors: true });
+    const virtualConsole = jsdom.createVirtualConsole().sendTo(console, { omitJSDOMErrors: true });
     virtualConsole.on("jsdomError", e => {
       if (e.type === "unhandled exception" && !allowUnhandledExceptions) {
         unhandledExceptions.push(e);

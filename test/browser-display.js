@@ -1,3 +1,4 @@
+// For: nodeunit
 var AssertionError = require('assert').AssertionError;
 var nodeunit = require('nodeunit');
 

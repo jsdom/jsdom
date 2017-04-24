@@ -1,5 +1,6 @@
 /* eslint no-process-env:0 no-console:0 */
 "use strict";
+// For: Mocha
 
 module.exports = options => {
   // running as a CI job, start chrome using SauceLabs
@@ -16,8 +17,8 @@ module.exports = options => {
   options.customLaunchers = {
     SLChrome: {
       base: "SauceLabs",
-      browserName: "chrome"
-      // version: "48"
+      browserName: "chrome",
+      version: "56"
     }
   };
   options.browsers = ["SLChrome"];

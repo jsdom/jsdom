@@ -1,7 +1,7 @@
 "use strict";
 const path = require("path");
-const describe = require("mocha-sugar-free").describe;
-const runWebPlatformTest = require("./run-web-platform-test")(path.resolve(__dirname, "tests"));
+const { describe } = require("mocha-sugar-free");
+const runWebPlatformTest = require("./run-web-platform-test.js")(path.resolve(__dirname, "tests"));
 
 describe("Web Platform Tests", () => {
   /* eslint-disable max-len */

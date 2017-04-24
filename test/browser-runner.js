@@ -1,26 +1,27 @@
 #!/usr/bin/env node
+// For: nodeunit
 "use strict";
 
 require('colors');
 var browserify = require('browserify');
 var EventEmitter = require('events').EventEmitter;
 var fs = require('fs');
-var httpServer = require('http-server');
+const ecstatic = require('ecstatic');
 var nodeunit = require('nodeunit');
 var optimist = require('./runner-options');
 var Q = require('q');
 var querystring = require('querystring');
 var runnerDisplay = require('./browser-display');
-var portfinder = Q.denodeify(require('portfinder').getPort);
+var portfinder = require('portfinder').getPortPromise;
 var installSelenium = Q.denodeify(require('selenium-standalone').install);
 var startSeleniumCb = require('selenium-standalone').start;
 var wd = require('wd');
+const { createServer } = require('./util.js');
 
 var browser;
 
 optimist.
   usage('Run the jsdom test suite in a browser via WebDriver').
-  describe('http-port', 'port to run test server on').
   describe('web-driver-port', 'port to run Selenium on').
   describe('verbose-web-driver', 'print verbose output from wd to stdout').
   describe('verbose-browser-console', 'print browser console to stdout');
@@ -32,7 +33,6 @@ if (argv.help) {
   process.exit();
 }
 
-var httpPort = argv['http-port'];
 var wdPort = argv['web-driver-port'];
 
 /**
@@ -47,26 +47,25 @@ function getFnBody(fn) {
 
 function run() {
   var passed = false;
+  console.log('running tests');
 
   return browser.init({
       browserName: 'chrome',
+      version: '56',
       name: 'Travis tmpvar/jsdom #' + process.env['TRAVIS_JOB_NUMBER'],
       'tunnel-identifier': process.env['TRAVIS_JOB_NUMBER'],
       build: process.env['TRAVIS_BUILD_NUMBER'],
       tags: ['tmpvar/jsdom', 'CI']
     })
     .then(function () {
+      console.log('browser initialized');
       return browser.setAsyncScriptTimeout(5000);
     })
     .then(function () {
-      return browser.get([
-          'http://localhost:',
-          httpPort,
-          '/test?',
-          querystring.stringify(argv)
-        ].join(''));
+      return browser.get(`http://localhost:${server.address().port}/index.html?${querystring.stringify(argv)}`);
     })
     .then(function (result) {
+      console.log('navigated');
       function browserPoll() {
         var events = window._browserRunner.events;
 
@@ -143,20 +142,20 @@ function startSelenium(options) {
   return Q.nfcall(startSeleniumCb, options);
 }
 
+let server;
+
 // browserify and run the tests
 browserify('./test/worker.js').
   bundle().
   pipe(fs.createWriteStream('./test/worker-bundle.js')).
   on('finish', function () {
     Q.fcall(function () {
-      return httpPort || portfinder();
+      console.log('starting http server');
+      return createServer(ecstatic({ root: __dirname }));
     })
-    .then(function (port) {
-      httpPort = port;
-
-      // start web server
-      console.log('starting http server on port', httpPort);
-      httpServer.createServer().listen(httpPort);
+    .then(function (s) {
+      server = s;
+      console.log('http server started on port ' + server.address().port);
 
       return wdPort || portfinder();
     })
@@ -212,6 +211,8 @@ browserify('./test/worker.js').
             });
           })
           .then(child => {
+            console.log('selenium server started; running tests');
+
             return run()
               .finally(() => {
                 console.log('stopping selenium server');

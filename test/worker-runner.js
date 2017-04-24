@@ -1,3 +1,4 @@
+// For: nodeunit
 function fire(event) {
   var data = Array.prototype.slice.call(arguments, 1);
   data = JSON.parse(JSON.stringify(data));
@@ -18,40 +19,22 @@ self.onmessage = function (e) {
   var fileFilter, testFilter;
 
   var modules = {
-    "level2/core": require("../test/level2/core"), // ok
-    "level2/html": require("../test/level2/html"), // 6/708
-    "level2/style": require("../test/level2/style"), // 13/15
-    "level2/events": require("../test/level2/events"), // ok
-    //"level3/core": require("../test/level3/core"),
-    //"level3/ls": require("../test/level3/ls"),
-    "level3/textContent.js": require("../test/level3/textContent.js"), // ok
-    "level3/xpath": require("../test/level3/xpath"), // 0/93
-
-    "living-dom/class-list.js": require("../test/living-dom/class-list.js"), // ok
-    "living-dom/compare-document-position.js": require("../test/living-dom/compare-document-position.js"), // 0/20
-    "living-dom/dom-implementation.js": require("../test/living-dom/dom-implementation.js"), // ok
-    "living-dom/event-target.js": require("../test/living-dom/event-target.js"), // ok
-    "living-dom/node-clone-node.js": require("../test/living-dom/node-clone-node.js"), // ok
-    "living-dom/node-contains.js": require("../test/living-dom/node-contains.js"), // 0/20
-    "living-dom/node-parent-element.js": require("../test/living-dom/node-parent-element.js"), // 0/11
-    "living-dom/non-document-type-child-node.js": require("../test/living-dom/non-document-type-child-node.js"),
-
-    "living-html/htmlanchorelement.js": require("../test/living-html/htmlanchorelement.js"), // ok
-    "living-html/htmlcanvaselement.js": require("../test/living-html/htmlcanvaselement.js"), // ok
-    "living-html/htmlelement.js": require("../test/living-html/htmlelement.js"), // ok
-    "living-html/location.js": require("../test/living-html/location.js"), // ok
-    "living-html/inline-event-handlers.js": require("../test/living-html/inline-event-handlers.js"), // ok
-    "living-html/message-event.js": require("../test/living-html/message-event.js"), // ok
-    "living-html/post-message.js": require("../test/living-html/post-message.js"), // ok
-    "living-html/on-error.js": require("../test/living-html/on-error.js"), // ok
-    "misc/xhr-file-urls.js": require("../test/misc/xhr-file-urls.js"), // 0; file I/O does not work in browsers
-    "misc/xhr-requires-server.js": require("../test/misc/xhr-requires-server.js"), // 0; could work if we figured
-      // out a way to say that the server parts happen in Node.js, and the browser parts happen in the browser.
-
-    "window/history": require("../test/window/history"), // ok
-    "window/script": require("../test/window/script"), // 0/10
-    //"window/frame": require("../test/window/frame"), // fail
-    //"sizzle/index": require("../test/sizzle/index"), // fail
+    "to-port-to-wpts/level2/core.js": require("./to-port-to-wpts/level2/core.js"),
+    "to-port-to-wpts/level2/events.js": require("./to-port-to-wpts/level2/events.js"),
+    "to-port-to-wpts/level3/textContent.js": require("./to-port-to-wpts/level3/textContent.js"),
+    "to-port-to-wpts/class-list.js": require("./to-port-to-wpts/class-list.js"),
+    "to-port-to-wpts/dom-implementation.js": require("./to-port-to-wpts/dom-implementation.js"),
+    "to-port-to-wpts/node-clone-node.js": require("./to-port-to-wpts/node-clone-node.js"),
+    "to-port-to-wpts/non-document-type-child-node.js": require("./to-port-to-wpts/non-document-type-child-node.js"),
+    "to-port-to-wpts/htmlanchorelement.js": require("./to-port-to-wpts/htmlanchorelement.js"),
+    "to-port-to-wpts/htmlcanvaselement.js": require("./to-port-to-wpts/htmlcanvaselement.js"),
+    "to-port-to-wpts/htmlelement.js": require("./to-port-to-wpts/htmlelement.js"),
+    "to-port-to-wpts/location.js": require("./to-port-to-wpts/location.js"),
+    "to-port-to-wpts/inline-event-handlers.js": require("./to-port-to-wpts/inline-event-handlers.js"),
+    "to-port-to-wpts/message-event.js": require("./to-port-to-wpts/message-event.js"),
+    "to-port-to-wpts/post-message.js": require("./to-port-to-wpts/post-message.js"),
+    "to-port-to-wpts/on-error.js": require("./to-port-to-wpts/on-error.js"),
+    "to-port-to-wpts/history.js": require("./to-port-to-wpts/history.js")
   };
 
   var modulesToRun = {};
@@ -60,27 +43,7 @@ self.onmessage = function (e) {
     fileFilter = options.suites.replace(/\s/g, '').split(',');
   }
   // default to only those test modules that pass
-  fileFilter = fileFilter || [
-    "level1/svg",
-    "level2/core",
-    "level2/extra",
-    "level2/events",
-    "level3/textContent.js",
-
-    "living-dom/class-list.js",
-    "living-dom/event-target.js",
-    "living-dom/node-clone-node.js",
-    "living-dom/non-document-type-child-node.js",
-    "living-html/htmlanchorelement.js",
-    "living-html/htmlcanvaselement.js",
-    "living-html/location.js",
-    "living-html/inline-event-handlers.js",
-    "living-html/message-event.js",
-    "living-html/on-error.js",
-    "living-html/post-message.js",
-
-    "window/history"
-  ];
+  fileFilter = fileFilter || Object.keys(modules);
 
   if (options.tests) {
     testFilter = options.tests.replace(/\s/g, '').split(',');

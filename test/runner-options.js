@@ -1,3 +1,4 @@
+// For: nodeunit
 var optimist = require('optimist')
     .usage('Run the jsdom test suite')
     .alias('s', 'suites')
