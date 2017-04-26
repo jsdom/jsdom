@@ -1,9 +1,9 @@
 "use strict";
 const path = require("path");
-const describe = require("mocha-sugar-free").describe;
+const { describe } = require("mocha-sugar-free");
 
 const testsPath = path.resolve(__dirname, "to-upstream");
-const runWebPlatformTest = require("./run-to-upstream-web-platform-test")(testsPath);
+const runWebPlatformTest = require("./run-to-upstream-web-platform-test.js")(testsPath);
 
 describe("Local tests in Web Platform Test format (to-upstream)", () => {
   [
@@ -47,6 +47,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "dom/nodes/ParentNode-querySelector-escapes.html",
     "dom/nodes/Text-wholeText.html",
     "domparsing/DOMParser-dont-upstream.html",
+    "domparsing/innerhtml-08.html",
     "domparsing/insert-adjacent.html",
     "domparsing/outerhtml-03.html",
     "FileAPI/blob/Blob-isClosed.html",
@@ -62,6 +63,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "encoding/meta/no-meta.html",
     "html/browsers/windows/nested-browsing-contexts/iframe-referrer.html",
     "html/dom/elements/elements-in-the-dom/click-in-progress-flag.html",
+    "html/dom/elements/global-attributes/dir-attribute.html",
     "html/editing/activation/click-bail-on-disabled.html",
     "html/editing/focus/focus-management/active-element.html",
     "html/editing/focus/focus-management/focus-on-all-elements.html",

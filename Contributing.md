@@ -25,7 +25,7 @@ If you can, then you've almost certainly found a bug in or missing feature of js
 
 **What spec covers this potential contribution?**
 
-Almost all of our relevant functionality is covered in either the [DOM Living Standard](http://dom.spec.whatwg.org/) or the [HTML Living Standard](http://www.whatwg.org/specs/web-apps/current-work/). There are various obsolete W3C specs ("DOM Level 2" etc.) that were never really implemented in browsers, and there is also the "DOM Level 4" W3C fork of the WHATWG DOM Living Standard. But we try to stick to the two main WHATWG specs for jsdom these days.
+Almost all of our relevant functionality is covered in either the [DOM Living Standard](https://dom.spec.whatwg.org/) or the [HTML Living Standard](https://html.spec.whatwg.org/multipage/). There are various obsolete W3C specs ("DOM Level 2" etc.) that were never really implemented in browsers, and there is also the "DOM Level 4" W3C fork of the WHATWG DOM Living Standard. But we try to stick to the two main WHATWG specs for jsdom these days.
 
 Other specs might pop up from time to time, especially in regard to CSS stuff. In general Mozilla's Servo project provides [good guidance on relevant places to look](https://github.com/servo/servo/wiki/Relevant-spec-links). [platform.html5.org](https://platform.html5.org/) is also pretty comprehensive.
 
@@ -39,7 +39,7 @@ First you'll want to `npm install`. Then, configure your system to run the web p
 
 ### Web platform feature tests
 
-All tests for web platform features (as opposed to features of jsdom itself, such as the `jsdom.*` APIs) should be in [web-platform-tests](https://github.com/w3c/web-platform-tests) format. We have some infrastructure for running these directly against jsdom documents. So ideally, when contributing a bugfix or new feature, you can browser the web-platform-tests repository and find the test covering your work, and then just enable it in [the manifest file](https://github.com/tmpvar/jsdom/blob/master/test/web-platform-tests/index.js). These tests are HTML files which use a special library called [testharness.js](http://testthewebforward.org/docs/testharness-library.html) to report their results.
+All tests for web platform features (as opposed to features of jsdom itself, such as the `JSDOM()` constructor) should be in [web-platform-tests](https://github.com/w3c/web-platform-tests) format. We have some infrastructure for running these directly against jsdom documents. So ideally, when contributing a bugfix or new feature, you can browser the web-platform-tests repository and find the test covering your work, and then just enable it in [the manifest file](https://github.com/tmpvar/jsdom/blob/master/test/web-platform-tests/index.js). These tests are HTML files which use a special library called [testharness.js](http://testthewebforward.org/docs/testharness-library.html) to report their results.
 
 However, the web-platform-tests project is not fully comprehensive. If you need to write your own test for a web platform feature, place it in our [to-upstream](https://github.com/tmpvar/jsdom/tree/master/test/web-platform-tests/to-upstream) directory. (It's so named because, over time, we hope to upstream these tests back to the web-platform-tests repository, so all browsers can benefit from them.) Note that you may need to create new directory structure, paralleling that of the main [web-platform-tests](https://github.com/w3c/web-platform-tests) repository.
 
@@ -47,23 +47,23 @@ However, the web-platform-tests project is not fully comprehensive. If you need 
 
 **To run the to-upstream web-platform-tests:** `npm run test-tuwpt`
 
+**To run specific web-platform-tests already in the manifest**: `npm run test-wpt -- --fgrep dom/events`
+
 (Note for future reference for the maintainers: to update the submodules used for the web-platform-tests use the command `git submodule update --recursive --remote`.)
 
 ### jsdom API tests
 
-If you are testing something that can only be accomplished through the jsdom API, and not inside a normal web browser, you'll want to write a different kind of test.
+If you are testing something that can only be accomplished through the jsdom API, and not inside a normal web browser, you'll want to write a different kind of test. Such tests are written using [Mocha](https://mochajs.org/) and [Chai](http://chaijs.com/).
 
-Our own test suites are currently being transitioned from nodeunit to [mocha](https://mochajs.org/) and [chai](http://chaijs.com/). Some of the test suites are run using nodeunit, while others are run using mocha. So if you would like to run a specific test, you will have to first figure out which kind it is. A test file containing `describe("foo", ...)` and `specify("foo", ...)` calls is for mocha. A test file containing `exports[foo] = ...` definitions is for nodeunit. After the transition finishes, there will be no nodeunit tests remaining.
+To write such a test that, simply add a file in `test/api/`, following the surrounding conventions. Then, add it to the manifest at `test/index.js`.
 
-All new tests should be written in the mocha format. To do that, simply add a file in the appropriate place (usually `test/jsdom`) following the surrounding conventions. Then, add it to the manifest at `test/index.js`.
+**To run all API tests:** `npm run test-api`
 
-**To run all mocha tests:** `npm run test-mocha-all`
+**To run a specific API test:** `npm run test-mocha -- test/api/from-file.js`
 
-**To run a specific mocha test:** `npm run test-mocha -- test/jsdom/env.js`
+### Older tests
 
-**To run older tests (and also web-platform-tests):** see `npm run test-old`
-
-(The older tests also include a lot of web platform feature tests that are stuck in nodeunit format for now. We'd like to eventually move them to web-platform-tests format.)
+Although ideally you should not need to worry about this, there are some tests that are for legacy reasons not in the right place, or test old parts of jsdom. New tests should not be contributed following those patterns, but we're keeping them around for coverage until we can convert them to the appropriate format. If you run `npm test`, you will get the full test suite, including such old tests.
 
 ### Testing against the browser
 

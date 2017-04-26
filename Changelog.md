@@ -1,7 +1,26 @@
+## 10.0.0
+
+This release includes a complete overhaul of jsdom's API for creating and manipulating jsdoms. The new API is meant to be much more intuitive and have better defaults, with complete documentation in the newly-overhauled README. We hope you like it!
+
+As discussed in the new README, the old API is still available and supported via `require("jsdom/lib/old-api.js")`, at least until we have ported all of its features over to the new API. It will, however, not be gaining any new features, and we suggest you try the new API unless you really need the customizable resource loading the old API provides.
+
+Apart from the new API, the following changes were made, with breaking changes bolded:
+
+* **Removed support for Node.js v4 and v5**, as we have started using new JavaScript features only supported in Node.js v6 onwards.
+* **Changed the `omitJsdomErrors` option to `omitJSDOMErrors`**, for consistency [with web platform APIs](https://w3ctag.github.io/design-principles/#casing-rules).
+* Added `document.dir`. (Zirro)
+* Updated the `<a>` and `<area>` APIs to the latest specification, and fixed a few bugs with them. (makana)
+* Fixed `<img>` elements to no longer fire `"load"` events unless their image data is actually loaded (which generally only occurs when the `canvas` package is installed).
+* Fixed `XMLHttpRequest` preflights to forward approved preflight headers to the actual request. (mbroadst)
+* Fixed `htmlElement.dir` to properly restrict its values to `"ltr"`, `"rtl"`, or `"auto"`. (Zirro)
+* Fixed setting `innerHTML` to the empty string to no longer be a no-op. (Zirro)
+* Fixed the origin-checking logic in `window.postMessage()`, so that now you don't always have to pass an origin of `"*"`. (jmlopez-rod)
+* Improved the `xhr.open()` error message when there are not enough arguments. (lencioni)
+
 ## 9.12.0
 
 * Added the `Option` named constructor. (NAlexPear)
-* Added support for the `canvas-prebuilt` npm package as an alternative to `canvas`.
+* Added support for the `canvas-prebuilt` npm package as an alternative to `canvas`. (asturur)
 * Fixed `setTimeout()` and `setInterval()` to always return a positive integer, instead of returning `0` the first time were called. (yefremov)
 * Fixed `jsdom.env()` to preserve URL fragments across redirects. (josephfrazier)
 * Fixed `optionEl.text` and `optionEl.value` to be more spec-compliant.

@@ -98,6 +98,7 @@ Jeremy Danyow <jdanyow@gmail.com>
 Jérémy Lal <kapouer@melix.org>
 Jerry Sievert <github@legitimatesounding.com>
 Jimmy Mabey <jimmy@velsoft.com>
+Joe Lencioni <joe.lencioni@gmail.com>
 Johan Sköld <johan@pingdom.com>
 John Hurliman <jhurliman@jhurliman.org>
 John Roberts <jroberts@logitech.com>
@@ -132,10 +133,13 @@ Louis-Dominique Dubeau <ldd@lddubeau.com>
 lovebear <hheennrryy@gmail.com>
 Ludovico Fischer <livrerie@gmail.com>
 Lukas Bünger <lukas.buenger@fixxpunkt.ch>
+makana <mamas-albtraum@web.de>
+Manuel Lopez <jmlopez.rod@gmail.com>
 Marak Squires <marak.squires@gmail.com>
 Marc-Andre Lafortune <github@marc-andre.ca>
 Mariusz Nowak <mariusz@medikoo.com>
 Martin Naumann <mr.avgp@gmail.com>
+Matt Broadstone <mbroadst@gmail.com>
 Matthew Crinklaw-Vogt <mlaw@fb.com>
 Matthew King <mking@borderstylo.com>
 Matthew Pflueger <matthew.pflueger@gmail.com>
@@ -222,3 +226,4 @@ William Cunningham <w.a.cunningham.ii@gmail.com>
 Xavi <xavi.rmz@gmail.com>
 Yonathan <yonathan@gmail.com>
 Zach Smith <zach@amicushq.com>
+Zirro <code@zirro.se>

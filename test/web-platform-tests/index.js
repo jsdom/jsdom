@@ -1,7 +1,7 @@
 "use strict";
 const path = require("path");
-const describe = require("mocha-sugar-free").describe;
-const runWebPlatformTest = require("./run-web-platform-test")(path.resolve(__dirname, "tests"));
+const { describe } = require("mocha-sugar-free");
+const runWebPlatformTest = require("./run-web-platform-test.js")(path.resolve(__dirname, "tests"));
 
 describe("Web Platform Tests", () => {
   /* eslint-disable max-len */
@@ -128,6 +128,7 @@ describe("Web Platform Tests", () => {
     "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-02.html",
     "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-03.html",
     "html/dom/elements/global-attributes/classlist-nonstring.html",
+    "html/dom/elements/global-attributes/document-dir.html",
     "html/editing/focus/focus-management/focus-events.html",
     "html/editing/focus/focus-management/focus-event-targets-simple.html",
     "html/editing/focus/document-level-focus-apis/document-level-apis.html",
@@ -243,6 +244,8 @@ describe("Web Platform Tests", () => {
     "dom/events/EventTarget-dispatchEvent-returnvalue.html",
     // "dom/events/EventTarget-dispatchEvent.html", // we don't support every event interface yet
     "dom/events/EventTarget-removeEventListener.html",
+
+    "url/url-setters.html",
 
     "FileAPI/fileReader.html",
     "FileAPI/historical.html",

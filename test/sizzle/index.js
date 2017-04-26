@@ -1,8 +1,8 @@
-var jsdom        = require('../../lib/jsdom');
 var fs           = require('fs');
 var path         = require('path');
-var testFile     = fs.readFileSync(__dirname + '/files/index.html', 'utf-8');
+var jsdom        = require('../../lib/old-api.js');
 var qunit        = require('./support/qunit');
+var testFile     = fs.readFileSync(__dirname + '/files/index.html', 'utf-8');
 
 function test(fn) {
   // return a nodeunit compatible test case

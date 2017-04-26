@@ -1,7 +1,7 @@
 {
   "name": "jsdom",
-  "version": "9.12.0",
-  "description": "A JavaScript implementation of the DOM and HTML standards",
+  "version": "10.0.0",
+  "description": "A JavaScript implementation of many web standards",
   "keywords": [
     "dom",
     "html",
@@ -28,7 +28,9 @@
     "html-encoding-sniffer": "^1.0.1",
     "nwmatcher": ">= 1.3.9 < 2.0.0",
     "parse5": "^1.5.1",
+    "pn": "^1.0.0",
     "request": "^2.79.0",
+    "request-promise-native": "^1.0.3",
     "sax": "^1.2.1",
     "symbol-tree": "^3.2.1",
     "tough-cookie": "^2.3.2",
@@ -42,10 +44,10 @@
     "browserify": "^14.0.0",
     "chai": "^3.5.0",
     "colors": "^1.1.2",
+    "ecstatic": "^2.1.0",
     "eslint": "^3.14.1",
     "eslint-plugin-html": "^2.0.0",
     "fs-readdir-recursive": "^1.0.0",
-    "http-server": "^0.9.0",
     "karma": "^1.4.1",
     "karma-browserify": "^5.1.1",
     "karma-chrome-launcher": "^2.0.0",
@@ -56,9 +58,9 @@
     "mocha-sugar-free": "^1.3.1",
     "nodeunit": "0.10.2",
     "optimist": "0.6.1",
-    "portfinder": "^1.0.12",
+    "portfinder": "^1.0.13",
     "q": "^1.4.1",
-    "selenium-standalone": "^6.0.0",
+    "selenium-standalone": "^6.0.1",
     "server-destroy": "^1.0.1",
     "st": "^1.2.0",
     "watchify": "^3.9.0",
@@ -76,6 +78,7 @@
     "test-tuwpt": "mocha test/web-platform-tests/to-upstream.js",
     "test-mocha": "mocha",
     "test-mocha-all": "mocha test/index.js",
+    "test-api": "mocha test/api",
     "test-old": "node ./test/runner",
     "test": "npm run test-mocha-all && npm run test-old",
     "test-karma": "karma start test/karma.conf.js",
@@ -88,5 +91,5 @@
     "benchmark-browser": "node ./benchmark/runner --bundle",
     "convert-idl": "node ./scripts/webidl/convert"
   },
-  "main": "./lib/jsdom"
+  "main": "./lib/api.js"
 }

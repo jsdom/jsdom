@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<title>The dir attribute</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/dom.html#the-dir-attribute">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="log"></div>
+
+<p id="get-no-dir"></p>
+<p id="get-is-ltr" dir="ltr"></p>
+<p id="get-is-invalid" dir="whatisthisfor"></p>
+
+<p id="set-empty-dir" dir="auto"></p>
+<p id="set-to-ltr"></p>
+<p id="set-to-invalid"></p>
+
+<script>
+"use strict";
+
+test(() => {
+  const el = document.getElementById("get-no-dir");
+
+  assert_equals(el.dir, "");
+  assert_equals(el.getAttribute("dir"), null);
+}, "Get element without dir attribute");
+
+test(() => {
+  const el = document.getElementById("get-is-ltr");
+
+  assert_equals(el.dir, "ltr");
+  assert_equals(el.getAttribute("dir"), "ltr");
+}, "Get element with ltr dir attribute");
+
+test(() => {
+  const el = document.getElementById("get-is-invalid");
+
+  assert_equals(el.dir, "");
+  assert_equals(el.getAttribute("dir"), "whatisthisfor");
+}, "Get element with invalid dir attribute");
+
+test(() => {
+  const el = document.getElementById("set-empty-dir");
+
+  el.dir = "";
+
+  assert_equals(el.dir, "");
+  assert_equals(el.getAttribute("dir"), "");
+}, "Set dir attribute to the empty string");
+
+test(() => {
+  const el = document.getElementById("set-to-ltr");
+
+  el.dir = "LTR";
+
+  assert_equals(el.dir, "ltr");
+  assert_equals(el.getAttribute("dir"), "LTR");
+}, "Set dir attribute to ltr");
+
+test(() => {
+  const el = document.getElementById("set-to-invalid");
+
+  el.dir = "whatisthisfor";
+
+  assert_equals(el.dir, "");
+  assert_equals(el.getAttribute("dir"), "whatisthisfor");
+}, "Set dir attribute to an invalid value");
+</script>
