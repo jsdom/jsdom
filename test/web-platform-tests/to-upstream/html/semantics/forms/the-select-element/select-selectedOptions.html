@@ -49,7 +49,7 @@ test(() => {
   assert_equals(select.selectedOptions.item(0), select.children[0]);
   assert_equals(select.selectedOptions.length, 1);
 
-}, ".selectedOptions with initial value");
+}, ".selectedOptions with no selected option");
 
 test(() => {
   const select = document.getElementById("select-one-selected");
@@ -63,7 +63,7 @@ test(() => {
 
   assert_equals(select.selectedOptions.item(0), null);
   assert_equals(select.selectedOptions.length, 0);
-}, ".selectedOptions using the 'multiple' attribute with initial value");
+}, ".selectedOptions using the 'multiple' attribute with no selected options");
 
 test(() => {
   const select = document.getElementById("multiple-select-two-selected");
@@ -71,7 +71,7 @@ test(() => {
   assert_equals(select.selectedOptions.item(0), select.children[1]);
   assert_equals(select.selectedOptions.item(1), select.children[2]);
   assert_equals(select.selectedOptions.length, 2);
-}, ".selectedOptions using the 'multiple' attribute with two options selected");
+}, ".selectedOptions using the 'multiple' attribute with two selected options");
 
 // "A select element whose multiple attribute is not specified must not have
 // more than one descendant option element with its selected attribute set."
