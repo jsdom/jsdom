@@ -40,6 +40,12 @@
   <option>Three</option>
 </select>
 
+<select id="select-same-object">
+  <option>One</option>
+  <option selected>Two</option>
+  <option>Three</option>
+</select>
+
 <script>
 "use strict";
 
@@ -90,6 +96,14 @@ test(() => {
 
 }, ".selectedOptions without the 'multiple' attribute but " +
    "more than one selected option should return the last one");
+
+test(() => {
+  const select = document.getElementById("select-same-object");
+  const selectAgain = document.getElementById("select-same-object");
+
+  assert_equals(select.selectedOptions, selectAgain.selectedOptions);
+
+}, ".selectedOptions should always return the same value - [SameObject]");
 </script>
 </body>
 </html>
