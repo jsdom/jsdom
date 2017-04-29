@@ -135,7 +135,12 @@ describe("Web Platform Tests", () => {
     "html/editing/focus/sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-default-value.html",
     // "html/infrastructure/urls/terminology-0/document-base-url.html", // we don't support srcdoc <base> correctly
     "html/semantics/forms/attributes-common-to-form-controls/disabled-elements-01.html",
+    "html/semantics/forms/the-input-element/color.html",
+    "html/semantics/forms/the-input-element/password.html",
+    "html/semantics/forms/the-input-element/search_input.html",
     "html/semantics/forms/the-input-element/selection.html",
+    "html/semantics/forms/the-input-element/telephone.html",
+    "html/semantics/forms/the-input-element/url.html",
     "html/semantics/forms/the-option-element/option-form.html",
     // "html/semantics/forms/the-option-element/option-label.html", // our impl is wrong; see comments in HTMLOptionElement-impl.js
     "html/semantics/forms/the-option-element/option-selected.html",
