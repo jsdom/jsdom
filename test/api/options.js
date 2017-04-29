@@ -188,6 +188,18 @@ describe("API: constructor options", () => {
       assert.strictEqual(dom.window.eval, undefined);
     });
 
+    it("should not execute any scripts, even in iframes, by default (GH-1821)", () => {
+      const dom = new JSDOM(`<iframe></iframe>`);
+      const frameWindow = dom.window.document.querySelector("iframe").contentWindow;
+
+      frameWindow.document.open();
+      frameWindow.document.write(`<script>parent.prop = "i was executed";</script>`);
+      frameWindow.document.close();
+
+      assert.strictEqual(dom.window.prop, undefined);
+      assert.strictEqual(frameWindow.eval, undefined);
+    });
+
     it("should execute <script>s and eval when set to \"dangerously\"", () => {
       const dom = new JSDOM(`<body>
         <script>document.body.appendChild(document.createElement("hr"));</script>
