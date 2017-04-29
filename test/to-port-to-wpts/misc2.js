@@ -812,11 +812,6 @@ describe("jsdom/miscellaneous", () => {
     assert.ok(iframeDocument.body);
   });
 
-  specify("issue_935_document_tostring_returns_null", () => {
-    const document = jsdom.jsdom();
-    assert.equal(document.toString(), "[object HTMLDocument]");
-  });
-
   specify("addmetatohead", () => {
     const window = jsdom.jsdom().defaultView;
     const meta = window.document.createElement("meta");
