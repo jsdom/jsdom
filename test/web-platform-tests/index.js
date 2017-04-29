@@ -368,7 +368,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/response-json.htm",
     "XMLHttpRequest/response-method.htm",
     "XMLHttpRequest/responseText-status.html",
-    "XMLHttpRequest/responsetype.html",
+    // "XMLHttpRequest/responsetype.html",  // passes locally, and sometimes on Travis CI, but with a 60 second timeout often fails on CI
     "XMLHttpRequest/responseurl.html",
     // "XMLHttpRequest/responsexml-basic.htm", // xml namespace issue with getElementById
     // "XMLHttpRequest/responsexml-document-properties.htm", see https://github.com/w3c/web-platform-tests/issues/2668
@@ -396,7 +396,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/send-data-unexpected-tostring.htm",
     "XMLHttpRequest/send-entity-body-basic.htm",
     "XMLHttpRequest/send-entity-body-document-bogus.htm",
-    "XMLHttpRequest/send-entity-body-document.htm",
+    // "XMLHttpRequest/send-entity-body-document.htm",  // passes locally, and sometimes on Travis CI, but with a 60 second timeout often fails on CI
     // "XMLHttpRequest/send-entity-body-empty.htm", // hard to get Node to not send Content-Length
     // "XMLHttpRequest/send-entity-body-get-head-async.htm", // hard to get Node to not send Content-Length
     // "XMLHttpRequest/send-entity-body-get-head.htm", // hard to get Node to not send Content-Length
