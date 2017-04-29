@@ -3,6 +3,8 @@
 "use strict";
 
 const path = require("path");
+const fs = require("fs");
+const rimraf = require("rimraf");
 
 const Webidl2js = require("webidl2js");
 
@@ -26,7 +28,14 @@ addDir("../../lib/jsdom/living/file-api");
 addDir("../../lib/jsdom/living/xhr");
 addDir("../../lib/jsdom/living/domparsing");
 
-transformer.generate(path.resolve(__dirname, "../../lib/jsdom/living/generated/"))
+
+const outputDir = path.resolve(__dirname, "../../lib/jsdom/living/generated/");
+
+// Clean up any old stuff lying around.
+rimraf.sync(outputDir);
+fs.mkdirSync(outputDir);
+
+transformer.generate(outputDir)
   .catch(err => {
     console.error(err);
     process.exit(1);

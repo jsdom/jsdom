@@ -365,7 +365,7 @@ jsdom has some support for being run inside a web browser, using [browserify](ht
 
 jsdom's primary target is still Node.js, and so we use language features that are only present in recent Node.js versions (namely, Node.js v6+). Thus, older browsers will likely not work. (Even transpilation will not help much: we plan to use `Proxy`s extensively throughout the course of jsdom v10.x.)
 
-Notably, jsdom works well inside a web worker. The original contributor, [@lawnsea](TODO), who made this possible, has [published a paper](TODO) about the results.
+Notably, jsdom works well inside a web worker. The original contributor, [@lawnsea](https://github.com/lawnsea/), who made this possible, has [published a paper](https://pdfs.semanticscholar.org/47f0/6bb6607a975500a30e9e52d7c9fbc0034e27.pdf) about his project which uses this capability.
 
 Not everything works perfectly when running jsdom inside a web browser. Sometimes that is because of fundamental limitations (such as not having filesystem access), but sometimes it is simply because we haven't spent enough time making the appropriate small tweaks. Bug reports are certainly welcome.
 

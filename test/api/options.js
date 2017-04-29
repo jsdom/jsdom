@@ -188,6 +188,18 @@ describe("API: constructor options", () => {
       assert.strictEqual(dom.window.eval, undefined);
     });
 
+    it("should not execute any scripts, even in iframes, by default (GH-1821)", () => {
+      const dom = new JSDOM(`<iframe></iframe>`);
+      const frameWindow = dom.window.document.querySelector("iframe").contentWindow;
+
+      frameWindow.document.open();
+      frameWindow.document.write(`<script>parent.prop = "i was executed";</script>`);
+      frameWindow.document.close();
+
+      assert.strictEqual(dom.window.prop, undefined);
+      assert.strictEqual(frameWindow.eval, undefined);
+    });
+
     it("should execute <script>s and eval when set to \"dangerously\"", () => {
       const dom = new JSDOM(`<body>
         <script>document.body.appendChild(document.createElement("hr"));</script>
@@ -204,6 +216,26 @@ describe("API: constructor options", () => {
       dom.window.eval(`document.body.appendChild(document.createElement("p"));`);
 
       assert.strictEqual(dom.window.document.body.children.length, 2);
+    });
+
+    it("should ensure eval exists on iframes when set to \"outside-only\"", () => {
+      const dom = new JSDOM(`<iframe></iframe>`, { runScripts: "outside-only" });
+      const frameWindow = dom.window.document.querySelector("iframe").contentWindow;
+
+      frameWindow.eval(`document.body.appendChild(document.createElement("p"));`);
+
+      assert.strictEqual(frameWindow.document.body.children.length, 1);
+    });
+
+    it("should execute <script>s in iframes when set to \"dangerously\"", () => {
+      const dom = new JSDOM(`<iframe></iframe>`, { runScripts: "dangerously" });
+      const frameWindow = dom.window.document.querySelector("iframe").contentWindow;
+
+      frameWindow.document.open();
+      frameWindow.document.write(`<script>parent.prop = "i was executed";</script>`);
+      frameWindow.document.close();
+
+      assert.strictEqual(dom.window.prop, "i was executed");
     });
 
     it("should disallow other values", () => {

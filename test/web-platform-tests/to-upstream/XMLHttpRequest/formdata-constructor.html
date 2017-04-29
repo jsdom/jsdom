@@ -101,7 +101,7 @@ test(() => {
   input2.name = "submit-me-\r19\n";
   input2.value = "value\n\r";
   assert_equals(input2.name, "submit-me-\r19\n", "input.name accepts \\r and \\n");
-  assert_equals(input2.value, "value\n\r", "input.value accepts \\n followed by \\r");
+  assert_equals(input2.value, "value", "input.value when type=text should not contain newlines");
   form.appendChild(input2);
 
   const formData = new FormData(form);
@@ -126,7 +126,7 @@ test(() => {
     ["dirname-is-special", "dirname-value"],
     ["submit-me-17", "ltr"],
     ["submit-me-18-\uFFFD", "value-\uFFFD"],
-    ["submit-me-\r\n19\r\n", "value\r\n\r\n"]
+    ["submit-me-\r\n19\r\n", "value"]
   ];
 
   for (const t of expected) {
