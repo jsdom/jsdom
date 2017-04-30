@@ -46,13 +46,19 @@
   <option>Three</option>
 </select>
 
+<select multiple id="select-same-object-change">
+  <option selected>One</option>
+  <option selected>Two</option>
+  <option selected>Three</option>
+</select>
+
 <script>
 "use strict";
 
 test(() => {
   const select = document.getElementById("select-none-selected");
 
-  assert_equals(select.selectedOptions.item(0), select.children[0]);
+  assert_array_equals(select.selectedOptions, [select.children[0]]);
   assert_equals(select.selectedOptions.length, 1);
 
 }, ".selectedOptions with no selected option");
@@ -60,7 +66,7 @@ test(() => {
 test(() => {
   const select = document.getElementById("select-one-selected");
 
-  assert_equals(select.selectedOptions.item(0), select.children[1]);
+  assert_array_equals(select.selectedOptions, [select.children[1]]);
   assert_equals(select.selectedOptions.length, 1);
 }, ".selectedOptions with one selected option");
 
@@ -91,7 +97,7 @@ test(() => {
 test(() => {
   const select = document.getElementById("invalid-select");
 
-  assert_equals(select.selectedOptions.item(0), select.children[1]);
+  assert_array_equals(select.selectedOptions, [select.children[1]]);
   assert_equals(select.selectedOptions.length, 1);
 
 }, ".selectedOptions without the 'multiple' attribute but " +
@@ -104,6 +110,18 @@ test(() => {
   assert_equals(select.selectedOptions, selectAgain.selectedOptions);
 
 }, ".selectedOptions should always return the same value - [SameObject]");
+
+test(() => {
+  const select = document.getElementById("select-same-object-change");
+  const before = select.selectedOptions;
+
+  select.selectedOptions[1].selected = false;
+
+  const after = select.selectedOptions;
+
+  assert_equals(before, after);
+
+}, ".selectedOptions should return the same object after selection changes - [SameObject]");
 </script>
 </body>
 </html>
