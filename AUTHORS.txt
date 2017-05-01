@@ -225,5 +225,6 @@ Wei Dai <x@wei23.net>
 William Cunningham <w.a.cunningham.ii@gmail.com>
 Xavi <xavi.rmz@gmail.com>
 Yonathan <yonathan@gmail.com>
+Yun Cui <ycui@microstrategy.com>
 Zach Smith <zach@amicushq.com>
 Zirro <code@zirro.se>

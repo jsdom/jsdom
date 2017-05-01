@@ -1,3 +1,14 @@
+## 10.1.0
+
+* Added the value sanitization algorithm for password, search, tel, text, color, email, and url input types. (Zirro)
+* Added `Symbol.toStringTag` to all web platform classes, so that now `Object.prototype.toString.call()` works as expected on jsdom objects.
+* Added the `select.selectedOptions` property.
+* Removed the `toString()` methods on various prototypes that returned `"[object ClassName]"` in an attempt to fake the `Symbol.toStringTag` behavior.
+* Changed `XMLHttpRequest` to pre-allocate a 1 MiB buffer, which it grows exponentially as needed, in order to avoid frequent buffer allocation and concatenation. (skygon)
+* Fixed a variety of properties that were meant to always return the same object, to actually do so. (Zirro)
+* Fixed inheritance of the `runScripts` and `resources` options into iframes.
+* Fixed an uncaught exception that occurred if you called `xhr.abort()` during a `"readystatechange"` event.
+
 ## 10.0.0
 
 This release includes a complete overhaul of jsdom's API for creating and manipulating jsdoms. The new API is meant to be much more intuitive and have better defaults, with complete documentation in the newly-overhauled README. We hope you like it!
