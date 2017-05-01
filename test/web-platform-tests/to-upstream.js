@@ -89,6 +89,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "html/semantics/forms/the-option-element/option-index.html",
     "html/semantics/forms/the-option-element/option-element-constructor.html",
     "html/semantics/forms/the-select-element/select-multiple.html",
+    "html/semantics/forms/the-select-element/select-selectedOptions.html",
     "html/semantics/forms/the-textarea-element/select.html",
     "html/semantics/forms/the-textarea-element/set-value-reset-selection.html",
     "html/semantics/forms/the-textarea-element/setRangeText.html",
