@@ -268,14 +268,26 @@ const dom = new JSDOM();
 
 dom.window.top === dom.window;
 dom.window.location.href === "about:blank";
+dom.window.document.referrer = "";
+dom.window.document.contentType = "text/html";
+dom.window.document.body.innerHTML = "";
 
-dom.reconfigure({ windowTop: myFakeTopForTesting, url: "https://example.com/" });
+dom.reconfigure({
+  windowTop: myFakeTopForTesting,
+  url: "https://example.com/",
+  referrer: "https://www.example.org/",
+  contentType: "text/html"
+}, "<p>Hello</p>");
 
 dom.window.top === myFakeTopForTesting;
 dom.window.location.href === "https://example.com/";
+dom.window.document.referrer = "https://www.example.org/.";
+dom.window.document.contentType = "text/html";
+dom.window.document.body.innerHTML = "<p>Hello</p>";
 ```
 
-Note that changing the jsdom's URL will impact all APIs that return the current document URL, such as `window.location`, `document.URL`, and `document.documentURI`, as well as resolution of relative URLs within the document, and the same-origin checks and referrer used while fetching subresources. It will not, however, perform a navigation to the contents of that URL; the contents of the DOM will remain unchanged, and no new instances of `Window`, `Document`, etc. will be created.
+Note that changing the jsdom's URL will impact all APIs that return the current document URL, such as `window.location`, `document.URL`, and `document.documentURI`, as well as resolution of relative URLs within the document, and the same-origin checks and referrer used while fetching subresources.
+This method can change the contents of the DOM with the second parameter, but no new instance of `Window` and `Document` will be created.
 
 ## Convenience APIs
 
