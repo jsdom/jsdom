@@ -165,41 +165,6 @@ describe("browser/index", () => {
     assert.ok(regexp.test(serializeDocument(document)), "HTML 5 doctype did not serialize correctly");
   });
 
-  specify("serialize_html4_strict_doctype", () => {
-    const doc = jsdom.jsdom();
-    const dom = doc.implementation;
-
-    const doctype = dom.createDocumentType(
-      "html",
-      "-//W3C//DTD HTML 4.01//EN",
-      "http://www.w3.org/TR/html4/strict.dtd"
-    );
-    const document = dom.createDocument(null, null, doctype);
-    const regexp =
-      /^\s*<!DOCTYPE html PUBLIC "-\/\/W3C\/\/DTD HTML 4.01\/\/EN" "http:\/\/www.w3.org\/TR\/html4\/strict.dtd">/;
-    assert.ok(regexp.test(serializeDocument(document)), "HTML 4 strict doctype did not serialize correctly");
-  });
-
-  specify("serialize_system_doctype", () => {
-    const doc = jsdom.jsdom();
-    const dom = doc.implementation;
-
-    const doctype = dom.createDocumentType("foo", "", "foo.dtd");
-    const document = dom.createDocument(null, null, doctype);
-    const regexp = /^\s*<!DOCTYPE foo SYSTEM "foo.dtd">/;
-    assert.ok(regexp.test(serializeDocument(document)), "Doctype did not serialize correctly");
-  });
-
-  specify("serialize_doctype_containing_quotes", () => {
-    const doc = jsdom.jsdom();
-    const dom = doc.implementation;
-
-    const doctype = dom.createDocumentType("foo", "", "foo \"bar\".dtd");
-    const document = dom.createDocument(null, null, doctype);
-    const regexp = /^\s*<!DOCTYPE foo SYSTEM 'foo "bar"\.dtd'>/;
-    assert.ok(regexp.test(serializeDocument(document)), "Doctype did not serialize correctly");
-  });
-
   specify("parse_doctype_containing_newline", () => {
     const html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"\n
              "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n<html></html>`;

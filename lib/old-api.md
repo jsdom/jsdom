@@ -533,9 +533,9 @@ var textNode = pEl.firstChild;
 var imgEl = document.querySelector("img");
 
 console.log(jsdom.nodeLocation(bodyEl));   // null; it's not in the source
-console.log(jsdom.nodeLocation(pEl));      // { start: 0, end: 39, startTag: ..., endTag: ... }
-console.log(jsdom.nodeLocation(textNode)); // { start: 3, end: 13 }
-console.log(jsdom.nodeLocation(imgEl));    // { start: 13, end: 32 }
+console.log(jsdom.nodeLocation(pEl));      // { startOffset: 0, endOffset: 39, startTag: ..., endTag: ... }
+console.log(jsdom.nodeLocation(textNode)); // { startOffset: 3, endOffset: 13 }
+console.log(jsdom.nodeLocation(imgEl));    // { startOffset: 13, endOffset: 32 }
 ```
 
 This returns the [parse5 location info](https://www.npmjs.com/package/parse5#options-locationinfo) for the node.
