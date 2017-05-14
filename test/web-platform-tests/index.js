@@ -211,7 +211,7 @@ describe("Web Platform Tests", () => {
     "html/syntax/parsing/template/clearing-the-stack-back-to-a-given-context/clearing-stack-back-to-a-table-row-context.html",
     // "html/syntax/parsing/template/creating-an-element-for-the-token/template-owner-document.html", // template content owner document semantics not yet implemented
     "html/webappapis/atob/base64.html",
-    "html/webappapis/system-state-and-capabilities/the-navigator-object/NavigatorID.html",
+    "html/webappapis/system-state-and-capabilities/the-navigator-object/navigator.any.html",
     "html/webappapis/system-state-and-capabilities/the-navigator-object/navigator-indexed.html",
     "html/webappapis/system-state-and-capabilities/the-navigator-object/navigatorlanguage.html",
     "html/webappapis/timers/evil-spec-example.html",
@@ -248,7 +248,7 @@ describe("Web Platform Tests", () => {
     "url/url-setters.html",
 
     "FileAPI/fileReader.html",
-    "FileAPI/historical.html",
+    "FileAPI/historical.https.html",
     // "FileAPI/idlharness.html", // idl should be used here
     // "FileAPI/blob/Blob-constructor.html", // - Blob is not a function
                                              // - a date is not instanceof Date
