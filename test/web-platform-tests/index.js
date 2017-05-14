@@ -290,7 +290,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/abort-event-order.htm",
     "XMLHttpRequest/abort-upload-event-abort.htm",
     "XMLHttpRequest/abort-upload-event-loadend.htm",
-    "XMLHttpRequest/anonymous-mode-unsupported.htm",
+    // "XMLHttpRequest/anonymous-mode-unsupported.htm", // need way to set cookie header with original casing
     "XMLHttpRequest/data-uri.htm",
     "XMLHttpRequest/event-abort.htm",
     "XMLHttpRequest/event-error.sub.html",
@@ -394,8 +394,8 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/send-data-es-object.htm",
     "XMLHttpRequest/send-data-formdata.htm",
     "XMLHttpRequest/send-data-unexpected-tostring.htm",
-    "XMLHttpRequest/send-entity-body-basic.htm",
-    "XMLHttpRequest/send-entity-body-document-bogus.htm",
+    // "XMLHttpRequest/send-entity-body-basic.htm", // needs URLSearchParams implementation
+    // "XMLHttpRequest/send-entity-body-document-bogus.htm", // needs proper XML serializer
     // "XMLHttpRequest/send-entity-body-document.htm",  // passes locally, and sometimes on Travis CI, but with a 60 second timeout often fails on CI
     // "XMLHttpRequest/send-entity-body-empty.htm", // hard to get Node to not send Content-Length
     // "XMLHttpRequest/send-entity-body-get-head-async.htm", // hard to get Node to not send Content-Length
