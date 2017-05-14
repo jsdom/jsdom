@@ -50,7 +50,6 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "domparsing/innerhtml-08.html",
     "domparsing/insert-adjacent.html",
     "domparsing/outerhtml-03.html",
-    "FileAPI/blob/Blob-isClosed.html",
     "FileAPI/blob/Blob-size.html",
     "FileAPI/file/File-lastModified.html",
     "encoding/meta/meta-charset-no-quotes.html",

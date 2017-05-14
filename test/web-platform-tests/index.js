@@ -250,7 +250,6 @@ describe("Web Platform Tests", () => {
     "FileAPI/fileReader.html",
     "FileAPI/historical.html",
     // "FileAPI/idlharness.html", // idl should be used here
-    "FileAPI/blob/Blob-close.html",
     // "FileAPI/blob/Blob-constructor.html", // - Blob is not a function
                                              // - a date is not instanceof Date
                                              // - a regexp is not instanceof Regexp
