@@ -1,18 +1,20 @@
 [Constructor(DOMString type, optional MessageEventInit eventInitDict), Exposed=(Window,Worker)]
 interface MessageEvent : Event {
   readonly attribute any data;
-  readonly attribute DOMString origin;
+  readonly attribute USVString origin;
   readonly attribute DOMString lastEventId;
-  readonly attribute (WindowProxy or MessagePort)? source;
-  readonly attribute MessagePort[]? ports;
+  readonly attribute MessageEventSource? source;
+  readonly attribute FrozenArray<MessagePort> ports;
 
-  void initMessageEvent(DOMString type, boolean bubbles, boolean cancelable, any data, DOMString origin, DOMString lastEventId, (WindowProxy or MessagePort)? source, sequence<MessagePort>? ports);
+  void initMessageEvent(DOMString type, optional boolean bubbles = false, optional boolean cancelable = false, optional any data = null, optional USVString origin = "", optional DOMString lastEventId = "", optional MessageEventSource? source = null, optional sequence<MessagePort> ports = []);
 };
 
 dictionary MessageEventInit : EventInit {
-  any data;
-  DOMString origin;
-  DOMString lastEventId;
-  (WindowProxy or MessagePort)? source;
-  sequence<MessagePort>? ports;
+  any data = null;
+  USVString origin = "";
+  DOMString lastEventId = "";
+  MessageEventSource? source = null;
+  sequence<MessagePort> ports = [];
 };
+
+typedef (WindowProxy or MessagePort or ServiceWorker) MessageEventSource;
