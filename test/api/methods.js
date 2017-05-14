@@ -63,10 +63,12 @@ describe("API: JSDOM class's methods", () => {
       const node = dom.window.document.querySelector("p");
 
       assert.deepEqual(dom.nodeLocation(node), {
-        start: 0,
-        end: 12,
-        startTag: { start: 0, end: 3 },
-        endTag: { start: 8, end: 12 }
+        line: 1,
+        col: 1,
+        startOffset: 0,
+        endOffset: 12,
+        startTag: { line: 1, col: 1, startOffset: 0, endOffset: 3 },
+        endTag: { line: 1, col: 9, startOffset: 8, endOffset: 12 }
       });
     });
 
@@ -74,7 +76,12 @@ describe("API: JSDOM class's methods", () => {
       const dom = new JSDOM(`<p>Hello</p>`, { includeNodeLocations: true });
       const node = dom.window.document.querySelector("p").firstChild;
 
-      assert.deepEqual(dom.nodeLocation(node), { start: 3, end: 8 });
+      assert.deepEqual(dom.nodeLocation(node), {
+        line: 1,
+        col: 4,
+        startOffset: 3,
+        endOffset: 8
+      });
     });
 
     it("should give the correct location for a void element", () => {
@@ -83,7 +90,20 @@ describe("API: JSDOM class's methods", () => {
       </p>`, { includeNodeLocations: true });
       const node = dom.window.document.querySelector("img");
 
-      assert.deepEqual(dom.nodeLocation(node), { start: 17, end: 36 });
+      assert.deepEqual(dom.nodeLocation(node), {
+        attrs: {
+          src: {
+            line: 2,
+            col: 14,
+            startOffset: 22,
+            endOffset: 35
+          }
+        },
+        line: 2,
+        col: 9,
+        startOffset: 17,
+        endOffset: 36
+      });
     });
   });
 

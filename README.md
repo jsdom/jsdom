@@ -223,9 +223,9 @@ const textNode = pEl.firstChild;
 const imgEl = document.querySelector("img");
 
 console.log(dom.nodeLocation(bodyEl));   // null; it's not in the source
-console.log(dom.nodeLocation(pEl));      // { start: 0, end: 39, startTag: ..., endTag: ... }
-console.log(dom.nodeLocation(textNode)); // { start: 3, end: 13 }
-console.log(dom.nodeLocation(imgEl));    // { start: 13, end: 32 }
+console.log(dom.nodeLocation(pEl));      // { startOffset: 0, endOffset: 39, startTag: ..., endTag: ... }
+console.log(dom.nodeLocation(textNode)); // { startOffset: 3, endOffset: 13 }
+console.log(dom.nodeLocation(imgEl));    // { startOffset: 13, endOffset: 32 }
 ```
 
 Note that this feature only works if you have set the `includeNodeLocations` option; node locations are off by default for performance reasons.
