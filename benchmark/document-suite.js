@@ -6,7 +6,7 @@ const jsdomBenchmark = require("./jsdom-benchmark");
 const jsdom = require("..");
 
 const nativeDoc = global.document;
-const jsdomDoc = jsdom.jsdom && jsdom.jsdom();
+const jsdomDoc = jsdom.JSDOM && (new jsdom.JSDOM()).window.document;
 
 function noop() {
   // intentional no-op function
