@@ -42,6 +42,7 @@ describe("API: constructor options", () => {
 
     it("should throw an error when passing an invalid absolute URL for url", () => {
       assert.throws(() => new JSDOM(``, { url: "asdf" }), TypeError);
+      assert.throws(() => new JSDOM(``, { url: "/" }), TypeError);
     });
 
     it("should canonicalize document URLs", () => {
