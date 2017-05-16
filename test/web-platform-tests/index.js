@@ -211,6 +211,16 @@ describe("Web Platform Tests", () => {
     "html/syntax/parsing/template/clearing-the-stack-back-to-a-given-context/clearing-stack-back-to-a-table-row-context.html",
     // "html/syntax/parsing/template/creating-an-element-for-the-token/template-owner-document.html", // template content owner document semantics not yet implemented
     "html/webappapis/atob/base64.html",
+    "html/webappapis/scripting/events/event-handler-attributes-body-window.html",
+    "html/webappapis/scripting/events/event-handler-javascript.html",
+    "html/webappapis/scripting/events/event-handler-processing-algorithm.html",
+    "html/webappapis/scripting/events/event-handler-spec-example.html",
+    "html/webappapis/scripting/events/eventhandler-cancellation.html",
+    // "html/webappapis/scripting/events/inline-event-handler-ordering.html", // TODO: enable once https://github.com/w3c/web-platform-tests/pull/6010 is fixed
+    // "html/webappapis/scripting/events/invalid-uncompiled-raw-handler-compiled-late.html", // TODO: enable once https://github.com/w3c/web-platform-tests/pull/6009 is fixed
+    "html/webappapis/scripting/events/invalid-uncompiled-raw-handler-compiled-once.html",
+    "html/webappapis/scripting/events/onerroreventhandler.html",
+    "html/webappapis/scripting/events/uncompiled_event_handler_with_scripting_disabled.html",
     "html/webappapis/system-state-and-capabilities/the-navigator-object/navigator.any.html",
     "html/webappapis/system-state-and-capabilities/the-navigator-object/navigator-indexed.html",
     "html/webappapis/system-state-and-capabilities/the-navigator-object/navigatorlanguage.html",
