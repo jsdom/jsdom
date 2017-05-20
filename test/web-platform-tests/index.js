@@ -441,7 +441,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/setrequestheader-header-forbidden.htm",
     "XMLHttpRequest/setrequestheader-open-setrequestheader.htm",
     "XMLHttpRequest/status-async.htm",
-    "XMLHttpRequest/status-basic.htm",
+    // "XMLHttpRequest/status-basic.htm", // passes locally, and sometimes on Travis CI, but with a 60 second timeout often fails on CI
     "XMLHttpRequest/status-error.htm",
     "XMLHttpRequest/timeout-cors-async.htm",
     "XMLHttpRequest/timeout-sync.htm",
