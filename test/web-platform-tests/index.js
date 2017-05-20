@@ -390,6 +390,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/send-content-type-charset.htm",
     "XMLHttpRequest/send-content-type-string.htm",
     "XMLHttpRequest/send-data-arraybuffer.htm",
+    "XMLHttpRequest/send-data-arraybufferview.htm",
     "XMLHttpRequest/send-data-blob.htm",
     "XMLHttpRequest/send-data-es-object.htm",
     "XMLHttpRequest/send-data-formdata.htm",
