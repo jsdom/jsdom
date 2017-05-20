@@ -109,6 +109,8 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "XMLHttpRequest/formdata-set-blob.html",
     // "XMLHttpRequest/send-authentication-cors-post.htm", // relies on flaky external network resources
     "XMLHttpRequest/thrown-error-in-events.html"
-  ]
+  ];
+
+  [    "html/editing/activation/click-event-properties.html"]
   .forEach(runWebPlatformTest);
 });
