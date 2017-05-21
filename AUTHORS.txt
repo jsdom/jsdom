@@ -63,6 +63,7 @@ Federico Galassi <federico.galassi@gmail.com>
 fegs <ang0123dev@gmail.com>
 Felix Böhm <me@feedic.com>
 Felix Gnass <fgnass@gmail.com>
+Flaviu Tamas <tamasflaviu@gmail.com>
 fr0z3nk0 <peter.culak@ymail.com>
 Francis Saul <francis@mummybot.com>
 Francisco Requena <frarees@gmail.com>
@@ -162,6 +163,7 @@ Nicolas LaCasse <nicolas.lacasse@gmail.com>
 Nik Nyby <niknyby@gmail.com>
 Ojek <ojek25@gmail.com>
 Olivier El Mekki <olivier@el-mekki.com>
+Ondřej Žára <ondras@zarovi.cz>
 Paul O’Shannessy <paul@oshannessy.com>
 peller <github@peller.org>
 Pepijn Verlaan <pepijnverlaan@yahoo.com>
