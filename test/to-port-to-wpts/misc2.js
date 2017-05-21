@@ -632,6 +632,7 @@ describe("jsdom/miscellaneous", () => {
     const form = doc.createElement("form");
     const bttn = doc.createElement("button");
     form.appendChild(bttn);
+    doc.body.appendChild(form);
     bttn.click();
 
     assert(error, "expected console to log not implemented error");
