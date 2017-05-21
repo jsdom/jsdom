@@ -135,13 +135,23 @@ describe("Web Platform Tests", () => {
     "html/editing/focus/sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-default-value.html",
     // "html/infrastructure/urls/terminology-0/document-base-url.html", // we don't support srcdoc <base> correctly
     "html/semantics/forms/attributes-common-to-form-controls/disabled-elements-01.html",
+    "html/semantics/forms/resetting-a-form/reset-form-2.html",
+    "html/semantics/forms/the-button-element/button-click-submits.html",
+    "html/semantics/forms/the-button-element/button-type.html",
+    "html/semantics/forms/the-form-element/form-action-reflection-with-base-url.html",
+    "html/semantics/forms/the-form-element/form-action-reflection.html",
+    "html/semantics/forms/the-input-element/checkbox-click-events.html",
     "html/semantics/forms/the-input-element/color.html",
     "html/semantics/forms/the-input-element/password.html",
+    "html/semantics/forms/the-input-element/radio-input-cancel.html",
     "html/semantics/forms/the-input-element/search_input.html",
     "html/semantics/forms/the-input-element/selection.html",
     "html/semantics/forms/the-input-element/telephone.html",
     "html/semantics/forms/the-input-element/url.html",
+    "html/semantics/forms/the-label-element/proxy-click-to-associated-element.html",
+    "html/semantics/forms/the-option-element/option-element-constructor.html",
     "html/semantics/forms/the-option-element/option-form.html",
+    "html/semantics/forms/the-option-element/option-index.html",
     // "html/semantics/forms/the-option-element/option-label.html", // our impl is wrong; see comments in HTMLOptionElement-impl.js
     "html/semantics/forms/the-option-element/option-selected.html",
     "html/semantics/forms/the-option-element/option-text-backslash.html",
@@ -149,6 +159,9 @@ describe("Web Platform Tests", () => {
     // "html/semantics/forms/the-option-element/option-text-recurse.html", // our impl is wrong; see comments in HTMLOptionElement-impl.js
     "html/semantics/forms/the-option-element/option-text-spaces.html",
     // "html/semantics/forms/the-option-element/option-value.html", // our impl is wrong; see comments in HTMLOptionElement-impl.js
+    "html/semantics/forms/the-select-element/select-multiple.html",
+    "html/semantics/forms/the-select-element/select-selectedOptions.html",
+    "html/semantics/forms/the-textarea-element/value-defaultValue-textContent.html",
     "html/semantics/disabled-elements/disabledElement.html",
     "html/semantics/document-metadata/the-base-element/base_about_blank.html",
     "html/semantics/document-metadata/the-base-element/base_href_empty.html",
