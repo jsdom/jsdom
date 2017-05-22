@@ -256,5 +256,138 @@ describe("API: JSDOM class's methods", () => {
         assert.strictEqual(window.document.documentURI, "http://example.com/");
       });
     });
+
+    describe("referrer", () => {
+      it("should change the referrer", () => {
+        const url1 = "http://current.com/";
+        const referrer1 = "http://referrer.com/";
+
+        const dom = new JSDOM("", { url: url1, referrer: referrer1 });
+        const window = dom.window;
+        const document = window.document;
+
+        assert.strictEqual(window.location.href, url1);
+        assert.strictEqual(document.URL, url1);
+        assert.strictEqual(document.referrer, referrer1);
+
+        const url2 = "http://next.org/";
+        const referrer2 = "http://referrer2.org/";
+
+        assert.doesNotThrow(
+          () => dom.reconfigure({ url: url2, referrer: referrer2 })
+        );
+
+        assert.strictEqual(window.location.href, url2);
+        assert.strictEqual(document.URL, url2);
+        assert.strictEqual(document.referrer, referrer2);
+      });
+
+      it("should not change the referrer when its option is given", () => {
+        const url1 = "http://current.com/";
+        const referrer1 = "http://referrer.com/";
+
+        const dom = new JSDOM("", { url: url1, referrer: referrer1 });
+        const window = dom.window;
+        const document = window.document;
+
+        assert.strictEqual(window.location.href, url1);
+        assert.strictEqual(document.URL, url1);
+        assert.strictEqual(document.referrer, referrer1);
+
+        const url2 = "http://next.org/";
+
+        assert.doesNotThrow(() => dom.reconfigure({ url: url2 }));
+
+        assert.strictEqual(window.location.href, url2);
+        assert.strictEqual(document.URL, url2);
+        assert.strictEqual(document.referrer, referrer1);
+      });
+    });
+
+    describe("contentType", () => {
+      it("should change the contentType", () => {
+        const url1 = "http://current.com/";
+        const contentType1 = "text/xml";
+
+        const dom = new JSDOM("", { url: url1, contentType: contentType1 });
+        const window = dom.window;
+        const document = window.document;
+
+        assert.strictEqual(window.location.href, url1);
+        assert.strictEqual(document.URL, url1);
+        assert.strictEqual(document.contentType, contentType1);
+
+        const url2 = "http://next.org/";
+        const contentType2 = "text/html";
+
+        assert.doesNotThrow(
+          () => dom.reconfigure({ url: url2, contentType: contentType2 })
+        );
+
+        assert.strictEqual(window.location.href, url2);
+        assert.strictEqual(document.URL, url2);
+        assert.strictEqual(document.contentType, contentType2);
+      });
+
+      it("should not change the contentType when its option is given", () => {
+        const url1 = "http://current.com/";
+        const contentType1 = "text/xml";
+
+        const dom = new JSDOM("", { url: url1, contentType: contentType1 });
+        const window = dom.window;
+        const document = window.document;
+
+        assert.strictEqual(window.location.href, url1);
+        assert.strictEqual(document.URL, url1);
+        assert.strictEqual(document.contentType, contentType1);
+
+        const url2 = "http://next.org/";
+
+        assert.doesNotThrow(() => dom.reconfigure({ url: url2 }));
+
+        assert.strictEqual(window.location.href, url2);
+        assert.strictEqual(document.URL, url2);
+        assert.strictEqual(document.contentType, contentType1);
+      });
+    });
+
+    describe("inputHtml", () => {
+      it("should change the content HTML", () => {
+        const html0 = "<p>Hello!</p>";
+        const dom = new JSDOM(html0);
+        const window = dom.window;
+        const document = window.document;
+        assert.strictEqual(document.body.innerHTML, html0);
+        assert.strictEqual(document.querySelector("p").textContent, "Hello!");
+        assert.strictEqual(document.querySelector("h1"), null);
+
+        const html1 = "<h1>Hi.</h1>";
+        dom.reconfigure({ }, html1);
+        assert.strictEqual(document.body.innerHTML, html1);
+        assert.strictEqual(dom.window, window);
+        assert.strictEqual(dom.window.document, document);
+        assert.strictEqual(dom.window.document.defaultView, window);
+        assert.strictEqual(document.querySelector("p"), null);
+        assert.strictEqual(document.querySelector("h1").textContent, "Hi.");
+      });
+
+      it("should not change the content HTML when no 2nd parameter is given",
+      () => {
+        const html0 = "<p>Hello!</p>";
+        const dom = new JSDOM(html0);
+        const window = dom.window;
+        const document = window.document;
+        assert.strictEqual(document.body.innerHTML, html0);
+        assert.strictEqual(document.querySelector("p").textContent, "Hello!");
+        assert.strictEqual(document.querySelector("h1"), null);
+
+        dom.reconfigure({ });
+        assert.strictEqual(document.body.innerHTML, html0);
+        assert.strictEqual(dom.window, window);
+        assert.strictEqual(dom.window.document, document);
+        assert.strictEqual(dom.window.document.defaultView, window);
+        assert.strictEqual(document.querySelector("p").textContent, "Hello!");
+      });
+    });
   });
 });
