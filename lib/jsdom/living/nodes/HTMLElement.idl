@@ -12,6 +12,7 @@ interface HTMLElement : Element {
   attribute long tabIndex;
   void focus();
   void blur();
+  void attachShadow(DOMObject options);
   [Reflect] attribute DOMString accessKey;
 //  readonly attribute DOMString accessKeyLabel;
 //  attribute boolean draggable;

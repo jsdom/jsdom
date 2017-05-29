@@ -14,6 +14,7 @@ class WebComponent extends HTMLElement {
     super();
 
     this.innerHTML = `<span>Hello ${props.someMessage}</span>`;
+    this.attachShadow({ mode: 'open' });
   }
 
   connectedCallback() {
@@ -42,9 +43,9 @@ function makeElement(tagName, props) {
 
 const el = makeElement('web-component', { someMessage: 'From New' });
 
-debugger;
 el.setAttribute('test', 'attributeChangedCallback');
 console.log(el.outerHTML);
+console.log(el.shadowRoot);
 el.removeAttribute('test');
 
 console.log(el.outerHTML);
