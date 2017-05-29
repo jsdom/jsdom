@@ -15,6 +15,14 @@ class WebComponent extends HTMLElement {
 
     this.innerHTML = `<span>Hello ${props.someMessage}</span>`;
   }
+
+  connectedCallback() {
+    console.log('Called from innerHTML code path');
+  }
+
+  attributeChangedCallback(...args) {
+    console.log(args);
+  }
 }
 
 // Define into the internal JSDOM CustomElementsRegistry
@@ -32,9 +40,14 @@ function makeElement(tagName, props) {
   }
 }
 
-console.log(
-  makeElement('web-component', { someMessage: 'From New' }).outerHTML
-);
+const el = makeElement('web-component', { someMessage: 'From New' });
+
+debugger;
+el.setAttribute('test', 'attributeChangedCallback');
+console.log(el.outerHTML);
+el.removeAttribute('test');
+
+console.log(el.outerHTML);
 
 document.body.innerHTML = '<web-component></web-component>';
 
