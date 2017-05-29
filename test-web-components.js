@@ -9,16 +9,16 @@ global.window = window;
 const { HTMLElement, document, customElements } = window;
 
 // Plain ole Custom Element...
-class MyShinyComponent extends HTMLElement {
-  constructor(props = { someMessage: 'Set via innerHTML' }) {
+class WebComponent extends HTMLElement {
+  constructor(props = { someMessage: 'From innerHTML' }) {
     super();
 
-    this.innerHTML = `<span>${props.someMessage}</span>`;
+    this.innerHTML = `<span>Hello ${props.someMessage}</span>`;
   }
 }
 
 // Define into the internal JSDOM CustomElementsRegistry
-customElements.define('my-shiny-component', MyShinyComponent);
+customElements.define('web-component', WebComponent);
 
 // Helper function to create a regular DOM Node or upgraded Custom Element.
 function makeElement(tagName, props) {
@@ -32,15 +32,10 @@ function makeElement(tagName, props) {
   }
 }
 
-//console.log(
-//  makeElement('my-shiny-component', { someMessage: 'Hello World' }).outerHTML
-//);
+console.log(
+  makeElement('web-component', { someMessage: 'From New' }).outerHTML
+);
 
-document.body.innerHTML = '<my-shiny-component></my-shiny-component>';
+document.body.innerHTML = '<web-component></web-component>';
 
-/**
- *
- *
- * @return
- */
-console.log(document.body.outerHTML);
+console.log(document.body.innerHTML);
