@@ -7,6 +7,10 @@ const { JSDOM } = require("../..");
 const { version: packageVersion } = require("../../package.json");
 
 describe("API: constructor options", () => {
+  it("should throw an error when passing an unknown option", () => {
+    assert.throws(() => new JSDOM(``, { unknown: "option" }), TypeError);
+  });
+
   describe("referrer", () => {
     it("should allow customizing document.referrer via the referrer option", () => {
       const document = (new JSDOM(``, { referrer: "http://example.com/" })).window.document;
