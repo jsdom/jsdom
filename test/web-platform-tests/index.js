@@ -65,7 +65,7 @@ describe("Web Platform Tests", () => {
     "dom/nodes/getElementsByClassName-31.htm",
     "dom/nodes/Node-baseURI.html",
     "dom/nodes/Node-cloneNode.html",
-    // "dom/nodes/NodeList-Iterable.html", // Node v4 doesn't support the syntax
+    "dom/nodes/NodeList-Iterable.html",
     "dom/traversal/NodeFilter-constants.html",
     "dom/traversal/NodeIterator.html",
     "dom/traversal/TreeWalker-acceptNode-filter.html",
@@ -168,7 +168,7 @@ describe("Web Platform Tests", () => {
     "html/semantics/document-metadata/the-base-element/base_href_invalid.html",
     "html/semantics/document-metadata/the-base-element/base_href_unspecified.html",
     // "html/semantics/document-metadata/the-base-element/base_multiple.html", // we don't support navigation via <a target>
-    // "html/semantics/document-metadata/the-base-element/base_srcdoc.html", // we don't support srcdoc yet
+    "html/semantics/document-metadata/the-base-element/base_srcdoc.html",
     "html/semantics/scripting-1/the-script-element/script-language-type.html",
     "html/semantics/scripting-1/the-script-element/script-languages-01.html",
     // "html/semantics/scripting-1/the-script-element/script-languages-02.html", // our script execution timing is off; see discussion in https://github.com/tmpvar/jsdom/pull/1406
@@ -180,15 +180,15 @@ describe("Web Platform Tests", () => {
     // "html/semantics/scripting-1/the-template-element/additions-to-serializing-xhtml-documents/outerhtml.html", // templates in XHTML are totally messed up
     "html/semantics/scripting-1/the-template-element/additions-to-the-steps-to-clone-a-node/template-clone-children.html",
     "html/semantics/scripting-1/the-template-element/additions-to-the-steps-to-clone-a-node/templates-copy-document-owner.html",
-    // "html/semantics/scripting-1/the-template-element/definitions/template-contents-owner-document-type.html", // requires @@toStringTag
+    "html/semantics/scripting-1/the-template-element/definitions/template-contents-owner-document-type.html",
     // "html/semantics/scripting-1/the-template-element/definitions/template-contents-owner-test-001.html", // template content owner document semantics not yet implemented
     // "html/semantics/scripting-1/the-template-element/definitions/template-contents-owner-test-002.html", // template content owner document semantics not yet implemented
-    // "html/semantics/scripting-1/the-template-element/definitions/template-contents.html", // requires @@toStringTag
+    "html/semantics/scripting-1/the-template-element/definitions/template-contents.html",
     "html/semantics/scripting-1/the-template-element/innerhtml-on-templates/innerhtml.html",
     "html/semantics/scripting-1/the-template-element/serializing-html-templates/outerhtml.html",
     "html/semantics/scripting-1/the-template-element/template-element/content-attribute.html",
     // "html/semantics/scripting-1/the-template-element/template-element/node-document-changes.html", // template content owner document semantics not yet implemented
-    // "html/semantics/scripting-1/the-template-element/template-element/template-as-a-descendant.html", // template parsing not quite perfect yet
+    "html/semantics/scripting-1/the-template-element/template-element/template-as-a-descendant.html",
     "html/semantics/scripting-1/the-template-element/template-element/template-content-node-document.html",
     "html/semantics/scripting-1/the-template-element/template-element/template-content.html",
     "html/semantics/scripting-1/the-template-element/template-element/template-descendant-body.html",
@@ -214,7 +214,7 @@ describe("Web Platform Tests", () => {
     "html/syntax/parsing/template/additions-to-the-in-body-insertion-mode/start-tag-body.html",
     "html/syntax/parsing/template/additions-to-the-in-body-insertion-mode/start-tag-html.html",
     "html/syntax/parsing/template/additions-to-the-in-body-insertion-mode/template-end-tag-without-start-one.html",
-    // "html/syntax/parsing/template/additions-to-the-in-frameset-insertion-mode/end-tag-frameset.html", // template parsing not quite perfect yet
+    "html/syntax/parsing/template/additions-to-the-in-frameset-insertion-mode/end-tag-frameset.html",
     "html/syntax/parsing/template/additions-to-the-in-head-insertion-mode/generating-of-implied-end-tags.html",
     "html/syntax/parsing/template/additions-to-the-in-head-insertion-mode/template-end-tag-without-start-one.html",
     "html/syntax/parsing/template/additions-to-the-in-table-insertion-mode/end-tag-table.html",
@@ -222,7 +222,7 @@ describe("Web Platform Tests", () => {
     "html/syntax/parsing/template/clearing-the-stack-back-to-a-given-context/clearing-stack-back-to-a-table-body-context.html",
     "html/syntax/parsing/template/clearing-the-stack-back-to-a-given-context/clearing-stack-back-to-a-table-context.html",
     "html/syntax/parsing/template/clearing-the-stack-back-to-a-given-context/clearing-stack-back-to-a-table-row-context.html",
-    // "html/syntax/parsing/template/creating-an-element-for-the-token/template-owner-document.html", // template content owner document semantics not yet implemented
+    "html/syntax/parsing/template/creating-an-element-for-the-token/template-owner-document.html",
     "html/webappapis/atob/base64.html",
     "html/webappapis/scripting/events/event-handler-attributes-body-window.html",
     "html/webappapis/scripting/events/event-handler-javascript.html",
@@ -288,7 +288,7 @@ describe("Web Platform Tests", () => {
     "FileAPI/FileReader/Progress_event_bubbles_cancelable.html",
     "FileAPI/reading-data-section/Determining-Encoding.html",
     "FileAPI/reading-data-section/FileReader-event-handler-attributes.html",
-    // "FileAPI/reading-data-section/FileReader-multiple-reads.html", // last test seems wrong ?
+    "FileAPI/reading-data-section/FileReader-multiple-reads.html",
     "FileAPI/reading-data-section/filereader_abort.html",
     "FileAPI/reading-data-section/filereader_error.html",
     "FileAPI/reading-data-section/filereader_readAsArrayBuffer.html",
@@ -384,7 +384,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/progress-events-response-data-gzip.htm",
     "XMLHttpRequest/response-data-arraybuffer.htm",
     "XMLHttpRequest/response-data-blob.htm",
-    // "XMLHttpRequest/response-data-deflate.htm", // request module does not support deflate
+    "XMLHttpRequest/response-data-deflate.htm",
     "XMLHttpRequest/response-data-gzip.htm",
     "XMLHttpRequest/response-data-progress.htm",
     "XMLHttpRequest/response-invalid-responsetype.htm",
@@ -393,7 +393,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/responseText-status.html",
     // "XMLHttpRequest/responsetype.html",  // passes locally, and sometimes on Travis CI, but with a 60 second timeout often fails on CI
     "XMLHttpRequest/responseurl.html",
-    // "XMLHttpRequest/responsexml-basic.htm", // xml namespace issue with getElementById
+    "XMLHttpRequest/responsexml-basic.htm",
     // "XMLHttpRequest/responsexml-document-properties.htm", see https://github.com/w3c/web-platform-tests/issues/2668
     "XMLHttpRequest/responsexml-media-type.htm",
     "XMLHttpRequest/responsexml-non-document-types.htm",
@@ -408,7 +408,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/send-authentication-basic-setrequestheader.htm",
     "XMLHttpRequest/send-authentication-basic.htm",
     "XMLHttpRequest/send-authentication-competing-names-passwords.htm",
-    // "XMLHttpRequest/send-authentication-cors-basic-setrequestheader.htm", // seems wrong ?
+    "XMLHttpRequest/send-authentication-cors-basic-setrequestheader.htm",
     "XMLHttpRequest/send-conditional.htm",
     "XMLHttpRequest/send-content-type-charset.htm",
     "XMLHttpRequest/send-content-type-string.htm",
