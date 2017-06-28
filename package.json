@@ -36,7 +36,7 @@
     "tough-cookie": "^2.3.2",
     "webidl-conversions": "^4.0.0",
     "whatwg-encoding": "^1.0.1",
-    "whatwg-url": "^4.3.0",
+    "whatwg-url": "^6.1.0",
     "xml-name-validator": "^2.0.1"
   },
   "devDependencies": {
