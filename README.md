@@ -305,7 +305,7 @@ The initial request is not infinitely customizable to the same extent as is poss
 
 ### `fromFile()`
 
-Similar to `fromURL()`, jsom also provides a `fromFile()` factory method for constructing a jsdom from a filename:
+Similar to `fromURL()`, jsdom also provides a `fromFile()` factory method for constructing a jsdom from a filename:
 
 ```js
 JSDOM.fromFile("stuff.html", options).then(dom => {
