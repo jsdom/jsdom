@@ -84,6 +84,7 @@ describe("Web Platform Tests", () => {
     "html/browsers/browsing-the-web/history-traversal/PopStateEvent.html",
     "html/browsers/browsing-the-web/history-traversal/hashchange_event.html",
     "html/browsers/browsing-the-web/history-traversal/popstate_event.html",
+    "html/browsers/browsing-the-web/navigating-across-documents/javascript-url-query-fragment-components.html",
     // "html/browsers/history/the-history-interface/001.html", // complicated navigation stuff and structured cloning
     // "html/browsers/history/the-history-interface/002.html", // complicated navigation stuff and structured cloning
     // "html/browsers/history/the-history-interface/004.html", // subtle timing issues that I can't quite figure out; see comment in History-impl.js
