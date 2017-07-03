@@ -9,6 +9,7 @@
 
 <script>
 "use strict";
+setup({ allow_uncaught_exception: true });
 
 async_test(t => {
   assert_equals(window.clicked, undefined, "Before");
@@ -35,4 +36,20 @@ async_test(t => {
     t.done();
   }, 0);
 }, "percent-decoding");
+
+async_test(t => {
+  let error;
+  window.addEventListener("error", ev => {
+    error = ev.error;
+  });
+
+  window.location.href = "javascript:%+#@?";
+
+  assert_equals(error, undefined, "No error yet");
+
+  t.step_timeout(() => {
+    assert_equals(error.constructor, SyntaxError, "After a queued task, SyntaxError");
+    t.done();
+  }, 0);
+});
 </script>
