@@ -1,3 +1,11 @@
+## 11.1.0
+
+* Added `javascript:` URL "navigation" via `window.location`, at least by evaluating the side effects. It still doesn't actually navigate anywhere. (ForbesLindesay)
+* Updated `whatwg-url` to v6.1.0, bringing along origin serialization changes and `URLSearchParams` among various other fixes. (ForbesLindesay)
+* Fixed `javascript:` URL loading for iframes to do proper percent-decoding and error reporting.
+* Fixed corrupted `XMLHttpRequest` responses when they were over 1 MiB.
+* Fixed timers to not start after a window is `close()`d, which could cause strange errors since most objects are unusable at that point. (Enverbalalic)
+
 ## 11.0.0
 
 Breaking changes:
