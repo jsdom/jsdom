@@ -95,6 +95,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "XMLHttpRequest/abort-during-readystatechange.html",
     "XMLHttpRequest/formdata-constructor.html",
     "XMLHttpRequest/formdata-set-blob.html",
+    "XMLHttpRequest/over-1-meg.html",
     // "XMLHttpRequest/send-authentication-cors-post.htm", // relies on flaky external network resources
     "XMLHttpRequest/thrown-error-in-events.html"
   ]
