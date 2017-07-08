@@ -27,17 +27,31 @@ describe("API: JSDOM.fromURL()", { skipIfBrowser: true }, () => {
       });
     });
   });
+  it("should support navigation via form submit", () => {
+    const [url1, url2] = twoPageServer(`<form id="f" action="/2"><input name="foo" value="bar"></form>`, "<p>Page 2</p>", 2);
+
+    return JSDOM.fromURL(url1).then(dom => {
+      assert.strictEqual(dom.serialize(), `<html><head></head><body><form id="f" action="/2"><input name="foo" value="bar"></form></body></html>`);
+      dom.window.document.getElementById('f').submit();
+      return delay(500).then(() => {
+        assert.strictEqual(dom.serialize(), "<html><head></head><body><p>Page 2</p></body></html>");
+        assert.strictEqual(dom.window.location.search, "?foo=bar");
+
+      });
+    });
+  });
 });
 
 function twoPageServer(body1, body2, expectedRequests) {
   const server = http.createServer((req, res) => {
-    if (req.url.endsWith("/1")) {
+    const path = req.url.split('?')[0];
+    if (path.endsWith("/1")) {
       res.writeHead(200, { "Content-Type": "text/html" });
       res.end(body1);
       if (0 === --expectedRequests) {
         server.close();
       }
-    } else if (req.url.endsWith("/2")) {
+    } else if (path.endsWith("/2")) {
       res.writeHead(200, { "Content-Type": "text/html" });
       res.end(body2);
       if (0 === --expectedRequests) {
