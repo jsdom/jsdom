@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Location.replace with a fragment keeps history in tact</title>
-<link rel="author" title="Domenic Denicola" href="mailto:d@domenic.me">
-<link rel="help" href="https://html.spec.whatwg.org/multipage/#javascript-protocol">
+<title>location.replace() with a fragment keeps history intact</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/#scroll-to-fragid">
 
 <script src="/resources/testharness.js"></script>
 <script src="/resources/testharnessreport.js"></script>
@@ -13,9 +12,9 @@ setup({ allow_uncaught_exception: false });
 
 async_test(t => {
   // get three urls in the history
-  window.location.assign('#apple');
-  window.location.assign('#bannana');
-  window.location.assign('#cat');
+  window.location.assign("#apple");
+  window.location.assign("#bannana");
+  window.location.assign("#cat");
   assert_equals(window.location.hash, "#cat", "Before");
 
   // go to middle history entry
@@ -27,7 +26,7 @@ async_test(t => {
       assert_equals(window.location.hash, "#bannana", "After Back");
       const historyLengthBefore = window.history.length;
       // replace the middle entry
-      window.location.replace('#zebra');
+      window.location.replace("#zebra");
       assert_equals(window.location.hash, "#zebra", "After Replace");
 
       // go forward, spec says this is a no-op becuase replacing with `#zebra` cleared `#cat`
@@ -39,7 +38,7 @@ async_test(t => {
         assert_equals(window.location.hash, "#zebra", "Forward has a second async step");
         t.step_timeout(() => {
           assert_equals(window.location.hash, "#cat", "After Forward");
-          assert_equals(window.history.length , historyLengthBefore, "replacing does not change history length");
+          assert_equals(window.history.length, historyLengthBefore, "replacing does not change history length");
           t.done();
         }, 0);
       }, 0);
