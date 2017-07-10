@@ -29,7 +29,7 @@ async_test(t => {
       window.location.replace("#zebra");
       assert_equals(window.location.hash, "#zebra", "After Replace");
 
-      // go forward, spec says this is a no-op becuase replacing with `#zebra` cleared `#cat`
+      // go forward, spec says this is a no-op because replacing with `#zebra` cleared `#cat`
       // from the history. Actual result is that the url updates to `#cat` in real browsers.
       // See https://github.com/whatwg/html/issues/2796
       history.forward();
