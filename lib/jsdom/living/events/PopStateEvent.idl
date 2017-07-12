@@ -1,8 +1,8 @@
-[Constructor(DOMString type, optional PopStateEventInit eventInitDict), Exposed=(Window,Worker)]
+[Constructor(DOMString type, optional PopStateEventInit eventInitDict)]
 interface PopStateEvent : Event {
   readonly attribute any state;
 };
 
 dictionary PopStateEventInit : EventInit {
-  any state;
+  any state = null;
 };

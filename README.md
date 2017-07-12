@@ -84,6 +84,8 @@ dom.window.document.body.children.length === 2;
 
 Again we emphasize to only use this when feeding jsdom code you know is safe. If you use it on arbitrary user-supplied code, or code from the Internet, you are effectively running untrusted Node.js code, and your machine could be compromised.
 
+Note that event handler attributes, like `<div onclick="">`, will also not function unless `runScripts` is set to `"dangerously"`. (However, event handler _properties_, like `div.onclick = ...`, will function regardless of `runScripts`.)
+
 If you are simply trying to execute script "from the outside", instead of letting `<script>` elements (and inline event handlers) run "from the inside", you can use the `runScripts: "outside-only"` option, which enables `window.eval`:
 
 ```js
@@ -223,9 +225,9 @@ const textNode = pEl.firstChild;
 const imgEl = document.querySelector("img");
 
 console.log(dom.nodeLocation(bodyEl));   // null; it's not in the source
-console.log(dom.nodeLocation(pEl));      // { start: 0, end: 39, startTag: ..., endTag: ... }
-console.log(dom.nodeLocation(textNode)); // { start: 3, end: 13 }
-console.log(dom.nodeLocation(imgEl));    // { start: 13, end: 32 }
+console.log(dom.nodeLocation(pEl));      // { startOffset: 0, endOffset: 39, startTag: ..., endTag: ... }
+console.log(dom.nodeLocation(textNode)); // { startOffset: 3, endOffset: 13 }
+console.log(dom.nodeLocation(imgEl));    // { startOffset: 13, endOffset: 32 }
 ```
 
 Note that this feature only works if you have set the `includeNodeLocations` option; node locations are off by default for performance reasons.
@@ -303,7 +305,7 @@ The initial request is not infinitely customizable to the same extent as is poss
 
 ### `fromFile()`
 
-Similar to `fromURL()`, jsom also provides a `fromFile()` factory method for constructing a jsdom from a filename:
+Similar to `fromURL()`, jsdom also provides a `fromFile()` factory method for constructing a jsdom from a filename:
 
 ```js
 JSDOM.fromFile("stuff.html", options).then(dom => {
@@ -416,7 +418,7 @@ Nevertheless, we remain interested in one day providing an option to create an "
 
 ### Missing features in the new API
 
-Compared to the old JSDOM API from v9.x and before, the new API is noticably missing fine-grained control of resource loads. Previous versions of jsdom allowed you to set options that were used when making requests (both for the initial request, in the old equivalent of `JSDOM.fromURL()`, and for subresource requests). They also allowed you to control which subresources were requested and applied to the main document, so that you could e.g. download stylesheets but not scripts. Finally, they provided a customizable resource loader that let you intercept any outgoing request and fulfill it with a completely synthetic response.
+Compared to the old jsdom API from v9.x and before, the new API is noticably missing fine-grained control of resource loads. Previous versions of jsdom allowed you to set options that were used when making requests (both for the initial request, in the old equivalent of `JSDOM.fromURL()`, and for subresource requests). They also allowed you to control which subresources were requested and applied to the main document, so that you could e.g. download stylesheets but not scripts. Finally, they provided a customizable resource loader that let you intercept any outgoing request and fulfill it with a completely synthetic response.
 
 None of these features are yet in the new jsdom API, although we are hoping to add them back soon! This requires a decent amount of behind-the-scenes work to implement in a reasonable way, unfortunately.
 

@@ -1,10 +1,10 @@
-[Constructor(DOMString type, optional HashChangeEventInit eventInitDict), Exposed=(Window,Worker)]
+[Constructor(DOMString type, optional HashChangeEventInit eventInitDict)]
 interface HashChangeEvent : Event {
-  readonly attribute DOMString oldURL;
-  readonly attribute DOMString newURL;
+  readonly attribute USVString oldURL;
+  readonly attribute USVString newURL;
 };
 
 dictionary HashChangeEventInit : EventInit {
-  DOMString oldURL;
-  DOMString newURL;
+  USVString oldURL = "";
+  USVString newURL = "";
 };

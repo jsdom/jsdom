@@ -1,8 +1,7 @@
 [NoInterfaceObject]
 interface GlobalEventHandlers {
   attribute EventHandler onabort;
-  attribute EventHandler onautocomplete;
-  attribute EventHandler onautocompleteerror;
+  attribute EventHandler onauxclick;
   attribute EventHandler onblur;
   attribute EventHandler oncancel;
   attribute EventHandler oncanplay;
@@ -34,6 +33,7 @@ interface GlobalEventHandlers {
   attribute EventHandler onload;
   attribute EventHandler onloadeddata;
   attribute EventHandler onloadedmetadata;
+  attribute EventHandler onloadend;
   attribute EventHandler onloadstart;
   attribute EventHandler onmousedown;
   [LenientThis] attribute EventHandler onmouseenter;
@@ -55,7 +55,6 @@ interface GlobalEventHandlers {
   attribute EventHandler onseeking;
   attribute EventHandler onselect;
   attribute EventHandler onshow;
-  attribute EventHandler onsort;
   attribute EventHandler onstalled;
   attribute EventHandler onsubmit;
   attribute EventHandler onsuspend;

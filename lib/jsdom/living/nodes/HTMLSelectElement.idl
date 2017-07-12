@@ -19,7 +19,7 @@ interface HTMLSelectElement : HTMLElement {
   void remove(long index);
 //  setter void (unsigned long index, HTMLOptionElement? option);
 
-//  [SameObject] readonly attribute HTMLCollection selectedOptions;
+  [SameObject] readonly attribute HTMLCollection selectedOptions;
   attribute long selectedIndex;
   attribute DOMString value;
 

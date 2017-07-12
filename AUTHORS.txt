@@ -50,10 +50,12 @@ Davide P. Cervone <dpvc@union.edu>
 Derek Lindahl <dlindahl@customink.com>
 Domenic Denicola <d@domenic.me>
 dxgriffiths <dxgriffiths@gmail.com>
+Dylan Marriott <info@d-32.com>
 Edward O'Connor <hober0@gmail.com>
 eleith <online@eleith.com>
 Elijah Insua <tmpvar@gmail.com>
 E̵̘̳̘̝ṃ̟͈͙̗̹͘i͖͇ḷ͚͔̱̰̠y͜ ̩̲͕R̮̜͓̫o͉̣̦̘̖̖ͅs̫̣͜e̼͖̹̩͉͉͠ <nexxy@symphonysubconscious.com>
+Enver Balalic <balalic.enver@gmail.com>
 Erik Vold <erikvvold@gmail.com>
 Eugene Ware <eugene@noblesamurai.com>
 Evan Haas <evan@fictivekin.com>
@@ -63,6 +65,8 @@ Federico Galassi <federico.galassi@gmail.com>
 fegs <ang0123dev@gmail.com>
 Felix Böhm <me@feedic.com>
 Felix Gnass <fgnass@gmail.com>
+Flaviu Tamas <tamasflaviu@gmail.com>
+Forbes Lindesay <forbes@lindesay.co.uk>
 fr0z3nk0 <peter.culak@ymail.com>
 Francis Saul <francis@mummybot.com>
 Francisco Requena <frarees@gmail.com>
@@ -162,6 +166,7 @@ Nicolas LaCasse <nicolas.lacasse@gmail.com>
 Nik Nyby <niknyby@gmail.com>
 Ojek <ojek25@gmail.com>
 Olivier El Mekki <olivier@el-mekki.com>
+Ondřej Žára <ondras@zarovi.cz>
 Paul O’Shannessy <paul@oshannessy.com>
 peller <github@peller.org>
 Pepijn Verlaan <pepijnverlaan@yahoo.com>
@@ -225,5 +230,6 @@ Wei Dai <x@wei23.net>
 William Cunningham <w.a.cunningham.ii@gmail.com>
 Xavi <xavi.rmz@gmail.com>
 Yonathan <yonathan@gmail.com>
+Yun Cui <ycui@microstrategy.com>
 Zach Smith <zach@amicushq.com>
 Zirro <code@zirro.se>

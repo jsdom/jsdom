@@ -79,9 +79,9 @@ exports['createAttributeNS'] = testcase({
         newAttr = doc.createAttributeNS(namespaceURI,malformedName);
       }
       catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 14);
+        success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      test.ok(success, 'throw_NAMESPACE_ERR');
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
     test.done();
   },
@@ -332,9 +332,9 @@ exports['createDocument'] = testcase({
         aNewDoc = domImpl.createDocument(namespaceURI,malformedName,docType);
       }
       catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 14);
+        success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      test.ok(success, 'throw_NAMESPACE_ERR');
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
     test.done();
   },
@@ -602,9 +602,9 @@ exports['createDocumentType'] = testcase({
         newType = domImpl.createDocumentType(malformedName,publicId,systemId);
       }
       catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 14);
+        success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      test.ok(success, 'throw_NAMESPACE_ERR');
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
     test.done();
   },
@@ -784,9 +784,9 @@ exports['createElementNS'] = testcase({
         newElement = doc.createElementNS(namespaceURI,malformedName);
       }
       catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 14);
+        success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      test.ok(success, 'throw_NAMESPACE_ERR');
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
     test.done();
   },
@@ -1188,7 +1188,7 @@ exports['documentcreateattributeNS'] = testcase({
           attribute = doc.createAttributeNS(namespaceURI,qualifiedName);
         }
 	catch(ex) {
-          success = (typeof(ex.code) != 'undefined' && ex.code == 14);
+          success = (typeof(ex.code) != 'undefined' && ex.code == 5);
 	}
 	test.ok(success, 'documentcreateattributeNS04');
       }
@@ -2244,7 +2244,7 @@ exports['domimplementationcreatedocument'] = testcase({
         newDoc = domImpl.createDocument(namespaceURI,":",docType);
       }
       catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 14);
+        success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
       test.ok(success, 'domimplementationcreatedocument07');
     }
@@ -6399,9 +6399,9 @@ exports['setAttributeNS'] = testcase({
         testAddr.setAttributeNS(namespaceURI,qualifiedName,"newValue");
       }
       catch(ex) {
-        success = (typeof(ex.code) != 'undefined' && ex.code == 14);
+        success = (typeof(ex.code) != 'undefined' && ex.code == 5);
       }
-      test.ok(success, 'throw_NAMESPACE_ERR');
+      test.ok(success, 'throw_INVALID_CHARACTER_ERR');
     }
     test.done()
   },

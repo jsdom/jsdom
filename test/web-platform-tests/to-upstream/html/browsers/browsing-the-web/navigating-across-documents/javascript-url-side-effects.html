@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Clicking on javascript: URL links that return undefined causes side effects</title>
+<link rel="author" title="Domenic Denicola" href="mailto:d@domenic.me">
+<link rel="help" href="https://html.spec.whatwg.org/multipage/#javascript-protocol">
+
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+setup({ allow_uncaught_exception: true });
+
+async_test(t => {
+  assert_equals(window.clicked, undefined, "Before");
+
+  window.location.href = "javascript:window.clicked = true;";
+
+  assert_equals(window.clicked, undefined, "After");
+
+  t.step_timeout(() => {
+    assert_equals(window.clicked, true, "After plus a queued task");
+    t.done();
+  }, 0);
+}, "simple case");
+
+async_test(t => {
+  assert_equals(window.clicked2, undefined, "Before");
+
+  window.location.href = "javascript:window.clicked2%20%3D%20true%3B";
+
+  assert_equals(window.clicked2, undefined, "After");
+
+  t.step_timeout(() => {
+    assert_equals(window.clicked2, true, "After plus a queued task");
+    t.done();
+  }, 0);
+}, "percent-decoding");
+
+async_test(t => {
+  let error;
+  window.addEventListener("error", ev => {
+    error = ev.error;
+  });
+
+  window.location.href = "javascript:%+#@?";
+
+  assert_equals(error, undefined, "No error yet");
+
+  t.step_timeout(() => {
+    assert_equals(error.constructor, SyntaxError, "After a queued task, SyntaxError");
+    t.done();
+  }, 0);
+});
+</script>

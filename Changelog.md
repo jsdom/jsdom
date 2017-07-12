@@ -1,3 +1,58 @@
+## 11.1.0
+
+* Added `javascript:` URL "navigation" via `window.location`, at least by evaluating the side effects. It still doesn't actually navigate anywhere. (ForbesLindesay)
+* Updated `whatwg-url` to v6.1.0, bringing along origin serialization changes and `URLSearchParams` among various other fixes. (ForbesLindesay)
+* Fixed `javascript:` URL loading for iframes to do proper percent-decoding and error reporting.
+* Fixed corrupted `XMLHttpRequest` responses when they were over 1 MiB.
+* Fixed timers to not start after a window is `close()`d, which could cause strange errors since most objects are unusable at that point. (Enverbalalic)
+
+## 11.0.0
+
+Breaking changes:
+
+* Custom parsers, via the `parser` option to the old API, can no longer be specified. They were never tested, often broken, and a maintenance burden. The defaults, of [parse5](https://www.npmjs.com/package/parse5) for HTML and [sax](https://www.npmjs.com/package/sax) for XML, now always apply.
+* Due to a parse5 upgrade, the location info objects returned by `dom.nodeLocation()` or the old API's `jsdom.nodeLocation()` now have a different structure.
+* Fixed how `runScripts` applies to event handler attributes; now they will no longer be converted into event handler functions unless `runScripts: "dangerously"` is set. However, event handler _properties_ will now work with any `runScripts` option value, instead of being blocked.
+
+Other changes:
+
+* Overhauled how event handler properties and attributes work to follow the spec. In particular, this adds various `oneventname` properties to various prototypes, ensures the correct order when interleaving event handlers and other event listeners, and ensures that event handlers are evaluated with the correct values in scope.
+* Upgraded parse5 from v1 to v3, bringing along several correctness improvements to HTML parsing. (Zirro)
+* Updated `Location` properties to be on the instance, instead of the prototype, and to be non-configurable.
+* Significantly improved the performance of `HTMLCollection`, and thus of parsing large documents. (Zirro)
+* Significantly improved the performance of `getComputedStyle()` by removing unsupported selectors from the default style sheet. (flaviut)
+* Fixed all web platform methods that accepted web platform objects to perform proper type checks on them, throwing a `TypeError` when given invalid values. (TimothyGu)
+* Fixed the `Symbol.toStringTag` properties to be non-writable and non-enumerable. (TimothyGu)
+* Fixed `tokenList.remove()` when the `DOMTokenList` corresponded to a non-existant attribute. (Zirro)
+* Fixed `fileReader.abort()` to terminate ongoing reads properly.
+* Fixed `xhr.send()` to support array buffer views, not just `ArrayBuffer`s. (ondras)
+* Fixed non-`GET` requests to `data:` URLs using `XMLHttpRequest`. (Zirro)
+* Fixed form submission to no longer happen for disconnected forms.
+* Fixed body event handler attributes to be treated like all others in terms of how they interact with `runScripts`.
+* Many updates per recent spec changes: (Zirro)
+  * Updated `tokenList.replace()` edge-case behavior.
+  * Invalid qualified names now throw `"InvalidCharacterError"` `DOMException`s, instead of `"NamespaceError"` `DOMException`s.
+  * Changed `input.select()` to no longer throw on types where selection does not apply.
+  * Updated `event.initEvent()` and various related methods to have additional defaults.
+  * Stopped lowercasing headers in `XMLHttpRequest` responses.
+  * Started lowercasing headers in `xhr.getAllResponseHeaders()`, and separating the header values with a comma-space (not just a comma).
+  * Allow a redirect after a CORS preflight when using `XMLHttpRequest`.
+  * Tweaked username/password CORS treatment when using `XMLHttpRequest`.
+  * Changed `xhr.overrideMimeType()` to no longer throw for invalid input.
+  * Removed `blob.close()` and `blob.isClosed()`.
+* Removed some remaining not-per-spec `toString()` methods on various prototypes, which were made redundant in v10.1.0 but we forgot to remove.
+
+## 10.1.0
+
+* Added the value sanitization algorithm for password, search, tel, text, color, email, and url input types. (Zirro)
+* Added `Symbol.toStringTag` to all web platform classes, so that now `Object.prototype.toString.call()` works as expected on jsdom objects.
+* Added the `select.selectedOptions` property.
+* Removed the `toString()` methods on various prototypes that returned `"[object ClassName]"` in an attempt to fake the `Symbol.toStringTag` behavior.
+* Changed `XMLHttpRequest` to pre-allocate a 1 MiB buffer, which it grows exponentially as needed, in order to avoid frequent buffer allocation and concatenation. (skygon)
+* Fixed a variety of properties that were meant to always return the same object, to actually do so. (Zirro)
+* Fixed inheritance of the `runScripts` and `resources` options into iframes.
+* Fixed an uncaught exception that occurred if you called `xhr.abort()` during a `"readystatechange"` event.
+
 ## 10.0.0
 
 This release includes a complete overhaul of jsdom's API for creating and manipulating jsdoms. The new API is meant to be much more intuitive and have better defaults, with complete documentation in the newly-overhauled README. We hope you like it!
@@ -308,7 +363,7 @@ Although normally jsdom does not mark a new major release for changes that simpl
 * Fixed `Event` object creation to always initialize the event objects, unless using `document.createEvent`, even for events with name `""`.
 * Fixed iframes to go through the custom resource loader. (chrmarti)
 * Removed ["DOM Load and Save"](http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107/load-save.html) stub implementation. That spec was never implemented in browsers, and jsdom only contained stubs.
-* Removed other minor unimplemented, stub, or no-longer-standard APIs from "DOM Level 3", like the user-data API, `DOMException`, `DOMConfiguration`, and `DOMStringList`.
+* Removed other minor unimplemented, stub, or no-longer-standard APIs from "DOM Level 3", like the user-data API, `DOMError`, `DOMConfiguration`, and `DOMStringList`.
 
 ## 7.2.2
 

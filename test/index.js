@@ -10,6 +10,7 @@ require("./api/from-file.js");
 require("./api/from-url.js");
 require("./api/methods.js");
 require("./api/options.js");
+require("./api/options-run-scripts.js");
 require("./api/resources.js");
 require("./api/virtual-console.js");
 

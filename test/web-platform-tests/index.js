@@ -65,7 +65,7 @@ describe("Web Platform Tests", () => {
     "dom/nodes/getElementsByClassName-31.htm",
     "dom/nodes/Node-baseURI.html",
     "dom/nodes/Node-cloneNode.html",
-    // "dom/nodes/NodeList-Iterable.html", // Node v4 doesn't support the syntax
+    "dom/nodes/NodeList-Iterable.html",
     "dom/traversal/NodeFilter-constants.html",
     "dom/traversal/NodeIterator.html",
     "dom/traversal/TreeWalker-acceptNode-filter.html",
@@ -84,6 +84,7 @@ describe("Web Platform Tests", () => {
     "html/browsers/browsing-the-web/history-traversal/PopStateEvent.html",
     "html/browsers/browsing-the-web/history-traversal/hashchange_event.html",
     "html/browsers/browsing-the-web/history-traversal/popstate_event.html",
+    "html/browsers/browsing-the-web/navigating-across-documents/javascript-url-query-fragment-components.html",
     // "html/browsers/history/the-history-interface/001.html", // complicated navigation stuff and structured cloning
     // "html/browsers/history/the-history-interface/002.html", // complicated navigation stuff and structured cloning
     // "html/browsers/history/the-history-interface/004.html", // subtle timing issues that I can't quite figure out; see comment in History-impl.js
@@ -135,13 +136,23 @@ describe("Web Platform Tests", () => {
     "html/editing/focus/sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-default-value.html",
     // "html/infrastructure/urls/terminology-0/document-base-url.html", // we don't support srcdoc <base> correctly
     "html/semantics/forms/attributes-common-to-form-controls/disabled-elements-01.html",
+    "html/semantics/forms/resetting-a-form/reset-form-2.html",
+    "html/semantics/forms/the-button-element/button-click-submits.html",
+    "html/semantics/forms/the-button-element/button-type.html",
+    "html/semantics/forms/the-form-element/form-action-reflection-with-base-url.html",
+    "html/semantics/forms/the-form-element/form-action-reflection.html",
+    "html/semantics/forms/the-input-element/checkbox-click-events.html",
     "html/semantics/forms/the-input-element/color.html",
     "html/semantics/forms/the-input-element/password.html",
+    "html/semantics/forms/the-input-element/radio-input-cancel.html",
     "html/semantics/forms/the-input-element/search_input.html",
     "html/semantics/forms/the-input-element/selection.html",
     "html/semantics/forms/the-input-element/telephone.html",
     "html/semantics/forms/the-input-element/url.html",
+    "html/semantics/forms/the-label-element/proxy-click-to-associated-element.html",
+    "html/semantics/forms/the-option-element/option-element-constructor.html",
     "html/semantics/forms/the-option-element/option-form.html",
+    "html/semantics/forms/the-option-element/option-index.html",
     // "html/semantics/forms/the-option-element/option-label.html", // our impl is wrong; see comments in HTMLOptionElement-impl.js
     "html/semantics/forms/the-option-element/option-selected.html",
     "html/semantics/forms/the-option-element/option-text-backslash.html",
@@ -149,13 +160,16 @@ describe("Web Platform Tests", () => {
     // "html/semantics/forms/the-option-element/option-text-recurse.html", // our impl is wrong; see comments in HTMLOptionElement-impl.js
     "html/semantics/forms/the-option-element/option-text-spaces.html",
     // "html/semantics/forms/the-option-element/option-value.html", // our impl is wrong; see comments in HTMLOptionElement-impl.js
+    "html/semantics/forms/the-select-element/select-multiple.html",
+    "html/semantics/forms/the-select-element/select-selectedOptions.html",
+    "html/semantics/forms/the-textarea-element/value-defaultValue-textContent.html",
     "html/semantics/disabled-elements/disabledElement.html",
     "html/semantics/document-metadata/the-base-element/base_about_blank.html",
     "html/semantics/document-metadata/the-base-element/base_href_empty.html",
     "html/semantics/document-metadata/the-base-element/base_href_invalid.html",
     "html/semantics/document-metadata/the-base-element/base_href_unspecified.html",
     // "html/semantics/document-metadata/the-base-element/base_multiple.html", // we don't support navigation via <a target>
-    // "html/semantics/document-metadata/the-base-element/base_srcdoc.html", // we don't support srcdoc yet
+    "html/semantics/document-metadata/the-base-element/base_srcdoc.html",
     "html/semantics/scripting-1/the-script-element/script-language-type.html",
     "html/semantics/scripting-1/the-script-element/script-languages-01.html",
     // "html/semantics/scripting-1/the-script-element/script-languages-02.html", // our script execution timing is off; see discussion in https://github.com/tmpvar/jsdom/pull/1406
@@ -167,15 +181,15 @@ describe("Web Platform Tests", () => {
     // "html/semantics/scripting-1/the-template-element/additions-to-serializing-xhtml-documents/outerhtml.html", // templates in XHTML are totally messed up
     "html/semantics/scripting-1/the-template-element/additions-to-the-steps-to-clone-a-node/template-clone-children.html",
     "html/semantics/scripting-1/the-template-element/additions-to-the-steps-to-clone-a-node/templates-copy-document-owner.html",
-    // "html/semantics/scripting-1/the-template-element/definitions/template-contents-owner-document-type.html", // requires @@toStringTag
+    "html/semantics/scripting-1/the-template-element/definitions/template-contents-owner-document-type.html",
     // "html/semantics/scripting-1/the-template-element/definitions/template-contents-owner-test-001.html", // template content owner document semantics not yet implemented
     // "html/semantics/scripting-1/the-template-element/definitions/template-contents-owner-test-002.html", // template content owner document semantics not yet implemented
-    // "html/semantics/scripting-1/the-template-element/definitions/template-contents.html", // requires @@toStringTag
+    "html/semantics/scripting-1/the-template-element/definitions/template-contents.html",
     "html/semantics/scripting-1/the-template-element/innerhtml-on-templates/innerhtml.html",
     "html/semantics/scripting-1/the-template-element/serializing-html-templates/outerhtml.html",
     "html/semantics/scripting-1/the-template-element/template-element/content-attribute.html",
     // "html/semantics/scripting-1/the-template-element/template-element/node-document-changes.html", // template content owner document semantics not yet implemented
-    // "html/semantics/scripting-1/the-template-element/template-element/template-as-a-descendant.html", // template parsing not quite perfect yet
+    "html/semantics/scripting-1/the-template-element/template-element/template-as-a-descendant.html",
     "html/semantics/scripting-1/the-template-element/template-element/template-content-node-document.html",
     "html/semantics/scripting-1/the-template-element/template-element/template-content.html",
     "html/semantics/scripting-1/the-template-element/template-element/template-descendant-body.html",
@@ -201,7 +215,7 @@ describe("Web Platform Tests", () => {
     "html/syntax/parsing/template/additions-to-the-in-body-insertion-mode/start-tag-body.html",
     "html/syntax/parsing/template/additions-to-the-in-body-insertion-mode/start-tag-html.html",
     "html/syntax/parsing/template/additions-to-the-in-body-insertion-mode/template-end-tag-without-start-one.html",
-    // "html/syntax/parsing/template/additions-to-the-in-frameset-insertion-mode/end-tag-frameset.html", // template parsing not quite perfect yet
+    "html/syntax/parsing/template/additions-to-the-in-frameset-insertion-mode/end-tag-frameset.html",
     "html/syntax/parsing/template/additions-to-the-in-head-insertion-mode/generating-of-implied-end-tags.html",
     "html/syntax/parsing/template/additions-to-the-in-head-insertion-mode/template-end-tag-without-start-one.html",
     "html/syntax/parsing/template/additions-to-the-in-table-insertion-mode/end-tag-table.html",
@@ -209,9 +223,19 @@ describe("Web Platform Tests", () => {
     "html/syntax/parsing/template/clearing-the-stack-back-to-a-given-context/clearing-stack-back-to-a-table-body-context.html",
     "html/syntax/parsing/template/clearing-the-stack-back-to-a-given-context/clearing-stack-back-to-a-table-context.html",
     "html/syntax/parsing/template/clearing-the-stack-back-to-a-given-context/clearing-stack-back-to-a-table-row-context.html",
-    // "html/syntax/parsing/template/creating-an-element-for-the-token/template-owner-document.html", // template content owner document semantics not yet implemented
+    "html/syntax/parsing/template/creating-an-element-for-the-token/template-owner-document.html",
     "html/webappapis/atob/base64.html",
-    "html/webappapis/system-state-and-capabilities/the-navigator-object/NavigatorID.html",
+    "html/webappapis/scripting/events/event-handler-attributes-body-window.html",
+    "html/webappapis/scripting/events/event-handler-javascript.html",
+    "html/webappapis/scripting/events/event-handler-processing-algorithm.html",
+    "html/webappapis/scripting/events/event-handler-spec-example.html",
+    "html/webappapis/scripting/events/eventhandler-cancellation.html",
+    // "html/webappapis/scripting/events/inline-event-handler-ordering.html", // TODO: enable once https://github.com/w3c/web-platform-tests/pull/6010 is fixed
+    // "html/webappapis/scripting/events/invalid-uncompiled-raw-handler-compiled-late.html", // TODO: enable once https://github.com/w3c/web-platform-tests/pull/6009 is fixed
+    "html/webappapis/scripting/events/invalid-uncompiled-raw-handler-compiled-once.html",
+    "html/webappapis/scripting/events/onerroreventhandler.html",
+    "html/webappapis/scripting/events/uncompiled_event_handler_with_scripting_disabled.html",
+    "html/webappapis/system-state-and-capabilities/the-navigator-object/navigator.any.html",
     "html/webappapis/system-state-and-capabilities/the-navigator-object/navigator-indexed.html",
     "html/webappapis/system-state-and-capabilities/the-navigator-object/navigatorlanguage.html",
     "html/webappapis/timers/evil-spec-example.html",
@@ -248,9 +272,8 @@ describe("Web Platform Tests", () => {
     "url/url-setters.html",
 
     "FileAPI/fileReader.html",
-    "FileAPI/historical.html",
+    "FileAPI/historical.https.html",
     // "FileAPI/idlharness.html", // idl should be used here
-    "FileAPI/blob/Blob-close.html",
     // "FileAPI/blob/Blob-constructor.html", // - Blob is not a function
                                              // - a date is not instanceof Date
                                              // - a regexp is not instanceof Regexp
@@ -266,7 +289,7 @@ describe("Web Platform Tests", () => {
     "FileAPI/FileReader/Progress_event_bubbles_cancelable.html",
     "FileAPI/reading-data-section/Determining-Encoding.html",
     "FileAPI/reading-data-section/FileReader-event-handler-attributes.html",
-    // "FileAPI/reading-data-section/FileReader-multiple-reads.html", // last test seems wrong ?
+    "FileAPI/reading-data-section/FileReader-multiple-reads.html",
     "FileAPI/reading-data-section/filereader_abort.html",
     "FileAPI/reading-data-section/filereader_error.html",
     "FileAPI/reading-data-section/filereader_readAsArrayBuffer.html",
@@ -291,7 +314,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/abort-event-order.htm",
     "XMLHttpRequest/abort-upload-event-abort.htm",
     "XMLHttpRequest/abort-upload-event-loadend.htm",
-    "XMLHttpRequest/anonymous-mode-unsupported.htm",
+    // "XMLHttpRequest/anonymous-mode-unsupported.htm", // need way to set cookie header with original casing
     "XMLHttpRequest/data-uri.htm",
     "XMLHttpRequest/event-abort.htm",
     "XMLHttpRequest/event-error.sub.html",
@@ -306,6 +329,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/event-upload-progress.htm",
     "XMLHttpRequest/formdata-blob.htm",
     "XMLHttpRequest/formdata-delete.htm",
+    "XMLHttpRequest/formdata-foreach.html",
     "XMLHttpRequest/formdata-get.htm",
     "XMLHttpRequest/formdata-has.htm",
     "XMLHttpRequest/formdata-set.htm",
@@ -361,7 +385,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/progress-events-response-data-gzip.htm",
     "XMLHttpRequest/response-data-arraybuffer.htm",
     "XMLHttpRequest/response-data-blob.htm",
-    // "XMLHttpRequest/response-data-deflate.htm", // request module does not support deflate
+    "XMLHttpRequest/response-data-deflate.htm",
     "XMLHttpRequest/response-data-gzip.htm",
     "XMLHttpRequest/response-data-progress.htm",
     "XMLHttpRequest/response-invalid-responsetype.htm",
@@ -370,7 +394,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/responseText-status.html",
     // "XMLHttpRequest/responsetype.html",  // passes locally, and sometimes on Travis CI, but with a 60 second timeout often fails on CI
     "XMLHttpRequest/responseurl.html",
-    // "XMLHttpRequest/responsexml-basic.htm", // xml namespace issue with getElementById
+    "XMLHttpRequest/responsexml-basic.htm",
     // "XMLHttpRequest/responsexml-document-properties.htm", see https://github.com/w3c/web-platform-tests/issues/2668
     "XMLHttpRequest/responsexml-media-type.htm",
     "XMLHttpRequest/responsexml-non-document-types.htm",
@@ -385,17 +409,18 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/send-authentication-basic-setrequestheader.htm",
     "XMLHttpRequest/send-authentication-basic.htm",
     "XMLHttpRequest/send-authentication-competing-names-passwords.htm",
-    // "XMLHttpRequest/send-authentication-cors-basic-setrequestheader.htm", // seems wrong ?
+    "XMLHttpRequest/send-authentication-cors-basic-setrequestheader.htm",
     "XMLHttpRequest/send-conditional.htm",
     "XMLHttpRequest/send-content-type-charset.htm",
     "XMLHttpRequest/send-content-type-string.htm",
     "XMLHttpRequest/send-data-arraybuffer.htm",
+    "XMLHttpRequest/send-data-arraybufferview.htm",
     "XMLHttpRequest/send-data-blob.htm",
     "XMLHttpRequest/send-data-es-object.htm",
     "XMLHttpRequest/send-data-formdata.htm",
     "XMLHttpRequest/send-data-unexpected-tostring.htm",
-    "XMLHttpRequest/send-entity-body-basic.htm",
-    "XMLHttpRequest/send-entity-body-document-bogus.htm",
+    // "XMLHttpRequest/send-entity-body-basic.htm", // needs URLSearchParams implementation
+    // "XMLHttpRequest/send-entity-body-document-bogus.htm", // needs proper XML serializer
     // "XMLHttpRequest/send-entity-body-document.htm",  // passes locally, and sometimes on Travis CI, but with a 60 second timeout often fails on CI
     // "XMLHttpRequest/send-entity-body-empty.htm", // hard to get Node to not send Content-Length
     // "XMLHttpRequest/send-entity-body-get-head-async.htm", // hard to get Node to not send Content-Length
@@ -441,7 +466,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/setrequestheader-header-forbidden.htm",
     "XMLHttpRequest/setrequestheader-open-setrequestheader.htm",
     "XMLHttpRequest/status-async.htm",
-    "XMLHttpRequest/status-basic.htm",
+    // "XMLHttpRequest/status-basic.htm", // passes locally, and sometimes on Travis CI, but with a 60 second timeout often fails on CI
     "XMLHttpRequest/status-error.htm",
     "XMLHttpRequest/timeout-cors-async.htm",
     "XMLHttpRequest/timeout-sync.htm",
