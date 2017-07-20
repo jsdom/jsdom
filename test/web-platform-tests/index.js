@@ -85,6 +85,17 @@ describe("Web Platform Tests", () => {
     "html/browsers/browsing-the-web/history-traversal/hashchange_event.html",
     "html/browsers/browsing-the-web/history-traversal/popstate_event.html",
     "html/browsers/browsing-the-web/navigating-across-documents/javascript-url-query-fragment-components.html",
+    "html/browsers/browsing-the-web/scroll-to-fragid/001.html",
+    "html/browsers/browsing-the-web/scroll-to-fragid/002.html",
+    // "html/browsers/browsing-the-web/scroll-to-fragid/003.html", // we do not update scrollTop because we don't calculate layout
+    // "html/browsers/browsing-the-web/scroll-to-fragid/004.html", // hashchange event references the wrong window object
+    "html/browsers/browsing-the-web/scroll-to-fragid/005.html",
+    "html/browsers/browsing-the-web/scroll-to-fragid/006.html",
+    "html/browsers/browsing-the-web/scroll-to-fragid/007.html",
+    // "html/browsers/browsing-the-web/scroll-to-fragid/scroll-frag-percent-encoded.html", // we do not update scrollTop because we don't calculate layout
+    // "html/browsers/browsing-the-web/scroll-to-fragid/scroll-to-anchor-name.html", // we do not update scrollTop because we don't calculate layout
+    // "html/browsers/browsing-the-web/scroll-to-fragid/scroll-to-id-top.html", // we do not update scrollTop because we don't calculate layout
+    // "html/browsers/browsing-the-web/scroll-to-fragid/scroll-to-top.html", // we do not update scrollTop because we don't calculate layout
     // "html/browsers/history/the-history-interface/001.html", // complicated navigation stuff and structured cloning
     // "html/browsers/history/the-history-interface/002.html", // complicated navigation stuff and structured cloning
     // "html/browsers/history/the-history-interface/004.html", // subtle timing issues that I can't quite figure out; see comment in History-impl.js
@@ -514,5 +525,12 @@ describe("Web Platform Tests", () => {
     "progress-events/tests/submissions/Samsung/firing-events-http-content-length.html",
     "progress-events/tests/submissions/Samsung/firing-events-http-no-content-length.html"
   ]
+  .filter(str => {
+    if (process.argv.indexOf('--prefix') !== -1) {
+      return str.startsWith(process.argv[process.argv.indexOf('--prefix') + 1]);
+    } else {
+      return true;
+    }
+  })
   .forEach(runWebPlatformTest);
 });
