@@ -242,5 +242,71 @@ describe("API: constructor options", () => {
 
       assert.strictEqual(windowPassed, dom.window);
     });
+
+    it("should get the normalized html as second parameter", () => {
+      const ORIGINAL_HTML = "<body><h1>hello</h1><p>there</p></body>";
+      let windowPassed;
+      const dom = new JSDOM(ORIGINAL_HTML, {
+        beforeParse(window, html) {
+          assert.strictEqual(html, ORIGINAL_HTML);
+          windowPassed = window;
+        }
+      });
+
+      assert.strictEqual(windowPassed, dom.window);
+    });
+
+    it("should not affect the parsed html when not returning a string", () => {
+      let windowPassed;
+      const LIST_HTML = `
+        <body><ul><li class="ulli">ULLI1</li><li class="ulli" id="ulli2">ULLI2</li></ul><ol><li>OLLI1</li></ol></body>`;
+      const dom = new JSDOM(LIST_HTML, {
+        beforeParse(window /* , html */) {
+          windowPassed = window;
+          return null;
+        }
+      });
+      assert.strictEqual(windowPassed, dom.window);
+      assert.strictEqual(dom.window.document.querySelectorAll("body *").length, 5);
+      assert.strictEqual(dom.window.document.querySelectorAll("li").length, 3);
+      assert.strictEqual(dom.window.document.querySelectorAll("ul li").length, 2);
+      assert.strictEqual(dom.window.document.querySelectorAll("ol li").length, 1);
+      assert.strictEqual(dom.window.document.querySelectorAll("li.ulli").length, 2);
+      assert.strictEqual(dom.window.document.querySelectorAll("#ulli2").length, 1);
+      assert.strictEqual(dom.window.document.querySelector("#ulli2").textContent, "ULLI2");
+      assert.strictEqual(dom.window.document.querySelector("ol li:last-child").textContent, "OLLI1");
+      assert.strictEqual(dom.window.document.querySelector("ul li:last-child").textContent, "ULLI2");
+    });
+
+    it("should be able to return a string that will get parsed instead of the original html", () => {
+      const ORIGINAL_HTML = `
+        <body><ul><li class="ulli">ULLI1</li><li class="ulli" id="ulli2">ULLI2</li></ul><ol><li>OLLI1</li></ol></body>`;
+      const dom = new JSDOM(ORIGINAL_HTML, {
+        beforeParse(window, html) {
+          const olStartIndex = html.indexOf("<ol>");
+          const olEndIndex = html.lastIndexOf("</ol>");
+          // provide a stripped-down version to be parsed: "<ol><li>OLLI1</li></ol>"
+          return html.substr(olStartIndex, olEndIndex - olStartIndex + 5);
+        }
+      });
+      assert.strictEqual(dom.window.document.querySelectorAll("body *").length, 2);
+      assert.strictEqual(dom.window.document.querySelectorAll("li").length, 1);
+      assert.strictEqual(dom.window.document.querySelectorAll("ul").length, 0);
+      assert.strictEqual(dom.window.document.querySelectorAll("ul li").length, 0);
+      assert.strictEqual(dom.window.document.querySelectorAll("ol li").length, 1);
+      assert.strictEqual(dom.window.document.querySelectorAll("li.ulli").length, 0);
+      assert.strictEqual(dom.window.document.querySelectorAll("#ulli2").length, 0);
+      assert.strictEqual(dom.window.document.querySelector("ol li:last-child").textContent, "OLLI1");
+    });
+
+    it("should be able to return an empty string, so the parsed page is empty", () => {
+      const dom = new JSDOM("<body><h1>hello</h1></body>", {
+        beforeParse(/* window, html */) {
+          return "";
+        }
+      });
+      assert.strictEqual(dom.window.document.querySelectorAll("body *").length, 0);
+      // the parser adds empty <body> and <head> automatically, but that's beyond the scope of this test
+    });
   });
 });
