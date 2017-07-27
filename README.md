@@ -181,7 +181,30 @@ const dom = new JSDOM(`<p>Hello</p>`, {
 });
 ```
 
-This is especially useful if you are wanting to modify the environment in some way, for example adding shims for web platform APIs jsdom does not support.
+This is especially useful if you are wanting to modify the environment in some way, for example adding shims for web platform APIs jsdom does not support. 
+
+Futhermore, `beforeParse` allows you to **modify** the HTML that will be fed into the parser. This is particularly useful for dealing with large HTML documents when you are interested in small portions of their content only. Stripping the HTML down to a "region of interest" can speed up parsing significantly.
+
+```js
+const ROI_START_MARKER = '<!-- region of interest -->';
+const ROI_END_MARKER = '<!-- /region of interest -->';
+
+JSDOM.fromURL("https://example.com/", {
+    beforeParse(window, html) {
+      let startMarkerIndex = html.indexOf(ROI_START_MARKER),
+          endMarkerIndex = (startMarkerIndex >= 0) ? html.indexOf(ROI_END_MARKER) : -1,
+          diff = endMarkerIndex - startMarkerIndex;
+        
+        if (diff > 0) {
+          return html.substr(startMarkerIndex, diff + ROI_END_MARKER.length);
+        }
+    }
+}).then(dom => {
+  console.log(dom.serialize());
+});
+```
+If `beforeParse` returns a string, it will be fed to the parser. In all other cases, the original HTML is used.
+
 
 ## `JSDOM` object API
 
