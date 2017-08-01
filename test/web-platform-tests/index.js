@@ -525,12 +525,5 @@ describe("Web Platform Tests", () => {
     "progress-events/tests/submissions/Samsung/firing-events-http-content-length.html",
     "progress-events/tests/submissions/Samsung/firing-events-http-no-content-length.html"
   ]
-  .filter(str => {
-    if (process.argv.indexOf('--prefix') !== -1) {
-      return str.startsWith(process.argv[process.argv.indexOf('--prefix') + 1]);
-    } else {
-      return true;
-    }
-  })
   .forEach(runWebPlatformTest);
 });
