@@ -8,8 +8,8 @@ describe("Web Platform Tests", () => {
   [
     // "dom/collections/HTMLCollection-as-proto-length-get-throws.html", // our brand checks can be evaded by this kind of clever code
     "dom/collections/HTMLCollection-empty-name.html",
-    // "dom/collections/HTMLCollection-supported-property-indices.html", // we're apparently not doing named vs. indexed properties right
-    // "dom/collections/HTMLCollection-supported-property-names.html", // names vs. ids priority and effect on enumeration order
+    "dom/collections/HTMLCollection-supported-property-indices.html",
+    "dom/collections/HTMLCollection-supported-property-names.html",
     "dom/nodes/CharacterData-appendData.html",
     "dom/nodes/CharacterData-deleteData.html",
     "dom/nodes/CharacterData-insertData.html",
@@ -21,6 +21,9 @@ describe("Web Platform Tests", () => {
     "dom/nodes/Document-createProcessingInstruction.html",
     "dom/nodes/Document-createProcessingInstruction-xhtml.xhtml",
     "dom/nodes/Document-createTextNode.html",
+    // "dom/nodes/Document-getElementById.html", // we cache IDs in insertion order
+    // "dom/nodes/Document-getElementsByTagName.html", // we are doing Unicode-aware lowercasing. should be ASCII instead
+    "dom/nodes/Document-getElementsByTagNameNS.html",
     "dom/nodes/Document-implementation.html",
     "dom/nodes/DocumentType-literal.html",
     "dom/nodes/DocumentType-literal-xhtml.xhtml",
@@ -30,6 +33,8 @@ describe("Web Platform Tests", () => {
     "dom/nodes/DOMImplementation-hasFeature.html",
     "dom/nodes/Element-classlist.html",
     "dom/nodes/Element-getElementsByClassName.html",
+    // "dom/nodes/Element-getElementsByTagName.html", // we are doing Unicode-aware lowercasing. should be ASCII instead
+    "dom/nodes/Element-getElementsByTagNameNS.html",
     "dom/nodes/Element-remove.html",
     "dom/nodes/attributes.html",
     "dom/nodes/getElementsByClassName-01.htm",
