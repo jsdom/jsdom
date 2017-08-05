@@ -10,7 +10,8 @@
     "padded-blocks": "off", // we like to add spaces around the main test block
     "no-multiple-empty-lines": "off", // some bug with the eslint-plugin-html package makes this spuriously trigger
     "camelcase": "off", // setting options like allow_uncaught_exception requires this
-    "no-implicit-globals": "off" // it doesn't much matter if we use top-level function declarations here
+    "no-implicit-globals": "off", // it doesn't much matter if we use top-level function declarations here
+    "new-cap": ["error", { "capIsNewExceptions": ["AddSearchProvider", "IsSearchProviderInstalled"] }] // window.external
   },
   "globals": {
     "EventWatcher": false,
