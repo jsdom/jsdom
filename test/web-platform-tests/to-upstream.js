@@ -76,6 +76,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "html/named-access-on-window/only-name.html",
     "html/named-access-on-window/removing.html",
     "html/obsolete/requirements-for-implementations/other-elements-attributes-and-apis/applets.html",
+    "html/obsolete/requirements-for-implementations/other-elements-attributes-and-apis/window-external.html",
     "html/semantics/document-metadata/the-link-element/stylesheet-appropriate-time-to-obtain.html",
     "html/semantics/forms/the-input-element/disabled-checkbox.html",
     "html/semantics/forms/the-option-element/option-ask-for-a-reset.html",
