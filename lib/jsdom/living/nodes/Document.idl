@@ -101,9 +101,9 @@ partial interface Document {
   [SameObject] readonly attribute HTMLCollection anchors;
   [SameObject] readonly attribute HTMLCollection applets;
 
-//  void clear();
-//  void captureEvents();
-//  void releaseEvents();
+  void clear();
+  void captureEvents();
+  void releaseEvents();
 
 //  [SameObject] readonly attribute HTMLAllCollection all;
 };
