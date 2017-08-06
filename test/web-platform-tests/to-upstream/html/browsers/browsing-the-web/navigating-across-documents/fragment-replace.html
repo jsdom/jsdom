@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>location.replace() with a fragment keeps history intact</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/#scroll-to-fragid">
+
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+setup({ allow_uncaught_exception: false });
+
+async_test(t => {
+  t.step_timeout(() => {
+    const startingLength = window.history.length;
+    // get three urls in the history
+    window.location.assign("#apple");
+    assert_equals(window.location.hash, "#apple", "Navigate to apple");
+    assert_equals(window.history.length, startingLength + 1, "Navigating to apple increments history.length");
+    window.location.assign("#bannana");
+    assert_equals(window.location.hash, "#bannana", "Navigate to bannana");
+    assert_equals(window.history.length, startingLength + 2, "Navigating to bannana increments history.length");
+    window.location.assign("#cat");
+    assert_equals(window.location.hash, "#cat", "Before");
+    assert_equals(window.history.length, startingLength + 3, "Navigating to cat increments history.length");
+    // go to middle history entry
+    window.history.back();
+    assert_equals(window.location.hash, "#cat", "Back is async");
+    t.step_timeout(() => {
+      assert_equals(window.location.hash, "#cat", "Back has a second async step");
+      t.step_timeout(() => {
+        assert_equals(window.location.hash, "#bannana", "After Back");
+        const historyLengthBefore = window.history.length;
+        // replace the middle entry
+        window.location.replace("#zebra");
+        assert_equals(window.location.hash, "#zebra", "After Replace");
+
+        // go forward, spec says this is a no-op because replacing with `#zebra` cleared `#cat`
+        // from the history. Actual result is that the url updates to `#cat` in real browsers.
+        // See https://github.com/whatwg/html/issues/2796
+        history.forward();
+        assert_equals(window.location.hash, "#zebra", "Forward is async");
+        t.step_timeout(() => {
+          assert_equals(window.location.hash, "#zebra", "Forward has a second async step");
+          t.step_timeout(() => {
+            assert_equals(window.location.hash, "#cat", "After Forward");
+            assert_equals(window.history.length, historyLengthBefore, "replacing does not change history length");
+            t.done();
+          }, 500);
+        }, 0);
+      }, 500);
+    }, 0);
+  }, 0);
+
+
+}, "simple case");
+</script>
