@@ -177,8 +177,17 @@ describe("Web Platform Tests", () => {
     // "html/semantics/forms/the-option-element/option-text-recurse.html", // our impl is wrong; see comments in HTMLOptionElement-impl.js
     "html/semantics/forms/the-option-element/option-text-spaces.html",
     // "html/semantics/forms/the-option-element/option-value.html", // our impl is wrong; see comments in HTMLOptionElement-impl.js
+    "html/semantics/forms/the-select-element/common-HTMLOptionsCollection-add.html",
+    "html/semantics/forms/the-select-element/common-HTMLOptionsCollection.html",
+    "html/semantics/forms/the-select-element/common-HTMLOptionsCollection-namedItem.html",
+    "html/semantics/forms/the-select-element/select-ask-for-reset.html",
     "html/semantics/forms/the-select-element/select-multiple.html",
+    "html/semantics/forms/the-select-element/select-named-getter.html",
+    "html/semantics/forms/the-select-element/select-remove.html",
     "html/semantics/forms/the-select-element/select-selectedOptions.html",
+    // "html/semantics/forms/the-select-element/select-validity.html", // validation not implemented
+    "html/semantics/forms/the-select-element/select-value.html",
+    "html/semantics/forms/the-select-element/selected-index.html",
     "html/semantics/forms/the-textarea-element/value-defaultValue-textContent.html",
     "html/semantics/disabled-elements/disabledElement.html",
     "html/semantics/document-metadata/the-base-element/base_about_blank.html",
