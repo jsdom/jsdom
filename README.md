@@ -355,6 +355,8 @@ In addition to supplying a string, the `JSDOM` constructor can also be supplied 
 
 This encoding sniffing also applies to `JSDOM.fromFile()` and `JSDOM.fromURL()`. In the latter case, just as in a browser, any `Content-Type` headers sent with the response will take priority.
 
+Note that in many cases supplying bytes in this fashion can be better than supplying a string. For example, if you attempt to use Node.js's `buffer.toString("utf-8")` API, Node.js will not strip any leading BOMs. If you then give this string to jsdom, it will interpret it verbatim, leaving the BOM intact. But jsdom's binary data decoding code will strip leading BOMs, just like a browser; in such cases, supplying `buffer` directly will give the desired result.
+
 ### Closing down a jsdom
 
 Timers in the jsdom (set by `window.setTimeout()` or `window.setInterval()`) will, by definition, execute code in the future in the context of the window. Since there is no way to execute code in the future without keeping the process alive, outstanding jsdom timers will keep your Node.js process alive. Similarly, since there is no way to execute code in the context of an object without keeping that object alive, outstanding jsdom timers will prevent garbage collection of the window on which they are scheduled.
