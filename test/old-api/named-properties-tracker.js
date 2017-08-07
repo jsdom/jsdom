@@ -17,7 +17,7 @@ describe("jsdom/named-properties-tracker", () => {
     const obj = {};
 
     assert.ok(NamedPropertiesTracker.get(obj) === null);
-    const tracker = NamedPropertiesTracker.create(obj, () => {
+    const tracker = NamedPropertiesTracker.create(obj, obj, () => {
       // doesn't matter this test
     });
     assert.ok(NamedPropertiesTracker.get(obj) === tracker);
@@ -25,7 +25,7 @@ describe("jsdom/named-properties-tracker", () => {
 
   specify("track() and untrack() should do nothing for empty names", () => {
     const obj = {};
-    const tracker = NamedPropertiesTracker.create(obj, () => {
+    const tracker = NamedPropertiesTracker.create(obj, obj, () => {
       // doesn't matter for this test
     });
 
@@ -40,7 +40,7 @@ describe("jsdom/named-properties-tracker", () => {
   specify("should define a getter which calls the resolver each time", () => {
     let state = "bar";
     const obj = {};
-    const tracker = NamedPropertiesTracker.create(obj, (object, name, values) => {
+    const tracker = NamedPropertiesTracker.create(obj, obj, (object, name, values) => {
       assert.ok(object === obj);
       assert.strictEqual(typeof values, "function");
       assert.ok(values() instanceof Set);
@@ -60,7 +60,7 @@ describe("jsdom/named-properties-tracker", () => {
   specify("the resolver should receive a `values` argument that is 'live'", () => {
     const obj = {};
     let liveValues;
-    const tracker = NamedPropertiesTracker.create(obj, (object, name, values) => {
+    const tracker = NamedPropertiesTracker.create(obj, obj, (object, name, values) => {
       liveValues = values;
       return "foo";
     });
@@ -81,7 +81,7 @@ describe("jsdom/named-properties-tracker", () => {
 
   specify("named properties should be enumerable", () => {
     const obj = {};
-    const tracker = NamedPropertiesTracker.create(obj, () => "bar");
+    const tracker = NamedPropertiesTracker.create(obj, obj, () => "bar");
 
     tracker.track("foo", 123);
     let found = false;
@@ -95,7 +95,7 @@ describe("jsdom/named-properties-tracker", () => {
 
   specify("named properties should be configurable", () => {
     const obj = {};
-    const tracker = NamedPropertiesTracker.create(obj, () => "bar");
+    const tracker = NamedPropertiesTracker.create(obj, obj, () => "bar");
 
     tracker.track("foo", 123);
     tracker.track("dog", 456);
@@ -112,7 +112,7 @@ describe("jsdom/named-properties-tracker", () => {
 
   specify("named properties should be settable", () => {
     const obj = {};
-    const tracker = NamedPropertiesTracker.create(obj, () => "bar");
+    const tracker = NamedPropertiesTracker.create(obj, obj, () => "bar");
 
     tracker.track("foo", 123);
     obj.foo = 10;
@@ -122,7 +122,7 @@ describe("jsdom/named-properties-tracker", () => {
 
   specify("a named property should not override an existing property", () => {
     const obj = {};
-    const tracker = NamedPropertiesTracker.create(obj, () => "bar");
+    const tracker = NamedPropertiesTracker.create(obj, obj, () => "bar");
 
     obj.foo = 10;
     tracker.track("foo", 123);
@@ -134,7 +134,7 @@ describe("jsdom/named-properties-tracker", () => {
 
   specify("a named property should not override an existing property, even if undefined", () => {
     const obj = {};
-    const tracker = NamedPropertiesTracker.create(obj, () => "bar");
+    const tracker = NamedPropertiesTracker.create(obj, obj, () => "bar");
 
     obj.foo = undefined;
     tracker.track("foo", 123);
@@ -153,7 +153,7 @@ describe("jsdom/named-properties-tracker", () => {
     }
     Abc.prototype.foo = 12345;
     const obj = new Abc();
-    const tracker = NamedPropertiesTracker.create(obj, () => "bar");
+    const tracker = NamedPropertiesTracker.create(obj, obj, () => "bar");
 
     tracker.track("foo", 123);
     assert.strictEqual(obj.foo, 12345);
@@ -164,7 +164,7 @@ describe("jsdom/named-properties-tracker", () => {
 
   specify("a named property should not override Object properties", () => {
     const obj = {};
-    const tracker = NamedPropertiesTracker.create(obj, () => "bar");
+    const tracker = NamedPropertiesTracker.create(obj, obj, () => "bar");
     const props = ["__proto__", "toString", "constructor", "hasOwnProperty", "isPrototypeOf"];
 
     for (const prop of props) {
@@ -176,7 +176,7 @@ describe("jsdom/named-properties-tracker", () => {
 
   specify("a named property that has been untracked should not be 'in' the object", () => {
     const obj = {};
-    const tracker = NamedPropertiesTracker.create(obj, () => "bla");
+    const tracker = NamedPropertiesTracker.create(obj, obj, () => "bla");
 
     tracker.track("foo", 123);
     tracker.untrack("foo", 123);

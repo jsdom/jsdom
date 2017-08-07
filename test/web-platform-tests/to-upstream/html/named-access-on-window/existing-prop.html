@@ -40,5 +40,16 @@ test(() => {
 
   assert_equals(window["user-val"], 5);
 }, "If a property is occupied by a named property but then the user sets it, the user's value shadows it");
+
+test(() => {
+  const img = document.createElement("img");
+  img.setAttribute("id", "undefined");
+  document.body.appendChild(img);
+
+  /* eslint-disable no-void */
+  assert_equals(undefined, void 0);
+  assert_equals(window.undefined, void 0);
+  /* eslint-enable no-void */
+}, "A named property should not be set if the property already exists in the proxy");
 </script>
 </body>
