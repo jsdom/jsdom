@@ -4,7 +4,7 @@ interface HTMLElement : Element {
   [Reflect] attribute DOMString lang;
 //  attribute boolean translate;
   attribute DOMString dir;
-//  [SameObject] readonly attribute DOMStringMap dataset;
+  [SameObject] readonly attribute DOMStringMap dataset;
 
   // user interaction
   [Reflect] attribute boolean hidden;
