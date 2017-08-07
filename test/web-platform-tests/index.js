@@ -6,6 +6,7 @@ const runWebPlatformTest = require("./run-web-platform-test.js")(path.resolve(__
 describe("Web Platform Tests", () => {
   /* eslint-disable max-len */
   [
+    "dom/collections/domstringmap-supported-property-names.html",
     // "dom/collections/HTMLCollection-as-proto-length-get-throws.html", // our brand checks can be evaded by this kind of clever code
     "dom/collections/HTMLCollection-empty-name.html",
     "dom/collections/HTMLCollection-supported-property-indices.html",
@@ -145,6 +146,14 @@ describe("Web Platform Tests", () => {
     "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-02.html",
     "html/dom/dynamic-markup-insertion/document-writeln/document.writeln-03.html",
     "html/dom/elements/global-attributes/classlist-nonstring.html",
+    "html/dom/elements/global-attributes/custom-attrs.html",
+    "html/dom/elements/global-attributes/data_unicode_attr.html",
+    // "html/dom/elements/global-attributes/dataset.html", // we only support HTML elements
+    "html/dom/elements/global-attributes/dataset-delete.html",
+    "html/dom/elements/global-attributes/dataset-enumeration.html",
+    "html/dom/elements/global-attributes/dataset-get.html",
+    // "html/dom/elements/global-attributes/dataset-prototype.html", // tests Object.prototype, which jsdom has trouble with due to VM globals
+    // "html/dom/elements/global-attributes/dataset-set.html", // buggy(?) test for \uF900
     "html/dom/elements/global-attributes/document-dir.html",
     "html/editing/focus/focus-management/focus-events.html",
     "html/editing/focus/focus-management/focus-event-targets-simple.html",
