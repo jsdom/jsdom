@@ -39,7 +39,7 @@ module.exports = function (testDir) {
       return;
     }
 
-    const python = childProcess.spawn("python", ["./serve", "--config", "../config.jsdom.json"], {
+    const python = childProcess.spawn("python", ["./wpt.py", "serve", "--config", "../config.jsdom.json"], {
       cwd: testDir,
       stdio: "inherit"
     });
@@ -66,8 +66,8 @@ module.exports = function (testDir) {
     specify({
       title: testPath,
       expectPromise: true,
-      // WPT also takes care of timeouts, this is an extra failsafe:
-      timeout: 60000,
+      // WPT also takes care of timeouts (maximum 60 seconds), this is an extra failsafe:
+      timeout: 70000,
       slow: 10000,
       skipIfBrowser: true,
       fn() {

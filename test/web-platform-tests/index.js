@@ -235,15 +235,15 @@ describe("Web Platform Tests", () => {
     "html/syntax/parsing/template/clearing-the-stack-back-to-a-given-context/clearing-stack-back-to-a-table-body-context.html",
     "html/syntax/parsing/template/clearing-the-stack-back-to-a-given-context/clearing-stack-back-to-a-table-context.html",
     "html/syntax/parsing/template/clearing-the-stack-back-to-a-given-context/clearing-stack-back-to-a-table-row-context.html",
-    "html/syntax/parsing/template/creating-an-element-for-the-token/template-owner-document.html",
+    // "html/syntax/parsing/template/creating-an-element-for-the-token/template-owner-document.html", // flaky on CI; possibly due to how we load iframes
     "html/webappapis/atob/base64.html",
     "html/webappapis/scripting/events/event-handler-attributes-body-window.html",
     "html/webappapis/scripting/events/event-handler-javascript.html",
     "html/webappapis/scripting/events/event-handler-processing-algorithm.html",
     "html/webappapis/scripting/events/event-handler-spec-example.html",
     "html/webappapis/scripting/events/eventhandler-cancellation.html",
-    // "html/webappapis/scripting/events/inline-event-handler-ordering.html", // TODO: enable once https://github.com/w3c/web-platform-tests/pull/6010 is fixed
-    // "html/webappapis/scripting/events/invalid-uncompiled-raw-handler-compiled-late.html", // TODO: enable once https://github.com/w3c/web-platform-tests/pull/6009 is fixed
+    // "html/webappapis/scripting/events/inline-event-handler-ordering.html", // https://github.com/tmpvar/jsdom/issues/1948
+    "html/webappapis/scripting/events/invalid-uncompiled-raw-handler-compiled-late.html",
     "html/webappapis/scripting/events/invalid-uncompiled-raw-handler-compiled-once.html",
     "html/webappapis/scripting/events/onerroreventhandler.html",
     "html/webappapis/scripting/events/uncompiled_event_handler_with_scripting_disabled.html",
@@ -276,7 +276,7 @@ describe("Web Platform Tests", () => {
     "dom/events/EventTarget-addEventListener.html",
     "dom/events/EventListenerOptions-capture.html",
     "dom/events/AddEventListenerOptions-once.html",
-/*    "dom/events/AddEventListenerOptions-passive.html",*/
+    // "dom/events/AddEventListenerOptions-passive.html", // passive is not yet supported
     "dom/events/EventTarget-dispatchEvent-returnvalue.html",
     // "dom/events/EventTarget-dispatchEvent.html", // we don't support every event interface yet
     "dom/events/EventTarget-removeEventListener.html",
@@ -313,8 +313,8 @@ describe("Web Platform Tests", () => {
     // "FileAPI/url/url_xmlhttprequest.html", // URL.createObjectURL not implemented
     "XMLHttpRequest/FormData-append.html",
     "XMLHttpRequest/abort-after-receive.htm",
-    "XMLHttpRequest/abort-after-send.htm",
-    "XMLHttpRequest/abort-after-stop.htm",
+    // "XMLHttpRequest/abort-after-send.htm", // https://github.com/w3c/web-platform-tests/issues/6940
+    // "XMLHttpRequest/abort-after-stop.htm", // https://github.com/w3c/web-platform-tests/issues/6942
     "XMLHttpRequest/abort-after-timeout.htm",
     "XMLHttpRequest/abort-during-done.htm",
     "XMLHttpRequest/abort-during-open.htm",
@@ -381,7 +381,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/open-url-multi-window.htm",
     "XMLHttpRequest/open-url-multi-window-2.htm",
     "XMLHttpRequest/open-url-multi-window-3.htm",
-    "XMLHttpRequest/open-url-multi-window-4.htm",
+    // "XMLHttpRequest/open-url-multi-window-4.htm", // https://github.com/w3c/web-platform-tests/issues/6941
     // "XMLHttpRequest/open-url-multi-window-5.htm", // location.reload is not implemented
     // "XMLHttpRequest/open-url-worker-origin.htm", // needs Worker implementation
     // "XMLHttpRequest/open-url-worker-simple.htm", // needs Worker implementation
@@ -404,11 +404,11 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/response-json.htm",
     "XMLHttpRequest/response-method.htm",
     "XMLHttpRequest/responseText-status.html",
-    // "XMLHttpRequest/responsetype.html",  // passes locally, and sometimes on Travis CI, but with a 60 second timeout often fails on CI
+    // "XMLHttpRequest/responsetype.html", // https://github.com/tmpvar/jsdom/issues/1833
     "XMLHttpRequest/responseurl.html",
     "XMLHttpRequest/responsexml-basic.htm",
-    // "XMLHttpRequest/responsexml-document-properties.htm", see https://github.com/w3c/web-platform-tests/issues/2668
-    "XMLHttpRequest/responsexml-media-type.htm",
+    // "XMLHttpRequest/responsexml-document-properties.htm", https://github.com/w3c/web-platform-tests/issues/2668
+    // "XMLHttpRequest/responsexml-media-type.htm", // https://github.com/tmpvar/jsdom/issues/1833
     "XMLHttpRequest/responsexml-non-document-types.htm",
     // "XMLHttpRequest/responsexml-non-well-formed.htm", // xml parsing is not strict
     "XMLHttpRequest/security-consideration.sub.html",
@@ -433,7 +433,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/send-data-unexpected-tostring.htm",
     // "XMLHttpRequest/send-entity-body-basic.htm", // needs URLSearchParams implementation
     // "XMLHttpRequest/send-entity-body-document-bogus.htm", // needs proper XML serializer
-    // "XMLHttpRequest/send-entity-body-document.htm",  // passes locally, and sometimes on Travis CI, but with a 60 second timeout often fails on CI
+    // "XMLHttpRequest/send-entity-body-document.htm", // https://github.com/tmpvar/jsdom/issues/1833
     // "XMLHttpRequest/send-entity-body-empty.htm", // hard to get Node to not send Content-Length
     // "XMLHttpRequest/send-entity-body-get-head-async.htm", // hard to get Node to not send Content-Length
     // "XMLHttpRequest/send-entity-body-get-head.htm", // hard to get Node to not send Content-Length
@@ -467,8 +467,8 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/send-timeout-events.htm",
     // "XMLHttpRequest/send-usp.html", // needs URLSearchParams implementation
     "XMLHttpRequest/setrequestheader-after-send.htm",
-    "XMLHttpRequest/setrequestheader-allow-empty-value.htm",
-    "XMLHttpRequest/setrequestheader-allow-whitespace-in-value.htm",
+    // "XMLHttpRequest/setrequestheader-allow-empty-value.htm", // something goes wrong with empty headers https://github.com/tmpvar/jsdom/issues/1949
+    // "XMLHttpRequest/setrequestheader-allow-whitespace-in-value.htm", // something goes wrong with empty headers https://github.com/tmpvar/jsdom/issues/1949
     "XMLHttpRequest/setrequestheader-before-open.htm",
     "XMLHttpRequest/setrequestheader-bogus-name.htm",
     "XMLHttpRequest/setrequestheader-bogus-value.htm",
@@ -478,7 +478,7 @@ describe("Web Platform Tests", () => {
     "XMLHttpRequest/setrequestheader-header-forbidden.htm",
     "XMLHttpRequest/setrequestheader-open-setrequestheader.htm",
     "XMLHttpRequest/status-async.htm",
-    // "XMLHttpRequest/status-basic.htm", // passes locally, and sometimes on Travis CI, but with a 60 second timeout often fails on CI
+    // "XMLHttpRequest/status-basic.htm", // https://github.com/tmpvar/jsdom/issues/1833
     "XMLHttpRequest/status-error.htm",
     "XMLHttpRequest/timeout-cors-async.htm",
     "XMLHttpRequest/timeout-sync.htm",
@@ -501,11 +501,11 @@ describe("Web Platform Tests", () => {
     // "XMLHttpRequest/xmlhttprequest-timeout-worker-twice.html", // needs worker implementation
     "XMLHttpRequest/xmlhttprequest-unsent.htm",
     "XMLHttpRequest/XMLHttpRequest-withCredentials.any.html",
-    // "cors/allow-headers.htm",  // passes locally, and sometimes on Travis CI, but with a 60 second timeout often fails on CI
+    // "cors/allow-headers.htm", // https://github.com/tmpvar/jsdom/issues/1833
     "cors/basic.htm",
     "cors/credentials-flag.htm",
-    // "cors/late-upload-events.htm", // I don't know how to fix this one
-    // "cors/origin.htm", // passes locally, and sometimes on Travis CI, but with a 60 second timeout often fails on CI
+    "cors/late-upload-events.htm",
+    // "cors/origin.htm", // https://github.com/tmpvar/jsdom/issues/1833
     // "cors/preflight-cache.htm", // cache should probably be implemented for simple requests before
     "cors/redirect-origin.htm",
     "cors/redirect-preflight.htm",
@@ -516,13 +516,13 @@ describe("Web Platform Tests", () => {
     "cors/request-headers.htm",
     // "cors/response-headers.htm", // I don't find a spec about combining same value response headers
                                     // and slow synchronous requests cause a timeout on an asynchronous test
-    // "cors/simple-requests.htm", // slow synchronous requests cause a timeout on an asynchronous test too
+    // "cors/simple-requests.htm", // Maybe https://github.com/tmpvar/jsdom/issues/1833, but fails locally too
     "cors/status-async.htm",
     "cors/status-preflight.htm",
     "cors/status.htm",
 
     "progress-events/constructor.html",
-    // "progress-events/interface.html", // https://github.com/jsdom/webidl2js/issues/27
+    "progress-events/interface.html",
     "progress-events/tests/submissions/Samsung/firing-events-http-content-length.html",
     "progress-events/tests/submissions/Samsung/firing-events-http-no-content-length.html"
   ]
