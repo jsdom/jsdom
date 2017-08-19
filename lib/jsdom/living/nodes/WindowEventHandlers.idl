@@ -1,3 +1,4 @@
+[NoInterfaceObject]
 interface WindowEventHandlers {
   attribute EventHandler onafterprint;
   attribute EventHandler onbeforeprint;
