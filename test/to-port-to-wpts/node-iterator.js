@@ -48,14 +48,14 @@ function removeAndReinsert(node) {
 
 exports["createNodeIterator(): should throw if the first argument is missing"] = t => {
   const doc = load("test");
-  t.throws(() => doc.createNodeIterator(), /not enough arguments/i);
+  t.throws(() => doc.createNodeIterator(), TypeError);
   t.done();
 };
 
-exports["createNodeIterator(): should throw if the filter argument is not a function or NodeFilter"] = t => {
+exports["createNodeIterator(): should not throw yet if the filter argument is not a function or NodeFilter"] = t => {
   const doc = load("test");
 
-  t.throws(() => doc.createNodeIterator(doc, -1, {}), /Argument.*NodeFilter/i);
+  doc.createNodeIterator(doc, -1, {});
   t.done();
 };
 
@@ -105,13 +105,13 @@ exports["too many concurrent iterators should throw when accessing the iterator"
     doc.createNodeIterator(doc)
   ];
 
-  t.throws(() => iterators[0].referenceNode, /no longer active/i);
+  t.throws(() => iterators[0].referenceNode, /no longer working/i);
 
-  t.throws(() => iterators[0].pointerBeforeReferenceNode, /no longer active/i);
+  t.throws(() => iterators[0].pointerBeforeReferenceNode, /no longer working/i);
 
-  t.throws(() => iterators[0].nextNode(), /no longer active/i);
+  t.throws(() => iterators[0].nextNode(), /no longer working/i);
 
-  t.throws(() => iterators[0].previousNode(), /no longer active/i);
+  t.throws(() => iterators[0].previousNode(), /no longer working/i);
 
   // Other getters / method should not fail because they
   // are not affected by removing steps
