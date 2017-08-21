@@ -11,6 +11,11 @@ describe("Web Platform Tests", () => {
     "dom/collections/HTMLCollection-empty-name.html",
     "dom/collections/HTMLCollection-supported-property-indices.html",
     "dom/collections/HTMLCollection-supported-property-names.html",
+    "dom/lists/DOMTokenList-Iterable.html",
+    // "dom/lists/DOMTokenList-coverage-for-attributes.html", // several DOMTokenList attributes have not been implemented yet
+    // "dom/lists/DOMTokenList-iteration.html", // the test checks a builtin method is from the jsdom context
+    "dom/lists/DOMTokenList-stringifier.html",
+    "dom/lists/DOMTokenList-value.html",
     "dom/nodes/CharacterData-appendData.html",
     "dom/nodes/CharacterData-deleteData.html",
     "dom/nodes/CharacterData-insertData.html",
