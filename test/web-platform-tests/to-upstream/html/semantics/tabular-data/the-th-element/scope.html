@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<title>HTMLTableCellElement.scope (for &lt;th&gt;)</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/tables.html#attr-th-scope">
+<link rel="author" title="Timothy Gu" href="mailto:timothygu99@gmail.com">
+<!-- This test is redundant with the reflection tests in WPT, but since we can't run partial tests (yet), it's good to
+  have here. -->
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="log"></div>
+<script>
+"use strict";
+test(() => {
+  const th = document.createElement("th");
+  assert_true("scope" in th, '"scope" in th');
+}, "scope should exist");
+
+test(() => {
+  const th = document.createElement("th");
+  assert_equals(th.getAttribute("scope"), null, "underlying attribute should be null");
+  assert_equals(th.scope, "", "scope getter should return the empty string");
+}, "Default state");
+
+test(() => {
+  const th = document.createElement("th");
+  th.scope = "not-a-valid-state";
+  assert_equals(th.getAttribute("scope"), "not-a-valid-state", "underlying attribute should be changed");
+  assert_equals(th.scope, "", "scope getter should return empty string");
+}, "Setting scope to invalid state");
+
+test(() => {
+  const th = document.createElement("th");
+  for (const keyword of ["row", "col", "rowgroup", "colgroup", "roW", "ROW"]) {
+    th.scope = keyword;
+    assert_equals(th.getAttribute("scope"), keyword, "underlying attribute should be changed");
+    assert_equals(th.scope, keyword.toLowerCase(), "scope getter should return attribute, lower cased");
+  }
+}, "Setting scope to valid state");
+</script>
