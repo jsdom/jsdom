@@ -1,3 +1,26 @@
+## 11.2.0
+
+This release brings with it a much-awaited infrastructure change, as part of [webidl2js v7.3.0](https://github.com/jsdom/webidl2js/releases/tag/v7.3.0) by the ever-amazing TimothyGu: jsdom can now generate spec-compliant versions of classes that have "`Proxy`-like" behavior, i.e. allow getting or setting keys in unusual ways. This enables a number of improvements, also by TimothyGu:
+
+* Significantly improved the spec-compliance and "liveness" of both `NodeList` and `HTMLCollection`, such that retrieving properties via indices or (in `HTMLCollection`'s case) `id`/`name` values will always work correctly.
+* Added `element.dataset` support.
+* Added indexed and named access to `<select>` elements, as well as the corresponding `item()` and `namedItem()` methods.
+* Added suport for `FileList` indexed properties, i.e. `fileList[i]`.
+* Made `select.options` an instance of the newly-implemented `HTMLOptionsCollection`, instead of just a `HTMLCollection`.
+
+This infrastructure will allow us to improve and implement many other similar behaviors; that work is being tracked in [#1129](https://github.com/tmpvar/jsdom/issues/1129).
+
+In addition to these improvements to the object model, we have more work to share:
+
+* Added no-op APIs `document.clear()`, `document.captureEvents()`, `document.releaseEvents()`, `window.external.AddSearchProvider()`, and `window.external.IsSearchProviderInstalled()`. (Zirro)
+* Added active checks to prevent reentrancy in `TreeWalker` and `NodeIterator`.
+* Updated the interaction between a `<textarea>`'s `value`, `defaultValue`, and `textContent` per [a recent spec change](https://github.com/whatwg/html/commit/5afbba1cf62ee01bc6af3fd220d01f3f7591a0fc)
+* Fixed elements with `id="undefined"` shadowing the `undefined` property of the global object. (TimothyGu)
+* Fixed matching in `getElementsByClassName()` to be ASCII case-insensitive, instead of using JavaScript's `toLowerCase()`.
+* Improved some behaviors around navigating to fragments. (ForbesLindesay)
+* Improved `XMLHttpRequest` and `FileReader` behavior, mainly around event handlers, `abort()`, and network errors.
+* Improved edge-case spec compliance of `NodeIterator`.
+
 ## 11.1.0
 
 * Added `javascript:` URL "navigation" via `window.location`, at least by evaluating the side effects. It still doesn't actually navigate anywhere. (ForbesLindesay)
