@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<title>HTMLTableCellElement (for &lt;td&gt;)</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/tables.html#the-td-element">
+<link rel="author" title="Timothy Gu" href="mailto:timothygu99@gmail.com">
+<!-- This test is redundant with the changes in
+  https://github.com/w3c/web-platform-tests/commit/5b6aa3d108eeb306a326465e87447b53dee68a13
+  but since we can't run partial tests (yet), it's good to have here. -->
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<div id="log"></div>
+<script>
+"use strict";
+test(() => {
+  const td = document.createElement("td");
+  assert_true(td instanceof HTMLTableCellElement, "td instanceof HTMLTableCellElement");
+}, "<td> is an instance of HTMLTableCellElement");
+
+test(() => {
+  const td = document.createElement("td");
+  assert_equals(Object.getPrototypeOf(td), HTMLTableCellElement.prototype,
+                "td.__proto__ === HTMLTableCellElement.prototype");
+}, "<td> is not an instance of a class inheriting HTMLTableCellElement");
+</script>
