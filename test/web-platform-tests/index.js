@@ -129,7 +129,7 @@ describe("Web Platform Tests", () => {
     "html/dom/documents/dom-tree-accessors/Document.getElementsByClassName-null-undef.html",
     "html/dom/documents/dom-tree-accessors/Element.getElementsByClassName-null-undef.html",
     "html/dom/documents/dom-tree-accessors/document.embeds-document.plugins-01.html",
-    // "html/dom/documents/dom-tree-accessors/document.forms.html", // something wonky with HTMLCollection
+    "html/dom/documents/dom-tree-accessors/document.forms.html",
     "html/dom/documents/dom-tree-accessors/document.getElementsByClassName-same.html",
     "html/dom/documents/dom-tree-accessors/document.head-01.html",
     "html/dom/documents/dom-tree-accessors/document.head-02.html",
