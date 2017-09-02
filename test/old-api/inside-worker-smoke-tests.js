@@ -55,9 +55,9 @@ describe("jsdom/inside-worker-smoke-tests", () => {
   });
 
   specify("execute scripts referring to global built-ins (GH-1175)", { async: true }, t => {
-    const document = jsdom.jsdom(`<!DOCTYPE html><script>
+    const document = jsdom.jsdom(`<!DOCTYPE html><body><script>
       document.body.textContent = Error.name + window.Object.name + NaN + ("undefined" in window);
-    </script>`);
+    </script></body>`);
 
     assert.strictEqual(document.body.textContent, "ErrorObjectNaNtrue");
     t.done();

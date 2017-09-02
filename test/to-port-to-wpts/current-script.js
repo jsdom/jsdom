@@ -10,8 +10,9 @@ exports["document.currentScript is null when not executing <script>"] = t => {
 
 exports["document.currentScript is currently executing <script> element"] = t => {
   t.expect(2);
-  const html = "<html><head><script src='./files/current-script.js'></script></head>" +
-               "<body><span id='test'>hello from html</span></body></html>";
+  const html = "<html><body>" +
+               "<span id='test'>hello from html</span><script src='./files/current-script.js'></script>" +
+               "</body></html>";
 
   const document = jsdom.jsdom(html, {
     url: toFileUrl(__filename),
