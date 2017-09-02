@@ -215,6 +215,7 @@ describe("jsdom/env", () => {
   specify("with configurable resource loader", { async: true }, t => {
     env({
       html: "<!DOCTYPE html><html><head><script src='foo.js'></script></head><body></body></html>",
+      url: "http://example.org/",
       resourceLoader(resource, callback) {
         callback(null, "window.resourceLoaderWasOverridden = true;");
       },
