@@ -254,7 +254,7 @@ describe("Web Platform Tests", () => {
     "html/semantics/tabular-data/the-table-element/tHead.html",
     "html/semantics/tabular-data/the-table-element/tFoot.html",
     "html/semantics/tabular-data/the-table-element/table-insertRow.html",
-    // "html/semantics/tabular-data/the-table-element/table-rows.html",
+    "html/semantics/tabular-data/the-table-element/table-rows.html",
     "html/syntax/serializing-html-fragments/outerHTML.html",
     // "html/syntax/parsing/html5lib_template.html", // no idea what's going on here
     "html/syntax/parsing/template/additions-to-foster-parenting/template-is-a-foster-parent-element.html",
