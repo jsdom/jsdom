@@ -220,6 +220,8 @@ describe("Web Platform Tests", () => {
     "html/semantics/document-metadata/the-base-element/base_href_unspecified.html",
     // "html/semantics/document-metadata/the-base-element/base_multiple.html", // we don't support navigation via <a target>
     "html/semantics/document-metadata/the-base-element/base_srcdoc.html",
+    "html/semantics/interactive-elements/the-details-element/details.html",
+    // "html/semantics/interactive-elements/the-details-element/toggleEvent.html", // needs task queuing
     "html/semantics/scripting-1/the-script-element/script-language-type.html",
     "html/semantics/scripting-1/the-script-element/script-languages-01.html",
     // "html/semantics/scripting-1/the-script-element/script-languages-02.html", // our script execution timing is off; see discussion in https://github.com/tmpvar/jsdom/pull/1406
