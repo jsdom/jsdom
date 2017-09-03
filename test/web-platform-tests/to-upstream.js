@@ -80,6 +80,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "html/obsolete/requirements-for-implementations/other-elements-attributes-and-apis/window-external.html",
     "html/semantics/document-metadata/the-link-element/stylesheet-appropriate-time-to-obtain.html",
     "html/semantics/forms/the-input-element/disabled-checkbox.html",
+    "html/semantics/forms/the-label-element/disabled-labeled-control.html",
     "html/semantics/forms/the-option-element/option-ask-for-a-reset.html",
     "html/semantics/forms/the-textarea-element/select.html",
     "html/semantics/forms/the-textarea-element/set-value-reset-selection.html",
