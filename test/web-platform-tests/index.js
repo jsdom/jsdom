@@ -125,6 +125,21 @@ describe("Web Platform Tests", () => {
     "html/browsers/history/the-location-interface/location_search.html",
     "html/browsers/offline/browser-state/navigator_online_online.html",
     // "html/browsers/windows/browsing-context-first-created.xhtml", // jsdom will try to feed <![CDATA[ to the script parser, causing errors
+    "html/dom/documents/dom-tree-accessors/document.getElementsByName/document.getElementsByName-interface.html",
+    "html/dom/documents/dom-tree-accessors/document.getElementsByName/document.getElementsByName-case-xhtml.xhtml",
+    "html/dom/documents/dom-tree-accessors/document.getElementsByName/document.getElementsByName-case.html",
+    "html/dom/documents/dom-tree-accessors/document.getElementsByName/document.getElementsByName-id-xhtml.xhtml",
+    "html/dom/documents/dom-tree-accessors/document.getElementsByName/document.getElementsByName-id.html",
+    "html/dom/documents/dom-tree-accessors/document.getElementsByName/document.getElementsByName-interface.html",
+    // "html/dom/documents/dom-tree-accessors/document.getElementsByName/document.getElementsByName-namespace-xhtml.xhtml", // Needs MathML and SVG support
+    // "html/dom/documents/dom-tree-accessors/document.getElementsByName/document.getElementsByName-namespace.html", // Needs MathML and SVG support
+    "html/dom/documents/dom-tree-accessors/document.getElementsByName/document.getElementsByName-newelements-xhtml.xhtml",
+    "html/dom/documents/dom-tree-accessors/document.getElementsByName/document.getElementsByName-newelements.html",
+    "html/dom/documents/dom-tree-accessors/document.getElementsByName/document.getElementsByName-null-undef-xhtml.xhtml",
+    "html/dom/documents/dom-tree-accessors/document.getElementsByName/document.getElementsByName-null-undef.html",
+    "html/dom/documents/dom-tree-accessors/document.getElementsByName/document.getElementsByName-param-xhtml.xhtml",
+    "html/dom/documents/dom-tree-accessors/document.getElementsByName/document.getElementsByName-param.html",
+    "html/dom/documents/dom-tree-accessors/document.getElementsByName/document.getElementsByName-same.html",
     "html/dom/documents/dom-tree-accessors/Document.body.html",
     "html/dom/documents/dom-tree-accessors/Document.getElementsByClassName-null-undef.html",
     "html/dom/documents/dom-tree-accessors/Element.getElementsByClassName-null-undef.html",
