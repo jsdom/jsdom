@@ -250,6 +250,7 @@ describe("Web Platform Tests", () => {
     "html/semantics/tabular-data/the-table-element/delete-caption.html",
     "html/semantics/tabular-data/the-table-element/insertRow-method-01.html",
     "html/semantics/tabular-data/the-table-element/insertRow-method-02.html",
+    "html/semantics/tabular-data/the-table-element/insertRow-method-03.html",
     "html/semantics/tabular-data/the-table-element/tBodies.html",
     "html/semantics/tabular-data/the-table-element/tHead.html",
     "html/semantics/tabular-data/the-table-element/tFoot.html",
