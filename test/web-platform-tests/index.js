@@ -231,7 +231,7 @@ describe("Web Platform Tests", () => {
     "html/semantics/scripting-1/the-template-element/template-element/template-descendant-frameset.html",
     "html/semantics/scripting-1/the-template-element/template-element/template-descendant-head.html",
     // "html/semantics/tabular-data/the-table-element/caption-methods.html",
-    // "html/semantics/tabular-data/the-table-element/createTBody.html",
+    "html/semantics/tabular-data/the-table-element/createTBody.html",
     "html/semantics/tabular-data/the-table-element/delete-caption.html",
     "html/semantics/tabular-data/the-table-element/insertRow-method-01.html",
     "html/semantics/tabular-data/the-table-element/insertRow-method-02.html",
