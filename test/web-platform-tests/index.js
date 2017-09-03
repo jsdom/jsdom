@@ -175,6 +175,10 @@ describe("Web Platform Tests", () => {
     "html/editing/focus/document-level-focus-apis/document-level-apis.html",
     "html/editing/focus/sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-default-value.html",
     // "html/infrastructure/urls/terminology-0/document-base-url.html", // we don't support srcdoc <base> correctly
+    // "html/obsolete/requirements-for-implementations/the-marquee-element-0/marquee-events.html", // events are not implemented
+    // "html/obsolete/requirements-for-implementations/the-marquee-element-0/marquee-loop.html", // only basic reflection is implemented
+    // "html/obsolete/requirements-for-implementations/the-marquee-element-0/marquee-scrollamount.html", // only basic reflection is implemented
+    // "html/obsolete/requirements-for-implementations/the-marquee-element-0/marquee-scrolldelay.html", // only basic reflection is implemented
     "html/obsolete/requirements-for-implementations/other-elements-attributes-and-apis/nothing.html",
     "html/semantics/forms/attributes-common-to-form-controls/disabled-elements-01.html",
     "html/semantics/forms/resetting-a-form/reset-form-2.html",
