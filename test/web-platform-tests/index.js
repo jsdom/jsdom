@@ -294,7 +294,7 @@ describe("Web Platform Tests", () => {
     "html/webappapis/scripting/events/event-handler-processing-algorithm.html",
     "html/webappapis/scripting/events/event-handler-spec-example.html",
     "html/webappapis/scripting/events/eventhandler-cancellation.html",
-    // "html/webappapis/scripting/events/inline-event-handler-ordering.html", // https://github.com/tmpvar/jsdom/issues/1948
+    "html/webappapis/scripting/events/inline-event-handler-ordering.html",
     "html/webappapis/scripting/events/invalid-uncompiled-raw-handler-compiled-late.html",
     "html/webappapis/scripting/events/invalid-uncompiled-raw-handler-compiled-once.html",
     "html/webappapis/scripting/events/onerroreventhandler.html",
