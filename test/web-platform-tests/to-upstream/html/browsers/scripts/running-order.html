@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title">Loading Order</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+const logs = [];
+window.addEventListener("load", () => {
+  logs.push("script.load-1");
+});
+logs.push("script-1");
+// eslint-disable-next-line no-unused-vars
+function loaded() {
+  logs.push("body.onload");
+}
+</script>
+</head>
+<body onload="loaded()">
+<script>
+window.addEventListener("load", () => {
+  logs.push("script.load-2");
+});
+logs.push("script-2");
+</script>
+</body>
+<script>
+window.addEventListener("load", () => {
+  logs.push("script.load-3");
+});
+logs.push("script-3");
+</script>
+<script>
+window.addEventListener("load", () => {
+  async_test(t => {
+    assert_array_equals(logs, [
+      "script-1",
+      "script-2",
+      "script-3",
+      "body.onload",
+      "script.load-1",
+      "script.load-2",
+      "script.load-3"
+    ]);
+    t.done();
+  }, "Should loading event handlers and script contents in correct order");
+});
+</script>
+</html>

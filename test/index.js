@@ -13,6 +13,7 @@ require("./api/options.js");
 require("./api/options-run-scripts.js");
 require("./api/resources.js");
 require("./api/virtual-console.js");
+require("./api/scripts.js");
 
 require("./old-api/cancel-requests.js");
 require("./old-api/cookie.js");

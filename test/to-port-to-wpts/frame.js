@@ -5,14 +5,14 @@ var toFileUrl = require('../util.js').toFileUrl(__dirname);
 
 exports.tests = {
   frame_parent: function(test) {
-    var window = jsdom.jsdom('<html><head>\
+    var window = jsdom.jsdom('<html><body>\
       <script>\
         aGlobal=1;\
         var iframe = document.createElement("iframe");\
         iframe.src = "' + toFileUrl('files/iframe.html') + '";\
         document.body.appendChild(iframe);\
       </script>\
-      </head><body></body></html>',
+      </body></html>',
       {
         features : {
           FetchExternalResources: ['script','iframe']
