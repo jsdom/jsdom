@@ -152,6 +152,15 @@ exports.tests = {
         done: function (err, window) {
           test.strictEqual(err, null, 'no errors should occur');
 
+          if (window.document.readyState === "loading") {
+            window.addEventListener("load", function() {
+              test.strictEqual(window.a, 'test', 'given src wasn\'t executed');
+              test.strictEqual(window.b, 'other', 'external script wasn\'t executed');
+              test.done();
+              app.close();
+            });
+            return;
+          }
           test.strictEqual(window.a, 'test', 'given src wasn\'t executed');
           test.strictEqual(window.b, 'other', 'external script wasn\'t executed');
 

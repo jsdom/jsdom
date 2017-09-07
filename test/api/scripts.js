@@ -11,13 +11,14 @@ describe("scripts", () => {
     readTestFixture("api/fixtures/scripts/running-order.html").then(html => {
       createWindow(context, html, logs => {
         expect(logs).deep.equal([
-          "script-1",
-          "script-2",
-          "script-3",
-          "body.onload",
-          "script.load-1",
-          "script.load-2",
-          "script.load-3"
+          "script-0 (readyState = loading)",
+          "script-1 (readyState = loading)",
+          "script-2 (readyState = loading)",
+          "document#DOMContentLoaded (readyState = interactive)",
+          "window#load-0 (readyState = complete)",
+          "body#onload (readyState = complete)",
+          "window#load-1 (readyState = complete)",
+          "window#load-2 (readyState = complete)"
         ]);
       });
     });

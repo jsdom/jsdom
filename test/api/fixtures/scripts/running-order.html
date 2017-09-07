@@ -2,26 +2,35 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title">Loading Order</title>
+<title>script test</title>
 <script>
-window.addEventListener("load", () => { console.log("script.load-1"); });
-console.log("script-1");
+console.log("script-0 (readyState = " + document.readyState + ")");
+window.addEventListener("load", () => {
+  console.log("window#load-0 (readyState = " + document.readyState + ")");
+});
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("document#DOMContentLoaded (readyState = " + document.readyState + ")");
+});
 function loaded() {
-  console.log('body.onload');
+  console.log("body#onload (readyState = " + document.readyState + ")");
 }
 </script>
 </head>
 <!-- The function loaded is not found on karma.
 <body onload="loaded()">
 -->
-<body onload="console.log('body.onload')">
+<body onload="console.log('body#onload (readyState = ' + document.readyState + ')')">
 <script>
-window.addEventListener("load", () => { console.log("script.load-2"); });
-console.log("script-2");
+console.log("script-1 (readyState = " + document.readyState + ")");
+window.addEventListener("load", () => {
+  console.log("window#load-1 (readyState = " + document.readyState + ")");
+});
 </script>
 </body>
 <script>
-window.addEventListener("load", () => { console.log("script.load-3"); });
-console.log("script-3");
+console.log("script-2 (readyState = " + document.readyState + ")");
+window.addEventListener("load", () => {
+  console.log("window#load-2 (readyState = " + document.readyState + ")");
+});
 </script>
 </html>
