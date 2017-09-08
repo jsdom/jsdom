@@ -24,6 +24,7 @@
     "content-type-parser": "^1.0.1",
     "cssom": ">= 0.3.2 < 0.4.0",
     "cssstyle": ">= 0.2.37 < 0.3.0",
+    "domexception": "^1.0.0",
     "escodegen": "^1.6.1",
     "html-encoding-sniffer": "^1.0.1",
     "nwmatcher": "^1.4.1",

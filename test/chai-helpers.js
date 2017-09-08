@@ -1,7 +1,7 @@
 "use strict";
 // For: Mocha
 
-const exceptionTable = require("../lib/jsdom/web-idl/dom-exception-table.json");
+const DOMException = require("domexception");
 
 module.exports = (chai, util) => {
   const assert = chai.assert;
@@ -18,7 +18,7 @@ module.exports = (chai, util) => {
       flag(this, "message", message);
     }
     const fn = flag(this, "object");
-    const expectedCode = exceptionTable[name].legacyCodeValue;
+    const expectedCode = new DOMException("", name).code;
 
     new Assertion(fn, message).is.a("function");
 
