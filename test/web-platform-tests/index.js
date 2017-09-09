@@ -245,6 +245,7 @@ describe("Web Platform Tests", () => {
     "html/semantics/scripting-1/the-template-element/template-element/template-descendant-body.html",
     "html/semantics/scripting-1/the-template-element/template-element/template-descendant-frameset.html",
     "html/semantics/scripting-1/the-template-element/template-element/template-descendant-head.html",
+    "html/semantics/tabular-data/the-caption-element/caption_001.html",
     "html/semantics/tabular-data/the-table-element/caption-methods.html",
     "html/semantics/tabular-data/the-table-element/createTBody.html",
     "html/semantics/tabular-data/the-table-element/delete-caption.html",
@@ -267,6 +268,11 @@ describe("Web Platform Tests", () => {
     "html/semantics/tabular-data/the-tr-element/insertCell.html",
     "html/semantics/tabular-data/the-tr-element/rowIndex.html",
     "html/semantics/tabular-data/the-tr-element/sectionRowIndex.html",
+    // "html/semantics/text-level-semantics/the-a-element/a-stringifier.html", // https://github.com/jsdom/webidl2js/issues/67
+    "html/semantics/text-level-semantics/the-a-element/a.rel-getter-01.html",
+    "html/semantics/text-level-semantics/the-a-element/a.rel-setter-01.html",
+    "html/semantics/text-level-semantics/the-a-element/a.text-getter-01.html",
+    "html/semantics/text-level-semantics/the-a-element/a.text-setter-01.html",
     "html/syntax/serializing-html-fragments/outerHTML.html",
     // "html/syntax/parsing/html5lib_template.html", // no idea what's going on here
     "html/syntax/parsing/template/additions-to-foster-parenting/template-is-a-foster-parent-element.html",
