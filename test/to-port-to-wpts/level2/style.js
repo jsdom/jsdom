@@ -2,23 +2,28 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+
+const { assert } = require("chai");
+const { beforeEach, afterEach, describe, specify } = require("mocha-sugar-free");
+
 const jsdom = require("../../../lib/old-api.js");
 
-exports.tests = {
-
-  HTMLStyleElement01: function (test) {
+describe("level2/style", { skipIfBrowser: true }, () => {
+  specify("HTMLStyleElement01", (t) => {
     jsdom.env(
         "<html><head><style>p{color:red}</style></head><body>",
         function (err, win) {
       var style = win.document.head.lastChild;
-      test.equal(1, style.sheet.cssRules.length);
-      test.equal("p", style.sheet.cssRules[0].selectorText);
-      test.equal("red", style.sheet.cssRules[0].style.color);
-      test.done();
+      assert.equal(1, style.sheet.cssRules.length);
+      assert.equal("p", style.sheet.cssRules[0].selectorText);
+      assert.equal("red", style.sheet.cssRules[0].style.color);
+      t.done();
     });
-  },
+  }, {
+    async: true
+  });
 
-  HTMLStyleElement02: function(test) {
+  specify("HTMLStyleElement02", (t) => {
     var pageHTML = '<!doctype html><html><head>' +
         '<style>p { color: green; }</style><style>div { color: red; }</style>' +
         '</head><body></body></html>';
@@ -28,143 +33,155 @@ exports.tests = {
       html: pageHTML,
       src: removeScript,
       done: function(err, window) {
-        test.ifError(err);
-        test.equal(1, window.document.getElementsByTagName("style").length);
-        test.equal(1, window.document.styleSheets.length);
-        test.done();
+        assert.ifError(err);
+        assert.equal(1, window.document.getElementsByTagName("style").length);
+        assert.equal(1, window.document.styleSheets.length);
+        t.done();
       }
     });
-  },
+  }, {
+    async: true
+  });
 
-  HTMLStyleAttribute01: function (test) {
+  specify("HTMLStyleAttribute01", (t) => {
     jsdom.env(
         "<html><body><p style=\"color:red; background-color: blue\">",
         function (err, win) {
       var p = win.document.body.lastChild;
-      test.equal(2, p.style.length);
-      test.equal("color", p.style[0]);
-      test.equal("red", p.style.color);
-      test.equal("background-color", p.style[1]);
-      test.equal("blue", p.style.backgroundColor);
-      test.done();
+      assert.equal(2, p.style.length);
+      assert.equal("color", p.style[0]);
+      assert.equal("red", p.style.color);
+      assert.equal("background-color", p.style[1]);
+      assert.equal("blue", p.style.backgroundColor);
+      t.done();
     });
-  },
+  }, {
+    async: true
+  });
 
-  HTMLCanvasStyleAttribute01: function (test) {
+  specify("HTMLCanvasStyleAttribute01", (t) => {
     jsdom.env(
         "<html><body><canvas style=\"background-color: blue; z-index:1\">",
         function (err, win) {
       var c = win.document.body.lastChild;
-      test.equal(2, c.style.length);
-      test.equal("background-color", c.style[0]);
-      test.equal("blue", c.style.backgroundColor);
-      test.equal("z-index", c.style[1]);
-      test.equal(1, c.style.zIndex);
-      test.done();
+      assert.equal(2, c.style.length);
+      assert.equal("background-color", c.style[0]);
+      assert.equal("blue", c.style.backgroundColor);
+      assert.equal("z-index", c.style[1]);
+      assert.equal(1, c.style.zIndex);
+      t.done();
     });
-  },
+  }, {
+    async: true
+  });
 
-  StylePropertyReflectsStyleAttribute: function (test) {
+  specify("StylePropertyReflectsStyleAttribute", (t) => {
     jsdom.env(
         "",
         function (err, win) {
       var p = win.document.createElement("p");
       p.setAttribute("style", "color:red");
-      test.equal(1, p.style.length);
-      test.equal("color", p.style[0]);
-      test.equal("red", p.style.color);
+      assert.equal(1, p.style.length);
+      assert.equal("color", p.style[0]);
+      assert.equal("red", p.style.color);
       p.setAttribute("style", "");
-      test.equal(0, p.style.length);
-      test.equal("", p.style.color);
+      assert.equal(0, p.style.length);
+      assert.equal("", p.style.color);
       p.setAttribute("style", "color:blue");
-      test.equal("color", p.style[0]);
-      test.equal("blue", p.style.color);
-      test.done();
+      assert.equal("color", p.style[0]);
+      assert.equal("blue", p.style.color);
+      t.done();
     });
-  },
+  }, {
+    async: true
+  });
 
-  StyleAttributeReflectsStyleProperty: function (test) {
+  specify("StyleAttributeReflectsStyleProperty", (t) => {
     jsdom.env(
         "",
         function (err, win) {
       var p = win.document.createElement("p");
       p.style.setProperty("color", "red");
-      test.equal(p.getAttribute("style"), "color: red;");
+      assert.equal(p.getAttribute("style"), "color: red;");
       p.style.setProperty("width", "20px");
-      test.equal(p.getAttribute("style"), "color: red; width: 20px;");
+      assert.equal(p.getAttribute("style"), "color: red; width: 20px;");
       p.style.removeProperty("color");
-      test.equal(p.getAttribute("style"), "width: 20px;");
+      assert.equal(p.getAttribute("style"), "width: 20px;");
       p.style.removeProperty("width");
-      test.equal(p.getAttribute("style"), "");
+      assert.equal(p.getAttribute("style"), "");
       p.style.cssText = "background-color: blue; z-index: 12;";
-      test.equal(2, p.style.length);
-      test.equal("blue", p.style.backgroundColor);
-      test.equal("12", p.style.zIndex);
+      assert.equal(2, p.style.length);
+      assert.equal("blue", p.style.backgroundColor);
+      assert.equal("12", p.style.zIndex);
       p.style.removeProperty("z-index");
-      test.equal(1, p.style.length);
+      assert.equal(1, p.style.length);
       p.style.backgroundColor = "green";
-      test.equal("background-color: green;", p.style.cssText);
-      test.equal("background-color", p.style.item(0));
-      test.done();
+      assert.equal("background-color: green;", p.style.cssText);
+      assert.equal("background-color", p.style.item(0));
+      t.done();
     });
-  },
+  }, {
+    async: true
+  });
 
-  StyleShorthandProperties: function (test) {
+  specify("StyleShorthandProperties", (t) => {
     jsdom.env(
         "",
         function (err, win) {
       var p = win.document.createElement("p");
       p.style.border = "1px solid black";
-      test.equal(1, p.style.length);
-      test.equal("1px solid black", p.style.border);
-      test.equal("1px", p.style.borderWidth);
-      test.equal("solid", p.style.borderStyle);
-      test.equal("black", p.style.borderColor);
-      test.equal("border: 1px solid black;", p.style.cssText);
-      test.equal('<p style="border: 1px solid black;"></p>', p.outerHTML);
-      test.done();
+      assert.equal(1, p.style.length);
+      assert.equal("1px solid black", p.style.border);
+      assert.equal("1px", p.style.borderWidth);
+      assert.equal("solid", p.style.borderStyle);
+      assert.equal("black", p.style.borderColor);
+      assert.equal("border: 1px solid black;", p.style.cssText);
+      assert.equal('<p style="border: 1px solid black;"></p>', p.outerHTML);
+      t.done();
     });
-  },
+  }, {
+    async: true
+  });
 
-  retainOriginalStyleAttributeUntilStyleGetter: function (test) {
+  specify("retainOriginalStyleAttributeUntilStyleGetter", (t) => {
     jsdom.env(
         "",
         function (err, win) {
           var document = win.document;
           var div = document.createElement("div");
           div.setAttribute("style", "font-weight: bold; font-weight: normal;");
-          test.equal(div.getAttribute("style"), "font-weight: bold; font-weight: normal;");
+          assert.equal(div.getAttribute("style"), "font-weight: bold; font-weight: normal;");
           div.innerHTML = "<div style=\"color: red; color: blue;\"></div>";
-          test.equal(div.innerHTML, "<div style=\"color: red; color: blue;\"></div>");
-          test.equal(div.firstChild.getAttribute("style"), "color: red; color: blue;");
+          assert.equal(div.innerHTML, "<div style=\"color: red; color: blue;\"></div>");
+          assert.equal(div.firstChild.getAttribute("style"), "color: red; color: blue;");
           div.firstChild.style.color = "maroon";
-          test.equal(div.firstChild.getAttribute("style"), "color: maroon;");
-          test.done();
+          assert.equal(div.firstChild.getAttribute("style"), "color: maroon;");
+          t.done();
         }
      );
-  },
+  }, {
+    async: true
+  });
 
-  getComputedStyleFromDefaultStylesheet1: function (test) {
+  specify("getComputedStyleFromDefaultStylesheet1", () => {
     // browsers have default stylesheets, see https://github.com/tmpvar/jsdom/issues/994
     var doc = jsdom.jsdom("<html><head></head><body><div></div></body></html>");
     var win = doc.defaultView;
     var div = doc.getElementsByTagName("div")[0];
     var cs = win.getComputedStyle(div);
-    test.equal(cs.display, "block", "computed display of div is block by default");
-    test.done();
-  },
+    assert.equal(cs.display, "block", "computed display of div is block by default");
+  });
 
-  getComputedStyleFromDefaultStylesheet2: function (test) {
+  specify("getComputedStyleFromDefaultStylesheet2", () => {
     // browsers have default stylesheets, see https://github.com/tmpvar/jsdom/issues/994
     var doc = jsdom.jsdom("<html><head></head><body><ul></ul></body></html>");
     var win = doc.defaultView;
     var ul = doc.getElementsByTagName("ul")[0];
     var cs = win.getComputedStyle(ul);
-    test.equal(cs.display, "block", "computed display of ul is block by default");
-    test.done();
-  },
+    assert.equal(cs.display, "block", "computed display of ul is block by default");
+  });
 
-  getComputedStyleFromDefaultStylesheet3: function (test) {
+  specify("getComputedStyleFromDefaultStylesheet3", (t) => {
     // browsers have default stylesheets, see https://github.com/tmpvar/jsdom/issues/994
     var doc = jsdom.jsdom("<html><head><style>div{display:none}</style></head>" +
                           "<body><div></div></body></html>");
@@ -173,15 +190,17 @@ exports.tests = {
                     function (window, jQuery) {
       var div = jQuery("div");
       var cs = win.getComputedStyle(div.get(0));
-      test.equal(cs.display, "none", "computed display of hidden should is none");
+      assert.equal(cs.display, "none", "computed display of hidden should is none");
       div.show();
       cs = win.getComputedStyle(div.get(0));
-      test.equal(cs.display, "block", "computed display of shown div is block");
-      test.done();
+      assert.equal(cs.display, "block", "computed display of shown div is block");
+      t.done();
     });
-  },
+  }, {
+    async: true
+  });
 
-  getComputedStyleInline: function (test) {
+  specify("getComputedStyleInline", () => {
     var doc = jsdom.jsdom();
     var win = doc.defaultView;
     var style = doc.createElement("style");
@@ -191,11 +210,10 @@ exports.tests = {
     doc.body.appendChild(p);
     p = doc.getElementsByTagName("p")[0];
     var cs = win.getComputedStyle(p);
-    test.equal(cs.display, "none", "computed display of p is none");
-    test.done();
-  },
+    assert.equal(cs.display, "none", "computed display of p is none");
+  });
 
-  getComputedStyleFromEmbeddedSheet1: function (test) {
+  specify("getComputedStyleFromEmbeddedSheet1", () => {
     var doc = jsdom.jsdom(
       "<html><head><style>#id1 .clazz { margin-left: 100px; }</style></head><body>" +
       "<div id=\"id1\"><p class=\"clazz\"></p></div>" +
@@ -203,11 +221,10 @@ exports.tests = {
     var win = doc.defaultView;
     var p = doc.getElementsByTagName("p")[0];
     var cs = win.getComputedStyle(p);
-    test.equal(cs.marginLeft, "100px", "computed marginLeft of p[0] is 100px");
-    test.done();
-  },
+    assert.equal(cs.marginLeft, "100px", "computed marginLeft of p[0] is 100px");
+  });
 
-  getComputedStyleFromEmbeddedSheet2: function (test) {
+  specify("getComputedStyleFromEmbeddedSheet2", () => {
     // use grouping, see http://www.w3.org/TR/CSS2/selector.html#grouping
     var doc = jsdom.jsdom(
         "<html><head><style>#id1 .clazz, #id2 .clazz { margin-left: 100px; }</style></head><body>" +
@@ -217,15 +234,14 @@ exports.tests = {
     var win = doc.defaultView;
     var p = doc.getElementsByTagName("p")[0];
     var cs = win.getComputedStyle(p);
-    test.equal(cs.marginLeft, "100px", "computed marginLeft of p[0] is 100px");
+    assert.equal(cs.marginLeft, "100px", "computed marginLeft of p[0] is 100px");
 
     p = doc.getElementsByTagName("p")[1];
     cs = win.getComputedStyle(p);
-    test.equal(cs.marginLeft, "100px", "computed marginLeft of p[1] is 100px");
-    test.done();
-  },
+    assert.equal(cs.marginLeft, "100px", "computed marginLeft of p[1] is 100px");
+  });
 
-  getComputedStyleFromEmbeddedSheet3: function (test) {
+  specify("getComputedStyleFromEmbeddedSheet3", () => {
     // use grouping with embedded quotes and commas, see https://github.com/tmpvar/jsdom/pull/541#issuecomment-18114747
     var doc = jsdom.jsdom(
         "<html><head><style>#id1 .clazz, button[onclick=\"ga(this, event)\"], " +
@@ -237,15 +253,14 @@ exports.tests = {
     var win = doc.defaultView;
     var p = doc.getElementsByTagName("p")[1];
     var cs = win.getComputedStyle(p);
-    test.equal(cs.marginLeft, "100px", "computed marginLeft of p[1] is 100px");
+    assert.equal(cs.marginLeft, "100px", "computed marginLeft of p[1] is 100px");
 
     var button = doc.getElementsByTagName("button")[0];
     cs = win.getComputedStyle(button);
-    test.equal(cs.marginLeft, "100px", "computed marginLeft of button[0] is 100px");
-    test.done();
-  },
+    assert.equal(cs.marginLeft, "100px", "computed marginLeft of button[0] is 100px");
+  });
 
-  ensureRelativeStylesheetFilesAreLoaded: function (test) {
+  specify("ensureRelativeStylesheetFilesAreLoaded", (t) => {
     var server = http.createServer(function (req, res) {
       try {
         var content = String(fs.readFileSync(path.resolve(__dirname, "style", req.url.substring(1))));
@@ -270,22 +285,24 @@ exports.tests = {
       created: function (error, win) {
         jsdom.getVirtualConsole(win).on("error", function (message) {
           console.error(message);
-          test.ok(false, message);
+          assert.ok(false, message);
         });
       },
       done: function (error, win) {
         setTimeout(function () { // HACK: style imports haven"t been processed yet, different bug
           var doc = win.document;
           var style = win.getComputedStyle(doc.body);
-          test.equal(style.color, "red", "computed color of body is red");
+          assert.equal(style.color, "red", "computed color of body is red");
           server.close();
-          test.done();
+          t.done();
         }, 100);
       }
     });
-  },
+  }, {
+    async: true
+  });
 
-  ensureExternalStylesheetsAreLoadable: function (test) {
+  specify("ensureExternalStylesheetsAreLoadable", (t) => {
     var css = "body { border: 1px solid #f0f; }";
     var server = http.createServer(function (req, res) {
       res.writeHead(200, {
@@ -298,13 +315,15 @@ exports.tests = {
     server.listen(10099);
 
     jsdom.env(path.resolve(__dirname, "style/external_css.html"), function (err, win) {
-      test.ifError(err);
+      assert.ifError(err);
       server.close();
-      test.done();
+      t.done();
     });
-  },
+  }, {
+    async: true
+  });
 
-  getComputedStyleExternal: function (test) {
+  specify("getComputedStyleExternal", (t) => {
     var css = "div { color: red; }";
     var server = http.createServer(function (req, res) {
       res.writeHead(200, {
@@ -322,13 +341,15 @@ exports.tests = {
     doc.onload = function () {
       var div = doc.getElementsByTagName("div")[0];
       var style = win.getComputedStyle(div);
-      test.equal(style.color, "red", "computed color of div is red");
+      assert.equal(style.color, "red", "computed color of div is red");
       server.close();
-      test.done();
+      t.done();
     };
-  },
+  }, {
+    async: true
+  });
 
-  getComputedStyleWithBadSelectors: function (test) {
+  specify("getComputedStyleWithBadSelectors", (t) => {
     jsdom.env(
         "",
         function (err, win) {
@@ -339,41 +360,47 @@ exports.tests = {
           var p = doc.createElement("p");
           doc.body.appendChild(p);
           p = doc.getElementsByTagName("p")[0];
-          test.doesNotThrow(function () {
+          assert.doesNotThrow(function () {
             win.getComputedStyle(p);
           });
-          test.done();
+          t.done();
         }
     );
-  },
+  }, {
+    async: true
+  });
 
-  getComputedStyleWithMediaRules: function (test) {
+  specify("getComputedStyleWithMediaRules", (t) => {
     jsdom.env(
         "<html><head><style>@media screen,handheld { .citation { color: blue; } } " +
         "@media print { .citation { color: red; } }</style></head>" +
         "<body><p class=\"citation\">Hello</p></body></html>",
         function (err, win) {
           var style = win.getComputedStyle(win.document.querySelector(".citation"));
-          test.equal(style.color, "blue", "computed color of p is blue");
-          test.done();
+          assert.equal(style.color, "blue", "computed color of p is blue");
+          t.done();
         }
     );
-  },
+  }, {
+    async: true
+  });
 
-  getComputedStyleWithKeyframeRules: function (test) {
+  specify("getComputedStyleWithKeyframeRules", (t) => {
     jsdom.env(
         "<html><head><style>@-webkit-keyframes breaking {}</style></head>" +
         "<body><p>Hello</p></body></html>",
         function (err, win) {
-          test.doesNotThrow(function () {
+          assert.doesNotThrow(function () {
             win.getComputedStyle(win.document.querySelector("p"));
           });
-          test.done();
+          t.done();
         }
     );
-  },
+  }, {
+    async: true
+  });
 
-  setStyleToInvalidCSSSyntax: function (test) {
+  specify("setStyleToInvalidCSSSyntax", () => {
     const node = jsdom.jsdom().createElement("div");
 
     const invalidStyles = [
@@ -388,119 +415,111 @@ exports.tests = {
 
     invalidStyles.forEach(function (style) {
       node.setAttribute("style", "color: red");
-      test.doesNotThrow(function () {
+      assert.doesNotThrow(function () {
         node.setAttribute("style", style);
       });
-      test.strictEqual(node.getAttribute("style"), style);
-      test.strictEqual(node.style.color, "");
-      test.strictEqual(node.style.cssText, "");
+      assert.strictEqual(node.getAttribute("style"), style);
+      assert.strictEqual(node.style.color, "");
+      assert.strictEqual(node.style.cssText, "");
 
       node.style.cssText = "color: red";
-      test.doesNotThrow(function () {
+      assert.doesNotThrow(function () {
         node.style.cssText = style;
       });
-      test.strictEqual(node.style.color, "");
-      test.strictEqual(node.style.cssText, "");
+      assert.strictEqual(node.style.color, "");
+      assert.strictEqual(node.style.cssText, "");
     });
 
-    test.done();
-  },
+  });
 
-  getStyleSheetByItem: function (test) {
+  specify("getStyleSheetByItem", (t) => {
     jsdom.env(
         "<html><head><style>p{color:red}</style><style>div{color:green}</style></head><body>",
         function (err, win) {
           var sheets = win.document.styleSheets;
-          test.equal(2, sheets.length);
-          test.equal(sheets[0], sheets.item(0));
-          test.equal(sheets[1], sheets.item(1));
-          test.equal("red", sheets.item(0).cssRules[0].style.color);
-          test.equal("green", sheets.item(1).cssRules[0].style.color);
-          test.done();
+          assert.equal(2, sheets.length);
+          assert.equal(sheets[0], sheets.item(0));
+          assert.equal(sheets[1], sheets.item(1));
+          assert.equal("red", sheets.item(0).cssRules[0].style.color);
+          assert.equal("green", sheets.item(1).cssRules[0].style.color);
+          t.done();
         });
-  },
+  }, {
+    async: true
+  });
 
-  parseStyleWithBogusComment(t) {
+  specify("parseStyleWithBogusComment", () => {
     // https://github.com/tmpvar/jsdom/issues/1214
     const document = jsdom.jsdom(`<style>.block-title .block-title-inner a:visited { color: #48484d; } // MAIN MENU - (used to keep mobile menu options hidden and keep weather/search and menu on one line) // #tncms-region-nav-main-nav-right-nav { float:left; }</style>`);
     const window = document.defaultView;
 
     // Should not hang forever
     window.getComputedStyle(document.body);
+  });
 
-    t.done();
-  },
-
-  "padding and margin component properties work correctly (GH-1353)": t => {
+  specify("padding and margin component properties work correctly (GH-1353)", () => {
     const document = jsdom.jsdom();
 
     for (const prop of ["padding", "margin"]) {
       document.body.style[prop] = "1px 2px 3px 4px";
 
-      t.strictEqual(document.body.style[prop], "1px 2px 3px 4px");
-      t.strictEqual(document.body.style[prop + "Top"], "1px");
-      t.strictEqual(document.body.style[prop + "Right"], "2px");
-      t.strictEqual(document.body.style[prop + "Bottom"], "3px");
-      t.strictEqual(document.body.style[prop + "Left"], "4px");
+      assert.strictEqual(document.body.style[prop], "1px 2px 3px 4px");
+      assert.strictEqual(document.body.style[prop + "Top"], "1px");
+      assert.strictEqual(document.body.style[prop + "Right"], "2px");
+      assert.strictEqual(document.body.style[prop + "Bottom"], "3px");
+      assert.strictEqual(document.body.style[prop + "Left"], "4px");
 
       document.body.style[prop + "Top"] = "1em";
       document.body.style[prop + "Right"] = "2em";
       document.body.style[prop + "Bottom"] = "3em";
       document.body.style[prop + "Left"] = "4em";
-      t.strictEqual(document.body.style[prop], "1em 2em 3em 4em");
+      assert.strictEqual(document.body.style[prop], "1em 2em 3em 4em");
 
       document.body.style[prop] = "1mm";
-      t.strictEqual(document.body.style[prop], "1mm");
-      t.strictEqual(document.body.style[prop + "Top"], "1mm");
-      t.strictEqual(document.body.style[prop + "Right"], "1mm");
-      t.strictEqual(document.body.style[prop + "Bottom"], "1mm");
-      t.strictEqual(document.body.style[prop + "Left"], "1mm");
+      assert.strictEqual(document.body.style[prop], "1mm");
+      assert.strictEqual(document.body.style[prop + "Top"], "1mm");
+      assert.strictEqual(document.body.style[prop + "Right"], "1mm");
+      assert.strictEqual(document.body.style[prop + "Bottom"], "1mm");
+      assert.strictEqual(document.body.style[prop + "Left"], "1mm");
 
       document.body.style[prop] = "1% 2%";
-      t.strictEqual(document.body.style[prop], "1% 2%");
-      t.strictEqual(document.body.style[prop + "Top"], "1%");
-      t.strictEqual(document.body.style[prop + "Right"], "2%");
-      t.strictEqual(document.body.style[prop + "Bottom"], "1%");
-      t.strictEqual(document.body.style[prop + "Left"], "2%");
+      assert.strictEqual(document.body.style[prop], "1% 2%");
+      assert.strictEqual(document.body.style[prop + "Top"], "1%");
+      assert.strictEqual(document.body.style[prop + "Right"], "2%");
+      assert.strictEqual(document.body.style[prop + "Bottom"], "1%");
+      assert.strictEqual(document.body.style[prop + "Left"], "2%");
 
       document.body.style[prop] = "3pc 2pc 1pc";
-      t.strictEqual(document.body.style[prop], "3pc 2pc 1pc");
-      t.strictEqual(document.body.style[prop + "Top"], "3pc");
-      t.strictEqual(document.body.style[prop + "Right"], "2pc");
-      t.strictEqual(document.body.style[prop + "Bottom"], "1pc");
-      t.strictEqual(document.body.style[prop + "Left"], "2pc");
+      assert.strictEqual(document.body.style[prop], "3pc 2pc 1pc");
+      assert.strictEqual(document.body.style[prop + "Top"], "3pc");
+      assert.strictEqual(document.body.style[prop + "Right"], "2pc");
+      assert.strictEqual(document.body.style[prop + "Bottom"], "1pc");
+      assert.strictEqual(document.body.style[prop + "Left"], "2pc");
     }
+  });
 
-    t.done();
-  },
-
-  "StyleSheetList.prototype.item returns null on index out of bounds": t => {
+  specify("StyleSheetList.prototype.item returns null on index out of bounds", () => {
     const document = jsdom.jsdom();
-    t.strictEqual(document.styleSheets[0], undefined);
-    t.strictEqual(document.styleSheets.item(0), null);
-    t.done();
-  },
+    assert.strictEqual(document.styleSheets[0], undefined);
+    assert.strictEqual(document.styleSheets.item(0), null);
+  });
 
-  "setting background to null works correctly (GH-1499)": t => {
+  specify("setting background to null works correctly (GH-1499)", () => {
     const document = jsdom.jsdom();
     document.body.innerHTML = `<div id="ctrl" style="background:#111;border:1px"></div>`;
 
     const div = document.body.firstChild;
     div.style.background = null;
 
-    t.strictEqual(div.style.background, "");
+    assert.strictEqual(div.style.background, "");
+  });
 
-    t.done();
-  },
-
-  "setting width to auto works correctly (GH-1458)": t => {
+  specify("setting width to auto works correctly (GH-1458)", () => {
     const document = jsdom.jsdom();
 
     document.body.style.width = "auto";
 
-    t.strictEqual(document.body.style.width, "auto");
-    t.strictEqual(document.body.style.cssText, "width: auto;");
-
-    t.done();
-  }
-};
+    assert.strictEqual(document.body.style.width, "auto");
+    assert.strictEqual(document.body.style.cssText, "width: auto;");
+  });
+});

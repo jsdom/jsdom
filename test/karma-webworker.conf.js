@@ -1,6 +1,5 @@
 /* eslint no-process-env:0 no-console:0 */
 "use strict";
-// For: Mocha
 
 const path = require("path");
 const applyCIOptions = require("./karma-ci");

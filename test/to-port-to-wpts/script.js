@@ -1,11 +1,17 @@
-var jsdom = require('../../lib/old-api.js'),
-    path = require('path'),
-    fs = require('fs'),
-    http = require('http'),
-    jQueryPath = 'file:' + path.resolve(__dirname, '../jquery-fixtures/jquery-1.4.2.js');
+"use strict";
 
-exports.tests = {
-  scripts_share_a_global_context: function(test) {
+const path = require('path');
+const fs = require('fs');
+const http = require('http');
+
+const { assert } = require("chai");
+const { describe, specify } = require("mocha-sugar-free");
+
+const jsdom = require('../../lib/old-api.js');
+const jQueryPath = 'file:' + path.resolve(__dirname, '../jquery-fixtures/jquery-1.4.2.js');
+
+describe("script", { skipIfBrowser: true }, () => {
+  specify('scripts_share_a_global_context', () => {
     var window = jsdom.jsdom('\
       <html><head>\
       <script type="text/javascript">\
@@ -30,35 +36,38 @@ exports.tests = {
       </head><body></body></html>'
     ).defaultView;
 
-    test.equal(window.confirmTheLocalIsOnTheWindow, window.localOnWindow, 'local variables should be attached to the window');
-    test.equal(window.hello, "hello world", 'window should be the global context');
-    test.equal(window.bye, "goodbye", 'window should be the global context');
-    test.equal(window.abc, 123, 'local vars should not leak out to the window');
-    test.strictEqual(window.hidden, undefined, 'vars in a closure are safe');
-    test.equal(window.exposed, 'hidden', 'vars exposed to the window are global');
-    test.equal(window.imOnAWindow, true, 'setting this in the outer context should apply to the window');
-    test.equal(window.object.a, 1, 'prototypes should be maintained across contexts');
-    test.done();
-  },
+    assert.equal(window.confirmTheLocalIsOnTheWindow, window.localOnWindow, 'local variables should be attached to the window');
+    assert.equal(window.hello, "hello world", 'window should be the global context');
+    assert.equal(window.bye, "goodbye", 'window should be the global context');
+    assert.equal(window.abc, 123, 'local vars should not leak out to the window');
+    assert.strictEqual(window.hidden, undefined, 'vars in a closure are safe');
+    assert.equal(window.exposed, 'hidden', 'vars exposed to the window are global');
+    assert.equal(window.imOnAWindow, true, 'setting this in the outer context should apply to the window');
+    assert.equal(window.object.a, 1, 'prototypes should be maintained across contexts');
+  });
 
-  scripts_jquerify_have_jsdom_class: function(test) {
+  specify('scripts_jquerify_have_jsdom_class', (t) => {
     var window = jsdom.jsdom().defaultView;
     jsdom.jQueryify(window, jQueryPath, function (dom) {
-      test.ok(dom.window.$('script').hasClass("jsdom"));
-      test.done();
+      assert.ok(dom.window.$('script').hasClass("jsdom"));
+      t.done();
     });
-  },
+  }, {
+    async: true
+  });
 
-  scripts_env_have_jsdom_class: function(test) {
+  specify('scripts_env_have_jsdom_class', (t) => {
     var htmlString = '<html><head></head><body></body></html>';
 
     jsdom.env(htmlString, [jQueryPath] , function(error, dom) {
-      test.ok(dom.window.$('script').hasClass("jsdom"));
-      test.done();
+      assert.ok(dom.window.$('script').hasClass("jsdom"));
+      t.done();
     });
-  },
+  }, {
+    async: true
+  });
 
-  global_is_window_in_scripts: function(test){
+  specify('global_is_window_in_scripts', () => {
     var window = jsdom.jsdom('<html><head>\
       <script type="text/javascript">\
         var results=[window===this,\
@@ -68,15 +77,14 @@ exports.tests = {
       </script>\
       </head><body></body></html>').defaultView;
 
-    test.strictEqual(window.results[0], true, "window should equal global this");
-    test.strictEqual(window.results[1], true, "window should equal this.window");
-    test.strictEqual(window.results[2], true, "this should equal window.window");
-    test.strictEqual(window.results[3], true, "this should equal document.defaultView");
-    test.strictEqual(window.document.defaultView, window, "outside window context, document.defaultView should be window as well");
-    test.done();
-  },
+    assert.strictEqual(window.results[0], true, "window should equal global this");
+    assert.strictEqual(window.results[1], true, "window should equal this.window");
+    assert.strictEqual(window.results[2], true, "this should equal window.window");
+    assert.strictEqual(window.results[3], true, "this should equal document.defaultView");
+    assert.strictEqual(window.document.defaultView, window, "outside window context, document.defaultView should be window as well");
+  });
 
-  global_in_object_should_be_valid_in_other_scripts: function(test){
+  specify('global_in_object_should_be_valid_in_other_scripts', () => {
     var window = jsdom.jsdom('<html><head>\
       <script>\
         aGlobal={win:this};\
@@ -86,11 +94,10 @@ exports.tests = {
       </script>\
       </head><body></body></html>').defaultView;
 
-    test.strictEqual(window.appVersion, "Gecko");
-    test.done();
-  },
+    assert.strictEqual(window.appVersion, "Gecko");
+  });
 
-  window_functions: function(test){
+  specify('window_functions', () => {
     var window = jsdom.jsdom('<html><head>\
       <script>\
         function handle(){};\
@@ -102,42 +109,44 @@ exports.tests = {
         window.DONE=1;\
       </script>\
       </head><body></body></html>').defaultView;
-    test.strictEqual(window.DONE, 1);
-    test.done();
-  },
+    assert.strictEqual(window.DONE, 1);
+  });
 
-  script_execution_in_body : function(test) {
+  specify('script_execution_in_body', () => {
     var window, caught = false;
     var html = '<html><body>\
       <script>\
         document.body.innerHTML = "monkey"\
       </script></body></html>';
-    test.doesNotThrow(function() {
+    assert.doesNotThrow(function() {
       jsdom.jsdom(html).defaultView;
     })
-    test.done();
-  },
+  });
 
   // see: https://github.com/tmpvar/jsdom/issues/163
-  issue_163 : function(test) {
+  specify('issue_163', (t) => {
     jsdom.env('<a />', ['file:' + __dirname + '/files/163.js'], function(errors, window) {
-      test.ok(!errors, 'no errors');
-      test.ok(window.hasNativeObjects === true, 'window has the expected properties');
-      test.done();
+      assert.ok(!errors, 'no errors');
+      assert.ok(window.hasNativeObjects === true, 'window has the expected properties');
+      t.done();
     });
-  },
+  }, {
+    async: true
+  });
 
   // see: https://github.com/tmpvar/jsdom/issues/179
-  issue_179 : function(test) {
+  specify('issue_179', (t) => {
     jsdom.env('<a />', ['file:' + __dirname + '/files/179.js'], function(errors, window) {
-      test.ok(!errors, 'no errors');
-      test.ok(window.b === 42, 'local var gets hung off of the window');
-      test.ok(window.exposed === 42, 'read local var from window and exposed it');
-      test.done();
+      assert.ok(!errors, 'no errors');
+      assert.ok(window.b === 42, 'local var gets hung off of the window');
+      assert.ok(window.exposed === 42, 'read local var from window and exposed it');
+      t.done();
     });
-  },
+  }, {
+    async: true
+  });
 
-  env_external_scripts_with_src: function (test) {
+  specify('env_external_scripts_with_src', (t) => {
     var app = http.createServer(function (req, res) {
       fs.createReadStream(__dirname + '/files' + req.url).pipe(res);
     }).listen(0, function () {
@@ -150,19 +159,21 @@ exports.tests = {
           SkipExternalResources: false
         },
         done: function (err, window) {
-          test.strictEqual(err, null, 'no errors should occur');
+          assert.strictEqual(err, null, 'no errors should occur');
 
-          test.strictEqual(window.a, 'test', 'given src wasn\'t executed');
-          test.strictEqual(window.b, 'other', 'external script wasn\'t executed');
+          assert.strictEqual(window.a, 'test', 'given src wasn\'t executed');
+          assert.strictEqual(window.b, 'other', 'external script wasn\'t executed');
 
-          test.done();
+          t.done();
           app.close();
         }
       });
     });
-  },
+  }, {
+    async: true
+  });
 
-  env_external_scripts_no_src: function (test) {
+  specify('env_external_scripts_no_src', (t) => {
     var app = http.createServer(function (req, res) {
       fs.createReadStream(__dirname + '/files' + req.url).pipe(res);
     }).listen(0, function () {
@@ -174,22 +185,26 @@ exports.tests = {
           SkipExternalResources: false
         },
         done: function (err, window) {
-          test.strictEqual(err, null, 'no errors should occur');
-          test.strictEqual(window.b, 'other', 'external script wasn\'t executed');
+          assert.strictEqual(err, null, 'no errors should occur');
+          assert.strictEqual(window.b, 'other', 'external script wasn\'t executed');
 
-          test.done();
+          t.done();
           app.close();
         }
       });
     });
-  },
+  }, {
+    async: true
+  });
 
-  timer_executes_in_context : function (test) {
+  specify('timer_executes_in_context', (t) => {
     jsdom.env('<a />', ['file:' + __dirname + '/files/timer_in_context.js'], function (errors, window) {
       setTimeout(function () {
-        test.ok(window.x == 1);
-        test.done();
+        assert.ok(window.x == 1);
+        t.done();
       }, 1);
     });
-  }
-};
+  }, {
+    async: true
+  });
+});

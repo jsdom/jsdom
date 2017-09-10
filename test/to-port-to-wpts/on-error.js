@@ -1,221 +1,287 @@
 "use strict";
+
+const { assert } = require("chai");
+const { describe, specify } = require("mocha-sugar-free");
+
 const { jsdom, createVirtualConsole } = require("../../lib/old-api.js");
 const { toFileUrl, todo } = require("../util.js");
 
-exports["onerror catches exceptions thrown in addEventListener event handlers"] = t => {
-  const doc = jsdom("", { url: "http://example.com" });
+describe("on-error", () => {
+  specify(
+    "onerror catches exceptions thrown in addEventListener event handlers",
+    t => {
+      const doc = jsdom("", { url: "http://example.com" });
 
-  const error = new Error("oh no!");
-  doc.body.addEventListener("click", () => {
-    throw error;
-  });
+      const error = new Error("oh no!");
+      doc.body.addEventListener("click", () => {
+        throw error;
+      });
 
-  doc.defaultView.addEventListener("error", event => {
-    t.equal(event.message, "oh no!");
+      doc.defaultView.addEventListener("error", event => {
+        assert.equal(event.message, "oh no!");
 
-    todo(t, tt => { // TODO url parser
-      tt.ok(event.filename === toFileUrl(__filename), "filename equality");
+        todo(assert, tt => { // TODO url parser
+          tt.ok(event.filename === toFileUrl(__filename), "filename equality");
+        });
+
+        assert.ok(event.lineno > 0);
+        assert.ok(event.colno > 0);
+        assert.equal(event.error, error);
+        t.done();
+      });
+
+      doc.body.click();
+    },
+    {
+      async: true
+    }
+  );
+
+  specify(
+    "onerror property catches exceptions thrown in addEventListener event handlers",
+    t => {
+      const doc = jsdom("", { url: "http://example.com" });
+
+      const errorThrown = new Error("oh no!");
+      doc.body.addEventListener("click", () => {
+        throw errorThrown;
+      });
+
+      doc.defaultView.onerror = (message, filename, lineno, colno, error) => {
+        assert.equal(message, "oh no!");
+
+        todo(assert, tt => { // TODO url parser
+          tt.ok(filename === toFileUrl(__filename), "filename equality");
+        });
+
+        assert.ok(lineno > 0);
+        assert.ok(colno > 0);
+        assert.equal(error, errorThrown);
+        t.done();
+      };
+
+      doc.body.click();
+    },
+    {
+      async: true
+    }
+  );
+
+  specify(
+    "onerror catches exceptions thrown in addEventListener event handlers (multiline message)",
+    t => {
+      const doc = jsdom("", { url: "http://example.com" });
+
+      const error = new Error("oh\nno\n!");
+      doc.body.addEventListener("click", () => {
+        throw error;
+      });
+
+      doc.defaultView.addEventListener("error", event => {
+        todo(assert, tt => { // TODO url parser
+          tt.ok(event.filename === toFileUrl(__filename), "filename equality");
+        });
+
+        assert.ok(event.lineno > 0);
+        assert.ok(event.colno > 0);
+        assert.equal(event.error, error);
+        t.done();
+      });
+
+      doc.body.click();
+    },
+    {
+      async: true
+    }
+  );
+
+  specify("onerror catches exceptions thrown in inline event handlers", t => {
+    const doc = jsdom(`<body onclick="throw new Error('oh no!')"></body>`, { url: "http://example.com" });
+
+    doc.defaultView.addEventListener("error", event => {
+      assert.equal(event.message, "oh no!");
+      assert.equal(event.filename, "http://example.com/");
+      assert.ok(event.lineno > 0, "lineno set");
+      assert.ok(event.colno > 0, "colno set");
+      assert.ok(event.error);
+      t.done();
     });
 
-    t.ok(event.lineno > 0);
-    t.ok(event.colno > 0);
-    t.equal(event.error, error);
-    t.done();
+    doc.body.click();
+  }, {
+    async: true
   });
 
-  doc.body.click();
-};
+  specify(
+    "onerror catches exceptions thrown in inline event handler properties",
+    t => {
+      const doc = jsdom("", { url: "http://example.com" });
 
-exports["onerror property catches exceptions thrown in addEventListener event handlers"] = t => {
-  const doc = jsdom("", { url: "http://example.com" });
+      doc.body.onclick = () => {
+        throw new Error("oh no!");
+      };
 
-  const errorThrown = new Error("oh no!");
-  doc.body.addEventListener("click", () => {
-    throw errorThrown;
-  });
+      doc.defaultView.addEventListener("error", event => {
+        assert.equal(event.message, "oh no!", "message equality");
 
-  doc.defaultView.onerror = (message, filename, lineno, colno, error) => {
-    t.equal(message, "oh no!");
+        todo(assert, tt => { // TODO url parser
+          tt.ok(event.filename === toFileUrl(__filename), "filename equality");
+        });
 
-    todo(t, tt => { // TODO url parser
-      tt.ok(filename === toFileUrl(__filename), "filename equality");
+        assert.ok(event.lineno > 0, "lineno set");
+        assert.ok(event.colno > 0, "colno set");
+        assert.ok(event.error);
+        t.done();
+      });
+
+      doc.body.click();
+    },
+    {
+      async: true
+    }
+  );
+
+  specify("onerror catches exceptions thrown in sync script execution", t => {
+    const doc = jsdom("", { url: "http://example.com" });
+
+    doc.defaultView.addEventListener("error", event => {
+      assert.equal(event.message, "oh no!", "message equality");
+      assert.equal(event.filename, "http://example.com/");
+      assert.ok(event.lineno > 0, "lineno set");
+      assert.ok(event.colno > 0, "colno set");
+      assert.ok(event.error);
+      t.done();
     });
 
-    t.ok(lineno > 0);
-    t.ok(colno > 0);
-    t.equal(error, errorThrown);
-    t.done();
-  };
-
-  doc.body.click();
-};
-
-exports["onerror catches exceptions thrown in addEventListener event handlers (multiline message)"] = t => {
-  const doc = jsdom("", { url: "http://example.com" });
-
-  const error = new Error("oh\nno\n!");
-  doc.body.addEventListener("click", () => {
-    throw error;
+    doc.body.innerHTML = `<script>throw new Error("oh no!");</script>`;
+  }, {
+    async: true
   });
 
-  doc.defaultView.addEventListener("error", event => {
-    todo(t, tt => { // TODO url parser
-      tt.ok(event.filename === toFileUrl(__filename), "filename equality");
-    });
+  specify(
+    "onerror set during parsing catches exceptions thrown in sync script execution during parsing",
+    () => {
+      const doc = jsdom(`<script>
+        onerror = (message, filename, lineno, colno, error) => {
+          window.onerrorMessage = message;
+          window.onerrorFilename = filename;
+          window.onerrorLineno = lineno;
+          window.onerrorColno = colno;
+          window.onerrorError = error;
+        };
+        throw new Error("oh no!");
+      </script>`, { url: "http://example.com" });
 
-    t.ok(event.lineno > 0);
-    t.ok(event.colno > 0);
-    t.equal(event.error, error);
-    t.done();
-  });
+      assert.equal(doc.defaultView.onerrorMessage, "oh no!", "message equality");
+      assert.equal(doc.defaultView.onerrorFilename, "http://example.com/");
+      assert.ok(doc.defaultView.onerrorLineno > 0, "lineno set");
+      assert.ok(doc.defaultView.onerrorColno > 0, "colno set");
+      assert.ok(doc.defaultView.onerrorError);
+    }
+  );
 
-  doc.body.click();
-};
+  specify(
+    "unhandled Errors thrown in sync script excecution during parsing go to the virtual console",
+    t => {
+      const virtualConsole = createVirtualConsole();
+      virtualConsole.on("jsdomError", error => {
+        assert.ok(error instanceof Error);
+        assert.ok(error.message === "Uncaught [TypeError: oh no!]");
+        assert.equal(error.detail.constructor.name, "TypeError");
+        t.done();
+      });
 
-exports["onerror catches exceptions thrown in inline event handlers"] = t => {
-  const doc = jsdom(`<body onclick="throw new Error('oh no!')"></body>`, { url: "http://example.com" });
+      jsdom(`<script>throw new TypeError("oh no!")</script>`, { virtualConsole });
+    },
+    {
+      async: true
+    }
+  );
 
-  doc.defaultView.addEventListener("error", event => {
-    t.equal(event.message, "oh no!");
-    t.equal(event.filename, "http://example.com/");
-    t.ok(event.lineno > 0, "lineno set");
-    t.ok(event.colno > 0, "colno set");
-    t.ok(event.error);
-    t.done();
-  });
+  specify(
+    "unhandled non-Error exceptions thrown in sync script excecution during parsing go to the virtual console",
+    t => {
+      const virtualConsole = createVirtualConsole();
+      virtualConsole.on("jsdomError", error => {
+        assert.ok(error instanceof Error);
+        // Browserify hasn't caught up yet
+        assert.ok(error.message === "Uncaught Object {}" || error.message === "Uncaught {}");
+        assert.equal(typeof error.detail, "object");
+        assert.notEqual(error.detail, null);
+        t.done();
+      });
 
-  doc.body.click();
-};
+      jsdom(`<script>throw {}</script>`, { virtualConsole });
+    },
+    {
+      async: true
+    }
+  );
 
-exports["onerror catches exceptions thrown in inline event handler properties"] = t => {
-  const doc = jsdom("", { url: "http://example.com" });
+  specify(
+    "unhandled exceptions thrown in inline event handlers go to the virtual console",
+    t => {
+      const virtualConsole = createVirtualConsole();
+      virtualConsole.on("jsdomError", error => {
+        assert.ok(error instanceof Error);
+        assert.equal(error.message, "Uncaught [Error: oh no!]");
+        assert.equal(error.detail.constructor.name, "Error");
+        t.done();
+      });
 
-  doc.body.onclick = () => {
-    throw new Error("oh no!");
-  };
+      const doc = jsdom(`<body onclick="throw new Error('oh no!')"></body>`, { virtualConsole });
 
-  doc.defaultView.addEventListener("error", event => {
-    t.equal(event.message, "oh no!", "message equality");
+      doc.body.click();
+    },
+    {
+      async: true
+    }
+  );
 
-    todo(t, tt => { // TODO url parser
-      tt.ok(event.filename === toFileUrl(__filename), "filename equality");
-    });
+  specify(
+    "adding an onerror handler does not prevent errors from going to the virtual console",
+    t => {
+      const virtualConsole = createVirtualConsole();
+      virtualConsole.on("jsdomError", error => {
+        assert.ok(error instanceof Error);
+        assert.equal(error.message, "Uncaught [Error: oh no!]");
+        assert.equal(error.detail.constructor.name, "Error");
+        t.done();
+      });
 
-    t.ok(event.lineno > 0, "lineno set");
-    t.ok(event.colno > 0, "colno set");
-    t.ok(event.error);
-    t.done();
-  });
+      const doc = jsdom(`<body onclick="throw new Error('oh no!')"></body>`, { virtualConsole });
 
-  doc.body.click();
-};
+      doc.defaultView.onerror = () => {
+        // just a no-op handler to trigger the setter logic
+      };
 
-exports["onerror catches exceptions thrown in sync script execution"] = t => {
-  const doc = jsdom("", { url: "http://example.com" });
+      doc.body.click();
+    },
+    {
+      async: true
+    }
+  );
 
-  doc.defaultView.addEventListener("error", event => {
-    t.equal(event.message, "oh no!", "message equality");
-    t.equal(event.filename, "http://example.com/");
-    t.ok(event.lineno > 0, "lineno set");
-    t.ok(event.colno > 0, "colno set");
-    t.ok(event.error);
-    t.done();
-  });
+  specify(
+    "adding an onerror handler that returns true *does* prevent errors from going to the virtual console",
+    t => {
+      const virtualConsole = createVirtualConsole();
+      virtualConsole.on("jsdomError", () => {
+        assert.fail("should not get here");
+      });
 
-  doc.body.innerHTML = `<script>throw new Error("oh no!");</script>`;
-};
+      const doc = jsdom(`<body onclick="throw new Error('oh no!')"></body>`, { virtualConsole });
 
-exports["onerror set during parsing catches exceptions thrown in sync script execution during parsing"] = t => {
-  const doc = jsdom(`<script>
-    onerror = (message, filename, lineno, colno, error) => {
-      window.onerrorMessage = message;
-      window.onerrorFilename = filename;
-      window.onerrorLineno = lineno;
-      window.onerrorColno = colno;
-      window.onerrorError = error;
-    };
-    throw new Error("oh no!");
-  </script>`, { url: "http://example.com" });
+      doc.defaultView.onerror = () => true;
 
-  t.equal(doc.defaultView.onerrorMessage, "oh no!", "message equality");
-  t.equal(doc.defaultView.onerrorFilename, "http://example.com/");
-  t.ok(doc.defaultView.onerrorLineno > 0, "lineno set");
-  t.ok(doc.defaultView.onerrorColno > 0, "colno set");
-  t.ok(doc.defaultView.onerrorError);
-  t.done();
-};
+      doc.body.click();
 
-exports["unhandled Errors thrown in sync script excecution during parsing go to the virtual console"] = t => {
-  const virtualConsole = createVirtualConsole();
-  virtualConsole.on("jsdomError", error => {
-    t.ok(error instanceof Error);
-    t.ok(error.message === "Uncaught [TypeError: oh no!]");
-    t.equal(error.detail.constructor.name, "TypeError");
-    t.done();
-  });
-
-  jsdom(`<script>throw new TypeError("oh no!")</script>`, { virtualConsole });
-};
-
-exports["unhandled non-Error exceptions thrown in sync script excecution during parsing go to the virtual console"] =
-t => {
-  const virtualConsole = createVirtualConsole();
-  virtualConsole.on("jsdomError", error => {
-    t.ok(error instanceof Error);
-    t.ok(error.message === "Uncaught Object {}" || error.message === "Uncaught {}"); // Browserify hasn't caught up yet
-    t.equal(typeof error.detail, "object");
-    t.notEqual(error.detail, null);
-    t.done();
-  });
-
-  jsdom(`<script>throw {}</script>`, { virtualConsole });
-};
-
-exports["unhandled exceptions thrown in inline event handlers go to the virtual console"] = t => {
-  const virtualConsole = createVirtualConsole();
-  virtualConsole.on("jsdomError", error => {
-    t.ok(error instanceof Error);
-    t.equal(error.message, "Uncaught [Error: oh no!]");
-    t.equal(error.detail.constructor.name, "Error");
-    t.done();
-  });
-
-  const doc = jsdom(`<body onclick="throw new Error('oh no!')"></body>`, { virtualConsole });
-
-  doc.body.click();
-};
-
-exports["adding an onerror handler does not prevent errors from going to the virtual console"] = t => {
-  const virtualConsole = createVirtualConsole();
-  virtualConsole.on("jsdomError", error => {
-    t.ok(error instanceof Error);
-    t.equal(error.message, "Uncaught [Error: oh no!]");
-    t.equal(error.detail.constructor.name, "Error");
-    t.done();
-  });
-
-  const doc = jsdom(`<body onclick="throw new Error('oh no!')"></body>`, { virtualConsole });
-
-  doc.defaultView.onerror = () => {
-    // just a no-op handler to trigger the setter logic
-  };
-
-  doc.body.click();
-};
-
-exports["adding an onerror handler that returns true *does* prevent errors from going to the virtual console"] = t => {
-  const virtualConsole = createVirtualConsole();
-  virtualConsole.on("jsdomError", () => {
-    t.fail("should not get here");
-  });
-
-  const doc = jsdom(`<body onclick="throw new Error('oh no!')"></body>`, { virtualConsole });
-
-  doc.defaultView.onerror = () => true;
-
-  doc.body.click();
-
-  setTimeout(() => {
-    t.done();
-  }, 30);
-};
+      setTimeout(() => {
+        t.done();
+      }, 30);
+    },
+    {
+      async: true
+    }
+  );
+});

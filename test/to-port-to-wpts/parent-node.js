@@ -1,137 +1,131 @@
 "use strict";
+
+const { assert } = require("chai");
+const { describe, specify } = require("mocha-sugar-free");
+
 const load = require("../util.js").load(__dirname);
 
 function nodeName(node) {
   return node && node.nodeName ? node.nodeName : node;
 }
 
-exports["Document should implement ParentNode:children"] = t => {
-  const doc = load("parent-node");
+describe("parent-node", { skipIfBrowser: true }, () => {
+  specify("Document should implement ParentNode:children", () => {
+    const doc = load("parent-node");
 
-  const parent = doc;
-  t.strictEqual(parent.children.length, 1);
-  t.strictEqual(nodeName(parent.children[0]), "HTML");
-  t.strictEqual(nodeName(parent.children.item(0)), "HTML");
-  t.strictEqual(nodeName(parent.children[1]), undefined);
-  t.strictEqual(nodeName(parent.children.item(1)), null);
-  t.strictEqual(nodeName(parent.children.namedItem("html_id")), "HTML");
-  t.strictEqual(nodeName(parent.children.namedItem("foo")), null);
-  t.ok(parent.children instanceof parent.defaultView.HTMLCollection, "children should be a HTMLCollection");
-  t.done();
-};
+    const parent = doc;
+    assert.strictEqual(parent.children.length, 1);
+    assert.strictEqual(nodeName(parent.children[0]), "HTML");
+    assert.strictEqual(nodeName(parent.children.item(0)), "HTML");
+    assert.strictEqual(nodeName(parent.children[1]), undefined);
+    assert.strictEqual(nodeName(parent.children.item(1)), null);
+    assert.strictEqual(nodeName(parent.children.namedItem("html_id")), "HTML");
+    assert.strictEqual(nodeName(parent.children.namedItem("foo")), null);
+    assert.ok(parent.children instanceof parent.defaultView.HTMLCollection, "children should be a HTMLCollection");
+  });
 
-exports["Element should implement ParentNode:children"] = t => {
-  const doc = load("parent-node");
+  specify("Element should implement ParentNode:children", () => {
+    const doc = load("parent-node");
 
-  const parent = doc.body;
-  t.strictEqual(parent.children.length, 2);
-  t.strictEqual(nodeName(parent.children[0]), "A");
-  t.strictEqual(nodeName(parent.children.item(0)), "A");
-  t.strictEqual(nodeName(parent.children[1]), "DIV");
-  t.strictEqual(nodeName(parent.children.item(1)), "DIV");
-  t.strictEqual(nodeName(parent.children[2]), undefined);
-  t.strictEqual(nodeName(parent.children.item(2)), null);
-  t.strictEqual(nodeName(parent.children.namedItem("a_name")), "A");
-  t.strictEqual(nodeName(parent.children.namedItem("foo")), null);
-  t.ok(parent.children instanceof doc.defaultView.HTMLCollection, "children should be a HTMLCollection");
-  t.done();
-};
+    const parent = doc.body;
+    assert.strictEqual(parent.children.length, 2);
+    assert.strictEqual(nodeName(parent.children[0]), "A");
+    assert.strictEqual(nodeName(parent.children.item(0)), "A");
+    assert.strictEqual(nodeName(parent.children[1]), "DIV");
+    assert.strictEqual(nodeName(parent.children.item(1)), "DIV");
+    assert.strictEqual(nodeName(parent.children[2]), undefined);
+    assert.strictEqual(nodeName(parent.children.item(2)), null);
+    assert.strictEqual(nodeName(parent.children.namedItem("a_name")), "A");
+    assert.strictEqual(nodeName(parent.children.namedItem("foo")), null);
+    assert.ok(parent.children instanceof doc.defaultView.HTMLCollection, "children should be a HTMLCollection");
+  });
 
-exports["DocumentFragment should implement ParentNode:children"] = t => {
-  const doc = load("parent-node");
-  const parent = doc.createDocumentFragment();
+  specify("DocumentFragment should implement ParentNode:children", () => {
+    const doc = load("parent-node");
+    const parent = doc.createDocumentFragment();
 
-  while (doc.body.firstChild) {
-    parent.appendChild(doc.body.firstChild);
-  }
+    while (doc.body.firstChild) {
+      parent.appendChild(doc.body.firstChild);
+    }
 
-  t.strictEqual(parent.children.length, 2);
-  t.strictEqual(nodeName(parent.children[0]), "A");
-  t.strictEqual(nodeName(parent.children.item(0)), "A");
-  t.strictEqual(nodeName(parent.children[1]), "DIV");
-  t.strictEqual(nodeName(parent.children.item(1)), "DIV");
-  t.strictEqual(nodeName(parent.children[2]), undefined);
-  t.strictEqual(nodeName(parent.children.item(2)), null);
-  t.strictEqual(nodeName(parent.children.namedItem("a_name")), "A");
-  t.strictEqual(nodeName(parent.children.namedItem("foo")), null);
-  t.ok(parent.children instanceof doc.defaultView.HTMLCollection, "children should be a HTMLCollection");
-  t.done();
-};
-exports["Document should implement ParentNode:firstElementChild"] = t => {
-  const doc = load("parent-node");
-  t.strictEqual(nodeName(doc.firstElementChild), "HTML");
-  t.done();
-};
+    assert.strictEqual(parent.children.length, 2);
+    assert.strictEqual(nodeName(parent.children[0]), "A");
+    assert.strictEqual(nodeName(parent.children.item(0)), "A");
+    assert.strictEqual(nodeName(parent.children[1]), "DIV");
+    assert.strictEqual(nodeName(parent.children.item(1)), "DIV");
+    assert.strictEqual(nodeName(parent.children[2]), undefined);
+    assert.strictEqual(nodeName(parent.children.item(2)), null);
+    assert.strictEqual(nodeName(parent.children.namedItem("a_name")), "A");
+    assert.strictEqual(nodeName(parent.children.namedItem("foo")), null);
+    assert.ok(parent.children instanceof doc.defaultView.HTMLCollection, "children should be a HTMLCollection");
+  });
+  specify("Document should implement ParentNode:firstElementChild", () => {
+    const doc = load("parent-node");
+    assert.strictEqual(nodeName(doc.firstElementChild), "HTML");
+  });
 
-exports["Element should implement ParentNode:firstElementChild"] = t => {
-  const doc = load("parent-node");
-  t.strictEqual(nodeName(doc.body.firstElementChild), "A");
-  t.strictEqual(doc.createElement("div").firstElementChild, null);
-  t.done();
-};
+  specify("Element should implement ParentNode:firstElementChild", () => {
+    const doc = load("parent-node");
+    assert.strictEqual(nodeName(doc.body.firstElementChild), "A");
+    assert.strictEqual(doc.createElement("div").firstElementChild, null);
+  });
 
-exports["DocumentFragment should implement ParentNode:firstElementChild"] = t => {
-  const doc = load("parent-node");
-  const fragment = doc.createDocumentFragment();
+  specify("DocumentFragment should implement ParentNode:firstElementChild", () => {
+    const doc = load("parent-node");
+    const fragment = doc.createDocumentFragment();
 
-  t.strictEqual(fragment.firstElementChild, null);
+    assert.strictEqual(fragment.firstElementChild, null);
 
-  while (doc.body.firstChild) {
-    fragment.appendChild(doc.body.firstChild);
-  }
+    while (doc.body.firstChild) {
+      fragment.appendChild(doc.body.firstChild);
+    }
 
-  t.strictEqual(nodeName(fragment.firstElementChild), "A");
-  t.done();
-};
+    assert.strictEqual(nodeName(fragment.firstElementChild), "A");
+  });
 
 
-exports["Document should implement ParentNode:lastElementChild"] = t => {
-  const doc = load("parent-node");
-  t.strictEqual(nodeName(doc.lastElementChild), "HTML");
-  t.done();
-};
+  specify("Document should implement ParentNode:lastElementChild", () => {
+    const doc = load("parent-node");
+    assert.strictEqual(nodeName(doc.lastElementChild), "HTML");
+  });
 
-exports["Element should implement ParentNode:lastElementChild"] = t => {
-  const doc = load("parent-node");
-  t.strictEqual(nodeName(doc.body.lastElementChild), "DIV");
-  t.strictEqual(doc.createElement("div").lastElementChild, null);
-  t.done();
-};
+  specify("Element should implement ParentNode:lastElementChild", () => {
+    const doc = load("parent-node");
+    assert.strictEqual(nodeName(doc.body.lastElementChild), "DIV");
+    assert.strictEqual(doc.createElement("div").lastElementChild, null);
+  });
 
-exports["DocumentFragment should implement ParentNode:lastElementChild"] = t => {
-  const doc = load("parent-node");
-  const fragment = doc.createDocumentFragment();
+  specify("DocumentFragment should implement ParentNode:lastElementChild", () => {
+    const doc = load("parent-node");
+    const fragment = doc.createDocumentFragment();
 
-  t.strictEqual(fragment.lastElementChild, null);
+    assert.strictEqual(fragment.lastElementChild, null);
 
-  while (doc.body.firstChild) {
-    fragment.appendChild(doc.body.firstChild);
-  }
+    while (doc.body.firstChild) {
+      fragment.appendChild(doc.body.firstChild);
+    }
 
-  t.strictEqual(nodeName(fragment.lastElementChild), "DIV");
-  t.done();
-};
+    assert.strictEqual(nodeName(fragment.lastElementChild), "DIV");
+  });
 
-exports["Document should implement ParentNode:childElementCount"] = t => {
-  const doc = load("parent-node");
-  t.strictEqual(doc.childElementCount, 1);
-  t.done();
-};
+  specify("Document should implement ParentNode:childElementCount", () => {
+    const doc = load("parent-node");
+    assert.strictEqual(doc.childElementCount, 1);
+  });
 
-exports["Element should implement ParentNode:childElementCount"] = t => {
-  const doc = load("parent-node");
-  t.strictEqual(doc.body.childElementCount, 2);
-  t.done();
-};
+  specify("Element should implement ParentNode:childElementCount", () => {
+    const doc = load("parent-node");
+    assert.strictEqual(doc.body.childElementCount, 2);
+  });
 
-exports["DocumentFragment should implement ParentNode:childElementCount"] = t => {
-  const doc = load("parent-node");
-  const fragment = doc.createDocumentFragment();
+  specify("DocumentFragment should implement ParentNode:childElementCount", () => {
+    const doc = load("parent-node");
+    const fragment = doc.createDocumentFragment();
 
-  while (doc.body.firstChild) {
-    fragment.appendChild(doc.body.firstChild);
-  }
+    while (doc.body.firstChild) {
+      fragment.appendChild(doc.body.firstChild);
+    }
 
-  t.strictEqual(fragment.childElementCount, 2);
-  t.done();
-};
+    assert.strictEqual(fragment.childElementCount, 2);
+  });
+});

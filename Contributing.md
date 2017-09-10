@@ -63,21 +63,19 @@ To write such a test that, simply add a file in `test/api/`, following the surro
 
 ### Older tests
 
-Although ideally you should not need to worry about this, there are some tests that are for legacy reasons not in the right place, or test old parts of jsdom. New tests should not be contributed following those patterns, but we're keeping them around for coverage until we can convert them to the appropriate format. If you run `npm test`, you will get the full test suite, including such old tests.
+Although ideally you should not need to worry about this, there are some tests that are for legacy reasons not in the right format; they use Mocha, but really should be web platform tests. We're keeping them around for coverage until we can convert them. If you run `npm test`, you will get the full test suite, including such old tests.
 
 ### Testing against the browser
 
 jsdom has experimental support to run in directly in a browser, in both the main document and in a web worker! So we try run as many tests as possible in browsers too. Currently we only test in Chrome, since it has the same JavaScript features as the Node.js environment we usually develop in. So you'll need Chrome installed on your machine.
 
-As noted above, our own test suites are currently being transitioned from nodeunit to mocha. The nodeunit test cases are executed in Chrome using Selenium. The mocha test cases are executed in Chrome using [karma](https://karma-runner.github.io/).
+The mocha test cases are executed in Chrome using [karma](https://karma-runner.github.io/). Currently, web platform tests are not executed in the browser yet.
 
 **To run all browser tests:** `npm run test-browser`
 
-**To run the karma tests in an iframe:** `npm run test-karma`
+**To run the karma tests in an iframe:** `npm run test-browser-iframe`
 
-**To run the karma tests in a web worker:** `npm run test-karma-worker`
-
-**To run the older tests:** `npm run test-browser-old` (requires Java installed and in your PATH)
+**To run the karma tests in a web worker:** `npm run test-browser-worker`
 
 ## Benchmarks
 
