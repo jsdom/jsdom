@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>script test</title>
+<script>
+console.log("script-0 (readyState = " + document.readyState + ")");
+window.addEventListener("load", () => {
+  console.log("window#load-0 (readyState = " + document.readyState + ")");
+});
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("document#DOMContentLoaded (readyState = " + document.readyState + ")");
+});
+function loaded() {
+  console.log("body#onload (readyState = " + document.readyState + ")");
+}
+</script>
+</head>
+<!-- The function loaded is not found on karma.
+<body onload="loaded()">
+-->
+<body onload="console.log('body#onload (readyState = ' + document.readyState + ')')">
+<script>
+console.log("script-1 (readyState = " + document.readyState + ")");
+window.addEventListener("load", () => {
+  console.log("window#load-1 (readyState = " + document.readyState + ")");
+});
+</script>
+</body>
+<script>
+console.log("script-2 (readyState = " + document.readyState + ")");
+window.addEventListener("load", () => {
+  console.log("window#load-2 (readyState = " + document.readyState + ")");
+});
+</script>
+</html>

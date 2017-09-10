@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>script test</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+"use strict";
+const logs = [];
+logs.push("script-0 (readyState = " + document.readyState + ")");
+window.addEventListener("load", () => {
+  logs.push("window#load-0 (readyState = " + document.readyState + ")");
+});
+document.addEventListener("DOMContentLoaded", () => {
+  logs.push("document#DOMContentLoaded (readyState = " + document.readyState + ")");
+});
+// eslint-disable-next-line no-unused-vars
+function loaded() {
+  logs.push("body#onload (readyState = " + document.readyState + ")");
+}
+</script>
+</head>
+<body onload="loaded()">
+<script>
+logs.push("script-1 (readyState = " + document.readyState + ")");
+window.addEventListener("load", () => {
+  logs.push("window#load-1 (readyState = " + document.readyState + ")");
+});
+</script>
+</body>
+<script>
+logs.push("script-2 (readyState = " + document.readyState + ")");
+window.addEventListener("load", () => {
+  logs.push("window#load-2 (readyState = " + document.readyState + ")");
+});
+</script>
+<script>
+window.addEventListener("load", () => {
+  async_test(t => {
+    assert_array_equals(logs, [
+      "script-0 (readyState = loading)",
+      "script-1 (readyState = loading)",
+      "script-2 (readyState = loading)",
+      "document#DOMContentLoaded (readyState = interactive)",
+      "window#load-0 (readyState = complete)",
+      "body#onload (readyState = complete)",
+      "window#load-1 (readyState = complete)",
+      "window#load-2 (readyState = complete)"
+    ]);
+    t.done();
+  }, "Should loading event handlers and script contents in correct order");
+});
+</script>
+</html>

@@ -1142,7 +1142,7 @@ describe("jsdom/miscellaneous", () => {
     });
 
     specify("script_with_cookie", { async: true }, t => {
-      const html = `<!DOCTYPE html><html><head><script src="/foo.js"></script></head><body>foo</body></html>`;
+      const html = `<!DOCTYPE html><html><head></head><body>foo</body><script src="/foo.js"></script></html>`;
 
       const server = http.createServer((req, res) => {
         switch (req.url) {
