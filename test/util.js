@@ -1,5 +1,4 @@
 "use strict";
-// For: Mocha and nodeunit
 const path = require("path");
 const fs = require("fs");
 const http = require("http");
@@ -176,10 +175,10 @@ exports.readTestFixture = relativePath => {
   .then(result => useRequest ? result[1] : result);
 };
 
-exports.isCanvasInstalled = t => {
+exports.isCanvasInstalled = (t, done) => {
   if (!Canvas) {
     t.ok(true, "test ignored; not running with the canvas npm package installed");
-    t.done();
+    done();
     return false;
   }
 

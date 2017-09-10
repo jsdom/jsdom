@@ -1,150 +1,150 @@
 "use strict";
+
+const { assert } = require("chai");
+const { describe, specify } = require("mocha-sugar-free");
+
 const jsdom = require("../../lib/old-api.js");
 
-exports["html input should handle value/defaultValue correctly"] = t => {
-  const input = jsdom.jsdom("<input>").querySelector("input");
+describe("htmlinputelement", () => {
+  specify("html input should handle value/defaultValue correctly", () => {
+    const input = jsdom.jsdom("<input>").querySelector("input");
 
-  t.strictEqual(input.value, "", "value should equal empty string if uninitialized");
-  t.strictEqual(input.defaultValue, "", "defaultValue should equal empty string if uninitialized");
-  t.strictEqual(input.getAttribute("value"), null, "value attribute should be null (uninitialized)");
+    assert.strictEqual(input.value, "", "value should equal empty string if uninitialized");
+    assert.strictEqual(input.defaultValue, "", "defaultValue should equal empty string if uninitialized");
+    assert.strictEqual(input.getAttribute("value"), null, "value attribute should be null (uninitialized)");
 
-  input.defaultValue = "abc";
+    input.defaultValue = "abc";
 
-  t.strictEqual(input.value, "abc",
-    "setting the defaultValue should also change the value if \"dirty value\" is false");
-  t.strictEqual(input.defaultValue, "abc", "defaultValue should equal to set string");
-  t.strictEqual(input.getAttribute("value"), "abc", "value attribute should equal to set string");
+    assert.strictEqual(input.value, "abc",
+      "setting the defaultValue should also change the value if \"dirty value\" is false");
+    assert.strictEqual(input.defaultValue, "abc", "defaultValue should equal to set string");
+    assert.strictEqual(input.getAttribute("value"), "abc", "value attribute should equal to set string");
 
-  input.value = "def";
-  // dirtyValue is now true
+    input.value = "def";
+    // dirtyValue is now true
 
-  t.strictEqual(input.value, "def", "value should get changed by setter");
-  t.strictEqual(input.defaultValue, "abc", "defaultValue should equal to set string");
-  t.strictEqual(input.getAttribute("value"), "abc", "value attribute should not change");
+    assert.strictEqual(input.value, "def", "value should get changed by setter");
+    assert.strictEqual(input.defaultValue, "abc", "defaultValue should equal to set string");
+    assert.strictEqual(input.getAttribute("value"), "abc", "value attribute should not change");
 
-  input.defaultValue = "abc2";
+    input.defaultValue = "abc2";
 
-  t.strictEqual(input.value, "def", "value should not change by setting defaultValue is dirtyValue is set");
-  t.strictEqual(input.defaultValue, "abc2", "defaultValue should equal to set string");
+    assert.strictEqual(input.value, "def", "value should not change by setting defaultValue is dirtyValue is set");
+    assert.strictEqual(input.defaultValue, "abc2", "defaultValue should equal to set string");
 
-  input.value = null;
+    input.value = null;
 
-  t.strictEqual(input.value, "", "setting value to null should result in an empty string");
-  t.strictEqual(input.getAttribute("value"), "abc2", "value attribute should not change");
+    assert.strictEqual(input.value, "", "setting value to null should result in an empty string");
+    assert.strictEqual(input.getAttribute("value"), "abc2", "value attribute should not change");
+  });
 
+  specify("html input should handle checked/defaultChecked correctly", () => {
+    const doc = jsdom.jsdom();
+    const checked = doc.createElement("input");
 
-  t.done();
-};
+    assert.strictEqual(checked.checked, false, "checkedness is false by default");
 
-exports["html input should handle checked/defaultChecked correctly"] = t => {
-  const doc = jsdom.jsdom();
-  const checked = doc.createElement("input");
+    checked.setAttribute("checked", "checked");
+    assert.strictEqual(checked.checked, true, "checked property must return the current checkedness");
 
-  t.strictEqual(checked.checked, false, "checkedness is false by default");
+    checked.removeAttribute("checked");
+    assert.strictEqual(checked.checked, false,
+      "dirty checkedness is still false, the checkedness should have been changed");
 
-  checked.setAttribute("checked", "checked");
-  t.strictEqual(checked.checked, true, "checked property must return the current checkedness");
+    checked.checked = false; // sets the element"s dirty checkedness flag to true
+    assert.strictEqual(checked.checked, false,
+      "on setting, the checked property must set the element's checkedness to the new value");
 
-  checked.removeAttribute("checked");
-  t.strictEqual(checked.checked, false, "dirty checkedness is still false, the checkedness should have been changed");
+    checked.setAttribute("checked", "checked");
+    assert.strictEqual(checked.checked, false,
+      "checkedness should not have been changed because dirty checkedness is now true");
+  });
 
-  checked.checked = false; // sets the element"s dirty checkedness flag to true
-  t.strictEqual(checked.checked, false,
-    "on setting, the checked property must set the element's checkedness to the new value");
+  specify("uncheck other radio buttons in the same group", () => {
+    const doc = jsdom.jsdom();
+    const form = doc.createElement("form");
+    const div = doc.createElement("div");
+    const radioA = doc.createElement("input");
+    const radioB = doc.createElement("input");
+    const radioC = doc.createElement("input");
+    const checkD = doc.createElement("input");
+    radioA.type = "radio";
+    radioB.type = "radio";
+    radioC.type = "radio";
+    checkD.type = "checkbox";
+    radioA.name = "foo";
+    radioB.name = "foo";
+    radioC.name = "foo";
+    checkD.name = "foo";
 
-  checked.setAttribute("checked", "checked");
-  t.strictEqual(checked.checked, false,
-    "checkedness should not have been changed because dirty checkedness is now true");
+    div.appendChild(radioA);
+    div.appendChild(radioB);
+    // not yet C
+    div.appendChild(checkD);
 
-  t.done();
-};
+    checkD.checked = true;
+    radioA.checked = true;
+    radioB.checked = true;
 
-exports["uncheck other radio buttons in the same group"] = t => {
-  const doc = jsdom.jsdom();
-  const form = doc.createElement("form");
-  const div = doc.createElement("div");
-  const radioA = doc.createElement("input");
-  const radioB = doc.createElement("input");
-  const radioC = doc.createElement("input");
-  const checkD = doc.createElement("input");
-  radioA.type = "radio";
-  radioB.type = "radio";
-  radioC.type = "radio";
-  checkD.type = "checkbox";
-  radioA.name = "foo";
-  radioB.name = "foo";
-  radioC.name = "foo";
-  checkD.name = "foo";
+    assert.strictEqual(radioA.checked, false, "Setting checked on a radio should uncheck others in the same group");
+    assert.strictEqual(radioB.checked, true, "Last radio to be set should be checked");
+    assert.strictEqual(checkD.checked, true, "Radio\"s should not affect the checkedness of checkboxes");
 
-  div.appendChild(radioA);
-  div.appendChild(radioB);
-  // not yet C
-  div.appendChild(checkD);
+    radioA.checked = true;
+    form.appendChild(radioA);
+    assert.strictEqual(radioA.checked, true, "Just checked this");
+    radioB.checked = true;
+    form.appendChild(radioB);
+    assert.strictEqual(radioB.checked, true, "Just checked this");
+    assert.strictEqual(radioA.checked, false, "Changing the form owner should uncheck others");
 
-  checkD.checked = true;
-  radioA.checked = true;
-  radioB.checked = true;
+    form.appendChild(radioC);
+    radioC.name = "bar";
+    radioA.checked = true;
+    radioC.checked = true;
+    assert.strictEqual(radioA.checked, true, "Just checked this");
+    assert.strictEqual(radioC.checked, true, "Just checked this");
+    radioC.name = "foo";
+    assert.strictEqual(radioA.checked, false, "Changing the name should uncheck others");
+    assert.strictEqual(radioC.checked, true, "Changing the name not uncheck itself");
 
-  t.strictEqual(radioA.checked, false, "Setting checked on a radio should uncheck others in the same group");
-  t.strictEqual(radioB.checked, true, "Last radio to be set should be checked");
-  t.strictEqual(checkD.checked, true, "Radio\"s should not affect the checkedness of checkboxes");
+    form.appendChild(checkD);
+    radioC.checked = true;
+    checkD.checked = true;
+    assert.strictEqual(radioC.checked, true, "Just checked this");
+    checkD.type = "radio";
+    assert.strictEqual(radioC.checked, false, "Changing the type should uncheck others");
+    assert.strictEqual(checkD.checked, true, "Changing the name not uncheck itself");
+  });
 
-  radioA.checked = true;
-  form.appendChild(radioA);
-  t.strictEqual(radioA.checked, true, "Just checked this");
-  radioB.checked = true;
-  form.appendChild(radioB);
-  t.strictEqual(radioB.checked, true, "Just checked this");
-  t.strictEqual(radioA.checked, false, "Changing the form owner should uncheck others");
+  specify(
+    "inputs should default to type text on the property, despite having no attribute",
+    () => {
+      const doc = jsdom.jsdom(`<html><head></head><body><input id="input" /></body></html>`);
+      const inputEl = doc.getElementById("input");
 
-  form.appendChild(radioC);
-  radioC.name = "bar";
-  radioA.checked = true;
-  radioC.checked = true;
-  t.strictEqual(radioA.checked, true, "Just checked this");
-  t.strictEqual(radioC.checked, true, "Just checked this");
-  radioC.name = "foo";
-  t.strictEqual(radioA.checked, false, "Changing the name should uncheck others");
-  t.strictEqual(radioC.checked, true, "Changing the name not uncheck itself");
+      assert.equal(inputEl.hasAttribute("type"), false);
+      assert.equal(inputEl.getAttribute("type"), null);
+      assert.equal(inputEl.type, "text");
+    }
+  );
 
-  form.appendChild(checkD);
-  radioC.checked = true;
-  checkD.checked = true;
-  t.strictEqual(radioC.checked, true, "Just checked this");
-  checkD.type = "radio";
-  t.strictEqual(radioC.checked, false, "Changing the type should uncheck others");
-  t.strictEqual(checkD.checked, true, "Changing the name not uncheck itself");
+  specify("setting an input's type property should set its type attribute", () => {
+    const doc = jsdom.jsdom(`<html><head></head><body><input id="input" /></body></html>`);
+    const inputEl = doc.getElementById("input");
+    inputEl.type = "checkbox";
 
-  t.done();
-};
+    assert.equal(inputEl.getAttribute("type"), "checkbox");
+  });
 
-exports["inputs should default to type text on the property, despite having no attribute"] = t => {
-  const doc = jsdom.jsdom(`<html><head></head><body><input id="input" /></body></html>`);
-  const inputEl = doc.getElementById("input");
+  specify(
+    "an input's parsed type attribute should be reflected in both its property and attribute",
+    () => {
+      const doc = jsdom.jsdom(`<html><head></head><body><input id="input" type="checkbox" /></body></html>`);
+      const inputEl = doc.getElementById("input");
 
-  t.equal(inputEl.hasAttribute("type"), false);
-  t.equal(inputEl.getAttribute("type"), null);
-  t.equal(inputEl.type, "text");
-
-  t.done();
-};
-
-exports["setting an input's type property should set its type attribute"] = t => {
-  const doc = jsdom.jsdom(`<html><head></head><body><input id="input" /></body></html>`);
-  const inputEl = doc.getElementById("input");
-  inputEl.type = "checkbox";
-
-  t.equal(inputEl.getAttribute("type"), "checkbox");
-
-  t.done();
-};
-
-exports["an input's parsed type attribute should be reflected in both its property and attribute"] = t => {
-  const doc = jsdom.jsdom(`<html><head></head><body><input id="input" type="checkbox" /></body></html>`);
-  const inputEl = doc.getElementById("input");
-
-  t.equal(inputEl.type, "checkbox");
-  t.equal(inputEl.getAttribute("type"), "checkbox");
-
-  t.done();
-};
+      assert.equal(inputEl.type, "checkbox");
+      assert.equal(inputEl.getAttribute("type"), "checkbox");
+    }
+  );
+});

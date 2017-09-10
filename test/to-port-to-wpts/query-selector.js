@@ -1,60 +1,61 @@
 "use strict";
+
+const { assert } = require("chai");
+const { describe, specify } = require("mocha-sugar-free");
+
 const { jsdom } = require("../../lib/old-api.js");
 const load = require("../util.js").load(__dirname);
 
 // Tests for ParentNode's querySelector
 // Spec: https://dom.spec.whatwg.org/#dom-parentnode-queryselector
 
-exports["querySelector exists on documents"] = t => {
-  const doc = load("test");
+describe("query-selector", { skipIfBrowser: true }, () => {
+  specify("querySelector exists on documents", () => {
+    const doc = load("test");
 
-  t.ok(doc.querySelector, "document.querySelector exists");
-  t.ok(typeof doc.querySelector === "function", "document.querySelector is a function");
-  t.ok(doc.querySelector("body"), "document.querySelector can find the <body> element");
-  t.ok(doc.querySelector("p"), "document.querySelector can find a <p> element");
+    assert.ok(doc.querySelector, "document.querySelector exists");
+    assert.ok(typeof doc.querySelector === "function", "document.querySelector is a function");
+    assert.ok(doc.querySelector("body"), "document.querySelector can find the <body> element");
+    assert.ok(doc.querySelector("p"), "document.querySelector can find a <p> element");
+  });
 
-  t.done();
-};
+  specify("querySelector exists on elements", () => {
+    const doc = load("test");
 
-exports["querySelector exists on elements"] = t => {
-  const doc = load("test");
+    assert.ok(doc.body.querySelector, "document.body.querySelector exists");
+    assert.ok(typeof doc.body.querySelector === "function", "document.body.querySelector is a function");
+    assert.ok(doc.body.querySelector("p"), "document.body.querySelector can find a <p> element");
+  });
 
-  t.ok(doc.body.querySelector, "document.body.querySelector exists");
-  t.ok(typeof doc.body.querySelector === "function", "document.body.querySelector is a function");
-  t.ok(doc.body.querySelector("p"), "document.body.querySelector can find a <p> element");
+  specify("querySelector exists on document fragments", () => {
+    const doc = jsdom();
+    const docFrag = doc.createDocumentFragment();
 
-  t.done();
-};
+    const div = doc.createElement("div");
+    div.innerHTML = "<p>Hello</p>";
+    docFrag.appendChild(div);
 
-exports["querySelector exists on document fragments"] = t => {
-  const doc = jsdom();
-  const docFrag = doc.createDocumentFragment();
+    assert.ok(docFrag.querySelector, "docFrag.querySelector exists");
+    assert.ok(typeof docFrag.querySelector === "function", "docFrag.querySelector is a function");
+    assert.ok(docFrag.querySelector("div"), "document.querySelector can find a <div> element");
+    assert.ok(docFrag.querySelector("p"), "document.querySelector can find a <p> element");
+  });
 
-  const div = doc.createElement("div");
-  div.innerHTML = "<p>Hello</p>";
-  docFrag.appendChild(div);
+  specify(
+    "querySelector converts its argument to a string before processing",
+    () => {
+      const doc = load("test");
 
-  t.ok(docFrag.querySelector, "docFrag.querySelector exists");
-  t.ok(typeof docFrag.querySelector === "function", "docFrag.querySelector is a function");
-  t.ok(docFrag.querySelector("div"), "document.querySelector can find a <div> element");
-  t.ok(docFrag.querySelector("p"), "document.querySelector can find a <p> element");
+      const element = doc.querySelector(["strong"]);
+      assert.ok(element, "document.querySelector returns the <strong> element");
 
-  t.done();
-};
-
-exports["querySelector converts its argument to a string before processing"] = t => {
-  const doc = load("test");
-
-  const element = doc.querySelector(["strong"]);
-  t.ok(element, "document.querySelector returns the <strong> element");
-
-  const stringifiableObj = {
-    toString() {
-      return "p";
+      const stringifiableObj = {
+        toString() {
+          return "p";
+        }
+      };
+      const expectedP = doc.querySelector(stringifiableObj);
+      assert.ok(expectedP, "document.querySelector calls toString on any given object");
     }
-  };
-  const expectedP = doc.querySelector(stringifiableObj);
-  t.ok(expectedP, "document.querySelector calls toString on any given object");
-
-  t.done();
-};
+  );
+});

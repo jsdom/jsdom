@@ -1,5 +1,4 @@
 "use strict";
-// For: Mocha
 
 const DOMException = require("domexception");
 
