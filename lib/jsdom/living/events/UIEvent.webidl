@@ -27,7 +27,12 @@ dictionary EventModifierInit : UIEventInit {
              boolean modifierSymbolLock = false;
 };
 
+// https://github.com/w3c/uievents/issues/133
 partial interface UIEvent {
     // Deprecated in this specification
-    void initUIEvent (DOMString typeArg, boolean bubblesArg, boolean cancelableArg, Window? viewArg, long detailArg);
+    void initUIEvent(DOMString typeArg,
+                     optional boolean bubblesArg = false,
+                     optional boolean cancelableArg = false,
+                     optional Window? viewArg = null,
+                     optional long detailArg = 0);
 };
