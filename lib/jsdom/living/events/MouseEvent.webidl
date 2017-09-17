@@ -25,7 +25,22 @@ dictionary MouseEventInit : EventModifierInit {
              EventTarget?   relatedTarget = null;
 };
 
+// https://github.com/w3c/uievents/issues/136
 partial interface MouseEvent {
     // Deprecated in this specification
-    void initMouseEvent (DOMString typeArg, boolean bubblesArg, boolean cancelableArg, Window? viewArg, long detailArg, long screenXArg, long screenYArg, long clientXArg, long clientYArg, boolean ctrlKeyArg, boolean altKeyArg, boolean shiftKeyArg, boolean metaKeyArg, short buttonArg, EventTarget? relatedTargetArg);
+    void initMouseEvent(DOMString typeArg,
+                        optional boolean bubblesArg = false,
+                        optional boolean cancelableArg = false,
+                        optional Window? viewArg = null,
+                        optional long detailArg = 0,
+                        optional long screenXArg = 0,
+                        optional long screenYArg = 0,
+                        optional long clientXArg = 0,
+                        optional long clientYArg = 0,
+                        optional boolean ctrlKeyArg = 0,
+                        optional boolean altKeyArg = 0,
+                        optional boolean shiftKeyArg = 0,
+                        optional boolean metaKeyArg = 0,
+                        optional short buttonArg = 0,
+                        optional EventTarget? relatedTargetArg = null);
 };
