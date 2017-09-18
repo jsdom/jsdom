@@ -341,6 +341,7 @@ describe("Web Platform Tests", () => {
     "dom/events/Event-init-while-dispatching.html",
     "dom/events/Event-initEvent.html",
     "dom/events/Event-propagation.html",
+    "dom/events/Event-subclasses-constructors.html",
     "dom/events/Event-type.html",
     "dom/events/Event-type-empty.html",
     "dom/events/EventListener-handleEvent.html",
