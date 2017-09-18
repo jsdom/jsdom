@@ -11,16 +11,18 @@ const { version: packageVersion } = require("../../package.json");
 
 require("chai").use(require("../chai-helpers.js"));
 
-describe("API: JSDOM.fromURL()", { skipIfBrowser: true }, () => {
+describe("Multi-Page Navigation", { skipIfBrowser: true }, () => {
   it("should support navigation via location.replace", () => {
     const [url1, url2] = twoPageServer("<p>Page 1</p>", "<p>Page 2</p>", 3);
 
     return JSDOM.fromURL(url1).then(dom => {
       assert.strictEqual(dom.serialize(), "<html><head></head><body><p>Page 1</p></body></html>");
       dom.window.location.assign(url2);
+      // TODO: replace with waiting for a "navigated" event
       return delay(200).then(() => {
         assert.strictEqual(dom.serialize(), "<html><head></head><body><p>Page 2</p></body></html>");
         dom.window.history.back();
+        // TODO: replace with waiting for a "navigated" event
         return delay(200);
       }).then(() => {
         assert.strictEqual(dom.serialize(), "<html><head></head><body><p>Page 1</p></body></html>");
