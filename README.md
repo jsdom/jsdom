@@ -2,7 +2,7 @@
 
 jsdom is a pure-JavaScript implementation of many web standards, notably the WHATWG [DOM](https://dom.spec.whatwg.org/) and [HTML](https://html.spec.whatwg.org/multipage/) Standards, for use with Node.js. In general, the goal of the project is to emulate enough of a subset of a web browser to be useful for testing and scraping real-world web applications.
 
-The latest versions of jsdom require Node.js v6 or newer. (Versions of jsdom below v10 still work with Node.js v4, but are unsupported.)
+The latest versions of jsdom require Node.js v6 or newer.
 
 As of v10, jsdom has a new API (documented below). The old API is still supported for now; [see its documentation](./lib/old-api.md) for details.
 
