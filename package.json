@@ -34,7 +34,7 @@
     "request-promise-native": "^1.0.3",
     "sax": "^1.2.1",
     "symbol-tree": "^3.2.1",
-    "tough-cookie": "^2.3.2",
+    "tough-cookie": "^2.3.3",
     "webidl-conversions": "^4.0.0",
     "whatwg-encoding": "^1.0.1",
     "whatwg-url": "^6.1.0",
