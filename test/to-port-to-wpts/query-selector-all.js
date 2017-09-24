@@ -1,60 +1,61 @@
 "use strict";
+
+const { assert } = require("chai");
+const { describe, specify } = require("mocha-sugar-free");
+
 const { jsdom } = require("../../lib/old-api.js");
 const load = require("../util.js").load(__dirname);
 
 // Tests for ParentNode's querySelectorAll
 // Spec: https://dom.spec.whatwg.org/#dom-parentnode-queryselectorall
 
-exports["querySelectorAll exists on documents"] = t => {
-  const doc = load("test");
+describe("query-selector-all", { skipIfBrowser: true }, () => {
+  specify("querySelectorAll exists on documents", () => {
+    const doc = load("test");
 
-  t.ok(doc.querySelectorAll, "document.querySelectorAll exists");
-  t.ok(typeof doc.querySelectorAll === "function", "document.querySelectorAll is a function");
-  t.ok(doc.querySelectorAll("body"), "document.querySelectorAll can find the <body> element");
-  t.strictEqual(doc.querySelectorAll("p").length, 1, "document.querySelectorAll can find a <p> element");
+    assert.ok(doc.querySelectorAll, "document.querySelectorAll exists");
+    assert.ok(typeof doc.querySelectorAll === "function", "document.querySelectorAll is a function");
+    assert.ok(doc.querySelectorAll("body"), "document.querySelectorAll can find the <body> element");
+    assert.strictEqual(doc.querySelectorAll("p").length, 1, "document.querySelectorAll can find a <p> element");
+  });
 
-  t.done();
-};
+  specify("querySelectorAll exists on elements", () => {
+    const doc = load("test");
 
-exports["querySelectorAll exists on elements"] = t => {
-  const doc = load("test");
+    assert.ok(doc.body.querySelectorAll, "document.body.querySelectorAll exists");
+    assert.ok(typeof doc.body.querySelectorAll === "function", "document.body.querySelectorAll is a function");
+    assert.strictEqual(doc.body.querySelectorAll("p").length, 1, "document.querySelectorAll can find a <p> element");
+  });
 
-  t.ok(doc.body.querySelectorAll, "document.body.querySelectorAll exists");
-  t.ok(typeof doc.body.querySelectorAll === "function", "document.body.querySelectorAll is a function");
-  t.strictEqual(doc.body.querySelectorAll("p").length, 1, "document.querySelectorAll can find a <p> element");
+  specify("querySelectorAll exists on document fragments", () => {
+    const doc = jsdom();
+    const docFrag = doc.createDocumentFragment();
 
-  t.done();
-};
+    const div = doc.createElement("div");
+    div.innerHTML = "<p>Hello</p>";
+    docFrag.appendChild(div);
 
-exports["querySelectorAll exists on document fragments"] = t => {
-  const doc = jsdom();
-  const docFrag = doc.createDocumentFragment();
+    assert.ok(docFrag.querySelectorAll, "docFrag.querySelectorAll exists");
+    assert.ok(typeof docFrag.querySelectorAll === "function", "docFrag.querySelectorAll is a function");
+    assert.strictEqual(docFrag.querySelectorAll("div").length, 1, "document.querySelectorAll can find a <div> element");
+    assert.strictEqual(docFrag.querySelectorAll("p").length, 1, "document.querySelectorAll can find a <p> element");
+  });
 
-  const div = doc.createElement("div");
-  div.innerHTML = "<p>Hello</p>";
-  docFrag.appendChild(div);
+  specify(
+    "querySelectorAll converts its argument to a string before processing",
+    () => {
+      const doc = load("test");
 
-  t.ok(docFrag.querySelectorAll, "docFrag.querySelectorAll exists");
-  t.ok(typeof docFrag.querySelectorAll === "function", "docFrag.querySelectorAll is a function");
-  t.strictEqual(docFrag.querySelectorAll("div").length, 1, "document.querySelectorAll can find a <div> element");
-  t.strictEqual(docFrag.querySelectorAll("p").length, 1, "document.querySelectorAll can find a <p> element");
+      const elements = doc.querySelectorAll(["strong", "em"]);
+      assert.ok(elements.length === 3, "document.querySelectorAll returns all instances of <strong> and <em> elements");
 
-  t.done();
-};
-
-exports["querySelectorAll converts its argument to a string before processing"] = t => {
-  const doc = load("test");
-
-  const elements = doc.querySelectorAll(["strong", "em"]);
-  t.ok(elements.length === 3, "document.querySelectorAll returns all instances of <strong> and <em> elements");
-
-  const stringifiableObj = {
-    toString() {
-      return "p";
+      const stringifiableObj = {
+        toString() {
+          return "p";
+        }
+      };
+      const expectedP = doc.querySelectorAll(stringifiableObj);
+      assert.ok(expectedP.length === 1, "document.querySelectorAll calls toString on any given object");
     }
-  };
-  const expectedP = doc.querySelectorAll(stringifiableObj);
-  t.ok(expectedP.length === 1, "document.querySelectorAll calls toString on any given object");
-
-  t.done();
-};
+  );
+});

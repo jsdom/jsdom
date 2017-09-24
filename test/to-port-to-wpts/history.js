@@ -1,182 +1,205 @@
 "use strict";
+
+const { assert } = require("chai");
+const { describe, specify } = require("mocha-sugar-free");
+
 const jsdom = require("../../lib/old-api.js");
 
-exports["a default window should have a history object with correct default values"] = t => {
-  const window = jsdom.jsdom().defaultView;
+describe("history", () => {
+  specify(
+    "a default window should have a history object with correct default values",
+    () => {
+      const window = jsdom.jsdom().defaultView;
 
-  t.ok(window.history);
-  t.strictEqual(window.history.state, null);
-  t.strictEqual(window.history.length, 1);
+      assert.ok(window.history);
+      assert.strictEqual(window.history.state, null);
+      assert.strictEqual(window.history.length, 1);
+    }
+  );
 
-  t.done();
-};
+  specify(
+    "the history object should update correctly when calling pushState/replaceState",
+    () => {
+      const window = jsdom.jsdom("", { url: "http://www.example.org/" }).defaultView;
 
-exports["the history object should update correctly when calling pushState/replaceState"] = t => {
-  const window = jsdom.jsdom("", { url: "http://www.example.org/" }).defaultView;
+      window.addEventListener("popstate", () => {
+        assert.fail("popstate should not fire as a result of a pushState() or replaceState() call");
+      });
 
-  window.addEventListener("popstate", () => {
-    t.fail("popstate should not fire as a result of a pushState() or replaceState() call");
-  });
+      // Absolute path
+      window.history.pushState({ foo: "one" }, "unused title", "/bar/baz#fuzz");
+      assert.strictEqual(window.history.length, 2);
+      assert.strictEqual(window.history.state.foo, "one");
+      assert.strictEqual(window.location.pathname, "/bar/baz");
+      assert.strictEqual(window.location.hash, "#fuzz");
 
-  // Absolute path
-  window.history.pushState({ foo: "one" }, "unused title", "/bar/baz#fuzz");
-  t.strictEqual(window.history.length, 2);
-  t.strictEqual(window.history.state.foo, "one");
-  t.strictEqual(window.location.pathname, "/bar/baz");
-  t.strictEqual(window.location.hash, "#fuzz");
+      window.history.pushState({ foo: "two" }, "unused title 2", "/bar/foo#boo");
+      assert.strictEqual(window.history.length, 3);
+      assert.strictEqual(window.history.state.foo, "two");
+      assert.strictEqual(window.location.pathname, "/bar/foo");
+      assert.strictEqual(window.location.hash, "#boo");
 
-  window.history.pushState({ foo: "two" }, "unused title 2", "/bar/foo#boo");
-  t.strictEqual(window.history.length, 3);
-  t.strictEqual(window.history.state.foo, "two");
-  t.strictEqual(window.location.pathname, "/bar/foo");
-  t.strictEqual(window.location.hash, "#boo");
+      // Relative path
+      window.history.pushState({ foo: "three" }, "unused title 3", "fizz");
+      assert.strictEqual(window.history.length, 4);
+      assert.strictEqual(window.history.state.foo, "three");
+      assert.strictEqual(window.location.pathname, "/bar/fizz");
+      assert.strictEqual(window.location.hash, "");
 
-  // Relative path
-  window.history.pushState({ foo: "three" }, "unused title 3", "fizz");
-  t.strictEqual(window.history.length, 4);
-  t.strictEqual(window.history.state.foo, "three");
-  t.strictEqual(window.location.pathname, "/bar/fizz");
-  t.strictEqual(window.location.hash, "");
+      window.history.replaceState({ foo: "four" }, "unused title 4", "/buzz");
+      assert.strictEqual(window.history.length, 4);
+      assert.strictEqual(window.history.state.foo, "four");
+      assert.strictEqual(window.location.pathname, "/buzz");
+    }
+  );
 
-  window.history.replaceState({ foo: "four" }, "unused title 4", "/buzz");
-  t.strictEqual(window.history.length, 4);
-  t.strictEqual(window.history.state.foo, "four");
-  t.strictEqual(window.location.pathname, "/buzz");
+  specify(
+    "the history object should update correctly when calling forward/back/go",
+    t => {
+      const window = jsdom.jsdom("", { url: "http://www.example.org/" }).defaultView;
+      const initialPath = window.location.pathname;
 
-  t.done();
-};
+      [
+        [{ foo: "bar" }, "title 1", "/bar"],
+        [{ foo: "baz" }, "title 2", "/baz"],
+        [{ foo: "buzz" }, "title 3", "/buzz"]
+      ].forEach(args => {
+        window.history.pushState(...args);
+      });
 
-exports["the history object should update correctly when calling forward/back/go"] = t => {
-  const window = jsdom.jsdom("", { url: "http://www.example.org/" }).defaultView;
-  const initialPath = window.location.pathname;
+      // Sanity check
+      assert.strictEqual(window.history.length, 4);
+      assert.strictEqual(window.history.state.foo, "buzz");
+      assert.strictEqual(window.location.pathname, "/buzz");
 
-  [
-    [{ foo: "bar" }, "title 1", "/bar"],
-    [{ foo: "baz" }, "title 2", "/baz"],
-    [{ foo: "buzz" }, "title 3", "/buzz"]
-  ].forEach(args => {
-    window.history.pushState(...args);
-  });
-
-  // Sanity check
-  t.strictEqual(window.history.length, 4);
-  t.strictEqual(window.history.state.foo, "buzz");
-  t.strictEqual(window.location.pathname, "/buzz");
-
-  // Test forward boundary
-  window.history.forward();
-  t.strictEqual(window.history.length, 4);
-  t.strictEqual(window.history.state.foo, "buzz");
-  t.strictEqual(window.location.pathname, "/buzz");
-
-  window.history.back();
-  t.strictEqual(window.history.length, 4);
-
-  // Should not change immediately.
-  t.strictEqual(window.history.state.foo, "buzz");
-  t.strictEqual(window.location.pathname, "/buzz");
-
-  setTimeout(() => {
-    // Should not even change after one task!
-    t.strictEqual(window.history.state.foo, "buzz");
-    t.strictEqual(window.location.pathname, "/buzz");
-
-    setTimeout(() => {
-      // It takes two tasks to change!
-      t.strictEqual(window.history.state.foo, "baz");
-      t.strictEqual(window.location.pathname, "/baz");
-
-      // From hereon out we just assume this is correct and wait for it.
+      // Test forward boundary
+      window.history.forward();
+      assert.strictEqual(window.history.length, 4);
+      assert.strictEqual(window.history.state.foo, "buzz");
+      assert.strictEqual(window.location.pathname, "/buzz");
 
       window.history.back();
-      waitForHistoryChange(() => {
-        t.strictEqual(window.history.length, 4);
-        t.strictEqual(window.history.state.foo, "bar");
-        t.strictEqual(window.location.pathname, "/bar");
+      assert.strictEqual(window.history.length, 4);
 
-        window.history.back();
+      // Should not change immediately.
+      assert.strictEqual(window.history.state.foo, "buzz");
+      assert.strictEqual(window.location.pathname, "/buzz");
 
-        waitForHistoryChange(() => {
-          t.strictEqual(window.history.length, 4);
-          t.strictEqual(window.history.state, null);
-          t.strictEqual(window.location.pathname, initialPath);
+      setTimeout(() => {
+        // Should not even change after one task!
+        assert.strictEqual(window.history.state.foo, "buzz");
+        assert.strictEqual(window.location.pathname, "/buzz");
 
-          // Test backward boundary
+        setTimeout(() => {
+          // It takes two tasks to change!
+          assert.strictEqual(window.history.state.foo, "baz");
+          assert.strictEqual(window.location.pathname, "/baz");
+
+          // From hereon out we just assume this is correct and wait for it.
+
           window.history.back();
-
           waitForHistoryChange(() => {
-            t.strictEqual(window.history.length, 4);
-            t.strictEqual(window.history.state, null);
-            t.strictEqual(window.location.pathname, initialPath);
+            assert.strictEqual(window.history.length, 4);
+            assert.strictEqual(window.history.state.foo, "bar");
+            assert.strictEqual(window.location.pathname, "/bar");
 
-            window.history.go(2);
+            window.history.back();
 
             waitForHistoryChange(() => {
-              t.strictEqual(window.history.length, 4);
-              t.strictEqual(window.history.state.foo, "baz");
-              t.strictEqual(window.location.pathname, "/baz");
+              assert.strictEqual(window.history.length, 4);
+              assert.strictEqual(window.history.state, null);
+              assert.strictEqual(window.location.pathname, initialPath);
 
-              t.done();
+              // Test backward boundary
+              window.history.back();
+
+              waitForHistoryChange(() => {
+                assert.strictEqual(window.history.length, 4);
+                assert.strictEqual(window.history.state, null);
+                assert.strictEqual(window.location.pathname, initialPath);
+
+                window.history.go(2);
+
+                waitForHistoryChange(() => {
+                  assert.strictEqual(window.history.length, 4);
+                  assert.strictEqual(window.history.state.foo, "baz");
+                  assert.strictEqual(window.location.pathname, "/baz");
+
+                  t.done();
+                });
+              });
             });
           });
-        });
+        }, 0);
+      }, 0);
+    }, {
+      async: true
+    }
+  );
+
+  specify(
+    "the history object should update correctly when calling pushState with index behind length",
+    t => {
+      const window = jsdom.jsdom("", { url: "http://www.example.org/" }).defaultView;
+
+      [
+        [{ foo: "bar" }, "title 1", "/bar"],
+        [{ foo: "baz" }, "title 2", "/baz"],
+        [{ foo: "buzz" }, "title 3", "/buzz"]
+      ].forEach(args => {
+        window.history.pushState(...args);
       });
-    }, 0);
-  }, 0);
-};
 
-exports["the history object should update correctly when calling pushState with index behind length"] = t => {
-  const window = jsdom.jsdom("", { url: "http://www.example.org/" }).defaultView;
+      // Sanity check
+      assert.strictEqual(window.history.length, 4);
+      assert.strictEqual(window.history.state.foo, "buzz");
+      assert.strictEqual(window.location.pathname, "/buzz");
+      window.history.go(-2);
 
-  [
-    [{ foo: "bar" }, "title 1", "/bar"],
-    [{ foo: "baz" }, "title 2", "/baz"],
-    [{ foo: "buzz" }, "title 3", "/buzz"]
-  ].forEach(args => {
-    window.history.pushState(...args);
-  });
+      waitForHistoryChange(() => {
+        assert.strictEqual(window.history.length, 4);
+        assert.strictEqual(window.history.state.foo, "bar");
+        assert.strictEqual(window.location.pathname, "/bar");
 
-  // Sanity check
-  t.strictEqual(window.history.length, 4);
-  t.strictEqual(window.history.state.foo, "buzz");
-  t.strictEqual(window.location.pathname, "/buzz");
-  window.history.go(-2);
+        // Call pushState when index is behind length
+        window.history.pushState({ foo: "bar-b" }, "title 2b", "/bar/b");
 
-  waitForHistoryChange(() => {
-    t.strictEqual(window.history.length, 4);
-    t.strictEqual(window.history.state.foo, "bar");
-    t.strictEqual(window.location.pathname, "/bar");
+        assert.strictEqual(window.history.length, 3);
+        assert.strictEqual(window.history.state.foo, "bar-b");
+        assert.strictEqual(window.location.pathname, "/bar/b");
 
-    // Call pushState when index is behind length
-    window.history.pushState({ foo: "bar-b" }, "title 2b", "/bar/b");
+        t.done();
+      });
+    }, {
+      async: true
+    }
+  );
 
-    t.strictEqual(window.history.length, 3);
-    t.strictEqual(window.history.state.foo, "bar-b");
-    t.strictEqual(window.location.pathname, "/bar/b");
+  specify(
+    "the history object should fire popstate on the window while navigating the history",
+    t => {
+      const window = jsdom.jsdom("", { url: "http://www.example.org/" }).defaultView;
 
-    t.done();
-  });
-};
+      const state = { foo: "bar" };
 
-exports["the history object should fire popstate on the window while navigating the history"] = t => {
-  const window = jsdom.jsdom("", { url: "http://www.example.org/" }).defaultView;
+      window.addEventListener("popstate", event => {
+        assert.strictEqual(event.bubbles, true);
+        assert.strictEqual(event.cancelable, false);
+        assert.strictEqual(event.state, state);
 
-  const state = { foo: "bar" };
+        t.done();
+      });
 
-  window.addEventListener("popstate", event => {
-    t.strictEqual(event.bubbles, true);
-    t.strictEqual(event.cancelable, false);
-    t.strictEqual(event.state, state);
+      window.history.pushState(state, "title", "bar");
+      window.history.pushState(null, "", "baz");
+      window.history.back();
+    }, {
+      async: true
+    }
+  );
 
-    t.done();
-  });
-
-  window.history.pushState(state, "title", "bar");
-  window.history.pushState(null, "", "baz");
-  window.history.back();
-};
-
-function waitForHistoryChange(fn) {
-  // See notes above.
-  setTimeout(() => setTimeout(fn, 0), 0);
-}
+  function waitForHistoryChange(fn) {
+    // See notes above.
+    setTimeout(() => setTimeout(fn, 0), 0);
+  }
+});

@@ -1,81 +1,81 @@
 "use strict";
+
+const { assert } = require("chai");
+const { describe, specify } = require("mocha-sugar-free");
+
 const jsdom = require("../../lib/old-api.js");
 
-exports["new DOMImplementation() is not allowed"] = t => {
-  const DOMImplementation = jsdom.jsdom().defaultView.DOMImplementation;
+describe("dom-implementation", () => {
+  specify("new DOMImplementation() is not allowed", () => {
+    const DOMImplementation = jsdom.jsdom().defaultView.DOMImplementation;
 
-  t.throws(() => new DOMImplementation(), /Illegal constructor/i);
+    assert.throws(() => new DOMImplementation(), /Illegal constructor/i);
+  });
 
-  t.done();
-};
+  specify("create an empty document", () => {
+    const implementation = jsdom.jsdom().implementation;
+    const document = implementation.createDocument(null, null, null);
+    assert.equal(document.childNodes.length, 0, "document should not contain any nodes");
+  });
 
-exports["create an empty document"] = t => {
-  const implementation = jsdom.jsdom().implementation;
-  const document = implementation.createDocument(null, null, null);
-  t.equal(document.childNodes.length, 0, "document should not contain any nodes");
-  t.done();
-};
+  specify("doctype ownerDocument", () => {
+    const document = jsdom.jsdom();
+    const doctype = document.implementation.createDocumentType("bananas", "", "");
+    assert.ok(doctype.ownerDocument === document,
+      "doctype should belong to the document the implementation belongs to");
+    const newDocument = document.implementation.createDocument(null, null, doctype);
+    assert.ok(doctype.ownerDocument === newDocument, "doctype should belong to the new document");
+  });
 
-exports["doctype ownerDocument"] = t => {
-  const document = jsdom.jsdom();
-  const doctype = document.implementation.createDocumentType("bananas", "", "");
-  t.ok(doctype.ownerDocument === document, "doctype should belong to the document the implementation belongs to");
-  const newDocument = document.implementation.createDocument(null, null, doctype);
-  t.ok(doctype.ownerDocument === newDocument, "doctype should belong to the new document");
-  t.done();
-};
+  specify("doctype child of ownerDocument", () => {
+    const document = jsdom.jsdom();
+    const doctype = document.implementation.createDocumentType("hatstand", "", "");
+    const newDocument = document.implementation.createDocument(null, null, doctype);
+    assert.ok(newDocument.firstChild === doctype, "doctype should be a child of the document");
+  });
 
-exports["doctype child of ownerDocument"] = t => {
-  const document = jsdom.jsdom();
-  const doctype = document.implementation.createDocumentType("hatstand", "", "");
-  const newDocument = document.implementation.createDocument(null, null, doctype);
-  t.ok(newDocument.firstChild === doctype, "doctype should be a child of the document");
-  t.done();
-};
+  specify("defaultView should be null", () => {
+    const document = jsdom.jsdom();
+    const newDocument = document.implementation.createDocument(null, null, null);
+    assert.strictEqual(newDocument.defaultView, null, "defaultView should be null");
+  });
 
-exports["defaultView should be null"] = t => {
-  const document = jsdom.jsdom();
-  const newDocument = document.implementation.createDocument(null, null, null);
-  t.strictEqual(newDocument.defaultView, null, "defaultView should be null");
-  t.done();
-};
+  specify("location should be null", () => {
+    const document = jsdom.jsdom();
+    const newDocument = document.implementation.createHTMLDocument();
+    assert.strictEqual(newDocument.location, null, "location should be null");
+  });
 
-exports["location should be null"] = t => {
-  const document = jsdom.jsdom();
-  const newDocument = document.implementation.createHTMLDocument();
-  t.strictEqual(newDocument.location, null, "location should be null");
-  t.done();
-};
+  specify(
+    "setting proxied event handlers on the body should have no effect",
+    () => {
+      const document = jsdom.jsdom();
+      const newDocument = document.implementation.createHTMLDocument();
 
-exports["setting proxied event handlers on the body should have no effect"] = t => {
-  const document = jsdom.jsdom();
-  const newDocument = document.implementation.createHTMLDocument();
+      const proxiedEventHandlers = ["onafterprint", "onbeforeprint", "onbeforeunload", "onblur", "onerror", "onfocus",
+        "onhashchange", "onload", "onmessage", "onoffline", "ononline", "onpagehide", "onpageshow", "onpopstate",
+        "onresize", "onscroll", "onstorage", "onunload"];
 
-  const proxiedEventHandlers = ["onafterprint", "onbeforeprint", "onbeforeunload", "onblur", "onerror", "onfocus",
-    "onhashchange", "onload", "onmessage", "onoffline", "ononline", "onpagehide", "onpageshow", "onpopstate",
-    "onresize", "onscroll", "onstorage", "onunload"];
+      for (const name of proxiedEventHandlers) {
+        newDocument.body[name] = "1 + 2";
+        assert.strictEqual(newDocument.body[name], null, name + " should always be null because there is no window");
+      }
+    }
+  );
 
-  for (const name of proxiedEventHandlers) {
-    newDocument.body[name] = "1 + 2";
-    t.strictEqual(newDocument.body[name], null, name + " should always be null because there is no window");
-  }
-  t.done();
-};
+  specify("iframe added to a created Document should not load", () => {
+    const document = jsdom.jsdom();
+    const newDocument = document.implementation.createHTMLDocument();
 
-exports["iframe added to a created Document should not load"] = t => {
-  const document = jsdom.jsdom();
-  const newDocument = document.implementation.createHTMLDocument();
+    const iframe = newDocument.createElement("iframe");
+    // iframe's with a name are added as a property to the window, this line is added to see if things crash
+    iframe.setAttribute("name", "foobar");
+    newDocument.body.appendChild(iframe);
+    assert.strictEqual(iframe.contentWindow, null, "contentWindow should be null, the iframe should never load");
+    assert.strictEqual(iframe.contentDocument, null, "contentDocument should be null, the iframe should never load");
 
-  const iframe = newDocument.createElement("iframe");
-  // iframe's with a name are added as a property to the window, this line is added to see if things crash
-  iframe.setAttribute("name", "foobar");
-  newDocument.body.appendChild(iframe);
-  t.strictEqual(iframe.contentWindow, null, "contentWindow should be null, the iframe should never load");
-  t.strictEqual(iframe.contentDocument, null, "contentDocument should be null, the iframe should never load");
-
-  iframe.src = "http://example.com/"; // try to trigger a load action
-  t.strictEqual(iframe.contentWindow, null, "contentWindow should be null, the iframe should never load");
-  t.strictEqual(iframe.contentDocument, null, "contentDocument should be null, the iframe should never load");
-
-  t.done();
-};
+    iframe.src = "http://example.com/"; // try to trigger a load action
+    assert.strictEqual(iframe.contentWindow, null, "contentWindow should be null, the iframe should never load");
+    assert.strictEqual(iframe.contentDocument, null, "contentDocument should be null, the iframe should never load");
+  });
+});

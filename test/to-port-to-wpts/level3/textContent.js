@@ -1,9 +1,12 @@
+const { assert } = require("chai");
+const { describe, specify } = require("mocha-sugar-free");
+
 var hc_staff = require("../level1/core/files/hc_staff.xml");
 
 // Most of the level3 tests fail, so we don't turn them on by default. We extracted out one that passes into this file.
 
-exports.tests = {
-  nodesettextcontent07: function (test) {
+describe("level3/textContent", () => {
+  specify("nodesettextcontent07", () => {
     var success;
     var doc;
     var elemList;
@@ -20,8 +23,6 @@ exports.tests = {
 
     textContent = txt.textContent;
 
-    test.equal(textContent, "Text", 'nodegettextcontent10');
-
-    test.done()
-  },
-}
+    assert.equal(textContent, "Text", 'nodegettextcontent10');
+  });
+});

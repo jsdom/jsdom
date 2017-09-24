@@ -1,221 +1,236 @@
 "use strict";
+
+const { assert } = require("chai");
+const { describe, specify } = require("mocha-sugar-free");
+
 const load = require("../util.js").load(__dirname);
 
 // Tests for node.contains
 // Spec: http://dom.spec.whatwg.org/#dom-node-contains
 
-exports["A node should contain its document type"] = t => {
-  const doc = load("test");
-  const doctype = doc.doctype;
+describe("node-contains", { skipIfBrowser: true }, () => {
+  specify("A node should contain its document type", () => {
+    const doc = load("test");
+    const doctype = doc.doctype;
 
-  t.ok(doc.contains(doctype), "Document contains its DocumentType");
-  t.ok(!doctype.contains(doc), "DocumentType does not contain its Document");
-  t.done();
-};
+    assert.ok(doc.contains(doctype), "Document contains its DocumentType");
+    assert.ok(!doctype.contains(doc), "DocumentType does not contain its Document");
+  });
 
-exports["A Document should be an inclusive descendant of itself"] = t => {
-  const doc = load("test");
+  specify("A Document should be an inclusive descendant of itself", () => {
+    const doc = load("test");
 
-  t.ok(doc.contains(doc), "Document contains itself");
-  t.done();
-};
+    assert.ok(doc.contains(doc), "Document contains itself");
+  });
 
-exports["A document should contain its document element but not the reverse"] = t => {
-  const doc = load("test");
-  const docElement = doc.documentElement;
+  specify(
+    "A document should contain its document element but not the reverse",
+    () => {
+      const doc = load("test");
+      const docElement = doc.documentElement;
 
-  t.ok(doc.contains(docElement), "Document contains its DocumentElement");
-  t.ok(!docElement.contains(doc), "Document Element does not contain its Document");
-  t.done();
-};
+      assert.ok(doc.contains(docElement), "Document contains its DocumentElement");
+      assert.ok(!docElement.contains(doc), "Document Element does not contain its Document");
+    }
+  );
 
-exports["A DocumentElement should contain a newly created and appended element"] = t => {
-  const doc = load("test");
-  const docElement = doc.documentElement;
-  const newElement = doc.createElementNS("http://www.w3.org/1999/xhtml", "br");
+  specify(
+    "A DocumentElement should contain a newly created and appended element",
+    () => {
+      const doc = load("test");
+      const docElement = doc.documentElement;
+      const newElement = doc.createElementNS("http://www.w3.org/1999/xhtml", "br");
 
-  docElement.appendChild(newElement);
+      docElement.appendChild(newElement);
 
-  t.ok(docElement.contains(newElement), "DocumentElement contains new appended element");
-  t.ok(!newElement.contains(docElement), "New appended Element does not contain DocumentElement");
-  t.done();
-};
+      assert.ok(docElement.contains(newElement), "DocumentElement contains new appended element");
+      assert.ok(!newElement.contains(docElement), "New appended Element does not contain DocumentElement");
+    }
+  );
 
-exports["The Document should contain a descendant node"] = t => {
-  const doc = load("test");
-  const elem = doc.getElementsByTagName("p").item(0);
+  specify("The Document should contain a descendant node", () => {
+    const doc = load("test");
+    const elem = doc.getElementsByTagName("p").item(0);
 
-  t.ok(doc.contains(elem), "Document contains a descendant node");
-  t.ok(!elem.contains(doc), "Descentant node does not contain Document");
-  t.done();
-};
+    assert.ok(doc.contains(elem), "Document contains a descendant node");
+    assert.ok(!elem.contains(doc), "Descentant node does not contain Document");
+  });
 
-exports["An element should contain a new appended element"] = t => {
-  const doc = load("test");
-  const elem = doc.getElementsByTagName("p").item(0);
-  const newElem = doc.createElementNS("http://www.w3.org/1999/xhtml", "br");
+  specify("An element should contain a new appended element", () => {
+    const doc = load("test");
+    const elem = doc.getElementsByTagName("p").item(0);
+    const newElem = doc.createElementNS("http://www.w3.org/1999/xhtml", "br");
 
-  elem.appendChild(newElem);
+    elem.appendChild(newElem);
 
-  t.ok(elem.contains(newElem), "Element contains new appended Element");
-  t.ok(!newElem.contains(elem), "New Element does not contain Element");
-  t.done();
-};
+    assert.ok(elem.contains(newElem), "Element contains new appended Element");
+    assert.ok(!newElem.contains(elem), "New Element does not contain Element");
+  });
 
-exports["The Document should contain a newly attached ProcessingInstruction"] = t => {
-  const doc = load("test");
-  const pi = doc.createProcessingInstruction("PITarget", "PIDATA");
+  specify(
+    "The Document should contain a newly attached ProcessingInstruction",
+    () => {
+      const doc = load("test");
+      const pi = doc.createProcessingInstruction("PITarget", "PIDATA");
 
-  doc.appendChild(pi);
-  t.ok(doc.contains(pi), "Document contains new attached processing instruction");
-  t.ok(!pi.contains(doc), "Processing Instruction does not contain doc");
-  t.done();
-};
+      doc.appendChild(pi);
+      assert.ok(doc.contains(pi), "Document contains new attached processing instruction");
+      assert.ok(!pi.contains(doc), "Processing Instruction does not contain doc");
+    }
+  );
 
-exports["The document should contain a new attached Comment"] = t => {
-  const doc = load("test");
-  const elem = doc.getElementsByTagName("p").item(0);
-  const comment = doc.createComment("Another Comment");
+  specify("The document should contain a new attached Comment", () => {
+    const doc = load("test");
+    const elem = doc.getElementsByTagName("p").item(0);
+    const comment = doc.createComment("Another Comment");
 
-  elem.appendChild(comment);
+    elem.appendChild(comment);
 
-  t.ok(doc.contains(comment), "Document contains new attached Comment");
-  t.ok(!comment.contains(doc), "Comment does not contain Document");
-  t.done();
-};
+    assert.ok(doc.contains(comment), "Document contains new attached Comment");
+    assert.ok(!comment.contains(doc), "Comment does not contain Document");
+  });
 
-exports["A DocumentFragment should contain a child node"] = t => {
-  const doc = load("test");
-  const docElement = doc.documentElement;
-  const docFragment = doc.createDocumentFragment();
+  specify("A DocumentFragment should contain a child node", () => {
+    const doc = load("test");
+    const docElement = doc.documentElement;
+    const docFragment = doc.createDocumentFragment();
 
-  docFragment.appendChild(docElement);
+    docFragment.appendChild(docElement);
 
-  const docFragmentChild = docFragment.firstChild;
+    const docFragmentChild = docFragment.firstChild;
 
-  t.ok(docFragment.contains(docFragmentChild), "DocumentFragment contains child");
-  t.ok(!docFragmentChild.contains(docFragment), "DocumentFragment child does not contain DocumentFragment");
-  t.done();
-};
+    assert.ok(docFragment.contains(docFragmentChild), "DocumentFragment contains child");
+    assert.ok(!docFragmentChild.contains(docFragment), "DocumentFragment child does not contain DocumentFragment");
+  });
 
-exports["Created and attached sibling ProcessingInstructions should not not contain one another"] = t => {
-  const doc = load("test");
-  const pi1 = doc.createProcessingInstruction("PI1", "");
-  const pi2 = doc.createProcessingInstruction("PI2", "");
+  specify(
+    "Created and attached sibling ProcessingInstructions should not not contain one another",
+    () => {
+      const doc = load("test");
+      const pi1 = doc.createProcessingInstruction("PI1", "");
+      const pi2 = doc.createProcessingInstruction("PI2", "");
 
-  doc.appendChild(pi1);
-  doc.appendChild(pi2);
+      doc.appendChild(pi1);
+      doc.appendChild(pi2);
 
-  t.ok(!pi1.contains(pi2),
-    "Attached ProcessingInstruction does not contain second attached ProcessingInstruction");
-  t.ok(!pi2.contains(pi1),
-    "Second attached ProcessingInstruction does not contain first attached ProcessingInstruction");
-  t.done();
-};
+      assert.ok(!pi1.contains(pi2),
+        "Attached ProcessingInstruction does not contain second attached ProcessingInstruction");
+      assert.ok(!pi2.contains(pi1),
+        "Second attached ProcessingInstruction does not contain first attached ProcessingInstruction");
+    }
+  );
 
-exports["Two created sibling ProcessingInstruction nodes should not contain one another"] = t => {
-  const doc = load("test");
-  const docElement = doc.documentElement;
-  const txt1 = doc.createTextNode("T1");
-  const txt2 = doc.createTextNode("T2");
+  specify(
+    "Two created sibling ProcessingInstruction nodes should not contain one another",
+    () => {
+      const doc = load("test");
+      const docElement = doc.documentElement;
+      const txt1 = doc.createTextNode("T1");
+      const txt2 = doc.createTextNode("T2");
 
-  docElement.appendChild(txt1);
-  docElement.appendChild(txt2);
+      docElement.appendChild(txt1);
+      docElement.appendChild(txt2);
 
-  t.ok(!txt1.contains(txt2), "First attached TextNode does not contain second attached TextNode");
-  t.ok(!txt2.contains(txt1), "Second attached TextNode does not contain first attached TextNode");
-  t.done();
-};
+      assert.ok(!txt1.contains(txt2), "First attached TextNode does not contain second attached TextNode");
+      assert.ok(!txt2.contains(txt1), "Second attached TextNode does not contain first attached TextNode");
+    }
+  );
 
-exports["The Text node children of two sibling elements should not contain one another"] = t => {
-  const doc = load("test");
-  const txt1 = doc.getElementsByTagName("span").item(0).firstChild;
-  const txt2 = doc.getElementsByTagName("p").item(0).firstChild;
+  specify(
+    "The Text node children of two sibling elements should not contain one another",
+    () => {
+      const doc = load("test");
+      const txt1 = doc.getElementsByTagName("span").item(0).firstChild;
+      const txt2 = doc.getElementsByTagName("p").item(0).firstChild;
 
-  t.ok(!txt1.contains(txt2),
-    "Text node child of first sibling Element does not contain Text node child of second sibling Element");
-  t.ok(!txt2.contains(txt1),
-    "Text node child of second sibling Element does not contain Text node child of first sibling Element");
-  t.done();
-};
+      assert.ok(!txt1.contains(txt2),
+        "Text node child of first sibling Element does not contain Text node child of second sibling Element");
+      assert.ok(!txt2.contains(txt1),
+        "Text node child of second sibling Element does not contain Text node child of first sibling Element");
+    }
+  );
 
-exports["An element should not contain a following element and vice versa"] = t => {
-  const doc = load("test");
-  const span = doc.getElementsByTagName("span").item(0);
-  const p = doc.getElementsByTagName("p").item(0);
+  specify(
+    "An element should not contain a following element and vice versa",
+    () => {
+      const doc = load("test");
+      const span = doc.getElementsByTagName("span").item(0);
+      const p = doc.getElementsByTagName("p").item(0);
 
-  t.ok(!span.contains(p), "Element does not contain following element");
-  t.ok(!p.contains(span), "Element does not contain previous element");
-  t.done();
-};
+      assert.ok(!span.contains(p), "Element does not contain following element");
+      assert.ok(!p.contains(span), "Element does not contain previous element");
+    }
+  );
 
-exports["A document should not contain null"] = t => {
-  const doc = load("test");
+  specify("A document should not contain null", () => {
+    const doc = load("test");
 
-  t.ok(!doc.contains(null), "Document does not contain null");
-  t.done();
-};
+    assert.ok(!doc.contains(null), "Document does not contain null");
+  });
 
-exports["A DocumentType should not contain null"] = t => {
-  const doc = load("test");
+  specify("A DocumentType should not contain null", () => {
+    const doc = load("test");
 
-  t.ok(!doc.doctype.contains(null), "Doctype does not contain null");
-  t.done();
-};
+    assert.ok(!doc.doctype.contains(null), "Doctype does not contain null");
+  });
 
-exports["An existing node should not contain null"] = t => {
-  const ele = load("test").querySelectorAll("p").item(0);
+  specify("An existing node should not contain null", () => {
+    const ele = load("test").querySelectorAll("p").item(0);
 
-  t.ok(!ele.contains(null), "Element does not contain null");
-  t.done();
-};
+    assert.ok(!ele.contains(null), "Element does not contain null");
+  });
 
-exports["A document should not contain an unattached DocumentFragment"] = t => {
-  const doc = load("test");
-  const fragment = doc.createDocumentFragment();
+  specify("A document should not contain an unattached DocumentFragment", () => {
+    const doc = load("test");
+    const fragment = doc.createDocumentFragment();
 
-  t.ok(!doc.contains(fragment), "Document does not contain fragment");
-  t.ok(!fragment.contains(doc), "Fragment does not contain document");
-  t.done();
-};
+    assert.ok(!doc.contains(fragment), "Document does not contain fragment");
+    assert.ok(!fragment.contains(doc), "Fragment does not contain document");
+  });
 
-exports["A DocumentType should not contain an unattached DocumentFragment"] = t => {
-  const doc = load("test");
-  const fragment = doc.createDocumentFragment();
+  specify(
+    "A DocumentType should not contain an unattached DocumentFragment",
+    () => {
+      const doc = load("test");
+      const fragment = doc.createDocumentFragment();
 
-  t.ok(!doc.doctype.contains(fragment), "DocumentType does not contain DocumentFragment");
-  t.ok(!fragment.contains(doc.doctype), "DocumentFragment does not contain DocumentType");
-  t.done();
-};
+      assert.ok(!doc.doctype.contains(fragment), "DocumentType does not contain DocumentFragment");
+      assert.ok(!fragment.contains(doc.doctype), "DocumentFragment does not contain DocumentType");
+    }
+  );
 
-exports["An existing element should not contain an unattached DocumentFragment"] = t => {
-  const doc = load("test");
-  const fragment = doc.createDocumentFragment();
-  const span = doc.querySelectorAll("span").item(0);
+  specify(
+    "An existing element should not contain an unattached DocumentFragment",
+    () => {
+      const doc = load("test");
+      const fragment = doc.createDocumentFragment();
+      const span = doc.querySelectorAll("span").item(0);
 
-  t.ok(!span.contains(fragment), "Element does not contain DocumentFragment");
-  t.ok(!fragment.contains(span), "DocumentFragment does not contain Element");
-  t.done();
-};
+      assert.ok(!span.contains(fragment), "Element does not contain DocumentFragment");
+      assert.ok(!fragment.contains(span), "DocumentFragment does not contain Element");
+    }
+  );
 
-exports["An unattached element should not contain another unattached element"] = t => {
-  const doc = load("test");
-  const e1 = doc.createElement("p");
-  const e2 = doc.createElement("p2");
+  specify(
+    "An unattached element should not contain another unattached element",
+    () => {
+      const doc = load("test");
+      const e1 = doc.createElement("p");
+      const e2 = doc.createElement("p2");
 
-  t.ok(!e1.contains(e2), "Element does not contain second Element");
-  t.ok(!e2.contains(e1), "Second Element does not contain Element");
-  t.done();
-};
+      assert.ok(!e1.contains(e2), "Element does not contain second Element");
+      assert.ok(!e2.contains(e1), "Second Element does not contain Element");
+    }
+  );
 
-exports["Should return a boolean value"] = t => {
-  const doc = load("test");
-  const elem = doc.getElementsByTagName("p").item(0);
-  const newElem = doc.createElementNS("http://www.w3.org/1999/xhtml", "br");
+  specify("Should return a boolean value", () => {
+    const doc = load("test");
+    const elem = doc.getElementsByTagName("p").item(0);
+    const newElem = doc.createElementNS("http://www.w3.org/1999/xhtml", "br");
 
-  elem.appendChild(newElem);
+    elem.appendChild(newElem);
 
-  t.strictEqual(true, elem.contains(newElem), "Return value must be 'true' (strictly)");
-  t.strictEqual(false, newElem.contains(elem), "Return value must be 'false' (strictly)");
-  t.done();
-};
+    assert.strictEqual(true, elem.contains(newElem), "Return value must be 'true' (strictly)");
+    assert.strictEqual(false, newElem.contains(elem), "Return value must be 'false' (strictly)");
+  });
+});
