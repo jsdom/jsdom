@@ -175,6 +175,10 @@ describe("Web Platform Tests", () => {
     "html/editing/focus/document-level-focus-apis/document-level-apis.html",
     "html/editing/focus/sequential-focus-navigation-and-the-tabindex-attribute/focus-tabindex-default-value.html",
     // "html/infrastructure/urls/terminology-0/document-base-url.html", // we don't support srcdoc <base> correctly
+    // "html/obsolete/requirements-for-implementations/the-marquee-element-0/marquee-events.html", // events are not implemented
+    // "html/obsolete/requirements-for-implementations/the-marquee-element-0/marquee-loop.html", // only basic reflection is implemented
+    // "html/obsolete/requirements-for-implementations/the-marquee-element-0/marquee-scrollamount.html", // only basic reflection is implemented
+    // "html/obsolete/requirements-for-implementations/the-marquee-element-0/marquee-scrolldelay.html", // only basic reflection is implemented
     "html/obsolete/requirements-for-implementations/other-elements-attributes-and-apis/nothing.html",
     "html/semantics/forms/attributes-common-to-form-controls/disabled-elements-01.html",
     "html/semantics/forms/resetting-a-form/reset-form-2.html",
@@ -220,6 +224,8 @@ describe("Web Platform Tests", () => {
     "html/semantics/document-metadata/the-base-element/base_href_unspecified.html",
     // "html/semantics/document-metadata/the-base-element/base_multiple.html", // we don't support navigation via <a target>
     "html/semantics/document-metadata/the-base-element/base_srcdoc.html",
+    "html/semantics/interactive-elements/the-details-element/details.html",
+    // "html/semantics/interactive-elements/the-details-element/toggleEvent.html", // the ninth test requires a streaming HTML parser to pass
     "html/semantics/scripting-1/the-script-element/script-language-type.html",
     "html/semantics/scripting-1/the-script-element/script-languages-01.html",
     // "html/semantics/scripting-1/the-script-element/script-languages-02.html", // our script execution timing is off; see discussion in https://github.com/tmpvar/jsdom/pull/1406
