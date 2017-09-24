@@ -273,6 +273,7 @@ describe("Web Platform Tests", () => {
     "html/semantics/text-level-semantics/the-a-element/a.rel-setter-01.html",
     "html/semantics/text-level-semantics/the-a-element/a.text-getter-01.html",
     "html/semantics/text-level-semantics/the-a-element/a.text-setter-01.html",
+    // "html/semantics/interfaces.html", // needs <details>, <marquee>, <picture>, <slot>, <td>/<th>-fixes and custom elements
     "html/syntax/serializing-html-fragments/outerHTML.html",
     // "html/syntax/parsing/html5lib_template.html", // no idea what's going on here
     "html/syntax/parsing/template/additions-to-foster-parenting/template-is-a-foster-parent-element.html",
