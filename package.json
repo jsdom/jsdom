@@ -33,6 +33,7 @@
     "request": "^2.79.0",
     "request-promise-native": "^1.0.3",
     "sax": "^1.2.1",
+    "specificity": "^0.3.1",
     "symbol-tree": "^3.2.1",
     "tough-cookie": "^2.3.2",
     "webidl-conversions": "^4.0.0",
