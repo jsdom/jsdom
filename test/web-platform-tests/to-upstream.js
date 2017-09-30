@@ -60,6 +60,7 @@ describe("Local tests in Web Platform Test format (to-upstream)", () => {
     "encoding/meta/meta-http-equiv-simple-quotes.html",
     "encoding/meta/meta-http-equiv.html",
     "encoding/meta/no-meta.html",
+    "html/browsers/browsing-the-web/navigating-across-documents/fragment-anchors.html",
     "html/browsers/browsing-the-web/navigating-across-documents/fragment-replace.html",
     "html/browsers/browsing-the-web/navigating-across-documents/javascript-url-side-effects.html",
     "html/browsers/windows/nested-browsing-contexts/iframe-referrer.html",
