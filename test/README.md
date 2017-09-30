@@ -10,9 +10,7 @@ The jsdom project uses two different test frameworks:
 For working on new tests:
 
 - Tests for web platform features go in the [`web-platform-tests/to-upstream`](./web-platform-tests/to-upstream/) subdirectory. This should be the majority of new work.
-- Tests for the jsdom API itself go on the [`api`](./api/) subdirectory.
-
-If you add a new test file, edit [`index.js`](./index.js) to include it.
+- Tests for the jsdom API itself go in the [`api`](./api/) subdirectory. If you add a new test file, edit [`index.js`](./index.js) to include it.
 
 Ignore all the rest.
 

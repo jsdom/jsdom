@@ -75,6 +75,6 @@ require("./to-port-to-wpts/level2/style.js");
 require("./to-port-to-wpts/level3/textContent.js");
 require("./to-port-to-wpts/level3/xpath.js");
 
-require("./web-platform-tests/to-upstream.js");
-// keep this one last so that you can cancel the test run early
-require("./web-platform-tests/index.js");
+require("./web-platform-tests/run-tuwpts.js");
+// Keep this one last so that you can cancel the test run early.
+require("./web-platform-tests/run-wpts.js");

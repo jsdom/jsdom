@@ -39,7 +39,7 @@ First you'll want to `npm install`. Then, configure your system to run the web p
 
 ### Web platform feature tests
 
-All tests for web platform features (as opposed to features of jsdom itself, such as the `JSDOM()` constructor) should be in [web-platform-tests](https://github.com/w3c/web-platform-tests) format. We have some infrastructure for running these directly against jsdom documents. So ideally, when contributing a bugfix or new feature, you can browser the web-platform-tests repository and find the test covering your work, and then just enable it in [the manifest file](https://github.com/tmpvar/jsdom/blob/master/test/web-platform-tests/index.js). These tests are HTML files which use a special library called [testharness.js](http://testthewebforward.org/docs/testharness-library.html) to report their results.
+All tests for web platform features (as opposed to features of jsdom itself, such as the `JSDOM()` constructor) should be in [web-platform-tests](https://github.com/w3c/web-platform-tests) format. We have some infrastructure for running these directly against jsdom documents. So ideally, when contributing a bugfix or new feature, you can browse the web-platform-tests repository and find the test covering your work, and then just enable it in [the `to-run.yaml` file](https://github.com/tmpvar/jsdom/blob/master/test/web-platform-tests/to-run.yaml). These tests are HTML files which use a special library called [testharness.js](http://testthewebforward.org/docs/testharness-library.html) to report their results.
 
 However, the web-platform-tests project is not fully comprehensive. If you need to write your own test for a web platform feature, place it in our [to-upstream](https://github.com/tmpvar/jsdom/tree/master/test/web-platform-tests/to-upstream) directory. (It's so named because, over time, we hope to upstream these tests back to the web-platform-tests repository, so all browsers can benefit from them.) Note that you may need to create new directory structure, paralleling that of the main [web-platform-tests](https://github.com/w3c/web-platform-tests) repository.
 
@@ -47,9 +47,11 @@ However, the web-platform-tests project is not fully comprehensive. If you need 
 
 **To run the to-upstream web-platform-tests:** `npm run test-tuwpt`
 
-**To run specific web-platform-tests already in the manifest**: `npm run test-wpt -- --fgrep dom/events`
+**To run specific web-platform-tests already enabled via `to-run.yaml`**: `npm run test-wpt -- --fgrep dom/events`
 
-(Note for future reference for the maintainers: to update the submodules used for the web-platform-tests use the command `git submodule update --recursive --remote`.)
+**To run specific to-upstream web-platform-tests**: `npm run test-tuwpt -- --fgrep domparsing`
+
+Also, to update web platform tests to their latest revision from the source repository: `npm run update-wpt`. (This can take a long time.)
 
 ### jsdom API tests
 
