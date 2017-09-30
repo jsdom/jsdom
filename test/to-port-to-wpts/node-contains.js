@@ -11,7 +11,7 @@ const load = require("../util.js").load(__dirname);
 describe("node-contains", { skipIfBrowser: true }, () => {
   specify("A node should contain its document type", () => {
     const doc = load("test");
-    const doctype = doc.doctype;
+    const { doctype } = doc;
 
     assert.ok(doc.contains(doctype), "Document contains its DocumentType");
     assert.ok(!doctype.contains(doc), "DocumentType does not contain its Document");
@@ -113,10 +113,14 @@ describe("node-contains", { skipIfBrowser: true }, () => {
       doc.appendChild(pi1);
       doc.appendChild(pi2);
 
-      assert.ok(!pi1.contains(pi2),
-        "Attached ProcessingInstruction does not contain second attached ProcessingInstruction");
-      assert.ok(!pi2.contains(pi1),
-        "Second attached ProcessingInstruction does not contain first attached ProcessingInstruction");
+      assert.ok(
+        !pi1.contains(pi2),
+        "Attached ProcessingInstruction does not contain second attached ProcessingInstruction"
+      );
+      assert.ok(
+        !pi2.contains(pi1),
+        "Second attached ProcessingInstruction does not contain first attached ProcessingInstruction"
+      );
     }
   );
 
@@ -143,10 +147,14 @@ describe("node-contains", { skipIfBrowser: true }, () => {
       const txt1 = doc.getElementsByTagName("span").item(0).firstChild;
       const txt2 = doc.getElementsByTagName("p").item(0).firstChild;
 
-      assert.ok(!txt1.contains(txt2),
-        "Text node child of first sibling Element does not contain Text node child of second sibling Element");
-      assert.ok(!txt2.contains(txt1),
-        "Text node child of second sibling Element does not contain Text node child of first sibling Element");
+      assert.ok(
+        !txt1.contains(txt2),
+        "Text node child of first sibling Element does not contain Text node child of second sibling Element"
+      );
+      assert.ok(
+        !txt2.contains(txt1),
+        "Text node child of second sibling Element does not contain Text node child of first sibling Element"
+      );
     }
   );
 

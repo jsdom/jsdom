@@ -61,9 +61,7 @@ module.exports = config => {
         // "karma-browserify" is now no longer used. Instead we use the `client.mochaWebWorker.evaluate.beforeRun`
         // setting, which "karma-mocha-webworker" passes to eval() just before starting the mocha run.
 
-        pattern: [
-          "*browserify"
-        ],
+        pattern: ["*browserify"],
         evaluate: {
           beforeRun:
             "require(" +

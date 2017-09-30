@@ -23,10 +23,13 @@ function createCORSServer() {
           "Access-Control-Allow-Headers": ["content-range", "authorization", "accept"].join(", ")
         });
         res.end();
+      } else if (Object.prototype.hasOwnProperty.call(routes, req.url)) {
+        const route = routes[req.url];
+        res.writeHead(200, { "Content-Length": route.length });
+        res.end(route);
       } else {
-        const length = routes.hasOwnProperty(req.url) ? routes[req.url].length : 0;
-        res.writeHead(200, { "Content-Length": length });
-        res.end(routes[req.url]);
+        res.writeHead(200, { "Content-Length": 0 });
+        res.end();
       }
     }, 200);
   });
@@ -35,9 +38,14 @@ function createCORSServer() {
 function createBaseServer() {
   return createServer((req, res) => {
     setTimeout(() => {
-      const length = routes.hasOwnProperty(req.url) ? routes[req.url].length : 0;
-      res.writeHead(200, { "Content-Length": length });
-      res.end(routes[req.url]);
+      if (Object.prototype.hasOwnProperty.call(routes, req.url)) {
+        const route = routes[req.url];
+        res.writeHead(200, { "Content-Length": route.length });
+        res.end(route);
+      } else {
+        res.writeHead(200, { "Content-Length": 0 });
+        res.end();
+      }
     }, 200);
   });
 }

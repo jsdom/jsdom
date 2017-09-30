@@ -4,7 +4,6 @@ benchmark/browser-bundle.js
 test/worker-bundle.js
 
 lib/jsdom/browser/default-stylesheet.js
-lib/jsdom/level2/style.js
 lib/jsdom/level3/xpath.js
 
 lib/jsdom/living/generated/**
@@ -29,3 +28,4 @@ test/to-port-to-wpts/script.js
 test/web-platform-tests/tests
 test/web-platform-tests/to-upstream/dom/nodes/Document-createComment-createTextNode.js
 test/web-platform-tests/to-upstream/domparsing/DOMParser-dont-upstream.html
+test/web-platform-tests/to-upstream/html/semantics/scripting-1/the-script-element/script-languages-dont-upstream.html

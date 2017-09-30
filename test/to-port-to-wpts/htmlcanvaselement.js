@@ -144,8 +144,10 @@ describe("htmlcanvaselement", () => {
         return;
       }
 
-      const document = jsdom.jsdom("<canvas width='168' height='168'></canvas>",
-          { features: { FetchExternalResources: ["img"] } });
+      const document = jsdom.jsdom(
+        "<canvas width='168' height='168'></canvas>",
+        { features: { FetchExternalResources: ["img"] } }
+      );
       const window = document.defaultView;
       const canvas = document.querySelector("canvas");
       const ctx = canvas.getContext("2d");

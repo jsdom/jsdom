@@ -17,7 +17,10 @@ test(() => {
 
 test(() => {
   const th = document.createElement("th");
-  assert_equals(Object.getPrototypeOf(th), HTMLTableCellElement.prototype,
-                "th.__proto__ === HTMLTableCellElement.prototype");
+  assert_equals(
+    Object.getPrototypeOf(th),
+    HTMLTableCellElement.prototype,
+    "th.__proto__ === HTMLTableCellElement.prototype"
+  );
 }, "<th> is not an instance of a class inheriting HTMLTableCellElement");
 </script>

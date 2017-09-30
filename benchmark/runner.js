@@ -7,7 +7,7 @@ const pathToSuites = require("./path-to-suites");
 const benchmarks = require(".");
 const fs = require("fs");
 const path = require("path");
-const toFileUrl = require("../lib/jsdom/utils").toFileUrl;
+const { toFileUrl } = require("../lib/jsdom/utils");
 
 const optimist = require("optimist")
   .usage("Run the jsdom benchmark suite")
@@ -31,8 +31,10 @@ if (optimist.argv.bundle) {
   bundle.bundle()
     .pipe(fs.createWriteStream(path.resolve(__dirname, "browser-bundle.js")))
     .on("finish", () => {
-      console.info("Open the following page in Chrome to begin benchmarking:",
-                   toFileUrl(path.resolve(__dirname, "browser-runner.html")));
+      console.info(
+        "Open the following page in Chrome to begin benchmarking:",
+        toFileUrl(path.resolve(__dirname, "browser-runner.html"))
+      );
     });
   return;
 }

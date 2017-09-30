@@ -21,10 +21,10 @@ describe("jsdom/keep-alive-connections", { skipIfBrowser: true }, () => {
       res.writeHead(200, { "Content-Length": routes[req.url].length });
       res.end(routes[req.url]);
     })
-    .then(s => {
-      server = s;
-      host = `http://127.0.0.1:${s.address().port}`;
-    });
+      .then(s => {
+        server = s;
+        host = `http://127.0.0.1:${s.address().port}`;
+      });
   });
 
   afterEach(() => {

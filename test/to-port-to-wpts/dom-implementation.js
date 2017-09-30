@@ -7,13 +7,13 @@ const jsdom = require("../../lib/old-api.js");
 
 describe("dom-implementation", () => {
   specify("new DOMImplementation() is not allowed", () => {
-    const DOMImplementation = jsdom.jsdom().defaultView.DOMImplementation;
+    const { DOMImplementation } = jsdom.jsdom().defaultView;
 
     assert.throws(() => new DOMImplementation(), /Illegal constructor/i);
   });
 
   specify("create an empty document", () => {
-    const implementation = jsdom.jsdom().implementation;
+    const { implementation } = jsdom.jsdom();
     const document = implementation.createDocument(null, null, null);
     assert.equal(document.childNodes.length, 0, "document should not contain any nodes");
   });
@@ -21,8 +21,10 @@ describe("dom-implementation", () => {
   specify("doctype ownerDocument", () => {
     const document = jsdom.jsdom();
     const doctype = document.implementation.createDocumentType("bananas", "", "");
-    assert.ok(doctype.ownerDocument === document,
-      "doctype should belong to the document the implementation belongs to");
+    assert.ok(
+      doctype.ownerDocument === document,
+      "doctype should belong to the document the implementation belongs to"
+    );
     const newDocument = document.implementation.createDocument(null, null, doctype);
     assert.ok(doctype.ownerDocument === newDocument, "doctype should belong to the new document");
   });
@@ -52,9 +54,11 @@ describe("dom-implementation", () => {
       const document = jsdom.jsdom();
       const newDocument = document.implementation.createHTMLDocument();
 
-      const proxiedEventHandlers = ["onafterprint", "onbeforeprint", "onbeforeunload", "onblur", "onerror", "onfocus",
+      const proxiedEventHandlers = [
+        "onafterprint", "onbeforeprint", "onbeforeunload", "onblur", "onerror", "onfocus",
         "onhashchange", "onload", "onmessage", "onoffline", "ononline", "onpagehide", "onpageshow", "onpopstate",
-        "onresize", "onscroll", "onstorage", "onunload"];
+        "onresize", "onscroll", "onstorage", "onunload"
+      ];
 
       for (const name of proxiedEventHandlers) {
         newDocument.body[name] = "1 + 2";

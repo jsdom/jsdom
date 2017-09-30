@@ -22,7 +22,7 @@ describe("xhr-requires-server", { skipIfBrowser: true }, () => {
           res.writeHead(200, [["date", "0"]]);
           res.end("<body></body>");
         })
-        .listen(port);
+          .listen(port);
 
         testHost = "http://127.0.0.1:" + port;
         resolve();
@@ -37,8 +37,10 @@ describe("xhr-requires-server", { skipIfBrowser: true }, () => {
     const xhr = new window.XMLHttpRequest();
     xhr.onload = () => {
       assert.doesNotThrow(() => {
-        assert.strictEqual(xhr.getAllResponseHeaders(),
-          "date: 0\r\nconnection: keep-alive\r\ntransfer-encoding: chunked");
+        assert.strictEqual(
+          xhr.getAllResponseHeaders(),
+          "date: 0\r\nconnection: keep-alive\r\ntransfer-encoding: chunked"
+        );
       });
       t.done();
     };

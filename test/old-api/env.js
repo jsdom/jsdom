@@ -21,8 +21,10 @@ describe("jsdom/env", () => {
       url: "http://example.com/",
       done(err, window) {
         assert.ifError(err);
-        assert.equal(serializeDocument(window.document),
-          "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>");
+        assert.equal(
+          serializeDocument(window.document),
+          "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>"
+        );
         assert.equal(window.location.href, "http://example.com/");
         assert.equal(window.location.origin, "http://example.com");
         t.done();
@@ -135,8 +137,10 @@ describe("jsdom/env", () => {
       "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>",
       (err, window) => {
         assert.ifError(err);
-        assert.equal(serializeDocument(window.document),
-          "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>");
+        assert.equal(
+          serializeDocument(window.document),
+          "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>"
+        );
         t.done();
       }
     );
@@ -643,7 +647,8 @@ describe("jsdom/env", () => {
       });
     });
 
-    specify("with configurable resource loader modifying routes and content",
+    specify(
+      "with configurable resource loader modifying routes and content",
       { async: true },
       t => {
         const routes = {
@@ -697,7 +702,8 @@ describe("jsdom/env", () => {
             }
           });
         });
-      });
+      }
+    );
   });
 
   describe("browser specific tests", { skipUnlessBrowser: true }, () => {

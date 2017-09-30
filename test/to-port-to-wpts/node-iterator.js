@@ -41,7 +41,7 @@ function forwardIterator(it, nodeOrName) {
 
 function removeAndReinsert(node) {
   const parent = node.parentNode;
-  const nextSibling = node.nextSibling;
+  const { nextSibling } = node;
 
   // Remove it and re insert in the same location
   // the DOM tree will be identical, however it should have
@@ -75,8 +75,10 @@ describe("node-contains", { skipIfBrowser: true }, () => {
     assert.ok(it.root, "root should be set");
     assert.strictEqual(it.root.nodeName, "BODY", "root was set to the <body>");
     assert.ok(it.referenceNode === it.root, "referenceNode should be set to root right after creation");
-    assert.strictEqual(it.pointerBeforeReferenceNode, true,
-      "pointerBeforeReferenceNode should be true right after creation");
+    assert.strictEqual(
+      it.pointerBeforeReferenceNode, true,
+      "pointerBeforeReferenceNode should be true right after creation"
+    );
     assert.strictEqual(it.whatToShow, 0xFFFFFFFF, "whatToShow is NodeFilter.SHOW_ALL by default");
     assert.strictEqual(it.filter, null, "filter is null by default");
   });
@@ -173,7 +175,7 @@ describe("node-contains", { skipIfBrowser: true }, () => {
         case "whatToShow":
         case "filter":
         case "toString":
-          assert.ok(!it.hasOwnProperty(key), key + " should not be an 'own' property");
+          assert.ok(!Object.prototype.hasOwnProperty.call(it, key), key + " should not be an 'own' property");
           break;
         default:
           assert.ok(false, key + " is not a valid NodeIterator property");
@@ -188,8 +190,10 @@ describe("node-contains", { skipIfBrowser: true }, () => {
     const node = it.nextNode();
     assert.ok(node === it.root);
     assert.ok(it.referenceNode === it.root);
-    assert.strictEqual(it.pointerBeforeReferenceNode, false,
-       "pointerBeforeReferenceNode should be false after nextNode()");
+    assert.strictEqual(
+      it.pointerBeforeReferenceNode, false,
+      "pointerBeforeReferenceNode should be false after nextNode()"
+    );
   });
 
   specify(
@@ -205,16 +209,22 @@ describe("node-contains", { skipIfBrowser: true }, () => {
         const itNode = it.nextNode();
         assert.ok(node === itNode);
         assert.ok(it.referenceNode === itNode);
-        assert.strictEqual(it.pointerBeforeReferenceNode, false,
-          "pointerBeforeReferenceNode should be false after nextNode()");
+        assert.strictEqual(
+          it.pointerBeforeReferenceNode, false,
+          "pointerBeforeReferenceNode should be false after nextNode()"
+        );
       }
 
       const node = it.nextNode();
       assert.ok(node === null, "nextNode should return null after having iterated through all the nodes");
-      assert.ok(it.referenceNode === nodes[nodes.length - 1],
-          "referenceNode should reference the last node even though nextNode() returns null");
-      assert.strictEqual(it.pointerBeforeReferenceNode, false,
-        "pointerBeforeReferenceNode should be false after nextNode()");
+      assert.ok(
+        it.referenceNode === nodes[nodes.length - 1],
+        "referenceNode should reference the last node even though nextNode() returns null"
+      );
+      assert.strictEqual(
+        it.pointerBeforeReferenceNode, false,
+        "pointerBeforeReferenceNode should be false after nextNode()"
+      );
     }
   );
 
@@ -230,16 +240,22 @@ describe("node-contains", { skipIfBrowser: true }, () => {
       const itNode = it.nextNode();
       assert.ok(node === itNode);
       assert.ok(it.referenceNode === itNode);
-      assert.strictEqual(it.pointerBeforeReferenceNode, false,
-        "pointerBeforeReferenceNode should be false after nextNode()");
+      assert.strictEqual(
+        it.pointerBeforeReferenceNode, false,
+        "pointerBeforeReferenceNode should be false after nextNode()"
+      );
     }
 
     const node = it.nextNode();
     assert.ok(node === null, "nextNode should return null after having iterated through all the nodes");
-    assert.ok(it.referenceNode === nodes[nodes.length - 1],
-        "referenceNode should reference the last node even though nextNode() returns null");
-    assert.strictEqual(it.pointerBeforeReferenceNode, false,
-      "pointerBeforeReferenceNode should be false after nextNode()");
+    assert.ok(
+      it.referenceNode === nodes[nodes.length - 1],
+      "referenceNode should reference the last node even though nextNode() returns null"
+    );
+    assert.strictEqual(
+      it.pointerBeforeReferenceNode, false,
+      "pointerBeforeReferenceNode should be false after nextNode()"
+    );
   });
 
   specify(
@@ -265,8 +281,10 @@ describe("node-contains", { skipIfBrowser: true }, () => {
       const node = it.previousNode();
       assert.ok(node === it.root);
       assert.ok(it.referenceNode === it.root);
-      assert.strictEqual(it.pointerBeforeReferenceNode, true,
-        "pointerBeforeReferenceNode should be true after previousNode()");
+      assert.strictEqual(
+        it.pointerBeforeReferenceNode, true,
+        "pointerBeforeReferenceNode should be true after previousNode()"
+      );
     }
   );
 
@@ -297,22 +315,30 @@ describe("node-contains", { skipIfBrowser: true }, () => {
         const itNode = it.previousNode();
         assert.ok(node === itNode);
         assert.ok(it.referenceNode === itNode);
-        assert.strictEqual(it.pointerBeforeReferenceNode, true,
-                      "pointerBeforeReferenceNode should be true after previousNode()");
+        assert.strictEqual(
+          it.pointerBeforeReferenceNode, true,
+          "pointerBeforeReferenceNode should be true after previousNode()"
+        );
       }
 
       const node = it.previousNode();
       assert.ok(node === it.root);
       assert.ok(it.referenceNode === it.root);
-      assert.strictEqual(it.pointerBeforeReferenceNode, true,
-        "pointerBeforeReferenceNode should be true after previousNode()");
+      assert.strictEqual(
+        it.pointerBeforeReferenceNode, true,
+        "pointerBeforeReferenceNode should be true after previousNode()"
+      );
 
       const node2 = it.previousNode();
       assert.ok(node2 === null, "nextNode should return null after having iterated through all the nodes");
-      assert.ok(it.referenceNode === it.root,
-          "referenceNode should reference root node even though previousNode() returns null");
-      assert.strictEqual(it.pointerBeforeReferenceNode, true,
-        "pointerBeforeReferenceNode should be true after previousNode()");
+      assert.ok(
+        it.referenceNode === it.root,
+        "referenceNode should reference root node even though previousNode() returns null"
+      );
+      assert.strictEqual(
+        it.pointerBeforeReferenceNode, true,
+        "pointerBeforeReferenceNode should be true after previousNode()"
+      );
     }
   );
 
@@ -361,8 +387,10 @@ describe("node-contains", { skipIfBrowser: true }, () => {
     const doc = load("test");
 
     function acceptNode(node) {
-      assert.strictEqual(node.nodeType, 1,
-        "whatToShow should have filtered non element nodes before acceptNode() is called");
+      assert.strictEqual(
+        node.nodeType, 1,
+        "whatToShow should have filtered non element nodes before acceptNode() is called"
+      );
 
       if (node.nodeName === "STRONG") {
         return 1; // FILTER_ACCEPT
@@ -390,8 +418,10 @@ describe("node-contains", { skipIfBrowser: true }, () => {
     const doc = load("test");
 
     function acceptNode(node) {
-      assert.strictEqual(node.nodeType, 1,
-        "whatToShow should have filtered non element nodes before acceptNode() is called");
+      assert.strictEqual(
+        node.nodeType, 1,
+        "whatToShow should have filtered non element nodes before acceptNode() is called"
+      );
 
       if (node.nodeName === "STRONG") {
         return 1; // FILTER_ACCEPT
@@ -449,8 +479,10 @@ describe("node-contains", { skipIfBrowser: true }, () => {
 
     assert.ok(it.root === node);
     assert.ok(it.referenceNode === node, "referenceNode should be set to root right after creation");
-    assert.strictEqual(it.pointerBeforeReferenceNode, true,
-      "pointerBeforeReferenceNode should be true right after creation");
+    assert.strictEqual(
+      it.pointerBeforeReferenceNode, true,
+      "pointerBeforeReferenceNode should be true right after creation"
+    );
     assert.ok(it.referenceNode.parentNode === null);
   });
 
@@ -484,12 +516,16 @@ describe("node-contains", { skipIfBrowser: true }, () => {
       removeAndReinsert(removed);
 
       assert.ok(it.referenceNode === it.root, "referenceNode should be root again");
-      assert.ok(it.pointerBeforeReferenceNode === false,
-        "should be false so that nextNode() will return the firstChild again");
+      assert.ok(
+        it.pointerBeforeReferenceNode === false,
+        "should be false so that nextNode() will return the firstChild again"
+      );
 
       const next = it.nextNode();
-      assert.ok(next === it.root.firstChild,
-                    "nextNode() should return the first child again after the previous one was removed");
+      assert.ok(
+        next === it.root.firstChild,
+        "nextNode() should return the first child again after the previous one was removed"
+      );
     }
   );
 
@@ -506,8 +542,10 @@ describe("node-contains", { skipIfBrowser: true }, () => {
       forwardIterator(it, removed); // referenceNode is now the second child of root
       removeAndReinsert(removed);
 
-      assert.ok(it.referenceNode === it.root.firstChild,
-          "referenceNode should be set the the oldPreviousSibling of the removed node");
+      assert.ok(
+        it.referenceNode === it.root.firstChild,
+        "referenceNode should be set the the oldPreviousSibling of the removed node"
+      );
       assert.strictEqual(it.pointerBeforeReferenceNode, false);
 
       const next = it.nextNode();
@@ -527,8 +565,10 @@ describe("node-contains", { skipIfBrowser: true }, () => {
       removeAndReinsert(removed);
 
       assert.ok(it.referenceNode === it.root, "referenceNode should be root again");
-      assert.strictEqual(it.pointerBeforeReferenceNode, false,
-                    "should be false so that nextNode() will return the firstChild again");
+      assert.strictEqual(
+        it.pointerBeforeReferenceNode, false,
+        "should be false so that nextNode() will return the firstChild again"
+      );
 
       const next = it.nextNode();
       assert.ok(next === removed);
@@ -545,12 +585,14 @@ describe("node-contains", { skipIfBrowser: true }, () => {
       it.nextNode();
 
       const removed = it.previousNode();
-      const nextSibling = removed.nextSibling;
+      const { nextSibling } = removed;
       removeAndReinsert(removed);
 
       assert.ok(it.referenceNode === nextSibling, "referenceNode should be the nextSibling of the removed node");
-      assert.strictEqual(it.pointerBeforeReferenceNode, true,
-                    "should be true so that previousNode() will return the same node again");
+      assert.strictEqual(
+        it.pointerBeforeReferenceNode, true,
+        "should be true so that previousNode() will return the same node again"
+      );
 
       const previous = it.previousNode();
       assert.ok(previous === removed);
@@ -563,7 +605,7 @@ describe("node-contains", { skipIfBrowser: true }, () => {
       const doc = load("test");
 
       const parent = doc.body.children[1];
-      const previousSibling = parent.previousSibling;
+      const { previousSibling } = parent;
       assert.ok(previousSibling, "Test case prerequisite");
       parent.innerHTML = "<a></a><b></b><i></i>";
 
@@ -591,7 +633,7 @@ describe("node-contains", { skipIfBrowser: true }, () => {
       const removed = it.previousNode();
       assert.ok(!removed.previousSibling, "Test case prerequisite");
       assert.ok(removed.nextSibling, "Test case prerequisite");
-      const nextSibling = removed.nextSibling;
+      const { nextSibling } = removed;
       removeAndReinsert(removed);
 
       // (nextSibling is the new firstChild)
@@ -617,7 +659,7 @@ describe("node-contains", { skipIfBrowser: true }, () => {
 
       assert.ok(removed.previousSibling, "Test case prerequisite");
       assert.ok(removed.nextSibling, "Test case prerequisite");
-      const nextSibling = removed.nextSibling;
+      const { nextSibling } = removed;
 
       removeAndReinsert(removed);
 

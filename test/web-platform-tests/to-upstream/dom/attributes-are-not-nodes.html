@@ -12,7 +12,8 @@ test(() => {
 
   const attribute = document.createAttribute("newattribute");
 
-  const notOnAttrs = ["ELEMENT_NODE", "ATTRIBUTE_NODE", "TEXT_NODE", "CDATA_SECTION_NODE", "ENTITY_REFERENCE_NODE",
+  const notOnAttrs = [
+    "ELEMENT_NODE", "ATTRIBUTE_NODE", "TEXT_NODE", "CDATA_SECTION_NODE", "ENTITY_REFERENCE_NODE",
     "ENTITY_NODE", "PROCESSING_INSTRUCTION_NODE", "COMMENT_NODE", "DOCUMENT_NODE",
     "DOCUMENT_TYPE_NODE", "DOCUMENT_FRAGMENT_NODE", "NOTATION_NODE", "nodeType", "baseURI",
     "ownerDocument", "parentNode", "parentElement", "hasChildNodes", "childNodes", "firstChild",
@@ -21,7 +22,8 @@ test(() => {
     "DOCUMENT_POSITION_CONTAINS", "DOCUMENT_POSITION_CONTAINED_BY",
     "DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC", "compareDocumentPosition", "contains",
     "lookupPrefix", "lookupNamespaceURI", "isDefaultNamespace", "insertBefore", "appendChild",
-    "replaceChild", "removeChild"];
+    "replaceChild", "removeChild"
+  ];
 
   for (const prop of notOnAttrs) {
     assert_false(prop in attribute, `${prop} should not exist on attribute instances`);

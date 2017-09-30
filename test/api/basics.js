@@ -13,7 +13,7 @@ describe("JSDOM instances: basics", () => {
   });
 
   it("should have a document with documentElement <html> when no arguments are passed", () => {
-    const document = (new JSDOM()).window.document;
+    const { document } = (new JSDOM()).window;
 
     assert.strictEqual(document.documentElement.localName, "html");
   });
@@ -21,7 +21,7 @@ describe("JSDOM instances: basics", () => {
 
 describe("JSDOM() constructor first argument", () => {
   it("should populate the resulting document with the given HTML", () => {
-    const document = (new JSDOM(`<a id="test" href="#test">`)).window.document;
+    const { document } = (new JSDOM(`<a id="test" href="#test">`)).window;
 
     assert.strictEqual(document.getElementById("test").getAttribute("href"), "#test");
   });

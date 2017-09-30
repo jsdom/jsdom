@@ -3,7 +3,7 @@ const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
 
 const jsdom = require("../../lib/old-api.js");
-const URL = require("whatwg-url").URL;
+const { URL } = require("whatwg-url");
 const path = require("path");
 const http = require("http");
 const querystring = require("querystring");

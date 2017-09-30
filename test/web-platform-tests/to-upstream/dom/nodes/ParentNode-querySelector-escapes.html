@@ -56,8 +56,7 @@ testNeverMatched("\ud83dsurrogateFirst", "#\\d83d surrogateFirst");
 testMatched("surrogateSecond\u{fffd}", "#surrogateSecond\\dd11");
 testNeverMatched("surrogateSecond\udd11", "#surrogateSecond\\dd11");
 testMatched("surrogatePair\u{fffd}\u{fffd}", "#surrogatePair\\d83d\\dd11");
-testNeverMatched(
-  "surrogatePair\u{1f511}", "#surrogatePair\\d83d\\dd11");
+testNeverMatched("surrogatePair\u{1f511}", "#surrogatePair\\d83d\\dd11");
 // 3. out of range points
 testMatched("outOfRange\u{fffd}", "#outOfRange\\110000");
 testMatched("outOfRange\u{fffd}", "#outOfRange\\110030");
