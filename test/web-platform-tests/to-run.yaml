@@ -630,6 +630,13 @@ serializing.html: [fail, Unknown]
 
 ---
 
+DIR: html/webappapis/animation-frames
+
+callback-invoked.html: [fail, jsdom is headless so document.hidden is true. TODO fix before merging this PR.]
+idlharness.html: [fail, "Unknown ('ReferenceError: WebIDL2 is not defined', but why?)"]
+
+---
+
 DIR: html/webappapis/atob
 
 ---
