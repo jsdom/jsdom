@@ -120,6 +120,7 @@ Jürg Lehni <juerg@scratchdisk.com>
 justinmchase <justin.m.chase@gmail.com>
 kangax <kangax@gmail.com>
 Karl Horky <karl.horky@gmail.com>
+Karl Norling <karlnorling@users.noreply.github.com>
 Karuna Sagar <karunasagark@gmail.com>
 Kasper Isager <kasperisager@gmail.com>
 kblomquist <kblomquist@groupon.com>
@@ -157,6 +158,7 @@ Michael Orchard <morchard@scottlogic.co.uk>
 Michał Gołębiowski <m.goleb@gmail.com>
 Michał Wadas <michalwadas@gmail.com>
 Mike Bostock <mbostock@gmail.com>
+Mike Schreifels <mike@schreifels.org>
 Mitar <mitar.git@tnode.com>
 Nao Iizuka <iizuka@kyu-mu.net>
 Nick Oliver <github@pixnbits.org>

@@ -1,3 +1,24 @@
+## 11.3.0
+
+* Added `table.tHead`, `table.tFoot`, and `table.caption` setters, and the `table.createTBody()` method.
+* Added `CompositionEvent` and `WheelEvent` classes.
+* Added a `<details>` element implementation. (Zirro)
+* Added stub `<marquee>` and `<picture>` element implementations. (Zirro)
+* Updated `uiEvent.initUIEvent()`, `keyboardEvent.initKeyboardEvent()`, and `mouseEvent.initiMouseEvent()` to match the latest specifications.
+* Converted `DOMTokenList` (used by, e.g., `element.classList`) to use proxies for improved specification compliance and "liveness".
+* Fixed the `DOMException` class to be spec-compliant, including its constructor signature.
+* Fixed some subtle interactions between inline event handlers and other event listeners.
+* Fixed the element interface used when creating many of the more obscure elements.
+* Fixed the behavior of the `table.rows` getter, and the `table.createCaption()` and `table.deleteRow()` methods.
+* Fixed incorrect sharing of methods between interfaces that used mixins (e.g. previously `document.getElementById === documentFragment.getElementById`, incorrectly).
+* Fixed `FocusEvent` creation, which regressed in v11.2.0.
+* Fixed `UIEvent` to only allow initializing with `Window` objects for its `view` property.
+* Fixed the behavior of `tr.rowIndex` and `tr.deleteCall()`.
+* Fixed the element interface for `<td>` and `<th>` to be simply `HTMLTableCellElement`, and improved that class's spec compliance.
+* Fixed calling `label.click()` to not trigger the labeled control's activation behavior when the control is disabled. (schreifels)
+* Fixed `document.getElementsByName()` to return a `NodeList` instead of a `HTMLCollection`. (Zirro)
+* Significantly sped up synchronous `XMLHttpRequest`. (Zirro)
+
 ## 11.2.0
 
 This release brings with it a much-awaited infrastructure change, as part of [webidl2js v7.3.0](https://github.com/jsdom/webidl2js/releases/tag/v7.3.0) by the ever-amazing TimothyGu: jsdom can now generate spec-compliant versions of classes that have "`Proxy`-like" behavior, i.e. allow getting or setting keys in unusual ways. This enables a number of improvements, also by TimothyGu:
