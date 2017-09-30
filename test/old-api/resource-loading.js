@@ -25,7 +25,8 @@ describe("jsdom/resource-loading", () => {
     doc.body.appendChild(el);
   });
 
-  specify("<link rel=\"stylesheet\"> loading errors show up as jsdomErrors in the virtual console",
+  specify(
+    "<link rel=\"stylesheet\"> loading errors show up as jsdomErrors in the virtual console",
     { async: true },
     testCase => {
       const virtualConsole = jsdom.createVirtualConsole();
@@ -46,7 +47,8 @@ describe("jsdom/resource-loading", () => {
     }
   );
 
-  specify("<link rel=\"stylesheet\"> loads relative to the document base URL",
+  specify(
+    "<link rel=\"stylesheet\"> loads relative to the document base URL",
     { skipIfBrowser: true, async: true },
     testCase => {
       let port;
@@ -62,7 +64,7 @@ describe("jsdom/resource-loading", () => {
       });
 
       server.listen(0, "127.0.0.1", () => {
-        port = server.address().port;
+        ({ port } = server.address());
 
         const virtualConsole = jsdom.createVirtualConsole();
         virtualConsole.on("jsdomError", assert.ifError);
@@ -91,8 +93,10 @@ describe("jsdom/resource-loading", () => {
       testCase.done();
     });
 
-    jsdom.jsdom(`<iframe src="http://0.0.0.0:12345/foo.html"></iframe>`,
-      { virtualConsole, features: { FetchExternalResources: ["iframe"] } });
+    jsdom.jsdom(
+      `<iframe src="http://0.0.0.0:12345/foo.html"></iframe>`,
+      { virtualConsole, features: { FetchExternalResources: ["iframe"] } }
+    );
   });
 
   specify("<frame> loading errors show up as jsdomErrors in the virtual console", { async: true }, testCase => {
@@ -105,8 +109,10 @@ describe("jsdom/resource-loading", () => {
       testCase.done();
     });
 
-    jsdom.jsdom(`<frameset><frame src="http://0.0.0.0:12345/foo.html"></frameset>`,
-      { virtualConsole, features: { FetchExternalResources: ["frame"] } });
+    jsdom.jsdom(
+      `<frameset><frame src="http://0.0.0.0:12345/foo.html"></frameset>`,
+      { virtualConsole, features: { FetchExternalResources: ["frame"] } }
+    );
   });
 
   specify("empty base64 data urls should be blank", () => {

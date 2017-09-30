@@ -5,8 +5,7 @@ const { JSDOM } = require("../..");
 
 describe("Test cases only possible to test from the outside", () => {
   it("should not register timer after window.close() called", () => {
-    const dom = new JSDOM();
-    const window = dom.window;
+    const { window } = new JSDOM();
 
     assert.notEqual(window.setTimeout(() => {}, 100), undefined);
 

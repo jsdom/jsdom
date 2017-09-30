@@ -14,8 +14,10 @@ describe("jsdom/inside-worker-smoke-tests", () => {
       url: "http://example.com/",
       done(err, window) {
         assert.ifError(err);
-        assert.equal(jsdom.serializeDocument(window.document),
-          "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>");
+        assert.equal(
+          jsdom.serializeDocument(window.document),
+          "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>"
+        );
         assert.equal(window.location.href, "http://example.com/");
         assert.equal(window.location.origin, "http://example.com");
         t.done();
@@ -28,8 +30,10 @@ describe("jsdom/inside-worker-smoke-tests", () => {
       "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>",
       (err, window) => {
         assert.ifError(err);
-        assert.equal(jsdom.serializeDocument(window.document),
-          "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>");
+        assert.equal(
+          jsdom.serializeDocument(window.document),
+          "<!DOCTYPE html><html><head><title>Hi</title></head><body>Hello</body></html>"
+        );
         t.done();
       }
     );

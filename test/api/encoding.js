@@ -123,8 +123,10 @@ describe("API: encoding detection", () => {
 
           it(`should sniff ${encodingFixture} as ${name}`, () => {
             return factory(encodingFixture).then(binaryData => {
-              assert.strictEqual(binaryData.constructor.name, binaryDataType,
-                "Sanity check: input binary data must be of the right type");
+              assert.strictEqual(
+                binaryData.constructor.name, binaryDataType,
+                "Sanity check: input binary data must be of the right type"
+              );
 
               const dom = new JSDOM(binaryData);
 

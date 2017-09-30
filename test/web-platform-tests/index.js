@@ -358,13 +358,16 @@ describe("Web Platform Tests", () => {
     "FileAPI/fileReader.html",
     "FileAPI/historical.https.html",
     // "FileAPI/idlharness.html", // idl should be used here
-    // "FileAPI/blob/Blob-constructor.html", // - Blob is not a function
-                                             // - a date is not instanceof Date
-                                             // - a regexp is not instanceof Regexp
-                                             // - strange v8 behaviour when error triggered in overridden array length
-                                             // - HTMLSelectElement does not have indexed properties
-                                             // - MessageChannel not implemented
-                                             // - element attributes does not have  indexed properties
+
+    // - Blob is not a function
+    // - a date is not instanceof Date
+    // - a regexp is not instanceof Regexp
+    // - strange v8 behaviour when error triggered in overridden array length
+    // - HTMLSelectElement does not have indexed properties
+    // - MessageChannel not implemented
+    // - element attributes does not have  indexed properties
+    // "FileAPI/blob/Blob-constructor.html",
+
     "FileAPI/blob/Blob-slice.html",
     "FileAPI/blob/Blob-slice-overflow.html",
     // "FileAPI/blob/Blob-XHR-revoke.html", // URL.createObjectURL not implemented
@@ -581,13 +584,11 @@ describe("Web Platform Tests", () => {
     // "cors/preflight-cache.htm", // cache should probably be implemented for simple requests before
     "cors/redirect-origin.htm",
     "cors/redirect-preflight.htm",
-    // "cors/redirect-preflight-2.htm", // preflight should also be done before redirected requests
-                                        // but request module redirects cannot be paused while doing preflight
+    // "cors/redirect-preflight-2.htm", // preflight should also be done before redirected requests but request module redirects cannot be paused while doing preflight
     "cors/redirect-userinfo.htm",
     // "cors/remote-origin.htm", // postMessage event does not contain source
     "cors/request-headers.htm",
-    // "cors/response-headers.htm", // I don't find a spec about combining same value response headers
-                                    // and slow synchronous requests cause a timeout on an asynchronous test
+    // "cors/response-headers.htm", // I don't find a spec about combining same value response headers and slow synchronous requests cause a timeout on an asynchronous test
     // "cors/simple-requests.htm", // Maybe https://github.com/tmpvar/jsdom/issues/1833, but fails locally too
     "cors/status-async.htm",
     "cors/status-preflight.htm",
@@ -597,6 +598,5 @@ describe("Web Platform Tests", () => {
     "progress-events/interface.html",
     "progress-events/tests/submissions/Samsung/firing-events-http-content-length.html",
     "progress-events/tests/submissions/Samsung/firing-events-http-no-content-length.html"
-  ]
-  .forEach(runWebPlatformTest);
+  ].forEach(runWebPlatformTest);
 });

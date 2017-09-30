@@ -34,10 +34,10 @@ describe("jsdom/cookie", { skipIfBrowser: true }, () => {
 
       return setupSecuredServer();
     })
-    .then(s => {
-      securedServer = s;
-      testSecuredHost = `https://127.0.0.1:${s.address().port}`;
-    });
+      .then(s => {
+        securedServer = s;
+        testSecuredHost = `https://127.0.0.1:${s.address().port}`;
+      });
   });
 
   after(() => {

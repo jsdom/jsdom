@@ -12,8 +12,10 @@
 "use strict";
 
 test(() => {
-  const tags = ["a", "applet", "area", "embed", "form", "frameset", "img",
-    "A", "APPLET", "AREA", "EMBED", "FORM", "FRAMESET", "IMG"];
+  const tags = [
+    "a", "applet", "area", "embed", "form", "frameset", "img",
+    "A", "APPLET", "AREA", "EMBED", "FORM", "FRAMESET", "IMG"
+  ];
 
   for (const tagName of tags) {
     const element = document.createElement(tagName);
@@ -29,8 +31,10 @@ test(() => {
 
 test(() => {
   // Not exhaustive
-  const tags = ["div", "span", "style", "script", "h1", "strong", "input",
-    "audio", "button", "select", "textarea"];
+  const tags = [
+    "div", "span", "style", "script", "h1", "strong", "input",
+    "audio", "button", "select", "textarea"
+  ];
 
   for (const tagName of tags) {
     const element = document.createElement(tagName);
@@ -43,8 +47,10 @@ test(() => {
 
 test(() => {
   // Not exhaustive
-  const tags = ["div", "span", "style", "script", "h1", "strong", "input",
-    "audio", "button", "select", "textarea"];
+  const tags = [
+    "div", "span", "style", "script", "h1", "strong", "input",
+    "audio", "button", "select", "textarea"
+  ];
 
   const img = document.createElement("img");
   img.setAttribute("name", "removed");

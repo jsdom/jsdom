@@ -100,8 +100,7 @@ describe("API: runScripts constructor option", () => {
           });
 
           it("should still parse the handler as an attribute", () => {
-            const dom = createJSDOMWithParsedHandlers();
-            const body = dom.window.document.body;
+            const { body } = createJSDOMWithParsedHandlers().window.document;
 
             assert.strictEqual(body.getAttribute("onload"), "document.body.onloadRan = true;");
           });
@@ -125,8 +124,7 @@ describe("API: runScripts constructor option", () => {
           });
 
           it("should still parse the handler as an attribute", () => {
-            const dom = createJSDOMWithParsedHandlers();
-            const body = dom.window.document.body;
+            const { body } = createJSDOMWithParsedHandlers().window.document;
 
             assert.strictEqual(body.getAttribute("onhashchange"), "document.body.onhashchangeRan = true;");
           });
@@ -152,8 +150,7 @@ describe("API: runScripts constructor option", () => {
           });
 
           it("should still parse the handler as an attribute", () => {
-            const dom = createJSDOM();
-            const body = dom.window.document.body;
+            const { body } = createJSDOM().window.document;
             body.setAttribute("onhashchange", "document.body.onhashchangeRan = true;");
 
             assert.strictEqual(body.getAttribute("onhashchange"), "document.body.onhashchangeRan = true;");
@@ -247,8 +244,7 @@ describe("API: runScripts constructor option", () => {
         });
 
         it("should parse the handler as an attribute", () => {
-          const dom = createJSDOMWithParsedHandlers();
-          const body = dom.window.document.body;
+          const { body } = createJSDOMWithParsedHandlers().window.document;
 
           assert.strictEqual(body.getAttribute("onload"), "document.body.onloadRan = true;");
         });
@@ -273,8 +269,7 @@ describe("API: runScripts constructor option", () => {
         });
 
         it("should parse the handler as an attribute", () => {
-          const dom = createJSDOMWithParsedHandlers();
-          const body = dom.window.document.body;
+          const { body } = createJSDOMWithParsedHandlers().window.document;
 
           assert.strictEqual(body.getAttribute("onhashchange"), "document.body.onhashchangeRan = true;");
         });
@@ -301,8 +296,7 @@ describe("API: runScripts constructor option", () => {
         });
 
         it("should parse the handler as an attribute", () => {
-          const dom = createJSDOM();
-          const body = dom.window.document.body;
+          const { body } = createJSDOM().window.document;
           body.setAttribute("onhashchange", "document.body.onhashchangeRan = true;");
 
           assert.strictEqual(body.getAttribute("onhashchange"), "document.body.onhashchangeRan = true;");

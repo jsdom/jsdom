@@ -3,9 +3,8 @@
 const DOMException = require("domexception");
 
 module.exports = (chai, util) => {
-  const assert = chai.assert;
-  const Assertion = chai.Assertion;
-  const flag = util.flag;
+  const { assert, Assertion } = chai;
+  const { flag } = util;
 
   assert.throwsDomException = (fn, document, name, message) => {
     const assertErr = new Assertion(fn, message).to.throwDomException(document, name);

@@ -8,7 +8,7 @@ const { serializeDocument } = require("../../lib/old-api.js");
 describe("browser/index", () => {
   specify("notfound_getelementsbyclassname", () => {
     const doc = jsdom.jsdom();
-    const body = doc.body;
+    const { body } = doc;
 
     const p = doc.createElement("p");
     p.className = "unknown";
@@ -19,7 +19,7 @@ describe("browser/index", () => {
 
   specify("basic_getelementsbyclassname", () => {
     const doc = jsdom.jsdom();
-    const body = doc.body;
+    const { body } = doc;
 
     const p = doc.createElement("p");
     p.className = "first-p";
@@ -30,7 +30,7 @@ describe("browser/index", () => {
 
   specify("multiple_getelementsbyclassname", () => {
     const doc = jsdom.jsdom();
-    const body = doc.body;
+    const { body } = doc;
 
     const p = doc.createElement("p");
     p.className = "first-p second third";
@@ -55,7 +55,7 @@ describe("browser/index", () => {
 
   specify("basic_getelementbyid", () => {
     const doc = jsdom.jsdom();
-    const body = doc.body;
+    const { body } = doc;
 
     const p = doc.createElement("p");
     p.id = "theid";
@@ -66,7 +66,7 @@ describe("browser/index", () => {
 
   specify("nonexistant_getelementbyid", () => {
     const doc = jsdom.jsdom();
-    const body = doc.body;
+    const { body } = doc;
 
     const p = doc.createElement("p");
     p.id = "theid";
@@ -77,7 +77,7 @@ describe("browser/index", () => {
 
   specify("remove_nonexistantattribute", () => {
     const doc = jsdom.jsdom();
-    const body = doc.body;
+    const { body } = doc;
 
     assert.doesNotThrow(() => body.removeAttribute("non-existant"), "setValue_throws_NO_MODIFICATION_ERR");
   });
@@ -107,7 +107,7 @@ describe("browser/index", () => {
 
   specify("parse_scripttags", () => {
     const doc = jsdom.jsdom();
-    const head = doc.head;
+    const { head } = doc;
 
     const scriptHtml = `<script>alert("hello world")</script>`;
     head.innerHTML = scriptHtml;
@@ -116,7 +116,7 @@ describe("browser/index", () => {
 
   specify("parse_styletags", () => {
     const doc = jsdom.jsdom();
-    const head = doc.head;
+    const { head } = doc;
     const styleHtml = `<style>body: {color: #fff;}</style>`;
     head.innerHTML = styleHtml;
     assert.equal(styleHtml, head.innerHTML, "original and processed");
@@ -133,13 +133,15 @@ describe("browser/index", () => {
 
     doc.documentElement.style.color = "black";
     doc.documentElement.style.backgroundColor = "white";
-    assert.equal(doc.documentElement.outerHTML,
-      `<html style="color: black; background-color: white;"><head></head><body></body></html>`);
+    assert.equal(
+      doc.documentElement.outerHTML,
+      `<html style="color: black; background-color: white;"><head></head><body></body></html>`
+    );
   });
 
   specify("innerhtml_removeallchildren", () => {
     const doc = jsdom.jsdom();
-    const body = doc.body;
+    const { body } = doc;
 
     body.appendChild(doc.createElement("p"));
     body.innerHTML = "";
@@ -148,7 +150,7 @@ describe("browser/index", () => {
 
   specify("innerhtml_null", () => {
     const doc = jsdom.jsdom();
-    const body = doc.body;
+    const { body } = doc;
 
     body.appendChild(doc.createElement("p"));
     body.innerHTML = null;
@@ -176,7 +178,7 @@ describe("browser/index", () => {
 
   specify("basic_nodelist_indexOf", () => {
     const doc = jsdom.jsdom();
-    const body = doc.body;
+    const { body } = doc;
 
     const p = doc.createElement("p");
     body.appendChild(p);
@@ -190,7 +192,7 @@ describe("browser/index", () => {
 
   specify("nonexistant_nodelist_indexOf", () => {
     const doc = jsdom.jsdom();
-    const body = doc.body;
+    const { body } = doc;
 
     const p = doc.createElement("p");
     body.appendChild(p);
@@ -218,8 +220,7 @@ describe("browser/index", () => {
   });
 
   specify("basic_radio_selected", () => {
-    const doc = jsdom.jsdom(
-      `<html><head></head><body>
+    const doc = jsdom.jsdom(`<html><head></head><body>
         <input type="radio" id="rad0" value="rad0" name="radioGroup0" />
         <input type="radio" id="rad1" value="rad1" name="radioGroup0" checked="checked" />
         <input type="radio" id="rad2" value="rad2" name="radioGroup1" />
@@ -264,7 +265,7 @@ describe("browser/index", () => {
 
   specify("select_set_value_updates_value", () => {
     const doc = jsdom.jsdom();
-    const body = doc.body;
+    const { body } = doc;
 
     body.innerHTML = `
       <select id="selectElement">
@@ -283,7 +284,7 @@ describe("browser/index", () => {
 
   specify("select_set_value_updates_selectedIndex", () => {
     const doc = jsdom.jsdom();
-    const body = doc.body;
+    const { body } = doc;
 
     body.innerHTML = `
       <select id="selectElement"> +
@@ -302,7 +303,7 @@ describe("browser/index", () => {
 
   specify("select_set_value_updates_option_selected", () => {
     const doc = jsdom.jsdom();
-    const body = doc.body;
+    const { body } = doc;
 
     body.innerHTML = `
       <select id="selectElement">
@@ -323,7 +324,7 @@ describe("browser/index", () => {
 
   specify("select_set_selectedIndex_updates_value", () => {
     const doc = jsdom.jsdom();
-    const body = doc.body;
+    const { body } = doc;
 
     body.innerHTML = `
       <select id="selectElement">
@@ -342,7 +343,7 @@ describe("browser/index", () => {
 
   specify("select_set_selectedIndex_updates_selectedIndex", () => {
     const doc = jsdom.jsdom();
-    const body = doc.body;
+    const { body } = doc;
 
     body.innerHTML = `
       <select id="selectElement">
@@ -361,7 +362,7 @@ describe("browser/index", () => {
 
   specify("select_set_selectedIndex_updates_option_selected", () => {
     const doc = jsdom.jsdom();
-    const body = doc.body;
+    const { body } = doc;
 
     body.innerHTML = `
       <select id="selectElement">
@@ -384,7 +385,7 @@ describe("browser/index", () => {
 
   specify("select_set_option_selected_updates_value", () => {
     const doc = jsdom.jsdom();
-    const body = doc.body;
+    const { body } = doc;
 
     body.innerHTML = `
       <select id="selectElement">
@@ -406,7 +407,7 @@ describe("browser/index", () => {
 
   specify("select_set_option_selected_updates_selectedIndex", () => {
     const doc = jsdom.jsdom();
-    const body = doc.body;
+    const { body } = doc;
 
     body.innerHTML = `
       <select id="selectElement">
@@ -427,7 +428,7 @@ describe("browser/index", () => {
 
   specify("select_set_option_selected_updates_option_selected", () => {
     const doc = jsdom.jsdom();
-    const body = doc.body;
+    const { body } = doc;
 
     body.innerHTML = `
       <select id="selectElement">

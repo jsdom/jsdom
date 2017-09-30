@@ -30,7 +30,7 @@ describe("jsdom/serialization", () => {
   specify("outerHTML should not format the HTML (GH-371)", () => {
     const originalHTML = "<li><span>A</span><span>B</span></li>";
     const document = jsdom.jsdom(originalHTML);
-    const outerHTML = document.body.firstChild.outerHTML;
+    const { outerHTML } = document.body.firstChild;
 
     assert.strictEqual(outerHTML, originalHTML);
   });

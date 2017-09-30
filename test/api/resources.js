@@ -25,8 +25,10 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
 
     it("should not download stylesheet links", { slow: 500 }, () => {
       const sourceString = `body { color: blue; }`;
-      const url = resourceServer({ "Content-Type": "text/javascript", "Content-Length": sourceString.length },
-                                 sourceString);
+      const url = resourceServer(
+        { "Content-Type": "text/javascript", "Content-Length": sourceString.length },
+        sourceString
+      );
       const dom = new JSDOM(``);
 
       const element = dom.window.document.createElement("link");
@@ -44,8 +46,10 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
 
     it("should not download scripts (even with runScripts: \"dangerously\")", { slow: 500 }, () => {
       const sourceString = `window.x = 5;`;
-      const url = resourceServer({ "Content-Type": "text/javascript", "Content-Length": sourceString.length },
-                                 sourceString);
+      const url = resourceServer(
+        { "Content-Type": "text/javascript", "Content-Length": sourceString.length },
+        sourceString
+      );
       const dom = new JSDOM(``, { runScripts: "dangerously" });
 
       const element = dom.window.document.createElement("script");
@@ -60,8 +64,10 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
 
     it("should not download iframes", { slow: 500 }, () => {
       const sourceString = `Hello`;
-      const url = resourceServer({ "Content-Type": "text/html", "Content-Length": sourceString.length },
-                                 sourceString);
+      const url = resourceServer(
+        { "Content-Type": "text/html", "Content-Length": sourceString.length },
+        sourceString
+      );
       const dom = new JSDOM(``, { runScripts: "dangerously" });
 
       const element = dom.window.document.createElement("iframe");
@@ -72,15 +78,19 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       return assertNotLoaded(element).then(() => {
         // This may not be the optimal behavior for "not loading" iframes: it's fine to change this test in the future
         // if we have better semantics. (E.g., perhaps we should treat all URLs as about:blank.)
-        assert.strictEqual(dom.window.frames[0].document.documentElement, null,
-          "The iframe must not have been downloaded");
+        assert.strictEqual(
+          dom.window.frames[0].document.documentElement, null,
+          "The iframe must not have been downloaded"
+        );
       });
     });
 
     it("should not download frames", { slow: 500 }, () => {
       const sourceString = `Hello`;
-      const url = resourceServer({ "Content-Type": "text/html", "Content-Length": sourceString.length },
-                                 sourceString);
+      const url = resourceServer(
+        { "Content-Type": "text/html", "Content-Length": sourceString.length },
+        sourceString
+      );
       const dom = new JSDOM(`<frameset></frameset>`, { runScripts: "dangerously" });
 
       const element = dom.window.document.createElement("frame");
@@ -91,8 +101,10 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       return assertNotLoaded(element).then(() => {
         // This may not be the optimal behavior for "not loading" frames: it's fine to change this test in the future
         // if we have better semantics. (E.g., perhaps we should treat all URLs as about:blank.)
-        assert.strictEqual(dom.window.frames[0].document.documentElement, null,
-          "The iframe must not have been downloaded");
+        assert.strictEqual(
+          dom.window.frames[0].document.documentElement, null,
+          "The iframe must not have been downloaded"
+        );
       });
     });
   });
@@ -112,8 +124,10 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
 
     it("should download stylesheet links", { slow: 500 }, () => {
       const sourceString = `body { color: blue; }`;
-      const url = resourceServer({ "Content-Type": "text/javascript", "Content-Length": sourceString.length },
-                                 sourceString);
+      const url = resourceServer(
+        { "Content-Type": "text/javascript", "Content-Length": sourceString.length },
+        sourceString
+      );
       const dom = new JSDOM(``, { resources: "usable" });
 
       const element = dom.window.document.createElement("link");
@@ -131,8 +145,10 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
 
     it("should download and run scripts, if runScripts: \"dangerously\" is also set", { slow: 500 }, () => {
       const sourceString = `window.x = 5;`;
-      const url = resourceServer({ "Content-Type": "text/javascript", "Content-Length": sourceString.length },
-                                 sourceString);
+      const url = resourceServer(
+        { "Content-Type": "text/javascript", "Content-Length": sourceString.length },
+        sourceString
+      );
       const dom = new JSDOM(``, { resources: "usable", runScripts: "dangerously" });
 
       const element = dom.window.document.createElement("script");
@@ -147,8 +163,10 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
 
     it("should not download or run scripts, if runScripts: \"outside-only\" is set", { slow: 500 }, () => {
       const sourceString = `window.x = 5;`;
-      const url = resourceServer({ "Content-Type": "text/javascript", "Content-Length": sourceString.length },
-                                 sourceString);
+      const url = resourceServer(
+        { "Content-Type": "text/javascript", "Content-Length": sourceString.length },
+        sourceString
+      );
       const dom = new JSDOM(``, { resources: "usable", runScripts: "outside-only" });
 
       const element = dom.window.document.createElement("script");
@@ -163,8 +181,10 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
 
     it("should not download or run scripts, if runScripts is not set", { slow: 500 }, () => {
       const sourceString = `window.x = 5;`;
-      const url = resourceServer({ "Content-Type": "text/javascript", "Content-Length": sourceString.length },
-                                 sourceString);
+      const url = resourceServer(
+        { "Content-Type": "text/javascript", "Content-Length": sourceString.length },
+        sourceString
+      );
       const dom = new JSDOM(``, { resources: "usable" });
 
       const element = dom.window.document.createElement("script");
@@ -179,8 +199,10 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
 
     it("should download iframes", { slow: 500 }, () => {
       const sourceString = `Hello`;
-      const url = resourceServer({ "Content-Type": "text/html", "Content-Length": sourceString.length },
-                                 sourceString);
+      const url = resourceServer(
+        { "Content-Type": "text/html", "Content-Length": sourceString.length },
+        sourceString
+      );
       const dom = new JSDOM(``, { resources: "usable" });
 
       const element = dom.window.document.createElement("iframe");
@@ -189,15 +211,19 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       dom.window.document.body.appendChild(element);
 
       return assertLoaded(element).then(() => {
-        assert.strictEqual(dom.window.frames[0].document.body.textContent, "Hello",
-          "The iframe must have been downloaded");
+        assert.strictEqual(
+          dom.window.frames[0].document.body.textContent, "Hello",
+          "The iframe must have been downloaded"
+        );
       });
     });
 
     it("should download frames", { slow: 500 }, () => {
       const sourceString = `Hello`;
-      const url = resourceServer({ "Content-Type": "text/html", "Content-Length": sourceString.length },
-                                 sourceString);
+      const url = resourceServer(
+        { "Content-Type": "text/html", "Content-Length": sourceString.length },
+        sourceString
+      );
       const dom = new JSDOM(`<frameset></frameset>`, { resources: "usable" });
 
       const element = dom.window.document.createElement("frame");
@@ -206,8 +232,10 @@ describe("API: resource loading configuration", { skipIfBrowser: true }, () => {
       dom.window.document.body.appendChild(element);
 
       return assertLoaded(element).then(() => {
-        assert.strictEqual(dom.window.frames[0].document.body.textContent, "Hello",
-          "The frame must have been downloaded");
+        assert.strictEqual(
+          dom.window.frames[0].document.body.textContent, "Hello",
+          "The frame must have been downloaded"
+        );
       });
     });
   });

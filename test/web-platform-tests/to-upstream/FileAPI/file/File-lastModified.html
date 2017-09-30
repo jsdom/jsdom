@@ -13,8 +13,10 @@ async_test(t => {
   const file = new File([], "dummy");
 
   t.step_timeout(() => {
-    assert_true(Math.abs(curTime - file.lastModified) < 200,
-        "lastModified should be generated at File construction if not provided");
+    assert_true(
+      Math.abs(curTime - file.lastModified) < 200,
+      "lastModified should be generated at File construction if not provided"
+    );
     t.done();
   }, 400);
 });

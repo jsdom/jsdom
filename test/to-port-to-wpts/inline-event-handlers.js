@@ -121,9 +121,11 @@ describe("inline-event-handlers", () => {
     }
   );
 
-  const proxied = ["onblur", "onerror", "onfocus", "onload", "onresize", "onscroll", "onafterprint",
+  const proxied = [
+    "onblur", "onerror", "onfocus", "onload", "onresize", "onscroll", "onafterprint",
     "onbeforeprint", "onbeforeunload", "onhashchange", "onlanguagechange", "onmessage", "onoffline", "ononline",
-    "onpagehide", "onpageshow", "onpopstate", "onstorage", "onunload"];
+    "onpagehide", "onpageshow", "onpopstate", "onstorage", "onunload"
+  ];
 
   specify(
     "proxied body/window event handlers: setting on body as properties reflects on window",

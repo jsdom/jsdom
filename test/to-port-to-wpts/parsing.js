@@ -115,8 +115,7 @@ describe("jsdom/parsing", () => {
 
   specify("prefix on attribute named 'hasOwnProperty' (GH-1444)", () => {
     const options = { parsingMode: "xml" };
-    const document = jsdom.jsdom(
-      `<element xmlns:prefix="https://example.com/" prefix:hasOwnProperty='value'></element>`, options);
+    const document = jsdom.jsdom(`<element xmlns:prefix="https://example.com/" prefix:hasOwnProperty='value'></element>`, options);
 
     const els = document.getElementsByTagName("element");
 
@@ -124,8 +123,10 @@ describe("jsdom/parsing", () => {
     assert.equal(els[0].attributes.length, 2);
     assert.equal(els[0].attributes[1].prefix, "prefix");
     assert.equal(els[0].getAttribute("prefix:hasOwnProperty"), "value");
-    assert.equal(els[0].outerHTML,
-                 `<element xmlns:prefix="https://example.com/" prefix:hasOwnProperty="value"></element>`);
+    assert.equal(
+      els[0].outerHTML,
+      `<element xmlns:prefix="https://example.com/" prefix:hasOwnProperty="value"></element>`
+    );
   });
 
   specify("CDATA should parse as bogus comments (GH-618)", () => {
@@ -239,7 +240,7 @@ describe("jsdom/parsing", () => {
       done(err, window) {
         assert.ifError(err);
 
-        const document = window.document;
+        const { document } = window;
 
         const script = document.createElement("script");
         script.innerHTML = "5 < 3";
@@ -257,8 +258,7 @@ describe("jsdom/parsing", () => {
   specify("whitespace after <!DOCTYPE> (GH-160)", () => {
     const document = jsdom.jsdom("<!DOCTYPE html>\n<html></html>");
 
-    const firstChild = document.firstChild;
-    assert.strictEqual(firstChild.nodeName, "html");
+    assert.strictEqual(document.firstChild.nodeName, "html");
   });
 
   specify("pre tag with < and > characters (GH-755)", () => {

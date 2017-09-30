@@ -20,7 +20,7 @@ describe("node-owner-document", () => {
       const el = doc.querySelector("p");
       const text = el.firstChild;
       const comment = el.nextSibling;
-      const doctype = doc.doctype;
+      const { doctype } = doc;
 
       assert.equal(el.nodeType, doc.ELEMENT_NODE);
       assert.equal(el.ownerDocument, doc, "element node");

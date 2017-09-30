@@ -1,6 +1,6 @@
 "use strict";
 const jsdom = require("../../lib/old-api.js");
-const nodeResolverPromise = require("../util.js").nodeResolverPromise;
+const { nodeResolverPromise } = require("../util.js");
 
 const globalPool = { maxSockets: 6 };
 
@@ -48,8 +48,7 @@ module.exports = (urlPrefix, testPath) => {
   });
 
 
-  return created
-  .then(window => {
+  return created.then(window => {
     return new Promise((resolve, reject) => {
       const errors = [];
 

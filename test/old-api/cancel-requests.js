@@ -25,10 +25,10 @@ describe("jsdom/cancel-requests", { skipIfBrowser: true }, () => {
         res.end(routes[req.url]);
       }, 200);
     })
-    .then(s => {
-      server = s;
-      host = `http://127.0.0.1:${s.address().port}`;
-    });
+      .then(s => {
+        server = s;
+        host = `http://127.0.0.1:${s.address().port}`;
+      });
   });
 
   after(() => {

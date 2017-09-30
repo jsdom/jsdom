@@ -20,16 +20,12 @@ function addBenchmark(suite, benchmark) {
   }
 }
 
-function benchmarkFunctions(document, options) {
-  const setup = options.setup || noop;
-  const fn = options.fn;
-  const teardown = options.teardown || noop;
-
+function benchmarkFunctions(document, { setup = noop, fn, teardown = noop, defer }) {
   return {
     setup() {
       setup.call(this, document);
     },
-    fn: options.defer ?
+    fn: defer ?
         function (deferred) {
           fn.call(this, deferred, document);
         } :

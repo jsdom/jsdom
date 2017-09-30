@@ -76,7 +76,7 @@ describe("htmlimageelement", { skipIfBrowser: true }, () => {
 
       ++requestsSoFar;
     })
-    .listen();
+      .listen();
 
     jsdom.env({
       url: `http://127.0.0.1:${server.address().port}/test.html`,

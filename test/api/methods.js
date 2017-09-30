@@ -22,8 +22,10 @@ describe("API: JSDOM class's methods", () => {
     it("should serialize a document with HTML correctly", () => {
       const dom = new JSDOM(`<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>`);
 
-      assert.strictEqual(dom.serialize(),
-                         `<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>`);
+      assert.strictEqual(
+        dom.serialize(),
+        `<!DOCTYPE html><html><head></head><body><p>hello world!</p></body></html>`
+      );
     });
 
     it("should serialize documents with omitted and varying-case html or body tags correctly", () => {
@@ -200,7 +202,7 @@ describe("API: JSDOM class's methods", () => {
     describe("url", () => {
       it("should successfully change the URL", () => {
         const dom = new JSDOM(``, { url: "http://example.com/" });
-        const window = dom.window;
+        const { window } = dom;
 
         assert.strictEqual(window.document.URL, "http://example.com/");
 
@@ -224,7 +226,7 @@ describe("API: JSDOM class's methods", () => {
 
       it("should throw and not impact the URL when trying to change to an unparseable URL", () => {
         const dom = new JSDOM(``, { url: "http://example.com/" });
-        const window = dom.window;
+        const { window } = dom;
 
         assert.strictEqual(window.document.URL, "http://example.com/");
 
@@ -245,7 +247,7 @@ describe("API: JSDOM class's methods", () => {
 
       it("should not throw and not impact the URL when no url option is given", () => {
         const dom = new JSDOM(``, { url: "http://example.com/" });
-        const window = dom.window;
+        const { window } = dom;
 
         assert.strictEqual(window.document.URL, "http://example.com/");
 

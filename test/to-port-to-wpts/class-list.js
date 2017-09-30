@@ -242,7 +242,7 @@ describe("class-list", () => {
   });
 
   specify("classList should return same object", () => {
-    const classList = el.classList;
+    const { classList } = el;
     assert.equal(classList, el.classList);
 
     el.className = "foo foo";
@@ -250,7 +250,7 @@ describe("class-list", () => {
   });
 
   specify("length should be readonly", () => {
-    const classList = el.classList;
+    const { classList } = el;
     assert.equal(classList.length, 0);
 
     assert.throws(() => {

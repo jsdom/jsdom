@@ -11,7 +11,7 @@ module.exports = function pathToSuites(benchmarks, paths) {
       let suites = benchmarks;
 
       for (const part of parts) {
-        suites = suites.hasOwnProperty(part) && suites[part];
+        suites = Object.prototype.hasOwnProperty.call(suites, part) && suites[part];
         if (!suites) {
           throw Error("Invalid suite: '" + path + "'");
         }

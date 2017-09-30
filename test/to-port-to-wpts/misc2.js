@@ -130,7 +130,7 @@ describe("jsdom/miscellaneous", () => {
       process.nextTick(() => {
         req.emit("response", res);
         process.nextTick(() => {
-          res.emit("data", new Buffer("window.attachedHere = 123"));
+          res.emit("data", Buffer.from("window.attachedHere = 123"));
           res.emit("close");
         });
       });
@@ -330,13 +330,17 @@ describe("jsdom/miscellaneous", () => {
     const div = window.document.createElement("div");
     let text = window.document.createTextNode("bar");
     div.appendChild(text);
-    assert.strictEqual(text, div.childNodes[0],
-               "childNodes NodeList should update after appendChild");
+    assert.strictEqual(
+      text, div.childNodes[0],
+      "childNodes NodeList should update after appendChild"
+    );
 
     text = window.document.createTextNode("bar");
     div.insertBefore(text, null);
-    assert.strictEqual(text, div.childNodes[1],
-               "childNodes NodeList should update after insertBefore");
+    assert.strictEqual(
+      text, div.childNodes[1],
+      "childNodes NodeList should update after insertBefore"
+    );
   });
 
   specify("option_set_selected", () => {
@@ -394,8 +398,10 @@ describe("jsdom/miscellaneous", () => {
     const div = document.createElement("div");
     document.body.appendChild(div);
     div.appendChild(document.createTextNode("hello world"));
-    assert.strictEqual(div.childNodes[0].nodeValue, "hello world",
-               "Nodelist children should be populated immediately");
+    assert.strictEqual(
+      div.childNodes[0].nodeValue, "hello world",
+      "Nodelist children should be populated immediately"
+    );
   });
 
   specify("parsing_and_serializing_entities", () => {
@@ -403,26 +409,38 @@ describe("jsdom/miscellaneous", () => {
     const document = jsdom.jsdom(html);
     const anchor = document.getElementsByTagName("a")[0];
 
-    assert.strictEqual(anchor.getAttribute("href"), "http://example.com/?a=b&c=d",
-                     "href attribute value should be deentitified");
+    assert.strictEqual(
+      anchor.getAttribute("href"), "http://example.com/?a=b&c=d",
+      "href attribute value should be deentitified"
+    );
 
-    assert.strictEqual(anchor.firstChild.nodeValue, "<æ☺foo",
-                     "nodeValue of text node should be deentitified");
+    assert.strictEqual(
+      anchor.firstChild.nodeValue, "<æ☺foo",
+      "nodeValue of text node should be deentitified"
+    );
 
-    assert.ok(anchor.outerHTML.indexOf("http://example.com/?a=b&amp;c=d") !== -1,
-            "outerHTML of anchor href should be entitified");
+    assert.ok(
+      anchor.outerHTML.indexOf("http://example.com/?a=b&amp;c=d") !== -1,
+      "outerHTML of anchor href should be entitified"
+    );
 
-    assert.ok(anchor.innerHTML.indexOf("&lt;") === 0,
-            "innerHTML of anchor should begin with &lt;");
+    assert.ok(
+      anchor.innerHTML.indexOf("&lt;") === 0,
+      "innerHTML of anchor should begin with &lt;"
+    );
   });
 
   specify("parsing_and_serializing_unknown_entities", () => {
     const html = "<html><body>&nowayjose;&#x263a;&#xblah;&#9q;</body></html>";
     const document = jsdom.jsdom(html);
-    assert.strictEqual(document.body.firstChild.nodeValue, "&nowayjose;☺lah;	q;",
-                     "Unknown and unparsable entities should be handled like a browser would");
-    assert.strictEqual(document.body.innerHTML, "&amp;nowayjose;☺lah;	q;",
-                     "Unknown and unparsable entities should be handled like a browser would");
+    assert.strictEqual(
+      document.body.firstChild.nodeValue, "&nowayjose;☺lah;\tq;",
+      "Unknown and unparsable entities should be handled like a browser would"
+    );
+    assert.strictEqual(
+      document.body.innerHTML, "&amp;nowayjose;☺lah;\tq;",
+      "Unknown and unparsable entities should be handled like a browser would"
+    );
   });
 
   specify("entities_in_script_should_be_left_alone", () => {
@@ -436,20 +454,23 @@ describe("jsdom/miscellaneous", () => {
     const html = "<html><head><title>&lt;b&gt;Hello&lt;/b&gt;</title></head><body></body></html>";
     const document = jsdom.jsdom(html);
 
-    assert.strictEqual(document.title, "<b>Hello</b>",
+    assert.strictEqual(
+      document.title, "<b>Hello</b>",
       `document.title should be the deentitified version of what was in
       the original HTML`
     );
 
     document.title = "<b>World</b>";
-    assert.strictEqual(document.title, "<b>World</b>",
+    assert.strictEqual(
+      document.title, "<b>World</b>",
       `When document.title is set programmatically to something looking like
       HTML tags, then read again, it should have the exact same value, no
       entification should take place`
     );
 
     document.title = "&lt;b&gt;World&lt;/b&gt;";
-    assert.strictEqual(document.title, "&lt;b&gt;World&lt;/b&gt;",
+    assert.strictEqual(
+      document.title, "&lt;b&gt;World&lt;/b&gt;",
       `When document.title is set programmatically to something looking like
       HTML entities, then read again, it should have the exact same value,
       no deentification should take place`
@@ -461,12 +482,15 @@ describe("jsdom/miscellaneous", () => {
                   <body>Hello<span><span>, </span>world</span>!</body></html>`;
     const document = jsdom.jsdom(html);
 
-    assert.strictEqual(document.textContent, null,
+    assert.strictEqual(
+      document.textContent, null,
       "textContent of document should be null"
     );
 
-    assert.strictEqual(document.head.textContent, "\n<foo>",
-      "textContent of document.head should be the initial whitespace plus the textContent of the document title"
+    assert.strictEqual(
+      document.head.textContent, "\n<foo>",
+      "textContent of document.head should be the initial whitespace plus the textContent " +
+                       "of the document title"
     );
 
     assert.strictEqual(
@@ -502,7 +526,8 @@ describe("jsdom/miscellaneous", () => {
     div.innerHTML = "&amp;lt;b&amp;gt;\nWorld&amp;lt;/b&amp;gt;<span></span><span>" +
                     "<span></span></span><span>&amp;lt;b&amp;gt;World&amp;lt;/b&amp;gt;</span>";
 
-    assert.strictEqual(div.textContent, "&lt;b&gt;\nWorld&lt;/b&gt;&lt;b&gt;World&lt;/b&gt;",
+    assert.strictEqual(
+      div.textContent, "&lt;b&gt;\nWorld&lt;/b&gt;&lt;b&gt;World&lt;/b&gt;",
       `textContent of complex programmatically created <div> should be the
       concatenation of the textContent values of its child nodes`
     );
@@ -564,8 +589,10 @@ describe("jsdom/miscellaneous", () => {
   // Make sure traditional handlers on the body element set via script are
   // forwarded to the window.
   specify("test_body_event_handler_script", { async: true }, t => {
-    const doc = jsdom.jsdom("<html><head></head><body></body></html>",
-                          { deferClose: true });
+    const doc = jsdom.jsdom(
+      "<html><head></head><body></body></html>",
+      { deferClose: true }
+    );
     const window = doc.defaultView;
     assert.equal(window.onload, undefined);
     doc.body.onload = () => {
@@ -855,12 +882,14 @@ describe("jsdom/miscellaneous", () => {
       assert.strictEqual(window.globalVariable, "value");
     });
 
-    specify("fix_for_issue_172", () => {
-      jsdom.env(`<html><body><script type="text/javascript"></script></body></html>`, [
-        "file:" + path.resolve(__dirname, "../jquery-fixtures/jquery-1.6.2.js")
-      ], () => {
-        // ensure the callback gets called!
-      });
+    specify("fix_for_issue_172", { async: true }, t => {
+      jsdom.env(
+        `<html><body><script type="text/javascript"></script></body></html>`,
+        ["file:" + path.resolve(__dirname, "../jquery-fixtures/jquery-1.6.2.js")],
+        () => {
+          t.done();
+        }
+      );
     });
 
     specify("jquerify_file", { async: true }, t => {
@@ -889,7 +918,7 @@ describe("jsdom/miscellaneous", () => {
         switch (req.url) {
           case "/": {
             const text = "window.attachedHere = 123";
-            const buf = new Buffer(text, "utf-8");
+            const buf = Buffer.from(text);
             zlib.gzip(buf, (_, result) => {
               res.writeHead(200, { "Content-Length": result.length, "Content-Encoding": "gzip" });
               res.emit("data", result);
@@ -1132,8 +1161,10 @@ describe("jsdom/miscellaneous", () => {
               assert.ok(false, errors.message);
             } else {
               assert.equal(window.document.body.innerHTML, html, "root page should be redirected");
-              assert.equal(window.location.href, "http://127.0.0.1:8001/redir#hash",
-                "window.location.href should equal to redirected url");
+              assert.equal(
+                window.location.href, "http://127.0.0.1:8001/redir#hash",
+                "window.location.href should equal to redirected url"
+              );
             }
             t.done();
           }
@@ -1152,7 +1183,7 @@ describe("jsdom/miscellaneous", () => {
             break;
           }
           case "/foo.js": {
-            const cookie = req.headers.cookie;
+            const { cookie } = req.headers;
             const name = cookie ? cookie.split("=")[1] : "no cookie";
             const text = "document.body.innerHTML = 'Hello " + name + "'; window.doCheck();";
             res.writeHead(200, { "Content-Length": text.length });
@@ -1201,7 +1232,7 @@ describe("jsdom/miscellaneous", () => {
             break;
           }
           case "/foo.txt": {
-            const cookie = req.headers.cookie;
+            const { cookie } = req.headers;
             const name = cookie ? cookie.split("=")[1] : "no cookie";
             const text = "Hello " + name;
             res.writeHead(200, { "Content-Length": text.length });

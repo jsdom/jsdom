@@ -15,8 +15,10 @@ describe("htmlinputelement", () => {
 
     input.defaultValue = "abc";
 
-    assert.strictEqual(input.value, "abc",
-      "setting the defaultValue should also change the value if \"dirty value\" is false");
+    assert.strictEqual(
+      input.value, "abc",
+      "setting the defaultValue should also change the value if \"dirty value\" is false"
+    );
     assert.strictEqual(input.defaultValue, "abc", "defaultValue should equal to set string");
     assert.strictEqual(input.getAttribute("value"), "abc", "value attribute should equal to set string");
 
@@ -48,16 +50,22 @@ describe("htmlinputelement", () => {
     assert.strictEqual(checked.checked, true, "checked property must return the current checkedness");
 
     checked.removeAttribute("checked");
-    assert.strictEqual(checked.checked, false,
-      "dirty checkedness is still false, the checkedness should have been changed");
+    assert.strictEqual(
+      checked.checked, false,
+      "dirty checkedness is still false, the checkedness should have been changed"
+    );
 
     checked.checked = false; // sets the element"s dirty checkedness flag to true
-    assert.strictEqual(checked.checked, false,
-      "on setting, the checked property must set the element's checkedness to the new value");
+    assert.strictEqual(
+      checked.checked, false,
+      "on setting, the checked property must set the element's checkedness to the new value"
+    );
 
     checked.setAttribute("checked", "checked");
-    assert.strictEqual(checked.checked, false,
-      "checkedness should not have been changed because dirty checkedness is now true");
+    assert.strictEqual(
+      checked.checked, false,
+      "checkedness should not have been changed because dirty checkedness is now true"
+    );
   });
 
   specify("uncheck other radio buttons in the same group", () => {
