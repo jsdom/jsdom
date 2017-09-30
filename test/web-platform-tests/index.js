@@ -7,7 +7,7 @@ describe("Web Platform Tests", () => {
   /* eslint-disable max-len */
   [
     "dom/collections/domstringmap-supported-property-names.html",
-    // "dom/collections/HTMLCollection-as-proto-length-get-throws.html", // our brand checks can be evaded by this kind of clever code
+    "dom/collections/HTMLCollection-as-proto-length-get-throws.html",
     "dom/collections/HTMLCollection-empty-name.html",
     "dom/collections/HTMLCollection-supported-property-indices.html",
     "dom/collections/HTMLCollection-supported-property-names.html",
@@ -280,7 +280,7 @@ describe("Web Platform Tests", () => {
     "html/semantics/tabular-data/the-tr-element/insertCell.html",
     "html/semantics/tabular-data/the-tr-element/rowIndex.html",
     "html/semantics/tabular-data/the-tr-element/sectionRowIndex.html",
-    // "html/semantics/text-level-semantics/the-a-element/a-stringifier.html", // https://github.com/jsdom/webidl2js/issues/67
+    "html/semantics/text-level-semantics/the-a-element/a-stringifier.html",
     "html/semantics/text-level-semantics/the-a-element/a.rel-getter-01.html",
     "html/semantics/text-level-semantics/the-a-element/a.rel-setter-01.html",
     "html/semantics/text-level-semantics/the-a-element/a.text-getter-01.html",

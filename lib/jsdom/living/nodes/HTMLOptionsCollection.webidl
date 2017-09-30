@@ -1,3 +1,4 @@
+[Exposed=Window]
 interface HTMLOptionsCollection : HTMLCollection {
   // inherits item(), namedItem()
   [CEReactions] attribute unsigned long length; // shadows inherited length
@@ -6,5 +7,3 @@ interface HTMLOptionsCollection : HTMLCollection {
   [CEReactions] void remove(long index);
   attribute long selectedIndex;
 };
-
-HTMLOptionsCollection implements HTMLCollection;
