@@ -41,6 +41,9 @@ module.exports = config => {
       debug: true,
       configure(bundle) {
         bundle.ignore("fs");
+        // TODO: support WPTs in browsers.
+        bundle.ignore("./test/web-platform-tests/run-wpts.js");
+        bundle.ignore("./test/web-platform-tests/run-tuwpts.js");
       }
     },
 

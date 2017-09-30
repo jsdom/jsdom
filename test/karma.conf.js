@@ -38,7 +38,12 @@ module.exports = config => {
     },
 
     browserify: {
-      debug: true
+      debug: true,
+      configure(bundle) {
+        // TODO: support WPTs in browsers.
+        bundle.ignore("./test/web-platform-tests/run-wpts.js");
+        bundle.ignore("./test/web-platform-tests/run-tuwpts.js");
+      }
     },
 
     reporters: ["progress"],
