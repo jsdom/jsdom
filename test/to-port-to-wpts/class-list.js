@@ -99,7 +99,7 @@ describe("class-list", () => {
       el.classList.add("foo", "");
     }
 
-    assert.throws(block, "SyntaxError");
+    assert.throwsDomException(block, el.ownerDocument, "SyntaxError");
   });
 
   specify(".add() throws if a token contains whitespace", () => {
@@ -107,7 +107,7 @@ describe("class-list", () => {
       el.classList.add("  foo", "bar");
     }
 
-    assert.throws(block, "InvalidCharacterError");
+    assert.throwsDomException(block, el.ownerDocument, "InvalidCharacterError");
   });
 
   specify(".remove(tokens...) removes provided tokens", () => {
@@ -147,7 +147,7 @@ describe("class-list", () => {
       el.classList.remove("foo", "");
     }
 
-    assert.throws(block, "SyntaxError");
+    assert.throwsDomException(block, el.ownerDocument, "SyntaxError");
   });
 
   specify(".remove() throws if a token contains whitespace", () => {
@@ -155,7 +155,7 @@ describe("class-list", () => {
       el.classList.remove("  foo", "bar");
     }
 
-    assert.throws(block, "InvalidCharacterError");
+    assert.throwsDomException(block, el.ownerDocument, "InvalidCharacterError");
   });
 
   specify(".toggle(token) toggles specified token", () => {
@@ -215,7 +215,7 @@ describe("class-list", () => {
       el.classList.toggle("");
     }
 
-    assert.throws(block, "SyntaxError");
+    assert.throwsDomException(block, el.ownerDocument, "SyntaxError");
   });
 
   specify(".toggle() throws if a token contains whitespace", () => {
@@ -223,7 +223,7 @@ describe("class-list", () => {
       el.classList.toggle("  foo");
     }
 
-    assert.throws(block, "InvalidCharacterError");
+    assert.throwsDomException(block, el.ownerDocument, "InvalidCharacterError");
   });
 
   specify("accessing classList should not remove duplicates", () => {

@@ -179,7 +179,7 @@ describe("level2/events", () => {
       var doc = this.doc,
           event_types = ['Events', 'UIEvents', 'MouseEvents', 'HTMLEvents'];
       event_types.forEach(function(type){
-        assert.throws(function(){ doc.dispatchEvent(doc.createEvent(type)) }, 'InvalidStateError');
+        assert.throwsDomException(function(){ doc.dispatchEvent(doc.createEvent(type)) }, doc, 'InvalidStateError');
       })
     });
 

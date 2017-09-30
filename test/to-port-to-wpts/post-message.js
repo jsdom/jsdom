@@ -16,9 +16,9 @@ describe("post-message", () => {
     const iframe = injectIFrame(document);
 
     window.onload = () => {
-      assert.throws(() => {
+      assert.throwsDomException(() => {
         iframe.contentWindow.postMessage("testMessage", "bogus targetOrigin");
-      }, "SyntaxError");
+      }, document, "SyntaxError");
 
       assert.throws(() => {
         iframe.contentWindow.postMessage("testMessage");
