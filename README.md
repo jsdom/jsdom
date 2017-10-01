@@ -101,6 +101,22 @@ Note that we strongly advise against trying to "execute scripts" by mashing toge
 
 Finally, for advanced use cases you can use the `dom.runVMScript(script)` method, documented below.
 
+### Visual mode
+
+jsdom by default will do no rendering, layout, animation, rendering or css. However, you can opt-in to a subset of features which enables some of it. You do this by passing `pretendToBeVisual: true` to the jsdom constructor.
+
+```js
+const window = (new JSDOM(``, { pretendToBeVisual: true })).window;
+
+window.requestAnimationFrame(timestamp => {
+  timestamp > 0;
+});
+```
+
+This will make `document.hidden` return `true` and `document.visibilityState` return `"visible"`.
+
+Currently only `window.requestAnimationFrame` and `window.cancelAnimationFrame` have been implemented.
+
 ### Loading subresources
 
 By default, jsdom will not load any subresources such as scripts, stylesheets, images, or iframes. If you'd like jsdom to load such resources, you can pass the `resources: "usable"` option, which will load all usable resources. Those are:

@@ -157,7 +157,8 @@ function createJSDOM(urlPrefix, testPath) {
         if (error) {
           doneErrors.push(error);
         }
-      }
+      },
+      pretendToBeVisual: true
     });
   });
 
