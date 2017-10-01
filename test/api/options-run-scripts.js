@@ -3,7 +3,7 @@ const { assert } = require("chai");
 const { describe, it } = require("mocha-sugar-free");
 const { delay } = require("../util.js");
 
-const { JSDOM } = require("../..");
+const { JSDOM, VirtualConsole } = require("../..");
 
 describe("API: runScripts constructor option", () => {
   describe("<script>s and eval()", () => {
@@ -35,6 +35,25 @@ describe("API: runScripts constructor option", () => {
       dom.window.eval(`document.body.appendChild(document.createElement("p"));`);
 
       assert.strictEqual(dom.window.document.body.children.length, 3);
+    });
+
+    it("should execute <script>s with correct location when set to \"dangerously\" and includeNodeLocations", () => {
+      const virtualConsole = new VirtualConsole();
+      const promise = new Promise((resolve, reject) => {
+        virtualConsole.on("jsdomError", (err) => {
+          try {
+            assert.strictEqual(err.type, "unhandled exception");
+            assert(err.detail.stack.includes("at about:blank:2"));
+            resolve();
+          } catch (actualErr) {
+            reject(actualErr);
+          }
+        });
+      });
+      new JSDOM(`<body>
+        <script>throw new Error();</script>
+      </body>`, { runScripts: "dangerously", includeNodeLocations: true, virtualConsole });
+      return promise;
     });
 
     it("should only run eval when set to \"outside-only\"", () => {
