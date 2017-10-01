@@ -4,6 +4,8 @@ jsdom is, as said in our tagline, “A JavaScript implementation of the DOM and 
 
 ## Architecture
 
+We use the [Yarn](https://yarnpkg.com/) package manager to manage dependencies and run the scripts defined in `package.json`. It is similar to npm, but contains fewer bugs for our purposes. If you make changes which add or remove dependencies, make sure you commit the `yarn.lock` file which it generates.
+
 jsdom is a blend of old and new code. Some of its older and less-touched corners may look different from newer work. Here we'll describe the modern setup, but you might encounter parts of the codebase that don't fit this model, or that seem unnecessarily baroque (like the directory structure in `lib/`).
 
 In general, a web platform class (like `Window`, or `Node`, or `Location`, or `CSSStyleSheet`) is specified using a language called [Web IDL](https://heycam.github.io/webidl/). Web IDL abstracts away a lot of the boilerplate involved in creating such classes, like type conversions, argument validation, and [attribute/property reflection](https://html.spec.whatwg.org/multipage/infrastructure.html#reflect).
