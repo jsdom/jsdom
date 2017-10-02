@@ -2,6 +2,12 @@
 
 jsdom is, as said in our tagline, “A JavaScript implementation of the DOM and HTML standards.” Anything that helps us be better at that is welcome.
 
+## Yarn
+
+We use the [Yarn](https://yarnpkg.com/) package manager to manage dependencies and run the scripts defined in `package.json`. It is similar to npm, but contains fewer bugs for our purposes. If you make changes which add or remove dependencies, make sure you commit the `yarn.lock` file which it generates.
+
+You can probably get away with using npm for most contributions, as long as you are not adding or removing dependencies. You'll have to mentally translate the Yarn commands we give into npm ones, however.
+
 ## Architecture
 
 jsdom is a blend of old and new code. Some of its older and less-touched corners may look different from newer work. Here we'll describe the modern setup, but you might encounter parts of the codebase that don't fit this model, or that seem unnecessarily baroque (like the directory structure in `lib/`).
@@ -13,7 +19,7 @@ As such, most web platform classes present in jsdom are implemented in two parts
 - An IDL file, such as [`Attr.idl`](https://github.com/tmpvar/jsdom/blob/master/lib/jsdom/living/attributes/Attr.idl), drawn more or less straight from the spec
 - An implementation file, such as [`Attr-impl.js`](https://github.com/tmpvar/jsdom/blob/master/lib/jsdom/living/attributes/Attr-impl.js), containing the relevant implementation logic
 
-Our build step (`npm run prepublish`) then generates a public API file (e.g. `Attr.js`) which takes care of all the Web IDL-derived boilerplate, delegating to the implementation file for the important stuff. We then wire it together with a line in `lib/jsdom/living/index.js` that exposes the generated class on all jsdom windows.
+Our build step (`yarn prepare`) then generates a public API file (e.g. `Attr.js`) which takes care of all the Web IDL-derived boilerplate, delegating to the implementation file for the important stuff. We then wire it together with a line in `lib/jsdom/living/index.js` that exposes the generated class on all jsdom windows.
 
 ## Contribution overview
 
@@ -33,9 +39,9 @@ Other specs might pop up from time to time, especially in regard to CSS stuff. I
 
 ### Running the tests
 
-First you'll want to `npm install`. Then, configure your system to run the web platform tests as described in [their README](https://github.com/w3c/web-platform-tests/blob/master/README.md). If you can't get that set up correctly, the test runner will make a best-faith effort to run the tests hosted on http://w3c-test.org/, but this is pretty slow and fragile.
+First you'll want to run `yarn` to install all dependencies. Then, configure your system to run the web platform tests as described in [their README](https://github.com/w3c/web-platform-tests/blob/master/README.md). If you can't get that set up correctly, the test runner will make a best-faith effort to run the tests hosted on http://w3c-test.org/, but this is pretty slow and fragile.
 
-**To run all the tests:** `npm test`
+**To run all the tests:** `yarn test`
 
 ### Web platform feature tests
 
@@ -43,15 +49,15 @@ All tests for web platform features (as opposed to features of jsdom itself, suc
 
 However, the web-platform-tests project is not fully comprehensive. If you need to write your own test for a web platform feature, place it in our [to-upstream](https://github.com/tmpvar/jsdom/tree/master/test/web-platform-tests/to-upstream) directory. (It's so named because, over time, we hope to upstream these tests back to the web-platform-tests repository, so all browsers can benefit from them.) Note that you may need to create new directory structure, paralleling that of the main [web-platform-tests](https://github.com/w3c/web-platform-tests) repository.
 
-**To run all web-platform-tests:** `npm run test-wpt`
+**To run all web-platform-tests:** `yarn test-wpt`
 
-**To run the to-upstream web-platform-tests:** `npm run test-tuwpt`
+**To run the to-upstream web-platform-tests:** `yarn test-tuwpt`
 
-**To run specific web-platform-tests already enabled via `to-run.yaml`**: `npm run test-wpt -- --fgrep dom/events`
+**To run specific web-platform-tests already enabled via `to-run.yaml`**: `yarn test-wpt -- --fgrep dom/events`
 
-**To run specific to-upstream web-platform-tests**: `npm run test-tuwpt -- --fgrep domparsing`
+**To run specific to-upstream web-platform-tests**: `yarn test-tuwpt -- --fgrep domparsing`
 
-Also, to update web platform tests to their latest revision from the source repository: `npm run update-wpt`. (This can take a long time.)
+Also, to update web platform tests to their latest revision from the source repository: `yarn update-wpt`. (This can take a long time, like 10 minutes.)
 
 ### jsdom API tests
 
@@ -59,13 +65,13 @@ If you are testing something that can only be accomplished through the jsdom API
 
 To write such a test that, simply add a file in `test/api/`, following the surrounding conventions. Then, add it to the manifest at `test/index.js`.
 
-**To run all API tests:** `npm run test-api`
+**To run all API tests:** `yarn test-api`
 
-**To run a specific API test:** `npm run test-mocha -- test/api/from-file.js`
+**To run a specific API test:** `yarn test-mocha -- test/api/from-file.js`
 
 ### Older tests
 
-Although ideally you should not need to worry about this, there are some tests that are for legacy reasons not in the right format; they use Mocha, but really should be web platform tests. We're keeping them around for coverage until we can convert them. If you run `npm test`, you will get the full test suite, including such old tests.
+Although ideally you should not need to worry about this, there are some tests that are for legacy reasons not in the right format; they use Mocha, but really should be web platform tests. We're keeping them around for coverage until we can convert them. If you run `yarn test`, you will get the full test suite, including such old tests.
 
 ### Testing against the browser
 
@@ -73,11 +79,11 @@ jsdom has experimental support to run in directly in a browser, in both the main
 
 The mocha test cases are executed in Chrome using [karma](https://karma-runner.github.io/). Currently, web platform tests are not executed in the browser yet.
 
-**To run all browser tests:** `npm run test-browser`
+**To run all browser tests:** `yarn test-browser`
 
-**To run the karma tests in an iframe:** `npm run test-browser-iframe`
+**To run the karma tests in an iframe:** `yarn test-browser-iframe`
 
-**To run the karma tests in a web worker:** `npm run test-browser-worker`
+**To run the karma tests in a web worker:** `yarn test-browser-worker`
 
 ## Benchmarks
 
@@ -85,9 +91,9 @@ This project cares about performance. There are a number of benchmarks that you 
 
 You can also run the benchmarks using the native DOM implementation of Chrome. A comparison with jsdom will automatically be made for you. If your new feature is much slower than the alternative DOM implementation, there might be an unexpected bottleneck somewhere in your change.
 
-**To run benchmarks in Node.js:** `npm run benchmark`
+**To run benchmarks in Node.js:** `yarn benchmark`
 
-**To run benchmarks in the browser:** `npm run benchmark-browser`, then open `benchmark/browser-runner.html` in Chrome (or Chromium) and use the developer console to execute the `run()` function.
+**To run benchmarks in the browser:** `yarn benchmark-browser`, then open `benchmark/browser-runner.html` in Chrome (or Chromium) and use the developer console to execute the `run()` function.
 
 ## Issues
 

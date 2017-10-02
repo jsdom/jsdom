@@ -8,8 +8,8 @@ git:
   submodules: false
 
 script:
-  - npm run lint
-  - npm test
+  - yarn lint
+  - yarn test
 
 branches:
   only:
@@ -28,7 +28,7 @@ matrix:
   include:
     - node_js: 6
       env: TEST_SUITE=node-canvas-prebuilt
-      script: "export CXX=g++-4.8 && npm i canvas-prebuilt && npm test"
+      script: "export CXX=g++-4.8 && yarn add canvas-prebuilt && yarn test"
       addons:
         hosts:
           - web-platform.test
@@ -39,7 +39,7 @@ matrix:
           - xn--lve-6lad.web-platform.test
     - node_js: 6
       env: TEST_SUITE=node-canvas
-      script: "export CXX=g++-4.8 && npm i canvas && npm test"
+      script: "export CXX=g++-4.8 && yarn add canvas && yarn test"
       addons:
         hosts:
           - web-platform.test
@@ -60,7 +60,7 @@ matrix:
             - build-essential
     - node_js: stable
       env: TEST_SUITE=node-canvas
-      script: "export CXX=g++-4.8 && npm i canvas && npm test"
+      script: "export CXX=g++-4.8 && yarn add canvas && yarn test"
       addons:
         hosts:
           - web-platform.test
@@ -79,7 +79,7 @@ matrix:
             - libpango1.0-dev
             - libgif-dev
             - build-essential
-    - script: '[ "${TRAVIS_PULL_REQUEST}" != "false" ] || (npm run pretest && npm run test-browser)'
+    - script: '[ "${TRAVIS_PULL_REQUEST}" != "false" ] || (yarn run pretest && yarn run test-browser)'
       env: TEST_SUITE=browser
       addons:
         sauce_connect:
