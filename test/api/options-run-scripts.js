@@ -51,11 +51,10 @@ describe("API: runScripts constructor option", () => {
         });
       });
 
-      // eslint-disable no-new
+      // eslint-disable-next-line no-new
       new JSDOM(`<body>
         <script>throw new Error();</script>
       </body>`, { runScripts: "dangerously", includeNodeLocations: true, virtualConsole });
-      // eslint-enable no-new
 
       return promise;
     });
