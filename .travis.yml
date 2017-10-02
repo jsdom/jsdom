@@ -8,7 +8,7 @@ git:
   submodules: false
 
 script:
-  - yarn run lint
+  - yarn lint
   - yarn test
 
 branches:
