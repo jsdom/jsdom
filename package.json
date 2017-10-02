@@ -72,8 +72,8 @@
     "vm": "./lib/jsdom/vm-shim.js"
   },
   "scripts": {
-    "prepare": "yarn run convert-idl",
-    "pretest": "yarn run convert-idl && git submodule update --init --recursive",
+    "prepare": "yarn convert-idl",
+    "pretest": "yarn convert-idl && git submodule update --init --recursive",
     "test-wpt": "mocha test/web-platform-tests/run-wpts.js",
     "test-tuwpt": "mocha test/web-platform-tests/run-tuwpts.js",
     "test-mocha": "mocha",
@@ -81,7 +81,7 @@
     "test": "mocha test/index.js",
     "test-browser-iframe": "karma start test/karma.conf.js",
     "test-browser-worker": "karma start test/karma-webworker.conf.js",
-    "test-browser": "yarn run test-browser-iframe && yarn run test-browser-worker",
+    "test-browser": "yarn test-browser-iframe && yarn test-browser-worker",
     "lint": "eslint . && eslint test/web-platform-tests/to-upstream --ext .html",
     "lint-is-complete": "eslint-find-rules --unused .eslintrc.json",
     "update-wpt": "git submodule update --recursive --remote && cd test/web-platform-tests/tests && python wpt.py manifest --path ../wpt-manifest.json",
