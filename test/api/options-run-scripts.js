@@ -40,7 +40,7 @@ describe("API: runScripts constructor option", () => {
     it("should execute <script>s with correct location when set to \"dangerously\" and includeNodeLocations", () => {
       const virtualConsole = new VirtualConsole();
       const promise = new Promise((resolve, reject) => {
-        virtualConsole.on("jsdomError", (err) => {
+        virtualConsole.on("jsdomError", err => {
           try {
             assert.strictEqual(err.type, "unhandled exception");
             assert(err.detail.stack.includes("at about:blank:2"));
@@ -50,9 +50,13 @@ describe("API: runScripts constructor option", () => {
           }
         });
       });
+
+      // eslint-disable no-new
       new JSDOM(`<body>
         <script>throw new Error();</script>
       </body>`, { runScripts: "dangerously", includeNodeLocations: true, virtualConsole });
+      // eslint-enable no-new
+
       return promise;
     });
 
