@@ -101,9 +101,13 @@ Note that we strongly advise against trying to "execute scripts" by mashing toge
 
 Finally, for advanced use cases you can use the `dom.runVMScript(script)` method, documented below.
 
-### Visual mode
+### Pretend to render
 
-jsdom by default will do no rendering, layout, animation, rendering or css. However, you can opt-in to a subset of features which enables some of it. You do this by passing `pretendToBeVisual: true` to the jsdom constructor.
+jsdom does not have the capability to render visual content, and will act like a headless browser by default. It provides hints to web pages through APIs such as `document.hidden` that their content is not visible.
+
+When the `pretendToBeVisual` option is set to `true`, jsdom will pretend that it is rendering and displaying content. It does this by changing the values of `document.hidden` and `document.visibilityState`. It will also provide an imitation of the `window.requestAnimationFrame()` / `window.cancelAnimationFrame()` methods, normally only available for content being rendered.
+
+Note that using this option could lead to unpredictable behaviour in code that changes action depending on content visibility.
 
 ```js
 const window = (new JSDOM(``, { pretendToBeVisual: true })).window;
