@@ -11,12 +11,12 @@ const validReasons = new Set(["fail", "timeout", "needs-await", "needs-node8"]);
 
 let supportsAwait = true;
 try {
-  eval("async () => { await; }"); // eslint-disable-line no-eval
+  eval("async () => { await 0; }"); // eslint-disable-line no-eval
 } catch (e) {
   supportsAwait = false;
 }
 
-const hasNode8 = Number(process.versions.node.split(".")) >= 8;
+const hasNode8 = Number(process.versions.node.split(".")[0]) >= 8;
 
 const manifestFilename = path.resolve(__dirname, "wpt-manifest.json");
 const manifest = readManifest(manifestFilename);
