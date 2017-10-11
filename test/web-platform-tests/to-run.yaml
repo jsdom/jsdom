@@ -402,7 +402,6 @@ DIR: html/dom/elements/global-attributes
 
 dataset-prototype.html: [fail, Tests Object.prototype which jsdom has trouble with due to VM globals]
 dataset-set.html: [fail, Buggy(?) test for \uF900]
-dataset.html: [fail, We only support HTML elements]
 the-lang-attribute-001.html: [fail, Unknown]
 the-lang-attribute-002.html: [fail, Unknown]
 the-lang-attribute-003.html: [fail, Unknown]
