@@ -4,16 +4,14 @@ interface HTMLElement : Element {
   [Reflect] attribute DOMString lang;
 //  attribute boolean translate;
   attribute DOMString dir;
-// Implemented in HTMLAndSVGElementShared;
-//  [SameObject] readonly attribute DOMStringMap dataset;
+  [SameObject] readonly attribute DOMStringMap dataset;
 
   // user interaction
   [Reflect] attribute boolean hidden;
   void click();
-// These three are included in HTMLAndSVGElementShared.
-//  attribute long tabIndex;
-//  void focus();
-//  void blur();
+  attribute long tabIndex;
+  void focus();
+  void blur();
   [Reflect] attribute DOMString accessKey;
 //  readonly attribute DOMString accessKeyLabel;
 //  attribute boolean draggable;
@@ -24,7 +22,6 @@ interface HTMLElement : Element {
 };
 HTMLElement implements GlobalEventHandlers;
 HTMLElement implements ElementContentEditable;
-HTMLElement implements HTMLAndSVGElementShared;
 
 // https://drafts.csswg.org/cssom-view/#extensions-to-the-htmlelement-interface
 partial interface HTMLElement {

@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<title>SVGStringList interface</title>
+<link rel="author" title="Timothy Gu" href="mailto:timothygu99@gmail.com">
+<link rel="help" href="https://svgwg.org/svg2-draft/types.html#InterfaceSVGStringList">
+
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<script>
+"use strict";
+
+test(() => {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  const list = svg.requiredExtensions;
+  assert_true(list instanceof SVGStringList);
+  assert_array_equals(list, []);
+  assert_equals(list.numberOfItems, 0);
+}, "Basic properties");
+
+test(() => {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  const list = svg.requiredExtensions;
+  svg.setAttribute("requiredExtensions", "abc\r\ndef\f");
+
+  assert_array_equals(list, ["abc", "def"]);
+  assert_equals(list.numberOfItems, 2);
+  assert_equals(svg.getAttribute("requiredExtensions"), "abc\r\ndef\f");
+  svg.requiredExtensions[1] = svg.requiredExtensions[1];
+  assert_equals(svg.getAttribute("requiredExtensions"), "abc def");
+}, "Synchronization");
+
+test(() => {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  const list = svg.requiredExtensions;
+  svg.setAttribute("requiredExtensions", "abc def");
+
+  assert_equals(list.getItem(0), "abc");
+  assert_equals(list.getItem(1), "def");
+  assert_throws("IndexSizeError", () => {
+    list.getItem(2);
+  });
+}, "getItem()");
+
+test(() => {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  const list = svg.requiredExtensions;
+  svg.setAttribute("requiredExtensions", "abc def");
+
+  assert_equals(list.removeItem(0), "abc");
+  assert_equals(list.numberOfItems, 1);
+  assert_array_equals(list, ["def"]);
+  assert_throws("IndexSizeError", () => {
+    list.removeItem(1);
+  });
+  assert_equals(svg.getAttribute("requiredExtensions"), "def");
+}, "removeItem()");
+
+test(() => {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  const list = svg.requiredExtensions;
+  svg.setAttribute("requiredExtensions", "abc");
+
+  list.appendItem("def");
+  assert_equals(list.numberOfItems, 2);
+  assert_array_equals(list, ["abc", "def"]);
+  assert_equals(svg.getAttribute("requiredExtensions"), "abc def");
+}, "appendItem()");
+
+test(() => {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  const list = svg.requiredExtensions;
+  svg.setAttribute("requiredExtensions", "abc def");
+
+  list.insertItemBefore("ghi", 1);
+  assert_equals(list.numberOfItems, 3);
+  assert_array_equals(list, ["abc", "ghi", "def"]);
+  assert_equals(svg.getAttribute("requiredExtensions"), "abc ghi def");
+}, "insertItemBefore()");
+
+test(() => {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  const list = svg.requiredExtensions;
+  svg.setAttribute("requiredExtensions", "abc def");
+
+  list.replaceItem("ghi", 1);
+  assert_equals(list.numberOfItems, 2);
+  assert_array_equals(list, ["abc", "ghi"]);
+  assert_equals(svg.getAttribute("requiredExtensions"), "abc ghi");
+  assert_throws("IndexSizeError", () => {
+    list.replaceItem("oob", 3);
+  });
+}, "replaceItem()");
+
+test(() => {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  const list = svg.requiredExtensions;
+  svg.setAttribute("requiredExtensions", "abc def");
+
+  list[1] = "ghi";
+  assert_equals(list.numberOfItems, 2);
+  assert_array_equals(list, ["abc", "ghi"]);
+  assert_equals(svg.getAttribute("requiredExtensions"), "abc ghi");
+  assert_throws("IndexSizeError", () => {
+    list[3] = "oob";
+  });
+}, "setter");
+
+test(() => {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  const list = svg.requiredExtensions;
+  svg.setAttribute("requiredExtensions", "abc def");
+
+  list.initialize("reinit with spaces");
+  assert_equals(list.numberOfItems, 1);
+  assert_array_equals(list, ["reinit with spaces"]);
+  assert_equals(svg.getAttribute("requiredExtensions"), "reinit with spaces");
+  assert_array_equals(list, ["reinit with spaces"]);
+}, "initialize()");
+
+test(() => {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  const list = svg.requiredExtensions;
+  svg.setAttribute("requiredExtensions", "abc def");
+
+  list.clear();
+  assert_equals(list.numberOfItems, 0);
+  assert_array_equals(list, []);
+  assert_equals(svg.getAttribute("requiredExtensions"), "");
+}, "clear()");
+
+</script>

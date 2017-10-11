@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<title>SVGSVGElement interface</title>
+<link rel="author" title="Timothy Gu" href="mailto:timothygu99@gmail.com">
+<link rel="help" href="https://svgwg.org/svg2-draft/struct.html#InterfaceSVGSVGElement">
+
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<svg>
+  <g id="group"></g>
+</svg>
+<svg id="second" requiredExtensions=" http://example.org/SVGExtensionXYZ/1.0  def " systemLanguage="en,zh"></svg>
+
+<script>
+"use strict";
+
+test(() => {
+  const svg = document.querySelector("svg");
+  assert_equals(svg.namespaceURI, "http://www.w3.org/2000/svg");
+  assert_equals(svg.localName, "svg");
+  assert_equals(svg.ownerSVGElement, null);
+  assert_equals(svg.viewportElement, null);
+  assert_true(svg instanceof Element);
+  assert_true(svg instanceof SVGElement);
+  assert_true(svg instanceof SVGGraphicsElement);
+  assert_true(svg instanceof SVGSVGElement);
+  assert_false(svg instanceof HTMLElement);
+}, "Basic properties");
+
+test(() => {
+  const svg = document.querySelector("svg");
+  assert_equals(svg.getElementById("group"), svg.children[0]);
+  assert_equals(document.getElementById("group"), svg.children[0]);
+}, "getElementById()");
+
+test(() => {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  assert_true(svg.systemLanguage instanceof SVGStringList);
+  assert_array_equals(svg.systemLanguage, []);
+  svg.setAttribute("systemLanguage", " abc\r\ndef\f, ghi ");
+  assert_array_equals(svg.systemLanguage, ["abc\r\ndef", "ghi"]);
+  assert_equals(svg.getAttribute("systemLanguage"), " abc\r\ndef\f, ghi ");
+
+  svg.systemLanguage[1] = svg.systemLanguage[1];
+  assert_array_equals(svg.systemLanguage, ["abc\r\ndef", "ghi"]);
+  assert_equals(svg.getAttribute("systemLanguage"), "abc\r\ndef, ghi");
+
+  const second = document.querySelector("svg#second");
+  assert_array_equals(second.systemLanguage, ["en", "zh"]);
+}, "systemLanguage");
+
+test(() => {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  assert_true(svg.requiredExtensions instanceof SVGStringList);
+  assert_array_equals(svg.requiredExtensions, []);
+  svg.setAttribute("requiredExtensions", "  abc\r\nhttp://example.org/SVGExtensionXYZ/1.0\f");
+  assert_array_equals(svg.requiredExtensions, ["abc", "http://example.org/SVGExtensionXYZ/1.0"]);
+
+  const second = document.querySelector("svg#second");
+  assert_array_equals(second.requiredExtensions, ["http://example.org/SVGExtensionXYZ/1.0", "def"]);
+}, "requiredExtensions");
+
+test(() => {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  const svgNum = svg.createSVGNumber();
+  assert_true(svgNum instanceof SVGNumber);
+  assert_equals(svgNum.value, 0);
+  svgNum.value = 1;
+  assert_equals(svgNum.value, 1);
+}, "createSVGNumber");
+
+</script>

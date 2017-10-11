@@ -27,6 +27,7 @@ addDir("../../lib/jsdom/living/navigator");
 addDir("../../lib/jsdom/living/file-api");
 addDir("../../lib/jsdom/living/xhr");
 addDir("../../lib/jsdom/living/domparsing");
+addDir("../../lib/jsdom/living/svg");
 
 
 const outputDir = path.resolve(__dirname, "../../lib/jsdom/living/generated/");
