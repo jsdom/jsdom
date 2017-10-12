@@ -251,17 +251,11 @@ describe("API: constructor options", () => {
         assert.strictEqual(document.visibilityState, "prerender");
       });
 
-      it("document should no-op rAF", context => {
+      it("document should not have rAF", () => {
         const { window } = new JSDOM(``);
 
-        window.requestAnimationFrame(() => {
-          context.done(new Error("rAF should not be called"));
-        });
-
-        setTimeout(() => {
-          context.done();
-        }, 500);
-      }, { async: true });
+        assert.isUndefined(window.requestAnimationFrame);
+      });
     });
 
     describe("set to true", () => {
