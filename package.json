@@ -28,7 +28,7 @@
     "domexception": "^1.0.0",
     "escodegen": "^1.9.0",
     "html-encoding-sniffer": "^1.0.1",
-    "nwmatcher": "^1.4.1",
+    "nwmatcher": "^1.4.3",
     "parse5": "^3.0.2",
     "pn": "^1.0.0",
     "request": "^2.83.0",
