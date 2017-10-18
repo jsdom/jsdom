@@ -41,11 +41,6 @@ interface NavigatorCookies {
 };
 
 [NoInterfaceObject]
-interface NavigatorCookies {
-  readonly attribute boolean cookieEnabled;
-};
-
-[NoInterfaceObject]
 interface NavigatorPlugins {
 //  [SameObject] readonly attribute PluginArray plugins;
 //  [SameObject] readonly attribute MimeTypeArray mimeTypes;
