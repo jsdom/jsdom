@@ -79,7 +79,7 @@ matrix:
             - libpango1.0-dev
             - libgif-dev
             - build-essential
-    - script: '[ "${TRAVIS_PULL_REQUEST}" != "false" ] || (yarn run pretest && yarn run test-browser)'
+    - script: '[ "${TRAVIS_PULL_REQUEST}" != "false" ] || (yarn pretest && yarn test-browser)'
       env: TEST_SUITE=browser
       addons:
         sauce_connect:
