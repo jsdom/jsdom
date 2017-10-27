@@ -53,9 +53,9 @@ However, the web-platform-tests project is not fully comprehensive. If you need 
 
 **To run the to-upstream web-platform-tests:** `yarn test-tuwpt`
 
-**To run specific web-platform-tests already enabled via `to-run.yaml`**: `yarn test-wpt -- --fgrep dom/events`
+**To run specific web-platform-tests already enabled via `to-run.yaml`**: `yarn test-wpt --fgrep dom/events`
 
-**To run specific to-upstream web-platform-tests**: `yarn test-tuwpt -- --fgrep domparsing`
+**To run specific to-upstream web-platform-tests**: `yarn test-tuwpt --fgrep domparsing`
 
 Also, to update web platform tests to their latest revision from the source repository: `yarn update-wpt`. (This can take a long time, like 10 minutes.)
 
@@ -67,7 +67,7 @@ To write such a test that, simply add a file in `test/api/`, following the surro
 
 **To run all API tests:** `yarn test-api`
 
-**To run a specific API test:** `yarn test-mocha -- test/api/from-file.js`
+**To run a specific API test:** `yarn test-mocha test/api/from-file.js`
 
 ### Older tests
 
