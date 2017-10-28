@@ -255,6 +255,7 @@ describe("API: constructor options", () => {
         const { window } = new JSDOM(``);
 
         assert.isUndefined(window.requestAnimationFrame);
+        assert.isUndefined(window.cancelAnimationFrame);
       });
     });
 
@@ -266,13 +267,15 @@ describe("API: constructor options", () => {
         assert.strictEqual(document.visibilityState, "visible");
       });
 
-      it("document should call rAF", context => {
+      it("document should call rAF", { async: true }, context => {
         const { window } = new JSDOM(``, { pretendToBeVisual: true });
 
         window.requestAnimationFrame(() => {
           context.done();
         });
-      }, { async: true });
+
+        // Further functionality tests are in web platform tests
+      });
     });
   });
 });
