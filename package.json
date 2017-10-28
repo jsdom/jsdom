@@ -21,7 +21,6 @@
     "acorn": "^5.1.2",
     "acorn-globals": "^4.0.0",
     "array-equal": "^1.0.0",
-    "browser-process-hrtime": "^0.1.2",
     "content-type-parser": "^1.0.1",
     "cssom": ">= 0.3.2 < 0.4.0",
     "cssstyle": ">= 0.2.37 < 0.3.0",
