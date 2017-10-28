@@ -101,25 +101,25 @@ Note that we strongly advise against trying to "execute scripts" by mashing toge
 
 Finally, for advanced use cases you can use the `dom.runVMScript(script)` method, documented below.
 
-### Pretend to render
+### Pretending to be a visual browser
 
 jsdom does not have the capability to render visual content, and will act like a headless browser by default. It provides hints to web pages through APIs such as `document.hidden` that their content is not visible.
 
-When the `pretendToBeVisual` option is set to `true`, jsdom will pretend that it is rendering and displaying content. It does this by changing the values of `document.hidden` and `document.visibilityState`. It will also provide an imitation of the `window.requestAnimationFrame()` / `window.cancelAnimationFrame()` methods, normally only available for content being rendered.
+When the `pretendToBeVisual` option is set to `true`, jsdom will pretend that it is rendering and displaying content. It does this by:
 
-Note that using this option could lead to unpredictable behaviour in code that changes action depending on content visibility.
+* Changing `document.hidden` to return `true` instead of `false`
+* Changing `document.visibilityState` to return `"visible"` instead of `"prerender"`
+* Enabling `window.requestAnimationFrame()` and `window.cancelAnimationFrame()` methods, which otherwise do not exist
 
 ```js
 const window = (new JSDOM(``, { pretendToBeVisual: true })).window;
 
 window.requestAnimationFrame(timestamp => {
-  timestamp > 0;
+  console.log(timestamp > 0);
 });
 ```
 
-This will make `document.hidden` return `true` and `document.visibilityState` return `"visible"`.
-
-Currently only `window.requestAnimationFrame` and `window.cancelAnimationFrame` have been implemented.
+Note that jsdom still [does not do any layout or rendering](#unimplemented-parts-of-the-web-platform), so this is really just about _pretending_ to be visual, not about implementing the parts of the platform a real, visual web browser would implement.
 
 ### Loading subresources
 
