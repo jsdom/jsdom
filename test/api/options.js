@@ -7,6 +7,17 @@ const { JSDOM } = require("../..");
 const { version: packageVersion } = require("../../package.json");
 
 describe("API: constructor options", () => {
+  describe("(general tests)", () => {
+    it("should not mutate the passed-in options object", () => {
+      const options = {};
+
+      // eslint-disable-next-line no-new
+      new JSDOM(``, options);
+
+      assert.strictEqual(Object.getOwnPropertyNames(options).length, 0);
+    });
+  });
+
   describe("referrer", () => {
     it("should allow customizing document.referrer via the referrer option", () => {
       const { document } = (new JSDOM(``, { referrer: "http://example.com/" })).window;
