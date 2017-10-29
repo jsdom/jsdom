@@ -18,11 +18,14 @@ DIR: XMLHttpRequest
 
 abort-after-send.htm: [fail, https://github.com/w3c/web-platform-tests/issues/6940]
 abort-after-stop.htm: [fail, https://github.com/w3c/web-platform-tests/issues/6942]
+abort-during-loading.htm: [fail, Unknown]
 access-control-basic-allow-preflight-cache.htm: [fail, Unknown]
+access-control-basic-cors-safelisted-request-headers.htm: [fail, Unknown]
 access-control-basic-non-cors-safelisted-content-type.htm: [fail, Unknown]
 access-control-basic-post-with-non-cors-safelisted-content-type.htm: [fail, Unknown]
 access-control-preflight-async-header-denied.htm: [fail, Unknown]
 access-control-preflight-async-method-denied.htm: [fail, Unknown]
+access-control-preflight-async-not-supported.htm: [fail, Unknown]
 access-control-preflight-credential-async.htm: [fail, Unknown]
 access-control-preflight-credential-sync.htm: [fail, Unknown]
 access-control-preflight-headers-async.htm: [fail, Unknown]
@@ -31,11 +34,13 @@ access-control-preflight-request-header-lowercase.htm: [fail, Unknown]
 access-control-preflight-request-header-sorted.htm: [fail, Unknown]
 access-control-preflight-sync-header-denied.htm: [fail, Unknown]
 access-control-preflight-sync-method-denied.htm: [fail, Unknown]
+access-control-preflight-sync-not-supported.htm: [fail, Unknown]
+access-control-sandboxed-iframe-denied-without-wildcard.htm: [fail, we don't implement sandboxed iframes]
+access-control-sandboxed-iframe-denied.htm: [fail, we don't implement sandboxed iframes]
 anonymous-mode-unsupported.htm: [fail, need way to set cookie header with original casing]
 data-uri.htm: [fail, Unknown]
 event-error-order.sub.html: [fail, Unknown]
 event-timeout-order.htm: [fail, Unknown]
-getallresponseheaders-cl.htm: [fail, depends on fetch]
 getallresponseheaders.htm: [fail, Unknown]
 headers-normalize-response.htm: [fail, Unknown]
 interfaces.html: [fail, really need to move XHR to Web IDL]
@@ -43,6 +48,7 @@ loadstart-and-state.html: [fail, Unknown]
 open-during-abort-processing.htm: [fail, Unknown]
 open-method-case-sensitive.htm: [fail, request module forces upper case]
 open-send-during-abort.htm: [fail, Unknown]
+open-url-encoding.htm: [fail, URL parser should use the encoding of the document - https://bugzilla.mozilla.org/show_bug.cgi?id=1405696]
 open-url-multi-window-4.htm: [fail, https://github.com/w3c/web-platform-tests/issues/6941]
 open-url-multi-window-5.htm: [fail, location.reload is not implemented]
 open-url-multi-window-6.htm: [fail, Unknown]
@@ -52,6 +58,7 @@ open-url-worker-simple.htm: [fail, needs Worker implementation]
 overridemimetype-blob.html: [fail, Unknown]
 responseType-document-in-worker.html: [fail, needs Worker implementation]
 responseXML-unavailable-in-worker.html: [fail, needs Worker implementation]
+responsedocument-decoding.htm: [fail, Unknown]
 responsetext-decoding.htm: [fail, Unknown]
 responsetype.html: [timeout, https://github.com/tmpvar/jsdom/issues/1833]
 responsexml-document-properties.htm: [fail, https://github.com/w3c/web-platform-tests/issues/2668]
@@ -82,6 +89,7 @@ status-basic.htm: [timeout, https://github.com/tmpvar/jsdom/issues/1833]
 xmlhttprequest-network-error-sync.htm: [fail, the test seems broken locally]
 xmlhttprequest-network-error.htm: [fail, the test seems broken locally]
 xmlhttprequest-sync-block-scripts.html: [fail, something wrong with our data URL parser]
+xmlhttprequest-sync-default-feature-policy.sub.html: [fail, we don't support Feature Policy]
 xmlhttprequest-sync-not-hang-scriptloader.html: [fail, something wrong with our data URL parser]
 xmlhttprequest-timeout-aborted.html: [fail, self instanceof Window fails]
 xmlhttprequest-timeout-abortedonmain.html: [fail, self instanceof Window fails]
@@ -432,6 +440,7 @@ the-translate-attribute-012.html: [fail, Unknown]
 DIR: html/editing/focus
 
 processing-model/focus-fixup-rule-one-no-dialogs.html: [fail, Unknown]
+processing-model/preventScroll.html: [fail, Not implemented]
 tabindex-focus-flag.html: [fail, Unknown]
 
 ---
@@ -530,6 +539,8 @@ input-type-button.html: [fail, Unknown]
 input-type-checkbox.html: [fail, Unknown]
 input-validationmessage.html: [fail, Validation is not implemented]
 input-validity.html: [fail, Validation is not implemented]
+input-valueasdate-invalidstateerr.html: [fail, Unknown]
+input-valueasnumber-invalidstateerr.html: [timeout, Unknown]
 input-willvalidate.html: [fail, Validation is not implemented]
 maxlength.html: [fail, Unknown]
 minlength.html: [fail, Unknown]
@@ -560,6 +571,7 @@ DIR: html/semantics/forms/the-option-element
 
 option-label.html: [fail, Our impl is wrong; see comments in HTMLOptionElement-impl.js]
 option-text-recurse.html: [fail, Our impl is wrong; see comments in HTMLOptionElement-impl.js]
+option-text-setter.html: [fail, Unknown]
 option-value.html: [fail, Our impl is wrong; see comments in HTMLOptionElement-impl.js]
 
 ---
@@ -762,6 +774,7 @@ additions-to-serializing-xhtml-documents/outerhtml.html: [fail, Templates in XHT
 definitions/template-contents-owner-test-001.html: [fail, template content owner document semantics not yet implemented]
 definitions/template-contents-owner-test-002.html: [fail, template content owner document semantics not yet implemented]
 template-element/node-document-changes.html: [fail, template content owner document semantics not yet implemented]
+template-element/template-content-hierarcy.html: [fail, probably a combination of template content owner document semantics and https://github.com/tmpvar/jsdom/issues/1349]
 
 ---
 
@@ -790,6 +803,7 @@ serializing.html: [fail, Unknown]
 DIR: html/webappapis/animation-frames
 
 idlharness.html: [fail, "Unknown ('ReferenceError: WebIDL2 is not defined', but why?)"]
+same-dispatch-time.html: [fail, Probably https://github.com/tmpvar/jsdom/pull/1994#discussion_r147567274]
 
 ---
 
@@ -816,6 +830,7 @@ DIR: url
 
 a-element-xhtml.xhtml: [fail, Unknown]
 a-element.html: [fail, Unknown]
+data-uri-fragment.html: [fail, Unknown]
 failure.html: [fail, Fetch is not implemented]
 toascii.window.html: [fail, Unknown]
 url-constructor.html: [fail, url.search vs. url.searchParams propagation]
