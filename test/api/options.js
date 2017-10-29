@@ -241,4 +241,41 @@ describe("API: constructor options", () => {
       assert.strictEqual(windowPassed, dom.window);
     });
   });
+
+  describe("pretendToBeVisual", () => {
+    describe("not set", () => {
+      it("document should be hidden and in prerender", () => {
+        const { document } = (new JSDOM(``)).window;
+
+        assert.strictEqual(document.hidden, true);
+        assert.strictEqual(document.visibilityState, "prerender");
+      });
+
+      it("document should not have rAF", () => {
+        const { window } = new JSDOM(``);
+
+        assert.isUndefined(window.requestAnimationFrame);
+        assert.isUndefined(window.cancelAnimationFrame);
+      });
+    });
+
+    describe("set to true", () => {
+      it("document should be not be hidden and be visible", () => {
+        const { document } = (new JSDOM(``, { pretendToBeVisual: true })).window;
+
+        assert.strictEqual(document.hidden, false);
+        assert.strictEqual(document.visibilityState, "visible");
+      });
+
+      it("document should call rAF", { async: true }, context => {
+        const { window } = new JSDOM(``, { pretendToBeVisual: true });
+
+        window.requestAnimationFrame(() => {
+          context.done();
+        });
+
+        // Further functionality tests are in web platform tests
+      });
+    });
+  });
 });

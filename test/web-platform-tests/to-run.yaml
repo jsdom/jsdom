@@ -630,6 +630,12 @@ serializing.html: [fail, Unknown]
 
 ---
 
+DIR: html/webappapis/animation-frames
+
+idlharness.html: [fail, "Unknown ('ReferenceError: WebIDL2 is not defined', but why?)"]
+
+---
+
 DIR: html/webappapis/atob
 
 ---
