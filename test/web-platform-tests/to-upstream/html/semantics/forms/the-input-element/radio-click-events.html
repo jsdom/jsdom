@@ -64,6 +64,29 @@ test(() => {
 test(() => {
   const input = document.createElement("input");
   input.type = "radio";
+  input.checked = true;
+  document.body.appendChild(input);
+  const events = [];
+
+  input.addEventListener("change", () => {
+    events.push("change");
+  });
+  input.addEventListener("click", () => {
+    events.push("click");
+  });
+  input.addEventListener("input", () => {
+    events.push("input");
+  });
+
+  input.click();
+
+  assert_array_equals(events, ["click"]);
+
+}, "checked radio input emits only click event on click ");
+
+test(() => {
+  const input = document.createElement("input");
+  input.type = "radio";
   document.body.appendChild(input);
   const events = [];
 
