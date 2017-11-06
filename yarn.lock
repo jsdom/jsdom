@@ -2620,9 +2620,9 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
-nwmatcher@^1.4.3:
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/nwmatcher/-/nwmatcher-1.4.3.tgz#64348e3b3d80f035b40ac11563d278f8b72db89c"
+nwsapi@2.0.0-beta:
+  version "2.0.0-beta"
+  resolved "https://registry.yarnpkg.com/nwsapi/-/nwsapi-2.0.0-beta.tgz#c8249f1493b98e55be782deb52d83d2f282983ca"
 
 oauth-sign@~0.8.1, oauth-sign@~0.8.2:
   version "0.8.2"
