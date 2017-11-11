@@ -6,6 +6,10 @@ The latest versions of jsdom require Node.js v6 or newer. (Versions of jsdom bel
 
 As of v10, jsdom has a new API (documented below). The old API is still supported for now; [see its documentation](./lib/old-api.md) for details.
 
+## Installation
+
+jsdom is available as the `jsdom` package on [npm](https://npmjs.com). It is also available via [yarn](https://yarnpkg.com).
+
 ## Basic usage
 
 ```js
