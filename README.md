@@ -281,7 +281,7 @@ This is somewhat-advanced functionality, and we advise sticking to normal DOM AP
 
 The `top` property on `window` is marked `[Unforgeable]` in the spec, meaning it is a non-configurable own property and thus cannot be overridden or shadowed by normal code running inside the jsdom, even using `Object.defineProperty`.
 
-Similarly, at present jsdom does not handle navigation (such as setting `window.location.href === "https://example.com/"`); doing so will cause the virtual console to emit a `"jsdomError"` explaining that this feature is not implemented, and nothing will change: there will be no new `Window` or `Document` object, and the existing `window`'s `location` object will still have all the same property values.
+Similarly, at present jsdom does not handle navigation (such as setting `window.location.href = "https://example.com/"`); doing so will cause the virtual console to emit a `"jsdomError"` explaining that this feature is not implemented, and nothing will change: there will be no new `Window` or `Document` object, and the existing `window`'s `location` object will still have all the same property values.
 
 However, if you're acting from outside the window, e.g. in some test framework that creates jsdoms, you can override one or both of these using the special `reconfigure()` method:
 
