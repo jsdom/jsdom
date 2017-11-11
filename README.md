@@ -6,6 +6,10 @@ The latest versions of jsdom require Node.js v6 or newer. (Versions of jsdom bel
 
 As of v10, jsdom has a new API (documented below). The old API is still supported for now; [see its documentation](./lib/old-api.md) for details.
 
+## Installation
+
+jsdom is available as the `jsdom` package on [npm](https://npmjs.com). It is also available via [yarn](https://yarnpkg.com).
+
 ## Basic usage
 
 ```js
@@ -128,7 +132,7 @@ By default, jsdom will not load any subresources such as scripts, stylesheets, i
 * Frames and iframes, via `<frame>` and `<iframe>`
 * Stylesheets, via `<link rel="stylesheet">`
 * Scripts, via `<script>`, but only if `runScripts: "dangerously"` is also set
-* Images, via `<img>`, but only if the `canvas` (or `canvas-prebuilt`) npm package is also installed (see "Canvas Support" below)
+* Images, via `<img>`, but only if the `canvas` (or `canvas-prebuilt`) package is also installed (see "Canvas Support" below)
 
 In the future we plan to offer more customization of resource loading via this option, but for now the default and the `"usable"` option are the two modes offered.
 
