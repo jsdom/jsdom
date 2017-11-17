@@ -1,9 +1,11 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLMeterElement : HTMLElement {
-//  attribute double value;
-//  attribute double min;
-//  attribute double max;
-//  attribute double low;
-//  attribute double high;
-//  attribute double optimum;
-//  [SameObject] readonly attribute NodeList labels;
+//  [CEReactions] attribute double value;
+//  [CEReactions] attribute double min;
+//  [CEReactions] attribute double max;
+//  [CEReactions] attribute double low;
+//  [CEReactions] attribute double high;
+//  [CEReactions] attribute double optimum;
+//  readonly attribute NodeList labels;
 };

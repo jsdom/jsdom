@@ -1,12 +1,14 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLObjectElement : HTMLElement {
-  attribute DOMString data;
-  [Reflect] attribute DOMString type;
-//  attribute boolean typeMustMatch;
-  [Reflect] attribute DOMString name;
-  [Reflect] attribute DOMString useMap;
+  [CEReactions] attribute USVString data;
+  [CEReactions, Reflect] attribute DOMString type;
+//  [CEReactions] attribute boolean typeMustMatch;
+  [CEReactions, Reflect] attribute DOMString name;
+  [CEReactions, Reflect] attribute DOMString useMap;
   readonly attribute HTMLFormElement? form;
-  [Reflect] attribute DOMString width;
-  [Reflect] attribute DOMString height;
+  [CEReactions, Reflect] attribute DOMString width;
+  [CEReactions, Reflect] attribute DOMString height;
   readonly attribute Document? contentDocument;
 //  readonly attribute WindowProxy? contentWindow;
 //  Document? getSVGDocument();
@@ -18,21 +20,19 @@ interface HTMLObjectElement : HTMLElement {
 //  boolean reportValidity();
 //  void setCustomValidity(DOMString error);
 
-//  legacycaller any (any... arguments);
-
   // also has obsolete members
 };
 
 partial interface HTMLObjectElement {
-  [Reflect] attribute DOMString align;
-  [Reflect] attribute DOMString archive;
-  [Reflect] attribute DOMString code;
-  [Reflect] attribute boolean declare;
-  [Reflect] attribute unsigned long hspace;
-  [Reflect] attribute DOMString standby;
-  [Reflect] attribute unsigned long vspace;
-  attribute DOMString codeBase;
-  [Reflect] attribute DOMString codeType;
+  [CEReactions, Reflect] attribute DOMString align;
+  [CEReactions, Reflect] attribute DOMString archive;
+  [CEReactions, Reflect] attribute DOMString code;
+  [CEReactions, Reflect] attribute boolean declare;
+  [CEReactions, Reflect] attribute unsigned long hspace;
+  [CEReactions, Reflect] attribute DOMString standby;
+  [CEReactions, Reflect] attribute unsigned long vspace;
+  [CEReactions] attribute DOMString codeBase;
+  [CEReactions, Reflect] attribute DOMString codeType;
 
-  [Reflect, TreatNullAs=EmptyString] attribute DOMString border;
+  [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString border;
 };

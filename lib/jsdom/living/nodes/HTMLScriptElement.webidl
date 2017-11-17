@@ -1,17 +1,22 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLScriptElement : HTMLElement {
-  attribute DOMString src;
-  [Reflect] attribute DOMString type;
-  [Reflect] attribute DOMString charset;
-//  attribute boolean async;
-  [Reflect] attribute boolean defer;
-  [Reflect] attribute DOMString? crossOrigin;
-  attribute DOMString text;
-  [Reflect] attribute DOMString nonce;
+  [CEReactions] attribute USVString src;
+  [CEReactions, Reflect] attribute DOMString type;
+//  [CEReactions, Reflect] attribute boolean noModule;
+//  [CEReactions] attribute boolean async;
+  [CEReactions, Reflect] attribute boolean defer;
+  [CEReactions, Reflect] attribute DOMString? crossOrigin;
+  [CEReactions] attribute DOMString text;
+  [CEReactions, Reflect] attribute DOMString nonce;
+//  [CEReactions, Reflect] attribute DOMString integrity;
+
 
   // also has obsolete members
 };
 
 partial interface HTMLScriptElement {
-  [Reflect] attribute DOMString event;
-  [Reflect=for] attribute DOMString htmlFor;
+  [CEReactions, Reflect] attribute DOMString charset;
+  [CEReactions, Reflect] attribute DOMString event;
+  [CEReactions, Reflect=for] attribute DOMString htmlFor;
 };

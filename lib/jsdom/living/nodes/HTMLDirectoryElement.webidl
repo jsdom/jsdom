@@ -1,3 +1,5 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLDirectoryElement : HTMLElement {
-  [Reflect] attribute boolean compact;
+  [CEReactions, Reflect] attribute boolean compact;
 };

@@ -1,6 +1,8 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLProgressElement : HTMLElement {
-//  attribute double value;
-//  attribute double max;
+//  [CEReactions] attribute double value;
+//  [CEReactions] attribute double max;
 //  readonly attribute double position;
-//  [SameObject] readonly attribute NodeList labels;
+//  readonly attribute NodeList labels;
 };

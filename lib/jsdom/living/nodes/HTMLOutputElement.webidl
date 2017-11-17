@@ -1,11 +1,13 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLOutputElement : HTMLElement {
-//  [PutForwards=value] readonly attribute DOMSettableTokenList htmlFor;
+//  [SameObject, PutForwards=value] readonly attribute DOMTokenList htmlFor;
 //  readonly attribute HTMLFormElement? form;
-  [Reflect] attribute DOMString name;
+  [CEReactions, Reflect] attribute DOMString name;
 
 //  readonly attribute DOMString type;
-//  attribute DOMString defaultValue;
-//  attribute DOMString value;
+//  [CEReactions] attribute DOMString defaultValue;
+//  [CEReactions] attribute DOMString value;
 
 //  readonly attribute boolean willValidate;
 //  readonly attribute ValidityState validity;
@@ -14,5 +16,5 @@ interface HTMLOutputElement : HTMLElement {
 //  boolean reportValidity();
 //  void setCustomValidity(DOMString error);
 
-//  [SameObject] readonly attribute NodeList labels;
+//  readonly attribute NodeList labels;
 };

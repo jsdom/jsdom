@@ -1,5 +1,7 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLFrameSetElement : HTMLElement {
-  [Reflect] attribute DOMString cols;
-  [Reflect] attribute DOMString rows;
+  [CEReactions, Reflect] attribute DOMString cols;
+  [CEReactions, Reflect] attribute DOMString rows;
 };
 HTMLFrameSetElement implements WindowEventHandlers;

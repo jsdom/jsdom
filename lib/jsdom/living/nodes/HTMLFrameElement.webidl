@@ -1,13 +1,15 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLFrameElement : HTMLElement {
-  [Reflect] attribute DOMString name;
-  [Reflect] attribute DOMString scrolling;
-  attribute DOMString src;
-  [Reflect] attribute DOMString frameBorder;
-  attribute DOMString longDesc;
-  [Reflect] attribute boolean noResize;
+  [CEReactions, Reflect] attribute DOMString name;
+  [CEReactions, Reflect] attribute DOMString scrolling;
+  [CEReactions] attribute USVString src;
+  [CEReactions, Reflect] attribute DOMString frameBorder;
+  [CEReactions] attribute USVString longDesc;
+  [CEReactions, Reflect] attribute boolean noResize;
   readonly attribute Document? contentDocument;
   readonly attribute WindowProxy? contentWindow;
 
-  [Reflect, TreatNullAs=EmptyString] attribute DOMString marginHeight;
-  [Reflect, TreatNullAs=EmptyString] attribute DOMString marginWidth;
+  [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString marginHeight;
+  [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString marginWidth;
 };

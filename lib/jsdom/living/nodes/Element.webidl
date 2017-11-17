@@ -5,45 +5,56 @@ interface Element : Node {
   readonly attribute DOMString localName;
   readonly attribute DOMString tagName;
 
-  [Reflect] attribute DOMString id;
-  [Reflect=class] attribute DOMString className;
+  [CEReactions, Reflect] attribute DOMString id;
+  [CEReactions, Reflect=class] attribute DOMString className;
   [SameObject, PutForwards=value] readonly attribute DOMTokenList classList;
+//  [CEReactions, Unscopable] attribute DOMString slot;
 
   boolean hasAttributes();
   [SameObject] readonly attribute NamedNodeMap attributes;
   sequence<DOMString> getAttributeNames();
   DOMString? getAttribute(DOMString qualifiedName);
   DOMString? getAttributeNS(DOMString? namespace, DOMString localName);
-  void setAttribute(DOMString qualifiedName, DOMString value);
-  void setAttributeNS(DOMString? namespace, DOMString qualifiedName, DOMString value);
-  void removeAttribute(DOMString qualifiedName);
-  void removeAttributeNS(DOMString? namespace, DOMString localName);
+  [CEReactions] void setAttribute(DOMString qualifiedName, DOMString value);
+  [CEReactions] void setAttributeNS(DOMString? namespace, DOMString qualifiedName, DOMString value);
+  [CEReactions] void removeAttribute(DOMString qualifiedName);
+  [CEReactions] void removeAttributeNS(DOMString? namespace, DOMString localName);
   boolean hasAttribute(DOMString qualifiedName);
   boolean hasAttributeNS(DOMString? namespace, DOMString localName);
 
   Attr? getAttributeNode(DOMString qualifiedName);
   Attr? getAttributeNodeNS(DOMString? namespace, DOMString localName);
-  Attr? setAttributeNode(Attr attr);
-  Attr? setAttributeNodeNS(Attr attr);
-  Attr removeAttributeNode(Attr attr);
+  [CEReactions] Attr? setAttributeNode(Attr attr);
+  [CEReactions] Attr? setAttributeNodeNS(Attr attr);
+  [CEReactions] Attr removeAttributeNode(Attr attr);
+
+//  ShadowRoot attachShadow(ShadowRootInit init);
+//  readonly attribute ShadowRoot? shadowRoot;
 
 //  Element? closest(DOMString selectors);
   boolean matches(DOMString selectors);
   boolean webkitMatchesSelector(DOMString selectors); // historical alias of .matches
 
-  HTMLCollection getElementsByTagName(DOMString localName);
+  HTMLCollection getElementsByTagName(DOMString qualifiedName);
   HTMLCollection getElementsByTagNameNS(DOMString? namespace, DOMString localName);
   HTMLCollection getElementsByClassName(DOMString classNames);
+
+//  [CEReactions] Element? insertAdjacentElement(DOMString where, Element element); // historical
+//  void insertAdjacentText(DOMString where, DOMString data); // historical
 };
 
+dictionary ShadowRootInit {
+  required ShadowRootMode mode;
+};
+
+// https://w3c.github.io/DOM-Parsing/#extensions-to-the-element-interface
 partial interface Element {
-    [TreatNullAs=EmptyString]
-                    attribute DOMString innerHTML;
-    [TreatNullAs=EmptyString]
-                    attribute DOMString outerHTML;
-    void insertAdjacentHTML (DOMString position, DOMString text);
+  [CEReactions, TreatNullAs=EmptyString] attribute DOMString innerHTML;
+  [CEReactions, TreatNullAs=EmptyString] attribute DOMString outerHTML;
+  [CEReactions] void insertAdjacentHTML(DOMString position, DOMString text);
 };
 
+// https://drafts.csswg.org/cssom-view/#extension-to-the-element-interface
 enum ScrollBehavior { "auto", "instant", "smooth" };
 
 dictionary ScrollOptions {
@@ -51,16 +62,16 @@ dictionary ScrollOptions {
 };
 
 enum ScrollLogicalPosition { "start", "center", "end", "nearest" };
+
 dictionary ScrollIntoViewOptions : ScrollOptions {
   ScrollLogicalPosition block = "start";
   ScrollLogicalPosition inline = "nearest";
 };
 
 partial interface Element {
-  [NewObject] sequence<DOMRect> getClientRects();
+  DOMRectList getClientRects();
   [NewObject] DOMRect getBoundingClientRect();
-//  void scrollIntoView();
-//  void scrollIntoView((boolean or object) arg);
+//  void scrollIntoView(optional (boolean or ScrollIntoViewOptions) arg);
 //  void scroll(optional ScrollToOptions options);
 //  void scroll(unrestricted double x, unrestricted double y);
 //  void scrollTo(optional ScrollToOptions options);

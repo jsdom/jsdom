@@ -1,22 +1,26 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLAnchorElement : HTMLElement {
-  [Reflect] attribute DOMString target;
-  [Reflect] attribute DOMString download;
-//  [PutForwards=value] readonly attribute DOMSettableTokenList ping;
-  [Reflect] attribute DOMString rel;
-//  readonly attribute DOMTokenList relList;
-  [Reflect] attribute DOMString hreflang;
-  [Reflect] attribute DOMString type;
+  [CEReactions, Reflect] attribute DOMString target;
+  [CEReactions, Reflect] attribute DOMString download;
+//  [CEReactions] attribute USVString ping;
+  [CEReactions, Reflect] attribute DOMString rel;
+//  [SameObject, PutForwards=value] readonly attribute DOMTokenList relList;
+  [CEReactions, Reflect] attribute DOMString hreflang;
+  [CEReactions, Reflect] attribute DOMString type;
 
-  attribute DOMString text;
+  [CEReactions] attribute DOMString text;
+
+//  [CEReactions] attribute DOMString referrerPolicy;
 
   // also has obsolete members
 };
 HTMLAnchorElement implements HTMLHyperlinkElementUtils;
 
 partial interface HTMLAnchorElement {
-  [Reflect] attribute DOMString coords;
-  [Reflect] attribute DOMString charset;
-  [Reflect] attribute DOMString name;
-  [Reflect] attribute DOMString rev;
-  [Reflect] attribute DOMString shape;
+  [CEReactions, Reflect] attribute DOMString coords;
+  [CEReactions, Reflect] attribute DOMString charset;
+  [CEReactions, Reflect] attribute DOMString name;
+  [CEReactions, Reflect] attribute DOMString rev;
+  [CEReactions, Reflect] attribute DOMString shape;
 };

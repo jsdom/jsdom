@@ -1,3 +1,5 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLLegendElement : HTMLElement {
   readonly attribute HTMLFormElement? form;
 
@@ -5,5 +7,5 @@ interface HTMLLegendElement : HTMLElement {
 };
 
 partial interface HTMLLegendElement {
-  [Reflect] attribute DOMString align;
+  [CEReactions, Reflect] attribute DOMString align;
 };

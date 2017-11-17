@@ -1,11 +1,13 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLParamElement : HTMLElement {
-  [Reflect] attribute DOMString name;
-  [Reflect] attribute DOMString value;
+  [CEReactions, Reflect] attribute DOMString name;
+  [CEReactions, Reflect] attribute DOMString value;
 
   // also has obsolete members
 };
 
 partial interface HTMLParamElement {
-  [Reflect] attribute DOMString type;
-  [Reflect] attribute DOMString valueType;
+  [CEReactions, Reflect] attribute DOMString type;
+  [CEReactions, Reflect] attribute DOMString valueType;
 };

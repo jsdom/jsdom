@@ -1,9 +1,11 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLTrackElement : HTMLElement {
-  [Reflect] attribute DOMString kind; // TODO limited to only known values
-  attribute DOMString src; // TODO could use URL reflection
-  [Reflect] attribute DOMString srclang;
-  [Reflect] attribute DOMString label;
-  [Reflect] attribute boolean default;
+  [CEReactions, Reflect] attribute DOMString kind; // TODO limited to only known values
+  [CEReactions] attribute USVString src; // TODO could use URL reflection
+  [CEReactions, Reflect] attribute DOMString srclang;
+  [CEReactions, Reflect] attribute DOMString label;
+  [CEReactions, Reflect] attribute boolean default;
 
   const unsigned short NONE = 0;
   const unsigned short LOADING = 1;

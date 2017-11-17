@@ -1,8 +1,10 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLUListElement : HTMLElement {
   // also has obsolete members
 };
 
 partial interface HTMLUListElement {
-  [Reflect] attribute boolean compact;
-  [Reflect] attribute DOMString type;
+  [CEReactions, Reflect] attribute boolean compact;
+  [CEReactions, Reflect] attribute DOMString type;
 };

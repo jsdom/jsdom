@@ -1,4 +1,5 @@
-[NoInterfaceObject]
+[Exposed=Window,
+ NoInterfaceObject]
 interface WindowEventHandlers {
   attribute EventHandler onafterprint;
   attribute EventHandler onbeforeprint;
@@ -6,6 +7,7 @@ interface WindowEventHandlers {
   attribute EventHandler onhashchange;
   attribute EventHandler onlanguagechange;
   attribute EventHandler onmessage;
+  attribute EventHandler onmessageerror;
   attribute EventHandler onoffline;
   attribute EventHandler ononline;
   attribute EventHandler onpagehide;

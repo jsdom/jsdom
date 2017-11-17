@@ -1,44 +1,44 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLInputElement : HTMLElement {
-  [Reflect] attribute DOMString accept;
-  [Reflect] attribute DOMString alt;
-  [Reflect] attribute DOMString autocomplete;
-  [Reflect] attribute boolean autofocus;
-  [Reflect=checked] attribute boolean defaultChecked;
+  [CEReactions, Reflect] attribute DOMString accept;
+  [CEReactions, Reflect] attribute DOMString alt;
+  [CEReactions, Reflect] attribute DOMString autocomplete;
+  [CEReactions, Reflect] attribute boolean autofocus;
+  [CEReactions, Reflect=checked] attribute boolean defaultChecked;
   attribute boolean checked;
-  [Reflect] attribute DOMString dirName;
-  [Reflect] attribute boolean disabled;
+  [CEReactions, Reflect] attribute DOMString dirName;
+  [CEReactions, Reflect] attribute boolean disabled;
   readonly attribute HTMLFormElement? form;
-  readonly attribute FileList? files;
-//  attribute DOMString formAction;
-//  attribute DOMString formEnctype;
-//  attribute DOMString formMethod;
-  [Reflect] attribute boolean formNoValidate;
-  [Reflect] attribute DOMString formTarget;
-//  attribute unsigned long height;
+  attribute FileList? files;
+//  [CEReactions] attribute USVString formAction;
+//  [CEReactions] attribute DOMString formEnctype;
+//  [CEReactions] attribute DOMString formMethod;
+  [CEReactions, Reflect] attribute boolean formNoValidate;
+  [CEReactions, Reflect] attribute DOMString formTarget;
+//  [CEReactions] attribute unsigned long height;
   attribute boolean indeterminate;
-  [Reflect] attribute DOMString inputMode;
+  [CEReactions, Reflect] attribute DOMString inputMode;
 //  readonly attribute HTMLElement? list;
-  [Reflect] attribute DOMString max;
-  attribute long maxLength;
-  [Reflect] attribute DOMString min;
-  attribute long minLength;
-  [Reflect] attribute boolean multiple;
-  [Reflect] attribute DOMString name;
-  [Reflect] attribute DOMString pattern;
-  [Reflect] attribute DOMString placeholder;
-  [Reflect] attribute boolean readOnly;
-  [Reflect] attribute boolean required;
-  attribute unsigned long size;
-  [Reflect] attribute DOMString src;
-  [Reflect] attribute DOMString step;
-  attribute DOMString type;
-  [Reflect=value] attribute DOMString defaultValue;
-  [TreatNullAs=EmptyString] attribute DOMString value;
+  [CEReactions, Reflect] attribute DOMString max;
+  [CEReactions] attribute long maxLength;
+  [CEReactions, Reflect] attribute DOMString min;
+  [CEReactions] attribute long minLength;
+  [CEReactions, Reflect] attribute boolean multiple;
+  [CEReactions, Reflect] attribute DOMString name;
+  [CEReactions, Reflect] attribute DOMString pattern;
+  [CEReactions, Reflect] attribute DOMString placeholder;
+  [CEReactions, Reflect] attribute boolean readOnly;
+  [CEReactions, Reflect] attribute boolean required;
+  [CEReactions] attribute unsigned long size;
+  [CEReactions, Reflect] attribute USVString src;
+  [CEReactions, Reflect] attribute DOMString step;
+  [CEReactions] attribute DOMString type;
+  [CEReactions, Reflect=value] attribute DOMString defaultValue;
+  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString value;
 //  attribute object? valueAsDate;
 //  attribute unrestricted double valueAsNumber;
-//  attribute double valueLow;
-//  attribute double valueHigh;
-//  attribute unsigned long width;
+//  [CEReactions] attribute unsigned long width;
 
 //  void stepUp(optional long n = 1);
 //  void stepDown(optional long n = 1);
@@ -50,7 +50,7 @@ interface HTMLInputElement : HTMLElement {
 //  boolean reportValidity();
 //  void setCustomValidity(DOMString error);
 
-//  [SameObject] readonly attribute NodeList labels;
+//  readonly attribute NodeList? labels;
 
   void select();
   attribute unsigned long? selectionStart;
@@ -64,8 +64,8 @@ interface HTMLInputElement : HTMLElement {
 };
 
 partial interface HTMLInputElement {
-  [Reflect] attribute DOMString align;
-  [Reflect] attribute DOMString useMap;
+  [CEReactions, Reflect] attribute DOMString align;
+  [CEReactions, Reflect] attribute DOMString useMap;
 };
 
 enum SelectionMode {

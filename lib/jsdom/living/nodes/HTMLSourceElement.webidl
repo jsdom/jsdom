@@ -1,12 +1,9 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLSourceElement : HTMLElement {
-  attribute DOMString src;
-  [Reflect] attribute DOMString type;
-
-  // also has obsolete members
-};
-
-partial interface HTMLSourceElement {
-  [Reflect]          attribute DOMString srcset;
-  [Reflect]          attribute DOMString sizes;
-  [Reflect]          attribute DOMString media;
+  [CEReactions] attribute USVString src;
+  [CEReactions, Reflect] attribute DOMString type;
+  [CEReactions, Reflect] attribute USVString srcset;
+  [CEReactions, Reflect] attribute DOMString sizes;
+  [CEReactions, Reflect] attribute DOMString media;
 };

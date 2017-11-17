@@ -1,16 +1,17 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLButtonElement : HTMLElement {
-  [Reflect] attribute boolean autofocus;
-  [Reflect] attribute boolean disabled;
+  [CEReactions, Reflect] attribute boolean autofocus;
+  [CEReactions, Reflect] attribute boolean disabled;
   readonly attribute HTMLFormElement? form;
-//  attribute DOMString formAction;
-//  attribute DOMString formEnctype;
-//  attribute DOMString formMethod;
-  [Reflect] attribute boolean formNoValidate;
-  [Reflect] attribute DOMString formTarget;
-  [Reflect] attribute DOMString name;
-  attribute DOMString type;
-  [Reflect] attribute DOMString value;
-//  attribute HTMLMenuElement? menu;
+//  [CEReactions] attribute USVString formAction;
+//  [CEReactions] attribute DOMString formEnctype;
+//  [CEReactions] attribute DOMString formMethod;
+  [CEReactions, Reflect] attribute boolean formNoValidate;
+  [CEReactions, Reflect] attribute DOMString formTarget;
+  [CEReactions, Reflect] attribute DOMString name;
+  [CEReactions] attribute DOMString type;
+  [CEReactions, Reflect] attribute DOMString value;
 
 //  readonly attribute boolean willValidate;
 //  readonly attribute ValidityState validity;
@@ -19,5 +20,5 @@ interface HTMLButtonElement : HTMLElement {
 //  boolean reportValidity();
 //  void setCustomValidity(DOMString error);
 
-//  [SameObject] readonly attribute NodeList labels;
+//  readonly attribute NodeList labels;
 };

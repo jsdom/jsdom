@@ -1,3 +1,4 @@
+[Exposed=Window]
 interface DOMTokenList {
   readonly attribute unsigned long length;
   [WebIDL2JSValueAsUnsupported=null] getter DOMString? item(unsigned long index);

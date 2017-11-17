@@ -1,26 +1,31 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLElement : Element {
   // metadata attributes
-  [Reflect] attribute DOMString title;
-  [Reflect] attribute DOMString lang;
-//  attribute boolean translate;
-  attribute DOMString dir;
+  [CEReactions, Reflect] attribute DOMString title;
+  [CEReactions, Reflect] attribute DOMString lang;
+//  [CEReactions] attribute boolean translate;
+  [CEReactions] attribute DOMString dir;
   [SameObject] readonly attribute DOMStringMap dataset;
 
   // user interaction
-  [Reflect] attribute boolean hidden;
+  [CEReactions, Reflect] attribute boolean hidden;
   void click();
-  attribute long tabIndex;
+  [CEReactions] attribute long tabIndex;
+//  We don't support FocusOptions yet
+//  void focus(optional FocusOptions options);
   void focus();
   void blur();
-  [Reflect] attribute DOMString accessKey;
+  [CEReactions, Reflect] attribute DOMString accessKey;
 //  readonly attribute DOMString accessKeyLabel;
-//  attribute boolean draggable;
-//  [PutForwards=value] readonly attribute DOMSettableTokenList dropzone;
-//  attribute HTMLMenuElement? contextMenu;
-//  attribute boolean spellcheck;
-//  void forceSpellCheck();
+//  [CEReactions] attribute boolean draggable;
+//  [CEReactions] attribute boolean spellcheck;
+
+//  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString innerText;
 };
+
 HTMLElement implements GlobalEventHandlers;
+// HTMLElement implements DocumentAndElementEventHandlers;
 HTMLElement implements ElementContentEditable;
 
 // https://drafts.csswg.org/cssom-view/#extensions-to-the-htmlelement-interface

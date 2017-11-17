@@ -1,12 +1,16 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLIFrameElement : HTMLElement {
-  attribute DOMString src;
-  [Reflect] attribute DOMString srcdoc;
-  [Reflect] attribute DOMString name;
-  // [PutForwards=value] readonly attribute DOMSettableTokenList sandbox;
-  attribute boolean seamless;
-  [Reflect] attribute boolean allowFullscreen;
-  [Reflect] attribute DOMString width;
-  [Reflect] attribute DOMString height;
+  [CEReactions] attribute USVString src;
+  [CEReactions, Reflect] attribute DOMString srcdoc;
+  [CEReactions, Reflect] attribute DOMString name;
+//  [SameObject, PutForwards=value] readonly attribute DOMTokenList sandbox;
+  [CEReactions, Reflect] attribute boolean allowFullscreen;
+//  [CEReactions] attribute boolean allowPaymentRequest;
+//  [CEReactions] attribute boolean allowUserMedia;
+  [CEReactions, Reflect] attribute DOMString width;
+  [CEReactions, Reflect] attribute DOMString height;
+//  [CEReactions] attribute DOMString referrerPolicy;
   readonly attribute Document? contentDocument;
   readonly attribute WindowProxy? contentWindow;
   Document? getSVGDocument();
@@ -15,11 +19,11 @@ interface HTMLIFrameElement : HTMLElement {
 };
 
 partial interface HTMLIFrameElement {
-  [Reflect] attribute DOMString align;
-  [Reflect] attribute DOMString scrolling;
-  [Reflect] attribute DOMString frameBorder;
-  attribute DOMString longDesc;
+  [CEReactions, Reflect] attribute DOMString align;
+  [CEReactions, Reflect] attribute DOMString scrolling;
+  [CEReactions, Reflect] attribute DOMString frameBorder;
+  [CEReactions] attribute USVString longDesc;
 
-  [Reflect, TreatNullAs=EmptyString] attribute DOMString marginHeight;
-  [Reflect, TreatNullAs=EmptyString] attribute DOMString marginWidth;
+  [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString marginHeight;
+  [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString marginWidth;
 };

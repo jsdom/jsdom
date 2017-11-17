@@ -1,7 +1,9 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLBRElement : HTMLElement {
   // also has obsolete members
 };
 
 partial interface HTMLBRElement {
-  [Reflect] attribute DOMString clear;
+  [CEReactions, Reflect] attribute DOMString clear;
 };

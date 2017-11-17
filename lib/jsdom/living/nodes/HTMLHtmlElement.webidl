@@ -1,7 +1,9 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLHtmlElement : HTMLElement {
   // also has obsolete members
 };
 
 partial interface HTMLHtmlElement {
-  [Reflect] attribute DOMString version;
+  [CEReactions, Reflect] attribute DOMString version;
 };
