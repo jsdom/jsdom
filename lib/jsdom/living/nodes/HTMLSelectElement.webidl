@@ -1,3 +1,5 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLSelectElement : HTMLElement {
 //  [CEReactions] attribute DOMString autocomplete;
   [CEReactions, Reflect] attribute boolean autofocus;

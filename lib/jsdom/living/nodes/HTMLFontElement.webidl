@@ -1,5 +1,7 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLFontElement : HTMLElement {
-  [Reflect, TreatNullAs=EmptyString] attribute DOMString color;
-  [Reflect]                 attribute DOMString face;
-  [Reflect]                 attribute DOMString size;
+  [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString color;
+  [CEReactions, Reflect] attribute DOMString face;
+  [CEReactions, Reflect] attribute DOMString size;
 };

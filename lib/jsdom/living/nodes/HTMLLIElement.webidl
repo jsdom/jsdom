@@ -1,9 +1,11 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLLIElement : HTMLElement {
-  [Reflect] attribute long value;
+  [CEReactions, Reflect] attribute long value;
 
   // also has obsolete members
 };
 
 partial interface HTMLLIElement {
-  [Reflect] attribute DOMString type;
+  [CEReactions, Reflect] attribute DOMString type;
 };

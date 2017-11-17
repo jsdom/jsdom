@@ -1,33 +1,37 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLTableElement : HTMLElement {
-  attribute HTMLTableCaptionElement? caption;
+  [CEReactions] attribute HTMLTableCaptionElement? caption;
   HTMLTableCaptionElement createCaption();
-  void deleteCaption();
-  attribute HTMLTableSectionElement? tHead;
+  [CEReactions] void deleteCaption();
+
+  [CEReactions] attribute HTMLTableSectionElement? tHead;
   HTMLTableSectionElement createTHead();
-  void deleteTHead();
-  attribute HTMLTableSectionElement? tFoot;
+  [CEReactions] void deleteTHead();
+
+  [CEReactions] attribute HTMLTableSectionElement? tFoot;
   HTMLTableSectionElement createTFoot();
-  void deleteTFoot();
+  [CEReactions] void deleteTFoot();
+
   [SameObject] readonly attribute HTMLCollection tBodies;
   HTMLTableSectionElement createTBody();
+
   [SameObject] readonly attribute HTMLCollection rows;
   HTMLTableRowElement insertRow(optional long index = -1);
-  void deleteRow(long index);
-//  attribute boolean sortable;
-//  void stopSorting();
+  [CEReactions] void deleteRow(long index);
 
   // also has obsolete members
 };
 
 partial interface HTMLTableElement {
-  [Reflect] attribute DOMString align;
-  [Reflect] attribute DOMString border;
-  [Reflect] attribute DOMString frame;
-  [Reflect] attribute DOMString rules;
-  [Reflect] attribute DOMString summary;
-  [Reflect] attribute DOMString width;
+  [CEReactions, Reflect] attribute DOMString align;
+  [CEReactions, Reflect] attribute DOMString border;
+  [CEReactions, Reflect] attribute DOMString frame;
+  [CEReactions, Reflect] attribute DOMString rules;
+  [CEReactions, Reflect] attribute DOMString summary;
+  [CEReactions, Reflect] attribute DOMString width;
 
-  [Reflect, TreatNullAs=EmptyString] attribute DOMString bgColor;
-  [Reflect, TreatNullAs=EmptyString] attribute DOMString cellPadding;
-  [Reflect, TreatNullAs=EmptyString] attribute DOMString cellSpacing;
+  [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString bgColor;
+  [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString cellPadding;
+  [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString cellSpacing;
 };

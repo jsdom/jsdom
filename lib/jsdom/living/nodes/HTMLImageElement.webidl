@@ -1,29 +1,34 @@
-[NamedConstructor=Image(optional unsigned long width, optional unsigned long height)]
+[Exposed=Window,
+ HTMLConstructor,
+ NamedConstructor=Image(optional unsigned long width, optional unsigned long height)]
 interface HTMLImageElement : HTMLElement {
-  [Reflect] attribute DOMString alt;
-  attribute DOMString src;
-  [Reflect] attribute DOMString srcset;
-  [Reflect] attribute DOMString sizes;
-  [Reflect] attribute DOMString? crossOrigin;
-  [Reflect] attribute DOMString useMap;
-  [Reflect] attribute boolean isMap;
-  attribute unsigned long width;
-  attribute unsigned long height;
+  [CEReactions, Reflect] attribute DOMString alt;
+  [CEReactions] attribute USVString src;
+  [CEReactions, Reflect] attribute USVString srcset;
+  [CEReactions, Reflect] attribute DOMString sizes;
+  [CEReactions, Reflect] attribute DOMString? crossOrigin;
+  [CEReactions, Reflect] attribute DOMString useMap;
+  [CEReactions, Reflect] attribute boolean isMap;
+  [CEReactions] attribute unsigned long width;
+  [CEReactions] attribute unsigned long height;
   readonly attribute unsigned long naturalWidth;
   readonly attribute unsigned long naturalHeight;
   readonly attribute boolean complete;
-  readonly attribute DOMString currentSrc;
+  readonly attribute USVString currentSrc;
+//  [CEReactions] attribute DOMString referrerPolicy;
+
+//  Promise<void> decode();
 
   // also has obsolete members
 };
 
 partial interface HTMLImageElement {
-  [Reflect] attribute DOMString name;
-  [Reflect] attribute DOMString lowsrc;
-  [Reflect] attribute DOMString align;
-  [Reflect] attribute long hspace;
-  [Reflect] attribute long vspace;
-  [Reflect] attribute DOMString longDesc;
+  [CEReactions, Reflect] attribute DOMString name;
+  [CEReactions, Reflect] attribute USVString lowsrc;
+  [CEReactions, Reflect] attribute DOMString align;
+  [CEReactions, Reflect] attribute unsigned long hspace;
+  [CEReactions, Reflect] attribute unsigned long vspace;
+  [CEReactions, Reflect] attribute USVString longDesc;
 
-  [Reflect, TreatNullAs=EmptyString] attribute DOMString border;
+  [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString border;
 };

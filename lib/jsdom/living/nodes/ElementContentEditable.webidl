@@ -1,5 +1,6 @@
-[NoInterfaceObject]
+[Exposed=Window,
+ NoInterfaceObject]
 interface ElementContentEditable {
-//  attribute DOMString contentEditable;
+//  [CEReactions] attribute DOMString contentEditable;
 //  readonly attribute boolean isContentEditable;
 };

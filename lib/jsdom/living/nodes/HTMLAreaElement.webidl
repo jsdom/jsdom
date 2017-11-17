@@ -1,17 +1,20 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLAreaElement : HTMLElement {
-  [Reflect] attribute DOMString alt;
-  [Reflect] attribute DOMString coords;
-  [Reflect] attribute DOMString shape;
-  [Reflect] attribute DOMString target;
-//  attribute DOMString download;
-//  [PutForwards=value] readonly attribute DOMSettableTokenList ping;
-  [Reflect] attribute DOMString rel;
-//  readonly attribute DOMTokenList relList;
+  [CEReactions, Reflect] attribute DOMString alt;
+  [CEReactions, Reflect] attribute DOMString coords;
+  [CEReactions, Reflect] attribute DOMString shape;
+  [CEReactions, Reflect] attribute DOMString target;
+//  [CEReactions] attribute DOMString download;
+//  [CEReactions] attribute USVString ping;
+  [CEReactions, Reflect] attribute DOMString rel;
+//  [SameObject, PutForwards=value] readonly attribute DOMTokenList relList;
+//  [CEReactions] attribute DOMString referrerPolicy;
 
   // also has obsolete members
 };
 HTMLAreaElement implements HTMLHyperlinkElementUtils;
 
 partial interface HTMLAreaElement {
-  [Reflect] attribute boolean noHref;
+  [CEReactions, Reflect] attribute boolean noHref;
 };

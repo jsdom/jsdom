@@ -1,24 +1,26 @@
-[OverrideBuiltins]
+[Exposed=Window,
+// We haven't made named/indexed getters work for HTMLFormElement yet, so don't include these until we do.
+// OverrideBuiltins,
+// LegacyUnenumerableNamedProperties,
+ HTMLConstructor]
 interface HTMLFormElement : HTMLElement {
-  [Reflect=accept_charset] attribute DOMString acceptCharset;
-  attribute DOMString action;
-//  attribute DOMString autocomplete;
-  attribute DOMString enctype;
-//  attribute DOMString encoding;
-  attribute DOMString method;
-  [Reflect] attribute DOMString name;
-  [Reflect] attribute boolean noValidate;
-  [Reflect] attribute DOMString target;
+  [CEReactions, Reflect=accept_charset] attribute DOMString acceptCharset;
+  [CEReactions] attribute USVString action;
+//  [CEReactions] attribute DOMString autocomplete;
+  [CEReactions] attribute DOMString enctype;
+//  [CEReactions] attribute DOMString encoding;
+  [CEReactions] attribute DOMString method;
+  [CEReactions, Reflect] attribute DOMString name;
+  [CEReactions, Reflect] attribute boolean noValidate;
+  [CEReactions, Reflect] attribute DOMString target;
 
   [SameObject] readonly attribute HTMLFormControlsCollection elements;
-  readonly attribute long length;
+  readonly attribute unsigned long length;
 //  getter Element (unsigned long index);
 //  getter (RadioNodeList or Element) (DOMString name);
 
   void submit();
-  void reset();
+  [CEReactions] void reset();
 //  boolean checkValidity();
 //  boolean reportValidity();
-
-//  void requestAutocomplete();
 };

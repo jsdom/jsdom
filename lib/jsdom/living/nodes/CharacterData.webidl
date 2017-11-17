@@ -1,6 +1,6 @@
 [Exposed=Window]
 interface CharacterData : Node {
-  [TreatNullAs=EmptyString] attribute DOMString data;
+  attribute [TreatNullAs=EmptyString] DOMString data;
   readonly attribute unsigned long length;
   DOMString substringData(unsigned long offset, unsigned long count);
   void appendData(DOMString data);

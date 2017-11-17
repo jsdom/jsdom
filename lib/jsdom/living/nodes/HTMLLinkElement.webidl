@@ -1,19 +1,28 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLLinkElement : HTMLElement {
-  attribute DOMString href;
-  [Reflect] attribute DOMString? crossOrigin;
-  [Reflect] attribute DOMString rel;
-//  readonly attribute DOMTokenList relList;
-  [Reflect] attribute DOMString media;
-  [Reflect] attribute DOMString hreflang;
-  [Reflect] attribute DOMString type;
-//  [PutForwards=value] readonly attribute DOMSettableTokenList sizes;
+  [CEReactions] attribute USVString href;
+  [CEReactions, Reflect] attribute DOMString? crossOrigin;
+  [CEReactions, Reflect] attribute DOMString rel;
+//  [CEReactions] attribute DOMString as; // (default "")
+//  [SameObject, PutForwards=value] readonly attribute DOMTokenList relList;
+  [CEReactions, Reflect] attribute DOMString media;
+//  [CEReactions] attribute DOMString nonce;
+//  [CEReactions] attribute DOMString integrity;
+  [CEReactions, Reflect] attribute DOMString hreflang;
+  [CEReactions, Reflect] attribute DOMString type;
+//  [SameObject, PutForwards=value] readonly attribute DOMTokenList sizes;
+//  [CEReactions] attribute DOMString referrerPolicy;
+//  [CEReactions] attribute USVString scope;
+//  [CEReactions] attribute DOMString workerType;
+//  [CEReactions] attribute DOMString updateViaCache;
 
   // also has obsolete members
 };
 HTMLLinkElement implements LinkStyle;
 
 partial interface HTMLLinkElement {
-  [Reflect] attribute DOMString charset;
-  [Reflect] attribute DOMString rev;
-  [Reflect] attribute DOMString target;
+  [CEReactions, Reflect] attribute DOMString charset;
+  [CEReactions, Reflect] attribute DOMString rev;
+  [CEReactions, Reflect] attribute DOMString target;
 };

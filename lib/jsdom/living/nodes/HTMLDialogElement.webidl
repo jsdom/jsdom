@@ -1,7 +1,9 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLDialogElement : HTMLElement {
-  [Reflect] attribute boolean open;
+  [CEReactions, Reflect] attribute boolean open;
 //  attribute DOMString returnValue;
-//  void show(optional (MouseEvent or Element) anchor);
-//  void showModal(optional (MouseEvent or Element) anchor);
-//  void close(optional DOMString returnValue);
+//  [CEReactions] void show();
+//  [CEReactions] void showModal();
+//  [CEReactions] void close(optional DOMString returnValue);
 };

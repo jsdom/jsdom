@@ -1,7 +1,13 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLStyleElement : HTMLElement {
-  [Reflect] attribute DOMString media;
-  [Reflect] attribute DOMString nonce;
-  [Reflect] attribute DOMString type;
-//  attribute boolean scoped;
+  [CEReactions, Reflect] attribute DOMString media;
+  [CEReactions, Reflect] attribute DOMString nonce;
+
+  // also has obsolete members
 };
 HTMLStyleElement implements LinkStyle;
+
+partial interface HTMLStyleElement {
+  [CEReactions, Reflect] attribute DOMString type;
+};

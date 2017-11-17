@@ -1,19 +1,23 @@
+enum CanPlayTypeResult { "" /* empty string */, "maybe", "probably" };
+typedef (MediaStream or MediaSource or Blob) MediaProvider;
+
+[Exposed=Window]
 interface HTMLMediaElement : HTMLElement {
 
   // error state
 //  readonly attribute MediaError? error;
 
   // network state
-  attribute DOMString src;
+  [CEReactions] attribute USVString src;
 //  attribute MediaProvider? srcObject;
-  readonly attribute DOMString currentSrc;
-  [Reflect] attribute DOMString? crossOrigin;
+  readonly attribute USVString currentSrc;
+  [CEReactions, Reflect] attribute DOMString? crossOrigin;
   const unsigned short NETWORK_EMPTY = 0;
   const unsigned short NETWORK_IDLE = 1;
   const unsigned short NETWORK_LOADING = 2;
   const unsigned short NETWORK_NO_SOURCE = 3;
   readonly attribute unsigned short networkState;
-  [Reflect] attribute DOMString preload; // TODO limited only to known values
+  [CEReactions, Reflect] attribute DOMString preload; // TODO limited only to known values
   readonly attribute TimeRanges buffered;
   void load();
   CanPlayTypeResult canPlayType(DOMString type);
@@ -38,20 +42,16 @@ interface HTMLMediaElement : HTMLElement {
   readonly attribute TimeRanges played;
   readonly attribute TimeRanges seekable;
   readonly attribute boolean ended;
-  [Reflect] attribute boolean autoplay;
-  [Reflect] attribute boolean loop;
-  void play();
+  [CEReactions, Reflect] attribute boolean autoplay;
+  [CEReactions, Reflect] attribute boolean loop;
+  Promise<void> play();
   void pause();
 
-  // media controller
-//  attribute DOMString mediaGroup;
-//  attribute MediaController? controller;
-
   // controls
-  [Reflect] attribute boolean controls;
+  [CEReactions, Reflect] attribute boolean controls;
   attribute double volume;
   attribute boolean muted;
-  [Reflect=muted] attribute boolean defaultMuted;
+  [CEReactions, Reflect=muted] attribute boolean defaultMuted;
 
   // tracks
   [SameObject] readonly attribute AudioTrackList audioTracks;

@@ -1,4 +1,5 @@
-[NoInterfaceObject]
+[Exposed=Window,
+ NoInterfaceObject]
 interface GlobalEventHandlers {
   attribute EventHandler onabort;
   attribute EventHandler onauxclick;
@@ -51,10 +52,10 @@ interface GlobalEventHandlers {
   attribute EventHandler onreset;
   attribute EventHandler onresize;
   attribute EventHandler onscroll;
+  attribute EventHandler onsecuritypolicyviolation;
   attribute EventHandler onseeked;
   attribute EventHandler onseeking;
   attribute EventHandler onselect;
-  attribute EventHandler onshow;
   attribute EventHandler onstalled;
   attribute EventHandler onsubmit;
   attribute EventHandler onsuspend;

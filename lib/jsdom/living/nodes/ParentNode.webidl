@@ -6,11 +6,9 @@ interface ParentNode {
   readonly attribute Element? lastElementChild;
   readonly attribute unsigned long childElementCount;
 
-  [Unscopable] void prepend((Node or DOMString)... nodes);
-  [Unscopable] void append((Node or DOMString)... nodes);
+  [CEReactions, Unscopable] void prepend((Node or DOMString)... nodes);
+  [CEReactions, Unscopable] void append((Node or DOMString)... nodes);
 
-//  [Unscopable] Element? query(DOMString relativeSelectors);
-//  [NewObject, Unscopable] Elements queryAll(DOMString relativeSelectors);
   Element? querySelector(DOMString selectors);
   [NewObject] NodeList querySelectorAll(DOMString selectors);
 };

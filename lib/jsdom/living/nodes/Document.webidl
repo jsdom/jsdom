@@ -2,9 +2,9 @@
  Exposed=Window]
 interface Document : Node {
   [SameObject] readonly attribute DOMImplementation implementation;
-  readonly attribute DOMString URL;
-  readonly attribute DOMString documentURI;
-  readonly attribute DOMString origin;
+  readonly attribute USVString URL;
+  readonly attribute USVString documentURI;
+  readonly attribute USVString origin;
   readonly attribute DOMString compatMode;
   readonly attribute DOMString characterSet;
   readonly attribute DOMString charset; // historical alias of .characterSet
@@ -13,20 +13,23 @@ interface Document : Node {
 
   readonly attribute DocumentType? doctype;
   readonly attribute Element? documentElement;
-  HTMLCollection getElementsByTagName(DOMString localName);
+  HTMLCollection getElementsByTagName(DOMString qualifiedName);
   HTMLCollection getElementsByTagNameNS(DOMString? namespace, DOMString localName);
   HTMLCollection getElementsByClassName(DOMString classNames);
 
-  [NewObject] Element createElement(DOMString localName);
-  [NewObject] Element createElementNS(DOMString? namespace, DOMString qualifiedName);
+//  We don't support the last argument yet
+//  [CEReactions, NewObject] Element createElement(DOMString localName, optional ElementCreationOptions options);
+//  [CEReactions, NewObject] Element createElementNS(DOMString? namespace, DOMString qualifiedName, optional ElementCreationOptions options);
+  [CEReactions, NewObject] Element createElement(DOMString localName);
+  [CEReactions, NewObject] Element createElementNS(DOMString? namespace, DOMString qualifiedName);
   [NewObject] DocumentFragment createDocumentFragment();
   [NewObject] Text createTextNode(DOMString data);
   [NewObject] CDATASection createCDATASection(DOMString data);
   [NewObject] Comment createComment(DOMString data);
   [NewObject] ProcessingInstruction createProcessingInstruction(DOMString target, DOMString data);
 
-  [NewObject] Node importNode(Node node, optional boolean deep = false);
-  Node adoptNode(Node node);
+  [CEReactions, NewObject] Node importNode(Node node, optional boolean deep = false);
+  [CEReactions] Node adoptNode(Node node);
 
   [NewObject] Attr createAttribute(DOMString localName);
   [NewObject] Attr createAttributeNS(DOMString? namespace, DOMString qualifiedName);
@@ -40,21 +43,30 @@ interface Document : Node {
   [NewObject] TreeWalker createTreeWalker(Node root, optional unsigned long whatToShow = 0xFFFFFFFF, optional NodeFilter? filter = null);
 };
 
+dictionary ElementCreationOptions {
+  DOMString is;
+};
+
+// https://html.spec.whatwg.org/#document
+enum DocumentReadyState { "loading", "interactive", "complete" };
+// We don't support SVGScriptElement yet
+// typedef (HTMLScriptElement or SVGScriptElement) HTMLOrSVGScriptElement;
+
 [OverrideBuiltins]
-partial /*sealed*/ interface Document {
+partial interface Document {
   // resource metadata management
   [PutForwards=href, Unforgeable] readonly attribute Location? location;
-//  attribute DOMString domain;
-  readonly attribute DOMString referrer;
-  attribute DOMString cookie;
+//  attribute USVString domain;
+  readonly attribute USVString referrer;
+  attribute USVString cookie;
   readonly attribute DOMString lastModified;
   readonly attribute DocumentReadyState readyState;
 
   // DOM tree accessors
 //  getter object (DOMString name);
-  attribute DOMString title;
-  attribute DOMString dir;
-  attribute HTMLElement? body;
+  [CEReactions] attribute DOMString title;
+  [CEReactions] attribute DOMString dir;
+  [CEReactions] attribute HTMLElement? body;
   readonly attribute HTMLHeadElement? head;
   [SameObject] readonly attribute HTMLCollection images;
   [SameObject] readonly attribute HTMLCollection embeds;
@@ -63,21 +75,23 @@ partial /*sealed*/ interface Document {
   [SameObject] readonly attribute HTMLCollection forms;
   [SameObject] readonly attribute HTMLCollection scripts;
   NodeList getElementsByName(DOMString elementName);
-  readonly attribute HTMLScriptElement? currentScript;
+//  We don't support SVGScriptElement yet
+//  readonly attribute HTMLOrSVGScriptElement? currentScript; // classic scripts in a document tree only
+  readonly attribute HTMLScriptElement? currentScript; // classic scripts in a document tree only
 
   // dynamic markup insertion
-  Document open(optional DOMString type = "text/html", optional DOMString replace = "");
-//  WindowProxy open(DOMString url, DOMString name, DOMString features, optional boolean replace = false);
-  void close();
-  void write(DOMString... text);
-  void writeln(DOMString... text);
+  [CEReactions] Document open(optional DOMString type = "text/html", optional DOMString replace = "");
+//  WindowProxy open(USVString url, DOMString name, DOMString features);
+  [CEReactions] void close();
+  [CEReactions] void write(DOMString... text);
+  [CEReactions] void writeln(DOMString... text);
 
   // user interaction
   readonly attribute WindowProxy? defaultView;
   readonly attribute Element? activeElement;
   boolean hasFocus();
-//  attribute DOMString designMode;
-//  boolean execCommand(DOMString commandId, optional boolean showUI = false, optional DOMString value = "");
+//  [CEReactions] attribute DOMString designMode;
+//  [CEReactions] boolean execCommand(DOMString commandId, optional boolean showUI = false, optional DOMString value = "");
 //  boolean queryCommandEnabled(DOMString commandId);
 //  boolean queryCommandIndeterm(DOMString commandId);
 //  boolean queryCommandState(DOMString commandId);
@@ -86,17 +100,17 @@ partial /*sealed*/ interface Document {
 
   // special event handler IDL attributes that only apply to Document objects
   [LenientThis] attribute EventHandler onreadystatechange;
-
-  // also has obsolete members
 };
 Document implements GlobalEventHandlers;
+// Document implements DocumentAndElementEventHandlers;
 
+// https://html.spec.whatwg.org/#Document-partial
 partial interface Document {
-//  [TreatNullAs=EmptyString] attribute DOMString fgColor;
-//  [TreatNullAs=EmptyString] attribute DOMString linkColor;
-//  [TreatNullAs=EmptyString] attribute DOMString vlinkColor;
-//  [TreatNullAs=EmptyString] attribute DOMString alinkColor;
-//  [TreatNullAs=EmptyString] attribute DOMString bgColor;
+//  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString fgColor;
+//  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString linkColor;
+//  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString vlinkColor;
+//  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString alinkColor;
+//  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString bgColor;
 
   [SameObject] readonly attribute HTMLCollection anchors;
   [SameObject] readonly attribute HTMLCollection applets;
@@ -113,7 +127,7 @@ partial interface Document {
   [SameObject] readonly attribute StyleSheetList styleSheets;
 };
 
-// http://w3c.github.io/page-visibility/
+// https://w3c.github.io/page-visibility/#extensions-to-the-document-interface
 enum VisibilityState { "hidden", "visible", "prerender" };
 
 partial interface Document {

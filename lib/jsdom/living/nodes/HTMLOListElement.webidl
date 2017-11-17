@@ -1,11 +1,13 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLOListElement : HTMLElement {
-  [Reflect] attribute boolean reversed;
-  [Reflect] attribute long start; // TODO this needs the default value
-  [Reflect] attribute DOMString type;
+  [CEReactions, Reflect] attribute boolean reversed;
+  [CEReactions, Reflect] attribute long start; // TODO this needs the default value
+  [CEReactions, Reflect] attribute DOMString type;
 
   // also has obsolete members
 };
 
 partial interface HTMLOListElement {
-  [Reflect] attribute boolean compact;
+  [CEReactions, Reflect] attribute boolean compact;
 };

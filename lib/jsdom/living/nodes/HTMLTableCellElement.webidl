@@ -1,4 +1,5 @@
-[HTMLConstructor]
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLTableCellElement : HTMLElement {
   [CEReactions] attribute unsigned long colSpan;
   [CEReactions] attribute unsigned long rowSpan;

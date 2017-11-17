@@ -1,3 +1,5 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLTitleElement : HTMLElement {
-  attribute DOMString text;
+  [CEReactions] attribute DOMString text;
 };

@@ -1,7 +1,9 @@
+[Exposed=Window,
+ HTMLConstructor]
 interface HTMLHeadingElement : HTMLElement {
   // also has obsolete members
 };
 
 partial interface HTMLHeadingElement {
-  [Reflect] attribute DOMString align;
+  [CEReactions, Reflect] attribute DOMString align;
 };
