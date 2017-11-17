@@ -1,9 +1,9 @@
 [Exposed=Window]
 interface Node : EventTarget {
   const unsigned short ELEMENT_NODE = 1;
-  const unsigned short ATTRIBUTE_NODE = 2; // historical
+  const unsigned short ATTRIBUTE_NODE = 2;
   const unsigned short TEXT_NODE = 3;
-  const unsigned short CDATA_SECTION_NODE = 4; // historical
+  const unsigned short CDATA_SECTION_NODE = 4;
   const unsigned short ENTITY_REFERENCE_NODE = 5; // historical
   const unsigned short ENTITY_NODE = 6; // historical
   const unsigned short PROCESSING_INSTRUCTION_NODE = 7;
@@ -15,9 +15,11 @@ interface Node : EventTarget {
   readonly attribute unsigned short nodeType;
   readonly attribute DOMString nodeName;
 
-  readonly attribute DOMString? baseURI;
+  readonly attribute USVString baseURI;
 
+  readonly attribute boolean isConnected;
   readonly attribute Document? ownerDocument;
+//  Node getRootNode(optional GetRootNodeOptions options);
   readonly attribute Node? parentNode;
   readonly attribute Element? parentElement;
   boolean hasChildNodes();
@@ -27,12 +29,13 @@ interface Node : EventTarget {
   readonly attribute Node? previousSibling;
   readonly attribute Node? nextSibling;
 
-           attribute DOMString? nodeValue;
-           attribute DOMString? textContent;
-  void normalize();
+  [CEReactions] attribute DOMString? nodeValue;
+  [CEReactions] attribute DOMString? textContent;
+  [CEReactions] void normalize();
 
-  [NewObject] Node cloneNode(optional boolean deep = false);
+  [CEReactions, NewObject] Node cloneNode(optional boolean deep = false);
   boolean isEqualNode(Node? otherNode);
+  boolean isSameNode(Node? otherNode); // historical alias of ===
 
   const unsigned short DOCUMENT_POSITION_DISCONNECTED = 0x01;
   const unsigned short DOCUMENT_POSITION_PRECEDING = 0x02;
@@ -47,8 +50,12 @@ interface Node : EventTarget {
 //  DOMString? lookupNamespaceURI(DOMString? prefix);
 //  boolean isDefaultNamespace(DOMString? namespace);
 
-  Node insertBefore(Node node, Node? child);
-  Node appendChild(Node node);
-  Node replaceChild(Node node, Node child);
-  Node removeChild(Node child);
+  [CEReactions] Node insertBefore(Node node, Node? child);
+  [CEReactions] Node appendChild(Node node);
+  [CEReactions] Node replaceChild(Node node, Node child);
+  [CEReactions] Node removeChild(Node child);
+};
+
+dictionary GetRootNodeOptions {
+  boolean composed = false;
 };
