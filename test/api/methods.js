@@ -93,6 +93,20 @@ describe("API: JSDOM class's methods", () => {
       const node = dom.window.document.querySelector("img");
 
       assert.deepEqual(dom.nodeLocation(node), {
+        startTag: {
+          attrs: {
+            src: {
+              line: 2,
+              col: 14,
+              startOffset: 22,
+              endOffset: 35
+            }
+          },
+          line: 2,
+          col: 9,
+          startOffset: 17,
+          endOffset: 36
+        },
         attrs: {
           src: {
             line: 2,
