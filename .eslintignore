@@ -27,5 +27,4 @@ test/to-port-to-wpts/level3
 test/to-port-to-wpts/script.js
 test/web-platform-tests/tests
 test/web-platform-tests/to-upstream/dom/nodes/Document-createComment-createTextNode.js
-test/web-platform-tests/to-upstream/domparsing/DOMParser-dont-upstream.html
-test/web-platform-tests/to-upstream/html/semantics/scripting-1/the-script-element/script-languages-dont-upstream.html
+test/web-platform-tests/to-upstream/**/*dont-upstream*
