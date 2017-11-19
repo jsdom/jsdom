@@ -3,6 +3,7 @@ Adrian Lang <mail@adrianlang.de>
 Adrian Makowski <adrian.makowski@gmail.com>
 airportyh <airportyh@gmail.com>
 alec <alec.hulce@gmail.com>
+Alex Coles <alex@alexbcoles.com>
 Alex Pearson <alex@alexpear.com>
 Alex Rattray <rattray.alex@gmail.com>
 Alexander Flatter <flatter@gmail.com>
@@ -17,6 +18,7 @@ Andrew Patton <andrew@acusti.ca>
 Andrew Plummer <plummer.andrew@gmail.com>
 Andrew Smith <andy@robotlovesyou.com>
 Andy VanWagoner <andy@instructure.com>
+Anton Popov <Anton.Popov@infowatch.com>
 Anton Yefremov <anton.yefremov@gmail.com>
 antonj <anton.johansson@gmail.com>
 Aria Stewart <aredridel@nbtsc.org>
@@ -36,6 +38,7 @@ Christof Marti <chrmarti@microsoft.com>
 Christoph Pojer <christoph.pojer@gmail.com>
 Christophe Coevoet <stof@notk.org>
 cjroebuck <tophtfc@gmail.com>
+Cyril Auburtin <cyril.auburtin@gmail.com>
 daishi <daishi@axlight.com>
 Damian Janowski <damian.janowski@gmail.com>
 Dan Lidral-Porter <dan@luckysort.com>
@@ -179,7 +182,9 @@ Phil Dokas <pdokas@organic.com>
 Rainer Eli <claushellsing@gmail.com>
 Ralph Holzmann <ralphholzmann@gmail.com>
 Ra'Shaun Stovall <help@sneakyhead.com>
+Ra'Shaun Stovall <rashaunstovall@gmail.com>
 Remy Loubradou <remyloubradou@gmail.com>
+reviewher <24845478+reviewher@users.noreply.github.com>
 Rich Harris <richard.a.harris@gmail.com>
 Ricky Chien <ricky060709@gmail.com>
 Ricordisamoa <ricordisamoa@openmailbox.org>
@@ -198,12 +203,14 @@ Sam Ruby <rubys@intertwingly.net>
 Sammy Jelin <sjelin@gmail.com>
 Samori Gorse <samorigorse@gmail.com>
 saucy <zekewarren@gmail.com>
+Scott Albertine <scott.albertine@gmail.com>
 Scott Ashton <scottmortonashton@gmail.com>
 Sean Jacke <seanineurope@gmail.com>
 Sebastian Mayr <github@smayr.name>
 Sebastian McKenzie <sebmck@gmail.com>
 Sergei Ianovich <s@asutp.io>
 Shimon Doodkin <helpmepro1@gmail.com>
+Simen Bekkhus <sbekkhus91@gmail.com>
 sonnym <michaud.sonny@gmail.com>
 Soufiane Ghzal <sghzal@gmail.com>
 sporchia <print@blindchaos.net>
@@ -233,5 +240,6 @@ William Cunningham <w.a.cunningham.ii@gmail.com>
 Xavi <xavi.rmz@gmail.com>
 Yonathan <yonathan@gmail.com>
 Yun Cui <ycui@microstrategy.com>
+Yunlei Liu <yunlei.liu@appfolio.com>
 Zach Smith <zach@amicushq.com>
 Zirro <code@zirro.se>

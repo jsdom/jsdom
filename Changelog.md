@@ -1,4 +1,28 @@
+## 11.4.0
+
+For this release we'd like to welcome [@Zirro](https://github.com/tmpvar/jsdom/commits?author=Zirro) to the core team; his contributions over the course of this year have enhanced jsdom immensely.
+
+* Added a rudimentary set of SVG element classes, namely `SVGElement`, `SVGGraphicsElement`, `SVGSVGElement`, `SVGTests`, `SVGAnimatedString`, `SVGNumber`, and `SVGStringList`. The main impact here is that SVG elements are now instances of `SVGElement`, instead of being simply `Element` (as they were in v11.3.0) or `HTMLUnknownElement` (as they were in v11.2.0 and previously). The only concrete subclass that is implemented is `SVGSVGElement`, for `<svg>` itself; other tags will not map to their correct classes, because those classes are not yet implemented.
+* Added the new `pretendToBeVisual` option, which controls the presence of the new `requestAnimationFrame()` methods `cancelAnimationFrame()`, and the new values of `document.hidden`/`document.visibilityState`. [See the README](https://github.com/tmpvar/jsdom#pretending-to-be-a-visual-browser) for more information. (SimenB)
+* Added the `append()` and `prepend()` methods to `Document`, `DocumentFragment`, and `Element`. (caub)
+* Added the `before()`, `after()`, and `replaceWith()` methods to `DocumentType`, `Element`, and `CharacterData`. (caub)
+* Added `node.isConnected`.
+* Added `node.isSameNode(otherNode)`.
+* Added support for parsing CDATA sections in XML documents, including in `domParser.parseFromString()`. (myabc)
+* Added appropriate `input.value` getter/setter logic for `<input type="file">`.
+* Significantly improved the spec-compliance of `NamedNodeMap`, i.e. of `element.attributes`, such that retrieving named or indexed properties will now always work properly.
+* Fixed `domParser.parseFromString()` to not parse HTML character entities in XML docuemnts. (myabc)
+* Fixed `xhr.abort()` to clear any set headers.
+* Fixed `XMLHttpRequest` to always decoded responses as UTF-8 when `responseType` is set to `"json"`.
+* Fixed `XMLHttpRequest` CORS header handling, especially with regard to preflights and Access-Control-Allow-Headers. (ScottAlbertine)
+* Fixed the behavior of `radioButton.click()` to fire appropriate `input` and `change` events. (liqwid)
+* Fixed `querySelector()`/`querySelectorAll()` behavior for SVG elements inside `<template>` contents `DocumentFragment`s, including those created by `JSDOM.fragment()`. (caub)
+* Fixed the line number reporting in exception stack traces when using `<script>` elements, when `includeNodeLocations` is set.
+* Removed the `<applet>` element, [following the spec](https://github.com/whatwg/html/pull/1399).
+
 ## 11.3.0
+
+For this release we'd like to formally welcome [@TimothyGu](https://github.com/tmpvar/jsdom/commits?author=TimothyGu) to the core team, as a prolific contributor. He will join the illustrious ranks of those who do so much work on jsdom that we no longer note their names in the changelog.
 
 * Added `table.tHead`, `table.tFoot`, and `table.caption` setters, and the `table.createTBody()` method.
 * Added `CompositionEvent` and `WheelEvent` classes.
@@ -10,7 +34,7 @@
 * Fixed some subtle interactions between inline event handlers and other event listeners.
 * Fixed the element interface used when creating many of the more obscure elements.
 * Fixed the behavior of the `table.rows` getter, and the `table.createCaption()` and `table.deleteRow()` methods.
-* Fixed incorrect sharing of methods between interfaces that used mixins (e.g. previously `document.getElementById === documentFragment.getElementById`, incorrectly).
+* Fixed incorrect sharing of methods between interfaces that used mixins (e.g. previously `document.querySelector === documentFragment.querySelector`, incorrectly).
 * Fixed `FocusEvent` creation, which regressed in v11.2.0.
 * Fixed `UIEvent` to only allow initializing with `Window` objects for its `view` property.
 * Fixed the behavior of `tr.rowIndex` and `tr.deleteCall()`.
