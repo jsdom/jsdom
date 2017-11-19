@@ -3,11 +3,11 @@
 For this release we'd like to welcome [@Zirro](https://github.com/tmpvar/jsdom/commits?author=Zirro) to the core team; his contributions over the course of this year have enhanced jsdom immensely.
 
 * Added a rudimentary set of SVG element classes, namely `SVGElement`, `SVGGraphicsElement`, `SVGSVGElement`, `SVGTests`, `SVGAnimatedString`, `SVGNumber`, and `SVGStringList`. The main impact here is that SVG elements are now instances of `SVGElement`, instead of being simply `Element` (as they were in v11.3.0) or `HTMLUnknownElement` (as they were in v11.2.0 and previously). The only concrete subclass that is implemented is `SVGSVGElement`, for `<svg>` itself; other tags will not map to their correct classes, because those classes are not yet implemented.
-* Added the new `pretendToBeVisual` option, which controls the presence of the new `requestAnimationFrame()` methods `cancelAnimationFrame()`, and the new values of `document.hidden`/`document.visibilityState`. [See the README](https://github.com/tmpvar/jsdom#pretending-to-be-a-visual-browser) for more information. (SimenB)
+* Added the new `pretendToBeVisual` option, which controls the presence of the new `requestAnimationFrame()` and `cancelAnimationFrame()` methods, and the new values of `document.hidden`/`document.visibilityState`. [See the README](https://github.com/tmpvar/jsdom#pretending-to-be-a-visual-browser) for more information. (SimenB)
 * Added the `append()` and `prepend()` methods to `Document`, `DocumentFragment`, and `Element`. (caub)
 * Added the `before()`, `after()`, and `replaceWith()` methods to `DocumentType`, `Element`, and `CharacterData`. (caub)
 * Added `node.isConnected`.
-* Added `node.isSameNode(otherNode)`.
+* Added `node.isSameNode()`.
 * Added support for parsing CDATA sections in XML documents, including in `domParser.parseFromString()`. (myabc)
 * Added appropriate `input.value` getter/setter logic for `<input type="file">`.
 * Significantly improved the spec-compliance of `NamedNodeMap`, i.e. of `element.attributes`, such that retrieving named or indexed properties will now always work properly.
