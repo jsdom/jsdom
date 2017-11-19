@@ -1,94 +1,19 @@
 "use strict";
-/* eslint-disable no-console, no-process-exit, global-require */
+/* eslint-disable no-console */
 const fs = require("fs");
 const path = require("path");
-const dns = require("dns");
-const childProcess = require("child_process");
-const { EventEmitter } = require("events");
-const q = require("q");
 const { specify } = require("mocha-sugar-free");
 const { inBrowserContext, nodeResolverPromise } = require("../util.js");
-const requestHead = require("request-promise-native").head;
 const jsdom = require("../../lib/old-api.js");
-
-const wptDir = path.resolve(__dirname, "tests");
-
-const configPaths = {
-  default: path.resolve(__dirname, "wpt-config.json"),
-  toUpstream: path.resolve(__dirname, "tuwpt-config.json")
-};
-
-const configs = {
-  default: require(configPaths.default),
-  toUpstream: require(configPaths.toUpstream)
-};
 
 const globalPool = { maxSockets: 6 };
 
-module.exports = ({ toUpstream = false } = {}) => {
+module.exports = urlPrefixFactory => {
   if (inBrowserContext()) {
     return () => {
       // TODO: browser support for running WPT
     };
   }
-
-  const configType = toUpstream ? "toUpstream" : "default";
-  const configPath = configPaths[configType];
-  const config = configs[configType];
-
-  const server = new EventEmitter();
-
-  let serverHasStarted;
-  server.started = new Promise(resolve => {
-    serverHasStarted = resolve;
-  });
-  server.isStarted = false;
-
-  let urlPrefix = `http://${config.host}:${config.ports.http[0]}/`;
-
-  dns.lookup("web-platform.test", err => {
-    if (err) {
-      console.warn();
-      console.warn("Host entries not present for web platform tests.");
-      console.warn("See https://github.com/w3c/web-platform-tests#running-the-tests");
-
-      if (!toUpstream) {
-        console.warn("Falling back to hosted versions at w3c-test.org");
-        urlPrefix = "http://w3c-test.org/";
-      }
-      serverHasStarted();
-      return;
-    }
-
-    const configArg = path.relative(path.resolve(wptDir), configPath);
-    const args = ["./wpt.py", "serve", "--config", configArg];
-    const python = childProcess.spawn("python", args, {
-      cwd: wptDir,
-      stdio: "inherit"
-    });
-
-    python.on("error", e => {
-      console.warn();
-      console.warn("Error starting python server process:", e.message);
-
-      if (toUpstream) {
-        console.error("Cannot proceed with running the tests.");
-        process.exit(1);
-      } else {
-        console.warn("Falling back to hosted versions at w3ctest.org");
-        urlPrefix = "http://w3c-test.org/";
-        serverHasStarted();
-      }
-    });
-
-    pollForServer(() => urlPrefix).then(serverHasStarted);
-
-    process.on("exit", () => {
-      // Python doesn't register a default handler for SIGTERM and it doesn't run __exit__() methods of context managers
-      // when it gets that signal. Using SIGINT avoids this problem
-      python.kill("SIGINT");
-    });
-  });
 
   return (testPath, title = testPath) => {
     specify({
@@ -99,21 +24,11 @@ module.exports = ({ toUpstream = false } = {}) => {
       slow: 10000,
       skipIfBrowser: true,
       fn() {
-        return server.started.then(() => createJSDOM(urlPrefix, testPath));
+        return createJSDOM(urlPrefixFactory(), testPath);
       }
     });
   };
 };
-
-function pollForServer(urlGetter) {
-  console.log("Checking if the web platform tests server is up");
-  return requestHead(urlGetter())
-    .then(() => console.log("Server is up!"))
-    .catch(err => {
-      console.log(`Server is not up yet (${err.message}); trying again`);
-      return q.delay(500).then(() => pollForServer(urlGetter));
-    });
-}
 
 function createJSDOM(urlPrefix, testPath) {
   const reporterPathname = "/resources/testharnessreport.js";
