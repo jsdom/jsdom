@@ -1,7 +1,7 @@
 [NoInterfaceObject,
  Exposed=Window]
 interface NonElementParentNode {
-  Element? getElementById(DOMString elementId); // TODO implement in NonElementParentNode-impl instead of in Document-impl
+  Element? getElementById(DOMString elementId);
 };
 Document implements NonElementParentNode;
-// DocumentFragment implements NonElementParentNode;
+DocumentFragment implements NonElementParentNode;
