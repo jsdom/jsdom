@@ -517,7 +517,6 @@ DIR: html/semantics/forms/the-input-element
 
 button.html: [fail, Unknown]
 checkbox.html: [fail, Unknown]
-date.html: [fail, Unknown]
 datetime-local.html: [fail, Unknown]
 datetime.html: [fail, Unknown]
 email.html: [fail, Unknown]
@@ -538,18 +537,14 @@ input-willvalidate.html: [fail, Validation is not implemented]
 maxlength.html: [fail, Unknown]
 minlength.html: [fail, Unknown]
 month.html: [fail, Unknown]
-number.html: [fail, Unknown]
 radio-groupname-case.html: [fail, Unknown]
 radio.html: [fail, Unknown]
 range-2.html: [fail, Unknown]
 range.html: [fail, Unknown]
 reset.html: [fail, Unknown]
 text.html: [fail, Unknown]
-time-2.html: [fail, Unknown]
 time.html: [fail, Unknown]
 type-change-state.html: [fail, Unknown]
-valueMode.html: [fail, Unknown]
-week.html: [fail, Unknown]
 
 ---
 
