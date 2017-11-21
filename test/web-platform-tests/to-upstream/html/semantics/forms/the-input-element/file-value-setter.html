@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>File input value setter</title>
+<link rel="help" href="https://html.spec.whatwg.org/multipage/input.html#dom-input-value-filename">
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+
+<input type="file">
+
+<script>
+  "use strict";
+
+  const input = document.querySelector("input");
+
+  test(() => {
+    assert_true(input.files instanceof FileList);
+    assert_equals(input.files.length, 0);
+  }, "The initial value is an empty FileList");
+
+  test(() => {
+    input.value = "";
+
+    assert_true(input.files instanceof FileList);
+    assert_equals(input.files.length, 0);
+  }, "The value remains an empty FileList after being set to the empty string");
+
+  test(() => {
+    input.value = null;
+
+    assert_true(input.files instanceof FileList);
+    assert_equals(input.files.length, 0);
+  }, "Setting the value to null is equivalent to using the empty string - [TreatNullAs=EmptyString]");
+
+  test(() => {
+    assert_throws("InvalidStateError", () => {
+      input.value = "foo";
+    });
+  }, "Setting the value to a non-empty string throws");
+
+  test(() => {
+    assert_throws("InvalidStateError", () => {
+      input.value = 10;
+    });
+  }, "Setting the value to a number throws");
+
+  test(() => {
+    assert_throws("InvalidStateError", () => {
+      input.value = undefined;
+    });
+  }, "Setting the value to undefined throws");
+
+  test(() => {
+    assert_true(input.files instanceof FileList);
+    assert_equals(input.files.length, 0);
+  }, "The value is still an empty FileList");
+</script>
