@@ -15,7 +15,7 @@ interface HTMLInputElement : HTMLElement {
   [Reflect] attribute boolean formNoValidate;
   [Reflect] attribute DOMString formTarget;
 //  attribute unsigned long height;
-//  attribute boolean indeterminate;
+  attribute boolean indeterminate;
   [Reflect] attribute DOMString inputMode;
 //  readonly attribute HTMLElement? list;
   [Reflect] attribute DOMString max;
