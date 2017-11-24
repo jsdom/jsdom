@@ -4,7 +4,7 @@
 interface HTMLImageElement : HTMLElement {
   [CEReactions, Reflect] attribute DOMString alt;
   [CEReactions] attribute USVString src;
-  [CEReactions, Reflect] attribute USVString srcset;
+  [CEReactions] attribute USVString srcset;
   [CEReactions, Reflect] attribute DOMString sizes;
   [CEReactions, Reflect] attribute DOMString? crossOrigin;
   [CEReactions, Reflect] attribute DOMString useMap;
@@ -24,11 +24,11 @@ interface HTMLImageElement : HTMLElement {
 
 partial interface HTMLImageElement {
   [CEReactions, Reflect] attribute DOMString name;
-  [CEReactions, Reflect] attribute USVString lowsrc;
+  [CEReactions] attribute USVString lowsrc;
   [CEReactions, Reflect] attribute DOMString align;
   [CEReactions, Reflect] attribute unsigned long hspace;
   [CEReactions, Reflect] attribute unsigned long vspace;
-  [CEReactions, Reflect] attribute USVString longDesc;
+  [CEReactions] attribute USVString longDesc;
 
   [CEReactions, Reflect] attribute [TreatNullAs=EmptyString] DOMString border;
 };
