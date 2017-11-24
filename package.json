@@ -74,7 +74,7 @@
   },
   "scripts": {
     "prepare": "yarn convert-idl",
-    "pretest": "yarn convert-idl && git submodule update --init --recursive",
+    "pretest": "yarn convert-idl && yarn init-wpt",
     "test-wpt": "mocha test/web-platform-tests/run-wpts.js",
     "test-tuwpt": "mocha test/web-platform-tests/run-tuwpts.js",
     "test-mocha": "mocha",
@@ -85,6 +85,8 @@
     "test-browser": "yarn test-browser-iframe && yarn test-browser-worker",
     "lint": "eslint . && eslint test/web-platform-tests/to-upstream --ext .html",
     "lint-is-complete": "eslint-find-rules --unused .eslintrc.json",
+    "init-wpt": "git submodule update --init --recursive",
+    "reset-wpt": "rimraf ./test/web-platform-tests/tests && yarn init-wpt",
     "update-wpt": "git submodule update --recursive --remote && cd test/web-platform-tests/tests && python wpt.py manifest --path ../wpt-manifest.json",
     "update-authors": "git log --format=\"%aN <%aE>\" | sort -f | uniq > AUTHORS.txt",
     "benchmark": "node ./benchmark/runner",
