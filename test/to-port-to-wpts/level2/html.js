@@ -7433,33 +7433,6 @@ describe("level2/html", { skipIfBrowser: true }, () => {
 
   /**
    *
-   The longDesc attribute contains an URI designating a long description
-   of this image or frame.
-   Retrieve the longDesc attribute and examine its value.
-   * @author NIST
-   * @author Mary Brady
-   * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-77376969
-   */
-  specify("HTMLImageElement08", () => {
-    var success;
-    var nodeList;
-    var testNode;
-    var vlongdesc;
-    var doc;
-    var docRef = null;
-    if (typeof(this.doc) != 'undefined') {
-      docRef = this.doc;
-    }
-    doc = load("img");
-    nodeList = doc.getElementsByTagName("img");
-    assert.equal(nodeList.length, 1, 'Asize');
-    testNode = nodeList.item(0);
-    vlongdesc = testNode.longDesc;
-    assert.equal(vlongdesc, './files/desc.html', 'longDescLink');
-  });
-
-  /**
-   *
    The src attribute contains an URI designating the source of this image.
    Retrieve the src attribute and examine its value.
    * @author NIST
