@@ -1,3 +1,8 @@
+## 11.5.1
+
+* Added `AbortSignal` and `AbortController`.
+* Fixed validation for file `<input>`s and implemented validation for more input types.
+
 ## 11.4.0
 
 For this release we'd like to welcome [@Zirro](https://github.com/tmpvar/jsdom/commits?author=Zirro) to the core team; his contributions over the course of this year have enhanced jsdom immensely.
