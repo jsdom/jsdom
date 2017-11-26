@@ -210,7 +210,6 @@ persisted-user-state-restoration/scroll-restoration-fragment-scrolling-samedoc.h
 persisted-user-state-restoration/scroll-restoration-navigation-cross-origin.html: [fail, scrollY not implemented]
 persisted-user-state-restoration/scroll-restoration-navigation-samedoc.html: [fail, scrollX not implemented]
 same-url.html: [timeout, Unknown]
-unset_context_name-1.html: [fail, window.name not implemented]
 window-name-after-cross-origin-aux-frame-navigation.sub.html: [timeout, Unknown]
 window-name-after-cross-origin-main-frame-navigation.sub.html: [timeout, Unknown]
 window-name-after-cross-origin-sub-frame-navigation.sub.html: [timeout, Unknown]
