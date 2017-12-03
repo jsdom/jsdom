@@ -821,7 +821,6 @@ DIR: url
 
 a-element-xhtml.xhtml: [fail, Unknown]
 a-element.html: [fail, Unknown]
-data-uri-fragment.html: [fail, Unknown]
 failure.html: [fail, Fetch is not implemented]
 toascii.window.html: [fail, Unknown]
 url-constructor.html: [fail, url.search vs. url.searchParams propagation]
