@@ -29,6 +29,7 @@ addDir("../../lib/jsdom/living/xhr");
 addDir("../../lib/jsdom/living/domparsing");
 addDir("../../lib/jsdom/living/svg");
 addDir("../../lib/jsdom/living/aborting");
+addDir("../../lib/jsdom/living/websocket");
 
 
 const outputDir = path.resolve(__dirname, "../../lib/jsdom/living/generated/");
