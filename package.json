@@ -40,6 +40,7 @@
     "webidl-conversions": "^4.0.2",
     "whatwg-encoding": "^1.0.1",
     "whatwg-url": "^6.3.0",
+    "ws": "^3.3.2",
     "xml-name-validator": "^2.0.1"
   },
   "devDependencies": {
@@ -94,5 +95,5 @@
     "benchmark-browser": "node ./benchmark/runner --bundle",
     "convert-idl": "node ./scripts/webidl/convert"
   },
-  "main": "./lib/api.js"
+  "main": "./lib/old-api.js"
 }
