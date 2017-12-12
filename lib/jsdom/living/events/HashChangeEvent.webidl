@@ -1,4 +1,5 @@
-[Constructor(DOMString type, optional HashChangeEventInit eventInitDict)]
+[Exposed=Window,
+ Constructor(DOMString type, optional HashChangeEventInit eventInitDict)]
 interface HashChangeEvent : Event {
   readonly attribute USVString oldURL;
   readonly attribute USVString newURL;

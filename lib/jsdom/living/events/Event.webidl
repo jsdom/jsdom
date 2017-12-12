@@ -1,5 +1,5 @@
 [Constructor(DOMString type, optional EventInit eventInitDict),
- Exposed=(Window,Worker)]
+ Exposed=(Window,Worker,AudioWorklet)]
 interface Event {
   readonly attribute DOMString type;
   readonly attribute EventTarget? target;
@@ -23,6 +23,8 @@ interface Event {
 //  readonly attribute boolean composed;
 
   [Unforgeable] readonly attribute boolean isTrusted;
+  // Modified - No support for DOMHighResTimeStamp usage in Event-impl
+  // readonly attribute DOMHighResTimeStamp timeStamp;
   readonly attribute DOMTimeStamp timeStamp;
 
   void initEvent(DOMString type, optional boolean bubbles = false, optional boolean cancelable = false); // historical

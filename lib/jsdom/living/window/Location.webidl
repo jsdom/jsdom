@@ -1,3 +1,4 @@
+[Exposed=Window]
 interface Location { // but see also additional creation steps and overridden internal methods
   [Unforgeable] stringifier attribute USVString href;
   [Unforgeable] readonly attribute USVString origin;
@@ -13,5 +14,5 @@ interface Location { // but see also additional creation steps and overridden in
   [Unforgeable] void replace(USVString url);
   [Unforgeable] void reload();
 
-  // [Unforgeable, SameObject] readonly attribute DOMStringList ancestorOrigins;
+//  [Unforgeable, SameObject] readonly attribute DOMStringList ancestorOrigins;
 };

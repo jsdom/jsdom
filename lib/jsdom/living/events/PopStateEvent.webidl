@@ -1,4 +1,5 @@
-[Constructor(DOMString type, optional PopStateEventInit eventInitDict)]
+[Exposed=Window,
+ Constructor(DOMString type, optional PopStateEventInit eventInitDict)]
 interface PopStateEvent : Event {
   readonly attribute any state;
 };

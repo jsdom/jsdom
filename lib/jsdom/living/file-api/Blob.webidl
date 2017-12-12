@@ -1,5 +1,6 @@
-[Constructor(optional sequence<BlobPart> blobParts, optional BlobPropertyBag options),
-Exposed=(Window,Worker)]
+[Constructor(optional sequence<BlobPart> blobParts,
+             optional BlobPropertyBag options),
+ Exposed=(Window,Worker), Serializable]
 interface Blob {
 
   readonly attribute unsigned long long size;
