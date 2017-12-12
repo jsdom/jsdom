@@ -22,7 +22,6 @@
     "acorn-globals": "^4.1.0",
     "array-equal": "^1.0.0",
     "browser-process-hrtime": "^0.1.2",
-    "content-type-parser": "^1.0.2",
     "cssom": ">= 0.3.2 < 0.4.0",
     "cssstyle": ">= 0.2.37 < 0.3.0",
     "domexception": "^1.0.0",
@@ -39,6 +38,7 @@
     "tough-cookie": "^2.3.3",
     "webidl-conversions": "^4.0.2",
     "whatwg-encoding": "^1.0.3",
+    "whatwg-mimetype": "^2.0.1",
     "whatwg-url": "^6.3.0",
     "xml-name-validator": "^3.0.0"
   },
