@@ -119,6 +119,54 @@ simple-requests.htm: [fail, Maybe https://github.com/tmpvar/jsdom/issues/1833 bu
 
 ---
 
+DIR: css/cssom-view
+
+CaretPosition-001.html: [fail, Unknown]
+DOMRectList.html: [fail, Unknown]
+HTMLBody-ScrollArea_quirksmode.html: [fail, Unknown]
+MediaQueryList-001.html: [fail, Unknown]
+MediaQueryList-with-empty-string.html: [fail, Unknown]
+cssom-getBoundingClientRect-002.html: [fail, Unknown]
+cssom-getClientRects-002.html: [fail, Unknown]
+cssom-view-img-attributes-001.html: [fail, Unknown]
+elementFromPoint-001.html: [fail, Unknown]
+elementFromPoint-002.html: [fail, Unknown]
+elementFromPoint-003.html: [fail, Unknown]
+elementFromPoint.html: [fail, Unknown]
+elementFromPosition.html: [fail, Unknown]
+elementScroll.html: [fail, Unknown]
+elementsFromPoint-iframes.html: [fail, Unknown]
+elementsFromPoint-invalid-cases.html: [fail, Unknown]
+elementsFromPoint-shadowroot.html: [fail, Unknown]
+elementsFromPoint-simple.html: [fail, Unknown]
+elementsFromPoint-svg.html: [fail, Unknown]
+elementsFromPoint-table.html: [fail, Unknown]
+elementsFromPoint.html: [fail, Unknown]
+interfaces.html: [fail, Depends on Fetch]
+matchMedia.xht: [fail, Unknown]
+matchMediaAddListener.html: [fail, Unknown]
+media-query-list-interface.xht: [fail, Unknown]
+mouseEvent.html: [fail, Unknown]
+negativeMargins.html: [fail, Unknown]
+offsetParent_element_test.html: [fail, Unknown]
+offsetTopLeftInScrollableParent.html: [fail, Unknown]
+scrollIntoView-shadow.html: [fail, Unknown]
+scrollIntoView-smooth.html: [fail, Unknown]
+scrollWidthHeight.xht: [fail, Unknown]
+scrollWidthHeightWhenNotScrollable.xht: [fail, Unknown]
+scrolling-no-browsing-context.html: [fail, Unknown]
+scrolling-quirks-vs-nonquirks.html: [fail, Unknown]
+scrollingElement.html: [fail, Unknown]
+scrollintoview.html: [fail, Unknown]
+ttwf-js-cssomview-getclientrects-length.html: [fail, Unknown]
+window-interface.xht: [fail, Unknown]
+window-screen-height-immutable.html: [fail, Test not applicable - no output device]
+window-screen-height.html: [fail, Test not applicable - no output device]
+window-screen-width-immutable.html: [fail, Test not applicable - no output device]
+window-screen-width.html: [fail, Test not applicable - no output device]
+
+---
+
 DIR: dom/abort
 
 ---
