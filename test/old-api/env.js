@@ -677,13 +677,15 @@ describe("jsdom/env", () => {
               assert.ok(typeof callback === "function");
               if (/\.js$/.test(resource.url.path)) {
                 resource.url.path = "/js/dir" + resource.url.path;
-                resource.defaultFetch((err, body) => {
+                const request = resource.defaultFetch((err, body) => {
                   if (err) {
                     callback(err);
                   } else {
                     callback(null, body + "\nwindow.modifiedContent = true;");
                   }
                 });
+                assert.ok(typeof request.abort === "function");
+                assert.ok(typeof request.originalRequest === "object");
               } else {
                 resource.defaultFetch(callback);
               }
