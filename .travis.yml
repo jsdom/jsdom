@@ -9,7 +9,7 @@ git:
 
 script:
   - yarn lint
-  - yarn test
+  - yarn test --retries 1
 
 branches:
   only:
@@ -28,7 +28,7 @@ matrix:
   include:
     - node_js: 6
       env: TEST_SUITE=node-canvas-prebuilt
-      script: "export CXX=g++-4.8 && yarn add canvas-prebuilt && yarn test"
+      script: "export CXX=g++-4.8 && yarn add canvas-prebuilt && yarn test --retries 1"
       addons:
         hosts:
           - web-platform.test
@@ -39,7 +39,7 @@ matrix:
           - xn--lve-6lad.web-platform.test
     - node_js: 6
       env: TEST_SUITE=node-canvas
-      script: "export CXX=g++-4.8 && yarn add canvas && yarn test"
+      script: "export CXX=g++-4.8 && yarn add canvas && yarn test --retries 1"
       addons:
         hosts:
           - web-platform.test
@@ -60,7 +60,7 @@ matrix:
             - build-essential
     - node_js: stable
       env: TEST_SUITE=node-canvas
-      script: "export CXX=g++-4.8 && yarn add canvas && yarn test"
+      script: "export CXX=g++-4.8 && yarn add canvas && yarn test --retries 1"
       addons:
         hosts:
           - web-platform.test
