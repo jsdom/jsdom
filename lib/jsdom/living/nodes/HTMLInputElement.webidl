@@ -67,3 +67,10 @@ partial interface HTMLInputElement {
   [Reflect] attribute DOMString align;
   [Reflect] attribute DOMString useMap;
 };
+
+enum SelectionMode {
+  "select",
+  "start",
+  "end",
+  "preserve" // default
+};

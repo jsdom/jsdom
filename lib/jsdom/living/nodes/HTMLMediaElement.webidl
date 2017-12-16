@@ -59,3 +59,5 @@ interface HTMLMediaElement : HTMLElement {
   [SameObject] readonly attribute TextTrackList textTracks;
   TextTrack addTextTrack(TextTrackKind kind, optional DOMString label = "", optional DOMString language = "");
 };
+
+enum TextTrackKind { "subtitles",  "captions",  "descriptions",  "chapters",  "metadata" };
